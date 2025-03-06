@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
-    <string name="read_you" translatable="false">RSS Cat Hub</string>
+    <string name="read_you" translatable="false">RSS Hub</string>
     <string name="all">All</string>
     <plurals name="all_desc">
         <item quantity="one">%1$d Archived Item</item>
