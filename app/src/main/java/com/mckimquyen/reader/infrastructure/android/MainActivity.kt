@@ -16,6 +16,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.core.view.WindowCompat
 import coil.ImageLoader
 import coil.compose.LocalImageLoader
+import com.google.android.gms.ads.AdView
 import com.google.android.play.core.review.ReviewInfo
 import com.google.android.play.core.review.ReviewManagerFactory
 import com.mckimquyen.reader.BuildConfig
@@ -23,6 +24,7 @@ import com.mckimquyen.reader.domain.repository.AccountDao
 import com.mckimquyen.reader.infrastructure.pref.AccountSettingsProvider
 import com.mckimquyen.reader.infrastructure.pref.LanguagesPref
 import com.mckimquyen.reader.infrastructure.pref.SettingsProvider
+import com.mckimquyen.reader.sdkadbmob.AdMobManager
 import com.mckimquyen.reader.ui.ext.languages
 import com.mckimquyen.reader.ui.page.common.HomeEntry
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,7 +35,8 @@ import javax.inject.Inject
  * The Single-Activity Architecture.
  */
 @AndroidEntryPoint
-class MainActivity : ComponentActivity() {
+class MainActivity : ComponentActivity(), AdMobManager.InterstitialAdListener {
+    private var adView: AdView? = null
 
     @Inject
     lateinit var imageLoader: ImageLoader
@@ -50,10 +53,21 @@ class MainActivity : ComponentActivity() {
 
     override fun onResume() {
         super.onResume()
+        adView?.resume()
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             enableAdaptiveRefreshRate()
         }
         rateAppInApp(BuildConfig.DEBUG)
+    }
+
+    override fun onPause() {
+        adView?.pause()
+        super.onPause()
+    }
+
+    override fun onDestroy() {
+        adView?.destroy()
+        super.onDestroy()
     }
 
     private fun enableAdaptiveRefreshRate() {
@@ -104,6 +118,12 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+
+        AdMobManager.setCurrentActivity(this)
+        AdMobManager.interstitialListener = this
+
+//        adView = AdMobManager.loadBanner(this, BuildConfig.ADMOB_BANNER_ID, binding.bannerContainer)
+        AdMobManager.loadInterstitial(this, BuildConfig.ADMOB_INTERSTITIAL_ID)
     }
 
 //    private var doubleBackToExitPressedOnce = false
@@ -119,6 +139,34 @@ class MainActivity : ComponentActivity() {
 //        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show()
 //        Handler(Looper.getMainLooper()).postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
 //    }
+
+    override fun onAdLoaded() {
+        Log.d("roy93~", "onAdLoaded")
+    }
+
+    override fun onAdFailedToLoad(error: com.google.android.gms.ads.LoadAdError) {
+        Log.d("roy93~", "onAdFailedToLoad $error")
+    }
+
+    override fun onAdShowed() {
+        Log.d("roy93~", "onAdShowed")
+    }
+
+    override fun onAdDismissed() {
+        Log.d("roy93~", "onAdDismissed")
+    }
+
+    override fun onAdClicked() {
+        Log.d("roy93~", "onAdClicked")
+    }
+
+    override fun onAdFailedToShow(error: com.google.android.gms.ads.AdError) {
+        Log.d("roy93~", "onAdFailedToShow $error")
+    }
+
+    override fun onAdNotAvailable() {
+        Log.d("roy93~", "onAdNotAvailable")
+    }
 }
 
 //rateAppInApp(BuildConfig.DEBUG)
@@ -129,11 +177,11 @@ fun Activity.rateAppInApp(forceRateInApp: Boolean = false) {
 
     val sharedPreferences = getSharedPreferences("app_preferences", Context.MODE_PRIVATE)
     val lastReviewTime = sharedPreferences.getLong("last_review_time", 0L)
-    Log.d("roy93~", "requestReview lastReviewTime $lastReviewTime")
+//    Log.d("roy93~", "requestReview lastReviewTime $lastReviewTime")
     val currentTime = Calendar.getInstance().timeInMillis
     val daysSinceLastReview = (currentTime - lastReviewTime) / (1000 * 60 * 60 * 24)
-    Log.d("roy93~", "requestReview forceRateInApp $forceRateInApp")
-    Log.d("roy93~", "requestReview daysSinceLastReview $daysSinceLastReview")
+//    Log.d("roy93~", "requestReview forceRateInApp $forceRateInApp")
+//    Log.d("roy93~", "requestReview daysSinceLastReview $daysSinceLastReview")
     if (daysSinceLastReview >= 7 || forceRateInApp) {
 //    if (daysSinceLastReview >= 7) {
         val reviewManager = ReviewManagerFactory.create(this)
@@ -153,4 +201,5 @@ fun Activity.rateAppInApp(forceRateInApp: Boolean = false) {
             }
         }
     }
+
 }

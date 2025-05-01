@@ -85,9 +85,9 @@ object AdMobManager {
             if (appPreferences?.isAddVIPMemberFirstInitSuccess() == true) {
                 //do nothing
             } else {
-                var list = getMyListVipDevice()
-                addVIPMember(list)
-                appPreferences?.addVIPMemberFirstInitSuccess()
+//                var list = getMyListVipDevice()
+//                addVIPMember(list)
+//                appPreferences?.addVIPMemberFirstInitSuccess()
             }
             onComplete(true, gaidCurrent)
             CoroutineScope(Dispatchers.Default).launch {

@@ -20,6 +20,7 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.mckimquyen.reader.domain.model.general.Filter
 import com.mckimquyen.reader.infrastructure.pref.LocalDarkTheme
 import com.mckimquyen.reader.infrastructure.pref.LocalReadingDarkTheme
+import com.mckimquyen.reader.sdkadbmob.AdMobManager
 import com.mckimquyen.reader.ui.ext.animatedComposable
 import com.mckimquyen.reader.ui.ext.collectAsStateValue
 import com.mckimquyen.reader.ui.ext.findActivity
