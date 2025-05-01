@@ -14,7 +14,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.core.view.WindowCompat
-import androidx.profileinstaller.ProfileInstallerInitializer
 import coil.ImageLoader
 import coil.compose.LocalImageLoader
 import com.google.android.play.core.review.ReviewInfo
@@ -29,7 +28,6 @@ import com.mckimquyen.reader.ui.page.common.HomeEntry
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Calendar
 import javax.inject.Inject
-
 
 /**
  * The Single-Activity Architecture.

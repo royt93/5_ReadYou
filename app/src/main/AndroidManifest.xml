@@ -33,14 +33,25 @@
             android:value="ca-app-pub-3612191981543807~7020425646" /> <!-- Sample AdMob App ID -->
 
         <activity
-            android:name=".infrastructure.android.MainActivity"
+            android:name=".infrastructure.android.SplashActivity"
             android:exported="true"
-            android:theme="@style/Theme.Reader">
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".infrastructure.android.MainActivity"
+            android:exported="true"
+            android:theme="@style/Theme.Reader">
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
         </activity>
 
         <provider
