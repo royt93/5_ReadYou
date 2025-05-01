@@ -1,5 +1,6 @@
 package com.mckimquyen.reader.ui.page.common
 
+import android.app.Activity
 import android.util.Log
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.background
@@ -57,6 +58,7 @@ import kotlinx.coroutines.flow.collectLatest
 @Composable
 fun HomeEntry(
     homeViewModel: HomeViewModel = hiltViewModel(),
+    activity: Activity,
 ) {
     val context = LocalContext.current
     var isReadingPage by rememberSaveable { mutableStateOf(false) }
@@ -155,7 +157,7 @@ fun HomeEntry(
 
             // Settings
             animatedComposable(route = RouteName.SETTINGS) {
-                SettingsPage(navController)
+                SettingsPage(navController = navController, activity = activity)
             }
 
             // Accounts

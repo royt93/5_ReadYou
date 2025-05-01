@@ -113,7 +113,7 @@ class MainActivity : ComponentActivity(), AdMobManager.InterstitialAdListener {
             ) {
                 AccountSettingsProvider(accountDao) {
                     SettingsProvider {
-                        HomeEntry()
+                        HomeEntry(activity = this@MainActivity)
                     }
                 }
             }

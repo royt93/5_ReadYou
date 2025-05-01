@@ -1,5 +1,6 @@
 package com.mckimquyen.reader.ui.page.setting
 
+import android.app.Activity
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
@@ -24,7 +25,6 @@ import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -33,7 +33,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -41,6 +40,7 @@ import com.mckimquyen.reader.BuildConfig
 import com.mckimquyen.reader.R
 import com.mckimquyen.reader.infrastructure.pref.LocalNewVersionNumber
 import com.mckimquyen.reader.infrastructure.pref.LocalSkipVersionNumber
+import com.mckimquyen.reader.sdkadbmob.AdMobManager
 import com.mckimquyen.reader.ui.component.base.Banner
 import com.mckimquyen.reader.ui.component.base.BaseScaffold
 import com.mckimquyen.reader.ui.component.base.DisplayText
@@ -60,6 +60,7 @@ import com.mckimquyen.reader.ui.theme.palette.onLight
 fun SettingsPage(
     navController: NavHostController,
     updateViewModel: UpdateViewModel = hiltViewModel(),
+    activity: Activity,
 ) {
     val context = LocalContext.current
     val newVersion = LocalNewVersionNumber.current
@@ -74,6 +75,7 @@ fun SettingsPage(
                 contentDescription = stringResource(R.string.back),
                 tint = MaterialTheme.colorScheme.onSurface
             ) {
+                AdMobManager.showInterstitial(activity)
                 navController.popBackStack()
             }
         },
