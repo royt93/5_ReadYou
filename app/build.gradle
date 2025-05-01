@@ -22,8 +22,8 @@ android {
         minSdk 26
         //noinspection EditedTargetSdkVersion,OldTargetApi
         targetSdk 35
-        versionCode 20250306
-        versionName "2025.03.06"
+        versionCode 20250501
+        versionName "2025.05.01"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -62,11 +62,23 @@ android {
         }
     }
     buildTypes {
+        debug {
+            buildConfigField "String", "ADMOB_BANNER_ID", "\"ca-app-pub-3940256099942544/6300978111\""
+            buildConfigField "String", "ADMOB_INTERSTITIAL_ID", "\"ca-app-pub-3940256099942544/1033173712\""
+            buildConfigField "String", "ADMOB_APP_OPEN_ID", "\"ca-app-pub-3940256099942544/9257395921\""
+        }
+
         release {
-            debuggable false
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            // nhớ check APPLICATION_ID trong manifest
+            buildConfigField "String", "ADMOB_BANNER_ID", "\"ca-app-pub-3612191981543807/6401478547\""
+            buildConfigField "String", "ADMOB_INTERSTITIAL_ID", "\"ca-app-pub-3612191981543807/4529159528\""
+            buildConfigField "String", "ADMOB_APP_OPEN_ID", "\"ca-app-pub-3612191981543807/4028490288\""
+
             signingConfig signingConfigs.release
+            debuggable false
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
     applicationVariants.configureEach { variant ->

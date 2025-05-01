@@ -26,6 +26,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Reader"
         android:usesCleartextTraffic="true">
+
+        <!-- Khai báo AdMob App ID -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3612191981543807~7020425646" /> <!-- Sample AdMob App ID -->
+
         <activity
             android:name=".infrastructure.android.MainActivity"
             android:exported="true"
