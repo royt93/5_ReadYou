@@ -36,7 +36,7 @@ import javax.inject.Inject
  */
 @AndroidEntryPoint
 class MainActivity : ComponentActivity(), AdMobManager.InterstitialAdListener {
-    private var adView: AdView? = null
+//    private var adView: AdView? = null
 
     @Inject
     lateinit var imageLoader: ImageLoader
@@ -53,7 +53,7 @@ class MainActivity : ComponentActivity(), AdMobManager.InterstitialAdListener {
 
     override fun onResume() {
         super.onResume()
-        adView?.resume()
+//        adView?.resume()
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             enableAdaptiveRefreshRate()
         }
@@ -61,12 +61,12 @@ class MainActivity : ComponentActivity(), AdMobManager.InterstitialAdListener {
     }
 
     override fun onPause() {
-        adView?.pause()
+//        adView?.pause()
         super.onPause()
     }
 
     override fun onDestroy() {
-        adView?.destroy()
+//        adView?.destroy()
         super.onDestroy()
     }
 
