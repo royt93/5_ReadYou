@@ -143,23 +143,23 @@ class RApp : Application(), Configuration.Provider {
         registerActivityLifecycleCallbacks(
             AppLifecycleListener(
                 { isForeground, activity ->
-                    if (isForeground) {
-                        Log.d("roy93~", "App moved to Foreground")
-                        if (activity.localClassName == SplashActivity::class.java.simpleName) {
-                            //do nothing
-                        } else {
-                            AdMobManager.showAppOpenAd(activity)
-                        }
-                    } else {
-                        Log.d("roy93~", "App moved to Background")
-                    }
+//                    if (isForeground) {
+//                        Log.d("roy93~", "App moved to Foreground")
+//                        if (activity.localClassName == SplashActivity::class.java.simpleName) {
+//                            //do nothing
+//                        } else {
+//                            AdMobManager.showAppOpenAd(activity)
+//                        }
+//                    } else {
+//                        Log.d("roy93~", "App moved to Background")
+//                    }
                 }, { activity ->
-                    Log.d("roy93~", "callbackActivityCreated ${activity.localClassName}")
-                    if (activity.localClassName == SplashActivity::class.java.simpleName) {
-                        //do nothing
-                    } else {
-                        AdMobManager.loadAppOpenAd(this, BuildConfig.ADMOB_APP_OPEN_ID)
-                    }
+//                    Log.d("roy93~", "callbackActivityCreated ${activity.localClassName}")
+//                    if (activity.localClassName == SplashActivity::class.java.simpleName) {
+//                        //do nothing
+//                    } else {
+//                        AdMobManager.loadAppOpenAd(this, BuildConfig.ADMOB_APP_OPEN_ID)
+//                    }
                 }
             )
         )
