@@ -4,21 +4,16 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.window.SplashScreen
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.mckimquyen.reader.BuildConfig
-import com.mckimquyen.reader.R
 import com.mckimquyen.reader.sdkadbmob.AdMobManager
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -69,6 +64,13 @@ fun SplashScreen(onReady: () -> Unit = {}) {
 //            modifier = Modifier.size(120.dp), // Tuỳ chỉnh kích thước
 //            contentScale = ContentScale.Fit
 //        )
+        androidx.compose.material3.Text(
+            text = "Please note: this action may show ads",
+            color = androidx.compose.ui.graphics.Color.Black,
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .padding(bottom = 16.dp)
+        )
     }
 }
 
