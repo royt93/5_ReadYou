@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.mckimquyen.reader.BuildConfig
 import com.mckimquyen.reader.R
 import com.mckimquyen.reader.sdkadbmob.AdMobManager
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,15 +36,19 @@ class SplashActivity : ComponentActivity() {
             }
         }
 
-        // Gọi init AdMob sau khi đã thiết lập giao diện
-        AdMobManager.initSplashScreen {
-            goToMain()
-        }
+        AdMobManager.loadAppOpenAd(
+            context = this@SplashActivity,
+            adUnitId = BuildConfig.ADMOB_APP_OPEN_ID,
+            onAdLoaded = { result ->
+                Log.d("roy93~", "onAdLoaded result $result")
+                goToMain()
+                AdMobManager.showAppOpenAd(this@SplashActivity)
+            },
+        )
     }
 
     private fun goToMain() {
         Log.d("roy93", "goToMain")
-        return
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         overridePendingTransition(0, 0)
