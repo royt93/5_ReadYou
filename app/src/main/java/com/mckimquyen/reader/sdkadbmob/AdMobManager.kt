@@ -382,26 +382,26 @@ object AdMobManager {
         Log.d(TAG, "deleteVIPMember listGaidDevice $listGaidDevice => isVIPMember $isVIPMember")
     }
 
-    fun initSplashScreen(onComplete: () -> Unit) {
-        CoroutineScope(Dispatchers.Default).launch {
-            val parentJob = this // Tham chiếu đến coroutine cha
-            // Khởi tạo Job xử lý timeout 2 giây
-            val timeoutJob = launch {
-                delay(2_000) // Đợi 2 giây
-                onComplete.invoke()
-                parentJob.cancel() // Hủy toàn bộ coroutine sau khi xử lý
-            }
-            // Bắt đầu collect giá trị từ Flow
-            EventBus.eventFlow.collectLatest { value ->
-                timeoutJob.cancel() // Hủy timeout khi nhận được giá trị
-                Log.d("roy93~", "collectLatest: $value")
-                if (value) {
-                    onComplete.invoke()
-                    parentJob.cancel() // Dừng collect sau khi xử lý giá trị true
-                }
-            }
-        }
-    }
+//    fun initSplashScreen(onComplete: () -> Unit) {
+//        CoroutineScope(Dispatchers.Default).launch {
+//            val parentJob = this // Tham chiếu đến coroutine cha
+//            // Khởi tạo Job xử lý timeout 2 giây
+//            val timeoutJob = launch {
+//                delay(2_000) // Đợi 2 giây
+//                onComplete.invoke()
+//                parentJob.cancel() // Hủy toàn bộ coroutine sau khi xử lý
+//            }
+//            // Bắt đầu collect giá trị từ Flow
+//            EventBus.eventFlow.collectLatest { value ->
+//                timeoutJob.cancel() // Hủy timeout khi nhận được giá trị
+//                Log.d("roy93~", "collectLatest: $value")
+//                if (value) {
+//                    onComplete.invoke()
+//                    parentJob.cancel() // Dừng collect sau khi xử lý giá trị true
+//                }
+//            }
+//        }
+//    }
 
     interface InterstitialAdListener {
         fun onAdLoaded()

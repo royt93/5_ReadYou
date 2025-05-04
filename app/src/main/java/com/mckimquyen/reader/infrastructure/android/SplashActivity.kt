@@ -43,6 +43,7 @@ class SplashActivity : ComponentActivity() {
 
     private fun goToMain() {
         Log.d("roy93", "goToMain")
+        return
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         overridePendingTransition(0, 0)
