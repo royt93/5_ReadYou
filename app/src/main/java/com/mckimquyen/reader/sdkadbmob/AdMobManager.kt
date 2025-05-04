@@ -5,6 +5,8 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.ViewGroup
 import android.widget.FrameLayout
@@ -52,7 +54,7 @@ object AdMobManager {
     const val TEST_VIVO_Z9 = "05B522309BC31052952BBCD5CC85ACA8"
 
     private var currentDeviceGAID = ""
-    private var isVIPMember = true
+    private var isVIPMember = false
     private val listGAIDVipMember = ArrayList<String>()
 
     private var appPreferences: AppPreferences? = null
@@ -272,9 +274,13 @@ object AdMobManager {
     fun loadAppOpenAd(
         context: Context,
         adUnitId: String,
+        onAdLoaded: (Boolean) -> Unit,
     ) {
         if (isVIPMember) {
             Log.d(TAG, "App Open Ad skipped due to whitelist device")
+            Handler(Looper.getMainLooper()).postDelayed({
+                onAdLoaded.invoke(false)
+            }, 1_000)
             return
         }
         if (isAppOpenLoading) {
@@ -283,6 +289,9 @@ object AdMobManager {
             } else {
                 if ((System.currentTimeMillis() - lastAppOpenLoadTime) < APP_OPEN_AD_TIME_OUT) {
                     Log.d(TAG, "App Open Ad is still valid or loading")
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        onAdLoaded.invoke(false)
+                    }, 1_000)
                     return
                 }
             }
@@ -290,19 +299,27 @@ object AdMobManager {
         isAppOpenLoading = true
 
         AppOpenAd.load(
-            context, adUnitId, AdRequest.Builder().build(), object : AppOpenAd.AppOpenAdLoadCallback() {
+            context, adUnitId, AdRequest.Builder().build(),
+            object : AppOpenAd.AppOpenAdLoadCallback() {
                 override fun onAdLoaded(ad: AppOpenAd) {
                     Log.d(TAG, "App Open Ad Loaded")
                     appOpenAd = ad
                     lastAppOpenLoadTime = System.currentTimeMillis()
                     isAppOpenLoading = false
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        onAdLoaded.invoke(true)
+                    }, 500)
                 }
 
                 override fun onAdFailedToLoad(error: LoadAdError) {
                     Log.d(TAG, "App Open Ad Failed to load: ${error.message}")
                     isAppOpenLoading = false
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        onAdLoaded.invoke(false)
+                    }, 1_000)
                 }
-            })
+            },
+        )
     }
 
     fun showAppOpenAd(activity: Activity) {

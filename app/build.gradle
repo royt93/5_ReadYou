@@ -22,8 +22,8 @@ android {
         minSdk 26
         //noinspection EditedTargetSdkVersion,OldTargetApi
         targetSdk 35
-        versionCode 20250501
-        versionName "2025.05.01"
+        versionCode 20250504
+        versionName "2025.05.04"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
