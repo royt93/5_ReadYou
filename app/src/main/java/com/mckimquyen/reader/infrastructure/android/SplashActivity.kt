@@ -31,23 +31,22 @@ class SplashActivity : ComponentActivity() {
             }
         }
 
-        AdMobManager.loadAppOpenAd(
-            context = this@SplashActivity,
-            adUnitId = BuildConfig.ADMOB_APP_OPEN_ID,
-            onAdLoaded = { result ->
-                Log.d("roy93~", "onAdLoaded result $result")
-                goToMain()
-                AdMobManager.showAppOpenAd(this@SplashActivity)
-            },
-        )
+        AdMobManager.initSplashScreen(activity = this, onAdLoaded = {
+            goToMain()
+        })
     }
 
     private fun goToMain() {
         Log.d("roy93", "goToMain")
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
-        overridePendingTransition(0, 0)
-        finishAffinity()
+//        overridePendingTransition(0, 0)
+//        finishAffinity()
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+        // Trì hoãn finish để đợi animation hoàn tất
+        window.decorView.postDelayed({
+            finish() // Finish sau animation
+        }, 300) // delay khoảng 300ms (hoặc đúng thời gian của animation)
     }
 }
 

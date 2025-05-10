@@ -15,7 +15,6 @@ import com.mckimquyen.reader.domain.sv.RssSv
 import com.mckimquyen.reader.infrastructure.android.AndroidStringsHelper
 import com.mckimquyen.reader.infrastructure.android.CrashHandler
 import com.mckimquyen.reader.infrastructure.android.NotificationHelper
-import com.mckimquyen.reader.infrastructure.android.SplashActivity
 import com.mckimquyen.reader.infrastructure.db.AndroidDatabase
 import com.mckimquyen.reader.infrastructure.di.ApplicationScope
 import com.mckimquyen.reader.infrastructure.di.IODispatcher
@@ -23,7 +22,6 @@ import com.mckimquyen.reader.infrastructure.net.NetworkDataSource
 import com.mckimquyen.reader.infrastructure.rss.OPMLDataSource
 import com.mckimquyen.reader.infrastructure.rss.RssHelper
 import com.mckimquyen.reader.sdkadbmob.AdMobManager
-import com.mckimquyen.reader.sdkadbmob.AppLifecycleListener
 import com.mckimquyen.reader.ui.ext.del
 import com.mckimquyen.reader.ui.ext.getLatestApk
 import com.mckimquyen.reader.ui.ext.isFdroid
@@ -140,29 +138,29 @@ class RApp : Application(), Configuration.Provider {
                 Log.d("roy93~", "AdMobManager init success $success, gaidCurrent $gaidCurrent")
             }
         }
-        registerActivityLifecycleCallbacks(
-            AppLifecycleListener(
-                { isForeground, activity ->
-//                    if (isForeground) {
-//                        Log.d("roy93~", "App moved to Foreground")
-//                        if (activity.localClassName == SplashActivity::class.java.simpleName) {
-//                            //do nothing
-//                        } else {
-//                            AdMobManager.showAppOpenAd(activity)
-//                        }
-//                    } else {
-//                        Log.d("roy93~", "App moved to Background")
-//                    }
-                }, { activity ->
-//                    Log.d("roy93~", "callbackActivityCreated ${activity.localClassName}")
-//                    if (activity.localClassName == SplashActivity::class.java.simpleName) {
-//                        //do nothing
-//                    } else {
-//                        AdMobManager.loadAppOpenAd(this, BuildConfig.ADMOB_APP_OPEN_ID)
-//                    }
-                }
-            )
-        )
+//        registerActivityLifecycleCallbacks(
+//            AppLifecycleListener(
+//                { isForeground, activity ->
+////                    if (isForeground) {
+////                        Log.d("roy93~", "App moved to Foreground")
+////                        if (activity.localClassName == SplashActivity::class.java.simpleName) {
+////                            //do nothing
+////                        } else {
+////                            AdMobManager.showAppOpenAd(activity)
+////                        }
+////                    } else {
+////                        Log.d("roy93~", "App moved to Background")
+////                    }
+//                }, { activity ->
+////                    Log.d("roy93~", "callbackActivityCreated ${activity.localClassName}")
+////                    if (activity.localClassName == SplashActivity::class.java.simpleName) {
+////                        //do nothing
+////                    } else {
+////                        AdMobManager.loadAppOpenAd(this, BuildConfig.ADMOB_APP_OPEN_ID)
+////                    }
+//                }
+//            )
+//        )
     }
 
     /**
