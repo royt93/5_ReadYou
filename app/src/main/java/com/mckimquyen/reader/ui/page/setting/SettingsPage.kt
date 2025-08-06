@@ -1,6 +1,8 @@
 package com.mckimquyen.reader.ui.page.setting
 
 import android.app.Activity
+import android.content.Intent
+import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
@@ -34,6 +36,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
+import androidx.core.content.ContextCompat.startActivity
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.mckimquyen.reader.BuildConfig
@@ -55,6 +58,7 @@ import com.mckimquyen.reader.ui.page.common.RouteName
 import com.mckimquyen.reader.ui.page.setting.tip.UpdateDialog
 import com.mckimquyen.reader.ui.page.setting.tip.UpdateViewModel
 import com.mckimquyen.reader.ui.theme.palette.onLight
+import kotlin.jvm.java
 
 @Composable
 fun SettingsPage(
@@ -75,8 +79,14 @@ fun SettingsPage(
                 contentDescription = stringResource(R.string.back),
                 tint = MaterialTheme.colorScheme.onSurface
             ) {
-                AdMobManager.showInterstitial(activity)
-                navController.popBackStack()
+                AdMobManager.showInterstitial(activity) { success ->
+                    if (success) {
+                        Log.d("roy93~", "Ad đã hiển thị và đóng thành công")
+                    } else {
+                        Log.d("roy93~", "Ad không hiển thị được hoặc có lỗi")
+                    }
+                    navController.popBackStack()
+                }
             }
         },
         content = {
