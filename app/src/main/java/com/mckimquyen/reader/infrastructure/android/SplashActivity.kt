@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.core.view.WindowCompat
 import com.mckimquyen.reader.BuildConfig
 import com.mckimquyen.reader.sdkadbmob.AdMobManager
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,7 +25,7 @@ class SplashActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d("roy93~", "onCreate")
-
+//        WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
             SplashScreen {
                 goToMain()
@@ -68,7 +69,7 @@ fun SplashScreen(onReady: () -> Unit = {}) {
             color = androidx.compose.ui.graphics.Color.Black,
             modifier = Modifier
                 .align(Alignment.BottomCenter)
-                .padding(bottom = 16.dp)
+                .padding(bottom = 56.dp)
         )
     }
 }

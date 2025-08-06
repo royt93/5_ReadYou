@@ -95,10 +95,10 @@ class MainActivity : ComponentActivity(), AdMobManager.InterstitialAdListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        WindowCompat.setDecorFitsSystemWindows(window, false)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            window.addFlags(FLAG_LAYOUT_IN_SCREEN or FLAG_LAYOUT_NO_LIMITS)
-        }
+//        WindowCompat.setDecorFitsSystemWindows(window, false)
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+//            window.addFlags(FLAG_LAYOUT_IN_SCREEN or FLAG_LAYOUT_NO_LIMITS)
+//        }
 //        Log.i("RLog", "onCreate: ${ProfileInstallerInitializer().create(this)}")
 
         // Set the language
