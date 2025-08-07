@@ -4,10 +4,12 @@ import android.app.Activity
 import android.content.Intent
 import android.util.Log
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBars
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
@@ -27,10 +29,12 @@ import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -74,19 +78,30 @@ fun SettingsPage(
     BaseScaffold(
         containerColor = MaterialTheme.colorScheme.surface onLight MaterialTheme.colorScheme.inverseOnSurface,
         navigationIcon = {
-            FeedbackIconButton(
-                imageVector = Icons.Rounded.ArrowBack,
-                contentDescription = stringResource(R.string.back),
-                tint = MaterialTheme.colorScheme.onSurface
+            Row(
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                AdMobManager.showInterstitial(activity) { success ->
-                    if (success) {
-                        Log.d("roy93~", "Ad đã hiển thị và đóng thành công")
-                    } else {
-                        Log.d("roy93~", "Ad không hiển thị được hoặc có lỗi")
+                FeedbackIconButton(
+                    imageVector = Icons.Rounded.ArrowBack,
+                    contentDescription = stringResource(R.string.back),
+                    tint = MaterialTheme.colorScheme.onSurface
+                ) {
+                    AdMobManager.showInterstitial(activity) { success ->
+                        if (success) {
+                            Log.d("roy93~", "Ad đã hiển thị và đóng thành công")
+                        } else {
+                            Log.d("roy93~", "Ad không hiển thị được hoặc có lỗi")
+                        }
+                        navController.popBackStack()
                     }
-                    navController.popBackStack()
                 }
+
+                Spacer(modifier = Modifier.width(4.dp)) // Khoảng cách nhỏ giữa icon và chữ
+                Text(
+                    text = "(Ads may appear)",
+                    color = MaterialTheme.colorScheme.onSurface,
+                    style = MaterialTheme.typography.labelMedium
+                )
             }
         },
         content = {
