@@ -18,6 +18,7 @@ import androidx.compose.material.icons.outlined.AddCircle
 import androidx.compose.material.icons.outlined.Build
 import androidx.compose.material.icons.outlined.Code
 import androidx.compose.material.icons.outlined.Download
+import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Language
 import androidx.compose.material.icons.outlined.Lightbulb
 import androidx.compose.material.icons.outlined.Palette
@@ -235,6 +236,15 @@ fun SettingsPage(
                         icon = Icons.Outlined.Policy,
                     ) {
                         context.openBrowserPolicy()
+                    }
+                }
+                item {
+                    SelectableSettingGroupItem(
+                        title = "About",
+                        desc = "Getting to Know this App",
+                        icon = Icons.Outlined.Info,
+                    ) {
+
                     }
                 }
                 item {
