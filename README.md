@@ -79,21 +79,13 @@ RSS Hub integrates with popular third-party services:
 
 ---
 
-## 📥 Download
-
-Get the latest release of **RSS Hub** here:
-
-[<img src="https://s1.ax1x.com/2023/01/12/pSu1a36.png" alt="Get it on GitHub" height="80">](https://github.com/loitran247/RSSHub/releases)
-
----
-
 ## 🛠️ Build from Source
 
 RSS Hub is built with [Jetpack Compose](https://developer.android.com/jetpack/compose).
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/loitran247/RSSHub.git
+   git clone https://github.com/royt93/5_ReadYou.git
 
 2. Then open it via [Android Studio (latest version)](https://developer.android.com/studio).
 
