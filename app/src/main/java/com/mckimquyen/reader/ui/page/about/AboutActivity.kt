@@ -75,14 +75,6 @@ private const val htmlContent = """
 
 <br><br>
 
-<div class="center badges">
-    <img alt="GitHub" src="https://img.shields.io/github/license/loitran247/RSSHub?color=c3e7ff&style=flat-square">
-    <a target="_blank" href="https://github.com/loitran247/RSSHub/releases">
-        <img alt="Version" src="https://img.shields.io/github/v/release/loitran247/RSSHub?color=c3e7ff&label=version&style=flat-square">
-    </a>
-    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/loitran247/RSSHub?color=c3e7ff&style=flat-square">
-</div>
-
 <div class="center">
     <h1>RSS Hub</h1>
     <p>A modern Android RSS reader forked from <a href="https://github.com/ReadYouApp/ReadYou">Read You</a>, with new improvements and continued maintenance.</p>
