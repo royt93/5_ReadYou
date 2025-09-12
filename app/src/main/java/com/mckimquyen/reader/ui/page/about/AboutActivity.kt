@@ -200,6 +200,9 @@ git clone https://github.com/royt93/5_ReadYou.git
 <h2>License</h2>
 <p>GNU GPL v3.0 © <a href="https://github.com/ReadYouApp/ReadYou/blob/main/LICENSE">Read You</a></p>
 
+</br>
+</br>
+</br>
 </body>
 </html>
 """
