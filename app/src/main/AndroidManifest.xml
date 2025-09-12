@@ -54,6 +54,11 @@
             <!--            </intent-filter>-->
         </activity>
 
+        <activity
+            android:name=".ui.page.about.AboutActivity"
+            android:exported="true"
+            android:theme="@style/Theme.Reader" />
+
         <provider
             android:name="androidx.startup.InitializationProvider"
             android:authorities="${applicationId}.androidx-startup"

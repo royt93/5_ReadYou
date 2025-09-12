@@ -41,7 +41,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
-import androidx.core.content.ContextCompat.startActivity
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.mckimquyen.reader.BuildConfig
@@ -59,11 +58,11 @@ import com.mckimquyen.reader.ui.ext.openBrowserPolicy
 import com.mckimquyen.reader.ui.ext.openUrlInBrowser
 import com.mckimquyen.reader.ui.ext.rateApp
 import com.mckimquyen.reader.ui.ext.shareApp
+import com.mckimquyen.reader.ui.page.about.AboutActivity
 import com.mckimquyen.reader.ui.page.common.RouteName
 import com.mckimquyen.reader.ui.page.setting.tip.UpdateDialog
 import com.mckimquyen.reader.ui.page.setting.tip.UpdateViewModel
 import com.mckimquyen.reader.ui.theme.palette.onLight
-import kotlin.jvm.java
 
 @Composable
 fun SettingsPage(
@@ -244,7 +243,7 @@ fun SettingsPage(
                         desc = "Getting to Know this App",
                         icon = Icons.Outlined.Info,
                     ) {
-
+                        context.startActivity(Intent(activity, AboutActivity::class.java))
                     }
                 }
                 item {
@@ -262,7 +261,7 @@ fun SettingsPage(
                         desc = "An Android RSS reader presented in Material You style.",
                         icon = Icons.Outlined.Code,
                     ) {
-                        context.openUrlInBrowser("https://github.com/gj-loitp/5_ReadYou")
+                        context.openUrlInBrowser("https://github.com/royt93/5_ReadYou")
                     }
                 }
                 item {
