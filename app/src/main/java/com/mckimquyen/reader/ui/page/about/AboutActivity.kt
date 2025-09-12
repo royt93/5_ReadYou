@@ -5,35 +5,74 @@ import android.webkit.WebSettings
 import android.webkit.WebView
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
+import com.mckimquyen.reader.ui.component.base.BaseScaffold
+import com.mckimquyen.reader.ui.component.base.FeedbackIconButton
 
 class AboutActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MaterialTheme {
-                Surface(modifier = Modifier.fillMaxSize()) {
-                    AndroidView(factory = { context ->
-                        WebView(context).apply {
-                            settings.cacheMode = WebSettings.LOAD_NO_CACHE
-                            settings.javaScriptEnabled = false
-                            settings.domStorageEnabled = true
-                            loadDataWithBaseURL(
-                                null,
-                                htmlContent,
-                                "text/html",
-                                "UTF-8",
-                                null
-                            )
+            BaseScaffold(
+                containerColor = MaterialTheme.colorScheme.surface,
+                navigationIcon = {
+                    androidx.compose.foundation.layout.Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        FeedbackIconButton(
+                            imageVector = Icons.Rounded.ArrowBack,
+                            contentDescription = "Back",
+                            tint = MaterialTheme.colorScheme.onSurface
+                        ) {
+                            finish()
                         }
-                    })
+                        androidx.compose.foundation.layout.Spacer(modifier = Modifier.width(4.dp))
+                        Text(
+                            text = "",
+                            color = MaterialTheme.colorScheme.onSurface,
+                            style = MaterialTheme.typography.labelLarge
+                        )
+                    }
+                },
+                content = {
+                    AboutWebView()
+                }
+            )
+        }
+    }
+}
+
+@Composable
+fun AboutWebView() {
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        AndroidView(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(top = 8.dp),
+            factory = { context ->
+                WebView(context).apply {
+                    settings.cacheMode = WebSettings.LOAD_NO_CACHE
+                    settings.javaScriptEnabled = false
+                    settings.domStorageEnabled = true
+                    loadDataWithBaseURL(null, htmlContent, "text/html", "UTF-8", null)
                 }
             }
-        }
+        )
     }
 }
 
