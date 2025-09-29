@@ -3,15 +3,20 @@ package com.mckimquyen.reader.ui.component.base
 import androidx.annotation.DrawableRes
 import androidx.annotation.Keep
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.DefaultAlpha
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import coil.size.Precision
 import coil.size.Scale
@@ -27,20 +32,41 @@ fun BaseAsyncImage(
     size: Size = Size.ORIGINAL,
     scale: Scale = Scale.FIT,
     precision: Precision = Precision.AUTOMATIC,
-    contentScale: ContentScale = ContentScale.Fit,
+    contentScale: ContentScale = ContentScale.Crop,
     contentDescription: String = "",
     @DrawableRes placeholder: Int? = R.drawable.ic_hourglass_empty_black_24dp,
     @DrawableRes error: Int? = R.drawable.ic_broken_image_black_24dp,
+    enableClipping: Boolean = true,
+    cornerRadius: androidx.compose.ui.unit.Dp = 12.dp,
 ) {
+    val shape = if (enableClipping) RoundedCornerShape(cornerRadius) else RectangleShape
+
     Image(
         painter = rememberAsyncImagePainter(
             model = data,
-            placeholder = placeholder?.let { painterResource(it) },
-            error = error?.let { painterResource(it) },
+            placeholder = placeholder?.let {
+                forwardingPainter(
+                    painter = painterResource(it),
+                    colorFilter = ColorFilter.tint(androidx.compose.material3.MaterialTheme.colorScheme.onSurfaceVariant),
+                    alpha = 0.6f,
+                )
+            },
+            error = error?.let {
+                forwardingPainter(
+                    painter = painterResource(it),
+                    colorFilter = ColorFilter.tint(androidx.compose.material3.MaterialTheme.colorScheme.error),
+                    alpha = 0.7f,
+                )
+            },
         ),
         contentDescription = contentDescription,
         contentScale = contentScale,
-        modifier = modifier,
+        modifier = modifier
+            .clip(shape)
+            .background(
+                color = androidx.compose.material3.MaterialTheme.colorScheme.surface,
+                shape = shape
+            ),
     )
 
 //    coil.compose.AsyncImage(

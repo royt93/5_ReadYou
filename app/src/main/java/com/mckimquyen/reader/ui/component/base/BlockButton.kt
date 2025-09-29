@@ -24,19 +24,19 @@ fun BlockButton(
     modifier: Modifier = Modifier,
     text: String = "",
     selected: Boolean = false,
-    containerColor: Color = MaterialTheme.colorScheme.surface.copy(0.7f) onDark MaterialTheme.colorScheme.inverseOnSurface,
-    selectedContainerColor: Color = MaterialTheme.colorScheme.primaryContainer alwaysLight true,
-    contentColor: Color = MaterialTheme.colorScheme.inverseSurface,
-    selectedContentColor: Color = MaterialTheme.colorScheme.onSurface alwaysLight true,
+    containerColor: Color = MaterialTheme.colorScheme.surface,
+    selectedContainerColor: Color = MaterialTheme.colorScheme.primaryContainer,
+    contentColor: Color = MaterialTheme.colorScheme.onSurface,
+    selectedContentColor: Color = MaterialTheme.colorScheme.onPrimaryContainer,
     onClick: () -> Unit = {},
 ) {
     Column(
         modifier = modifier
-            .height(56.dp)
-            .clip(RoundedCornerShape(12.dp))
+            .height(64.dp)
+            .clip(RoundedCornerShape(16.dp))
             .background(if (selected) selectedContainerColor else containerColor)
             .clickable(onClick = onClick)
-            .padding(horizontal = 5.dp),
+            .padding(horizontal = 12.dp, vertical = 8.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {

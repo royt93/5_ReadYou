@@ -1,4 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="windowBackground">#FF000000</color>
+    <!-- Dark Theme Colors - Material Design 3 -->
+    <color name="windowBackground">#10101A</color>
+
+    <!-- Primary Colors -->
+    <color name="primary">#D0BCFF</color>
+    <color name="on_primary">#381E72</color>
+    <color name="primary_container">#4F378B</color>
+    <color name="on_primary_container">#EADDFF</color>
+
+    <!-- Secondary Colors -->
+    <color name="secondary">#CCC2DC</color>
+    <color name="on_secondary">#332D41</color>
+    <color name="secondary_container">#4A4458</color>
+    <color name="on_secondary_container">#E8DEF8</color>
+
+    <!-- Tertiary Colors -->
+    <color name="tertiary">#EFB8C8</color>
+    <color name="on_tertiary">#492532</color>
+    <color name="tertiary_container">#633B48</color>
+    <color name="on_tertiary_container">#FFD8E4</color>
+
+    <!-- Error Colors -->
+    <color name="error">#F2B8B5</color>
+    <color name="on_error">#601410</color>
+    <color name="error_container">#8C1D18</color>
+    <color name="on_error_container">#F9DEDC</color>
+
+    <!-- Surface Colors -->
+    <color name="surface">#10101A</color>
+    <color name="on_surface">#E6E0E9</color>
+    <color name="surface_variant">#49454F</color>
+    <color name="on_surface_variant">#CAC4D0</color>
+
+    <!-- Outline Colors -->
+    <color name="outline">#938F99</color>
+    <color name="outline_variant">#49454F</color>
+
+    <!-- Surface Container Colors -->
+    <color name="surface_container_lowest">#0B0B14</color>
+    <color name="surface_container_low">#191C20</color>
+    <color name="surface_container">#1D2024</color>
+    <color name="surface_container_high">#282A2F</color>
+    <color name="surface_container_highest">#33353A</color>
+
+    <!-- Inverse Colors -->
+    <color name="inverse_surface">#E6E0E9</color>
+    <color name="inverse_on_surface">#313033</color>
+    <color name="inverse_primary">#6750A4</color>
+
+    <!-- Background Colors -->
+    <color name="background">#10101A</color>
+    <color name="on_background">#E6E0E9</color>
+
+    <!-- Scrim -->
+    <color name="scrim">#000000</color>
+
+    <!-- Custom App Colors -->
+    <color name="reader_accent">#D0BCFF</color>
+    <color name="reader_accent_light">#4F378B</color>
+    <color name="success">#4CAF50</color>
+    <color name="warning">#FF9800</color>
+    <color name="info">#2196F3</color>
 </resources>
