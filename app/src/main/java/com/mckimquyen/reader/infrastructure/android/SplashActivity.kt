@@ -86,7 +86,7 @@ fun SplashScreen(onReady: () -> Unit = {}) {
     ) {
         // App logo
         Image(
-            painter = painterResource(id = com.mckimquyen.reader.R.drawable.ic_launcher_foreground),
+            painter = painterResource(id = com.mckimquyen.reader.R.drawable.ic_launcher_round),
             contentDescription = "App Logo",
             modifier = Modifier.size(180.dp)
         )
@@ -95,7 +95,7 @@ fun SplashScreen(onReady: () -> Unit = {}) {
         Text(
             text = "RSS Hub",
             style = MaterialTheme.typography.headlineMedium,
-            color = Color.White,
+            color = MaterialTheme.colorScheme.onSurface,
             modifier = Modifier.offset(y = 120.dp)
         )
 
@@ -103,14 +103,14 @@ fun SplashScreen(onReady: () -> Unit = {}) {
         Text(
             text = "Loading...",
             style = MaterialTheme.typography.bodyMedium,
-            color = Color.White.copy(alpha = 0.8f),
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f),
             modifier = Modifier.offset(y = 160.dp)
         )
 
         // Simple loading indicator
         CircularProgressIndicator(
             modifier = Modifier.offset(y = 200.dp),
-            color = Color.White,
+            color = MaterialTheme.colorScheme.primary,
             strokeWidth = 3.dp
         )
 
@@ -118,7 +118,7 @@ fun SplashScreen(onReady: () -> Unit = {}) {
         Text(
             text = "Please note: this action may show ads",
             style = MaterialTheme.typography.bodySmall,
-            color = Color.White.copy(alpha = 0.7f),
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
             textAlign = TextAlign.Center,
             modifier = Modifier
                 .align(Alignment.BottomCenter)
