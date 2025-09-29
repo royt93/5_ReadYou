@@ -183,14 +183,17 @@ dependencies {
     api "androidx.hilt:hilt-navigation-compose:1.0.0"
     api "androidx.core:core-ktx:1.7.0"
     api "androidx.activity:activity-compose:1.4.0"
-//    testImplementation "junit:junit:4.13.2"
-//    androidTestImplementation "androidx.test.ext:junit:1.1.5"
-//    androidTestImplementation "androidx.test.espresso:espresso-core:3.5.1"
-    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.14")
     implementation("com.google.android.play:review:2.0.1")
     implementation("com.google.android.play:review-ktx:2.0.1")
 
     implementation("com.google.android.gms:play-services-ads:22.3.0")
     implementation("com.google.ads.mediation:applovin:11.11.3.0")
 //    implementation("androidx.appcompat:appcompat:1.7.0")
+
+    testImplementation "junit:junit:4.13.2"
+    testImplementation "io.mockk:mockk:1.13.5"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4"
+    androidTestImplementation "androidx.test.ext:junit:1.1.5"
+    androidTestImplementation "androidx.test.espresso:espresso-core:3.5.1"
+    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.14")
 }
