@@ -5,11 +5,14 @@ import android.os.Looper
 import android.util.Log
 import com.mckimquyen.reader.ui.ext.showToastLong
 import java.lang.Thread.UncaughtExceptionHandler
+import java.lang.ref.WeakReference
 
 /**
  * The uncaught exception handler for the application.
  */
-class CrashHandler(private val context: Context) : UncaughtExceptionHandler {
+class CrashHandler(context: Context) : UncaughtExceptionHandler {
+
+    private val contextRef = WeakReference(context.applicationContext)
 
     init {
         Thread.setDefaultUncaughtExceptionHandler(this)
@@ -21,9 +24,18 @@ class CrashHandler(private val context: Context) : UncaughtExceptionHandler {
     override fun uncaughtException(p0: Thread, p1: Throwable) {
         val causeMessage = getCauseMessage(p1)
         Log.e("RLog", "uncaughtException: $causeMessage")
-        Looper.myLooper() ?: Looper.prepare()
-        context.showToastLong(causeMessage)
-        Looper.loop()
+
+        // Only show toast if context is still available
+        contextRef.get()?.let { context ->
+            try {
+                Looper.myLooper() ?: Looper.prepare()
+                context.showToastLong(causeMessage)
+                Looper.loop()
+            } catch (e: Exception) {
+                Log.e("RLog", "Error showing crash toast: ${e.message}")
+            }
+        }
+
         p1.printStackTrace()
         // android.os.Process.killProcess(android.os.Process.myPid());
         // exitProcess(1)

@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.lifecycle.lifecycleScope
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -19,6 +20,8 @@ import androidx.core.view.WindowCompat
 import com.mckimquyen.reader.BuildConfig
 import com.mckimquyen.reader.sdkadbmob.AdMobManager
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @SuppressLint("CustomSplashScreen")
 @AndroidEntryPoint
@@ -59,9 +62,10 @@ class SplashActivity : ComponentActivity() {
         }
 
         // Trì hoãn finish để đợi animation hoàn tất
-        window.decorView.postDelayed({
+        lifecycleScope.launch {
+            delay(300) // delay khoảng 300ms (hoặc đúng thời gian của animation)
             finish() // Finish sau animation
-        }, 300) // delay khoảng 300ms (hoặc đúng thời gian của animation)
+        }
     }
 }
 

@@ -193,4 +193,5 @@ class RApp : Application(), Configuration.Provider {
         }
         appSv.checkUpdate(showToast = false)
     }
+
 }

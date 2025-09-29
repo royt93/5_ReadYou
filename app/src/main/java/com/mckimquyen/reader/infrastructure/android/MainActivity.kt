@@ -167,6 +167,7 @@ class MainActivity : ComponentActivity(), AdMobManager.InterstitialAdListener {
     override fun onAdNotAvailable() {
         Log.d("roy93~", "onAdNotAvailable")
     }
+
 }
 
 //rateAppInApp(BuildConfig.DEBUG)

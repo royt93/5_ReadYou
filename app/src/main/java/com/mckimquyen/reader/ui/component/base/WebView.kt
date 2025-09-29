@@ -11,6 +11,7 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -126,6 +127,26 @@ fun WebView(
 //        )
 //        Spacer(modifier = modifier.height(50.dp))
 //    }
+
+    // Properly dispose WebView to prevent memory leaks
+    DisposableEffect(webView) {
+        onDispose {
+            try {
+                webView.apply {
+                    stopLoading()
+                    clearHistory()
+                    clearCache(true)
+                    loadUrl("about:blank")
+                    onPause()
+                    removeAllViews()
+                    destroyDrawingCache()
+                    destroy()
+                }
+            } catch (e: Exception) {
+                Log.e("RLog", "Error disposing WebView: ${e.message}")
+            }
+        }
+    }
 
     AndroidView(
         modifier = modifier,//.padding(horizontal = if (content.contains("class=\"page\"")) 0.dp else 24.dp),
