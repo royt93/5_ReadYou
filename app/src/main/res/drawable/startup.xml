@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
-    <!-- Modern gradient background -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Gradient background -->
     <item>
         <shape android:shape="rectangle">
             <gradient
@@ -10,29 +10,19 @@
                 android:centerColor="@color/primary_container"
                 android:endColor="@color/secondary_container"
                 android:type="linear" />
-            <size
-                android:width="900dp"
-                android:height="1900dp" />
         </shape>
     </item>
 
-    <!-- App logo centered -->
-    <item
-        android:width="160dp"
-        android:height="160dp"
-        android:drawable="@drawable/ic_launcher_foreground"
-        android:gravity="center"
-        tools:ignore="UnusedAttribute" />
-
-    <!-- Modern loading indicator below logo -->
-    <item
-        android:width="48dp"
-        android:height="6dp"
-        android:gravity="center|bottom"
-        android:bottom="120dp">
+    <!-- Subtle overlay for depth -->
+    <item>
         <shape android:shape="rectangle">
-            <corners android:radius="3dp" />
-            <solid android:color="@color/on_primary" />
+            <gradient
+                android:angle="45"
+                android:startColor="#08FFFFFF"
+                android:centerColor="#00FFFFFF"
+                android:endColor="#08FFFFFF"
+                android:type="linear" />
         </shape>
     </item>
+
 </layer-list>

@@ -12,10 +12,19 @@ import androidx.lifecycle.lifecycleScope
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.offset
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.foundation.Image
 import androidx.core.view.WindowCompat
 import com.mckimquyen.reader.BuildConfig
 import com.mckimquyen.reader.sdkadbmob.AdMobManager
@@ -72,22 +81,48 @@ class SplashActivity : ComponentActivity() {
 @Composable
 fun SplashScreen(onReady: () -> Unit = {}) {
     Box(
-        modifier = Modifier.fillMaxSize()
-//            .background(Color.white), // hoặc Color.White
-        , contentAlignment = Alignment.Center
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
     ) {
-//        Image(
-//            painter = painterResource(id = R.drawable.ic_launcher_960),
-//            contentDescription = "Splash",
-//            modifier = Modifier.size(120.dp), // Tuỳ chỉnh kích thước
-//            contentScale = ContentScale.Fit
-//        )
-        androidx.compose.material3.Text(
+        // App logo
+        Image(
+            painter = painterResource(id = com.mckimquyen.reader.R.drawable.ic_launcher_foreground),
+            contentDescription = "App Logo",
+            modifier = Modifier.size(180.dp)
+        )
+
+        // App name
+        Text(
+            text = "RSS Hub",
+            style = MaterialTheme.typography.headlineMedium,
+            color = Color.White,
+            modifier = Modifier.offset(y = 120.dp)
+        )
+
+        // Loading text
+        Text(
+            text = "Loading...",
+            style = MaterialTheme.typography.bodyMedium,
+            color = Color.White.copy(alpha = 0.8f),
+            modifier = Modifier.offset(y = 160.dp)
+        )
+
+        // Simple loading indicator
+        CircularProgressIndicator(
+            modifier = Modifier.offset(y = 200.dp),
+            color = Color.White,
+            strokeWidth = 3.dp
+        )
+
+        // Bottom notice
+        Text(
             text = "Please note: this action may show ads",
-            color = androidx.compose.ui.graphics.Color.Black,
+            style = MaterialTheme.typography.bodySmall,
+            color = Color.White.copy(alpha = 0.7f),
+            textAlign = TextAlign.Center,
             modifier = Modifier
                 .align(Alignment.BottomCenter)
-                .padding(bottom = 56.dp)
+                .padding(horizontal = 32.dp, vertical = 60.dp)
         )
     }
 }
