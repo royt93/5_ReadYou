@@ -163,21 +163,24 @@ fun FeedsPage(
             }
         },
         actions = {
-            FeedbackIconButton(
-                modifier = Modifier.rotate(if (isSyncing) angle else 0f),
-                imageVector = Icons.Rounded.Refresh,
-                contentDescription = stringResource(R.string.refresh),
-                tint = MaterialTheme.colorScheme.onSurface,
-            ) {
-                if (!isSyncing) homeViewModel.sync()
-            }
-            if (subscribeViewModel.rssService.get().subscribe) {
+            // Chỉ hiển thị refresh icon khi không ở tab AddSources
+            if (!filterUiState.filter.isAddSources()) {
                 FeedbackIconButton(
-                    imageVector = Icons.Rounded.Add,
-                    contentDescription = stringResource(R.string.subscribe),
+                    modifier = Modifier.rotate(if (isSyncing) angle else 0f),
+                    imageVector = Icons.Rounded.Refresh,
+                    contentDescription = stringResource(R.string.refresh),
                     tint = MaterialTheme.colorScheme.onSurface,
                 ) {
-                    subscribeViewModel.showDrawer()
+                    if (!isSyncing) homeViewModel.sync()
+                }
+                if (subscribeViewModel.rssService.get().subscribe) {
+                    FeedbackIconButton(
+                        imageVector = Icons.Rounded.Add,
+                        contentDescription = stringResource(R.string.subscribe),
+                        tint = MaterialTheme.colorScheme.onSurface,
+                    ) {
+                        subscribeViewModel.showDrawer()
+                    }
                 }
             }
         },

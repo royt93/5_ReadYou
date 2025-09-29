@@ -137,11 +137,34 @@ fun FlowPage(
             }
         },
         actions = {
-            BaseExtensibleVisibility(visible = !filterUiState.filter.isStarred()) {
+            // Chỉ hiển thị action buttons khi không ở tab AddSources
+            if (!filterUiState.filter.isAddSources()) {
+                BaseExtensibleVisibility(visible = !filterUiState.filter.isStarred()) {
+                    FeedbackIconButton(
+                        imageVector = Icons.Rounded.DoneAll,
+                        contentDescription = stringResource(R.string.mark_all_as_read),
+                        tint = if (markAsRead) {
+                            MaterialTheme.colorScheme.primary
+                        } else {
+                            MaterialTheme.colorScheme.onSurface
+                        },
+                    ) {
+                        scope.launch {
+                            // java.lang.NullPointerException: Attempt to invoke virtual method
+                            // 'boolean androidx.compose.ui.node.LayoutNode.getNeedsOnPositionedDispatch$ui_release()'
+                            // on a null object reference
+                            if (flowUiState.listState.firstVisibleItemIndex != 0) {
+                                flowUiState.listState.scrollToItem(0)
+                            }
+                            markAsRead = !markAsRead
+                            onSearch = false
+                        }
+                    }
+                }
                 FeedbackIconButton(
-                    imageVector = Icons.Rounded.DoneAll,
-                    contentDescription = stringResource(R.string.mark_all_as_read),
-                    tint = if (markAsRead) {
+                    imageVector = Icons.Rounded.Search,
+                    contentDescription = stringResource(R.string.search),
+                    tint = if (onSearch) {
                         MaterialTheme.colorScheme.primary
                     } else {
                         MaterialTheme.colorScheme.onSurface
@@ -154,28 +177,8 @@ fun FlowPage(
                         if (flowUiState.listState.firstVisibleItemIndex != 0) {
                             flowUiState.listState.scrollToItem(0)
                         }
-                        markAsRead = !markAsRead
-                        onSearch = false
+                        onSearch = !onSearch
                     }
-                }
-            }
-            FeedbackIconButton(
-                imageVector = Icons.Rounded.Search,
-                contentDescription = stringResource(R.string.search),
-                tint = if (onSearch) {
-                    MaterialTheme.colorScheme.primary
-                } else {
-                    MaterialTheme.colorScheme.onSurface
-                },
-            ) {
-                scope.launch {
-                    // java.lang.NullPointerException: Attempt to invoke virtual method
-                    // 'boolean androidx.compose.ui.node.LayoutNode.getNeedsOnPositionedDispatch$ui_release()'
-                    // on a null object reference
-                    if (flowUiState.listState.firstVisibleItemIndex != 0) {
-                        flowUiState.listState.scrollToItem(0)
-                    }
-                    onSearch = !onSearch
                 }
             }
         },
