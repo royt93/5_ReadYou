@@ -1,10 +1,6 @@
 {
   "en": [
     {
-      "name": "Global News",
-      "link": "https://globalnews.ca/feed/"
-    },
-    {
       "name": "BBC News - World",
       "link": "https://feeds.bbci.co.uk/news/world/rss.xml"
     },
@@ -15,6 +11,34 @@
     {
       "name": "Reuters - World News",
       "link": "https://feeds.reuters.com/reuters/worldNews"
+    },
+    {
+      "name": "Associated Press",
+      "link": "https://feeds.apnews.com/apnews/topnews"
+    },
+    {
+      "name": "NPR News",
+      "link": "https://feeds.npr.org/1001/rss.xml"
+    },
+    {
+      "name": "The Guardian - World",
+      "link": "https://www.theguardian.com/world/rss"
+    },
+    {
+      "name": "Al Jazeera English",
+      "link": "https://www.aljazeera.com/xml/rss/all.xml"
+    },
+    {
+      "name": "Washington Post",
+      "link": "https://feeds.washingtonpost.com/rss/world"
+    },
+    {
+      "name": "New York Times - World",
+      "link": "https://rss.nytimes.com/services/xml/rss/nyt/World.xml"
+    },
+    {
+      "name": "Global News",
+      "link": "https://globalnews.ca/feed/"
     },
     {
       "name": "TechCrunch",
@@ -31,6 +55,178 @@
     {
       "name": "Hacker News",
       "link": "https://hnrss.org/frontpage"
+    },
+    {
+      "name": "Wired",
+      "link": "https://www.wired.com/feed/rss"
+    },
+    {
+      "name": "Engadget",
+      "link": "https://www.engadget.com/rss.xml"
+    },
+    {
+      "name": "Gizmodo",
+      "link": "https://gizmodo.com/rss"
+    },
+    {
+      "name": "MIT Technology Review",
+      "link": "https://www.technologyreview.com/feed/"
+    },
+    {
+      "name": "IEEE Spectrum",
+      "link": "https://spectrum.ieee.org/rss/fulltext"
+    },
+    {
+      "name": "9to5Mac",
+      "link": "https://9to5mac.com/feed/"
+    },
+    {
+      "name": "MacRumors",
+      "link": "https://feeds.macrumors.com/MacRumors-All"
+    },
+    {
+      "name": "Android Authority",
+      "link": "https://www.androidauthority.com/feed/"
+    },
+    {
+      "name": "XDA Developers",
+      "link": "https://www.xda-developers.com/feed/"
+    },
+    {
+      "name": "Wall Street Journal",
+      "link": "https://feeds.a.dj.com/rss/RSSWorldNews.xml"
+    },
+    {
+      "name": "Bloomberg",
+      "link": "https://feeds.bloomberg.com/markets/news.rss"
+    },
+    {
+      "name": "Financial Times",
+      "link": "https://www.ft.com/rss/home/us"
+    },
+    {
+      "name": "Forbes",
+      "link": "https://www.forbes.com/real-time/feed2/"
+    },
+    {
+      "name": "Harvard Business Review",
+      "link": "https://feeds.hbr.org/harvardbusiness"
+    },
+    {
+      "name": "Entrepreneur",
+      "link": "https://www.entrepreneur.com/latest.rss"
+    },
+    {
+      "name": "ESPN",
+      "link": "https://www.espn.com/espn/rss/news"
+    },
+    {
+      "name": "Sky Sports",
+      "link": "https://www.skysports.com/rss/12040"
+    },
+    {
+      "name": "BBC Sport",
+      "link": "http://feeds.bbci.co.uk/sport/rss.xml"
+    },
+    {
+      "name": "NFL News",
+      "link": "https://www.nfl.com/feeds/rss/news"
+    },
+    {
+      "name": "NBA",
+      "link": "https://www.nba.com/news/rss.xml"
+    },
+    {
+      "name": "Scientific American",
+      "link": "https://rss.sciam.com/ScientificAmerican-Global"
+    },
+    {
+      "name": "Nature",
+      "link": "https://www.nature.com/nature.rss"
+    },
+    {
+      "name": "Science Magazine",
+      "link": "https://www.science.org/action/showFeed?type=etoc&feed=rss&jc=science"
+    },
+    {
+      "name": "National Geographic",
+      "link": "https://feeds.nationalgeographic.com/ng/News/News_Main"
+    },
+    {
+      "name": "NASA News",
+      "link": "https://www.nasa.gov/rss/dyn/breaking_news.rss"
+    },
+    {
+      "name": "Space.com",
+      "link": "https://www.space.com/feeds/all"
+    },
+    {
+      "name": "Variety",
+      "link": "https://variety.com/feed/"
+    },
+    {
+      "name": "Entertainment Weekly",
+      "link": "https://ew.com/feed/"
+    },
+    {
+      "name": "The Hollywood Reporter",
+      "link": "https://www.hollywoodreporter.com/feed/"
+    },
+    {
+      "name": "Rolling Stone",
+      "link": "https://www.rollingstone.com/feed/"
+    },
+    {
+      "name": "Pitchfork",
+      "link": "https://pitchfork.com/rss/news/"
+    },
+    {
+      "name": "IGN",
+      "link": "https://feeds.ign.com/ign/all"
+    },
+    {
+      "name": "GameSpot",
+      "link": "https://www.gamespot.com/feeds/mashup"
+    },
+    {
+      "name": "Polygon",
+      "link": "https://www.polygon.com/rss/index.xml"
+    },
+    {
+      "name": "PC Gamer",
+      "link": "https://www.pcgamer.com/rss/"
+    },
+    {
+      "name": "Medium - Top Stories",
+      "link": "https://medium.com/feed/top-stories"
+    },
+    {
+      "name": "Reddit - r/worldnews",
+      "link": "https://www.reddit.com/r/worldnews/.rss"
+    },
+    {
+      "name": "Reddit - r/technology",
+      "link": "https://www.reddit.com/r/technology/.rss"
+    },
+    {
+      "name": "Product Hunt",
+      "link": "https://www.producthunt.com/feed"
+    },
+    {
+      "name": "Dev.to",
+      "link": "https://dev.to/feed"
+    },
+    {
+      "name": "Smashing Magazine",
+      "link": "https://www.smashingmagazine.com/feed/"
+    },
+    {
+      "name": "A List Apart",
+      "link": "https://alistapart.com/main/feed/"
+    },
+    {
+      "name": "CSS-Tricks",
+      "link": "https://css-tricks.com/feed/"
     }
   ],
   "vi": [
@@ -39,20 +235,192 @@
       "link": "https://vnexpress.net/rss/tin-moi-nhat.rss"
     },
     {
+      "name": "VnExpress - Thế giới",
+      "link": "https://vnexpress.net/rss/the-gioi.rss"
+    },
+    {
+      "name": "VnExpress - Kinh doanh",
+      "link": "https://vnexpress.net/rss/kinh-doanh.rss"
+    },
+    {
+      "name": "VnExpress - Công nghệ",
+      "link": "https://vnexpress.net/rss/so-hoa.rss"
+    },
+    {
+      "name": "VnExpress - Thể thao",
+      "link": "https://vnexpress.net/rss/the-thao.rss"
+    },
+    {
       "name": "Dân Trí",
       "link": "https://dantri.com.vn/rss.htm"
+    },
+    {
+      "name": "Dân Trí - Thế giới",
+      "link": "https://dantri.com.vn/rss/the-gioi.rss"
+    },
+    {
+      "name": "Dân Trí - Công nghệ",
+      "link": "https://dantri.com.vn/rss/suc-manh-so.rss"
     },
     {
       "name": "Thanh Niên",
       "link": "https://thanhnien.vn/rss.html"
     },
     {
+      "name": "Thanh Niên - Thế giới",
+      "link": "https://thanhnien.vn/rss/the-gioi.html"
+    },
+    {
+      "name": "Thanh Niên - Game",
+      "link": "https://thanhnien.vn/rss/game.html"
+    },
+    {
       "name": "VietnamNet",
       "link": "https://vietnamnet.vn/rss/home.rss"
     },
     {
+      "name": "VietnamNet - Công nghệ",
+      "link": "https://vietnamnet.vn/rss/cong-nghe.rss"
+    },
+    {
+      "name": "VietnamNet - Kinh doanh",
+      "link": "https://vietnamnet.vn/rss/kinh-doanh.rss"
+    },
+    {
       "name": "Zing News",
       "link": "https://zingnews.vn/rss"
+    },
+    {
+      "name": "Zing News - Công nghệ",
+      "link": "https://zingnews.vn/rss/cong-nghe.rss"
+    },
+    {
+      "name": "Zing News - Kinh doanh",
+      "link": "https://zingnews.vn/rss/kinh-doanh-tai-chinh.rss"
+    },
+    {
+      "name": "Tuổi Trẻ",
+      "link": "https://tuoitre.vn/rss/tin-moi-nhat.rss"
+    },
+    {
+      "name": "Tuổi Trẻ - Thế giới",
+      "link": "https://tuoitre.vn/rss/the-gioi.rss"
+    },
+    {
+      "name": "Tuổi Trẻ - Công nghệ",
+      "link": "https://tuoitre.vn/rss/nhip-song-tre.rss"
+    },
+    {
+      "name": "Báo Mới",
+      "link": "https://baomoi.com/rss.epi"
+    },
+    {
+      "name": "24h.com.vn",
+      "link": "https://www.24h.com.vn/upload/rss/tintuc24h.rss"
+    },
+    {
+      "name": "24h - Công nghệ",
+      "link": "https://www.24h.com.vn/upload/rss/cong-nghe.rss"
+    },
+    {
+      "name": "Vietnamplus",
+      "link": "https://www.vietnamplus.vn/rss/trangchu.rss"
+    },
+    {
+      "name": "Vietnamplus - Thế giới",
+      "link": "https://www.vietnamplus.vn/rss/thegioi.rss"
+    },
+    {
+      "name": "VOV - Đài tiếng nói Việt Nam",
+      "link": "https://vov.vn/rss/tat-ca.rss"
+    },
+    {
+      "name": "Báo Người Lao Động",
+      "link": "https://nld.com.vn/rss/home.rss"
+    },
+    {
+      "name": "Tiền Phong",
+      "link": "https://www.tienphong.vn/rss.do"
+    },
+    {
+      "name": "Lao Động",
+      "link": "https://laodong.vn/rss/home.rss"
+    },
+    {
+      "name": "Cafef - Kinh tế",
+      "link": "https://cafef.vn/rss/trang-chu.rss"
+    },
+    {
+      "name": "CafeF - Chứng khoán",
+      "link": "https://cafef.vn/rss/chung-khoan.rss"
+    },
+    {
+      "name": "Tập chí Doanh nhân Sài Gòn",
+      "link": "https://doanhnhansaigon.vn/rss/trang-chu.rss"
+    },
+    {
+      "name": "ICTNews - Công nghệ",
+      "link": "https://ictnews.vn/rss"
+    },
+    {
+      "name": "VnReview - Công nghệ",
+      "link": "https://vnreview.vn/rss/-512.html"
+    },
+    {
+      "name": "Genk.vn - Công nghệ",
+      "link": "https://genk.vn/rss/cong-nghe.rss"
+    },
+    {
+      "name": "Tinhte.vn",
+      "link": "https://tinhte.vn/rss"
+    },
+    {
+      "name": "Thể Thao 247",
+      "link": "https://thethao247.vn/rss/home.rss"
+    },
+    {
+      "name": "Saostar - Giải trí",
+      "link": "https://saostar.vn/rss/home.rss"
+    },
+    {
+      "name": "Ví Dân - Tài chính",
+      "link": "https://vidan.com.vn/rss/home.rss"
+    },
+    {
+      "name": "Eva.vn - Phụ nữ",
+      "link": "https://eva.vn/rss/home.rss"
+    },
+    {
+      "name": "Kenh14 - Giải trí",
+      "link": "https://kenh14.vn/rss/home.chn"
+    },
+    {
+      "name": "GameLandVN - Game",
+      "link": "https://gamelandvn.com/rss.xml"
+    },
+    {
+      "name": "Hà Nội Mới",
+      "link": "https://hanoimoi.com.vn/rss/home.rss"
+    },
+    {
+      "name": "Sài Gòn Giải Phóng",
+      "link": "https://www.sggp.org.vn/rss/home.rss"
+    },
+    {
+      "name": "Báo Đầu tư",
+      "link": "https://baodautu.vn/rss/home.rss"
+    },
+    {
+      "name": "VTC News",
+      "link": "https://vtc.vn/rss/home.rss"
+    },
+    {
+      "name": "Vietnam.net",
+      "link": "https://www.vietnam.net/rss/home.rss"
+    },
+    {
+      "name": "Báo Đất Việt",
+      "link": "https://baodatviet.vn/rss/home.rss"
     }
   ]
 }
