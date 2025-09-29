@@ -305,7 +305,7 @@ private fun SourcesList(
 
     LazyColumn(
         state = listState,
-        modifier = Modifier.padding(16.dp)
+        modifier = Modifier.padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 0.dp)
     ) {
         items(
             items = itemStates,
