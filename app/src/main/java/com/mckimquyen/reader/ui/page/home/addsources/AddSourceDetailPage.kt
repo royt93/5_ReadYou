@@ -1,7 +1,17 @@
 package com.mckimquyen.reader.ui.page.home.addsources
 
-import androidx.compose.foundation.background
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -17,10 +27,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.windowInsetsBottomHeight
-import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Language
@@ -56,6 +65,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.text.font.FontWeight
@@ -66,6 +76,14 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.mckimquyen.reader.domain.model.RssSource
 import kotlinx.coroutines.launch
+
+// Data class để quản lý trạng thái item RSS với animation
+data class RssSourceItemState(
+    val source: RssSource,
+    val isAdded: Boolean,
+    val isEnabled: Boolean,
+    val animationKey: String = "${source.link}_${isAdded}"
+)
 
 // Trang chi tiết thêm nguồn RSS theo quốc gia
 @OptIn(ExperimentalMaterial3Api::class)
@@ -301,11 +319,22 @@ private fun SourcesList(
     isAddingSource: Boolean,
     onAddSource: (RssSource) -> Unit,
 ) {
-    // Sort sources: not added sources first, then added sources at the end
-    val sortedSources = sources.sortedBy { source ->
-        addedSources.contains(source.link)
+    val listState = rememberLazyListState()
+
+    // Tạo list item states với proper diffing - GIỮ NGUYÊN THỨ TỰ GỐC
+    val itemStates = remember(sources, addedSources, isAddingSource) {
+        sources.map { source ->
+            val isAdded = addedSources.contains(source.link)
+            RssSourceItemState(
+                source = source,
+                isAdded = isAdded,
+                isEnabled = !isAdded && !isAddingSource
+            )
+        } // KHÔNG sắp xếp lại - giữ nguyên thứ tự gốc
     }
+
     LazyColumn(
+        state = listState,
         modifier = Modifier.padding(16.dp)
     ) {
         item {
@@ -318,18 +347,32 @@ private fun SourcesList(
             )
         }
 
-        // Hiển thị loading indicator khi đang thêm nguồn RSS
-        if (isAddingSource) {
-            item {
+        // Hiển thị loading indicator với animation đẹp
+        item(key = "loading_indicator") {
+            AnimatedVisibility(
+                visible = isAddingSource,
+                enter = slideInVertically(
+                    animationSpec = spring(
+                        dampingRatio = Spring.DampingRatioMediumBouncy,
+                        stiffness = Spring.StiffnessLow
+                    )
+                ) + fadeIn(animationSpec = tween(300)),
+                exit = slideOutVertically(
+                    animationSpec = spring(
+                        dampingRatio = Spring.DampingRatioMediumBouncy,
+                        stiffness = Spring.StiffnessLow
+                    )
+                ) + fadeOut(animationSpec = tween(300))
+            ) {
                 Card(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = 12.dp),
-                    elevation = CardDefaults.cardElevation(defaultElevation = 1.dp),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
                     colors = CardDefaults.cardColors(
                         containerColor = MaterialTheme.colorScheme.primaryContainer
-                    )
-                    // Loại bỏ border để không có viền dày
+                    ),
+                    shape = RoundedCornerShape(12.dp)
                 ) {
                     Row(
                         modifier = Modifier
@@ -338,13 +381,13 @@ private fun SourcesList(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         CircularProgressIndicator(
-                            modifier = Modifier.size(18.dp),
-                            strokeWidth = 1.5.dp,
+                            modifier = Modifier.size(20.dp),
+                            strokeWidth = 2.dp,
                             color = MaterialTheme.colorScheme.primary
                         )
                         Spacer(modifier = Modifier.width(12.dp))
                         Text(
-                            text = "Adding RSS source...",
+                            text = "Adding RSS feed...",
                             style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.primary,
                             fontWeight = FontWeight.Medium
@@ -354,15 +397,35 @@ private fun SourcesList(
             }
         }
 
-        items(sortedSources) { source ->
-            val isAdded = addedSources.contains(source.link)
-            SourceItem(
-                source = source,
-                isAdded = isAdded,
-                enabled = !isAdded && !isAddingSource,
-                onAddClick = { onAddSource(source) }
-            )
-            Spacer(modifier = Modifier.height(12.dp))
+        items(
+            items = itemStates,
+            key = { itemState -> itemState.animationKey }
+        ) { itemState ->
+            AnimatedVisibility(
+                visible = true,
+                enter = slideInVertically(
+                    animationSpec = spring(
+                        dampingRatio = Spring.DampingRatioMediumBouncy,
+                        stiffness = Spring.StiffnessMedium
+                    )
+                ) + fadeIn(animationSpec = tween(400)),
+                modifier = Modifier.animateContentSize(
+                    animationSpec = spring(
+                        dampingRatio = Spring.DampingRatioMediumBouncy,
+                        stiffness = Spring.StiffnessMedium
+                    )
+                )
+            ) {
+                Column {
+                    SourceItem(
+                        source = itemState.source,
+                        isAdded = itemState.isAdded,
+                        enabled = itemState.isEnabled,
+                        onAddClick = { onAddSource(itemState.source) }
+                    )
+                    Spacer(modifier = Modifier.height(12.dp))
+                }
+            }
         }
 
         item {
@@ -380,18 +443,42 @@ private fun SourceItem(
     enabled: Boolean = true, // Có cho phép tương tác không
     onAddClick: () -> Unit, // Callback khi nhấn thêm
 ) {
+    // Animation cho opacity khi chuyển trạng thái
+    val alpha by animateFloatAsState(
+        targetValue = if (isAdded) 0.85f else 1f,
+        animationSpec = spring(
+            dampingRatio = Spring.DampingRatioMediumBouncy,
+            stiffness = Spring.StiffnessMedium
+        )
+    )
+
+    // Animation cho elevation
+    val elevation by animateFloatAsState(
+        targetValue = if (isAdded) 1f else 4f,
+        animationSpec = spring(
+            dampingRatio = Spring.DampingRatioMediumBouncy,
+            stiffness = Spring.StiffnessMedium
+        )
+    )
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
+            .alpha(alpha) // Áp dụng animation alpha
+            .animateContentSize(
+                animationSpec = tween(durationMillis = 300)
+            ) // Animation khi thay đổi kích thước
             .clickable(enabled = enabled) { onAddClick() },
         shape = RoundedCornerShape(16.dp), // Sử dụng shape thay vì clip để giữ border
         elevation = CardDefaults.cardElevation(
-            defaultElevation = 1.dp
+            defaultElevation = elevation.dp
         ),
-        border = BorderStroke(
-            width = 1.dp, // Tăng độ dày border để dễ thấy
-            color = MaterialTheme.colorScheme.primary.copy(alpha = 0.5f)
-        ),
+        border = if (isAdded) {
+            BorderStroke(
+                width = 1.dp,
+                color = MaterialTheme.colorScheme.primary.copy(alpha = 0.5f)
+            )
+        } else null,
         colors = CardDefaults.cardColors(
             containerColor = when {
                 isAdded -> MaterialTheme.colorScheme.surface
