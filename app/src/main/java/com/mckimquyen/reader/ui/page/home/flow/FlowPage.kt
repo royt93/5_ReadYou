@@ -52,6 +52,7 @@ import com.mckimquyen.reader.ui.component.base.SwipeRefresh
 import com.mckimquyen.reader.ui.ext.collectAsStateValue
 import com.mckimquyen.reader.ui.page.common.RouteName
 import com.mckimquyen.reader.ui.page.home.HomeViewModel
+import com.mckimquyen.reader.ui.page.home.addsources.CountriesList
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -179,7 +180,11 @@ fun FlowPage(
             }
         },
         content = {
-            SwipeRefresh(
+            // Nếu filter hiện tại là AddSources, hiển thị CountriesList thay vì flow
+            if (filterUiState.filter.isAddSources()) {
+                CountriesList(navController = navController)
+            } else {
+                SwipeRefresh(
                 onRefresh = {
                     if (!isSyncing) {
                         flowViewModel.sync()
@@ -275,6 +280,7 @@ fun FlowPage(
                         Spacer(modifier = Modifier.windowInsetsBottomHeight(WindowInsets.navigationBars))
                     }
                 }
+                }
             }
         },
         bottomBar = {
@@ -285,12 +291,8 @@ fun FlowPage(
                 filterBarPadding = filterBarPadding.dp,
                 filterBarTonalElevation = filterBarTonalElevation.value.dp,
             ) {
-                // Nếu user tap vào AddSources tab, cần navigate đến trang CountriesList
-                if (it.isAddSources()) {
-                    navController.navigate(RouteName.ADD_SOURCES) {
-                        launchSingleTop = true
-                    }
-                } else {
+                // Khi tap AddSources, chỉ cần thay đổi filter state, UI sẽ tự động update
+                if (!it.isAddSources()) {
                     scope.launch {
                         // java.lang.NullPointerException: Attempt to invoke virtual method
                         // 'boolean androidx.compose.ui.node.LayoutNode.getNeedsOnPositionedDispatch$ui_release()'
@@ -299,7 +301,9 @@ fun FlowPage(
                             flowUiState.listState.scrollToItem(0)
                         }
                     }
-                    homeViewModel.changeFilter(filterUiState.copy(filter = it))
+                }
+                homeViewModel.changeFilter(filterUiState.copy(filter = it))
+                if (!it.isAddSources()) {
                     homeViewModel.fetchArticles()
                 }
             }

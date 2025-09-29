@@ -71,6 +71,7 @@ import com.mckimquyen.reader.ui.page.home.feed.drawer.group.GroupOptionDrawer
 import com.mckimquyen.reader.ui.page.home.feed.subs.SubscribeDialog
 import com.mckimquyen.reader.ui.page.home.feed.subs.SubscribeViewModel
 import com.mckimquyen.reader.ui.page.setting.acc.AccountViewModel
+import com.mckimquyen.reader.ui.page.home.addsources.CountriesList
 import kotlin.collections.set
 import kotlin.math.ln
 
@@ -181,7 +182,11 @@ fun FeedsPage(
             }
         },
         content = {
-            LazyColumn {
+            // Nếu filter hiện tại là AddSources, hiển thị CountriesList thay vì feeds
+            if (filterUiState.filter.isAddSources()) {
+                CountriesList(navController = navController)
+            } else {
+                LazyColumn {
                 item {
                     DisplayText(
 //                        modifier = Modifier
@@ -296,6 +301,7 @@ fun FeedsPage(
                     Spacer(modifier = Modifier.height(128.dp))
                     Spacer(modifier = Modifier.windowInsetsBottomHeight(WindowInsets.navigationBars))
                 }
+                }
             }
         },
         bottomBar = {
@@ -306,19 +312,13 @@ fun FeedsPage(
                 filterBarPadding = filterBarPadding.dp,
                 filterBarTonalElevation = filterBarTonalElevation.value.dp,
             ) {
-                // Nếu user tap vào AddSources tab, cần navigate đến trang CountriesList
-                if (it.isAddSources()) {
-                    navController.navigate(RouteName.ADD_SOURCES) {
-                        launchSingleTop = true
-                    }
-                } else {
-                    filterChange(
-                        navController = navController,
-                        homeViewModel = homeViewModel,
-                        filterState = filterUiState.copy(filter = it),
-                        isNavigate = false,
-                    )
-                }
+                // Thay đổi filter state để UI tự động update
+                filterChange(
+                    navController = navController,
+                    homeViewModel = homeViewModel,
+                    filterState = filterUiState.copy(filter = it),
+                    isNavigate = false,
+                )
             }
         }
     )
