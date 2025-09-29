@@ -1,15 +1,5 @@
 package com.mckimquyen.reader.ui.page.home.addsources
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.animateContentSize
-import androidx.compose.animation.core.Spring
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.spring
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.slideInVertically
-import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -75,12 +65,12 @@ import androidx.navigation.NavHostController
 import com.mckimquyen.reader.domain.model.RssSource
 import kotlinx.coroutines.launch
 
-// Data class để quản lý trạng thái item RSS với animation
+// Data class để quản lý trạng thái item RSS
 data class RssSourceItemState(
     val source: RssSource,
     val isAdded: Boolean,
-    val isEnabled: Boolean,
-    val animationKey: String = "${source.link}_${isAdded}"
+    val isLoading: Boolean, // Trạng thái đang loading khi add
+    val isEnabled: Boolean
 )
 
 // Trang chi tiết thêm nguồn RSS theo quốc gia
@@ -97,7 +87,7 @@ fun AddSourceDetailPage(
     val snackbarHostState = remember { SnackbarHostState() } // Trạng thái snackbar
     var showConfirmDialog by remember { mutableStateOf(false) } // Hiển thị dialog xác nhận
     var selectedSource by remember { mutableStateOf<RssSource?>(null) } // Nguồn RSS được chọn
-    var isAddingSource by remember { mutableStateOf(false) } // Trạng thái đang thêm nguồn RSS
+    var loadingSourceUrl by remember { mutableStateOf<String?>(null) } // URL đang loading
 
     // Tải danh sách nguồn RSS theo quốc gia khi component được khởi tạo
     LaunchedEffect(countryCode) {
@@ -166,6 +156,18 @@ fun AddSourceDetailPage(
                 )
         ) {
             when {
+                uiState.loading -> {
+                    // Hiển thị loading đơn giản
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        CircularProgressIndicator(
+                            color = MaterialTheme.colorScheme.primary
+                        )
+                    }
+                }
+
                 uiState.error != null -> {
                     ErrorContent(
                         error = uiState.error ?: "Unknown error",
@@ -177,13 +179,10 @@ fun AddSourceDetailPage(
                     SourcesList(
                         sources = uiState.rssSources,
                         addedSources = uiState.addedSources,
-                        isAddingSource = isAddingSource,
+                        loadingSourceUrl = loadingSourceUrl,
                         onAddSource = { source ->
-                            // Chỉ hiển thị popup nếu không đang thêm nguồn RSS nào khác
-                            if (!isAddingSource) {
-                                selectedSource = source
-                                showConfirmDialog = true
-                            }
+                            selectedSource = source
+                            showConfirmDialog = true
                         }
                     )
                 }
@@ -195,15 +194,14 @@ fun AddSourceDetailPage(
             AddSourceConfirmationDialog(
                 source = selectedSource!!,
                 onConfirm = {
-                    // Đóng dialog ngay lập tức và bật trạng thái loading
+                    // Đóng dialog và bắt đầu loading
                     showConfirmDialog = false
-                    isAddingSource = true
+                    val sourceToAdd = selectedSource!!
+                    loadingSourceUrl = sourceToAdd.link
+                    selectedSource = null
 
                     scope.launch {
                         try {
-                            val sourceToAdd = selectedSource!!
-                            selectedSource = null
-
                             // Gọi API thêm nguồn RSS
                             val success = viewModel.addRssSource(sourceToAdd)
                             if (success) {
@@ -217,7 +215,7 @@ fun AddSourceDetailPage(
                             snackbarHostState.showSnackbar("Lỗi khi thêm nguồn RSS: ${e.message}")
                         } finally {
                             // Tắt trạng thái loading
-                            isAddingSource = false
+                            loadingSourceUrl = null
                         }
                     }
                 },
@@ -229,7 +227,6 @@ fun AddSourceDetailPage(
         }
     }
 }
-
 
 @Composable
 private fun ErrorContent(
@@ -287,21 +284,23 @@ private fun ErrorContent(
 private fun SourcesList(
     sources: List<RssSource>,
     addedSources: List<String>,
-    isAddingSource: Boolean,
+    loadingSourceUrl: String?,
     onAddSource: (RssSource) -> Unit,
 ) {
     val listState = rememberLazyListState()
 
-    // Tạo list item states với proper diffing - GIỮ NGUYÊN THỨ TỰ GỐC
-    val itemStates = remember(sources, addedSources, isAddingSource) {
+    // Tạo list item states - GIỮ NGUYÊN THỨ TỰ GỐC
+    val itemStates = remember(sources, addedSources, loadingSourceUrl) {
         sources.map { source ->
             val isAdded = addedSources.contains(source.link)
+            val isLoading = loadingSourceUrl == source.link
             RssSourceItemState(
                 source = source,
                 isAdded = isAdded,
-                isEnabled = !isAdded && !isAddingSource
+                isLoading = isLoading,
+                isEnabled = !isAdded && !isLoading
             )
-        } // KHÔNG sắp xếp lại - giữ nguyên thứ tự gốc
+        }
     }
 
     LazyColumn(
@@ -318,84 +317,19 @@ private fun SourcesList(
             )
         }
 
-        // Hiển thị loading indicator với animation đẹp
-        item(key = "loading_indicator") {
-            AnimatedVisibility(
-                visible = isAddingSource,
-                enter = slideInVertically(
-                    animationSpec = spring(
-                        dampingRatio = Spring.DampingRatioMediumBouncy,
-                        stiffness = Spring.StiffnessLow
-                    )
-                ) + fadeIn(animationSpec = tween(300)),
-                exit = slideOutVertically(
-                    animationSpec = spring(
-                        dampingRatio = Spring.DampingRatioMediumBouncy,
-                        stiffness = Spring.StiffnessLow
-                    )
-                ) + fadeOut(animationSpec = tween(300))
-            ) {
-                Card(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 12.dp),
-                    elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
-                    colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.primaryContainer
-                    ),
-                    shape = RoundedCornerShape(12.dp)
-                ) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(16.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        CircularProgressIndicator(
-                            modifier = Modifier.size(20.dp),
-                            strokeWidth = 2.dp,
-                            color = MaterialTheme.colorScheme.primary
-                        )
-                        Spacer(modifier = Modifier.width(12.dp))
-                        Text(
-                            text = "Adding RSS feed...",
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.primary,
-                            fontWeight = FontWeight.Medium
-                        )
-                    }
-                }
-            }
-        }
-
         items(
             items = itemStates,
-            key = { itemState -> itemState.animationKey }
+            key = { itemState -> itemState.source.link }
         ) { itemState ->
-            AnimatedVisibility(
-                visible = true,
-                enter = slideInVertically(
-                    animationSpec = spring(
-                        dampingRatio = Spring.DampingRatioMediumBouncy,
-                        stiffness = Spring.StiffnessMedium
-                    )
-                ) + fadeIn(animationSpec = tween(400)),
-                modifier = Modifier.animateContentSize(
-                    animationSpec = spring(
-                        dampingRatio = Spring.DampingRatioMediumBouncy,
-                        stiffness = Spring.StiffnessMedium
-                    )
+            Column {
+                SourceItem(
+                    source = itemState.source,
+                    isAdded = itemState.isAdded,
+                    isLoading = itemState.isLoading,
+                    enabled = itemState.isEnabled,
+                    onAddClick = { onAddSource(itemState.source) }
                 )
-            ) {
-                Column {
-                    SourceItem(
-                        source = itemState.source,
-                        isAdded = itemState.isAdded,
-                        enabled = itemState.isEnabled,
-                        onAddClick = { onAddSource(itemState.source) }
-                    )
-                    Spacer(modifier = Modifier.height(12.dp))
-                }
+                Spacer(modifier = Modifier.height(12.dp))
             }
         }
 
@@ -411,38 +345,19 @@ private fun SourcesList(
 private fun SourceItem(
     source: RssSource, // Thông tin nguồn RSS
     isAdded: Boolean, // Đã được thêm hay chưa
+    isLoading: Boolean, // Đang loading hay không
     enabled: Boolean = true, // Có cho phép tương tác không
     onAddClick: () -> Unit, // Callback khi nhấn thêm
 ) {
-    // Bỏ alpha animation - giữ opacity 1f cho tất cả items
-
-    // Animation cho elevation
-    val elevation by animateFloatAsState(
-        targetValue = if (isAdded) 1f else 4f,
-        animationSpec = spring(
-            dampingRatio = Spring.DampingRatioMediumBouncy,
-            stiffness = Spring.StiffnessMedium
-        )
-    )
-
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .animateContentSize(
-                animationSpec = tween(durationMillis = 300)
-            ) // Animation khi thay đổi kích thước
             .clickable(enabled = enabled) { onAddClick() },
         shape = RoundedCornerShape(16.dp),
-        elevation = CardDefaults.cardElevation(
-            defaultElevation = elevation.dp
-        ),
-        border = null, // Bỏ hoàn toàn border cho tất cả items
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
         colors = CardDefaults.cardColors(
-            containerColor = when {
-                isAdded -> MaterialTheme.colorScheme.surface
-                enabled -> MaterialTheme.colorScheme.surface
-                else -> MaterialTheme.colorScheme.surface
-            }
+            containerColor = MaterialTheme.colorScheme.surface,
+            contentColor = MaterialTheme.colorScheme.onSurface
         )
     ) {
         Column(
@@ -477,12 +392,8 @@ private fun SourceItem(
                     Text(
                         text = source.name,
                         style = MaterialTheme.typography.titleMedium,
-                        fontWeight = if (isAdded) FontWeight.Medium else FontWeight.SemiBold,
-                        color = when {
-                            isAdded -> MaterialTheme.colorScheme.onPrimaryContainer
-                            enabled -> MaterialTheme.colorScheme.onSurface
-                            else -> MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
-                        },
+                        fontWeight = FontWeight.SemiBold,
+                        color = MaterialTheme.colorScheme.onSurface,
                         maxLines = 2,
                         overflow = TextOverflow.Ellipsis
                     )
@@ -496,27 +407,20 @@ private fun SourceItem(
                             imageVector = Icons.Rounded.Link,
                             contentDescription = "URL",
                             modifier = Modifier.size(16.dp),
-                            tint = when {
-                                isAdded -> MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.7f)
-                                enabled -> MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
-                                else -> MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3f)
-                            }
+                            tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
                         )
-                        Spacer(modifier = Modifier.padding(4.dp))
+                        Spacer(modifier = Modifier.width(4.dp))
                         Text(
                             text = source.link,
                             style = MaterialTheme.typography.bodySmall,
-                            color = when {
-                                isAdded -> MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.7f)
-                                enabled -> MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
-                                else -> MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3f)
-                            },
+                            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis
                         )
                     }
                 }
 
+                // Icon thay đổi theo trạng thái
                 Box(
                     modifier = Modifier
                         .size(40.dp)
@@ -524,28 +428,42 @@ private fun SourceItem(
                         .background(
                             when {
                                 isAdded -> MaterialTheme.colorScheme.primary.copy(alpha = 0.2f)
+                                isLoading -> MaterialTheme.colorScheme.surfaceVariant
                                 enabled -> MaterialTheme.colorScheme.primary
                                 else -> MaterialTheme.colorScheme.surfaceVariant
                             }
                         )
-                        .clickable(enabled = !isAdded) { onAddClick() },
+                        .clickable(enabled = enabled && !isLoading) { onAddClick() },
                     contentAlignment = Alignment.Center
                 ) {
-                    if (isAdded) {
-                        Icon(
-                            imageVector = Icons.Rounded.CheckCircle,
-                            contentDescription = "Already Added",
-                            modifier = Modifier.size(22.dp),
-                            tint = MaterialTheme.colorScheme.primary
-                        )
-                    } else {
-                        Icon(
-                            imageVector = Icons.Rounded.Add,
-                            contentDescription = "Add Source",
-                            modifier = Modifier.size(20.dp),
-                            tint = if (enabled) MaterialTheme.colorScheme.onPrimary
-                            else MaterialTheme.colorScheme.onSurfaceVariant
-                        )
+                    when {
+                        isLoading -> {
+                            // Icon loading
+                            CircularProgressIndicator(
+                                modifier = Modifier.size(20.dp),
+                                strokeWidth = 2.dp,
+                                color = MaterialTheme.colorScheme.primary
+                            )
+                        }
+                        isAdded -> {
+                            // Icon check
+                            Icon(
+                                imageVector = Icons.Rounded.CheckCircle,
+                                contentDescription = "Already Added",
+                                modifier = Modifier.size(22.dp),
+                                tint = MaterialTheme.colorScheme.primary
+                            )
+                        }
+                        else -> {
+                            // Icon add
+                            Icon(
+                                imageVector = Icons.Rounded.Add,
+                                contentDescription = "Add Source",
+                                modifier = Modifier.size(20.dp),
+                                tint = if (enabled) MaterialTheme.colorScheme.onPrimary
+                                else MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
                     }
                 }
             }
