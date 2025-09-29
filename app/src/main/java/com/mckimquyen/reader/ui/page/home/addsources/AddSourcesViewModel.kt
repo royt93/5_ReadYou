@@ -97,6 +97,13 @@ class AddSourcesViewModel @Inject constructor(
                 )
                 addedRssSourceDao.insertAddedSource(addedSource)
 
+                // Cập nhật UI state để reflect thay đổi
+                val currentAddedSources = _uiState.value.addedSources.toMutableList()
+                if (!currentAddedSources.contains(source.link)) {
+                    currentAddedSources.add(source.link)
+                    _uiState.value = _uiState.value.copy(addedSources = currentAddedSources)
+                }
+
                 true
             } catch (feedError: Exception) {
                 // If RSS parsing fails, just add the feed with basic info
@@ -109,6 +116,13 @@ class AddSourcesViewModel @Inject constructor(
                     accountId = account.id ?: 0
                 )
                 addedRssSourceDao.insertAddedSource(addedSource)
+
+                // Cập nhật UI state để reflect thay đổi
+                val currentAddedSources = _uiState.value.addedSources.toMutableList()
+                if (!currentAddedSources.contains(source.link)) {
+                    currentAddedSources.add(source.link)
+                    _uiState.value = _uiState.value.copy(addedSources = currentAddedSources)
+                }
 
                 true
             }

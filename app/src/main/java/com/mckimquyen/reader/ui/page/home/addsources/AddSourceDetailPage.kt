@@ -20,6 +20,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Language
 import androidx.compose.material.icons.rounded.Add
@@ -73,7 +74,7 @@ data class RssSourceItemState(
     val isEnabled: Boolean
 )
 
-// Trang chi tiết thêm nguồn RSS theo quốc gia
+// Trang chi tiết thêm nguồn RSS theo quốc gia - Refactored để fix scroll position
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddSourceDetailPage(
@@ -209,8 +210,7 @@ fun AddSourceDetailPage(
                             val success = viewModel.addRssSource(sourceToAdd)
                             if (success) {
                                 snackbarHostState.showSnackbar("RSS feed added successfully!")
-                                // Tải lại danh sách để cập nhật UI
-                                viewModel.loadSourcesByCountry(countryCode)
+                                // UI sẽ tự cập nhật qua StateFlow, không cần reload
                             } else {
                                 snackbarHostState.showSnackbar("Thêm nguồn RSS thất bại")
                             }
@@ -290,53 +290,34 @@ private fun SourcesList(
     loadingSourceUrl: String?,
     onAddSource: (RssSource) -> Unit,
 ) {
+    // Đơn giản chỉ cần LazyListState bình thường - không cần phức tạp
     val listState = rememberLazyListState()
 
-    // Tạo list item states - GIỮ NGUYÊN THỨ TỰ GỐC
-    val itemStates = remember(sources, addedSources, loadingSourceUrl) {
-        val hasAnyLoading = loadingSourceUrl != null // Kiểm tra có item nào đang loading
-
-        sources.map { source ->
-            val isAdded = addedSources.contains(source.link)
-            val isLoading = loadingSourceUrl == source.link
-            RssSourceItemState(
-                source = source,
-                isAdded = isAdded,
-                isLoading = isLoading,
-                // Nếu có item nào đang loading thì tất cả items khác sẽ disabled
-                isEnabled = !isAdded && !hasAnyLoading
-            )
-        }
+    // Tạo list item states
+    val itemStates = sources.map { source ->
+        RssSourceItemState(
+            source = source,
+            isAdded = addedSources.contains(source.link),
+            isLoading = loadingSourceUrl == source.link,
+            isEnabled = !addedSources.contains(source.link) && loadingSourceUrl == null
+        )
     }
 
     LazyColumn(
         state = listState,
         modifier = Modifier.padding(16.dp)
     ) {
-        item {
-            Text(
-                text = "Available RSS Sources",
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.SemiBold,
-                color = MaterialTheme.colorScheme.onSurface,
-                modifier = Modifier.padding(bottom = 16.dp)
-            )
-        }
-
         items(
             items = itemStates,
             key = { itemState -> itemState.source.link }
         ) { itemState ->
-            Column {
-                SourceItem(
-                    source = itemState.source,
-                    isAdded = itemState.isAdded,
-                    isLoading = itemState.isLoading,
-                    enabled = itemState.isEnabled,
-                    onAddClick = { onAddSource(itemState.source) }
-                )
-                Spacer(modifier = Modifier.height(12.dp))
-            }
+            SourceItem(
+                source = itemState.source,
+                isAdded = itemState.isAdded,
+                isLoading = itemState.isLoading,
+                enabled = itemState.isEnabled,
+                onAddClick = { onAddSource(itemState.source) }
+            )
         }
 
         item {
@@ -358,6 +339,7 @@ private fun SourceItem(
     Card(
         modifier = Modifier
             .fillMaxWidth()
+            .padding(bottom = 12.dp)
             .clickable(enabled = enabled) { onAddClick() },
         shape = RoundedCornerShape(16.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
