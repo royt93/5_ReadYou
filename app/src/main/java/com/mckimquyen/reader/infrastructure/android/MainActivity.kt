@@ -127,8 +127,8 @@ class MainActivity : ComponentActivity(), AdMobManager.InterstitialAdListener {
             }
         }
 
-        // Initialize AdMob asynchronously to avoid blocking
-        lifecycleScope.launch(Dispatchers.IO) {
+        // Initialize AdMob on main thread (required by AdMob)
+        lifecycleScope.launch(Dispatchers.Main) {
             AdMobManager.setCurrentActivity(this@MainActivity)
             AdMobManager.interstitialListener = this@MainActivity
             AdMobManager.loadInterstitial(this@MainActivity, BuildConfig.ADMOB_INTERSTITIAL_ID)

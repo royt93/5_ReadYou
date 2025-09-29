@@ -1,7 +1,8 @@
 package com.mckimquyen.reader.domain.sv
 
 import android.content.Context
-import android.os.Looper
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import com.mckimquyen.reader.R
 import com.mckimquyen.reader.domain.model.account.Account
 import com.mckimquyen.reader.domain.model.account.AccountType
@@ -74,9 +75,9 @@ class AccountSv @Inject constructor(
 
     suspend fun delete(accountId: Int) {
         if (accountDao.queryAll().size == 1) {
-            Looper.myLooper() ?: Looper.prepare()
-            context.showToast(context.getString(R.string.must_have_an_account))
-            Looper.loop()
+            withContext(Dispatchers.Main) {
+                context.showToast(context.getString(R.string.must_have_an_account))
+            }
             return
         }
         accountDao.queryById(accountId)?.let {

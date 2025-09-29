@@ -1,6 +1,7 @@
 package com.mckimquyen.reader.infrastructure.android
 
 import android.content.Context
+import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import com.mckimquyen.reader.ui.ext.showToastLong
@@ -25,12 +26,22 @@ class CrashHandler(context: Context) : UncaughtExceptionHandler {
         val causeMessage = getCauseMessage(p1)
         Log.e("RLog", "uncaughtException: $causeMessage")
 
-        // Only show toast if context is still available
+        // Only show toast if context is still available and we're on main thread
         contextRef.get()?.let { context ->
             try {
-                Looper.myLooper() ?: Looper.prepare()
-                context.showToastLong(causeMessage)
-                Looper.loop()
+                if (Looper.myLooper() == Looper.getMainLooper()) {
+                    // We're already on the main thread, show toast directly
+                    context.showToastLong(causeMessage)
+                } else {
+                    // We're on a background thread, post to main thread
+                    Handler(Looper.getMainLooper()).post {
+                        try {
+                            context.showToastLong(causeMessage)
+                        } catch (e: Exception) {
+                            Log.e("RLog", "Error showing crash toast on main thread: ${e.message}")
+                        }
+                    }
+                }
             } catch (e: Exception) {
                 Log.e("RLog", "Error showing crash toast: ${e.message}")
             }
