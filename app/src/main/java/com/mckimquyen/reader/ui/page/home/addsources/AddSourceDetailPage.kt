@@ -166,10 +166,6 @@ fun AddSourceDetailPage(
                 )
         ) {
             when {
-                uiState.loading -> {
-                    LoadingContent()
-                }
-
                 uiState.error != null -> {
                     ErrorContent(
                         error = uiState.error ?: "Unknown error",
@@ -234,29 +230,6 @@ fun AddSourceDetailPage(
     }
 }
 
-@Composable
-private fun LoadingContent() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            CircularProgressIndicator(
-                color = MaterialTheme.colorScheme.primary,
-                strokeWidth = 3.dp
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-            Text(
-                text = "Loading RSS sources...",
-                style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
-            )
-        }
-    }
-}
 
 @Composable
 private fun ErrorContent(
