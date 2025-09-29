@@ -234,7 +234,12 @@ fun Context.getFacebookPageURL(): String {
     val facebookPageId = "hoidammedocsach"
     val packageManager = this.packageManager
     return try {
-        val versionCode = packageManager.getPackageInfo("com.facebook.katana", 0).versionCode
+        val versionCode = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            packageManager.getPackageInfo("com.facebook.katana", 0).longVersionCode
+        } else {
+            @Suppress("DEPRECATION")
+            packageManager.getPackageInfo("com.facebook.katana", 0).versionCode.toLong()
+        }
         if (versionCode >= 3002850) {
             "fb://facewebmodal/f?href=$facebookUrl"
         } else {

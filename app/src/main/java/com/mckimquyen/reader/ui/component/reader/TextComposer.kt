@@ -90,7 +90,7 @@ class TextComposer(
         builder.popComposableStyle(index)
 
     private fun findClosestLink(): String? {
-        for (span in spanStack.reversed()) {
+        for (span in spanStack.asReversed()) {
             if (span is SpanWithAnnotation && span.tag == "URL") {
                 return span.annotation
             }

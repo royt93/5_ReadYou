@@ -8,15 +8,9 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Display
 import android.view.WindowManager
-import android.view.WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
-import android.view.WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.core.view.WindowCompat
-import coil.ImageLoader
-import coil.compose.LocalImageLoader
-import com.google.android.gms.ads.AdView
 import com.google.android.play.core.review.ReviewInfo
 import com.google.android.play.core.review.ReviewManagerFactory
 import com.mckimquyen.reader.BuildConfig
@@ -37,9 +31,6 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : ComponentActivity(), AdMobManager.InterstitialAdListener {
 //    private var adView: AdView? = null
-
-    @Inject
-    lateinit var imageLoader: ImageLoader
 
     @Inject
     lateinit var accountDao: AccountDao
@@ -108,13 +99,9 @@ class MainActivity : ComponentActivity(), AdMobManager.InterstitialAdListener {
         }
 
         setContent {
-            CompositionLocalProvider(
-                LocalImageLoader provides imageLoader,
-            ) {
-                AccountSettingsProvider(accountDao) {
-                    SettingsProvider {
-                        HomeEntry(activity = this@MainActivity)
-                    }
+            AccountSettingsProvider(accountDao) {
+                SettingsProvider {
+                    HomeEntry(activity = this@MainActivity)
                 }
             }
         }

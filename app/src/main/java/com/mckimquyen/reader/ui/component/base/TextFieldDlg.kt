@@ -18,7 +18,7 @@ import com.mckimquyen.reader.R
 @Composable
 fun TextFieldDlg(
     modifier: Modifier = Modifier,
-    properties: DialogProperties = DialogProperties(),
+    @Suppress("UNUSED_PARAMETER") properties: DialogProperties = DialogProperties(),
     visible: Boolean = false,
     readOnly: Boolean = false,
     singleLine: Boolean = true,

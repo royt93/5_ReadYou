@@ -11,7 +11,8 @@ import androidx.compose.ui.graphics.DefaultAlpha
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
-import coil.compose.rememberImagePainter
+import androidx.compose.ui.res.painterResource
+import coil.compose.rememberAsyncImagePainter
 import coil.size.Precision
 import coil.size.Scale
 import coil.size.Size
@@ -32,16 +33,10 @@ fun BaseAsyncImage(
     @DrawableRes error: Int? = R.drawable.ic_broken_image_black_24dp,
 ) {
     Image(
-        painter = rememberImagePainter(
-            data = data,
-            builder = {
-                if (placeholder != null) placeholder(placeholder)
-                if (error != null) error(error)
-                crossfade(true)
-                scale(scale)
-                precision(precision)
-                size(size)
-            },
+        painter = rememberAsyncImagePainter(
+            model = data,
+            placeholder = placeholder?.let { painterResource(it) },
+            error = error?.let { painterResource(it) },
         ),
         contentDescription = contentDescription,
         contentScale = contentScale,

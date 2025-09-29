@@ -87,7 +87,7 @@ fun AccountDetailsPage(
     }
 
     val launcher = rememberLauncherForActivityResult(
-        ActivityResultContracts.CreateDocument()
+        ActivityResultContracts.CreateDocument("application/xml")
     ) { result ->
         viewModel.exportAsOPML(selectedAccount!!.id!!) { string ->
             result?.let { uri ->

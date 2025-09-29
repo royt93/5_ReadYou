@@ -6,6 +6,7 @@ import androidx.hilt.work.HiltWorkerFactory
 import androidx.work.Configuration
 import androidx.work.WorkManager
 import coil.ImageLoader
+import coil.ImageLoaderFactory
 import com.google.android.gms.ads.MobileAds
 import com.mckimquyen.reader.domain.sv.AccountSv
 import com.mckimquyen.reader.domain.sv.AppSv
@@ -57,7 +58,7 @@ import javax.inject.Inject
 //beta tester
 
 @HiltAndroidApp
-class RApp : Application(), Configuration.Provider {
+class RApp : Application(), Configuration.Provider, ImageLoaderFactory {
 
     @Inject
     lateinit var androidDatabase: AndroidDatabase
@@ -194,4 +195,7 @@ class RApp : Application(), Configuration.Provider {
         appSv.checkUpdate(showToast = false)
     }
 
+    override fun newImageLoader(): ImageLoader {
+        return imageLoader
+    }
 }

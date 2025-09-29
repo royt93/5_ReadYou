@@ -8,13 +8,14 @@ import java.text.ParsePosition
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
+import java.util.Locale
 
 fun Date.formatAsString(
     context: Context,
     onlyHourMinute: Boolean? = false,
     atHourMinute: Boolean? = false,
 ): String {
-    val locale = ConfigurationCompat.getLocales(context.resources.configuration)[0]
+    val locale = ConfigurationCompat.getLocales(context.resources.configuration)[0] ?: Locale.getDefault()
     val df = DateFormat.getDateInstance(DateFormat.FULL, locale)
     return when {
         onlyHourMinute == true -> {
