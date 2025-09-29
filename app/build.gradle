@@ -16,14 +16,14 @@ if (keyPropsFile.exists()) {
 
 android {
     namespace 'com.mckimquyen.reader'
-    compileSdk 35
+    compileSdk 36
     defaultConfig {
         applicationId "com.mckimquyen.reader"
         minSdk 26
         //noinspection EditedTargetSdkVersion,OldTargetApi
-        targetSdk 35
-        versionCode 20250912
-        versionName "2025.09.12"
+        targetSdk 36
+        versionCode 20250929
+        versionName "2025.09.29"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
