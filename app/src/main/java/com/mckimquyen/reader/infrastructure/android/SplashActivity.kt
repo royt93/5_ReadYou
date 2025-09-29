@@ -1,7 +1,9 @@
 package com.mckimquyen.reader.infrastructure.android
 
 import android.annotation.SuppressLint
+import android.app.ActivityOptions
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -40,10 +42,22 @@ class SplashActivity : ComponentActivity() {
     private fun goToMain() {
         Log.d("roy93", "goToMain")
         val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
-//        overridePendingTransition(0, 0)
-//        finishAffinity()
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            // Use new ActivityOptions API for Android 14+
+            val options = ActivityOptions.makeCustomAnimation(
+                this,
+                android.R.anim.fade_in,
+                android.R.anim.fade_out
+            )
+            startActivity(intent, options.toBundle())
+        } else {
+            // Use legacy overridePendingTransition for older versions
+            startActivity(intent)
+            @Suppress("DEPRECATION")
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+        }
+
         // Trì hoãn finish để đợi animation hoàn tất
         window.decorView.postDelayed({
             finish() // Finish sau animation

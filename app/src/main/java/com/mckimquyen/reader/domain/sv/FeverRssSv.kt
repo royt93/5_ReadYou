@@ -151,7 +151,12 @@ class FeverRssSv @Inject constructor(
                         Article(
                             id = accountId.spacerDollar(it.id!!),
                             date = it.created_on_time?.run { Date(this * 1000) } ?: Date(),
-                            title = Html.fromHtml(it.title ?: context.getString(R.string.empty)).toString(),
+                            title = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                                Html.fromHtml(it.title ?: context.getString(R.string.empty), Html.FROM_HTML_MODE_LEGACY).toString()
+                            } else {
+                                @Suppress("DEPRECATION")
+                                Html.fromHtml(it.title ?: context.getString(R.string.empty)).toString()
+                            },
                             author = it.author,
                             rawDescription = it.html ?: "",
                             shortDescription = (Readability4JExtended("", it.html ?: "")

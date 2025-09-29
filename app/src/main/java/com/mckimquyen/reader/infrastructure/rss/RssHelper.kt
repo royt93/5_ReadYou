@@ -117,7 +117,12 @@ class RssHelper @Inject constructor(
             accountId = accountId,
             feedId = feed.id,
             date = syndEntry.publishedDate ?: syndEntry.updatedDate ?: Date(),
-            title = Html.fromHtml(syndEntry.title.toString()).toString(),
+            title = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                Html.fromHtml(syndEntry.title.toString(), Html.FROM_HTML_MODE_LEGACY).toString()
+            } else {
+                @Suppress("DEPRECATION")
+                Html.fromHtml(syndEntry.title.toString()).toString()
+            },
             author = syndEntry.author,
             rawDescription = (content ?: desc) ?: "",
             shortDescription = (Readability4JExtended("", desc ?: content ?: "")

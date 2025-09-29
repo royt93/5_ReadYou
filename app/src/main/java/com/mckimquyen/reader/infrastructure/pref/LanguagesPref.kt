@@ -59,38 +59,32 @@ sealed class LanguagesPref(val value: Int) : Pref() {
     fun getLocale(): Locale =
         when (this) {
             UseDeviceLanguages -> LocaleList.getDefault().get(0)
-            English -> Locale("en", "US")
-            ChineseSimplified -> Locale("zh", "CN")
-            German -> Locale("de", "DE")
-            French -> Locale("fr", "FR")
-            Czech -> Locale("cs", "CZ")
-            Italian -> Locale("it", "IT")
-            Hindi -> Locale("hi", "IN")
-            Spanish -> Locale("es", "ES")
-            Polish -> Locale("pl", "PL")
-            Russian -> Locale("ru", "RU")
-            Basque -> Locale("eu", "ES")
-            Indonesian -> Locale("in", "ID")
-            ChineseTraditional -> Locale("zh", "TW")
+            English -> Locale.Builder().setLanguage("en").setRegion("US").build()
+            ChineseSimplified -> Locale.Builder().setLanguage("zh").setRegion("CN").build()
+            German -> Locale.Builder().setLanguage("de").setRegion("DE").build()
+            French -> Locale.Builder().setLanguage("fr").setRegion("FR").build()
+            Czech -> Locale.Builder().setLanguage("cs").setRegion("CZ").build()
+            Italian -> Locale.Builder().setLanguage("it").setRegion("IT").build()
+            Hindi -> Locale.Builder().setLanguage("hi").setRegion("IN").build()
+            Spanish -> Locale.Builder().setLanguage("es").setRegion("ES").build()
+            Polish -> Locale.Builder().setLanguage("pl").setRegion("PL").build()
+            Russian -> Locale.Builder().setLanguage("ru").setRegion("RU").build()
+            Basque -> Locale.Builder().setLanguage("eu").setRegion("ES").build()
+            Indonesian -> Locale.Builder().setLanguage("in").setRegion("ID").build()
+            ChineseTraditional -> Locale.Builder().setLanguage("zh").setRegion("TW").build()
         }
 
     fun setLocale(context: Context) {
         val locale = getLocale()
-        val resources = context.resources
-        val metrics = resources.displayMetrics
-        val configuration = resources.configuration
+        val configuration = context.resources.configuration
         configuration.setLocale(locale)
         configuration.setLocales(LocaleList(locale))
         context.createConfigurationContext(configuration)
-        resources.updateConfiguration(configuration, metrics)
 
-        val appResources = context.applicationContext.resources
-        val appMetrics = appResources.displayMetrics
-        val appConfiguration = appResources.configuration
+        val appConfiguration = context.applicationContext.resources.configuration
         appConfiguration.setLocale(locale)
         appConfiguration.setLocales(LocaleList(locale))
         context.applicationContext.createConfigurationContext(appConfiguration)
-        appResources.updateConfiguration(appConfiguration, appMetrics)
     }
 
     companion object {

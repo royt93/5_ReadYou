@@ -17,6 +17,9 @@ import android.provider.AlarmClock
 import android.provider.CalendarContract
 import android.provider.Telephony
 import android.view.*
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import com.mckimquyen.reader.R
 
 fun isDefaultLauncher(application: Application): Boolean {
@@ -262,14 +265,17 @@ fun Activity.playYoutubeWithId(
 fun Activity.setChangeStatusBarTintToDark(
     shouldChangeStatusBarTintToDark: Boolean,
 ) {
-    val decor = this.window.decorView
-    if (shouldChangeStatusBarTintToDark) {
-        decor.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        val controller = WindowCompat.getInsetsController(window, window.decorView)
+        controller.isAppearanceLightStatusBars = shouldChangeStatusBarTintToDark
     } else {
-        // We want to change tint color to white again.
-        // You can also record the flags in advance so that you can turn UI back completely if
-        // you have set other flags before, such as translucent or full screen.
-        decor.systemUiVisibility = 0
+        @Suppress("DEPRECATION")
+        val decor = this.window.decorView
+        if (shouldChangeStatusBarTintToDark) {
+            decor.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        } else {
+            decor.systemUiVisibility = 0
+        }
     }
 }
 
@@ -295,32 +301,39 @@ fun Context.getScreenHeightIncludeNavigationBar(): Int {
     return mRealSizeHeight
 }
 
-@SuppressLint("ObsoleteSdkInt")
 fun Activity.showStatusBar(
 ) {
-    if (Build.VERSION.SDK_INT < 16) {
-        this.window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        val controller = WindowCompat.getInsetsController(window, window.decorView)
+        controller.show(WindowInsetsCompat.Type.statusBars())
     } else {
-        val decorView = this.window.decorView
-        // Show Status Bar.
-        val uiOptions = View.SYSTEM_UI_FLAG_VISIBLE
-        decorView.systemUiVisibility = uiOptions
+        @Suppress("DEPRECATION")
+        if (Build.VERSION.SDK_INT < 16) {
+            this.window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        } else {
+            val decorView = this.window.decorView
+            val uiOptions = View.SYSTEM_UI_FLAG_VISIBLE
+            decorView.systemUiVisibility = uiOptions
+        }
     }
 }
 
-@SuppressLint("ObsoleteSdkInt")
 fun Activity.hideStatusBar(
 ) {
-    // Hide Status Bar
-    if (Build.VERSION.SDK_INT < 16) {
-        this.window.setFlags(
-            WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN
-        )
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        val controller = WindowCompat.getInsetsController(window, window.decorView)
+        controller.hide(WindowInsetsCompat.Type.statusBars())
     } else {
-        val decorView = this.window.decorView
-        // Hide Status Bar.
-        val uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN
-        decorView.systemUiVisibility = uiOptions
+        @Suppress("DEPRECATION")
+        if (Build.VERSION.SDK_INT < 16) {
+            this.window.setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN
+            )
+        } else {
+            val decorView = this.window.decorView
+            val uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN
+            decorView.systemUiVisibility = uiOptions
+        }
     }
 }
 
@@ -341,88 +354,113 @@ fun Activity.toggleFullscreen(
 fun Activity.toggleFullscreen(
     isFullScreen: Boolean,
 ) {
-    if (isFullScreen) {
-        this.window.decorView.systemUiVisibility =
-            View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_FULLSCREEN or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        val controller = WindowCompat.getInsetsController(window, window.decorView)
+        if (isFullScreen) {
+            controller.hide(WindowInsetsCompat.Type.systemBars())
+            controller.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        } else {
+            controller.show(WindowInsetsCompat.Type.systemBars())
+        }
     } else {
-        this.window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_VISIBLE
+        @Suppress("DEPRECATION")
+        if (isFullScreen) {
+            this.window.decorView.systemUiVisibility =
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_FULLSCREEN or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+        } else {
+            this.window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_VISIBLE
+        }
     }
 }
 
 fun Activity.hideNavigationBar(
 ) {
-    // set navigation bar status, remember to disable "setNavigationBarTintEnabled"
-    val flags =
-        (View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
-    // This work only for android 4.4+
-    this.window.decorView.systemUiVisibility = flags
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        val controller = WindowCompat.getInsetsController(window, window.decorView)
+        controller.hide(WindowInsetsCompat.Type.navigationBars())
+        controller.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+    } else {
+        @Suppress("DEPRECATION")
+        val flags =
+            (View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
+        this.window.decorView.systemUiVisibility = flags
 
-    // Code below is to handle presses of Volume up or Volume down.
-    // Without this, after pressing volume buttons, the navigation bar will
-    // show up and won't hide
-    val decorView = this.window.decorView
-    decorView.setOnSystemUiVisibilityChangeListener { visibility ->
-        if (visibility and View.SYSTEM_UI_FLAG_FULLSCREEN == 0) {
-            decorView.systemUiVisibility = flags
+        val decorView = this.window.decorView
+        decorView.setOnSystemUiVisibilityChangeListener { visibility ->
+            if (visibility and View.SYSTEM_UI_FLAG_FULLSCREEN == 0) {
+                decorView.systemUiVisibility = flags
+            }
         }
     }
 }
 
 fun Activity.showNavigationBar(
 ) {
-    // set navigation bar status, remember to disable "setNavigationBarTintEnabled"
-    val flags =
-        (View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
-    // This work only for android 4.4+
-    this.window.decorView.systemUiVisibility = flags
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        val controller = WindowCompat.getInsetsController(window, window.decorView)
+        controller.show(WindowInsetsCompat.Type.navigationBars())
+    } else {
+        @Suppress("DEPRECATION")
+        val flags =
+            (View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
+        this.window.decorView.systemUiVisibility = flags
 
-    // Code below is to handle presses of Volume up or Volume down.
-    // Without this, after pressing volume buttons, the navigation bar will
-    // show up and won't hide
-    val decorView = this.window.decorView
-    decorView.setOnSystemUiVisibilityChangeListener { visibility ->
-        if (visibility and View.SYSTEM_UI_FLAG_FULLSCREEN == 0) {
-            decorView.systemUiVisibility = flags
+        val decorView = this.window.decorView
+        decorView.setOnSystemUiVisibilityChangeListener { visibility ->
+            if (visibility and View.SYSTEM_UI_FLAG_FULLSCREEN == 0) {
+                decorView.systemUiVisibility = flags
+            }
         }
     }
 }
 
-@SuppressLint("ObsoleteSdkInt")
 fun Activity.hideDefaultControls(
 ) {
     val window = this.window ?: return
-    window.clearFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN)
-    window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
-    val decorView = window.decorView
-    var uiOptions = decorView.systemUiVisibility
-    if (Build.VERSION.SDK_INT >= 14) {
-        uiOptions = uiOptions or View.SYSTEM_UI_FLAG_LOW_PROFILE
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        val controller = WindowCompat.getInsetsController(window, window.decorView)
+        controller.hide(WindowInsetsCompat.Type.systemBars())
+        controller.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+    } else {
+        @Suppress("DEPRECATION")
+        window.clearFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN)
+        window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        val decorView = window.decorView
+        var uiOptions = decorView.systemUiVisibility
+        if (Build.VERSION.SDK_INT >= 14) {
+            uiOptions = uiOptions or View.SYSTEM_UI_FLAG_LOW_PROFILE
+        }
+        if (Build.VERSION.SDK_INT >= 16) {
+            uiOptions = uiOptions or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+        }
+        if (Build.VERSION.SDK_INT >= 19) {
+            uiOptions = uiOptions or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+        }
+        decorView.systemUiVisibility = uiOptions
     }
-    if (Build.VERSION.SDK_INT >= 16) {
-        uiOptions = uiOptions or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-    }
-    if (Build.VERSION.SDK_INT >= 19) {
-        uiOptions = uiOptions or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-    }
-    decorView.systemUiVisibility = uiOptions
 }
 
-@SuppressLint("ObsoleteSdkInt")
 fun Activity.showDefaultControls(
 ) {
     val window = this.window ?: return
-    window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
-    window.addFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN)
-    val decorView = window.decorView
-    var uiOptions = decorView.systemUiVisibility
-    if (Build.VERSION.SDK_INT >= 14) {
-        uiOptions = uiOptions and View.SYSTEM_UI_FLAG_LOW_PROFILE.inv()
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        val controller = WindowCompat.getInsetsController(window, window.decorView)
+        controller.show(WindowInsetsCompat.Type.systemBars())
+    } else {
+        @Suppress("DEPRECATION")
+        window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        window.addFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN)
+        val decorView = window.decorView
+        var uiOptions = decorView.systemUiVisibility
+        if (Build.VERSION.SDK_INT >= 14) {
+            uiOptions = uiOptions and View.SYSTEM_UI_FLAG_LOW_PROFILE.inv()
+        }
+        if (Build.VERSION.SDK_INT >= 16) {
+            uiOptions = uiOptions and View.SYSTEM_UI_FLAG_HIDE_NAVIGATION.inv()
+        }
+        if (Build.VERSION.SDK_INT >= 19) {
+            uiOptions = uiOptions and View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY.inv()
+        }
+        decorView.systemUiVisibility = uiOptions
     }
-    if (Build.VERSION.SDK_INT >= 16) {
-        uiOptions = uiOptions and View.SYSTEM_UI_FLAG_HIDE_NAVIGATION.inv()
-    }
-    if (Build.VERSION.SDK_INT >= 19) {
-        uiOptions = uiOptions and View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY.inv()
-    }
-    decorView.systemUiVisibility = uiOptions
 }
