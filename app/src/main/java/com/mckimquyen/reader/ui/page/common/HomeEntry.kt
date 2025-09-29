@@ -55,6 +55,12 @@ import com.mckimquyen.reader.ui.page.startup.StartupPage
 import com.mckimquyen.reader.ui.theme.AppTheme
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
+import com.mckimquyen.reader.ui.ext.dataStore
+import com.mckimquyen.reader.ui.ext.DataStoreKeys
 
 @OptIn(ExperimentalAnimationApi::class, androidx.compose.material.ExperimentalMaterialApi::class)
 @Composable
@@ -75,7 +81,14 @@ fun HomeEntry(
     }
 
     LaunchedEffect(Unit) {
-        when (context.initialPage) {
+        // Load initial page asynchronously to avoid blocking
+        val initialPage = withContext(Dispatchers.IO) {
+            context.dataStore.data.map { prefs ->
+                prefs[DataStoreKeys.InitialPage.key] ?: 0
+            }.first()
+        }
+
+        when (initialPage) {
             1 -> {
                 navController.navigate(RouteName.FLOW) {
                     launchSingleTop = true
@@ -84,9 +97,16 @@ fun HomeEntry(
             // Other initial pages
         }
 
+        // Load initial filter asynchronously to avoid blocking
+        val initialFilter = withContext(Dispatchers.IO) {
+            context.dataStore.data.map { prefs ->
+                prefs[DataStoreKeys.InitialFilter.key] ?: 2
+            }.first()
+        }
+
         homeViewModel.changeFilter(
             filterUiState.copy(
-                filter = when (context.initialFilter) {
+                filter = when (initialFilter) {
                     0 -> Filter.Starred
                     1 -> Filter.Unread
                     2 -> Filter.All

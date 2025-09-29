@@ -11,6 +11,12 @@ import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
 import com.google.android.play.core.review.ReviewInfo
 import com.google.android.play.core.review.ReviewManagerFactory
 import com.mckimquyen.reader.BuildConfig
@@ -19,7 +25,8 @@ import com.mckimquyen.reader.infrastructure.pref.AccountSettingsProvider
 import com.mckimquyen.reader.infrastructure.pref.LanguagesPref
 import com.mckimquyen.reader.infrastructure.pref.SettingsProvider
 import com.mckimquyen.reader.sdkadbmob.AdMobManager
-import com.mckimquyen.reader.ui.ext.languages
+import com.mckimquyen.reader.ui.ext.dataStore
+import com.mckimquyen.reader.ui.ext.DataStoreKeys
 import com.mckimquyen.reader.ui.page.common.HomeEntry
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Calendar
@@ -92,12 +99,7 @@ class MainActivity : ComponentActivity(), AdMobManager.InterstitialAdListener {
 //        }
 //        Log.i("RLog", "onCreate: ${ProfileInstallerInitializer().create(this)}")
 
-        // Set the language
-        LanguagesPref.fromValue(languages).let {
-            if (it == LanguagesPref.UseDeviceLanguages) return@let
-            it.setLocale(this)
-        }
-
+        // Initialize UI first to avoid ANR
         setContent {
             AccountSettingsProvider(accountDao) {
                 SettingsProvider {
@@ -106,11 +108,31 @@ class MainActivity : ComponentActivity(), AdMobManager.InterstitialAdListener {
             }
         }
 
-        AdMobManager.setCurrentActivity(this)
-        AdMobManager.interstitialListener = this
+        // Initialize language asynchronously to avoid ANR
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                val languagePref = dataStore.data.map { prefs ->
+                    prefs[DataStoreKeys.Languages.key] ?: 0
+                }.first()
 
-//        adView = AdMobManager.loadBanner(this, BuildConfig.ADMOB_BANNER_ID, binding.bannerContainer)
-        AdMobManager.loadInterstitial(this, BuildConfig.ADMOB_INTERSTITIAL_ID)
+                withContext(Dispatchers.Main) {
+                    LanguagesPref.fromValue(languagePref).let {
+                        if (it == LanguagesPref.UseDeviceLanguages) return@let
+                        it.setLocale(this@MainActivity)
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e("RLog", "Error loading language preference: $e")
+                // Use default language if error occurs
+            }
+        }
+
+        // Initialize AdMob asynchronously to avoid blocking
+        lifecycleScope.launch(Dispatchers.IO) {
+            AdMobManager.setCurrentActivity(this@MainActivity)
+            AdMobManager.interstitialListener = this@MainActivity
+            AdMobManager.loadInterstitial(this@MainActivity, BuildConfig.ADMOB_INTERSTITIAL_ID)
+        }
     }
 
 //    private var doubleBackToExitPressedOnce = false
