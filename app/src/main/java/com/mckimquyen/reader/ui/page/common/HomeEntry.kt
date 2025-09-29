@@ -30,7 +30,7 @@ import com.mckimquyen.reader.ui.ext.initialPage
 import com.mckimquyen.reader.ui.ext.isFirstLaunch
 import com.mckimquyen.reader.ui.page.home.HomeViewModel
 import com.mckimquyen.reader.ui.page.home.addsources.AddSourceDetailPage
-import com.mckimquyen.reader.ui.page.home.addsources.AddSourcesPage
+import com.mckimquyen.reader.ui.page.home.addsources.AddSourcesMainPage
 import com.mckimquyen.reader.ui.page.home.feed.FeedsPage
 import com.mckimquyen.reader.ui.page.home.flow.FlowPage
 import com.mckimquyen.reader.ui.page.home.read.ReadingPage
@@ -158,7 +158,7 @@ fun HomeEntry(
                 ReadingPage(navController = navController, homeViewModel = homeViewModel)
             }
             animatedComposable(route = RouteName.ADD_SOURCES) {
-                AddSourcesPage(navController = navController)
+                AddSourcesMainPage(navController = navController)
             }
             animatedComposable(route = "${RouteName.ADD_SOURCES_DETAIL}/{countryCode}") { backStackEntry ->
                 val countryCode = backStackEntry.arguments?.getString("countryCode") ?: "en"

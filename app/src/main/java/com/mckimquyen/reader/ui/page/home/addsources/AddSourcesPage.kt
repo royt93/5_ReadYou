@@ -38,7 +38,12 @@ fun AddSourcesPage(
 }
 
 @Composable
-private fun CountriesList(navController: NavHostController) {
+fun AddSourcesMainPage(navController: NavHostController) {
+    CountriesList(navController = navController)
+}
+
+@Composable
+fun CountriesList(navController: NavHostController) {
     val countries = listOf(
         CountryItem("🇺🇸", "English", "en"),
         CountryItem("🇻🇳", "Tiếng Việt", "vi")

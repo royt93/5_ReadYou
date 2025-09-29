@@ -306,12 +306,19 @@ fun FeedsPage(
                 filterBarPadding = filterBarPadding.dp,
                 filterBarTonalElevation = filterBarTonalElevation.value.dp,
             ) {
-                filterChange(
-                    navController = navController,
-                    homeViewModel = homeViewModel,
-                    filterState = filterUiState.copy(filter = it),
-                    isNavigate = false,
-                )
+                // Nếu user tap vào AddSources tab, cần navigate đến trang CountriesList
+                if (it.isAddSources()) {
+                    navController.navigate(RouteName.ADD_SOURCES) {
+                        launchSingleTop = true
+                    }
+                } else {
+                    filterChange(
+                        navController = navController,
+                        homeViewModel = homeViewModel,
+                        filterState = filterUiState.copy(filter = it),
+                        isNavigate = false,
+                    )
+                }
             }
         }
     )

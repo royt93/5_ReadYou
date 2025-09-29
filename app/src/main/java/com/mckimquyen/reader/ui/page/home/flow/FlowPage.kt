@@ -285,16 +285,23 @@ fun FlowPage(
                 filterBarPadding = filterBarPadding.dp,
                 filterBarTonalElevation = filterBarTonalElevation.value.dp,
             ) {
-                scope.launch {
-                    // java.lang.NullPointerException: Attempt to invoke virtual method
-                    // 'boolean androidx.compose.ui.node.LayoutNode.getNeedsOnPositionedDispatch$ui_release()'
-                    // on a null object reference
-                    if (flowUiState.listState.firstVisibleItemIndex != 0) {
-                        flowUiState.listState.scrollToItem(0)
+                // Nếu user tap vào AddSources tab, cần navigate đến trang CountriesList
+                if (it.isAddSources()) {
+                    navController.navigate(RouteName.ADD_SOURCES) {
+                        launchSingleTop = true
                     }
+                } else {
+                    scope.launch {
+                        // java.lang.NullPointerException: Attempt to invoke virtual method
+                        // 'boolean androidx.compose.ui.node.LayoutNode.getNeedsOnPositionedDispatch$ui_release()'
+                        // on a null object reference
+                        if (flowUiState.listState.firstVisibleItemIndex != 0) {
+                            flowUiState.listState.scrollToItem(0)
+                        }
+                    }
+                    homeViewModel.changeFilter(filterUiState.copy(filter = it))
+                    homeViewModel.fetchArticles()
                 }
-                homeViewModel.changeFilter(filterUiState.copy(filter = it))
-                homeViewModel.fetchArticles()
             }
         }
     )
