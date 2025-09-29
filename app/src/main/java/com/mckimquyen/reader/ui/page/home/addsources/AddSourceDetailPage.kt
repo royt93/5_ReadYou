@@ -10,7 +10,6 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -65,7 +64,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.text.font.FontWeight
@@ -443,14 +441,7 @@ private fun SourceItem(
     enabled: Boolean = true, // Có cho phép tương tác không
     onAddClick: () -> Unit, // Callback khi nhấn thêm
 ) {
-    // Animation cho opacity khi chuyển trạng thái
-    val alpha by animateFloatAsState(
-        targetValue = if (isAdded) 0.85f else 1f,
-        animationSpec = spring(
-            dampingRatio = Spring.DampingRatioMediumBouncy,
-            stiffness = Spring.StiffnessMedium
-        )
-    )
+    // Bỏ alpha animation - giữ opacity 1f cho tất cả items
 
     // Animation cho elevation
     val elevation by animateFloatAsState(
@@ -464,21 +455,15 @@ private fun SourceItem(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .alpha(alpha) // Áp dụng animation alpha
             .animateContentSize(
                 animationSpec = tween(durationMillis = 300)
             ) // Animation khi thay đổi kích thước
             .clickable(enabled = enabled) { onAddClick() },
-        shape = RoundedCornerShape(16.dp), // Sử dụng shape thay vì clip để giữ border
+        shape = RoundedCornerShape(16.dp),
         elevation = CardDefaults.cardElevation(
             defaultElevation = elevation.dp
         ),
-        border = if (isAdded) {
-            BorderStroke(
-                width = 1.dp,
-                color = MaterialTheme.colorScheme.primary.copy(alpha = 0.5f)
-            )
-        } else null,
+        border = null, // Bỏ hoàn toàn border cho tất cả items
         colors = CardDefaults.cardColors(
             containerColor = when {
                 isAdded -> MaterialTheme.colorScheme.surface
