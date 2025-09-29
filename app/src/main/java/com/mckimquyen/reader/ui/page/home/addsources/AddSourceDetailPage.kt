@@ -181,8 +181,11 @@ fun AddSourceDetailPage(
                         addedSources = uiState.addedSources,
                         loadingSourceUrl = loadingSourceUrl,
                         onAddSource = { source ->
-                            selectedSource = source
-                            showConfirmDialog = true
+                            // Chỉ cho phép add nếu không có item nào đang loading
+                            if (loadingSourceUrl == null) {
+                                selectedSource = source
+                                showConfirmDialog = true
+                            }
                         }
                     )
                 }
@@ -291,6 +294,8 @@ private fun SourcesList(
 
     // Tạo list item states - GIỮ NGUYÊN THỨ TỰ GỐC
     val itemStates = remember(sources, addedSources, loadingSourceUrl) {
+        val hasAnyLoading = loadingSourceUrl != null // Kiểm tra có item nào đang loading
+
         sources.map { source ->
             val isAdded = addedSources.contains(source.link)
             val isLoading = loadingSourceUrl == source.link
@@ -298,7 +303,8 @@ private fun SourcesList(
                 source = source,
                 isAdded = isAdded,
                 isLoading = isLoading,
-                isEnabled = !isAdded && !isLoading
+                // Nếu có item nào đang loading thì tất cả items khác sẽ disabled
+                isEnabled = !isAdded && !hasAnyLoading
             )
         }
     }
@@ -433,7 +439,7 @@ private fun SourceItem(
                                 else -> MaterialTheme.colorScheme.surfaceVariant
                             }
                         )
-                        .clickable(enabled = enabled && !isLoading) { onAddClick() },
+                        .clickable(enabled = enabled) { onAddClick() },
                     contentAlignment = Alignment.Center
                 ) {
                     when {
@@ -455,13 +461,13 @@ private fun SourceItem(
                             )
                         }
                         else -> {
-                            // Icon add
+                            // Icon add - màu xám khi disabled
                             Icon(
                                 imageVector = Icons.Rounded.Add,
                                 contentDescription = "Add Source",
                                 modifier = Modifier.size(20.dp),
                                 tint = if (enabled) MaterialTheme.colorScheme.onPrimary
-                                else MaterialTheme.colorScheme.onSurfaceVariant
+                                else MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
                             )
                         }
                     }
