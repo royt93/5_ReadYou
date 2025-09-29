@@ -17,10 +17,12 @@ import com.mckimquyen.reader.domain.model.account.SyncOnStartConverters
 import com.mckimquyen.reader.domain.model.account.SyncOnlyOnWiFiConverters
 import com.mckimquyen.reader.domain.model.account.SyncOnlyWhenChargingConverters
 import com.mckimquyen.reader.domain.model.account.sec.DESUtils
+import com.mckimquyen.reader.domain.model.addedsource.AddedRssSource
 import com.mckimquyen.reader.domain.model.article.Article
 import com.mckimquyen.reader.domain.model.feed.Feed
 import com.mckimquyen.reader.domain.model.group.Group
 import com.mckimquyen.reader.domain.repository.AccountDao
+import com.mckimquyen.reader.domain.repository.AddedRssSourceDao
 import com.mckimquyen.reader.domain.repository.ArticleDao
 import com.mckimquyen.reader.domain.repository.FeedDao
 import com.mckimquyen.reader.domain.repository.GroupDao
@@ -38,8 +40,9 @@ import java.util.Date
         Feed::class,
         Article::class,
         Group::class,
+        AddedRssSource::class,
     ],
-    version = 5
+    version = 6
 )
 @TypeConverters(
     AndroidDatabase.DateConverters::class,
@@ -57,6 +60,7 @@ abstract class AndroidDatabase : RoomDatabase() {
     abstract fun feedDao(): FeedDao
     abstract fun articleDao(): ArticleDao
     abstract fun groupDao(): GroupDao
+    abstract fun addedRssSourceDao(): AddedRssSourceDao
 
     companion object {
 
@@ -94,6 +98,7 @@ val allMigrations = arrayOf(
     MIGRATION_2_3,
     MIGRATION_3_4,
     MIGRATION_4_5,
+    MIGRATION_5_6,
 )
 
 @Suppress("ClassName")
@@ -169,6 +174,27 @@ object MIGRATION_4_5 : Migration(4, 5) {
         database.execSQL(
             """
             ALTER TABLE account ADD COLUMN lastArticleId TEXT DEFAULT NULL
+            """.trimIndent()
+        )
+    }
+}
+
+@Suppress("ClassName")
+object MIGRATION_5_6 : Migration(5, 6) {
+    override fun migrate(database: SupportSQLiteDatabase) {
+        database.execSQL(
+            """
+            CREATE TABLE IF NOT EXISTS added_rss_source (
+                url TEXT NOT NULL PRIMARY KEY,
+                name TEXT NOT NULL,
+                addedAt INTEGER NOT NULL,
+                accountId INTEGER NOT NULL
+            )
+            """.trimIndent()
+        )
+        database.execSQL(
+            """
+            CREATE INDEX IF NOT EXISTS index_added_rss_source_accountId ON added_rss_source(accountId)
             """.trimIndent()
         )
     }

@@ -347,8 +347,14 @@ private fun filterChange(
 ) {
     homeViewModel.changeFilter(filterState)
     if (isNavigate) {
-        navController.navigate(RouteName.FLOW) {
-            launchSingleTop = true
+        if (filterState.filter.isAddSources()) {
+            navController.navigate(RouteName.ADD_SOURCES) {
+                launchSingleTop = true
+            }
+        } else {
+            navController.navigate(RouteName.FLOW) {
+                launchSingleTop = true
+            }
         }
     }
 }

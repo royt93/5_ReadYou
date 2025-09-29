@@ -9,6 +9,8 @@ object RouteName {
     const val FEEDS = "feeds"
     const val FLOW = "flow"
     const val READING = "reading"
+    const val ADD_SOURCES = "add_sources"
+    const val ADD_SOURCES_DETAIL = "add_sources_detail"
 
     // Settings
     const val SETTINGS = "settings"

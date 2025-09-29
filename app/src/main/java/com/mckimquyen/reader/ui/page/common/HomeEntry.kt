@@ -29,6 +29,8 @@ import com.mckimquyen.reader.ui.ext.initialFilter
 import com.mckimquyen.reader.ui.ext.initialPage
 import com.mckimquyen.reader.ui.ext.isFirstLaunch
 import com.mckimquyen.reader.ui.page.home.HomeViewModel
+import com.mckimquyen.reader.ui.page.home.addsources.AddSourceDetailPage
+import com.mckimquyen.reader.ui.page.home.addsources.AddSourcesPage
 import com.mckimquyen.reader.ui.page.home.feed.FeedsPage
 import com.mckimquyen.reader.ui.page.home.flow.FlowPage
 import com.mckimquyen.reader.ui.page.home.read.ReadingPage
@@ -88,6 +90,7 @@ fun HomeEntry(
                     0 -> Filter.Starred
                     1 -> Filter.Unread
                     2 -> Filter.All
+                    3 -> Filter.AddSources
                     else -> Filter.All
                 }
             )
@@ -153,6 +156,13 @@ fun HomeEntry(
             }
             animatedComposable(route = "${RouteName.READING}/{articleId}") {
                 ReadingPage(navController = navController, homeViewModel = homeViewModel)
+            }
+            animatedComposable(route = RouteName.ADD_SOURCES) {
+                AddSourcesPage(navController = navController)
+            }
+            animatedComposable(route = "${RouteName.ADD_SOURCES_DETAIL}/{countryCode}") { backStackEntry ->
+                val countryCode = backStackEntry.arguments?.getString("countryCode") ?: "en"
+                AddSourceDetailPage(navController = navController, countryCode = countryCode)
             }
 
             // Settings

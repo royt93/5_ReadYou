@@ -1,0 +1,58 @@
+{
+  "en": [
+    {
+      "name": "Global News",
+      "link": "https://globalnews.ca/feed/"
+    },
+    {
+      "name": "BBC News - World",
+      "link": "https://feeds.bbci.co.uk/news/world/rss.xml"
+    },
+    {
+      "name": "CNN - Top Stories",
+      "link": "http://rss.cnn.com/rss/edition.rss"
+    },
+    {
+      "name": "Reuters - World News",
+      "link": "https://feeds.reuters.com/reuters/worldNews"
+    },
+    {
+      "name": "TechCrunch",
+      "link": "https://techcrunch.com/feed/"
+    },
+    {
+      "name": "The Verge",
+      "link": "https://www.theverge.com/rss/index.xml"
+    },
+    {
+      "name": "Ars Technica",
+      "link": "https://feeds.arstechnica.com/arstechnica/index"
+    },
+    {
+      "name": "Hacker News",
+      "link": "https://hnrss.org/frontpage"
+    }
+  ],
+  "vi": [
+    {
+      "name": "VnExpress",
+      "link": "https://vnexpress.net/rss/tin-moi-nhat.rss"
+    },
+    {
+      "name": "Dân Trí",
+      "link": "https://dantri.com.vn/rss.htm"
+    },
+    {
+      "name": "Thanh Niên",
+      "link": "https://thanhnien.vn/rss.html"
+    },
+    {
+      "name": "VietnamNet",
+      "link": "https://vietnamnet.vn/rss/home.rss"
+    },
+    {
+      "name": "Zing News",
+      "link": "https://zingnews.vn/rss"
+    }
+  ]
+}
