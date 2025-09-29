@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AndroidLayouts">
+    <shared>
+      <config />
+    </shared>
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6f28f826-4208-4800-b7bf-3c32f11fba88" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/appInsightsSettings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="6f28f826-4208-4800-b7bf-3c32f11fba88" name="Changes" comment="Suppress unsupported compile SDK warning&#10;&#10;This commit changes the `gradle.properties` file.&#10;- The `android.defaults.buildfeatures.buildconfig=true` line is removed.&#10;- A new line, `android.suppressUnsupportedCompileSdk=36`, is added. This suppresses warnings when using a compile SDK version that is not yet fully supported by the Android Gradle Plugin.">
+      <change beforePath="$PROJECT_DIR$/.claude/settings.local.json" beforeDir="false" afterPath="$PROJECT_DIR$/.claude/settings.local.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/proguard-rules.pro" beforeDir="false" afterPath="$PROJECT_DIR$/app/proguard-rules.pro" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_launcher_960.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,7 +23,7 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=PhysicalDevice, isTemplate=false, identifier=serial=10CEA5016Z0012X)]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -32,9 +32,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 6
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
   <component name="ProjectId" id="33KUbG1RmLnWOWhazByAOFjBEnu" />
   <component name="ProjectViewState">
     <option name="abbreviatePackageNames" value="true" />
@@ -44,6 +44,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Android App.app.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.cidr.known.project.marker": "true",
@@ -139,6 +140,44 @@
       <option name="presentableId" value="Default" />
       <updated>1759065326374</updated>
     </task>
+    <task id="LOCAL-00001" summary="Update SDK and IDE configuration files&#10;&#10;This commit updates the SDK versions and various IDE configuration files.&#10;&#10;- Incremented `compileSdk` from 35 to 36 and `targetSdk` from 35 to 36 in `app/build.gradle`.&#10;- Updated `versionCode` to 20250929 and `versionName` to &quot;2025.09.29&quot; in `app/build.gradle`.&#10;- Changed `gradleJvm` from `openjdk-20` to `#GRADLE_LOCAL_JAVA_HOME` in `.idea/gradle.xml`.&#10;- Updated JDK version from 20 to 21 in `.idea/misc.xml` and from 20 to 21 in `.idea/compiler.xml`.&#10;- Modified `.idea/caches/deviceStreaming.xml` to update the list of persistent device selection data.&#10;- Added `.idea/workspace.xml` and `.claude/settings.local.json`.&#10;- Removed `.idea/.gitignore`, `.idea/appInsightsSettings.xml`, `.idea/inspectionProfiles/Project_Default.xml`, and `.idea/icon.png`.&#10;- Updated `.idea/vcs.xml` to include a new mapping for the project directory.">
+      <option name="closed" value="true" />
+      <created>1759131489787</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1759131489787</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Suppress unsupported compile SDK warning&#10;&#10;This commit changes the `gradle.properties` file.&#10;- The `android.defaults.buildfeatures.buildconfig=true` line is removed.&#10;- A new line, `android.suppressUnsupportedCompileSdk=36`, is added. This suppresses warnings when using a compile SDK version that is not yet fully supported by the Android Gradle Plugin.">
+      <option name="closed" value="true" />
+      <created>1759131615374</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1759131615374</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Update SDK and IDE configuration files&#10;&#10;This commit updates the SDK versions and various IDE configuration files.&#10;&#10;- Incremented `compileSdk` from 35 to 36 and `targetSdk` from 35 to 36 in `app/build.gradle`.&#10;- Updated `versionCode` to 20250929 and `versionName` to &quot;2025.09.29&quot; in `app/build.gradle`.&#10;- Changed `gradleJvm` from `openjdk-20` to `#GRADLE_LOCAL_JAVA_HOME` in `.idea/gradle.xml`.&#10;- Updated JDK version from 20 to 21 in `.idea/misc.xml` and from 20 to 21 in `.idea/compiler.xml`.&#10;- Modified `.idea/caches/deviceStreaming.xml` to update the list of persistent device selection data.&#10;- Added `.idea/workspace.xml` and `.claude/settings.local.json`.&#10;- Removed `.idea/.gitignore`, `.idea/appInsightsSettings.xml`, `.idea/inspectionProfiles/Project_Default.xml`, and `.idea/icon.png`.&#10;- Updated `.idea/vcs.xml` to include a new mapping for the project directory." />
+    <MESSAGE value="Suppress unsupported compile SDK warning&#10;&#10;This commit changes the `gradle.properties` file.&#10;- The `android.defaults.buildfeatures.buildconfig=true` line is removed.&#10;- A new line, `android.suppressUnsupportedCompileSdk=36`, is added. This suppresses warnings when using a compile SDK version that is not yet fully supported by the Android Gradle Plugin." />
+    <option name="LAST_COMMIT_MESSAGE" value="Suppress unsupported compile SDK warning&#10;&#10;This commit changes the `gradle.properties` file.&#10;- The `android.defaults.buildfeatures.buildconfig=true` line is removed.&#10;- A new line, `android.suppressUnsupportedCompileSdk=36`, is added. This suppresses warnings when using a compile SDK version that is not yet fully supported by the Android Gradle Plugin." />
+  </component>
+  <component name="play_dynamic_filters_status">
+    <option name="appIdToCheckInfo">
+      <map>
+        <entry key="com.mckimquyen.reader">
+          <value>
+            <CheckInfo lastCheckTimestamp="1759132100283" />
+          </value>
+        </entry>
+        <entry key="com.mckimquyen.reader.test">
+          <value>
+            <CheckInfo lastCheckTimestamp="1759132100283" />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

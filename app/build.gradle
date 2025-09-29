@@ -30,6 +30,9 @@ android {
             useSupportLibrary true
         }
 
+        // Keep only major languages to reduce APK size
+        resourceConfigurations += ['en', 'vi', 'zh-rCN', 'ja', 'fr', 'de', 'es', 'ru']
+
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments += [
@@ -76,8 +79,8 @@ android {
 
             signingConfig signingConfigs.release
             debuggable false
-            minifyEnabled false
-//            shrinkResources false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -107,6 +110,17 @@ android {
     packagingOptions {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            excludes += "/META-INF/*.kotlin_module"
+            excludes += "/META-INF/DEPENDENCIES"
+            excludes += "/META-INF/LICENSE*"
+            excludes += "/META-INF/NOTICE*"
+            excludes += "/META-INF/*.properties"
+            excludes += "/META-INF/*.version"
+            excludes += "/*.properties"
+            excludes += "DebugProbesKt.bin"
+        }
+        jniLibs {
+            useLegacyPackaging = false
         }
     }
 }

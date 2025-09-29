@@ -26,10 +26,14 @@
 -keep class kotlinx.coroutines.CoroutineExceptionHandler
 -keep class kotlinx.coroutines.internal.MainDispatcherFactory
 
-# ksoap2 XmlPullParser confusion
+# XML Parser fixes
 -dontwarn org.xmlpull.v1.XmlPullParser
 -dontwarn org.xmlpull.v1.XmlSerializer
 -keep class org.xmlpull.v1.* {*;}
+-dontwarn org.kxml2.io.**
+-keep class org.kxml2.io.** {*;}
+-dontwarn javax.xml.**
+-keep class javax.xml.** {*;}
 
 # Rome
 -keep class com.rometools.** { *; }
@@ -37,3 +41,38 @@
 # Provider API
 -keep class me.ash.reader.infrastructure.** { *; }
 -keep class com.mckimquyen.reader.data.provider.** { *; }
+
+# Compose
+-keep class androidx.compose.** { *; }
+-dontwarn androidx.compose.**
+
+# AdMob
+-keep class com.google.android.gms.ads.** { *; }
+-dontwarn com.google.android.gms.ads.**
+
+# Kotlin Coroutines
+-keepnames class kotlinx.coroutines.internal.MainDispatcherFactory {}
+-keepnames class kotlinx.coroutines.CoroutineExceptionHandler {}
+
+# Retrofit & OkHttp
+-keep class retrofit2.** { *; }
+-keep class okhttp3.** { *; }
+-dontwarn retrofit2.**
+-dontwarn okhttp3.**
+
+# Models/DTOs - keep all data classes
+-keep class com.mckimquyen.reader.domain.model.** { *; }
+-keep class com.mckimquyen.reader.data.model.** { *; }
+
+# Hilt
+-keep class dagger.hilt.** { *; }
+-keep class * extends dagger.hilt.android.lifecycle.HiltViewModel { *; }
+
+# Room
+-keep class * extends androidx.room.RoomDatabase { *; }
+-keep @androidx.room.Entity class *
+-keep @androidx.room.Dao class *
+
+# Coil
+-keep class coil.** { *; }
+-dontwarn coil.**
