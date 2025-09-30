@@ -99,6 +99,13 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
+
+    // Fix KAPT compatibility with newer Java versions
+    tasks.withType(org.jetbrains.kotlin.gradle.internal.KaptGenerateStubsTask).configureEach {
+        kotlinOptions {
+            jvmTarget = "17"
+        }
+    }
     buildFeatures {
         compose true
 //        viewBinding true

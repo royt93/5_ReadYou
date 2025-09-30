@@ -50,9 +50,22 @@
 -dontwarn android.content.res.XmlResourceParser
 
 # Allow R8 to optimize while keeping essential functionality
--keep,allowshrinking,allowobfuscation class com.rometools.rome.feed.** { *; }
--keep,allowshrinking,allowobfuscation class com.rometools.rome.io.** { *; }
--keep,allowshrinking,allowobfuscation class com.rometools.modules.** { *; }
+-keep class com.rometools.rome.feed.** { *; }
+-keep class com.rometools.rome.io.** { *; }
+-keep class com.rometools.modules.** { *; }
+
+# Keep Rome RSS parser plugins - fix ClassNotFoundException
+-keep class com.rometools.rome.feed.synd.impl.** { *; }
+-keep class com.rometools.rome.feed.atom.** { *; }
+-keep class com.rometools.rome.feed.rss.** { *; }
+
+# Keep ServiceLoader implementations
+-keepclassmembers class * {
+    *** newInstance();
+}
+-keep class * implements com.rometools.rome.feed.synd.Converter { *; }
+-keep class * implements com.rometools.rome.io.ModuleParser { *; }
+-keep class * implements com.rometools.rome.io.ModuleGenerator { *; }
 
 # Keep XML interfaces minimal
 -keep,allowobfuscation interface org.xmlpull.v1.XmlPullParser { *; }
