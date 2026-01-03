@@ -20,14 +20,16 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Language
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.CheckCircle
+import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.Error
 import androidx.compose.material.icons.rounded.Link
+import androidx.compose.material.icons.rounded.Search
+import androidx.compose.material.icons.rounded.SearchOff
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
@@ -43,6 +45,7 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
@@ -84,6 +87,7 @@ fun AddSourceDetailPage(
 ) {
     // Trạng thái UI và các biến điều khiển
     val uiState by viewModel.uiState.collectAsState() // Trạng thái UI từ ViewModel
+    val searchQuery by viewModel.searchQuery.collectAsState() // Search query từ ViewModel
     val scope = rememberCoroutineScope() // Scope cho coroutine
     val snackbarHostState = remember { SnackbarHostState() } // Trạng thái snackbar
     var showConfirmDialog by remember { mutableStateOf(false) } // Hiển thị dialog xác nhận
@@ -156,39 +160,55 @@ fun AddSourceDetailPage(
                     )
                 )
         ) {
-            when {
-                uiState.loading -> {
-                    // Hiển thị loading đơn giản
-                    Box(
-                        modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        CircularProgressIndicator(
-                            color = MaterialTheme.colorScheme.primary
+            Column(modifier = Modifier.fillMaxSize()) {
+                // Search Bar
+                RssSearchField(
+                    query = searchQuery,
+                    onQueryChange = { viewModel.updateSearchQuery(it) },
+                    onClearClick = { viewModel.clearSearch() },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 8.dp)
+                )
+
+                when {
+                    uiState.loading -> {
+                        // Hiển thị loading đơn giản
+                        Box(
+                            modifier = Modifier.fillMaxSize(),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            CircularProgressIndicator(
+                                color = MaterialTheme.colorScheme.primary
+                            )
+                        }
+                    }
+
+                    uiState.error != null -> {
+                        ErrorContent(
+                            error = uiState.error ?: "Unknown error",
+                            onRetry = { viewModel.loadSourcesByCountry(countryCode) }
                         )
                     }
-                }
 
-                uiState.error != null -> {
-                    ErrorContent(
-                        error = uiState.error ?: "Unknown error",
-                        onRetry = { viewModel.loadSourcesByCountry(countryCode) }
-                    )
-                }
-
-                else -> {
-                    SourcesList(
-                        sources = uiState.rssSources,
-                        addedSources = uiState.addedSources,
-                        loadingSourceUrl = loadingSourceUrl,
-                        onAddSource = { source ->
-                            // Chỉ cho phép add nếu không có item nào đang loading
-                            if (loadingSourceUrl == null) {
-                                selectedSource = source
-                                showConfirmDialog = true
-                            }
+                    else -> {
+                        if (uiState.filteredSources.isEmpty()) {
+                            EmptyStateContent(searchQuery = searchQuery)
+                        } else {
+                            SourcesList(
+                                sources = uiState.filteredSources,
+                                addedSources = uiState.addedSources,
+                                loadingSourceUrl = loadingSourceUrl,
+                                onAddSource = { source ->
+                                    // Chỉ cho phép add nếu không có item nào đang loading
+                                    if (loadingSourceUrl == null) {
+                                        selectedSource = source
+                                        showConfirmDialog = true
+                                    }
+                                }
+                            )
                         }
-                    )
+                    }
                 }
             }
         }
@@ -228,6 +248,87 @@ fun AddSourceDetailPage(
                 }
             )
         }
+    }
+}
+
+@Composable
+private fun EmptyStateContent(searchQuery: String) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(horizontal = 32.dp)
+            .padding(top = 56.dp)
+    ) {
+        Icon(
+            imageVector = if (searchQuery.isNotEmpty()) Icons.Rounded.SearchOff else Icons.Rounded.Error,
+            contentDescription = "Empty",
+            modifier = Modifier.size(80.dp),
+            tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f)
+        )
+        Spacer(modifier = Modifier.height(24.dp))
+        Text(
+            text = if (searchQuery.isNotEmpty()) "No results found" else "No RSS sources available",
+            style = MaterialTheme.typography.headlineSmall,
+            fontWeight = FontWeight.SemiBold,
+            color = MaterialTheme.colorScheme.onSurface,
+            textAlign = TextAlign.Center
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(
+            text = if (searchQuery.isNotEmpty()) {
+                "Try searching with different keywords"
+            } else {
+                "No sources found for this country"
+            },
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
+            textAlign = TextAlign.Center
+        )
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun RssSearchField(
+    query: String,
+    onQueryChange: (String) -> Unit,
+    onClearClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Box(
+        modifier = modifier
+            .clip(RoundedCornerShape(16.dp))
+            .background(MaterialTheme.colorScheme.surfaceVariant)
+    ) {
+        TextField(
+            value = query,
+            onValueChange = onQueryChange,
+            modifier = Modifier.fillMaxWidth(),
+            placeholder = {
+                Text(
+                    text = "Search RSS sources...",
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            },
+            leadingIcon = {
+                Icon(
+                    imageVector = Icons.Rounded.Search,
+                    contentDescription = "Search"
+                )
+            },
+            trailingIcon = {
+                if (query.isNotEmpty()) {
+                    IconButton(onClick = onClearClick) {
+                        Icon(
+                            imageVector = Icons.Rounded.Close,
+                            contentDescription = "Clear"
+                        )
+                    }
+                }
+            },
+            singleLine = true
+        )
     }
 }
 
@@ -305,7 +406,7 @@ private fun SourcesList(
 
     LazyColumn(
         state = listState,
-        modifier = Modifier.padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 0.dp)
+        modifier = Modifier.padding(start = 16.dp, top = 0.dp, end = 16.dp, bottom = 0.dp)
     ) {
         items(
             items = itemStates,

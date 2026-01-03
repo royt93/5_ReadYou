@@ -11,15 +11,18 @@ import com.mckimquyen.reader.domain.sv.AccountSv
 import com.mckimquyen.reader.domain.sv.RssSv
 import com.mckimquyen.reader.infrastructure.rss.RssHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import java.util.UUID
 import javax.inject.Inject
 
+@OptIn(FlowPreview::class)
 @HiltViewModel
 class AddSourcesViewModel @Inject constructor(
     private val rssSourceRepository: RssSourceRepository,
@@ -31,6 +34,47 @@ class AddSourcesViewModel @Inject constructor(
 
     private val _uiState = MutableStateFlow(AddSourcesUiState())
     val uiState: StateFlow<AddSourcesUiState> = _uiState.asStateFlow()
+
+    private val _searchQuery = MutableStateFlow("")
+    val searchQuery: StateFlow<String> = _searchQuery.asStateFlow()
+
+    init {
+        // Debounce search query với delay 300ms
+        viewModelScope.launch {
+            _searchQuery
+                .debounce(300)
+                .collect { query ->
+                    filterSources(query)
+                }
+        }
+    }
+
+    fun updateSearchQuery(query: String) {
+        _searchQuery.value = query
+    }
+
+    fun clearSearch() {
+        _searchQuery.value = ""
+    }
+
+    private fun filterSources(query: String) {
+        val currentState = _uiState.value
+        if (query.isBlank()) {
+            // Nếu query rỗng, hiển thị tất cả sources
+            _uiState.value = currentState.copy(
+                filteredSources = currentState.rssSources
+            )
+        } else {
+            // Filter sources theo tên hoặc link
+            val filtered = currentState.rssSources.filter { source ->
+                source.name.contains(query, ignoreCase = true) ||
+                source.link.contains(query, ignoreCase = true)
+            }
+            _uiState.value = currentState.copy(
+                filteredSources = filtered
+            )
+        }
+    }
 
     fun loadSourcesByCountry(countryCode: String) {
         viewModelScope.launch {
@@ -44,9 +88,12 @@ class AddSourcesViewModel @Inject constructor(
                 _uiState.value = _uiState.value.copy(
                     loading = false,
                     rssSources = sources,
+                    filteredSources = sources,
                     addedSources = addedSourceUrls,
                     error = null
                 )
+                // Apply current search filter nếu có
+                filterSources(_searchQuery.value)
             } catch (e: Exception) {
                 _uiState.value = _uiState.value.copy(
                     loading = false,
@@ -135,6 +182,7 @@ class AddSourcesViewModel @Inject constructor(
 data class AddSourcesUiState(
     val loading: Boolean = false,
     val rssSources: List<RssSource> = emptyList(),
+    val filteredSources: List<RssSource> = emptyList(),
     val addedSources: List<String> = emptyList(),
     val error: String? = null
 )
