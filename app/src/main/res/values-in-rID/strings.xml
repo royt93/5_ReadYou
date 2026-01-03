@@ -256,4 +256,36 @@
     <string name="default_browser">Paksakan peramban bawaan</string>
     <string name="open_link_something_wrong">Pengaturan \"Buka Tautan\" diabaikan karena ada yang salah.</string>
     <string name="open_link_specific_browser_not_selected">Tidak ada</string>
+
+    <!-- Add Sources Page -->
+    <string name="explore_rss_sources">Jelajahi sumber RSS</string>
+    <string name="english_sources">Sumber Bahasa Inggris</string>
+    <string name="vietnamese_sources">Sumber Bahasa Vietnam</string>
+    <string name="japanese_sources">Sumber Bahasa Jepang</string>
+    <string name="korean_sources">Sumber Bahasa Korea</string>
+    <string name="chinese_sources">Sumber Bahasa Mandarin</string>
+    <string name="indonesian_sources">Sumber Bahasa Indonesia</string>
+    <string name="thai_sources">Sumber Bahasa Thailand</string>
+    <string name="french_sources">Sumber Bahasa Prancis</string>
+    <string name="german_sources">Sumber Bahasa Jerman</string>
+    <string name="spanish_sources">Sumber Bahasa Spanyol</string>
+    <string name="portuguese_sources">Sumber Bahasa Portugis</string>
+    <string name="arabic_sources">Sumber Bahasa Arab</string>
+
+    <!-- Add Source Detail Page -->
+    <string name="add_rss_source">Tambah Sumber RSS</string>
+    <string name="add_source_confirm_message">Apakah Anda ingin menambahkan sumber RSS ini ke feed Anda?</string>
+    <string name="add_source">Tambah Sumber</string>
+    <string name="rss_feed_added_successfully">Feed RSS berhasil ditambahkan!</string>
+    <string name="add_rss_source_failed">Gagal menambahkan sumber RSS</string>
+    <string name="add_rss_source_error">Kesalahan saat menambahkan sumber RSS: %1$s</string>
+    <string name="search_rss_sources">Cari sumber RSS…</string>
+    <string name="no_results_found">Tidak ada hasil ditemukan</string>
+    <string name="try_different_keywords">Coba cari dengan kata kunci lain</string>
+    <string name="no_rss_sources_available">Tidak ada sumber RSS tersedia</string>
+    <string name="no_sources_for_country">Tidak ada sumber untuk negara ini</string>
+    <string name="oops_something_wrong">Ups! Terjadi kesalahan</string>
+    <string name="try_again">Coba Lagi</string>
+    <string name="already_added">Sudah Ditambahkan</string>
+    <string name="add_new_source">Tambah Sumber</string>
 </resources>

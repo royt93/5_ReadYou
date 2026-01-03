@@ -261,4 +261,36 @@
     <string name="default_browser">Navegador por defecto</string>
     <string name="open_link_something_wrong">\"Abrir enlace\" ignorado porque algo ha ido mal.</string>
     <string name="open_link_specific_browser_not_selected">Ninguno</string>
+
+    <!-- Add Sources Page -->
+    <string name="explore_rss_sources">Explorar fuentes RSS</string>
+    <string name="english_sources">Fuentes en inglés</string>
+    <string name="vietnamese_sources">Fuentes en vietnamita</string>
+    <string name="japanese_sources">Fuentes en japonés</string>
+    <string name="korean_sources">Fuentes en coreano</string>
+    <string name="chinese_sources">Fuentes en chino</string>
+    <string name="indonesian_sources">Fuentes en indonesio</string>
+    <string name="thai_sources">Fuentes en tailandés</string>
+    <string name="french_sources">Fuentes en francés</string>
+    <string name="german_sources">Fuentes en alemán</string>
+    <string name="spanish_sources">Fuentes en español</string>
+    <string name="portuguese_sources">Fuentes en portugués</string>
+    <string name="arabic_sources">Fuentes en árabe</string>
+
+    <!-- Add Source Detail Page -->
+    <string name="add_rss_source">Añadir fuente RSS</string>
+    <string name="add_source_confirm_message">¿Desea añadir esta fuente RSS a sus feeds?</string>
+    <string name="add_source">Añadir fuente</string>
+    <string name="rss_feed_added_successfully">¡Feed RSS añadido correctamente!</string>
+    <string name="add_rss_source_failed">Error al añadir la fuente RSS</string>
+    <string name="add_rss_source_error">Error al añadir la fuente RSS: %1$s</string>
+    <string name="search_rss_sources">Buscar fuentes RSS…</string>
+    <string name="no_results_found">No se encontraron resultados</string>
+    <string name="try_different_keywords">Prueba con otras palabras clave</string>
+    <string name="no_rss_sources_available">No hay fuentes RSS disponibles</string>
+    <string name="no_sources_for_country">No se encontraron fuentes para este país</string>
+    <string name="oops_something_wrong">¡Ups! Algo salió mal</string>
+    <string name="try_again">Intentar de nuevo</string>
+    <string name="already_added">Ya añadida</string>
+    <string name="add_new_source">Añadir fuente</string>
 </resources>

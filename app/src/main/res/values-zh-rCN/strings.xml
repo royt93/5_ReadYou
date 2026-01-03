@@ -246,10 +246,34 @@
     <string name="auto_default_browser">自动（偏好默认浏览器）</string>
     <string name="always_ask">始终询问</string>
     <string name="specific_browser_name">浏览器：%1$s</string>
-    <string name="specific_browser">强制使用特定浏览器</string>
-    <string name="initial_open_app">单击链接打开应用</string>
-    <string name="auto_customtabs">自动（偏好自定义标签页）</string>
-    <string name="default_browser">强制使用默认浏览器</string>
-    <string name="open_link_something_wrong">“打开链接”设置被忽略，因为出现了错误。</string>
-    <string name="open_link_specific_browser_not_selected">未选择</string>
+    <string name="explore_rss_sources">探索RSS源</string>
+    <string name="english_sources">英语源</string>
+    <string name="vietnamese_sources">越南语源</string>
+    <string name="japanese_sources">日语源</string>
+    <string name="korean_sources">韩语源</string>
+    <string name="chinese_sources">中文源</string>
+    <string name="indonesian_sources">印尼语源</string>
+    <string name="thai_sources">泰语源</string>
+    <string name="french_sources">法语源</string>
+    <string name="german_sources">德语源</string>
+    <string name="spanish_sources">西班牙语源</string>
+    <string name="portuguese_sources">葡萄牙语源</string>
+    <string name="arabic_sources">阿拉伯语源</string>
+
+    <!-- Add Source Detail Page -->
+    <string name="add_rss_source">添加RSS源</string>
+    <string name="add_source_confirm_message">您要将此RSS源添加到您的订阅中吗？</string>
+    <string name="add_source">添加源</string>
+    <string name="rss_feed_added_successfully">RSS订阅添加成功！</string>
+    <string name="add_rss_source_failed">添加RSS源失败</string>
+    <string name="add_rss_source_error">添加RSS源时出错：%1$s</string>
+    <string name="search_rss_sources">搜索RSS源…</string>
+    <string name="no_results_found">未找到结果</string>
+    <string name="try_different_keywords">请尝试使用不同的关键词</string>
+    <string name="no_rss_sources_available">没有可用的RSS源</string>
+    <string name="no_sources_for_country">未找到该国家的源</string>
+    <string name="oops_something_wrong">糟糕！出错了</string>
+    <string name="try_again">重试</string>
+    <string name="already_added">已添加</string>
+    <string name="add_new_source">添加源</string>
 </resources>

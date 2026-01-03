@@ -248,4 +248,36 @@
     <string name="connection">Conexão</string>
     <string name="system_default">Sistema</string>
     <string name="open_link_ask_dialog_title">Abrir com…</string>
+
+    <!-- Add Sources Page -->
+    <string name="explore_rss_sources">Explorar fontes RSS</string>
+    <string name="english_sources">Fontes em inglês</string>
+    <string name="vietnamese_sources">Fontes em vietnamita</string>
+    <string name="japanese_sources">Fontes em japonês</string>
+    <string name="korean_sources">Fontes em coreano</string>
+    <string name="chinese_sources">Fontes em chinês</string>
+    <string name="indonesian_sources">Fontes em indonésio</string>
+    <string name="thai_sources">Fontes em tailandês</string>
+    <string name="french_sources">Fontes em francês</string>
+    <string name="german_sources">Fontes em alemão</string>
+    <string name="spanish_sources">Fontes em espanhol</string>
+    <string name="portuguese_sources">Fontes em português</string>
+    <string name="arabic_sources">Fontes em árabe</string>
+
+    <!-- Add Source Detail Page -->
+    <string name="add_rss_source">Adicionar fonte RSS</string>
+    <string name="add_source_confirm_message">Você deseja adicionar esta fonte RSS aos seus feeds?</string>
+    <string name="add_source">Adicionar fonte</string>
+    <string name="rss_feed_added_successfully">Feed RSS adicionado com sucesso!</string>
+    <string name="add_rss_source_failed">Falha ao adicionar fonte RSS</string>
+    <string name="add_rss_source_error">Erro ao adicionar fonte RSS: %1$s</string>
+    <string name="search_rss_sources">Pesquisar fontes RSS…</string>
+    <string name="no_results_found">Nenhum resultado encontrado</string>
+    <string name="try_different_keywords">Tente pesquisar com outras palavras-chave</string>
+    <string name="no_rss_sources_available">Nenhuma fonte RSS disponível</string>
+    <string name="no_sources_for_country">Nenhuma fonte encontrada para este país</string>
+    <string name="oops_something_wrong">Ops! Algo deu errado</string>
+    <string name="try_again">Tentar novamente</string>
+    <string name="already_added">Já adicionado</string>
+    <string name="add_new_source">Adicionar fonte</string>
 </resources>

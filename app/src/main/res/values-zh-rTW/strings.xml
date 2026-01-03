@@ -254,4 +254,36 @@
     <string name="default_browser">預設瀏覽器</string>
     <string name="open_link_something_wrong">由於發生未知的錯誤，已取消詢問連結開啟方式。</string>
     <string name="open_link_specific_browser_not_selected">無</string>
+
+    <!-- Add Sources Page -->
+    <string name="explore_rss_sources">探索RSS來源</string>
+    <string name="english_sources">英語來源</string>
+    <string name="vietnamese_sources">越南語來源</string>
+    <string name="japanese_sources">日語來源</string>
+    <string name="korean_sources">韓語來源</string>
+    <string name="chinese_sources">中文來源</string>
+    <string name="indonesian_sources">印尼語來源</string>
+    <string name="thai_sources">泰語來源</string>
+    <string name="french_sources">法語來源</string>
+    <string name="german_sources">德語來源</string>
+    <string name="spanish_sources">西班牙語來源</string>
+    <string name="portuguese_sources">葡萄牙語來源</string>
+    <string name="arabic_sources">阿拉伯語來源</string>
+
+    <!-- Add Source Detail Page -->
+    <string name="add_rss_source">新增RSS來源</string>
+    <string name="add_source_confirm_message">您要將此RSS來源加入訂閱中嗎？</string>
+    <string name="add_source">新增來源</string>
+    <string name="rss_feed_added_successfully">RSS訂閱新增成功！</string>
+    <string name="add_rss_source_failed">新增RSS來源失敗</string>
+    <string name="add_rss_source_error">新增RSS來源時發生錯誤：%1$s</string>
+    <string name="search_rss_sources">搜尋RSS來源…</string>
+    <string name="no_results_found">找不到結果</string>
+    <string name="try_different_keywords">請嘗試使用不同的關鍵字</string>
+    <string name="no_rss_sources_available">沒有可用的RSS來源</string>
+    <string name="no_sources_for_country">找不到該國家的來源</string>
+    <string name="oops_something_wrong">糟糕！發生錯誤</string>
+    <string name="try_again">重試</string>
+    <string name="already_added">已新增</string>
+    <string name="add_new_source">新增來源</string>
 </resources>

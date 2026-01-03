@@ -227,6 +227,230 @@
     {
       "name": "CSS-Tricks",
       "link": "https://css-tricks.com/feed/"
+    },
+    {
+      "name": "The Atlantic",
+      "link": "https://www.theatlantic.com/feed/all/"
+    },
+    {
+      "name": "Politico",
+      "link": "https://www.politico.com/rss/politicopicks.xml"
+    },
+    {
+      "name": "TIME",
+      "link": "https://time.com/feed/"
+    },
+    {
+      "name": "The Economist",
+      "link": "https://www.economist.com/the-world-this-week/rss.xml"
+    },
+    {
+      "name": "Foreign Policy",
+      "link": "https://foreignpolicy.com/feed/"
+    },
+    {
+      "name": "Axios",
+      "link": "https://api.axios.com/feed/"
+    },
+    {
+      "name": "ProPublica",
+      "link": "https://www.propublica.org/feeds/propublica/main"
+    },
+    {
+      "name": "GitHub Blog",
+      "link": "https://github.blog/feed/"
+    },
+    {
+      "name": "Stack Overflow Blog",
+      "link": "https://stackoverflow.blog/feed/"
+    },
+    {
+      "name": "freeCodeCamp",
+      "link": "https://www.freecodecamp.org/news/rss/"
+    },
+    {
+      "name": "Hacker Noon",
+      "link": "https://hackernoon.com/feed"
+    },
+    {
+      "name": "Android Developers Blog",
+      "link": "https://android-developers.googleblog.com/feeds/posts/default"
+    },
+    {
+      "name": "ScienceDaily",
+      "link": "https://www.sciencedaily.com/rss/all.xml"
+    },
+    {
+      "name": "Medical News Today",
+      "link": "https://www.medicalnewstoday.com/rss"
+    },
+    {
+      "name": "Live Science",
+      "link": "https://www.livescience.com/feeds/all"
+    },
+    {
+      "name": "Phys.org",
+      "link": "https://phys.org/rss-feed/"
+    },
+    {
+      "name": "Psychology Today",
+      "link": "https://www.psychologytoday.com/us/front/feed"
+    },
+    {
+      "name": "Lifehacker",
+      "link": "https://lifehacker.com/rss"
+    },
+    {
+      "name": "Wirecutter (NYT)",
+      "link": "https://www.nytimes.com/svc/collections/v1/publish/https://www.nytimes.com/section/technology/personaltech/rss.xml"
+    },
+    {
+      "name": "Mental Floss",
+      "link": "https://www.mentalfloss.com/feed"
+    },
+    {
+      "name": "Khan Academy Blog",
+      "link": "https://blog.khanacademy.org/feed/"
+    },
+    {
+      "name": "Coursera Blog",
+      "link": "https://blog.coursera.org/feed/"
+    },
+    {
+      "name": "MIT News",
+      "link": "https://news.mit.edu/rss/feed"
+    },
+    {
+      "name": "PetaPixel",
+      "link": "https://petapixel.com/feed/"
+    },
+    {
+      "name": "Digital Photography School",
+      "link": "https://digital-photography-school.com/feed/"
+    },
+    {
+      "name": "Awwwards",
+      "link": "https://www.awwwards.com/blog/feed/"
+    },
+    {
+      "name": "Behance",
+      "link": "https://www.behance.net/feeds/projects"
+    },
+    {
+      "name": "Designboom",
+      "link": "https://www.designboom.com/feed/"
+    },
+    {
+      "name": "Fast Company",
+      "link": "https://www.fastcompany.com/latest/rss"
+    },
+    {
+      "name": "Inc.com",
+      "link": "https://www.inc.com/rss/"
+    },
+    {
+      "name": "Mashable",
+      "link": "https://mashable.com/feeds/rss/all"
+    },
+    {
+      "name": "CNET",
+      "link": "https://www.cnet.com/rss/news/"
+    },
+    {
+      "name": "ZDNet",
+      "link": "https://www.zdnet.com/news/rss.xml"
+    },
+    {
+      "name": "Slashdot",
+      "link": "http://rss.slashdot.org/Slashdot/slashdotMain"
+    },
+    {
+      "name": "Techmeme",
+      "link": "https://www.techmeme.com/feed.xml"
+    },
+    {
+      "name": "VentureBeat",
+      "link": "https://venturebeat.com/feed/"
+    },
+    {
+      "name": "The Next Web",
+      "link": "https://thenextweb.com/feed/"
+    },
+    {
+      "name": "Daring Fireball",
+      "link": "https://daringfireball.net/feeds/main"
+    },
+    {
+      "name": "9to5Google",
+      "link": "https://9to5google.com/feed/"
+    },
+    {
+      "name": "Android Police",
+      "link": "https://www.androidpolice.com/feed/"
+    },
+    {
+      "name": "Kotaku",
+      "link": "https://kotaku.com/rss"
+    },
+    {
+      "name": "Eurogamer",
+      "link": "https://www.eurogamer.net/?format=rss"
+    },
+    {
+      "name": "Rock Paper Shotgun",
+      "link": "https://www.rockpapershotgun.com/feed"
+    },
+    {
+      "name": "Reddit - r/gaming",
+      "link": "https://www.reddit.com/r/gaming/.rss"
+    },
+    {
+      "name": "Reddit - r/programming",
+      "link": "https://www.reddit.com/r/programming/.rss"
+    },
+    {
+      "name": "Reddit - r/science",
+      "link": "https://www.reddit.com/r/science/.rss"
+    },
+    {
+      "name": "Quanta Magazine",
+      "link": "https://www.quantamagazine.org/feed/"
+    },
+    {
+      "name": "Aeon",
+      "link": "https://aeon.co/feed.rss"
+    },
+    {
+      "name": "Vox",
+      "link": "https://www.vox.com/rss/index.xml"
+    },
+    {
+      "name": "BuzzFeed News",
+      "link": "https://www.buzzfeed.com/world.xml"
+    },
+    {
+      "name": "Vice News",
+      "link": "https://www.vice.com/en/rss"
+    },
+    {
+      "name": "The Intercept",
+      "link": "https://theintercept.com/feed/?lang=en"
+    },
+    {
+      "name": "Mother Jones",
+      "link": "https://www.motherjones.com/feed/"
+    },
+    {
+      "name": "Slate",
+      "link": "https://slate.com/feeds/all.rss"
+    },
+    {
+      "name": "The Daily Beast",
+      "link": "https://www.thedailybeast.com/feeds/articles.rss"
+    },
+    {
+      "name": "HuffPost",
+      "link": "https://www.huffpost.com/section/front-page/feed"
     }
   ],
   "vi": [
@@ -251,6 +475,18 @@
       "link": "https://vnexpress.net/rss/the-thao.rss"
     },
     {
+      "name": "VnExpress - Giải trí",
+      "link": "https://vnexpress.net/rss/giai-tri.rss"
+    },
+    {
+      "name": "VnExpress - Sức khỏe",
+      "link": "https://vnexpress.net/rss/suc-khoe.rss"
+    },
+    {
+      "name": "VnExpress - Du lịch",
+      "link": "https://vnexpress.net/rss/du-lich.rss"
+    },
+    {
       "name": "Dân Trí",
       "link": "https://dantri.com.vn/rss.htm"
     },
@@ -261,6 +497,10 @@
     {
       "name": "Dân Trí - Công nghệ",
       "link": "https://dantri.com.vn/rss/suc-manh-so.rss"
+    },
+    {
+      "name": "Dân Trí - Kinh doanh",
+      "link": "https://dantri.com.vn/rss/kinh-doanh.rss"
     },
     {
       "name": "Thanh Niên",
@@ -275,6 +515,10 @@
       "link": "https://thanhnien.vn/rss/game.html"
     },
     {
+      "name": "Thanh Niên - Giáo dục",
+      "link": "https://thanhnien.vn/rss/giao-duc.html"
+    },
+    {
       "name": "VietnamNet",
       "link": "https://vietnamnet.vn/rss/home.rss"
     },
@@ -285,6 +529,10 @@
     {
       "name": "VietnamNet - Kinh doanh",
       "link": "https://vietnamnet.vn/rss/kinh-doanh.rss"
+    },
+    {
+      "name": "VietnamNet - Thế giới",
+      "link": "https://vietnamnet.vn/rss/the-gioi.rss"
     },
     {
       "name": "Zing News",
@@ -311,6 +559,10 @@
       "link": "https://tuoitre.vn/rss/nhip-song-tre.rss"
     },
     {
+      "name": "Tuổi Trẻ - Giáo dục",
+      "link": "https://tuoitre.vn/rss/giao-duc.rss"
+    },
+    {
       "name": "Báo Mới",
       "link": "https://baomoi.com/rss.epi"
     },
@@ -321,6 +573,10 @@
     {
       "name": "24h - Công nghệ",
       "link": "https://www.24h.com.vn/upload/rss/cong-nghe.rss"
+    },
+    {
+      "name": "24h - Kinh doanh",
+      "link": "https://www.24h.com.vn/upload/rss/kinhdoanh.rss"
     },
     {
       "name": "Vietnamplus",
@@ -335,8 +591,16 @@
       "link": "https://vov.vn/rss/tat-ca.rss"
     },
     {
+      "name": "VOV - Thế giới",
+      "link": "https://vov.vn/rss/the-gioi.rss"
+    },
+    {
       "name": "Báo Người Lao Động",
       "link": "https://nld.com.vn/rss/home.rss"
+    },
+    {
+      "name": "Người Lao Động - Công nghệ",
+      "link": "https://nld.com.vn/rss/cong-nghe.rss"
     },
     {
       "name": "Tiền Phong",
@@ -347,6 +611,10 @@
       "link": "https://laodong.vn/rss/home.rss"
     },
     {
+      "name": "Lao Động - Công nghệ",
+      "link": "https://laodong.vn/rss/cong-nghe.rss"
+    },
+    {
       "name": "Cafef - Kinh tế",
       "link": "https://cafef.vn/rss/trang-chu.rss"
     },
@@ -355,8 +623,8 @@
       "link": "https://cafef.vn/rss/chung-khoan.rss"
     },
     {
-      "name": "Tập chí Doanh nhân Sài Gòn",
-      "link": "https://doanhnhansaigon.vn/rss/trang-chu.rss"
+      "name": "CafeF - Doanh nghiệp",
+      "link": "https://cafef.vn/rss/doanh-nghiep.rss"
     },
     {
       "name": "ICTNews - Công nghệ",
@@ -371,6 +639,10 @@
       "link": "https://genk.vn/rss/cong-nghe.rss"
     },
     {
+      "name": "Genk.vn - Khoa học",
+      "link": "https://genk.vn/rss/khoa-hoc.rss"
+    },
+    {
       "name": "Tinhte.vn",
       "link": "https://tinhte.vn/rss"
     },
@@ -381,14 +653,6 @@
     {
       "name": "Saostar - Giải trí",
       "link": "https://saostar.vn/rss/home.rss"
-    },
-    {
-      "name": "Ví Dân - Tài chính",
-      "link": "https://vidan.com.vn/rss/home.rss"
-    },
-    {
-      "name": "Eva.vn - Phụ nữ",
-      "link": "https://eva.vn/rss/home.rss"
     },
     {
       "name": "Kenh14 - Giải trí",
@@ -415,12 +679,1556 @@
       "link": "https://vtc.vn/rss/home.rss"
     },
     {
-      "name": "Vietnam.net",
-      "link": "https://www.vietnam.net/rss/home.rss"
-    },
-    {
       "name": "Báo Đất Việt",
       "link": "https://baodatviet.vn/rss/home.rss"
+    },
+    {
+      "name": "VnEconomy",
+      "link": "https://vneconomy.vn/rss/home.rss"
+    },
+    {
+      "name": "Báo Công Thương",
+      "link": "https://congthuong.vn/rss/home.rss"
+    },
+    {
+      "name": "Báo Giáo dục",
+      "link": "https://giaoduc.net.vn/rss/home.rss"
+    },
+    {
+      "name": "Afamily",
+      "link": "https://afamily.vn/rss/home.rss"
+    },
+    {
+      "name": "Eva.vn - Phụ nữ",
+      "link": "https://eva.vn/rss/home.rss"
+    },
+    {
+      "name": "Báo Đà Nẵng",
+      "link": "https://baodanang.vn/rss/home.rss"
+    },
+    {
+      "name": "Báo Nghệ An",
+      "link": "https://baonghean.vn/rss/home.rss"
+    },
+    {
+      "name": "TheLEADER",
+      "link": "https://theleader.vn/rss/home.rss"
+    },
+    {
+      "name": "Viblo",
+      "link": "https://viblo.asia/rss"
+    },
+    {
+      "name": "TopDev",
+      "link": "https://topdev.vn/blog/feed/"
+    },
+    {
+      "name": "Báo Bình Dương",
+      "link": "https://baobinhduong.vn/rss/home.rss"
+    },
+    {
+      "name": "Báo Thanh Hóa",
+      "link": "https://baothanhhoa.vn/rss/home.rss"
+    },
+    {
+      "name": "VnMedia - Marketing",
+      "link": "https://vnmedia.vn/rss/home.rss"
+    },
+    {
+      "name": "MarketingAI",
+      "link": "https://marketingai.vn/rss/home.rss"
+    },
+    {
+      "name": "Startup Việt",
+      "link": "https://startup.vn/rss.xml"
+    },
+    {
+      "name": "Nhịp Sống Kinh Tế",
+      "link": "https://www.nhipsongkinhtế.vn/rss/home.rss"
+    }
+  ],
+  "ja": [
+    {
+      "name": "NHK News",
+      "link": "https://www3.nhk.or.jp/rss/news/cat0.xml"
+    },
+    {
+      "name": "Asahi Shimbun",
+      "link": "https://www.asahi.com/rss/asahi/newsheadlines.rdf"
+    },
+    {
+      "name": "Mainichi Shimbun",
+      "link": "https://mainichi.jp/rss/etc/mainichi-flash.rss"
+    },
+    {
+      "name": "Yomiuri Shimbun",
+      "link": "https://www.yomiuri.co.jp/rss/news.xml"
+    },
+    {
+      "name": "Nikkei",
+      "link": "https://www.nikkei.com/news/feed/"
+    },
+    {
+      "name": "Japan Times",
+      "link": "https://www.japantimes.co.jp/feed/"
+    },
+    {
+      "name": "Kyodo News",
+      "link": "https://english.kyodonews.net/rss/all.xml"
+    },
+    {
+      "name": "Tokyo Reporter",
+      "link": "https://www.tokyoreporter.com/feed/"
+    },
+    {
+      "name": "Sankei News",
+      "link": "https://www.sankei.com/rss/news/news.xml"
+    },
+    {
+      "name": "Jiji Press",
+      "link": "https://www.jiji.com/rss/ranking.rdf"
+    },
+    {
+      "name": "ITmedia News",
+      "link": "https://rss.itmedia.co.jp/rss/2.0/news_bursts.xml"
+    },
+    {
+      "name": "Tech Crunch Japan",
+      "link": "https://jp.techcrunch.com/feed/"
+    },
+    {
+      "name": "Engadget Japan",
+      "link": "https://japanese.engadget.com/rss.xml"
+    },
+    {
+      "name": "Gizmodo Japan",
+      "link": "https://www.gizmodo.jp/index.xml"
+    },
+    {
+      "name": "ASCII.jp",
+      "link": "https://ascii.jp/rss.xml"
+    },
+    {
+      "name": "Impress Watch",
+      "link": "https://www.watch.impress.co.jp/data/rss/1.0/imw/feed.rdf"
+    },
+    {
+      "name": "Nikkei xTECH",
+      "link": "https://tech.nikkeibp.co.jp/rss/index.rdf"
+    },
+    {
+      "name": "Mynavi News",
+      "link": "https://news.mynavi.jp/rss/index"
+    },
+    {
+      "name": "4Gamer.net",
+      "link": "https://www.4gamer.net/games/999/G999905/contents.xml"
+    },
+    {
+      "name": "Famitsu",
+      "link": "https://www.famitsu.com/rss/game.xml"
+    },
+    {
+      "name": "Dengeki Online",
+      "link": "https://dengekionline.com/feed/"
+    },
+    {
+      "name": "IGN Japan",
+      "link": "https://jp.ign.com/feed.xml"
+    },
+    {
+      "name": "Yahoo! Japan News",
+      "link": "https://news.yahoo.co.jp/rss/topics/top-picks.xml"
+    },
+    {
+      "name": "Livedoor News",
+      "link": "https://news.livedoor.com/topics/rss/top.xml"
+    },
+    {
+      "name": "Excite News",
+      "link": "https://www.excite.co.jp/news/rss.xml"
+    },
+    {
+      "name": "Nikkan Sports",
+      "link": "https://www.nikkansports.com/rss/baseball.rdf"
+    },
+    {
+      "name": "Sports Hochi",
+      "link": "https://hochi.news/rss/index.rdf"
+    },
+    {
+      "name": "Oricon News",
+      "link": "https://www.oricon.co.jp/rss/index2.0.xml"
+    },
+    {
+      "name": "Natalie Music",
+      "link": "https://natalie.mu/music/feed/news"
+    },
+    {
+      "name": "Anime News Network Japan",
+      "link": "https://www.animenewsnetwork.com/rss.xml"
+    },
+    {
+      "name": "Mantan Web",
+      "link": "https://mantan-web.jp/rss.xml"
+    },
+    {
+      "name": "Cinematoday",
+      "link": "https://www.cinematoday.jp/rss/top.xml"
+    },
+    {
+      "name": "Toyo Keizai",
+      "link": "https://toyokeizai.net/list/feed/rss"
+    },
+    {
+      "name": "Diamond Online",
+      "link": "https://diamond.jp/list/feed/rss"
+    },
+    {
+      "name": "President Online",
+      "link": "https://president.jp/list/feed/rss"
+    },
+    {
+      "name": "NewsPicks",
+      "link": "https://newspicks.com/news/feed"
+    },
+    {
+      "name": "Qiita",
+      "link": "https://qiita.com/popular-items/feed"
+    },
+    {
+      "name": "Zenn",
+      "link": "https://zenn.dev/feed"
+    },
+    {
+      "name": "Hatena Bookmark",
+      "link": "https://b.hatena.ne.jp/hotentry/it.rss"
+    },
+    {
+      "name": "Cookpad News",
+      "link": "https://news.cookpad.com/articles/feed"
+    }
+  ],
+  "ko": [
+    {
+      "name": "Yonhap News",
+      "link": "https://www.yonhapnews.co.kr/rss/news.xml"
+    },
+    {
+      "name": "Chosun Ilbo",
+      "link": "https://www.chosun.com/arc/outboundfeeds/rss/?outputType=xml"
+    },
+    {
+      "name": "JoongAng Ilbo",
+      "link": "https://rss.joins.com/joins_news_list.xml"
+    },
+    {
+      "name": "Dong-A Ilbo",
+      "link": "https://rss.donga.com/total.xml"
+    },
+    {
+      "name": "Hankyoreh",
+      "link": "https://www.hani.co.kr/rss/"
+    },
+    {
+      "name": "Korea Herald",
+      "link": "http://www.koreaherald.com/common/rss_xml.php"
+    },
+    {
+      "name": "Korea Times",
+      "link": "https://www.koreatimes.co.kr/www/rss/news.xml"
+    },
+    {
+      "name": "KBS News",
+      "link": "https://world.kbs.co.kr/rss/rss_news.htm"
+    },
+    {
+      "name": "SBS News",
+      "link": "https://news.sbs.co.kr/news/SectionRssFeed.do?sectionId=01"
+    },
+    {
+      "name": "MBC News",
+      "link": "https://imnews.imbc.com/rss/news/news_00.xml"
+    },
+    {
+      "name": "JTBC News",
+      "link": "https://fs.jtbc.joins.com/RSS/newsflash.xml"
+    },
+    {
+      "name": "Naver News",
+      "link": "https://news.naver.com/main/rss/section.naver?sid1=001"
+    },
+    {
+      "name": "Daum News",
+      "link": "https://news.daum.net/rss/newsbox/total.xml"
+    },
+    {
+      "name": "ETNews",
+      "link": "https://www.etnews.com/rss.xml"
+    },
+    {
+      "name": "Korea Economic Daily",
+      "link": "https://www.hankyung.com/feed/"
+    },
+    {
+      "name": "Maeil Business",
+      "link": "https://www.mk.co.kr/rss/index.xml"
+    },
+    {
+      "name": "The Bell",
+      "link": "https://www.thebell.co.kr/rss/section/news.xml"
+    },
+    {
+      "name": "IT Chosun",
+      "link": "http://it.chosun.com/rss/allArticle.xml"
+    },
+    {
+      "name": "ZDNet Korea",
+      "link": "https://zdnet.co.kr/rss/news.xml"
+    },
+    {
+      "name": "Bloter",
+      "link": "https://www.bloter.net/feed/"
+    },
+    {
+      "name": "Tech42",
+      "link": "https://www.tech42.co.kr/feed/"
+    },
+    {
+      "name": "Platum",
+      "link": "https://platum.kr/feed/"
+    },
+    {
+      "name": "GeekNews",
+      "link": "https://news.hada.io/rss"
+    },
+    {
+      "name": "NAVER D2",
+      "link": "https://d2.naver.com/d2.atom"
+    },
+    {
+      "name": "Kakao Tech",
+      "link": "https://tech.kakao.com/rss/"
+    },
+    {
+      "name": "LINE Engineering",
+      "link": "https://engineering.linecorp.com/ko/feed/"
+    },
+    {
+      "name": "Spotvnews",
+      "link": "http://www.spotvnews.co.kr/rss/allArticle.xml"
+    },
+    {
+      "name": "Naver Sports",
+      "link": "https://sports.news.naver.com/rss/index.xml"
+    },
+    {
+      "name": "Sports Chosun",
+      "link": "https://sports.chosun.com/rss/news.xml"
+    },
+    {
+      "name": "OSEN",
+      "link": "http://osen.mt.co.kr/rss/index.xml"
+    },
+    {
+      "name": "Dispatch",
+      "link": "https://www.dispatch.co.kr/rss/news.xml"
+    },
+    {
+      "name": "This Is Game",
+      "link": "http://www.thisisgame.com/webzine/rss/rss_news.xml"
+    },
+    {
+      "name": "Inven",
+      "link": "http://www.inven.co.kr/rss/news.xml"
+    },
+    {
+      "name": "Ruliweb",
+      "link": "https://bbs.ruliweb.com/news/rss"
+    },
+    {
+      "name": "GameFocus",
+      "link": "http://www.gamefocus.co.kr/rss/allArticle.xml"
+    },
+    {
+      "name": "Startup Recipe",
+      "link": "https://www.startuprecipe.com/feed/"
+    },
+    {
+      "name": "Medium Korea",
+      "link": "https://medium.com/feed/tag/korea"
+    },
+    {
+      "name": "Brunch",
+      "link": "https://brunch.co.kr/rss/latest"
+    },
+    {
+      "name": "Tistory",
+      "link": "https://www.tistory.com/category/rss"
+    }
+  ],
+  "zh": [
+    {
+      "name": "Xinhua News",
+      "link": "http://www.xinhuanet.com/politics/news_politics.xml"
+    },
+    {
+      "name": "People's Daily",
+      "link": "http://www.people.com.cn/rss/index.xml"
+    },
+    {
+      "name": "CGTN",
+      "link": "https://www.cgtn.com/subscribe/rss/section/china.xml"
+    },
+    {
+      "name": "China Daily",
+      "link": "https://www.chinadaily.com.cn/rss/china_rss.xml"
+    },
+    {
+      "name": "Global Times",
+      "link": "https://www.globaltimes.cn/rss/outbrain.xml"
+    },
+    {
+      "name": "Caixin",
+      "link": "http://international.caixin.com/rss/"
+    },
+    {
+      "name": "Sina News",
+      "link": "http://rss.sina.com.cn/news/china/focus15.xml"
+    },
+    {
+      "name": "Sohu News",
+      "link": "http://news.sohu.com/rss.xml"
+    },
+    {
+      "name": "NetEase News",
+      "link": "http://news.163.com/special/00011K6L/rss_newstop.xml"
+    },
+    {
+      "name": "Tencent News",
+      "link": "http://news.qq.com/newsgn/rss_newsgn.xml"
+    },
+    {
+      "name": "iFeng News",
+      "link": "http://news.ifeng.com/rss/index.xml"
+    },
+    {
+      "name": "36Kr",
+      "link": "https://36kr.com/feed"
+    },
+    {
+      "name": "Huxiu",
+      "link": "https://www.huxiu.com/rss/0.xml"
+    },
+    {
+      "name": "PingWest",
+      "link": "https://www.pingwest.com/feed"
+    },
+    {
+      "name": "CSDN",
+      "link": "https://blog.csdn.net/rss/home"
+    },
+    {
+      "name": "SegmentFault",
+      "link": "https://segmentfault.com/feeds"
+    },
+    {
+      "name": "V2EX",
+      "link": "https://www.v2ex.com/index.xml"
+    },
+    {
+      "name": "GeekPark",
+      "link": "http://www.geekpark.net/rss"
+    },
+    {
+      "name": "InfoQ China",
+      "link": "https://www.infoq.cn/feed"
+    },
+    {
+      "name": "OSChina",
+      "link": "https://www.oschina.net/news/rss"
+    },
+    {
+      "name": "IT Home",
+      "link": "https://www.ithome.com/rss/"
+    },
+    {
+      "name": "CnBeta",
+      "link": "https://www.cnbeta.com/backend.php"
+    },
+    {
+      "name": "TechWeb",
+      "link": "http://www.techweb.com.cn/rss/allnews.xml"
+    },
+    {
+      "name": "Zhihu Daily",
+      "link": "https://daily.zhihu.com/rss"
+    },
+    {
+      "name": "Douban",
+      "link": "https://www.douban.com/feed/review/book"
+    },
+    {
+      "name": "Mtime",
+      "link": "http://service.mtime.com/xml/topnews.xml"
+    },
+    {
+      "name": "Dongqiudi",
+      "link": "https://www.dongqiudi.com/rss.xml"
+    },
+    {
+      "name": "Hupu",
+      "link": "https://bbs.hupu.com/all-rss.xml"
+    },
+    {
+      "name": "GameRes",
+      "link": "https://www.gameres.com/rss.xml"
+    },
+    {
+      "name": "A9VG",
+      "link": "https://www.a9vg.com/rss.xml"
+    },
+    {
+      "name": "TechNode",
+      "link": "https://technode.com/feed/"
+    },
+    {
+      "name": "LatePost",
+      "link": "https://www.latepost.com/rss"
+    },
+    {
+      "name": "JMedia",
+      "link": "https://www.tmtpost.com/rss.xml"
+    },
+    {
+      "name": "Chaping",
+      "link": "https://www.chaping.cn/rss.xml"
+    },
+    {
+      "name": "少数派",
+      "link": "https://sspai.com/feed"
+    },
+    {
+      "name": "爱范儿",
+      "link": "https://www.ifanr.com/feed"
+    },
+    {
+      "name": "数字尾巴",
+      "link": "https://www.dgtle.com/rss/dgtle.xml"
+    },
+    {
+      "name": "虎嗅",
+      "link": "https://www.huxiu.com/rss/0.xml"
+    },
+    {
+      "name": "钛媒体",
+      "link": "https://www.tmtpost.com/rss.xml"
+    },
+    {
+      "name": "界面新闻",
+      "link": "https://www.jiemian.com/rss/news.xml"
+    }
+  ],
+  "id": [
+    {
+      "name": "Kompas",
+      "link": "https://www.kompas.com/rss/"
+    },
+    {
+      "name": "Detik News",
+      "link": "https://rss.detik.com/index.php/detik"
+    },
+    {
+      "name": "Tempo",
+      "link": "https://rss.tempo.co/"
+    },
+    {
+      "name": "Tribun News",
+      "link": "https://www.tribunnews.com/rss"
+    },
+    {
+      "name": "CNN Indonesia",
+      "link": "https://www.cnnindonesia.com/rss"
+    },
+    {
+      "name": "Liputan6",
+      "link": "https://www.liputan6.com/rss"
+    },
+    {
+      "name": "Okezone",
+      "link": "https://sindikasi.okezone.com/index.php/rss/0/RSS2.0"
+    },
+    {
+      "name": "Republika",
+      "link": "https://www.republika.co.id/rss/"
+    },
+    {
+      "name": "Antara News",
+      "link": "https://www.antaranews.com/rss/terkini.xml"
+    },
+    {
+      "name": "Bisnis.com",
+      "link": "https://feed.bisnis.com/"
+    },
+    {
+      "name": "Kontan",
+      "link": "https://www.kontan.co.id/rss/"
+    },
+    {
+      "name": "Jakarta Post",
+      "link": "https://www.thejakartapost.com/rss.xml"
+    },
+    {
+      "name": "Jakarta Globe",
+      "link": "https://jakartaglobe.id/rss/"
+    },
+    {
+      "name": "Merdeka",
+      "link": "https://www.merdeka.com/feed/"
+    },
+    {
+      "name": "Suara.com",
+      "link": "https://www.suara.com/rss"
+    },
+    {
+      "name": "Techno.id",
+      "link": "https://www.techno.id/rss"
+    },
+    {
+      "name": "Tekno Kompas",
+      "link": "https://tekno.kompas.com/rss/"
+    },
+    {
+      "name": "Detik Inet",
+      "link": "https://rss.detik.com/index.php/inet"
+    },
+    {
+      "name": "Dailysocial",
+      "link": "https://dailysocial.id/feed"
+    },
+    {
+      "name": "Jagat Review",
+      "link": "https://jagatreview.com/feed/"
+    },
+    {
+      "name": "Telset",
+      "link": "https://telset.id/feed/"
+    },
+    {
+      "name": "Pricebook",
+      "link": "https://pricebook.co.id/feed/"
+    },
+    {
+      "name": "Detik Sport",
+      "link": "https://rss.detik.com/index.php/sport"
+    },
+    {
+      "name": "Bola.com",
+      "link": "https://www.bola.com/rss.xml"
+    },
+    {
+      "name": "Goal Indonesia",
+      "link": "https://www.goal.com/id/feeds/news"
+    },
+    {
+      "name": "Kapanlagi",
+      "link": "https://www.kapanlagi.com/rss.xml"
+    },
+    {
+      "name": "Detik Hot",
+      "link": "https://rss.detik.com/index.php/hot"
+    },
+    {
+      "name": "Insertlive",
+      "link": "https://www.insertlive.com/rss"
+    },
+    {
+      "name": "JalanTikus",
+      "link": "https://jalantikus.com/feed/"
+    },
+    {
+      "name": "Kaskus",
+      "link": "https://www.kaskus.co.id/rss"
+    },
+    {
+      "name": "Brilio",
+      "link": "https://www.brilio.net/feed/"
+    },
+    {
+      "name": "IDN Times",
+      "link": "https://www.idntimes.com/rss"
+    },
+    {
+      "name": "Hipwee",
+      "link": "https://www.hipwee.com/feed/"
+    },
+    {
+      "name": "Detik Finance",
+      "link": "https://rss.detik.com/index.php/finance"
+    },
+    {
+      "name": "Startup Ranking Indonesia",
+      "link": "https://www.startupranking.com/countries/indonesia/rss"
+    },
+    {
+      "name": "Tech in Asia Indonesia",
+      "link": "https://id.techinasia.com/rss"
+    },
+    {
+      "name": "Duniaku",
+      "link": "https://duniaku.idntimes.com/rss"
+    },
+    {
+      "name": "AutonetMagz",
+      "link": "https://www.autonetmagz.com/feed/"
+    },
+    {
+      "name": "Otomania",
+      "link": "https://www.otomania.com/rss"
+    }
+  ],
+  "th": [
+    {
+      "name": "Bangkok Post",
+      "link": "https://www.bangkokpost.com/rss"
+    },
+    {
+      "name": "Nation Thailand",
+      "link": "https://www.nationthailand.com/rss/"
+    },
+    {
+      "name": "Khaosod English",
+      "link": "https://www.khaosodenglish.com/feed/"
+    },
+    {
+      "name": "Thai PBS",
+      "link": "https://www.thaipbsworld.com/feed/"
+    },
+    {
+      "name": "Manager Online",
+      "link": "https://mgronline.com/rss.aspx"
+    },
+    {
+      "name": "Sanook News",
+      "link": "https://www.sanook.com/feed/news/"
+    },
+    {
+      "name": "Thairath",
+      "link": "https://www.thairath.co.th/rss/news"
+    },
+    {
+      "name": "Daily News Thailand",
+      "link": "https://www.dailynews.co.th/rss/news.xml"
+    },
+    {
+      "name": "Matichon",
+      "link": "https://www.matichon.co.th/feed"
+    },
+    {
+      "name": "Kapook",
+      "link": "https://www.kapook.com/rss/news.xml"
+    },
+    {
+      "name": "Thai Tech",
+      "link": "https://www.thaitech.co.th/feed/"
+    },
+    {
+      "name": "Techsauce",
+      "link": "https://techsauce.co/feed"
+    },
+    {
+      "name": "Blognone",
+      "link": "https://www.blognone.com/atom.xml"
+    },
+    {
+      "name": "Marketeer",
+      "link": "https://marketeeronline.co/feed/"
+    },
+    {
+      "name": "Siam Blockchain",
+      "link": "https://siamblockchain.com/feed/"
+    },
+    {
+      "name": "Sanook Tech",
+      "link": "https://www.sanook.com/feed/hitech/"
+    },
+    {
+      "name": "Positioning Mag",
+      "link": "https://positioningmag.com/feed"
+    },
+    {
+      "name": "Thailand Business News",
+      "link": "https://www.thailand-business-news.com/feed/"
+    },
+    {
+      "name": "Thaiger",
+      "link": "https://thethaiger.com/feed"
+    },
+    {
+      "name": "Coconuts Bangkok",
+      "link": "https://coconuts.co/bangkok/feed/"
+    },
+    {
+      "name": "Siam Sport",
+      "link": "https://siamsport.co.th/rss/news.xml"
+    },
+    {
+      "name": "Goal Thailand",
+      "link": "https://www.goal.com/th/feeds/news"
+    },
+    {
+      "name": "Sanook Entertainment",
+      "link": "https://www.sanook.com/feed/entertainment/"
+    },
+    {
+      "name": "Thairath Entertainment",
+      "link": "https://www.thairath.co.th/rss/entertainment"
+    },
+    {
+      "name": "Dek-D",
+      "link": "https://www.dek-d.com/feed/"
+    },
+    {
+      "name": "Pantip",
+      "link": "https://pantip.com/feed/feed.xml"
+    },
+    {
+      "name": "The Standard",
+      "link": "https://thestandard.co/feed/"
+    },
+    {
+      "name": "Positioning Media",
+      "link": "https://positioningmag.com/feed"
+    },
+    {
+      "name": "Blockdit",
+      "link": "https://www.blockdit.com/rss"
+    },
+    {
+      "name": "e27 Thailand",
+      "link": "https://e27.co/category/thailand/feed/"
+    }
+  ],
+  "fr": [
+    {
+      "name": "Le Monde",
+      "link": "https://www.lemonde.fr/rss/une.xml"
+    },
+    {
+      "name": "Le Figaro",
+      "link": "https://www.lefigaro.fr/rss/figaro_actualites.xml"
+    },
+    {
+      "name": "France 24",
+      "link": "https://www.france24.com/fr/rss"
+    },
+    {
+      "name": "Libération",
+      "link": "https://www.liberation.fr/arc/outboundfeeds/rss/?outputType=xml"
+    },
+    {
+      "name": "L'Express",
+      "link": "https://www.lexpress.fr/rss/alaune.xml"
+    },
+    {
+      "name": "Le Point",
+      "link": "https://www.lepoint.fr/rss.xml"
+    },
+    {
+      "name": "L'Obs",
+      "link": "https://www.nouvelobs.com/rss.xml"
+    },
+    {
+      "name": "20 Minutes",
+      "link": "https://www.20minutes.fr/feeds/rss-une.xml"
+    },
+    {
+      "name": "France Info",
+      "link": "https://www.francetvinfo.fr/titres.rss"
+    },
+    {
+      "name": "AFP",
+      "link": "https://www.afp.com/fr/actus/afp_actualite/792,31,9,7,33/feed"
+    },
+    {
+      "name": "Les Échos",
+      "link": "https://www.lesechos.fr/rss.xml"
+    },
+    {
+      "name": "La Tribune",
+      "link": "https://www.latribune.fr/rss/a-la-une.rss"
+    },
+    {
+      "name": "01net",
+      "link": "https://www.01net.com/rss/"
+    },
+    {
+      "name": "Numerama",
+      "link": "https://www.numerama.com/feed/"
+    },
+    {
+      "name": "Clubic",
+      "link": "https://www.clubic.com/feed/"
+    },
+    {
+      "name": "Frandroid",
+      "link": "https://www.frandroid.com/feed"
+    },
+    {
+      "name": "Journal du Net",
+      "link": "https://www.journaldunet.com/rss/"
+    },
+    {
+      "name": "BFM Tech",
+      "link": "https://www.bfmtv.com/rss/tech/"
+    },
+    {
+      "name": "Phonandroid",
+      "link": "https://www.phonandroid.com/feed"
+    },
+    {
+      "name": "Tom's Hardware FR",
+      "link": "https://www.tomshardware.fr/feed/"
+    },
+    {
+      "name": "Next INpact",
+      "link": "https://www.nextinpact.com/rss/news.xml"
+    },
+    {
+      "name": "L'Équipe",
+      "link": "https://www.lequipe.fr/rss/actu_rss.xml"
+    },
+    {
+      "name": "Eurosport",
+      "link": "https://www.eurosport.fr/rss.xml"
+    },
+    {
+      "name": "L'Équipe Football",
+      "link": "https://www.lequipe.fr/rss/actu_rss_Football.xml"
+    },
+    {
+      "name": "AlloCiné",
+      "link": "https://www.allocine.fr/rss/news.xml"
+    },
+    {
+      "name": "Télérama",
+      "link": "https://www.telerama.fr/rss.xml"
+    },
+    {
+      "name": "Les Inrocks",
+      "link": "https://www.lesinrocks.com/feed/"
+    },
+    {
+      "name": "Première",
+      "link": "https://www.premiere.fr/rss"
+    },
+    {
+      "name": "JeuxVideo.com",
+      "link": "https://www.jeuxvideo.com/rss/rss.xml"
+    },
+    {
+      "name": "Gamekult",
+      "link": "https://www.gamekult.com/feed.xml"
+    },
+    {
+      "name": "Jeuxvideo.fr",
+      "link": "https://www.jeuxvideo.fr/rss/rss.xml"
+    },
+    {
+      "name": "Canard PC",
+      "link": "https://www.canardpc.com/feed"
+    },
+    {
+      "name": "FrenchWeb",
+      "link": "https://www.frenchweb.fr/feed"
+    },
+    {
+      "name": "Maddyness",
+      "link": "https://www.maddyness.com/feed/"
+    },
+    {
+      "name": "Rue89",
+      "link": "https://www.nouvelobs.com/rue89/rss.xml"
+    },
+    {
+      "name": "Mediapart",
+      "link": "https://www.mediapart.fr/articles/feed"
+    },
+    {
+      "name": "Courrier International",
+      "link": "https://www.courrierinternational.com/feed/all/rss.xml"
+    },
+    {
+      "name": "Sciences et Avenir",
+      "link": "https://www.sciencesetavenir.fr/rss.xml"
+    },
+    {
+      "name": "Pour la Science",
+      "link": "https://www.pourlascience.fr/rss.xml"
+    },
+    {
+      "name": "Futura Sciences",
+      "link": "https://www.futura-sciences.com/rss/actualites.xml"
+    }
+  ],
+  "de": [
+    {
+      "name": "Der Spiegel",
+      "link": "https://www.spiegel.de/index.rss"
+    },
+    {
+      "name": "Die Zeit",
+      "link": "https://www.zeit.de/index"
+    },
+    {
+      "name": "Deutsche Welle",
+      "link": "https://rss.dw.com/rdf/rss-en-all"
+    },
+    {
+      "name": "Süddeutsche Zeitung",
+      "link": "https://rss.sueddeutsche.de/rss/Topthemen"
+    },
+    {
+      "name": "FAZ",
+      "link": "https://www.faz.net/rss/aktuell/"
+    },
+    {
+      "name": "Die Welt",
+      "link": "https://www.welt.de/feeds/latest.rss"
+    },
+    {
+      "name": "Tagesschau",
+      "link": "https://www.tagesschau.de/xml/rss2"
+    },
+    {
+      "name": "Focus",
+      "link": "https://rss.focus.de/fol/XML/rss_folnews.xml"
+    },
+    {
+      "name": "Handelsblatt",
+      "link": "https://www.handelsblatt.com/contentexport/feed/top-themen"
+    },
+    {
+      "name": "Manager Magazin",
+      "link": "https://www.manager-magazin.de/index.rss"
+    },
+    {
+      "name": "Wirtschaftswoche",
+      "link": "https://www.wiwo.de/contentexport/feed/rss/schlagzeilen"
+    },
+    {
+      "name": "Heise Online",
+      "link": "https://www.heise.de/rss/heise-atom.xml"
+    },
+    {
+      "name": "t3n",
+      "link": "https://t3n.de/rss.xml"
+    },
+    {
+      "name": "Golem.de",
+      "link": "https://rss.golem.de/rss.php?feed=RSS2.0"
+    },
+    {
+      "name": "Computerbild",
+      "link": "https://www.computerbild.de/rss/feed.xml"
+    },
+    {
+      "name": "Chip",
+      "link": "https://www.chip.de/rss/rss_topnews.xml"
+    },
+    {
+      "name": "Netzpolitik",
+      "link": "https://netzpolitik.org/feed/"
+    },
+    {
+      "name": "Gründerszene",
+      "link": "https://www.businessinsider.de/gruenderszene/feed/"
+    },
+    {
+      "name": "Deutsche Startups",
+      "link": "https://www.deutsche-startups.de/feed/"
+    },
+    {
+      "name": "Kicker",
+      "link": "https://www.kicker.de/news/fussball/rss.xml"
+    },
+    {
+      "name": "Sport1",
+      "link": "https://www.sport1.de/news.rss"
+    },
+    {
+      "name": "Sportschau",
+      "link": "https://www.sportschau.de/index.xml"
+    },
+    {
+      "name": "Filmstarts",
+      "link": "https://www.filmstarts.de/rss/news.xml"
+    },
+    {
+      "name": "Spiegel TV",
+      "link": "https://www.spiegel.de/video/index.rss"
+    },
+    {
+      "name": "GameStar",
+      "link": "https://www.gamestar.de/feed.xml"
+    },
+    {
+      "name": "PC Games",
+      "link": "https://www.pcgames.de/rss.xml"
+    },
+    {
+      "name": "4Players",
+      "link": "https://www.4players.de/4players.php/rss/Alle/News.html"
+    },
+    {
+      "name": "Eurogamer.de",
+      "link": "https://www.eurogamer.de/?format=rss"
+    },
+    {
+      "name": "Stern",
+      "link": "https://www.stern.de/feed/standard/alle-nachrichten/"
+    },
+    {
+      "name": "N-TV",
+      "link": "https://www.n-tv.de/rss"
+    },
+    {
+      "name": "Bild",
+      "link": "https://www.bild.de/rssfeeds/vw-home/vw-home-16725562,dzbildplus=true,sort=1,view=rss2.bild.xml"
+    },
+    {
+      "name": "OMR",
+      "link": "https://omr.com/de/feed/"
+    },
+    {
+      "name": "Basicthinking",
+      "link": "https://www.basicthinking.de/blog/feed/"
+    },
+    {
+      "name": "Wired Germany",
+      "link": "https://www.wired.de/feed"
+    }
+  ],
+  "es": [
+    {
+      "name": "El País",
+      "link": "https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/portada"
+    },
+    {
+      "name": "El Mundo",
+      "link": "https://e00-elmundo.uecdn.es/elmundo/rss/portada.xml"
+    },
+    {
+      "name": "ABC España",
+      "link": "https://www.abc.es/rss/feeds/abc_EspanaEspana.xml"
+    },
+    {
+      "name": "La Vanguardia",
+      "link": "https://www.lavanguardia.com/rss/home.xml"
+    },
+    {
+      "name": "20 Minutos",
+      "link": "https://www.20minutos.es/rss/"
+    },
+    {
+      "name": "RTVE",
+      "link": "https://www.rtve.es/rss/temas/"
+    },
+    {
+      "name": "El Confidencial",
+      "link": "https://rss.elconfidencial.com/espana/"
+    },
+    {
+      "name": "Público",
+      "link": "https://www.publico.es/rss/"
+    },
+    {
+      "name": "EFE",
+      "link": "https://www.efe.com/efe/espana/1/rss.xml"
+    },
+    {
+      "name": "Europa Press",
+      "link": "https://www.europapress.es/rss/rss.aspx"
+    },
+    {
+      "name": "El Economista",
+      "link": "https://www.eleconomista.es/rss/rss-actualidad.php"
+    },
+    {
+      "name": "Expansión",
+      "link": "https://e00-expansion.uecdn.es/rss/portada.xml"
+    },
+    {
+      "name": "Cinco Días",
+      "link": "https://cincodias.elpais.com/rss/"
+    },
+    {
+      "name": "Xataka",
+      "link": "https://www.xataka.com/index.xml"
+    },
+    {
+      "name": "Genbeta",
+      "link": "https://www.genbeta.com/index.xml"
+    },
+    {
+      "name": "Hipertextual",
+      "link": "https://hipertextual.com/feed"
+    },
+    {
+      "name": "Computer Hoy",
+      "link": "https://computerhoy.com/rss"
+    },
+    {
+      "name": "Muy Interesante",
+      "link": "https://www.muyinteresante.es/feed"
+    },
+    {
+      "name": "Marca",
+      "link": "https://e00-marca.uecdn.es/rss/portada.xml"
+    },
+    {
+      "name": "AS",
+      "link": "https://as.com/rss/tags/ultimas_noticias.xml"
+    },
+    {
+      "name": "Sport",
+      "link": "https://www.sport.es/es/rss/home/rss.xml"
+    },
+    {
+      "name": "Mundo Deportivo",
+      "link": "https://www.mundodeportivo.com/rss/portada.xml"
+    },
+    {
+      "name": "Sensacine",
+      "link": "https://www.sensacine.com/rss/news.xml"
+    },
+    {
+      "name": "Fotogramas",
+      "link": "https://www.fotogramas.es/rss.xml"
+    },
+    {
+      "name": "MeriStation",
+      "link": "https://as.com/meristation/rss/portada.xml"
+    },
+    {
+      "name": "Vandal",
+      "link": "https://www.vandal.net/feed/news"
+    },
+    {
+      "name": "3DJuegos",
+      "link": "https://www.3djuegos.com/universo/rss/portada.xml"
+    },
+    {
+      "name": "Euroresidentes",
+      "link": "https://www.euroresidentes.com/Feeds/rss.xml"
+    },
+    {
+      "name": "El Periódico",
+      "link": "https://www.elperiodico.com/es/rss/rss_portada.xml"
+    },
+    {
+      "name": "La Razón",
+      "link": "https://www.larazon.es/rss/home.xml"
+    },
+    {
+      "name": "OK Diario",
+      "link": "https://okdiario.com/rss"
+    },
+    {
+      "name": "El Español",
+      "link": "https://www.elespanol.com/rss/"
+    },
+    {
+      "name": "El Diario",
+      "link": "https://www.eldiario.es/rss/"
+    },
+    {
+      "name": "Cadena SER",
+      "link": "https://cadenaser.com/rss/portada/"
+    }
+  ],
+  "pt": [
+    {
+      "name": "Globo",
+      "link": "https://g1.globo.com/rss/g1/"
+    },
+    {
+      "name": "Folha de S.Paulo",
+      "link": "https://feeds.folha.uol.com.br/emcimadahora/rss091.xml"
+    },
+    {
+      "name": "UOL Notícias",
+      "link": "https://rss.uol.com.br/feed/noticias.xml"
+    },
+    {
+      "name": "Estado de S. Paulo",
+      "link": "https://www.estadao.com.br/rss/ultimas.xml"
+    },
+    {
+      "name": "O Globo",
+      "link": "https://oglobo.globo.com/rss.xml"
+    },
+    {
+      "name": "BBC Brasil",
+      "link": "https://feeds.bbci.co.uk/portuguese/rss.xml"
+    },
+    {
+      "name": "R7 Notícias",
+      "link": "https://noticias.r7.com/feed.xml"
+    },
+    {
+      "name": "Veja",
+      "link": "https://veja.abril.com.br/feed/"
+    },
+    {
+      "name": "IstoÉ",
+      "link": "https://istoe.com.br/feed/"
+    },
+    {
+      "name": "CartaCapital",
+      "link": "https://www.cartacapital.com.br/feed/"
+    },
+    {
+      "name": "Exame",
+      "link": "https://exame.com/feed/"
+    },
+    {
+      "name": "Valor Econômico",
+      "link": "https://valor.globo.com/rss/"
+    },
+    {
+      "name": "InfoMoney",
+      "link": "https://www.infomoney.com.br/feed/"
+    },
+    {
+      "name": "TecMundo",
+      "link": "https://www.tecmundo.com.br/rss"
+    },
+    {
+      "name": "Canaltech",
+      "link": "https://canaltech.com.br/rss/"
+    },
+    {
+      "name": "Olhar Digital",
+      "link": "https://olhardigital.com.br/feed/"
+    },
+    {
+      "name": "The Hack",
+      "link": "https://thehack.com.br/feed/"
+    },
+    {
+      "name": "Tecnoblog",
+      "link": "https://tecnoblog.net/feed/"
+    },
+    {
+      "name": "Meio Bit",
+      "link": "https://meiobit.com/feed/"
+    },
+    {
+      "name": "StartSe",
+      "link": "https://www.startse.com/feed/"
+    },
+    {
+      "name": "NeoFeed",
+      "link": "https://neofeed.com.br/feed/"
+    },
+    {
+      "name": "GloboEsporte",
+      "link": "https://globoesporte.globo.com/rss/"
+    },
+    {
+      "name": "Lance!",
+      "link": "https://www.lance.com.br/rss.xml"
+    },
+    {
+      "name": "ESPN Brasil",
+      "link": "https://www.espn.com.br/feeds/rss/"
+    },
+    {
+      "name": "Esporte Interativo",
+      "link": "https://www.uol.com.br/esporte/ultimas/index.xml"
+    },
+    {
+      "name": "AdoroCinema",
+      "link": "https://www.adorocinema.com/rss/news.xml"
+    },
+    {
+      "name": "Omelete",
+      "link": "https://www.omelete.com.br/feed"
+    },
+    {
+      "name": "IGN Brasil",
+      "link": "https://br.ign.com/feed.xml"
+    },
+    {
+      "name": "The Enemy",
+      "link": "https://www.theenemy.com.br/feed"
+    },
+    {
+      "name": "Voxel",
+      "link": "https://www.voxel.com.br/feed/"
+    },
+    {
+      "name": "Polygon Brasil",
+      "link": "https://www.polygon.com/rss/index.xml"
+    },
+    {
+      "name": "Jovem Nerd",
+      "link": "https://jovemnerd.com.br/feed/"
+    },
+    {
+      "name": "Superinteressante",
+      "link": "https://super.abril.com.br/feed/"
+    },
+    {
+      "name": "Galileu",
+      "link": "https://revistagalileu.globo.com/rss/"
+    },
+    {
+      "name": "Época Negócios",
+      "link": "https://epocanegocios.globo.com/rss.xml"
+    },
+    {
+      "name": "Draft",
+      "link": "https://www.projetodraft.com/feed/"
+    },
+    {
+      "name": "Nexo Jornal",
+      "link": "https://www.nexojornal.com.br/rss.xml"
+    },
+    {
+      "name": "The Intercept Brasil",
+      "link": "https://theintercept.com/brasil/feed/?lang=pt"
+    }
+  ],
+  "ar": [
+    {
+      "name": "Al Jazeera Arabic",
+      "link": "https://www.aljazeera.net/xml/rss/all.xml"
+    },
+    {
+      "name": "Al Arabiya",
+      "link": "https://www.alarabiya.net/ar.rss"
+    },
+    {
+      "name": "BBC Arabic",
+      "link": "https://feeds.bbci.co.uk/arabic/rss.xml"
+    },
+    {
+      "name": "Sky News Arabia",
+      "link": "https://www.skynewsarabia.com/rss"
+    },
+    {
+      "name": "RT Arabic",
+      "link": "https://arabic.rt.com/rss/"
+    },
+    {
+      "name": "Al Ahram",
+      "link": "http://gate.ahram.org.eg/rss/feed.aspx?type=1"
+    },
+    {
+      "name": "Al Masry Al Youm",
+      "link": "https://www.almasryalyoum.com/rss/rss.xml"
+    },
+    {
+      "name": "Youm7",
+      "link": "https://www.youm7.com/rss"
+    },
+    {
+      "name": "CNN Arabic",
+      "link": "https://arabic.cnn.com/rss"
+    },
+    {
+      "name": "France 24 Arabic",
+      "link": "https://www.france24.com/ar/rss"
+    },
+    {
+      "name": "DW Arabic",
+      "link": "https://rss.dw.com/rdf/rss-ar-all"
+    },
+    {
+      "name": "Asharq Al-Awsat",
+      "link": "https://aawsat.com/rss"
+    },
+    {
+      "name": "Al-Hayat",
+      "link": "http://www.alhayat.com/rss"
+    },
+    {
+      "name": "Al-Quds Al-Arabi",
+      "link": "https://www.alquds.co.uk/feed/"
+    },
+    {
+      "name": "Middle East Eye Arabic",
+      "link": "https://www.middleeasteye.net/ar/rss"
+    },
+    {
+      "name": "Arabi21",
+      "link": "https://arabi21.com/feed"
+    },
+    {
+      "name": "Al Khaleej",
+      "link": "http://www.alkhaleej.ae/rss/allnews"
+    },
+    {
+      "name": "Elaph",
+      "link": "https://elaph.com/rss.xml"
+    },
+    {
+      "name": "Alarab",
+      "link": "https://alarab.co.uk/feed"
+    },
+    {
+      "name": "Al Bayan",
+      "link": "https://www.albayan.ae/rss"
+    },
+    {
+      "name": "Gulf News Arabic",
+      "link": "https://gulfnews.com/arabic/rss"
+    },
+    {
+      "name": "Al Ittihad",
+      "link": "https://www.alittihad.ae/rss.php"
+    },
+    {
+      "name": "Okaz",
+      "link": "https://www.okaz.com.sa/rss/all-news"
+    },
+    {
+      "name": "Sabq",
+      "link": "https://sabq.org/rss-sitemap"
+    },
+    {
+      "name": "Ajel",
+      "link": "https://ajel.sa/rss/"
+    },
+    {
+      "name": "Al Riyadh",
+      "link": "http://www.alriyadh.com/rss.xml"
+    },
+    {
+      "name": "Arageek",
+      "link": "https://www.arageek.com/feed"
+    },
+    {
+      "name": "Tech Wd",
+      "link": "https://www.tech-wd.com/feed/"
+    },
+    {
+      "name": "I3lam Tech",
+      "link": "https://www.i3lam.tech/feed/"
+    },
+    {
+      "name": "Khaberni",
+      "link": "https://khaberni.com/rss"
+    },
+    {
+      "name": "Ammonnews",
+      "link": "https://www.ammonnews.net/rss"
+    },
+    {
+      "name": "Sada Elbalad",
+      "link": "https://www.elbalad.news/rss"
     }
   ]
 }

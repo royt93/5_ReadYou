@@ -57,4 +57,36 @@
     <string name="clear_articles_group_tips">\"%1$s\" ഗ്രൂപ്പിലെ ലേഖനങ്ങളുടെ എല്ലാ ആർക്കൈവും മായ്‌ക്കുക</string>
     <string name="clear_articles_in_group_toast">\"%1$s\" ഫീഡിലെ ലേഖനങ്ങളുടെ എല്ലാ ആർക്കൈവും വൃത്തിയാക്കി</string>
     <string name="clear_articles">വ്യക്തമായ ലേഖനങ്ങൾ</string>
+
+    <!-- Add Sources Page - TODO: Translate -->
+    <string name="explore_rss_sources">Explore RSS sources</string>
+    <string name="english_sources">English Sources</string>
+    <string name="vietnamese_sources">Vietnamese Sources</string>
+    <string name="japanese_sources">Japanese Sources</string>
+    <string name="korean_sources">Korean Sources</string>
+    <string name="chinese_sources">Chinese Sources</string>
+    <string name="indonesian_sources">Indonesian Sources</string>
+    <string name="thai_sources">Thai Sources</string>
+    <string name="french_sources">French Sources</string>
+    <string name="german_sources">German Sources</string>
+    <string name="spanish_sources">Spanish Sources</string>
+    <string name="portuguese_sources">Portuguese Sources</string>
+    <string name="arabic_sources">Arabic Sources</string>
+
+    <!-- Add Source Detail Page - TODO: Translate -->
+    <string name="add_rss_source">Add RSS Source</string>
+    <string name="add_source_confirm_message">Do you want to add this RSS source to your feeds?</string>
+    <string name="add_source">Add Source</string>
+    <string name="rss_feed_added_successfully">RSS feed added successfully!</string>
+    <string name="add_rss_source_failed">Failed to add RSS source</string>
+    <string name="add_rss_source_error">Error adding RSS source: %1$s</string>
+    <string name="search_rss_sources">Search RSS sources…</string>
+    <string name="no_results_found">No results found</string>
+    <string name="try_different_keywords">Try searching with different keywords</string>
+    <string name="no_rss_sources_available">No RSS sources available</string>
+    <string name="no_sources_for_country">No sources found for this country</string>
+    <string name="oops_something_wrong">Oops! Something went wrong</string>
+    <string name="try_again">Try Again</string>
+    <string name="already_added">Already Added</string>
+    <string name="add_new_source">Add Source</string>
 </resources>

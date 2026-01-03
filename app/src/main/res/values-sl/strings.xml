@@ -199,4 +199,36 @@
     <string name="maximize">Povečaj</string>
     <string name="images_desc">Zaobljeni vogali, vodoravno oblazinjenje</string>
     <string name="tos_content">&lt;h5&gt; Pravilnik o zasebnosti &lt;/h5&gt; &lt;br/&gt; &lt;p&gt; Vašo zasebnost jemljem zelo resno. &lt;/p&gt; &lt;br/&gt; &lt;p&gt; &lt;b&gt; RSS Bear Hub &lt;/b&gt; ne zbira nobenih uporabniških podatkov, vsi občutljivi podatki (gesla in drugi podatki o računu) pa so varno shranjeni v lokalni zbirki podatkov aplikacije v vaši napravi. &lt;/p&gt; &lt;br/&gt; &lt;p&gt; &lt;b&gt; RSS Bear Hub &lt;/b&gt; bo za zagotavljanje storitve uporabljala naslednja dovoljenja. &lt;/p&gt; &lt;br/&gt; &lt;p&gt; - Dovoljenje za dostop do omrežja (za dostop do spletnih vsebin, ki jih določite) &lt;/p&gt; &lt;p&gt; - Dovoljenje za pridobitev statusa omrežja (za ugotavljanje, ali so v napravi trenutno na voljo pogoji omrežja) &lt;/p&gt; &lt;p&gt; - dovoljenje za storitev v ozadju (za redno samodejno sinhronizacijo vaših priljubljenih) &lt;/p&gt; &lt;br/&gt; &lt;br/&gt; &lt;h5&gt; Storitve tretjih oseb &lt;/h5&gt; &lt;br/&gt; &lt;p&gt; Ta pravilnik ne velja za storitve tretjih oseb, ki jih uporabljate z &lt;b&gt; RSS Bear Hub&lt;/b&gt;. Pravilnike o zasebnosti storitev tretjih oseb, ki jih uporabljate, lahko pregledate na njihovih spletnih mestih &lt;/p&gt; &lt;br/&gt; &lt;br/&gt; &lt;h5&gt; Izjave o omejitvi odgovornosti &lt;/h5&gt; &lt;br/&gt; &lt;p&gt; &lt;b&gt; RSS Bear Hub &lt;/b&gt; je samo orodje za zbiranje vsebine. Za uporabo &lt;b&gt; RSS Bear Hub &lt;/b&gt; veljajo zakoni in predpisi vaše države in regije, vso odgovornost, ki izhaja iz vaših dejanj, pa nosite vi osebno. &lt;/p&gt; &lt;br/&gt; &lt;br/&gt; &lt;h5&gt; Odprtokodna licenca &lt;/h5&gt; &lt;br/&gt; &lt;p&gt; &lt;b&gt; RSS Bear Hub &lt;/b&gt; je odprtokodni projekt, licenciran pod odprtokodno licenco GNU GPL 3.0&lt;/p&gt;[1], ki omogoča brezplačno uporabo, sklicevanje in spreminjanje izvorne kode aplikacije, vendar ne dovoljuje distribucije in prodaje spremenjene ter izpeljane kode kot zaprtokodne komercialne programske opreme. Za podrobnosti glejte celotno odprtokodno licenco GNU GPL 3.0[2]. &lt;/p&gt; &lt;br/&gt; &lt;br/&gt; &lt;h5&gt; Priloga &lt;/h5&gt; &lt;br/&gt; &lt;p&gt;- [1] https://github.com/Ashinch/ReadYou &lt;/p&gt; &lt;p&gt; - [2] https://www.gnu.org/licenses/gpl-3.0.html &lt;/p&gt;</string>
+
+    <!-- Add Sources Page - TODO: Translate -->
+    <string name="explore_rss_sources">Explore RSS sources</string>
+    <string name="english_sources">English Sources</string>
+    <string name="vietnamese_sources">Vietnamese Sources</string>
+    <string name="japanese_sources">Japanese Sources</string>
+    <string name="korean_sources">Korean Sources</string>
+    <string name="chinese_sources">Chinese Sources</string>
+    <string name="indonesian_sources">Indonesian Sources</string>
+    <string name="thai_sources">Thai Sources</string>
+    <string name="french_sources">French Sources</string>
+    <string name="german_sources">German Sources</string>
+    <string name="spanish_sources">Spanish Sources</string>
+    <string name="portuguese_sources">Portuguese Sources</string>
+    <string name="arabic_sources">Arabic Sources</string>
+
+    <!-- Add Source Detail Page - TODO: Translate -->
+    <string name="add_rss_source">Add RSS Source</string>
+    <string name="add_source_confirm_message">Do you want to add this RSS source to your feeds?</string>
+    <string name="add_source">Add Source</string>
+    <string name="rss_feed_added_successfully">RSS feed added successfully!</string>
+    <string name="add_rss_source_failed">Failed to add RSS source</string>
+    <string name="add_rss_source_error">Error adding RSS source: %1$s</string>
+    <string name="search_rss_sources">Search RSS sources…</string>
+    <string name="no_results_found">No results found</string>
+    <string name="try_different_keywords">Try searching with different keywords</string>
+    <string name="no_rss_sources_available">No RSS sources available</string>
+    <string name="no_sources_for_country">No sources found for this country</string>
+    <string name="oops_something_wrong">Oops! Something went wrong</string>
+    <string name="try_again">Try Again</string>
+    <string name="already_added">Already Added</string>
+    <string name="add_new_source">Add Source</string>
 </resources>

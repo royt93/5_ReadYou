@@ -245,4 +245,36 @@
     <string name="username">ユーザー名</string>
     <string name="connection">接続</string>
     <string name="custom_tabs">カスタムタブの使用を強制する</string>
+
+    <!-- Add Sources Page -->
+    <string name="explore_rss_sources">RSSソースを探す</string>
+    <string name="english_sources">英語ソース</string>
+    <string name="vietnamese_sources">ベトナム語ソース</string>
+    <string name="japanese_sources">日本語ソース</string>
+    <string name="korean_sources">韓国語ソース</string>
+    <string name="chinese_sources">中国語ソース</string>
+    <string name="indonesian_sources">インドネシア語ソース</string>
+    <string name="thai_sources">タイ語ソース</string>
+    <string name="french_sources">フランス語ソース</string>
+    <string name="german_sources">ドイツ語ソース</string>
+    <string name="spanish_sources">スペイン語ソース</string>
+    <string name="portuguese_sources">ポルトガル語ソース</string>
+    <string name="arabic_sources">アラビア語ソース</string>
+
+    <!-- Add Source Detail Page -->
+    <string name="add_rss_source">RSSソースを追加</string>
+    <string name="add_source_confirm_message">このRSSソースをフィードに追加しますか？</string>
+    <string name="add_source">ソースを追加</string>
+    <string name="rss_feed_added_successfully">RSSフィードが正常に追加されました！</string>
+    <string name="add_rss_source_failed">RSSソースの追加に失敗しました</string>
+    <string name="add_rss_source_error">RSSソース追加エラー: %1$s</string>
+    <string name="search_rss_sources">RSSソースを検索…</string>
+    <string name="no_results_found">結果が見つかりません</string>
+    <string name="try_different_keywords">別のキーワードで検索してください</string>
+    <string name="no_rss_sources_available">利用可能なRSSソースがありません</string>
+    <string name="no_sources_for_country">この国のソースが見つかりません</string>
+    <string name="oops_something_wrong">エラーが発生しました</string>
+    <string name="try_again">もう一度試す</string>
+    <string name="already_added">追加済み</string>
+    <string name="add_new_source">ソースを追加</string>
 </resources>

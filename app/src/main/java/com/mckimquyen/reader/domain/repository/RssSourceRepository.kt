@@ -38,8 +38,18 @@ class RssSourceRepository @Inject constructor(
             val sourcesData = gson.fromJson(json, RssSourcesData::class.java)
 
             when (countryCode) {
-                "vi" -> sourcesData.vi ?: emptyList()
                 "en" -> sourcesData.en ?: emptyList()
+                "vi" -> sourcesData.vi ?: emptyList()
+                "ja" -> sourcesData.ja ?: emptyList()
+                "ko" -> sourcesData.ko ?: emptyList()
+                "zh" -> sourcesData.zh ?: emptyList()
+                "id" -> sourcesData.id ?: emptyList()
+                "th" -> sourcesData.th ?: emptyList()
+                "fr" -> sourcesData.fr ?: emptyList()
+                "de" -> sourcesData.de ?: emptyList()
+                "es" -> sourcesData.es ?: emptyList()
+                "pt" -> sourcesData.pt ?: emptyList()
+                "ar" -> sourcesData.ar ?: emptyList()
                 else -> emptyList()
             }
         } catch (e: Exception) {

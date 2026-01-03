@@ -60,12 +60,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.mckimquyen.reader.R
 import com.mckimquyen.reader.domain.model.RssSource
 import kotlinx.coroutines.launch
 
@@ -86,6 +89,7 @@ fun AddSourceDetailPage(
     viewModel: AddSourcesViewModel = hiltViewModel(),
 ) {
     // Trạng thái UI và các biến điều khiển
+    val context = LocalContext.current
     val uiState by viewModel.uiState.collectAsState() // Trạng thái UI từ ViewModel
     val searchQuery by viewModel.searchQuery.collectAsState() // Search query từ ViewModel
     val scope = rememberCoroutineScope() // Scope cho coroutine
@@ -101,16 +105,36 @@ fun AddSourceDetailPage(
 
     // Xác định tên hiển thị cho quốc gia
     val countryName = when (countryCode) {
-        "en" -> "English Sources" // Nguồn tiếng Anh
-        "vi" -> "Vietnamese Sources" // Nguồn tiếng Việt
-        else -> "RSS Sources" // Nguồn khác
+        "en" -> stringResource(R.string.english_sources)
+        "vi" -> stringResource(R.string.vietnamese_sources)
+        "ja" -> stringResource(R.string.japanese_sources)
+        "ko" -> stringResource(R.string.korean_sources)
+        "zh" -> stringResource(R.string.chinese_sources)
+        "id" -> stringResource(R.string.indonesian_sources)
+        "th" -> stringResource(R.string.thai_sources)
+        "fr" -> stringResource(R.string.french_sources)
+        "de" -> stringResource(R.string.german_sources)
+        "es" -> stringResource(R.string.spanish_sources)
+        "pt" -> stringResource(R.string.portuguese_sources)
+        "ar" -> stringResource(R.string.arabic_sources)
+        else -> stringResource(R.string.feeds)
     }
 
     // Xác định icon cờ quốc gia
     val countryFlag = when (countryCode) {
-        "en" -> "🇺🇸" // Cờ Mỹ
-        "vi" -> "🇻🇳" // Cờ Việt Nam
-        else -> "🌍" // Icon thế giới
+        "en" -> "🇺🇸"
+        "vi" -> "🇻🇳"
+        "ja" -> "🇯🇵"
+        "ko" -> "🇰🇷"
+        "zh" -> "🇨🇳"
+        "id" -> "🇮🇩"
+        "th" -> "🇹🇭"
+        "fr" -> "🇫🇷"
+        "de" -> "🇩🇪"
+        "es" -> "🇪🇸"
+        "pt" -> "🇧🇷"
+        "ar" -> "🇸🇦"
+        else -> "🌍"
     }
 
     Scaffold(
@@ -229,13 +253,13 @@ fun AddSourceDetailPage(
                             // Gọi API thêm nguồn RSS
                             val success = viewModel.addRssSource(sourceToAdd)
                             if (success) {
-                                snackbarHostState.showSnackbar("RSS feed added successfully!")
+                                snackbarHostState.showSnackbar(context.getString(R.string.rss_feed_added_successfully))
                                 // UI sẽ tự cập nhật qua StateFlow, không cần reload
                             } else {
-                                snackbarHostState.showSnackbar("Thêm nguồn RSS thất bại")
+                                snackbarHostState.showSnackbar(context.getString(R.string.add_rss_source_failed))
                             }
                         } catch (e: Exception) {
-                            snackbarHostState.showSnackbar("Lỗi khi thêm nguồn RSS: ${e.message}")
+                            snackbarHostState.showSnackbar(context.getString(R.string.add_rss_source_error, e.message ?: ""))
                         } finally {
                             // Tắt trạng thái loading
                             loadingSourceUrl = null
@@ -262,13 +286,13 @@ private fun EmptyStateContent(searchQuery: String) {
     ) {
         Icon(
             imageVector = if (searchQuery.isNotEmpty()) Icons.Rounded.SearchOff else Icons.Rounded.Error,
-            contentDescription = "Empty",
+            contentDescription = stringResource(R.string.empty),
             modifier = Modifier.size(80.dp),
             tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f)
         )
         Spacer(modifier = Modifier.height(24.dp))
         Text(
-            text = if (searchQuery.isNotEmpty()) "No results found" else "No RSS sources available",
+            text = if (searchQuery.isNotEmpty()) stringResource(R.string.no_results_found) else stringResource(R.string.no_rss_sources_available),
             style = MaterialTheme.typography.headlineSmall,
             fontWeight = FontWeight.SemiBold,
             color = MaterialTheme.colorScheme.onSurface,
@@ -277,9 +301,9 @@ private fun EmptyStateContent(searchQuery: String) {
         Spacer(modifier = Modifier.height(8.dp))
         Text(
             text = if (searchQuery.isNotEmpty()) {
-                "Try searching with different keywords"
+                stringResource(R.string.try_different_keywords)
             } else {
-                "No sources found for this country"
+                stringResource(R.string.no_sources_for_country)
             },
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
@@ -307,14 +331,14 @@ private fun RssSearchField(
             modifier = Modifier.fillMaxWidth(),
             placeholder = {
                 Text(
-                    text = "Search RSS sources...",
+                    text = stringResource(R.string.search_rss_sources),
                     style = MaterialTheme.typography.bodyMedium
                 )
             },
             leadingIcon = {
                 Icon(
                     imageVector = Icons.Rounded.Search,
-                    contentDescription = "Search"
+                    contentDescription = stringResource(R.string.search)
                 )
             },
             trailingIcon = {
@@ -322,7 +346,7 @@ private fun RssSearchField(
                     IconButton(onClick = onClearClick) {
                         Icon(
                             imageVector = Icons.Rounded.Close,
-                            contentDescription = "Clear"
+                            contentDescription = stringResource(R.string.clear)
                         )
                     }
                 }
@@ -348,13 +372,13 @@ private fun ErrorContent(
         ) {
             Icon(
                 imageVector = Icons.Rounded.Error,
-                contentDescription = "Error",
+                contentDescription = stringResource(R.string.oops_something_wrong),
                 modifier = Modifier.size(64.dp),
                 tint = MaterialTheme.colorScheme.error
             )
             Spacer(modifier = Modifier.height(16.dp))
             Text(
-                text = "Oops! Something went wrong",
+                text = stringResource(R.string.oops_something_wrong),
                 style = MaterialTheme.typography.headlineSmall,
                 fontWeight = FontWeight.SemiBold,
                 color = MaterialTheme.colorScheme.onSurface
@@ -375,7 +399,7 @@ private fun ErrorContent(
                     .padding(horizontal = 16.dp, vertical = 8.dp)
             ) {
                 Text(
-                    "Try Again",
+                    stringResource(R.string.try_again),
                     color = MaterialTheme.colorScheme.primary,
                     fontWeight = FontWeight.Medium
                 )
@@ -571,7 +595,7 @@ private fun AddSourceConfirmationDialog(
         onDismissRequest = onDismiss,
         title = {
             Text(
-                text = "Add RSS Source",
+                text = stringResource(R.string.add_rss_source),
                 style = MaterialTheme.typography.headlineSmall,
                 fontWeight = FontWeight.SemiBold
             )
@@ -579,7 +603,7 @@ private fun AddSourceConfirmationDialog(
         text = {
             Column {
                 Text(
-                    text = "Do you want to add this RSS source to your feeds?",
+                    text = stringResource(R.string.add_source_confirm_message),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f)
                 )
@@ -603,7 +627,7 @@ private fun AddSourceConfirmationDialog(
                 onClick = onConfirm,
                 modifier = Modifier.clip(RoundedCornerShape(8.dp))
             ) {
-                Text("Add Source")
+                Text(stringResource(R.string.add_source))
             }
         },
         dismissButton = {
@@ -611,7 +635,7 @@ private fun AddSourceConfirmationDialog(
                 onClick = onDismiss,
                 modifier = Modifier.clip(RoundedCornerShape(8.dp))
             ) {
-                Text("Cancel")
+                Text(stringResource(R.string.cancel))
             }
         },
         containerColor = MaterialTheme.colorScheme.surface,

@@ -31,10 +31,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.mckimquyen.reader.R
 import com.mckimquyen.reader.ui.page.common.RouteName
 
 @Preview
@@ -53,8 +55,18 @@ fun AddSourcesMainPage(navController: NavHostController) {
 @Composable
 fun CountriesList(navController: NavHostController) {
     val countries = listOf(
-        CountryItem("🇺🇸", "English", "en"),
-        CountryItem("🇻🇳", "Tiếng Việt", "vi")
+        CountryItem("🇺🇸", stringResource(R.string.english_sources), "en"),
+        CountryItem("🇻🇳", stringResource(R.string.vietnamese_sources), "vi"),
+        CountryItem("🇯🇵", stringResource(R.string.japanese_sources), "ja"),
+        CountryItem("🇰🇷", stringResource(R.string.korean_sources), "ko"),
+        CountryItem("🇨🇳", stringResource(R.string.chinese_sources), "zh"),
+        CountryItem("🇮🇩", stringResource(R.string.indonesian_sources), "id"),
+        CountryItem("🇹🇭", stringResource(R.string.thai_sources), "th"),
+        CountryItem("🇫🇷", stringResource(R.string.french_sources), "fr"),
+        CountryItem("🇩🇪", stringResource(R.string.german_sources), "de"),
+        CountryItem("🇪🇸", stringResource(R.string.spanish_sources), "es"),
+        CountryItem("🇧🇷", stringResource(R.string.portuguese_sources), "pt"),
+        CountryItem("🇸🇦", stringResource(R.string.arabic_sources), "ar")
     )
 
     LazyColumn(
@@ -146,7 +158,7 @@ private fun CountryCard(
                         )
                         Spacer(modifier = Modifier.width(4.dp))
                         Text(
-                            text = "Explore RSS sources",
+                            text = stringResource(R.string.explore_rss_sources),
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
                             maxLines = 1,
