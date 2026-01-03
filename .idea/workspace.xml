@@ -17,15 +17,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6f28f826-4208-4800-b7bf-3c32f11fba88" name="Changes" comment="Update ProGuard rules and Gradle configuration&#10;&#10;This commit updates the ProGuard rules for Rome library and adds configurations to Gradle for KAPT and JVM arguments.&#10;&#10;- In `app/proguard-rules.pro`:&#10;    - Changed keep rules for Rome library classes (`com.rometools.rome.feed.**`, `com.rometools.rome.io.**`, `com.rometools.modules.**`) to not allow shrinking or obfuscation.&#10;    - Added keep rules for Rome RSS parser plugins (`com.rometools.rome.feed.synd.impl.**`, `com.rometools.rome.feed.atom.**`, `com.rometools.rome.feed.rss.**`) to prevent `ClassNotFoundException`.&#10;    - Added keep rules for ServiceLoader implementations to ensure `newInstance()` and implementations of `Converter`, `ModuleParser`, and `ModuleGenerator` are preserved.&#10;- In `app/build.gradle`:&#10;    - Added a configuration to set `jvmTarget = &quot;17&quot;` for `KaptGenerateStubsTask` to fix KAPT compatibility with newer Java versions.&#10;- In `gradle.properties`:&#10;    - Added `kapt.include.compile.classpath=false`.&#10;    - Expanded `org.gradle.jvmargs` and `kotlin.daemon.jvmargs` with additional `--add-exports` and `--add-opens` for `jdk.compiler` to ensure compatibility with newer JDK versions.&#10;- Added `.idea/appInsightsSettings.xml` to configure Firebase Crashlytics integration.&#10;- Updated `.idea/workspace.xml` with layout configurations and minor changes.">
-      <change afterPath="$PROJECT_DIR$/.idea/copilot.data.migration.agent.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/copilot.data.migration.ask.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/copilot.data.migration.ask2agent.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/copilot.data.migration.edit.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/keystore.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/keystore.properties.example" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -162,6 +158,12 @@
       <option name="SKIP_ACTIVITY_VALIDATION" value="false" />
       <method v="2">
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="AppleRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" IS_LOCATION_SIMULATION_SUPPORTED="false" IS_LOCATION_SIMULATION_ALLOWED="true" APPLICATION_LANGUAGE="IDELaunchSchemeLanguageUseSystemLanguage" APPLICATION_REGION="" DEVELOPMENT_TEAM="${TEAM_ID}" MAKE_ACTIVE="TRUE" SHOULD_DEBUG_EXTENSIONS="false">
+      <embedded_app_extension_list />
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
   </component>
@@ -405,7 +407,15 @@
       <option name="project" value="LOCAL" />
       <updated>1759242866684</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="Update ProGuard rules and Gradle configuration&#10;&#10;This commit updates the ProGuard rules for Rome library and adds configurations to Gradle for KAPT and JVM arguments.&#10;&#10;- In `app/proguard-rules.pro`:&#10;    - Changed keep rules for Rome library classes (`com.rometools.rome.feed.**`, `com.rometools.rome.io.**`, `com.rometools.modules.**`) to not allow shrinking or obfuscation.&#10;    - Added keep rules for Rome RSS parser plugins (`com.rometools.rome.feed.synd.impl.**`, `com.rometools.rome.feed.atom.**`, `com.rometools.rome.feed.rss.**`) to prevent `ClassNotFoundException`.&#10;    - Added keep rules for ServiceLoader implementations to ensure `newInstance()` and implementations of `Converter`, `ModuleParser`, and `ModuleGenerator` are preserved.&#10;- In `app/build.gradle`:&#10;    - Added a configuration to set `jvmTarget = &quot;17&quot;` for `KaptGenerateStubsTask` to fix KAPT compatibility with newer Java versions.&#10;- In `gradle.properties`:&#10;    - Added `kapt.include.compile.classpath=false`.&#10;    - Expanded `org.gradle.jvmargs` and `kotlin.daemon.jvmargs` with additional `--add-exports` and `--add-opens` for `jdk.compiler` to ensure compatibility with newer JDK versions.&#10;- Added `.idea/appInsightsSettings.xml` to configure Firebase Crashlytics integration.&#10;- Updated `.idea/workspace.xml` with layout configurations and minor changes.">
+      <option name="closed" value="true" />
+      <created>1767426232779</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1767426232779</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
