@@ -22,8 +22,8 @@ android {
         minSdk 26
         //noinspection EditedTargetSdkVersion,OldTargetApi
         targetSdk 36
-        versionCode 20250929
-        versionName "2025.09.29"
+        versionCode 20260103
+        versionName "2026.01.03"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -112,7 +112,7 @@ android {
         buildConfig true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion '1.2.0-beta02'
+        kotlinCompilerExtensionVersion '1.5.3'
     }
     packagingOptions {
         resources {
@@ -152,11 +152,11 @@ dependencies {
     api "androidx.work:work-runtime-ktx:2.8.0-alpha02"
     api "androidx.datastore:datastore-preferences:1.0.0"
 
-    api "androidx.room:room-paging:2.5.2"
-    api "androidx.room:room-common:2.5.2"
-    api "androidx.room:room-ktx:2.5.2"
+    api "androidx.room:room-paging:2.6.1"
+    api "androidx.room:room-common:2.6.1"
+    api "androidx.room:room-ktx:2.6.1"
     //noinspection KaptUsageInsteadOfKsp
-    kapt "androidx.room:room-compiler:2.5.2"
+    kapt "androidx.room:room-compiler:2.6.1"
 
 //    api "androidx.paging:paging-common:3.1.1"
 //    api "androidx.paging:paging-runtime:3.1.1"
@@ -183,9 +183,8 @@ dependencies {
     api "androidx.compose.ui:ui-tooling-preview:1.2.0-beta02"
 
     api "androidx.hilt:hilt-work:1.0.0"
-    api "com.google.dagger:hilt-android:2.40.5"
-    kapt "com.google.dagger:hilt-android-compiler:2.40.5"
-    api "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03"
+    api "com.google.dagger:hilt-android:2.48"
+    kapt "com.google.dagger:hilt-android-compiler:2.48"
     kapt "androidx.hilt:hilt-compiler:1.0.0"
     api "androidx.hilt:hilt-navigation-compose:1.0.0"
     api "androidx.core:core-ktx:1.7.0"

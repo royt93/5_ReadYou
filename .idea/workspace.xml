@@ -16,7 +16,17 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6f28f826-4208-4800-b7bf-3c32f11fba88" name="Changes" comment="Refactor threading and add basic unit tests&#10;&#10;This commit refactors threading in `CrashHandler`, `AccountSv`, and `MainActivity` to prevent ANRs and ensure UI operations run on the main thread.&#10;- In `CrashHandler`, toasts are now shown on the main thread using `Handler(Looper.getMainLooper()).post`.&#10;- In `AccountSv`, the toast for &quot;must_have_an_account&quot; is now shown on the main thread using `withContext(Dispatchers.Main)`.&#10;- In `MainActivity`, AdMob initialization is moved to the main thread using `lifecycleScope.launch(Dispatchers.Main)`.&#10;&#10;Additionally, this commit:&#10;- Deletes `DataStoreExtensionsTest.kt`, `FilterTest.kt`, `RssSourcesTest.kt`, and `StringExtensionsTest.kt`.&#10;- Adds a new `BasicUnitTest.java` file with basic unit tests covering string operations, URL validation, RSS source validation, application constants, RSS sources expansion, preference validation, RSS categories, DataStore keys, version information, and ANR fix validation." />
+    <list default="true" id="6f28f826-4208-4800-b7bf-3c32f11fba88" name="Changes" comment="Update ProGuard rules and Gradle configuration&#10;&#10;This commit updates the ProGuard rules for Rome library and adds configurations to Gradle for KAPT and JVM arguments.&#10;&#10;- In `app/proguard-rules.pro`:&#10;    - Changed keep rules for Rome library classes (`com.rometools.rome.feed.**`, `com.rometools.rome.io.**`, `com.rometools.modules.**`) to not allow shrinking or obfuscation.&#10;    - Added keep rules for Rome RSS parser plugins (`com.rometools.rome.feed.synd.impl.**`, `com.rometools.rome.feed.atom.**`, `com.rometools.rome.feed.rss.**`) to prevent `ClassNotFoundException`.&#10;    - Added keep rules for ServiceLoader implementations to ensure `newInstance()` and implementations of `Converter`, `ModuleParser`, and `ModuleGenerator` are preserved.&#10;- In `app/build.gradle`:&#10;    - Added a configuration to set `jvmTarget = &quot;17&quot;` for `KaptGenerateStubsTask` to fix KAPT compatibility with newer Java versions.&#10;- In `gradle.properties`:&#10;    - Added `kapt.include.compile.classpath=false`.&#10;    - Expanded `org.gradle.jvmargs` and `kotlin.daemon.jvmargs` with additional `--add-exports` and `--add-opens` for `jdk.compiler` to ensure compatibility with newer JDK versions.&#10;- Added `.idea/appInsightsSettings.xml` to configure Firebase Crashlytics integration.&#10;- Updated `.idea/workspace.xml` with layout configurations and minor changes.">
+      <change afterPath="$PROJECT_DIR$/.idea/copilot.data.migration.agent.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/copilot.data.migration.ask.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/copilot.data.migration.ask2agent.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/copilot.data.migration.edit.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -25,11 +35,16 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=PhysicalDevice, isTemplate=false, identifier=serial=2B051FDH3006MU)]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
     </projectState>
+  </component>
+  <component name="GenerateSignedApkSettings">
+    <option name="KEY_STORE_PATH" value="$PROJECT_DIR$/app/keystores.jks" />
+    <option name="KEY_ALIAS" value="mckimquyen" />
+    <option name="REMEMBER_PASSWORDS" value="true" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -50,6 +65,8 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Android App.app.executor": "Run",
+    "BundleExportedModule": "RSS_Cat_Hub.app",
+    "ExportBundle.BundlePathForRSS_Cat_Hub.app": "/Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/0912ReadYou/app",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.cidr.known.project.marker": "true",
@@ -59,8 +76,14 @@
     "cidr.known.project.marker": "true",
     "dart.analysis.tool.window.visible": "false",
     "git-widget-placeholder": "dev",
-    "last_opened_file_path": "/Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/0912ReadYou/app/src/main/res/drawable",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/0930ReadYou",
     "show.migrate.to.gradle.popup": "false"
+  },
+  "keyToStringList": {
+    "ExportApk.BuildVariants": [
+      "prodRelease"
+    ]
   }
 }]]></component>
   <component name="RecentsManager">
@@ -139,12 +162,6 @@
       <option name="SKIP_ACTIVITY_VALIDATION" value="false" />
       <method v="2">
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="AppleRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" IS_LOCATION_SIMULATION_SUPPORTED="false" IS_LOCATION_SIMULATION_ALLOWED="true" APPLICATION_LANGUAGE="IDELaunchSchemeLanguageUseSystemLanguage" APPLICATION_REGION="" DEVELOPMENT_TEAM="${TEAM_ID}" MAKE_ACTIVE="TRUE" SHOULD_DEBUG_EXTENSIONS="false">
-      <embedded_app_extension_list />
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
   </component>
@@ -380,11 +397,18 @@
       <option name="project" value="LOCAL" />
       <updated>1759157121670</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="Update ProGuard rules and Gradle configuration&#10;&#10;This commit updates the ProGuard rules for Rome library and adds configurations to Gradle for KAPT and JVM arguments.&#10;&#10;- In `app/proguard-rules.pro`:&#10;    - Changed keep rules for Rome library classes (`com.rometools.rome.feed.**`, `com.rometools.rome.io.**`, `com.rometools.modules.**`) to not allow shrinking or obfuscation.&#10;    - Added keep rules for Rome RSS parser plugins (`com.rometools.rome.feed.synd.impl.**`, `com.rometools.rome.feed.atom.**`, `com.rometools.rome.feed.rss.**`) to prevent `ClassNotFoundException`.&#10;    - Added keep rules for ServiceLoader implementations to ensure `newInstance()` and implementations of `Converter`, `ModuleParser`, and `ModuleGenerator` are preserved.&#10;- In `app/build.gradle`:&#10;    - Added a configuration to set `jvmTarget = &quot;17&quot;` for `KaptGenerateStubsTask` to fix KAPT compatibility with newer Java versions.&#10;- In `gradle.properties`:&#10;    - Added `kapt.include.compile.classpath=false`.&#10;    - Expanded `org.gradle.jvmargs` and `kotlin.daemon.jvmargs` with additional `--add-exports` and `--add-opens` for `jdk.compiler` to ensure compatibility with newer JDK versions.&#10;- Added `.idea/appInsightsSettings.xml` to configure Firebase Crashlytics integration.&#10;- Updated `.idea/workspace.xml` with layout configurations and minor changes.">
+      <option name="closed" value="true" />
+      <created>1759242866684</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1759242866684</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Suppress unsupported compile SDK warning&#10;&#10;This commit changes the `gradle.properties` file.&#10;- The `android.defaults.buildfeatures.buildconfig=true` line is removed.&#10;- A new line, `android.suppressUnsupportedCompileSdk=36`, is added. This suppresses warnings when using a compile SDK version that is not yet fully supported by the Android Gradle Plugin." />
     <MESSAGE value="Enable Proguard and update related configurations&#10;&#10;This commit enables Proguard for release builds and updates various related configurations.&#10;&#10;- In `app/build.gradle`:&#10;    - `minifyEnabled` and `shrinkResources` are set to `true` for release builds.&#10;    - `resourceConfigurations` is added to keep only specified major languages, reducing APK size.&#10;    - Several exclusion rules are added to `packagingOptions.resources` to further reduce APK size.&#10;    - `jniLibs.useLegacyPackaging` is set to `false`.&#10;- In `app/proguard-rules.pro`:&#10;    - Rules are added to keep classes related to XML parsing (org.kxml2.io, javax.xml).&#10;    - Keep rules are added for Jetpack Compose, AdMob, Kotlin Coroutines, Retrofit &amp; OkHttp, data models, Hilt, Room, and Coil.&#10;- The `.idea/caches/deviceStreaming.xml` file is updated with new device definitions.&#10;- The `.idea/workspace.xml` file is updated, including changes to the selected execution target.&#10;- The `.claude/settings.local.json` file is updated to allow a new Bash command." />
     <MESSAGE value="Update Rome library and ProGuard rules&#10;&#10;This commit updates the Rome library to version 2.1.0 and refactors the ProGuard rules for improved XML parsing and code shrinking.&#10;&#10;- In `app/build.gradle`:&#10;    - Updated `com.rometools:rome` from `&quot;$rome&quot;` to `2.1.0`.&#10;    - Removed `es` (Spanish) and `ru` (Russian) from `resourceConfigurations` to reduce APK size.&#10;- In `app/proguard-rules.pro`:&#10;    - Refined XML Parser fixes for comprehensive handling of `org.xmlpull.v1`, `org.kxml2.io`, `javax.xml`, and `org.xml.sax`.&#10;    - Added rules to address potential R8 XML parsing issues, including warnings for various XML-related packages and specific class relationship notes.&#10;    - Updated Rome keep rules to be more specific, allowing shrinking and obfuscation for `com.rometools.rome.feed`, `com.rometools.rome.io`, and `com.rometools.modules` packages.&#10;    - Introduced minimal keep rules for `org.xmlpull.v1.XmlPullParser` and `org.xmlpull.v1.XmlSerializer` interfaces.&#10;    - Added aggressive shrinking rules, including `allowaccessmodification`, `dontpreverify`, and `repackageclasses ''`.&#10;    - Included rules to remove logging (`android.util.Log`) and debug code (`kotlin.jvm.internal.Intrinsics.checkParameterIsNotNull`) in release builds." />
     <MESSAGE value="Refactor code to address deprecations and update APIs&#10;&#10;This commit updates several parts of the codebase to address deprecated APIs and adopt newer practices.&#10;&#10;- **`FeverRssSv.kt` and `RssHelper.kt`**: Updated `Html.fromHtml` calls to use the version with `Html.FROM_HTML_MODE_LEGACY` for Android N and above, while retaining the deprecated version for older OS versions with `@Suppress(&quot;DEPRECATION&quot;)`.&#10;- **`SplashActivity.kt`**:&#10;    - Replaced deprecated `overridePendingTransition` with `ActivityOptions.makeCustomAnimation` for activity transitions on Android 14 (API 34) and above.&#10;    - Retained `overridePendingTransition` with `@Suppress(&quot;DEPRECATION&quot;)` for older OS versions.&#10;- **`Activity.kt` (UI extensions)**:&#10;    - Replaced deprecated `systemUiVisibility` and related flags with `WindowInsetsControllerCompat` for managing status bar, navigation bar, and fullscreen modes on Android R (API 30) and above.&#10;    - Retained the deprecated methods with `@Suppress(&quot;DEPRECATION&quot;)` for older OS versions. This affects `setChangeStatusBarTintToDark`, `showStatusBar`, `hideStatusBar`, `toggleFullscreen`, `hideNavigationBar`, `showNavigationBar`, `hideDefaultControls`, and `showDefaultControls`.&#10;- **`AdMobManager.kt`**: Suppressed deprecation warning for `connectivityManager.activeNetworkInfo` as it's used as a fallback for older OS versions.&#10;- **`LanguagesPref.kt`**:&#10;    - Updated `Locale` creation to use `Locale.Builder()` for better clarity and future-proofing.&#10;    - Removed redundant calls to `resources.updateConfiguration()` as `createConfigurationContext()` is sufficient." />
@@ -409,7 +433,16 @@
     <MESSAGE value="Refactor data loading to be asynchronous&#10;&#10;This commit refactors data loading in `HomeEntry.kt`, `MainActivity.kt`, and `AccountSettings.kt` to be asynchronous. This is done to prevent Application Not Responding (ANR) errors by moving data loading off the main thread.&#10;&#10;- In `HomeEntry.kt`, `initialPage` and `initialFilter` are now loaded asynchronously from DataStore using `withContext(Dispatchers.IO)`.&#10;- In `MainActivity.kt`, language preferences are loaded asynchronously from DataStore, and AdMob initialization is also moved to a background thread.&#10;- In `AccountSettings.kt`, `currentAccountId` is loaded asynchronously from DataStore. Account settings are then loaded based on this ID, using defaults until the actual settings are available." />
     <MESSAGE value="Add unit tests and update dependencies&#10;&#10;This commit introduces unit tests for various components and updates some dependencies.&#10;&#10;- Added `FilterTest.kt` to test the `RssSource` and `RssSourcesData` models.&#10;- Added `RssSourcesTest.kt` to test parsing of RSS source JSON data.&#10;- Added `DataStoreExtensionsTest.kt` to test `DataStoreKeys`.&#10;- Added `StringExtensionsTest.kt` to test string utility functions.&#10;- Updated `app/build.gradle` to include test dependencies:&#10;    - `junit:junit:4.13.2`&#10;    - `io.mockk:mockk:1.13.5`&#10;    - `org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4`&#10;- Commented-out test dependencies were re-enabled and `leakcanary` was moved to be with other debug implementations." />
     <MESSAGE value="Refactor threading and add basic unit tests&#10;&#10;This commit refactors threading in `CrashHandler`, `AccountSv`, and `MainActivity` to prevent ANRs and ensure UI operations run on the main thread.&#10;- In `CrashHandler`, toasts are now shown on the main thread using `Handler(Looper.getMainLooper()).post`.&#10;- In `AccountSv`, the toast for &quot;must_have_an_account&quot; is now shown on the main thread using `withContext(Dispatchers.Main)`.&#10;- In `MainActivity`, AdMob initialization is moved to the main thread using `lifecycleScope.launch(Dispatchers.Main)`.&#10;&#10;Additionally, this commit:&#10;- Deletes `DataStoreExtensionsTest.kt`, `FilterTest.kt`, `RssSourcesTest.kt`, and `StringExtensionsTest.kt`.&#10;- Adds a new `BasicUnitTest.java` file with basic unit tests covering string operations, URL validation, RSS source validation, application constants, RSS sources expansion, preference validation, RSS categories, DataStore keys, version information, and ANR fix validation." />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactor threading and add basic unit tests&#10;&#10;This commit refactors threading in `CrashHandler`, `AccountSv`, and `MainActivity` to prevent ANRs and ensure UI operations run on the main thread.&#10;- In `CrashHandler`, toasts are now shown on the main thread using `Handler(Looper.getMainLooper()).post`.&#10;- In `AccountSv`, the toast for &quot;must_have_an_account&quot; is now shown on the main thread using `withContext(Dispatchers.Main)`.&#10;- In `MainActivity`, AdMob initialization is moved to the main thread using `lifecycleScope.launch(Dispatchers.Main)`.&#10;&#10;Additionally, this commit:&#10;- Deletes `DataStoreExtensionsTest.kt`, `FilterTest.kt`, `RssSourcesTest.kt`, and `StringExtensionsTest.kt`.&#10;- Adds a new `BasicUnitTest.java` file with basic unit tests covering string operations, URL validation, RSS source validation, application constants, RSS sources expansion, preference validation, RSS categories, DataStore keys, version information, and ANR fix validation." />
+    <MESSAGE value="Update ProGuard rules and Gradle configuration&#10;&#10;This commit updates the ProGuard rules for Rome library and adds configurations to Gradle for KAPT and JVM arguments.&#10;&#10;- In `app/proguard-rules.pro`:&#10;    - Changed keep rules for Rome library classes (`com.rometools.rome.feed.**`, `com.rometools.rome.io.**`, `com.rometools.modules.**`) to not allow shrinking or obfuscation.&#10;    - Added keep rules for Rome RSS parser plugins (`com.rometools.rome.feed.synd.impl.**`, `com.rometools.rome.feed.atom.**`, `com.rometools.rome.feed.rss.**`) to prevent `ClassNotFoundException`.&#10;    - Added keep rules for ServiceLoader implementations to ensure `newInstance()` and implementations of `Converter`, `ModuleParser`, and `ModuleGenerator` are preserved.&#10;- In `app/build.gradle`:&#10;    - Added a configuration to set `jvmTarget = &quot;17&quot;` for `KaptGenerateStubsTask` to fix KAPT compatibility with newer Java versions.&#10;- In `gradle.properties`:&#10;    - Added `kapt.include.compile.classpath=false`.&#10;    - Expanded `org.gradle.jvmargs` and `kotlin.daemon.jvmargs` with additional `--add-exports` and `--add-opens` for `jdk.compiler` to ensure compatibility with newer JDK versions.&#10;- Added `.idea/appInsightsSettings.xml` to configure Firebase Crashlytics integration.&#10;- Updated `.idea/workspace.xml` with layout configurations and minor changes." />
+    <option name="LAST_COMMIT_MESSAGE" value="Update ProGuard rules and Gradle configuration&#10;&#10;This commit updates the ProGuard rules for Rome library and adds configurations to Gradle for KAPT and JVM arguments.&#10;&#10;- In `app/proguard-rules.pro`:&#10;    - Changed keep rules for Rome library classes (`com.rometools.rome.feed.**`, `com.rometools.rome.io.**`, `com.rometools.modules.**`) to not allow shrinking or obfuscation.&#10;    - Added keep rules for Rome RSS parser plugins (`com.rometools.rome.feed.synd.impl.**`, `com.rometools.rome.feed.atom.**`, `com.rometools.rome.feed.rss.**`) to prevent `ClassNotFoundException`.&#10;    - Added keep rules for ServiceLoader implementations to ensure `newInstance()` and implementations of `Converter`, `ModuleParser`, and `ModuleGenerator` are preserved.&#10;- In `app/build.gradle`:&#10;    - Added a configuration to set `jvmTarget = &quot;17&quot;` for `KaptGenerateStubsTask` to fix KAPT compatibility with newer Java versions.&#10;- In `gradle.properties`:&#10;    - Added `kapt.include.compile.classpath=false`.&#10;    - Expanded `org.gradle.jvmargs` and `kotlin.daemon.jvmargs` with additional `--add-exports` and `--add-opens` for `jdk.compiler` to ensure compatibility with newer JDK versions.&#10;- Added `.idea/appInsightsSettings.xml` to configure Firebase Crashlytics integration.&#10;- Updated `.idea/workspace.xml` with layout configurations and minor changes." />
+  </component>
+  <component name="github-copilot-workspace">
+    <instructionFileLocations>
+      <option value=".github/instructions" />
+    </instructionFileLocations>
+    <promptFileLocations>
+      <option value=".github/prompts" />
+    </promptFileLocations>
   </component>
   <component name="play_dynamic_filters_status">
     <option name="appIdToCheckInfo">
