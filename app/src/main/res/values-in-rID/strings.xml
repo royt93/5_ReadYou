@@ -288,4 +288,9 @@
     <string name="try_again">Coba Lagi</string>
     <string name="already_added">Sudah Ditambahkan</string>
     <string name="add_new_source">Tambah Sumber</string>
+    <string name="change_language">Ubah Bahasa</string>
+    <string name="change_language_confirm">Aplikasi akan dimulai ulang untuk menerapkan bahasa baru. Apakah Anda ingin melanjutkan?</string>
+    <string name="yes">Ya</string>
+    <string name="no">Tidak</string>
+    <string name="restarting_app">Memulai ulang aplikasi…</string>
 </resources>

@@ -277,4 +277,9 @@
     <string name="try_again">もう一度試す</string>
     <string name="already_added">追加済み</string>
     <string name="add_new_source">ソースを追加</string>
+    <string name="change_language">言語を変更</string>
+    <string name="change_language_confirm">新しい言語を適用するためにアプリが再起動します。続行しますか？</string>
+    <string name="yes">はい</string>
+    <string name="no">いいえ</string>
+    <string name="restarting_app">アプリを再起動しています…</string>
 </resources>

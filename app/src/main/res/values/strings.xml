@@ -100,6 +100,11 @@
     <string name="help_translate">Help translate</string>
     <string name="translatable_url" translatable="false">https://hosted.weblate.org/projects/readyou/</string>
     <string name="use_device_languages">Use device language</string>
+    <string name="change_language">Change Language</string>
+    <string name="change_language_confirm">The app will restart to apply the new language. Do you want to continue?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="restarting_app">Restarting app…</string>
     <string name="english" translatable="false">English</string>
     <string name="chinese_simplified" translatable="false">简体中文</string>
     <string name="german" translatable="false">Deutsch</string>
@@ -113,6 +118,31 @@
     <string name="basque" translatable="false">Euskara</string>
     <string name="indonesian" translatable="false">Bahasa Indonesia</string>
     <string name="chinese_traditional" translatable="false">繁體中文</string>
+    <string name="japanese" translatable="false">日本語</string>
+    <string name="portuguese" translatable="false">Português</string>
+    <string name="portuguese_brazil" translatable="false">Português (Brasil)</string>
+    <string name="vietnamese" translatable="false">Tiếng Việt</string>
+    <string name="arabic" translatable="false">العربية</string>
+    <string name="turkish" translatable="false">Türkçe</string>
+    <string name="ukrainian" translatable="false">Українська</string>
+    <string name="dutch" translatable="false">Nederlands</string>
+    <string name="romanian" translatable="false">Română</string>
+    <string name="swedish" translatable="false">Svenska</string>
+    <string name="norwegian_bokmal" translatable="false">Norsk Bokmål</string>
+    <string name="norwegian_nynorsk" translatable="false">Nynorsk</string>
+    <string name="danish" translatable="false">Dansk</string>
+    <string name="hungarian" translatable="false">Magyar</string>
+    <string name="bulgarian" translatable="false">Български</string>
+    <string name="catalan" translatable="false">Català</string>
+    <string name="slovenian" translatable="false">Slovenščina</string>
+    <string name="serbian" translatable="false">Српски</string>
+    <string name="hebrew" translatable="false">עברית</string>
+    <string name="persian" translatable="false">فارسی</string>
+    <string name="azerbaijani" translatable="false">Azərbaycan</string>
+    <string name="kannada" translatable="false">ಕನ್ನಡ</string>
+    <string name="literary_chinese" translatable="false">文言</string>
+    <string name="malayalam" translatable="false">മലയാളം</string>
+    <string name="burmese" translatable="false">မြန်မာ</string>
     <string name="tips_and_support">Tips &amp; support</string>
     <string name="tips_and_support_desc">About, open source licenses</string>
     <string name="welcome">Welcome</string>

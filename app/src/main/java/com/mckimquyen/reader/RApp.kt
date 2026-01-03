@@ -1,9 +1,12 @@
 package com.mckimquyen.reader
 
 import android.app.Application
+import android.content.Context
+import android.content.res.Configuration
+import android.os.LocaleList
 import android.util.Log
 import androidx.hilt.work.HiltWorkerFactory
-import androidx.work.Configuration
+import androidx.work.Configuration as WorkConfiguration
 import androidx.work.WorkManager
 import coil.ImageLoader
 import coil.ImageLoaderFactory
@@ -20,9 +23,12 @@ import com.mckimquyen.reader.infrastructure.db.AndroidDatabase
 import com.mckimquyen.reader.infrastructure.di.ApplicationScope
 import com.mckimquyen.reader.infrastructure.di.IODispatcher
 import com.mckimquyen.reader.infrastructure.net.NetworkDataSource
+import com.mckimquyen.reader.infrastructure.pref.LanguagesPref
 import com.mckimquyen.reader.infrastructure.rss.OPMLDataSource
 import com.mckimquyen.reader.infrastructure.rss.RssHelper
 import com.mckimquyen.reader.sdkadbmob.AdMobManager
+import com.mckimquyen.reader.ui.ext.DataStoreKeys
+import com.mckimquyen.reader.ui.ext.dataStore
 import com.mckimquyen.reader.ui.ext.del
 import com.mckimquyen.reader.ui.ext.getLatestApk
 import com.mckimquyen.reader.ui.ext.isFdroid
@@ -30,7 +36,10 @@ import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import javax.inject.Inject
@@ -39,7 +48,6 @@ import javax.inject.Inject
 
 //TODO finger print
 //TODO why you see ad
-//TODO import oplm vietnam
 
 //done mckimquyen
 //admob
@@ -58,7 +66,32 @@ import javax.inject.Inject
 //beta tester
 
 @HiltAndroidApp
-class RApp : Application(), Configuration.Provider, ImageLoaderFactory {
+class RApp : Application(), WorkConfiguration.Provider, ImageLoaderFactory {
+
+    override fun attachBaseContext(base: Context) {
+        // Read locale from DataStore
+        val locale = try {
+            val languagePref = runBlocking {
+                base.dataStore.data.map { prefs ->
+                    prefs[DataStoreKeys.Languages.key] ?: 0
+                }.first()
+            }
+            LanguagesPref.fromValue(languagePref).getLocale()
+        } catch (e: Exception) {
+            Log.e("RLog", "Error reading locale in RApp: $e", e)
+            LocaleList.getDefault().get(0)
+        }
+
+        // Create configuration with locale
+        val configuration = Configuration(base.resources.configuration)
+        configuration.setLocale(locale)
+        configuration.setLocales(LocaleList(locale))
+
+        // Wrap context with new configuration
+        val wrappedContext = base.createConfigurationContext(configuration)
+
+        super.attachBaseContext(wrappedContext)
+    }
 
     @Inject
     lateinit var androidDatabase: AndroidDatabase
@@ -165,10 +198,10 @@ class RApp : Application(), Configuration.Provider, ImageLoaderFactory {
     }
 
     /**
-     * Override the [Configuration.Builder] to provide the [HiltWorkerFactory].
+     * Override the [WorkConfiguration.Builder] to provide the [HiltWorkerFactory].
      */
-    override fun getWorkManagerConfiguration(): Configuration =
-        Configuration.Builder()
+    override fun getWorkManagerConfiguration(): WorkConfiguration =
+        WorkConfiguration.Builder()
             .setWorkerFactory(hiltWorkerFactory)
             .setMinimumLoggingLevel(android.util.Log.DEBUG)
             .build()

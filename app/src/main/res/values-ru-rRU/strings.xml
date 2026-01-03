@@ -282,4 +282,9 @@
     <string name="try_again">Попробовать снова</string>
     <string name="already_added">Уже добавлено</string>
     <string name="add_new_source">Добавить источник</string>
+    <string name="change_language">Изменить язык</string>
+    <string name="change_language_confirm">Приложение перезапустится для применения нового языка. Продолжить?</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="restarting_app">Перезапуск приложения…</string>
 </resources>

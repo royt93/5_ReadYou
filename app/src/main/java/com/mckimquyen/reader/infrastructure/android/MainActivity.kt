@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
+import android.os.LocaleList
 import android.util.Log
 import android.view.Display
 import android.view.WindowManager
@@ -17,6 +18,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.runBlocking
 import com.google.android.play.core.review.ReviewInfo
 import com.google.android.play.core.review.ReviewManagerFactory
 import com.mckimquyen.reader.BuildConfig
@@ -30,6 +32,7 @@ import com.mckimquyen.reader.ui.ext.DataStoreKeys
 import com.mckimquyen.reader.ui.page.common.HomeEntry
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Calendar
+import java.util.Locale
 import javax.inject.Inject
 
 /**
@@ -43,10 +46,29 @@ class MainActivity : ComponentActivity(), AdMobManager.InterstitialAdListener {
     lateinit var accountDao: AccountDao
 
     override fun attachBaseContext(newBase: Context) {
-        val override = Configuration(newBase.resources.configuration)
-        override.fontScale = 1.0f
-        applyOverrideConfiguration(override)
-        super.attachBaseContext(newBase)
+        // Read locale from DataStore
+        val locale = try {
+            val languagePref = runBlocking {
+                newBase.dataStore.data.map { prefs ->
+                    prefs[DataStoreKeys.Languages.key] ?: 0
+                }.first()
+            }
+            LanguagesPref.fromValue(languagePref).getLocale()
+        } catch (e: Exception) {
+            Log.e("RLog", "Error reading locale preference: $e", e)
+            LocaleList.getDefault().get(0)
+        }
+
+        // Create configuration with locale and font scale
+        val configuration = Configuration(newBase.resources.configuration)
+        configuration.setLocale(locale)
+        configuration.setLocales(LocaleList(locale))
+        configuration.fontScale = 1.0f
+
+        // Wrap context with new configuration
+        val wrappedContext = newBase.createConfigurationContext(configuration)
+
+        super.attachBaseContext(wrappedContext)
     }
 
     override fun onResume() {
@@ -108,24 +130,7 @@ class MainActivity : ComponentActivity(), AdMobManager.InterstitialAdListener {
             }
         }
 
-        // Initialize language asynchronously to avoid ANR
-        lifecycleScope.launch(Dispatchers.IO) {
-            try {
-                val languagePref = dataStore.data.map { prefs ->
-                    prefs[DataStoreKeys.Languages.key] ?: 0
-                }.first()
-
-                withContext(Dispatchers.Main) {
-                    LanguagesPref.fromValue(languagePref).let {
-                        if (it == LanguagesPref.UseDeviceLanguages) return@let
-                        it.setLocale(this@MainActivity)
-                    }
-                }
-            } catch (e: Exception) {
-                Log.e("RLog", "Error loading language preference: $e")
-                // Use default language if error occurs
-            }
-        }
+        // Language is now applied in attachBaseContext, no need to set it here
 
         // Initialize AdMob on main thread (required by AdMob)
         lifecycleScope.launch(Dispatchers.Main) {

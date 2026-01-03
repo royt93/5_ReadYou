@@ -277,4 +277,9 @@
     <string name="try_again">Try Again</string>
     <string name="already_added">Already Added</string>
     <string name="add_new_source">Add Source</string>
+    <string name="change_language">भाषा बदलें</string>
+    <string name="change_language_confirm">नई भाषा लागू करने के लिए ऐप पुनः प्रारंभ होगा। क्या आप जारी रखना चाहते हैं?</string>
+    <string name="yes">हां</string>
+    <string name="no">नहीं</string>
+    <string name="restarting_app">ऐप पुनः प्रारंभ हो रहा है…</string>
 </resources>

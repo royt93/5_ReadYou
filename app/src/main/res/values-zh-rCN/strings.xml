@@ -276,4 +276,9 @@
     <string name="try_again">重试</string>
     <string name="already_added">已添加</string>
     <string name="add_new_source">添加源</string>
+    <string name="change_language">更改语言</string>
+    <string name="change_language_confirm">应用将重启以应用新语言。是否继续？</string>
+    <string name="yes">是</string>
+    <string name="no">否</string>
+    <string name="restarting_app">正在重启应用…</string>
 </resources>

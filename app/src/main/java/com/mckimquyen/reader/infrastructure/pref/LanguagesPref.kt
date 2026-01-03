@@ -27,6 +27,31 @@ sealed class LanguagesPref(val value: Int) : Pref() {
     object Indonesian : LanguagesPref(12)
 
     object ChineseTraditional : LanguagesPref(13)
+    object Japanese : LanguagesPref(14)
+    object Portuguese : LanguagesPref(15)
+    object PortugueseBrazil : LanguagesPref(16)
+    object Vietnamese : LanguagesPref(17)
+    object Arabic : LanguagesPref(18)
+    object Turkish : LanguagesPref(19)
+    object Ukrainian : LanguagesPref(20)
+    object Dutch : LanguagesPref(21)
+    object Romanian : LanguagesPref(22)
+    object Swedish : LanguagesPref(23)
+    object NorwegianBokmal : LanguagesPref(24)
+    object NorwegianNynorsk : LanguagesPref(25)
+    object Danish : LanguagesPref(26)
+    object Hungarian : LanguagesPref(27)
+    object Bulgarian : LanguagesPref(28)
+    object Catalan : LanguagesPref(29)
+    object Slovenian : LanguagesPref(30)
+    object Serbian : LanguagesPref(31)
+    object Hebrew : LanguagesPref(32)
+    object Persian : LanguagesPref(33)
+    object Azerbaijani : LanguagesPref(34)
+    object Kannada : LanguagesPref(35)
+    object LiteraryChinese : LanguagesPref(36)
+    object Malayalam : LanguagesPref(37)
+    object Burmese : LanguagesPref(38)
 
     override fun put(context: Context, scope: CoroutineScope) {
         scope.launch {
@@ -34,7 +59,6 @@ sealed class LanguagesPref(val value: Int) : Pref() {
                 DataStoreKeys.Languages,
                 value
             )
-            setLocale(context)
         }
     }
 
@@ -54,6 +78,31 @@ sealed class LanguagesPref(val value: Int) : Pref() {
             Basque -> context.getString(R.string.basque)
             Indonesian -> context.getString(R.string.indonesian)
             ChineseTraditional -> context.getString(R.string.chinese_traditional)
+            Japanese -> context.getString(R.string.japanese)
+            Portuguese -> context.getString(R.string.portuguese)
+            PortugueseBrazil -> context.getString(R.string.portuguese_brazil)
+            Vietnamese -> context.getString(R.string.vietnamese)
+            Arabic -> context.getString(R.string.arabic)
+            Turkish -> context.getString(R.string.turkish)
+            Ukrainian -> context.getString(R.string.ukrainian)
+            Dutch -> context.getString(R.string.dutch)
+            Romanian -> context.getString(R.string.romanian)
+            Swedish -> context.getString(R.string.swedish)
+            NorwegianBokmal -> context.getString(R.string.norwegian_bokmal)
+            NorwegianNynorsk -> context.getString(R.string.norwegian_nynorsk)
+            Danish -> context.getString(R.string.danish)
+            Hungarian -> context.getString(R.string.hungarian)
+            Bulgarian -> context.getString(R.string.bulgarian)
+            Catalan -> context.getString(R.string.catalan)
+            Slovenian -> context.getString(R.string.slovenian)
+            Serbian -> context.getString(R.string.serbian)
+            Hebrew -> context.getString(R.string.hebrew)
+            Persian -> context.getString(R.string.persian)
+            Azerbaijani -> context.getString(R.string.azerbaijani)
+            Kannada -> context.getString(R.string.kannada)
+            LiteraryChinese -> context.getString(R.string.literary_chinese)
+            Malayalam -> context.getString(R.string.malayalam)
+            Burmese -> context.getString(R.string.burmese)
         }
 
     fun getLocale(): Locale =
@@ -72,20 +121,32 @@ sealed class LanguagesPref(val value: Int) : Pref() {
             Basque -> Locale.Builder().setLanguage("eu").setRegion("ES").build()
             Indonesian -> Locale.Builder().setLanguage("in").setRegion("ID").build()
             ChineseTraditional -> Locale.Builder().setLanguage("zh").setRegion("TW").build()
+            Japanese -> Locale.Builder().setLanguage("ja").build()
+            Portuguese -> Locale.Builder().setLanguage("pt").build()
+            PortugueseBrazil -> Locale.Builder().setLanguage("pt").setRegion("BR").build()
+            Vietnamese -> Locale.Builder().setLanguage("vi").build()
+            Arabic -> Locale.Builder().setLanguage("ar").build()
+            Turkish -> Locale.Builder().setLanguage("tr").build()
+            Ukrainian -> Locale.Builder().setLanguage("uk").build()
+            Dutch -> Locale.Builder().setLanguage("nl").build()
+            Romanian -> Locale.Builder().setLanguage("ro").build()
+            Swedish -> Locale.Builder().setLanguage("sv").build()
+            NorwegianBokmal -> Locale.Builder().setLanguage("nb").setRegion("NO").build()
+            NorwegianNynorsk -> Locale.Builder().setLanguage("nn").build()
+            Danish -> Locale.Builder().setLanguage("da").build()
+            Hungarian -> Locale.Builder().setLanguage("hu").build()
+            Bulgarian -> Locale.Builder().setLanguage("bg").build()
+            Catalan -> Locale.Builder().setLanguage("ca").build()
+            Slovenian -> Locale.Builder().setLanguage("sl").build()
+            Serbian -> Locale.Builder().setLanguage("sr").build()
+            Hebrew -> Locale.Builder().setLanguage("iw").build()
+            Persian -> Locale.Builder().setLanguage("fa").build()
+            Azerbaijani -> Locale.Builder().setLanguage("az").build()
+            Kannada -> Locale.Builder().setLanguage("kn").build()
+            LiteraryChinese -> Locale.Builder().setLanguage("lzh").build()
+            Malayalam -> Locale.Builder().setLanguage("ml").build()
+            Burmese -> Locale.Builder().setLanguage("my").build()
         }
-
-    fun setLocale(context: Context) {
-        val locale = getLocale()
-        val configuration = context.resources.configuration
-        configuration.setLocale(locale)
-        configuration.setLocales(LocaleList(locale))
-        context.createConfigurationContext(configuration)
-
-        val appConfiguration = context.applicationContext.resources.configuration
-        appConfiguration.setLocale(locale)
-        appConfiguration.setLocales(LocaleList(locale))
-        context.applicationContext.createConfigurationContext(appConfiguration)
-    }
 
     companion object {
 
@@ -105,6 +166,31 @@ sealed class LanguagesPref(val value: Int) : Pref() {
             Basque,
             Indonesian,
             ChineseTraditional,
+            Japanese,
+            Portuguese,
+            PortugueseBrazil,
+            Vietnamese,
+            Arabic,
+            Turkish,
+            Ukrainian,
+            Dutch,
+            Romanian,
+            Swedish,
+            NorwegianBokmal,
+            NorwegianNynorsk,
+            Danish,
+            Hungarian,
+            Bulgarian,
+            Catalan,
+            Slovenian,
+            Serbian,
+            Hebrew,
+            Persian,
+            Azerbaijani,
+            Kannada,
+            LiteraryChinese,
+            Malayalam,
+            Burmese,
         )
 
         fun fromPreferences(preferences: Preferences): LanguagesPref =
@@ -123,6 +209,31 @@ sealed class LanguagesPref(val value: Int) : Pref() {
                 11 -> Basque
                 12 -> Indonesian
                 13 -> ChineseTraditional
+                14 -> Japanese
+                15 -> Portuguese
+                16 -> PortugueseBrazil
+                17 -> Vietnamese
+                18 -> Arabic
+                19 -> Turkish
+                20 -> Ukrainian
+                21 -> Dutch
+                22 -> Romanian
+                23 -> Swedish
+                24 -> NorwegianBokmal
+                25 -> NorwegianNynorsk
+                26 -> Danish
+                27 -> Hungarian
+                28 -> Bulgarian
+                29 -> Catalan
+                30 -> Slovenian
+                31 -> Serbian
+                32 -> Hebrew
+                33 -> Persian
+                34 -> Azerbaijani
+                35 -> Kannada
+                36 -> LiteraryChinese
+                37 -> Malayalam
+                38 -> Burmese
                 else -> default
             }
 
@@ -142,6 +253,31 @@ sealed class LanguagesPref(val value: Int) : Pref() {
                 11 -> Basque
                 12 -> Indonesian
                 13 -> ChineseTraditional
+                14 -> Japanese
+                15 -> Portuguese
+                16 -> PortugueseBrazil
+                17 -> Vietnamese
+                18 -> Arabic
+                19 -> Turkish
+                20 -> Ukrainian
+                21 -> Dutch
+                22 -> Romanian
+                23 -> Swedish
+                24 -> NorwegianBokmal
+                25 -> NorwegianNynorsk
+                26 -> Danish
+                27 -> Hungarian
+                28 -> Bulgarian
+                29 -> Catalan
+                30 -> Slovenian
+                31 -> Serbian
+                32 -> Hebrew
+                33 -> Persian
+                34 -> Azerbaijani
+                35 -> Kannada
+                36 -> LiteraryChinese
+                37 -> Malayalam
+                38 -> Burmese
                 else -> default
             }
     }

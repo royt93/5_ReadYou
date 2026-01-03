@@ -291,4 +291,9 @@
     <string name="try_again">Réessayer</string>
     <string name="already_added">Déjà ajouté</string>
     <string name="add_new_source">Ajouter une source</string>
+    <string name="change_language">Changer de langue</string>
+    <string name="change_language_confirm">L\'application redémarrera pour appliquer la nouvelle langue. Voulez-vous continuer ?</string>
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
+    <string name="restarting_app">Redémarrage de l\'application…</string>
 </resources>

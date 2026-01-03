@@ -11,7 +11,14 @@
       "Bash(fi)",
       "Bash(done)",
       "Bash(xmllint:*)",
-      "Bash(tee:*)"
+      "Bash(tee:*)",
+      "Bash(do if ! grep -q \"restarting_app\" \"$lang_file\")",
+      "Bash(do if [ -f \"$dir/strings.xml\" ])",
+      "Bash(then if ! grep -q \"restarting_app\" \"$dir/strings.xml\")",
+      "Bash(then echo \"$dir\")",
+      "Bash(do echo \"=== $dir ===\")",
+      "Bash(tail:*)",
+      "Bash(then echo \"MISSING: $dir\")"
     ],
     "deny": [],
     "ask": []

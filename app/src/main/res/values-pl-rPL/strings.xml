@@ -388,4 +388,9 @@
     <string name="try_again">Spróbuj ponownie</string>
     <string name="already_added">Już dodane</string>
     <string name="add_new_source">Dodaj źródło</string>
+    <string name="change_language">Zmień język</string>
+    <string name="change_language_confirm">Aplikacja zostanie ponownie uruchomiona, aby zastosować nowy język. Czy chcesz kontynuować?</string>
+    <string name="yes">Tak</string>
+    <string name="no">Nie</string>
+    <string name="restarting_app">Ponowne uruchamianie aplikacji…</string>
 </resources>

@@ -299,4 +299,9 @@
     <string name="try_again">حاول مرة أخرى</string>
     <string name="already_added">مُضاف بالفعل</string>
     <string name="add_new_source">إضافة مصدر</string>
+    <string name="change_language">تغيير اللغة</string>
+    <string name="change_language_confirm">سيتم إعادة تشغيل التطبيق لتطبيق اللغة الجديدة. هل تريد المتابعة؟</string>
+    <string name="yes">نعم</string>
+    <string name="no">لا</string>
+    <string name="restarting_app">جاري إعادة تشغيل التطبيق…</string>
 </resources>

@@ -340,4 +340,9 @@
     <string name="try_again">Try Again</string>
     <string name="already_added">Already Added</string>
     <string name="add_new_source">Add Source</string>
+    <string name="change_language">Změnit jazyk</string>
+    <string name="change_language_confirm">Aplikace se restartuje pro použití nového jazyka. Chcete pokračovat?</string>
+    <string name="yes">Ano</string>
+    <string name="no">Ne</string>
+    <string name="restarting_app">Restartování aplikace…</string>
 </resources>

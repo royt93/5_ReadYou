@@ -199,6 +199,9 @@ dependencies {
     implementation("com.google.ads.mediation:applovin:11.11.3.0")
 //    implementation("androidx.appcompat:appcompat:1.7.0")
 
+    // ProcessPhoenix for app restart
+    implementation("com.jakewharton:process-phoenix:3.0.0")
+
     testImplementation "junit:junit:4.13.2"
     testImplementation "io.mockk:mockk:1.13.5"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4"

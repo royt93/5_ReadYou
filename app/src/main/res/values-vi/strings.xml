@@ -285,4 +285,9 @@
     <string name="try_again">Thử lại</string>
     <string name="already_added">Đã thêm</string>
     <string name="add_new_source">Thêm nguồn</string>
+    <string name="change_language">Thay đổi ngôn ngữ</string>
+    <string name="change_language_confirm">Ứng dụng sẽ khởi động lại để áp dụng ngôn ngữ mới. Bạn có muốn tiếp tục?</string>
+    <string name="yes">Có</string>
+    <string name="no">Không</string>
+    <string name="restarting_app">Đang khởi động lại ứng dụng…</string>
 </resources>

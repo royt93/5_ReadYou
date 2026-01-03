@@ -293,4 +293,9 @@
     <string name="try_again">Intentar de nuevo</string>
     <string name="already_added">Ya añadida</string>
     <string name="add_new_source">Añadir fuente</string>
+    <string name="change_language">Cambiar idioma</string>
+    <string name="change_language_confirm">La aplicación se reiniciará para aplicar el nuevo idioma. ¿Deseas continuar?</string>
+    <string name="yes">Sí</string>
+    <string name="no">No</string>
+    <string name="restarting_app">Reiniciando aplicación…</string>
 </resources>

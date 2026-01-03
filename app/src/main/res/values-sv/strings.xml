@@ -276,4 +276,9 @@
     <string name="try_again">Try Again</string>
     <string name="already_added">Already Added</string>
     <string name="add_new_source">Add Source</string>
+    <string name="change_language">Ändra språk</string>
+    <string name="change_language_confirm">Appen startar om för att tillämpa det nya språket. Vill du fortsätta?</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nej</string>
+    <string name="restarting_app">Startar om appen…</string>
 </resources>

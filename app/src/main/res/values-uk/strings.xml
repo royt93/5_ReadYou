@@ -294,4 +294,9 @@
     <string name="try_again">Try Again</string>
     <string name="already_added">Already Added</string>
     <string name="add_new_source">Add Source</string>
+    <string name="change_language">Змінити мову</string>
+    <string name="change_language_confirm">Додаток перезапуститься для застосування нової мови. Продовжити?</string>
+    <string name="yes">Так</string>
+    <string name="no">Ні</string>
+    <string name="restarting_app">Перезапуск додатка…</string>
 </resources>

@@ -289,4 +289,9 @@
     <string name="try_again">Erneut versuchen</string>
     <string name="already_added">Bereits hinzugefügt</string>
     <string name="add_new_source">Quelle hinzufügen</string>
+    <string name="change_language">Sprache ändern</string>
+    <string name="change_language_confirm">Die App wird neu gestartet, um die neue Sprache anzuwenden. Möchten Sie fortfahren?</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nein</string>
+    <string name="restarting_app">App wird neu gestartet…</string>
 </resources>

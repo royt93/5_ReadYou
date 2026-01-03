@@ -237,4 +237,9 @@
     <string name="try_again">Try Again</string>
     <string name="already_added">Already Added</string>
     <string name="add_new_source">Add Source</string>
+    <string name="change_language">Change Language</string>
+    <string name="change_language_confirm">The app will restart to apply the new language. Do you want to continue?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="restarting_app">Restarting app…</string>
 </resources>

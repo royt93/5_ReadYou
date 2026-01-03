@@ -267,4 +267,9 @@
     <string name="try_again">Try Again</string>
     <string name="already_added">Already Added</string>
     <string name="add_new_source">Add Source</string>
+    <string name="change_language">Taal wijzigen</string>
+    <string name="change_language_confirm">De app zal opnieuw opstarten om de nieuwe taal toe te passen. Wilt u doorgaan?</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nee</string>
+    <string name="restarting_app">App wordt opnieuw opgestart…</string>
 </resources>

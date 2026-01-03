@@ -279,4 +279,9 @@
     <string name="try_again">Tentar novamente</string>
     <string name="already_added">Já adicionado</string>
     <string name="add_new_source">Adicionar fonte</string>
+    <string name="change_language">Mudar idioma</string>
+    <string name="change_language_confirm">A aplicação irá reiniciar para aplicar o novo idioma. Deseja continuar?</string>
+    <string name="yes">Sim</string>
+    <string name="no">Não</string>
+    <string name="restarting_app">A reiniciar aplicação…</string>
 </resources>
