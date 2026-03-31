@@ -86,6 +86,9 @@ class MainActivity : ComponentActivity(), AdMobManager.InterstitialAdListener {
     }
 
     override fun onDestroy() {
+        if (AdMobManager.interstitialListener == this) {
+            AdMobManager.interstitialListener = null
+        }
 //        adView?.destroy()
         super.onDestroy()
     }

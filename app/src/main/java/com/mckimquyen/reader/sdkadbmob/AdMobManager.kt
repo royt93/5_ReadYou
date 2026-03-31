@@ -16,11 +16,13 @@ import android.view.ViewGroup
 import android.view.Window
 import android.widget.FrameLayout
 import android.widget.TextView
+import androidx.activity.ComponentActivity
 import androidx.core.content.edit
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
@@ -39,6 +41,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.lang.ref.WeakReference
@@ -502,27 +505,27 @@ object AdMobManager {
         if (countInitSplashScreen > 1) {
             onAdLoaded.invoke()
         } else {
-            CoroutineScope(Dispatchers.Default).launch {
+            (activity as? ComponentActivity)?.lifecycleScope?.launch {
                 Log.d(TAG, "~~~initSplashScreen launch")
-                EventBus.eventFlow.collectLatest { value ->
-                    Log.d(TAG, "initSplashScreen collectLatest: $value")
-                    CoroutineScope(Dispatchers.Main).launch {
-                        loadAppOpenAd(
-                            context = activity,
-                            adUnitId = BuildConfig.ADMOB_APP_OPEN_ID,
-                            onAdLoaded = { result ->
-                                Log.d(TAG, "onAdLoaded result $result")
-                                if (result) {
-                                    showAppOpenAd(activity) {
-                                        onAdLoaded.invoke()
-                                    }
-                                } else {
-                                    onAdLoaded.invoke()
-                                }
-                            },
-                        )
-                    }
-                }
+                val value = EventBus.eventFlow.first()
+                Log.d(TAG, "initSplashScreen first: $value")
+                loadAppOpenAd(
+                    context = activity,
+                    adUnitId = BuildConfig.ADMOB_APP_OPEN_ID,
+                    onAdLoaded = { result ->
+                        Log.d(TAG, "onAdLoaded result $result")
+                        if (result) {
+                            showAppOpenAd(activity) {
+                                onAdLoaded.invoke()
+                            }
+                        } else {
+                            onAdLoaded.invoke()
+                        }
+                    },
+                )
+            } ?: run {
+                Log.e(TAG, "initSplashScreen error: activity is not ComponentActivity")
+                onAdLoaded.invoke()
             }
         }
     }
@@ -583,7 +586,7 @@ class AppPreferences private constructor(context: Context) {
 }
 
 object EventBus {
-    private val _eventFlow = MutableSharedFlow<Boolean>()
+    private val _eventFlow = MutableSharedFlow<Boolean>(replay = 1)
     val eventFlow = _eventFlow.asSharedFlow()
 
     suspend fun sendEvent(value: Boolean) {

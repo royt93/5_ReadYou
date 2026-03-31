@@ -16,7 +16,15 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6f28f826-4208-4800-b7bf-3c32f11fba88" name="Changes" comment="Feat: Implement in-app language switching with app restart&#10;&#10;This commit introduces a robust in-app language switching feature. When a user selects a new language, the app now prompts for confirmation and then gracefully restarts to apply the change system-wide.&#10;&#10;- **`LanguagesPage.kt`**:&#10;    - Replaced the immediate language change with a confirmation dialog (`AlertDialog`) that informs the user the app will restart.&#10;    - Upon confirmation, the selected language preference is saved to DataStore.&#10;    - A loading dialog is shown while the app prepares to restart.&#10;    - Utilizes the `ProcessPhoenix` library to trigger a clean application rebirth, ensuring the new language is applied correctly.&#10;&#10;- **`RApp.kt` &amp; `MainActivity.kt`**:&#10;    - The logic for setting the app's locale has been moved to `attachBaseContext` in both the `Application` and `MainActivity`.&#10;    - This ensures the language preference is read from DataStore and applied very early in the application lifecycle, preventing UI inconsistencies and ANRs related to asynchronous language loading in `MainActivity`.&#10;&#10;- **`LanguagesPref.kt`**:&#10;    - Expanded the `LanguagesPref` enum to include 26 new languages (Japanese, Portuguese, Arabic, Turkish, Dutch, etc.).&#10;    - Removed the now-redundant `setLocale` function, as this logic is centralized in `attachBaseContext`.&#10;&#10;- **Dependencies (`app/build.gradle`)**:&#10;    - Added the `com.jakewharton:process-phoenix:3.0.0` dependency to handle application restarts.&#10;&#10;- **Localization (`strings.xml`)**:&#10;    - Added new string resources for the language change confirmation dialog and restarting message (e.g., `change_language`, `change_language_confirm`, `restarting_app`) across all supported languages.&#10;    - Added translated names for the newly supported languages." />
+    <list default="true" id="6f28f826-4208-4800-b7bf-3c32f11fba88" name="Changes" comment="Chore: Update project version and add development guidelines&#10;&#10;This commit updates the application versioning and introduces a development guidelines document. It also includes standard IDE configuration updates.&#10;&#10;- **`app/build.gradle`**:&#10;    - Bumped `versionCode` to `20260401` and `versionName` to `&quot;2026.04.01&quot;`.&#10;&#10;- **`doc/init.md` &amp; `app/doc/init.md`**:&#10;    - Created a new documentation file outlining high-priority coding standards, including:&#10;        - Requirement to use `AppSnackbar` instead of `Get.snack`.&#10;        - Mandatory use of `GetX` for state management instead of `setState` or `late` variables.&#10;        - Enforcement of currency formatting for amount-related text inputs.&#10;        - Requirements for consistent animations and memory leak prevention.&#10;&#10;- **`.idea/`**:&#10;    - Updated `modules.xml` to include the project module.&#10;    - Updated `workspace.xml` with recent task history and IDE state changes.">
+      <change afterPath="$PROJECT_DIR$/.idea/markdown.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/doc/init.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/memory_leak.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/infrastructure/android/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/infrastructure/android/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/sdkadbmob/AdMobManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/sdkadbmob/AdMobManager.kt" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -25,7 +33,19 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=PhysicalDevice, isTemplate=false, identifier=serial=10CEA5016Z0012X)]" />
+  <component name="CopilotPersistence">
+    <persistenceIdMap>
+      <entry key="_/Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260103ReadYou" value="33KUbG1RmLnWOWhazByAOFjBEnu" />
+    </persistenceIdMap>
+  </component>
+  <component name="CopilotUserSelectedModel">
+    <selectedModels>
+      <entry key="chat-panel" value="Claude Haiku 4.5" />
+      <entry key="agent-panel" value="Claude Haiku 4.5" />
+      <entry key="edit-panel" value="GPT-5 mini" />
+    </selectedModels>
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[LocalEmulator::path=/Users/loitran/.android/avd/Pixel_Tablet.avd]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -52,33 +72,34 @@
     <option name="showMembers" value="true" />
     <option name="showVisibilityIcons" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Android App.app.executor&quot;: &quot;Run&quot;,
-    &quot;BundleExportedModule&quot;: &quot;RSS_Cat_Hub.app&quot;,
-    &quot;ExportBundle.BundlePathForRSS_Cat_Hub.app&quot;: &quot;/Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/0930ReadYou/_playStore&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
-    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/0930ReadYou&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.CommitDialog&quot;,
-    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Android App.app.executor": "Run",
+    "BundleExportedModule": "RSS_Cat_Hub.app",
+    "ExportBundle.BundlePathForRSS_Cat_Hub.app": "/Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/0930ReadYou/_playStore",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "dart.analysis.tool.window.visible": "false",
+    "git-widget-placeholder": "dev",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260103ReadYou/doc",
+    "settings.editor.selected.configurable": "project.propVCSSupport.CommitDialog",
+    "show.migrate.to.gradle.popup": "false"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;ExportApk.BuildVariants&quot;: [
-      &quot;prodRelease&quot;
+  "keyToStringList": {
+    "ExportApk.BuildVariants": [
+      "prodRelease"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/doc" />
       <recent name="$PROJECT_DIR$/app/src/main/res/drawable" />
     </key>
   </component>
@@ -153,6 +174,11 @@
       <option name="SKIP_ACTIVITY_VALIDATION" value="false" />
       <method v="2">
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <method v="2">
+        <option name="Make" enabled="true" />
       </method>
     </configuration>
   </component>
@@ -452,12 +478,19 @@
       <option name="project" value="LOCAL" />
       <updated>1767446606826</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="Chore: Update project version and add development guidelines&#10;&#10;This commit updates the application versioning and introduces a development guidelines document. It also includes standard IDE configuration updates.&#10;&#10;- **`app/build.gradle`**:&#10;    - Bumped `versionCode` to `20260401` and `versionName` to `&quot;2026.04.01&quot;`.&#10;&#10;- **`doc/init.md` &amp; `app/doc/init.md`**:&#10;    - Created a new documentation file outlining high-priority coding standards, including:&#10;        - Requirement to use `AppSnackbar` instead of `Get.snack`.&#10;        - Mandatory use of `GetX` for state management instead of `setState` or `late` variables.&#10;        - Enforcement of currency formatting for amount-related text inputs.&#10;        - Requirements for consistent animations and memory leak prevention.&#10;&#10;- **`.idea/`**:&#10;    - Updated `modules.xml` to include the project module.&#10;    - Updated `workspace.xml` with recent task history and IDE state changes.">
+      <option name="closed" value="true" />
+      <created>1774971448144</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1774971448144</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
-    <MESSAGE value="Add Advertising ID permission and backup rules&#10;&#10;This commit introduces the following changes:&#10;- Adds the `com.google.android.gms.permission.AD_ID` permission to `AndroidManifest.xml` for advertising and analytics purposes.&#10;- Includes new XML files `backup_rules.xml` and `data_extraction_rules.xml` to define backup and data extraction behavior.&#10;- Updates `AndroidManifest.xml` to reference these new rules files.&#10;- Adds metadata for AdMob App ID, delayed app measurement initialization, and disables automatic screen reporting for Google Analytics." />
     <MESSAGE value="Update app theme to Material Design 3 and enhance UI elements&#10;&#10;This commit migrates the app's theme to Material Design 3, introducing updated color schemes, typography, and shapes. It also enhances various UI components and adds new animations.&#10;&#10;Key changes:&#10;- **Material Design 3 Theme:**&#10;    - Updated `themes.xml` for both light and dark modes to use `Theme.Material3` parents.&#10;    - Defined new Material 3 color attributes (primary, secondary, tertiary, error, surface, background, outline, etc.) in `colors.xml` for both light and dark themes.&#10;    - Updated `windowBackground` and `ic_launcher_background` colors.&#10;- **Typography:**&#10;    - Refined `SystemTypography` in `Type.kt` with updated font weights and letter spacing for Material 3 guidelines.&#10;    - Added new custom text styles for reader-specific content: `ReaderTitleStyle`, `ReaderSubtitleStyle`, `ReaderBodyStyle`, `ReaderCaptionStyle`, and `ReaderOverlineStyle`.&#10;- **Shapes:**&#10;    - Updated `Shapes.kt` with Material 3 shape definitions.&#10;    - Added various custom `RoundedCornerShape` variations for modern UI elements, including asymmetric and directional shapes (e.g., `ShapeTop16`, `ShapeBottom16`, `ShapeStart16`).&#10;    - Defined specific shapes for UI components like `CardShape`, `ButtonShape`, `InputShape`, `ChipShape`, `BottomSheetShape`, and `DialogShape`.&#10;- **Animations:**&#10;    - Added new animation resource files:&#10;        - `slide_in_right.xml`, `slide_out_left.xml` (for window transitions)&#10;        - `slide_up.xml`, `slide_down.xml`&#10;        - `fade_in.xml`, `fade_out.xml`&#10;    - Defined `WindowAnimationTransition` style in `themes.xml` using the new slide animations.&#10;- **UI Component Enhancements:**&#10;    - `BaseAsyncImage.kt`:&#10;        - Changed default `contentScale` to `ContentScale.Crop`.&#10;        - Added `enableClipping` and `cornerRadius` parameters, defaulting to true and `12.dp` respectively.&#10;        - Applied background color from `MaterialTheme.colorScheme.surface` and clipping to the image.&#10;        - Updated placeholder and error image tinting to use theme colors.&#10;    - `BlockButton.kt`:&#10;        - Updated container and content colors to use Material 3 theme colors.&#10;        - Increased height to `64.dp` and corner radius to `16.dp`.&#10;        - Adjusted padding.&#10;- **Splash Screen:**&#10;    - Updated `startup.xml` with a modern gradient background using theme colors.&#10;    - Centered the app logo (`ic_launcher_foreground`) and increased its size.&#10;    - Added a modern loading indicator below the logo.&#10;- **Launcher Icon:**&#10;    - Updated `ic_launcher_foreground.xml` with a new modern book icon design, including page lines, a corner fold, and a bookmark.&#10;- **Styles:**&#10;    - Added new styles in `themes.xml` for `ModernCard`, `ModernButton`, `ModernButtonOutlined`, and `ModernTextInput` using Material 3 components and the new shapes." />
     <MESSAGE value="Enhance splash screen and add loading animations&#10;&#10;This commit refactors the splash screen UI and introduces new loading animations.&#10;&#10;- In `SplashActivity.kt`:&#10;    - The `SplashScreen` composable is updated to display the app logo, app name (&quot;RSS Hub&quot;), a &quot;Loading...&quot; text, and a `CircularProgressIndicator`.&#10;    - The &quot;Please note: this action may show ads&quot; text is restyled and repositioned.&#10;- In `app/src/main/res/drawable/startup.xml`:&#10;    - The existing modern gradient background is simplified to a gradient background.&#10;    - The app logo and modern loading indicator items are removed.&#10;    - A new subtle overlay item is added for depth.&#10;- New animation resource files are added:&#10;    - `app/src/main/res/anim/loading_rotation.xml`: A simple rotation animation.&#10;    - `app/src/main/res/anim/loading_pulse.xml`: A pulse animation combining scale and alpha changes.&#10;- New drawable resource files for loading indicators are added:&#10;    - `app/src/main/res/drawable/loading_spinner.xml`: A vector drawable for a two-ring spinner.&#10;    - `app/src/main/res/drawable/loading_dots.xml`: A vector drawable for three animating dots." />
     <MESSAGE value="Update splash screen UI and background&#10;&#10;This commit updates the `SplashActivity` UI and the background drawable used for the splash screen.&#10;&#10;- In `SplashActivity.kt`:&#10;    - The app logo image is changed from `ic_launcher_foreground` to `ic_launcher_round`.&#10;    - The text color of &quot;RSS Hub&quot;, &quot;Loading...&quot;, and &quot;Please note: this action may show ads&quot; is updated to use `MaterialTheme.colorScheme.onSurface`.&#10;    - The `CircularProgressIndicator` color is updated to use `MaterialTheme.colorScheme.primary`.&#10;- In `app/src/main/res/drawable/startup.xml`:&#10;    - The gradient background is removed.&#10;    - The background now uses a solid color defined by `?attr/colorSurface`.&#10;- A new file `app/src/main/res/drawable/ic_launcher_round.png` is added." />
@@ -482,7 +515,8 @@
     <MESSAGE value="Refactor: Add search and filtering to AddSourceDetailPage&#10;&#10;This commit introduces search and filtering functionality to the `AddSourceDetailPage`, allowing users to easily find specific RSS sources. It also includes an empty state UI for when no results are found.&#10;&#10;- **`AddSourcesViewModel.kt`**:&#10;    - Implemented a `_searchQuery` `MutableStateFlow` to manage the search input.&#10;    - Used `debounce(300)` on the search query flow to delay filtering and improve performance.&#10;    - Added `updateSearchQuery`, `clearSearch`, and `filterSources` methods to handle search logic.&#10;    - The `AddSourcesUiState` is updated to include `filteredSources` to display search results.&#10;&#10;- **`AddSourceDetailPage.kt`**:&#10;    - Added a `RssSearchField` composable at the top of the screen, which includes a search icon and a clear button.&#10;    - The UI now displays the `filteredSources` from the `uiState`.&#10;    - Implemented an `EmptyStateContent` composable that is displayed when the list of filtered sources is empty, showing a &quot;No results found&quot; or &quot;No RSS sources available&quot; message.&#10;&#10;- **`app/build.gradle`**:&#10;    - Disabled the `leakcanary` debug implementation." />
     <MESSAGE value="Feat: Expand RSS sources and add new languages&#10;&#10;This commit significantly expands the available RSS sources and adds support for ten new languages in the &quot;Add Sources&quot; feature.&#10;&#10;- **`rss_sources.json`**:&#10;    - Added numerous new RSS sources for English (`en`) and Vietnamese (`vi`) across various categories like news, tech, business, and lifestyle.&#10;    - Introduced source lists for ten new languages: Japanese (`ja`), Korean (`ko`), Chinese (`zh`), Indonesian (`id`), Thai (`th`), French (`fr`), German (`de`), Spanish (`es`), Portuguese (`pt`), and Arabic (`ar`).&#10;&#10;- **Localization (`strings.xml`)**:&#10;    - Added translations for the new language source names (e.g., &quot;Japanese Sources&quot;, &quot;French Sources&quot;) and other UI elements related to adding sources.&#10;    - New translations provided for: `ar`, `de-rDE`, `es-rES`, `fr-rFR`, `in-rID`, `it-rIT`, `ja`, `pl-rPL`, `pt-rBR`, `pt`, `ru-rRU`, `vi`, `zh-rCN`, and `zh-rTW`.&#10;    - Added placeholder English strings for languages pending translation (e.g., `az`, `bg`, `ca`, `cs-rCZ`, `da`, `eu-rES`, `fa`, `hi-rIN`, `hu`, `iw`, `kn`, `lzh`, `ml`, `my`, `nb-rNO`, `nl`, `nn`, `ro`, `sl`, `sr`, `sv`, `tr`, `uk`).&#10;&#10;- **Code Changes**:&#10;    - **`RssSource.kt`**: Updated the `RssSourcesData` data class to include fields for all the new language codes.&#10;    - **`RssSourceRepository.kt`**: Extended the `when` statement to handle the new language codes and load the corresponding sources from the JSON file.&#10;    - **`AddSourcesPage.kt`**:&#10;        - Expanded the `CountriesList` to display all the new languages with their respective flags and names.&#10;        - Used `stringResource` for translatable text.&#10;    - **`AddSourceDetailPage.kt`**:&#10;        - Updated to display the correct country name and flag based on the new language codes.&#10;        - Replaced hardcoded strings with `stringResource` calls for better internationalization of UI elements like snackbar messages, dialogs, and empty/error states." />
     <MESSAGE value="Feat: Implement in-app language switching with app restart&#10;&#10;This commit introduces a robust in-app language switching feature. When a user selects a new language, the app now prompts for confirmation and then gracefully restarts to apply the change system-wide.&#10;&#10;- **`LanguagesPage.kt`**:&#10;    - Replaced the immediate language change with a confirmation dialog (`AlertDialog`) that informs the user the app will restart.&#10;    - Upon confirmation, the selected language preference is saved to DataStore.&#10;    - A loading dialog is shown while the app prepares to restart.&#10;    - Utilizes the `ProcessPhoenix` library to trigger a clean application rebirth, ensuring the new language is applied correctly.&#10;&#10;- **`RApp.kt` &amp; `MainActivity.kt`**:&#10;    - The logic for setting the app's locale has been moved to `attachBaseContext` in both the `Application` and `MainActivity`.&#10;    - This ensures the language preference is read from DataStore and applied very early in the application lifecycle, preventing UI inconsistencies and ANRs related to asynchronous language loading in `MainActivity`.&#10;&#10;- **`LanguagesPref.kt`**:&#10;    - Expanded the `LanguagesPref` enum to include 26 new languages (Japanese, Portuguese, Arabic, Turkish, Dutch, etc.).&#10;    - Removed the now-redundant `setLocale` function, as this logic is centralized in `attachBaseContext`.&#10;&#10;- **Dependencies (`app/build.gradle`)**:&#10;    - Added the `com.jakewharton:process-phoenix:3.0.0` dependency to handle application restarts.&#10;&#10;- **Localization (`strings.xml`)**:&#10;    - Added new string resources for the language change confirmation dialog and restarting message (e.g., `change_language`, `change_language_confirm`, `restarting_app`) across all supported languages.&#10;    - Added translated names for the newly supported languages." />
-    <option name="LAST_COMMIT_MESSAGE" value="Feat: Implement in-app language switching with app restart&#10;&#10;This commit introduces a robust in-app language switching feature. When a user selects a new language, the app now prompts for confirmation and then gracefully restarts to apply the change system-wide.&#10;&#10;- **`LanguagesPage.kt`**:&#10;    - Replaced the immediate language change with a confirmation dialog (`AlertDialog`) that informs the user the app will restart.&#10;    - Upon confirmation, the selected language preference is saved to DataStore.&#10;    - A loading dialog is shown while the app prepares to restart.&#10;    - Utilizes the `ProcessPhoenix` library to trigger a clean application rebirth, ensuring the new language is applied correctly.&#10;&#10;- **`RApp.kt` &amp; `MainActivity.kt`**:&#10;    - The logic for setting the app's locale has been moved to `attachBaseContext` in both the `Application` and `MainActivity`.&#10;    - This ensures the language preference is read from DataStore and applied very early in the application lifecycle, preventing UI inconsistencies and ANRs related to asynchronous language loading in `MainActivity`.&#10;&#10;- **`LanguagesPref.kt`**:&#10;    - Expanded the `LanguagesPref` enum to include 26 new languages (Japanese, Portuguese, Arabic, Turkish, Dutch, etc.).&#10;    - Removed the now-redundant `setLocale` function, as this logic is centralized in `attachBaseContext`.&#10;&#10;- **Dependencies (`app/build.gradle`)**:&#10;    - Added the `com.jakewharton:process-phoenix:3.0.0` dependency to handle application restarts.&#10;&#10;- **Localization (`strings.xml`)**:&#10;    - Added new string resources for the language change confirmation dialog and restarting message (e.g., `change_language`, `change_language_confirm`, `restarting_app`) across all supported languages.&#10;    - Added translated names for the newly supported languages." />
+    <MESSAGE value="Chore: Update project version and add development guidelines&#10;&#10;This commit updates the application versioning and introduces a development guidelines document. It also includes standard IDE configuration updates.&#10;&#10;- **`app/build.gradle`**:&#10;    - Bumped `versionCode` to `20260401` and `versionName` to `&quot;2026.04.01&quot;`.&#10;&#10;- **`doc/init.md` &amp; `app/doc/init.md`**:&#10;    - Created a new documentation file outlining high-priority coding standards, including:&#10;        - Requirement to use `AppSnackbar` instead of `Get.snack`.&#10;        - Mandatory use of `GetX` for state management instead of `setState` or `late` variables.&#10;        - Enforcement of currency formatting for amount-related text inputs.&#10;        - Requirements for consistent animations and memory leak prevention.&#10;&#10;- **`.idea/`**:&#10;    - Updated `modules.xml` to include the project module.&#10;    - Updated `workspace.xml` with recent task history and IDE state changes." />
+    <option name="LAST_COMMIT_MESSAGE" value="Chore: Update project version and add development guidelines&#10;&#10;This commit updates the application versioning and introduces a development guidelines document. It also includes standard IDE configuration updates.&#10;&#10;- **`app/build.gradle`**:&#10;    - Bumped `versionCode` to `20260401` and `versionName` to `&quot;2026.04.01&quot;`.&#10;&#10;- **`doc/init.md` &amp; `app/doc/init.md`**:&#10;    - Created a new documentation file outlining high-priority coding standards, including:&#10;        - Requirement to use `AppSnackbar` instead of `Get.snack`.&#10;        - Mandatory use of `GetX` for state management instead of `setState` or `late` variables.&#10;        - Enforcement of currency formatting for amount-related text inputs.&#10;        - Requirements for consistent animations and memory leak prevention.&#10;&#10;- **`.idea/`**:&#10;    - Updated `modules.xml` to include the project module.&#10;    - Updated `workspace.xml` with recent task history and IDE state changes." />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>
