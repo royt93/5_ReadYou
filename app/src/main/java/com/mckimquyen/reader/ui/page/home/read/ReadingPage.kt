@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.mckimquyen.reader.infrastructure.audio.TtsState
 import com.mckimquyen.reader.infrastructure.pref.LocalReadingAutoHideToolbar
 import com.mckimquyen.reader.infrastructure.pref.LocalReadingPageTonalElevation
 import com.mckimquyen.reader.ui.component.base.BaseScaffold
@@ -42,7 +43,12 @@ fun ReadingPage(
     }
 
     val pagingItems = homeUiState.pagingData.collectAsLazyPagingItems().itemSnapshotList
-    readingViewModel.recorderNextArticle(pagingItems)
+
+    // Use LaunchedEffect so recorderNextArticle only runs when the list size or
+    // current article actually changes, not on every recomposition.
+    LaunchedEffect(pagingItems.size, readingUiState.articleWithFeed?.article?.id) {
+        readingViewModel.recorderNextArticle(pagingItems)
+    }
 
     LaunchedEffect(Unit) {
         navController.currentBackStackEntryFlow.collect {
@@ -76,6 +82,10 @@ fun ReadingPage(
                     isShow = isShowToolBar,
                     title = readingUiState.articleWithFeed?.article?.title,
                     link = readingUiState.articleWithFeed?.article?.link,
+                    isPlayingAudio = readingUiState.ttsState == TtsState.PLAYING,
+                    onPlayAudio = {
+                        readingViewModel.togglePlayAudio()
+                    },
                     onClose = {
                         navController.popBackStack()
                     },

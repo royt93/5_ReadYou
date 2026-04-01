@@ -27,6 +27,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -109,9 +110,10 @@ fun FeedsPage(
     val currentVersion = remember { context.getCurrentVersion() }
     val owner = LocalLifecycleOwner.current
     var isSyncing by remember { mutableStateOf(false) }
-    homeViewModel.syncWorkLiveData.observe(owner) {
-        it?.let { isSyncing = it.any { it.state == WorkInfo.State.RUNNING } }
-    }
+    // observeAsState() is the correct Compose-idiomatic way to observe LiveData.
+    // Raw .observe() in a composable body registers a new observer every recomposition.
+    val workInfoList by homeViewModel.syncWorkLiveData.observeAsState()
+    isSyncing = workInfoList?.any { it.state == WorkInfo.State.RUNNING } == true
 
     val infiniteTransition = rememberInfiniteTransition()
     val angle by infiniteTransition.animateFloat(
@@ -136,10 +138,10 @@ fun FeedsPage(
         feedsViewModel.fetchAccount()
     }
 
+    // LaunchedEffect already re-runs when filterUiState changes —
+    // wrapping it in snapshotFlow is redundant and adds unnecessary indirection.
     LaunchedEffect(filterUiState) {
-        snapshotFlow { filterUiState }.collect {
-            feedsViewModel.pullFeeds(it)
-        }
+        feedsViewModel.pullFeeds(filterUiState)
     }
 
     BackHandler(true) {

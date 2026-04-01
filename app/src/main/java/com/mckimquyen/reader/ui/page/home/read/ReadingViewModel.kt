@@ -9,6 +9,8 @@ import androidx.paging.ItemSnapshotList
 import com.mckimquyen.reader.domain.model.article.ArticleFlowItem
 import com.mckimquyen.reader.domain.model.article.ArticleWithFeed
 import com.mckimquyen.reader.domain.sv.RssSv
+import com.mckimquyen.reader.infrastructure.audio.TtsManager
+import com.mckimquyen.reader.infrastructure.audio.TtsState
 import com.mckimquyen.reader.infrastructure.rss.RssHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -23,10 +25,22 @@ import javax.inject.Inject
 class ReadingViewModel @Inject constructor(
     private val rssService: RssSv,
     private val rssHelper: RssHelper,
+    private val ttsManager: TtsManager,
 ) : ViewModel() {
 
     private val _readingUiState = MutableStateFlow(ReadingUiState())
     val readingUiState: StateFlow<ReadingUiState> = _readingUiState.asStateFlow()
+
+    init {
+        // Collect TTS state once per ViewModel lifetime.
+        // Previously this was inside initData(), which created a new collector
+        // on every article open — causing duplicate event processing over time.
+        viewModelScope.launch {
+            ttsManager.ttsState.collect { state ->
+                _readingUiState.update { it.copy(ttsState = state) }
+            }
+        }
+    }
 
     fun initData(articleId: String) {
         showLoading()
@@ -83,8 +97,38 @@ class ReadingViewModel @Inject constructor(
         hideLoading()
     }
 
+    fun togglePlayAudio() {
+        Log.d("roy93~", "ReadingViewModel togglePlayAudio called. Current state: ${_readingUiState.value.ttsState}")
+        if (_readingUiState.value.ttsState == TtsState.PLAYING) {
+            Log.d("roy93~", "ReadingViewModel stopping TTS")
+            ttsManager.stop()
+        } else {
+            val content = _readingUiState.value.content
+            if (content == null) {
+                Log.d("roy93~", "ReadingViewModel content is null, cannot play")
+                return
+            }
+            Log.d("roy93~", "ReadingViewModel parsing HTML to plain text")
+            // Use Regex to remove HTML tags or parse it
+            val plainText = androidx.core.text.HtmlCompat.fromHtml(
+                content, androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY
+            ).toString()
+            Log.d("roy93~", "ReadingViewModel starting TTS play")
+            ttsManager.play(plainText)
+        }
+    }
+
+    override fun onCleared() {
+        Log.d("roy93~", "ReadingViewModel onCleared: stopping TTS")
+        ttsManager.stop()
+        super.onCleared()
+    }
+
     fun markUnread(isUnread: Boolean) {
         val articleWithFeed = _readingUiState.value.articleWithFeed ?: return
+        // Capture articleId before the coroutine launch to avoid a race condition
+        // where articleWithFeed could be set to null by initData() before line 138 runs.
+        val articleId = articleWithFeed.article.id
         viewModelScope.launch {
             _readingUiState.update {
                 it.copy(
@@ -98,7 +142,7 @@ class ReadingViewModel @Inject constructor(
             rssService.get().markAsRead(
                 groupId = null,
                 feedId = null,
-                articleId = _readingUiState.value.articleWithFeed!!.article.id,
+                articleId = articleId,
                 before = null,
                 isUnread = isUnread,
             )
@@ -170,4 +214,5 @@ data class ReadingUiState(
     val isLoading: Boolean = true,
     val listState: LazyListState = LazyListState(),
     val nextArticleId: String = "",
+    val ttsState: TtsState = TtsState.IDLE,
 )

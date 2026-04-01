@@ -43,7 +43,8 @@ class SyncWorker @AssistedInject constructor(
 
         private const val IS_SYNCING = "isSyncing"
         const val WORK_NAME = "ReadYou"
-        lateinit var uuid: UUID
+        // Was lateinit: never assigned anywhere — accessing before init throws UninitializedPropertyAccessException
+        var uuid: UUID? = null
 
         fun enqueueOneTimeWork(
             workManager: WorkManager,
@@ -63,7 +64,9 @@ class SyncWorker @AssistedInject constructor(
         ) {
             workManager.enqueueUniquePeriodicWork(
                 WORK_NAME,
-                ExistingPeriodicWorkPolicy.REPLACE,
+                // KEEP: don't cancel an ongoing sync if settings change mid-flight.
+                // REPLACE would kill the running worker immediately.
+                ExistingPeriodicWorkPolicy.KEEP,
                 PeriodicWorkRequestBuilder<SyncWorker>(syncInterval.value, TimeUnit.MINUTES)
                     .setConstraints(
                         Constraints.Builder()

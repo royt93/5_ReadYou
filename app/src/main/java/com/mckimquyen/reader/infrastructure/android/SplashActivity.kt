@@ -36,14 +36,16 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class SplashActivity : ComponentActivity() {
 
+    // Guard against goToMain() being called more than once (e.g. race between
+    // SplashScreen's onReady and AdMobManager's onAdLoaded callbacks).
+    private var navigationStarted = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d("roy93~", "onCreate")
 //        WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
-            SplashScreen {
-                goToMain()
-            }
+            SplashScreen()
         }
 
         AdMobManager.initSplashScreen(activity = this, onAdLoaded = {
@@ -52,6 +54,12 @@ class SplashActivity : ComponentActivity() {
     }
 
     private fun goToMain() {
+        // Prevent double-navigation if both callbacks fire
+        if (navigationStarted) {
+            Log.d("roy93", "goToMain already started, skipping")
+            return
+        }
+        navigationStarted = true
         Log.d("roy93", "goToMain")
         val intent = Intent(this, MainActivity::class.java)
 
@@ -79,7 +87,7 @@ class SplashActivity : ComponentActivity() {
 }
 
 @Composable
-fun SplashScreen(onReady: () -> Unit = {}) {
+fun SplashScreen() {
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center

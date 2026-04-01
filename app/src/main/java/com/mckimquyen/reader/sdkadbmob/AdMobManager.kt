@@ -39,12 +39,15 @@ import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.mckimquyen.reader.BuildConfig
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.lang.ref.WeakReference
+import java.util.concurrent.atomic.AtomicInteger
 
 //version 20250803
 //check gradle
@@ -58,6 +61,10 @@ import java.lang.ref.WeakReference
 object AdMobManager {
 
     private const val TAG = "roy93~AdMobManager"
+
+    // Managed scope tied to the object's lifetime; SupervisorJob ensures
+    // one failure doesn't cancel sibling coroutines.
+    private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
 
     private var application: Application? = null
     private var interstitialAd: InterstitialAd? = null
@@ -122,7 +129,8 @@ object AdMobManager {
                 }
             }
             onComplete(true, gaidCurrent)
-            CoroutineScope(Dispatchers.Default).launch {
+            // Use the managed scope instead of an unmanaged CoroutineScope
+            scope.launch {
                 EventBus.sendEvent(true)
             }
         }
@@ -155,16 +163,17 @@ object AdMobManager {
     }
 
     fun getGAID(context: Context, callback: (String) -> Unit) {
-        Thread {
+        // Use managed scope + IO dispatcher instead of a raw unmanaged Thread
+        scope.launch(Dispatchers.IO) {
             try {
                 val info = AdvertisingIdClient.getAdvertisingIdInfo(context)
                 val id = info.id ?: ""
-                callback(id)
+                withContext(Dispatchers.Main) { callback(id) }
             } catch (e: Exception) {
-                callback("")
                 Log.d("AdMobManager", "getGAID error $e")
+                withContext(Dispatchers.Main) { callback("") }
             }
-        }.start()
+        }
     }
 
     fun setCurrentActivity(activity: Activity) {
@@ -497,12 +506,13 @@ object AdMobManager {
         Log.d(TAG, "deleteVIPMember listGaidDevice $listGaidDevice => isVIPMember $isVIPMember")
     }
 
-    var countInitSplashScreen = 0
+    // AtomicInteger for thread-safe increment without synchronization overhead
+    private val countInitSplashScreen = AtomicInteger(0)
 
     fun initSplashScreen(activity: Activity, onAdLoaded: () -> Unit) {
-        countInitSplashScreen++
-        Log.d(TAG, "~~~initSplashScreen countInitSplashScreen $countInitSplashScreen")
-        if (countInitSplashScreen > 1) {
+        val count = countInitSplashScreen.incrementAndGet()
+        Log.d(TAG, "~~~initSplashScreen countInitSplashScreen $count")
+        if (count > 1) {
             onAdLoaded.invoke()
         } else {
             (activity as? ComponentActivity)?.lifecycleScope?.launch {

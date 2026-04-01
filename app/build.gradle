@@ -92,15 +92,14 @@ android {
             output.outputFileName = "RSS Cat Hub-${defaultConfig.versionName}-${gitCommitHash}.apk"
         }
     }
-    kotlinOptions {
-        freeCompilerArgs = freeCompilerArgs + "-opt-in=kotlin.RequiresOptIn"
-    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
+    // Single merged kotlinOptions block (was previously split into two)
     kotlinOptions {
         jvmTarget = "17"
+        freeCompilerArgs = freeCompilerArgs + "-opt-in=kotlin.RequiresOptIn"
     }
 
     // Fix KAPT compatibility with newer Java versions
@@ -192,6 +191,8 @@ dependencies {
     api "androidx.hilt:hilt-navigation-compose:1.0.0"
     api "androidx.core:core-ktx:1.7.0"
     api "androidx.activity:activity-compose:1.4.0"
+    // Required for observeAsState() — the correct Compose way to observe LiveData
+    api "androidx.compose.runtime:runtime-livedata:1.2.0-beta02"
     implementation("com.google.android.play:review:2.0.1")
     implementation("com.google.android.play:review-ktx:2.0.1")
 

@@ -18,6 +18,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -25,7 +26,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -85,22 +85,22 @@ fun FlowPage(
     val focusRequester = remember { FocusRequester() }
     var markAsRead by remember { mutableStateOf(false) }
     var onSearch by remember { mutableStateOf(false) }
-    val owner = LocalLifecycleOwner.current
     var isSyncing by remember { mutableStateOf(false) }
-    homeViewModel.syncWorkLiveData.observe(owner) {
-        it?.let { isSyncing = it.any { it.state == WorkInfo.State.RUNNING } }
-    }
+    // observeAsState() is the correct Compose-idiomatic way to observe LiveData.
+    // Raw .observe() in a composable body registers a new observer every recomposition.
+    val workInfoList by homeViewModel.syncWorkLiveData.observeAsState()
+    isSyncing = workInfoList?.any { it.state == WorkInfo.State.RUNNING } == true
 
+    // Simplified: LaunchedEffect(onSearch) already re-runs when onSearch changes,
+    // wrapping with snapshotFlow{onSearch}.collect is redundant.
     LaunchedEffect(onSearch) {
-        snapshotFlow { onSearch }.collect {
-            if (it) {
-                delay(100)  // ???
-                focusRequester.requestFocus()
-            } else {
-                keyboardController?.hide()
-                if (homeUiState.searchContent.isNotBlank()) {
-                    homeViewModel.inputSearchContent("")
-                }
+        if (onSearch) {
+            delay(100)
+            focusRequester.requestFocus()
+        } else {
+            keyboardController?.hide()
+            if (homeUiState.searchContent.isNotBlank()) {
+                homeViewModel.inputSearchContent("")
             }
         }
     }

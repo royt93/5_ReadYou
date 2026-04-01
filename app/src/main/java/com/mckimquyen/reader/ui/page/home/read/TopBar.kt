@@ -8,6 +8,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Palette
 import androidx.compose.material.icons.outlined.Share
 import androidx.compose.material.icons.rounded.Close
+import androidx.compose.material.icons.rounded.PlayArrow
+import androidx.compose.material.icons.rounded.Stop
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.TopAppBar
@@ -34,6 +36,8 @@ fun TopBar(
     isShow: Boolean,
     title: String? = "",
     link: String? = "",
+    isPlayingAudio: Boolean = false,
+    onPlayAudio: () -> Unit = {},
     onClose: () -> Unit = {},
 ) {
     val context = LocalContext.current
@@ -60,6 +64,15 @@ fun TopBar(
                     }
                 },
                 actions = {
+                    FeedbackIconButton(
+                        modifier = Modifier.size(22.dp),
+                        imageVector = if (isPlayingAudio) Icons.Rounded.Stop else Icons.Rounded.PlayArrow,
+                        contentDescription = "Nghe Báo",
+                        tint = MaterialTheme.colorScheme.onSurface
+                    ) {
+                        android.util.Log.d("roy93~", "TopBar: PlayAudio clicked")
+                        onPlayAudio()
+                    }
                     FeedbackIconButton(
                         modifier = Modifier.size(22.dp),
                         imageVector = Icons.Outlined.Palette,

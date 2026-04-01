@@ -74,9 +74,6 @@ class MainActivity : ComponentActivity(), AdMobManager.InterstitialAdListener {
     override fun onResume() {
         super.onResume()
 //        adView?.resume()
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            enableAdaptiveRefreshRate()
-        }
         rateAppInApp(BuildConfig.DEBUG)
     }
 
@@ -131,6 +128,11 @@ class MainActivity : ComponentActivity(), AdMobManager.InterstitialAdListener {
                     HomeEntry(activity = this@MainActivity)
                 }
             }
+        }
+
+        // Apply adaptive refresh rate once at startup (no need to re-apply every onResume)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            enableAdaptiveRefreshRate()
         }
 
         // Language is now applied in attachBaseContext, no need to set it here

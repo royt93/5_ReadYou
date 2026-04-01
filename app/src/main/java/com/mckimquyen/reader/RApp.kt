@@ -166,19 +166,14 @@ class RApp : Application(), WorkConfiguration.Provider, ImageLoaderFactory {
     }
 
     fun setupAdmob() {
-        CoroutineScope(Dispatchers.IO).launch {
+        // Use the injected applicationScope (backed by SupervisorJob) instead of
+        // an unmanaged CoroutineScope that is never cancelled.
+        applicationScope.launch(ioDispatcher) {
             MobileAds.initialize(this@RApp) {}
             AdMobManager.init(this@RApp) { success, gaidCurrent ->
                 Log.d("roy93~", "AdMobManager init success $success, gaidCurrent $gaidCurrent")
             }
         }
-//        registerActivityLifecycleCallbacks(
-//            AppLifecycleListener(
-//                { isForeground, activity ->
-////                    if (isForeground) {
-////                        Log.d("roy93~", "App moved to Foreground")
-////                        if (activity.localClassName == SplashActivity::class.java.simpleName) {
-////                            //do nothing
 ////                        } else {
 ////                            AdMobManager.showAppOpenAd(activity)
 ////                        }
@@ -203,7 +198,10 @@ class RApp : Application(), WorkConfiguration.Provider, ImageLoaderFactory {
     override fun getWorkManagerConfiguration(): WorkConfiguration =
         WorkConfiguration.Builder()
             .setWorkerFactory(hiltWorkerFactory)
-            .setMinimumLoggingLevel(android.util.Log.DEBUG)
+            // Only log verbose WorkManager internals in debug builds
+            .setMinimumLoggingLevel(
+                if (BuildConfig.DEBUG) android.util.Log.DEBUG else android.util.Log.ERROR
+            )
             .build()
 
     private suspend fun accountInit() {

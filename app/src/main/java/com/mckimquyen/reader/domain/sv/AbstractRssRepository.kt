@@ -161,8 +161,9 @@ abstract class AbstractRssRepository(
     }
 
     suspend fun clearKeepArchivedArticles() {
-        accountDao.queryById(context.currentAccountId)!!
-            .takeIf { it.keepArchived != KeepArchivedPreference.Always }
+        // Use ?. safe-call instead of !! to avoid NPE if account doesn't exist yet
+        accountDao.queryById(context.currentAccountId)
+            ?.takeIf { it.keepArchived != KeepArchivedPreference.Always }
             ?.let {
                 articleDao.deleteAllArchivedBeforeThan(
                     it.id!!,
@@ -172,11 +173,13 @@ abstract class AbstractRssRepository(
     }
 
     fun cancelSync() {
-        workManager.cancelAllWork()
+        // Only cancel the sync job, not every WorkManager job in the queue
+        workManager.cancelUniqueWork(SyncWorker.WORK_NAME)
     }
 
     suspend fun doSync(isOnStart: Boolean = false) {
-        workManager.cancelAllWork()
+        // Only cancel the sync job, not every WorkManager job in the queue
+        workManager.cancelUniqueWork(SyncWorker.WORK_NAME)
         accountDao.queryById(context.currentAccountId)?.let {
             if (isOnStart) {
                 if (it.syncOnStart.value) {

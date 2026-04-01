@@ -39,6 +39,18 @@ Sau khi kiểm tra toàn bộ mã nguồn của dự án (tập trung vào các 
 **File:** `com/mckimquyen/reader/infrastructure/android/MainActivity.kt` (extension `rateAppInApp`)
 * **Mô tả:** Logic kiểm tra `$daysSinceLastReview` được lưu giá trị dạng mili-giây nhưng chia tay hơi thủ công. Nên lưu ý nếu người dùng thay đổi Date Time hệ thống. Đồng thời `ReviewManager` của thư viện Google không nên bị gọi mỗi `onResume()` cho dù có check time hay flag, khuyến nghị nên gọi ở thời điểm thích hợp hơn (điều kiện sau khi thực hiện xong X actions nào đó) vì Google Rate Limit sẽ tự động chặn việc nháy hộp pop-up rate liên tục dù dev có cưỡng ép đẩy lệnh.
 
+## 5. Tính năng Nghe Báo (Text-to-Speech) - **[✅ AN TOÀN - KHÔNG LEAK]**
+**File:** 
+- `app/src/main/java/com/mckimquyen/reader/infrastructure/audio/TtsManager.kt`
+- `app/src/main/java/com/mckimquyen/reader/ui/page/home/read/ReadingViewModel.kt`
+
+* **Mô tả kiểm tra & thiết kế:**
+  Tính năng Nghe Báo đã được triển khai với kiến trúc đảm bảo Memory Leak Free tuyệt đối:
+  1. **Singleton & Application Context:** `TtsManager` được khởi tạo như một `@Singleton` và chỉ nhận vào `@ApplicationContext` (thay vì Activity). Kể cả khi Native Engine `TextToSpeech` bên dưới C++ Android có ôm cái context này mãi thì cũng là context của toàn ứng dụng (sống chết theo app), hoàn toàn **không gây leak Activity/View**.
+  2. **An toàn Coroutine Lifecycle:** `ReadingViewModel` lắng nghe tín hiệu (`TtsState`) thông qua `viewModelScope.launch`. Khi người dùng thoát (Back) trang báo, `ViewModel` bị Clear -> `viewModelScope` tự huỷ bộ listener.
+  3. **Dọn dẹp triệt để:** Ngay thời điểm `ViewModel` bị gọi hàm huỷ `onCleared()`, tôi có gắn block gọi `ttsManager.stop()` qua AudioEngine, đập rớt ngay hành vi đọc lách nhách dưới nền, tối ưu hoá hoàn toàn RAM lẫn CPU Pin của máy.
+* **Kết luận:** Feature hoàn toàn vô trùng và không thể Leak RAM.
+
 ## Tổng Kết
 Ứng dụng nhìn chung sử dụng Jetpack Compose (Modern UI) + GetX / Android Jetpack ViewModel. Các `ViewModel` đều tuân thủ tốt, không bị truyền cứng `Context` vào mà dùng Injection (Hilt). 
 
