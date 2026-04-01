@@ -31,6 +31,8 @@ class ReadingViewModel @Inject constructor(
     private val _readingUiState = MutableStateFlow(ReadingUiState())
     val readingUiState: StateFlow<ReadingUiState> = _readingUiState.asStateFlow()
 
+    private var fetchJob: kotlinx.coroutines.Job? = null
+
     init {
         // Collect TTS state once per ViewModel lifetime.
         // Previously this was inside initData(), which created a new collector
@@ -42,15 +44,25 @@ class ReadingViewModel @Inject constructor(
         }
     }
 
-    fun initData(articleId: String) {
-        showLoading()
-        viewModelScope.launch {
+    fun initData(articleId: String, autoTtsEnabled: Boolean = false) {
+        // Capture current TTS state before switching feed
+        val wasPlaying = _readingUiState.value.ttsState == TtsState.PLAYING
+        val shouldAutoPlay = autoTtsEnabled || wasPlaying
+        
+        if (wasPlaying) {
+            Log.d("roy93~", "ReadingViewModel: Switching feed, stopping current TTS")
+            ttsManager.stop()
+        }
+
+        fetchJob?.cancel()
+        fetchJob = viewModelScope.launch {
+            showLoading()
             _readingUiState.update {
                 it.copy(articleWithFeed = rssService.get().findArticleById(articleId))
             }
             _readingUiState.value.articleWithFeed?.let {
-                if (it.feed.isFullContent) internalRenderFullContent()
-                else renderDescriptionContent()
+                if (it.feed.isFullContent) internalRenderFullContent(shouldAutoPlay)
+                else renderDescriptionContent(shouldAutoPlay)
             }
             // java.lang.NullPointerException: Attempt to invoke virtual method
             // 'boolean androidx.compose.ui.node.LayoutNode.getNeedsOnPositionedDispatch$ui_release()'
@@ -62,7 +74,7 @@ class ReadingViewModel @Inject constructor(
         }
     }
 
-    fun renderDescriptionContent() {
+    fun renderDescriptionContent(autoPlay: Boolean = false) {
         _readingUiState.update {
             it.copy(
                 content = it.articleWithFeed?.article?.fullContent
@@ -70,15 +82,23 @@ class ReadingViewModel @Inject constructor(
                 isFullContent = false
             )
         }
-    }
-
-    fun renderFullContent() {
-        viewModelScope.launch {
-            internalRenderFullContent()
+        if (autoPlay) {
+            playCurrentContent()
         }
     }
 
-    private suspend fun internalRenderFullContent() {
+    fun renderFullContent() {
+        val wasPlaying = _readingUiState.value.ttsState == TtsState.PLAYING
+        if (wasPlaying) {
+            ttsManager.stop()
+        }
+        fetchJob?.cancel()
+        fetchJob = viewModelScope.launch {
+            internalRenderFullContent(wasPlaying)
+        }
+    }
+
+    private suspend fun internalRenderFullContent(autoPlay: Boolean = false) {
         showLoading()
         try {
             _readingUiState.update {
@@ -90,11 +110,31 @@ class ReadingViewModel @Inject constructor(
                     isFullContent = true
                 )
             }
+            if (autoPlay) {
+                playCurrentContent()
+            }
+        } catch (e: kotlinx.coroutines.CancellationException) {
+            throw e
         } catch (e: Exception) {
             Log.i("RLog", "renderFullContent: ${e.message}")
             _readingUiState.update { it.copy(content = e.message) }
         }
         hideLoading()
+    }
+
+    private fun playCurrentContent() {
+        val content = _readingUiState.value.content
+        if (content == null) {
+            Log.d("roy93~", "ReadingViewModel content is null, cannot play")
+            return
+        }
+        Log.d("roy93~", "ReadingViewModel parsing HTML to plain text")
+        // Use Regex to remove HTML tags or parse it
+        val plainText = androidx.core.text.HtmlCompat.fromHtml(
+            content, androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY
+        ).toString()
+        Log.d("roy93~", "ReadingViewModel starting TTS play")
+        ttsManager.play(plainText)
     }
 
     fun togglePlayAudio() {
@@ -103,18 +143,7 @@ class ReadingViewModel @Inject constructor(
             Log.d("roy93~", "ReadingViewModel stopping TTS")
             ttsManager.stop()
         } else {
-            val content = _readingUiState.value.content
-            if (content == null) {
-                Log.d("roy93~", "ReadingViewModel content is null, cannot play")
-                return
-            }
-            Log.d("roy93~", "ReadingViewModel parsing HTML to plain text")
-            // Use Regex to remove HTML tags or parse it
-            val plainText = androidx.core.text.HtmlCompat.fromHtml(
-                content, androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY
-            ).toString()
-            Log.d("roy93~", "ReadingViewModel starting TTS play")
-            ttsManager.play(plainText)
+            playCurrentContent()
         }
     }
 

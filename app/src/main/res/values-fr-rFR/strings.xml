@@ -296,4 +296,6 @@
     <string name="yes">Oui</string>
     <string name="no">Non</string>
     <string name="restarting_app">Redémarrage de l\'application…</string>
+    <string name="auto_tts">Lecture automatique (TTS)</string>
+    <string name="auto_tts_desc">Lire automatiquement les articles à voix haute à l\'ouverture</string>
 </resources>

@@ -290,4 +290,6 @@
     <string name="yes">Có</string>
     <string name="no">Không</string>
     <string name="restarting_app">Đang khởi động lại ứng dụng…</string>
+    <string name="auto_tts">Tự động Đọc báo (TTS)</string>
+    <string name="auto_tts_desc">Tự động đọc bài viết bằng giọng nói khi mở</string>
 </resources>

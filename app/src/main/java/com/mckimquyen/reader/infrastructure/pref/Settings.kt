@@ -78,6 +78,7 @@ data class Settings(
     val initialFilter: InitialFilterPref = InitialFilterPref.default,
     val openLink: OpenLinkPref = OpenLinkPref.default,
     val openLinkSpecificBrowser: OpenLinkSpecificBrowserPref = OpenLinkSpecificBrowserPref.default,
+    val autoTts: AutoTtsPref = AutoTtsPref.default,
 
     // Languages
     val languages: LanguagesPref = LanguagesPref.default,
@@ -180,6 +181,7 @@ val LocalOpenLink =
     compositionLocalOf<OpenLinkPref> { OpenLinkPref.default }
 val LocalOpenLinkSpecificBrowser =
     compositionLocalOf { OpenLinkSpecificBrowserPref.default }
+val LocalAutoTts = compositionLocalOf<AutoTtsPref> { AutoTtsPref.default }
 
 // Languages
 val LocalLanguages =
@@ -263,6 +265,7 @@ fun SettingsProvider(
         LocalInitialFilter provides settings.initialFilter,
         LocalOpenLink provides settings.openLink,
         LocalOpenLinkSpecificBrowser provides settings.openLinkSpecificBrowser,
+        LocalAutoTts provides settings.autoTts,
 
         // Languages
         LocalLanguages provides settings.languages,

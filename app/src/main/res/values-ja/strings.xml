@@ -282,4 +282,6 @@
     <string name="yes">はい</string>
     <string name="no">いいえ</string>
     <string name="restarting_app">アプリを再起動しています…</string>
+    <string name="auto_tts">自動読み上げ (TTS)</string>
+    <string name="auto_tts_desc">開いたときに記事を自動的に読み上げる</string>
 </resources>

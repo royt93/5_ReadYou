@@ -304,4 +304,6 @@
     <string name="yes">Da</string>
     <string name="no">Nu</string>
     <string name="restarting_app">Repornirea aplicației…</string>
+    <string name="auto_tts">Auto-play Text-to-Speech</string>
+    <string name="auto_tts_desc">Automatically read articles aloud when opened</string>
 </resources>

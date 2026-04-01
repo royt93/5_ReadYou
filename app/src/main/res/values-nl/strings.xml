@@ -272,4 +272,6 @@
     <string name="yes">Ja</string>
     <string name="no">Nee</string>
     <string name="restarting_app">App wordt opnieuw opgestart…</string>
+    <string name="auto_tts">Auto-play Text-to-Speech</string>
+    <string name="auto_tts_desc">Automatically read articles aloud when opened</string>
 </resources>

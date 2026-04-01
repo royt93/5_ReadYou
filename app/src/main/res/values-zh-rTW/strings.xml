@@ -291,4 +291,6 @@
     <string name="yes">是</string>
     <string name="no">否</string>
     <string name="restarting_app">正在重新啟動應用程式…</string>
+    <string name="auto_tts">自動朗讀文章 (TTS)</string>
+    <string name="auto_tts_desc">打開時自動朗讀文章內容</string>
 </resources>

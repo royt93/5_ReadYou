@@ -9,7 +9,9 @@ import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
+import androidx.compose.material.icons.outlined.VolumeUp
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Switch
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -29,6 +31,9 @@ import com.mckimquyen.reader.infrastructure.pref.LocalInitialPage
 import com.mckimquyen.reader.infrastructure.pref.LocalOpenLink
 import com.mckimquyen.reader.infrastructure.pref.LocalOpenLinkSpecificBrowser
 import com.mckimquyen.reader.infrastructure.pref.OpenLinkPref
+import com.mckimquyen.reader.infrastructure.pref.LocalAutoTts
+import com.mckimquyen.reader.infrastructure.pref.AutoTtsPref
+import com.mckimquyen.reader.infrastructure.pref.not
 import com.mckimquyen.reader.ui.component.base.DisplayText
 import com.mckimquyen.reader.ui.component.base.FeedbackIconButton
 import com.mckimquyen.reader.ui.component.base.BaseScaffold
@@ -48,6 +53,7 @@ fun InteractionPage(
     val initialFilter = LocalInitialFilter.current
     val openLink = LocalOpenLink.current
     val openLinkSpecificBrowser = LocalOpenLinkSpecificBrowser.current
+    val autoTts = LocalAutoTts.current
     val scope = rememberCoroutineScope()
     val isOpenLinkSpecificBrowserItemEnabled = remember(openLink) {
         openLink == OpenLinkPref.SpecificBrowser
@@ -111,6 +117,20 @@ fun InteractionPage(
                             }
                         },
                     ) {}
+                    SettingItem(
+                        title = stringResource(R.string.auto_tts),
+                        desc = stringResource(R.string.auto_tts_desc),
+                        icon = Icons.Outlined.VolumeUp,
+                        action = {
+                            Switch(
+                                checked = autoTts.value,
+                                onCheckedChange = { autoTts.not().put(context, scope) }
+                            )
+                        },
+                        onClick = {
+                            autoTts.not().put(context, scope)
+                        },
+                    )
                 }
                 item {
                     Spacer(modifier = Modifier.height(24.dp))

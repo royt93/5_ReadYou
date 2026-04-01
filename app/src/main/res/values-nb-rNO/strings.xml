@@ -293,4 +293,6 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="restarting_app">Restarting app…</string>
+    <string name="auto_tts">Auto-play Text-to-Speech</string>
+    <string name="auto_tts_desc">Automatically read articles aloud when opened</string>
 </resources>

@@ -21,6 +21,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import com.mckimquyen.reader.infrastructure.audio.TtsState
 import com.mckimquyen.reader.infrastructure.pref.LocalReadingAutoHideToolbar
 import com.mckimquyen.reader.infrastructure.pref.LocalReadingPageTonalElevation
+import com.mckimquyen.reader.infrastructure.pref.LocalAutoTts
 import com.mckimquyen.reader.ui.component.base.BaseScaffold
 import com.mckimquyen.reader.ui.ext.collectAsStateValue
 import com.mckimquyen.reader.ui.ext.isScrollDown
@@ -34,6 +35,7 @@ fun ReadingPage(
     readingViewModel: ReadingViewModel = hiltViewModel(),
 ) {
     val tonalElevation = LocalReadingPageTonalElevation.current
+    val autoTts = LocalAutoTts.current.value
     val readingUiState = readingViewModel.readingUiState.collectAsStateValue()
     val homeUiState = homeViewModel.homeUiState.collectAsStateValue()
     val isShowToolBar = if (LocalReadingAutoHideToolbar.current.value) {
@@ -54,7 +56,7 @@ fun ReadingPage(
         navController.currentBackStackEntryFlow.collect {
             it.arguments?.getString("articleId")?.let { articleId ->
                 if (readingUiState.articleWithFeed?.article?.id != articleId) {
-                    readingViewModel.initData(articleId)
+                    readingViewModel.initData(articleId, autoTts)
                 }
             }
         }
@@ -137,7 +139,7 @@ fun ReadingPage(
                         },
                         onNextArticle = {
                             if (readingUiState.nextArticleId.isNotEmpty()) {
-                                readingViewModel.initData(readingUiState.nextArticleId)
+                                readingViewModel.initData(readingUiState.nextArticleId, autoTts)
                             }
                         },
                         onFullContent = {

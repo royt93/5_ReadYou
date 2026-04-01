@@ -416,6 +416,12 @@ sealed class DataStoreKeys<T> {
             get() = stringPreferencesKey("openLppSpecificBrowser")
     }
 
+    object AutoTts : DataStoreKeys<Boolean>() {
+
+        override val key: Preferences.Key<Boolean>
+            get() = booleanPreferencesKey("autoTts")
+    }
+
     // Languages
     object Languages : DataStoreKeys<Int>() {
 

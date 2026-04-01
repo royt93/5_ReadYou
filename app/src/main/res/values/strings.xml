@@ -465,4 +465,6 @@
     <string name="try_again">Try Again</string>
     <string name="already_added">Already Added</string>
     <string name="add_new_source">Add Source</string>
+    <string name="auto_tts">Auto-play Text-to-Speech</string>
+    <string name="auto_tts_desc">Automatically read articles aloud when opened</string>
 </resources>

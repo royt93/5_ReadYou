@@ -282,4 +282,6 @@
     <string name="yes">हां</string>
     <string name="no">नहीं</string>
     <string name="restarting_app">ऐप पुनः प्रारंभ हो रहा है…</string>
+    <string name="auto_tts">Auto-play Text-to-Speech</string>
+    <string name="auto_tts_desc">Automatically read articles aloud when opened</string>
 </resources>

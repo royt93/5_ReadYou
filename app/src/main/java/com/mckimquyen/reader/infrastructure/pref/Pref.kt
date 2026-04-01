@@ -77,6 +77,7 @@ fun Preferences.toSettings(): Settings {
         initialFilter = InitialFilterPref.fromPreferences(this),
         openLink = OpenLinkPref.fromPreferences(this),
         openLinkSpecificBrowser = OpenLinkSpecificBrowserPref.fromPreferences(this),
+        autoTts = AutoTtsPref.fromPreferences(this),
 
         // Languages
         languages = LanguagesPref.fromPreferences(this),

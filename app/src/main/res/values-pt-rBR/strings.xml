@@ -285,4 +285,6 @@
     <string name="yes">Sim</string>
     <string name="no">Não</string>
     <string name="restarting_app">Reiniciando aplicativo…</string>
+    <string name="auto_tts">Reprodução automática de texto para voz</string>
+    <string name="auto_tts_desc">Ler automaticamente os artigos em voz alta ao abrir</string>
 </resources>

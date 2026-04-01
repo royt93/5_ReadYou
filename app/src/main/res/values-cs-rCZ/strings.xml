@@ -345,4 +345,6 @@
     <string name="yes">Ano</string>
     <string name="no">Ne</string>
     <string name="restarting_app">Restartování aplikace…</string>
+    <string name="auto_tts">Auto-play Text-to-Speech</string>
+    <string name="auto_tts_desc">Automatically read articles aloud when opened</string>
 </resources>
