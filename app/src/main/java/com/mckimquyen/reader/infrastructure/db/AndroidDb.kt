@@ -104,8 +104,8 @@ val allMigrations = arrayOf(
 @Suppress("ClassName")
 object MIGRATION_1_2 : Migration(1, 2) {
 
-    override fun migrate(database: SupportSQLiteDatabase) {
-        database.execSQL(
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL(
             """
             ALTER TABLE article ADD COLUMN img TEXT DEFAULT NULL
             """.trimIndent()
@@ -116,38 +116,38 @@ object MIGRATION_1_2 : Migration(1, 2) {
 @Suppress("ClassName")
 object MIGRATION_2_3 : Migration(2, 3) {
 
-    override fun migrate(database: SupportSQLiteDatabase) {
-        database.execSQL(
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL(
             """
             ALTER TABLE article ADD COLUMN updateAt INTEGER DEFAULT ${System.currentTimeMillis()}
             """.trimIndent()
         )
-        database.execSQL(
+        db.execSQL(
             """
             ALTER TABLE account ADD COLUMN syncInterval INTEGER NOT NULL DEFAULT ${SyncIntervalPref.default.value}
             """.trimIndent()
         )
-        database.execSQL(
+        db.execSQL(
             """
             ALTER TABLE account ADD COLUMN syncOnStart INTEGER NOT NULL DEFAULT ${SyncOnStartPref.default.value.toInt()}
             """.trimIndent()
         )
-        database.execSQL(
+        db.execSQL(
             """
             ALTER TABLE account ADD COLUMN syncOnlyOnWiFi INTEGER NOT NULL DEFAULT ${SyncOnlyOnWiFiPref.default.value.toInt()}
             """.trimIndent()
         )
-        database.execSQL(
+        db.execSQL(
             """
             ALTER TABLE account ADD COLUMN syncOnlyWhenCharging INTEGER NOT NULL DEFAULT ${SyncOnlyWhenChargingPref.default.value.toInt()}
             """.trimIndent()
         )
-        database.execSQL(
+        db.execSQL(
             """
             ALTER TABLE account ADD COLUMN keepArchived INTEGER NOT NULL DEFAULT ${KeepArchivedPreference.default.value}
             """.trimIndent()
         )
-        database.execSQL(
+        db.execSQL(
             """
             ALTER TABLE account ADD COLUMN syncBlockList TEXT NOT NULL DEFAULT ''
             """.trimIndent()
@@ -158,8 +158,8 @@ object MIGRATION_2_3 : Migration(2, 3) {
 @Suppress("ClassName")
 object MIGRATION_3_4 : Migration(3, 4) {
 
-    override fun migrate(database: SupportSQLiteDatabase) {
-        database.execSQL(
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL(
             """
             ALTER TABLE account ADD COLUMN securityKey TEXT DEFAULT '${DESUtils.empty}'
             """.trimIndent()
@@ -170,8 +170,8 @@ object MIGRATION_3_4 : Migration(3, 4) {
 @Suppress("ClassName")
 object MIGRATION_4_5 : Migration(4, 5) {
 
-    override fun migrate(database: SupportSQLiteDatabase) {
-        database.execSQL(
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL(
             """
             ALTER TABLE account ADD COLUMN lastArticleId TEXT DEFAULT NULL
             """.trimIndent()
@@ -181,8 +181,8 @@ object MIGRATION_4_5 : Migration(4, 5) {
 
 @Suppress("ClassName")
 object MIGRATION_5_6 : Migration(5, 6) {
-    override fun migrate(database: SupportSQLiteDatabase) {
-        database.execSQL(
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL(
             """
             CREATE TABLE IF NOT EXISTS added_rss_source (
                 url TEXT NOT NULL PRIMARY KEY,
@@ -192,7 +192,7 @@ object MIGRATION_5_6 : Migration(5, 6) {
             )
             """.trimIndent()
         )
-        database.execSQL(
+        db.execSQL(
             """
             CREATE INDEX IF NOT EXISTS index_added_rss_source_accountId ON added_rss_source(accountId)
             """.trimIndent()

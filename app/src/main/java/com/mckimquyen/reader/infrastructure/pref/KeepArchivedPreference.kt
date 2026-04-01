@@ -20,6 +20,7 @@ sealed class KeepArchivedPreference(
         viewModel.update(accountId) { keepArchived = this@KeepArchivedPreference }
     }
 
+    @Suppress("UNUSED_PARAMETER")
     fun toDesc(context: Context): String =
         when (this) {
             Always -> context.getString(R.string.always)

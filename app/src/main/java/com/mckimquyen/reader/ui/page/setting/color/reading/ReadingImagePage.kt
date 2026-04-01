@@ -46,7 +46,6 @@ fun ReadingImagePage(
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
 
-    val readingTheme = LocalReadingTheme.current
     val roundedCorners = LocalReadingImageRoundedCorners.current
     val horizontalPadding = LocalReadingImageHorizontalPadding.current
     val maximize = LocalReadingImageMaximize.current

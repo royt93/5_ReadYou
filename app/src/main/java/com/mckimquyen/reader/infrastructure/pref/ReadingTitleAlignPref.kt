@@ -27,6 +27,7 @@ sealed class ReadingTitleAlignPref(val value: Int) : Pref() {
     }
 
     @Stable
+    @Suppress("UNUSED_PARAMETER")
     fun toDesc(context: Context): String =
         when (this) {
             Left -> context.getString(R.string.align_left)

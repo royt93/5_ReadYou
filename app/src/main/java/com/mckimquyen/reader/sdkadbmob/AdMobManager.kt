@@ -645,6 +645,7 @@ object EventBus {
 
 object NetworkUtils {
     @SuppressLint("ObsoleteSdkInt")
+    @Suppress("DEPRECATION")
     fun isDeviceConnected(context: Context): Boolean {
         val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
@@ -655,7 +656,6 @@ object NetworkUtils {
                     capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
                     capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)
         } else {
-            @Suppress("DEPRECATION")
             val activeNetworkInfo = connectivityManager.activeNetworkInfo
             return activeNetworkInfo != null && activeNetworkInfo.isConnected
         }

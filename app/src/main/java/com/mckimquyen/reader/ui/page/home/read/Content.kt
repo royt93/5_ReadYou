@@ -40,7 +40,6 @@ fun Content(
     publishedDate: Date,
     listState: LazyListState,
     isLoading: Boolean,
-    isShowToolBar: Boolean,
 ) {
     val context = LocalContext.current
     val subheadUpperCase = LocalReadingSubheadUpperCase.current
@@ -95,7 +94,6 @@ fun Content(
             }
             if (!isLoading) {
                 Reader(
-                    context = context,
                     subheadUpperCase = subheadUpperCase.value,
                     link = link ?: "",
                     content = content,

@@ -16,6 +16,7 @@ import com.mckimquyen.reader.infrastructure.di.IODispatcher
 import com.mckimquyen.reader.ui.page.home.FilterState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -29,6 +30,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
+@OptIn(ExperimentalCoroutinesApi::class)
 class FeedsViewModel @Inject constructor(
     private val accountService: AccountSv,
     private val rssService: RssSv,

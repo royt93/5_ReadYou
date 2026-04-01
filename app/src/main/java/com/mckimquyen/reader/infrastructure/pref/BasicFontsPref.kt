@@ -23,6 +23,7 @@ sealed class BasicFontsPref(val value: Int) : Pref() {
         }
     }
 
+    @Suppress("UNUSED_PARAMETER")
     fun toDesc(context: Context): String =
         when (this) {
             System -> context.getString(R.string.system_default)

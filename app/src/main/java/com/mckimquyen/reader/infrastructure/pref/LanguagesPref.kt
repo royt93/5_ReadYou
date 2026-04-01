@@ -62,6 +62,7 @@ sealed class LanguagesPref(val value: Int) : Pref() {
         }
     }
 
+    @Suppress("UNUSED_PARAMETER")
     fun toDesc(context: Context): String =
         when (this) {
             UseDeviceLanguages -> context.getString(R.string.use_device_languages)

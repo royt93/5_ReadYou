@@ -23,6 +23,7 @@ sealed class FlowFilterBarStylePref(val value: Int) : Pref() {
         }
     }
 
+    @Suppress("UNUSED_PARAMETER")
     fun toDesc(context: Context): String =
         when (this) {
             Icon -> context.getString(R.string.icons)

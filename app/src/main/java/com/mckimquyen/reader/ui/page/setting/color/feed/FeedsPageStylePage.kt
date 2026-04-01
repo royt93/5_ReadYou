@@ -111,7 +111,6 @@ fun FeedsPageStylePage(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         FeedsPagePreview(
-                            topBarTonalElevation = topBarTonalElevation,
                             groupListExpand = groupListExpand,
                             groupListTonalElevation = groupListTonalElevation,
                             filterBarStyle = filterBarStyle.value,

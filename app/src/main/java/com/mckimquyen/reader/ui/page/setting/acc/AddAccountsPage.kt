@@ -37,11 +37,8 @@ import com.mckimquyen.reader.ui.theme.palette.onLight
 @Composable
 fun AddAccountsPage(
     navController: NavHostController = rememberAnimatedNavController(),
-    viewModel: AccountViewModel = hiltViewModel(),
     additionViewModel: AdditionViewModel = hiltViewModel(),
 ) {
-    val context = LocalContext.current
-
     BaseScaffold(
         containerColor = MaterialTheme.colorScheme.surface onLight MaterialTheme.colorScheme.inverseOnSurface,
         navigationIcon = {

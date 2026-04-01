@@ -15,6 +15,7 @@ sealed class SyncOnlyWhenChargingPref(
         viewModel.update(accountId) { syncOnlyWhenCharging = this@SyncOnlyWhenChargingPref }
     }
 
+    @Suppress("UNUSED_PARAMETER")
     fun toDesc(context: Context): String =
         when (this) {
             On -> context.getString(R.string.on)

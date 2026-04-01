@@ -45,7 +45,6 @@ import kotlin.math.ln
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FeedsPagePreview(
-    topBarTonalElevation: FeedsTopBarTonalElevationPref,
     groupListExpand: FeedsGroupListExpandPref,
     groupListTonalElevation: FeedsGroupListTonalElevationPref,
     filterBarStyle: Int,

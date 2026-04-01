@@ -32,11 +32,9 @@ import com.mckimquyen.reader.ui.component.reader.textHorizontalPadding
 fun TitleAndTextPreview() {
     val context = LocalContext.current
     val titleBold = LocalReadingTitleBold.current
-    val subtitleBold = LocalReadingSubheadBold.current
     val titleUpperCase = LocalReadingTitleUpperCase.current
     val subheadUpperCase = LocalReadingSubheadUpperCase.current
     val titleAlign = LocalReadingTitleAlign.current
-    val subtitleAlign = LocalReadingSubheadAlign.current
 
 
     val titleUpperCaseString by remember {

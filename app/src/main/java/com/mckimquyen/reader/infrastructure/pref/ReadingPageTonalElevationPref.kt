@@ -23,6 +23,7 @@ sealed class ReadingPageTonalElevationPref(val value: Int) : Pref() {
         }
     }
 
+    @Suppress("UNUSED_PARAMETER")
     fun toDesc(context: Context): String =
         when (this) {
             Level0 -> "Level 0 (${ElevationTokens.Level0}dp)"

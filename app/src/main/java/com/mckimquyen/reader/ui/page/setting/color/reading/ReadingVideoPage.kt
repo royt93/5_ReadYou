@@ -39,9 +39,6 @@ import com.mckimquyen.reader.ui.theme.palette.onLight
 fun ReadingVideoPage(
     navController: NavHostController,
 ) {
-    val context = LocalContext.current
-    val scope = rememberCoroutineScope()
-
     BaseScaffold(
         containerColor = MaterialTheme.colorScheme.surface onLight MaterialTheme.colorScheme.inverseOnSurface,
         navigationIcon = {

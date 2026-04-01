@@ -25,6 +25,7 @@ import com.mckimquyen.reader.R
 
 val SIZE_1000 = Size(1000, 1000)
 
+@Suppress("UNUSED_PARAMETER")
 @Composable
 fun BaseAsyncImage(
     modifier: Modifier = Modifier,

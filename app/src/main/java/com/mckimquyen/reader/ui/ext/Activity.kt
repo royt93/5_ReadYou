@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION")
 package com.mckimquyen.reader.ui.ext
 
 import android.annotation.SuppressLint
@@ -97,6 +98,7 @@ fun Activity.uninstallApp(
     this.startActivity(intent)
 }
 
+@Suppress("DEPRECATION")
 fun Activity.toggleFullScreen() {
     val attrs = this.window.attributes
     attrs.flags = attrs.flags xor WindowManager.LayoutParams.FLAG_FULLSCREEN
@@ -267,6 +269,7 @@ fun Activity.playYoutubeWithId(
     this.playYoutube(url = "http://www.youtube.com/watch?v=$id")
 }
 
+@Suppress("DEPRECATION")
 fun Activity.setChangeStatusBarTintToDark(
     shouldChangeStatusBarTintToDark: Boolean,
 ) {
@@ -274,7 +277,6 @@ fun Activity.setChangeStatusBarTintToDark(
         val controller = WindowCompat.getInsetsController(window, window.decorView)
         controller.isAppearanceLightStatusBars = shouldChangeStatusBarTintToDark
     } else {
-        @Suppress("DEPRECATION")
         val decor = this.window.decorView
         if (shouldChangeStatusBarTintToDark) {
             decor.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
@@ -291,28 +293,26 @@ val screenHeight: Int
     get() = Resources.getSystem().displayMetrics.heightPixels
 
 fun Context.getScreenHeightIncludeNavigationBar(): Int {
-    val windowManager = this.getSystemService(Context.WINDOW_SERVICE) as WindowManager
-    val display = windowManager.defaultDisplay
-    val outPoint = Point()
-    // include navigation bar
-    display.getRealSize(outPoint)
-    val mRealSizeHeight: Int = if (outPoint.y > outPoint.x) {
-        outPoint.y
-        // mRealSizeWidth = outPoint.x;
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        val windowManager = this.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        windowManager.currentWindowMetrics.bounds.height()
     } else {
-        outPoint.x
-        // mRealSizeWidth = outPoint.y;
+        @Suppress("DEPRECATION")
+        val windowManager = this.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        val display = windowManager.defaultDisplay
+        val outPoint = Point()
+        display.getRealSize(outPoint)
+        if (outPoint.y > outPoint.x) outPoint.y else outPoint.x
     }
-    return mRealSizeHeight
 }
 
+@Suppress("DEPRECATION")
 fun Activity.showStatusBar(
 ) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
         val controller = WindowCompat.getInsetsController(window, window.decorView)
         controller.show(WindowInsetsCompat.Type.statusBars())
     } else {
-        @Suppress("DEPRECATION")
         if (Build.VERSION.SDK_INT < 16) {
             this.window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
         } else {
@@ -323,13 +323,13 @@ fun Activity.showStatusBar(
     }
 }
 
+@Suppress("DEPRECATION")
 fun Activity.hideStatusBar(
 ) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
         val controller = WindowCompat.getInsetsController(window, window.decorView)
         controller.hide(WindowInsetsCompat.Type.statusBars())
     } else {
-        @Suppress("DEPRECATION")
         if (Build.VERSION.SDK_INT < 16) {
             this.window.setFlags(
                 WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN
@@ -342,6 +342,7 @@ fun Activity.hideStatusBar(
     }
 }
 
+@Suppress("DEPRECATION")
 fun Activity.toggleFullscreen(
 ) {
     val attrs = this.window.attributes
@@ -356,6 +357,7 @@ fun Activity.toggleFullscreen(
     }*/
 }
 
+@Suppress("DEPRECATION")
 fun Activity.toggleFullscreen(
     isFullScreen: Boolean,
 ) {
@@ -368,7 +370,6 @@ fun Activity.toggleFullscreen(
             controller.show(WindowInsetsCompat.Type.systemBars())
         }
     } else {
-        @Suppress("DEPRECATION")
         if (isFullScreen) {
             this.window.decorView.systemUiVisibility =
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_FULLSCREEN or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
@@ -378,6 +379,7 @@ fun Activity.toggleFullscreen(
     }
 }
 
+@Suppress("DEPRECATION")
 fun Activity.hideNavigationBar(
 ) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
@@ -385,7 +387,6 @@ fun Activity.hideNavigationBar(
         controller.hide(WindowInsetsCompat.Type.navigationBars())
         controller.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
     } else {
-        @Suppress("DEPRECATION")
         val flags =
             (View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
         this.window.decorView.systemUiVisibility = flags
@@ -399,13 +400,13 @@ fun Activity.hideNavigationBar(
     }
 }
 
+@Suppress("DEPRECATION")
 fun Activity.showNavigationBar(
 ) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
         val controller = WindowCompat.getInsetsController(window, window.decorView)
         controller.show(WindowInsetsCompat.Type.navigationBars())
     } else {
-        @Suppress("DEPRECATION")
         val flags =
             (View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
         this.window.decorView.systemUiVisibility = flags
@@ -419,6 +420,7 @@ fun Activity.showNavigationBar(
     }
 }
 
+@Suppress("DEPRECATION")
 fun Activity.hideDefaultControls(
 ) {
     val window = this.window ?: return

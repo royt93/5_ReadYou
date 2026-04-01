@@ -26,6 +26,7 @@ sealed class DarkThemePref(val value: Int) : Pref() {
         }
     }
 
+    @Suppress("UNUSED_PARAMETER")
     fun toDesc(context: Context): String =
         when (this) {
             UseDeviceTheme -> context.getString(R.string.use_device_theme)

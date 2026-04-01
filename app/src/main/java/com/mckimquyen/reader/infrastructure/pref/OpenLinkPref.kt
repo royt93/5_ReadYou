@@ -26,6 +26,7 @@ sealed class OpenLinkPref(val value: Int) : Pref() {
         }
     }
 
+    @Suppress("UNUSED_PARAMETER")
     fun toDesc(context: Context): String =
         when (this) {
             AutoPreferCustomTabs -> context.getString(R.string.auto_customtabs)

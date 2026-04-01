@@ -25,6 +25,7 @@ sealed class ReadingSubheadAlignPref(val value: Int) : Pref() {
         }
     }
 
+    @Suppress("UNUSED_PARAMETER")
     fun toDesc(context: Context): String =
         when (this) {
             Left -> context.getString(R.string.align_left)

@@ -120,7 +120,6 @@ fun ReadingPage(
                             publishedDate = readingUiState.articleWithFeed.article.date,
                             isLoading = readingUiState.isLoading,
                             listState = readingUiState.listState,
-                            isShowToolBar = isShowToolBar,
                         )
                     }
                 }

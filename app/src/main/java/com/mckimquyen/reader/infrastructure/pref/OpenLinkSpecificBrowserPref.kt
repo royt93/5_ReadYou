@@ -26,6 +26,7 @@ data class OpenLinkSpecificBrowserPref(
         }
     }
 
+    @Suppress("UNUSED_PARAMETER")
     fun toDesc(context: Context): String {
         val pm = context.packageManager
         return runCatching {

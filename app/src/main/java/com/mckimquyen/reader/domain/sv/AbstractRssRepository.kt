@@ -22,6 +22,7 @@ import com.mckimquyen.reader.infrastructure.rss.RssHelper
 import com.mckimquyen.reader.ui.ext.currentAccountId
 import com.mckimquyen.reader.ui.ext.spacerDollar
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.flow.Flow
@@ -75,6 +76,7 @@ abstract class AbstractRssRepository(
     open suspend fun sync(coroutineWorker: CoroutineWorker): ListenableWorker.Result =
         supervisorScope {
             coroutineWorker.setProgress(SyncWorker.setIsSyncing(true))
+            @Suppress("UNUSED_VARIABLE")
             val preTime = System.currentTimeMillis()
             val accountId = context.currentAccountId
             feedDao.queryAll(accountId)
@@ -245,7 +247,8 @@ abstract class AbstractRssRepository(
         }
     }
 
-    fun pullImportant(
+@OptIn(ExperimentalCoroutinesApi::class)
+     fun pullImportant(
         isStarred: Boolean,
         isUnread: Boolean,
     ): Flow<Map<String, Int>> {

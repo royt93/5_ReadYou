@@ -22,6 +22,7 @@ sealed class InitialPagePref(val value: Int) : Pref() {
         }
     }
 
+    @Suppress("UNUSED_PARAMETER")
     fun toDesc(context: Context): String =
         when (this) {
             FeedsPage -> context.getString(R.string.feeds_page)

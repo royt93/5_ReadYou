@@ -30,14 +30,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.snapshotFlow
 import androidx.compose.runtime.snapshots.SnapshotStateMap
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -66,12 +63,10 @@ import com.mckimquyen.reader.ui.ext.getCurrentVersion
 import com.mckimquyen.reader.ui.page.common.RouteName
 import com.mckimquyen.reader.ui.page.home.FilterState
 import com.mckimquyen.reader.ui.page.home.HomeViewModel
-import com.mckimquyen.reader.ui.page.home.feed.acc.AccountsTab
 import com.mckimquyen.reader.ui.page.home.feed.drawer.feed.FeedOptionDrawer
 import com.mckimquyen.reader.ui.page.home.feed.drawer.group.GroupOptionDrawer
 import com.mckimquyen.reader.ui.page.home.feed.subs.SubscribeDialog
 import com.mckimquyen.reader.ui.page.home.feed.subs.SubscribeViewModel
-import com.mckimquyen.reader.ui.page.setting.acc.AccountViewModel
 import com.mckimquyen.reader.ui.page.home.addsources.CountriesList
 import kotlin.collections.set
 import kotlin.math.ln
@@ -82,15 +77,10 @@ import kotlin.math.ln
 @Composable
 fun FeedsPage(
     navController: NavHostController,
-    accountViewModel: AccountViewModel = hiltViewModel(),
     feedsViewModel: FeedsViewModel = hiltViewModel(),
     subscribeViewModel: SubscribeViewModel = hiltViewModel(),
     homeViewModel: HomeViewModel,
 ) {
-    var accountTabVisible by remember { mutableStateOf(false) }
-
-
-    val scope = rememberCoroutineScope()
     val context = LocalContext.current
     val topBarTonalElevation = LocalFeedsTopBarTonalElevation.current
     val groupListTonalElevation = LocalFeedsGroupListTonalElevation.current
@@ -99,7 +89,6 @@ fun FeedsPage(
     val filterBarFilled = LocalFeedsFilterBarFilled.current
     val filterBarPadding = LocalFeedsFilterBarPadding.current
     val filterBarTonalElevation = LocalFeedsFilterBarTonalElevation.current
-    val accounts = accountViewModel.accounts.collectAsStateValue(initial = emptyList())
     val feedsUiState = feedsViewModel.feedsUiState.collectAsStateValue()
     val filterUiState = homeViewModel.filterUiState.collectAsStateValue()
     val importantSum = feedsUiState.importantSum.collectAsStateValue(initial = stringResource(R.string.loading))
@@ -108,7 +97,6 @@ fun FeedsPage(
     val newVersion = LocalNewVersionNumber.current
     val skipVersion = LocalSkipVersionNumber.current
     val currentVersion = remember { context.getCurrentVersion() }
-    val owner = LocalLifecycleOwner.current
     var isSyncing by remember { mutableStateOf(false) }
     // observeAsState() is the correct Compose-idiomatic way to observe LiveData.
     // Raw .observe() in a composable body registers a new observer every recomposition.

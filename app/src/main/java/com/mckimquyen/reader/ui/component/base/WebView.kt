@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION", "OverridingDeprecatedMember")
 package com.mckimquyen.reader.ui.component.base
 
 import android.annotation.SuppressLint
@@ -41,6 +42,8 @@ fun WebView(
     val webViewClient by remember {
         mutableStateOf(object : WebViewClient() {
 
+            @Suppress("DEPRECATION", "OverridingDeprecatedMember")
+            @Deprecated("Deprecated in Java")
             override fun shouldInterceptRequest(
                 view: WebView?,
                 url: String?,
@@ -139,7 +142,8 @@ fun WebView(
                     loadUrl("about:blank")
                     onPause()
                     removeAllViews()
-                    destroyDrawingCache()
+                    @Suppress("DEPRECATION")
+                     destroyDrawingCache()
                     destroy()
                 }
             } catch (e: Exception) {

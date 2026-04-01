@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.navigation.NavHostController
 import com.mckimquyen.reader.R
-import com.mckimquyen.reader.infrastructure.pref.LocalReadingPageTonalElevation
+
 import com.mckimquyen.reader.ui.component.base.FeedbackIconButton
 import com.mckimquyen.reader.ui.component.base.BaseExtensibleVisibility
 import com.mckimquyen.reader.ui.ext.share
@@ -41,7 +41,6 @@ fun TopBar(
     onClose: () -> Unit = {},
 ) {
     val context = LocalContext.current
-    val tonalElevation = LocalReadingPageTonalElevation.current
 
     Box(
         modifier = Modifier

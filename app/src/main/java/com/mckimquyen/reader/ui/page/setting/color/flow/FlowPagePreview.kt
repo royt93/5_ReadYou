@@ -42,7 +42,6 @@ import java.util.Date
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FlowPagePreview(
-    topBarTonalElevation: FlowTopBarTonalElevationPref,
     articleListTonalElevation: FlowArticleListTonalElevationPref,
     filterBarStyle: Int,
     filterBarFilled: Boolean,

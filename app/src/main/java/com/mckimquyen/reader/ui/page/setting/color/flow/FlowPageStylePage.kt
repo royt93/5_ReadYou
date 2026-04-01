@@ -121,7 +121,6 @@ fun FlowPageStylePage(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         FlowPagePreview(
-                            topBarTonalElevation = topBarTonalElevation,
                             articleListTonalElevation = articleListTonalElevation,
                             filterBarStyle = filterBarStyle.value,
                             filterBarFilled = filterBarFilled.value,

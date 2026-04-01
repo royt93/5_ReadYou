@@ -15,6 +15,7 @@ sealed class SyncOnlyOnWiFiPref(
         viewModel.update(accountId) { syncOnlyOnWiFi = this@SyncOnlyOnWiFiPref }
     }
 
+    @Suppress("UNUSED_PARAMETER")
     fun toDesc(context: Context): String =
         when (this) {
             On -> context.getString(R.string.on)

@@ -26,6 +26,7 @@ sealed class SyncIntervalPref(
         viewModel.update(accountId) { syncInterval = this@SyncIntervalPref }
     }
 
+    @Suppress("UNUSED_PARAMETER")
     fun toDesc(context: Context): String =
         when (this) {
             Manually -> context.getString(R.string.manually)

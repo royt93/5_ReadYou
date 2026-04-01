@@ -1,13 +1,11 @@
 package com.mckimquyen.reader.ui.component.reader
 
-import android.content.Context
 import android.util.Log
 import androidx.compose.foundation.lazy.LazyListScope
 import com.mckimquyen.reader.R
 
 @Suppress("FunctionName")
 fun LazyListScope.Reader(
-    context: Context,
     subheadUpperCase: Boolean = false,
     link: String,
     content: String,

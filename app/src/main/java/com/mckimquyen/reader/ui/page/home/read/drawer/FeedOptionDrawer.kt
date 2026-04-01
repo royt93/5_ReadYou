@@ -11,12 +11,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalView
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.mckimquyen.reader.R
 import com.mckimquyen.reader.ui.component.base.BottomDrawer
 import com.mckimquyen.reader.ui.ext.collectAsStateValue
 import com.mckimquyen.reader.ui.page.home.feed.drawer.feed.FeedOptionViewModel
@@ -28,12 +24,8 @@ fun StyleOptionDrawer(
     feedOptionViewModel: FeedOptionViewModel = hiltViewModel(),
     content: @Composable () -> Unit = {},
 ) {
-    val context = LocalContext.current
-    val view = LocalView.current
     val scope = rememberCoroutineScope()
     val feedOptionUiState = feedOptionViewModel.feedOptionUiState.collectAsStateValue()
-    val feed = feedOptionUiState.feed
-    val toastString = stringResource(R.string.rename_toast, feedOptionUiState.newName)
 
     BackHandler(feedOptionUiState.drawerState.isVisible) {
         scope.launch {

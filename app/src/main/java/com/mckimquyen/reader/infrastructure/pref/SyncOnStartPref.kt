@@ -15,6 +15,7 @@ sealed class SyncOnStartPref(
         viewModel.update(accountId) { syncOnStart = this@SyncOnStartPref }
     }
 
+    @Suppress("UNUSED_PARAMETER")
     fun toDesc(context: Context): String =
         when (this) {
             On -> context.getString(R.string.on)

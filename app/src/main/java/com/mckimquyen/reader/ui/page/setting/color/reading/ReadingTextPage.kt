@@ -60,7 +60,6 @@ fun ReadingTextPage(
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
 
-    val readingTheme = LocalReadingTheme.current
     val fontSize = LocalReadingTextFontSize.current
     val letterSpacing = LocalReadingLetterSpacing.current
     val horizontalPadding = LocalReadingTextHorizontalPadding.current

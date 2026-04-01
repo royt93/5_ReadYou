@@ -41,7 +41,6 @@ fun AccountsPage(
     viewModel: AccountViewModel = hiltViewModel(),
 ) {
     val context = LocalContext.current
-    val uiState = viewModel.accountUiState.collectAsStateValue()
     val accounts = viewModel.accounts.collectAsStateValue(initial = emptyList())
 
     BaseScaffold(

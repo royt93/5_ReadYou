@@ -23,6 +23,7 @@ sealed class ReadingThemePref(val value: Int) : Pref() {
         }
     }
 
+    @Suppress("UNUSED_PARAMETER")
     fun toDesc(context: Context): String =
         when (this) {
             MaterialYou -> "Material You"
