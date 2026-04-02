@@ -77,10 +77,6 @@
             android:exported="true"
             android:theme="@style/Theme.Reader" />
 
-        <provider
-            android:name="androidx.startup.InitializationProvider"
-            android:authorities="${applicationId}.androidx-startup"
-            tools:node="remove" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
