@@ -15,10 +15,8 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.runBlocking
 import com.google.android.play.core.review.ReviewInfo
 import com.google.android.play.core.review.ReviewManagerFactory
 import com.mckimquyen.reader.BuildConfig
@@ -26,9 +24,7 @@ import com.mckimquyen.reader.domain.repository.AccountDao
 import com.mckimquyen.reader.infrastructure.pref.AccountSettingsProvider
 import com.mckimquyen.reader.infrastructure.pref.LanguagesPref
 import com.mckimquyen.reader.infrastructure.pref.SettingsProvider
-import com.mckimquyen.reader.sdkadbmob.AdMobManager
-import com.mckimquyen.reader.ui.ext.dataStore
-import com.mckimquyen.reader.ui.ext.DataStoreKeys
+import com.roy.sdkadbmob.AdManager
 import com.mckimquyen.reader.ui.page.common.HomeEntry
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Calendar
@@ -39,20 +35,19 @@ import javax.inject.Inject
  * The Single-Activity Architecture.
  */
 @AndroidEntryPoint
-class MainActivity : ComponentActivity(), AdMobManager.InterstitialAdListener {
+class MainActivity : ComponentActivity() {
 //    private var adView: AdView? = null
 
     @Inject
     lateinit var accountDao: AccountDao
 
     override fun attachBaseContext(newBase: Context) {
-        // Read locale from DataStore
+        // Read locale from SharedPreferences (mirrored by LanguagesPref.put()).
+        // Same pattern as RApp.attachBaseContext — cannot use DataStore here.
         val locale = try {
-            val languagePref = runBlocking {
-                newBase.dataStore.data.map { prefs ->
-                    prefs[DataStoreKeys.Languages.key] ?: 0
-                }.first()
-            }
+            val languagePref = newBase
+                .getSharedPreferences("locale_prefs", Context.MODE_PRIVATE)
+                .getInt("languages", 0)
             LanguagesPref.fromValue(languagePref).getLocale()
         } catch (e: Exception) {
             Log.e("RLog", "Error reading locale preference: $e", e)
@@ -83,9 +78,6 @@ class MainActivity : ComponentActivity(), AdMobManager.InterstitialAdListener {
     }
 
     override fun onDestroy() {
-        if (AdMobManager.interstitialListener == this) {
-            AdMobManager.interstitialListener = null
-        }
 //        adView?.destroy()
         super.onDestroy()
     }
@@ -139,9 +131,8 @@ class MainActivity : ComponentActivity(), AdMobManager.InterstitialAdListener {
 
         // Initialize AdMob on main thread (required by AdMob)
         lifecycleScope.launch(Dispatchers.Main) {
-            AdMobManager.setCurrentActivity(this@MainActivity)
-            AdMobManager.interstitialListener = this@MainActivity
-            AdMobManager.loadInterstitial(this@MainActivity, BuildConfig.ADMOB_INTERSTITIAL_ID)
+            Log.d("roy93~Ad", "[MainActivity] 📥 Calling AdManager.loadInterstitial()")
+            AdManager.loadInterstitial(this@MainActivity)
         }
     }
 
@@ -159,33 +150,7 @@ class MainActivity : ComponentActivity(), AdMobManager.InterstitialAdListener {
 //        Handler(Looper.getMainLooper()).postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
 //    }
 
-    override fun onAdLoaded() {
-        Log.d("roy93~", "onAdLoaded")
-    }
 
-    override fun onAdFailedToLoad(error: com.google.android.gms.ads.LoadAdError) {
-        Log.d("roy93~", "onAdFailedToLoad $error")
-    }
-
-    override fun onAdShowed() {
-        Log.d("roy93~", "onAdShowed")
-    }
-
-    override fun onAdDismissed() {
-        Log.d("roy93~", "onAdDismissed")
-    }
-
-    override fun onAdClicked() {
-        Log.d("roy93~", "onAdClicked")
-    }
-
-    override fun onAdFailedToShow(error: com.google.android.gms.ads.AdError) {
-        Log.d("roy93~", "onAdFailedToShow $error")
-    }
-
-    override fun onAdNotAvailable() {
-        Log.d("roy93~", "onAdNotAvailable")
-    }
 
 }
 

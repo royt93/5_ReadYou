@@ -4,6 +4,8 @@ import android.app.Application
 import android.content.Context
 import android.content.res.Configuration
 import android.os.LocaleList
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.hilt.work.HiltWorkerFactory
 import androidx.work.Configuration as WorkConfiguration
@@ -26,9 +28,9 @@ import com.mckimquyen.reader.infrastructure.net.NetworkDataSource
 import com.mckimquyen.reader.infrastructure.pref.LanguagesPref
 import com.mckimquyen.reader.infrastructure.rss.OPMLDataSource
 import com.mckimquyen.reader.infrastructure.rss.RssHelper
-import com.mckimquyen.reader.sdkadbmob.AdMobManager
-import com.mckimquyen.reader.ui.ext.DataStoreKeys
-import com.mckimquyen.reader.ui.ext.dataStore
+import com.roy.sdkadbmob.AdManager
+import com.roy.sdkadbmob.AdSdkConfig
+import com.applovin.sdk.AppLovinSdk
 import com.mckimquyen.reader.ui.ext.del
 import com.mckimquyen.reader.ui.ext.getLatestApk
 import com.mckimquyen.reader.ui.ext.isFdroid
@@ -39,7 +41,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import javax.inject.Inject
@@ -69,13 +70,13 @@ import javax.inject.Inject
 class RApp : Application(), WorkConfiguration.Provider, ImageLoaderFactory {
 
     override fun attachBaseContext(base: Context) {
-        // Read locale from DataStore
+        // Read locale from SharedPreferences (mirrored from DataStore by LanguagesPref.put()).
+        // We CANNOT use DataStore here: the preferencesDataStore delegate calls applicationContext
+        // which is null during attachBaseContext. SharedPreferences has no such restriction.
         val locale = try {
-            val languagePref = runBlocking {
-                base.dataStore.data.map { prefs ->
-                    prefs[DataStoreKeys.Languages.key] ?: 0
-                }.first()
-            }
+            val languagePref = base
+                .getSharedPreferences("locale_prefs", Context.MODE_PRIVATE)
+                .getInt("languages", 0)
             LanguagesPref.fromValue(languagePref).getLocale()
         } catch (e: Exception) {
             Log.e("RLog", "Error reading locale in RApp: $e", e)
@@ -166,30 +167,69 @@ class RApp : Application(), WorkConfiguration.Provider, ImageLoaderFactory {
     }
 
     fun setupAdmob() {
-        // Use the injected applicationScope (backed by SupervisorJob) instead of
-        // an unmanaged CoroutineScope that is never cancelled.
-        applicationScope.launch(ioDispatcher) {
-            MobileAds.initialize(this@RApp) {}
-            AdMobManager.init(this@RApp) { success, gaidCurrent ->
-                Log.d("roy93~", "AdMobManager init success $success, gaidCurrent $gaidCurrent")
+        val provider = if (BuildConfig.IS_ENABLE_ADMOB) "AdMob" else "AppLovin MAX"
+        Log.d("roy93~Ad", "[setupAdmob] 🚀 Starting ad setup, provider=$provider, isDebug=${BuildConfig.DEBUG}")
+
+        val adConfig = AdSdkConfig(
+            isEnableAdmob          = BuildConfig.IS_ENABLE_ADMOB,
+            isDebug                = BuildConfig.DEBUG,
+            admobBannerId          = BuildConfig.ADMOB_BANNER_ID,
+            admobInterstitialId    = BuildConfig.ADMOB_INTERSTITIAL_ID,
+            admobAppOpenId         = BuildConfig.ADMOB_APP_OPEN_ID,
+            applovinBannerId       = BuildConfig.APPLOVIN_BANNER_ID,
+            applovinInterstitialId = BuildConfig.APPLOVIN_INTERSTITIAL_ID,
+            applovinAppOpenId      = BuildConfig.APPLOVIN_APP_OPEN_ID
+        )
+
+        Log.d("roy93~Ad", "[setupAdmob] 📦 AdSdkConfig built, calling setConfig()")
+        AdManager.setConfig(adConfig)
+
+        Log.d("roy93~Ad", "[setupAdmob] ⏱️ Calling earlyInit() — starting session clock")
+        AdManager.earlyInit(this)
+
+        if (BuildConfig.IS_ENABLE_ADMOB) {
+            Log.d("roy93~Ad", "[setupAdmob] 📡 AdMob mode — calling MobileAds.initialize()")
+            MobileAds.initialize(this) { status ->
+                Log.d("roy93~Ad", "[setupAdmob] ✅ MobileAds.initialize() done, calling AdManager.init()")
+                AdManager.init(this, adConfig) { success, gaid ->
+                    Log.d("roy93~Ad", "[setupAdmob] AdManager.init() result: success=$success, gaid=$gaid")
+                    if (success) {
+                        Log.d("roy93~Ad", "[setupAdmob] 📲 Registering AppOpenAd lifecycle on MainThread")
+                        Handler(Looper.getMainLooper()).post {
+                            AdManager.registerAppOpenAdLifecycle(this@RApp)
+                            Log.d("roy93~Ad", "[setupAdmob] ✅ registerAppOpenAdLifecycle() done")
+                        }
+                    } else {
+                        Log.d("roy93~Ad", "[setupAdmob] ⚠️ AdManager.init() failed — AppOpen lifecycle NOT registered")
+                    }
+                }
+            }
+        } else {
+            Log.d("roy93~Ad", "[setupAdmob] 📡 AppLovin MAX mode — building initConfig")
+            val initConfig = com.applovin.sdk.AppLovinSdkInitializationConfiguration.builder(
+                BuildConfig.APPLOVIN_SDK_KEY,
+                this
+            )
+                .setMediationProvider(com.applovin.sdk.AppLovinMediationProvider.MAX)
+                .build()
+
+            Log.d("roy93~Ad", "[setupAdmob] 📡 Calling AppLovinSdk.initialize()")
+            AppLovinSdk.getInstance(this).initialize(initConfig) {
+                Log.d("roy93~Ad", "[setupAdmob] ✅ AppLovinSdk.initialize() done, calling AdManager.init()")
+                AdManager.init(this, adConfig) { success, gaid ->
+                    Log.d("roy93~Ad", "[setupAdmob] AdManager.init() result: success=$success, gaid=$gaid")
+                    if (success) {
+                        Log.d("roy93~Ad", "[setupAdmob] 📲 Registering AppOpenAd lifecycle on MainThread")
+                        Handler(Looper.getMainLooper()).post {
+                            AdManager.registerAppOpenAdLifecycle(this@RApp)
+                            Log.d("roy93~Ad", "[setupAdmob] ✅ registerAppOpenAdLifecycle() done")
+                        }
+                    } else {
+                        Log.d("roy93~Ad", "[setupAdmob] ⚠️ AdManager.init() failed — AppOpen lifecycle NOT registered")
+                    }
+                }
             }
         }
-////                        } else {
-////                            AdMobManager.showAppOpenAd(activity)
-////                        }
-////                    } else {
-////                        Log.d("roy93~", "App moved to Background")
-////                    }
-//                }, { activity ->
-////                    Log.d("roy93~", "callbackActivityCreated ${activity.localClassName}")
-////                    if (activity.localClassName == SplashActivity::class.java.simpleName) {
-////                        //do nothing
-////                    } else {
-////                        AdMobManager.loadAppOpenAd(this, BuildConfig.ADMOB_APP_OPEN_ID)
-////                    }
-//                }
-//            )
-//        )
     }
 
     /**

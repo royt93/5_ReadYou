@@ -22,7 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.google.accompanist.navigation.animation.rememberAnimatedNavController
+import androidx.navigation.compose.rememberNavController
 import com.mckimquyen.reader.R
 import com.mckimquyen.reader.ui.component.base.DisplayText
 import com.mckimquyen.reader.ui.component.base.FeedbackIconButton
@@ -37,7 +37,7 @@ import com.mckimquyen.reader.ui.theme.palette.onLight
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun AccountsPage(
-    navController: NavHostController = rememberAnimatedNavController(),
+    navController: NavHostController = rememberNavController(),
     viewModel: AccountViewModel = hiltViewModel(),
 ) {
     val context = LocalContext.current

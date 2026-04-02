@@ -54,6 +54,12 @@ sealed class LanguagesPref(val value: Int) : Pref() {
     object Burmese : LanguagesPref(38)
 
     override fun put(context: Context, scope: CoroutineScope) {
+        // Mirror to SharedPreferences so attachBaseContext can read it safely
+        // (DataStore requires applicationContext which is null during attachBaseContext)
+        context.getSharedPreferences("locale_prefs", Context.MODE_PRIVATE)
+            .edit()
+            .putInt("languages", value)
+            .apply()
         scope.launch {
             context.dataStore.put(
                 DataStoreKeys.Languages,

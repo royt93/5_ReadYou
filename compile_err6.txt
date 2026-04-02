@@ -1,0 +1,42 @@
+> Task :app:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preDevDebugBuild UP-TO-DATE
+> Task :app:generateDevDebugBuildConfig UP-TO-DATE
+> Task :app:generateSafeArgsDevDebug UP-TO-DATE
+> Task :app:checkDevDebugAarMetadata UP-TO-DATE
+> Task :app:generateDevDebugResValues UP-TO-DATE
+> Task :app:mapDevDebugSourceSetPaths UP-TO-DATE
+> Task :app:generateDevDebugResources UP-TO-DATE
+> Task :app:mergeDevDebugResources UP-TO-DATE
+> Task :app:createDevDebugCompatibleScreenManifests UP-TO-DATE
+> Task :app:extractDeepLinksDevDebug UP-TO-DATE
+> Task :app:processDevDebugMainManifest UP-TO-DATE
+> Task :app:processDevDebugManifest UP-TO-DATE
+> Task :app:processDevDebugManifestForPackage UP-TO-DATE
+> Task :app:processDevDebugResources UP-TO-DATE
+> Task :app:kaptGenerateStubsDevDebugKotlin UP-TO-DATE
+> Task :app:kaptDevDebugKotlin UP-TO-DATE
+
+> Task :app:compileDevDebugKotlin FAILED
+e: file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260103ReadYou/app/src/main/java/com/mckimquyen/reader/RApp.kt:174:13 No parameter with name 'admobInterId' found.
+e: file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260103ReadYou/app/src/main/java/com/mckimquyen/reader/RApp.kt:177:13 No parameter with name 'applovinInterId' found.
+e: file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260103ReadYou/app/src/main/java/com/mckimquyen/reader/RApp.kt:179:13 No parameter with name 'applovinSdkKey' found.
+e: file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260103ReadYou/app/src/main/java/com/mckimquyen/reader/RApp.kt:180:13 No parameter with name 'setGAIDVipMember' found.
+e: file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260103ReadYou/app/src/main/java/com/mckimquyen/reader/RApp.kt:180:13 No value passed for parameter 'isDebug'.
+e: file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260103ReadYou/app/src/main/java/com/mckimquyen/reader/RApp.kt:180:38 Cannot infer type for this parameter. Please specify it explicitly.
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':app:compileDevDebugKotlin'.
+> A failure occurred while executing org.jetbrains.kotlin.compilerRunner.GradleCompilerRunnerWithWorkers$GradleKotlinCompilerWorkAction
+   > Compilation error. See log for more details
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights.
+> Get more help at https://help.gradle.org.
+
+BUILD FAILED in 6s
+16 actionable tasks: 1 executed, 15 up-to-date

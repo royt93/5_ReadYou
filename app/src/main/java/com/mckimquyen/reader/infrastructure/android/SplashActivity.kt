@@ -27,7 +27,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.foundation.Image
 import androidx.core.view.WindowCompat
 import com.mckimquyen.reader.BuildConfig
-import com.mckimquyen.reader.sdkadbmob.AdMobManager
+import com.roy.sdkadbmob.AdManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -48,9 +48,11 @@ class SplashActivity : ComponentActivity() {
             SplashScreen()
         }
 
-        AdMobManager.initSplashScreen(activity = this, onAdLoaded = {
+        Log.d("roy93~Ad", "[Splash] 🚀 onCreate — calling AdManager.initSplashScreen()")
+        AdManager.initSplashScreen(this) {
+            Log.d("roy93~Ad", "[Splash] ✅ initSplashScreen callback fired — navigating to Main")
             goToMain()
-        })
+        }
     }
 
     private fun goToMain() {

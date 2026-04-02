@@ -1,6 +1,7 @@
 plugins {
     id "com.android.application"
     id "org.jetbrains.kotlin.android"
+    id "org.jetbrains.kotlin.plugin.compose"
     id "kotlin-kapt"
     id "dagger.hilt.android.plugin"
     id "androidx.navigation.safeargs.kotlin"
@@ -69,16 +70,26 @@ android {
     }
     buildTypes {
         debug {
+            buildConfigField "String", "APPLOVIN_SDK_KEY", "\"e75FnQfS9XTTqM1Kne69U7PW_MBgAnGQTFvtwVVui6kRPKs5L7ws9twr5IQWwVfzPKZ5pF2IfDa7lguMgGlCyt\""
+            buildConfigField "String", "APPLOVIN_BANNER_ID", "\"1c8add7db0559d0b\""
+            buildConfigField "String", "APPLOVIN_INTERSTITIAL_ID", "\"c64cc20b2583e3cb\""
+            buildConfigField "String", "APPLOVIN_APP_OPEN_ID", "\"4e74ffbdceb9a6cf\""
             buildConfigField "String", "ADMOB_BANNER_ID", "\"ca-app-pub-3940256099942544/6300978111\""
             buildConfigField "String", "ADMOB_INTERSTITIAL_ID", "\"ca-app-pub-3940256099942544/1033173712\""
             buildConfigField "String", "ADMOB_APP_OPEN_ID", "\"ca-app-pub-3940256099942544/9257395921\""
+            buildConfigField "Boolean", "IS_ENABLE_ADMOB", "false"
         }
 
         release {
             // nhớ check APPLICATION_ID trong manifest
+            buildConfigField "String", "APPLOVIN_SDK_KEY", "\"e75FnQfS9XTTqM1Kne69U7PW_MBgAnGQTFvtwVVui6kRPKs5L7ws9twr5IQWwVfzPKZ5pF2IfDa7lguMgGlCyt\""
+            buildConfigField "String", "APPLOVIN_BANNER_ID", "\"1c8add7db0559d0b\""
+            buildConfigField "String", "APPLOVIN_INTERSTITIAL_ID", "\"c64cc20b2583e3cb\""
+            buildConfigField "String", "APPLOVIN_APP_OPEN_ID", "\"4e74ffbdceb9a6cf\""
             buildConfigField "String", "ADMOB_BANNER_ID", "\"ca-app-pub-3612191981543807/6401478547\""
             buildConfigField "String", "ADMOB_INTERSTITIAL_ID", "\"ca-app-pub-3612191981543807/4529159528\""
             buildConfigField "String", "ADMOB_APP_OPEN_ID", "\"ca-app-pub-3612191981543807/4028490288\""
+            buildConfigField "Boolean", "IS_ENABLE_ADMOB", "false"
 
             signingConfig signingConfigs.release
             debuggable false
@@ -112,9 +123,6 @@ android {
         compose true
 //        viewBinding true
         buildConfig true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion '1.5.3'
     }
     packagingOptions {
         resources {
@@ -154,18 +162,18 @@ dependencies {
     api "androidx.work:work-runtime-ktx:2.8.0-alpha02"
     api "androidx.datastore:datastore-preferences:1.0.0"
 
-    api "androidx.room:room-paging:2.6.1"
-    api "androidx.room:room-common:2.6.1"
-    api "androidx.room:room-ktx:2.6.1"
+    api "androidx.room:room-paging:2.8.4"
+    api "androidx.room:room-common:2.8.4"
+    api "androidx.room:room-ktx:2.8.4"
     //noinspection KaptUsageInsteadOfKsp
-    kapt "androidx.room:room-compiler:2.6.1"
+    kapt "androidx.room:room-compiler:2.8.4"
 
-//    api "androidx.paging:paging-common:3.1.1"
-//    api "androidx.paging:paging-runtime:3.1.1"
-    api "androidx.paging:paging-compose:1.0.0-alpha14"
+    api "androidx.paging:paging-common:3.3.6"
+    api "androidx.paging:paging-runtime:3.3.6"
+    api "androidx.paging:paging-compose:3.3.6"
     api "androidx.browser:browser:1.8.0"
 
-    api "androidx.navigation:navigation-compose:2.5.0-rc01"
+    api "androidx.navigation:navigation-compose:2.8.9"
 //    api "androidx.lifecycle:lifecycle-viewmodel-compose:2.5.0-rc01"
 //    api "androidx.lifecycle:lifecycle-runtime-ktx:2.5.0-rc01"
 
@@ -174,7 +182,7 @@ dependencies {
     api "com.google.accompanist:accompanist-systemuicontroller:0.24.7-alpha"
     api "com.google.accompanist:accompanist-pager:0.24.7-alpha"
     api "com.google.accompanist:accompanist-flowlayout:0.24.7-alpha"
-    api "com.google.accompanist:accompanist-navigation-animation:0.24.7-alpha"
+//    api "com.google.accompanist:accompanist-navigation-animation:0.24.7-alpha" // Removed: obsolete since Navigation 2.7+
     api "com.google.accompanist:accompanist-swiperefresh:0.24.7-alpha"
 
 //    api "androidx.compose.animation:animation-graphics:1.2.0-beta02"
@@ -184,10 +192,11 @@ dependencies {
     api "androidx.compose.material:material-icons-extended:1.2.0-beta02"
     api "androidx.compose.ui:ui-tooling-preview:1.2.0-beta02"
 
-    api "androidx.hilt:hilt-work:1.0.0"
-    api "com.google.dagger:hilt-android:2.48"
-    kapt "com.google.dagger:hilt-android-compiler:2.48"
-    kapt "androidx.hilt:hilt-compiler:1.0.0"
+    api "androidx.hilt:hilt-work:1.2.0"
+    api "com.google.dagger:hilt-android:2.55"
+    kapt "com.google.dagger:hilt-android-compiler:2.55"
+    kapt "androidx.hilt:hilt-compiler:1.2.0"
+    kapt "org.jetbrains.kotlin:kotlin-metadata-jvm:2.1.0"
     api "androidx.hilt:hilt-navigation-compose:1.0.0"
     api "androidx.core:core-ktx:1.7.0"
     api "androidx.activity:activity-compose:1.4.0"
@@ -196,8 +205,7 @@ dependencies {
     implementation("com.google.android.play:review:2.0.1")
     implementation("com.google.android.play:review-ktx:2.0.1")
 
-    implementation("com.google.android.gms:play-services-ads:22.3.0")
-    implementation("com.google.ads.mediation:applovin:11.11.3.0")
+    implementation("com.github.royt93:AdmobWrapper:1.1.1")
 //    implementation("androidx.appcompat:appcompat:1.7.0")
 
     // ProcessPhoenix for app restart

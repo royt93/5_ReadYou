@@ -2,7 +2,6 @@ package com.mckimquyen.reader.ui.page.common
 
 import android.app.Activity
 import android.util.Log
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.background
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -15,13 +14,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.google.accompanist.navigation.animation.AnimatedNavHost
-import com.google.accompanist.navigation.animation.rememberAnimatedNavController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.mckimquyen.reader.domain.model.general.Filter
 import com.mckimquyen.reader.infrastructure.pref.LocalDarkTheme
 import com.mckimquyen.reader.infrastructure.pref.LocalReadingDarkTheme
-import com.mckimquyen.reader.sdkadbmob.AdMobManager
+
 import com.mckimquyen.reader.ui.ext.animatedComposable
 import com.mckimquyen.reader.ui.ext.collectAsStateValue
 import com.mckimquyen.reader.ui.ext.findActivity
@@ -62,7 +61,6 @@ import kotlinx.coroutines.flow.map
 import com.mckimquyen.reader.ui.ext.dataStore
 import com.mckimquyen.reader.ui.ext.DataStoreKeys
 
-@OptIn(ExperimentalAnimationApi::class, androidx.compose.material.ExperimentalMaterialApi::class)
 @Composable
 fun HomeEntry(
     homeViewModel: HomeViewModel = hiltViewModel(),
@@ -71,7 +69,7 @@ fun HomeEntry(
     val context = LocalContext.current
     var isReadingPage by rememberSaveable { mutableStateOf(false) }
     val filterUiState = homeViewModel.filterUiState.collectAsStateValue()
-    val navController = rememberAnimatedNavController()
+    val navController = rememberNavController()
 
     val intent by rememberSaveable { mutableStateOf(context.findActivity()?.intent) }
     var openArticleId by rememberSaveable {
@@ -154,7 +152,7 @@ fun HomeEntry(
             setNavigationBarColor(Color.Transparent, !useDarkTheme)
         }
 
-        AnimatedNavHost(
+        NavHost(
             modifier = Modifier.background(MaterialTheme.colorScheme.surface),
             navController = navController,
             startDestination = if (context.isFirstLaunch) RouteName.STARTUP else RouteName.FEEDS,

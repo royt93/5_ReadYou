@@ -30,7 +30,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.google.accompanist.navigation.animation.rememberAnimatedNavController
+import androidx.navigation.compose.rememberNavController
 import com.mckimquyen.reader.R
 import com.mckimquyen.reader.infrastructure.pref.KeepArchivedPreference
 import com.mckimquyen.reader.infrastructure.pref.SyncBlockListPref
@@ -56,7 +56,7 @@ import com.mckimquyen.reader.ui.theme.palette.onLight
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun AccountDetailsPage(
-    navController: NavHostController = rememberAnimatedNavController(),
+    navController: NavHostController = rememberNavController(),
     viewModel: AccountViewModel = hiltViewModel(),
 ) {
     val uiState = viewModel.accountUiState.collectAsStateValue()
