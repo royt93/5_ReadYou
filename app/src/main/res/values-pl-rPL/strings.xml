@@ -395,4 +395,9 @@
     <string name="restarting_app">Ponowne uruchamianie aplikacji…</string>
     <string name="auto_tts">Auto-play Text-to-Speech</string>
     <string name="auto_tts_desc">Automatically read articles aloud when opened</string>
+
+    <string name="unlock_amoled_theme">Odblokuj motyw AMOLED</string>
+    <string name="unlock_amoled_theme_desc">Obejrzyj krótką reklamę wideo, aby trwale odblokować prawdziwie czarny motyw AMOLED.</string>
+    <string name="watch_ad">Obejrzyj reklamę</string>
+    <string name="ad_not_ready">Reklama nie jest gotowa. Spróbuj ponownie później.</string>
 </resources>

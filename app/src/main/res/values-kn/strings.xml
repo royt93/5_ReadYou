@@ -112,4 +112,9 @@
     <string name="restarting_app">Restarting app…</string>
     <string name="auto_tts">Auto-play Text-to-Speech</string>
     <string name="auto_tts_desc">Automatically read articles aloud when opened</string>
+
+    <string name="unlock_amoled_theme">AMOLED ಥೀಮ್ ಅನ್‌ಲಾಕ್ ಮಾಡಿ</string>
+    <string name="unlock_amoled_theme_desc">ನೈಜ ಕಪ್ಪು AMOLED ಥೀಮ್ ಅನ್ನು ಶಾಶ್ವತವಾಗಿ ಅನ್‌ಲಾಕ್ ಮಾಡಲು ಸಣ್ಣ ವೀಡಿಯೊ ಜಾಹೀರಾತನ್ನು ವೀಕ್ಷಿಸಿ.</string>
+    <string name="watch_ad">ಜಾಹೀರಾತು ವೀಕ್ಷಿಸಿ</string>
+    <string name="ad_not_ready">ಜಾಹೀರಾತು ಸಿದ್ಧವಾಗಿಲ್ಲ. ದಯವಿಟ್ಟು ನಂತರ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.</string>
 </resources>

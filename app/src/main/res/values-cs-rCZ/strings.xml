@@ -347,4 +347,9 @@
     <string name="restarting_app">Restartování aplikace…</string>
     <string name="auto_tts">Auto-play Text-to-Speech</string>
     <string name="auto_tts_desc">Automatically read articles aloud when opened</string>
+
+    <string name="unlock_amoled_theme">Odemknout téma AMOLED</string>
+    <string name="unlock_amoled_theme_desc">Podívejte se na krátkou videoreklamu a trvale odemkněte skutečně černé téma AMOLED.</string>
+    <string name="watch_ad">Sledovat reklamu</string>
+    <string name="ad_not_ready">Reklama není připravena. Zkuste to prosím znovu později.</string>
 </resources>

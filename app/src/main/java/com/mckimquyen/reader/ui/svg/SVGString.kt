@@ -13,7 +13,10 @@ fun String.parseDynamicColor(tonalPalettes: TonalPalettes, isDarkTheme: Boolean)
         Log.i("RLog", "parseDynamicColor: $value")
         if (value.startsWith("#")) return@replace it.value
         try {
-            val (scheme, tone) = value.split("(?<=\\d)(?=\\D)|(?=\\d)(?<=\\D)".toRegex())
+            val parts = value.split("(?<=\\d)(?=\\D)|(?=\\d)(?<=\\D)".toRegex())
+            if (parts.size != 2) return@replace it.value
+            val scheme = parts[0]
+            val tone = parts[1]
             val argb = when (scheme) {
                 "p" -> tonalPalettes.primary[tone.toInt().autoToDarkTone(isDarkTheme)]
                 "s" -> tonalPalettes.secondary[tone.toInt().autoToDarkTone(isDarkTheme)]

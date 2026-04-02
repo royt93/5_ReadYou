@@ -306,4 +306,9 @@
     <string name="restarting_app">جاري إعادة تشغيل التطبيق…</string>
     <string name="auto_tts">Auto-play Text-to-Speech</string>
     <string name="auto_tts_desc">Automatically read articles aloud when opened</string>
+
+    <string name="unlock_amoled_theme">فتح مظهر AMOLED</string>
+    <string name="unlock_amoled_theme_desc">شاهد إعلان فيديو قصير لفتح المظهر الأسود الحقيقي AMOLED بشكل دائم.</string>
+    <string name="watch_ad">مشاهدة الإعلان</string>
+    <string name="ad_not_ready">الإعلان غير جاهز. يرجى المحاولة مرة أخرى لاحقًا.</string>
 </resources>

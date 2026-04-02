@@ -47,7 +47,7 @@ fun BottomBar(
 
     Box(
         modifier = Modifier
-            .fillMaxSize()
+            .fillMaxWidth()
             .zIndex(1f),
         contentAlignment = Alignment.BottomCenter
     ) {
@@ -60,7 +60,6 @@ fun BottomBar(
                 // TODO: Component styles await refactoring
                 Row(
                     modifier = Modifier
-                        .navigationBarsPadding()
                         .fillMaxWidth()
                         .height(60.dp),
                     horizontalArrangement = Arrangement.SpaceAround,

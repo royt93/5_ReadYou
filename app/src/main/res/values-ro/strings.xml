@@ -306,4 +306,9 @@
     <string name="restarting_app">Repornirea aplicației…</string>
     <string name="auto_tts">Auto-play Text-to-Speech</string>
     <string name="auto_tts_desc">Automatically read articles aloud when opened</string>
+
+    <string name="unlock_amoled_theme">Deblochează tema AMOLED</string>
+    <string name="unlock_amoled_theme_desc">Urmăriți un scurt anunț video pentru a debloca permanent tema AMOLED negru adevărat.</string>
+    <string name="watch_ad">Vezi reclamă</string>
+    <string name="ad_not_ready">Anunțul nu este gata. Vă rugăm să încercați din nou mai târziu.</string>
 </resources>

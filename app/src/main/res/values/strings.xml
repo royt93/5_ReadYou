@@ -467,4 +467,8 @@
     <string name="add_new_source">Add Source</string>
     <string name="auto_tts">Auto-play Text-to-Speech</string>
     <string name="auto_tts_desc">Automatically read articles aloud when opened</string>
+    <string name="unlock_amoled_theme">Unlock AMOLED Theme</string>
+    <string name="unlock_amoled_theme_desc">Watch a short video ad to permanently unlock the true black AMOLED theme.</string>
+    <string name="watch_ad">Watch Ad</string>
+    <string name="ad_not_ready">Ad is not ready. Please try again later.</string>
 </resources>

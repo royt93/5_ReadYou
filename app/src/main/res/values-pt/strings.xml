@@ -286,4 +286,9 @@
     <string name="restarting_app">A reiniciar aplicação…</string>
     <string name="auto_tts">Reprodução automática de texto para voz</string>
     <string name="auto_tts_desc">Ler automaticamente os artigos em voz alta ao abrir</string>
+
+    <string name="unlock_amoled_theme">Desbloquear tema AMOLED</string>
+    <string name="unlock_amoled_theme_desc">Assista a um pequeno anúncio em vídeo para desbloquear permanentemente o verdadeiro tema preto AMOLED.</string>
+    <string name="watch_ad">Assistir ao anúncio</string>
+    <string name="ad_not_ready">O anúncio não está pronto. Por favor, tente novamente mais tarde.</string>
 </resources>

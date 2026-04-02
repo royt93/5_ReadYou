@@ -17,34 +17,56 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6f28f826-4208-4800-b7bf-3c32f11fba88" name="Changes" comment="Refactor: Resolve Kotlin compiler warnings and clean up unused code&#10;&#10;This commit addresses numerous Kotlin compiler warnings across the project, including unused parameters, deprecated API usage, and scope opt-ins. It also introduces a new preference for automated text-to-speech (TTS).&#10;&#10;- **`infrastructure/db/AndroidDb.kt`**:&#10;    - Renamed the `database` parameter to `db` in all `Migration` objects to match the Room `Migration` supertype signature and resolve parameter name mismatch warnings.&#10;&#10;- **`infrastructure/pref/`**:&#10;    - Introduced **`AutoTtsPref.kt`** to manage a new automated TTS setting.&#10;    - Added `@Suppress(&quot;UNUSED_PARAMETER&quot;)` to the `toDesc(context: Context)` function across 26 preference files where the `context` was passed but not utilized in all branches.&#10;&#10;- **`ui/ext/Activity.kt` &amp; `WebView.kt`**:&#10;    - Applied `@file:Suppress(&quot;DEPRECATION&quot;)` and function-level suppressions to handle legacy `systemUiVisibility` and `WebView` APIs.&#10;    - Modernized `getScreenHeightIncludeNavigationBar()` to use `WindowMetrics` for devices running API 30+.&#10;&#10;- **Unused Code Cleanup**:&#10;    - **`FeedsPage.kt`**: Removed unused variables (`accountTabVisible`, `accounts`, `owner`) and redundant scope/lifecycle references.&#10;    - **`ReadingPage.kt` &amp; `Content.kt`**: Removed the unused `isShowToolBar` parameter.&#10;    - **`TopBar.kt`**: Removed unused `tonalElevation` local variable.&#10;    - **`FeedOptionDrawer.kt`**: Cleaned up unused context, view, and string resource references.&#10;    - **`AccountsPage.kt` &amp; `AddAccountsPage.kt`**: Removed unused `uiState` and `viewModel` references.&#10;    - **`FeedsPagePreview.kt` &amp; `FlowPagePreview.kt`**: Removed unused `topBarTonalElevation` parameters and updated their respective call sites.&#10;&#10;- **Infrastructure &amp; Maintenance**:&#10;    - **`doc/warning.md`**: Added a comprehensive report detailing the strategy for fixing various groups of compiler warnings.&#10;    - **`FeedsViewModel.kt` &amp; `AbstractRssRepository.kt`**: Added `@OptIn(ExperimentalCoroutinesApi::class)` to handle internal coroutine API usage.&#10;    - **`AdMobManager.kt`**: Moved deprecation suppressions to the function level for better coverage in `isDeviceConnected`.&#10;    - **`.idea/workspace.xml`**: Updated IDE state and project configuration.">
-      <change afterPath="$PROJECT_DIR$/build_err.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build_err2.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build_err3.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build_err4.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/compile_err.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/compile_err5.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/compile_err6.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/AD.MD" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/in_proc_err.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kapt_err.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kapt_err_filter.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proc_err.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/infrastructure/pref/AmoledUnlockedPref.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/sdkadbmob/ComposeBannerAd.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fix_quotes.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/translate_strings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/RApp.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/RApp.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/infrastructure/android/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/infrastructure/android/MainActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/infrastructure/android/SplashActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/infrastructure/android/SplashActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/infrastructure/pref/LanguagesPref.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/infrastructure/pref/LanguagesPref.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/sdkadbmob/AdMobManager.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/ext/ExtNavGraphBuilder.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/ext/ExtNavGraphBuilder.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/common/HomeEntry.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/common/HomeEntry.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/setting/SettingsPage.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/setting/SettingsPage.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/setting/acc/AccountDetailsPage.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/setting/acc/AccountDetailsPage.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/setting/acc/AccountsPage.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/setting/acc/AccountsPage.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/setting/acc/AddAccountsPage.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/setting/acc/AddAccountsPage.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/infrastructure/pref/Pref.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/infrastructure/pref/Pref.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/infrastructure/pref/Settings.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/infrastructure/pref/Settings.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/ext/ExtDataStore.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/ext/ExtDataStore.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/home/read/BottomBar.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/home/read/BottomBar.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/home/read/ReadingPage.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/home/read/ReadingPage.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/setting/color/DarkThemePage.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/setting/color/DarkThemePage.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/svg/SVGString.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/svg/SVGString.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-ar/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-ar/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-az/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-az/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-bg/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-bg/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-ca/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-ca/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-cs-rCZ/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-cs-rCZ/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-da/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-da/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-de-rDE/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-de-rDE/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-es-rES/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-es-rES/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-eu-rES/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-eu-rES/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-fa/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-fa/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-fr-rFR/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-fr-rFR/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-hi-rIN/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-hi-rIN/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-hu/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-hu/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-in-rID/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-in-rID/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-it-rIT/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-it-rIT/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-iw/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-iw/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-ja/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-ja/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-kn/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-kn/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-lzh/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-lzh/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-ml/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-ml/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-my/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-my/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-nb-rNO/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-nb-rNO/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-nl/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-nl/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-nn/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-nn/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-pl-rPL/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-pl-rPL/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-pt-rBR/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-pt-rBR/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-pt/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-pt/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-ro/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-ro/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-ru-rRU/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-ru-rRU/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-sl/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-sl/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-sr/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-sr/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-sv/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-sv/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-tr/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-tr/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-uk/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-uk/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-vi/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-vi/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-zh-rCN/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-zh-rCN/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-zh-rTW/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-zh-rTW/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -544,7 +566,15 @@
       <option name="project" value="LOCAL" />
       <updated>1775056833908</updated>
     </task>
-    <option name="localTasksCounter" value="42" />
+    <task id="LOCAL-00042" summary="Refactor: Resolve Kotlin compiler warnings and clean up unused code&#10;&#10;This commit addresses numerous Kotlin compiler warnings across the project, including unused parameters, deprecated API usage, and scope opt-ins. It also introduces a new preference for automated text-to-speech (TTS).&#10;&#10;- **`infrastructure/db/AndroidDb.kt`**:&#10;    - Renamed the `database` parameter to `db` in all `Migration` objects to match the Room `Migration` supertype signature and resolve parameter name mismatch warnings.&#10;&#10;- **`infrastructure/pref/`**:&#10;    - Introduced **`AutoTtsPref.kt`** to manage a new automated TTS setting.&#10;    - Added `@Suppress(&quot;UNUSED_PARAMETER&quot;)` to the `toDesc(context: Context)` function across 26 preference files where the `context` was passed but not utilized in all branches.&#10;&#10;- **`ui/ext/Activity.kt` &amp; `WebView.kt`**:&#10;    - Applied `@file:Suppress(&quot;DEPRECATION&quot;)` and function-level suppressions to handle legacy `systemUiVisibility` and `WebView` APIs.&#10;    - Modernized `getScreenHeightIncludeNavigationBar()` to use `WindowMetrics` for devices running API 30+.&#10;&#10;- **Unused Code Cleanup**:&#10;    - **`FeedsPage.kt`**: Removed unused variables (`accountTabVisible`, `accounts`, `owner`) and redundant scope/lifecycle references.&#10;    - **`ReadingPage.kt` &amp; `Content.kt`**: Removed the unused `isShowToolBar` parameter.&#10;    - **`TopBar.kt`**: Removed unused `tonalElevation` local variable.&#10;    - **`FeedOptionDrawer.kt`**: Cleaned up unused context, view, and string resource references.&#10;    - **`AccountsPage.kt` &amp; `AddAccountsPage.kt`**: Removed unused `uiState` and `viewModel` references.&#10;    - **`FeedsPagePreview.kt` &amp; `FlowPagePreview.kt`**: Removed unused `topBarTonalElevation` parameters and updated their respective call sites.&#10;&#10;- **Infrastructure &amp; Maintenance**:&#10;    - **`doc/warning.md`**: Added a comprehensive report detailing the strategy for fixing various groups of compiler warnings.&#10;    - **`FeedsViewModel.kt` &amp; `AbstractRssRepository.kt`**: Added `@OptIn(ExperimentalCoroutinesApi::class)` to handle internal coroutine API usage.&#10;    - **`AdMobManager.kt`**: Moved deprecation suppressions to the function level for better coverage in `isDeviceConnected`.&#10;    - **`.idea/workspace.xml`**: Updated IDE state and project configuration.">
+      <option name="closed" value="true" />
+      <created>1775140591109</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1775140591109</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -589,12 +619,12 @@
       <map>
         <entry key="com.mckimquyen.reader">
           <value>
-            <CheckInfo lastCheckTimestamp="1775054604913" />
+            <CheckInfo lastCheckTimestamp="1775143889357" />
           </value>
         </entry>
         <entry key="com.mckimquyen.reader.test">
           <value>
-            <CheckInfo lastCheckTimestamp="1775054604914" />
+            <CheckInfo lastCheckTimestamp="1775143889353" />
           </value>
         </entry>
       </map>

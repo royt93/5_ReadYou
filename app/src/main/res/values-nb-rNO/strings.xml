@@ -295,4 +295,9 @@
     <string name="restarting_app">Restarting app…</string>
     <string name="auto_tts">Auto-play Text-to-Speech</string>
     <string name="auto_tts_desc">Automatically read articles aloud when opened</string>
+
+    <string name="unlock_amoled_theme">Lås opp AMOLED-tema</string>
+    <string name="unlock_amoled_theme_desc">Se en kort videoannonse for å permanent låse opp det sanne svarte AMOLED-temaet.</string>
+    <string name="watch_ad">Se annonse</string>
+    <string name="ad_not_ready">Annonsen er ikke klar. Vennligst prøv igjen senere.</string>
 </resources>

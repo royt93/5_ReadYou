@@ -1,6 +1,18 @@
 package com.mckimquyen.reader.ui.page.setting.color
 
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import com.mckimquyen.reader.infrastructure.pref.LocalAmoledUnlocked
+import com.mckimquyen.reader.infrastructure.pref.AmoledUnlockedPref
+import android.app.Activity
 import androidx.compose.foundation.layout.Spacer
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBars
@@ -40,9 +52,56 @@ fun DarkThemePage(
     val context = LocalContext.current
     val darkTheme = LocalDarkTheme.current
     val amoledDarkTheme = LocalAmoledDarkTheme.current
+    val amoledUnlocked = LocalAmoledUnlocked.current
     val scope = rememberCoroutineScope()
+    var showRewardDialog by remember { mutableStateOf(false) }
+
+    val handleAmoledToggle: () -> Unit = {
+        if (amoledUnlocked.value) {
+            (!amoledDarkTheme).put(context, scope)
+        } else {
+            showRewardDialog = true
+        }
+    }
+
+    if (showRewardDialog) {
+        AlertDialog(
+            onDismissRequest = { showRewardDialog = false },
+            title = { Text(stringResource(id = R.string.unlock_amoled_theme)) },
+            text = { Text(stringResource(id = R.string.unlock_amoled_theme_desc)) },
+            confirmButton = {
+                TextButton(onClick = {
+                    showRewardDialog = false
+                    val activity = context as? Activity
+                    if (activity != null) {
+                        com.roy.sdkadbmob.AdManager.showInterstitial(activity) { success ->
+                            android.util.Log.d("roy93~Ad", "showInterstitial callback: success=$success")
+                            if (success) {
+                                kotlinx.coroutines.GlobalScope.launch {
+                                    AmoledUnlockedPref.ON.put(context, this)
+                                    com.mckimquyen.reader.infrastructure.pref.AmoledDarkThemePref.ON.put(context, this)
+                                    com.mckimquyen.reader.infrastructure.pref.DarkThemePref.ON.put(context, this)
+                                }
+                                android.util.Log.d("roy93~Ad", "Amoled theme unlocked and activated with GlobalScope!")
+                            } else {
+                                android.widget.Toast.makeText(context, context.getString(R.string.ad_not_ready), android.widget.Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
+                }) {
+                    Text(stringResource(id = R.string.watch_ad))
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showRewardDialog = false }) {
+                    Text(stringResource(id = R.string.cancel))
+                }
+            }
+        )
+    }
 
     BaseScaffold(
+        // ... (keep the rest identical except handleAmoledToggle integration)
         containerColor = MaterialTheme.colorScheme.surface onLight MaterialTheme.colorScheme.inverseOnSurface,
         navigationIcon = {
             FeedbackIconButton(
@@ -77,15 +136,14 @@ fun DarkThemePage(
                     )
                     SettingItem(
                         title = stringResource(R.string.amoled_dark_theme),
-                        onClick = {
-                            (!amoledDarkTheme).put(context, scope)
-                        },
+                        onClick = handleAmoledToggle,
                     ) {
                         BaseSwitch(activated = amoledDarkTheme.value) {
-                            (!amoledDarkTheme).put(context, scope)
+                            handleAmoledToggle()
                         }
                     }
                 }
+
                 item {
                     Spacer(modifier = Modifier.height(24.dp))
                     Spacer(modifier = Modifier.windowInsetsBottomHeight(WindowInsets.navigationBars))

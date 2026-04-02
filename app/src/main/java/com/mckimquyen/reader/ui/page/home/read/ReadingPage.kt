@@ -11,9 +11,14 @@ import androidx.compose.animation.slideOutVertically
 import androidx.compose.animation.with
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.zIndex
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -123,29 +128,40 @@ fun ReadingPage(
                         )
                     }
                 }
-                // Bottom Bar
+                // Bottom Bar Wrapper (BottomBar + Banner Ad)
                 if (readingUiState.articleWithFeed != null) {
-                    BottomBar(
-                        isShow = isShowToolBar,
-                        isUnread = readingUiState.articleWithFeed.article.isUnread,
-                        isStarred = readingUiState.articleWithFeed.article.isStarred,
-                        isFullContent = readingUiState.isFullContent,
-                        onUnread = {
-                            readingViewModel.markUnread(it)
-                        },
-                        onStarred = {
-                            readingViewModel.markStarred(it)
-                        },
-                        onNextArticle = {
-                            if (readingUiState.nextArticleId.isNotEmpty()) {
-                                readingViewModel.initData(readingUiState.nextArticleId, autoTts)
-                            }
-                        },
-                        onFullContent = {
-                            if (it) readingViewModel.renderFullContent()
-                            else readingViewModel.renderDescriptionContent()
-                        },
-                    )
+                    androidx.compose.foundation.layout.Column(
+                        modifier = Modifier
+                            .align(androidx.compose.ui.Alignment.BottomCenter)
+                            .fillMaxWidth()
+                            .zIndex(1f)
+                    ) {
+                        BottomBar(
+                            isShow = isShowToolBar,
+                            isUnread = readingUiState.articleWithFeed.article.isUnread,
+                            isStarred = readingUiState.articleWithFeed.article.isStarred,
+                            isFullContent = readingUiState.isFullContent,
+                            onUnread = {
+                                readingViewModel.markUnread(it)
+                            },
+                            onStarred = {
+                                readingViewModel.markStarred(it)
+                            },
+                            onNextArticle = {
+                                if (readingUiState.nextArticleId.isNotEmpty()) {
+                                    readingViewModel.initData(readingUiState.nextArticleId, autoTts)
+                                }
+                            },
+                            onFullContent = {
+                                if (it) readingViewModel.renderFullContent()
+                                else readingViewModel.renderDescriptionContent()
+                            },
+                        )
+                        if (isShowToolBar) {
+                            Spacer(modifier = Modifier.height(16.dp))
+                            com.mckimquyen.reader.sdkadbmob.ComposeBannerAd()
+                        }
+                    }
                 }
             }
         }

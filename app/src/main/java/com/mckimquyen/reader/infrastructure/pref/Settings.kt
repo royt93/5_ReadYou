@@ -27,6 +27,7 @@ data class Settings(
     val customPrimaryColor: String = CustomPrimaryColorPref.default,
     val darkTheme: DarkThemePref = DarkThemePref.default,
     val amoledDarkTheme: AmoledDarkThemePref = AmoledDarkThemePref.default,
+    val amoledUnlocked: AmoledUnlockedPref = AmoledUnlockedPref.default,
     val basicFonts: BasicFontsPref = BasicFontsPref.default,
 
     // Feeds page
@@ -101,6 +102,8 @@ val LocalDarkTheme =
     compositionLocalOf<DarkThemePref> { DarkThemePref.default }
 val LocalAmoledDarkTheme =
     compositionLocalOf<AmoledDarkThemePref> { AmoledDarkThemePref.default }
+val LocalAmoledUnlocked =
+    compositionLocalOf<AmoledUnlockedPref> { AmoledUnlockedPref.default }
 val LocalBasicFonts = compositionLocalOf<BasicFontsPref> { BasicFontsPref.default }
 
 // Feeds page
@@ -214,6 +217,7 @@ fun SettingsProvider(
         LocalCustomPrimaryColor provides settings.customPrimaryColor,
         LocalDarkTheme provides settings.darkTheme,
         LocalAmoledDarkTheme provides settings.amoledDarkTheme,
+        LocalAmoledUnlocked provides settings.amoledUnlocked,
         LocalBasicFonts provides settings.basicFonts,
 
         // Feeds page

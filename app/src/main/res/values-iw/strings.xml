@@ -244,4 +244,9 @@
     <string name="restarting_app">Restarting app…</string>
     <string name="auto_tts">Auto-play Text-to-Speech</string>
     <string name="auto_tts_desc">Automatically read articles aloud when opened</string>
+
+    <string name="unlock_amoled_theme">בטל נעילת ערכת נושא AMOLED</string>
+    <string name="unlock_amoled_theme_desc">צפה במודעת וידאו קצרה כדי לבטל את הנעילה של ערכת הנושא השחורה האמיתית של AMOLED.</string>
+    <string name="watch_ad">צפה במודעה</string>
+    <string name="ad_not_ready">המודעה אינה מוכנה. אנא נסה שוב מאוחר יותר.</string>
 </resources>

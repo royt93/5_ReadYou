@@ -40,4 +40,9 @@
     <string name="restarting_app">Restarting app…</string>
     <string name="auto_tts">Auto-play Text-to-Speech</string>
     <string name="auto_tts_desc">Automatically read articles aloud when opened</string>
+
+    <string name="unlock_amoled_theme">AMOLED Mövzusunu Açın</string>
+    <string name="unlock_amoled_theme_desc">Həqiqi qara AMOLED mövzusunu həmişəlik açmaq üçün qısa video reklama baxın.</string>
+    <string name="watch_ad">Reklama Bax</string>
+    <string name="ad_not_ready">Reklam hazır deyil. Zəhmət olmasa, daha sonra yenidən cəhd edin.</string>
 </resources>

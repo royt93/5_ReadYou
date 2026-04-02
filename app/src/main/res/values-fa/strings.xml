@@ -296,4 +296,9 @@
     <string name="restarting_app">Restarting app…</string>
     <string name="auto_tts">Auto-play Text-to-Speech</string>
     <string name="auto_tts_desc">Automatically read articles aloud when opened</string>
+
+    <string name="unlock_amoled_theme">باز کردن تم AMOLED</string>
+    <string name="unlock_amoled_theme_desc">برای باز کردن قفل دائمی تم سیاه واقعی AMOLED، یک تبلیغ ویدیویی کوتاه تماشا کنید.</string>
+    <string name="watch_ad">تماشای تبلیغ</string>
+    <string name="ad_not_ready">تبلیغ آماده نیست. لطفا بعدا دوباره امتحان کنید.</string>
 </resources>

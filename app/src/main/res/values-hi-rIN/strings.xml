@@ -284,4 +284,9 @@
     <string name="restarting_app">ऐप पुनः प्रारंभ हो रहा है…</string>
     <string name="auto_tts">Auto-play Text-to-Speech</string>
     <string name="auto_tts_desc">Automatically read articles aloud when opened</string>
+
+    <string name="unlock_amoled_theme">AMOLED थीम अनलॉक करें</string>
+    <string name="unlock_amoled_theme_desc">सच्चे काले AMOLED थीम को स्थायी रूप से अनलॉक करने के लिए एक छोटा वीडियो विज्ञापन देखें।</string>
+    <string name="watch_ad">विज्ञापन देखें</string>
+    <string name="ad_not_ready">विज्ञापन अभी तैयार नहीं है। कृपया बाद में पुनः प्रयास करें।</string>
 </resources>

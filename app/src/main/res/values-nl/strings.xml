@@ -274,4 +274,9 @@
     <string name="restarting_app">App wordt opnieuw opgestart…</string>
     <string name="auto_tts">Auto-play Text-to-Speech</string>
     <string name="auto_tts_desc">Automatically read articles aloud when opened</string>
+
+    <string name="unlock_amoled_theme">Ontgrendel AMOLED-thema</string>
+    <string name="unlock_amoled_theme_desc">Bekijk een korte videoadvertentie om het ware zwarte AMOLED-thema permanent te ontgrendelen.</string>
+    <string name="watch_ad">Bekijk advertentie</string>
+    <string name="ad_not_ready">Advertentie is niet klaar. Probeer het later opnieuw.</string>
 </resources>

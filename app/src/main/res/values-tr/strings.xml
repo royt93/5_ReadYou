@@ -283,4 +283,9 @@
     <string name="restarting_app">Uygulama yeniden başlatılıyor…</string>
     <string name="auto_tts">Auto-play Text-to-Speech</string>
     <string name="auto_tts_desc">Automatically read articles aloud when opened</string>
+
+    <string name="unlock_amoled_theme">AMOLED Temasının Kilidini Aç</string>
+    <string name="unlock_amoled_theme_desc">Gerçek siyah AMOLED temasının kilidini kalıcı olarak açmak için kısa bir video reklam izleyin.</string>
+    <string name="watch_ad">Reklamı izle</string>
+    <string name="ad_not_ready">Reklam hazır değil. Lütfen daha sonra tekrar deneyin.</string>
 </resources>

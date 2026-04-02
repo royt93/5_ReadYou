@@ -154,6 +154,12 @@ sealed class DataStoreKeys<T> {
             get() = booleanPreferencesKey("amoledDarkTheme")
     }
 
+    object AmoledUnlocked : DataStoreKeys<Boolean>() {
+
+        override val key: Preferences.Key<Boolean>
+            get() = booleanPreferencesKey("amoledUnlocked")
+    }
+
     object BasicFonts : DataStoreKeys<Int>() {
 
         override val key: Preferences.Key<Int>

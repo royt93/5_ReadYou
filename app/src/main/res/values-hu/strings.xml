@@ -295,4 +295,9 @@
     <string name="restarting_app">Restarting app…</string>
     <string name="auto_tts">Auto-play Text-to-Speech</string>
     <string name="auto_tts_desc">Automatically read articles aloud when opened</string>
+
+    <string name="unlock_amoled_theme">AMOLED téma feloldása</string>
+    <string name="unlock_amoled_theme_desc">Nézzen meg egy rövid videóhirdetést, hogy véglegesen feloldja a valódi fekete AMOLED témát.</string>
+    <string name="watch_ad">Hirdetés megtekintése</string>
+    <string name="ad_not_ready">A hirdetés nem áll készen. Kérjük, próbálja újra később.</string>
 </resources>

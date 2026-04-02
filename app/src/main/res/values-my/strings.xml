@@ -40,4 +40,9 @@
     <string name="restarting_app">Restarting app…</string>
     <string name="auto_tts">Auto-play Text-to-Speech</string>
     <string name="auto_tts_desc">Automatically read articles aloud when opened</string>
+
+    <string name="unlock_amoled_theme">AMOLED အပြင်အဆင်ကို ဖွင့်ပါ</string>
+    <string name="unlock_amoled_theme_desc">စစ်မှန်သော အနက်ရောင် AMOLED အပြင်အဆင်ကို အမြဲတမ်းဖွင့်ရန် ဗီဒီယိုကြော်ငြာတိုလေးကို ကြည့်ပါ။</string>
+    <string name="watch_ad">ကြော်ငြာကြည့်ရန်</string>
+    <string name="ad_not_ready">ကြော်ငြာအသင့်မဖြစ်သေးပါ။ ကျေးဇူးပြု၍ ခဏနေမှ ထပ်ကြိုးစားပါ။</string>
 </resources>

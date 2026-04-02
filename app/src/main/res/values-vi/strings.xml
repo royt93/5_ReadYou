@@ -292,4 +292,8 @@
     <string name="restarting_app">Đang khởi động lại ứng dụng…</string>
     <string name="auto_tts">Tự động Đọc báo (TTS)</string>
     <string name="auto_tts_desc">Tự động đọc bài viết bằng giọng nói khi mở</string>
+    <string name="unlock_amoled_theme">Mở Khoá Giao Diện AMOLED</string>
+    <string name="unlock_amoled_theme_desc">Xem một video quảng cáo ngắn để mở khoá vĩnh viễn giao diện nền đen AMOLED chân thực.</string>
+    <string name="watch_ad">Xem Quảng Cáo</string>
+    <string name="ad_not_ready">Quảng cáo chưa sẵn sàng. Vui lòng thử lại sau.</string>
 </resources>

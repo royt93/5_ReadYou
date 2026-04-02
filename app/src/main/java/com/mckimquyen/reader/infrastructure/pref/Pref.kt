@@ -24,6 +24,7 @@ fun Preferences.toSettings(): Settings {
         customPrimaryColor = CustomPrimaryColorPref.fromPreferences(this),
         darkTheme = DarkThemePref.fromPreferences(this),
         amoledDarkTheme = AmoledDarkThemePref.fromPreferences(this),
+        amoledUnlocked = AmoledUnlockedPref.fromPreferences(this),
         basicFonts = BasicFontsPref.fromPreferences(this),
 
         // Feeds page

@@ -90,4 +90,9 @@
     <string name="restarting_app">Restarting app…</string>
     <string name="auto_tts">Auto-play Text-to-Speech</string>
     <string name="auto_tts_desc">Automatically read articles aloud when opened</string>
+
+    <string name="unlock_amoled_theme">解鎖AMOLED主題</string>
+    <string name="unlock_amoled_theme_desc">觀看短片廣告以永久解鎖純黑AMOLED主題。</string>
+    <string name="watch_ad">觀看廣告</string>
+    <string name="ad_not_ready">廣告未準備好。請稍後再試。</string>
 </resources>

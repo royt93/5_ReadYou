@@ -298,4 +298,9 @@
     <string name="restarting_app">Restarting app…</string>
     <string name="auto_tts">Auto-play Text-to-Speech</string>
     <string name="auto_tts_desc">Automatically read articles aloud when opened</string>
+
+    <string name="unlock_amoled_theme">Откључај АМОЛЕД тему</string>
+    <string name="unlock_amoled_theme_desc">Погледајте кратак видео оглас да бисте трајно откључали праву црну АМОЛЕД тему.</string>
+    <string name="watch_ad">Погледај оглас</string>
+    <string name="ad_not_ready">Оглас није спреман. Покушајте поново касније.</string>
 </resources>

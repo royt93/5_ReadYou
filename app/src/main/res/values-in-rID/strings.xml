@@ -295,4 +295,9 @@
     <string name="restarting_app">Memulai ulang aplikasi…</string>
     <string name="auto_tts">Auto-play Text-to-Speech</string>
     <string name="auto_tts_desc">Automatically read articles aloud when opened</string>
+
+    <string name="unlock_amoled_theme">Buka Kunci Tema AMOLED</string>
+    <string name="unlock_amoled_theme_desc">Tonton iklan video singkat untuk membuka kunci tema hitam AMOLED secara permanen.</string>
+    <string name="watch_ad">Tonton Iklan</string>
+    <string name="ad_not_ready">Iklan belum siap. Silakan coba lagi nanti.</string>
 </resources>

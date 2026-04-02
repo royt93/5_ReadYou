@@ -284,4 +284,9 @@
     <string name="restarting_app">アプリを再起動しています…</string>
     <string name="auto_tts">自動読み上げ (TTS)</string>
     <string name="auto_tts_desc">開いたときに記事を自動的に読み上げる</string>
+
+    <string name="unlock_amoled_theme">AMOLEDテーマをロック解除</string>
+    <string name="unlock_amoled_theme_desc">短い動画広告を視聴して、真の黒のAMOLEDテーマを永久にロック解除します。</string>
+    <string name="watch_ad">広告を見る</string>
+    <string name="ad_not_ready">広告の準備ができていません。後でもう一度お試しください。</string>
 </resources>

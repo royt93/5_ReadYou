@@ -283,4 +283,9 @@
     <string name="restarting_app">Restarting app…</string>
     <string name="auto_tts">Auto-play Text-to-Speech</string>
     <string name="auto_tts_desc">Automatically read articles aloud when opened</string>
+
+    <string name="unlock_amoled_theme">Lås AMOLED-tema op</string>
+    <string name="unlock_amoled_theme_desc">Se en kort videoannonce for at låse op for det sande sorte AMOLED-tema permanent.</string>
+    <string name="watch_ad">Se annonce</string>
+    <string name="ad_not_ready">Annoncen er ikke klar. Prøv igen senere.</string>
 </resources>

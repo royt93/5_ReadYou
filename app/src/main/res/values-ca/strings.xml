@@ -283,4 +283,9 @@
     <string name="restarting_app">Restarting app…</string>
     <string name="auto_tts">Auto-play Text-to-Speech</string>
     <string name="auto_tts_desc">Automatically read articles aloud when opened</string>
+
+    <string name="unlock_amoled_theme">Desbloquejar tema AMOLED</string>
+    <string name="unlock_amoled_theme_desc">Mireu un breu anunci de vídeo per desbloquejar permanentment el veritable tema fosc fosc AMOLED.</string>
+    <string name="watch_ad">Veure anunci</string>
+    <string name="ad_not_ready">L\'anunci no està preparat. Si us plau, torneu-ho a provar més tard.</string>
 </resources>

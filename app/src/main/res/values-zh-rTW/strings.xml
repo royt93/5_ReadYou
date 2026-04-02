@@ -293,4 +293,9 @@
     <string name="restarting_app">正在重新啟動應用程式…</string>
     <string name="auto_tts">自動朗讀文章 (TTS)</string>
     <string name="auto_tts_desc">打開時自動朗讀文章內容</string>
+
+    <string name="unlock_amoled_theme">解鎖 AMOLED 主題</string>
+    <string name="unlock_amoled_theme_desc">觀看一段簡短的視頻廣告以永久解鎖真正的純黑 AMOLED 主題。</string>
+    <string name="watch_ad">觀看廣告</string>
+    <string name="ad_not_ready">廣告未準備好。請稍後再試。</string>
 </resources>

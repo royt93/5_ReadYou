@@ -289,4 +289,9 @@
     <string name="restarting_app">Перезапуск приложения…</string>
     <string name="auto_tts">Auto-play Text-to-Speech</string>
     <string name="auto_tts_desc">Automatically read articles aloud when opened</string>
+
+    <string name="unlock_amoled_theme">Разблокировать AMOLED тему</string>
+    <string name="unlock_amoled_theme_desc">Посмотрите короткую видеорекламу, чтобы навсегда разблокировать настоящую черную AMOLED тему.</string>
+    <string name="watch_ad">Смотреть рекламу</string>
+    <string name="ad_not_ready">Реклама не готова. Пожалуйста, повторите попытку позже.</string>
 </resources>

@@ -96,4 +96,9 @@
     <string name="restarting_app">Restarting app…</string>
     <string name="auto_tts">Auto-play Text-to-Speech</string>
     <string name="auto_tts_desc">Automatically read articles aloud when opened</string>
+
+    <string name="unlock_amoled_theme">AMOLED തീം അൺലോക്കുചെയ്യുക</string>
+    <string name="unlock_amoled_theme_desc">യഥാർത്ഥ കറുത്ത AMOLED തീം ശാശ്വതമായി അൺലോക്കുചെയ്യാൻ ഒരു ചെറിയ വീഡിയോ പരസ്യം കാണുക.</string>
+    <string name="watch_ad">പരസ്യം കാണുക</string>
+    <string name="ad_not_ready">പരസ്യം തയ്യാറായിട്ടില്ല. ദയവായി കുറച്ച് കഴിഞ്ഞ് വീണ്ടും ശ്രമിക്കുക.</string>
 </resources>

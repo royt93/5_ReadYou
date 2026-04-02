@@ -238,4 +238,9 @@
     <string name="restarting_app">Restarting app…</string>
     <string name="auto_tts">Auto-play Text-to-Speech</string>
     <string name="auto_tts_desc">Automatically read articles aloud when opened</string>
+
+    <string name="unlock_amoled_theme">Odkleni temo AMOLED</string>
+    <string name="unlock_amoled_theme_desc">Oglejte si kratek video oglas, da trajno odklenete pravo črno temo AMOLED.</string>
+    <string name="watch_ad">Oglejte si oglas</string>
+    <string name="ad_not_ready">Oglas ni pripravljen. Prosimo, poskusite znova pozneje.</string>
 </resources>

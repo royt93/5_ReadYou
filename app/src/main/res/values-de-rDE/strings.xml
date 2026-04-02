@@ -296,4 +296,9 @@
     <string name="restarting_app">App wird neu gestartet…</string>
     <string name="auto_tts">Auto-play Text-to-Speech</string>
     <string name="auto_tts_desc">Automatically read articles aloud when opened</string>
+
+    <string name="unlock_amoled_theme">AMOLED-Design freischalten</string>
+    <string name="unlock_amoled_theme_desc">Sehen Sie sich eine kurze Videoanzeige an, um das echte schwarze AMOLED-Design dauerhaft freizuschalten.</string>
+    <string name="watch_ad">Werbung ansehen</string>
+    <string name="ad_not_ready">Die Anzeige ist noch nicht bereit. Bitte versuchen Sie es später noch einmal.</string>
 </resources>
