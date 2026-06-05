@@ -71,7 +71,7 @@
   &quot;keyToString&quot;: {
     &quot;Android App.app.executor&quot;: &quot;Run&quot;,
     &quot;BundleExportedModule&quot;: &quot;RSS_Cat_Hub.app&quot;,
-    &quot;ExportBundle.BundlePathForRSS_Cat_Hub.app&quot;: &quot;/Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/0930ReadYou/_playStore&quot;,
+    &quot;ExportBundle.BundlePathForRSS_Cat_Hub.app&quot;: &quot;/Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260103ReadYou/_playStore&quot;,
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
@@ -122,8 +122,6 @@
       <option name="CLEAR_LOGCAT" value="false" />
       <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
       <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
-      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
-      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
       <option name="DEBUGGER_TYPE" value="Auto" />
       <Auto>
         <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
@@ -132,7 +130,6 @@
         <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
         <option name="SHOW_OPTIMIZED_WARNING" value="true" />
         <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
-        <option name="DEBUG_SANDBOX_SDK" value="false" />
       </Auto>
       <Hybrid>
         <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
@@ -141,11 +138,9 @@
         <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
         <option name="SHOW_OPTIMIZED_WARNING" value="true" />
         <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
-        <option name="DEBUG_SANDBOX_SDK" value="false" />
       </Hybrid>
       <Java>
         <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
-        <option name="DEBUG_SANDBOX_SDK" value="false" />
       </Java>
       <Native>
         <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
@@ -154,7 +149,6 @@
         <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
         <option name="SHOW_OPTIMIZED_WARNING" value="true" />
         <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
-        <option name="DEBUG_SANDBOX_SDK" value="false" />
       </Native>
       <Profilers>
         <option name="ADVANCED_PROFILING_ENABLED" value="false" />
@@ -542,7 +536,15 @@
       <option name="project" value="LOCAL" />
       <updated>1775231937200</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary="Refactor: Disable default WorkManager initialization and update IDE device configurations&#10;&#10;This commit modifies the application's startup behavior by removing the default WorkManager initializer and updates the local development environment with new device streaming profiles.&#10;&#10;- **`AndroidManifest.xml`**:&#10;    - Explicitly removed `androidx.work.WorkManagerInitializer` from the `androidx.startup.InitializationProvider`. This allows for manual or custom initialization of `WorkManager`, preventing it from starting automatically on app launch.&#10;&#10;- **`.idea/caches/deviceStreaming.xml`**:&#10;    - Added persistent selection data for several new physical devices to the IDE cache, including:&#10;        - Samsung Galaxy A53 5G (API 36)&#10;        - Motorola moto e20 (API 30)&#10;        - HONOR Magic V5 (API 36)&#10;&#10;- **`.idea/workspace.xml`**:&#10;    - Updated internal IDE state, including task history, change list tracking, and component properties to reflect the removal of lifecycle-related experimental code and the current project configuration.">
+      <option name="closed" value="true" />
+      <created>1775232041093</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1775232041093</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
