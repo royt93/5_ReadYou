@@ -33,7 +33,7 @@ import com.roy.sdkadbmob.AdManager
 private val VipGold = Color(0xFFFFD60A)
 
 /**
- * Chip VIP hiển thị trên top bar Home. Luôn hiển thị trạng thái VIP (màu vàng) hoặc FREE (màu xám).
+ * Chip VIP hiển thị trên top bar Home. Luôn hiển thị trạng thái VIP (màu vàng) hoặc GET VIP (màu xám).
  * Refresh ở `ON_RESUME` (sau khi back từ VIP screen). Tap → mở VIP screen.
  */
 @Composable
@@ -50,7 +50,7 @@ fun VipBadge(onClick: () -> Unit) {
 
     val backgroundColor = if (active) VipGold else MaterialTheme.colorScheme.surfaceVariant
     val contentColor = if (active) Color.Black else MaterialTheme.colorScheme.onSurfaceVariant
-    val labelText = if (active) "VIP" else "FREE"
+    val labelText = if (active) "VIP" else "GET VIP"
 
     Row(
         verticalAlignment = Alignment.CenterVertically,
