@@ -2,13 +2,16 @@ package com.mckimquyen.reader.ui.page.home.read
 
 import android.util.Log
 import androidx.annotation.Keep
+import androidx.annotation.StringRes
 import androidx.compose.foundation.lazy.LazyListState
+import com.mckimquyen.reader.R
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.ItemSnapshotList
 import com.mckimquyen.reader.domain.model.article.ArticleFlowItem
 import com.mckimquyen.reader.domain.model.article.ArticleWithFeed
 import com.mckimquyen.reader.domain.sv.RssSv
+import com.mckimquyen.reader.infrastructure.ai.GeminiSummaryService
 import com.mckimquyen.reader.infrastructure.audio.TtsManager
 import com.mckimquyen.reader.infrastructure.audio.TtsState
 import com.mckimquyen.reader.infrastructure.rss.RssHelper
@@ -26,6 +29,7 @@ class ReadingViewModel @Inject constructor(
     private val rssService: RssSv,
     private val rssHelper: RssHelper,
     private val ttsManager: TtsManager,
+    private val summaryService: GeminiSummaryService,
 ) : ViewModel() {
 
     private val _readingUiState = MutableStateFlow(ReadingUiState())
@@ -147,6 +151,68 @@ class ReadingViewModel @Inject constructor(
         }
     }
 
+    // ---- AI Summary (Gemini) ----
+
+    /** Mở BottomSheet tóm tắt. Nếu chưa có key thì hiện ô nhập key, ngược lại gọi tóm tắt ngay. */
+    fun openSummary() {
+        Log.d("roy93~AI", "[VM.openSummary] clicked, article=${_readingUiState.value.articleWithFeed?.article?.id}")
+        _readingUiState.update { it.copy(showSummarySheet = true) }
+        if (summaryService.hasApiKey()) {
+            Log.d("roy93~AI", "[VM.openSummary] has key -> requestSummary()")
+            requestSummary()
+        } else {
+            Log.d("roy93~AI", "[VM.openSummary] no key -> show NeedApiKey")
+            _readingUiState.update { it.copy(summaryState = SummaryState.NeedApiKey) }
+        }
+    }
+
+    fun dismissSummary() {
+        Log.d("roy93~AI", "[VM.dismissSummary]")
+        _readingUiState.update { it.copy(showSummarySheet = false) }
+    }
+
+    /** Lưu key user nhập rồi tóm tắt luôn. */
+    fun saveApiKeyAndSummarize(key: String) {
+        Log.d("roy93~AI", "[VM.saveApiKeyAndSummarize] keyLen=${key.length}")
+        if (key.isBlank()) {
+            Log.w("roy93~AI", "[VM.saveApiKeyAndSummarize] blank key, bỏ qua")
+            return
+        }
+        viewModelScope.launch {
+            summaryService.saveUserApiKey(key)
+            requestSummary()
+        }
+    }
+
+    fun requestSummary() {
+        val state = _readingUiState.value
+        val article = state.articleWithFeed?.article
+        val plainText = state.content?.let {
+            androidx.core.text.HtmlCompat
+                .fromHtml(it, androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY)
+                .toString()
+        }.orEmpty()
+        Log.d("roy93~AI", "[VM.requestSummary] contentLen=${state.content?.length ?: 0} plainTextLen=${plainText.length} isFullContent=${state.isFullContent}")
+
+        _readingUiState.update { it.copy(summaryState = SummaryState.Loading) }
+        viewModelScope.launch {
+            try {
+                val summary = summaryService.summarize(
+                    title = article?.title.orEmpty(),
+                    plainText = plainText,
+                )
+                Log.d("roy93~AI", "[VM.requestSummary] ✅ Success summaryLen=${summary.length}")
+                _readingUiState.update { it.copy(summaryState = SummaryState.Success(summary)) }
+            } catch (e: GeminiSummaryService.SummaryException.MissingApiKey) {
+                Log.d("roy93~AI", "[VM.requestSummary] -> NeedApiKey")
+                _readingUiState.update { it.copy(summaryState = SummaryState.NeedApiKey) }
+            } catch (e: Exception) {
+                Log.e("roy93~AI", "[VM.requestSummary] ❌ Error: $e", e)
+                _readingUiState.update { it.copy(summaryState = e.toSummaryErrorState()) }
+            }
+        }
+    }
+
     override fun onCleared() {
         Log.d("roy93~", "ReadingViewModel onCleared: stopping TTS")
         ttsManager.stop()
@@ -244,4 +310,35 @@ data class ReadingUiState(
     val listState: LazyListState = LazyListState(),
     val nextArticleId: String = "",
     val ttsState: TtsState = TtsState.IDLE,
+    val showSummarySheet: Boolean = false,
+    val summaryState: SummaryState = SummaryState.Idle,
 )
+
+/** Trạng thái của luồng tóm tắt AI. */
+sealed interface SummaryState {
+    object Idle : SummaryState
+    object Loading : SummaryState
+    object NeedApiKey : SummaryState
+    data class Success(val text: String) : SummaryState
+    /** [messageRes] là string resource (đa ngôn ngữ); [arg] tuỳ chọn dùng cho format (vd HTTP code). */
+    data class Error(@StringRes val messageRes: Int, val arg: Int? = null) : SummaryState
+}
+
+/** Map exception của service sang [SummaryState.Error] với string resource đa ngôn ngữ. */
+private fun Throwable.toSummaryErrorState(): SummaryState.Error = when (this) {
+    is GeminiSummaryService.SummaryException.EmptyContent ->
+        SummaryState.Error(R.string.summary_err_empty_content)
+    is GeminiSummaryService.SummaryException.InvalidApiKey ->
+        SummaryState.Error(R.string.summary_err_invalid_key)
+    is GeminiSummaryService.SummaryException.RateLimited ->
+        SummaryState.Error(R.string.summary_err_rate_limited)
+    is GeminiSummaryService.SummaryException.Http ->
+        SummaryState.Error(R.string.summary_err_http, code)
+    is GeminiSummaryService.SummaryException.EmptyResponse ->
+        SummaryState.Error(R.string.summary_err_empty_response)
+    is GeminiSummaryService.SummaryException.ParseError ->
+        SummaryState.Error(R.string.summary_err_parse)
+    is GeminiSummaryService.SummaryException.Network ->
+        SummaryState.Error(R.string.summary_err_network)
+    else -> SummaryState.Error(R.string.summary_err_unknown)
+}

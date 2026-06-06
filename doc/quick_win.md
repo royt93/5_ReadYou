@@ -1,8 +1,14 @@
 # Đề Xuất Tính Năng "Thắng Nhanh" (Quick Wins) Cho ReadYou
 
+> **⚠️ CẬP NHẬT (đối chiếu code hiện tại):**
+> - **#2 Text-to-Speech (Nghe báo): ✅ ĐÃ TRIỂN KHAI** — xem `infrastructure/audio/TtsManager.kt`
+>   và `ui/page/home/read/ReadingViewModel.kt`. Mục này không còn là "đề xuất".
+> - **#1 AI Summary: ⏳ CHƯA triển khai** — chưa có tích hợp Gemini/OpenAI nào trong code.
+>   Vẫn là quick win hợp lệ tiếp theo.
+
 Dựa trên xu hướng người dùng hiện tại (Trending) đối với các ứng dụng đọc tin tức (RSS Reader) và cấu trúc ứng dụng hiện có của ReadYou, dưới đây là 2 tính năng dễ triển khai (Easy to implement) mang lại giá trị lớn nhất cho Project:
 
-## 1. Tóm Tắt Bài Viết Bằng AI (AI TL;DR / Summary Card)
+## 1. Tóm Tắt Bài Viết Bằng AI (AI TL;DR / Summary Card) — **[⏳ CHƯA LÀM]**
 **Xu hướng (Trending):** 
 AI đang định hình lại cách chúng ta tiêu thụ nội dung. Thay vì cuộn một bài RSS dài hơn nghìn chữ, người dùng thường muốn đọc đoạn "TL;DR" (Quá dài, ngại đọc) để nắm bắt ý chính trước khi quyết định có dành thời gian đọc toàn bộ sự kiện hay không.
 
@@ -18,7 +24,7 @@ AI đang định hình lại cách chúng ta tiêu thụ nội dung. Thay vì cu
 
 ---
 
-## 2. Nghe Báo (Text-to-Speech / Đọc Thành Tiếng)
+## 2. Nghe Báo (Text-to-Speech / Đọc Thành Tiếng) — **[✅ ĐÃ TRIỂN KHAI]**
 **Xu hướng (Trending):** 
 Ngày càng có nhiều người dùng thích "nghe" tin tức giống như nghe Podcast khi họ di chuyển, lái xe hay làm việc nhà. Tích hợp âm thanh vào bài viết giúp mở rộng mạnh mẽ thời gian tương tác của người dùng với ứng dụng (Retention Time).
 

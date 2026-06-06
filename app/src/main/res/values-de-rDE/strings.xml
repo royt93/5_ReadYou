@@ -301,4 +301,21 @@
     <string name="unlock_amoled_theme_desc">Sehen Sie sich eine kurze Videoanzeige an, um das echte schwarze AMOLED-Design dauerhaft freizuschalten.</string>
     <string name="watch_ad">Werbung ansehen</string>
     <string name="ad_not_ready">Die Anzeige ist noch nicht bereit. Bitte versuchen Sie es später noch einmal.</string>
+    <!-- AI Summary (Gemini) -->
+    <string name="summary_title">Mit KI zusammenfassen</string>
+    <string name="summary_loading">Wird zusammengefasst…</string>
+    <string name="summary_retry">Erneut zusammenfassen</string>
+    <string name="summary_try_again">Erneut versuchen</string>
+    <string name="summary_apikey_desc">Diese Funktion verwendet Google Gemini (kostenloses Kontingent verfügbar). Hol dir einen kostenlosen API-Schlüssel und füge ihn hier ein – der Schlüssel wird nur auf deinem Gerät gespeichert.</string>
+    <string name="summary_apikey_hint">Gemini-API-Schlüssel</string>
+    <string name="summary_get_key">Kostenlosen Schlüssel holen</string>
+    <string name="summary_save_and_summarize">Speichern &amp; zusammenfassen</string>
+    <string name="summary_err_empty_content">Der Artikel hat keinen Inhalt zum Zusammenfassen</string>
+    <string name="summary_err_invalid_key">API-Schlüssel ist ungültig oder wurde abgelehnt</string>
+    <string name="summary_err_rate_limited">Gemini-Kontingent überschritten, bitte später erneut versuchen</string>
+    <string name="summary_err_http">Gemini-Anfragefehler (HTTP %1$d)</string>
+    <string name="summary_err_empty_response">Gemini hat leeren Inhalt zurückgegeben</string>
+    <string name="summary_err_parse">Antwort von Gemini konnte nicht gelesen werden</string>
+    <string name="summary_err_network">Netzwerkfehler, bitte überprüfe deine Verbindung</string>
+    <string name="summary_err_unknown">Unbekannter Fehler</string>
 </resources>

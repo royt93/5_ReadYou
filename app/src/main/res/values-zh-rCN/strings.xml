@@ -288,4 +288,21 @@
     <string name="unlock_amoled_theme_desc">观看一段简短的视频广告以永久解锁真正的纯黑 AMOLED 主题。</string>
     <string name="watch_ad">观看广告</string>
     <string name="ad_not_ready">广告未准备好。请稍后再试。</string>
+    <!-- AI Summary (Gemini) -->
+    <string name="summary_title">AI 摘要</string>
+    <string name="summary_loading">正在摘要…</string>
+    <string name="summary_retry">重新摘要</string>
+    <string name="summary_try_again">重试</string>
+    <string name="summary_apikey_desc">此功能使用 Google Gemini（提供免费额度）。请获取免费 API 密钥并粘贴到此处 — 密钥仅保存在您的设备上。</string>
+    <string name="summary_apikey_hint">Gemini API 密钥</string>
+    <string name="summary_get_key">获取免费密钥</string>
+    <string name="summary_save_and_summarize">保存并摘要</string>
+    <string name="summary_err_empty_content">文章没有可摘要的内容</string>
+    <string name="summary_err_invalid_key">API 密钥无效或被拒绝</string>
+    <string name="summary_err_rate_limited">已超出 Gemini 配额，请稍后再试</string>
+    <string name="summary_err_http">Gemini 请求错误 (HTTP %1$d)</string>
+    <string name="summary_err_empty_response">Gemini 返回了空内容</string>
+    <string name="summary_err_parse">无法读取 Gemini 的响应</string>
+    <string name="summary_err_network">网络错误，请检查您的连接</string>
+    <string name="summary_err_unknown">未知错误</string>
 </resources>

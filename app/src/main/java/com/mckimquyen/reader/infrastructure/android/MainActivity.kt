@@ -154,37 +154,59 @@ class MainActivity : ComponentActivity() {
 
 }
 
+// Chỉ thử mời review TỐI ĐA 1 lần cho mỗi tiến trình (process). Cờ này reset khi app bị kill,
+// nhờ đó dù onResume() được gọi nhiều lần (quay lại từ background, đổi cấu hình...) cũng không
+// spam requestReviewFlow. Google vẫn rate-limit ở phía server, đây là lớp chặn phía client.
+private var hasAttemptedReviewThisSession = false
+
+// Số lần mở app tối thiểu trước khi mời review lần đầu — tránh hỏi ngay ở launch đầu tiên,
+// chọn thời điểm tự nhiên hơn (người dùng đã quay lại app vài lần).
+private const val MIN_OPENS_BEFORE_REVIEW = 3
+private const val MIN_DAYS_BETWEEN_REVIEWS = 7L
+private const val MILLIS_PER_DAY = 1000L * 60 * 60 * 24
+
 //rateAppInApp(BuildConfig.DEBUG)
 fun Activity.rateAppInApp(forceRateInApp: Boolean = false) {
     //import gradle app
 //    implementation("com.google.android.play:review:2.0.2")
 //    implementation("com.google.android.play:review-ktx:2.0.2")
 
+    // Đã thử trong phiên này rồi thì bỏ qua (kể cả khi force, để không bật lại popup mỗi onResume).
+    if (hasAttemptedReviewThisSession) return
+    hasAttemptedReviewThisSession = true
+
     val sharedPreferences = getSharedPreferences("app_preferences", Context.MODE_PRIVATE)
     val lastReviewTime = sharedPreferences.getLong("last_review_time", 0L)
-//    Log.d("roy93~", "requestReview lastReviewTime $lastReviewTime")
     val currentTime = Calendar.getInstance().timeInMillis
-    val daysSinceLastReview = (currentTime - lastReviewTime) / (1000 * 60 * 60 * 24)
-//    Log.d("roy93~", "requestReview forceRateInApp $forceRateInApp")
-//    Log.d("roy93~", "requestReview daysSinceLastReview $daysSinceLastReview")
-    if (daysSinceLastReview >= 7 || forceRateInApp) {
-//    if (daysSinceLastReview >= 7) {
-        val reviewManager = ReviewManagerFactory.create(this)
-        val request = reviewManager.requestReviewFlow()
-        request.addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                val reviewInfo: ReviewInfo = task.result
-                reviewManager.launchReviewFlow(this, reviewInfo)
-                sharedPreferences.edit().putLong("last_review_time", currentTime).apply()
-//                Log.d("roy93~", "requestReview result ${task.result}")
-//                Log.d("roy93~", "requestReview isSuccessful ${task.isSuccessful}")
-//                Log.d("roy93~", "requestReview isCanceled ${task.isCanceled}")
-//                Log.d("roy93~", "requestReview isComplete ${task.isComplete}")
-//                Log.d("roy93~", "requestReview exception ${task.exception}")
-            } else {
-//                Log.d("roy93~", "requestReview exception ${task.exception}")
-            }
+
+    // Chống đổi giờ hệ thống: nếu đồng hồ bị lùi về quá khứ (currentTime < lastReviewTime),
+    // coi như mốc cũ không hợp lệ và reset về hiện tại để không vô tình mở popup ngay.
+    if (lastReviewTime > currentTime) {
+        sharedPreferences.edit().putLong("last_review_time", currentTime).apply()
+    }
+    val safeLastReviewTime = sharedPreferences.getLong("last_review_time", currentTime)
+
+    // Đếm số lần mở app (tăng 1 lần cho mỗi phiên).
+    val openCount = sharedPreferences.getInt("app_open_count", 0) + 1
+    sharedPreferences.edit().putInt("app_open_count", openCount).apply()
+
+    val daysSinceLastReview = (currentTime - safeLastReviewTime) / MILLIS_PER_DAY
+    val isFirstReview = safeLastReviewTime == 0L
+
+    val shouldRequest = forceRateInApp ||
+        (openCount >= MIN_OPENS_BEFORE_REVIEW &&
+            (isFirstReview || daysSinceLastReview >= MIN_DAYS_BETWEEN_REVIEWS))
+
+    if (!shouldRequest) return
+
+    val reviewManager = ReviewManagerFactory.create(this)
+    val request = reviewManager.requestReviewFlow()
+    request.addOnCompleteListener { task ->
+        if (task.isSuccessful) {
+            val reviewInfo: ReviewInfo = task.result
+            reviewManager.launchReviewFlow(this, reviewInfo)
+            // Chỉ cập nhật mốc khi thực sự khởi chạy được luồng review.
+            sharedPreferences.edit().putLong("last_review_time", currentTime).apply()
         }
     }
-
 }

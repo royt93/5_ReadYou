@@ -296,4 +296,21 @@
     <string name="unlock_amoled_theme_desc">Xem một video quảng cáo ngắn để mở khoá vĩnh viễn giao diện nền đen AMOLED chân thực.</string>
     <string name="watch_ad">Xem Quảng Cáo</string>
     <string name="ad_not_ready">Quảng cáo chưa sẵn sàng. Vui lòng thử lại sau.</string>
+    <!-- AI Summary (Gemini) -->
+    <string name="summary_title">Tóm tắt bằng AI</string>
+    <string name="summary_loading">Đang tóm tắt…</string>
+    <string name="summary_retry">Tóm tắt lại</string>
+    <string name="summary_try_again">Thử lại</string>
+    <string name="summary_apikey_desc">Tính năng này dùng Google Gemini (có gói miễn phí). Hãy lấy API key miễn phí rồi dán vào đây — key chỉ lưu trên máy bạn.</string>
+    <string name="summary_apikey_hint">Khóa API Gemini</string>
+    <string name="summary_get_key">Lấy key miễn phí</string>
+    <string name="summary_save_and_summarize">Lưu &amp; tóm tắt</string>
+    <string name="summary_err_empty_content">Bài viết không có nội dung để tóm tắt</string>
+    <string name="summary_err_invalid_key">API key không hợp lệ hoặc bị từ chối</string>
+    <string name="summary_err_rate_limited">Đã vượt hạn mức Gemini, vui lòng thử lại sau</string>
+    <string name="summary_err_http">Lỗi gọi Gemini (HTTP %1$d)</string>
+    <string name="summary_err_empty_response">Gemini trả về nội dung rỗng</string>
+    <string name="summary_err_parse">Không đọc được phản hồi từ Gemini</string>
+    <string name="summary_err_network">Lỗi mạng, vui lòng kiểm tra kết nối</string>
+    <string name="summary_err_unknown">Lỗi không xác định</string>
 </resources>

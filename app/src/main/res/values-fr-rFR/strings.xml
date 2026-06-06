@@ -303,4 +303,21 @@
     <string name="unlock_amoled_theme_desc">Regardez une courte publicité vidéo pour débloquer de façon permanente le vrai thème noir AMOLED.</string>
     <string name="watch_ad">Regarder la pub</string>
     <string name="ad_not_ready">L\'annonce n\'est pas prête. Veuillez réessayer plus tard.</string>
+    <!-- AI Summary (Gemini) -->
+    <string name="summary_title">Résumer avec l’IA</string>
+    <string name="summary_loading">Résumé en cours…</string>
+    <string name="summary_retry">Résumer à nouveau</string>
+    <string name="summary_try_again">Réessayer</string>
+    <string name="summary_apikey_desc">Cette fonctionnalité utilise Google Gemini (offre gratuite disponible). Obtenez une clé API gratuite et collez-la ici — la clé est stockée uniquement sur votre appareil.</string>
+    <string name="summary_apikey_hint">Clé API Gemini</string>
+    <string name="summary_get_key">Obtenir une clé gratuite</string>
+    <string name="summary_save_and_summarize">Enregistrer et résumer</string>
+    <string name="summary_err_empty_content">L’article n’a aucun contenu à résumer</string>
+    <string name="summary_err_invalid_key">La clé API est invalide ou refusée</string>
+    <string name="summary_err_rate_limited">Quota Gemini dépassé, veuillez réessayer plus tard</string>
+    <string name="summary_err_http">Erreur de requête Gemini (HTTP %1$d)</string>
+    <string name="summary_err_empty_response">Gemini a renvoyé un contenu vide</string>
+    <string name="summary_err_parse">Impossible de lire la réponse de Gemini</string>
+    <string name="summary_err_network">Erreur réseau, veuillez vérifier votre connexion</string>
+    <string name="summary_err_unknown">Erreur inconnue</string>
 </resources>

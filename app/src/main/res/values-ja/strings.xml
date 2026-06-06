@@ -289,4 +289,21 @@
     <string name="unlock_amoled_theme_desc">短い動画広告を視聴して、真の黒のAMOLEDテーマを永久にロック解除します。</string>
     <string name="watch_ad">広告を見る</string>
     <string name="ad_not_ready">広告の準備ができていません。後でもう一度お試しください。</string>
+    <!-- AI Summary (Gemini) -->
+    <string name="summary_title">AIで要約</string>
+    <string name="summary_loading">要約しています…</string>
+    <string name="summary_retry">もう一度要約</string>
+    <string name="summary_try_again">再試行</string>
+    <string name="summary_apikey_desc">この機能は Google Gemini（無料枠あり）を使用します。無料の API キーを取得してここに貼り付けてください。キーは端末内にのみ保存されます。</string>
+    <string name="summary_apikey_hint">Gemini API キー</string>
+    <string name="summary_get_key">無料キーを取得</string>
+    <string name="summary_save_and_summarize">保存して要約</string>
+    <string name="summary_err_empty_content">要約する記事の内容がありません</string>
+    <string name="summary_err_invalid_key">API キーが無効または拒否されました</string>
+    <string name="summary_err_rate_limited">Gemini の上限を超えました。しばらくしてからお試しください</string>
+    <string name="summary_err_http">Gemini リクエストエラー (HTTP %1$d)</string>
+    <string name="summary_err_empty_response">Gemini が空の内容を返しました</string>
+    <string name="summary_err_parse">Gemini の応答を読み取れませんでした</string>
+    <string name="summary_err_network">ネットワークエラー。接続を確認してください</string>
+    <string name="summary_err_unknown">不明なエラー</string>
 </resources>

@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.AutoAwesome
 import androidx.compose.material.icons.outlined.Palette
 import androidx.compose.material.icons.outlined.Share
 import androidx.compose.material.icons.rounded.Close
@@ -38,6 +39,7 @@ fun TopBar(
     link: String? = "",
     isPlayingAudio: Boolean = false,
     onPlayAudio: () -> Unit = {},
+    onSummary: () -> Unit = {},
     onClose: () -> Unit = {},
 ) {
     val context = LocalContext.current
@@ -63,6 +65,15 @@ fun TopBar(
                     }
                 },
                 actions = {
+                    FeedbackIconButton(
+                        modifier = Modifier.size(22.dp),
+                        imageVector = Icons.Outlined.AutoAwesome,
+                        contentDescription = stringResource(R.string.summary_title),
+                        tint = MaterialTheme.colorScheme.onSurface
+                    ) {
+                        android.util.Log.d("roy93~AI", "TopBar: Summary clicked")
+                        onSummary()
+                    }
                     FeedbackIconButton(
                         modifier = Modifier.size(22.dp),
                         imageVector = if (isPlayingAudio) Icons.Rounded.Stop else Icons.Rounded.PlayArrow,

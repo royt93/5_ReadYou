@@ -1,6 +1,7 @@
 package com.mckimquyen.reader.ui.page.home.read
 
 import android.util.Log
+import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.Spring
@@ -15,6 +16,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.ModalBottomSheetValue
+import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
@@ -28,11 +32,12 @@ import com.mckimquyen.reader.infrastructure.pref.LocalReadingAutoHideToolbar
 import com.mckimquyen.reader.infrastructure.pref.LocalReadingPageTonalElevation
 import com.mckimquyen.reader.infrastructure.pref.LocalAutoTts
 import com.mckimquyen.reader.ui.component.base.BaseScaffold
+import com.mckimquyen.reader.ui.component.base.BottomDrawer
 import com.mckimquyen.reader.ui.ext.collectAsStateValue
 import com.mckimquyen.reader.ui.ext.isScrollDown
 import com.mckimquyen.reader.ui.page.home.HomeViewModel
 
-@OptIn(ExperimentalAnimationApi::class)
+@OptIn(ExperimentalAnimationApi::class, ExperimentalMaterialApi::class)
 @Composable
 fun ReadingPage(
     navController: NavHostController,
@@ -76,6 +81,37 @@ fun ReadingPage(
         }
     }
 
+    // BottomSheet "Tóm tắt bằng AI" — dùng BottomDrawer chuẩn của app (ModalBottomSheetLayout)
+    // để có drag handle, shape và xử lý system insets đúng (không lỗi edge-to-edge).
+    val summaryDrawerState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
+
+    // Đồng bộ trạng thái mở/đóng từ ViewModel -> drawer.
+    LaunchedEffect(readingUiState.showSummarySheet) {
+        if (readingUiState.showSummarySheet) summaryDrawerState.show()
+        else if (summaryDrawerState.isVisible) summaryDrawerState.hide()
+    }
+    // Khi người dùng vuốt/chạm ra ngoài để đóng -> đồng bộ ngược lại ViewModel.
+    LaunchedEffect(summaryDrawerState.currentValue) {
+        if (summaryDrawerState.currentValue == ModalBottomSheetValue.Hidden &&
+            readingUiState.showSummarySheet
+        ) {
+            readingViewModel.dismissSummary()
+        }
+    }
+    BackHandler(readingUiState.showSummarySheet) {
+        readingViewModel.dismissSummary()
+    }
+
+    BottomDrawer(
+        drawerState = summaryDrawerState,
+        sheetContent = {
+            SummarySheetContent(
+                state = readingUiState.summaryState,
+                onRetry = { readingViewModel.requestSummary() },
+                onSaveKey = { key -> readingViewModel.saveApiKeyAndSummarize(key) },
+            )
+        },
+    ) {
     BaseScaffold(
         topBarTonalElevation = tonalElevation.value.dp,
         containerTonalElevation = tonalElevation.value.dp,
@@ -92,6 +128,9 @@ fun ReadingPage(
                     isPlayingAudio = readingUiState.ttsState == TtsState.PLAYING,
                     onPlayAudio = {
                         readingViewModel.togglePlayAudio()
+                    },
+                    onSummary = {
+                        readingViewModel.openSummary()
                     },
                     onClose = {
                         navController.popBackStack()
@@ -166,4 +205,5 @@ fun ReadingPage(
             }
         }
     )
+    }
 }

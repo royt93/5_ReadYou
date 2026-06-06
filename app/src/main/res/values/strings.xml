@@ -471,4 +471,21 @@
     <string name="unlock_amoled_theme_desc">Watch a short video ad to permanently unlock the true black AMOLED theme.</string>
     <string name="watch_ad">Watch Ad</string>
     <string name="ad_not_ready">Ad is not ready. Please try again later.</string>
+    <!-- AI Summary (Gemini) -->
+    <string name="summary_title">Summarize with AI</string>
+    <string name="summary_loading">Summarizing…</string>
+    <string name="summary_retry">Summarize again</string>
+    <string name="summary_try_again">Try again</string>
+    <string name="summary_apikey_desc">This feature uses Google Gemini (free tier available). Get a free API key and paste it here — the key is stored only on your device.</string>
+    <string name="summary_apikey_hint">Gemini API key</string>
+    <string name="summary_get_key">Get a free key</string>
+    <string name="summary_save_and_summarize">Save &amp; summarize</string>
+    <string name="summary_err_empty_content">The article has no content to summarize</string>
+    <string name="summary_err_invalid_key">API key is invalid or rejected</string>
+    <string name="summary_err_rate_limited">Gemini quota exceeded, please try again later</string>
+    <string name="summary_err_http">Gemini request error (HTTP %1$d)</string>
+    <string name="summary_err_empty_response">Gemini returned empty content</string>
+    <string name="summary_err_parse">Couldn’t read Gemini’s response</string>
+    <string name="summary_err_network">Network error, please check your connection</string>
+    <string name="summary_err_unknown">Unknown error</string>
 </resources>

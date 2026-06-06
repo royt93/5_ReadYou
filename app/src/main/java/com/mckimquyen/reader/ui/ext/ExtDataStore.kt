@@ -142,6 +142,13 @@ sealed class DataStoreKeys<T> {
             get() = stringPreferencesKey("customPrimaryColor")
     }
 
+    // Gemini API key do người dùng tự nhập (ưu tiên hơn key dev nhúng trong BuildConfig).
+    object GeminiApiKey : DataStoreKeys<String>() {
+
+        override val key: Preferences.Key<String>
+            get() = stringPreferencesKey("geminiApiKey")
+    }
+
     object DarkTheme : DataStoreKeys<Int>() {
 
         override val key: Preferences.Key<Int>

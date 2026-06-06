@@ -78,6 +78,9 @@ android {
             buildConfigField "String", "ADMOB_INTERSTITIAL_ID", "\"ca-app-pub-3940256099942544/1033173712\""
             buildConfigField "String", "ADMOB_APP_OPEN_ID", "\"ca-app-pub-3940256099942544/9257395921\""
             buildConfigField "Boolean", "IS_ENABLE_ADMOB", "false"
+            // Gemini API key dev nhúng sẵn (free tier). Để trống nếu chưa có; user vẫn có thể
+            // tự dán key riêng trong app, key của user sẽ được ưu tiên.
+            buildConfigField "String", "GEMINI_API_KEY", "\"\""
         }
 
         release {
@@ -90,6 +93,9 @@ android {
             buildConfigField "String", "ADMOB_INTERSTITIAL_ID", "\"ca-app-pub-3612191981543807/4529159528\""
             buildConfigField "String", "ADMOB_APP_OPEN_ID", "\"ca-app-pub-3612191981543807/4028490288\""
             buildConfigField "Boolean", "IS_ENABLE_ADMOB", "false"
+            // Gemini API key dev nhúng sẵn (free tier). Để trống nếu chưa có; user vẫn có thể
+            // tự dán key riêng trong app, key của user sẽ được ưu tiên.
+            buildConfigField "String", "GEMINI_API_KEY", "\"\""
 
             signingConfig signingConfigs.release
             debuggable false
