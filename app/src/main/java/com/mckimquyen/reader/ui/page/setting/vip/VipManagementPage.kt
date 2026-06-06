@@ -240,12 +240,13 @@ fun VipManagementPage(navController: NavHostController) {
 
                 // (7) Watch ad → 3 days VIP (pulse animation #1)
                 val pulse = rememberInfiniteTransition(label = "pulse")
-                val scale by pulse.animateFloat(
+                val animatedScale by pulse.animateFloat(
                     initialValue = 1f,
                     targetValue = 1.05f,
                     animationSpec = infiniteRepeatable(tween(1600), RepeatMode.Reverse),
                     label = "pulseScale",
                 )
+                val scale = if (isActive) 1f else animatedScale
                 Button(
                     onClick = {
                         val act = activity ?: return@Button
@@ -264,6 +265,7 @@ fun VipManagementPage(navController: NavHostController) {
                             }
                         }
                     },
+                    enabled = !isActive,
                     modifier = Modifier
                         .fillMaxWidth()
                         .scale(scale),
