@@ -15,6 +15,9 @@ object RouteName {
     // Settings
     const val SETTINGS = "settings"
 
+    // VIP
+    const val VIP = "vip"
+
     // Accounts
     const val ACCOUNTS = "accounts"
     const val ACCOUNT_DETAILS = "account_details"

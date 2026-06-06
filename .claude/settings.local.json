@@ -92,7 +92,19 @@
       "Bash(adb -s 192.168.21.185:44337 shell uiautomator dump /sdcard/h.xml)",
       "Bash(adb -s 192.168.21.185:44337 shell cat /sdcard/h.xml)",
       "Bash(adb -s 192.168.21.185:44337 shell input tap 700 1790)",
-      "Bash(adb -s 192.168.21.185:44337 shell input tap 1373 1828)"
+      "Bash(adb -s 192.168.21.185:44337 shell input tap 1373 1828)",
+      "Bash(sed -n 55,135p /Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260403_ReadYou/app/build.gradle)",
+      "Bash(sed -n 200,215p /Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260403_ReadYou/app/build.gradle)",
+      "Read(//Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/_AdmobWrapper/admob-wrapper-sdk/src/main/java/com/roy/sdkadbmob/**)",
+      "Read(//Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/_AdmobWrapper/admob-wrapper-sdk/**)",
+      "Bash(sed -n 360,420p /Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/_AdmobWrapper/admob-wrapper-sdk/src/main/java/com/roy/sdkadbmob/AdManager.kt)",
+      "Bash(sed -n 1898,1960p /Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/_AdmobWrapper/admob-wrapper-sdk/src/main/java/com/roy/sdkadbmob/AdManager.kt)",
+      "Bash(sed -n 23,55p /Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260403_ReadYou/app/src/main/java/com/mckimquyen/reader/ui/component/base/BaseScaffold.kt)",
+      "Bash(sed -n 16,32p /Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260403_ReadYou/app/src/main/java/com/mckimquyen/reader/ui/component/base/DisplayText.kt)",
+      "Bash(grep -c 'name=\"__TRACKED_VAR__\"' /Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260403_ReadYou/app/src/main/res/values/strings.xml)",
+      "Bash(grep -c 'name=\"__TRACKED_VAR__\"' /Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260403_ReadYou/app/src/main/res/values-vi/strings.xml)",
+      "Bash(git add *)",
+      "Bash(git reset *)"
     ],
     "deny": [],
     "ask": []

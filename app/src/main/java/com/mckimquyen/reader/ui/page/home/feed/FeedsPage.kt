@@ -61,6 +61,7 @@ import com.mckimquyen.reader.ui.ext.collectAsStateValue
 import com.mckimquyen.reader.ui.ext.findActivity
 import com.mckimquyen.reader.ui.ext.getCurrentVersion
 import com.mckimquyen.reader.ui.page.common.RouteName
+import com.mckimquyen.reader.ui.page.setting.vip.VipBadge
 import com.mckimquyen.reader.ui.page.home.FilterState
 import com.mckimquyen.reader.ui.page.home.HomeViewModel
 import com.mckimquyen.reader.ui.page.home.feed.drawer.feed.FeedOptionDrawer
@@ -153,6 +154,12 @@ fun FeedsPage(
             }
         },
         actions = {
+            // Badge VIP vàng — chỉ hiện khi VIP active, tap mở VIP screen.
+            VipBadge {
+                navController.navigate(RouteName.VIP) {
+                    launchSingleTop = true
+                }
+            }
             // Chỉ hiển thị refresh icon khi không ở tab AddSources
             if (!filterUiState.filter.isAddSources()) {
                 FeedbackIconButton(

@@ -24,8 +24,8 @@ android {
         minSdk 26
         //noinspection EditedTargetSdkVersion,OldTargetApi
         targetSdk 36
-        versionCode 20260605
-        versionName "2026.06.05"
+        versionCode 20260606
+        versionName "2026.06.06"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -77,6 +77,10 @@ android {
             buildConfigField "String", "ADMOB_BANNER_ID", "\"ca-app-pub-3940256099942544/6300978111\""
             buildConfigField "String", "ADMOB_INTERSTITIAL_ID", "\"ca-app-pub-3940256099942544/1033173712\""
             buildConfigField "String", "ADMOB_APP_OPEN_ID", "\"ca-app-pub-3940256099942544/9257395921\""
+            // Rewarded — AppLovin là provider chính (real ID); AdMob phụ dùng Google test ID.
+            buildConfigField "String", "APPLOVIN_REWARDED_ID", "\"2d899bfeff96984a\""
+            buildConfigField "String", "ADMOB_REWARDED_ID", "\"ca-app-pub-3940256099942544/5224354917\""
+            buildConfigField "String", "PRIVACY_POLICY_URL", "\"https://loitp.notion.site/Term-Privacy-Policy-Disclaimer-319b1cd8783942fa8923d2a3c9bce60f\""
             buildConfigField "Boolean", "IS_ENABLE_ADMOB", "false"
         }
 
@@ -89,6 +93,10 @@ android {
             buildConfigField "String", "ADMOB_BANNER_ID", "\"ca-app-pub-3612191981543807/6401478547\""
             buildConfigField "String", "ADMOB_INTERSTITIAL_ID", "\"ca-app-pub-3612191981543807/4529159528\""
             buildConfigField "String", "ADMOB_APP_OPEN_ID", "\"ca-app-pub-3612191981543807/4028490288\""
+            // Rewarded — AppLovin là provider chính (real ID); AdMob phụ dùng Google test ID.
+            buildConfigField "String", "APPLOVIN_REWARDED_ID", "\"2d899bfeff96984a\""
+            buildConfigField "String", "ADMOB_REWARDED_ID", "\"ca-app-pub-3940256099942544/5224354917\""
+            buildConfigField "String", "PRIVACY_POLICY_URL", "\"https://loitp.notion.site/Term-Privacy-Policy-Disclaimer-319b1cd8783942fa8923d2a3c9bce60f\""
             buildConfigField "Boolean", "IS_ENABLE_ADMOB", "false"
 
             signingConfig signingConfigs.release
@@ -205,7 +213,7 @@ dependencies {
     implementation("com.google.android.play:review:2.0.1")
     implementation("com.google.android.play:review-ktx:2.0.1")
 
-    implementation("com.github.royt93:AdmobWrapper:1.1.1")
+    implementation("com.github.royt93:AdmobApplovinWrapper:1.1.5")
 //    implementation("androidx.appcompat:appcompat:1.7.0")
 
     // ProcessPhoenix for app restart
@@ -214,7 +222,14 @@ dependencies {
     testImplementation "junit:junit:4.13.2"
     testImplementation "io.mockk:mockk:1.13.5"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4"
+    // Robolectric: chạy unit test đụng android.util.Base64 / SharedPreferences trên JVM (không cần emulator)
+    testImplementation "org.robolectric:robolectric:4.14.1"
+    testImplementation "androidx.test:core:1.6.1"
+
     androidTestImplementation "androidx.test.ext:junit:1.1.5"
     androidTestImplementation "androidx.test.espresso:espresso-core:3.5.1"
+    // Compose UI / widget test (compose resolve về 1.7.8)
+    androidTestImplementation "androidx.compose.ui:ui-test-junit4:1.7.8"
+    debugImplementation "androidx.compose.ui:ui-test-manifest:1.7.8"
 //    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.14")
 }

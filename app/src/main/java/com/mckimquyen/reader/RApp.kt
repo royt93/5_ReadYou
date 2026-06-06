@@ -4,15 +4,12 @@ import android.app.Application
 import android.content.Context
 import android.content.res.Configuration
 import android.os.LocaleList
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import androidx.hilt.work.HiltWorkerFactory
 import androidx.work.Configuration as WorkConfiguration
 import androidx.work.WorkManager
 import coil.ImageLoader
 import coil.ImageLoaderFactory
-import com.google.android.gms.ads.MobileAds
 import com.mckimquyen.reader.domain.sv.AccountSv
 import com.mckimquyen.reader.domain.sv.AppSv
 import com.mckimquyen.reader.domain.sv.LocalRssSv
@@ -30,7 +27,9 @@ import com.mckimquyen.reader.infrastructure.rss.OPMLDataSource
 import com.mckimquyen.reader.infrastructure.rss.RssHelper
 import com.roy.sdkadbmob.AdManager
 import com.roy.sdkadbmob.AdSdkConfig
-import com.applovin.sdk.AppLovinSdk
+import com.roy.sdkadbmob.AdSafetyLimits
+import com.roy.sdkadbmob.SdkVersion
+import com.mckimquyen.reader.ui.page.setting.vip.AdKeys
 import com.mckimquyen.reader.ui.ext.del
 import com.mckimquyen.reader.ui.ext.getLatestApk
 import com.mckimquyen.reader.ui.ext.isFdroid
@@ -168,7 +167,7 @@ class RApp : Application(), WorkConfiguration.Provider, ImageLoaderFactory {
 
     fun setupAdmob() {
         val provider = if (BuildConfig.IS_ENABLE_ADMOB) "AdMob" else "AppLovin MAX"
-        Log.d("roy93~Ad", "[setupAdmob] 🚀 Starting ad setup, provider=$provider, isDebug=${BuildConfig.DEBUG}")
+        Log.d("roy93~Ad", "[setupAdmob] 🚀 ${SdkVersion.SDK_NAME} v${SdkVersion.VERSION_NAME}, provider=$provider, isDebug=${BuildConfig.DEBUG}")
 
         val adConfig = AdSdkConfig(
             isEnableAdmob          = BuildConfig.IS_ENABLE_ADMOB,
@@ -176,59 +175,23 @@ class RApp : Application(), WorkConfiguration.Provider, ImageLoaderFactory {
             admobBannerId          = BuildConfig.ADMOB_BANNER_ID,
             admobInterstitialId    = BuildConfig.ADMOB_INTERSTITIAL_ID,
             admobAppOpenId         = BuildConfig.ADMOB_APP_OPEN_ID,
+            admobRewardedId        = BuildConfig.ADMOB_REWARDED_ID,
             applovinBannerId       = BuildConfig.APPLOVIN_BANNER_ID,
             applovinInterstitialId = BuildConfig.APPLOVIN_INTERSTITIAL_ID,
-            applovinAppOpenId      = BuildConfig.APPLOVIN_APP_OPEN_ID
+            applovinAppOpenId      = BuildConfig.APPLOVIN_APP_OPEN_ID,
+            applovinRewardedId     = BuildConfig.APPLOVIN_REWARDED_ID,
+            applovinSdkKey         = BuildConfig.APPLOVIN_SDK_KEY,
+            vipKeySecret           = AdKeys.VIP_SECRET,
+            // Debug: nới throttle để QC test ad nhanh. Release: balanced preset cho app reader.
+            safety                 = if (BuildConfig.DEBUG) AdSafetyLimits.TEST else AdSafetyLimits.CONTENT,
         )
 
-        Log.d("roy93~Ad", "[setupAdmob] 📦 AdSdkConfig built, calling setConfig()")
+        Log.d("roy93~Ad", "[setupAdmob] 📦 AdSdkConfig built — setConfig() + initialize() one-shot")
         AdManager.setConfig(adConfig)
-
-        Log.d("roy93~Ad", "[setupAdmob] ⏱️ Calling earlyInit() — starting session clock")
-        AdManager.earlyInit(this)
-
-        if (BuildConfig.IS_ENABLE_ADMOB) {
-            Log.d("roy93~Ad", "[setupAdmob] 📡 AdMob mode — calling MobileAds.initialize()")
-            MobileAds.initialize(this) { status ->
-                Log.d("roy93~Ad", "[setupAdmob] ✅ MobileAds.initialize() done, calling AdManager.init()")
-                AdManager.init(this, adConfig) { success, gaid ->
-                    Log.d("roy93~Ad", "[setupAdmob] AdManager.init() result: success=$success, gaid=$gaid")
-                    if (success) {
-                        Log.d("roy93~Ad", "[setupAdmob] 📲 Registering AppOpenAd lifecycle on MainThread")
-                        Handler(Looper.getMainLooper()).post {
-                            AdManager.registerAppOpenAdLifecycle(this@RApp)
-                            Log.d("roy93~Ad", "[setupAdmob] ✅ registerAppOpenAdLifecycle() done")
-                        }
-                    } else {
-                        Log.d("roy93~Ad", "[setupAdmob] ⚠️ AdManager.init() failed — AppOpen lifecycle NOT registered")
-                    }
-                }
-            }
-        } else {
-            Log.d("roy93~Ad", "[setupAdmob] 📡 AppLovin MAX mode — building initConfig")
-            val initConfig = com.applovin.sdk.AppLovinSdkInitializationConfiguration.builder(
-                BuildConfig.APPLOVIN_SDK_KEY,
-                this
-            )
-                .setMediationProvider(com.applovin.sdk.AppLovinMediationProvider.MAX)
-                .build()
-
-            Log.d("roy93~Ad", "[setupAdmob] 📡 Calling AppLovinSdk.initialize()")
-            AppLovinSdk.getInstance(this).initialize(initConfig) {
-                Log.d("roy93~Ad", "[setupAdmob] ✅ AppLovinSdk.initialize() done, calling AdManager.init()")
-                AdManager.init(this, adConfig) { success, gaid ->
-                    Log.d("roy93~Ad", "[setupAdmob] AdManager.init() result: success=$success, gaid=$gaid")
-                    if (success) {
-                        Log.d("roy93~Ad", "[setupAdmob] 📲 Registering AppOpenAd lifecycle on MainThread")
-                        Handler(Looper.getMainLooper()).post {
-                            AdManager.registerAppOpenAdLifecycle(this@RApp)
-                            Log.d("roy93~Ad", "[setupAdmob] ✅ registerAppOpenAdLifecycle() done")
-                        }
-                    } else {
-                        Log.d("roy93~Ad", "[setupAdmob] ⚠️ AdManager.init() failed — AppOpen lifecycle NOT registered")
-                    }
-                }
-            }
+        // initialize() tự chạy đủ 4 bước: earlyInit → provider SDK init → AdManager.init →
+        // registerAppOpenAdLifecycle (main thread). Không cần wire MobileAds/AppLovinSdk thủ công.
+        AdManager.initialize(this) { success, gaid ->
+            Log.d("roy93~Ad", "[setupAdmob] AdManager.initialize() result: success=$success, gaid=$gaid")
         }
     }
 

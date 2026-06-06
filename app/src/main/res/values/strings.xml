@@ -489,4 +489,35 @@
     <string name="summary_err_network">Network error, please check your connection</string>
     <string name="summary_err_unknown">Unknown error</string>
     <string name="read_aloud">Read aloud</string>
+
+    <!-- VIP -->
+    <string name="vip_title">VIP</string>
+    <string name="vip_settings_desc">Manage VIP, redeem codes, remove ads</string>
+    <string name="vip_active">VIP active</string>
+    <string name="vip_free_user">Free user</string>
+    <string name="vip_until">Until %1$s</string>
+    <string name="vip_activated_at">Activated: %1$s</string>
+    <string name="vip_expires_at">Expires: %1$s</string>
+    <string name="vip_remaining_short">%1$d days %2$d hours left</string>
+    <string name="vip_redeem_label">Enter VIP code</string>
+    <string name="vip_redeem_hint">e.g. your VIP code</string>
+    <string name="vip_redeem_button">Activate</string>
+    <string name="vip_watch_ad_3d">Watch ad → 3 days VIP</string>
+    <string name="vip_buy_30d_locked">Buy 30-day VIP — coming soon</string>
+    <string name="vip_buy_90d_locked">Buy 90-day VIP — coming soon</string>
+    <string name="vip_buy_1y_locked">Buy 1-year VIP — coming soon</string>
+    <string name="vip_buy_lifetime_locked">Buy lifetime VIP — coming soon</string>
+    <string name="vip_restore_locked">Restore purchase — coming soon</string>
+    <string name="vip_revoke_all_button">Revoke VIP</string>
+    <string name="vip_revoke_all_confirm_title">Confirm revoke</string>
+    <string name="vip_revoke_all_confirm_message">Are you sure you want to revoke VIP and return to the Free account?</string>
+    <string name="vip_entry_first_install">🎁 New install gift</string>
+    <string name="vip_entry_active">VIP membership</string>
+    <string name="vip_success_title">Success</string>
+    <string name="vip_success_message">VIP active for %1$d days.</string>
+    <string name="vip_failed_title">Failed</string>
+    <string name="vip_failed_invalid_key">Invalid code. Please check again.</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="ok">OK</string>
+    <string name="vip_rewarded_not_earned">You need to watch the full ad to get VIP. Please try again.</string>
 </resources>

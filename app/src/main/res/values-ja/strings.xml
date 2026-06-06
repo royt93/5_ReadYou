@@ -307,4 +307,35 @@
     <string name="summary_err_network">ネットワークエラー。接続を確認してください</string>
     <string name="summary_err_unknown">不明なエラー</string>
     <string name="read_aloud">読み上げ</string>
+
+    <!-- VIP -->
+    <string name="vip_title">VIP</string>
+    <string name="vip_settings_desc">VIP管理・コード引き換え・広告削除</string>
+    <string name="vip_active">VIP 有効</string>
+    <string name="vip_free_user">無料ユーザー</string>
+    <string name="vip_until">%1$s まで</string>
+    <string name="vip_activated_at">有効化：%1$s</string>
+    <string name="vip_expires_at">有効期限：%1$s</string>
+    <string name="vip_remaining_short">残り %1$d日 %2$d時間</string>
+    <string name="vip_redeem_label">VIPコードを入力</string>
+    <string name="vip_redeem_hint">例：あなたのVIPコード</string>
+    <string name="vip_redeem_button">有効化</string>
+    <string name="vip_watch_ad_3d">広告を見る → VIP 3日間</string>
+    <string name="vip_buy_30d_locked">30日VIPを購入 — 近日公開</string>
+    <string name="vip_buy_90d_locked">90日VIPを購入 — 近日公開</string>
+    <string name="vip_buy_1y_locked">1年VIPを購入 — 近日公開</string>
+    <string name="vip_buy_lifetime_locked">永久VIPを購入 — 近日公開</string>
+    <string name="vip_restore_locked">購入を復元 — 近日公開</string>
+    <string name="vip_revoke_all_button">VIPを取り消す</string>
+    <string name="vip_revoke_all_confirm_title">取り消しの確認</string>
+    <string name="vip_revoke_all_confirm_message">VIPを取り消して無料アカウントに戻しますか？</string>
+    <string name="vip_entry_first_install">🎁 新規インストール特典</string>
+    <string name="vip_entry_active">VIP会員</string>
+    <string name="vip_success_title">成功</string>
+    <string name="vip_success_message">VIPが%1$d日間有効になりました。</string>
+    <string name="vip_failed_title">失敗</string>
+    <string name="vip_failed_invalid_key">無効なコードです。もう一度ご確認ください。</string>
+    <string name="privacy_policy">プライバシーポリシー</string>
+    <string name="ok">OK</string>
+    <string name="vip_rewarded_not_earned">VIPを獲得するには広告を最後までご視聴ください。もう一度お試しください。</string>
 </resources>

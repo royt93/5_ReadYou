@@ -50,6 +50,7 @@ import com.mckimquyen.reader.ui.page.setting.color.reading.ReadingVideoPage
 import com.mckimquyen.reader.ui.page.setting.interaction.InteractionPage
 import com.mckimquyen.reader.ui.page.setting.language.LanguagesPage
 import com.mckimquyen.reader.ui.page.setting.tip.TipsAndSupportPage
+import com.mckimquyen.reader.ui.page.setting.vip.VipManagementPage
 import com.mckimquyen.reader.ui.page.startup.StartupPage
 import com.mckimquyen.reader.ui.theme.AppTheme
 import kotlinx.coroutines.delay
@@ -186,6 +187,11 @@ fun HomeEntry(
             // Settings
             animatedComposable(route = RouteName.SETTINGS) {
                 SettingsPage(navController = navController, activity = activity)
+            }
+
+            // VIP
+            animatedComposable(route = RouteName.VIP) {
+                VipManagementPage(navController = navController)
             }
 
             // Accounts

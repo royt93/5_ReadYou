@@ -321,4 +321,35 @@
     <string name="summary_err_network">Erreur réseau, veuillez vérifier votre connexion</string>
     <string name="summary_err_unknown">Erreur inconnue</string>
     <string name="read_aloud">Lecture audio</string>
+
+    <!-- VIP -->
+    <string name="vip_title">VIP</string>
+    <string name="vip_settings_desc">Gérer le VIP, utiliser des codes, retirer les pubs</string>
+    <string name="vip_active">VIP actif</string>
+    <string name="vip_free_user">Utilisateur gratuit</string>
+    <string name="vip_until">Jusqu\'au %1$s</string>
+    <string name="vip_activated_at">Activé : %1$s</string>
+    <string name="vip_expires_at">Expire : %1$s</string>
+    <string name="vip_remaining_short">%1$d jours %2$d heures restants</string>
+    <string name="vip_redeem_label">Saisir le code VIP</string>
+    <string name="vip_redeem_hint">ex. : votre code VIP</string>
+    <string name="vip_redeem_button">Activer</string>
+    <string name="vip_watch_ad_3d">Regarder une pub → 3 jours VIP</string>
+    <string name="vip_buy_30d_locked">Acheter VIP 30 jours — bientôt</string>
+    <string name="vip_buy_90d_locked">Acheter VIP 90 jours — bientôt</string>
+    <string name="vip_buy_1y_locked">Acheter VIP 1 an — bientôt</string>
+    <string name="vip_buy_lifetime_locked">Acheter VIP à vie — bientôt</string>
+    <string name="vip_restore_locked">Restaurer l\'achat — bientôt</string>
+    <string name="vip_revoke_all_button">Révoquer le VIP</string>
+    <string name="vip_revoke_all_confirm_title">Confirmer la révocation</string>
+    <string name="vip_revoke_all_confirm_message">Voulez-vous vraiment révoquer le VIP et revenir au compte gratuit ?</string>
+    <string name="vip_entry_first_install">🎁 Cadeau de nouvelle installation</string>
+    <string name="vip_entry_active">Abonnement VIP</string>
+    <string name="vip_success_title">Succès</string>
+    <string name="vip_success_message">VIP actif pendant %1$d jours.</string>
+    <string name="vip_failed_title">Échec</string>
+    <string name="vip_failed_invalid_key">Code invalide. Veuillez réessayer.</string>
+    <string name="privacy_policy">Politique de confidentialité</string>
+    <string name="ok">OK</string>
+    <string name="vip_rewarded_not_earned">Vous devez regarder la pub en entier pour obtenir le VIP. Veuillez réessayer.</string>
 </resources>

@@ -26,6 +26,7 @@ import androidx.compose.material.icons.outlined.Policy
 import androidx.compose.material.icons.outlined.Share
 import androidx.compose.material.icons.outlined.StarRate
 import androidx.compose.material.icons.outlined.TouchApp
+import androidx.compose.material.icons.outlined.WorkspacePremium
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material3.Icon
@@ -150,6 +151,17 @@ fun SettingsPage(
                         desc = BuildConfig.VERSION_NAME,
                         icon = Icons.Outlined.Build,
                     ) {
+                    }
+                }
+                item {
+                    SelectableSettingGroupItem(
+                        title = stringResource(R.string.vip_title),
+                        desc = stringResource(R.string.vip_settings_desc),
+                        icon = Icons.Outlined.WorkspacePremium,
+                    ) {
+                        navController.navigate(RouteName.VIP) {
+                            launchSingleTop = true
+                        }
                     }
                 }
                 item {

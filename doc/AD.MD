@@ -1,46 +1,108 @@
-# Kế Hoạch Thay Thế & Tích Hợp `_260321AdmobWrapper` SDK vào `260103ReadYou`
+# Kế hoạch migrate Ad sang `AdmobApplovinWrapper` 1.1.5
 
-> Dựa trên yêu cầu kiểm tra kỹ lưỡng (double check 3 lần) source code cũ và tuân thủ các strict rules (chỉ thay thế các touchpoint có sẵn, kiểm tra memory leak và build clean).
+> Cập nhật: 2026-06-06. Migrate từ `com.github.royt93:AdmobWrapper:1.1.1` → `com.github.royt93:AdmobApplovinWrapper:1.1.5`
+> (lib đổi tên, package vẫn `com.roy.sdkadbmob`). Provider chính **AppLovin MAX**, AdMob là phụ
+> (`IS_ENABLE_ADMOB=false`, dùng Google test ID). Bám sample Compose của SDK (`ComposeDemoActivity` + `MyApplication`).
 
-## 1. Đánh giá hiện trạng Ad của project (Trước Migrate)
-Qua kiểm tra toàn bộ project `260103ReadYou` và file `AdMobManager.kt` cũ, hệ thống Ad hiện tại hoạt động theo các logic sau:
-*   **App Open Ad (Splash Screen)**: Được khởi tạo tại `SplashActivity.kt` (`initSplashScreen`).
-*   **Interstitial Ad**: Cơ chế load và bắt sự kiện được gán Interface thông qua `MainActivity.kt`, hiển thị tại TopBar trong `SettingsPage.kt` thông qua `showInterstitial`.
-*   **Banner Ad**: Đã có code draft `adView` tại `MainActivity.kt` nhưng bị developer **comment out** toàn bộ (`adView?.resume()`, `adView?.pause()`, v.v...). Không hiển thị trong App.
-*   **App Open Ad (From Background)**: Trong `AdMobManager.kt` cũ có class `AppLifecycleListener` nhưng cũng **bị comment out** hoàn toàn. Không đăng ký listener.
-*   **Reward Ad**: Không tồn tại bất kỳ touchpoint hay logic nào trong project.
+## 0. Trạng thái
 
-## 2. Kế hoạch triển khai thay thế bằng `_260321AdmobWrapper`
+- **devDebug**: ✅ BUILD SUCCESSFUL
+- **prodRelease** (signed + R8 minify + shrinkResources): ✅ BUILD SUCCESSFUL
+- SDK version runtime: `SdkVersion.VERSION_NAME = 1.1.5`
 
-Dựa vào quy tắc **"chỉ thay thế những ad có touch point sẵn, không tự tiện thêm bất kỳ ad nào sau khi migrate"**, tôi đã thiết lập SDK theo đúng scope nguyên bản:
+## 1. Touchpoint table
 
-### Các điểm Touchpoint Tích hợp thành công:
-1.  **Khởi tạo SDK (Early Init & Session Clock)**
-    *   **Vị trí**: `RApp.kt` (kế thừa Application).
-    *   **Hành động**: Gọi `AdManager.setConfig(AdSdkConfig(...))`, sau đó là `AdManager.earlyInit(this)` và khởi tạo SDK provider. Đã xóa code cũ.
-2.  **App Open Ad (Splash Screen)**
-    *   **Vị trí**: `SplashActivity.kt`.
-    *   **Hành động**: Cập nhật thành `AdManager.initSplashScreen(this) { goToMain() }` để thay cho lệnh cũ.
-3.  **Interstitial Ad (Load ngầm cho toàn bộ cycle)**
-    *   **Vị trí**: `MainActivity.kt` (`onCreate`).
-    *   **Hành động**: Đã gắn luồng tải ngầm: `AdManager.loadInterstitial(this)`. Bỏ các Interface listener rườm rà dễ leak memory trước đó do SDK quản lý callback tự động.
-4.  **Interstitial Ad (Hiển thị lúc thao tác Cài Đặt)**
-    *   **Vị trí**: `SettingsPage.kt`.
-    *   **Hành động**: Gắn code thay thế `AdManager.showInterstitial(activity) { success -> ... }`.
+| Slot | File hiện tại | Trigger | API mới | API cũ thay thế |
+|---|---|---|---|---|
+| Init SDK | `RApp.kt` `setupAdmob()` | `Application.onCreate` | `AdManager.setConfig` + `AdManager.initialize(this){…}` (one-shot 4 bước) | `earlyInit` + `MobileAds.initialize`/`AppLovinSdk.initialize` + `init` + `registerAppOpenAdLifecycle` viết tay |
+| App Open (splash) | `SplashActivity.kt` | `onCreate` → warmup, navigate khi xong | `requestConsentInfoUpdate` → `initSplashScreen` | `initSplashScreen` (chưa có consent) |
+| App Open (resume) | lib tự quản | `ProcessLifecycleOwner` (trong `initialize`) | tự động | thủ công `registerAppOpenAdLifecycle` |
+| Banner | `sdkadbmob/ComposeBannerAd.kt` → `ReadingPage.kt:204` | bottom bar bài đọc | `@Composable AdBanner` (adaptive, auto lifecycle) | `loadBanner(...TextView...)` + `bannerPause/Resume/Destroy` thủ công |
+| Interstitial (load) | `MainActivity.kt:135` | `onCreate` | `AdManager.loadInterstitial` (giữ nguyên) | — |
+| Interstitial (show) | `SettingsPage.kt:80,102`, `DarkThemePage.kt:77` | back / unlock AMOLED | `AdManager.showInterstitial` (giữ nguyên) | — |
+| Rewarded | `VipManagementPage.kt` | nút "Xem quảng cáo → 3 ngày VIP" | `loadRewarded` + `showRewarded`, fallback `showInterstitial` | (chưa có) |
+| Consent (UMP) | `SplashActivity.kt` | `onCreate` | `AdManager.requestConsentInfoUpdate` | (chưa có) |
+| VIP by key | `VipManagementPage.kt` | nhập code / revoke | `activateVipByKey` / `isVipByKeyActive` / `getVipByKeyExpiry` / `clearVipByKey` | (chưa có) |
 
-### Các điểm Touchpoint Không Kích Hoạt (Tuân thủ nguyên tắc số 5):
-*   **Ad Banner**: Bỏ qua hiển thị vì code cũ đang bị tắt đi. Không tự ý nhét `layout_ad_banner`.
-*   **Ad Reward**: Bỏ qua tuyệt đối.
-*   **App Open Ad (Background return)**: Code cũ comment out không dùng. Theo rule 5, không thêm code lạ vào hệ luồng hiện có. Do đó, tôi sẽ KHÔNG gọi `AdManager.registerAppOpenAdLifecycle(this)` trong `RApp.kt`. 
+## 2. Step-by-step migrate
 
-## 3. Quản lý Leak Memory và Vấn đề Lỗi KAPT Build
-*   **Memory Leak**: Thư viện SDK cũ có tình trạng lưu tham chiếu static (`AdMobManager.interstitialListener`) và tham chiếu Activity cứng. SDK mới sử dụng cơ chế `setListener(null)` chủ động dọn dẹp biến rác vào GC khi bị Huỷ và dùng `CoroutineScope(Dispatchers.Default)` không bound cứng Activity, giúp project **0 leakage** từ Module Quảng cáo.
-*   **Build Error**: Hệ thống Android Studio đã phải đối mặt với các lỗi crash quá trình `kapt` do version Metadata Kotlin bị Conflict (AdmobWrapper chứa file Kotlin 2.1). Sự cố đã được tôi rà soát 3 lần và sửa tận gốc từ Gradle. Project đã pass Build 100%.
+1. **build.gradle** — bump lib `AdmobWrapper:1.1.1` → `AdmobApplovinWrapper:1.1.5`. Thêm `buildConfigField`
+   `APPLOVIN_REWARDED_ID` (`2d899bfeff96984a`), `ADMOB_REWARDED_ID` (Google test `…/5224354917`),
+   `PRIVACY_POLICY_URL` cho cả debug + release. Không đụng banner/interstitial/appOpen ID sẵn có.
+2. **RApp.kt** — `setupAdmob()` rút về `setConfig` + `initialize(this){…}`. Bổ sung `admobRewardedId`,
+   `applovinRewardedId`, `applovinSdkKey`, `vipKeySecret = AdKeys.VIP_SECRET`,
+   `safety = if (DEBUG) AdSafetyLimits.TEST else AdSafetyLimits.CONTENT`. Xoá block `MobileAds`/`AppLovinSdk`/`earlyInit`/`init`/`registerAppOpenAdLifecycle` thủ công + import dư (`MobileAds`, `AppLovinSdk`, `Handler`, `Looper`).
+3. **SplashActivity.kt** — bọc `requestConsentInfoUpdate(this){ canRequestAds -> initSplashScreen{ goToMain() } }`.
+4. **ComposeBannerAd.kt** — viết lại thành wrapper mỏng delegate sang SDK `AdBanner` (adaptive width). `ReadingPage` giữ nguyên call `ComposeBannerAd()`.
+5. **VIP screen (Compose)** — thêm package `ui/page/setting/vip/`: `AdKeys.kt` (VIP secret Base64 + privacy URL), `VipKeys.kt` (whitelist code→ngày Base64), `VipPrefs.kt` (grantedAt + userRedeemed), `VipManagementPage.kt` (13 thành phần UI + 5 animation). Route `RouteName.VIP` + `HomeEntry` + entry item trong `SettingsPage`.
+6. **i18n** — VIP strings cho cả 6 locale: en, vi, zh-rCN, ja, fr-rFR, de-rDE.
 
-## 4. Thông số Cấu Hình (Đã tích hợp đủ)
-*   **AppLovin SDK Key**: Đã cung cấp, đặt vào Manifest + config (`e75FnQfS...`)
-*   **Banner ID**: `1c8add7db0559d0b` (Khai báo nhưng chưa xài)
-*   **Interstitial ID**: `c64cc20b2583e3cb`
-*   **Reward ID**: `2d899bfeff96984a` (Chưa xài)
-*   **App Open ID**: `4e74ffbdceb9a6cf`
-*(Build Config được thiết lập động từ build.gradle -> BuildConfig)*
+## 3. So sánh trước / sau
+
+| Khía cạnh | Trước (1.1.1) | Sau (1.1.5) |
+|---|---|---|
+| Lib coordinate | `AdmobWrapper:1.1.1` | `AdmobApplovinWrapper:1.1.5` |
+| Init | `earlyInit` + provider init + `init` + `registerAppOpenAdLifecycle` (≈60 dòng) | `setConfig` + `initialize()` one-shot (≈8 dòng) |
+| App Open resume | thủ công | lib tự hook `ProcessLifecycleOwner` |
+| Consent (UMP) | ❌ không có | ✅ `requestConsentInfoUpdate` ở splash |
+| Banner | API cũ + manual pause/resume/destroy (leak risk) | `AdBanner` composable auto-lifecycle qua `DisposableEffect` |
+| Memory leak risk | giữ View/listener thủ công | Compose auto-cancel; SDK auto-clear listener |
+| Frequency cap | mặc định | `AdSafetyLimits.TEST` (debug) / `.CONTENT` (release) |
+| Rewarded | ❌ không có | ✅ nút "Watch ad → 3 ngày VIP" + fallback interstitial |
+| VIP | chỉ gate AMOLED bằng interstitial | màn VIP đầy đủ: by-key, auto-trial 1 ngày (SDK built-in), progress/countdown |
+| VIP secret | — | single `vipKeySecret` = 30d key (Base64, không plain trong `.kt`) |
+
+## 4. Thông tin user đã cấp / còn mở
+
+Đã cấp đủ:
+- AppLovin Rewarded ID: `2d899bfeff96984a` (debug + release).
+- AdMob: dùng Google **test** ID (`IS_ENABLE_ADMOB=false`, AdMob dormant).
+- Privacy Policy URL: `https://loitp.notion.site/Term-Privacy-Policy-Disclaimer-319b1cd8783942fa8923d2a3c9bce60f`.
+- VIP key 30 ngày: `9fA0q7eN!27cLx04@21993Y2u0I7#Q0` (= `vipKeySecret`). VIP key 3 ngày: `eQ7@93L0f!2Y2707xN04021993u0I#2aK`.
+
+Còn mở (không chặn):
+- Banner adaptive đặt ở bottom `ReadingPage` (dock dưới, không che nút) — OK theo policy.
+- Toolbar VIP badge: app là Compose single-activity, entry VIP đặt trong Settings thay vì badge XML toolbar (đã có `Icons.WorkspacePremium`). Nếu cần badge trên top bar Home sẽ bổ sung sau.
+- IAP (mua VIP 30/90/365/lifetime + Restore): nút `disabled`, chờ tích hợp Billing.
+
+## 5. Consent (UMP) — kịch bản
+
+- Non-EEA: skip dialog, ad load bình thường.
+- EEA accept: dialog xong → ad load.
+- EEA deny: dialog xong → lib không load personalized ad (lib tự xử lý). App vẫn navigate vào Main.
+- Lỗi consent: lib fallback `canRequestAds=true`.
+
+## 6. VIP auto-trial 1 ngày (SDK built-in 1.1.4+)
+
+- SDK tự grant 1 ngày VIP cho first-install (release) qua `InstallReferrerHelper` + provisional arm. App **không** tự implement flag.
+- VIP screen nhận diện grace entry (`userRedeemedAtLeastOnce()==false`) → hiển thị label `🎁 Quà tặng cài đặt mới`.
+
+## 7. Policy check
+
+| # | Rule | Kết quả |
+|---|---|---|
+| 1 | Banner không che nội dung tương tác | ✅ dock bottom `ReadingPage`, có `navigationBarsPadding` |
+| 2 | App Open không show trên splash thuần | ✅ chỉ warmup ở splash, show khi resume từ background |
+| 3 | Interstitial tôn trọng frequency cap | ✅ `AdSafetyLimits` (TEST debug / CONTENT release) |
+| 4 | Rewarded chỉ trigger khi user bấm nút | ✅ nút trong VIP screen |
+| 5 | Không tự click ad / fake close | ✅ banner composable do SDK render |
+
+---
+
+# Phụ lục — kế hoạch cũ (`_260321AdmobWrapper`, bản 1.1.1)
+
+> Giữ lại để tham chiếu lịch sử. Đã thay thế bởi plan 1.1.5 ở trên.
+
+## 1. Đánh giá hiện trạng (cũ)
+- App Open (Splash): `SplashActivity.kt` `initSplashScreen`.
+- Interstitial: load ở `MainActivity.kt`, show ở `SettingsPage.kt`.
+- Banner: code draft ở `MainActivity.kt` bị comment out.
+- App Open (background): `AppLifecycleListener` comment out.
+- Reward: không có touchpoint.
+
+## 2. Thông số cũ
+- AppLovin SDK Key: `e75FnQfS…`
+- Banner ID: `1c8add7db0559d0b`
+- Interstitial ID: `c64cc20b2583e3cb`
+- Reward ID: `2d899bfeff96984a`
+- App Open ID: `4e74ffbdceb9a6cf`

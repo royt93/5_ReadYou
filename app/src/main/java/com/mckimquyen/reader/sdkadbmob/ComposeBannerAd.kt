@@ -1,57 +1,35 @@
 package com.mckimquyen.reader.sdkadbmob
 
+import android.app.Activity
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.viewinterop.AndroidView
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleEventObserver
-import androidx.lifecycle.compose.LocalLifecycleOwner
+import com.roy.sdkadbmob.AdBanner
 import com.roy.sdkadbmob.AdManager
-import android.widget.FrameLayout
+import com.roy.sdkadbmob.ExperimentalAdApi
 
+/**
+ * Wrapper mỏng delegate sang SDK [AdBanner] (SDK 1.1.3+).
+ *
+ * SDK tự inflate shimmer placeholder + auto pause/resume/destroy qua [androidx.compose.runtime.DisposableEffect]
+ * (autoManageLifecycle=true) — app KHÔNG cần loadBanner/bannerPause/bannerResume/bannerDestroy thủ công.
+ * Dùng adaptive banner full-width (rớt về 320×50 nếu chưa lấy được Activity).
+ */
+@OptIn(ExperimentalAdApi::class)
 @Composable
 fun ComposeBannerAd(modifier: Modifier = Modifier) {
     val context = LocalContext.current
-    val lifecycleOwner = LocalLifecycleOwner.current
-
-    val container = remember { android.widget.FrameLayout(context) }
-    val bannerView: android.view.View? = remember {
-        try {
-            AdManager.loadBanner(context, container, android.widget.TextView(context), com.google.android.gms.ads.AdSize.BANNER)
-        } catch (e: Exception) {
-            null
-        }
+    val activity = remember(context) { context as? Activity }
+    val adSize = remember(activity) {
+        activity?.let { AdManager.getAdaptiveBannerSize(it) } ?: com.google.android.gms.ads.AdSize.BANNER
     }
-
-    DisposableEffect(lifecycleOwner) {
-        val observer = LifecycleEventObserver { _, event ->
-            if (event == Lifecycle.Event.ON_PAUSE) {
-                bannerView?.let { AdManager.bannerPause(it) }
-            } else if (event == Lifecycle.Event.ON_RESUME) {
-                bannerView?.let { AdManager.bannerResume(it) }
-            }
-        }
-        lifecycleOwner.lifecycle.addObserver(observer)
-
-        onDispose {
-            lifecycleOwner.lifecycle.removeObserver(observer)
-            bannerView?.let { AdManager.bannerDestroy(it) }
-        }
-    }
-
-    AndroidView(
+    AdBanner(
         modifier = modifier
             .fillMaxWidth()
             .navigationBarsPadding(),
-        factory = {
-            container // Return the container which holds the loaded ad!
-        }
+        adSize = adSize,
     )
 }
