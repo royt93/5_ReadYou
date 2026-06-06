@@ -33,8 +33,8 @@ import com.roy.sdkadbmob.AdManager
 private val VipGold = Color(0xFFFFD60A)
 
 /**
- * Chip "VIP" vàng cho top bar Home. Chỉ hiện khi [AdManager.isVipByKeyActive] = true
- * (free user → GONE), refresh ở `ON_RESUME` (sau khi back từ VIP screen). Tap → mở VIP screen.
+ * Chip VIP hiển thị trên top bar Home. Luôn hiển thị trạng thái VIP (màu vàng) hoặc FREE (màu xám).
+ * Refresh ở `ON_RESUME` (sau khi back từ VIP screen). Tap → mở VIP screen.
  */
 @Composable
 fun VipBadge(onClick: () -> Unit) {
@@ -47,27 +47,30 @@ fun VipBadge(onClick: () -> Unit) {
         lifecycleOwner.lifecycle.addObserver(observer)
         onDispose { lifecycleOwner.lifecycle.removeObserver(observer) }
     }
-    if (!active) return
+
+    val backgroundColor = if (active) VipGold else MaterialTheme.colorScheme.surfaceVariant
+    val contentColor = if (active) Color.Black else MaterialTheme.colorScheme.onSurfaceVariant
+    val labelText = if (active) "VIP" else "FREE"
 
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .padding(horizontal = 4.dp)
             .clip(RoundedCornerShape(50))
-            .background(VipGold)
+            .background(backgroundColor)
             .clickable(onClick = onClick)
             .padding(horizontal = 10.dp, vertical = 4.dp),
     ) {
         Icon(
             imageVector = Icons.Outlined.WorkspacePremium,
-            contentDescription = "VIP",
-            tint = Color.Black,
+            contentDescription = labelText,
+            tint = contentColor,
             modifier = Modifier.size(16.dp),
         )
         Spacer(Modifier.width(4.dp))
         Text(
-            text = "VIP",
-            color = Color.Black,
+            text = labelText,
+            color = contentColor,
             style = MaterialTheme.typography.labelMedium,
             fontWeight = FontWeight.Bold,
         )
