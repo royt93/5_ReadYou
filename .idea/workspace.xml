@@ -197,14 +197,6 @@
       <option name="presentableId" value="Default" />
       <updated>1759065326374</updated>
     </task>
-    <task id="LOCAL-00008" summary="Add Advertising ID permission and backup rules&#10;&#10;This commit introduces the following changes:&#10;- Adds the `com.google.android.gms.permission.AD_ID` permission to `AndroidManifest.xml` for advertising and analytics purposes.&#10;- Includes new XML files `backup_rules.xml` and `data_extraction_rules.xml` to define backup and data extraction behavior.&#10;- Updates `AndroidManifest.xml` to reference these new rules files.&#10;- Adds metadata for AdMob App ID, delayed app measurement initialization, and disables automatic screen reporting for Google Analytics.">
-      <option name="closed" value="true" />
-      <created>1759137438213</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1759137438213</updated>
-    </task>
     <task id="LOCAL-00009" summary="Update app theme to Material Design 3 and enhance UI elements&#10;&#10;This commit migrates the app's theme to Material Design 3, introducing updated color schemes, typography, and shapes. It also enhances various UI components and adds new animations.&#10;&#10;Key changes:&#10;- **Material Design 3 Theme:**&#10;    - Updated `themes.xml` for both light and dark modes to use `Theme.Material3` parents.&#10;    - Defined new Material 3 color attributes (primary, secondary, tertiary, error, surface, background, outline, etc.) in `colors.xml` for both light and dark themes.&#10;    - Updated `windowBackground` and `ic_launcher_background` colors.&#10;- **Typography:**&#10;    - Refined `SystemTypography` in `Type.kt` with updated font weights and letter spacing for Material 3 guidelines.&#10;    - Added new custom text styles for reader-specific content: `ReaderTitleStyle`, `ReaderSubtitleStyle`, `ReaderBodyStyle`, `ReaderCaptionStyle`, and `ReaderOverlineStyle`.&#10;- **Shapes:**&#10;    - Updated `Shapes.kt` with Material 3 shape definitions.&#10;    - Added various custom `RoundedCornerShape` variations for modern UI elements, including asymmetric and directional shapes (e.g., `ShapeTop16`, `ShapeBottom16`, `ShapeStart16`).&#10;    - Defined specific shapes for UI components like `CardShape`, `ButtonShape`, `InputShape`, `ChipShape`, `BottomSheetShape`, and `DialogShape`.&#10;- **Animations:**&#10;    - Added new animation resource files:&#10;        - `slide_in_right.xml`, `slide_out_left.xml` (for window transitions)&#10;        - `slide_up.xml`, `slide_down.xml`&#10;        - `fade_in.xml`, `fade_out.xml`&#10;    - Defined `WindowAnimationTransition` style in `themes.xml` using the new slide animations.&#10;- **UI Component Enhancements:**&#10;    - `BaseAsyncImage.kt`:&#10;        - Changed default `contentScale` to `ContentScale.Crop`.&#10;        - Added `enableClipping` and `cornerRadius` parameters, defaulting to true and `12.dp` respectively.&#10;        - Applied background color from `MaterialTheme.colorScheme.surface` and clipping to the image.&#10;        - Updated placeholder and error image tinting to use theme colors.&#10;    - `BlockButton.kt`:&#10;        - Updated container and content colors to use Material 3 theme colors.&#10;        - Increased height to `64.dp` and corner radius to `16.dp`.&#10;        - Adjusted padding.&#10;- **Splash Screen:**&#10;    - Updated `startup.xml` with a modern gradient background using theme colors.&#10;    - Centered the app logo (`ic_launcher_foreground`) and increased its size.&#10;    - Added a modern loading indicator below the logo.&#10;- **Launcher Icon:**&#10;    - Updated `ic_launcher_foreground.xml` with a new modern book icon design, including page lines, a corner fold, and a bookmark.&#10;- **Styles:**&#10;    - Added new styles in `themes.xml` for `ModernCard`, `ModernButton`, `ModernButtonOutlined`, and `ModernTextInput` using Material 3 components and the new shapes.">
       <option name="closed" value="true" />
       <created>1759138353594</created>
@@ -589,7 +581,15 @@
       <option name="project" value="LOCAL" />
       <updated>1780750592225</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="Build: Upgrade Android test dependencies and update IDE configuration&#10;&#10;This commit updates the instrumented testing libraries to newer versions and synchronizes internal IDE workspace metadata.&#10;&#10;- **`app/build.gradle`**:&#10;    - Upgraded `androidx.test.ext:junit` from `1.1.5` to `1.2.1`.&#10;    - Upgraded `androidx.test.espresso:espresso-core` from `3.5.1` to `3.6.1`.&#10;&#10;- **`.idea/workspace.xml`**:&#10;    - Updated internal IDE state, including task history, property settings, and change list tracking to reflect recent commits and project configuration changes.&#10;    - Updated `PropertiesComponent` with new notification and VCS-related keys.">
+      <option name="closed" value="true" />
+      <created>1780750821045</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1780750821045</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
