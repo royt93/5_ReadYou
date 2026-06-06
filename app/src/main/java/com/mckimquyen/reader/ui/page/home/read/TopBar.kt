@@ -38,6 +38,7 @@ fun TopBar(
     title: String? = "",
     link: String? = "",
     isPlayingAudio: Boolean = false,
+    showSummary: Boolean = false,
     onPlayAudio: () -> Unit = {},
     onSummary: () -> Unit = {},
     onClose: () -> Unit = {},
@@ -65,19 +66,21 @@ fun TopBar(
                     }
                 },
                 actions = {
-                    FeedbackIconButton(
-                        modifier = Modifier.size(22.dp),
-                        imageVector = Icons.Outlined.AutoAwesome,
-                        contentDescription = stringResource(R.string.summary_title),
-                        tint = MaterialTheme.colorScheme.onSurface
-                    ) {
-                        android.util.Log.d("roy93~AI", "TopBar: Summary clicked")
-                        onSummary()
+                    if (showSummary) {
+                        FeedbackIconButton(
+                            modifier = Modifier.size(22.dp),
+                            imageVector = Icons.Outlined.AutoAwesome,
+                            contentDescription = stringResource(R.string.summary_title),
+                            tint = MaterialTheme.colorScheme.onSurface
+                        ) {
+                            android.util.Log.d("roy93~AI", "TopBar: Summary clicked")
+                            onSummary()
+                        }
                     }
                     FeedbackIconButton(
                         modifier = Modifier.size(22.dp),
                         imageVector = if (isPlayingAudio) Icons.Rounded.Stop else Icons.Rounded.PlayArrow,
-                        contentDescription = "Nghe Báo",
+                        contentDescription = stringResource(R.string.read_aloud),
                         tint = MaterialTheme.colorScheme.onSurface
                     ) {
                         android.util.Log.d("roy93~", "TopBar: PlayAudio clicked")

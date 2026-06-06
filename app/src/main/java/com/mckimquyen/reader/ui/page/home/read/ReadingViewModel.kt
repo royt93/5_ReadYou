@@ -153,35 +153,17 @@ class ReadingViewModel @Inject constructor(
 
     // ---- AI Summary (Gemini) ----
 
-    /** Mở BottomSheet tóm tắt. Nếu chưa có key thì hiện ô nhập key, ngược lại gọi tóm tắt ngay. */
+    /** Mở BottomSheet tóm tắt rồi gọi Gemini ngay. Nút ✨ chỉ hiện khi đã có key dev nhúng,
+     *  nên không cần hỏi key người dùng nữa. */
     fun openSummary() {
         Log.d("roy93~AI", "[VM.openSummary] clicked, article=${_readingUiState.value.articleWithFeed?.article?.id}")
         _readingUiState.update { it.copy(showSummarySheet = true) }
-        if (summaryService.hasApiKey()) {
-            Log.d("roy93~AI", "[VM.openSummary] has key -> requestSummary()")
-            requestSummary()
-        } else {
-            Log.d("roy93~AI", "[VM.openSummary] no key -> show NeedApiKey")
-            _readingUiState.update { it.copy(summaryState = SummaryState.NeedApiKey) }
-        }
+        requestSummary()
     }
 
     fun dismissSummary() {
         Log.d("roy93~AI", "[VM.dismissSummary]")
         _readingUiState.update { it.copy(showSummarySheet = false) }
-    }
-
-    /** Lưu key user nhập rồi tóm tắt luôn. */
-    fun saveApiKeyAndSummarize(key: String) {
-        Log.d("roy93~AI", "[VM.saveApiKeyAndSummarize] keyLen=${key.length}")
-        if (key.isBlank()) {
-            Log.w("roy93~AI", "[VM.saveApiKeyAndSummarize] blank key, bỏ qua")
-            return
-        }
-        viewModelScope.launch {
-            summaryService.saveUserApiKey(key)
-            requestSummary()
-        }
     }
 
     fun requestSummary() {
@@ -203,9 +185,6 @@ class ReadingViewModel @Inject constructor(
                 )
                 Log.d("roy93~AI", "[VM.requestSummary] ✅ Success summaryLen=${summary.length}")
                 _readingUiState.update { it.copy(summaryState = SummaryState.Success(summary)) }
-            } catch (e: GeminiSummaryService.SummaryException.MissingApiKey) {
-                Log.d("roy93~AI", "[VM.requestSummary] -> NeedApiKey")
-                _readingUiState.update { it.copy(summaryState = SummaryState.NeedApiKey) }
             } catch (e: Exception) {
                 Log.e("roy93~AI", "[VM.requestSummary] ❌ Error: $e", e)
                 _readingUiState.update { it.copy(summaryState = e.toSummaryErrorState()) }
@@ -318,7 +297,6 @@ data class ReadingUiState(
 sealed interface SummaryState {
     object Idle : SummaryState
     object Loading : SummaryState
-    object NeedApiKey : SummaryState
     data class Success(val text: String) : SummaryState
     /** [messageRes] là string resource (đa ngôn ngữ); [arg] tuỳ chọn dùng cho format (vd HTTP code). */
     data class Error(@StringRes val messageRes: Int, val arg: Int? = null) : SummaryState

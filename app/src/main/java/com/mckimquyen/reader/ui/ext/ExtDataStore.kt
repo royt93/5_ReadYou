@@ -11,6 +11,7 @@ import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import com.mckimquyen.reader.domain.model.account.AccountType
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.first
@@ -25,10 +26,12 @@ val Context.skipVersionNumber: String
     get() = this.dataStore.get(DataStoreKeys.SkipVersionNumber) ?: ""
 val Context.isFirstLaunch: Boolean
     get() = this.dataStore.get(DataStoreKeys.IsFirstLaunch) ?: false
+// Trả về default an toàn thay vì !! (tránh NPE/crash khi DataStore ở trạng thái thiếu key,
+// vd lần chạy đầu trước khi addDefaultAccount kịp ghi). Default khớp tài khoản mặc định: Local, id 1.
 val Context.currentAccountId: Int
-    get() = this.dataStore.get(DataStoreKeys.CurrentAccountId)!!
+    get() = this.dataStore.get(DataStoreKeys.CurrentAccountId) ?: 1
 val Context.currentAccountType: Int
-    get() = this.dataStore.get(DataStoreKeys.CurrentAccountType)!!
+    get() = this.dataStore.get(DataStoreKeys.CurrentAccountType) ?: AccountType.Local.id
 
 val Context.initialPage: Int
     get() = this.dataStore.get(DataStoreKeys.InitialPage) ?: 0
@@ -140,13 +143,6 @@ sealed class DataStoreKeys<T> {
 
         override val key: Preferences.Key<String>
             get() = stringPreferencesKey("customPrimaryColor")
-    }
-
-    // Gemini API key do người dùng tự nhập (ưu tiên hơn key dev nhúng trong BuildConfig).
-    object GeminiApiKey : DataStoreKeys<String>() {
-
-        override val key: Preferences.Key<String>
-            get() = stringPreferencesKey("geminiApiKey")
     }
 
     object DarkTheme : DataStoreKeys<Int>() {

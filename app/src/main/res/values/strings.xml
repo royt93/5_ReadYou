@@ -488,4 +488,5 @@
     <string name="summary_err_parse">Couldn’t read Gemini’s response</string>
     <string name="summary_err_network">Network error, please check your connection</string>
     <string name="summary_err_unknown">Unknown error</string>
+    <string name="read_aloud">Read aloud</string>
 </resources>

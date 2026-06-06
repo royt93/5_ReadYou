@@ -313,4 +313,5 @@
     <string name="summary_err_parse">Không đọc được phản hồi từ Gemini</string>
     <string name="summary_err_network">Lỗi mạng, vui lòng kiểm tra kết nối</string>
     <string name="summary_err_unknown">Lỗi không xác định</string>
+    <string name="read_aloud">Nghe báo</string>
 </resources>

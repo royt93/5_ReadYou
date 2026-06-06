@@ -108,7 +108,7 @@ fun ReadingPage(
             SummarySheetContent(
                 state = readingUiState.summaryState,
                 onRetry = { readingViewModel.requestSummary() },
-                onSaveKey = { key -> readingViewModel.saveApiKeyAndSummarize(key) },
+                onClose = { readingViewModel.dismissSummary() },
             )
         },
     ) {
@@ -129,6 +129,9 @@ fun ReadingPage(
                     onPlayAudio = {
                         readingViewModel.togglePlayAudio()
                     },
+                    // Nút ✨ chỉ hiện khi đã cấu hình key Gemini (GeminiConfig.API_KEYS).
+                    // Chưa có key -> ẩn nút để user phổ thông không thấy tính năng chưa sẵn sàng.
+                    showSummary = com.mckimquyen.reader.infrastructure.ai.GeminiConfig.hasAnyKey(),
                     onSummary = {
                         readingViewModel.openSummary()
                     },

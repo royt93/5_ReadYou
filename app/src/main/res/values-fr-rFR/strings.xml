@@ -320,4 +320,5 @@
     <string name="summary_err_parse">Impossible de lire la réponse de Gemini</string>
     <string name="summary_err_network">Erreur réseau, veuillez vérifier votre connexion</string>
     <string name="summary_err_unknown">Erreur inconnue</string>
+    <string name="read_aloud">Lecture audio</string>
 </resources>

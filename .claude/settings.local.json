@@ -77,7 +77,22 @@
       "Bash(python3 -c ' *)",
       "Bash(adb -s 192.168.21.185:44337 shell uiautomator dump /sdcard/a.xml)",
       "Bash(adb -s 192.168.21.185:44337 shell cat /sdcard/a.xml)",
-      "Bash(adb -s 192.168.21.185:44337 shell input tap 720 2620)"
+      "Bash(adb -s 192.168.21.185:44337 shell input tap 720 2620)",
+      "Bash(grep -nA1 -E \"English|ChineseSimplified|German|French|Japanese|Vietnamese|UseDeviceLanguages\" java/com/mckimquyen/reader/infrastructure/pref/LanguagesPref.kt)",
+      "Bash(grep -rnA15 \"addDefaultAccount\" java/com/mckimquyen/reader/domain/sv/AccountSv.kt)",
+      "Bash(python3 *)",
+      "Bash(adb -s 192.168.21.185:44337 shell input tap 838 256)",
+      "Bash(adb -s 192.168.21.185:44337 logcat -d -s roy93~AI)",
+      "Bash(grep -v \"^$\")",
+      "Bash(adb reconnect *)",
+      "Bash(adb connect *)",
+      "Bash(adb -s 192.168.21.185:44337 shell 'run-as com.mckimquyen.reader sh -c '\\\\''printf \"%s\" \"<?xml version=\\\\\"1.0\\\\\" encoding=\\\\\"utf-8\\\\\" standalone=\\\\\"yes\\\\\" ?><map><int name=\\\\\"languages\\\\\" value=\\\\\"0\\\\\" /></map>\" > shared_prefs/locale_prefs.xml'\\\\''')",
+      "Bash(adb -s 192.168.21.185:44337 shell run-as com.mckimquyen.reader cat shared_prefs/locale_prefs.xml)",
+      "Bash(adb -s 192.168.21.185:44337 shell input keyevent KEYCODE_HOME)",
+      "Bash(adb -s 192.168.21.185:44337 shell uiautomator dump /sdcard/h.xml)",
+      "Bash(adb -s 192.168.21.185:44337 shell cat /sdcard/h.xml)",
+      "Bash(adb -s 192.168.21.185:44337 shell input tap 700 1790)",
+      "Bash(adb -s 192.168.21.185:44337 shell input tap 1373 1828)"
     ],
     "deny": [],
     "ask": []

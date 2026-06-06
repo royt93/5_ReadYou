@@ -318,4 +318,5 @@
     <string name="summary_err_parse">Antwort von Gemini konnte nicht gelesen werden</string>
     <string name="summary_err_network">Netzwerkfehler, bitte überprüfe deine Verbindung</string>
     <string name="summary_err_unknown">Unbekannter Fehler</string>
+    <string name="read_aloud">Vorlesen</string>
 </resources>
