@@ -48,13 +48,18 @@ class SplashActivity : ComponentActivity() {
             SplashScreen()
         }
 
-        // UMP consent (EEA/UK/CH) trước khi load bất kỳ ad nào. Lib tự download + show
-        // form nếu cần; non-EEA skip dialog. Resolve xong → App Open warmup → vào Main.
-        // KHÔNG show App Open trên splash thuần (policy) — chỉ warmup ở đây.
         Log.d("roy93~Ad", "[Splash] 🔐 onCreate — requestConsentInfoUpdate()")
         AdManager.requestConsentInfoUpdate(this) { canRequestAds ->
+            if (isFinishing || isDestroyed) {
+                Log.d("roy93~Ad", "[Splash] Activity finishing or destroyed, skipping initSplashScreen")
+                return@requestConsentInfoUpdate
+            }
             Log.d("roy93~Ad", "[Splash] ✅ consent resolved, canRequestAds=$canRequestAds — initSplashScreen()")
             AdManager.initSplashScreen(this) {
+                if (isFinishing || isDestroyed) {
+                    Log.d("roy93~Ad", "[Splash] Activity finishing or destroyed, skipping goToMain")
+                    return@initSplashScreen
+                }
                 Log.d("roy93~Ad", "[Splash] ✅ initSplashScreen callback fired — navigating to Main")
                 goToMain()
             }

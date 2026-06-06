@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import com.mckimquyen.reader.ui.ext.findActivity
 import com.roy.sdkadbmob.AdBanner
 import com.roy.sdkadbmob.AdManager
 import com.roy.sdkadbmob.ExperimentalAdApi
@@ -22,7 +23,7 @@ import com.roy.sdkadbmob.ExperimentalAdApi
 @Composable
 fun ComposeBannerAd(modifier: Modifier = Modifier) {
     val context = LocalContext.current
-    val activity = remember(context) { context as? Activity }
+    val activity = remember(context) { context.findActivity() }
     val adSize = remember(activity) {
         activity?.let { AdManager.getAdaptiveBannerSize(it) } ?: com.google.android.gms.ads.AdSize.BANNER
     }
