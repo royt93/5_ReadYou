@@ -8,6 +8,7 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
 import androidx.navigation.compose.rememberNavController
+import com.mckimquyen.reader.R
 import com.roy.sdkadbmob.AdManager
 import com.roy.sdkadbmob.AdSdkConfig
 import org.junit.After
@@ -59,7 +60,12 @@ class VipFlowIntegrationTest {
         // nhập đúng key 30 ngày
         rule.onNode(hasSetTextAction()).performTextInput(VipKeys.VIP_30D_KEY)
         rule.onNodeWithText("Activate").performClick()
+        // Tạm enable autoAdvance để AlertDialog enter-animation settle rồi disable lại.
+        // advanceTimeBy(1000) đảm bảo confettiPop delay(900ms) cũng hoàn thành.
+        rule.mainClock.autoAdvance = true
+        rule.mainClock.advanceTimeBy(1_000)
         rule.waitForIdle()
+        rule.mainClock.autoAdvance = false
 
         // AdManager đã set VIP active
         assertTrue(AdManager.isVipByKeyActive())
@@ -67,17 +73,20 @@ class VipFlowIntegrationTest {
         // ~30 ngày (cho dung sai vài phút)
         assertTrue(remainingMs in (29L * 24 * 3600_000)..(30L * 24 * 3600_000 + 60_000))
 
-        // dialog success hiển thị
-        rule.onNodeWithText("Success").assertIsDisplayed()
+        // dialog success hiển thị — dùng string resource để không phụ thuộc locale device
+        rule.onNodeWithText(rule.activity.getString(R.string.vip_success_title)).assertIsDisplayed()
     }
 
     @Test
     fun nhapKeySai_baoThatBai_khongKichHoat() {
         rule.onNode(hasSetTextAction()).performTextInput("SAI-KEY-999")
         rule.onNodeWithText("Activate").performClick()
+        // Tạm enable autoAdvance để AlertDialog enter-animation settle (animation là time-based).
+        rule.mainClock.autoAdvance = true
         rule.waitForIdle()
+        rule.mainClock.autoAdvance = false
 
-        rule.onNodeWithText("Failed").assertIsDisplayed()
+        rule.onNodeWithText(rule.activity.getString(R.string.vip_failed_title)).assertIsDisplayed()
         assertTrue(!AdManager.isVipByKeyActive())
     }
 }
