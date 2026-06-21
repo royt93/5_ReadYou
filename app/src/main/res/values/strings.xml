@@ -520,4 +520,5 @@
     <string name="privacy_policy">Privacy Policy</string>
     <string name="ok">OK</string>
     <string name="vip_rewarded_not_earned">You need to watch the full ad to get VIP. Please try again.</string>
+    <string name="splash_ad_notice">Please note: this app may show ads</string>
 </resources>

@@ -11,7 +11,6 @@ import com.mckimquyen.reader.infrastructure.pref.LocalAmoledUnlocked
 import com.mckimquyen.reader.infrastructure.pref.AmoledUnlockedPref
 import android.app.Activity
 import androidx.compose.foundation.layout.Spacer
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.height
@@ -59,6 +58,13 @@ fun DarkThemePage(
     val handleAmoledToggle: () -> Unit = {
         if (amoledUnlocked.value) {
             (!amoledDarkTheme).put(context, scope)
+        } else if (com.roy.sdkadbmob.AdManager.isVipByKeyActive()) {
+            // [M1] VIP user: bypass ad gate, unlock trực tiếp không cần xem ad
+            scope.launch {
+                AmoledUnlockedPref.ON.put(context, this)
+                com.mckimquyen.reader.infrastructure.pref.AmoledDarkThemePref.ON.put(context, this)
+                com.mckimquyen.reader.infrastructure.pref.DarkThemePref.ON.put(context, this)
+            }
         } else {
             showRewardDialog = true
         }
@@ -77,12 +83,14 @@ fun DarkThemePage(
                         com.roy.sdkadbmob.AdManager.showInterstitial(activity) { success ->
                             android.util.Log.d("roy93~Ad", "showInterstitial callback: success=$success")
                             if (success) {
-                                kotlinx.coroutines.GlobalScope.launch {
+                                // [H1] Dùng scope (rememberCoroutineScope) thay vì GlobalScope
+                                // để tránh leak khi Activity bị destroy giữa config change.
+                                scope.launch {
                                     AmoledUnlockedPref.ON.put(context, this)
                                     com.mckimquyen.reader.infrastructure.pref.AmoledDarkThemePref.ON.put(context, this)
                                     com.mckimquyen.reader.infrastructure.pref.DarkThemePref.ON.put(context, this)
                                 }
-                                android.util.Log.d("roy93~Ad", "Amoled theme unlocked and activated with GlobalScope!")
+                                android.util.Log.d("roy93~Ad", "Amoled theme unlocked and activated!")
                             } else {
                                 android.widget.Toast.makeText(context, context.getString(R.string.ad_not_ready), android.widget.Toast.LENGTH_SHORT).show()
                             }

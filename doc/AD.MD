@@ -48,7 +48,7 @@
 | Banner | API cũ + manual pause/resume/destroy (leak risk) | `AdBanner` composable auto-lifecycle qua `DisposableEffect` |
 | Memory leak risk | giữ View/listener thủ công | Compose auto-cancel; SDK auto-clear listener |
 | Frequency cap | mặc định | `AdSafetyLimits.TEST` (debug) / `.CONTENT` (release) |
-| Rewarded | ❌ không có | ✅ nút "Watch ad → 3 ngày VIP" + fallback interstitial |
+| Rewarded | ❌ không có | ✅ nút "Watch ad → 3 ngày VIP"; fallback interstitial khi earned=false nhưng **không grant** (intentional: user đóng ad sớm không được thưởng) |
 | VIP | chỉ gate AMOLED bằng interstitial | màn VIP đầy đủ: by-key, auto-trial 1 ngày (SDK built-in), progress/countdown |
 | VIP secret | — | single `vipKeySecret` = 30d key (Base64, không plain trong `.kt`) |
 
@@ -58,7 +58,7 @@
 - AppLovin Rewarded ID: `2d899bfeff96984a` (debug + release).
 - AdMob: dùng Google **test** ID (`IS_ENABLE_ADMOB=false`, AdMob dormant).
 - Privacy Policy URL: `https://loitp.notion.site/Term-Privacy-Policy-Disclaimer-319b1cd8783942fa8923d2a3c9bce60f`.
-- VIP key 30 ngày: `9fA0q7eN!27cLx04@21993Y2u0I7#Q0` (= `vipKeySecret`). VIP key 3 ngày: `eQ7@93L0f!2Y2707xN04021993u0I#2aK`.
+- VIP key 30 ngày: `[REDACTED — xem VipKeys.VIP_30D_B64]` (= `vipKeySecret`). VIP key 3 ngày: `[REDACTED — xem VipKeys.VIP_3D_B64]`.
 
 Còn mở (không chặn):
 - Banner adaptive đặt ở bottom `ReadingPage` (dock dưới, không che nút) — OK theo policy.

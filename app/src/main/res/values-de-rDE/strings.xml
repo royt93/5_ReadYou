@@ -350,4 +350,5 @@
     <string name="privacy_policy">Datenschutzrichtlinie</string>
     <string name="ok">OK</string>
     <string name="vip_rewarded_not_earned">Du musst die Werbung vollständig ansehen, um VIP zu erhalten. Bitte versuche es erneut.</string>
+    <string name="splash_ad_notice">Hinweis: Diese App kann Werbung anzeigen</string>
 </resources>

@@ -31,6 +31,7 @@ import com.roy.sdkadbmob.AdManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import com.mckimquyen.reader.R
 
 @SuppressLint("CustomSplashScreen")
 @AndroidEntryPoint
@@ -49,6 +50,17 @@ class SplashActivity : ComponentActivity() {
         }
 
         Log.d("roy93~Ad", "[Splash] 🔐 onCreate — requestConsentInfoUpdate()")
+
+        // [C1] Safety timeout: nếu consent + initSplashScreen không resolve trong 8s
+        // (vd: device offline, UMP server unreachable) → navigate vào Main để tránh hang.
+        lifecycleScope.launch {
+            delay(8_000L)
+            if (!navigationStarted && !isFinishing && !isDestroyed) {
+                Log.w("roy93~Ad", "[Splash] ⏰ consent+splash timeout (8s) — navigating anyway")
+                goToMain()
+            }
+        }
+
         AdManager.requestConsentInfoUpdate(this) { canRequestAds ->
             if (isFinishing || isDestroyed) {
                 Log.d("roy93~Ad", "[Splash] Activity finishing or destroyed, skipping initSplashScreen")
@@ -137,7 +149,7 @@ fun SplashScreen() {
 
         // Bottom notice
         Text(
-            text = "Please note: this action may show ads",
+            text = androidx.compose.ui.res.stringResource(R.string.splash_ad_notice),
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
             textAlign = TextAlign.Center,

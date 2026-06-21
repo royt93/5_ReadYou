@@ -337,4 +337,5 @@
     <string name="privacy_policy">隐私政策</string>
     <string name="ok">确定</string>
     <string name="vip_rewarded_not_earned">需要看完广告才能获得 VIP。请重试。</string>
+    <string name="splash_ad_notice">注意：此应用可能会显示广告</string>
 </resources>
