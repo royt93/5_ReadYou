@@ -519,6 +519,6 @@
     <string name="vip_failed_invalid_key">Invalid code. Please check again.</string>
     <string name="privacy_policy">Privacy Policy</string>
     <string name="ok">OK</string>
-    <string name="vip_rewarded_not_earned">You need to watch the full ad to get VIP. Please try again.</string>
+    <string name="vip_rewarded_not_earned">Ad is not available or was not completed. Please try again.</string>
     <string name="splash_ad_notice">Please note: this app may show ads</string>
 </resources>

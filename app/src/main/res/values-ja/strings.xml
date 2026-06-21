@@ -337,6 +337,6 @@
     <string name="vip_failed_invalid_key">無効なコードです。もう一度ご確認ください。</string>
     <string name="privacy_policy">プライバシーポリシー</string>
     <string name="ok">OK</string>
-    <string name="vip_rewarded_not_earned">VIPを獲得するには広告を最後までご視聴ください。もう一度お試しください。</string>
+    <string name="vip_rewarded_not_earned">広告を利用できないか、完了していません。もう一度お試しください。</string>
     <string name="splash_ad_notice">ご注意：このアプリは広告を表示する場合があります</string>
 </resources>

@@ -16,11 +16,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6f28f826-4208-4800-b7bf-3c32f11fba88" name="Changes" comment="Add .gitignore and project configuration files; update VIP flow tests to use string resources">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/infrastructure/android/SplashActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/infrastructure/android/SplashActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/setting/vip/VipManagementPage.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/setting/vip/VipManagementPage.kt" afterDir="false" />
-    </list>
+    <list default="true" id="6f28f826-4208-4800-b7bf-3c32f11fba88" name="Changes" comment="Add .gitignore and project configuration files; update VIP flow tests to use string resources" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -216,14 +212,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1759065326374</updated>
-    </task>
-    <task id="LOCAL-00015" summary="Refactor AddSourceDetailPage with animations and UI improvements&#10;&#10;This commit refactors the `AddSourceDetailPage` to enhance user experience with animations and UI adjustments.&#10;&#10;- Introduced animations for item appearance, disappearance, and content size changes in the `LazyColumn` displaying RSS sources.&#10;- Added a `RssSourceItemState` data class to manage the state of each RSS source item, facilitating animation and diffing.&#10;- The loading indicator during source addition is now animated with slide and fade transitions.&#10;- Source items now have animated alpha and elevation based on their &quot;added&quot; state.&#10;- The `LazyColumn` now maintains the original order of sources instead of sorting them.&#10;- Updated the text in the loading indicator from &quot;Adding RSS source...&quot; to &quot;Adding RSS feed...&quot;.&#10;- Minor styling adjustments to card elevation, border, and progress indicator size.">
-      <option name="closed" value="true" />
-      <created>1759146835533</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1759146835533</updated>
     </task>
     <task id="LOCAL-00016" summary="Remove LoadingContent from AddSourceDetailPage&#10;&#10;This commit removes the `LoadingContent` composable from `AddSourceDetailPage.kt`. The loading state is no longer explicitly handled within the `when` block in the main composable.">
       <option name="closed" value="true" />
@@ -609,7 +597,15 @@
       <option name="project" value="LOCAL" />
       <updated>1782037712849</updated>
     </task>
-    <option name="localTasksCounter" value="64" />
+    <task id="LOCAL-00064" summary="Enhance splash screen handling with safety timeout and improve back navigation in VIP management">
+      <option name="closed" value="true" />
+      <created>1782038298337</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1782038298338</updated>
+    </task>
+    <option name="localTasksCounter" value="65" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">

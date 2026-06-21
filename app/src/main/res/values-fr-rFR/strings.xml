@@ -351,6 +351,6 @@
     <string name="vip_failed_invalid_key">Code invalide. Veuillez réessayer.</string>
     <string name="privacy_policy">Politique de confidentialité</string>
     <string name="ok">OK</string>
-    <string name="vip_rewarded_not_earned">Vous devez regarder la pub en entier pour obtenir le VIP. Veuillez réessayer.</string>
+    <string name="vip_rewarded_not_earned">La publicité n’est pas disponible ou n’a pas été terminée. Veuillez réessayer.</string>
     <string name="splash_ad_notice">Remarque : cette application peut afficher des publicités</string>
 </resources>
