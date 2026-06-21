@@ -32,6 +32,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import com.mckimquyen.reader.R
+import kotlinx.coroutines.Job
 
 @SuppressLint("CustomSplashScreen")
 @AndroidEntryPoint
@@ -40,6 +41,8 @@ class SplashActivity : ComponentActivity() {
     // Guard against goToMain() being called more than once (e.g. race between
     // SplashScreen's onReady and AdMobManager's onAdLoaded callbacks).
     private var navigationStarted = false
+    private var sdkSplashStarted = false
+    private var preSdkTimeoutJob: Job? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,12 +54,13 @@ class SplashActivity : ComponentActivity() {
 
         Log.d("roy93~Ad", "[Splash] 🔐 onCreate — requestConsentInfoUpdate()")
 
-        // [C1] Safety timeout: nếu consent + initSplashScreen không resolve trong 8s
-        // (vd: device offline, UMP server unreachable) → navigate vào Main để tránh hang.
-        lifecycleScope.launch {
+        // [C1] Fallback only while UMP/consent has not handed control to the ad SDK.
+        // Once initSplashScreen() starts, the SDK owns the timeout because it can
+        // distinguish "ad is still loading" from "fullscreen ad is currently shown".
+        preSdkTimeoutJob = lifecycleScope.launch {
             delay(8_000L)
-            if (!navigationStarted && !isFinishing && !isDestroyed) {
-                Log.w("roy93~Ad", "[Splash] ⏰ consent+splash timeout (8s) — navigating anyway")
+            if (!sdkSplashStarted && !navigationStarted && !isFinishing && !isDestroyed) {
+                Log.w("roy93~Ad", "[Splash] ⏰ consent timeout (8s) before SDK splash — navigating anyway")
                 goToMain()
             }
         }
@@ -67,6 +71,8 @@ class SplashActivity : ComponentActivity() {
                 return@requestConsentInfoUpdate
             }
             Log.d("roy93~Ad", "[Splash] ✅ consent resolved, canRequestAds=$canRequestAds — initSplashScreen()")
+            sdkSplashStarted = true
+            preSdkTimeoutJob?.cancel()
             AdManager.initSplashScreen(this) {
                 if (isFinishing || isDestroyed) {
                     Log.d("roy93~Ad", "[Splash] Activity finishing or destroyed, skipping goToMain")
@@ -159,4 +165,3 @@ fun SplashScreen() {
         )
     }
 }
-

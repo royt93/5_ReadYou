@@ -3,6 +3,7 @@ package com.mckimquyen.reader.ui.page.setting.vip
 import android.content.Intent
 import android.net.Uri
 import android.view.HapticFeedbackConstants
+import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
@@ -72,6 +73,7 @@ import com.mckimquyen.reader.R
 import com.mckimquyen.reader.ui.component.base.BaseScaffold
 import com.mckimquyen.reader.ui.component.base.FeedbackIconButton
 import com.mckimquyen.reader.ui.ext.findActivity
+import com.mckimquyen.reader.ui.page.common.RouteName
 import com.roy.sdkadbmob.AdManager
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -118,6 +120,17 @@ fun VipManagementPage(navController: NavHostController) {
 
     fun refresh() { refreshTrigger++ }
 
+    fun navigateBack() {
+        if (!navController.popBackStack()) {
+            navController.navigate(RouteName.FEEDS) {
+                popUpTo(RouteName.VIP) { inclusive = true }
+                launchSingleTop = true
+            }
+        }
+    }
+
+    BackHandler { navigateBack() }
+
     fun celebrate() {
         confettiPop = true
         view.performHapticFeedback(HapticFeedbackConstants.CONFIRM)
@@ -158,7 +171,7 @@ fun VipManagementPage(navController: NavHostController) {
                 imageVector = Icons.Rounded.ArrowBack,
                 contentDescription = stringResource(R.string.back),
                 tint = MaterialTheme.colorScheme.onSurface,
-            ) { navController.popBackStack() }
+            ) { navigateBack() }
         },
         content = {
             Column(
@@ -473,4 +486,3 @@ private fun VipResultDialog(title: String, message: String, onDismiss: () -> Uni
         confirmButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.ok)) } },
     )
 }
-
