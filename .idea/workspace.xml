@@ -16,7 +16,10 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6f28f826-4208-4800-b7bf-3c32f11fba88" name="Changes" comment="Add .gitignore and project configuration files; update VIP flow tests to use string resources" />
+    <list default="true" id="6f28f826-4208-4800-b7bf-3c32f11fba88" name="Changes" comment="Update VIP reward message for clarity in multiple languages">
+      <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetSelector.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deploymentTargetSelector.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -95,7 +98,7 @@
   "keyToString": {
     "Android App.app.executor": "Run",
     "BundleExportedModule": "RSS_Cat_Hub.app",
-    "ExportBundle.BundlePathForRSS_Cat_Hub.app": "/Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260403_ReadYou/_playStore",
+    "ExportBundle.BundlePathForRSS_Cat_Hub.app": "/Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260606_ReadYou/_playStore",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "Notification.DisplayName-DoNotAsk-vcs.commit.finished": "1 file committed",
     "Notification.DoNotAsk-vcs.commit.finished": "true",
@@ -212,14 +215,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1759065326374</updated>
-    </task>
-    <task id="LOCAL-00016" summary="Remove LoadingContent from AddSourceDetailPage&#10;&#10;This commit removes the `LoadingContent` composable from `AddSourceDetailPage.kt`. The loading state is no longer explicitly handled within the `when` block in the main composable.">
-      <option name="closed" value="true" />
-      <created>1759147221993</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1759147221993</updated>
     </task>
     <task id="LOCAL-00017" summary="Refactor AddSourceDetailPage UI and UX&#10;&#10;This commit refactors the `AddSourceDetailPage` to improve the user interface and experience when adding RSS sources.&#10;&#10;- Removed various `androidx.compose.animation` imports as they are no longer used.&#10;- The `RssSourceItemState` data class now includes an `isLoading` boolean to track the loading state of individual RSS source additions, replacing the previous `animationKey`.&#10;- A global `loadingSourceUrl` state is introduced in `AddSourceDetailPage` to manage the loading indicator for the source currently being added.&#10;- A general loading indicator (`CircularProgressIndicator`) is now displayed when the initial list of RSS sources is being fetched.&#10;- The `SourcesList` composable now takes a `loadingSourceUrl` parameter instead of `isAddingSource`.&#10;- The `RssSourceItemState` in `SourcesList` now correctly determines `isLoading` and `isEnabled` based on `loadingSourceUrl` and whether the source is already added.&#10;- Removed the animated loading indicator card that was previously shown at the top of the `SourcesList` when a source was being added.&#10;- Removed `AnimatedVisibility` and `animateContentSize` from the `items` within `SourcesList`, simplifying the item rendering.&#10;- The `SourceItem` composable now includes an `isLoading` parameter.&#10;- Removed elevation animation and border from `SourceItem` Card.&#10;- The `SourceItem` Card's container color is now consistently `MaterialTheme.colorScheme.surface`.&#10;- The text color in `SourceItem` is now consistently `MaterialTheme.colorScheme.onSurface` or a derivative for icons and secondary text.&#10;- The add/check icon section in `SourceItem` now displays a `CircularProgressIndicator` when `isLoading` is true for that specific item. The background and icon tint change based on the `isAdded`, `isLoading`, and `enabled` states.">
       <option name="closed" value="true" />
@@ -605,12 +600,19 @@
       <option name="project" value="LOCAL" />
       <updated>1782038298338</updated>
     </task>
-    <option name="localTasksCounter" value="65" />
+    <task id="LOCAL-00065" summary="Update VIP reward message for clarity in multiple languages">
+      <option name="closed" value="true" />
+      <created>1782038759169</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1782038759169</updated>
+    </task>
+    <option name="localTasksCounter" value="66" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
-    <MESSAGE value="Refactor: Add search and filtering to AddSourceDetailPage&#10;&#10;This commit introduces search and filtering functionality to the `AddSourceDetailPage`, allowing users to easily find specific RSS sources. It also includes an empty state UI for when no results are found.&#10;&#10;- **`AddSourcesViewModel.kt`:**&#10;    - Implemented a `_searchQuery` `MutableStateFlow` to manage the search input.&#10;    - Used `debounce(300)` on the search query flow to delay filtering and improve performance.&#10;    - Added `updateSearchQuery`, `clearSearch`, and `filterSources` methods to handle search logic.&#10;    - The `AddSourcesUiState` is updated to include `filteredSources` to display search results.&#10;&#10;- **`AddSourceDetailPage.kt`:**&#10;    - Added a `RssSearchField` composable at the top of the screen, which includes a search icon and a clear button.&#10;    - The UI now displays the `filteredSources` from the `uiState`.&#10;    - Implemented an `EmptyStateContent` composable that is displayed when the list of filtered sources is empty, showing a &quot;No results found&quot; or &quot;No RSS sources available&quot; message.&#10;    - Disabled the `leakcanary` debug implementation in `app/build.gradle`.&#10;- The `.idea/workspace.xml` file was updated with minor changes." />
     <MESSAGE value="Refactor: Add search and filtering to AddSourceDetailPage&#10;&#10;This commit introduces search and filtering functionality to the `AddSourceDetailPage`, allowing users to easily find specific RSS sources. It also includes an empty state UI for when no results are found.&#10;&#10;- **`AddSourcesViewModel.kt`**:&#10;    - Implemented a `_searchQuery` `MutableStateFlow` to manage the search input.&#10;    - Used `debounce(300)` on the search query flow to delay filtering and improve performance.&#10;    - Added `updateSearchQuery`, `clearSearch`, and `filterSources` methods to handle search logic.&#10;    - The `AddSourcesUiState` is updated to include `filteredSources` to display search results.&#10;&#10;- **`AddSourceDetailPage.kt`**:&#10;    - Added a `RssSearchField` composable at the top of the screen, which includes a search icon and a clear button.&#10;    - The UI now displays the `filteredSources` from the `uiState`.&#10;    - Implemented an `EmptyStateContent` composable that is displayed when the list of filtered sources is empty, showing a &quot;No results found&quot; or &quot;No RSS sources available&quot; message.&#10;&#10;- **`app/build.gradle`**:&#10;    - Disabled the `leakcanary` debug implementation." />
     <MESSAGE value="Feat: Expand RSS sources and add new languages&#10;&#10;This commit significantly expands the available RSS sources and adds support for ten new languages in the &quot;Add Sources&quot; feature.&#10;&#10;- **`rss_sources.json`**:&#10;    - Added numerous new RSS sources for English (`en`) and Vietnamese (`vi`) across various categories like news, tech, business, and lifestyle.&#10;    - Introduced source lists for ten new languages: Japanese (`ja`), Korean (`ko`), Chinese (`zh`), Indonesian (`id`), Thai (`th`), French (`fr`), German (`de`), Spanish (`es`), Portuguese (`pt`), and Arabic (`ar`).&#10;&#10;- **Localization (`strings.xml`)**:&#10;    - Added translations for the new language source names (e.g., &quot;Japanese Sources&quot;, &quot;French Sources&quot;) and other UI elements related to adding sources.&#10;    - New translations provided for: `ar`, `de-rDE`, `es-rES`, `fr-rFR`, `in-rID`, `it-rIT`, `ja`, `pl-rPL`, `pt-rBR`, `pt`, `ru-rRU`, `vi`, `zh-rCN`, and `zh-rTW`.&#10;    - Added placeholder English strings for languages pending translation (e.g., `az`, `bg`, `ca`, `cs-rCZ`, `da`, `eu-rES`, `fa`, `hi-rIN`, `hu`, `iw`, `kn`, `lzh`, `ml`, `my`, `nb-rNO`, `nl`, `nn`, `ro`, `sl`, `sr`, `sv`, `tr`, `uk`).&#10;&#10;- **Code Changes**:&#10;    - **`RssSource.kt`**: Updated the `RssSourcesData` data class to include fields for all the new language codes.&#10;    - **`RssSourceRepository.kt`**: Extended the `when` statement to handle the new language codes and load the corresponding sources from the JSON file.&#10;    - **`AddSourcesPage.kt`**:&#10;        - Expanded the `CountriesList` to display all the new languages with their respective flags and names.&#10;        - Used `stringResource` for translatable text.&#10;    - **`AddSourceDetailPage.kt`**:&#10;        - Updated to display the correct country name and flag based on the new language codes.&#10;        - Replaced hardcoded strings with `stringResource` calls for better internationalization of UI elements like snackbar messages, dialogs, and empty/error states." />
     <MESSAGE value="Feat: Implement in-app language switching with app restart&#10;&#10;This commit introduces a robust in-app language switching feature. When a user selects a new language, the app now prompts for confirmation and then gracefully restarts to apply the change system-wide.&#10;&#10;- **`LanguagesPage.kt`**:&#10;    - Replaced the immediate language change with a confirmation dialog (`AlertDialog`) that informs the user the app will restart.&#10;    - Upon confirmation, the selected language preference is saved to DataStore.&#10;    - A loading dialog is shown while the app prepares to restart.&#10;    - Utilizes the `ProcessPhoenix` library to trigger a clean application rebirth, ensuring the new language is applied correctly.&#10;&#10;- **`RApp.kt` &amp; `MainActivity.kt`**:&#10;    - The logic for setting the app's locale has been moved to `attachBaseContext` in both the `Application` and `MainActivity`.&#10;    - This ensures the language preference is read from DataStore and applied very early in the application lifecycle, preventing UI inconsistencies and ANRs related to asynchronous language loading in `MainActivity`.&#10;&#10;- **`LanguagesPref.kt`**:&#10;    - Expanded the `LanguagesPref` enum to include 26 new languages (Japanese, Portuguese, Arabic, Turkish, Dutch, etc.).&#10;    - Removed the now-redundant `setLocale` function, as this logic is centralized in `attachBaseContext`.&#10;&#10;- **Dependencies (`app/build.gradle`)**:&#10;    - Added the `com.jakewharton:process-phoenix:3.0.0` dependency to handle application restarts.&#10;&#10;- **Localization (`strings.xml`)**:&#10;    - Added new string resources for the language change confirmation dialog and restarting message (e.g., `change_language`, `change_language_confirm`, `restarting_app`) across all supported languages.&#10;    - Added translated names for the newly supported languages." />
@@ -635,7 +637,8 @@
     <MESSAGE value="Update ad-related documentation and improve splash screen handling&#10;&#10;- Updated `AD.MD` and `AD_PROMPT_AOS.MD` to redact sensitive VIP key information.&#10;- Enhanced `SplashActivity` to include a safety timeout for consent requests.&#10;- Updated `DarkThemePage` to allow VIP users to bypass ad viewing for theme unlocking.&#10;- Added localized strings for splash screen ad notice in multiple languages." />
     <MESSAGE value="Update ad-related documentation and enhance splash screen handling" />
     <MESSAGE value="Add .gitignore and project configuration files; update VIP flow tests to use string resources" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add .gitignore and project configuration files; update VIP flow tests to use string resources" />
+    <MESSAGE value="Update VIP reward message for clarity in multiple languages" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update VIP reward message for clarity in multiple languages" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>
@@ -650,12 +653,12 @@
       <map>
         <entry key="com.mckimquyen.reader">
           <value>
-            <CheckInfo lastCheckTimestamp="1780724018425" />
+            <CheckInfo lastCheckTimestamp="1782038747957" />
           </value>
         </entry>
         <entry key="com.mckimquyen.reader.test">
           <value>
-            <CheckInfo lastCheckTimestamp="1780724018427" />
+            <CheckInfo lastCheckTimestamp="1782038747970" />
           </value>
         </entry>
       </map>

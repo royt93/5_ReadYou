@@ -1,0 +1,265 @@
+{
+  "schemaVersion": 2,
+  "appName": "RSS Hub",
+  "themeId": "warm-editorial",
+  "connectedCanvas": true,
+  "locales": [
+    "en"
+  ],
+  "locale": "en",
+  "device": "ipad",
+  "orientation": "portrait",
+  "appIcon": "/app-icon.png",
+  "slidesByDevice": {
+    "iphone": [
+      {
+        "id": "rsshub-iphone-01",
+        "layout": "split-landscape",
+        "label": {
+          "en": "OWN YOUR NEWS"
+        },
+        "headline": {
+          "en": "Your calm\nnews home."
+        },
+        "screenshot": "/screenshots/apple/iphone/{locale}/01.png",
+        "transforms": {
+          "device": {
+            "x": 463.1752236465818,
+            "y": 401.52,
+            "width": 1013.6355043227666,
+            "height": 2064.96,
+            "rotation": 0,
+            "zIndex": 3
+          }
+        }
+      },
+      {
+        "id": "rsshub-iphone-02",
+        "layout": "device-bottom",
+        "label": {
+          "en": "READ FIRST"
+        },
+        "headline": {
+          "en": "Start with\nwhat matters."
+        },
+        "screenshot": "/screenshots/apple/iphone/{locale}/02.png"
+      },
+      {
+        "id": "rsshub-iphone-03",
+        "layout": "two-devices",
+        "label": {
+          "en": "DEEP FOCUS"
+        },
+        "headline": {
+          "en": "Turn noise\ninto reading time."
+        },
+        "screenshot": "/screenshots/apple/iphone/{locale}/03.png",
+        "screenshotSecondary": "/screenshots/apple/iphone/{locale}/02.png",
+        "inverted": true
+      },
+      {
+        "id": "rsshub-iphone-04",
+        "layout": "device-top",
+        "label": {
+          "en": "FAST FIND"
+        },
+        "headline": {
+          "en": "Find the story\nin seconds."
+        },
+        "screenshot": "/screenshots/apple/iphone/{locale}/04.png"
+      },
+      {
+        "id": "rsshub-iphone-05",
+        "layout": "device-bottom",
+        "label": {
+          "en": "MAKE IT YOURS"
+        },
+        "headline": {
+          "en": "Read your way,\nevery day."
+        },
+        "screenshot": "/screenshots/apple/iphone/{locale}/05.png"
+      },
+      {
+        "id": "rsshub-iphone-06",
+        "layout": "two-devices",
+        "label": {
+          "en": "BRING FEEDS HOME"
+        },
+        "headline": {
+          "en": "Add every voice\nyou trust."
+        },
+        "screenshot": "/screenshots/apple/iphone/{locale}/06.png",
+        "screenshotSecondary": "/screenshots/apple/iphone/{locale}/01.png"
+      },
+      {
+        "id": "rsshub-iphone-07",
+        "layout": "device-top",
+        "label": {
+          "en": "STAY ORGANIZED"
+        },
+        "headline": {
+          "en": "One clean place\nfor every source."
+        },
+        "screenshot": "/screenshots/apple/iphone/{locale}/07.png",
+        "inverted": true
+      },
+      {
+        "id": "rsshub-iphone-08",
+        "layout": "device-bottom",
+        "label": {
+          "en": "READ IN PEACE"
+        },
+        "headline": {
+          "en": "Save your focus\nfor the story."
+        },
+        "screenshot": "/screenshots/apple/iphone/{locale}/08.png"
+      }
+    ],
+    "android": [],
+    "ipad": [
+      {
+        "id": "rsshub-ipad-01",
+        "layout": "split-landscape",
+        "label": {
+          "en": "OWN YOUR NEWS"
+        },
+        "headline": {
+          "en": "A calm hub\nfor every feed."
+        },
+        "screenshot": "/screenshots/apple/ipad/{locale}/01.png",
+        "transforms": {
+          "device": {
+            "x": 765.4014937420172,
+            "y": 381.7653128991061,
+            "width": 1525.7087999999999,
+            "height": 1981.4399999999998,
+            "rotation": 0,
+            "zIndex": 3
+          }
+        }
+      },
+      {
+        "id": "rsshub-ipad-02",
+        "layout": "device-bottom",
+        "label": {
+          "en": "READ FIRST"
+        },
+        "headline": {
+          "en": "See the day\nat a glance."
+        },
+        "screenshot": "/screenshots/apple/ipad/{locale}/02.png"
+      },
+      {
+        "id": "rsshub-ipad-03",
+        "layout": "two-devices",
+        "label": {
+          "en": "DEEP FOCUS"
+        },
+        "headline": {
+          "en": "Settle into\nbetter reading."
+        },
+        "screenshot": "/screenshots/apple/ipad/{locale}/03.png",
+        "screenshotSecondary": "/screenshots/apple/ipad/{locale}/02.png",
+        "inverted": true,
+        "transforms": {
+          "deviceSecondary": {
+            "x": -239.8246743295067,
+            "y": 1041.2351826972517,
+            "width": 1238.3999999999999,
+            "height": 1608.3116883116882,
+            "rotation": 0,
+            "zIndex": 2
+          }
+        }
+      },
+      {
+        "id": "rsshub-ipad-04",
+        "layout": "device-top",
+        "label": {
+          "en": "FAST FIND"
+        },
+        "headline": {
+          "en": "Pull any story\nback fast."
+        },
+        "screenshot": "/screenshots/apple/ipad/{locale}/04.png"
+      },
+      {
+        "id": "rsshub-ipad-05",
+        "layout": "device-bottom",
+        "label": {
+          "en": "MAKE IT YOURS"
+        },
+        "headline": {
+          "en": "Tune your space\nfor focus."
+        },
+        "screenshot": "/screenshots/apple/ipad/{locale}/05.png"
+      },
+      {
+        "id": "rsshub-ipad-06",
+        "layout": "two-devices",
+        "label": {
+          "en": "BRING FEEDS HOME"
+        },
+        "headline": {
+          "en": "Collect the voices\nyou trust."
+        },
+        "screenshot": "/screenshots/apple/ipad/{locale}/06.png",
+        "screenshotSecondary": "/screenshots/apple/ipad/{locale}/01.png",
+        "transforms": {
+          "deviceSecondary": {
+            "x": -243.33936143040592,
+            "y": 710.8545952132163,
+            "width": 1238.3999999999999,
+            "height": 1608.3116883116882,
+            "rotation": 0,
+            "zIndex": 2
+          },
+          "caption": {
+            "x": 165.12000000000262,
+            "y": 177.98375478927198,
+            "width": 1733.76,
+            "height": 770.5600000000001,
+            "rotation": 0,
+            "zIndex": 4
+          }
+        }
+      },
+      {
+        "id": "rsshub-ipad-07",
+        "layout": "device-top",
+        "label": {
+          "en": "STAY ORGANIZED"
+        },
+        "headline": {
+          "en": "Keep every source\nin reach."
+        },
+        "screenshot": "/screenshots/apple/ipad/{locale}/07.png",
+        "inverted": true
+      },
+      {
+        "id": "rsshub-ipad-08",
+        "layout": "device-bottom",
+        "label": {
+          "en": "READ IN PEACE"
+        },
+        "headline": {
+          "en": "More signal.\nLess scroll."
+        },
+        "screenshot": "/screenshots/apple/ipad/{locale}/08.png",
+        "transforms": {
+          "caption": {
+            "x": 161.60531289910432,
+            "y": 135.807509578544,
+            "width": 1733.76,
+            "height": 770.5600000000001,
+            "rotation": 0,
+            "zIndex": 4
+          }
+        }
+      }
+    ],
+    "android-7": [],
+    "android-10": [],
+    "feature-graphic": []
+  }
+}
