@@ -102,3 +102,6 @@ out/
 
 ### VS Code ###
 .vscode/
+
+# Claude Code local settings (YOLO/bypassPermissions — không commit)
+.claude/settings.local.json

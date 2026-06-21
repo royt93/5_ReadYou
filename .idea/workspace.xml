@@ -16,7 +16,14 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6f28f826-4208-4800-b7bf-3c32f11fba88" name="Changes" comment="IDE: Update workspace metadata and task history&#10;&#10;This commit synchronizes the internal IDE workspace state by updating local task records and project metadata to reflect recent development activity.&#10;&#10;- **`.idea/workspace.xml`**:&#10;    - Added a new task entry (`LOCAL-00057`) documenting the upgrade of instrumented testing libraries, including `androidx.test.ext:junit` (1.2.1) and `androidx.test.espresso:espresso-core` (3.6.1).&#10;    - Removed an obsolete task entry (`LOCAL-00008`) concerning Advertising ID permissions and backup rule configurations.&#10;    - Updated the `localTasksCounter` from 57 to 58.&#10;    - Refreshed internal component properties and VCS tracking state." />
+    <list default="true" id="6f28f826-4208-4800-b7bf-3c32f11fba88" name="Changes" comment="IDE: Update workspace metadata and bundle export path&#10;&#10;This commit synchronizes the internal IDE workspace state by updating local task records, project metadata, and export paths to reflect recent development activity.&#10;&#10;- **`.idea/workspace.xml`**:&#10;    - Updated the `ExportBundle.BundlePathForRSS_Cat_Hub.app` to reflect the current project directory structure (`260403_ReadYou`).&#10;    - Synchronized task history by adding a new task entry documenting the upgrade of instrumented testing libraries (`androidx.test.ext:junit` and `androidx.test.espresso:espresso-core`).&#10;    - Removed an obsolete, large task entry (`LOCAL-00009`) concerning legacy Material Design 3 migration and UI enhancements.&#10;    - Incremented the `localTasksCounter` from 58 to 59.&#10;    - Updated internal component properties and VCS tracking state.">
+      <change afterPath="$PROJECT_DIR$/.idea/easycode.ignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.claude/settings.local.json" beforeDir="false" afterPath="$PROJECT_DIR$/.claude/settings.local.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -47,6 +54,7 @@
     <persistenceIdMap>
       <entry key="_/Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260103ReadYou" value="33KUbG1RmLnWOWhazByAOFjBEnu" />
       <entry key="_/Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260403_ReadYou" value="3EihObFi4WAUWyXfxiJGUu8wzG6" />
+      <entry key="_/Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260606_ReadYou" value="3FQvAAhbbSTxhcnXApAYaZDa5tp" />
     </persistenceIdMap>
   </component>
   <component name="CopilotUserSelectedModel">
@@ -56,7 +64,7 @@
       <entry key="edit-panel" value="GPT-5 mini" />
     </selectedModels>
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[Default::serial=192.168.21.185:39815;connection=ab534bb9]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -69,6 +77,10 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
   </component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="ProjectErrors" />
@@ -94,6 +106,7 @@
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "Notification.DisplayName-DoNotAsk-vcs.commit.finished": "1 file committed",
     "Notification.DoNotAsk-vcs.commit.finished": "true",
+    "RunOnceActivity.MCP Project settings loaded": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.cidr.known.project.marker": "true",
     "RunOnceActivity.git.unshallow": "true",
@@ -101,13 +114,17 @@
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
     "com.google.services.firebase.aqiPopupShown": "true",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "copilot.chat.legacySessionMetadata.migrated": "true",
     "dart.analysis.tool.window.visible": "false",
     "git-widget-placeholder": "dev",
+    "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260403_ReadYou/doc",
+    "last_opened_file_path": "/Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260606_ReadYou",
     "run.code.analysis.last.selected.profile": "pProject Default",
     "settings.editor.selected.configurable": "project.propVCSSupport.CommitDialog",
-    "show.migrate.to.gradle.popup": "false"
+    "show.migrate.to.gradle.popup": "false",
+    "to.speed.mode.migration.done": "true"
   },
   "keyToStringList": {
     "ExportApk.BuildVariants": [
@@ -196,14 +213,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1759065326374</updated>
-    </task>
-    <task id="LOCAL-00010" summary="Enhance splash screen and add loading animations&#10;&#10;This commit refactors the splash screen UI and introduces new loading animations.&#10;&#10;- In `SplashActivity.kt`:&#10;    - The `SplashScreen` composable is updated to display the app logo, app name (&quot;RSS Hub&quot;), a &quot;Loading...&quot; text, and a `CircularProgressIndicator`.&#10;    - The &quot;Please note: this action may show ads&quot; text is restyled and repositioned.&#10;- In `app/src/main/res/drawable/startup.xml`:&#10;    - The existing modern gradient background is simplified to a gradient background.&#10;    - The app logo and modern loading indicator items are removed.&#10;    - A new subtle overlay item is added for depth.&#10;- New animation resource files are added:&#10;    - `app/src/main/res/anim/loading_rotation.xml`: A simple rotation animation.&#10;    - `app/src/main/res/anim/loading_pulse.xml`: A pulse animation combining scale and alpha changes.&#10;- New drawable resource files for loading indicators are added:&#10;    - `app/src/main/res/drawable/loading_spinner.xml`: A vector drawable for a two-ring spinner.&#10;    - `app/src/main/res/drawable/loading_dots.xml`: A vector drawable for three animating dots.">
-      <option name="closed" value="true" />
-      <created>1759139503304</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1759139503304</updated>
     </task>
     <task id="LOCAL-00011" summary="Update splash screen UI and background&#10;&#10;This commit updates the `SplashActivity` UI and the background drawable used for the splash screen.&#10;&#10;- In `SplashActivity.kt`:&#10;    - The app logo image is changed from `ic_launcher_foreground` to `ic_launcher_round`.&#10;    - The text color of &quot;RSS Hub&quot;, &quot;Loading...&quot;, and &quot;Please note: this action may show ads&quot; is updated to use `MaterialTheme.colorScheme.onSurface`.&#10;    - The `CircularProgressIndicator` color is updated to use `MaterialTheme.colorScheme.primary`.&#10;- In `app/src/main/res/drawable/startup.xml`:&#10;    - The gradient background is removed.&#10;    - The background now uses a solid color defined by `?attr/colorSurface`.&#10;- A new file `app/src/main/res/drawable/ic_launcher_round.png` is added.">
       <option name="closed" value="true" />
@@ -589,12 +598,19 @@
       <option name="project" value="LOCAL" />
       <updated>1780751297104</updated>
     </task>
-    <option name="localTasksCounter" value="59" />
+    <task id="LOCAL-00059" summary="IDE: Update workspace metadata and bundle export path&#10;&#10;This commit synchronizes the internal IDE workspace state by updating local task records, project metadata, and export paths to reflect recent development activity.&#10;&#10;- **`.idea/workspace.xml`**:&#10;    - Updated the `ExportBundle.BundlePathForRSS_Cat_Hub.app` to reflect the current project directory structure (`260403_ReadYou`).&#10;    - Synchronized task history by adding a new task entry documenting the upgrade of instrumented testing libraries (`androidx.test.ext:junit` and `androidx.test.espresso:espresso-core`).&#10;    - Removed an obsolete, large task entry (`LOCAL-00009`) concerning legacy Material Design 3 migration and UI enhancements.&#10;    - Incremented the `localTasksCounter` from 58 to 59.&#10;    - Updated internal component properties and VCS tracking state.">
+      <option name="closed" value="true" />
+      <created>1780751667651</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1780751667651</updated>
+    </task>
+    <option name="localTasksCounter" value="60" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
-    <MESSAGE value="Refactor data loading to be asynchronous&#10;&#10;This commit refactors data loading in `HomeEntry.kt`, `MainActivity.kt`, and `AccountSettings.kt` to be asynchronous. This is done to prevent Application Not Responding (ANR) errors by moving data loading off the main thread.&#10;&#10;- In `HomeEntry.kt`, `initialPage` and `initialFilter` are now loaded asynchronously from DataStore using `withContext(Dispatchers.IO)`.&#10;- In `MainActivity.kt`, language preferences are loaded asynchronously from DataStore, and AdMob initialization is also moved to a background thread.&#10;- In `AccountSettings.kt`, `currentAccountId` is loaded asynchronously from DataStore. Account settings are then loaded based on this ID, using defaults until the actual settings are available." />
     <MESSAGE value="Add unit tests and update dependencies&#10;&#10;This commit introduces unit tests for various components and updates some dependencies.&#10;&#10;- Added `FilterTest.kt` to test the `RssSource` and `RssSourcesData` models.&#10;- Added `RssSourcesTest.kt` to test parsing of RSS source JSON data.&#10;- Added `DataStoreExtensionsTest.kt` to test `DataStoreKeys`.&#10;- Added `StringExtensionsTest.kt` to test string utility functions.&#10;- Updated `app/build.gradle` to include test dependencies:&#10;    - `junit:junit:4.13.2`&#10;    - `io.mockk:mockk:1.13.5`&#10;    - `org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4`&#10;- Commented-out test dependencies were re-enabled and `leakcanary` was moved to be with other debug implementations." />
     <MESSAGE value="Refactor threading and add basic unit tests&#10;&#10;This commit refactors threading in `CrashHandler`, `AccountSv`, and `MainActivity` to prevent ANRs and ensure UI operations run on the main thread.&#10;- In `CrashHandler`, toasts are now shown on the main thread using `Handler(Looper.getMainLooper()).post`.&#10;- In `AccountSv`, the toast for &quot;must_have_an_account&quot; is now shown on the main thread using `withContext(Dispatchers.Main)`.&#10;- In `MainActivity`, AdMob initialization is moved to the main thread using `lifecycleScope.launch(Dispatchers.Main)`.&#10;&#10;Additionally, this commit:&#10;- Deletes `DataStoreExtensionsTest.kt`, `FilterTest.kt`, `RssSourcesTest.kt`, and `StringExtensionsTest.kt`.&#10;- Adds a new `BasicUnitTest.java` file with basic unit tests covering string operations, URL validation, RSS source validation, application constants, RSS sources expansion, preference validation, RSS categories, DataStore keys, version information, and ANR fix validation." />
     <MESSAGE value="Update ProGuard rules and Gradle configuration&#10;&#10;This commit updates the ProGuard rules for Rome library and adds configurations to Gradle for KAPT and JVM arguments.&#10;&#10;- In `app/proguard-rules.pro`:&#10;    - Changed keep rules for Rome library classes (`com.rometools.rome.feed.**`, `com.rometools.rome.io.**`, `com.rometools.modules.**`) to not allow shrinking or obfuscation.&#10;    - Added keep rules for Rome RSS parser plugins (`com.rometools.rome.feed.synd.impl.**`, `com.rometools.rome.feed.atom.**`, `com.rometools.rome.feed.rss.**`) to prevent `ClassNotFoundException`.&#10;    - Added keep rules for ServiceLoader implementations to ensure `newInstance()` and implementations of `Converter`, `ModuleParser`, and `ModuleGenerator` are preserved.&#10;- In `app/build.gradle`:&#10;    - Added a configuration to set `jvmTarget = &quot;17&quot;` for `KaptGenerateStubsTask` to fix KAPT compatibility with newer Java versions.&#10;- In `gradle.properties`:&#10;    - Added `kapt.include.compile.classpath=false`.&#10;    - Expanded `org.gradle.jvmargs` and `kotlin.daemon.jvmargs` with additional `--add-exports` and `--add-opens` for `jdk.compiler` to ensure compatibility with newer JDK versions.&#10;- Added `.idea/appInsightsSettings.xml` to configure Firebase Crashlytics integration.&#10;- Updated `.idea/workspace.xml` with layout configurations and minor changes." />
@@ -619,7 +635,8 @@
     <MESSAGE value="UI: Disable VIP ad button and pulse animation when active&#10;&#10;This commit updates the VIP Management page to provide better visual feedback and prevent redundant ad views by disabling the &quot;Watch ad&quot; action for users who already have an active VIP status.&#10;&#10;- **`VipManagementPage.kt`**:&#10;    - Updated the &quot;Watch ad&quot; button to be disabled (`enabled = !isActive`) when the user is already a VIP.&#10;    - Modified the button's scale logic to pause the pulse animation at a static value (`1f`) when VIP status is active, ensuring the animation only runs when the action is available." />
     <MESSAGE value="Build: Upgrade Android test dependencies and update IDE configuration&#10;&#10;This commit updates the instrumented testing libraries to newer versions and synchronizes internal IDE workspace metadata.&#10;&#10;- **`app/build.gradle`**:&#10;    - Upgraded `androidx.test.ext:junit` from `1.1.5` to `1.2.1`.&#10;    - Upgraded `androidx.test.espresso:espresso-core` from `3.5.1` to `3.6.1`.&#10;&#10;- **`.idea/workspace.xml`**:&#10;    - Updated internal IDE state, including task history, property settings, and change list tracking to reflect recent commits and project configuration changes.&#10;    - Updated `PropertiesComponent` with new notification and VCS-related keys." />
     <MESSAGE value="IDE: Update workspace metadata and task history&#10;&#10;This commit synchronizes the internal IDE workspace state by updating local task records and project metadata to reflect recent development activity.&#10;&#10;- **`.idea/workspace.xml`**:&#10;    - Added a new task entry (`LOCAL-00057`) documenting the upgrade of instrumented testing libraries, including `androidx.test.ext:junit` (1.2.1) and `androidx.test.espresso:espresso-core` (3.6.1).&#10;    - Removed an obsolete task entry (`LOCAL-00008`) concerning Advertising ID permissions and backup rule configurations.&#10;    - Updated the `localTasksCounter` from 57 to 58.&#10;    - Refreshed internal component properties and VCS tracking state." />
-    <option name="LAST_COMMIT_MESSAGE" value="IDE: Update workspace metadata and task history&#10;&#10;This commit synchronizes the internal IDE workspace state by updating local task records and project metadata to reflect recent development activity.&#10;&#10;- **`.idea/workspace.xml`**:&#10;    - Added a new task entry (`LOCAL-00057`) documenting the upgrade of instrumented testing libraries, including `androidx.test.ext:junit` (1.2.1) and `androidx.test.espresso:espresso-core` (3.6.1).&#10;    - Removed an obsolete task entry (`LOCAL-00008`) concerning Advertising ID permissions and backup rule configurations.&#10;    - Updated the `localTasksCounter` from 57 to 58.&#10;    - Refreshed internal component properties and VCS tracking state." />
+    <MESSAGE value="IDE: Update workspace metadata and bundle export path&#10;&#10;This commit synchronizes the internal IDE workspace state by updating local task records, project metadata, and export paths to reflect recent development activity.&#10;&#10;- **`.idea/workspace.xml`**:&#10;    - Updated the `ExportBundle.BundlePathForRSS_Cat_Hub.app` to reflect the current project directory structure (`260403_ReadYou`).&#10;    - Synchronized task history by adding a new task entry documenting the upgrade of instrumented testing libraries (`androidx.test.ext:junit` and `androidx.test.espresso:espresso-core`).&#10;    - Removed an obsolete, large task entry (`LOCAL-00009`) concerning legacy Material Design 3 migration and UI enhancements.&#10;    - Incremented the `localTasksCounter` from 58 to 59.&#10;    - Updated internal component properties and VCS tracking state." />
+    <option name="LAST_COMMIT_MESSAGE" value="IDE: Update workspace metadata and bundle export path&#10;&#10;This commit synchronizes the internal IDE workspace state by updating local task records, project metadata, and export paths to reflect recent development activity.&#10;&#10;- **`.idea/workspace.xml`**:&#10;    - Updated the `ExportBundle.BundlePathForRSS_Cat_Hub.app` to reflect the current project directory structure (`260403_ReadYou`).&#10;    - Synchronized task history by adding a new task entry documenting the upgrade of instrumented testing libraries (`androidx.test.ext:junit` and `androidx.test.espresso:espresso-core`).&#10;    - Removed an obsolete, large task entry (`LOCAL-00009`) concerning legacy Material Design 3 migration and UI enhancements.&#10;    - Incremented the `localTasksCounter` from 58 to 59.&#10;    - Updated internal component properties and VCS tracking state." />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>
