@@ -25,6 +25,7 @@ import androidx.compose.material.icons.outlined.Palette
 import androidx.compose.material.icons.outlined.Policy
 import androidx.compose.material.icons.outlined.Psychology
 import androidx.compose.material.icons.outlined.Share
+import androidx.compose.material.icons.outlined.Spa
 import androidx.compose.material.icons.outlined.StarRate
 import androidx.compose.material.icons.outlined.TouchApp
 import androidx.compose.material.icons.outlined.WorkspacePremium
@@ -172,6 +173,17 @@ fun SettingsPage(
                         icon = Icons.Outlined.WorkspacePremium,
                     ) {
                         navController.navigate(RouteName.VIP) {
+                            launchSingleTop = true
+                        }
+                    }
+                }
+                item {
+                    SelectableSettingGroupItem(
+                        title = stringResource(R.string.zen_settings_title),
+                        desc = stringResource(R.string.zen_daily_edition_desc),
+                        icon = Icons.Outlined.Spa,
+                    ) {
+                        navController.navigate(RouteName.ZEN_FOCUS) {
                             launchSingleTop = true
                         }
                     }

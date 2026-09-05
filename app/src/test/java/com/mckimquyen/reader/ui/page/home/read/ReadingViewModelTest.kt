@@ -76,11 +76,14 @@ class ReadingViewModelTest {
 
         coEvery { repo.findArticleById("test_art_1") } returns dummyArticleWithFeed
 
+        val zenAudioManager = mockk<com.mckimquyen.reader.infrastructure.audio.ambient.ZenAudioManager>(relaxed = true)
+
         val viewModel = ReadingViewModel(
             rssService = rssService,
             rssHelper = rssHelper,
             ttsManager = ttsManager,
-            summaryService = summaryService
+            summaryService = summaryService,
+            zenAudioManager = zenAudioManager
         )
 
         var receivedScrollEvent = false

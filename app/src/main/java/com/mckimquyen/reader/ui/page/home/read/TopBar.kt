@@ -6,9 +6,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AutoAwesome
+import androidx.compose.material.icons.outlined.Headphones
 import androidx.compose.material.icons.outlined.Palette
 import androidx.compose.material.icons.outlined.Share
 import androidx.compose.material.icons.rounded.Close
+import androidx.compose.material.icons.rounded.ElectricBolt
+import androidx.compose.material.icons.rounded.GraphicEq
 import androidx.compose.material.icons.rounded.PlayArrow
 import androidx.compose.material.icons.rounded.Stop
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -38,8 +41,11 @@ fun TopBar(
     title: String? = "",
     link: String? = "",
     isPlayingAudio: Boolean = false,
+    isZenAudioPlaying: Boolean = false,
     showSummary: Boolean = false,
     onPlayAudio: () -> Unit = {},
+    onZenAudio: () -> Unit = {},
+    onRsvpReading: () -> Unit = {},
     onSummary: () -> Unit = {},
     onClose: () -> Unit = {},
 ) {
@@ -76,6 +82,24 @@ fun TopBar(
                             android.util.Log.d("roy93~AI", "TopBar: Summary clicked")
                             onSummary()
                         }
+                    }
+                    // RSVP Speed Reading
+                    FeedbackIconButton(
+                        modifier = Modifier.size(22.dp),
+                        imageVector = Icons.Rounded.ElectricBolt,
+                        contentDescription = stringResource(R.string.zen_speed_reading),
+                        tint = MaterialTheme.colorScheme.primary
+                    ) {
+                        onRsvpReading()
+                    }
+                    // Zen Ambient Audio
+                    FeedbackIconButton(
+                        modifier = Modifier.size(22.dp),
+                        imageVector = if (isZenAudioPlaying) Icons.Rounded.GraphicEq else Icons.Outlined.Headphones,
+                        contentDescription = stringResource(R.string.zen_ambient_audio),
+                        tint = if (isZenAudioPlaying) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface
+                    ) {
+                        onZenAudio()
                     }
                     FeedbackIconButton(
                         modifier = Modifier.size(22.dp),

@@ -86,12 +86,11 @@ abstract class AbstractRssRepository(
                         .awaitAll()
                         .filterNotNull()
                         .forEach {
-                            if (it.feed.isNotification) {
+                            val insertedArticles = articleDao.insertListIfNotExist(it.articles)
+                            if (it.feed.isNotification && !shouldSilenceNotification()) {
                                 notificationHelper.notify(it.apply {
-                                    articles = articleDao.insertListIfNotExist(it.articles)
+                                    articles = insertedArticles
                                 })
-                            } else {
-                                articleDao.insertListIfNotExist(it.articles)
                             }
                         }
                 }
@@ -359,5 +358,11 @@ abstract class AbstractRssRepository(
                 else -> articleDao.searchArticleWhenAll(accountId, content)
             }
         }
+    }
+
+    private fun shouldSilenceNotification(): Boolean {
+        val prefs = context.getSharedPreferences("zen_daily_edition_prefs", Context.MODE_PRIVATE)
+        return prefs.getBoolean("key_daily_edition_enabled", false) &&
+                prefs.getBoolean("key_daily_edition_batch_silence", true)
     }
 }

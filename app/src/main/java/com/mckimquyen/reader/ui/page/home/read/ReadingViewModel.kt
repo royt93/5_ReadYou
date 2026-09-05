@@ -13,6 +13,7 @@ import com.mckimquyen.reader.domain.sv.RssSv
 import com.mckimquyen.reader.infrastructure.ai.GeminiSummaryService
 import com.mckimquyen.reader.infrastructure.audio.TtsManager
 import com.mckimquyen.reader.infrastructure.audio.TtsState
+import com.mckimquyen.reader.infrastructure.audio.ambient.ZenAudioManager
 import com.mckimquyen.reader.infrastructure.rss.RssHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -32,6 +33,7 @@ class ReadingViewModel @Inject constructor(
     private val rssHelper: RssHelper,
     private val ttsManager: TtsManager,
     private val summaryService: GeminiSummaryService,
+    val zenAudioManager: ZenAudioManager,
 ) : ViewModel() {
 
     private val _readingUiState = MutableStateFlow(ReadingUiState())

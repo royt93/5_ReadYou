@@ -23,6 +23,11 @@ import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.zIndex
 import androidx.compose.ui.unit.dp
@@ -35,6 +40,9 @@ import com.mckimquyen.reader.infrastructure.pref.LocalReadingPageTonalElevation
 import com.mckimquyen.reader.infrastructure.pref.LocalAutoTts
 import com.mckimquyen.reader.ui.component.base.BaseScaffold
 import com.mckimquyen.reader.ui.component.base.BottomDrawer
+import com.mckimquyen.reader.ui.component.ambient.ZenSoundSheet
+import com.mckimquyen.reader.ui.page.rsvp.RsvpReaderDialog
+import com.mckimquyen.reader.ui.page.rsvp.RsvpViewModel
 import com.mckimquyen.reader.ui.ext.collectAsStateValue
 import com.mckimquyen.reader.ui.ext.isScrollDown
 import com.mckimquyen.reader.ui.page.home.HomeViewModel
@@ -51,6 +59,12 @@ fun ReadingPage(
     val readingUiState = readingViewModel.readingUiState.collectAsStateValue()
     val homeUiState = homeViewModel.homeUiState.collectAsStateValue()
     val listState = rememberLazyListState()
+
+    var showZenAudioSheet by remember { mutableStateOf(false) }
+    var showRsvpDialog by remember { mutableStateOf(false) }
+    val rsvpViewModel: RsvpViewModel = hiltViewModel()
+    val isZenAudioPlaying by readingViewModel.zenAudioManager.isPlaying.collectAsState()
+
     val isShowToolBar = if (LocalReadingAutoHideToolbar.current.value) {
         readingUiState.articleWithFeed != null && !listState.isScrollDown()
     } else {
@@ -137,8 +151,15 @@ fun ReadingPage(
                     title = readingUiState.articleWithFeed?.article?.title,
                     link = readingUiState.articleWithFeed?.article?.link,
                     isPlayingAudio = readingUiState.ttsState == TtsState.PLAYING,
+                    isZenAudioPlaying = isZenAudioPlaying,
                     onPlayAudio = {
                         readingViewModel.togglePlayAudio()
+                    },
+                    onZenAudio = {
+                        showZenAudioSheet = true
+                    },
+                    onRsvpReading = {
+                        showRsvpDialog = true
                     },
                     // Nút ✨ chỉ hiện khi đã cấu hình key Gemini (GeminiConfig.API_KEYS).
                     // Chưa có key -> ẩn nút để user phổ thông không thấy tính năng chưa sẵn sàng.
@@ -221,5 +242,24 @@ fun ReadingPage(
             }
         }
     )
+    }
+
+    if (showZenAudioSheet) {
+        ZenSoundSheet(
+            zenAudioManager = readingViewModel.zenAudioManager,
+            onDismiss = { showZenAudioSheet = false }
+        )
+    }
+
+    if (showRsvpDialog) {
+        val articleContent = readingUiState.content
+            ?.takeIf { it.isNotBlank() }
+            ?: readingUiState.articleWithFeed?.article?.shortDescription
+            ?: ""
+        RsvpReaderDialog(
+            content = articleContent,
+            viewModel = rsvpViewModel,
+            onDismiss = { showRsvpDialog = false }
+        )
     }
 }

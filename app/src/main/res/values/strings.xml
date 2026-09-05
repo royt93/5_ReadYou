@@ -581,4 +581,31 @@
     <string name="brain_rpg_stats_passed">Correct</string>
     <string name="brain_rpg_stats_accuracy">Accuracy</string>
     <string name="brain_rpg_wrapped_desc">"You\'ve earned %1$d XP and kept a %2$d-day reading streak! Share your achievement to inspire others."</string>
+
+    <!-- Epic 08: Zen Focus & Speed Reading -->
+    <string name="zen_speed_reading">Speed Reading (RSVP)</string>
+    <string name="zen_speed_reading_desc">Read up to 900 words per minute with fixed focal alignment</string>
+    <string name="zen_wpm">%1$d WPM</string>
+    <string name="zen_wpm_label">Reading Speed: %1$d WPM</string>
+    <string name="zen_words_progress">%1$d / %2$d words</string>
+    <string name="zen_time_remaining">%1$s remaining</string>
+    <string name="zen_ambient_audio">Zen Focus Audio</string>
+    <string name="zen_ambient_audio_desc">Soothing soundscapes for deep reading concentration</string>
+    <string name="zen_sound_rain">Gentle Rain</string>
+    <string name="zen_sound_ocean">Ocean Waves</string>
+    <string name="zen_sound_pink_noise">Soft Focus Noise</string>
+    <string name="zen_sound_binaural">Binaural 40Hz Gamma</string>
+    <string name="zen_sound_bowl">Tibetan Singing Bowl</string>
+    <string name="zen_daily_edition">Scheduled Daily Edition</string>
+    <string name="zen_daily_edition_desc">Batch articles and silence notifications until your scheduled reading hours</string>
+    <string name="zen_daily_edition_enabled">Batch Delivery Mode</string>
+    <string name="zen_morning_edition">Morning Edition (07:00)</string>
+    <string name="zen_evening_edition">Evening Edition (20:00)</string>
+    <string name="zen_daily_edition_title">Daily Focus Edition</string>
+    <string name="zen_daily_edition_notification">%1$d unread articles ready for your focus reading.</string>
+    <string name="zen_sleep_timer">Sleep Timer</string>
+    <string name="zen_sleep_timer_off">Continuous</string>
+    <string name="zen_sleep_timer_min">%1$d minutes</string>
+    <string name="zen_volume">Volume: %1$d%%</string>
+    <string name="zen_settings_title">Zen Focus &amp; Speed Reading</string>
 </resources>

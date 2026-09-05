@@ -37,6 +37,15 @@ class NotificationHelper @Inject constructor(
                     description = "Bản tin phát thanh buổi sáng hàng ngày"
                 }
             )
+            createNotificationChannel(
+                NotificationChannel(
+                    ZEN_DAILY_EDITION_CHANNEL_ID,
+                    "Daily Focus Edition",
+                    NotificationManager.IMPORTANCE_DEFAULT
+                ).apply {
+                    description = "Bản tin tạp chí định giờ sáng và tối"
+                }
+            )
         }
 
     fun notify(feedWithArticle: FeedWithArticle) {
@@ -132,9 +141,34 @@ class NotificationHelper @Inject constructor(
         notificationManager.notify(COMMUTE_NOTIFICATION_ID, notification)
     }
 
+    fun notifyDailyEdition(title: String, body: String, unreadCount: Int) {
+        val intent = Intent(context, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+        val pendingIntent = PendingIntent.getActivity(
+            context,
+            ZEN_DAILY_EDITION_NOTIFICATION_ID,
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+
+        val notification = NotificationCompat.Builder(context, ZEN_DAILY_EDITION_CHANNEL_ID)
+            .setSmallIcon(R.drawable.ic_notification)
+            .setContentTitle(title)
+            .setContentText(body)
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setAutoCancel(true)
+            .setContentIntent(pendingIntent)
+            .build()
+
+        notificationManager.notify(ZEN_DAILY_EDITION_NOTIFICATION_ID, notification)
+    }
+
     companion object {
         const val COMMUTE_CHANNEL_ID = "commute_cast_channel"
         const val COMMUTE_NOTIFICATION_ID = 9988
         const val EXTRA_START_COMMUTE = "extra_start_commute"
+        const val ZEN_DAILY_EDITION_CHANNEL_ID = "zen_daily_edition_channel"
+        const val ZEN_DAILY_EDITION_NOTIFICATION_ID = 9977
     }
 }

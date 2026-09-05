@@ -38,6 +38,7 @@ import com.mckimquyen.reader.ui.page.home.flow.FlowPage
 import com.mckimquyen.reader.ui.page.home.read.ReadingPage
 import com.mckimquyen.reader.ui.page.rpg.BrainRpgPage
 import com.mckimquyen.reader.ui.page.setting.SettingsPage
+import com.mckimquyen.reader.ui.page.setting.zen.ZenSettingsPage
 import com.mckimquyen.reader.ui.page.setting.acc.AccountDetailsPage
 import com.mckimquyen.reader.ui.page.setting.acc.AccountsPage
 import com.mckimquyen.reader.ui.page.setting.acc.AddAccountsPage
@@ -204,6 +205,11 @@ fun HomeEntry(
             // Settings
             animatedComposable(route = RouteName.SETTINGS) {
                 SettingsPage(navController = navController, activity = activity)
+            }
+
+            // Zen Focus & Speed Reading
+            animatedComposable(route = RouteName.ZEN_FOCUS) {
+                ZenSettingsPage(navController = navController, activity = activity)
             }
 
             // Brain RPG

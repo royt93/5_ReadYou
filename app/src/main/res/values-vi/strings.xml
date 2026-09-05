@@ -472,4 +472,31 @@
     <string name="brain_rpg_stats_passed">Chính xác</string>
     <string name="brain_rpg_stats_accuracy">Tỷ lệ đúng</string>
     <string name="brain_rpg_wrapped_desc">"Bạn đã tích lũy %1$d XP và giữ chuỗi đọc %2$d ngày liên tiếp! Chia sẻ thành tích để truyền cảm hứng đọc tới bạn bè."</string>
+
+    <!-- Epic 08: Zen Focus & Speed Reading -->
+    <string name="zen_speed_reading">Đọc siêu tốc (RSVP)</string>
+    <string name="zen_speed_reading_desc">Đọc chớp mắt lên tới 900 từ/phút với tiêu điểm cố định</string>
+    <string name="zen_wpm">%1$d WPM</string>
+    <string name="zen_wpm_label">Tốc độ: %1$d WPM</string>
+    <string name="zen_words_progress">%1$d / %2$d từ</string>
+    <string name="zen_time_remaining">Còn %1$s</string>
+    <string name="zen_ambient_audio">Âm thanh tập trung Zen</string>
+    <string name="zen_ambient_audio_desc">Âm thanh nền giúp tập trung đọc sâu</string>
+    <string name="zen_sound_rain">Mưa rào tĩnh lặng</string>
+    <string name="zen_sound_ocean">Sóng biển trầm sâu</string>
+    <string name="zen_sound_pink_noise">Tiếng ồn trắng tập trung</string>
+    <string name="zen_sound_binaural">Sóng não 40Hz Gamma</string>
+    <string name="zen_sound_bowl">Chuông thiền Tây Tạng</string>
+    <string name="zen_daily_edition">Bản tin tạp chí định giờ</string>
+    <string name="zen_daily_edition_desc">Gom bài viết và tắt thông báo lẻ tẻ cho đến giờ đọc định kỳ</string>
+    <string name="zen_daily_edition_enabled">Chế độ phát hành định giờ</string>
+    <string name="zen_morning_edition">Ấn phẩm buổi sáng (07:00)</string>
+    <string name="zen_evening_edition">Ấn phẩm buổi tối (20:00)</string>
+    <string name="zen_daily_edition_title">Bản tin tiêu điểm trong ngày</string>
+    <string name="zen_daily_edition_notification">%1$d bài viết mới đang chờ bạn đọc tập trung.</string>
+    <string name="zen_sleep_timer">Hẹn giờ tắt</string>
+    <string name="zen_sleep_timer_off">Không giới hạn</string>
+    <string name="zen_sleep_timer_min">%1$d phút</string>
+    <string name="zen_volume">Âm lượng: %1$d%%</string>
+    <string name="zen_settings_title">Đọc siêu tốc &amp; Tập trung Zen</string>
 </resources>
