@@ -85,4 +85,22 @@ class BrainRpgViewModelTest {
         assertEquals(150L, progress.totalXp)
         assertEquals(1, progress.quizzesPassed)
     }
+
+    @Test
+    fun onArticleReadFinished_callsOnRewardedOnlyOnFirstRead() = runTest(testDispatcher) {
+        var rewardInvoked = 0
+        viewModel.onArticleReadFinished("art_cb", QuizGeneratorService.CATEGORY_TECH) {
+            rewardInvoked++
+        }
+        testScheduler.advanceUntilIdle()
+        assertEquals(1, rewardInvoked)
+
+        // Second time on same article
+        viewModel.onArticleReadFinished("art_cb", QuizGeneratorService.CATEGORY_TECH) {
+            rewardInvoked++
+        }
+        testScheduler.advanceUntilIdle()
+        // Should STILL be 1 because it was deduplicated
+        assertEquals(1, rewardInvoked)
+    }
 }

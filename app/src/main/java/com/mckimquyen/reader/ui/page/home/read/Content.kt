@@ -27,6 +27,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import android.widget.Toast
+import com.mckimquyen.reader.R
 import com.mckimquyen.reader.infrastructure.pref.LocalOpenLink
 import com.mckimquyen.reader.infrastructure.pref.LocalOpenLinkSpecificBrowser
 import com.mckimquyen.reader.infrastructure.pref.LocalReadingSubheadUpperCase
@@ -56,21 +58,28 @@ fun Content(
     val openLink = LocalOpenLink.current
     val openLinkSpecificBrowser = LocalOpenLinkSpecificBrowser.current
 
-    val quiz = remember(articleId, content) {
-        if (articleId.isNotBlank()) {
+    val quiz = remember(articleId, title, content) {
+        if (articleId.isNotBlank() && (title.isNotBlank() || content.isNotBlank())) {
             brainRpgViewModel.quizGeneratorService.generateQuiz(articleId, title, content, author)
         } else null
     }
 
-    LaunchedEffect(listState, articleId) {
-        if (articleId.isNotBlank() && quiz != null) {
+    val articleCategory = remember(title, content) {
+        brainRpgViewModel.quizGeneratorService.detectCategory(title, content)
+    }
+
+    LaunchedEffect(listState, articleId, articleCategory) {
+        if (articleId.isNotBlank()) {
             snapshotFlow {
-                val totalItems = listState.layoutInfo.totalItemsCount
-                val lastVisible = listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index ?: 0
-                totalItems > 2 && lastVisible >= totalItems - 2
+                val layout = listState.layoutInfo
+                val totalItems = layout.totalItemsCount
+                val lastVisible = layout.visibleItemsInfo.lastOrNull()?.index ?: 0
+                totalItems > 0 && lastVisible >= (totalItems * 0.75f).toInt()
             }.collect { isNearBottom ->
                 if (isNearBottom) {
-                    brainRpgViewModel.onArticleReadFinished(articleId, quiz.category)
+                    brainRpgViewModel.onArticleReadFinished(articleId, articleCategory) {
+                        Toast.makeText(context, context.getString(R.string.brain_rpg_reading_reward), Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         }
@@ -137,10 +146,17 @@ fun Content(
                         BrainQuizCard(
                             quiz = quiz,
                             onAnswerSubmitted = { isCorrect ->
-                                brainRpgViewModel.submitQuizAnswer(quiz.category, isCorrect) { _, _ -> }
+                                brainRpgViewModel.submitQuizAnswer(quiz.category, isCorrect) { _, awarded ->
+                                    if (isCorrect && awarded > 0) {
+                                        Toast.makeText(context, "+$awarded XP! 🎉", Toast.LENGTH_SHORT).show()
+                                    }
+                                }
                             },
                             onDoubleXpRequested = { act, onDone ->
                                 brainRpgViewModel.doubleQuizReward(act, quiz.category, 150L, onDone)
+                            },
+                            onRetryQuizRequested = { act, onDone ->
+                                brainRpgViewModel.retryQuiz(act, onDone)
                             }
                         )
                     }

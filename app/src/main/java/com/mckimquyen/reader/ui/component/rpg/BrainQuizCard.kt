@@ -36,6 +36,7 @@ fun BrainQuizCard(
     quiz: QuizQuestion,
     onAnswerSubmitted: (isCorrect: Boolean) -> Unit,
     onDoubleXpRequested: (activity: Activity, onDone: (Boolean) -> Unit) -> Unit,
+    onRetryQuizRequested: (activity: Activity, onDone: (Boolean) -> Unit) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
@@ -241,6 +242,8 @@ fun BrainQuizCard(
                                         if (success) {
                                             isDoubled = true
                                             Toast.makeText(context, "+300 XP! 🎉", Toast.LENGTH_SHORT).show()
+                                        } else {
+                                            Toast.makeText(context, context.getString(R.string.vip_rewarded_not_earned), Toast.LENGTH_SHORT).show()
                                         }
                                     }
                                 },
@@ -279,10 +282,12 @@ fun BrainQuizCard(
                         OutlinedButton(
                             onClick = {
                                 val act = activity ?: return@OutlinedButton
-                                onDoubleXpRequested(act) { success ->
+                                onRetryQuizRequested(act) { success ->
                                     if (success) {
                                         selectedIndex = null // Reset to try again!
                                         Toast.makeText(context, context.getString(R.string.retry), Toast.LENGTH_SHORT).show()
+                                    } else {
+                                        Toast.makeText(context, context.getString(R.string.vip_rewarded_not_earned), Toast.LENGTH_SHORT).show()
                                     }
                                 }
                             },

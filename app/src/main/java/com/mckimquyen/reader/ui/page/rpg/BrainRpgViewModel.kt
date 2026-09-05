@@ -23,11 +23,12 @@ class BrainRpgViewModel @Inject constructor(
 
     private val readArticleIds = mutableSetOf<String>()
 
-    fun onArticleReadFinished(articleId: String, category: String) {
+    fun onArticleReadFinished(articleId: String, category: String, onRewarded: ((Long) -> Unit)? = null) {
         if (articleId.isBlank()) return
         if (readArticleIds.add(articleId)) {
             viewModelScope.launch {
                 repository.addReadingXp(category, 50L)
+                onRewarded?.invoke(50L)
             }
         }
     }
@@ -47,10 +48,14 @@ class BrainRpgViewModel @Inject constructor(
                     onDone(true)
                 }
             } else {
-                AdManager.showInterstitial(activity) {
-                    onDone(false)
-                }
+                onDone(false)
             }
+        }
+    }
+
+    fun retryQuiz(activity: Activity, onDone: (Boolean) -> Unit) {
+        AdManager.showRewarded(activity) { earned ->
+            onDone(earned)
         }
     }
 
@@ -62,9 +67,7 @@ class BrainRpgViewModel @Inject constructor(
                     onDone(true)
                 }
             } else {
-                AdManager.showInterstitial(activity) {
-                    onDone(false)
-                }
+                onDone(false)
             }
         }
     }

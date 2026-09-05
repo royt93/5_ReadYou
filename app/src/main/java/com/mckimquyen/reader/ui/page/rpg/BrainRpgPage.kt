@@ -87,6 +87,8 @@ fun BrainRpgPage(
                             viewModel.activateStreakShield(activity) { success ->
                                 if (success) {
                                     Toast.makeText(context, context.getString(R.string.brain_rpg_streak_shield_success), Toast.LENGTH_SHORT).show()
+                                } else {
+                                    Toast.makeText(context, context.getString(R.string.vip_rewarded_not_earned), Toast.LENGTH_SHORT).show()
                                 }
                             }
                         }
@@ -121,7 +123,7 @@ fun BrainRpgPage(
                                 type = "text/plain"
                                 putExtra(Intent.EXTRA_TEXT, shareText)
                             }
-                            context.startActivity(Intent.createChooser(intent, context.getString(R.string.share_app)))
+                            activity.startActivity(Intent.createChooser(intent, context.getString(R.string.share_app)))
                         }
                     )
                 }
