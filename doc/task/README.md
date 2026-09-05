@@ -7,7 +7,7 @@
 
 ---
 
-## 🎯 Tổng Quan Phân Bổ Backlog (50 Tasks — 249 Story Points)
+## 🎯 Tổng Quan Phân Bổ Backlog (70 Tasks — 379 Story Points)
 
 | Epic / Danh Mục | Số Lượng Task | Tổng Story Points | Độ Ưu Tiên Cao Nhất | File Chi Tiết |
 |---|:---:|:---:|:---:|---|
@@ -22,7 +22,12 @@
 | **9. REELS — Thẻ Lướt Dọc TikTok & Video PiP** | 3 tasks | 18 SP | **P2 (Medium)** | [`09_VISUAL_REELS_AND_MEDIA.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/todo/09_VISUAL_REELS_AND_MEDIA.md) |
 | **10. FRONTIER — Báo Cáo McKinsey, Web3 & Xe Hơi** | 4 tasks | 32 SP | **P1 (High)** | [`10_FRONTIER_AND_ECOSYSTEM.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/todo/10_FRONTIER_AND_ECOSYSTEM.md) |
 | **11. AUTONOMOUS — Zero-Click Agent & Privacy Vault** | 3 tasks | 18 SP | **P1 (High)** | [`11_AUTONOMOUS_COMMUNITY_PRIVACY.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/todo/11_AUTONOMOUS_COMMUNITY_PRIVACY.md) |
-| **TỔNG CỘNG** | **50 tasks** | **249 SP** | — | — |
+| **12. BRAIN RPG — Game Hóa Đọc Bài, Trắc Nghiệm AI & Wrapped** | 4 tasks | 26 SP | **P1 (High)** | [`12_GAMIFIED_BRAIN_RPG_AND_WRAPPED.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/todo/12_GAMIFIED_BRAIN_RPG_AND_WRAPPED.md) |
+| **13. ORACLE — Thị Trường Dự Đoán Polymarket Trên RSS** | 4 tasks | 26 SP | **P0 (Critical Ad)** | [`13_THE_ORACLE_PREDICTION_MARKET.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/todo/13_THE_ORACLE_PREDICTION_MARKET.md) |
+| **14. COMMUTECAST — Radio AI 6:00 Sáng, Android Auto & Lockscreen** | 4 tasks | 26 SP | **P0 (Critical Ad)** | [`14_COMMUTECAST_AUTONOMOUS_AI_DJ.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/todo/14_COMMUTECAST_AUTONOMOUS_AI_DJ.md) |
+| **15. BOUNTY HUNTER — Agent Điều Tra Sâu & Mạng Nhện Obsidian** | 4 tasks | 26 SP | **P0 (Critical Ad)** | [`15_BOUNTY_HUNTER_AGENT_AND_GRAPH.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/todo/15_BOUNTY_HUNTER_AGENT_AND_GRAPH.md) |
+| **16. ECHOCHAMBER — La Bàn Thiên Kiến & Đấu Trường Phản Biện** | 4 tasks | 26 SP | **P1 (High)** | [`16_ECHOCHAMBER_AND_BIAS_COMPASS.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/todo/16_ECHOCHAMBER_AND_BIAS_COMPASS.md) |
+| **TỔNG CỘNG** | **70 tasks** | **379 SP** | — | — |
 
 ---
 

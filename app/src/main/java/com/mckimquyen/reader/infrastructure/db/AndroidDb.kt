@@ -42,7 +42,7 @@ import java.util.Date
         Group::class,
         AddedRssSource::class,
     ],
-    version = 6
+    version = 7
 )
 @TypeConverters(
     AndroidDatabase.DateConverters::class,
@@ -99,6 +99,7 @@ val allMigrations = arrayOf(
     MIGRATION_3_4,
     MIGRATION_4_5,
     MIGRATION_5_6,
+    MIGRATION_6_7,
 )
 
 @Suppress("ClassName")

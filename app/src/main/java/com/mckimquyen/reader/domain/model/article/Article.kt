@@ -10,6 +10,11 @@ import java.util.*
  */
 @Entity(
     tableName = "article",
+    indices = [
+        Index(value = ["accountId", "isUnread", "date"]),
+        Index(value = ["accountId", "feedId", "isUnread", "date"]),
+        Index(value = ["accountId", "isStarred", "date"]),
+    ],
     foreignKeys = [ForeignKey(
         entity = Feed::class,
         parentColumns = ["id"],
@@ -51,6 +56,8 @@ data class Article(
     var isReadLater: Boolean = false,
     @ColumnInfo
     var updateAt: Date? = null,
+    @ColumnInfo
+    var aiSummary: String? = null,
 ) {
 
     @Ignore
