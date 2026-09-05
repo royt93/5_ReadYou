@@ -79,8 +79,7 @@ fun FlowPage(
     val flowUiState = flowViewModel.flowUiState.collectAsStateValue()
     val filterUiState = homeViewModel.filterUiState.collectAsStateValue()
     val pagingItems = homeUiState.pagingData.collectAsLazyPagingItems()
-    val listState =
-        if (pagingItems.itemCount > 0) flowUiState.listState else rememberLazyListState()
+    val listState = rememberLazyListState()
     val scope = rememberCoroutineScope()
     val focusRequester = remember { FocusRequester() }
     var markAsRead by remember { mutableStateOf(false) }
@@ -105,8 +104,8 @@ fun FlowPage(
         }
     }
 
-    LaunchedEffect(flowUiState.listState) {
-        snapshotFlow { flowUiState.listState.firstVisibleItemIndex }.collect {
+    LaunchedEffect(listState) {
+        snapshotFlow { listState.firstVisibleItemIndex }.collect {
             if (it > 0) {
                 keyboardController?.hide()
             }
@@ -150,11 +149,8 @@ fun FlowPage(
                         },
                     ) {
                         scope.launch {
-                            // java.lang.NullPointerException: Attempt to invoke virtual method
-                            // 'boolean androidx.compose.ui.node.LayoutNode.getNeedsOnPositionedDispatch$ui_release()'
-                            // on a null object reference
-                            if (flowUiState.listState.firstVisibleItemIndex != 0) {
-                                flowUiState.listState.scrollToItem(0)
+                            if (listState.firstVisibleItemIndex != 0) {
+                                listState.scrollToItem(0)
                             }
                             markAsRead = !markAsRead
                             onSearch = false
@@ -171,11 +167,8 @@ fun FlowPage(
                     },
                 ) {
                     scope.launch {
-                        // java.lang.NullPointerException: Attempt to invoke virtual method
-                        // 'boolean androidx.compose.ui.node.LayoutNode.getNeedsOnPositionedDispatch$ui_release()'
-                        // on a null object reference
-                        if (flowUiState.listState.firstVisibleItemIndex != 0) {
-                            flowUiState.listState.scrollToItem(0)
+                        if (listState.firstVisibleItemIndex != 0) {
+                            listState.scrollToItem(0)
                         }
                         onSearch = !onSearch
                     }
@@ -297,11 +290,8 @@ fun FlowPage(
                 // Khi tap AddSources, chỉ cần thay đổi filter state, UI sẽ tự động update
                 if (!it.isAddSources()) {
                     scope.launch {
-                        // java.lang.NullPointerException: Attempt to invoke virtual method
-                        // 'boolean androidx.compose.ui.node.LayoutNode.getNeedsOnPositionedDispatch$ui_release()'
-                        // on a null object reference
-                        if (flowUiState.listState.firstVisibleItemIndex != 0) {
-                            flowUiState.listState.scrollToItem(0)
+                        if (listState.firstVisibleItemIndex != 0) {
+                            listState.scrollToItem(0)
                         }
                     }
                 }

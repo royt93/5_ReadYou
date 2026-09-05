@@ -1,6 +1,7 @@
 package com.mckimquyen.reader.infrastructure.rss
 
 import android.content.Context
+import android.net.Uri
 import android.text.Html
 import android.util.Log
 import com.google.gson.Gson
@@ -151,12 +152,11 @@ class RssHelper @Inject constructor(
         feed: Feed,
     ) {
         withContext(ioDispatcher) {
-            val request = response(okHttpClient, "https://besticon-demo.herokuapp.com/allicons.json?url=${feed.url}")
-            val content = request.body.string()
-            val favicon = Gson().fromJson(content, Favicon::class.java)
-            favicon?.icons?.first { it.width != null && it.width >= 20 }?.url?.let {
-                saveRssIcon(feedDao, feed, it)
-            } ?: return@withContext
+            val host = runCatching { Uri.parse(feed.url).host }.getOrNull()
+            if (!host.isNullOrBlank()) {
+                val iconUrl = "https://www.google.com/s2/favicons?domain=$host&sz=128"
+                saveRssIcon(feedDao, feed, iconUrl)
+            }
         }
     }
 

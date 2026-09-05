@@ -1,7 +1,6 @@
 package com.mckimquyen.reader.ui.page.home.flow
 
 import androidx.annotation.Keep
-import androidx.compose.foundation.lazy.LazyListState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mckimquyen.reader.domain.model.general.MarkAsReadConditions
@@ -52,7 +51,6 @@ class FlowViewModel @Inject constructor(
 @Keep
 data class FlowUiState(
     val filterImportant: Int = 0,
-    val listState: LazyListState = LazyListState(),
     val isBack: Boolean = false,
     val syncWorkInfo: String = "",
 )

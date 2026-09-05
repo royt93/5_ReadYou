@@ -1,7 +1,6 @@
 package com.mckimquyen.reader.ui.page.home.feed
 
 import androidx.annotation.Keep
-import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.snapshots.SnapshotStateMap
 import androidx.lifecycle.ViewModel
@@ -115,7 +114,6 @@ data class FeedsUiState(
     val account: Account? = null,
     val importantSum: Flow<String> = emptyFlow(),
     val groupWithFeedList: Flow<List<GroupFeedsView>> = emptyFlow(),
-    val listState: LazyListState = LazyListState(),
     val groupsVisible: SnapshotStateMap<String, Boolean> = mutableStateMapOf(),
 )
 

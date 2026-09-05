@@ -200,3 +200,14 @@ object MIGRATION_5_6 : Migration(5, 6) {
         )
     }
 }
+
+@Suppress("ClassName")
+object MIGRATION_6_7 : Migration(6, 7) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL("ALTER TABLE article ADD COLUMN aiSummary TEXT DEFAULT NULL")
+        db.execSQL("CREATE INDEX IF NOT EXISTS index_article_accountId_isUnread_date ON article(accountId, isUnread, date)")
+        db.execSQL("CREATE INDEX IF NOT EXISTS index_article_accountId_feedId_isUnread_date ON article(accountId, feedId, isUnread, date)")
+        db.execSQL("CREATE INDEX IF NOT EXISTS index_article_accountId_isStarred_date ON article(accountId, isStarred, date)")
+    }
+}
+

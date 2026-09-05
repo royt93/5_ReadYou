@@ -412,7 +412,7 @@ interface ArticleDao {
         """
         SELECT a.id, a.date, a.title, a.author, a.rawDescription, 
         a.shortDescription, a.fullContent, a.img, a.link, a.feedId, 
-        a.accountId, a.isUnread, a.isStarred, a.isReadLater, a.updateAt 
+        a.accountId, a.isUnread, a.isStarred, a.isReadLater, a.updateAt, a.aiSummary 
         FROM article AS a
         LEFT JOIN feed AS b ON b.id = a.feedId
         LEFT JOIN `group` AS c ON c.id = b.groupId
@@ -432,7 +432,7 @@ interface ArticleDao {
         """
         SELECT a.id, a.date, a.title, a.author, a.rawDescription, 
         a.shortDescription, a.fullContent, a.img, a.link, a.feedId, 
-        a.accountId, a.isUnread, a.isStarred, a.isReadLater, a.updateAt 
+        a.accountId, a.isUnread, a.isStarred, a.isReadLater, a.updateAt, a.aiSummary 
         FROM article AS a
         LEFT JOIN feed AS b ON b.id = a.feedId
         LEFT JOIN `group` AS c ON c.id = b.groupId
@@ -454,7 +454,7 @@ interface ArticleDao {
         """
         SELECT a.id, a.date, a.title, a.author, a.rawDescription, 
         a.shortDescription, a.fullContent, a.img, a.link, a.feedId, 
-        a.accountId, a.isUnread, a.isStarred, a.isReadLater, a.updateAt 
+        a.accountId, a.isUnread, a.isStarred, a.isReadLater, a.updateAt, a.aiSummary 
         FROM article AS a
         LEFT JOIN feed AS b ON b.id = a.feedId
         LEFT JOIN `group` AS c ON c.id = b.groupId
@@ -521,7 +521,7 @@ interface ArticleDao {
         """
         SELECT a.id, a.date, a.title, a.author, a.rawDescription, 
         a.shortDescription, a.fullContent, a.img, a.link, a.feedId, 
-        a.accountId, a.isUnread, a.isStarred, a.isReadLater, a.updateAt 
+        a.accountId, a.isUnread, a.isStarred, a.isReadLater, a.updateAt, a.aiSummary 
         FROM article AS a LEFT JOIN feed AS b 
         ON a.feedId = b.id
         WHERE a.feedId = :feedId 

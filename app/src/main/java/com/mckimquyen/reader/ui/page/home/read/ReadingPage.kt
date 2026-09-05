@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.rememberModalBottomSheetState
@@ -48,10 +49,19 @@ fun ReadingPage(
     val autoTts = LocalAutoTts.current.value
     val readingUiState = readingViewModel.readingUiState.collectAsStateValue()
     val homeUiState = homeViewModel.homeUiState.collectAsStateValue()
+    val listState = rememberLazyListState()
     val isShowToolBar = if (LocalReadingAutoHideToolbar.current.value) {
-        readingUiState.articleWithFeed != null && !readingUiState.listState.isScrollDown()
+        readingUiState.articleWithFeed != null && !listState.isScrollDown()
     } else {
         true
+    }
+
+    LaunchedEffect(Unit) {
+        readingViewModel.scrollToTopEvent.collect {
+            if (listState.firstVisibleItemIndex != 0) {
+                listState.scrollToItem(0)
+            }
+        }
     }
 
     val pagingItems = homeUiState.pagingData.collectAsLazyPagingItems().itemSnapshotList
@@ -166,7 +176,7 @@ fun ReadingPage(
                             link = readingUiState.articleWithFeed.article.link,
                             publishedDate = readingUiState.articleWithFeed.article.date,
                             isLoading = readingUiState.isLoading,
-                            listState = readingUiState.listState,
+                            listState = listState,
                         )
                     }
                 }

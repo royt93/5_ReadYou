@@ -3,7 +3,6 @@ package com.mckimquyen.reader.ui.page.home.read
 import android.util.Log
 import androidx.annotation.Keep
 import androidx.annotation.StringRes
-import androidx.compose.foundation.lazy.LazyListState
 import com.mckimquyen.reader.R
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -17,8 +16,11 @@ import com.mckimquyen.reader.infrastructure.audio.TtsState
 import com.mckimquyen.reader.infrastructure.rss.RssHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -34,6 +36,9 @@ class ReadingViewModel @Inject constructor(
 
     private val _readingUiState = MutableStateFlow(ReadingUiState())
     val readingUiState: StateFlow<ReadingUiState> = _readingUiState.asStateFlow()
+
+    private val _scrollToTopEvent = MutableSharedFlow<Unit>(extraBufferCapacity = 1)
+    val scrollToTopEvent: SharedFlow<Unit> = _scrollToTopEvent.asSharedFlow()
 
     private var fetchJob: kotlinx.coroutines.Job? = null
 
@@ -68,12 +73,7 @@ class ReadingViewModel @Inject constructor(
                 if (it.feed.isFullContent) internalRenderFullContent(shouldAutoPlay)
                 else renderDescriptionContent(shouldAutoPlay)
             }
-            // java.lang.NullPointerException: Attempt to invoke virtual method
-            // 'boolean androidx.compose.ui.node.LayoutNode.getNeedsOnPositionedDispatch$ui_release()'
-            // on a null object reference
-            if (_readingUiState.value.listState.firstVisibleItemIndex != 0) {
-                _readingUiState.value.listState.scrollToItem(0)
-            }
+            _scrollToTopEvent.tryEmit(Unit)
             hideLoading()
         }
     }
@@ -286,7 +286,6 @@ data class ReadingUiState(
     val content: String? = null,
     val isFullContent: Boolean = false,
     val isLoading: Boolean = true,
-    val listState: LazyListState = LazyListState(),
     val nextArticleId: String = "",
     val ttsState: TtsState = TtsState.IDLE,
     val showSummarySheet: Boolean = false,

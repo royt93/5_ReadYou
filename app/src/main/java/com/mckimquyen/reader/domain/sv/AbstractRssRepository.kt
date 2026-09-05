@@ -80,10 +80,11 @@ abstract class AbstractRssRepository(
             val preTime = System.currentTimeMillis()
             val accountId = context.currentAccountId
             feedDao.queryAll(accountId)
-                .chunked(16)
-                .forEach {
-                    it.map { feed -> async { syncFeed(feed) } }
+                .chunked(6)
+                .forEach { chunk ->
+                    chunk.map { feed -> async { syncFeed(feed) } }
                         .awaitAll()
+                        .filterNotNull()
                         .forEach {
                             if (it.feed.isNotification) {
                                 notificationHelper.notify(it.apply {
@@ -145,21 +146,25 @@ abstract class AbstractRssRepository(
         articleDao.markAsStarredByArticleId(accountId, articleId, isStarred)
     }
 
-    private suspend fun syncFeed(feed: Feed): FeedWithArticle {
-        val latest = articleDao.queryLatestByFeedId(context.currentAccountId, feed.id)
-        val articles = rssHelper.queryRssXml(feed, latest?.link)
-        if (feed.icon == null) {
-            try {
-                rssHelper.queryRssIcon(feedDao, feed)
-            } catch (e: Exception) {
-//                Log.i("RLog", "queryRssIcon is failed: ${e.message}")
-                e.printStackTrace()
+    private suspend fun syncFeed(feed: Feed): FeedWithArticle? {
+        return runCatching {
+            val latest = articleDao.queryLatestByFeedId(context.currentAccountId, feed.id)
+            val articles = rssHelper.queryRssXml(feed, latest?.link)
+            if (feed.icon == null) {
+                try {
+                    rssHelper.queryRssIcon(feedDao, feed)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
             }
+            FeedWithArticle(
+                feed = feed.apply { isNotification = feed.isNotification && articles.isNotEmpty() },
+                articles = articles
+            )
+        }.getOrElse { e ->
+            e.printStackTrace()
+            null
         }
-        return FeedWithArticle(
-            feed = feed.apply { isNotification = feed.isNotification && articles.isNotEmpty() },
-            articles = articles
-        )
     }
 
     suspend fun clearKeepArchivedArticles() {
