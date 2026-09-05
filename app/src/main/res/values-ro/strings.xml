@@ -1,7 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="languages">Limbi</string>
-    <string name="browse_tos_tips">Răsfoiți <i><u>Termenii și condițiile și Politica de confidențialitate</u></i></string>
+    <string name="browse_tos_tips">Răsfoiți <i>
+            <u>Termenii și condițiile și Politica de confidențialitate</u>
+        </i>
+    </string>
     <string name="three_days">3z</string>
     <string name="languages_desc">Română, Engleză, etc</string>
     <string name="primary_color">Culoare primară</string>
@@ -247,7 +250,44 @@
     <string name="only_android_8.1_plus">Doar Android 8.1+</string>
     <string name="defaults">Implicit</string>
     <string name="go_to">Du-te la</string>
-    <string name="tos_content"><h5> Politica de confidențialitate </h5> <br/> <p> Vă iau foarte în serios confidențialitatea. </p> <br/> <p> <b>Read You</b> nu colectează date despre utilizator și toate informațiile sensibile (parole și alte informații despre cont) sunt stocate în siguranță în baza de date locală a aplicației de pe dispozitivul dumneavoastră. </p> <br/> <p> <b>Read You</b> va folosi următoarele permisiuni pentru a vă oferi serviciul. </p> <br/> <p> - Permisiune de acces la rețea (pentru a accesa conținutul online așa cum specificați dvs.) </p> <p> - Permisiune obținere a statusului rețelei (pentru a determina dacă dispozitivul are condiții de rețea disponibile în prezent) </p> <p> - Permisiune de serviciu în fundal (pentru a sincroniza automat favoritele dvs. în mod regulat) </p> <br/> <br/> <h5> Servicii de la terți </h5> <br/> <p> Această politică nu se aplică serviciilor terță parte pe care le utilizați cu <b>Read You</b>. Puteți consulta politicile de confidențialitate ale serviciilor terță parte pe care le utilizați pe site-urile lor </p> <br/> <br/> <h5> Declinări </h5> <br/> <p> <b>Read You</b> este doar un instrument de colectare a conținutului. Utilizarea de către dvs. a <b>Read You</b> este supusă legilor și reglementărilor din țara și regiunea dvs., iar orice răspundere care decurge din acțiunile dvs. va fi suportată de dvs. personal. </p> <br/> <br/> <h5> Licență Open Source </h5> <br/> <p> <b>Read You</b> este un proiect open source sub Licența Open Source GNU GPL 3.0[1], care vă permite să utilizați, să faceți referire la și să modificați codul sursă al <b>Read You</b> în mod gratuit , dar nu permite ca codul modificat și derivat să fie distribuit și vândut ca software comercial cu sursă închisă. Pentru detalii, vă rugăm să consultați întreaga Licență Open Source GNU GPL 3.0[2]. </p> <br/> <br/> <h5> Anexă </h5> <br/> <p> - [1] https://github.com/Ashinch/ReadYou </p> <p> - [2] https://www.gnu.org/licenses/gpl-3.0.html </p></string>
+    <string name="tos_content">
+        <h5> Politica de confidențialitate </h5>
+        <br />
+        <p> Vă iau foarte în serios confidențialitatea. </p>
+        <br />
+        <p>
+            <b>Read You</b> nu colectează date despre utilizator și toate informațiile sensibile (parole și alte informații despre cont) sunt stocate în siguranță în baza de date locală a aplicației de pe dispozitivul dumneavoastră. </p>
+        <br />
+        <p>
+            <b>Read You</b> va folosi următoarele permisiuni pentru a vă oferi serviciul. </p>
+        <br />
+        <p> - Permisiune de acces la rețea (pentru a accesa conținutul online așa cum specificați dvs.) </p>
+        <p> - Permisiune obținere a statusului rețelei (pentru a determina dacă dispozitivul are condiții de rețea disponibile în prezent) </p>
+        <p> - Permisiune de serviciu în fundal (pentru a sincroniza automat favoritele dvs. în mod regulat) </p>
+        <br />
+        <br />
+        <h5> Servicii de la terți </h5>
+        <br />
+        <p> Această politică nu se aplică serviciilor terță parte pe care le utilizați cu <b>Read You</b>. Puteți consulta politicile de confidențialitate ale serviciilor terță parte pe care le utilizați pe site-urile lor </p>
+        <br />
+        <br />
+        <h5> Declinări </h5>
+        <br />
+        <p>
+            <b>Read You</b> este doar un instrument de colectare a conținutului. Utilizarea de către dvs. a <b>Read You</b> este supusă legilor și reglementărilor din țara și regiunea dvs., iar orice răspundere care decurge din acțiunile dvs. va fi suportată de dvs. personal. </p>
+        <br />
+        <br />
+        <h5> Licență Open Source </h5>
+        <br />
+        <p>
+            <b>Read You</b> este un proiect open source sub Licența Open Source GNU GPL 3.0[1], care vă permite să utilizați, să faceți referire la și să modificați codul sursă al <b>Read You</b> în mod gratuit , dar nu permite ca codul modificat și derivat să fie distribuit și vândut ca software comercial cu sursă închisă. Pentru detalii, vă rugăm să consultați întreaga Licență Open Source GNU GPL 3.0[2]. </p>
+        <br />
+        <br />
+        <h5> Anexă </h5>
+        <br />
+        <p> - [1] https://github.com/Ashinch/ReadYou </p>
+        <p> - [2] https://www.gnu.org/licenses/gpl-3.0.html </p>
+    </string>
     <string name="clear_articles_group_tips">Ștergeți toate articolele arhivate din grupul „%1$s”</string>
     <string name="open_link_something_wrong">Setarea pentru deschiderea linkului a fost ignorată deoarece ceva a mers prost.</string>
     <string name="open_link_specific_browser_not_selected">Nici unul</string>
@@ -267,8 +307,6 @@
     <string name="alignment">Aliniament</string>
     <string name="clear_articles">Șterge articolelele</string>
     <string name="rate_limit">Rata de solicitare este limitată</string>
-
-    <!-- Add Sources Page - TODO: Translate -->
     <string name="explore_rss_sources">Explore RSS sources</string>
     <string name="english_sources">English Sources</string>
     <string name="vietnamese_sources">Vietnamese Sources</string>
@@ -282,8 +320,6 @@
     <string name="spanish_sources">Spanish Sources</string>
     <string name="portuguese_sources">Portuguese Sources</string>
     <string name="arabic_sources">Arabic Sources</string>
-
-    <!-- Add Source Detail Page - TODO: Translate -->
     <string name="add_rss_source">Add RSS Source</string>
     <string name="add_source_confirm_message">Do you want to add this RSS source to your feeds?</string>
     <string name="add_source">Add Source</string>
@@ -306,13 +342,10 @@
     <string name="restarting_app">Repornirea aplicației…</string>
     <string name="auto_tts">Auto-play Text-to-Speech</string>
     <string name="auto_tts_desc">Automatically read articles aloud when opened</string>
-
     <string name="unlock_amoled_theme">Deblochează tema AMOLED</string>
     <string name="unlock_amoled_theme_desc">Urmăriți un scurt anunț video pentru a debloca permanent tema AMOLED negru adevărat.</string>
     <string name="watch_ad">Vezi reclamă</string>
     <string name="ad_not_ready">Anunțul nu este gata. Vă rugăm să încercați din nou mai târziu.</string>
-
-    <!-- Missing keys added for 100% parity with base strings.xml -->
     <string name="read_you" translatable="false">RSS Hub</string>
     <string name="feed_url_placeholder" translatable="false">http://example.com/feed.rss</string>
     <string name="translatable_url" translatable="false">https://hosted.weblate.org/projects/readyou/</string>
@@ -439,4 +472,37 @@
     <string name="beta_testing_desc">Test exciting new products and get paid to give feedback for new apps</string>
     <string name="next_article">Next Article</string>
     <string name="add_tag">Add Tag</string>
+    <string name="brain_rpg_title">Brain RPG</string>
+    <string name="brain_rpg_subtitle">Knowledge Skill Tree &amp; Daily Streak</string>
+    <string name="brain_rpg_settings_desc">Track your reading XP, streak, level, and knowledge tree</string>
+    <string name="brain_rpg_level">Level %1$d</string>
+    <string name="brain_rpg_streak">%1$d Day Streak</string>
+    <string name="brain_rpg_xp">%1$d XP</string>
+    <string name="brain_rpg_quiz_title">10s AI Micro-Quiz</string>
+    <string name="brain_rpg_quiz_reward">+150 XP</string>
+    <string name="brain_rpg_reading_reward">+50 XP Reading Complete!</string>
+    <string name="brain_rpg_double_xp">Double to 300 XP (Watch ad)</string>
+    <string name="brain_rpg_retry_quiz">Retry Quiz (Watch ad)</string>
+    <string name="brain_rpg_streak_shield">Streak Shield</string>
+    <string name="brain_rpg_streak_shield_active">Shield Active (Streak Protected)</string>
+    <string name="brain_rpg_streak_shield_activate">Activate Shield (Watch ad)</string>
+    <string name="brain_rpg_wrapped_title">Weekly Brain Wrapped</string>
+    <string name="brain_rpg_wrapped_share">Share Wrapped</string>
+    <string name="brain_rpg_correct">🎉 Correct Answer!</string>
+    <string name="brain_rpg_wrong">❌ Incorrect Answer</string>
+    <string name="brain_rpg_category_tech">Tech &amp; AI</string>
+    <string name="brain_rpg_category_business">Business &amp; Finance</string>
+    <string name="brain_rpg_category_science">Science &amp; Nature</string>
+    <string name="brain_rpg_category_health">Health &amp; Lifestyle</string>
+    <string name="brain_rpg_category_philosophy">Philosophy &amp; Ideas</string>
+    <string name="brain_rpg_category_general">General Knowledge</string>
+    <string name="brain_rpg_streak_shield_success">Streak Shield activated!</string>
+    <string name="brain_rpg_streak_shield_protected">Protected</string>
+    <string name="brain_rpg_target_xp">Target: %1$d XP</string>
+    <string name="brain_rpg_skill_tree_title">Knowledge Skill Tree</string>
+    <string name="brain_rpg_stats_title">AI Challenge Stats</string>
+    <string name="brain_rpg_stats_attempted">Attempted</string>
+    <string name="brain_rpg_stats_passed">Correct</string>
+    <string name="brain_rpg_stats_accuracy">Accuracy</string>
+    <string name="brain_rpg_wrapped_desc">"You\'ve earned %1$d XP and kept a %2$d-day reading streak! Share your achievement to inspire others."</string>
 </resources>

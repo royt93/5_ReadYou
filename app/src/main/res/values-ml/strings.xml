@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="defaults">സ്ഥിരസ്ഥിതി</string>
     <string name="unread">വായിക്കാത്തത്</string>
@@ -57,8 +57,6 @@
     <string name="clear_articles_group_tips">\"%1$s\" ഗ്രൂപ്പിലെ ലേഖനങ്ങളുടെ എല്ലാ ആർക്കൈവും മായ്‌ക്കുക</string>
     <string name="clear_articles_in_group_toast">\"%1$s\" ഫീഡിലെ ലേഖനങ്ങളുടെ എല്ലാ ആർക്കൈവും വൃത്തിയാക്കി</string>
     <string name="clear_articles">വ്യക്തമായ ലേഖനങ്ങൾ</string>
-
-    <!-- Add Sources Page - TODO: Translate -->
     <string name="explore_rss_sources">Explore RSS sources</string>
     <string name="english_sources">English Sources</string>
     <string name="vietnamese_sources">Vietnamese Sources</string>
@@ -72,8 +70,6 @@
     <string name="spanish_sources">Spanish Sources</string>
     <string name="portuguese_sources">Portuguese Sources</string>
     <string name="arabic_sources">Arabic Sources</string>
-
-    <!-- Add Source Detail Page - TODO: Translate -->
     <string name="add_rss_source">Add RSS Source</string>
     <string name="add_source_confirm_message">Do you want to add this RSS source to your feeds?</string>
     <string name="add_source">Add Source</string>
@@ -96,13 +92,10 @@
     <string name="restarting_app">Restarting app…</string>
     <string name="auto_tts">Auto-play Text-to-Speech</string>
     <string name="auto_tts_desc">Automatically read articles aloud when opened</string>
-
     <string name="unlock_amoled_theme">AMOLED തീം അൺലോക്കുചെയ്യുക</string>
     <string name="unlock_amoled_theme_desc">യഥാർത്ഥ കറുത്ത AMOLED തീം ശാശ്വതമായി അൺലോക്കുചെയ്യാൻ ഒരു ചെറിയ വീഡിയോ പരസ്യം കാണുക.</string>
     <string name="watch_ad">പരസ്യം കാണുക</string>
     <string name="ad_not_ready">പരസ്യം തയ്യാറായിട്ടില്ല. ദയവായി കുറച്ച് കഴിഞ്ഞ് വീണ്ടും ശ്രമിക്കുക.</string>
-
-    <!-- Missing keys added for 100% parity with base strings.xml -->
     <string name="read_you" translatable="false">RSS Hub</string>
     <string name="all_move_to_group_toast">Moved all feeds to the \"%1$s\" group</string>
     <string name="rename">Rename</string>
@@ -548,4 +541,37 @@
     <string name="beta_testing_desc">Test exciting new products and get paid to give feedback for new apps</string>
     <string name="next_article">Next Article</string>
     <string name="add_tag">Add Tag</string>
+    <string name="brain_rpg_title">Brain RPG</string>
+    <string name="brain_rpg_subtitle">Knowledge Skill Tree &amp; Daily Streak</string>
+    <string name="brain_rpg_settings_desc">Track your reading XP, streak, level, and knowledge tree</string>
+    <string name="brain_rpg_level">Level %1$d</string>
+    <string name="brain_rpg_streak">%1$d Day Streak</string>
+    <string name="brain_rpg_xp">%1$d XP</string>
+    <string name="brain_rpg_quiz_title">10s AI Micro-Quiz</string>
+    <string name="brain_rpg_quiz_reward">+150 XP</string>
+    <string name="brain_rpg_reading_reward">+50 XP Reading Complete!</string>
+    <string name="brain_rpg_double_xp">Double to 300 XP (Watch ad)</string>
+    <string name="brain_rpg_retry_quiz">Retry Quiz (Watch ad)</string>
+    <string name="brain_rpg_streak_shield">Streak Shield</string>
+    <string name="brain_rpg_streak_shield_active">Shield Active (Streak Protected)</string>
+    <string name="brain_rpg_streak_shield_activate">Activate Shield (Watch ad)</string>
+    <string name="brain_rpg_wrapped_title">Weekly Brain Wrapped</string>
+    <string name="brain_rpg_wrapped_share">Share Wrapped</string>
+    <string name="brain_rpg_correct">🎉 Correct Answer!</string>
+    <string name="brain_rpg_wrong">❌ Incorrect Answer</string>
+    <string name="brain_rpg_category_tech">Tech &amp; AI</string>
+    <string name="brain_rpg_category_business">Business &amp; Finance</string>
+    <string name="brain_rpg_category_science">Science &amp; Nature</string>
+    <string name="brain_rpg_category_health">Health &amp; Lifestyle</string>
+    <string name="brain_rpg_category_philosophy">Philosophy &amp; Ideas</string>
+    <string name="brain_rpg_category_general">General Knowledge</string>
+    <string name="brain_rpg_streak_shield_success">Streak Shield activated!</string>
+    <string name="brain_rpg_streak_shield_protected">Protected</string>
+    <string name="brain_rpg_target_xp">Target: %1$d XP</string>
+    <string name="brain_rpg_skill_tree_title">Knowledge Skill Tree</string>
+    <string name="brain_rpg_stats_title">AI Challenge Stats</string>
+    <string name="brain_rpg_stats_attempted">Attempted</string>
+    <string name="brain_rpg_stats_passed">Correct</string>
+    <string name="brain_rpg_stats_accuracy">Accuracy</string>
+    <string name="brain_rpg_wrapped_desc">"You\'ve earned %1$d XP and kept a %2$d-day reading streak! Share your achievement to inspire others."</string>
 </resources>

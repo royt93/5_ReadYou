@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="all">सभी</string>
     <plurals name="all_desc">
@@ -103,7 +103,44 @@
     <string name="browse_tos_tips">यहाँ &lt;i&gt;&lt;u&gt;सेवा शर्तें और गोपनीयता नीति पढ़े &lt;/u&gt;&lt;/i&gt;
     </string>
     <string name="terms_of_service">सेवा की शर्तें</string>
-    <string name="tos_content"><h5> गोपनीयता नीति </h5> <br /> <p> मैं आपकी गोपनीयता को बहुत गंभीरता से लेता हूं </p> <br /> <p> <b>RSS Bear Hub</b> कोई उपयोगकर्ता डेटा एकत्र नहीं करता है, और सभी संवेदनशील जानकारी (पासवर्ड और अन्य खाता जानकारी) आपके डिवाइस पर स्थानीय एप्लिकेशन डेटाबेस में सुरक्षित रूप से संग्रहीत है| </p> <br /> <p> <b>RSS Bear Hub</b> आपको सेवा प्रदान करने के लिए निम्नलिखित अनुमतियों का उपयोग किया जाएगा। </p> <br /> <p> - एक्सेस नेटवर्क अनुमति (आपके द्वारा निर्देशित ऑनलाइन सामग्री तक पहुँचने के लिए) </p> <p> - नेटवर्क स्थिति की अनुमति (यह जानने करने के लिए कि क्या डिवाइस में वर्तमान में नेटवर्क की स्थिति उपलब्ध है) </p> <p> -पृष्ठभूमिक सेवा अनुमति (नियमित रूप से अपने पसंदीदार पाठों को स्वचालित रूप से नियमित सिंक करने के लिए आधार) </p> <br /> <br /> <h5> तृतीय पक्ष सेवाएं </h5> <br /> <p> यह नीति आपके द्वारा <b>RSS Bear Hub</b>के साथ उपयोग की जाने वाली तृतीय-पक्ष सेवाओं पर लागू नहीं होती है. आप उन वेबसाइटों की गोपनीयता नीतियों की समीक्षा करने हेतु स्वतंत्र है| </p> <br /> <br /> <h5> अस्वीकरण </h5> <br /> <p> <b>RSS Bear Hub</b> केवल एक सामग्री संग्रह उपकरण है।. आपके द्वारा <b>RSS Bear Hub</b> का उपयोग आपके देश/राष्ट्र और क्षेत्र के नियम ऐवं कानून के अंतर्गत है और आपके कार्यों से उत्पन्न होने वाले किसी भी दायित्व का वहन आपके द्वारा ही किया जाएगा | </p> <br /> <br /> <h5> ओपन सोर्स लाइसेंस </h5> <br /> <p> <b>RSS Bear Hub</b> GNU GPL 3.0 Open Source License[1] के अंतर्गत एक ओपन सौरसे प्रोजेक्ट है, जो आपको <b>RSS Bear Hub</b> के सोर्स कोड को उपयोग, प्रासंगिक सन्दर्भ और मुफ्त में संशोधित करेने के अनुमति देता है, परन्तु संशोधित और व्युत्पन्न कोड को क्लोज्ड-सोर्स वाणिज्यिक सॉफ्टवेयर के रूप में वितरित और बेचा जाने की अनुमति नहीं देता । पूर्ण जानकारी हेतु GNU GPL 3.0 Open Source License[2]. देखें। </p> <br /> <br /> <h5> शेषसंग्रह </h5> <br /> <p> - [1] https://github.com/Ashinch/ReadYou </p> <p> - [2] https://www.gnu.org/licenses/gpl-3.0.html </p></string>
+    <string name="tos_content">
+        <h5> गोपनीयता नीति </h5>
+        <br />
+        <p> मैं आपकी गोपनीयता को बहुत गंभीरता से लेता हूं </p>
+        <br />
+        <p>
+            <b>RSS Bear Hub</b> कोई उपयोगकर्ता डेटा एकत्र नहीं करता है, और सभी संवेदनशील जानकारी (पासवर्ड और अन्य खाता जानकारी) आपके डिवाइस पर स्थानीय एप्लिकेशन डेटाबेस में सुरक्षित रूप से संग्रहीत है| </p>
+        <br />
+        <p>
+            <b>RSS Bear Hub</b> आपको सेवा प्रदान करने के लिए निम्नलिखित अनुमतियों का उपयोग किया जाएगा। </p>
+        <br />
+        <p> - एक्सेस नेटवर्क अनुमति (आपके द्वारा निर्देशित ऑनलाइन सामग्री तक पहुँचने के लिए) </p>
+        <p> - नेटवर्क स्थिति की अनुमति (यह जानने करने के लिए कि क्या डिवाइस में वर्तमान में नेटवर्क की स्थिति उपलब्ध है) </p>
+        <p> -पृष्ठभूमिक सेवा अनुमति (नियमित रूप से अपने पसंदीदार पाठों को स्वचालित रूप से नियमित सिंक करने के लिए आधार) </p>
+        <br />
+        <br />
+        <h5> तृतीय पक्ष सेवाएं </h5>
+        <br />
+        <p> यह नीति आपके द्वारा <b>RSS Bear Hub</b>के साथ उपयोग की जाने वाली तृतीय-पक्ष सेवाओं पर लागू नहीं होती है. आप उन वेबसाइटों की गोपनीयता नीतियों की समीक्षा करने हेतु स्वतंत्र है| </p>
+        <br />
+        <br />
+        <h5> अस्वीकरण </h5>
+        <br />
+        <p>
+            <b>RSS Bear Hub</b> केवल एक सामग्री संग्रह उपकरण है।. आपके द्वारा <b>RSS Bear Hub</b> का उपयोग आपके देश/राष्ट्र और क्षेत्र के नियम ऐवं कानून के अंतर्गत है और आपके कार्यों से उत्पन्न होने वाले किसी भी दायित्व का वहन आपके द्वारा ही किया जाएगा | </p>
+        <br />
+        <br />
+        <h5> ओपन सोर्स लाइसेंस </h5>
+        <br />
+        <p>
+            <b>RSS Bear Hub</b> GNU GPL 3.0 Open Source License[1] के अंतर्गत एक ओपन सौरसे प्रोजेक्ट है, जो आपको <b>RSS Bear Hub</b> के सोर्स कोड को उपयोग, प्रासंगिक सन्दर्भ और मुफ्त में संशोधित करेने के अनुमति देता है, परन्तु संशोधित और व्युत्पन्न कोड को क्लोज्ड-सोर्स वाणिज्यिक सॉफ्टवेयर के रूप में वितरित और बेचा जाने की अनुमति नहीं देता । पूर्ण जानकारी हेतु GNU GPL 3.0 Open Source License[2]. देखें। </p>
+        <br />
+        <br />
+        <h5> शेषसंग्रह </h5>
+        <br />
+        <p> - [1] https://github.com/Ashinch/ReadYou </p>
+        <p> - [2] https://www.gnu.org/licenses/gpl-3.0.html </p>
+    </string>
     <string name="agree">स्वीकृत करें  </string>
     <string name="wallpaper_colors">वॉलपेपर रंग</string>
     <string name="no_palettes">कोई पैलेट नहीं</string>
@@ -245,8 +282,6 @@
     <string name="connection">कनेक्शन</string>
     <string name="username">यूजर का नाम</string>
     <string name="system_default">सिस्टम</string>
-
-    <!-- Add Sources Page - TODO: Translate -->
     <string name="explore_rss_sources">Explore RSS sources</string>
     <string name="english_sources">English Sources</string>
     <string name="vietnamese_sources">Vietnamese Sources</string>
@@ -260,8 +295,6 @@
     <string name="spanish_sources">Spanish Sources</string>
     <string name="portuguese_sources">Portuguese Sources</string>
     <string name="arabic_sources">Arabic Sources</string>
-
-    <!-- Add Source Detail Page - TODO: Translate -->
     <string name="add_rss_source">Add RSS Source</string>
     <string name="add_source_confirm_message">Do you want to add this RSS source to your feeds?</string>
     <string name="add_source">Add Source</string>
@@ -284,13 +317,10 @@
     <string name="restarting_app">ऐप पुनः प्रारंभ हो रहा है…</string>
     <string name="auto_tts">Auto-play Text-to-Speech</string>
     <string name="auto_tts_desc">Automatically read articles aloud when opened</string>
-
     <string name="unlock_amoled_theme">AMOLED थीम अनलॉक करें</string>
     <string name="unlock_amoled_theme_desc">सच्चे काले AMOLED थीम को स्थायी रूप से अनलॉक करने के लिए एक छोटा वीडियो विज्ञापन देखें।</string>
     <string name="watch_ad">विज्ञापन देखें</string>
     <string name="ad_not_ready">विज्ञापन अभी तैयार नहीं है। कृपया बाद में पुनः प्रयास करें।</string>
-
-    <!-- Missing keys added for 100% parity with base strings.xml -->
     <string name="read_you" translatable="false">RSS Hub</string>
     <string name="feed_url_placeholder" translatable="false">http://example.com/feed.rss</string>
     <string name="translatable_url" translatable="false">https://hosted.weblate.org/projects/readyou/</string>
@@ -437,4 +467,37 @@
     <string name="beta_testing_desc">Test exciting new products and get paid to give feedback for new apps</string>
     <string name="next_article">Next Article</string>
     <string name="add_tag">Add Tag</string>
+    <string name="brain_rpg_title">Brain RPG</string>
+    <string name="brain_rpg_subtitle">Knowledge Skill Tree &amp; Daily Streak</string>
+    <string name="brain_rpg_settings_desc">Track your reading XP, streak, level, and knowledge tree</string>
+    <string name="brain_rpg_level">Level %1$d</string>
+    <string name="brain_rpg_streak">%1$d Day Streak</string>
+    <string name="brain_rpg_xp">%1$d XP</string>
+    <string name="brain_rpg_quiz_title">10s AI Micro-Quiz</string>
+    <string name="brain_rpg_quiz_reward">+150 XP</string>
+    <string name="brain_rpg_reading_reward">+50 XP Reading Complete!</string>
+    <string name="brain_rpg_double_xp">Double to 300 XP (Watch ad)</string>
+    <string name="brain_rpg_retry_quiz">Retry Quiz (Watch ad)</string>
+    <string name="brain_rpg_streak_shield">Streak Shield</string>
+    <string name="brain_rpg_streak_shield_active">Shield Active (Streak Protected)</string>
+    <string name="brain_rpg_streak_shield_activate">Activate Shield (Watch ad)</string>
+    <string name="brain_rpg_wrapped_title">Weekly Brain Wrapped</string>
+    <string name="brain_rpg_wrapped_share">Share Wrapped</string>
+    <string name="brain_rpg_correct">🎉 Correct Answer!</string>
+    <string name="brain_rpg_wrong">❌ Incorrect Answer</string>
+    <string name="brain_rpg_category_tech">Tech &amp; AI</string>
+    <string name="brain_rpg_category_business">Business &amp; Finance</string>
+    <string name="brain_rpg_category_science">Science &amp; Nature</string>
+    <string name="brain_rpg_category_health">Health &amp; Lifestyle</string>
+    <string name="brain_rpg_category_philosophy">Philosophy &amp; Ideas</string>
+    <string name="brain_rpg_category_general">General Knowledge</string>
+    <string name="brain_rpg_streak_shield_success">Streak Shield activated!</string>
+    <string name="brain_rpg_streak_shield_protected">Protected</string>
+    <string name="brain_rpg_target_xp">Target: %1$d XP</string>
+    <string name="brain_rpg_skill_tree_title">Knowledge Skill Tree</string>
+    <string name="brain_rpg_stats_title">AI Challenge Stats</string>
+    <string name="brain_rpg_stats_attempted">Attempted</string>
+    <string name="brain_rpg_stats_passed">Correct</string>
+    <string name="brain_rpg_stats_accuracy">Accuracy</string>
+    <string name="brain_rpg_wrapped_desc">"You\'ve earned %1$d XP and kept a %2$d-day reading streak! Share your achievement to inspire others."</string>
 </resources>

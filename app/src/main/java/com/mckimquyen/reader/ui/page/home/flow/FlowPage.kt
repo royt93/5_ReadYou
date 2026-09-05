@@ -13,6 +13,7 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material.icons.outlined.Podcasts
+import androidx.compose.material.icons.outlined.Psychology
 import androidx.compose.material.icons.rounded.DoneAll
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material3.MaterialTheme
@@ -164,6 +165,15 @@ fun FlowPage(
                     tint = MaterialTheme.colorScheme.onSurface,
                 ) {
                     homeViewModel.openCommuteCast()
+                }
+                FeedbackIconButton(
+                    imageVector = Icons.Outlined.Psychology,
+                    contentDescription = stringResource(R.string.brain_rpg_title),
+                    tint = MaterialTheme.colorScheme.onSurface,
+                ) {
+                    navController.navigate(RouteName.BRAIN_RPG) {
+                        launchSingleTop = true
+                    }
                 }
                 FeedbackIconButton(
                     imageVector = Icons.Rounded.Search,

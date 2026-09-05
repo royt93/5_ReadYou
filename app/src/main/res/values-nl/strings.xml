@@ -1,8 +1,45 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="use_device_languages">Gebruik apparaattaal</string>
     <string name="wallpaper_colors">Achtergrond kleuren</string>
-    <string name="tos_content"><h5> Privacybeleid </h5> <br /> <p> Ik neem uw privacy zeer serieus. </p> <br /> <p> <b>RSS Bear Hub</b> verzamelt geen gebruikersgegevens en alle gevoelige informatie (wachtwoorden en andere accountinformatie) wordt veilig opgeslagen in de lokale applicatiedatabase op uw apparaat. </p> <br /> <p> <b>RSS Bear Hub</b> gebruikt de volgende toestemmingen om u de dienst te leveren. </p> <br /> <p> - Toestemming voor toegang tot het netwerk (voor toegang tot online inhoud zoals u opgeeft) </p> <p> - Toestemming voor het verkrijgen van de netwerkstatus (voor het verkrijgen of het apparaat momenteel over een beschikbaar netwerk beschikt) </p> <p> - Toestemming voor achtergronddiensten (om uw favorieten regelmatig automatisch voor u te synchroniseren) </p> <br /> <br /> <h5> Diensten van derden </h5> <br /> <p> Dit beleid is niet van toepassing op diensten van derden die u gebruikt met <b>RSS Bear Hub</b>. U kunt het privacybeleid van de diensten van derden die u gebruikt nalezen op hun websites </p> <br /> <br /> <h5> Disclaimers </h5> <br /> <p> <b> RSS Bear Hub</b> is uitsluitend een hulpmiddel voor het verzamelen van inhoud. Uw gebruik van <b>RSS Bear Hub</b> is onderworpen aan de wetten en voorschriften van uw land en regio, en elke aansprakelijkheid die uit uw handelingen voortvloeit, wordt door u persoonlijk gedragen. </p> <br /> <br /> <h5> Open Source Licentie </h5> <br /> <p> <b> RSS Bear Hub</b> is een open source project onder de GNU GPL 3.0 Open Source Licentie[1], die u toestaat de broncode van <b>RSS Bear Hub</b> gratis te gebruiken, er naar te verwijzen en te wijzigen, maar niet toestaat dat de gewijzigde en afgeleide code wordt verspreid en verkocht als closed-source commerciële software. Zie voor details de volledige GNU GPL 3.0 Open Source License[2]. </p> <br /> <br /> <h5> Bijlage </h5> <br /> <p> - [1] https://github.com/Ashinch/ReadYou </p> <p> - [2] https://www.gnu.org/licenses/gpl-3.0.html </p></string>
+    <string name="tos_content">
+        <h5> Privacybeleid </h5>
+        <br />
+        <p> Ik neem uw privacy zeer serieus. </p>
+        <br />
+        <p>
+            <b>RSS Bear Hub</b> verzamelt geen gebruikersgegevens en alle gevoelige informatie (wachtwoorden en andere accountinformatie) wordt veilig opgeslagen in de lokale applicatiedatabase op uw apparaat. </p>
+        <br />
+        <p>
+            <b>RSS Bear Hub</b> gebruikt de volgende toestemmingen om u de dienst te leveren. </p>
+        <br />
+        <p> - Toestemming voor toegang tot het netwerk (voor toegang tot online inhoud zoals u opgeeft) </p>
+        <p> - Toestemming voor het verkrijgen van de netwerkstatus (voor het verkrijgen of het apparaat momenteel over een beschikbaar netwerk beschikt) </p>
+        <p> - Toestemming voor achtergronddiensten (om uw favorieten regelmatig automatisch voor u te synchroniseren) </p>
+        <br />
+        <br />
+        <h5> Diensten van derden </h5>
+        <br />
+        <p> Dit beleid is niet van toepassing op diensten van derden die u gebruikt met <b>RSS Bear Hub</b>. U kunt het privacybeleid van de diensten van derden die u gebruikt nalezen op hun websites </p>
+        <br />
+        <br />
+        <h5> Disclaimers </h5>
+        <br />
+        <p>
+            <b> RSS Bear Hub</b> is uitsluitend een hulpmiddel voor het verzamelen van inhoud. Uw gebruik van <b>RSS Bear Hub</b> is onderworpen aan de wetten en voorschriften van uw land en regio, en elke aansprakelijkheid die uit uw handelingen voortvloeit, wordt door u persoonlijk gedragen. </p>
+        <br />
+        <br />
+        <h5> Open Source Licentie </h5>
+        <br />
+        <p>
+            <b> RSS Bear Hub</b> is een open source project onder de GNU GPL 3.0 Open Source Licentie[1], die u toestaat de broncode van <b>RSS Bear Hub</b> gratis te gebruiken, er naar te verwijzen en te wijzigen, maar niet toestaat dat de gewijzigde en afgeleide code wordt verspreid en verkocht als closed-source commerciële software. Zie voor details de volledige GNU GPL 3.0 Open Source License[2]. </p>
+        <br />
+        <br />
+        <h5> Bijlage </h5>
+        <br />
+        <p> - [1] https://github.com/Ashinch/ReadYou </p>
+        <p> - [2] https://www.gnu.org/licenses/gpl-3.0.html </p>
+    </string>
     <string name="other">Andere</string>
     <string name="amoled_dark_theme">AMOLED donker thema</string>
     <string name="reading_fonts">Lettertypen lezen</string>
@@ -72,7 +109,10 @@
     <string name="tips_and_support_desc">Over, open source-licenties</string>
     <string name="welcome">Welkom</string>
     <string name="tos_tips">Lees en ga akkoord met de Servicevoorwaarden en het Privacybeleid van RSS Bear Hub om door te gaan.</string>
-    <string name="browse_tos_tips">Blader door de <i><u>Servicevoorwaarden en privacybeleid</u></i></string>
+    <string name="browse_tos_tips">Blader door de <i>
+            <u>Servicevoorwaarden en privacybeleid</u>
+        </i>
+    </string>
     <string name="terms_of_service">Gebruiksvoorwaarden</string>
     <string name="already_subscribed">Al geabonneerd</string>
     <string name="clear">Wissen</string>
@@ -235,8 +275,6 @@
     <string name="value">waarde</string>
     <string name="horizontal_padding">Horizontale opvulling</string>
     <string name="align_left">Links uitlijnen</string>
-
-    <!-- Add Sources Page - TODO: Translate -->
     <string name="explore_rss_sources">Explore RSS sources</string>
     <string name="english_sources">English Sources</string>
     <string name="vietnamese_sources">Vietnamese Sources</string>
@@ -250,8 +288,6 @@
     <string name="spanish_sources">Spanish Sources</string>
     <string name="portuguese_sources">Portuguese Sources</string>
     <string name="arabic_sources">Arabic Sources</string>
-
-    <!-- Add Source Detail Page - TODO: Translate -->
     <string name="add_rss_source">Add RSS Source</string>
     <string name="add_source_confirm_message">Do you want to add this RSS source to your feeds?</string>
     <string name="add_source">Add Source</string>
@@ -274,13 +310,10 @@
     <string name="restarting_app">App wordt opnieuw opgestart…</string>
     <string name="auto_tts">Auto-play Text-to-Speech</string>
     <string name="auto_tts_desc">Automatically read articles aloud when opened</string>
-
     <string name="unlock_amoled_theme">Ontgrendel AMOLED-thema</string>
     <string name="unlock_amoled_theme_desc">Bekijk een korte videoadvertentie om het ware zwarte AMOLED-thema permanent te ontgrendelen.</string>
     <string name="watch_ad">Bekijk advertentie</string>
     <string name="ad_not_ready">Advertentie is niet klaar. Probeer het later opnieuw.</string>
-
-    <!-- Missing keys added for 100% parity with base strings.xml -->
     <string name="read_you" translatable="false">RSS Hub</string>
     <string name="empty">Empty</string>
     <string name="feed_url_placeholder" translatable="false">http://example.com/feed.rss</string>
@@ -436,4 +469,37 @@
     <string name="beta_testing_desc">Test exciting new products and get paid to give feedback for new apps</string>
     <string name="next_article">Next Article</string>
     <string name="add_tag">Add Tag</string>
+    <string name="brain_rpg_title">Brain RPG</string>
+    <string name="brain_rpg_subtitle">Knowledge Skill Tree &amp; Daily Streak</string>
+    <string name="brain_rpg_settings_desc">Track your reading XP, streak, level, and knowledge tree</string>
+    <string name="brain_rpg_level">Level %1$d</string>
+    <string name="brain_rpg_streak">%1$d Day Streak</string>
+    <string name="brain_rpg_xp">%1$d XP</string>
+    <string name="brain_rpg_quiz_title">10s AI Micro-Quiz</string>
+    <string name="brain_rpg_quiz_reward">+150 XP</string>
+    <string name="brain_rpg_reading_reward">+50 XP Reading Complete!</string>
+    <string name="brain_rpg_double_xp">Double to 300 XP (Watch ad)</string>
+    <string name="brain_rpg_retry_quiz">Retry Quiz (Watch ad)</string>
+    <string name="brain_rpg_streak_shield">Streak Shield</string>
+    <string name="brain_rpg_streak_shield_active">Shield Active (Streak Protected)</string>
+    <string name="brain_rpg_streak_shield_activate">Activate Shield (Watch ad)</string>
+    <string name="brain_rpg_wrapped_title">Weekly Brain Wrapped</string>
+    <string name="brain_rpg_wrapped_share">Share Wrapped</string>
+    <string name="brain_rpg_correct">🎉 Correct Answer!</string>
+    <string name="brain_rpg_wrong">❌ Incorrect Answer</string>
+    <string name="brain_rpg_category_tech">Tech &amp; AI</string>
+    <string name="brain_rpg_category_business">Business &amp; Finance</string>
+    <string name="brain_rpg_category_science">Science &amp; Nature</string>
+    <string name="brain_rpg_category_health">Health &amp; Lifestyle</string>
+    <string name="brain_rpg_category_philosophy">Philosophy &amp; Ideas</string>
+    <string name="brain_rpg_category_general">General Knowledge</string>
+    <string name="brain_rpg_streak_shield_success">Streak Shield activated!</string>
+    <string name="brain_rpg_streak_shield_protected">Protected</string>
+    <string name="brain_rpg_target_xp">Target: %1$d XP</string>
+    <string name="brain_rpg_skill_tree_title">Knowledge Skill Tree</string>
+    <string name="brain_rpg_stats_title">AI Challenge Stats</string>
+    <string name="brain_rpg_stats_attempted">Attempted</string>
+    <string name="brain_rpg_stats_passed">Correct</string>
+    <string name="brain_rpg_stats_accuracy">Accuracy</string>
+    <string name="brain_rpg_wrapped_desc">"You\'ve earned %1$d XP and kept a %2$d-day reading streak! Share your achievement to inspire others."</string>
 </resources>

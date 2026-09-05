@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="allow">Позволява</string>
     <string name="deny">Откажи</string>
@@ -100,7 +100,10 @@
     <string name="languages_desc">английски, китайски и др</string>
     <string name="tips_and_support">Съвети и поддръжка</string>
     <string name="tips_and_support_desc">Относно лицензите с отворен код</string>
-    <string name="browse_tos_tips">Прегледайте <i><u>Условията за ползване и Политиката за поверителност</u></i></string>
+    <string name="browse_tos_tips">Прегледайте <i>
+            <u>Условията за ползване и Политиката за поверителност</u>
+        </i>
+    </string>
     <string name="tos_tips">Прочетете и се съгласете с Условията за ползване и Политиката за поверителност на RSS Bear Hub, за да продължите.</string>
     <string name="terms_of_service">Условия за ползване</string>
     <string name="tos_content">&lt;h5&gt; Правила за поверителност &lt;/h5&gt; &lt;br/&gt; &lt;p&gt; Приемам вашата поверителност много сериозно. &lt;/p&gt; &lt;br/&gt; &lt;p&gt; &lt;b&gt;RSS Bear Hub&lt;/b&gt; не събира никакви потребителски данни и цялата поверителна информация (пароли и друга информация за акаунт) се съхранява сигурно в базата данни на локалното приложение на вашето устройство. &lt;/p&gt; &lt;br/&gt; &lt;p&gt; &lt;b&gt;RSS Bear Hub&lt;/b&gt; ще използва следните разрешения, за да ви предостави услугата. &lt;/p&gt; &lt;br/&gt; &lt;p&gt; - Разрешение за достъп до мрежа (за достъп до онлайн съдържание, както посочите) &lt;/p&gt; &lt;p&gt; - Получаване на разрешение за състояние на мрежата (за получаване на информация дали устройството в момента има налични мрежови условия) &lt;/ p&gt; &lt;p&gt; - Разрешение за фонова услуга (за автоматично синхронизиране на любимите ви вместо вас на регулярна основа) &lt;/p&gt; &lt;br/&gt; &lt;br/&gt; &lt;h5&gt; Услуги на трети страни &lt;/h5&gt; &lt;br/&gt; &lt;p &gt; Тази политика не се прилага за услуги на трети страни, които използвате с &lt;b&gt;RSS Bear Hub&lt;/b&gt;. Можете да прегледате правилата за поверителност на услугите на трети страни, които използвате, на техните уебсайтове &lt;/p&gt; &lt;br/&gt; &lt;br/&gt; &lt;h5&gt; Отказ от отговорност &lt;/h5&gt; &lt;br/&gt; &lt;p&gt; &lt;b&gt;Прочетете ви&lt; /b&gt; е само инструмент за събиране на съдържание. Използването на &lt;b&gt;RSS Bear Hub&lt;/b&gt; от ваша страна е предмет на законите и разпоредбите на вашата страна и регион и всяка отговорност, произтичаща от вашите действия, ще се поема лично от вас. &lt;/p&gt; &lt;br/&gt; &lt;br/&gt; &lt;h5&gt; Лиценз за отворен код &lt;/h5&gt; &lt;br/&gt; &lt;p&gt; &lt;b&gt;RSS Bear Hub&lt;/b&gt; е проект с отворен код под GNU GPL 3.0 Open Source Лиценз [1], който ви позволява да използвате, препращате и модифицирате изходния код на &lt;b&gt;RSS Bear Hub&lt;/b&gt; безплатно, но не позволява модифицираният и производен код да се разпространява и продава като реклама със затворен код софтуер. За подробности, моля, вижте пълния Лиценз за отворен код GNU GPL 3.0[2]. &lt;/p&gt; &lt;br/&gt; &lt;br/&gt; &lt;h5&gt; Приложение &lt;/h5&gt; &lt;br/&gt; &lt;p&gt; - [1] https://github.com/Ashinch/ReadYou &lt;/p&gt; &lt;p&gt; - [2] https://www.gnu.org/licenses/gpl-3.0.html &lt;/p&gt;</string>
@@ -129,8 +132,6 @@
     <string name="use_device_theme">Използвай обклика на устройството</string>
     <string name="off">Изключен</string>
     <string name="help">Помощ</string>
-
-    <!-- Add Sources Page - TODO: Translate -->
     <string name="explore_rss_sources">Explore RSS sources</string>
     <string name="english_sources">English Sources</string>
     <string name="vietnamese_sources">Vietnamese Sources</string>
@@ -144,8 +145,6 @@
     <string name="spanish_sources">Spanish Sources</string>
     <string name="portuguese_sources">Portuguese Sources</string>
     <string name="arabic_sources">Arabic Sources</string>
-
-    <!-- Add Source Detail Page - TODO: Translate -->
     <string name="add_rss_source">Add RSS Source</string>
     <string name="add_source_confirm_message">Do you want to add this RSS source to your feeds?</string>
     <string name="add_source">Add Source</string>
@@ -168,13 +167,10 @@
     <string name="restarting_app">Restarting app…</string>
     <string name="auto_tts">Auto-play Text-to-Speech</string>
     <string name="auto_tts_desc">Automatically read articles aloud when opened</string>
-
     <string name="unlock_amoled_theme">Отключване на AMOLED тема</string>
     <string name="unlock_amoled_theme_desc">Гледайте кратка видео реклама, за да отключите трайно истинската черна AMOLED тема.</string>
     <string name="watch_ad">Гледайте реклама</string>
     <string name="ad_not_ready">Рекламата не е готова. Моля, опитайте отново по-късно.</string>
-
-    <!-- Missing keys added for 100% parity with base strings.xml -->
     <string name="read_you" translatable="false">RSS Hub</string>
     <string name="feed_url_placeholder" translatable="false">http://example.com/feed.rss</string>
     <string name="translatable_url" translatable="false">https://hosted.weblate.org/projects/readyou/</string>
@@ -438,4 +434,37 @@
     <string name="beta_testing_desc">Test exciting new products and get paid to give feedback for new apps</string>
     <string name="next_article">Next Article</string>
     <string name="add_tag">Add Tag</string>
+    <string name="brain_rpg_title">Brain RPG</string>
+    <string name="brain_rpg_subtitle">Knowledge Skill Tree &amp; Daily Streak</string>
+    <string name="brain_rpg_settings_desc">Track your reading XP, streak, level, and knowledge tree</string>
+    <string name="brain_rpg_level">Level %1$d</string>
+    <string name="brain_rpg_streak">%1$d Day Streak</string>
+    <string name="brain_rpg_xp">%1$d XP</string>
+    <string name="brain_rpg_quiz_title">10s AI Micro-Quiz</string>
+    <string name="brain_rpg_quiz_reward">+150 XP</string>
+    <string name="brain_rpg_reading_reward">+50 XP Reading Complete!</string>
+    <string name="brain_rpg_double_xp">Double to 300 XP (Watch ad)</string>
+    <string name="brain_rpg_retry_quiz">Retry Quiz (Watch ad)</string>
+    <string name="brain_rpg_streak_shield">Streak Shield</string>
+    <string name="brain_rpg_streak_shield_active">Shield Active (Streak Protected)</string>
+    <string name="brain_rpg_streak_shield_activate">Activate Shield (Watch ad)</string>
+    <string name="brain_rpg_wrapped_title">Weekly Brain Wrapped</string>
+    <string name="brain_rpg_wrapped_share">Share Wrapped</string>
+    <string name="brain_rpg_correct">🎉 Correct Answer!</string>
+    <string name="brain_rpg_wrong">❌ Incorrect Answer</string>
+    <string name="brain_rpg_category_tech">Tech &amp; AI</string>
+    <string name="brain_rpg_category_business">Business &amp; Finance</string>
+    <string name="brain_rpg_category_science">Science &amp; Nature</string>
+    <string name="brain_rpg_category_health">Health &amp; Lifestyle</string>
+    <string name="brain_rpg_category_philosophy">Philosophy &amp; Ideas</string>
+    <string name="brain_rpg_category_general">General Knowledge</string>
+    <string name="brain_rpg_streak_shield_success">Щит серии активирован!</string>
+    <string name="brain_rpg_streak_shield_protected">Защищено</string>
+    <string name="brain_rpg_target_xp">Цель: %1$d XP</string>
+    <string name="brain_rpg_skill_tree_title">Дерево навыков знаний</string>
+    <string name="brain_rpg_stats_title">Статистика испытаний ИИ</string>
+    <string name="brain_rpg_stats_attempted">Попыток</string>
+    <string name="brain_rpg_stats_passed">Верно</string>
+    <string name="brain_rpg_stats_accuracy">Точность</string>
+    <string name="brain_rpg_wrapped_desc">"Вы накопили %1$d XP и сохранили серию чтения из %2$d дней! Поделитесь достижением."</string>
 </resources>

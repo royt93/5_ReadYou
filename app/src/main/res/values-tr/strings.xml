@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="all">Hepsi</string>
     <plurals name="unread_desc">
@@ -71,7 +71,11 @@
     <string name="tips_and_support_desc">Hakkında, açık kaynak lisansları</string>
     <string name="welcome">Hoş geldin</string>
     <string name="tos_tips">Devam etmek için lütfen RSS Bear Hub\'nun Hizmet Koşullarını ve Gizlilik Politikasını okuyun ve kabul edin.</string>
-    <string name="browse_tos_tips"><i><u>Hizmet Koşulları ve Gizlilik Politikasına göz atın</u></i></string>
+    <string name="browse_tos_tips">
+        <i>
+            <u>Hizmet Koşulları ve Gizlilik Politikasına göz atın</u>
+        </i>
+    </string>
     <string name="terms_of_service">Hizmet Koşulları</string>
     <string name="agree">Kabul et</string>
     <string name="wallpaper_colors">Duvar kağıdı renkleri</string>
@@ -161,7 +165,44 @@
     <string name="basic_colors">Temel renkler</string>
     <string name="color_and_style_desc">Tema, renk stili, yazı tipi boyutu</string>
     <string name="interaction">Etkileşim</string>
-    <string name="tos_content"><h5> Gizlilik Politikası </h5> <br /> <p> Gizliliğinizi çok ciddiye alıyoruz. </p> <br /> <p> <b>RSS Bear Hub</b> herhangi bir kullanıcı verisi toplamaz ve tüm hassas bilgiler (şifreler ve diğer hesap bilgileri) cihazınızdaki yerel uygulama veritabanında güvenli bir şekilde saklanır. </p> <br /> <p> <b>RSS Bear Hub</b> size hizmet sağlamak için aşağıdaki izinleri kullanacaktır. </p> <br /> <p> - Ağa Erişim izni (belirttiğiniz şekilde çevrimiçi içeriğe erişmek için) </p> <p> - Ağ durumunu al izni (cihazın o anda kullanılabilir ağ koşullarına sahip olup olmadığını öğrenmek için) </p> <p> - Arka plan hizmeti izni (favorilerinizi düzenli ve otomatik olarak senkronize etmek için) </p> <br /> <br /> <h5> Üçüncü Taraf Hizmetleri </h5> <br /> <p> Bu politika <b>RSS Bear Hub</b> ile birlikte kullandığınız üçüncü taraf hizmetleri için geçerli değildir. Kullandığınız üçüncü taraf hizmetlerinin gizlilik politikalarını kendi web sitelerinde inceleyebilirsiniz </p> <br /> <br /> <h5> Feragatnameler </h5> <br /> <p> <b> RSS Bear Hub</b> yalnızca bir içerik toplama aracıdır. <b> RSS Bear Hub</b> kullanımınız ülkenizin ve bölgenizin yasa ve yönetmeliklerine tabidir ve eylemlerinizden kaynaklanan her türlü sorumluluk şahsen size ait olacaktır. </p> <br /> <br /> <h5> Açık Kaynak Lisansı </h5> <br /> <p> <b> RSS Bear Hub</b>, <b>RSS Bear Hub</b> kaynak kodunu ücretsiz olarak kullanmanıza, referans vermenize ve değiştirmenize izin veren, ancak değiştirilmiş ve türetilmiş kodun kapalı kaynaklı ticari yazılım olarak dağıtılmasına ve satılmasına izin vermeyen GNU GPL 3.0 Açık Kaynak Lisansı[1] kapsamında açık kaynaklı bir projedir. Ayrıntılar için lütfen GNU GPL 3.0 Açık Kaynak Lisansının tamamına bakın[2]. </p> <br /> <br /> <h5> Ek </h5> <br /> <p> - [1] https://github.com/Ashinch/ReadYou </p> <p> - [2] https://www.gnu.org/licenses/gpl-3.0.html </p></string>
+    <string name="tos_content">
+        <h5> Gizlilik Politikası </h5>
+        <br />
+        <p> Gizliliğinizi çok ciddiye alıyoruz. </p>
+        <br />
+        <p>
+            <b>RSS Bear Hub</b> herhangi bir kullanıcı verisi toplamaz ve tüm hassas bilgiler (şifreler ve diğer hesap bilgileri) cihazınızdaki yerel uygulama veritabanında güvenli bir şekilde saklanır. </p>
+        <br />
+        <p>
+            <b>RSS Bear Hub</b> size hizmet sağlamak için aşağıdaki izinleri kullanacaktır. </p>
+        <br />
+        <p> - Ağa Erişim izni (belirttiğiniz şekilde çevrimiçi içeriğe erişmek için) </p>
+        <p> - Ağ durumunu al izni (cihazın o anda kullanılabilir ağ koşullarına sahip olup olmadığını öğrenmek için) </p>
+        <p> - Arka plan hizmeti izni (favorilerinizi düzenli ve otomatik olarak senkronize etmek için) </p>
+        <br />
+        <br />
+        <h5> Üçüncü Taraf Hizmetleri </h5>
+        <br />
+        <p> Bu politika <b>RSS Bear Hub</b> ile birlikte kullandığınız üçüncü taraf hizmetleri için geçerli değildir. Kullandığınız üçüncü taraf hizmetlerinin gizlilik politikalarını kendi web sitelerinde inceleyebilirsiniz </p>
+        <br />
+        <br />
+        <h5> Feragatnameler </h5>
+        <br />
+        <p>
+            <b> RSS Bear Hub</b> yalnızca bir içerik toplama aracıdır. <b> RSS Bear Hub</b> kullanımınız ülkenizin ve bölgenizin yasa ve yönetmeliklerine tabidir ve eylemlerinizden kaynaklanan her türlü sorumluluk şahsen size ait olacaktır. </p>
+        <br />
+        <br />
+        <h5> Açık Kaynak Lisansı </h5>
+        <br />
+        <p>
+            <b> RSS Bear Hub</b>, <b>RSS Bear Hub</b> kaynak kodunu ücretsiz olarak kullanmanıza, referans vermenize ve değiştirmenize izin veren, ancak değiştirilmiş ve türetilmiş kodun kapalı kaynaklı ticari yazılım olarak dağıtılmasına ve satılmasına izin vermeyen GNU GPL 3.0 Açık Kaynak Lisansı[1] kapsamında açık kaynaklı bir projedir. Ayrıntılar için lütfen GNU GPL 3.0 Açık Kaynak Lisansının tamamına bakın[2]. </p>
+        <br />
+        <br />
+        <h5> Ek </h5>
+        <br />
+        <p> - [1] https://github.com/Ashinch/ReadYou </p>
+        <p> - [2] https://www.gnu.org/licenses/gpl-3.0.html </p>
+    </string>
     <string name="use_device_theme">Cihaz temasını kullan</string>
     <string name="interaction_desc">İlk sayfa, haptik geribildirim</string>
     <string name="primary_color_hint">#666666 veya 666666 gibi</string>
@@ -244,8 +285,6 @@
     <string name="empty">Boş</string>
     <string name="server_url">Sunucu URL\'si</string>
     <string name="system_default">Sistem</string>
-
-    <!-- Add Sources Page - TODO: Translate -->
     <string name="explore_rss_sources">Explore RSS sources</string>
     <string name="english_sources">English Sources</string>
     <string name="vietnamese_sources">Vietnamese Sources</string>
@@ -259,8 +298,6 @@
     <string name="spanish_sources">Spanish Sources</string>
     <string name="portuguese_sources">Portuguese Sources</string>
     <string name="arabic_sources">Arabic Sources</string>
-
-    <!-- Add Source Detail Page - TODO: Translate -->
     <string name="add_rss_source">Add RSS Source</string>
     <string name="add_source_confirm_message">Do you want to add this RSS source to your feeds?</string>
     <string name="add_source">Add Source</string>
@@ -283,13 +320,10 @@
     <string name="restarting_app">Uygulama yeniden başlatılıyor…</string>
     <string name="auto_tts">Auto-play Text-to-Speech</string>
     <string name="auto_tts_desc">Automatically read articles aloud when opened</string>
-
     <string name="unlock_amoled_theme">AMOLED Temasının Kilidini Aç</string>
     <string name="unlock_amoled_theme_desc">Gerçek siyah AMOLED temasının kilidini kalıcı olarak açmak için kısa bir video reklam izleyin.</string>
     <string name="watch_ad">Reklamı izle</string>
     <string name="ad_not_ready">Reklam hazır değil. Lütfen daha sonra tekrar deneyin.</string>
-
-    <!-- Missing keys added for 100% parity with base strings.xml -->
     <string name="read_you" translatable="false">RSS Hub</string>
     <string name="feed_url_placeholder" translatable="false">http://example.com/feed.rss</string>
     <string name="translatable_url" translatable="false">https://hosted.weblate.org/projects/readyou/</string>
@@ -436,4 +470,37 @@
     <string name="beta_testing_desc">Test exciting new products and get paid to give feedback for new apps</string>
     <string name="next_article">Next Article</string>
     <string name="add_tag">Add Tag</string>
+    <string name="brain_rpg_title">Brain RPG</string>
+    <string name="brain_rpg_subtitle">Knowledge Skill Tree &amp; Daily Streak</string>
+    <string name="brain_rpg_settings_desc">Track your reading XP, streak, level, and knowledge tree</string>
+    <string name="brain_rpg_level">Level %1$d</string>
+    <string name="brain_rpg_streak">%1$d Day Streak</string>
+    <string name="brain_rpg_xp">%1$d XP</string>
+    <string name="brain_rpg_quiz_title">10s AI Micro-Quiz</string>
+    <string name="brain_rpg_quiz_reward">+150 XP</string>
+    <string name="brain_rpg_reading_reward">+50 XP Reading Complete!</string>
+    <string name="brain_rpg_double_xp">Double to 300 XP (Watch ad)</string>
+    <string name="brain_rpg_retry_quiz">Retry Quiz (Watch ad)</string>
+    <string name="brain_rpg_streak_shield">Streak Shield</string>
+    <string name="brain_rpg_streak_shield_active">Shield Active (Streak Protected)</string>
+    <string name="brain_rpg_streak_shield_activate">Activate Shield (Watch ad)</string>
+    <string name="brain_rpg_wrapped_title">Weekly Brain Wrapped</string>
+    <string name="brain_rpg_wrapped_share">Share Wrapped</string>
+    <string name="brain_rpg_correct">🎉 Correct Answer!</string>
+    <string name="brain_rpg_wrong">❌ Incorrect Answer</string>
+    <string name="brain_rpg_category_tech">Tech &amp; AI</string>
+    <string name="brain_rpg_category_business">Business &amp; Finance</string>
+    <string name="brain_rpg_category_science">Science &amp; Nature</string>
+    <string name="brain_rpg_category_health">Health &amp; Lifestyle</string>
+    <string name="brain_rpg_category_philosophy">Philosophy &amp; Ideas</string>
+    <string name="brain_rpg_category_general">General Knowledge</string>
+    <string name="brain_rpg_streak_shield_success">Streak Shield activated!</string>
+    <string name="brain_rpg_streak_shield_protected">Protected</string>
+    <string name="brain_rpg_target_xp">Target: %1$d XP</string>
+    <string name="brain_rpg_skill_tree_title">Knowledge Skill Tree</string>
+    <string name="brain_rpg_stats_title">AI Challenge Stats</string>
+    <string name="brain_rpg_stats_attempted">Attempted</string>
+    <string name="brain_rpg_stats_passed">Correct</string>
+    <string name="brain_rpg_stats_accuracy">Accuracy</string>
+    <string name="brain_rpg_wrapped_desc">"You\'ve earned %1$d XP and kept a %2$d-day reading streak! Share your achievement to inspire others."</string>
 </resources>

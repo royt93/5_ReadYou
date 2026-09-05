@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="all_allow_notification_toast">Alla aviseringar från gruppen \"%1$s\" tillåts</string>
     <plurals name="unread_desc">
@@ -82,7 +82,10 @@
     <string name="help_translate">Översättningshjälp</string>
     <string name="welcome">Välkommen</string>
     <string name="tos_tips">Läs och godkänn villkoren för RSS Bear Hub tjänster och integritetsvillkoren för att fortsätta.</string>
-    <string name="browse_tos_tips">Bläddra igenom <i><u>Tjänste och integritetsvillkoren</u></i></string>
+    <string name="browse_tos_tips">Bläddra igenom <i>
+            <u>Tjänste och integritetsvillkoren</u>
+        </i>
+    </string>
     <string name="agree">Jag instämmer</string>
     <string name="wallpaper_colors">Bakgrundbild färger</string>
     <string name="no_palettes">Inga Paletter</string>
@@ -181,7 +184,44 @@
     <string name="tips_and_support_desc">Om, öppen källkodlicenser</string>
     <string name="use_device_languages">Använd enhetens språk</string>
     <string name="terms_of_service">Tjänstevillkor</string>
-    <string name="tos_content"><h5> Integritetsprincip </h5> <br /> <p> Jag tar din integritet på stort allvar. </p> <br /> <p> <b>RSS Bear Hub</b> samlar inte in någon användardata och alla känsliga uppgifter (lösenord och annan kontoinformation) lagras säkert i den lokala programdatabasen på din enhet. </p> <br /> <p> <b>RSS Bear Hub</b> kommer att nyttja följande behörigheter för att tillhandahålla tjänsten. </p> <br /> <p> - Behörighet för nätverksåtkomst (för åtkomst till internetinnehåll som du anger) </p> <p> - Behörighet för att hämta nätverkstatus (för att avgöra om enheten för närvarande har nätverksåtkomst) </p> <p> - Behörighet för bakgrundstjänster (för att regelbundet och automatiskt stämma av dina favoriter) </p> <br /> <br /> <h5> Tredjepartstjänster </h5> <br /> <p> Denna princip tillämpas inte för de tredjepartstjänster som du använder i <b>RSS Bear Hub</b>. Du kan stämma av integritetsprinciperna för tredjepartstjänsterna som du använder på deras hemsidor. </p> <br /> <br /> <h5> Friskrivningar </h5> <br /> <p> <b>RSS Bear Hub</b> är enbart ett verktyg för insamling av innehåll. Ditt nyttjande av \u0020<b>RSS Bear Hub</b> faller under de lagar och förordningar som gäller i ditt land och allt ansvar för ditt beteende tar du personligt ansvar för. </p> <br /> <br /> <h5> Öppen Källkod Licens </h5> <br /> <p> <b>RSS Bear Hub</b> är ett öppen källkodsprojekt som lyder under GNU GPL 3.0 Öppen Källkodslicens[1] som låter dig att använda, hänvisa till samt anpassa källkoden till <b>RSS Bear Hub</b> utan kostnad, men tillåter inte att den anpassade och härledda källkoden distribueras och säljs som instängd och kommersialiserad mjukvara. För ytterligare detaljer se GNU GPL 3.0 Öppen Källkodlicens[2]. </p> <br /> <br /> <h5> Bilagor </h5> <br /> <p> - [1] https://github.com/Ashinch/ReadYou </p> <p> - [2] https://www.gnu.org/licenses/gpl-3.0.html </p></string>
+    <string name="tos_content">
+        <h5> Integritetsprincip </h5>
+        <br />
+        <p> Jag tar din integritet på stort allvar. </p>
+        <br />
+        <p>
+            <b>RSS Bear Hub</b> samlar inte in någon användardata och alla känsliga uppgifter (lösenord och annan kontoinformation) lagras säkert i den lokala programdatabasen på din enhet. </p>
+        <br />
+        <p>
+            <b>RSS Bear Hub</b> kommer att nyttja följande behörigheter för att tillhandahålla tjänsten. </p>
+        <br />
+        <p> - Behörighet för nätverksåtkomst (för åtkomst till internetinnehåll som du anger) </p>
+        <p> - Behörighet för att hämta nätverkstatus (för att avgöra om enheten för närvarande har nätverksåtkomst) </p>
+        <p> - Behörighet för bakgrundstjänster (för att regelbundet och automatiskt stämma av dina favoriter) </p>
+        <br />
+        <br />
+        <h5> Tredjepartstjänster </h5>
+        <br />
+        <p> Denna princip tillämpas inte för de tredjepartstjänster som du använder i <b>RSS Bear Hub</b>. Du kan stämma av integritetsprinciperna för tredjepartstjänsterna som du använder på deras hemsidor. </p>
+        <br />
+        <br />
+        <h5> Friskrivningar </h5>
+        <br />
+        <p>
+            <b>RSS Bear Hub</b> är enbart ett verktyg för insamling av innehåll. Ditt nyttjande av \u0020<b>RSS Bear Hub</b> faller under de lagar och förordningar som gäller i ditt land och allt ansvar för ditt beteende tar du personligt ansvar för. </p>
+        <br />
+        <br />
+        <h5> Öppen Källkod Licens </h5>
+        <br />
+        <p>
+            <b>RSS Bear Hub</b> är ett öppen källkodsprojekt som lyder under GNU GPL 3.0 Öppen Källkodslicens[1] som låter dig att använda, hänvisa till samt anpassa källkoden till <b>RSS Bear Hub</b> utan kostnad, men tillåter inte att den anpassade och härledda källkoden distribueras och säljs som instängd och kommersialiserad mjukvara. För ytterligare detaljer se GNU GPL 3.0 Öppen Källkodlicens[2]. </p>
+        <br />
+        <br />
+        <h5> Bilagor </h5>
+        <br />
+        <p> - [1] https://github.com/Ashinch/ReadYou </p>
+        <p> - [2] https://www.gnu.org/licenses/gpl-3.0.html </p>
+    </string>
     <string name="group_list">Grupplista</string>
     <string name="bionic_reading">Artificiell Läsning</string>
     <string name="article_list">Artikellista</string>
@@ -244,8 +284,6 @@
     <string name="username">Användarnamn</string>
     <string name="system_default">Systemet</string>
     <string name="empty">Tömma</string>
-
-    <!-- Add Sources Page - TODO: Translate -->
     <string name="explore_rss_sources">Explore RSS sources</string>
     <string name="english_sources">English Sources</string>
     <string name="vietnamese_sources">Vietnamese Sources</string>
@@ -259,8 +297,6 @@
     <string name="spanish_sources">Spanish Sources</string>
     <string name="portuguese_sources">Portuguese Sources</string>
     <string name="arabic_sources">Arabic Sources</string>
-
-    <!-- Add Source Detail Page - TODO: Translate -->
     <string name="add_rss_source">Add RSS Source</string>
     <string name="add_source_confirm_message">Do you want to add this RSS source to your feeds?</string>
     <string name="add_source">Add Source</string>
@@ -283,13 +319,10 @@
     <string name="restarting_app">Startar om appen…</string>
     <string name="auto_tts">Auto-play Text-to-Speech</string>
     <string name="auto_tts_desc">Automatically read articles aloud when opened</string>
-
     <string name="unlock_amoled_theme">Lås upp AMOLED-tema</string>
     <string name="unlock_amoled_theme_desc">Titta på en kort videoannons för att permanent låsa upp det sanna svarta AMOLED-temat.</string>
     <string name="watch_ad">Titta på annons</string>
     <string name="ad_not_ready">Annonsen är inte klar. Försök igen senare.</string>
-
-    <!-- Missing keys added for 100% parity with base strings.xml -->
     <string name="read_you" translatable="false">RSS Hub</string>
     <string name="feed_url_placeholder" translatable="false">http://example.com/feed.rss</string>
     <string name="translatable_url" translatable="false">https://hosted.weblate.org/projects/readyou/</string>
@@ -436,4 +469,37 @@
     <string name="beta_testing_desc">Test exciting new products and get paid to give feedback for new apps</string>
     <string name="next_article">Next Article</string>
     <string name="add_tag">Add Tag</string>
+    <string name="brain_rpg_title">Brain RPG</string>
+    <string name="brain_rpg_subtitle">Knowledge Skill Tree &amp; Daily Streak</string>
+    <string name="brain_rpg_settings_desc">Track your reading XP, streak, level, and knowledge tree</string>
+    <string name="brain_rpg_level">Level %1$d</string>
+    <string name="brain_rpg_streak">%1$d Day Streak</string>
+    <string name="brain_rpg_xp">%1$d XP</string>
+    <string name="brain_rpg_quiz_title">10s AI Micro-Quiz</string>
+    <string name="brain_rpg_quiz_reward">+150 XP</string>
+    <string name="brain_rpg_reading_reward">+50 XP Reading Complete!</string>
+    <string name="brain_rpg_double_xp">Double to 300 XP (Watch ad)</string>
+    <string name="brain_rpg_retry_quiz">Retry Quiz (Watch ad)</string>
+    <string name="brain_rpg_streak_shield">Streak Shield</string>
+    <string name="brain_rpg_streak_shield_active">Shield Active (Streak Protected)</string>
+    <string name="brain_rpg_streak_shield_activate">Activate Shield (Watch ad)</string>
+    <string name="brain_rpg_wrapped_title">Weekly Brain Wrapped</string>
+    <string name="brain_rpg_wrapped_share">Share Wrapped</string>
+    <string name="brain_rpg_correct">🎉 Correct Answer!</string>
+    <string name="brain_rpg_wrong">❌ Incorrect Answer</string>
+    <string name="brain_rpg_category_tech">Tech &amp; AI</string>
+    <string name="brain_rpg_category_business">Business &amp; Finance</string>
+    <string name="brain_rpg_category_science">Science &amp; Nature</string>
+    <string name="brain_rpg_category_health">Health &amp; Lifestyle</string>
+    <string name="brain_rpg_category_philosophy">Philosophy &amp; Ideas</string>
+    <string name="brain_rpg_category_general">General Knowledge</string>
+    <string name="brain_rpg_streak_shield_success">Streak Shield activated!</string>
+    <string name="brain_rpg_streak_shield_protected">Protected</string>
+    <string name="brain_rpg_target_xp">Target: %1$d XP</string>
+    <string name="brain_rpg_skill_tree_title">Knowledge Skill Tree</string>
+    <string name="brain_rpg_stats_title">AI Challenge Stats</string>
+    <string name="brain_rpg_stats_attempted">Attempted</string>
+    <string name="brain_rpg_stats_passed">Correct</string>
+    <string name="brain_rpg_stats_accuracy">Accuracy</string>
+    <string name="brain_rpg_wrapped_desc">"You\'ve earned %1$d XP and kept a %2$d-day reading streak! Share your achievement to inspire others."</string>
 </resources>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="all_deny_parse_full_content_toast">Sem mais conteúdos para exibir dos artigos no grupo \"%1$s\"</string>
     <string name="clear_articles_in_feed_toast">Limpos todos os artigos arquivados da fonte \"%1$s\"</string>
@@ -110,7 +110,10 @@
     <string name="tips_and_support_desc">Acerca de, licenças de código aberto</string>
     <string name="welcome">Bem-vindo(a)</string>
     <string name="tos_tips">Leia e concorde com os Termos de Serviço e Política de Privacidade do RSS Bear Hub para continuar.</string>
-    <string name="browse_tos_tips">Explorar os <i><u>Termos de Serviço e Política de Privacidade</u></i></string>
+    <string name="browse_tos_tips">Explorar os <i>
+            <u>Termos de Serviço e Política de Privacidade</u>
+        </i>
+    </string>
     <string name="terms_of_service">Termos de Serviço</string>
     <string name="article_desc">Descrições dos artigos</string>
     <string name="article_images">Imagens</string>
@@ -150,7 +153,44 @@
     <string name="search_for">Procurar por %1$s itens</string>
     <string name="mark_as_read">Marcar como lido</string>
     <string name="empty">Vazio</string>
-    <string name="tos_content"><h5> Política de Privacidade </h5> <br /> <p> Levo a sua privacidade muito a sério. </p> <br /> <p> <b>RSS Bear Hub</b> não coleta nenhum dado de utilizador e todas as informações sensitiveiveis (como palavras-passe e outras informações de contas) são guardadas de forma segura localmente no seu aparelho. </p> <br /> <p> <b>RSS Bear Hub</b> utiliza das seguintes permissões para fornecer os serviços. </p> <br /> <p> - Acesso a Internet (para acessar o conteúdo online conforme especificado pelo utilizador) </p> <p> - Obter status de conexão (Para conseguir identificar quando o aparelho está conectado a internet) </p> <p> - Serviços em plano de fundo (para automaticamente sincronizar seus favoritos periodicamente) </p> <br /> <br /> <h5> Serviços de Terceiros </h5> <br /> <p> Esta política não se aplica aos serviços de terceiros que utiliza junto de <b>RSS Bear Hub</b>. Pode visualizar a Política de Privacidade de cada serviço nos seus sites respetivos </p> <br /> <br /> <h5> Disclaimer </h5> <br /> <p> <b>RSS Bear Hub</b> é um agregador de conteúdo apenas. O uso de <b>RSS Bear Hub</b> está sujeito as leis e regulamentações do seu país e região e qualquer responsabilidade decorrente das suas ações será assumida por si diretamente. </p> <br /> <br /> <h5> Licenças de Código Aberto </h5> <br /> <p> <b>RSS Bear Hub</b> é um projeto de código aberto sobre a licença GNU GPL 3.0 Open Source License[1], na qual permite que use, referencie e modifique o código fonte de <b>RSS Bear Hub</b> gratuitamente, mas não permite que modifique o código para que seja vendido como uma solução comercial de código fechado. Para mais detalhes, veja a documentação completa da licença GNU GPL 3.0 Open Source License[2]. </p> <br /> <br /> <h5> Apêndice </h5> <br /> <p> - [1] https://github.com/Ashinch/ReadYou </p> <p> - [2] https://www.gnu.org/licenses/gpl-3.0.html </p></string>
+    <string name="tos_content">
+        <h5> Política de Privacidade </h5>
+        <br />
+        <p> Levo a sua privacidade muito a sério. </p>
+        <br />
+        <p>
+            <b>RSS Bear Hub</b> não coleta nenhum dado de utilizador e todas as informações sensitiveiveis (como palavras-passe e outras informações de contas) são guardadas de forma segura localmente no seu aparelho. </p>
+        <br />
+        <p>
+            <b>RSS Bear Hub</b> utiliza das seguintes permissões para fornecer os serviços. </p>
+        <br />
+        <p> - Acesso a Internet (para acessar o conteúdo online conforme especificado pelo utilizador) </p>
+        <p> - Obter status de conexão (Para conseguir identificar quando o aparelho está conectado a internet) </p>
+        <p> - Serviços em plano de fundo (para automaticamente sincronizar seus favoritos periodicamente) </p>
+        <br />
+        <br />
+        <h5> Serviços de Terceiros </h5>
+        <br />
+        <p> Esta política não se aplica aos serviços de terceiros que utiliza junto de <b>RSS Bear Hub</b>. Pode visualizar a Política de Privacidade de cada serviço nos seus sites respetivos </p>
+        <br />
+        <br />
+        <h5> Disclaimer </h5>
+        <br />
+        <p>
+            <b>RSS Bear Hub</b> é um agregador de conteúdo apenas. O uso de <b>RSS Bear Hub</b> está sujeito as leis e regulamentações do seu país e região e qualquer responsabilidade decorrente das suas ações será assumida por si diretamente. </p>
+        <br />
+        <br />
+        <h5> Licenças de Código Aberto </h5>
+        <br />
+        <p>
+            <b>RSS Bear Hub</b> é um projeto de código aberto sobre a licença GNU GPL 3.0 Open Source License[1], na qual permite que use, referencie e modifique o código fonte de <b>RSS Bear Hub</b> gratuitamente, mas não permite que modifique o código para que seja vendido como uma solução comercial de código fechado. Para mais detalhes, veja a documentação completa da licença GNU GPL 3.0 Open Source License[2]. </p>
+        <br />
+        <br />
+        <h5> Apêndice </h5>
+        <br />
+        <p> - [1] https://github.com/Ashinch/ReadYou </p>
+        <p> - [2] https://www.gnu.org/licenses/gpl-3.0.html </p>
+    </string>
     <string name="always_expand">Sempre expandir</string>
     <string name="icons">Ícones</string>
     <string name="icons_and_labels">Ícones e rótulos</string>
@@ -247,8 +287,6 @@
     <string name="connection">Conexão</string>
     <string name="feed_names">Nome do Feed</string>
     <string name="system_default">Sistema</string>
-
-    <!-- Add Sources Page -->
     <string name="explore_rss_sources">Explorar fontes RSS</string>
     <string name="english_sources">Fontes em inglês</string>
     <string name="vietnamese_sources">Fontes em vietnamita</string>
@@ -262,8 +300,6 @@
     <string name="spanish_sources">Fontes em espanhol</string>
     <string name="portuguese_sources">Fontes em português</string>
     <string name="arabic_sources">Fontes em árabe</string>
-
-    <!-- Add Source Detail Page -->
     <string name="add_rss_source">Adicionar fonte RSS</string>
     <string name="add_source_confirm_message">Deseja adicionar esta fonte RSS aos seus feeds?</string>
     <string name="add_source">Adicionar fonte</string>
@@ -286,13 +322,10 @@
     <string name="restarting_app">A reiniciar aplicação…</string>
     <string name="auto_tts">Reprodução automática de texto para voz</string>
     <string name="auto_tts_desc">Ler automaticamente os artigos em voz alta ao abrir</string>
-
     <string name="unlock_amoled_theme">Desbloquear tema AMOLED</string>
     <string name="unlock_amoled_theme_desc">Assista a um pequeno anúncio em vídeo para desbloquear permanentemente o verdadeiro tema preto AMOLED.</string>
     <string name="watch_ad">Assistir ao anúncio</string>
     <string name="ad_not_ready">O anúncio não está pronto. Por favor, tente novamente mais tarde.</string>
-
-    <!-- Missing keys added for 100% parity with base strings.xml -->
     <string name="read_you" translatable="false">RSS Hub</string>
     <string name="feed_url_placeholder" translatable="false">http://example.com/feed.rss</string>
     <string name="translatable_url" translatable="false">https://hosted.weblate.org/projects/readyou/</string>
@@ -439,4 +472,37 @@
     <string name="beta_testing_desc">Test exciting new products and get paid to give feedback for new apps</string>
     <string name="next_article">Next Article</string>
     <string name="add_tag">Add Tag</string>
+    <string name="brain_rpg_title">Brain RPG</string>
+    <string name="brain_rpg_subtitle">Knowledge Skill Tree &amp; Daily Streak</string>
+    <string name="brain_rpg_settings_desc">Track your reading XP, streak, level, and knowledge tree</string>
+    <string name="brain_rpg_level">Level %1$d</string>
+    <string name="brain_rpg_streak">%1$d Day Streak</string>
+    <string name="brain_rpg_xp">%1$d XP</string>
+    <string name="brain_rpg_quiz_title">10s AI Micro-Quiz</string>
+    <string name="brain_rpg_quiz_reward">+150 XP</string>
+    <string name="brain_rpg_reading_reward">+50 XP Reading Complete!</string>
+    <string name="brain_rpg_double_xp">Double to 300 XP (Watch ad)</string>
+    <string name="brain_rpg_retry_quiz">Retry Quiz (Watch ad)</string>
+    <string name="brain_rpg_streak_shield">Streak Shield</string>
+    <string name="brain_rpg_streak_shield_active">Shield Active (Streak Protected)</string>
+    <string name="brain_rpg_streak_shield_activate">Activate Shield (Watch ad)</string>
+    <string name="brain_rpg_wrapped_title">Weekly Brain Wrapped</string>
+    <string name="brain_rpg_wrapped_share">Share Wrapped</string>
+    <string name="brain_rpg_correct">🎉 Correct Answer!</string>
+    <string name="brain_rpg_wrong">❌ Incorrect Answer</string>
+    <string name="brain_rpg_category_tech">Tech &amp; AI</string>
+    <string name="brain_rpg_category_business">Business &amp; Finance</string>
+    <string name="brain_rpg_category_science">Science &amp; Nature</string>
+    <string name="brain_rpg_category_health">Health &amp; Lifestyle</string>
+    <string name="brain_rpg_category_philosophy">Philosophy &amp; Ideas</string>
+    <string name="brain_rpg_category_general">General Knowledge</string>
+    <string name="brain_rpg_streak_shield_success">Escudo de sequência ativado!</string>
+    <string name="brain_rpg_streak_shield_protected">Protegido</string>
+    <string name="brain_rpg_target_xp">Meta: %1$d XP</string>
+    <string name="brain_rpg_skill_tree_title">Árvore de habilidades do conhecimento</string>
+    <string name="brain_rpg_stats_title">Estatísticas do Desafio de IA</string>
+    <string name="brain_rpg_stats_attempted">Tentativas</string>
+    <string name="brain_rpg_stats_passed">Acertos</string>
+    <string name="brain_rpg_stats_accuracy">Precisão</string>
+    <string name="brain_rpg_wrapped_desc">"Você acumulou %1$d XP e manteve uma sequência de leitura de %2$d dias! Compartilhe sua conquista."</string>
 </resources>

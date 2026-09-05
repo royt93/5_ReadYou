@@ -19,17 +19,23 @@ import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.mckimquyen.reader.infrastructure.pref.LocalOpenLink
 import com.mckimquyen.reader.infrastructure.pref.LocalOpenLinkSpecificBrowser
 import com.mckimquyen.reader.infrastructure.pref.LocalReadingSubheadUpperCase
 import com.mckimquyen.reader.ui.component.base.BaseExtensibleVisibility
 import com.mckimquyen.reader.ui.component.reader.Reader
+import com.mckimquyen.reader.ui.component.rpg.BrainQuizCard
 import com.mckimquyen.reader.ui.ext.drawVerticalScrollbar
 import com.mckimquyen.reader.ui.ext.openURL
+import com.mckimquyen.reader.ui.page.rpg.BrainRpgViewModel
 import java.util.Date
 
 @Composable
@@ -42,11 +48,33 @@ fun Content(
     publishedDate: Date,
     listState: LazyListState,
     isLoading: Boolean,
+    articleId: String = "",
+    brainRpgViewModel: BrainRpgViewModel = hiltViewModel(),
 ) {
     val context = LocalContext.current
     val subheadUpperCase = LocalReadingSubheadUpperCase.current
     val openLink = LocalOpenLink.current
     val openLinkSpecificBrowser = LocalOpenLinkSpecificBrowser.current
+
+    val quiz = remember(articleId, content) {
+        if (articleId.isNotBlank()) {
+            brainRpgViewModel.quizGeneratorService.generateQuiz(articleId, title, content, author)
+        } else null
+    }
+
+    LaunchedEffect(listState, articleId) {
+        if (articleId.isNotBlank() && quiz != null) {
+            snapshotFlow {
+                val totalItems = listState.layoutInfo.totalItemsCount
+                val lastVisible = listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index ?: 0
+                totalItems > 2 && lastVisible >= totalItems - 2
+            }.collect { isNearBottom ->
+                if (isNearBottom) {
+                    brainRpgViewModel.onArticleReadFinished(articleId, quiz.category)
+                }
+            }
+        }
+    }
 
     SelectionContainer {
         LazyColumn(
@@ -104,6 +132,19 @@ fun Content(
                         context.openURL(it, openLink, openLinkSpecificBrowser)
                     }
                 )
+                if (quiz != null) {
+                    item {
+                        BrainQuizCard(
+                            quiz = quiz,
+                            onAnswerSubmitted = { isCorrect ->
+                                brainRpgViewModel.submitQuizAnswer(quiz.category, isCorrect) { _, _ -> }
+                            },
+                            onDoubleXpRequested = { act, onDone ->
+                                brainRpgViewModel.doubleQuizReward(act, quiz.category, 150L, onDone)
+                            }
+                        )
+                    }
+                }
             }
             item {
                 Spacer(modifier = Modifier.height(128.dp))

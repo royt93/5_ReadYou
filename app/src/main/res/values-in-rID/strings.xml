@@ -1,17 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
+<?xml version='1.0' encoding='utf-8'?>
+<resources xmlns:ns0="http://schemas.android.com/tools">
     <string name="all">Semua</string>
-    <plurals name="all_desc" tools:ignore="UnusedQuantity">
+    <plurals name="all_desc" ns0:ignore="UnusedQuantity">
         <item quantity="one">%1$d Artikel Diarsipkan</item>
         <item quantity="other">%1$d Artikel Diarsipkan</item>
     </plurals>
     <string name="unread">Belum Dibaca</string>
-    <plurals name="unread_desc" tools:ignore="UnusedQuantity">
+    <plurals name="unread_desc" ns0:ignore="UnusedQuantity">
         <item quantity="one">%1$d Artikel Belum Dibaca</item>
         <item quantity="other">%1$d Artikel Belum Dibaca</item>
     </plurals>
     <string name="starred">Dibintangi</string>
-    <plurals name="starred_desc" tools:ignore="UnusedQuantity">
+    <plurals name="starred_desc" ns0:ignore="UnusedQuantity">
         <item quantity="one">%1$d Artikel Dibintangi</item>
         <item quantity="other">%1$d Artikel Dibintangi</item>
     </plurals>
@@ -103,7 +103,44 @@
     <string name="browse_tos_tips">Pelajari lebih lanjut &lt;i&gt;&lt;u&gt;Syarat Penggunaan Layanan dan Kebijakan Privasi&lt;/u&gt;&lt;/i&gt;
     </string>
     <string name="terms_of_service">Syarat Menggunakan Layanan</string>
-    <string name="tos_content"><h5> Kebijakan Privasi </h5> <br /> <p> Kami menjaga privasi Anda dengan serius. </p> <br /> <p> <b>RSS Bear Hub</b> tidak menyimpan data penggunanya sama sekali. Semua informasi sensitif (sandi ataupun informasi akun lainnya) disimpan dengan aman di database lokal dari aplikasi yang ada di perangkat Anda. </p> <br /> <p> <b>RSS Bear Hub</b> akan menggunakan izin berikut untuk menyediakan layanan kepada Anda. </p> <br /> <p> - Izin untuk mengakses jaringan (untuk mengakses konten daring yang Anda tentukan) </p> <p> - Izin untuk melihat status jaringan (untuk mengetahui apakah perangkat saat ini memiliki kesediaan jaringan) </p> <p> - Izin untuk tetap aktif di latar belakang (untuk otomatis menyinkronkan konten favorit Anda secara teratur) </p> <br /> <br /> <h5> Layanan Pihak Ketiga </h5> <br /> <p> Kebijakan ini tidak berlaku untuk layanan pihak ketiga yang Anda gunakan dengan <b>RSS Bear Hub</b>. Anda dapat meninjau kebijakan privasi dari layanan pihak ketiga yang Anda gunakan di situs web mereka. </p> <br /> <br /> <h5> Perlu Diingat </h5> <br /> <p> <b>RSS Bear Hub</b> adalah alat pengumpul konten saja. Penggunaan <b>RSS Bear Hub</b> tunduk pada hukum dan peraturan negara dan wilayah Anda, dan setiap kewajiban yang muncul dari tindakan Anda akan ditanggung Anda secara pribadi. </p> <br /> <br /> <h5> Lisensi Sumber Terbuka </h5> <br /> <p> <b>RSS Bear Hub</b> adalah proyek Sumber Terbuka di bawah Lisensi Sumber Terbuka GNU GPL 3.0[1], yang memungkinkan Anda untuk menggunakan, mereferensikan, dan memodifikasi Kode Sumber <b>RSS Bear Hub</b> secara bebas, tetapi tidak mengizinkan kode yang dimodifikasi dan diturunkan untuk didistribusikan dan dijual sebagai perangkat lunak sumber tertutup. Untuk detailnya, silakan lihat Lisensi Sumber Terbuka GNU GPL 3.0 secara lengkap[2]. </p> <br /> <br /> <h5> Lampiran </h5> <br /> <p> - [1] https://github.com/Ashinch/ReadYou </p> <p> - [2] https://www.gnu.org/licenses/gpl-3.0.html </p></string>
+    <string name="tos_content">
+        <h5> Kebijakan Privasi </h5>
+        <br />
+        <p> Kami menjaga privasi Anda dengan serius. </p>
+        <br />
+        <p>
+            <b>RSS Bear Hub</b> tidak menyimpan data penggunanya sama sekali. Semua informasi sensitif (sandi ataupun informasi akun lainnya) disimpan dengan aman di database lokal dari aplikasi yang ada di perangkat Anda. </p>
+        <br />
+        <p>
+            <b>RSS Bear Hub</b> akan menggunakan izin berikut untuk menyediakan layanan kepada Anda. </p>
+        <br />
+        <p> - Izin untuk mengakses jaringan (untuk mengakses konten daring yang Anda tentukan) </p>
+        <p> - Izin untuk melihat status jaringan (untuk mengetahui apakah perangkat saat ini memiliki kesediaan jaringan) </p>
+        <p> - Izin untuk tetap aktif di latar belakang (untuk otomatis menyinkronkan konten favorit Anda secara teratur) </p>
+        <br />
+        <br />
+        <h5> Layanan Pihak Ketiga </h5>
+        <br />
+        <p> Kebijakan ini tidak berlaku untuk layanan pihak ketiga yang Anda gunakan dengan <b>RSS Bear Hub</b>. Anda dapat meninjau kebijakan privasi dari layanan pihak ketiga yang Anda gunakan di situs web mereka. </p>
+        <br />
+        <br />
+        <h5> Perlu Diingat </h5>
+        <br />
+        <p>
+            <b>RSS Bear Hub</b> adalah alat pengumpul konten saja. Penggunaan <b>RSS Bear Hub</b> tunduk pada hukum dan peraturan negara dan wilayah Anda, dan setiap kewajiban yang muncul dari tindakan Anda akan ditanggung Anda secara pribadi. </p>
+        <br />
+        <br />
+        <h5> Lisensi Sumber Terbuka </h5>
+        <br />
+        <p>
+            <b>RSS Bear Hub</b> adalah proyek Sumber Terbuka di bawah Lisensi Sumber Terbuka GNU GPL 3.0[1], yang memungkinkan Anda untuk menggunakan, mereferensikan, dan memodifikasi Kode Sumber <b>RSS Bear Hub</b> secara bebas, tetapi tidak mengizinkan kode yang dimodifikasi dan diturunkan untuk didistribusikan dan dijual sebagai perangkat lunak sumber tertutup. Untuk detailnya, silakan lihat Lisensi Sumber Terbuka GNU GPL 3.0 secara lengkap[2]. </p>
+        <br />
+        <br />
+        <h5> Lampiran </h5>
+        <br />
+        <p> - [1] https://github.com/Ashinch/ReadYou </p>
+        <p> - [2] https://www.gnu.org/licenses/gpl-3.0.html </p>
+    </string>
     <string name="agree">Setuju</string>
     <string name="wallpaper_colors">Warna Wallpaper</string>
     <string name="no_palettes">Tidak ada palet</string>
@@ -256,8 +293,6 @@
     <string name="default_browser">Paksakan peramban bawaan</string>
     <string name="open_link_something_wrong">Pengaturan \"Buka Tautan\" diabaikan karena ada yang salah.</string>
     <string name="open_link_specific_browser_not_selected">Tidak ada</string>
-
-    <!-- Add Sources Page -->
     <string name="explore_rss_sources">Jelajahi sumber RSS</string>
     <string name="english_sources">Sumber Bahasa Inggris</string>
     <string name="vietnamese_sources">Sumber Bahasa Vietnam</string>
@@ -271,8 +306,6 @@
     <string name="spanish_sources">Sumber Bahasa Spanyol</string>
     <string name="portuguese_sources">Sumber Bahasa Portugis</string>
     <string name="arabic_sources">Sumber Bahasa Arab</string>
-
-    <!-- Add Source Detail Page -->
     <string name="add_rss_source">Tambah Sumber RSS</string>
     <string name="add_source_confirm_message">Apakah Anda ingin menambahkan sumber RSS ini ke feed Anda?</string>
     <string name="add_source">Tambah Sumber</string>
@@ -295,13 +328,10 @@
     <string name="restarting_app">Memulai ulang aplikasi…</string>
     <string name="auto_tts">Auto-play Text-to-Speech</string>
     <string name="auto_tts_desc">Automatically read articles aloud when opened</string>
-
     <string name="unlock_amoled_theme">Buka Kunci Tema AMOLED</string>
     <string name="unlock_amoled_theme_desc">Tonton iklan video singkat untuk membuka kunci tema hitam AMOLED secara permanen.</string>
     <string name="watch_ad">Tonton Iklan</string>
     <string name="ad_not_ready">Iklan belum siap. Silakan coba lagi nanti.</string>
-
-    <!-- Missing keys added for 100% parity with base strings.xml -->
     <string name="read_you" translatable="false">RSS Hub</string>
     <string name="feed_url_placeholder" translatable="false">http://example.com/feed.rss</string>
     <string name="translatable_url" translatable="false">https://hosted.weblate.org/projects/readyou/</string>
@@ -437,4 +467,37 @@
     <string name="beta_testing_desc">Test exciting new products and get paid to give feedback for new apps</string>
     <string name="next_article">Next Article</string>
     <string name="add_tag">Add Tag</string>
+    <string name="brain_rpg_title">Brain RPG</string>
+    <string name="brain_rpg_subtitle">Knowledge Skill Tree &amp; Daily Streak</string>
+    <string name="brain_rpg_settings_desc">Track your reading XP, streak, level, and knowledge tree</string>
+    <string name="brain_rpg_level">Level %1$d</string>
+    <string name="brain_rpg_streak">%1$d Day Streak</string>
+    <string name="brain_rpg_xp">%1$d XP</string>
+    <string name="brain_rpg_quiz_title">10s AI Micro-Quiz</string>
+    <string name="brain_rpg_quiz_reward">+150 XP</string>
+    <string name="brain_rpg_reading_reward">+50 XP Reading Complete!</string>
+    <string name="brain_rpg_double_xp">Double to 300 XP (Watch ad)</string>
+    <string name="brain_rpg_retry_quiz">Retry Quiz (Watch ad)</string>
+    <string name="brain_rpg_streak_shield">Streak Shield</string>
+    <string name="brain_rpg_streak_shield_active">Shield Active (Streak Protected)</string>
+    <string name="brain_rpg_streak_shield_activate">Activate Shield (Watch ad)</string>
+    <string name="brain_rpg_wrapped_title">Weekly Brain Wrapped</string>
+    <string name="brain_rpg_wrapped_share">Share Wrapped</string>
+    <string name="brain_rpg_correct">🎉 Correct Answer!</string>
+    <string name="brain_rpg_wrong">❌ Incorrect Answer</string>
+    <string name="brain_rpg_category_tech">Tech &amp; AI</string>
+    <string name="brain_rpg_category_business">Business &amp; Finance</string>
+    <string name="brain_rpg_category_science">Science &amp; Nature</string>
+    <string name="brain_rpg_category_health">Health &amp; Lifestyle</string>
+    <string name="brain_rpg_category_philosophy">Philosophy &amp; Ideas</string>
+    <string name="brain_rpg_category_general">General Knowledge</string>
+    <string name="brain_rpg_streak_shield_success">Streak Shield activated!</string>
+    <string name="brain_rpg_streak_shield_protected">Protected</string>
+    <string name="brain_rpg_target_xp">Target: %1$d XP</string>
+    <string name="brain_rpg_skill_tree_title">Knowledge Skill Tree</string>
+    <string name="brain_rpg_stats_title">AI Challenge Stats</string>
+    <string name="brain_rpg_stats_attempted">Attempted</string>
+    <string name="brain_rpg_stats_passed">Correct</string>
+    <string name="brain_rpg_stats_accuracy">Accuracy</string>
+    <string name="brain_rpg_wrapped_desc">"You\'ve earned %1$d XP and kept a %2$d-day reading streak! Share your achievement to inspire others."</string>
 </resources>

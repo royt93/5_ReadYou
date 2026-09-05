@@ -36,6 +36,7 @@ import com.mckimquyen.reader.ui.page.home.addsources.AddSourcesMainPage
 import com.mckimquyen.reader.ui.page.home.feed.FeedsPage
 import com.mckimquyen.reader.ui.page.home.flow.FlowPage
 import com.mckimquyen.reader.ui.page.home.read.ReadingPage
+import com.mckimquyen.reader.ui.page.rpg.BrainRpgPage
 import com.mckimquyen.reader.ui.page.setting.SettingsPage
 import com.mckimquyen.reader.ui.page.setting.acc.AccountDetailsPage
 import com.mckimquyen.reader.ui.page.setting.acc.AccountsPage
@@ -203,6 +204,11 @@ fun HomeEntry(
             // Settings
             animatedComposable(route = RouteName.SETTINGS) {
                 SettingsPage(navController = navController, activity = activity)
+            }
+
+            // Brain RPG
+            animatedComposable(route = RouteName.BRAIN_RPG) {
+                BrainRpgPage(navController = navController, activity = activity)
             }
 
             // VIP

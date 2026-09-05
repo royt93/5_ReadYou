@@ -23,6 +23,7 @@ import androidx.compose.material.icons.outlined.Language
 import androidx.compose.material.icons.outlined.Lightbulb
 import androidx.compose.material.icons.outlined.Palette
 import androidx.compose.material.icons.outlined.Policy
+import androidx.compose.material.icons.outlined.Psychology
 import androidx.compose.material.icons.outlined.Share
 import androidx.compose.material.icons.outlined.StarRate
 import androidx.compose.material.icons.outlined.TouchApp
@@ -151,6 +152,17 @@ fun SettingsPage(
                         desc = BuildConfig.VERSION_NAME,
                         icon = Icons.Outlined.Build,
                     ) {
+                    }
+                }
+                item {
+                    SelectableSettingGroupItem(
+                        title = stringResource(R.string.brain_rpg_title),
+                        desc = stringResource(R.string.brain_rpg_settings_desc),
+                        icon = Icons.Outlined.Psychology,
+                    ) {
+                        navController.navigate(RouteName.BRAIN_RPG) {
+                            launchSingleTop = true
+                        }
                     }
                 }
                 item {

@@ -178,6 +178,7 @@ fun ReadingPage(
                             publishedDate = readingUiState.articleWithFeed.article.date,
                             isLoading = readingUiState.isLoading,
                             listState = listState,
+                            articleId = readingUiState.articleWithFeed.article.id,
                         )
                     }
                 }
