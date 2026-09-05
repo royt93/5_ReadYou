@@ -575,6 +575,16 @@ interface ArticleDao {
     @Insert
     suspend fun insertList(articles: List<Article>)
 
+    @Query(
+        """
+        SELECT * FROM article
+        WHERE accountId = :accountId AND isUnread = 1
+        ORDER BY date DESC
+        LIMIT :limit
+        """
+    )
+    suspend fun queryLatestUnread(accountId: Int, limit: Int = 5): List<Article>
+
     @Update
     suspend fun update(vararg article: Article)
 

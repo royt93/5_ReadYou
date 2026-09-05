@@ -18,6 +18,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.KeyboardArrowRight
+import androidx.compose.material.icons.outlined.Podcasts
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.Refresh
@@ -159,6 +160,13 @@ fun FeedsPage(
                 navController.navigate(RouteName.VIP) {
                     launchSingleTop = true
                 }
+            }
+            FeedbackIconButton(
+                imageVector = Icons.Outlined.Podcasts,
+                contentDescription = stringResource(R.string.commute_cast_title),
+                tint = MaterialTheme.colorScheme.onSurface,
+            ) {
+                homeViewModel.openCommuteCast()
             }
             // Chỉ hiển thị refresh icon khi không ở tab AddSources
             if (!filterUiState.filter.isAddSources()) {

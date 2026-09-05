@@ -48,6 +48,17 @@ class HomeViewModel @Inject constructor(
     private val _filterUiState = MutableStateFlow(FilterState())
     val filterUiState = _filterUiState.asStateFlow()
 
+    private val _showCommuteCast = MutableStateFlow(false)
+    val showCommuteCast: StateFlow<Boolean> = _showCommuteCast.asStateFlow()
+
+    fun openCommuteCast() {
+        _showCommuteCast.value = true
+    }
+
+    fun closeCommuteCast() {
+        _showCommuteCast.value = false
+    }
+
     val syncWorkLiveData = workManager.getWorkInfosByTagLiveData(SyncWorker.WORK_NAME)
 
     fun sync() {

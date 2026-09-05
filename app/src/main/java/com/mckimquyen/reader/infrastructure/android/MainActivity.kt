@@ -2,6 +2,7 @@ package com.mckimquyen.reader.infrastructure.android
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
@@ -64,6 +65,11 @@ class MainActivity : ComponentActivity() {
         val wrappedContext = newBase.createConfigurationContext(configuration)
 
         super.attachBaseContext(wrappedContext)
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
     }
 
     override fun onResume() {

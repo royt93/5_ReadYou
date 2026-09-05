@@ -20,6 +20,9 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.mckimquyen.reader.domain.model.general.Filter
 import com.mckimquyen.reader.infrastructure.pref.LocalDarkTheme
 import com.mckimquyen.reader.infrastructure.pref.LocalReadingDarkTheme
+import com.mckimquyen.reader.infrastructure.android.NotificationHelper
+import com.mckimquyen.reader.ui.component.commute.CommuteCastDialog
+import androidx.compose.runtime.collectAsState
 
 import com.mckimquyen.reader.ui.ext.animatedComposable
 import com.mckimquyen.reader.ui.ext.collectAsStateValue
@@ -77,6 +80,14 @@ fun HomeEntry(
         mutableStateOf(intent?.extras?.getString(ExtraName.ARTICLE_ID) ?: "")
     }.also {
         intent?.replaceExtras(null)
+    }
+
+    val showCommuteCast by homeViewModel.showCommuteCast.collectAsState()
+
+    LaunchedEffect(Unit) {
+        if (intent?.getBooleanExtra(NotificationHelper.EXTRA_START_COMMUTE, false) == true) {
+            homeViewModel.openCommuteCast()
+        }
     }
 
     LaunchedEffect(Unit) {
@@ -152,6 +163,11 @@ fun HomeEntry(
             setSystemBarsColor(Color.Transparent, !useDarkTheme)
             setNavigationBarColor(Color.Transparent, !useDarkTheme)
         }
+
+        CommuteCastDialog(
+            visible = showCommuteCast,
+            onDismiss = { homeViewModel.closeCommuteCast() },
+        )
 
         NavHost(
             modifier = Modifier.background(MaterialTheme.colorScheme.surface),

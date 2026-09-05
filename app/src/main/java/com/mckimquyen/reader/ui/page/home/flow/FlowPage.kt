@@ -12,6 +12,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
+import androidx.compose.material.icons.outlined.Podcasts
 import androidx.compose.material.icons.rounded.DoneAll
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material3.MaterialTheme
@@ -156,6 +157,13 @@ fun FlowPage(
                             onSearch = false
                         }
                     }
+                }
+                FeedbackIconButton(
+                    imageVector = Icons.Outlined.Podcasts,
+                    contentDescription = stringResource(R.string.commute_cast_title),
+                    tint = MaterialTheme.colorScheme.onSurface,
+                ) {
+                    homeViewModel.openCommuteCast()
                 }
                 FeedbackIconButton(
                     imageVector = Icons.Rounded.Search,

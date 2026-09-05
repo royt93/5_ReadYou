@@ -521,4 +521,13 @@
     <string name="ok">OK</string>
     <string name="vip_rewarded_not_earned">Ad is not available or was not completed. Please try again.</string>
     <string name="splash_ad_notice">Please note: this app may show ads</string>
+    <string name="commute_cast_title">CommuteCast AI DJ</string>
+    <string name="commute_cast_subtitle">2-Host Morning Radio Overview</string>
+    <string name="commute_host_alex">Alex (Anchor)</string>
+    <string name="commute_host_sam">Sam (Co-host)</string>
+    <string name="commute_unlock_deepdive">🎙️ Unlock 15-Min Deep Dive (Watch ad)</string>
+    <string name="commute_deepdive_unlocked">🎉 Deep Dive Unlocked!</string>
+    <string name="commute_empty">No unread articles for morning radio</string>
+    <string name="commute_generating">AI DJ is crafting your show...</string>
+    <string name="retry">Retry</string>
 </resources>

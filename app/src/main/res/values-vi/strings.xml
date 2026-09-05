@@ -346,4 +346,13 @@
     <string name="ok">OK</string>
     <string name="vip_rewarded_not_earned">Quảng cáo chưa sẵn sàng hoặc chưa hoàn tất. Vui lòng thử lại.</string>
     <string name="splash_ad_notice">Lưu ý: ứng dụng có thể hiển thị quảng cáo</string>
+    <string name="commute_cast_title">CommuteCast AI DJ</string>
+    <string name="commute_cast_subtitle">Bản tin đối đáp 2 MC buổi sáng</string>
+    <string name="commute_host_alex">Alex (Phân tích)</string>
+    <string name="commute_host_sam">Sam (Phản biện)</string>
+    <string name="commute_unlock_deepdive">🎙️ Mở khóa Deep Dive 15 phút (Xem video)</string>
+    <string name="commute_deepdive_unlocked">🎉 Đã mở khóa Deep Dive!</string>
+    <string name="commute_empty">Chưa có bài viết mới cho bản tin sáng</string>
+    <string name="commute_generating">AI DJ đang biên kịch bản tin sáng...</string>
+    <string name="retry">Thử lại</string>
 </resources>

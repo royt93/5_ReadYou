@@ -28,6 +28,15 @@ class NotificationHelper @Inject constructor(
                     NotificationManager.IMPORTANCE_DEFAULT
                 )
             )
+            createNotificationChannel(
+                NotificationChannel(
+                    COMMUTE_CHANNEL_ID,
+                    "CommuteCast Morning Radio",
+                    NotificationManager.IMPORTANCE_HIGH
+                ).apply {
+                    description = "Bản tin phát thanh buổi sáng hàng ngày"
+                }
+            )
         }
 
     fun notify(feedWithArticle: FeedWithArticle) {
@@ -97,5 +106,35 @@ class NotificationHelper @Inject constructor(
                     .build()
             )
         }
+    }
+
+    fun notifyCommuteCast(episode: com.mckimquyen.reader.domain.model.commute.CommuteEpisode) {
+        val intent = Intent(context, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            putExtra(EXTRA_START_COMMUTE, true)
+        }
+        val pendingIntent = PendingIntent.getActivity(
+            context,
+            10099,
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+
+        val notification = NotificationCompat.Builder(context, COMMUTE_CHANNEL_ID)
+            .setSmallIcon(R.drawable.ic_notification)
+            .setContentTitle("☕ ${episode.title}")
+            .setContentText("Alex & Sam đã chuẩn bị 5 điểm tin nổi bật sáng nay cho bạn!")
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setAutoCancel(true)
+            .setContentIntent(pendingIntent)
+            .build()
+
+        notificationManager.notify(COMMUTE_NOTIFICATION_ID, notification)
+    }
+
+    companion object {
+        const val COMMUTE_CHANNEL_ID = "commute_cast_channel"
+        const val COMMUTE_NOTIFICATION_ID = 9988
+        const val EXTRA_START_COMMUTE = "extra_start_commute"
     }
 }
