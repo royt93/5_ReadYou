@@ -7,7 +7,7 @@
 
 ---
 
-## 🎯 Tổng Quan Phân Bổ Backlog (31 Tasks — 131 Story Points)
+## 🎯 Tổng Quan Phân Bổ Backlog (50 Tasks — 249 Story Points)
 
 | Epic / Danh Mục | Số Lượng Task | Tổng Story Points | Độ Ưu Tiên Cao Nhất | File Chi Tiết |
 |---|:---:|:---:|:---:|---|
@@ -16,7 +16,13 @@
 | **3. NEW — Tính Năng Mới Chuẩn RSS** | 4 tasks | 23 SP | **P1 (High)** | [`03_NEW_CORE_FEATURES.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/todo/03_NEW_CORE_FEATURES.md) |
 | **4. IDEAS — Ý Tưởng Tăng Trưởng & Media** | 6 tasks | 24 SP | **P2 (Medium)** | [`04_IDEAS_AND_GROWTH.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/todo/04_IDEAS_AND_GROWTH.md) |
 | **5. EXCLUSIVE — Tính Năng Độc Quyền "Killer"** | 7 tasks | 39 SP | **P1 (High)** | [`05_EXCLUSIVE_KILLER_FEATURES.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/todo/05_EXCLUSIVE_KILLER_FEATURES.md) |
-| **TỔNG CỘNG** | **31 tasks** | **131 SP** | — | — |
+| **6. KNOWLEDGE — AI Gom Cụm & Second Brain** | 3 tasks | 21 SP | **P1 (High)** | [`06_NEXT_GEN_AI_KNOWLEDGE.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/todo/06_NEXT_GEN_AI_KNOWLEDGE.md) |
+| **7. INGESTION — Biến Mọi Web Thành RSS & Đọc Sau** | 3 tasks | 18 SP | **P1 (High)** | [`07_UNIVERSAL_INGESTION_AND_SYNC.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/todo/07_UNIVERSAL_INGESTION_AND_SYNC.md) |
+| **8. ZEN — Đọc Siêu Tốc RSVP & Tập Trung Tuyệt Đối** | 3 tasks | 11 SP | **P2 (Medium)** | [`08_ZEN_FOCUS_AND_SPEED_READING.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/todo/08_ZEN_FOCUS_AND_SPEED_READING.md) |
+| **9. REELS — Thẻ Lướt Dọc TikTok & Video PiP** | 3 tasks | 18 SP | **P2 (Medium)** | [`09_VISUAL_REELS_AND_MEDIA.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/todo/09_VISUAL_REELS_AND_MEDIA.md) |
+| **10. FRONTIER — Báo Cáo McKinsey, Web3 & Xe Hơi** | 4 tasks | 32 SP | **P1 (High)** | [`10_FRONTIER_AND_ECOSYSTEM.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/todo/10_FRONTIER_AND_ECOSYSTEM.md) |
+| **11. AUTONOMOUS — Zero-Click Agent & Privacy Vault** | 3 tasks | 18 SP | **P1 (High)** | [`11_AUTONOMOUS_COMMUNITY_PRIVACY.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/todo/11_AUTONOMOUS_COMMUNITY_PRIVACY.md) |
+| **TỔNG CỘNG** | **50 tasks** | **249 SP** | — | — |
 
 ---
 
