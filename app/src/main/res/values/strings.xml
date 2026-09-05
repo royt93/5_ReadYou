@@ -530,4 +530,22 @@
     <string name="commute_empty">No unread articles for morning radio</string>
     <string name="commute_generating">AI DJ is crafting your show...</string>
     <string name="retry">Retry</string>
+    <string name="version">Version</string>
+    <string name="rate_app">Rate app</string>
+    <string name="rate_app_desc">Please rate 5 stars if you find this application useful</string>
+    <string name="more_apps">Get more apps</string>
+    <string name="more_apps_desc">Download more of these amazing apps from the store, they are very useful for you</string>
+    <string name="share_app">Share this app</string>
+    <string name="share_app_desc">Please share this application for others to use with you</string>
+    <string name="term_and_policy">Term &amp; Policy</string>
+    <string name="term_and_policy_desc">Read Security terms and privacy policy</string>
+    <string name="about_title">About</string>
+    <string name="about_desc">Getting to Know this App</string>
+    <string name="source_code_original">Source code (original version)</string>
+    <string name="source_code_current">Source code (this version)</string>
+    <string name="source_code_desc">An Android RSS reader presented in Material You style.</string>
+    <string name="beta_testing_community">Join the BetaTesting Community Today!</string>
+    <string name="beta_testing_desc">Test exciting new products and get paid to give feedback for new apps</string>
+    <string name="next_article">Next Article</string>
+    <string name="add_tag">Add Tag</string>
 </resources>

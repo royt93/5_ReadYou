@@ -55,7 +55,7 @@ fun TopBar(
             TopAppBar(
                 title = {},
                 modifier = Modifier,
-                windowInsets = WindowInsets(0.dp),
+                windowInsets = TopAppBarDefaults.windowInsets,
                 navigationIcon = {
                     FeedbackIconButton(
                         imageVector = Icons.Rounded.Close,

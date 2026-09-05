@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetValue
@@ -186,6 +187,7 @@ fun ReadingPage(
                         modifier = Modifier
                             .align(androidx.compose.ui.Alignment.BottomCenter)
                             .fillMaxWidth()
+                            .navigationBarsPadding()
                             .zIndex(1f)
                     ) {
                         BottomBar(

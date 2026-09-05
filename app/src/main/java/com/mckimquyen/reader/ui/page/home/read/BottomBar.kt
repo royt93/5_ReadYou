@@ -105,7 +105,7 @@ fun BottomBar(
                         disabled = false,
                         modifier = Modifier.size(40.dp),
                         imageVector = Icons.Rounded.ExpandMore,
-                        contentDescription = "Next Article",
+                        contentDescription = stringResource(R.string.next_article),
                         tint = MaterialTheme.colorScheme.outline,
                     ) {
                         view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP)
@@ -115,7 +115,7 @@ fun BottomBar(
                         modifier = Modifier.size(36.dp),
                         disabled = true,
                         imageVector = Icons.Outlined.Headphones,
-                        contentDescription = "Add Tag",
+                        contentDescription = stringResource(R.string.add_tag),
                         tint = MaterialTheme.colorScheme.outline,
                     ) {
                         view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP)

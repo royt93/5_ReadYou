@@ -70,28 +70,7 @@ import javax.inject.Inject
 class RApp : Application(), WorkConfiguration.Provider, ImageLoaderFactory {
 
     override fun attachBaseContext(base: Context) {
-        // Read locale from SharedPreferences (mirrored from DataStore by LanguagesPref.put()).
-        // We CANNOT use DataStore here: the preferencesDataStore delegate calls applicationContext
-        // which is null during attachBaseContext. SharedPreferences has no such restriction.
-        val locale = try {
-            val languagePref = base
-                .getSharedPreferences("locale_prefs", Context.MODE_PRIVATE)
-                .getInt("languages", 0)
-            LanguagesPref.fromValue(languagePref).getLocale()
-        } catch (e: Exception) {
-            Log.e("RLog", "Error reading locale in RApp: $e", e)
-            LocaleList.getDefault().get(0)
-        }
-
-        // Create configuration with locale
-        val configuration = Configuration(base.resources.configuration)
-        configuration.setLocale(locale)
-        configuration.setLocales(LocaleList(locale))
-
-        // Wrap context with new configuration
-        val wrappedContext = base.createConfigurationContext(configuration)
-
-        super.attachBaseContext(wrappedContext)
+        super.attachBaseContext(base)
     }
 
     @Inject

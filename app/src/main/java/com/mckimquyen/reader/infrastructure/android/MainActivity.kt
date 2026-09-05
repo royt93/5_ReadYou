@@ -43,27 +43,27 @@ class MainActivity : ComponentActivity() {
     lateinit var accountDao: AccountDao
 
     override fun attachBaseContext(newBase: Context) {
-        // Read locale from SharedPreferences (mirrored by LanguagesPref.put()).
-        // Same pattern as RApp.attachBaseContext — cannot use DataStore here.
-        val locale = try {
-            val languagePref = newBase
-                .getSharedPreferences("locale_prefs", Context.MODE_PRIVATE)
+        val languagePref = try {
+            newBase.getSharedPreferences("locale_prefs", Context.MODE_PRIVATE)
                 .getInt("languages", 0)
-            LanguagesPref.fromValue(languagePref).getLocale()
         } catch (e: Exception) {
-            Log.e("RLog", "Error reading locale preference: $e", e)
-            LocaleList.getDefault().get(0)
+            0
         }
 
-        // Create configuration with locale and font scale
+        if (languagePref == 0) {
+            super.attachBaseContext(newBase)
+            return
+        }
+
+        val locale = LanguagesPref.fromValue(languagePref).getLocale()
         val configuration = Configuration(newBase.resources.configuration)
         configuration.setLocale(locale)
-        configuration.setLocales(LocaleList(locale))
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            configuration.setLocales(LocaleList(locale))
+        }
         configuration.fontScale = 1.0f
 
-        // Wrap context with new configuration
         val wrappedContext = newBase.createConfigurationContext(configuration)
-
         super.attachBaseContext(wrappedContext)
     }
 
@@ -113,10 +113,11 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        WindowCompat.setDecorFitsSystemWindows(window, false)
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-//            window.addFlags(FLAG_LAYOUT_IN_SCREEN or FLAG_LAYOUT_NO_LIMITS)
-//        }
+        androidx.core.view.WindowCompat.setDecorFitsSystemWindows(window, false)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            window.isStatusBarContrastEnforced = false
+            window.isNavigationBarContrastEnforced = false
+        }
 //        Log.i("RLog", "onCreate: ${ProfileInstallerInitializer().create(this)}")
 
         // Initialize UI first to avoid ANR

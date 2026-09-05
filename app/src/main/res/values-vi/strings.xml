@@ -355,4 +355,88 @@
     <string name="commute_empty">Chưa có bài viết mới cho bản tin sáng</string>
     <string name="commute_generating">AI DJ đang biên kịch bản tin sáng...</string>
     <string name="retry">Thử lại</string>
+    <string name="version">Phiên bản</string>
+    <string name="rate_app">Đánh giá ứng dụng</string>
+    <string name="rate_app_desc">Vui lòng đánh giá 5 sao nếu bạn thấy ứng dụng hữu ích</string>
+    <string name="more_apps">Tải thêm ứng dụng</string>
+    <string name="more_apps_desc">Khám phá và tải thêm các ứng dụng hữu ích khác từ cửa hàng</string>
+    <string name="share_app">Chia sẻ ứng dụng</string>
+    <string name="share_app_desc">Chia sẻ ứng dụng này với bạn bè và người thân cùng sử dụng</string>
+    <string name="term_and_policy">Điều khoản &amp; Chính sách</string>
+    <string name="term_and_policy_desc">Đọc điều khoản bảo mật và chính sách quyền riêng tư</string>
+    <string name="about_title">Giới thiệu</string>
+    <string name="about_desc">Tìm hiểu thêm về ứng dụng đọc tin tức này</string>
+    <string name="source_code_original">Mã nguồn (bản gốc)</string>
+    <string name="source_code_current">Mã nguồn (phiên bản này)</string>
+    <string name="source_code_desc">Trình đọc RSS phong cách Material You cho Android.</string>
+    <string name="beta_testing_community">Tham gia cộng đồng Beta Tester!</string>
+    <string name="beta_testing_desc">Trải nghiệm các sản phẩm mới và đóng góp ý kiến hoàn thiện ứng dụng</string>
+    <string name="next_article">Bài tiếp theo</string>
+    <string name="add_tag">Thêm thẻ</string>
+
+    <!-- Languages names in Vietnamese -->
+    <string name="arabic">Tiếng Ả Rập</string>
+    <string name="azerbaijani">Tiếng Azerbaijan</string>
+    <string name="basque">Tiếng Basque</string>
+    <string name="bulgarian">Tiếng Bulgaria</string>
+    <string name="burmese">Tiếng Miến Điện</string>
+    <string name="catalan">Tiếng Catalan</string>
+    <string name="chinese_simplified">Tiếng Trung (Giản thể)</string>
+    <string name="chinese_traditional">Tiếng Trung (Phồn thể)</string>
+    <string name="czech">Tiếng Séc</string>
+    <string name="danish">Tiếng Đan Mạch</string>
+    <string name="dutch">Tiếng Hà Lan</string>
+    <string name="english">Tiếng Anh</string>
+    <string name="french">Tiếng Pháp</string>
+    <string name="german">Tiếng Đức</string>
+    <string name="hebrew">Tiếng Do Thái</string>
+    <string name="hindi">Tiếng Hindi</string>
+    <string name="hungarian">Tiếng Hungary</string>
+    <string name="indonesian">Tiếng Indonesia</string>
+    <string name="italian">Tiếng Ý</string>
+    <string name="japanese">Tiếng Nhật</string>
+    <string name="kannada">Tiếng Kannada</string>
+    <string name="literary_chinese">Hán văn cổ</string>
+    <string name="malayalam">Tiếng Malayalam</string>
+    <string name="norwegian_bokmal">Tiếng Na Uy (Bokmål)</string>
+    <string name="norwegian_nynorsk">Tiếng Na Uy (Nynorsk)</string>
+    <string name="persian">Tiếng Ba Tư</string>
+    <string name="polish">Tiếng Ba Lan</string>
+    <string name="portuguese">Tiếng Bồ Đào Nha</string>
+    <string name="portuguese_brazil">Tiếng Bồ Đào Nha (Brazil)</string>
+    <string name="romanian">Tiếng Romania</string>
+    <string name="russian">Tiếng Nga</string>
+    <string name="serbian">Tiếng Serbia</string>
+    <string name="slovenian">Tiếng Slovenia</string>
+    <string name="spanish">Tiếng Tây Ban Nha</string>
+    <string name="swedish">Tiếng Thụy Điển</string>
+    <string name="turkish">Tiếng Thổ Nhĩ Kỳ</string>
+    <string name="ukrainian">Tiếng Ukraina</string>
+    <string name="vietnamese">Tiếng Việt</string>
+
+    <!-- Services & URLs -->
+    <string name="feed_url_placeholder" translatable="false">http://example.com/feed.rss</string>
+    <string name="feedly" translatable="false">Feedly</string>
+    <string name="feedly_desc" translatable="false">feedly.com</string>
+    <string name="fever" translatable="false">Fever</string>
+    <string name="fresh_rss" translatable="false">FreshRSS</string>
+    <string name="fresh_rss_desc" translatable="false">freshrss.org</string>
+    <string name="google_reader" translatable="false">Google Reader</string>
+    <string name="google_reader_desc" translatable="false">Google Reader API</string>
+    <string name="inoreader" translatable="false">Inoreader</string>
+    <string name="inoreader_desc" translatable="false">inoreader.com</string>
+    <string name="github_link" translatable="false">https://github.com/Ashinch/ReadYou</string>
+    <string name="telegram_link" translatable="false">https://t.me/ReadYouApp</string>
+    <string name="translatable_url" translatable="false">https://hosted.weblate.org/projects/readyou/</string>
+
+    <!-- General UI -->
+    <string name="in_coding">Đang phát triển</string>
+    <string name="line_spacing">Khoảng cách dòng</string>
+    <string name="mark_as_read_one_day">Đánh dấu đã đọc bài cũ hơn 1 ngày</string>
+    <string name="mark_as_read_three_days">Đánh dấu đã đọc bài cũ hơn 3 ngày</string>
+    <string name="mark_as_read_seven_days">Đánh dấu đã đọc bài cũ hơn 7 ngày</string>
+    <string name="open_with">Mở bằng %1$s</string>
+    <string name="options">Tùy chọn</string>
+    <string name="read_you">RSS Hub</string>
+    <string name="tips_top_bar_tonal_elevation">Độ nổi màu sắc chỉ khả dụng khi cuộn</string>
 </resources>

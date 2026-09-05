@@ -44,10 +44,39 @@ class SplashActivity : ComponentActivity() {
     private var sdkSplashStarted = false
     private var preSdkTimeoutJob: Job? = null
 
+    override fun attachBaseContext(newBase: android.content.Context) {
+        val languagePref = try {
+            newBase.getSharedPreferences("locale_prefs", android.content.Context.MODE_PRIVATE)
+                .getInt("languages", 0)
+        } catch (e: Exception) {
+            0
+        }
+
+        if (languagePref == 0) {
+            super.attachBaseContext(newBase)
+            return
+        }
+
+        val locale = com.mckimquyen.reader.infrastructure.pref.LanguagesPref.fromValue(languagePref).getLocale()
+        val configuration = android.content.res.Configuration(newBase.resources.configuration)
+        configuration.setLocale(locale)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            configuration.setLocales(android.os.LocaleList(locale))
+        }
+        configuration.fontScale = 1.0f
+
+        val wrappedContext = newBase.createConfigurationContext(configuration)
+        super.attachBaseContext(wrappedContext)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d("roy93~", "onCreate")
-//        WindowCompat.setDecorFitsSystemWindows(window, false)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            window.isStatusBarContrastEnforced = false
+            window.isNavigationBarContrastEnforced = false
+        }
         setContent {
             SplashScreen()
         }

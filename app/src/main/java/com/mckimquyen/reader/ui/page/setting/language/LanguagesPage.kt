@@ -58,41 +58,17 @@ fun LanguagesPage(
     navController: NavHostController,
 ) {
     val context = LocalContext.current
-    val currentLanguage = LocalLanguages.current
+    val savedLanguage = remember {
+        val sp = context.getSharedPreferences("locale_prefs", android.content.Context.MODE_PRIVATE)
+        val langVal = sp.getInt("languages", -1)
+        if (langVal != -1) LanguagesPref.fromValue(langVal) else null
+    }
+    val currentLanguage = savedLanguage ?: LocalLanguages.current
     val scope = rememberCoroutineScope()
 
-    var selectedLanguage by remember { mutableStateOf(currentLanguage) }
+    var selectedLanguage by remember(currentLanguage) { mutableStateOf(currentLanguage) }
     var showDialog by remember { mutableStateOf(false) }
     var pendingLanguage by remember { mutableStateOf<LanguagesPref?>(null) }
-    var isRestarting by remember { mutableStateOf(false) }
-
-    // Loading Dialog
-    if (isRestarting) {
-        AlertDialog(
-            onDismissRequest = { /* Prevent dismissal */ },
-            text = {
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 24.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    CircularProgressIndicator(
-                        modifier = Modifier.size(48.dp)
-                    )
-                    Spacer(modifier = Modifier.height(16.dp))
-                    Text(
-                        text = stringResource(R.string.restarting_app),
-                        style = MaterialTheme.typography.bodyLarge
-                    )
-                }
-            },
-            confirmButton = { },
-            dismissButton = { }
-        )
-    }
-
     // Confirmation Dialog
     if (showDialog && pendingLanguage != null) {
         AlertDialog(
@@ -110,15 +86,12 @@ fun LanguagesPage(
             confirmButton = {
                 TextButton(
                     onClick = {
+                        val target = pendingLanguage
                         showDialog = false
-                        isRestarting = true
-                        scope.launch {
-                            // Save language preference
-                            pendingLanguage?.put(context, scope)
-                            // Wait for DataStore to save
-                            delay(300)
-                            // Restart app completely using ProcessPhoenix
-                            ProcessPhoenix.triggerRebirth(context)
+                        pendingLanguage = null
+                        if (target != null) {
+                            selectedLanguage = target
+                            target.put(context, scope)
                         }
                     }
                 ) {

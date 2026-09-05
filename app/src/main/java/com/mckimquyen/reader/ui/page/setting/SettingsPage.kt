@@ -147,7 +147,7 @@ fun SettingsPage(
                 }
                 item {
                     SelectableSettingGroupItem(
-                        title = "Version",
+                        title = stringResource(R.string.version),
                         desc = BuildConfig.VERSION_NAME,
                         icon = Icons.Outlined.Build,
                     ) {
@@ -208,21 +208,10 @@ fun SettingsPage(
                         }
                     }
                 }
-//                item {
-//                    SelectableSettingGroupItem(
-//                        title = stringResource(R.string.tips_and_support),
-//                        desc = stringResource(R.string.tips_and_support_desc),
-//                        icon = Icons.Outlined.TipsAndUpdates,
-//                    ) {
-//                        navController.navigate(RouteName.TIPS_AND_SUPPORT) {
-//                            launchSingleTop = true
-//                        }
-//                    }
-//                }
                 item {
                     SelectableSettingGroupItem(
-                        title = "Rate app",
-                        desc = "Please rate 5 stars if you find this application useful",
+                        title = stringResource(R.string.rate_app),
+                        desc = stringResource(R.string.rate_app_desc),
                         icon = Icons.Outlined.StarRate,
                     ) {
                         context.rateApp(packageName = context.packageName)
@@ -230,8 +219,8 @@ fun SettingsPage(
                 }
                 item {
                     SelectableSettingGroupItem(
-                        title = "Get more apps",
-                        desc = "Download more of these amazing apps from the store, they are very useful for you",
+                        title = stringResource(R.string.more_apps),
+                        desc = stringResource(R.string.more_apps_desc),
                         icon = Icons.Outlined.Download,
                     ) {
                         context.moreApp()
@@ -239,8 +228,8 @@ fun SettingsPage(
                 }
                 item {
                     SelectableSettingGroupItem(
-                        title = "Share this app",
-                        desc = "Please share this application for others to use with you",
+                        title = stringResource(R.string.share_app),
+                        desc = stringResource(R.string.share_app_desc),
                         icon = Icons.Outlined.Share,
                     ) {
                         context.shareApp()
@@ -248,8 +237,8 @@ fun SettingsPage(
                 }
                 item {
                     SelectableSettingGroupItem(
-                        title = "Term & Policy",
-                        desc = "Read Security terms and privacy policy",
+                        title = stringResource(R.string.term_and_policy),
+                        desc = stringResource(R.string.term_and_policy_desc),
                         icon = Icons.Outlined.Policy,
                     ) {
                         context.openBrowserPolicy()
@@ -257,8 +246,8 @@ fun SettingsPage(
                 }
                 item {
                     SelectableSettingGroupItem(
-                        title = "About",
-                        desc = "Getting to Know this App",
+                        title = stringResource(R.string.about_title),
+                        desc = stringResource(R.string.about_desc),
                         icon = Icons.Outlined.Info,
                     ) {
                         context.startActivity(Intent(activity, AboutActivity::class.java))
@@ -266,8 +255,8 @@ fun SettingsPage(
                 }
                 item {
                     SelectableSettingGroupItem(
-                        title = "Source code (original version)",
-                        desc = "An Android RSS reader presented in Material You style.",
+                        title = stringResource(R.string.source_code_original),
+                        desc = stringResource(R.string.source_code_desc),
                         icon = Icons.Outlined.Code,
                     ) {
                         context.openUrlInBrowser("https://github.com/Ashinch/ReadYou")
@@ -275,8 +264,8 @@ fun SettingsPage(
                 }
                 item {
                     SelectableSettingGroupItem(
-                        title = "Source code (this version)",
-                        desc = "An Android RSS reader presented in Material You style.",
+                        title = stringResource(R.string.source_code_current),
+                        desc = stringResource(R.string.source_code_desc),
                         icon = Icons.Outlined.Code,
                     ) {
                         context.openUrlInBrowser("https://github.com/royt93/5_ReadYou")
@@ -284,11 +273,10 @@ fun SettingsPage(
                 }
                 item {
                     SelectableSettingGroupItem(
-                        title = "Join the BetaTesting Community Today!",
-                        desc = "Test exciting new products and get paid to give feedback for new apps",
+                        title = stringResource(R.string.beta_testing_community),
+                        desc = stringResource(R.string.beta_testing_desc),
                         icon = Icons.Outlined.AddCircle,
                     ) {
-//                        context.openUrlInBrowser("https://github.com/gj-loitp/20-TESTER-FOR-CLOSED-TESTING/tree/main")
                         context.rateApp("com.mckimquyen.bemytester")
                     }
                 }

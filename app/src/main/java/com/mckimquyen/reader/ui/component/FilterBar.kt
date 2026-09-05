@@ -36,9 +36,8 @@ fun FilterBar(
     val themeIndex = LocalThemeIndex.current
 
     NavigationBar(
-        modifier = Modifier
-            .background(MaterialTheme.colorScheme.surfaceColorAtElevation(filterBarTonalElevation))
-            .navigationBarsPadding(),
+        modifier = Modifier,
+        containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(filterBarTonalElevation),
         tonalElevation = filterBarTonalElevation,
     ) {
         Spacer(modifier = Modifier.width(filterBarPadding))

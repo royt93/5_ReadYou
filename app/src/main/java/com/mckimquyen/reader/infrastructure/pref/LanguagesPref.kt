@@ -9,6 +9,7 @@ import com.mckimquyen.reader.R
 import com.mckimquyen.reader.ui.ext.DataStoreKeys
 import com.mckimquyen.reader.ui.ext.dataStore
 import com.mckimquyen.reader.ui.ext.put
+import com.mckimquyen.reader.ui.ext.putBlocking
 import java.util.*
 
 sealed class LanguagesPref(val value: Int) : Pref() {
@@ -53,19 +54,84 @@ sealed class LanguagesPref(val value: Int) : Pref() {
     object Malayalam : LanguagesPref(37)
     object Burmese : LanguagesPref(38)
 
-    override fun put(context: Context, scope: CoroutineScope) {
-        // Mirror to SharedPreferences so attachBaseContext can read it safely
-        // (DataStore requires applicationContext which is null during attachBaseContext)
+    fun toLanguageTag(): String =
+        when (this) {
+            UseDeviceLanguages -> ""
+            English -> "en-US"
+            ChineseSimplified -> "zh-CN"
+            German -> "de-DE"
+            French -> "fr-FR"
+            Czech -> "cs-CZ"
+            Italian -> "it-IT"
+            Hindi -> "hi-IN"
+            Spanish -> "es-ES"
+            Polish -> "pl-PL"
+            Russian -> "ru-RU"
+            Basque -> "eu-ES"
+            Indonesian -> "in-ID"
+            ChineseTraditional -> "zh-TW"
+            Japanese -> "ja"
+            Portuguese -> "pt"
+            PortugueseBrazil -> "pt-BR"
+            Vietnamese -> "vi"
+            Arabic -> "ar"
+            Turkish -> "tr"
+            Ukrainian -> "uk"
+            Dutch -> "nl"
+            Romanian -> "ro"
+            Swedish -> "sv"
+            NorwegianBokmal -> "nb-NO"
+            NorwegianNynorsk -> "nn"
+            Danish -> "da"
+            Hungarian -> "hu"
+            Bulgarian -> "bg"
+            Catalan -> "ca"
+            Slovenian -> "sl"
+            Serbian -> "sr"
+            Hebrew -> "iw"
+            Persian -> "fa"
+            Azerbaijani -> "az"
+            Kannada -> "kn"
+            LiteraryChinese -> "lzh"
+            Malayalam -> "ml"
+            Burmese -> "my"
+        }
+
+    fun applyLocale(context: Context) {
+        // Synchronously commit to SharedPreferences
         context.getSharedPreferences("locale_prefs", Context.MODE_PRIVATE)
             .edit()
             .putInt("languages", value)
-            .apply()
-        scope.launch {
-            context.dataStore.put(
-                DataStoreKeys.Languages,
-                value
-            )
+            .putString("language_tag", toLanguageTag())
+            .commit()
+
+        val tag = toLanguageTag()
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+            val localeManager = context.getSystemService(android.app.LocaleManager::class.java)
+            if (tag.isEmpty()) {
+                localeManager?.applicationLocales = android.os.LocaleList.getEmptyLocaleList()
+            } else {
+                localeManager?.applicationLocales = android.os.LocaleList.forLanguageTags(tag)
+            }
+        } else {
+            if (tag.isEmpty()) {
+                androidx.appcompat.app.AppCompatDelegate.setApplicationLocales(
+                    androidx.core.os.LocaleListCompat.getEmptyLocaleList()
+                )
+            } else {
+                androidx.appcompat.app.AppCompatDelegate.setApplicationLocales(
+                    androidx.core.os.LocaleListCompat.forLanguageTags(tag)
+                )
+            }
         }
+    }
+
+    override fun put(context: Context, scope: CoroutineScope) {
+        context.dataStore.putBlocking(
+            DataStoreKeys.Languages,
+            value
+        )
+        applyLocale(context)
     }
 
     @Suppress("UNUSED_PARAMETER")
@@ -114,7 +180,14 @@ sealed class LanguagesPref(val value: Int) : Pref() {
 
     fun getLocale(): Locale =
         when (this) {
-            UseDeviceLanguages -> LocaleList.getDefault().get(0)
+            UseDeviceLanguages -> {
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                    android.content.res.Resources.getSystem().configuration.locales.get(0)
+                } else {
+                    @Suppress("DEPRECATION")
+                    android.content.res.Resources.getSystem().configuration.locale
+                }
+            }
             English -> Locale.Builder().setLanguage("en").setRegion("US").build()
             ChineseSimplified -> Locale.Builder().setLanguage("zh").setRegion("CN").build()
             German -> Locale.Builder().setLanguage("de").setRegion("DE").build()
