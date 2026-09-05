@@ -70,7 +70,27 @@ import javax.inject.Inject
 class RApp : Application(), WorkConfiguration.Provider, ImageLoaderFactory {
 
     override fun attachBaseContext(base: Context) {
-        super.attachBaseContext(base)
+        val languagePref = try {
+            base.getSharedPreferences("locale_prefs", Context.MODE_PRIVATE)
+                .getInt("languages", 0)
+        } catch (e: Exception) {
+            0
+        }
+
+        if (languagePref == 0) {
+            super.attachBaseContext(base)
+            return
+        }
+
+        val locale = LanguagesPref.fromValue(languagePref).getLocale()
+        val configuration = Configuration(base.resources.configuration)
+        configuration.setLocale(locale)
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            configuration.setLocales(LocaleList(locale))
+        }
+
+        val wrappedContext = base.createConfigurationContext(configuration)
+        super.attachBaseContext(wrappedContext)
     }
 
     @Inject

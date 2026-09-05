@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -55,7 +56,9 @@ fun BaseScaffold(
             }
         },
         content = {
-            Column {
+            Column(
+                modifier = Modifier.fillMaxSize()
+            ) {
                 Spacer(modifier = Modifier.height(it.calculateTopPadding()))
                 content()
             }

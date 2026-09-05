@@ -1,12 +1,17 @@
 package com.mckimquyen.reader.ui.page.about
 
+import android.content.Context
+import android.content.res.Configuration
+import android.os.Build
 import android.os.Bundle
+import android.os.LocaleList
 import android.webkit.WebSettings
 import android.webkit.WebView
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
@@ -16,18 +21,48 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.view.WindowCompat
+import com.mckimquyen.reader.R
+import com.mckimquyen.reader.infrastructure.pref.LanguagesPref
 import com.mckimquyen.reader.ui.component.base.BaseScaffold
 import com.mckimquyen.reader.ui.component.base.FeedbackIconButton
 
 class AboutActivity : ComponentActivity() {
+    override fun attachBaseContext(newBase: Context) {
+        val languagePref = try {
+            newBase.getSharedPreferences("locale_prefs", Context.MODE_PRIVATE)
+                .getInt("languages", 0)
+        } catch (e: Exception) {
+            0
+        }
+
+        if (languagePref == 0) {
+            super.attachBaseContext(newBase)
+            return
+        }
+
+        val locale = LanguagesPref.fromValue(languagePref).getLocale()
+        val configuration = Configuration(newBase.resources.configuration)
+        configuration.setLocale(locale)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            configuration.setLocales(LocaleList(locale))
+        }
+        configuration.fontScale = 1.0f
+
+        val wrappedContext = newBase.createConfigurationContext(configuration)
+        super.attachBaseContext(wrappedContext)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
-        val windowInsetsController = WindowCompat.getInsetsController(window, window.decorView)
-        windowInsetsController.isAppearanceLightStatusBars = true
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            window.isStatusBarContrastEnforced = false
+            window.isNavigationBarContrastEnforced = false
+        }
         setContent {
             BaseScaffold(
                 containerColor = MaterialTheme.colorScheme.surface,
@@ -37,7 +72,7 @@ class AboutActivity : ComponentActivity() {
                     ) {
                         FeedbackIconButton(
                             imageVector = Icons.Rounded.ArrowBack,
-                            contentDescription = "Back",
+                            contentDescription = stringResource(R.string.back),
                             tint = MaterialTheme.colorScheme.onSurface
                         ) {
                             finish()
@@ -61,7 +96,9 @@ class AboutActivity : ComponentActivity() {
 @Composable
 fun AboutWebView() {
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .navigationBarsPadding(),
         contentAlignment = Alignment.Center
     ) {
         AndroidView(

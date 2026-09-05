@@ -289,4 +289,152 @@
     <string name="unlock_amoled_theme_desc">सच्चे काले AMOLED थीम को स्थायी रूप से अनलॉक करने के लिए एक छोटा वीडियो विज्ञापन देखें।</string>
     <string name="watch_ad">विज्ञापन देखें</string>
     <string name="ad_not_ready">विज्ञापन अभी तैयार नहीं है। कृपया बाद में पुनः प्रयास करें।</string>
+
+    <!-- Missing keys added for 100% parity with base strings.xml -->
+    <string name="read_you" translatable="false">RSS Hub</string>
+    <string name="feed_url_placeholder" translatable="false">http://example.com/feed.rss</string>
+    <string name="translatable_url" translatable="false">https://hosted.weblate.org/projects/readyou/</string>
+    <string name="english" translatable="false">English</string>
+    <string name="chinese_simplified" translatable="false">简体中文</string>
+    <string name="german" translatable="false">Deutsch</string>
+    <string name="french" translatable="false">Français</string>
+    <string name="czech" translatable="false">Čeština</string>
+    <string name="italian" translatable="false">Italiano</string>
+    <string name="hindi" translatable="false">हिंदी</string>
+    <string name="spanish" translatable="false">Español</string>
+    <string name="polish" translatable="false">Polski</string>
+    <string name="russian" translatable="false">Русский</string>
+    <string name="basque" translatable="false">Euskara</string>
+    <string name="indonesian" translatable="false">Bahasa Indonesia</string>
+    <string name="chinese_traditional" translatable="false">繁體中文</string>
+    <string name="japanese" translatable="false">日本語</string>
+    <string name="portuguese" translatable="false">Português</string>
+    <string name="portuguese_brazil" translatable="false">Português (Brasil)</string>
+    <string name="vietnamese" translatable="false">Tiếng Việt</string>
+    <string name="arabic" translatable="false">العربية</string>
+    <string name="turkish" translatable="false">Türkçe</string>
+    <string name="ukrainian" translatable="false">Українська</string>
+    <string name="dutch" translatable="false">Nederlands</string>
+    <string name="romanian" translatable="false">Română</string>
+    <string name="swedish" translatable="false">Svenska</string>
+    <string name="norwegian_bokmal" translatable="false">Norsk Bokmål</string>
+    <string name="norwegian_nynorsk" translatable="false">Nynorsk</string>
+    <string name="danish" translatable="false">Dansk</string>
+    <string name="hungarian" translatable="false">Magyar</string>
+    <string name="bulgarian" translatable="false">Български</string>
+    <string name="catalan" translatable="false">Català</string>
+    <string name="slovenian" translatable="false">Slovenščina</string>
+    <string name="serbian" translatable="false">Српски</string>
+    <string name="hebrew" translatable="false">עברית</string>
+    <string name="persian" translatable="false">فارسی</string>
+    <string name="azerbaijani" translatable="false">Azərbaycan</string>
+    <string name="kannada" translatable="false">ಕನ್ನಡ</string>
+    <string name="literary_chinese" translatable="false">文言</string>
+    <string name="malayalam" translatable="false">മലയാളം</string>
+    <string name="burmese" translatable="false">မြန်မာ</string>
+    <string name="github_link" translatable="false">https://github.com/Ashinch/ReadYou</string>
+    <string name="telegram_link" translatable="false">https://t.me/ReadYouApp</string>
+    <string name="fever" translatable="false">Fever</string>
+    <string name="google_reader" translatable="false">Google Reader</string>
+    <string name="fresh_rss" translatable="false">FreshRSS</string>
+    <string name="feedly" translatable="false">Feedly</string>
+    <string name="inoreader" translatable="false">Inoreader</string>
+    <string name="feedly_desc" translatable="false">feedly.com</string>
+    <string name="inoreader_desc" translatable="false">inoreader.com</string>
+    <string name="fresh_rss_desc" translatable="false">freshrss.org</string>
+    <string name="google_reader_desc" translatable="false">Google Reader API</string>
+    <string name="initial_open_app">App when link is clicked</string>
+    <string name="open_link_specific_browser_not_selected">None</string>
+    <string name="auto_customtabs">Auto (Prefer CustomTabs)</string>
+    <string name="auto_default_browser">Auto (Prefer Default Browser)</string>
+    <string name="custom_tabs">Force CustomTabs</string>
+    <string name="specific_browser">Force specific browser</string>
+    <string name="specific_browser_name">Browser: %1$s</string>
+    <string name="default_browser">Force default browser</string>
+    <string name="always_ask">Always Ask</string>
+    <string name="open_link_specific_browser">Browser</string>
+    <string name="open_link_something_wrong">\"Open Link\" setting ignored because something went wrong.</string>
+    <string name="open_link_ask_dialog_title">Open with…</string>
+    <string name="mark_as_read_one_day">1 Mark posts older than days as read</string>
+    <string name="mark_as_read_three_days">３Mark posts older than days as read</string>
+    <string name="mark_as_read_seven_days">Mark as read older than 7 days</string>
+    <string name="in_coding">In development</string>
+    <string name="line_spacing">Line spacing</string>
+    <string name="tips_top_bar_tonal_elevation">Tonal height is only available when scrolling</string>
+    <string name="open_with">Open %1$s</string>
+    <string name="options">choice</string>
+    <string name="summary_title">Summarize with AI</string>
+    <string name="summary_loading">Summarizing…</string>
+    <string name="summary_retry">Summarize again</string>
+    <string name="summary_try_again">Try again</string>
+    <string name="summary_apikey_desc">This feature uses Google Gemini (free tier available). Get a free API key and paste it here — the key is stored only on your device.</string>
+    <string name="summary_apikey_hint">Gemini API key</string>
+    <string name="summary_get_key">Get a free key</string>
+    <string name="summary_save_and_summarize">Save &amp; summarize</string>
+    <string name="summary_err_empty_content">The article has no content to summarize</string>
+    <string name="summary_err_invalid_key">API key is invalid or rejected</string>
+    <string name="summary_err_rate_limited">Gemini quota exceeded, please try again later</string>
+    <string name="summary_err_http">Gemini request error (HTTP %1$d)</string>
+    <string name="summary_err_empty_response">Gemini returned empty content</string>
+    <string name="summary_err_parse">Couldn’t read Gemini’s response</string>
+    <string name="summary_err_network">Network error, please check your connection</string>
+    <string name="summary_err_unknown">Unknown error</string>
+    <string name="read_aloud">Read aloud</string>
+    <string name="vip_title">VIP</string>
+    <string name="vip_settings_desc">Manage VIP, redeem codes, remove ads</string>
+    <string name="vip_active">VIP active</string>
+    <string name="vip_free_user">Free user</string>
+    <string name="vip_until">Until %1$s</string>
+    <string name="vip_activated_at">Activated: %1$s</string>
+    <string name="vip_expires_at">Expires: %1$s</string>
+    <string name="vip_remaining_short">%1$d days %2$d hours left</string>
+    <string name="vip_redeem_label">Enter VIP code</string>
+    <string name="vip_redeem_hint">e.g. your VIP code</string>
+    <string name="vip_redeem_button">Activate</string>
+    <string name="vip_watch_ad_3d">Watch ad → 3 days VIP</string>
+    <string name="vip_buy_30d_locked">Buy 30-day VIP — coming soon</string>
+    <string name="vip_buy_90d_locked">Buy 90-day VIP — coming soon</string>
+    <string name="vip_buy_1y_locked">Buy 1-year VIP — coming soon</string>
+    <string name="vip_buy_lifetime_locked">Buy lifetime VIP — coming soon</string>
+    <string name="vip_restore_locked">Restore purchase — coming soon</string>
+    <string name="vip_revoke_all_button">Revoke VIP</string>
+    <string name="vip_revoke_all_confirm_title">Confirm revoke</string>
+    <string name="vip_revoke_all_confirm_message">Are you sure you want to revoke VIP and return to the Free account?</string>
+    <string name="vip_entry_first_install">🎁 New install gift</string>
+    <string name="vip_entry_active">VIP membership</string>
+    <string name="vip_success_title">Success</string>
+    <string name="vip_success_message">VIP active for %1$d days.</string>
+    <string name="vip_failed_title">Failed</string>
+    <string name="vip_failed_invalid_key">Invalid code. Please check again.</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="ok">OK</string>
+    <string name="vip_rewarded_not_earned">Ad is not available or was not completed. Please try again.</string>
+    <string name="splash_ad_notice">Please note: this app may show ads</string>
+    <string name="commute_cast_title">CommuteCast AI DJ</string>
+    <string name="commute_cast_subtitle">2-Host Morning Radio Overview</string>
+    <string name="commute_host_alex">Alex (Anchor)</string>
+    <string name="commute_host_sam">Sam (Co-host)</string>
+    <string name="commute_unlock_deepdive">🎙️ Unlock 15-Min Deep Dive (Watch ad)</string>
+    <string name="commute_deepdive_unlocked">🎉 Deep Dive Unlocked!</string>
+    <string name="commute_empty">No unread articles for morning radio</string>
+    <string name="commute_generating">AI DJ is crafting your show...</string>
+    <string name="retry">Retry</string>
+    <string name="version">Version</string>
+    <string name="rate_app">Rate app</string>
+    <string name="rate_app_desc">Please rate 5 stars if you find this application useful</string>
+    <string name="more_apps">Get more apps</string>
+    <string name="more_apps_desc">Download more of these amazing apps from the store, they are very useful for you</string>
+    <string name="share_app">Share this app</string>
+    <string name="share_app_desc">Please share this application for others to use with you</string>
+    <string name="term_and_policy">Term &amp; Policy</string>
+    <string name="term_and_policy_desc">Read Security terms and privacy policy</string>
+    <string name="about_title">About</string>
+    <string name="about_desc">Getting to Know this App</string>
+    <string name="source_code_original">Source code (original version)</string>
+    <string name="source_code_current">Source code (this version)</string>
+    <string name="source_code_desc">An Android RSS reader presented in Material You style.</string>
+    <string name="beta_testing_community">Join the BetaTesting Community Today!</string>
+    <string name="beta_testing_desc">Test exciting new products and get paid to give feedback for new apps</string>
+    <string name="next_article">Next Article</string>
+    <string name="add_tag">Add Tag</string>
 </resources>

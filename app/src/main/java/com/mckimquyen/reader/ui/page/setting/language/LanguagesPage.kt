@@ -69,6 +69,35 @@ fun LanguagesPage(
     var selectedLanguage by remember(currentLanguage) { mutableStateOf(currentLanguage) }
     var showDialog by remember { mutableStateOf(false) }
     var pendingLanguage by remember { mutableStateOf<LanguagesPref?>(null) }
+    var isRestarting by remember { mutableStateOf(false) }
+
+    // Loading Dialog
+    if (isRestarting) {
+        AlertDialog(
+            onDismissRequest = { /* Prevent dismissal */ },
+            text = {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 24.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(48.dp)
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Text(
+                        text = stringResource(R.string.restarting_app),
+                        style = MaterialTheme.typography.bodyLarge
+                    )
+                }
+            },
+            confirmButton = { },
+            dismissButton = { }
+        )
+    }
+
     // Confirmation Dialog
     if (showDialog && pendingLanguage != null) {
         AlertDialog(
@@ -91,7 +120,12 @@ fun LanguagesPage(
                         pendingLanguage = null
                         if (target != null) {
                             selectedLanguage = target
-                            target.put(context, scope)
+                            isRestarting = true
+                            scope.launch {
+                                target.put(context, scope)
+                                delay(300)
+                                ProcessPhoenix.triggerRebirth(context)
+                            }
                         }
                     }
                 ) {
