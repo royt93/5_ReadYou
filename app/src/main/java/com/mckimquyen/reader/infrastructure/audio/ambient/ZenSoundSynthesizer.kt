@@ -28,6 +28,10 @@ class ZenSoundSynthesizer {
     @Volatile
     private var currentType = ZenSoundType.GENTLE_RAIN
 
+    val isCurrentlyPlaying: Boolean get() = isPlaying
+    val currentVolume: Float get() = volume
+    val activeSoundType: ZenSoundType get() = currentType
+
     private var synthThread: Thread? = null
     private var audioTrack: AudioTrack? = null
 
@@ -102,8 +106,14 @@ class ZenSoundSynthesizer {
     @Synchronized
     fun stop() {
         isPlaying = false
-        synthThread?.interrupt()
+        val thread = synthThread
         synthThread = null
+        thread?.interrupt()
+        try {
+            thread?.join(300)
+        } catch (e: InterruptedException) {
+            Thread.currentThread().interrupt()
+        }
 
         try {
             audioTrack?.apply {
@@ -215,7 +225,13 @@ class ZenSoundSynthesizer {
                 i += 2
             }
 
-            val written = audioTrack?.write(buffer, 0, BUFFER_SIZE) ?: -1
+            if (!isPlaying) break
+
+            val written = try {
+                audioTrack?.write(buffer, 0, BUFFER_SIZE) ?: -1
+            } catch (e: Exception) {
+                -1
+            }
             if (written < 0) break
         }
     }

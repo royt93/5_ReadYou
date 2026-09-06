@@ -51,7 +51,7 @@ fun Content(
     listState: LazyListState,
     isLoading: Boolean,
     articleId: String = "",
-    brainRpgViewModel: BrainRpgViewModel = hiltViewModel(),
+    brainRpgViewModel: BrainRpgViewModel? = null,
 ) {
     val context = LocalContext.current
     val subheadUpperCase = LocalReadingSubheadUpperCase.current
@@ -59,17 +59,17 @@ fun Content(
     val openLinkSpecificBrowser = LocalOpenLinkSpecificBrowser.current
 
     val quiz = remember(articleId, title, content) {
-        if (articleId.isNotBlank() && (title.isNotBlank() || content.isNotBlank())) {
+        if (articleId.isNotBlank() && (title.isNotBlank() || content.isNotBlank()) && brainRpgViewModel != null) {
             brainRpgViewModel.quizGeneratorService.generateQuiz(articleId, title, content, author)
         } else null
     }
 
     val articleCategory = remember(title, content) {
-        brainRpgViewModel.quizGeneratorService.detectCategory(title, content)
+        brainRpgViewModel?.quizGeneratorService?.detectCategory(title, content) ?: ""
     }
 
     LaunchedEffect(listState, articleId, articleCategory) {
-        if (articleId.isNotBlank()) {
+        if (articleId.isNotBlank() && brainRpgViewModel != null) {
             snapshotFlow {
                 val layout = listState.layoutInfo
                 val totalItems = layout.totalItemsCount
@@ -146,17 +146,17 @@ fun Content(
                         BrainQuizCard(
                             quiz = quiz,
                             onAnswerSubmitted = { isCorrect ->
-                                brainRpgViewModel.submitQuizAnswer(quiz.category, isCorrect) { _, awarded ->
+                                brainRpgViewModel?.submitQuizAnswer(quiz.category, isCorrect) { _, awarded ->
                                     if (isCorrect && awarded > 0) {
                                         Toast.makeText(context, "+$awarded XP! 🎉", Toast.LENGTH_SHORT).show()
                                     }
                                 }
                             },
                             onDoubleXpRequested = { act, onDone ->
-                                brainRpgViewModel.doubleQuizReward(act, quiz.category, 150L, onDone)
+                                brainRpgViewModel?.doubleQuizReward(act, quiz.category, 150L, onDone)
                             },
                             onRetryQuizRequested = { act, onDone ->
-                                brainRpgViewModel.retryQuiz(act, onDone)
+                                brainRpgViewModel?.retryQuiz(act, onDone)
                             }
                         )
                     }

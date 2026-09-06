@@ -18,12 +18,26 @@ class ZenSoundSynthesizerTest {
     }
 
     @Test
-    fun synthesizer_volumeAndTypeSetting_doesNotCrash() {
+    fun synthesizer_volumeAndTypeSetting_clampsAndAssignsCorrectly() {
         val synth = ZenSoundSynthesizer()
+        assertEquals(0.5f, synth.currentVolume, 0.001f)
+        assertEquals(false, synth.isCurrentlyPlaying)
+
         synth.setVolume(0.8f)
-        synth.setVolume(-0.5f) // Should clamp
-        synth.setVolume(1.5f)  // Should clamp
+        assertEquals(0.8f, synth.currentVolume, 0.001f)
+
+        synth.setVolume(-0.5f) // Should clamp to 0.0f
+        assertEquals(0.0f, synth.currentVolume, 0.001f)
+
+        synth.setVolume(1.5f)  // Should clamp to 1.0f
+        assertEquals(1.0f, synth.currentVolume, 0.001f)
+
         synth.setSoundType(ZenSoundType.OCEAN_WAVES)
-        synth.stop() // Safe to call when not playing
+        assertEquals(ZenSoundType.OCEAN_WAVES, synth.activeSoundType)
+
+        // Multiple idempotent stop calls should not throw
+        synth.stop()
+        synth.stop()
+        assertEquals(false, synth.isCurrentlyPlaying)
     }
 }

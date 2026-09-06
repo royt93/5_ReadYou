@@ -8,6 +8,10 @@ import com.mckimquyen.reader.domain.zen.ZenDailyEditionManager
 import com.mckimquyen.reader.infrastructure.android.NotificationHelper
 import com.mckimquyen.reader.infrastructure.audio.ambient.ZenAudioManager
 import com.mckimquyen.reader.infrastructure.audio.ambient.ZenSoundType
+import androidx.activity.ComponentActivity
+import androidx.compose.ui.platform.ComposeView
+import androidx.test.core.app.ActivityScenario
+import com.mckimquyen.reader.ui.component.ambient.ZenSoundSheetContent
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
@@ -68,5 +72,70 @@ class ZenSpeedReadingIntegrationTest {
         assertTrue(manager.shouldSilenceImmediateNotification())
 
         manager.setEnabled(false)
+    }
+
+    @Test
+    fun rsvpReaderContent_attachesToActivityWithoutException() {
+        val scenario = ActivityScenario.launch(ComponentActivity::class.java)
+        scenario.onActivity { activity ->
+            val viewModel = RsvpViewModel()
+            viewModel.loadContent("Fast reading in ReadYou on Android 17")
+            val composeView = ComposeView(activity).apply {
+                setContent {
+                    RsvpReaderContent(
+                        uiState = viewModel.uiState.value,
+                        viewModel = viewModel,
+                        onDismiss = {}
+                    )
+                }
+            }
+            activity.setContentView(composeView)
+            assertNotNull(composeView)
+            assertEquals(7, viewModel.uiState.value.tokens.size)
+        }
+        scenario.close()
+    }
+
+    @Test
+    fun zenSoundSheetContent_attachesToActivityWithoutException() {
+        val scenario = ActivityScenario.launch(ComponentActivity::class.java)
+        scenario.onActivity { activity ->
+            val manager = ZenAudioManager(activity)
+            val composeView = ComposeView(activity).apply {
+                setContent {
+                    ZenSoundSheetContent(
+                        zenAudioManager = manager,
+                        onDismiss = {}
+                    )
+                }
+            }
+            activity.setContentView(composeView)
+            assertNotNull(composeView)
+            assertEquals(ZenSoundType.GENTLE_RAIN, manager.currentType.value)
+        }
+        scenario.close()
+    }
+
+    @Test
+    fun topBar_attachesToActivityWithoutException() {
+        val scenario = ActivityScenario.launch(ComponentActivity::class.java)
+        scenario.onActivity { activity ->
+            val composeView = ComposeView(activity).apply {
+                setContent {
+                    com.mckimquyen.reader.ui.page.home.read.TopBar(
+                        navController = androidx.navigation.compose.rememberNavController(),
+                        isShow = true,
+                        title = "Test Article",
+                        link = "https://example.com",
+                        isPlayingAudio = false,
+                        isZenAudioPlaying = false,
+                        showSummary = false
+                    )
+                }
+            }
+            activity.setContentView(composeView)
+            assertNotNull(composeView)
+        }
+        scenario.close()
     }
 }

@@ -12,13 +12,22 @@ import androidx.compose.material.icons.outlined.Share
 import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.ElectricBolt
 import androidx.compose.material.icons.rounded.GraphicEq
+import androidx.compose.material.icons.rounded.MoreVert
 import androidx.compose.material.icons.rounded.PlayArrow
 import androidx.compose.material.icons.rounded.Stop
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -50,6 +59,7 @@ fun TopBar(
     onClose: () -> Unit = {},
 ) {
     val context = LocalContext.current
+    var menuExpanded by remember { mutableStateOf(false) }
 
     Box(
         modifier = Modifier
@@ -110,26 +120,52 @@ fun TopBar(
                         android.util.Log.d("roy93~", "TopBar: PlayAudio clicked")
                         onPlayAudio()
                     }
-                    FeedbackIconButton(
-                        modifier = Modifier.size(22.dp),
-                        imageVector = Icons.Outlined.Palette,
-                        contentDescription = stringResource(R.string.style),
-                        tint = MaterialTheme.colorScheme.onSurface
-                    ) {
-                        navController.navigate(RouteName.READING_PAGE_STYLE) {
-                            launchSingleTop = true
+                    Box {
+                        FeedbackIconButton(
+                            modifier = Modifier.size(22.dp),
+                            imageVector = Icons.Rounded.MoreVert,
+                            contentDescription = stringResource(R.string.more),
+                            tint = MaterialTheme.colorScheme.onSurface
+                        ) {
+                            menuExpanded = true
                         }
-                    }
-                    FeedbackIconButton(
-                        modifier = Modifier.size(20.dp),
-                        imageVector = Icons.Outlined.Share,
-                        contentDescription = stringResource(R.string.share),
-                        tint = MaterialTheme.colorScheme.onSurface,
-                    ) {
-                        context.share(title
-                            ?.takeIf { it.isNotBlank() }
-                            ?.let { it + "\n" } + link
-                        )
+                        DropdownMenu(
+                            expanded = menuExpanded,
+                            onDismissRequest = { menuExpanded = false }
+                        ) {
+                            DropdownMenuItem(
+                                text = { Text(stringResource(R.string.style)) },
+                                leadingIcon = {
+                                    Icon(
+                                        imageVector = Icons.Outlined.Palette,
+                                        contentDescription = null
+                                    )
+                                },
+                                onClick = {
+                                    menuExpanded = false
+                                    navController.navigate(RouteName.READING_PAGE_STYLE) {
+                                        launchSingleTop = true
+                                    }
+                                }
+                            )
+                            DropdownMenuItem(
+                                text = { Text(stringResource(R.string.share)) },
+                                leadingIcon = {
+                                    Icon(
+                                        imageVector = Icons.Outlined.Share,
+                                        contentDescription = null
+                                    )
+                                },
+                                onClick = {
+                                    menuExpanded = false
+                                    context.share(
+                                        title
+                                            ?.takeIf { it.isNotBlank() }
+                                            ?.let { it + "\n" } + link
+                                    )
+                                }
+                            )
+                        }
                     }
                 }, colors = TopAppBarDefaults.smallTopAppBarColors(
                     containerColor = MaterialTheme.colorScheme.surface,

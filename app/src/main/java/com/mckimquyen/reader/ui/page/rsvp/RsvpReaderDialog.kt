@@ -7,6 +7,8 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -49,6 +51,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
@@ -75,16 +78,34 @@ fun RsvpReaderDialog(
         onDismissRequest = onDismiss,
         properties = DialogProperties(usePlatformDefaultWidth = false)
     ) {
-        Surface(
+        RsvpReaderContent(
+            uiState = uiState,
+            viewModel = viewModel,
+            onDismiss = onDismiss,
             modifier = modifier
-                .fillMaxSize()
-                .statusBarsPadding()
-                .navigationBarsPadding(),
-            color = MaterialTheme.colorScheme.background
-        ) {
+        )
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun RsvpReaderContent(
+    uiState: RsvpUiState,
+    viewModel: RsvpViewModel,
+    onDismiss: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Surface(
+        modifier = modifier
+            .fillMaxSize()
+            .statusBarsPadding()
+            .navigationBarsPadding(),
+        color = MaterialTheme.colorScheme.background
+    ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .verticalScroll(rememberScrollState())
                 .padding(horizontal = 24.dp, vertical = 16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceBetween
@@ -174,6 +195,12 @@ fun RsvpReaderDialog(
 
                     val token = uiState.currentToken
                     if (token != null) {
+                        val wordLen = token.fullWord.length
+                        val (fontSize, orpSize) = when {
+                            wordLen > 14 -> 22.sp to 24.sp
+                            wordLen > 9 -> 28.sp to 30.sp
+                            else -> 36.sp to 38.sp
+                        }
                         // Fixed focal alignment: prefix, ORP, suffix
                         Row(
                             verticalAlignment = Alignment.CenterVertically,
@@ -184,10 +211,13 @@ fun RsvpReaderDialog(
                             Text(
                                 text = token.prefix,
                                 style = MaterialTheme.typography.headlineLarge.copy(
-                                    fontSize = 36.sp,
+                                    fontSize = fontSize,
                                     fontFamily = FontFamily.Monospace,
                                     fontWeight = FontWeight.Normal
                                 ),
+                                maxLines = 1,
+                                softWrap = false,
+                                overflow = TextOverflow.Clip,
                                 color = MaterialTheme.colorScheme.onSurface,
                                 textAlign = TextAlign.End,
                                 modifier = Modifier.weight(1f)
@@ -197,10 +227,13 @@ fun RsvpReaderDialog(
                             Text(
                                 text = token.orpChar.toString(),
                                 style = MaterialTheme.typography.headlineLarge.copy(
-                                    fontSize = 38.sp,
+                                    fontSize = orpSize,
                                     fontFamily = FontFamily.Monospace,
                                     fontWeight = FontWeight.ExtraBold
                                 ),
+                                maxLines = 1,
+                                softWrap = false,
+                                overflow = TextOverflow.Clip,
                                 color = MaterialTheme.colorScheme.primary,
                                 textAlign = TextAlign.Center,
                                 modifier = Modifier.padding(horizontal = 1.dp)
@@ -210,10 +243,13 @@ fun RsvpReaderDialog(
                             Text(
                                 text = token.suffix,
                                 style = MaterialTheme.typography.headlineLarge.copy(
-                                    fontSize = 36.sp,
+                                    fontSize = fontSize,
                                     fontFamily = FontFamily.Monospace,
                                     fontWeight = FontWeight.Normal
                                 ),
+                                maxLines = 1,
+                                softWrap = false,
+                                overflow = TextOverflow.Clip,
                                 color = MaterialTheme.colorScheme.onSurface,
                                 textAlign = TextAlign.Start,
                                 modifier = Modifier.weight(1f)
@@ -235,10 +271,12 @@ fun RsvpReaderDialog(
 
             // Progress Slider
             Column(modifier = Modifier.fillMaxWidth()) {
+                val maxRange = (uiState.tokens.size - 1).coerceAtLeast(1).toFloat()
+                val safeProgress = uiState.currentIndex.toFloat().coerceIn(0f, maxRange)
                 Slider(
-                    value = uiState.currentIndex.toFloat(),
+                    value = safeProgress,
                     onValueChange = { viewModel.seekTo(it.toInt()) },
-                    valueRange = 0f..(uiState.tokens.size - 1).coerceAtLeast(1).toFloat(),
+                    valueRange = 0f..maxRange,
                     modifier = Modifier.fillMaxWidth(),
                     colors = SliderDefaults.colors(
                         thumbColor = MaterialTheme.colorScheme.primary,
@@ -321,7 +359,7 @@ fun RsvpReaderDialog(
                     )
 
                     Slider(
-                        value = uiState.wpm.toFloat(),
+                        value = uiState.wpm.toFloat().coerceIn(200f, 900f),
                         onValueChange = { viewModel.setWpm(it.toInt()) },
                         valueRange = 200f..900f,
                         steps = 13, // increments of 50
@@ -345,6 +383,5 @@ fun RsvpReaderDialog(
 
             Spacer(modifier = Modifier.height(8.dp))
         }
-    }
     }
 }

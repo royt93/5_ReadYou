@@ -78,6 +78,9 @@
             android:exported="true"
             android:theme="@style/Theme.Reader" />
 
+        <activity
+            android:name="androidx.activity.ComponentActivity"
+            android:exported="true" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

@@ -195,8 +195,9 @@ class ReadingViewModel @Inject constructor(
     }
 
     override fun onCleared() {
-        Log.d("roy93~", "ReadingViewModel onCleared: stopping TTS")
+        Log.d("roy93~", "ReadingViewModel onCleared: stopping TTS and ZenAudio")
         ttsManager.stop()
+        zenAudioManager.stop()
         super.onCleared()
     }
 

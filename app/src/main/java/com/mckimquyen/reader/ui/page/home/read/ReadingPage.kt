@@ -200,6 +200,7 @@ fun ReadingPage(
                             isLoading = readingUiState.isLoading,
                             listState = listState,
                             articleId = readingUiState.articleWithFeed.article.id,
+                            brainRpgViewModel = androidx.hilt.navigation.compose.hiltViewModel(),
                         )
                     }
                 }

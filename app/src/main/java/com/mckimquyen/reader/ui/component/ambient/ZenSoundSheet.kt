@@ -6,6 +6,8 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -59,18 +61,12 @@ import com.mckimquyen.reader.R
 import com.mckimquyen.reader.infrastructure.audio.ambient.ZenAudioManager
 import com.mckimquyen.reader.infrastructure.audio.ambient.ZenSoundType
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ZenSoundSheet(
     zenAudioManager: ZenAudioManager,
     onDismiss: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val isPlaying by zenAudioManager.isPlaying.collectAsState()
-    val currentType by zenAudioManager.currentType.collectAsState()
-    val volume by zenAudioManager.volume.collectAsState()
-    val sleepTimer by zenAudioManager.sleepTimerMinutes.collectAsState()
-
     Dialog(
         onDismissRequest = onDismiss,
         properties = DialogProperties(usePlatformDefaultWidth = false)
@@ -85,13 +81,34 @@ fun ZenSoundSheet(
                 ) { onDismiss() },
             contentAlignment = Alignment.BottomCenter
         ) {
-            Surface(
+            ZenSoundSheetContent(
+                zenAudioManager = zenAudioManager,
+                onDismiss = onDismiss,
                 modifier = modifier
-                    .fillMaxWidth()
-                    .clickable(
-                        interactionSource = remember { MutableInteractionSource() },
-                        indication = null
-                    ) { /* intercept clicks on sheet */ },
+            )
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun ZenSoundSheetContent(
+    zenAudioManager: ZenAudioManager,
+    onDismiss: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    val isPlaying by zenAudioManager.isPlaying.collectAsState()
+    val currentType by zenAudioManager.currentType.collectAsState()
+    val volume by zenAudioManager.volume.collectAsState()
+    val sleepTimer by zenAudioManager.sleepTimerMinutes.collectAsState()
+
+    Surface(
+        modifier = modifier
+            .fillMaxWidth()
+            .clickable(
+                interactionSource = remember { MutableInteractionSource() },
+                indication = null
+            ) { /* intercept clicks on sheet */ },
                 shape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp),
                 color = MaterialTheme.colorScheme.surface,
                 tonalElevation = 6.dp
@@ -99,6 +116,7 @@ fun ZenSoundSheet(
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
+                        .verticalScroll(rememberScrollState())
                         .navigationBarsPadding()
                         .padding(horizontal = 24.dp, vertical = 12.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
@@ -261,7 +279,7 @@ fun ZenSoundSheet(
                             }
 
                             Slider(
-                                value = volume,
+                                value = volume.coerceIn(0f, 1f),
                                 onValueChange = { zenAudioManager.setVolume(it) },
                                 valueRange = 0f..1f,
                                 modifier = Modifier.fillMaxWidth(),
@@ -312,6 +330,4 @@ fun ZenSoundSheet(
                     Spacer(modifier = Modifier.height(16.dp))
                 }
             }
-        }
-    }
 }
