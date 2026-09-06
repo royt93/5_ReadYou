@@ -55,6 +55,7 @@ import com.mckimquyen.reader.ui.ext.collectAsStateValue
 import com.mckimquyen.reader.ui.page.common.RouteName
 import com.mckimquyen.reader.ui.page.home.HomeViewModel
 import com.mckimquyen.reader.ui.page.home.addsources.CountriesList
+import com.mckimquyen.reader.ui.component.cluster.StoryClusterSheet
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -270,6 +271,7 @@ fun FlowPage(
                             Spacer(modifier = Modifier.height((56 + 24 + 10).dp))
                         }
                     }
+
                     ArticleList(
                         pagingItems = pagingItems,
                         isShowFeedIcon = articleListFeedIcon.value,
@@ -280,6 +282,9 @@ fun FlowPage(
                             navController.navigate("${RouteName.READING}/${it.article.id}") {
                                 launchSingleTop = true
                             }
+                        },
+                        onClusterClick = { cluster ->
+                            homeViewModel.openCluster(cluster)
                         }
                     ) {
                         flowViewModel.markAsRead(
@@ -296,6 +301,21 @@ fun FlowPage(
                 }
                 }
             }
+
+            // Sheet xem toàn cảnh đa chiều cụm tin tức
+            val selectedCluster = homeViewModel.selectedCluster.collectAsStateValue()
+            StoryClusterSheet(
+                cluster = selectedCluster,
+                onDismissRequest = { homeViewModel.closeCluster() },
+                onArticleClick = {
+                    navController.navigate("${RouteName.READING}/${it.article.id}") {
+                        launchSingleTop = true
+                    }
+                },
+                onMarkAllRead = { cluster ->
+                    homeViewModel.markClusterAsRead(cluster)
+                }
+            )
         },
         bottomBar = {
             FilterBar(

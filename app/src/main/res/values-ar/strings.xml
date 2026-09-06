@@ -544,4 +544,16 @@
     <string name="deep_read_ai_badge">Gemini AI</string>
     <string name="deep_read_copy_transcript">Copy Conversation</string>
     <string name="deep_read_action_chat">Chat with Article</string>
+
+    <!-- Loop 12: AI Deduplication & Story Clustering (KNOW-01) -->
+    <string name="story_clustering_title">تجميع الأخبار المكررة (AI Clustering)</string>
+    <string name="story_clustering_desc">تجميع المقالات المكررة حول نفس الحدث من مصادر متعددة في بطاقة واحدة</string>
+    <string name="story_cluster_badge">🔥 %d مصادر تغطي هذا الحدث</string>
+    <string name="story_cluster_badge_single">🔥 %d مقالات حول هذا الخبر</string>
+    <string name="story_cluster_view_perspectives">مقارنة وجهات النظر</string>
+    <string name="story_cluster_read_main">قراءة المقال الرئيسي</string>
+    <string name="story_cluster_all_perspectives">جميع وجهات النظر (%d)</string>
+    <string name="story_cluster_mark_all_read">تحديد الكل كمقروء</string>
+    <string name="story_cluster_sheet_title">تغطية شاملة متعددة الزوايا</string>
+    <string name="story_cluster_lead_badge">رئيسي</string>
 </resources>

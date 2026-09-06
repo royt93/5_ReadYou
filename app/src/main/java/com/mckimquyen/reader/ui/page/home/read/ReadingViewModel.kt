@@ -463,19 +463,22 @@ class ReadingViewModel @Inject constructor(
             if (cur != null) {
                 var found = false
                 for (item in pagingItems) {
-                    if (item is ArticleFlowItem.Article) {
-                        val itemId = item.articleWithFeed.article.id
-                        if (itemId == cur.id) {
-                            found = true
-                            _readingUiState.update {
-                                it.copy(nextArticleId = "")
-                            }
-                        } else if (found) {
-                            _readingUiState.update {
-                                it.copy(nextArticleId = itemId)
-                            }
-                            break
+                    val candidateIds = when (item) {
+                        is ArticleFlowItem.Article -> listOf(item.articleWithFeed.article.id)
+                        is ArticleFlowItem.Cluster -> listOf(item.cluster.leadArticle.article.id) + item.cluster.articles.map { it.article.id }
+                        else -> emptyList()
+                    }
+                    if (candidateIds.contains(cur.id)) {
+                        found = true
+                        _readingUiState.update {
+                            it.copy(nextArticleId = "")
                         }
+                    } else if (found && candidateIds.isNotEmpty()) {
+                        val nextId = candidateIds.first()
+                        _readingUiState.update {
+                            it.copy(nextArticleId = nextId)
+                        }
+                        break
                     }
                 }
             }

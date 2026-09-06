@@ -10,6 +10,8 @@ import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
 import com.mckimquyen.reader.domain.model.article.ArticleFlowItem
 import com.mckimquyen.reader.domain.model.article.ArticleWithFeed
+import com.mckimquyen.reader.domain.model.cluster.StoryCluster
+import com.mckimquyen.reader.ui.component.cluster.StoryClusterCard
 
 @Suppress("FunctionName")
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterialApi::class)
@@ -19,6 +21,7 @@ fun LazyListScope.ArticleList(
     isShowStickyHeader: Boolean,
     articleListTonalElevation: Int,
     onClick: (ArticleWithFeed) -> Unit = {},
+    onClusterClick: (StoryCluster) -> Unit = {},
     onSwipeOut: (ArticleWithFeed) -> Unit = {},
 ) {
     for (index in 0 until pagingItems.itemCount) {
@@ -29,6 +32,17 @@ fun LazyListScope.ArticleList(
                         articleWithFeed = (pagingItems[index] as ArticleFlowItem.Article).articleWithFeed,
                         onClick = { onClick(it) },
                         onSwipeOut = { onSwipeOut(it) }
+                    )
+                }
+            }
+
+            is ArticleFlowItem.Cluster -> {
+                item(key = item.cluster.id) {
+                    StoryClusterCard(
+                        cluster = (pagingItems[index] as? ArticleFlowItem.Cluster)?.cluster ?: item.cluster,
+                        isShowFeedIcon = isShowFeedIcon,
+                        onClick = { onClusterClick(it) },
+                        onLeadClick = { onClick(it) },
                     )
                 }
             }

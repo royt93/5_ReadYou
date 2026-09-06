@@ -570,4 +570,16 @@
     <string name="deep_read_ai_badge">Gemini AI</string>
     <string name="deep_read_copy_transcript">Copy Conversation</string>
     <string name="deep_read_action_chat">Chat with Article</string>
+
+    <!-- Loop 12: AI Deduplication & Story Clustering (KNOW-01) -->
+    <string name="story_clustering_title">Haber Kümeleme (Yinelenenleri Önleme)</string>
+    <string name="story_clustering_desc">Birden çok kaynaktan gelen aynı haberi tek bir etkinlik kartında gruplandırın</string>
+    <string name="story_cluster_badge">🔥 %d kaynak bu haberi bildiriyor</string>
+    <string name="story_cluster_badge_single">🔥 Bu konuda %d haber</string>
+    <string name="story_cluster_view_perspectives">Bakış Açılarını Karşılaştır</string>
+    <string name="story_cluster_read_main">Ana Haberi Oku</string>
+    <string name="story_cluster_all_perspectives">Tüm Bakış Açıları (%d)</string>
+    <string name="story_cluster_mark_all_read">Tümünü Okundu İşaretle</string>
+    <string name="story_cluster_sheet_title">Çok Yönlü Haber Kapsamı</string>
+    <string name="story_cluster_lead_badge">Ana</string>
 </resources>

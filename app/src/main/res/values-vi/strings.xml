@@ -539,4 +539,16 @@
     <string name="deep_read_ai_badge">Gemini AI</string>
     <string name="deep_read_copy_transcript">Sao chép cuộc trò chuyện</string>
     <string name="deep_read_action_chat">Hỏi đáp với bài báo</string>
+
+    <!-- Loop 12: AI Deduplication & Story Clustering (KNOW-01) -->
+    <string name="story_clustering_title">Gom cụm tin trùng lặp (AI Clustering)</string>
+    <string name="story_clustering_desc">Tự động gom các bài viết cùng chủ đề từ nhiều nguồn thành một thẻ sự kiện duy nhất</string>
+    <string name="story_cluster_badge">🔥 %d nguồn tin cùng đưa tin</string>
+    <string name="story_cluster_badge_single">🔥 %d bài viết về sự kiện này</string>
+    <string name="story_cluster_view_perspectives">So sánh góc nhìn</string>
+    <string name="story_cluster_read_main">Đọc bài chính</string>
+    <string name="story_cluster_all_perspectives">Tất cả góc nhìn (%d)</string>
+    <string name="story_cluster_mark_all_read">Đánh dấu tất cả đã đọc</string>
+    <string name="story_cluster_sheet_title">Toàn Cảnh Góc Nhìn Đa Chiều</string>
+    <string name="story_cluster_lead_badge">Chính</string>
 </resources>

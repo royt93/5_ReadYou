@@ -565,4 +565,16 @@
     <string name="deep_read_ai_badge">Gemini AI</string>
     <string name="deep_read_copy_transcript">複製完整對話</string>
     <string name="deep_read_action_chat">與文章問答</string>
+
+    <!-- Loop 12: AI Deduplication & Story Clustering (KNOW-01) -->
+    <string name="story_clustering_title">熱點聚合與去重 (Story Clustering)</string>
+    <string name="story_clustering_desc">自動將多家媒體報導的同一新聞事件聚合成單一故事卡片</string>
+    <string name="story_cluster_badge">🔥 %d 家媒體共同報導</string>
+    <string name="story_cluster_badge_single">🔥 %d 篇相關報導</string>
+    <string name="story_cluster_view_perspectives">對比多重視角</string>
+    <string name="story_cluster_read_main">閱讀主要報導</string>
+    <string name="story_cluster_all_perspectives">全部報導視角 (%d)</string>
+    <string name="story_cluster_mark_all_read">全部標為已讀</string>
+    <string name="story_cluster_sheet_title">新聞全景與多維視角</string>
+    <string name="story_cluster_lead_badge">主導</string>
 </resources>

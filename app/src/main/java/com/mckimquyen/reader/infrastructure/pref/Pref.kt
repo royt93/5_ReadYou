@@ -51,6 +51,7 @@ fun Preferences.toSettings(): Settings {
             this
         ),
         flowArticleListTonalElevation = FlowArticleListTonalElevationPref.fromPreferences(this),
+        flowStoryClustering = FlowStoryClusteringPref.fromPreferences(this),
 
         // Reading page
         readingTheme = ReadingThemePref.fromPreferences(this),

@@ -3,6 +3,9 @@ package com.mckimquyen.reader.domain.model.article
 import androidx.paging.PagingData
 import androidx.paging.insertSeparators
 import androidx.paging.map
+import androidx.paging.filter
+import com.mckimquyen.reader.domain.model.cluster.StoryCluster
+import com.mckimquyen.reader.domain.model.cluster.StoryClusterResult
 import com.mckimquyen.reader.infrastructure.android.AndroidStringsHelper
 
 /**
@@ -20,6 +23,13 @@ sealed class ArticleFlowItem {
     class Article(val articleWithFeed: ArticleWithFeed) : ArticleFlowItem()
 
     /**
+     * The [StoryCluster] item grouping duplicate/multi-source articles for an event.
+     *
+     * @see com.mckimquyen.reader.ui.component.cluster.StoryClusterCard
+     */
+    class Cluster(val cluster: StoryCluster) : ArticleFlowItem()
+
+    /**
      * The feed publication date separator between [Article] items.
      *
      * @see com.mckimquyen.reader.ui.page.home.flow.StickyHeader
@@ -28,24 +38,49 @@ sealed class ArticleFlowItem {
 }
 
 /**
- * Mapping [ArticleWithFeed] list to [ArticleFlowItem] list.
+ * Mapping [ArticleWithFeed] list to [ArticleFlowItem] list with optional story clustering.
  */
-fun PagingData<ArticleWithFeed>.mapPagingFlowItem(androidStringsHelper: AndroidStringsHelper): PagingData<ArticleFlowItem> =
-    map {
-        ArticleFlowItem.Article(it.apply {
-            article.dateString = androidStringsHelper.formatAsString(
-                date = article.date,
+fun PagingData<ArticleWithFeed>.mapPagingFlowItem(
+    androidStringsHelper: AndroidStringsHelper,
+    clusterResult: StoryClusterResult? = null,
+): PagingData<ArticleFlowItem> {
+    val filtered = if (clusterResult != null && clusterResult.nonLeadIds.isNotEmpty()) {
+        filter { !clusterResult.nonLeadIds.contains(it.article.id) }
+    } else {
+        this
+    }
+
+    return filtered.map { articleWithFeed ->
+        val cluster = clusterResult?.leadClusterMap?.get(articleWithFeed.article.id)
+        if (cluster != null) {
+            cluster.dateString = androidStringsHelper.formatAsString(
+                date = cluster.date,
                 onlyHourMinute = true
-            )
-        })
+            ) ?: ""
+            ArticleFlowItem.Cluster(cluster)
+        } else {
+            ArticleFlowItem.Article(articleWithFeed.apply {
+                article.dateString = androidStringsHelper.formatAsString(
+                    date = article.date,
+                    onlyHourMinute = true
+                )
+            })
+        }
     }.insertSeparators { before, after ->
-        val beforeDate =
-            androidStringsHelper.formatAsString(before?.articleWithFeed?.article?.date)
-        val afterDate =
-            androidStringsHelper.formatAsString(after?.articleWithFeed?.article?.date)
+        val beforeDate = when (before) {
+            is ArticleFlowItem.Article -> androidStringsHelper.formatAsString(before.articleWithFeed.article.date)
+            is ArticleFlowItem.Cluster -> androidStringsHelper.formatAsString(before.cluster.date)
+            else -> null
+        }
+        val afterDate = when (after) {
+            is ArticleFlowItem.Article -> androidStringsHelper.formatAsString(after.articleWithFeed.article.date)
+            is ArticleFlowItem.Cluster -> androidStringsHelper.formatAsString(after.cluster.date)
+            else -> null
+        }
         if (beforeDate != afterDate) {
             afterDate?.let { ArticleFlowItem.Date(it, beforeDate != null) }
         } else {
             null
         }
     }
+}

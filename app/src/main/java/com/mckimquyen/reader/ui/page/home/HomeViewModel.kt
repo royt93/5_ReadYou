@@ -29,10 +29,22 @@ import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import android.content.Context
+import com.mckimquyen.reader.domain.model.cluster.StoryCluster
+import com.mckimquyen.reader.domain.model.cluster.StoryClusterResult
+import com.mckimquyen.reader.domain.repository.ArticleDao
+import com.mckimquyen.reader.infrastructure.ai.clustering.StoryClusteringEngine
+import com.mckimquyen.reader.ui.ext.currentAccountId
+import com.mckimquyen.reader.ui.ext.flowStoryClustering
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
+    @ApplicationContext
+    private val context: Context,
+    private val articleDao: ArticleDao,
+    private val clusteringEngine: StoryClusteringEngine,
     private val rssService: RssSv,
     private val androidStringsHelper: AndroidStringsHelper,
     @ApplicationScope
@@ -41,6 +53,31 @@ class HomeViewModel @Inject constructor(
     @IODispatcher
     private val ioDispatcher: CoroutineDispatcher,
 ) : ViewModel() {
+
+    private val _clusterResult = MutableStateFlow(StoryClusterResult.EMPTY)
+    val clusterResult: StateFlow<StoryClusterResult> = _clusterResult.asStateFlow()
+
+    private val _selectedCluster = MutableStateFlow<StoryCluster?>(null)
+    val selectedCluster: StateFlow<StoryCluster?> = _selectedCluster.asStateFlow()
+
+    fun openCluster(cluster: StoryCluster) {
+        _selectedCluster.value = cluster
+    }
+
+    fun closeCluster() {
+        _selectedCluster.value = null
+    }
+
+    fun markClusterAsRead(cluster: StoryCluster) {
+        viewModelScope.launch(ioDispatcher) {
+            val accountId = context.currentAccountId
+            cluster.articles.forEach {
+                articleDao.markAsReadByArticleId(accountId, it.article.id, isUnread = false)
+            }
+            closeCluster()
+            fetchArticles()
+        }
+    }
 
     private val _homeUiState = MutableStateFlow(HomeUiState())
     val homeUiState: StateFlow<HomeUiState> = _homeUiState.asStateFlow()
@@ -79,34 +116,46 @@ class HomeViewModel @Inject constructor(
     }
 
     fun fetchArticles() {
-        _homeUiState.update {
-            it.copy(
-                pagingData = Pager(
-                    config = PagingConfig(
-                        pageSize = 50,
-                        enablePlaceholders = false,
-                    )
-                ) {
-                    if (_homeUiState.value.searchContent.isNotBlank()) {
-                        rssService.get().searchArticles(
-                            content = _homeUiState.value.searchContent.trim(),
-                            groupId = _filterUiState.value.group?.id,
-                            feedId = _filterUiState.value.feed?.id,
-                            isStarred = _filterUiState.value.filter.isStarred(),
-                            isUnread = _filterUiState.value.filter.isUnread(),
+        viewModelScope.launch(ioDispatcher) {
+            val isClusteringEnabled = context.flowStoryClustering
+            val clusterResult = if (isClusteringEnabled && _homeUiState.value.searchContent.isBlank()) {
+                val accountId = context.currentAccountId
+                val recentArticles = articleDao.queryRecentArticlesWithFeed(accountId, limit = 150)
+                clusteringEngine.cluster(recentArticles)
+            } else {
+                StoryClusterResult.EMPTY
+            }
+            _clusterResult.value = clusterResult
+
+            _homeUiState.update {
+                it.copy(
+                    pagingData = Pager(
+                        config = PagingConfig(
+                            pageSize = 50,
+                            enablePlaceholders = false,
                         )
-                    } else {
-                        rssService.get().pullArticles(
-                            groupId = _filterUiState.value.group?.id,
-                            feedId = _filterUiState.value.feed?.id,
-                            isStarred = _filterUiState.value.filter.isStarred(),
-                            isUnread = _filterUiState.value.filter.isUnread(),
-                        )
-                    }
-                }.flow.map {
-                    it.mapPagingFlowItem(androidStringsHelper)
-                }.cachedIn(applicationScope)
-            )
+                    ) {
+                        if (_homeUiState.value.searchContent.isNotBlank()) {
+                            rssService.get().searchArticles(
+                                content = _homeUiState.value.searchContent.trim(),
+                                groupId = _filterUiState.value.group?.id,
+                                feedId = _filterUiState.value.feed?.id,
+                                isStarred = _filterUiState.value.filter.isStarred(),
+                                isUnread = _filterUiState.value.filter.isUnread(),
+                            )
+                        } else {
+                            rssService.get().pullArticles(
+                                groupId = _filterUiState.value.group?.id,
+                                feedId = _filterUiState.value.feed?.id,
+                                isStarred = _filterUiState.value.filter.isStarred(),
+                                isUnread = _filterUiState.value.filter.isUnread(),
+                            )
+                        }
+                    }.flow.map { pagingData ->
+                        pagingData.mapPagingFlowItem(androidStringsHelper, clusterResult)
+                    }.cachedIn(applicationScope)
+                )
+            }
         }
     }
 

@@ -641,4 +641,16 @@
     <string name="deep_read_ai_badge">Gemini AI</string>
     <string name="deep_read_copy_transcript">複製完整對話</string>
     <string name="deep_read_action_chat">與文章問答</string>
+
+    <!-- Loop 12: AI Deduplication & Story Clustering (KNOW-01) -->
+    <string name="story_clustering_title">事類聚合 (Story Clustering)</string>
+    <string name="story_clustering_desc">諸家共陳一事，類合為一錄，免其繁複</string>
+    <string name="story_cluster_badge">🔥 %d 家報館共載</string>
+    <string name="story_cluster_badge_single">🔥 %d 篇文牘同論</string>
+    <string name="story_cluster_view_perspectives">參互考訂</string>
+    <string name="story_cluster_read_main">覽其要領</string>
+    <string name="story_cluster_all_perspectives">群言悉備 (%d)</string>
+    <string name="story_cluster_mark_all_read">盡誌已覽</string>
+    <string name="story_cluster_sheet_title">博觀眾家之說</string>
+    <string name="story_cluster_lead_badge">主說</string>
 </resources>

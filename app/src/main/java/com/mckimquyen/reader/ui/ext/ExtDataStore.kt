@@ -41,6 +41,9 @@ val Context.initialFilter: Int
 val Context.languages: Int
     get() = this.dataStore.get(DataStoreKeys.Languages) ?: 0
 
+val Context.flowStoryClustering: Boolean
+    get() = this.dataStore.get(DataStoreKeys.FlowStoryClustering) ?: true
+
 suspend fun <T> DataStore<Preferences>.put(dataStoreKeys: DataStoreKeys<T>, value: T) {
     this.edit {
         withContext(Dispatchers.IO) {
@@ -241,6 +244,12 @@ sealed class DataStoreKeys<T> {
 
         override val key: Preferences.Key<Int>
             get() = intPreferencesKey("flowTopBarTonalElevation")
+    }
+
+    object FlowStoryClustering : DataStoreKeys<Boolean>() {
+
+        override val key: Preferences.Key<Boolean>
+            get() = booleanPreferencesKey("flowStoryClustering")
     }
 
     object FlowArticleListFeedIcon : DataStoreKeys<Boolean>() {
