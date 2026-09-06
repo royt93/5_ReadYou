@@ -12,6 +12,7 @@ import androidx.compose.material.icons.outlined.Share
 import androidx.compose.material.icons.rounded.AccountTree
 import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.ElectricBolt
+import androidx.compose.material.icons.rounded.Forum
 import androidx.compose.material.icons.rounded.GraphicEq
 import androidx.compose.material.icons.rounded.MoreVert
 import androidx.compose.material.icons.rounded.PlayArrow
@@ -58,6 +59,7 @@ fun TopBar(
     onRsvpReading: () -> Unit = {},
     onSummary: () -> Unit = {},
     onMindMap: () -> Unit = {},
+    onDeepRead: () -> Unit = {},
     onClose: () -> Unit = {},
 ) {
     val context = LocalContext.current
@@ -178,6 +180,19 @@ fun TopBar(
                                 onClick = {
                                     menuExpanded = false
                                     onMindMap()
+                                }
+                            )
+                            DropdownMenuItem(
+                                text = { Text(stringResource(R.string.deep_read_title)) },
+                                leadingIcon = {
+                                    Icon(
+                                        imageVector = Icons.Rounded.Forum,
+                                        contentDescription = null
+                                    )
+                                },
+                                onClick = {
+                                    menuExpanded = false
+                                    onDeepRead()
                                 }
                             )
                         }

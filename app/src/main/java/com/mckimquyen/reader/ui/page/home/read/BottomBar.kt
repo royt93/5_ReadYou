@@ -16,6 +16,7 @@ import androidx.compose.material.icons.outlined.FiberManualRecord
 import androidx.compose.material.icons.outlined.Headphones
 import androidx.compose.material.icons.rounded.Article
 import androidx.compose.material.icons.rounded.ExpandMore
+import androidx.compose.material.icons.rounded.Forum
 import androidx.compose.material.icons.rounded.Star
 import androidx.compose.material.icons.rounded.StarOutline
 import androidx.compose.material3.MaterialTheme
@@ -30,6 +31,7 @@ import androidx.compose.ui.zIndex
 import com.mckimquyen.reader.R
 import com.mckimquyen.reader.infrastructure.pref.LocalReadingPageTonalElevation
 import com.mckimquyen.reader.ui.component.base.CanBeDisabledIconButton
+import com.mckimquyen.reader.ui.component.base.FeedbackIconButton
 import com.mckimquyen.reader.ui.component.base.BaseExtensibleVisibility
 
 @Composable
@@ -42,6 +44,7 @@ fun BottomBar(
     onStarred: (isStarred: Boolean) -> Unit = {},
     onNextArticle: () -> Unit = {},
     onFullContent: (isFullContent: Boolean) -> Unit = {},
+    onDeepRead: () -> Unit = {},
 ) {
     val tonalElevation = LocalReadingPageTonalElevation.current
 
@@ -111,14 +114,14 @@ fun BottomBar(
                         view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP)
                         onNextArticle()
                     }
-                    CanBeDisabledIconButton(
-                        modifier = Modifier.size(36.dp),
-                        disabled = true,
-                        imageVector = Icons.Outlined.Headphones,
-                        contentDescription = stringResource(R.string.add_tag),
-                        tint = MaterialTheme.colorScheme.outline,
+                    FeedbackIconButton(
+                        modifier = Modifier.size(40.dp),
+                        imageVector = Icons.Rounded.Forum,
+                        contentDescription = stringResource(R.string.deep_read_title),
+                        tint = MaterialTheme.colorScheme.primary,
                     ) {
                         view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP)
+                        onDeepRead()
                     }
                     CanBeDisabledIconButton(
                         disabled = false,

@@ -550,4 +550,20 @@
     <string name="mindmap_generating">概念マインドマップを構築中…</string>
     <string name="mindmap_offline_badge">スマートグラフ</string>
     <string name="mindmap_ai_badge">Gemini AI</string>
+    <!-- Loop 11: AI Deep Read Interactive Q&A Assistant -->
+    <string name="deep_read_title">AI ディープリード</string>
+    <string name="deep_read_subtitle">記事との対話・Q&amp;A</string>
+    <string name="deep_read_input_placeholder">この記事について質問する…</string>
+    <string name="deep_read_send">送信</string>
+    <string name="deep_read_clear_chat">チャットをクリア</string>
+    <string name="deep_read_cleared_toast">会話履歴を消去しました</string>
+    <string name="deep_read_copied_toast">回答をクリップボードにコピーしました</string>
+    <string name="deep_read_welcome_message">こんにちは！記事全体を読み込みました。質問を入力するか、下の提案トピックをタップしてください。</string>
+    <string name="deep_read_context_label">対話中の記事：</string>
+    <string name="deep_read_thinking">AIが記事を分析中…</string>
+    <string name="deep_read_grounded_badge">記事準拠</string>
+    <string name="deep_read_offline_badge">オフライン</string>
+    <string name="deep_read_ai_badge">Gemini AI</string>
+    <string name="deep_read_copy_transcript">会話をコピー</string>
+    <string name="deep_read_action_chat">記事について質問する</string>
 </resources>

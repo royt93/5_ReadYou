@@ -518,4 +518,20 @@
     <string name="mindmap_generating">Constructing concept mind map…</string>
     <string name="mindmap_offline_badge">Smart Graph</string>
     <string name="mindmap_ai_badge">Gemini AI</string>
+    <!-- Loop 11: AI Deep Read Interactive Q&A Assistant -->
+    <string name="deep_read_title">AI Deep Read</string>
+    <string name="deep_read_subtitle">Interactive Article Chat</string>
+    <string name="deep_read_input_placeholder">Ask a question about this article…</string>
+    <string name="deep_read_send">Send</string>
+    <string name="deep_read_clear_chat">Clear Chat</string>
+    <string name="deep_read_cleared_toast">Chat history cleared</string>
+    <string name="deep_read_copied_toast">Answer copied to clipboard</string>
+    <string name="deep_read_welcome_message">Hello! I\'ve analyzed this article. Ask me any question, request clarifications, or tap a suggested topic below.</string>
+    <string name="deep_read_context_label">Discussing:</string>
+    <string name="deep_read_thinking">AI is analyzing article…</string>
+    <string name="deep_read_grounded_badge">Grounded</string>
+    <string name="deep_read_offline_badge">Offline Smart</string>
+    <string name="deep_read_ai_badge">Gemini AI</string>
+    <string name="deep_read_copy_transcript">Copy Conversation</string>
+    <string name="deep_read_action_chat">Chat with Article</string>
 </resources>

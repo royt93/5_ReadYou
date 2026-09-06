@@ -11,6 +11,9 @@ import com.mckimquyen.reader.domain.model.article.ArticleFlowItem
 import com.mckimquyen.reader.domain.model.article.ArticleHighlights
 import com.mckimquyen.reader.domain.model.article.ArticleMindMap
 import com.mckimquyen.reader.domain.model.article.ArticleWithFeed
+import com.mckimquyen.reader.domain.model.article.DeepReadMessage
+import com.mckimquyen.reader.domain.model.article.DeepReadSender
+import com.mckimquyen.reader.domain.model.article.DeepReadSession
 import com.mckimquyen.reader.domain.sv.RssSv
 import com.mckimquyen.reader.infrastructure.ai.GeminiSummaryService
 import com.mckimquyen.reader.infrastructure.audio.TtsManager
@@ -259,6 +262,138 @@ class ReadingViewModel @Inject constructor(
         }
     }
 
+    // ---- AI Deep Read (Interactive Q&A) ----
+
+    fun openDeepRead() {
+        val state = _readingUiState.value
+        val article = state.articleWithFeed?.article
+        val articleId = article?.id.orEmpty()
+        val plainText = state.content?.let {
+            androidx.core.text.HtmlCompat
+                .fromHtml(it, androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY)
+                .toString()
+        }.orEmpty()
+
+        Log.d("roy93~AI", "[VM.openDeepRead] clicked, articleId=$articleId plainTextLen=${plainText.length}")
+
+        val currentActive = state.deepReadState as? DeepReadState.Active
+        if (currentActive == null || currentActive.session.articleId != articleId) {
+            val title = article?.title.orEmpty()
+            val chips = com.mckimquyen.reader.infrastructure.ai.ArticleDeepReadEngine.generateSuggestedQuestions(
+                title = title,
+                plainText = plainText,
+            )
+            val welcomeMessage = DeepReadMessage(
+                sender = DeepReadSender.ASSISTANT,
+                content = "", // Display default localized welcome string in UI
+                isOfflineFallback = false,
+                isGrounded = true,
+            )
+            val newSession = DeepReadSession(
+                articleId = articleId,
+                articleTitle = title,
+                messages = listOf(welcomeMessage),
+                suggestedChips = chips,
+            )
+            _readingUiState.update {
+                it.copy(
+                    showDeepReadSheet = true,
+                    deepReadState = DeepReadState.Active(newSession)
+                )
+            }
+        } else {
+            _readingUiState.update { it.copy(showDeepReadSheet = true) }
+        }
+    }
+
+    fun dismissDeepRead() {
+        Log.d("roy93~AI", "[VM.dismissDeepRead]")
+        _readingUiState.update { it.copy(showDeepReadSheet = false) }
+    }
+
+    fun clearDeepReadChat() {
+        val currentActive = _readingUiState.value.deepReadState as? DeepReadState.Active ?: return
+        val welcomeMessage = DeepReadMessage(
+            sender = DeepReadSender.ASSISTANT,
+            content = "",
+            isOfflineFallback = false,
+            isGrounded = true,
+        )
+        val resetSession = currentActive.session.copy(messages = listOf(welcomeMessage))
+        _readingUiState.update {
+            it.copy(deepReadState = DeepReadState.Active(resetSession))
+        }
+    }
+
+    fun sendDeepReadQuestion(question: String) {
+        val trimmed = question.trim()
+        if (trimmed.isBlank()) return
+        val state = _readingUiState.value
+        val active = state.deepReadState as? DeepReadState.Active ?: return
+        if (active.isSending) return
+
+        val userMessage = DeepReadMessage(
+            sender = DeepReadSender.USER,
+            content = trimmed,
+        )
+        val updatedMessages = active.session.messages + userMessage
+        val updatedSession = active.session.copy(messages = updatedMessages)
+        _readingUiState.update {
+            it.copy(deepReadState = DeepReadState.Active(updatedSession, isSending = true))
+        }
+
+        val article = state.articleWithFeed?.article
+        val plainText = state.content?.let {
+            androidx.core.text.HtmlCompat
+                .fromHtml(it, androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY)
+                .toString()
+        }.orEmpty()
+
+        viewModelScope.launch {
+            try {
+                val assistantReply = summaryService.askArticleQuestion(
+                    title = article?.title.orEmpty(),
+                    plainText = plainText,
+                    chatHistory = updatedMessages,
+                    question = trimmed,
+                )
+                _readingUiState.update { current ->
+                    val curActive = current.deepReadState as? DeepReadState.Active
+                    if (curActive != null) {
+                        current.copy(
+                            deepReadState = DeepReadState.Active(
+                                curActive.session.copy(messages = curActive.session.messages + assistantReply),
+                                isSending = false,
+                            )
+                        )
+                    } else {
+                        current
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e("roy93~AI", "[VM.sendDeepReadQuestion] error: $e", e)
+                val fallbackReply = com.mckimquyen.reader.infrastructure.ai.ArticleDeepReadEngine.generateOfflineAnswer(
+                    title = article?.title.orEmpty(),
+                    plainText = plainText,
+                    question = trimmed,
+                )
+                _readingUiState.update { current ->
+                    val curActive = current.deepReadState as? DeepReadState.Active
+                    if (curActive != null) {
+                        current.copy(
+                            deepReadState = DeepReadState.Active(
+                                curActive.session.copy(messages = curActive.session.messages + fallbackReply),
+                                isSending = false,
+                            )
+                        )
+                    } else {
+                        current
+                    }
+                }
+            }
+        }
+    }
+
     override fun onCleared() {
         Log.d("roy93~", "ReadingViewModel onCleared: stopping TTS and ZenAudio")
         ttsManager.stop()
@@ -360,7 +495,19 @@ data class ReadingUiState(
     val summaryState: SummaryState = SummaryState.Idle,
     val showMindMapSheet: Boolean = false,
     val mindMapState: MindMapState = MindMapState.Idle,
+    val showDeepReadSheet: Boolean = false,
+    val deepReadState: DeepReadState = DeepReadState.Idle,
 )
+
+/** Trạng thái của luồng hỏi đáp tương tác AI Deep Read. */
+sealed interface DeepReadState {
+    object Idle : DeepReadState
+    data class Active(
+        val session: DeepReadSession,
+        val isSending: Boolean = false,
+        @StringRes val errorRes: Int? = null,
+    ) : DeepReadState
+}
 
 /** Trạng thái của luồng tóm tắt AI. */
 sealed interface SummaryState {

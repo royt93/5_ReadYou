@@ -30,6 +30,7 @@ import androidx.compose.material.icons.outlined.Schedule
 import androidx.compose.material.icons.outlined.Share
 import androidx.compose.material.icons.rounded.AccountTree
 import androidx.compose.material.icons.rounded.Close
+import androidx.compose.material.icons.rounded.Forum
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -74,6 +75,7 @@ fun SummarySheetContent(
     onShare: ((String) -> Unit)? = null,
     onForceOffline: (() -> Unit)? = null,
     onOpenMindMap: (() -> Unit)? = null,
+    onOpenDeepRead: (() -> Unit)? = null,
 ) {
     val context = LocalContext.current
     val clipboardManager = LocalClipboardManager.current
@@ -177,6 +179,7 @@ fun SummarySheetContent(
                 onShare = defaultShareAction,
                 onRetryAi = onRetry,
                 onOpenMindMap = onOpenMindMap,
+                onOpenDeepRead = onOpenDeepRead,
             )
 
             is SummaryState.Error -> ErrorContent(
@@ -218,6 +221,7 @@ private fun HighlightsSuccessContent(
     onShare: (String) -> Unit,
     onRetryAi: () -> Unit,
     onOpenMindMap: (() -> Unit)? = null,
+    onOpenDeepRead: (() -> Unit)? = null,
 ) {
     val scrollState = rememberScrollState()
 
@@ -443,6 +447,29 @@ private fun HighlightsSuccessContent(
                 Spacer(Modifier.width(8.dp))
                 Text(
                     text = stringResource(R.string.mindmap_view_map),
+                    fontWeight = FontWeight.SemiBold,
+                )
+            }
+        }
+
+        // Chat with Article Button (AI Deep Read)
+        if (onOpenDeepRead != null) {
+            FilledTonalButton(
+                onClick = onOpenDeepRead,
+                modifier = Modifier.fillMaxWidth(),
+                colors = ButtonDefaults.filledTonalButtonColors(
+                    containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                    contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
+                )
+            ) {
+                Icon(
+                    imageVector = Icons.Rounded.Forum,
+                    contentDescription = null,
+                    modifier = Modifier.size(18.dp),
+                )
+                Spacer(Modifier.width(8.dp))
+                Text(
+                    text = stringResource(R.string.deep_read_action_chat),
                     fontWeight = FontWeight.SemiBold,
                 )
             }

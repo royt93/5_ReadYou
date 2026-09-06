@@ -556,4 +556,20 @@
     <string name="mindmap_generating">Generando mapa mental de conceptos…</string>
     <string name="mindmap_offline_badge">Gráfico inteligente</string>
     <string name="mindmap_ai_badge">Gemini AI</string>
+    <!-- Loop 11: AI Deep Read Interactive Q&A Assistant -->
+    <string name="deep_read_title">AI Deep Read</string>
+    <string name="deep_read_subtitle">Chat interactivo con el artículo</string>
+    <string name="deep_read_input_placeholder">Haz una pregunta sobre este artículo…</string>
+    <string name="deep_read_send">Enviar</string>
+    <string name="deep_read_clear_chat">Borrar chat</string>
+    <string name="deep_read_cleared_toast">Historial de chat borrado</string>
+    <string name="deep_read_copied_toast">Respuesta copiada al portapapeles</string>
+    <string name="deep_read_welcome_message">¡Hola! He analizado este artículo. Hazme cualquier pregunta o toca una sugerencia a continuación.</string>
+    <string name="deep_read_context_label">En discusión:</string>
+    <string name="deep_read_thinking">La IA está analizando el artículo…</string>
+    <string name="deep_read_grounded_badge">Basado en texto</string>
+    <string name="deep_read_offline_badge">Sin conexión</string>
+    <string name="deep_read_ai_badge">Gemini AI</string>
+    <string name="deep_read_copy_transcript">Copiar conversación</string>
+    <string name="deep_read_action_chat">Chatear con el artículo</string>
 </resources>

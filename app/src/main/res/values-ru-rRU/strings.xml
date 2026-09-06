@@ -559,4 +559,20 @@
     <string name="mindmap_generating">Построение интеллект-карты…</string>
     <string name="mindmap_offline_badge">Умный граф</string>
     <string name="mindmap_ai_badge">Gemini AI</string>
+    <!-- Loop 11: AI Deep Read Interactive Q&A Assistant -->
+    <string name="deep_read_title">AI Deep Read</string>
+    <string name="deep_read_subtitle">Интерактивный чат со статьей</string>
+    <string name="deep_read_input_placeholder">Задайте вопрос по статье…</string>
+    <string name="deep_read_send">Отправить</string>
+    <string name="deep_read_clear_chat">Очистить чат</string>
+    <string name="deep_read_cleared_toast">История чата очищена</string>
+    <string name="deep_read_copied_toast">Ответ скопирован в буфер обмена</string>
+    <string name="deep_read_welcome_message">Здравствуйте! Я изучил эту статью. Задайте мне любой вопрос или выберите тему ниже.</string>
+    <string name="deep_read_context_label">Тема обсуждения:</string>
+    <string name="deep_read_thinking">ИИ анализирует статью…</string>
+    <string name="deep_read_grounded_badge">По тексту</string>
+    <string name="deep_read_offline_badge">Офлайн</string>
+    <string name="deep_read_ai_badge">Gemini AI</string>
+    <string name="deep_read_copy_transcript">Скопировать диалог</string>
+    <string name="deep_read_action_chat">Чат со статьей</string>
 </resources>

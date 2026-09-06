@@ -4,6 +4,8 @@ import android.content.Context
 import android.util.Log
 import com.mckimquyen.reader.domain.model.article.ArticleHighlights
 import com.mckimquyen.reader.domain.model.article.ArticleMindMap
+import com.mckimquyen.reader.domain.model.article.DeepReadMessage
+import com.mckimquyen.reader.domain.model.article.DeepReadSender
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -147,6 +149,61 @@ class GeminiSummaryService @Inject constructor(
     }
 
     /**
+     * Gửi câu hỏi tương tác về bài báo đến Gemini (AI Deep Read).
+     * Bám sát ngữ cảnh bài viết (grounded), tự động fallback sang offline engine nếu Gemini không khả dụng.
+     */
+    suspend fun askArticleQuestion(
+        title: String,
+        plainText: String,
+        chatHistory: List<DeepReadMessage>,
+        question: String,
+        languageTag: String = currentLanguageTag(),
+    ): DeepReadMessage = withContext(Dispatchers.IO) {
+        val cleaned = plainText.trim()
+        Log.d(TAG, "[askArticleQuestion] start title=\"${title.take(50)}\" q=\"${question.take(50)}\" lang=$languageTag")
+        if (cleaned.isBlank()) {
+            return@withContext ArticleDeepReadEngine.generateOfflineAnswer(title, "", question, languageTag)
+        }
+
+        val keys = GeminiConfig.API_KEYS.map { it.trim() }.filter { it.isNotBlank() }.distinct()
+        if (keys.isEmpty()) {
+            Log.w(TAG, "[askArticleQuestion] GeminiConfig.API_KEYS rỗng -> fallback offline")
+            return@withContext ArticleDeepReadEngine.generateOfflineAnswer(title, cleaned, question, languageTag)
+        }
+
+        val body = cleaned.take(MAX_INPUT_CHARS)
+        val requestBody = buildDeepReadRequestBody(title, body, chatHistory, question, languageTag)
+
+        var lastError: SummaryException? = null
+        for ((index, key) in keys.withIndex()) {
+            Log.d(TAG, "[askArticleQuestion] thử key #${index + 1}/${keys.size} (${mask(key)})")
+            try {
+                val rawAnswer = callGeminiRaw(key, requestBody)
+                Log.d(TAG, "[askArticleQuestion] ✅ key #${index + 1} OK, answerLen=${rawAnswer.length}")
+                return@withContext DeepReadMessage(
+                    sender = DeepReadSender.ASSISTANT,
+                    content = rawAnswer.trim(),
+                    isOfflineFallback = false,
+                    isGrounded = true,
+                )
+            } catch (e: SummaryException) {
+                lastError = e
+                val tryNext = e is SummaryException.InvalidApiKey ||
+                    e is SummaryException.RateLimited ||
+                    e is SummaryException.Http
+                Log.w(TAG, "[askArticleQuestion] key #${index + 1} lỗi: ${e::class.simpleName}, tryNext=$tryNext")
+                if (!tryNext) break
+            } catch (e: Exception) {
+                Log.w(TAG, "[askArticleQuestion] unexpected error: $e")
+                break
+            }
+        }
+
+        Log.w(TAG, "[askArticleQuestion] Không gọi được Gemini ($lastError), kích hoạt fallback ngoại tuyến")
+        ArticleDeepReadEngine.generateOfflineAnswer(title, cleaned, question, languageTag)
+    }
+
+    /**
      * Tóm tắt [plainText] thành chuỗi văn bản thuần (giữ tương thích ngược).
      */
     suspend fun summarize(
@@ -261,6 +318,45 @@ class GeminiSummaryService @Inject constructor(
                 ))
             ))
             put("generationConfig", JSONObject().put("temperature", 0.2))
+        }.toString()
+    }
+
+    private fun buildDeepReadRequestBody(
+        title: String,
+        body: String,
+        chatHistory: List<DeepReadMessage>,
+        question: String,
+        languageTag: String,
+    ): String {
+        val prompt = buildString {
+            append("You are an expert AI reading assistant for an article.\n")
+            append("Answer the user's question accurately, concisely, and directly based SOLELY on the provided article context.\n")
+            append("Rules:\n")
+            append("- Ground your answers strictly on the facts, evidence, arguments, and data present in the article.\n")
+            append("- If the question cannot be answered from the article, state clearly that the article does not mention this.\n")
+            append("- Do not hallucinate or extrapolate external claims without citing that it is outside the text.\n")
+            append("- Keep explanations punchy, well-structured (use bullet points where appropriate), and easy to read on mobile.\n")
+            append("- Write the response strictly in the language with BCP-47 tag \"$languageTag\".\n\n")
+            if (title.isNotBlank()) append("Article Title: $title\n\n")
+            append("Article Context:\n$body\n\n")
+            if (chatHistory.isNotEmpty()) {
+                append("Previous Conversation Turns:\n")
+                chatHistory.takeLast(4).forEach { msg ->
+                    val role = if (msg.sender == DeepReadSender.USER) "User" else "Assistant"
+                    append("$role: ${msg.content.trim()}\n")
+                }
+                append("\n")
+            }
+            append("Current User Question: $question\n")
+            append("Direct Answer:")
+        }
+        return JSONObject().apply {
+            put("contents", org.json.JSONArray().put(
+                JSONObject().put("parts", org.json.JSONArray().put(
+                    JSONObject().put("text", prompt)
+                ))
+            ))
+            put("generationConfig", JSONObject().put("temperature", 0.3))
         }.toString()
     }
 

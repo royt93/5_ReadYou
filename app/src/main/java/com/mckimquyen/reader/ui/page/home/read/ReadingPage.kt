@@ -110,7 +110,7 @@ fun ReadingPage(
     // để có drag handle, shape và xử lý system insets đúng (không lỗi edge-to-edge).
     val summaryDrawerState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
 
-    val isAnySheetOpen = readingUiState.showSummarySheet || readingUiState.showMindMapSheet
+    val isAnySheetOpen = readingUiState.showSummarySheet || readingUiState.showMindMapSheet || readingUiState.showDeepReadSheet
 
     // Đồng bộ trạng thái mở/đóng từ ViewModel -> drawer.
     LaunchedEffect(isAnySheetOpen) {
@@ -122,10 +122,13 @@ fun ReadingPage(
         if (summaryDrawerState.currentValue == ModalBottomSheetValue.Hidden && isAnySheetOpen) {
             readingViewModel.dismissSummary()
             readingViewModel.dismissMindMap()
+            readingViewModel.dismissDeepRead()
         }
     }
     BackHandler(isAnySheetOpen) {
-        if (readingUiState.showMindMapSheet) {
+        if (readingUiState.showDeepReadSheet) {
+            readingViewModel.dismissDeepRead()
+        } else if (readingUiState.showMindMapSheet) {
             readingViewModel.dismissMindMap()
         } else {
             readingViewModel.dismissSummary()
@@ -135,7 +138,14 @@ fun ReadingPage(
     BottomDrawer(
         drawerState = summaryDrawerState,
         sheetContent = {
-            if (readingUiState.showMindMapSheet) {
+            if (readingUiState.showDeepReadSheet) {
+                DeepReadChatSheetContent(
+                    state = readingUiState.deepReadState,
+                    onSendQuestion = { question -> readingViewModel.sendDeepReadQuestion(question) },
+                    onClearChat = { readingViewModel.clearDeepReadChat() },
+                    onClose = { readingViewModel.dismissDeepRead() },
+                )
+            } else if (readingUiState.showMindMapSheet) {
                 MindMapSheetContent(
                     state = readingUiState.mindMapState,
                     onRetry = { readingViewModel.requestMindMap() },
@@ -151,6 +161,10 @@ fun ReadingPage(
                     onOpenMindMap = {
                         readingViewModel.dismissSummary()
                         readingViewModel.openMindMap()
+                    },
+                    onOpenDeepRead = {
+                        readingViewModel.dismissSummary()
+                        readingViewModel.openDeepRead()
                     },
                 )
             }
@@ -186,6 +200,9 @@ fun ReadingPage(
                     },
                     onMindMap = {
                         readingViewModel.openMindMap()
+                    },
+                    onDeepRead = {
+                        readingViewModel.openDeepRead()
                     },
                     onClose = {
                         navController.popBackStack()
@@ -252,6 +269,9 @@ fun ReadingPage(
                             onFullContent = {
                                 if (it) readingViewModel.renderFullContent()
                                 else readingViewModel.renderDescriptionContent()
+                            },
+                            onDeepRead = {
+                                readingViewModel.openDeepRead()
                             },
                         )
                         if (isShowToolBar) {

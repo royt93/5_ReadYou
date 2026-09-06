@@ -549,4 +549,20 @@
     <string name="mindmap_generating">正在构建概念思维导图…</string>
     <string name="mindmap_offline_badge">智能图谱</string>
     <string name="mindmap_ai_badge">Gemini AI</string>
+    <!-- Loop 11: AI Deep Read Interactive Q&A Assistant -->
+    <string name="deep_read_title">AI 深度问答</string>
+    <string name="deep_read_subtitle">与文章交互对话</string>
+    <string name="deep_read_input_placeholder">向 AI 询问关于本文的任何问题…</string>
+    <string name="deep_read_send">发送</string>
+    <string name="deep_read_clear_chat">清空对话</string>
+    <string name="deep_read_cleared_toast">对话历史已清空</string>
+    <string name="deep_read_copied_toast">回答已复制到剪贴板</string>
+    <string name="deep_read_welcome_message">您好！我已阅读本文全文。您可以提出任何疑问，或点击下方的建议问题深入了解。</string>
+    <string name="deep_read_context_label">当前讨论：</string>
+    <string name="deep_read_thinking">AI 正在分析文章…</string>
+    <string name="deep_read_grounded_badge">忠于原文</string>
+    <string name="deep_read_offline_badge">离线智能</string>
+    <string name="deep_read_ai_badge">Gemini AI</string>
+    <string name="deep_read_copy_transcript">复制完整对话</string>
+    <string name="deep_read_action_chat">与文章问答</string>
 </resources>
