@@ -2,6 +2,7 @@ package com.mckimquyen.reader.infrastructure.ai
 
 import android.content.Context
 import android.util.Log
+import com.mckimquyen.reader.domain.model.article.ArticleHighlights
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -15,11 +16,12 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 /**
- * Gọi Google Gemini REST API để tóm tắt nội dung bài báo (quick win "AI TL;DR").
+ * Gọi Google Gemini REST API để tóm tắt và trích xuất điểm nhấn bài báo (AI TL;DR & Highlights).
  *
  * Key lấy từ [GeminiConfig.API_KEYS] (class constant). Hỗ trợ FAILOVER: thử lần lượt từng key,
  * nếu một key lỗi (sai key 400/403 hoặc hết quota 429, hoặc server lỗi) thì tự chuyển sang key
- * kế tiếp trong danh sách. Hết key vẫn lỗi -> ném lỗi cuối cùng cho UI hiển thị.
+ * kế tiếp trong danh sách. Nếu hết key hoặc lỗi mạng, tự động fallback sang thuật toán heuristic
+ * ngoại tuyến [ArticleHighlightsExtractor] để đảm bảo trải nghiệm người dùng luôn mượt mà.
  */
 @Singleton
 class GeminiSummaryService @Inject constructor(
@@ -42,58 +44,71 @@ class GeminiSummaryService @Inject constructor(
     }
 
     /**
-     * Tóm tắt [plainText] thành các gạch đầu dòng. Chạy trên [Dispatchers.IO].
-     * Thử lần lượt các key trong [GeminiConfig.API_KEYS]; key lỗi -> dùng key kế tiếp.
+     * Trích xuất cấu trúc điểm nhấn [ArticleHighlights] (TL;DR, gạch đầu dòng ý chính, thời gian đọc
+     * tiết kiệm, topic tags). Tự động fallback sang phân tích ngoại tuyến nếu Gemini không khả dụng.
+     */
+    suspend fun extractHighlights(
+        title: String,
+        plainText: String,
+        languageTag: String = currentLanguageTag(),
+    ): ArticleHighlights = withContext(Dispatchers.IO) {
+        val cleaned = plainText.trim()
+        Log.d(TAG, "[extractHighlights] start title=\"${title.take(60)}\" plainTextLen=${cleaned.length} lang=$languageTag")
+        if (cleaned.isBlank()) {
+            Log.w(TAG, "[extractHighlights] ❌ EmptyContent")
+            throw SummaryException.EmptyContent
+        }
+
+        val totalWords = cleaned.split(Regex("\\s+")).count { it.isNotBlank() }
+        val keys = GeminiConfig.API_KEYS.map { it.trim() }.filter { it.isNotBlank() }.distinct()
+
+        if (keys.isEmpty()) {
+            Log.w(TAG, "[extractHighlights] GeminiConfig.API_KEYS rỗng -> fallback sang offline heuristics")
+            return@withContext ArticleHighlightsExtractor.extractOfflineHighlights(title, cleaned)
+        }
+
+        val body = cleaned.take(MAX_INPUT_CHARS)
+        val requestBody = buildHighlightsRequestBody(title, body, languageTag)
+
+        var lastError: SummaryException? = null
+        for ((index, key) in keys.withIndex()) {
+            Log.d(TAG, "[extractHighlights] thử key #${index + 1}/${keys.size} (${mask(key)})")
+            try {
+                val rawText = callGeminiRaw(key, requestBody)
+                val highlights = ArticleHighlightsExtractor.parseGeminiResponse(rawText, totalWords)
+                Log.d(TAG, "[extractHighlights] ✅ key #${index + 1} OK, takeaways=${highlights.keyTakeaways.size} timeSaved=${highlights.readingTimeSavedMin}m")
+                return@withContext highlights
+            } catch (e: SummaryException) {
+                lastError = e
+                val tryNext = e is SummaryException.InvalidApiKey ||
+                    e is SummaryException.RateLimited ||
+                    e is SummaryException.Http
+                Log.w(TAG, "[extractHighlights] key #${index + 1} lỗi: ${e::class.simpleName}, tryNext=$tryNext")
+                if (!tryNext) break
+            } catch (e: Exception) {
+                Log.w(TAG, "[extractHighlights] unexpected error: $e")
+                break
+            }
+        }
+
+        Log.w(TAG, "[extractHighlights] Không gọi được Gemini ($lastError), kích hoạt fallback ngoại tuyến")
+        ArticleHighlightsExtractor.extractOfflineHighlights(title, cleaned)
+    }
+
+    /**
+     * Tóm tắt [plainText] thành chuỗi văn bản thuần (giữ tương thích ngược).
      */
     suspend fun summarize(
         title: String,
         plainText: String,
         languageTag: String = currentLanguageTag(),
-    ): String = withContext(Dispatchers.IO) {
-        val keys = GeminiConfig.API_KEYS.map { it.trim() }.filter { it.isNotBlank() }.distinct()
-        Log.d(TAG, "[summarize] start title=\"${title.take(60)}\" plainTextLen=${plainText.length} lang=$languageTag keys=${keys.size}")
-        if (keys.isEmpty()) {
-            Log.w(TAG, "[summarize] ❌ MissingApiKey (GeminiConfig.API_KEYS rỗng)")
-            throw SummaryException.MissingApiKey
-        }
+    ): String = extractHighlights(title, plainText, languageTag).formatAsPlainText()
 
-        val cleaned = plainText.trim()
-        if (cleaned.isBlank()) {
-            Log.w(TAG, "[summarize] ❌ EmptyContent")
-            throw SummaryException.EmptyContent
-        }
-
-        // Cắt bớt để tránh vượt giới hạn token & tiết kiệm quota.
-        val body = cleaned.take(MAX_INPUT_CHARS)
-        val requestBody = buildRequestBody(title, body, languageTag)
-        Log.d(TAG, "[summarize] sending bodyLen=${body.length} (truncated=${cleaned.length > MAX_INPUT_CHARS})")
-
-        var lastError: SummaryException = SummaryException.MissingApiKey
-        for ((index, key) in keys.withIndex()) {
-            Log.d(TAG, "[summarize] thử key #${index + 1}/${keys.size} (${mask(key)})")
-            try {
-                val summary = callGemini(key, requestBody)
-                Log.d(TAG, "[summarize] ✅ key #${index + 1} OK, summaryLen=${summary.length}\n$summary")
-                return@withContext summary
-            } catch (e: SummaryException) {
-                lastError = e
-                // Chỉ chuyển key khi lỗi liên quan key/quota/server; lỗi khác (mạng, parse) thì dừng.
-                val tryNext = e is SummaryException.InvalidApiKey ||
-                    e is SummaryException.RateLimited ||
-                    e is SummaryException.Http
-                Log.w(TAG, "[summarize] key #${index + 1} lỗi: ${e::class.simpleName}, tryNext=$tryNext")
-                if (!tryNext) throw e
-            }
-        }
-        Log.w(TAG, "[summarize] ❌ Hết key, lỗi cuối: ${lastError::class.simpleName}")
-        throw lastError
-    }
-
-    /** Gọi Gemini với 1 key cụ thể. Trả về summary hoặc ném [SummaryException]. */
-    private fun callGemini(apiKey: String, requestBody: String): String {
+    /** Gọi Gemini với 1 key cụ thể, trả về văn bản trích xuất từ candidate 0 hoặc ném [SummaryException]. */
+    private fun callGeminiRaw(apiKey: String, requestBody: String): String {
         val url = "https://generativelanguage.googleapis.com/v1beta/models/" +
             "${GeminiConfig.MODEL}:generateContent?key=$apiKey"
-        Log.d(TAG, "[callGemini] POST .../models/${GeminiConfig.MODEL}:generateContent?key=${mask(apiKey)}")
+        Log.d(TAG, "[callGeminiRaw] POST .../models/${GeminiConfig.MODEL}:generateContent?key=${mask(apiKey)}")
 
         val request = Request.Builder()
             .url(url)
@@ -103,18 +118,46 @@ class GeminiSummaryService @Inject constructor(
         val response = try {
             okHttpClient.newCall(request).execute()
         } catch (e: java.io.IOException) {
-            Log.w(TAG, "[callGemini] ❌ Network error: ${e.message}")
+            Log.w(TAG, "[callGeminiRaw] ❌ Network error: ${e.message}")
             throw SummaryException.Network
         }
         return response.use {
             val responseBody = it.body?.string().orEmpty()
-            Log.d(TAG, "[callGemini] HTTP ${it.code} responseLen=${responseBody.length}")
+            Log.d(TAG, "[callGeminiRaw] HTTP ${it.code} responseLen=${responseBody.length}")
             if (!it.isSuccessful) {
-                Log.w(TAG, "[callGemini] ❌ API error body=${responseBody.take(300)}")
+                Log.w(TAG, "[callGeminiRaw] ❌ API error body=${responseBody.take(300)}")
                 throw mapHttpError(it.code)
             }
             parseSummary(responseBody)
         }
+    }
+
+    /** Gọi Gemini trả về văn bản tóm tắt hoặc ném [SummaryException]. */
+    private fun callGemini(apiKey: String, requestBody: String): String = callGeminiRaw(apiKey, requestBody)
+
+    private fun buildHighlightsRequestBody(title: String, body: String, languageTag: String): String {
+        val prompt = buildString {
+            append("Analyze the article below and return a concise, high-value highlights summary.\n")
+            append("Provide the response strictly as a JSON object with this structure:\n")
+            append("{\n")
+            append("  \"tldr\": \"1-2 sentence executive overview\",\n")
+            append("  \"takeaways\": [\"3 to 5 clear, concise key takeaway bullet points (do not include bullet symbols)\"],\n")
+            append("  \"tags\": [\"2 to 4 key topic keywords/tags\"]\n")
+            append("}\n")
+            append("Return ONLY raw JSON, with no markdown formatting code blocks (no ```json) and no intro/outro.\n")
+            append("Write all text in the language corresponding to BCP-47 tag \"$languageTag\".\n\n")
+            if (title.isNotBlank()) append("Title: $title\n\n")
+            append("Content:\n")
+            append(body)
+        }
+        return JSONObject().apply {
+            put("contents", org.json.JSONArray().put(
+                JSONObject().put("parts", org.json.JSONArray().put(
+                    JSONObject().put("text", prompt)
+                ))
+            ))
+            put("generationConfig", JSONObject().put("temperature", 0.2))
+        }.toString()
     }
 
     private fun buildRequestBody(title: String, body: String, languageTag: String): String {

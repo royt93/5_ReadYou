@@ -532,4 +532,17 @@
     <string name="zen_sleep_timer_min">%1$d minutes</string>
     <string name="zen_volume">Volume: %1$d%%</string>
     <string name="zen_settings_title">Zen Focus &amp; Speed Reading</string>
+    <!-- Loop 09: AI Article Highlights & Key Takeaways Card -->
+    <string name="highlights_title">Points clés de l’article</string>
+    <string name="highlights_key_takeaways">Points essentiels</string>
+    <string name="highlights_time_saved">~%1$d min économisées</string>
+    <string name="highlights_bullet_count">%1$d points clés</string>
+    <string name="highlights_copy_all">Copier les points clés</string>
+    <string name="highlights_copied_toast">Points clés copiés dans le presse-papiers</string>
+    <string name="highlights_share">Partager</string>
+    <string name="highlights_tldr">Résumé rapide (TL;DR)</string>
+    <string name="highlights_offline_fallback">Points clés intelligents hors ligne</string>
+    <string name="highlights_ai_badge">Gemini AI</string>
+    <string name="highlights_fallback_badge">Hors ligne</string>
+    <string name="highlights_retry_ai">Analyser avec Gemini AI</string>
 </resources>

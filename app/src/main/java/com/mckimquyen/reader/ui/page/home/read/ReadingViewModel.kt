@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.ItemSnapshotList
 import com.mckimquyen.reader.domain.model.article.ArticleFlowItem
+import com.mckimquyen.reader.domain.model.article.ArticleHighlights
 import com.mckimquyen.reader.domain.model.article.ArticleWithFeed
 import com.mckimquyen.reader.domain.sv.RssSv
 import com.mckimquyen.reader.infrastructure.ai.GeminiSummaryService
@@ -168,7 +169,7 @@ class ReadingViewModel @Inject constructor(
         _readingUiState.update { it.copy(showSummarySheet = false) }
     }
 
-    fun requestSummary() {
+    fun requestSummary(forceOffline: Boolean = false) {
         val state = _readingUiState.value
         val article = state.articleWithFeed?.article
         val plainText = state.content?.let {
@@ -176,17 +177,29 @@ class ReadingViewModel @Inject constructor(
                 .fromHtml(it, androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY)
                 .toString()
         }.orEmpty()
-        Log.d("roy93~AI", "[VM.requestSummary] contentLen=${state.content?.length ?: 0} plainTextLen=${plainText.length} isFullContent=${state.isFullContent}")
+        Log.d("roy93~AI", "[VM.requestSummary] contentLen=${state.content?.length ?: 0} plainTextLen=${plainText.length} forceOffline=$forceOffline")
+
+        if (plainText.isBlank()) {
+            _readingUiState.update { it.copy(summaryState = SummaryState.Error(R.string.summary_err_empty_content)) }
+            return
+        }
 
         _readingUiState.update { it.copy(summaryState = SummaryState.Loading) }
         viewModelScope.launch {
             try {
-                val summary = summaryService.summarize(
-                    title = article?.title.orEmpty(),
-                    plainText = plainText,
-                )
-                Log.d("roy93~AI", "[VM.requestSummary] ✅ Success summaryLen=${summary.length}")
-                _readingUiState.update { it.copy(summaryState = SummaryState.Success(summary)) }
+                val highlights = if (forceOffline) {
+                    com.mckimquyen.reader.infrastructure.ai.ArticleHighlightsExtractor.extractOfflineHighlights(
+                        title = article?.title.orEmpty(),
+                        plainText = plainText,
+                    )
+                } else {
+                    summaryService.extractHighlights(
+                        title = article?.title.orEmpty(),
+                        plainText = plainText,
+                    )
+                }
+                Log.d("roy93~AI", "[VM.requestSummary] ✅ Success highlights=${highlights.keyTakeaways.size} offline=${highlights.isOfflineFallback}")
+                _readingUiState.update { it.copy(summaryState = SummaryState.Success(highlights)) }
             } catch (e: Exception) {
                 Log.e("roy93~AI", "[VM.requestSummary] ❌ Error: $e", e)
                 _readingUiState.update { it.copy(summaryState = e.toSummaryErrorState()) }
@@ -299,7 +312,9 @@ data class ReadingUiState(
 sealed interface SummaryState {
     object Idle : SummaryState
     object Loading : SummaryState
-    data class Success(val text: String) : SummaryState
+    data class Success(val highlights: ArticleHighlights) : SummaryState {
+        val text: String get() = highlights.formatAsPlainText()
+    }
     /** [messageRes] là string resource (đa ngôn ngữ); [arg] tuỳ chọn dùng cho format (vd HTTP code). */
     data class Error(@StringRes val messageRes: Int, val arg: Int? = null) : SummaryState
 }

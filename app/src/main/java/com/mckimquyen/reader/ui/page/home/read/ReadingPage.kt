@@ -134,6 +134,7 @@ fun ReadingPage(
                 state = readingUiState.summaryState,
                 onRetry = { readingViewModel.requestSummary() },
                 onClose = { readingViewModel.dismissSummary() },
+                onForceOffline = { readingViewModel.requestSummary(forceOffline = true) },
             )
         },
     ) {
@@ -161,9 +162,7 @@ fun ReadingPage(
                     onRsvpReading = {
                         showRsvpDialog = true
                     },
-                    // Nút ✨ chỉ hiện khi đã cấu hình key Gemini (GeminiConfig.API_KEYS).
-                    // Chưa có key -> ẩn nút để user phổ thông không thấy tính năng chưa sẵn sàng.
-                    showSummary = com.mckimquyen.reader.infrastructure.ai.GeminiConfig.hasAnyKey(),
+                    showSummary = true,
                     onSummary = {
                         readingViewModel.openSummary()
                     },

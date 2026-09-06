@@ -601,4 +601,17 @@
     <string name="zen_sleep_timer_min">%1$d minutes</string>
     <string name="zen_volume">Volume: %1$d%%</string>
     <string name="zen_settings_title">Zen Focus &amp; Speed Reading</string>
+    <!-- Loop 09: AI Article Highlights & Key Takeaways Card -->
+    <string name="highlights_title">文章重點</string>
+    <string name="highlights_key_takeaways">核心要點</string>
+    <string name="highlights_time_saved">節省約 %1$d 分鐘</string>
+    <string name="highlights_bullet_count">%1$d 個重點</string>
+    <string name="highlights_copy_all">複製重點</string>
+    <string name="highlights_copied_toast">已複製重點至剪貼簿</string>
+    <string name="highlights_share">分享</string>
+    <string name="highlights_tldr">快速摘要 (TL;DR)</string>
+    <string name="highlights_offline_fallback">離線智慧重點</string>
+    <string name="highlights_ai_badge">Gemini AI</string>
+    <string name="highlights_fallback_badge">離線智慧</string>
+    <string name="highlights_retry_ai">使用 Gemini AI 分析</string>
 </resources>

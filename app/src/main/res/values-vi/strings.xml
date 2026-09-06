@@ -499,4 +499,17 @@
     <string name="zen_sleep_timer_min">%1$d phút</string>
     <string name="zen_volume">Âm lượng: %1$d%%</string>
     <string name="zen_settings_title">Đọc siêu tốc &amp; Tập trung Zen</string>
+    <!-- Loop 09: AI Article Highlights & Key Takeaways Card -->
+    <string name="highlights_title">Điểm nhấn bài viết</string>
+    <string name="highlights_key_takeaways">Ý chính cần nắm</string>
+    <string name="highlights_time_saved">Tiết kiệm ~%1$d phút</string>
+    <string name="highlights_bullet_count">%1$d điểm cốt lõi</string>
+    <string name="highlights_copy_all">Sao chép tóm tắt</string>
+    <string name="highlights_copied_toast">Đã sao chép tóm tắt vào bộ nhớ tạm</string>
+    <string name="highlights_share">Chia sẻ</string>
+    <string name="highlights_tldr">Tóm tắt nhanh (TL;DR)</string>
+    <string name="highlights_offline_fallback">Tóm tắt thông minh ngoại tuyến</string>
+    <string name="highlights_ai_badge">Gemini AI</string>
+    <string name="highlights_fallback_badge">Ngoại tuyến</string>
+    <string name="highlights_retry_ai">Phân tích bằng Gemini AI</string>
 </resources>
