@@ -12,6 +12,7 @@ import com.mckimquyen.reader.infrastructure.di.DefaultDispatcher
 import com.mckimquyen.reader.infrastructure.di.IODispatcher
 import com.mckimquyen.reader.infrastructure.rss.RssHelper
 import com.mckimquyen.reader.infrastructure.android.NotificationHelper
+import com.mckimquyen.reader.infrastructure.watchdog.WatchdogManager
 import javax.inject.Inject
 
 class LocalRssSv @Inject constructor(
@@ -28,6 +29,7 @@ class LocalRssSv @Inject constructor(
     @DefaultDispatcher
     private val defaultDispatcher: CoroutineDispatcher,
     workManager: WorkManager,
+    watchdogManager: WatchdogManager,
 ) : AbstractRssRepository(
     context,
     accountDao,
@@ -39,4 +41,5 @@ class LocalRssSv @Inject constructor(
     notificationHelper,
     ioDispatcher,
     defaultDispatcher,
+    watchdogManager,
 )

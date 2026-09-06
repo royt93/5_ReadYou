@@ -12,12 +12,14 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
+import androidx.compose.material.icons.outlined.NotificationsActive
 import androidx.compose.material.icons.outlined.Podcasts
 import androidx.compose.material.icons.outlined.Psychology
 import androidx.compose.material.icons.rounded.DoneAll
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -56,6 +58,8 @@ import com.mckimquyen.reader.ui.page.common.RouteName
 import com.mckimquyen.reader.ui.page.home.HomeViewModel
 import com.mckimquyen.reader.ui.page.home.addsources.CountriesList
 import com.mckimquyen.reader.ui.component.cluster.StoryClusterSheet
+import com.mckimquyen.reader.ui.component.watchdog.LocalWatchdogKeywords
+import com.mckimquyen.reader.ui.component.watchdog.WatchdogSheet
 import com.mckimquyen.reader.ui.component.base.Subtitle
 import com.mckimquyen.reader.ui.component.search.SemanticSearchCard
 import androidx.compose.foundation.lazy.items
@@ -181,6 +185,13 @@ fun FlowPage(
                     }
                 }
                 FeedbackIconButton(
+                    imageVector = Icons.Outlined.NotificationsActive,
+                    contentDescription = stringResource(R.string.watchdog_title),
+                    tint = MaterialTheme.colorScheme.onSurface,
+                ) {
+                    homeViewModel.openWatchdogSheet()
+                }
+                FeedbackIconButton(
                     imageVector = Icons.Rounded.Search,
                     contentDescription = stringResource(R.string.search),
                     tint = if (onSearch) {
@@ -203,13 +214,15 @@ fun FlowPage(
             if (filterUiState.filter.isAddSources()) {
                 CountriesList(navController = navController)
             } else {
-                SwipeRefresh(
-                onRefresh = {
-                    if (!isSyncing) {
-                        flowViewModel.sync()
-                    }
-                }
-            ) {
+                val watchdogKeywords = homeViewModel.watchdogKeywords.collectAsStateValue()
+                CompositionLocalProvider(LocalWatchdogKeywords provides watchdogKeywords) {
+                    SwipeRefresh(
+                        onRefresh = {
+                            if (!isSyncing) {
+                                flowViewModel.sync()
+                            }
+                        }
+                    ) {
                 LazyColumn(
                     modifier = Modifier.fillMaxSize(),
                     state = listState,
@@ -330,7 +343,8 @@ fun FlowPage(
                         Spacer(modifier = Modifier.height(128.dp))
                         Spacer(modifier = Modifier.windowInsetsBottomHeight(WindowInsets.navigationBars))
                     }
-                }
+                    }
+                    }
                 }
             }
 
@@ -348,6 +362,19 @@ fun FlowPage(
                     homeViewModel.markClusterAsRead(cluster)
                 }
             )
+
+            // Sheet quản lý từ khóa theo dõi khẩn cấp (Watchdog)
+            val showWatchdogSheet = homeViewModel.showWatchdogSheet.collectAsStateValue()
+            if (showWatchdogSheet) {
+                val watchdogKeywordsForSheet = homeViewModel.watchdogKeywords.collectAsStateValue()
+                WatchdogSheet(
+                    keywords = watchdogKeywordsForSheet,
+                    onDismissRequest = { homeViewModel.closeWatchdogSheet() },
+                    onAddKeyword = { homeViewModel.addWatchdogKeyword(it) },
+                    onRemoveKeyword = { homeViewModel.removeWatchdogKeyword(it) },
+                    onToggleKeyword = { id, enabled -> homeViewModel.toggleWatchdogKeyword(id, enabled) },
+                )
+            }
         },
         bottomBar = {
             FilterBar(

@@ -582,4 +582,13 @@
     <string name="semantic_search_results_title">✨ AI Semantic Matches</string>
     <string name="semantic_search_results_desc">%d articles found</string>
     <string name="keyword_search_results_title">Keyword Matches</string>
+    <string name="watchdog_title">Keyword Watchdog</string>
+    <string name="watchdog_desc">Monitor critical keywords &amp; stock tickers in background sync and alert immediately</string>
+    <string name="watchdog_add_hint">Enter keyword or ticker (e.g. $VIC, Bitcoin, Gold)...</string>
+    <string name="watchdog_add_btn">Add</string>
+    <string name="watchdog_empty_desc">No keywords added yet. Add keywords or pick suggestions below to start watching.</string>
+    <string name="watchdog_matched_count">%d matched</string>
+    <string name="watchdog_channel_name">Keyword Alert Watchdog</string>
+    <string name="watchdog_channel_desc">High priority alerts when new articles match monitored keywords</string>
+    <string name="watchdog_preset_title">Quick Suggestions</string>
 </resources>

@@ -593,4 +593,13 @@
     <string name="semantic_search_results_title">✨ Семантические совпадения ИИ</string>
     <string name="semantic_search_results_desc">%d статей найдено</string>
     <string name="keyword_search_results_title">Результаты по ключевым словам</string>
+    <string name="watchdog_title">Сторож ключевых слов</string>
+    <string name="watchdog_desc">Отслеживайте важные ключевые слова и биржевые тикеры в фоне со срочными оповещениями</string>
+    <string name="watchdog_add_hint">Введите ключевое слово или тикер (напр. $NVDA, Биткоин, Золото)...</string>
+    <string name="watchdog_add_btn">Добавить</string>
+    <string name="watchdog_empty_desc">Ключевые слова пока не добавлены. Введите слово или выберите подсказку ниже.</string>
+    <string name="watchdog_matched_count">Найдено: %d</string>
+    <string name="watchdog_channel_name">Срочные оповещения сторожа</string>
+    <string name="watchdog_channel_desc">Оповещения высокой важности при совпадении новых статей с ключевыми словами</string>
+    <string name="watchdog_preset_title">Быстрые варианты</string>
 </resources>

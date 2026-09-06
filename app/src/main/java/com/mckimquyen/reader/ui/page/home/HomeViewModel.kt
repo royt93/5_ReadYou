@@ -36,6 +36,8 @@ import com.mckimquyen.reader.domain.repository.ArticleDao
 import com.mckimquyen.reader.infrastructure.ai.clustering.StoryClusteringEngine
 import com.mckimquyen.reader.infrastructure.ai.search.SemanticSearchEngine
 import com.mckimquyen.reader.infrastructure.ai.search.SemanticSearchResult
+import com.mckimquyen.reader.infrastructure.watchdog.WatchdogManager
+import com.mckimquyen.reader.domain.model.watchdog.WatchdogKeyword
 import com.mckimquyen.reader.ui.ext.currentAccountId
 import com.mckimquyen.reader.ui.ext.flowSemanticSearch
 import com.mckimquyen.reader.ui.ext.flowStoryClustering
@@ -50,6 +52,7 @@ class HomeViewModel @Inject constructor(
     private val clusteringEngine: StoryClusteringEngine,
     private val semanticSearchEngine: SemanticSearchEngine,
     private val rssService: RssSv,
+    private val watchdogManager: WatchdogManager,
     private val androidStringsHelper: AndroidStringsHelper,
     @ApplicationScope
     private val applicationScope: CoroutineScope,
@@ -102,6 +105,25 @@ class HomeViewModel @Inject constructor(
     fun closeCommuteCast() {
         _showCommuteCast.value = false
     }
+
+    val watchdogKeywords: StateFlow<List<WatchdogKeyword>> = watchdogManager.keywords
+
+    private val _showWatchdogSheet = MutableStateFlow(false)
+    val showWatchdogSheet: StateFlow<Boolean> = _showWatchdogSheet.asStateFlow()
+
+    fun openWatchdogSheet() {
+        _showWatchdogSheet.value = true
+    }
+
+    fun closeWatchdogSheet() {
+        _showWatchdogSheet.value = false
+    }
+
+    fun addWatchdogKeyword(keyword: String): Boolean = watchdogManager.addKeyword(keyword)
+
+    fun removeWatchdogKeyword(id: String) = watchdogManager.removeKeyword(id)
+
+    fun toggleWatchdogKeyword(id: String, isEnabled: Boolean) = watchdogManager.toggleKeyword(id, isEnabled)
 
     val syncWorkLiveData = workManager.getWorkInfosByTagLiveData(SyncWorker.WORK_NAME)
 

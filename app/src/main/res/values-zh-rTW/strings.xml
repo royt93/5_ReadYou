@@ -583,4 +583,13 @@
     <string name="semantic_search_results_title">✨ AI 語意匹配結果</string>
     <string name="semantic_search_results_desc">找到 %d 篇相符文章</string>
     <string name="keyword_search_results_title">關鍵詞匹配結果</string>
+    <string name="watchdog_title">關鍵字雷達</string>
+    <string name="watchdog_desc">背景同步時即時監控關鍵熱詞與股票代碼，發現即高優先順序彈窗警報</string>
+    <string name="watchdog_add_hint">輸入關鍵字或股票代碼（如 $NVDA, 降息, 黃金）...</string>
+    <string name="watchdog_add_btn">新增</string>
+    <string name="watchdog_empty_desc">暫無監控關鍵字。請輸入關鍵字或點擊下方快捷建議開始監控。</string>
+    <string name="watchdog_matched_count">已捕獲 %d 篇</string>
+    <string name="watchdog_channel_name">關鍵字緊急預警</string>
+    <string name="watchdog_channel_desc">新文章符合監控關鍵字時發送高優先順序預警通知</string>
+    <string name="watchdog_preset_title">快捷建議</string>
 </resources>

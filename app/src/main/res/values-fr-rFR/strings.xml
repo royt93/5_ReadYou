@@ -590,4 +590,13 @@
     <string name="semantic_search_results_title">✨ Résultats sémantiques IA</string>
     <string name="semantic_search_results_desc">%d articles trouvés</string>
     <string name="keyword_search_results_title">Correspondances par mot-clé</string>
+    <string name="watchdog_title">Sentinelle de mots-clés</string>
+    <string name="watchdog_desc">Surveiller les mots-clés critiques et symboles boursiers en tâche de fond avec alerte immédiate</string>
+    <string name="watchdog_add_hint">Entrez un mot-clé ou ticker (ex. $AAPL, Inflation, Or)...</string>
+    <string name="watchdog_add_btn">Ajouter</string>
+    <string name="watchdog_empty_desc">Aucun mot-clé pour le moment. Ajoutez des mots-clés ou choisissez ci-dessous.</string>
+    <string name="watchdog_matched_count">%d détectés</string>
+    <string name="watchdog_channel_name">Alerte Sentinelle</string>
+    <string name="watchdog_channel_desc">Alertes prioritaires lorsque de nouveaux articles correspondent aux mots-clés</string>
+    <string name="watchdog_preset_title">Suggestions rapides</string>
 </resources>

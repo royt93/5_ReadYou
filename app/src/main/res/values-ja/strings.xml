@@ -584,4 +584,13 @@
     <string name="semantic_search_results_title">✨ AI セマンティック一致</string>
     <string name="semantic_search_results_desc">%d 件の一致記事</string>
     <string name="keyword_search_results_title">キーワード一致結果</string>
+    <string name="watchdog_title">キーワード・ウォッチドッグ</string>
+    <string name="watchdog_desc">バックグラウンド同期で重要キーワードや銘柄を監視し、即座に高優先度通知</string>
+    <string name="watchdog_add_hint">キーワードや銘柄を入力（例: $NVDA, 利下げ, 金価格）...</string>
+    <string name="watchdog_add_btn">追加</string>
+    <string name="watchdog_empty_desc">監視キーワードがまだありません。入力または下の候補から選択してください。</string>
+    <string name="watchdog_matched_count">%d 件検知</string>
+    <string name="watchdog_channel_name">キーワード緊急アラート</string>
+    <string name="watchdog_channel_desc">新着記事が監視キーワードに一致した際、重要アラートを送信</string>
+    <string name="watchdog_preset_title">おすすめ候補</string>
 </resources>

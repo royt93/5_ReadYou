@@ -8,6 +8,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import dagger.hilt.android.qualifiers.ApplicationContext
 import com.mckimquyen.reader.R
+import com.mckimquyen.reader.domain.model.article.Article
 import com.mckimquyen.reader.domain.model.feed.FeedWithArticle
 import com.mckimquyen.reader.ui.page.common.ExtraName
 import com.mckimquyen.reader.ui.page.common.NotificationGroupName
@@ -44,6 +45,17 @@ class NotificationHelper @Inject constructor(
                     NotificationManager.IMPORTANCE_DEFAULT
                 ).apply {
                     description = "Bản tin tạp chí định giờ sáng và tối"
+                }
+            )
+            createNotificationChannel(
+                NotificationChannel(
+                    WATCHDOG_CHANNEL_ID,
+                    context.getString(R.string.watchdog_channel_name),
+                    NotificationManager.IMPORTANCE_HIGH
+                ).apply {
+                    description = context.getString(R.string.watchdog_channel_desc)
+                    enableLights(true)
+                    enableVibration(true)
                 }
             )
         }
@@ -164,7 +176,37 @@ class NotificationHelper @Inject constructor(
         notificationManager.notify(ZEN_DAILY_EDITION_NOTIFICATION_ID, notification)
     }
 
+    fun notifyWatchdogAlert(article: Article, keyword: String, feedName: String) {
+        val intent = Intent(context, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            putExtra(ExtraName.ARTICLE_ID, article.id)
+        }
+        val pendingIntent = PendingIntent.getActivity(
+            context,
+            Random().nextInt() + article.id.hashCode(),
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+
+        val notification = NotificationCompat.Builder(context, WATCHDOG_CHANNEL_ID)
+            .setSmallIcon(R.drawable.ic_notification)
+            .setContentTitle("🚨 [$keyword] ${article.title}")
+            .setContentText(article.shortDescription.ifBlank { article.title })
+            .setStyle(
+                NotificationCompat.BigTextStyle()
+                    .bigText(article.shortDescription.ifBlank { article.title })
+                    .setSummaryText(feedName)
+            )
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setAutoCancel(true)
+            .setContentIntent(pendingIntent)
+            .build()
+
+        notificationManager.notify(article.id.hashCode(), notification)
+    }
+
     companion object {
+        const val WATCHDOG_CHANNEL_ID = "watchdog_keyword_alert_channel"
         const val COMMUTE_CHANNEL_ID = "commute_cast_channel"
         const val COMMUTE_NOTIFICATION_ID = 9988
         const val EXTRA_START_COMMUTE = "extra_start_commute"

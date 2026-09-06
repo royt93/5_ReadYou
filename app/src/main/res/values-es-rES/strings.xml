@@ -590,4 +590,13 @@
     <string name="semantic_search_results_title">✨ Coincidencias semánticas IA</string>
     <string name="semantic_search_results_desc">%d artículos encontrados</string>
     <string name="keyword_search_results_title">Coincidencias por palabra clave</string>
+    <string name="watchdog_title">Centinela de palabras clave</string>
+    <string name="watchdog_desc">Monitorea palabras clave críticas y valores bursátiles en sincronización en segundo plano</string>
+    <string name="watchdog_add_hint">Ingresa palabra clave o ticker (ej. $AAPL, Inflación, Oro)...</string>
+    <string name="watchdog_add_btn">Añadir</string>
+    <string name="watchdog_empty_desc">Sin palabras clave aún. Añade términos o elige de las sugerencias.</string>
+    <string name="watchdog_matched_count">%d detectados</string>
+    <string name="watchdog_channel_name">Alerta Centinela</string>
+    <string name="watchdog_channel_desc">Alertas de alta prioridad cuando nuevos artículos coinciden con las palabras vigiladas</string>
+    <string name="watchdog_preset_title">Sugerencias rápidas</string>
 </resources>

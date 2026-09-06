@@ -19,6 +19,7 @@ import com.mckimquyen.reader.infrastructure.android.NotificationHelper
 import com.mckimquyen.reader.infrastructure.pref.KeepArchivedPreference
 import com.mckimquyen.reader.infrastructure.pref.SyncIntervalPref
 import com.mckimquyen.reader.infrastructure.rss.RssHelper
+import com.mckimquyen.reader.infrastructure.watchdog.WatchdogManager
 import com.mckimquyen.reader.ui.ext.currentAccountId
 import com.mckimquyen.reader.ui.ext.spacerDollar
 import kotlinx.coroutines.CoroutineDispatcher
@@ -43,6 +44,7 @@ abstract class AbstractRssRepository(
     private val notificationHelper: NotificationHelper,
     private val dispatcherIO: CoroutineDispatcher,
     private val dispatcherDefault: CoroutineDispatcher,
+    private val watchdogManager: WatchdogManager,
 ) {
 
     open val subscribe: Boolean = true
@@ -87,6 +89,7 @@ abstract class AbstractRssRepository(
                         .filterNotNull()
                         .forEach {
                             val insertedArticles = articleDao.insertListIfNotExist(it.articles)
+                            watchdogManager.checkAndNotify(insertedArticles, it.feed)
                             if (it.feed.isNotification && !shouldSilenceNotification()) {
                                 notificationHelper.notify(it.apply {
                                     articles = insertedArticles

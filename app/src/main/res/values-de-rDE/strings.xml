@@ -587,4 +587,13 @@
     <string name="semantic_search_results_title">✨ KI-Semantische Treffer</string>
     <string name="semantic_search_results_desc">%d Artikel gefunden</string>
     <string name="keyword_search_results_title">Schlagwort-Treffer</string>
+    <string name="watchdog_title">Schlagwort-Wachhund</string>
+    <string name="watchdog_desc">Kritische Schlagwörter &amp; Aktienticker im Hintergrund überwachen und sofort warnen</string>
+    <string name="watchdog_add_hint">Schlagwort oder Ticker eingeben (z. B. $AAPL, Zinsen, Gold)...</string>
+    <string name="watchdog_add_btn">Hinzufügen</string>
+    <string name="watchdog_empty_desc">Noch keine Schlagwörter vorhanden. Fügen Sie Begriffe hinzu oder wählen Sie Empfehlungen.</string>
+    <string name="watchdog_matched_count">%d Treffer</string>
+    <string name="watchdog_channel_name">Schlagwort-Dringlichkeitsalarm</string>
+    <string name="watchdog_channel_desc">Dringliche Benachrichtigungen bei neuen Artikeln mit überwachten Begriffen</string>
+    <string name="watchdog_preset_title">Schnellvorschläge</string>
 </resources>

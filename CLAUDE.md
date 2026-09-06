@@ -8,8 +8,6 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Build & Run
 
-There is no test source set at present (`app/src/test` / `androidTest` contain no `.kt` files), so there are no unit/instrumented tests to run.
-
 The project uses two flavor dimensions × build types, producing four variants:
 - `channel` dimension: **`dev`** and **`prod`** flavors
 - build types: **`debug`** and **`release`**
@@ -30,9 +28,20 @@ The project uses two flavor dimensions × build types, producing four variants:
 
 # Install onto a connected device/emulator
 ./gradlew installDevDebug
+
+# Run unit tests (JVM, Robolectric) — dev flavor
+./gradlew testDevDebugUnitTest
+
+# Run a single unit test class
+./gradlew testDevDebugUnitTest --tests "com.mckimquyen.reader.domain.sv.SomeClassTest"
+
+# Run instrumented tests (needs connected device/emulator) — dev flavor
+./gradlew connectedDevDebugAndroidTest
 ```
 
 Output APK names are templated as `RSS Cat Hub-<versionName>-<gitCommitHash>.apk`.
+
+Unit tests live under `app/src/test`, instrumented tests under `app/src/androidTest`, mirroring the `domain`/`infrastructure`/`ui` package layout below. Stack: JUnit4, MockK, `kotlinx-coroutines-test`, Robolectric, and Compose `ui-test-junit4` for composable tests.
 
 ### Toolchain / important gotchas
 - AGP **8.6.1**, Kotlin **2.1.0**, KSP `2.1.0-1.0.29`, Java/JVM target **17**, `compileSdk`/`targetSdk` **36**, `minSdk` **26**.
@@ -47,14 +56,15 @@ Output APK names are templated as `RSS Cat Hub-<versionName>-<gitCommitHash>.apk
 Source lives under `app/src/main/java/com/mckimquyen/reader/`, split into three layers:
 
 - **`domain/`** — business layer.
-  - `model/` — data classes / entities (`account`, `feed`, `article`, `group`, `addedsource`, `general`, `constant`).
+  - `model/` — data classes / entities (`account`, `feed`, `article`, `group`, `addedsource`, `general`, `constant`, `cluster`, `commute`, `rpg`, `watchdog`).
   - `repository/` — Room **DAOs** (`AccountDao`, `FeedDao`, `ArticleDao`, `GroupDao`, `AddedRssSourceDao`) plus `RssSourceRepository`.
   - `sv/` — **services** (the app's term for use-case/repository logic): `AccountSv`, `AppSv`, `OpmlSv`, `RssSv`, and RSS backend implementations.
+  - `zen/`, `watchdog/` — standalone domain logic for the Zen (focus/reading mode) and Watchdog (feed/article monitoring) features.
 - **`infrastructure/`** — platform glue.
   - `di/` — Hilt modules (`DbModule`, `OkHttpClientModule`, `RetrofitModule`, `ImageLoaderModule`, `WorkerModule`, dispatcher/scope qualifiers).
   - `db/` — `AndroidDb.kt` (Room `@Database`).
-  - `net/`, `rss/` (RSS/OPML parsing, favicons, per-backend providers under `rss/provider/{fever,googleReader}`), `audio/` (read-aloud / TTS), `pref/` (DataStore preferences), `android/` (`MainActivity`, helpers, crash handler).
-- **`ui/`** — Compose UI: `page/` (feature screens: `home/{feed,flow,read,addsources}`, `setting/`, `startup/`, `about/`, `common/`), `component/`, `theme/`, `svg/`, `ext/`.
+  - `net/`, `rss/` (RSS/OPML parsing, favicons, per-backend providers under `rss/provider/{fever,googleReader}`), `audio/` (read-aloud / TTS), `pref/` (DataStore preferences), `android/` (`MainActivity`, helpers, crash handler), `ai/` (on-device AI: article deduplication/clustering, semantic search, deep-read Q&A, mind map — see recent `feat(ai): ...` commits), `watchdog/` — platform side of the Watchdog feature.
+- **`ui/`** — Compose UI: `page/` (feature screens: `home/{feed,flow,read,addsources}`, `setting/{zen,vip,...}`, `startup/`, `about/`, `common/`, `rpg/`, `rsvp/`), `component/` (incl. `cluster/`, `commute/`, `rpg/`), `theme/`, `svg/`, `ext/`.
 
 ### RSS backend abstraction
 `RssSv` is a runtime **dispatcher**: `RssSv.get(accountTypeId)` returns the concrete `AbstractRssRepository` subclass for the current account (`LocalRssSv`, `FeverRssSv`; Google Reader/Inoreader/Feedly currently fall back to `LocalRssSv`). `AbstractRssRepository` defines the common contract (subscribe/move/delete/update, sync) and capability flags. **To add or change a backend, implement against `AbstractRssRepository` and wire it into `RssSv.get()` — do not call provider classes directly from UI.** Sync runs through `SyncWorker` (WorkManager + Hilt worker factory).
@@ -72,5 +82,5 @@ All settings are DataStore-backed. `infrastructure/pref/Settings.kt` aggregates 
 Ad integration goes through the external **AdmobWrapper** SDK (`com.github.royt93:AdmobWrapper`, package `com.roy.sdkadbmob`, exposing `AdManager` / `AdSdkConfig`). `RApp.setupAdmob()` builds `AdSdkConfig` from `BuildConfig` fields and selects the provider via `BuildConfig.IS_ENABLE_ADMOB` (`true` = AdMob, `false` = AppLovin MAX). All ad unit IDs and the enable flag are defined as `buildConfigField`s per build type in `app/build.gradle`. App-open ads are wired through `registerAppOpenAdLifecycle`. The local `sdkadbmob/ComposeBannerAd.kt` is the Compose banner wrapper. The AMOLED dark theme is an ad-gated "unlock" feature (`AmoledUnlockedPref` / `AmoledDarkThemePref`). Background and history of the ad migration is documented in `doc/AD.MD`.
 
 ## Notes
-- `doc/` holds working notes (in Vietnamese): `AD.MD` (ad SDK migration), `memory_leak.md`, `quick_win.md`, `warning.md`, `init.md`. The numerous `*_err*.txt` / `compile_err*.txt` / `build_output.log` files at the repo root are stale build-log artifacts, not source.
+- `doc/` holds working notes (in Vietnamese): `AD.MD` / `AD_PROMPT_AOS.MD` (ad SDK migration), `memory_leak.md`, `quick_win.md`, `warning.md`, `init.md`, plus `task/` and `test/` subfolders. The numerous `*_err*.txt` / `compile_err*.txt` / `build_output.log` files at the repo root are stale build-log artifacts, not source.
 - App restart uses `ProcessPhoenix`; in-app review uses Play `review-ktx`.

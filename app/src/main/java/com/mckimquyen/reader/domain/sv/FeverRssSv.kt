@@ -23,6 +23,7 @@ import com.mckimquyen.reader.infrastructure.di.MainDispatcher
 import com.mckimquyen.reader.infrastructure.rss.RssHelper
 import com.mckimquyen.reader.infrastructure.rss.provider.fever.FeverAPI
 import com.mckimquyen.reader.infrastructure.rss.provider.fever.FeverDTO
+import com.mckimquyen.reader.infrastructure.watchdog.WatchdogManager
 import com.mckimquyen.reader.ui.ext.currentAccountId
 import com.mckimquyen.reader.ui.ext.dollarLast
 import com.mckimquyen.reader.ui.ext.showToast
@@ -51,9 +52,11 @@ class FeverRssSv @Inject constructor(
     @DefaultDispatcher
     private val defaultDispatcher: CoroutineDispatcher,
     workManager: WorkManager,
+    watchdogManager: WatchdogManager,
 ) : AbstractRssRepository(
     context, accountDao, articleDao, groupDao,
-    feedDao, workManager, rssHelper, notificationHelper, ioDispatcher, defaultDispatcher
+    feedDao, workManager, rssHelper, notificationHelper, ioDispatcher, defaultDispatcher,
+    watchdogManager
 ) {
 
     override val subscribe: Boolean = false

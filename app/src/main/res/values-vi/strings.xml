@@ -557,4 +557,13 @@
     <string name="semantic_search_results_title">✨ Phù hợp ngữ nghĩa AI</string>
     <string name="semantic_search_results_desc">%d bài viết phù hợp</string>
     <string name="keyword_search_results_title">Kết quả theo từ khóa</string>
+    <string name="watchdog_title">Chó Săn Cảnh Báo</string>
+    <string name="watchdog_desc">Giám sát từ khóa nhạy cảm &amp; mã cổ phiếu trong chu kỳ đồng bộ nền và cảnh báo khẩn cấp</string>
+    <string name="watchdog_add_hint">Nhập từ khóa hoặc mã CK (vd: $VIC, Bitcoin, Giá vàng)...</string>
+    <string name="watchdog_add_btn">Thêm</string>
+    <string name="watchdog_empty_desc">Chưa có từ khóa nào. Nhập từ khóa hoặc chọn gợi ý bên dưới để bắt đầu giám sát.</string>
+    <string name="watchdog_matched_count">Đã bắt %d bài</string>
+    <string name="watchdog_channel_name">Cảnh Báo Từ Khóa Khẩn Cấp (Watchdog)</string>
+    <string name="watchdog_channel_desc">Cảnh báo ưu tiên cao khi phát hiện bài viết chứa từ khóa quan trọng</string>
+    <string name="watchdog_preset_title">Gợi ý theo dõi nhanh</string>
 </resources>

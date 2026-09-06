@@ -49,9 +49,12 @@ import com.mckimquyen.reader.infrastructure.pref.LocalFlowArticleListFeedIcon
 import com.mckimquyen.reader.infrastructure.pref.LocalFlowArticleListFeedName
 import com.mckimquyen.reader.infrastructure.pref.LocalFlowArticleListImage
 import com.mckimquyen.reader.infrastructure.pref.LocalFlowArticleListTime
+import com.mckimquyen.reader.domain.watchdog.WatchdogEngine
 import com.mckimquyen.reader.ui.component.FeedIcon
 import com.mckimquyen.reader.ui.component.base.BaseAsyncImage
 import com.mckimquyen.reader.ui.component.base.SIZE_1000
+import com.mckimquyen.reader.ui.component.watchdog.LocalWatchdogKeywords
+import com.mckimquyen.reader.ui.component.watchdog.WatchdogBadge
 import com.mckimquyen.reader.ui.theme.Shape20
 
 @Composable
@@ -64,6 +67,19 @@ fun ArticleItem(
     val articleListImage = LocalFlowArticleListImage.current
     val articleListDesc = LocalFlowArticleListDesc.current
     val articleListDate = LocalFlowArticleListTime.current
+
+    val watchdogKeywords = LocalWatchdogKeywords.current
+    val matchedKeyword = remember(articleWithFeed.article.id, watchdogKeywords) {
+        if (watchdogKeywords.isEmpty()) null
+        else {
+            WatchdogEngine.matchArticle(
+                title = articleWithFeed.article.title,
+                desc = articleWithFeed.article.shortDescription,
+                content = articleWithFeed.article.fullContent,
+                keywords = watchdogKeywords,
+            )
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -139,6 +155,13 @@ fun ArticleItem(
             Column(
                 modifier = Modifier.weight(1f),
             ) {
+                // Watchdog Alert Badge
+                if (matchedKeyword != null) {
+                    WatchdogBadge(
+                        keyword = matchedKeyword.keyword,
+                        modifier = Modifier.padding(bottom = 4.dp),
+                    )
+                }
 
                 // Title
                 Text(

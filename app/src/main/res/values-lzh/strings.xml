@@ -659,4 +659,13 @@
     <string name="semantic_search_results_title">✨ 義通理契者</string>
     <string name="semantic_search_results_desc">獲契旨之文 %d 篇</string>
     <string name="keyword_search_results_title">字面相吻者</string>
+    <string name="watchdog_title">要語伺候 (Keyword Watchdog)</string>
+    <string name="watchdog_desc">潛候緊切辭字及市廛股票，一伺有聞，急報知曉</string>
+    <string name="watchdog_add_hint">書伺候之辭或股市代號...</string>
+    <string name="watchdog_add_btn">立候</string>
+    <string name="watchdog_empty_desc">尚無伺候之辭。請書要字或採下方薦錄以始伺候。</string>
+    <string name="watchdog_matched_count">已獲 %d 篇</string>
+    <string name="watchdog_channel_name">急候警聞</string>
+    <string name="watchdog_channel_desc">文稿吻合要字之時，發緊切之報</string>
+    <string name="watchdog_preset_title">敏候速選</string>
 </resources>

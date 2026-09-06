@@ -583,4 +583,13 @@
     <string name="semantic_search_results_title">✨ AI 语义匹配结果</string>
     <string name="semantic_search_results_desc">找到 %d 篇契合文章</string>
     <string name="keyword_search_results_title">关键词匹配结果</string>
+    <string name="watchdog_title">关键词雷达</string>
+    <string name="watchdog_desc">后台同步时实时监控关键热词与股票代码，发现即高优先级弹窗警报</string>
+    <string name="watchdog_add_hint">输入关键词或股票代码（如 $NVDA, 降息, 黄金）...</string>
+    <string name="watchdog_add_btn">添加</string>
+    <string name="watchdog_empty_desc">暂无监控关键词。请输入关键词或点击下方快捷建议开始监控。</string>
+    <string name="watchdog_matched_count">已捕获 %d 篇</string>
+    <string name="watchdog_channel_name">关键词紧急预警</string>
+    <string name="watchdog_channel_desc">新文章匹配监控关键词时发送高优先级预警通知</string>
+    <string name="watchdog_preset_title">快捷建议</string>
 </resources>
