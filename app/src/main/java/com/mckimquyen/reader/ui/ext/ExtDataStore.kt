@@ -44,6 +44,9 @@ val Context.languages: Int
 val Context.flowStoryClustering: Boolean
     get() = this.dataStore.get(DataStoreKeys.FlowStoryClustering) ?: true
 
+val Context.flowSemanticSearch: Boolean
+    get() = this.dataStore.get(DataStoreKeys.FlowSemanticSearch) ?: true
+
 suspend fun <T> DataStore<Preferences>.put(dataStoreKeys: DataStoreKeys<T>, value: T) {
     this.edit {
         withContext(Dispatchers.IO) {
@@ -250,6 +253,12 @@ sealed class DataStoreKeys<T> {
 
         override val key: Preferences.Key<Boolean>
             get() = booleanPreferencesKey("flowStoryClustering")
+    }
+
+    object FlowSemanticSearch : DataStoreKeys<Boolean>() {
+
+        override val key: Preferences.Key<Boolean>
+            get() = booleanPreferencesKey("flowSemanticSearch")
     }
 
     object FlowArticleListFeedIcon : DataStoreKeys<Boolean>() {

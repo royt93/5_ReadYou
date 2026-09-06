@@ -577,4 +577,10 @@
     <string name="story_cluster_mark_all_read">全部標為已讀</string>
     <string name="story_cluster_sheet_title">新聞全景與多維視角</string>
     <string name="story_cluster_lead_badge">主導</string>
+    <string name="semantic_search_title">AI 語意搜尋</string>
+    <string name="semantic_search_desc">根據概念與語意理解檢索文章，而非僅精確匹配關鍵詞</string>
+    <string name="semantic_match_badge">%d%% 語意相符</string>
+    <string name="semantic_search_results_title">✨ AI 語意匹配結果</string>
+    <string name="semantic_search_results_desc">找到 %d 篇相符文章</string>
+    <string name="keyword_search_results_title">關鍵詞匹配結果</string>
 </resources>

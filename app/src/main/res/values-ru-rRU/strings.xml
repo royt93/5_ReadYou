@@ -587,4 +587,10 @@
     <string name="story_cluster_mark_all_read">Mark All Read</string>
     <string name="story_cluster_sheet_title">Multi-Perspective Story Coverage</string>
     <string name="story_cluster_lead_badge">Lead</string>
+    <string name="semantic_search_title">Семантический поиск ИИ</string>
+    <string name="semantic_search_desc">Поиск статей по смыслу и концепциям, а не только по точным ключевым словам</string>
+    <string name="semantic_match_badge">%d%% совпадение</string>
+    <string name="semantic_search_results_title">✨ Семантические совпадения ИИ</string>
+    <string name="semantic_search_results_desc">%d статей найдено</string>
+    <string name="keyword_search_results_title">Результаты по ключевым словам</string>
 </resources>

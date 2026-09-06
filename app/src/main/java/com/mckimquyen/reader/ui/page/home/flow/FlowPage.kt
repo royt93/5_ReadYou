@@ -56,6 +56,9 @@ import com.mckimquyen.reader.ui.page.common.RouteName
 import com.mckimquyen.reader.ui.page.home.HomeViewModel
 import com.mckimquyen.reader.ui.page.home.addsources.CountriesList
 import com.mckimquyen.reader.ui.component.cluster.StoryClusterSheet
+import com.mckimquyen.reader.ui.component.base.Subtitle
+import com.mckimquyen.reader.ui.component.search.SemanticSearchCard
+import androidx.compose.foundation.lazy.items
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -79,6 +82,7 @@ fun FlowPage(
     val filterBarPadding = LocalFlowFilterBarPadding.current
     val filterBarTonalElevation = LocalFlowFilterBarTonalElevation.current
     val homeUiState = homeViewModel.homeUiState.collectAsStateValue()
+    val semanticResults = homeViewModel.semanticSearchResults.collectAsStateValue()
     val flowUiState = flowViewModel.flowUiState.collectAsStateValue()
     val filterUiState = homeViewModel.filterUiState.collectAsStateValue()
     val pagingItems = homeUiState.pagingData.collectAsLazyPagingItems()
@@ -269,6 +273,34 @@ fun FlowPage(
                                 }
                             )
                             Spacer(modifier = Modifier.height((56 + 24 + 10).dp))
+                        }
+                    }
+
+                    if (onSearch && semanticResults.isNotEmpty()) {
+                        item {
+                            Subtitle(
+                                modifier = Modifier.padding(horizontal = 24.dp),
+                                text = stringResource(R.string.semantic_search_results_title),
+                            )
+                        }
+                        items(semanticResults, key = { "semantic_${it.articleWithFeed.article.id}" }) { result ->
+                            SemanticSearchCard(
+                                result = result,
+                                isShowFeedIcon = articleListFeedIcon.value,
+                                onClick = {
+                                    onSearch = false
+                                    navController.navigate("${RouteName.READING}/${result.articleWithFeed.article.id}") {
+                                        launchSingleTop = true
+                                    }
+                                }
+                            )
+                        }
+                        item {
+                            Spacer(modifier = Modifier.height(12.dp))
+                            Subtitle(
+                                modifier = Modifier.padding(horizontal = 24.dp),
+                                text = stringResource(R.string.keyword_search_results_title),
+                            )
                         }
                     }
 

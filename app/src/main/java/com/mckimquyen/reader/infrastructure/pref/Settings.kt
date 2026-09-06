@@ -53,6 +53,7 @@ data class Settings(
     val flowArticleListDateStickyHeader: FlowArticleListDateStickyHeaderPref = FlowArticleListDateStickyHeaderPref.default,
     val flowArticleListTonalElevation: FlowArticleListTonalElevationPref = FlowArticleListTonalElevationPref.default,
     val flowStoryClustering: FlowStoryClusteringPref = FlowStoryClusteringPref.default,
+    val flowSemanticSearch: FlowSemanticSearchPref = FlowSemanticSearchPref.default,
 
     // Reading page
     val readingTheme: ReadingThemePref = ReadingThemePref.default,
@@ -150,6 +151,8 @@ val LocalFlowArticleListTonalElevation =
     compositionLocalOf<FlowArticleListTonalElevationPref> { FlowArticleListTonalElevationPref.default }
 val LocalFlowStoryClustering =
     compositionLocalOf<FlowStoryClusteringPref> { FlowStoryClusteringPref.default }
+val LocalFlowSemanticSearch =
+    compositionLocalOf<FlowSemanticSearchPref> { FlowSemanticSearchPref.default }
 
 // Reading page
 val LocalReadingTheme = compositionLocalOf<ReadingThemePref> { ReadingThemePref.default }
@@ -242,6 +245,7 @@ fun SettingsProvider(
         LocalFlowArticleListDateStickyHeader provides settings.flowArticleListDateStickyHeader,
         LocalFlowArticleListTonalElevation provides settings.flowArticleListTonalElevation,
         LocalFlowStoryClustering provides settings.flowStoryClustering,
+        LocalFlowSemanticSearch provides settings.flowSemanticSearch,
         LocalFlowFilterBarStyle provides settings.flowFilterBarStyle,
         LocalFlowFilterBarFilled provides settings.flowFilterBarFilled,
         LocalFlowFilterBarPadding provides settings.flowFilterBarPadding,

@@ -584,4 +584,10 @@
     <string name="story_cluster_mark_all_read">Mark All Read</string>
     <string name="story_cluster_sheet_title">Multi-Perspective Story Coverage</string>
     <string name="story_cluster_lead_badge">Lead</string>
+    <string name="semantic_search_title">Recherche sémantique IA</string>
+    <string name="semantic_search_desc">Rechercher par concept et signification plutôt que par mots-clés exacts</string>
+    <string name="semantic_match_badge">%d%% pertinent</string>
+    <string name="semantic_search_results_title">✨ Résultats sémantiques IA</string>
+    <string name="semantic_search_results_desc">%d articles trouvés</string>
+    <string name="keyword_search_results_title">Correspondances par mot-clé</string>
 </resources>

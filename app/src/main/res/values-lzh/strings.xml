@@ -653,4 +653,10 @@
     <string name="story_cluster_mark_all_read">盡誌已覽</string>
     <string name="story_cluster_sheet_title">博觀眾家之說</string>
     <string name="story_cluster_lead_badge">主說</string>
+    <string name="semantic_search_title">意蘊索文 (AI Semantic Search)</string>
+    <string name="semantic_search_desc">按理義幽微而索，不拘字句同異</string>
+    <string name="semantic_match_badge">%d%% 意蘊合契</string>
+    <string name="semantic_search_results_title">✨ 義通理契者</string>
+    <string name="semantic_search_results_desc">獲契旨之文 %d 篇</string>
+    <string name="keyword_search_results_title">字面相吻者</string>
 </resources>

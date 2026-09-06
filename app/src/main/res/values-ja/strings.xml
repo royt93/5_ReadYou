@@ -578,4 +578,10 @@
     <string name="story_cluster_mark_all_read">すべて既読にする</string>
     <string name="story_cluster_sheet_title">ニュースの多角的な視点</string>
     <string name="story_cluster_lead_badge">主要</string>
+    <string name="semantic_search_title">AI セマンティック検索</string>
+    <string name="semantic_search_desc">単語の完全一致だけでなく概念や文脈から関連記事を検索します</string>
+    <string name="semantic_match_badge">%d%% 一致</string>
+    <string name="semantic_search_results_title">✨ AI セマンティック一致</string>
+    <string name="semantic_search_results_desc">%d 件の一致記事</string>
+    <string name="keyword_search_results_title">キーワード一致結果</string>
 </resources>

@@ -581,4 +581,10 @@
     <string name="story_cluster_mark_all_read">Mark All Read</string>
     <string name="story_cluster_sheet_title">Multi-Perspective Story Coverage</string>
     <string name="story_cluster_lead_badge">Lead</string>
+    <string name="semantic_search_title">KI-Semantische Suche</string>
+    <string name="semantic_search_desc">Artikel nach Konzept und Bedeutung suchen statt nur nach exakten Begriffen</string>
+    <string name="semantic_match_badge">%d%% Übereinstimmung</string>
+    <string name="semantic_search_results_title">✨ KI-Semantische Treffer</string>
+    <string name="semantic_search_results_desc">%d Artikel gefunden</string>
+    <string name="keyword_search_results_title">Schlagwort-Treffer</string>
 </resources>

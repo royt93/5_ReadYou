@@ -584,4 +584,10 @@
     <string name="story_cluster_mark_all_read">Marcar tudo como lido</string>
     <string name="story_cluster_sheet_title">Cobertura e Múltiplas Perspectivas</string>
     <string name="story_cluster_lead_badge">Principal</string>
+    <string name="semantic_search_title">AI Semantic Search</string>
+    <string name="semantic_search_desc">Search articles by concept and semantic meaning rather than exact keywords</string>
+    <string name="semantic_match_badge">%d%% match</string>
+    <string name="semantic_search_results_title">✨ AI Semantic Matches</string>
+    <string name="semantic_search_results_desc">%d articles found</string>
+    <string name="keyword_search_results_title">Keyword Matches</string>
 </resources>

@@ -584,4 +584,10 @@
     <string name="story_cluster_mark_all_read">Mark All Read</string>
     <string name="story_cluster_sheet_title">Multi-Perspective Story Coverage</string>
     <string name="story_cluster_lead_badge">Lead</string>
+    <string name="semantic_search_title">Búsqueda semántica IA</string>
+    <string name="semantic_search_desc">Buscar artículos por concepto y significado semántico en vez de palabras clave exactas</string>
+    <string name="semantic_match_badge">%d%% coincidencia</string>
+    <string name="semantic_search_results_title">✨ Coincidencias semánticas IA</string>
+    <string name="semantic_search_results_desc">%d artículos encontrados</string>
+    <string name="keyword_search_results_title">Coincidencias por palabra clave</string>
 </resources>

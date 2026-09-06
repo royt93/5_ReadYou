@@ -43,6 +43,7 @@ import com.mckimquyen.reader.infrastructure.pref.LocalFlowArticleListImage
 import com.mckimquyen.reader.infrastructure.pref.LocalFlowArticleListTime
 import com.mckimquyen.reader.infrastructure.pref.LocalFlowArticleListTonalElevation
 import com.mckimquyen.reader.infrastructure.pref.LocalFlowStoryClustering
+import com.mckimquyen.reader.infrastructure.pref.LocalFlowSemanticSearch
 import com.mckimquyen.reader.infrastructure.pref.LocalFlowFilterBarFilled
 import com.mckimquyen.reader.infrastructure.pref.LocalFlowFilterBarPadding
 import com.mckimquyen.reader.infrastructure.pref.LocalFlowFilterBarStyle
@@ -79,6 +80,7 @@ fun FlowPageStylePage(
     val articleListStickyDate = LocalFlowArticleListDateStickyHeader.current
     val articleListTonalElevation = LocalFlowArticleListTonalElevation.current
     val flowStoryClustering = LocalFlowStoryClustering.current
+    val flowSemanticSearch = LocalFlowSemanticSearch.current
 
     val scope = rememberCoroutineScope()
 
@@ -231,6 +233,17 @@ fun FlowPageStylePage(
                     ) {
                         BaseSwitch(activated = flowStoryClustering.value) {
                             (!flowStoryClustering).put(context, scope)
+                        }
+                    }
+                    SettingItem(
+                        title = stringResource(R.string.semantic_search_title),
+                        desc = stringResource(R.string.semantic_search_desc),
+                        onClick = {
+                            (!flowSemanticSearch).put(context, scope)
+                        },
+                    ) {
+                        BaseSwitch(activated = flowSemanticSearch.value) {
+                            (!flowSemanticSearch).put(context, scope)
                         }
                     }
                     SettingItem(

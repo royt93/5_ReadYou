@@ -34,7 +34,10 @@ import com.mckimquyen.reader.domain.model.cluster.StoryCluster
 import com.mckimquyen.reader.domain.model.cluster.StoryClusterResult
 import com.mckimquyen.reader.domain.repository.ArticleDao
 import com.mckimquyen.reader.infrastructure.ai.clustering.StoryClusteringEngine
+import com.mckimquyen.reader.infrastructure.ai.search.SemanticSearchEngine
+import com.mckimquyen.reader.infrastructure.ai.search.SemanticSearchResult
 import com.mckimquyen.reader.ui.ext.currentAccountId
+import com.mckimquyen.reader.ui.ext.flowSemanticSearch
 import com.mckimquyen.reader.ui.ext.flowStoryClustering
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
@@ -45,6 +48,7 @@ class HomeViewModel @Inject constructor(
     private val context: Context,
     private val articleDao: ArticleDao,
     private val clusteringEngine: StoryClusteringEngine,
+    private val semanticSearchEngine: SemanticSearchEngine,
     private val rssService: RssSv,
     private val androidStringsHelper: AndroidStringsHelper,
     @ApplicationScope
@@ -53,6 +57,9 @@ class HomeViewModel @Inject constructor(
     @IODispatcher
     private val ioDispatcher: CoroutineDispatcher,
 ) : ViewModel() {
+
+    private val _semanticSearchResults = MutableStateFlow<List<SemanticSearchResult>>(emptyList())
+    val semanticSearchResults: StateFlow<List<SemanticSearchResult>> = _semanticSearchResults.asStateFlow()
 
     private val _clusterResult = MutableStateFlow(StoryClusterResult.EMPTY)
     val clusterResult: StateFlow<StoryClusterResult> = _clusterResult.asStateFlow()
@@ -117,8 +124,9 @@ class HomeViewModel @Inject constructor(
 
     fun fetchArticles() {
         viewModelScope.launch(ioDispatcher) {
+            val searchContent = _homeUiState.value.searchContent.trim()
             val isClusteringEnabled = context.flowStoryClustering
-            val clusterResult = if (isClusteringEnabled && _homeUiState.value.searchContent.isBlank()) {
+            val clusterResult = if (isClusteringEnabled && searchContent.isBlank()) {
                 val accountId = context.currentAccountId
                 val recentArticles = articleDao.queryRecentArticlesWithFeed(accountId, limit = 150)
                 clusteringEngine.cluster(recentArticles)
@@ -126,6 +134,14 @@ class HomeViewModel @Inject constructor(
                 StoryClusterResult.EMPTY
             }
             _clusterResult.value = clusterResult
+
+            if (searchContent.isNotBlank() && context.flowSemanticSearch) {
+                val accountId = context.currentAccountId
+                val candidates = articleDao.queryRecentArticlesWithFeed(accountId, limit = 200)
+                _semanticSearchResults.value = semanticSearchEngine.rank(searchContent, candidates)
+            } else {
+                _semanticSearchResults.value = emptyList()
+            }
 
             _homeUiState.update {
                 it.copy(
