@@ -548,4 +548,15 @@
     <string name="highlights_ai_badge">Gemini AI</string>
     <string name="highlights_fallback_badge">Офлайн</string>
     <string name="highlights_retry_ai">Анализ через Gemini AI</string>
+    <!-- Loop 10: Smart AI Mind Map & Concept Visualizer -->
+    <string name="mindmap_title">Интеллект-карта понятий</string>
+    <string name="mindmap_view_map">Интерактивная интеллект-карта</string>
+    <string name="mindmap_root_badge">Основная тема</string>
+    <string name="mindmap_reset_view">Сбросить вид</string>
+    <string name="mindmap_export_outline">Копировать структуру</string>
+    <string name="mindmap_copied_toast">Структура интеллект-карты скопирована</string>
+    <string name="mindmap_node_details">Копировать подробности</string>
+    <string name="mindmap_generating">Построение интеллект-карты…</string>
+    <string name="mindmap_offline_badge">Умный граф</string>
+    <string name="mindmap_ai_badge">Gemini AI</string>
 </resources>

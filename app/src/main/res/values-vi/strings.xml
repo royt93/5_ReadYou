@@ -512,4 +512,15 @@
     <string name="highlights_ai_badge">Gemini AI</string>
     <string name="highlights_fallback_badge">Ngoại tuyến</string>
     <string name="highlights_retry_ai">Phân tích bằng Gemini AI</string>
+    <!-- Loop 10: Smart AI Mind Map & Concept Visualizer -->
+    <string name="mindmap_title">Sơ đồ tư duy</string>
+    <string name="mindmap_view_map">Xem sơ đồ tư duy tương tác</string>
+    <string name="mindmap_root_badge">Chủ đề chính</string>
+    <string name="mindmap_reset_view">Đặt lại góc nhìn</string>
+    <string name="mindmap_export_outline">Sao chép dàn ý</string>
+    <string name="mindmap_copied_toast">Đã sao chép dàn ý sơ đồ vào bộ nhớ tạm</string>
+    <string name="mindmap_node_details">Sao chép chi tiết</string>
+    <string name="mindmap_generating">Đang xây dựng sơ đồ tư duy…</string>
+    <string name="mindmap_offline_badge">Biểu đồ thông minh</string>
+    <string name="mindmap_ai_badge">Gemini AI</string>
 </resources>

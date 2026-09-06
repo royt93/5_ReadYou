@@ -542,4 +542,15 @@
     <string name="highlights_ai_badge">Gemini AI</string>
     <string name="highlights_fallback_badge">Offline</string>
     <string name="highlights_retry_ai">Mit Gemini AI analysieren</string>
+    <!-- Loop 10: Smart AI Mind Map & Concept Visualizer -->
+    <string name="mindmap_title">Konzept-Mindmap</string>
+    <string name="mindmap_view_map">Interaktive Mindmap anzeigen</string>
+    <string name="mindmap_root_badge">Hauptthema</string>
+    <string name="mindmap_reset_view">Ansicht zurücksetzen</string>
+    <string name="mindmap_export_outline">Gliederung kopieren</string>
+    <string name="mindmap_copied_toast">Mindmap-Gliederung kopiert</string>
+    <string name="mindmap_node_details">Detail kopieren</string>
+    <string name="mindmap_generating">Konzept-Mindmap wird erstellt…</string>
+    <string name="mindmap_offline_badge">Smart-Graph</string>
+    <string name="mindmap_ai_badge">Gemini AI</string>
 </resources>

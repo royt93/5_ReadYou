@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.ItemSnapshotList
 import com.mckimquyen.reader.domain.model.article.ArticleFlowItem
 import com.mckimquyen.reader.domain.model.article.ArticleHighlights
+import com.mckimquyen.reader.domain.model.article.ArticleMindMap
 import com.mckimquyen.reader.domain.model.article.ArticleWithFeed
 import com.mckimquyen.reader.domain.sv.RssSv
 import com.mckimquyen.reader.infrastructure.ai.GeminiSummaryService
@@ -207,6 +208,57 @@ class ReadingViewModel @Inject constructor(
         }
     }
 
+    // ---- AI Concept Mind Map ----
+
+    fun openMindMap() {
+        Log.d("roy93~AI", "[VM.openMindMap] clicked, article=${_readingUiState.value.articleWithFeed?.article?.id}")
+        _readingUiState.update { it.copy(showMindMapSheet = true) }
+        requestMindMap()
+    }
+
+    fun dismissMindMap() {
+        Log.d("roy93~AI", "[VM.dismissMindMap]")
+        _readingUiState.update { it.copy(showMindMapSheet = false) }
+    }
+
+    fun requestMindMap(forceOffline: Boolean = false) {
+        val state = _readingUiState.value
+        val article = state.articleWithFeed?.article
+        val plainText = state.content?.let {
+            androidx.core.text.HtmlCompat
+                .fromHtml(it, androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY)
+                .toString()
+        }.orEmpty()
+        Log.d("roy93~AI", "[VM.requestMindMap] contentLen=${state.content?.length ?: 0} plainTextLen=${plainText.length} forceOffline=$forceOffline")
+
+        if (plainText.isBlank()) {
+            _readingUiState.update { it.copy(mindMapState = MindMapState.Error(R.string.summary_err_empty_content)) }
+            return
+        }
+
+        _readingUiState.update { it.copy(mindMapState = MindMapState.Loading) }
+        viewModelScope.launch {
+            try {
+                val mindMap = if (forceOffline) {
+                    com.mckimquyen.reader.infrastructure.ai.ArticleMindMapExtractor.extractOfflineMindMap(
+                        title = article?.title.orEmpty(),
+                        plainText = plainText,
+                    )
+                } else {
+                    summaryService.generateMindMap(
+                        title = article?.title.orEmpty(),
+                        plainText = plainText,
+                    )
+                }
+                Log.d("roy93~AI", "[VM.requestMindMap] ✅ Success nodes=${mindMap.nodes.size} offline=${mindMap.isOfflineFallback}")
+                _readingUiState.update { it.copy(mindMapState = MindMapState.Success(mindMap)) }
+            } catch (e: Exception) {
+                Log.e("roy93~AI", "[VM.requestMindMap] ❌ Error: $e", e)
+                _readingUiState.update { it.copy(mindMapState = e.toMindMapErrorState()) }
+            }
+        }
+    }
+
     override fun onCleared() {
         Log.d("roy93~", "ReadingViewModel onCleared: stopping TTS and ZenAudio")
         ttsManager.stop()
@@ -306,6 +358,8 @@ data class ReadingUiState(
     val ttsState: TtsState = TtsState.IDLE,
     val showSummarySheet: Boolean = false,
     val summaryState: SummaryState = SummaryState.Idle,
+    val showMindMapSheet: Boolean = false,
+    val mindMapState: MindMapState = MindMapState.Idle,
 )
 
 /** Trạng thái của luồng tóm tắt AI. */
@@ -317,6 +371,15 @@ sealed interface SummaryState {
     }
     /** [messageRes] là string resource (đa ngôn ngữ); [arg] tuỳ chọn dùng cho format (vd HTTP code). */
     data class Error(@StringRes val messageRes: Int, val arg: Int? = null) : SummaryState
+}
+
+/** Trạng thái của luồng sơ đồ tư duy AI. */
+sealed interface MindMapState {
+    object Idle : MindMapState
+    object Loading : MindMapState
+    data class Success(val mindMap: ArticleMindMap) : MindMapState
+    /** [messageRes] là string resource (đa ngôn ngữ); [arg] tuỳ chọn dùng cho format (vd HTTP code). */
+    data class Error(@StringRes val messageRes: Int, val arg: Int? = null) : MindMapState
 }
 
 /** Map exception của service sang [SummaryState.Error] với string resource đa ngôn ngữ. */
@@ -336,4 +399,23 @@ private fun Throwable.toSummaryErrorState(): SummaryState.Error = when (this) {
     is GeminiSummaryService.SummaryException.Network ->
         SummaryState.Error(R.string.summary_err_network)
     else -> SummaryState.Error(R.string.summary_err_unknown)
+}
+
+/** Map exception của service sang [MindMapState.Error] với string resource đa ngôn ngữ. */
+private fun Throwable.toMindMapErrorState(): MindMapState.Error = when (this) {
+    is GeminiSummaryService.SummaryException.EmptyContent ->
+        MindMapState.Error(R.string.summary_err_empty_content)
+    is GeminiSummaryService.SummaryException.InvalidApiKey ->
+        MindMapState.Error(R.string.summary_err_invalid_key)
+    is GeminiSummaryService.SummaryException.RateLimited ->
+        MindMapState.Error(R.string.summary_err_rate_limited)
+    is GeminiSummaryService.SummaryException.Http ->
+        MindMapState.Error(R.string.summary_err_http, code)
+    is GeminiSummaryService.SummaryException.EmptyResponse ->
+        MindMapState.Error(R.string.summary_err_empty_response)
+    is GeminiSummaryService.SummaryException.ParseError ->
+        MindMapState.Error(R.string.summary_err_parse)
+    is GeminiSummaryService.SummaryException.Network ->
+        MindMapState.Error(R.string.summary_err_network)
+    else -> MindMapState.Error(R.string.summary_err_unknown)
 }

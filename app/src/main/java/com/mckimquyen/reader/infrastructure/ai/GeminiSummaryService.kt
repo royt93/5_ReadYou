@@ -3,6 +3,7 @@ package com.mckimquyen.reader.infrastructure.ai
 import android.content.Context
 import android.util.Log
 import com.mckimquyen.reader.domain.model.article.ArticleHighlights
+import com.mckimquyen.reader.domain.model.article.ArticleMindMap
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -96,6 +97,56 @@ class GeminiSummaryService @Inject constructor(
     }
 
     /**
+     * Trích xuất sơ đồ tư duy dạng cây phân cấp [ArticleMindMap].
+     * Tự động fallback sang offline heuristics nếu Gemini không khả dụng.
+     */
+    suspend fun generateMindMap(
+        title: String,
+        plainText: String,
+        languageTag: String = currentLanguageTag(),
+    ): ArticleMindMap = withContext(Dispatchers.IO) {
+        val cleaned = plainText.trim()
+        Log.d(TAG, "[generateMindMap] start title=\"${title.take(60)}\" plainTextLen=${cleaned.length} lang=$languageTag")
+        if (cleaned.isBlank()) {
+            Log.w(TAG, "[generateMindMap] ❌ EmptyContent")
+            throw SummaryException.EmptyContent
+        }
+
+        val keys = GeminiConfig.API_KEYS.map { it.trim() }.filter { it.isNotBlank() }.distinct()
+        if (keys.isEmpty()) {
+            Log.w(TAG, "[generateMindMap] GeminiConfig.API_KEYS rỗng -> fallback sang offline mindmap")
+            return@withContext ArticleMindMapExtractor.extractOfflineMindMap(title, cleaned)
+        }
+
+        val body = cleaned.take(MAX_INPUT_CHARS)
+        val requestBody = buildMindMapRequestBody(title, body, languageTag)
+
+        var lastError: SummaryException? = null
+        for ((index, key) in keys.withIndex()) {
+            Log.d(TAG, "[generateMindMap] thử key #${index + 1}/${keys.size} (${mask(key)})")
+            try {
+                val rawText = callGeminiRaw(key, requestBody)
+                val mindMap = ArticleMindMapExtractor.parseGeminiResponse(rawText, title)
+                Log.d(TAG, "[generateMindMap] ✅ key #${index + 1} OK, nodes=${mindMap.nodes.size}")
+                return@withContext mindMap
+            } catch (e: SummaryException) {
+                lastError = e
+                val tryNext = e is SummaryException.InvalidApiKey ||
+                    e is SummaryException.RateLimited ||
+                    e is SummaryException.Http
+                Log.w(TAG, "[generateMindMap] key #${index + 1} lỗi: ${e::class.simpleName}, tryNext=$tryNext")
+                if (!tryNext) break
+            } catch (e: Exception) {
+                Log.w(TAG, "[generateMindMap] unexpected error: $e")
+                break
+            }
+        }
+
+        Log.w(TAG, "[generateMindMap] Không gọi được Gemini ($lastError), kích hoạt fallback ngoại tuyến")
+        ArticleMindMapExtractor.extractOfflineMindMap(title, cleaned)
+    }
+
+    /**
      * Tóm tắt [plainText] thành chuỗi văn bản thuần (giữ tương thích ngược).
      */
     suspend fun summarize(
@@ -146,6 +197,59 @@ class GeminiSummaryService @Inject constructor(
             append("}\n")
             append("Return ONLY raw JSON, with no markdown formatting code blocks (no ```json) and no intro/outro.\n")
             append("Write all text in the language corresponding to BCP-47 tag \"$languageTag\".\n\n")
+            if (title.isNotBlank()) append("Title: $title\n\n")
+            append("Content:\n")
+            append(body)
+        }
+        return JSONObject().apply {
+            put("contents", org.json.JSONArray().put(
+                JSONObject().put("parts", org.json.JSONArray().put(
+                    JSONObject().put("text", prompt)
+                ))
+            ))
+            put("generationConfig", JSONObject().put("temperature", 0.2))
+        }.toString()
+    }
+
+    private fun buildMindMapRequestBody(title: String, body: String, languageTag: String): String {
+        val prompt = buildString {
+            append("Analyze the article below and construct a hierarchical concept mind map in JSON format.\n")
+            append("Respond strictly with a JSON object conforming to this schema:\n")
+            append("{\n")
+            append("  \"root\": \"Core Subject (3-6 words)\",\n")
+            append("  \"nodes\": [\n")
+            append("    {\n")
+            append("      \"id\": \"root\",\n")
+            append("      \"label\": \"Core Subject\",\n")
+            append("      \"detail\": \"1-2 sentence core thesis\",\n")
+            append("      \"depth\": 0,\n")
+            append("      \"parentId\": null,\n")
+            append("      \"tag\": \"Central Theme\"\n")
+            append("    },\n")
+            append("    {\n")
+            append("      \"id\": \"branch_1\",\n")
+            append("      \"label\": \"Main Branch / Pillar (3-5 words)\",\n")
+            append("      \"detail\": \"Explanation of this aspect\",\n")
+            append("      \"depth\": 1,\n")
+            append("      \"parentId\": \"root\",\n")
+            append("      \"tag\": \"Context\"\n")
+            append("    },\n")
+            append("    {\n")
+            append("      \"id\": \"sub_1_1\",\n")
+            append("      \"label\": \"Key Detail / Supporting Fact\",\n")
+            append("      \"detail\": \"Specific fact, figure or quote\",\n")
+            append("      \"depth\": 2,\n")
+            append("      \"parentId\": \"branch_1\"\n")
+            append("    }\n")
+            append("  ]\n")
+            append("}\n")
+            append("Rules:\n")
+            append("- Provide 1 root node (depth 0, parentId null)\n")
+            append("- Provide 2 to 4 main branches (depth 1, parentId 'root')\n")
+            append("- Provide 1 to 2 supporting sub-nodes per branch (depth 2)\n")
+            append("- Keep labels concise (under 6 words). Put rich explanation in 'detail'.\n")
+            append("- Return ONLY valid raw JSON with NO markdown code fences (no ```json).\n")
+            append("- Write all text in the language corresponding to BCP-47 tag \"$languageTag\".\n\n")
             if (title.isNotBlank()) append("Title: $title\n\n")
             append("Content:\n")
             append(body)

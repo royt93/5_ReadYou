@@ -538,4 +538,15 @@
     <string name="highlights_ai_badge">Gemini AI</string>
     <string name="highlights_fallback_badge">离线智能</string>
     <string name="highlights_retry_ai">使用 Gemini AI 分析</string>
+    <!-- Loop 10: Smart AI Mind Map & Concept Visualizer -->
+    <string name="mindmap_title">概念思维导图</string>
+    <string name="mindmap_view_map">探索概念思维导图</string>
+    <string name="mindmap_root_badge">核心主题</string>
+    <string name="mindmap_reset_view">重置视图</string>
+    <string name="mindmap_export_outline">复制大纲</string>
+    <string name="mindmap_copied_toast">已复制思维导图大纲到剪贴板</string>
+    <string name="mindmap_node_details">复制要点</string>
+    <string name="mindmap_generating">正在构建概念思维导图…</string>
+    <string name="mindmap_offline_badge">智能图谱</string>
+    <string name="mindmap_ai_badge">Gemini AI</string>
 </resources>

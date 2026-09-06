@@ -110,32 +110,50 @@ fun ReadingPage(
     // để có drag handle, shape và xử lý system insets đúng (không lỗi edge-to-edge).
     val summaryDrawerState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
 
+    val isAnySheetOpen = readingUiState.showSummarySheet || readingUiState.showMindMapSheet
+
     // Đồng bộ trạng thái mở/đóng từ ViewModel -> drawer.
-    LaunchedEffect(readingUiState.showSummarySheet) {
-        if (readingUiState.showSummarySheet) summaryDrawerState.show()
+    LaunchedEffect(isAnySheetOpen) {
+        if (isAnySheetOpen) summaryDrawerState.show()
         else if (summaryDrawerState.isVisible) summaryDrawerState.hide()
     }
     // Khi người dùng vuốt/chạm ra ngoài để đóng -> đồng bộ ngược lại ViewModel.
     LaunchedEffect(summaryDrawerState.currentValue) {
-        if (summaryDrawerState.currentValue == ModalBottomSheetValue.Hidden &&
-            readingUiState.showSummarySheet
-        ) {
+        if (summaryDrawerState.currentValue == ModalBottomSheetValue.Hidden && isAnySheetOpen) {
             readingViewModel.dismissSummary()
+            readingViewModel.dismissMindMap()
         }
     }
-    BackHandler(readingUiState.showSummarySheet) {
-        readingViewModel.dismissSummary()
+    BackHandler(isAnySheetOpen) {
+        if (readingUiState.showMindMapSheet) {
+            readingViewModel.dismissMindMap()
+        } else {
+            readingViewModel.dismissSummary()
+        }
     }
 
     BottomDrawer(
         drawerState = summaryDrawerState,
         sheetContent = {
-            SummarySheetContent(
-                state = readingUiState.summaryState,
-                onRetry = { readingViewModel.requestSummary() },
-                onClose = { readingViewModel.dismissSummary() },
-                onForceOffline = { readingViewModel.requestSummary(forceOffline = true) },
-            )
+            if (readingUiState.showMindMapSheet) {
+                MindMapSheetContent(
+                    state = readingUiState.mindMapState,
+                    onRetry = { readingViewModel.requestMindMap() },
+                    onClose = { readingViewModel.dismissMindMap() },
+                    onForceOffline = { readingViewModel.requestMindMap(forceOffline = true) },
+                )
+            } else {
+                SummarySheetContent(
+                    state = readingUiState.summaryState,
+                    onRetry = { readingViewModel.requestSummary() },
+                    onClose = { readingViewModel.dismissSummary() },
+                    onForceOffline = { readingViewModel.requestSummary(forceOffline = true) },
+                    onOpenMindMap = {
+                        readingViewModel.dismissSummary()
+                        readingViewModel.openMindMap()
+                    },
+                )
+            }
         },
     ) {
     BaseScaffold(
@@ -165,6 +183,9 @@ fun ReadingPage(
                     showSummary = true,
                     onSummary = {
                         readingViewModel.openSummary()
+                    },
+                    onMindMap = {
+                        readingViewModel.openMindMap()
                     },
                     onClose = {
                         navController.popBackStack()

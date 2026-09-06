@@ -539,4 +539,15 @@
     <string name="highlights_ai_badge">Gemini AI</string>
     <string name="highlights_fallback_badge">オフライン</string>
     <string name="highlights_retry_ai">Gemini AIで再分析</string>
+    <!-- Loop 10: Smart AI Mind Map & Concept Visualizer -->
+    <string name="mindmap_title">概念マインドマップ</string>
+    <string name="mindmap_view_map">インタラクティブ・マインドマップを見る</string>
+    <string name="mindmap_root_badge">中心トピック</string>
+    <string name="mindmap_reset_view">ビューをリセット</string>
+    <string name="mindmap_export_outline">アウトラインをコピー</string>
+    <string name="mindmap_copied_toast">マインドマップのアウトラインをコピーしました</string>
+    <string name="mindmap_node_details">詳細をコピー</string>
+    <string name="mindmap_generating">概念マインドマップを構築中…</string>
+    <string name="mindmap_offline_badge">スマートグラフ</string>
+    <string name="mindmap_ai_badge">Gemini AI</string>
 </resources>

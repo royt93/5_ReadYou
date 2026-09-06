@@ -9,6 +9,7 @@ import androidx.compose.material.icons.outlined.AutoAwesome
 import androidx.compose.material.icons.outlined.Headphones
 import androidx.compose.material.icons.outlined.Palette
 import androidx.compose.material.icons.outlined.Share
+import androidx.compose.material.icons.rounded.AccountTree
 import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.ElectricBolt
 import androidx.compose.material.icons.rounded.GraphicEq
@@ -56,6 +57,7 @@ fun TopBar(
     onZenAudio: () -> Unit = {},
     onRsvpReading: () -> Unit = {},
     onSummary: () -> Unit = {},
+    onMindMap: () -> Unit = {},
     onClose: () -> Unit = {},
 ) {
     val context = LocalContext.current
@@ -163,6 +165,19 @@ fun TopBar(
                                             ?.takeIf { it.isNotBlank() }
                                             ?.let { it + "\n" } + link
                                     )
+                                }
+                            )
+                            DropdownMenuItem(
+                                text = { Text(stringResource(R.string.mindmap_title)) },
+                                leadingIcon = {
+                                    Icon(
+                                        imageVector = Icons.Rounded.AccountTree,
+                                        contentDescription = null
+                                    )
+                                },
+                                onClick = {
+                                    menuExpanded = false
+                                    onMindMap()
                                 }
                             )
                         }

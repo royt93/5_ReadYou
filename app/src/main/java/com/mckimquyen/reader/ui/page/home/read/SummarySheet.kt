@@ -28,8 +28,10 @@ import androidx.compose.material.icons.outlined.ContentCopy
 import androidx.compose.material.icons.outlined.FormatListBulleted
 import androidx.compose.material.icons.outlined.Schedule
 import androidx.compose.material.icons.outlined.Share
+import androidx.compose.material.icons.rounded.AccountTree
 import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -71,6 +73,7 @@ fun SummarySheetContent(
     onCopy: ((String) -> Unit)? = null,
     onShare: ((String) -> Unit)? = null,
     onForceOffline: (() -> Unit)? = null,
+    onOpenMindMap: (() -> Unit)? = null,
 ) {
     val context = LocalContext.current
     val clipboardManager = LocalClipboardManager.current
@@ -173,6 +176,7 @@ fun SummarySheetContent(
                 onCopy = defaultCopyAction,
                 onShare = defaultShareAction,
                 onRetryAi = onRetry,
+                onOpenMindMap = onOpenMindMap,
             )
 
             is SummaryState.Error -> ErrorContent(
@@ -213,6 +217,7 @@ private fun HighlightsSuccessContent(
     onCopy: (String) -> Unit,
     onShare: (String) -> Unit,
     onRetryAi: () -> Unit,
+    onOpenMindMap: (() -> Unit)? = null,
 ) {
     val scrollState = rememberScrollState()
 
@@ -417,6 +422,29 @@ private fun HighlightsSuccessContent(
                 )
                 Spacer(Modifier.width(6.dp))
                 Text(text = stringResource(R.string.highlights_share))
+            }
+        }
+
+        // View Concept Mind Map Button
+        if (onOpenMindMap != null) {
+            FilledTonalButton(
+                onClick = onOpenMindMap,
+                modifier = Modifier.fillMaxWidth(),
+                colors = ButtonDefaults.filledTonalButtonColors(
+                    containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+                    contentColor = MaterialTheme.colorScheme.onTertiaryContainer,
+                )
+            ) {
+                Icon(
+                    imageVector = Icons.Rounded.AccountTree,
+                    contentDescription = null,
+                    modifier = Modifier.size(18.dp),
+                )
+                Spacer(Modifier.width(8.dp))
+                Text(
+                    text = stringResource(R.string.mindmap_view_map),
+                    fontWeight = FontWeight.SemiBold,
+                )
             }
         }
 
