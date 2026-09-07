@@ -7,27 +7,36 @@
 
 ---
 
-## 🎯 Tổng Quan Phân Bổ Backlog (70 Tasks — 379 Story Points)
+## 🎯 Tổng Quan Phân Bổ Backlog (109 Tasks, mỗi task = 1 file riêng)
 
-| Epic / Danh Mục | Số Lượng Task | Tổng Story Points | Độ Ưu Tiên Cao Nhất | File Chi Tiết |
+> **Cập nhật 2026-09-06:** Đã audit lại toàn bộ 70 task gốc đối chiếu code thực tế (qua 3 nguồn phân tích độc lập: tự đọc source + `codex exec` + `claude` nested, hội tụ nhiều phát hiện trùng khớp), tách MỖI task thành 1 file riêng trong `doc/task/todo/` kèm `🔁 Loop Prompt` + `🏁 Tín hiệu kết thúc loop` (xem [`_TEMPLATE_TASK.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/_TEMPLATE_TASK.md)), bổ sung 39 task mới phát hiện qua audit (bug bảo mật, race condition, tính năng "DONE" thực ra chưa hoàn thiện...), và di dời 7 task đã thực sự hoàn thành sang `doc/task/done/`. Mỗi file epic bên dưới giờ là 1 "Epic Index" — vào file để xem bảng liệt kê + link tới từng task con. Story Points nay ghi trong từng file task riêng (không tổng hợp tập trung nữa vì độ chi tiết đã tăng nhiều).
+
+| Epic / Danh Mục | Task (todo + done) | Prefix | Độ Ưu Tiên Cao Nhất | Epic Index |
 |---|:---:|:---:|:---:|---|
-| **1. FIX — Sửa Lỗi, Ổn Định & Ad Unit** | 8 tasks | 19 SP | **P0 (Blocker)** | [`01_FIX_BUGS_AND_STABILITY.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/todo/01_FIX_BUGS_AND_STABILITY.md) |
-| **2. ENHANCE — Tối Ưu & Nâng Cấp UX** | 6 tasks | 26 SP | **P1 (High)** | [`02_ENHANCE_PERFORMANCE_AND_UX.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/todo/02_ENHANCE_PERFORMANCE_AND_UX.md) |
-| **3. NEW — Tính Năng Mới Chuẩn RSS** | 4 tasks | 23 SP | **P1 (High)** | [`03_NEW_CORE_FEATURES.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/todo/03_NEW_CORE_FEATURES.md) |
-| **4. IDEAS — Ý Tưởng Tăng Trưởng & Media** | 6 tasks | 24 SP | **P2 (Medium)** | [`04_IDEAS_AND_GROWTH.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/todo/04_IDEAS_AND_GROWTH.md) |
-| **5. EXCLUSIVE — Tính Năng Độc Quyền "Killer"** | 7 tasks | 39 SP | **P1 (High)** | [`05_EXCLUSIVE_KILLER_FEATURES.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/todo/05_EXCLUSIVE_KILLER_FEATURES.md) |
-| **6. KNOWLEDGE — AI Gom Cụm & Second Brain** | 3 tasks | 21 SP | **P1 (High)** | [`06_NEXT_GEN_AI_KNOWLEDGE.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/todo/06_NEXT_GEN_AI_KNOWLEDGE.md) |
-| **7. INGESTION — Biến Mọi Web Thành RSS & Đọc Sau** | 3 tasks | 18 SP | **P1 (High)** | [`07_UNIVERSAL_INGESTION_AND_SYNC.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/todo/07_UNIVERSAL_INGESTION_AND_SYNC.md) |
-| **8. ZEN — Đọc Siêu Tốc RSVP & Tập Trung Tuyệt Đối** | 3 tasks | 11 SP | **P2 (Medium)** | [`08_ZEN_FOCUS_AND_SPEED_READING.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/todo/08_ZEN_FOCUS_AND_SPEED_READING.md) |
-| **9. REELS — Thẻ Lướt Dọc TikTok & Video PiP** | 3 tasks | 18 SP | **P2 (Medium)** | [`09_VISUAL_REELS_AND_MEDIA.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/todo/09_VISUAL_REELS_AND_MEDIA.md) |
-| **10. FRONTIER — Báo Cáo McKinsey, Web3 & Xe Hơi** | 4 tasks | 32 SP | **P1 (High)** | [`10_FRONTIER_AND_ECOSYSTEM.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/todo/10_FRONTIER_AND_ECOSYSTEM.md) |
-| **11. AUTONOMOUS — Zero-Click Agent & Privacy Vault** | 3 tasks | 18 SP | **P1 (High)** | [`11_AUTONOMOUS_COMMUNITY_PRIVACY.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/todo/11_AUTONOMOUS_COMMUNITY_PRIVACY.md) |
-| **12. BRAIN RPG — Game Hóa Đọc Bài, Trắc Nghiệm AI & Wrapped** | 4 tasks | 26 SP | **P1 (High)** | [`12_GAMIFIED_BRAIN_RPG_AND_WRAPPED.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/todo/12_GAMIFIED_BRAIN_RPG_AND_WRAPPED.md) |
-| **13. ORACLE — Thị Trường Dự Đoán Polymarket Trên RSS** | 4 tasks | 26 SP | **P0 (Critical Ad)** | [`13_THE_ORACLE_PREDICTION_MARKET.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/todo/13_THE_ORACLE_PREDICTION_MARKET.md) |
-| **14. COMMUTECAST — Radio AI 6:00 Sáng, Android Auto & Lockscreen** | 4 tasks | 26 SP | **P0 (Critical Ad)** | [`14_COMMUTECAST_AUTONOMOUS_AI_DJ.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/todo/14_COMMUTECAST_AUTONOMOUS_AI_DJ.md) |
-| **15. BOUNTY HUNTER — Agent Điều Tra Sâu & Mạng Nhện Obsidian** | 4 tasks | 26 SP | **P0 (Critical Ad)** | [`15_BOUNTY_HUNTER_AGENT_AND_GRAPH.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/todo/15_BOUNTY_HUNTER_AGENT_AND_GRAPH.md) |
-| **16. ECHOCHAMBER — La Bàn Thiên Kiến & Đấu Trường Phản Biện** | 4 tasks | 26 SP | **P1 (High)** | [`16_ECHOCHAMBER_AND_BIAS_COMPASS.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/todo/16_ECHOCHAMBER_AND_BIAS_COMPASS.md) |
-| **TỔNG CỘNG** | **70 tasks** | **379 SP** | — | — |
+| **1. FIX — Sửa Lỗi, Ổn Định & Ad Unit** | 15 | `FIX-` | **P0 (Blocker)** | [`01_FIX_BUGS_AND_STABILITY.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/todo/01_FIX_BUGS_AND_STABILITY.md) |
+| **2. ENHANCE — Tối Ưu & Nâng Cấp UX** | 6 | `ENH-` | **P1 (High)** | [`02_ENHANCE_PERFORMANCE_AND_UX.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/todo/02_ENHANCE_PERFORMANCE_AND_UX.md) |
+| **3. NEW — Tính Năng Mới Chuẩn RSS** | 5 | `NEW-` | **P1 (High)** | [`03_NEW_CORE_FEATURES.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/todo/03_NEW_CORE_FEATURES.md) |
+| **4. IDEAS — Ý Tưởng Tăng Trưởng & Media** | 8 | `IDEA-` | **P2 (Medium)** | [`04_IDEAS_AND_GROWTH.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/todo/04_IDEAS_AND_GROWTH.md) |
+| **5. EXCLUSIVE — Tính Năng Độc Quyền "Killer"** | 14 (1 done: EXC-06) | `EXC-` | **P1 (High)** | [`05_EXCLUSIVE_KILLER_FEATURES.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/todo/05_EXCLUSIVE_KILLER_FEATURES.md) |
+| **6. KNOWLEDGE — AI Gom Cụm & Second Brain** | 7 (2 done: KNOW-01/02) | `KNOW-` | **P1 (High)** | [`06_NEXT_GEN_AI_KNOWLEDGE.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/todo/06_NEXT_GEN_AI_KNOWLEDGE.md) |
+| **7. INGESTION — Biến Mọi Web Thành RSS & Đọc Sau** | 4 | `INGEST-` | **P1 (High)** | [`07_UNIVERSAL_INGESTION_AND_SYNC.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/todo/07_UNIVERSAL_INGESTION_AND_SYNC.md) |
+| **8. ZEN — Đọc Siêu Tốc RSVP & Tập Trung Tuyệt Đối** | 8 | `ZEN-` | **P1 (High)** | [`08_ZEN_FOCUS_AND_SPEED_READING.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/todo/08_ZEN_FOCUS_AND_SPEED_READING.md) |
+| **9. REELS — Thẻ Lướt Dọc TikTok, Video PiP & Watchdog** | 6 (1 done: REEL-03) | `REEL-` | **P1 (High)** | [`09_VISUAL_REELS_AND_MEDIA.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/todo/09_VISUAL_REELS_AND_MEDIA.md) |
+| **10. FRONTIER — Báo Cáo McKinsey, Web3 & Xe Hơi** | 4 | `FRONT-` | **P1 (High)** | [`10_FRONTIER_AND_ECOSYSTEM.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/todo/10_FRONTIER_AND_ECOSYSTEM.md) |
+| **11. AUTONOMOUS — Zero-Click Agent & Privacy Vault** | 3 | `STRAT-` | **P1 (High)** | [`11_AUTONOMOUS_COMMUNITY_PRIVACY.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/todo/11_AUTONOMOUS_COMMUNITY_PRIVACY.md) |
+| **12. BRAIN RPG — Game Hóa Đọc Bài, Trắc Nghiệm AI & Wrapped** | 9 | `RPG-` | **P1 (High)** | [`12_GAMIFIED_BRAIN_RPG_AND_WRAPPED.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/todo/12_GAMIFIED_BRAIN_RPG_AND_WRAPPED.md) |
+| **13. ORACLE — Thị Trường Dự Đoán Polymarket Trên RSS** | 4 | `ORACLE-` | **P0 (Critical Ad)** | [`13_THE_ORACLE_PREDICTION_MARKET.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/todo/13_THE_ORACLE_PREDICTION_MARKET.md) |
+| **14. COMMUTECAST — Radio AI 6:00 Sáng, Android Auto & Lockscreen** | 8 (1 done: DJ-04) | `DJ-` | **P0 (Critical Ad)** | [`14_COMMUTECAST_AUTONOMOUS_AI_DJ.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/todo/14_COMMUTECAST_AUTONOMOUS_AI_DJ.md) |
+| **15. BOUNTY HUNTER — Agent Điều Tra Sâu & Mạng Nhện Obsidian** | 4 | `BOUNTY-` | **P0 (Critical Ad)** | [`15_BOUNTY_HUNTER_AGENT_AND_GRAPH.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/todo/15_BOUNTY_HUNTER_AGENT_AND_GRAPH.md) |
+| **16. ECHOCHAMBER — La Bàn Thiên Kiến & Đấu Trường Phản Biện** | 4 | `ECHO-` | **P1 (High)** | [`16_ECHOCHAMBER_AND_BIAS_COMPASS.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/todo/16_ECHOCHAMBER_AND_BIAS_COMPASS.md) |
+| **TỔNG CỘNG** | **109 tasks** (7 done, 102 todo) | — | — | — |
+
+### ⚠️ Audit lại — 4 epic từng tuyên bố DONE nhưng có gap thực tế
+Điểm đã được chấm lại khách quan sau khi đối chiếu code thật (xem mục "⚠️ Audit lại" trong từng file):
+- `done/08_ZEN_FOCUS_AND_SPEED_READING_DONE.md` — RSVP paragraph-pause chết logic, lịch Daily Edition sai giờ → task fix mới: ZEN-04, ZEN-05, ZEN-06.
+- `done/12_GAMIFIED_BRAIN_RPG_AND_WRAPPED_DONE.md` — điểm ~~9.9~~ → **4.5/10**: quiz "AI" là template giả, streak logic không test được, XP farm exploit → task fix mới: RPG-05..09.
+- `done/14_COMMUTECAST_AUTONOMOUS_AI_DJ_DONE.md` — điểm ~~9.9~~ → **5.5/10**: episode không persist, "Dual-Voice TTS" thực chất 1 giọng pitch-shift → task fix mới: DJ-05..08.
+- `done/01_FOUNDATION_STABILITY_DONE.md` — audit lại khớp code thực tế, không phát hiện sai lệch.
 
 ---
 

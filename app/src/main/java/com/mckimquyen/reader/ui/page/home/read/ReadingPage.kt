@@ -12,11 +12,8 @@ import androidx.compose.animation.slideOutVertically
 import androidx.compose.animation.with
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetValue
@@ -29,7 +26,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.zIndex
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -176,7 +172,16 @@ fun ReadingPage(
         content = {
             Log.i("RLog", "TopBar: recomposition")
 
-            Box(modifier = Modifier.fillMaxSize()) {
+            // Linear Column (not an absolutely-positioned Box overlay): status bar inset -> top
+            // action bar -> expanding content -> app bottom bar -> banner ad -> device
+            // navigation bar inset. Each row claims exactly its own real height and the
+            // scrollable content Box(weight(1f)) fills whatever remains — Compose recalculates
+            // this automatically whenever any row's height changes (TopBar/BottomBar auto-hide,
+            // ad load), so content can never end up hidden behind, or leave a stale gap in front
+            // of, any of these rows. This replaces the previous absolutely-positioned overlay +
+            // manually-computed "reserved height" Spacer approach, which was fragile: it required
+            // hand-keeping a dp calculation in sync with several independently-animating rows.
+            androidx.compose.foundation.layout.Column(modifier = Modifier.fillMaxSize()) {
                 // Top Bar
                 TopBar(
                     navController = navController,
@@ -209,76 +214,82 @@ fun ReadingPage(
                     },
                 )
 
-                // Content
-                if (readingUiState.articleWithFeed != null) {
-                    AnimatedContent(
-                        targetState = readingUiState.content ?: "",
-                        transitionSpec = {
-                            slideInVertically(
-                                spring(
-                                    dampingRatio = Spring.DampingRatioNoBouncy,
-                                    stiffness = Spring.StiffnessLow,
+                // Content — expands to fill all space left over between TopBar and the bottom
+                // rows below, whatever their current combined height happens to be.
+                Box(modifier = Modifier.weight(1f)) {
+                    if (readingUiState.articleWithFeed != null) {
+                        AnimatedContent(
+                            targetState = readingUiState.content ?: "",
+                            transitionSpec = {
+                                slideInVertically(
+                                    spring(
+                                        dampingRatio = Spring.DampingRatioNoBouncy,
+                                        stiffness = Spring.StiffnessLow,
+                                    )
+                                ) { height -> height / 2 } with slideOutVertically { height -> -(height / 2) } + fadeOut(
+                                    spring(
+                                        dampingRatio = Spring.DampingRatioNoBouncy,
+                                        stiffness = Spring.StiffnessLow,
+                                    )
                                 )
-                            ) { height -> height / 2 } with slideOutVertically { height -> -(height / 2) } + fadeOut(
-                                spring(
-                                    dampingRatio = Spring.DampingRatioNoBouncy,
-                                    stiffness = Spring.StiffnessLow,
-                                )
+                            }
+                        ) { target ->
+                            Content(
+                                content = target,
+                                feedName = readingUiState.articleWithFeed.feed.name,
+                                title = readingUiState.articleWithFeed.article.title,
+                                author = readingUiState.articleWithFeed.article.author,
+                                link = readingUiState.articleWithFeed.article.link,
+                                publishedDate = readingUiState.articleWithFeed.article.date,
+                                isLoading = readingUiState.isLoading,
+                                listState = listState,
+                                articleId = readingUiState.articleWithFeed.article.id,
+                                brainRpgViewModel = androidx.hilt.navigation.compose.hiltViewModel(),
                             )
                         }
-                    ) { target ->
-                        Content(
-                            content = target,
-                            feedName = readingUiState.articleWithFeed.feed.name,
-                            title = readingUiState.articleWithFeed.article.title,
-                            author = readingUiState.articleWithFeed.article.author,
-                            link = readingUiState.articleWithFeed.article.link,
-                            publishedDate = readingUiState.articleWithFeed.article.date,
-                            isLoading = readingUiState.isLoading,
-                            listState = listState,
-                            articleId = readingUiState.articleWithFeed.article.id,
-                            brainRpgViewModel = androidx.hilt.navigation.compose.hiltViewModel(),
-                        )
                     }
                 }
-                // Bottom Bar Wrapper (BottomBar + Banner Ad)
+
+                // Bottom Bar + Banner Ad — plain Column rows now, each sized to its own real
+                // content. BottomBar genuinely collapses to 0.dp when auto-hidden by scroll
+                // (safe: it holds no persistent resource). The ad stays unconditionally
+                // composed for as long as the article is open, so its AdView is loaded once and
+                // never torn down/reloaded by the toolbar auto-hide toggle, and renders at its
+                // own natural size (no forced height/clip needed now that nothing has to match
+                // a separately-computed reservation).
                 if (readingUiState.articleWithFeed != null) {
-                    androidx.compose.foundation.layout.Column(
-                        modifier = Modifier
-                            .align(androidx.compose.ui.Alignment.BottomCenter)
-                            .fillMaxWidth()
-                            .navigationBarsPadding()
-                            .zIndex(1f)
-                    ) {
-                        BottomBar(
-                            isShow = isShowToolBar,
-                            isUnread = readingUiState.articleWithFeed.article.isUnread,
-                            isStarred = readingUiState.articleWithFeed.article.isStarred,
-                            isFullContent = readingUiState.isFullContent,
-                            onUnread = {
-                                readingViewModel.markUnread(it)
-                            },
-                            onStarred = {
-                                readingViewModel.markStarred(it)
-                            },
-                            onNextArticle = {
-                                if (readingUiState.nextArticleId.isNotEmpty()) {
-                                    readingViewModel.initData(readingUiState.nextArticleId, autoTts)
-                                }
-                            },
-                            onFullContent = {
-                                if (it) readingViewModel.renderFullContent()
-                                else readingViewModel.renderDescriptionContent()
-                            },
-                            onDeepRead = {
-                                readingViewModel.openDeepRead()
-                            },
-                        )
-                        if (isShowToolBar) {
-                            Spacer(modifier = Modifier.height(16.dp))
-                            com.mckimquyen.reader.sdkadbmob.ComposeBannerAd()
-                        }
-                    }
+                    BottomBar(
+                        isShow = isShowToolBar,
+                        isUnread = readingUiState.articleWithFeed.article.isUnread,
+                        isStarred = readingUiState.articleWithFeed.article.isStarred,
+                        isFullContent = readingUiState.isFullContent,
+                        onUnread = {
+                            readingViewModel.markUnread(it)
+                        },
+                        onStarred = {
+                            readingViewModel.markStarred(it)
+                        },
+                        onNextArticle = {
+                            if (readingUiState.nextArticleId.isNotEmpty()) {
+                                readingViewModel.initData(readingUiState.nextArticleId, autoTts)
+                            }
+                        },
+                        onFullContent = {
+                            if (it) readingViewModel.renderFullContent()
+                            else readingViewModel.renderDescriptionContent()
+                        },
+                        onDeepRead = {
+                            readingViewModel.openDeepRead()
+                        },
+                    )
+                    // Removed entirely (was 16.dp, then 4.dp): the ad's own inflated layout
+                    // (layout_ad_banner.xml, AdmobApplovinWrapper SDK) already adds 8.dp top
+                    // padding plus its own "Ad" label chip above the creative — that alone is
+                    // enough breathing room above BottomBar without any extra app-side spacer.
+                    // ComposeBannerAd() already applies navigationBarsPadding() internally
+                    // (see sdkadbmob/ComposeBannerAd.kt) — an extra trailing Spacer for the same
+                    // inset here was double-reserving the device navigation bar's height.
+                    com.mckimquyen.reader.sdkadbmob.ComposeBannerAd()
                 }
             }
         }

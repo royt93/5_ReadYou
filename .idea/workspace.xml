@@ -16,51 +16,150 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6f28f826-4208-4800-b7bf-3c32f11fba88" name="Changes" comment="Add initial project setup with Next.js, Tailwind CSS, and essential components">
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/infrastructure/ai/GeminiSummaryService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/infrastructure/ai/GeminiSummaryService.kt" afterDir="false" />
+    <list default="true" id="6f28f826-4208-4800-b7bf-3c32f11fba88" name="Changes" comment="feat(workspace): update project setup with new files and configuration adjustments">
+      <change afterPath="$PROJECT_DIR$/app/src/test/java/com/mckimquyen/reader/ui/page/home/HomeViewModelSearchRaceTest.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/test/java/com/mckimquyen/reader/ui/page/home/read/ReadingViewModelArticleSwitchRaceTest.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/_TEMPLATE_TASK.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/done/DJ-04_app-open-rewarded-ads-monetization_DONE.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/done/EXC-06_ai-deep-read-chat_DONE.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/done/KNOW-01_dedup-clustering_DONE.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/done/KNOW-02_semantic-search_DONE.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/done/REEL-03_watchdog-keyword-alert_DONE.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/08_ZEN_FOCUS_AND_SPEED_READING.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/12_GAMIFIED_BRAIN_RPG_AND_WRAPPED.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/14_COMMUTECAST_AUTONOMOUS_AI_DJ.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/BOUNTY-01_contextual-agent-trigger.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/BOUNTY-02_executive-intelligence-dossier.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/BOUNTY-03_interactive-knowledge-graph.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/BOUNTY-04_rewarded-ad-token-sink.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/DJ-01_daily-scheduler-dual-mc-script.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/DJ-02_dual-voice-tts-lofi-audio-mixer.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/DJ-03_android-auto-lockscreen-mediasession.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/DJ-05_persist-episode-notification-ready-state.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/DJ-06_real-dual-voice-tts-or-honest-labeling.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/DJ-07_lofi-audio-mixing-media3-integration.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/DJ-08_time-budget-aware-content-selection.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/ECHO-01_bias-radar-sentiment-gauge.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/ECHO-02_steelman-rebuttal-box.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/ECHO-03_dual-perspective-quote-card.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/ECHO-04_voice-ai-debate-arena.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/ENH-01_accompanist-to-native-compose.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/ENH-02_room-fts-search.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/ENH-03_ai-summary-persistence-and-byok.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/ENH-04_tts-foreground-service.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/ENH-05_smart-thumbnail-extraction.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/ENH-06_okhttp-etag-caching.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/EXC-01_ai-daily-smart-digest.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/EXC-02_ai-podcast-studio.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/EXC-03_bionic-reading-mode.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/EXC-04_ai-clickbait-bias-buster.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/EXC-05_local-p2p-sync.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/EXC-07_bilingual-side-by-side-reader.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/EXC-08_second-brain-graph.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/EXC-09_original-source-dna.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/EXC-10_retraction-radar.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/EXC-11_temporal-ask-my-archive.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/EXC-12_ai-feed-autopilot.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/EXC-13_second-screen-mirror.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/EXC-14_feed-zero-triage-mode.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/FIX-01_composite-indexes-article-table.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/FIX-02_remove-lazyliststate-viewmodel.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/FIX-03_error-isolation-sync-concurrency.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/FIX-04_replace-favicon-heroku-endpoint.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/FIX-05_html-parsing-worker-thread.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/FIX-06_force-null-npe-fever-opml.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/FIX-07_post-notifications-permission.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/FIX-08_admob-rewarded-test-id-release.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/FIX-09_gemini-key-hardcoded.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/FIX-10_ai-result-leak-wrong-article.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/FIX-11_search-race-condition-homeviewmodel.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/FIX-12_main-thread-io-init-blocks.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/FIX-13_dead-code-callgemini.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/FIX-14_dead-todo-ui-cleanup.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/FIX-15_mindmap-hardcoded-strings.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/FRONT-01_ai-multi-agent-deep-dive.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/FRONT-02_decentralized-web3-social.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/FRONT-03_3d-knowledge-galaxy.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/FRONT-04_android-auto-and-wear-os.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/IDEA-01_reading-habits-heatmap.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/IDEA-02_home-widget-glance.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/IDEA-03_quote-card-social-share.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/IDEA-04_gamified-ad-streaks.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/IDEA-05_podcast-audio-player.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/IDEA-06_eink-mode.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/IDEA-07_on-this-day.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/IDEA-08_assistant-app-actions.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/INGEST-01_web-to-rss-generator.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/INGEST-02_android-share-target-read-later.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/INGEST-03_email-newsletter-ingestion-bridge.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/INGEST-04_multi-device-read-position-sync.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/KNOW-03_notebook-highlight-export.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/KNOW-04_incremental-cached-clustering.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/KNOW-05_persistent-embedding-index.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/KNOW-06_unified-ai-request-gateway.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/KNOW-07_semantic-smart-collections.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/NEW-01_google-reader-api-integration.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/NEW-02_opml-backup-webdav-drive.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/NEW-03_smart-feed-filter-rules.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/NEW-04_full-offline-precaching.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/NEW-05_feed-health-center.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/ORACLE-01_ai-predictive-claim-extractor.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/ORACLE-02_intel-points-betting-sheet.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/ORACLE-03_automated-arbiter-agent.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/ORACLE-04_rewarded-ads-points-economy.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/REEL-01_news-reels-tiktok-scroll.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/REEL-02_youtube-video-pip.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/REEL-04_watchdog-atomic-persistence.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/REEL-05_watchdog-batch-matching-perf.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/REEL-06_watchdog-alert-inbox.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/RPG-01_xp-skill-tree-system.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/RPG-02_ai-micro-quiz-engine.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/RPG-03_cognitive-decay-streak-shield.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/RPG-04_weekly-brain-wrapped-card.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/RPG-05_quiz-distractors-context-aware.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/RPG-06_streak-decay-testable-clock.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/RPG-07_room-migration-or-doc-alignment.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/RPG-08_persist-xp-awarded-articles.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/RPG-09_wrapped-full-spec-mvp.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/STRAT-01_zero-click-autonomous-podcast-dj.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/STRAT-02_curated-feed-marketplace.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/STRAT-03_doh-privacy-shield.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/ZEN-01_rsvp-speed-reading.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/ZEN-02_ambient-soundscapes.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/ZEN-03_scheduled-daily-edition.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/ZEN-04_rsvp-paragraph-pause-fix.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/ZEN-05_daily-edition-schedule-time-fix.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/ZEN-06_zen-audio-state-sync-fix.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/ZEN-07_adaptive-rsvp-trainer.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/task/todo/ZEN-08_cross-mode-reading-handoff.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetSelector.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deploymentTargetSelector.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/home/HomeViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/home/HomeViewModel.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/home/read/BottomBar.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/home/read/BottomBar.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/home/read/Content.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/home/read/Content.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/home/read/ReadingPage.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/home/read/ReadingPage.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/home/read/ReadingViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/home/read/ReadingViewModel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/home/read/SummarySheet.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/home/read/SummarySheet.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/home/read/TopBar.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/home/read/TopBar.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-ar/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-ar/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-az/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-az/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-bg/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-bg/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-ca/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-ca/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-cs-rCZ/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-cs-rCZ/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-da/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-da/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-de-rDE/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-de-rDE/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-es-rES/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-es-rES/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-eu-rES/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-eu-rES/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-fa/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-fa/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-fr-rFR/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-fr-rFR/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-hi-rIN/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-hi-rIN/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-hu/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-hu/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-in-rID/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-in-rID/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-it-rIT/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-it-rIT/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-iw/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-iw/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-ja/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-ja/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-kn/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-kn/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-lzh/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-lzh/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-ml/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-ml/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-my/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-my/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-nb-rNO/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-nb-rNO/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-nl/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-nl/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-nn/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-nn/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-pl-rPL/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-pl-rPL/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-pt-rBR/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-pt-rBR/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-pt/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-pt/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-ro/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-ro/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-ru-rRU/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-ru-rRU/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-sl/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-sl/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-sr/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-sr/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-sv/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-sv/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-tr/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-tr/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-uk/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-uk/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-vi/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-vi/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-zh-rCN/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-zh-rCN/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-zh-rTW/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-zh-rTW/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/task/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/task/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/task/done/08_ZEN_FOCUS_AND_SPEED_READING_DONE.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/task/done/08_ZEN_FOCUS_AND_SPEED_READING_DONE.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/task/done/12_GAMIFIED_BRAIN_RPG_AND_WRAPPED_DONE.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/task/done/12_GAMIFIED_BRAIN_RPG_AND_WRAPPED_DONE.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/task/done/14_COMMUTECAST_AUTONOMOUS_AI_DJ_DONE.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/task/done/14_COMMUTECAST_AUTONOMOUS_AI_DJ_DONE.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/task/todo/01_FIX_BUGS_AND_STABILITY.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/task/todo/01_FIX_BUGS_AND_STABILITY.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/task/todo/02_ENHANCE_PERFORMANCE_AND_UX.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/task/todo/02_ENHANCE_PERFORMANCE_AND_UX.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/task/todo/03_NEW_CORE_FEATURES.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/task/todo/03_NEW_CORE_FEATURES.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/task/todo/04_IDEAS_AND_GROWTH.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/task/todo/04_IDEAS_AND_GROWTH.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/task/todo/05_EXCLUSIVE_KILLER_FEATURES.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/task/todo/05_EXCLUSIVE_KILLER_FEATURES.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/task/todo/06_NEXT_GEN_AI_KNOWLEDGE.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/task/todo/06_NEXT_GEN_AI_KNOWLEDGE.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/task/todo/07_UNIVERSAL_INGESTION_AND_SYNC.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/task/todo/07_UNIVERSAL_INGESTION_AND_SYNC.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/task/todo/09_VISUAL_REELS_AND_MEDIA.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/task/todo/09_VISUAL_REELS_AND_MEDIA.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/task/todo/10_FRONTIER_AND_ECOSYSTEM.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/task/todo/10_FRONTIER_AND_ECOSYSTEM.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/task/todo/11_AUTONOMOUS_COMMUNITY_PRIVACY.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/task/todo/11_AUTONOMOUS_COMMUNITY_PRIVACY.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/task/todo/13_THE_ORACLE_PREDICTION_MARKET.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/task/todo/13_THE_ORACLE_PREDICTION_MARKET.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/task/todo/15_BOUNTY_HUNTER_AGENT_AND_GRAPH.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/task/todo/15_BOUNTY_HUNTER_AGENT_AND_GRAPH.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/task/todo/16_ECHOCHAMBER_AND_BIAS_COMPASS.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/task/todo/16_ECHOCHAMBER_AND_BIAS_COMPASS.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,7 +201,7 @@
       <entry key="edit-panel" value="GPT-5 mini" />
     </selectedModels>
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[PhysicalDevice::serial=118743744X002560]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[PhysicalDevice::serial=FUJZIFIR7DQCNRWW]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -160,7 +259,7 @@
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;/Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260606_ReadYou&quot;,
     &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.CommitDialog&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.google.gct.login2.settings.GoogleLoginApplicationSettingsConfigurableProvider&quot;,
     &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;,
     &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;
   },
@@ -236,7 +335,7 @@
         <option name="ADVANCED_PROFILING_ENABLED" value="false" />
         <option name="STARTUP_PROFILING_ENABLED" value="false" />
         <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
-        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Java/Kotlin Method Sample (legacy)" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Java/Kotlin Method Trace" />
         <option name="STARTUP_NATIVE_MEMORY_PROFILING_ENABLED" value="false" />
         <option name="NATIVE_MEMORY_SAMPLE_RATE_BYTES" value="2048" />
       </Profilers>
@@ -257,14 +356,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1759065326374</updated>
-    </task>
-    <task id="LOCAL-00018" summary="Refactor AddSourceDetailPage UI and logic&#10;&#10;This commit refactors the `AddSourceDetailPage` to improve the user experience when adding sources.&#10;&#10;- The &quot;Add&quot; button for a source is now disabled if any other source is currently being loaded. This prevents multiple sources from being added simultaneously.&#10;- The color of the &quot;Add&quot; icon is now grayed out when the button is disabled to visually indicate its state.&#10;- The click listener for adding a source now only triggers if no other source is currently loading.">
-      <option name="closed" value="true" />
-      <created>1759147889673</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1759147889673</updated>
     </task>
     <task id="LOCAL-00019" summary="Refactor AddSourceDetailPage and ViewModel&#10;&#10;This commit refactors `AddSourceDetailPage.kt` and `AddSourcesViewModel.kt`.&#10;&#10;- In `AddSourceDetailPage.kt`:&#10;    - Removed the explicit reloading of sources after adding an RSS feed, as the UI now updates automatically via `StateFlow`.&#10;    - Simplified the `LazyListState` creation in `SourceList`.&#10;    - Removed the &quot;Available RSS Sources&quot; title from the list.&#10;    - Added bottom padding of 12.dp to `SourceItem`.&#10;- In `AddSourcesViewModel.kt`:&#10;    - The UI state (`_uiState`) is now updated directly after successfully adding an RSS source, ensuring the UI reflects the change immediately.">
       <option name="closed" value="true" />
@@ -650,12 +741,19 @@
       <option name="project" value="LOCAL" />
       <updated>1782039927630</updated>
     </task>
-    <option name="localTasksCounter" value="67" />
+    <task id="LOCAL-00067" summary="feat(workspace): update initial project setup with additional file changes and configuration updates">
+      <option name="closed" value="true" />
+      <created>1788677244144</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1788677244144</updated>
+    </task>
+    <option name="localTasksCounter" value="68" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
-    <MESSAGE value="Feat: Expand RSS sources and add new languages&#10;&#10;This commit significantly expands the available RSS sources and adds support for ten new languages in the &quot;Add Sources&quot; feature.&#10;&#10;- **`rss_sources.json`**:&#10;    - Added numerous new RSS sources for English (`en`) and Vietnamese (`vi`) across various categories like news, tech, business, and lifestyle.&#10;    - Introduced source lists for ten new languages: Japanese (`ja`), Korean (`ko`), Chinese (`zh`), Indonesian (`id`), Thai (`th`), French (`fr`), German (`de`), Spanish (`es`), Portuguese (`pt`), and Arabic (`ar`).&#10;&#10;- **Localization (`strings.xml`)**:&#10;    - Added translations for the new language source names (e.g., &quot;Japanese Sources&quot;, &quot;French Sources&quot;) and other UI elements related to adding sources.&#10;    - New translations provided for: `ar`, `de-rDE`, `es-rES`, `fr-rFR`, `in-rID`, `it-rIT`, `ja`, `pl-rPL`, `pt-rBR`, `pt`, `ru-rRU`, `vi`, `zh-rCN`, and `zh-rTW`.&#10;    - Added placeholder English strings for languages pending translation (e.g., `az`, `bg`, `ca`, `cs-rCZ`, `da`, `eu-rES`, `fa`, `hi-rIN`, `hu`, `iw`, `kn`, `lzh`, `ml`, `my`, `nb-rNO`, `nl`, `nn`, `ro`, `sl`, `sr`, `sv`, `tr`, `uk`).&#10;&#10;- **Code Changes**:&#10;    - **`RssSource.kt`**: Updated the `RssSourcesData` data class to include fields for all the new language codes.&#10;    - **`RssSourceRepository.kt`**: Extended the `when` statement to handle the new language codes and load the corresponding sources from the JSON file.&#10;    - **`AddSourcesPage.kt`**:&#10;        - Expanded the `CountriesList` to display all the new languages with their respective flags and names.&#10;        - Used `stringResource` for translatable text.&#10;    - **`AddSourceDetailPage.kt`**:&#10;        - Updated to display the correct country name and flag based on the new language codes.&#10;        - Replaced hardcoded strings with `stringResource` calls for better internationalization of UI elements like snackbar messages, dialogs, and empty/error states." />
     <MESSAGE value="Feat: Implement in-app language switching with app restart&#10;&#10;This commit introduces a robust in-app language switching feature. When a user selects a new language, the app now prompts for confirmation and then gracefully restarts to apply the change system-wide.&#10;&#10;- **`LanguagesPage.kt`**:&#10;    - Replaced the immediate language change with a confirmation dialog (`AlertDialog`) that informs the user the app will restart.&#10;    - Upon confirmation, the selected language preference is saved to DataStore.&#10;    - A loading dialog is shown while the app prepares to restart.&#10;    - Utilizes the `ProcessPhoenix` library to trigger a clean application rebirth, ensuring the new language is applied correctly.&#10;&#10;- **`RApp.kt` &amp; `MainActivity.kt`**:&#10;    - The logic for setting the app's locale has been moved to `attachBaseContext` in both the `Application` and `MainActivity`.&#10;    - This ensures the language preference is read from DataStore and applied very early in the application lifecycle, preventing UI inconsistencies and ANRs related to asynchronous language loading in `MainActivity`.&#10;&#10;- **`LanguagesPref.kt`**:&#10;    - Expanded the `LanguagesPref` enum to include 26 new languages (Japanese, Portuguese, Arabic, Turkish, Dutch, etc.).&#10;    - Removed the now-redundant `setLocale` function, as this logic is centralized in `attachBaseContext`.&#10;&#10;- **Dependencies (`app/build.gradle`)**:&#10;    - Added the `com.jakewharton:process-phoenix:3.0.0` dependency to handle application restarts.&#10;&#10;- **Localization (`strings.xml`)**:&#10;    - Added new string resources for the language change confirmation dialog and restarting message (e.g., `change_language`, `change_language_confirm`, `restarting_app`) across all supported languages.&#10;    - Added translated names for the newly supported languages." />
     <MESSAGE value="Chore: Update project version and add development guidelines&#10;&#10;This commit updates the application versioning and introduces a development guidelines document. It also includes standard IDE configuration updates.&#10;&#10;- **`app/build.gradle`**:&#10;    - Bumped `versionCode` to `20260401` and `versionName` to `&quot;2026.04.01&quot;`.&#10;&#10;- **`doc/init.md` &amp; `app/doc/init.md`**:&#10;    - Created a new documentation file outlining high-priority coding standards, including:&#10;        - Requirement to use `AppSnackbar` instead of `Get.snack`.&#10;        - Mandatory use of `GetX` for state management instead of `setState` or `late` variables.&#10;        - Enforcement of currency formatting for amount-related text inputs.&#10;        - Requirements for consistent animations and memory leak prevention.&#10;&#10;- **`.idea/`**:&#10;    - Updated `modules.xml` to include the project module.&#10;    - Updated `workspace.xml` with recent task history and IDE state changes." />
     <MESSAGE value="Refactor: Fix memory leaks and update project documentation&#10;&#10;This commit addresses critical memory leaks related to `Activity` references and improves project documentation. It also includes several IDE configuration updates.&#10;&#10;- **`AdMobManager.kt`**:&#10;    - Fixed a major memory leak in `initSplashScreen` where a `CoroutineScope(Dispatchers.Default)` was collecting a `SharedFlow` indefinitely while holding a reference to the `Activity`.&#10;    - Refactored the logic to use the `Activity`'s `lifecycleScope` and `first()` to ensure the coroutine completes and the reference is released.&#10;    - Updated `EventBus` to use a `MutableSharedFlow` with `replay = 1` for more reliable event delivery during initialization.&#10;&#10;- **`MainActivity.kt`**:&#10;    - Added an `onDestroy` override to nullify the `AdMobManager.interstitialListener`. This prevents the Singleton `AdMobManager` from holding a strong reference to a destroyed `MainActivity`.&#10;&#10;- **Documentation**:&#10;    - Renamed `app/doc/init.md` to `doc/memory_leak.md` and significantly expanded it.&#10;    - Added a detailed report on potential and fixed memory leaks, covering `SharedFlow` collectors, Singleton listeners, and `Handler.postDelayed` usage.&#10;    - Included a summary of the project's architectural health and tech stack (Jetpack Compose, GetX, Hilt).&#10;&#10;- **IDE Configuration (`.idea/`)**:&#10;    - Added `markdown.xml` to configure the markdown preview provider.&#10;    - Updated `deviceStreaming.xml` with an extensive list of persistent device selection data for various Samsung, Google, and Motorola devices.&#10;    - Removed the redundant `modules.xml`.&#10;    - Updated `workspace.xml` with recent changes, task history, and component state." />
@@ -680,7 +778,8 @@
     <MESSAGE value="Add .gitignore and project configuration files; update VIP flow tests to use string resources" />
     <MESSAGE value="Update VIP reward message for clarity in multiple languages" />
     <MESSAGE value="Add initial project setup with Next.js, Tailwind CSS, and essential components" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add initial project setup with Next.js, Tailwind CSS, and essential components" />
+    <MESSAGE value="feat(workspace): update initial project setup with additional file changes and configuration updates" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(workspace): update initial project setup with additional file changes and configuration updates" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>

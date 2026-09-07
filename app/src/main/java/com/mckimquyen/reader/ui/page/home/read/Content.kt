@@ -3,15 +3,10 @@ package com.mckimquyen.reader.ui.page.home.read
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.statusBars
-import androidx.compose.foundation.layout.windowInsetsBottomHeight
-import androidx.compose.foundation.layout.windowInsetsTopHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.text.selection.DisableSelection
@@ -93,10 +88,9 @@ fun Content(
             state = listState,
         ) {
             item {
-                // Top bar status bar inset and height
-                Spacer(modifier = Modifier.windowInsetsTopHeight(WindowInsets.statusBars))
-                Spacer(modifier = Modifier.height(64.dp))
-                // padding
+                // TopBar is now a normal Column sibling above this Content (see ReadingPage.kt),
+                // so it already claims its own space — no manual status-bar/TopBar-height
+                // clearance spacers needed here anymore. Keep only the intentional visual gap.
                 Spacer(modifier = Modifier.height(22.dp))
                 Column(
                     modifier = Modifier
@@ -163,8 +157,10 @@ fun Content(
                 }
             }
             item {
-                Spacer(modifier = Modifier.height(128.dp))
-                Spacer(modifier = Modifier.windowInsetsBottomHeight(WindowInsets.navigationBars))
+                // Small fixed breathing room at the true end of the article, above BottomBar/Ad
+                // (now plain Column siblings below this list, not an overlay — no reservation
+                // calculation needed here anymore).
+                Spacer(modifier = Modifier.height(24.dp))
             }
         }
     }

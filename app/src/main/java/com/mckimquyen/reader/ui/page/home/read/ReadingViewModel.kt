@@ -21,7 +21,9 @@ import com.mckimquyen.reader.infrastructure.audio.TtsState
 import com.mckimquyen.reader.infrastructure.audio.ambient.ZenAudioManager
 import com.mckimquyen.reader.infrastructure.rss.RssHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -47,7 +49,10 @@ class ReadingViewModel @Inject constructor(
     private val _scrollToTopEvent = MutableSharedFlow<Unit>(extraBufferCapacity = 1)
     val scrollToTopEvent: SharedFlow<Unit> = _scrollToTopEvent.asSharedFlow()
 
-    private var fetchJob: kotlinx.coroutines.Job? = null
+    private var fetchJob: Job? = null
+    private var summaryJob: Job? = null
+    private var mindMapJob: Job? = null
+    private var deepReadJob: Job? = null
 
     init {
         // Collect TTS state once per ViewModel lifetime.
@@ -64,10 +69,26 @@ class ReadingViewModel @Inject constructor(
         // Capture current TTS state before switching feed
         val wasPlaying = _readingUiState.value.ttsState == TtsState.PLAYING
         val shouldAutoPlay = autoTtsEnabled || wasPlaying
-        
+
         if (wasPlaying) {
             Log.d("roy93~", "ReadingViewModel: Switching feed, stopping current TTS")
             ttsManager.stop()
+        }
+
+        // Switching to a different article: cancel any in-flight AI request for the
+        // previous article and reset its result state, so a late response never
+        // overwrites the state shown for the newly opened article.
+        if (_readingUiState.value.articleWithFeed?.article?.id != articleId) {
+            summaryJob?.cancel()
+            mindMapJob?.cancel()
+            deepReadJob?.cancel()
+            _readingUiState.update {
+                it.copy(
+                    summaryState = SummaryState.Idle,
+                    mindMapState = MindMapState.Idle,
+                    deepReadState = DeepReadState.Idle,
+                )
+            }
         }
 
         fetchJob?.cancel()
@@ -176,6 +197,7 @@ class ReadingViewModel @Inject constructor(
     fun requestSummary(forceOffline: Boolean = false) {
         val state = _readingUiState.value
         val article = state.articleWithFeed?.article
+        val requestArticleId = article?.id
         val plainText = state.content?.let {
             androidx.core.text.HtmlCompat
                 .fromHtml(it, androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY)
@@ -189,7 +211,8 @@ class ReadingViewModel @Inject constructor(
         }
 
         _readingUiState.update { it.copy(summaryState = SummaryState.Loading) }
-        viewModelScope.launch {
+        summaryJob?.cancel()
+        summaryJob = viewModelScope.launch {
             try {
                 val highlights = if (forceOffline) {
                     com.mckimquyen.reader.infrastructure.ai.ArticleHighlightsExtractor.extractOfflineHighlights(
@@ -203,10 +226,19 @@ class ReadingViewModel @Inject constructor(
                     )
                 }
                 Log.d("roy93~AI", "[VM.requestSummary] ✅ Success highlights=${highlights.keyTakeaways.size} offline=${highlights.isOfflineFallback}")
-                _readingUiState.update { it.copy(summaryState = SummaryState.Success(highlights)) }
+                // The article shown on screen may have changed while this request was
+                // in flight (e.g. user swiped to the next article). Only apply the
+                // result if it still belongs to the article currently displayed.
+                if (_readingUiState.value.articleWithFeed?.article?.id == requestArticleId) {
+                    _readingUiState.update { it.copy(summaryState = SummaryState.Success(highlights)) }
+                }
+            } catch (e: CancellationException) {
+                throw e
             } catch (e: Exception) {
                 Log.e("roy93~AI", "[VM.requestSummary] ❌ Error: $e", e)
-                _readingUiState.update { it.copy(summaryState = e.toSummaryErrorState()) }
+                if (_readingUiState.value.articleWithFeed?.article?.id == requestArticleId) {
+                    _readingUiState.update { it.copy(summaryState = e.toSummaryErrorState()) }
+                }
             }
         }
     }
@@ -227,6 +259,7 @@ class ReadingViewModel @Inject constructor(
     fun requestMindMap(forceOffline: Boolean = false) {
         val state = _readingUiState.value
         val article = state.articleWithFeed?.article
+        val requestArticleId = article?.id
         val plainText = state.content?.let {
             androidx.core.text.HtmlCompat
                 .fromHtml(it, androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY)
@@ -240,7 +273,8 @@ class ReadingViewModel @Inject constructor(
         }
 
         _readingUiState.update { it.copy(mindMapState = MindMapState.Loading) }
-        viewModelScope.launch {
+        mindMapJob?.cancel()
+        mindMapJob = viewModelScope.launch {
             try {
                 val mindMap = if (forceOffline) {
                     com.mckimquyen.reader.infrastructure.ai.ArticleMindMapExtractor.extractOfflineMindMap(
@@ -254,10 +288,16 @@ class ReadingViewModel @Inject constructor(
                     )
                 }
                 Log.d("roy93~AI", "[VM.requestMindMap] ✅ Success nodes=${mindMap.nodes.size} offline=${mindMap.isOfflineFallback}")
-                _readingUiState.update { it.copy(mindMapState = MindMapState.Success(mindMap)) }
+                if (_readingUiState.value.articleWithFeed?.article?.id == requestArticleId) {
+                    _readingUiState.update { it.copy(mindMapState = MindMapState.Success(mindMap)) }
+                }
+            } catch (e: CancellationException) {
+                throw e
             } catch (e: Exception) {
                 Log.e("roy93~AI", "[VM.requestMindMap] ❌ Error: $e", e)
-                _readingUiState.update { it.copy(mindMapState = e.toMindMapErrorState()) }
+                if (_readingUiState.value.articleWithFeed?.article?.id == requestArticleId) {
+                    _readingUiState.update { it.copy(mindMapState = e.toMindMapErrorState()) }
+                }
             }
         }
     }
@@ -343,13 +383,15 @@ class ReadingViewModel @Inject constructor(
         }
 
         val article = state.articleWithFeed?.article
+        val requestArticleId = active.session.articleId
         val plainText = state.content?.let {
             androidx.core.text.HtmlCompat
                 .fromHtml(it, androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY)
                 .toString()
         }.orEmpty()
 
-        viewModelScope.launch {
+        deepReadJob?.cancel()
+        deepReadJob = viewModelScope.launch {
             try {
                 val assistantReply = summaryService.askArticleQuestion(
                     title = article?.title.orEmpty(),
@@ -359,7 +401,7 @@ class ReadingViewModel @Inject constructor(
                 )
                 _readingUiState.update { current ->
                     val curActive = current.deepReadState as? DeepReadState.Active
-                    if (curActive != null) {
+                    if (curActive != null && curActive.session.articleId == requestArticleId) {
                         current.copy(
                             deepReadState = DeepReadState.Active(
                                 curActive.session.copy(messages = curActive.session.messages + assistantReply),
@@ -370,6 +412,8 @@ class ReadingViewModel @Inject constructor(
                         current
                     }
                 }
+            } catch (e: CancellationException) {
+                throw e
             } catch (e: Exception) {
                 Log.e("roy93~AI", "[VM.sendDeepReadQuestion] error: $e", e)
                 val fallbackReply = com.mckimquyen.reader.infrastructure.ai.ArticleDeepReadEngine.generateOfflineAnswer(
@@ -379,7 +423,7 @@ class ReadingViewModel @Inject constructor(
                 )
                 _readingUiState.update { current ->
                     val curActive = current.deepReadState as? DeepReadState.Active
-                    if (curActive != null) {
+                    if (curActive != null && curActive.session.articleId == requestArticleId) {
                         current.copy(
                             deepReadState = DeepReadState.Active(
                                 curActive.session.copy(messages = curActive.session.messages + fallbackReply),

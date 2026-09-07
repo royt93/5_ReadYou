@@ -2,7 +2,7 @@ package com.mckimquyen.reader.ui.page.home.read
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AutoAwesome
@@ -35,7 +35,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.zIndex
 import androidx.navigation.NavHostController
 import com.mckimquyen.reader.R
 
@@ -65,17 +64,22 @@ fun TopBar(
     val context = LocalContext.current
     var menuExpanded by remember { mutableStateOf(false) }
 
+    // fillMaxWidth (not fillMaxSize): TopBar is now a normal sibling in ReadingPage's root
+    // Column (not an absolutely-positioned overlay), so it must only claim its own natural
+    // height — a fillMaxSize() child inside a Column would swallow all remaining space.
     Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .zIndex(1f),
+        modifier = Modifier.fillMaxWidth(),
         contentAlignment = Alignment.TopCenter
     ) {
         BaseExtensibleVisibility(visible = isShow) {
             TopAppBar(
                 title = {},
                 modifier = Modifier,
-                windowInsets = TopAppBarDefaults.windowInsets,
+                // Zero insets here, not TopAppBarDefaults.windowInsets (which defaults to
+                // WindowInsets.statusBars): BaseScaffold's own Scaffold already reserves the
+                // status bar height once via its content Spacer(calculateTopPadding()) —
+                // applying it again here doubled the visible gap above this TopAppBar.
+                windowInsets = WindowInsets(0, 0, 0, 0),
                 navigationIcon = {
                     FeedbackIconButton(
                         imageVector = Icons.Rounded.Close,

@@ -4,7 +4,6 @@ import android.view.HapticFeedbackConstants
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
@@ -27,12 +26,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.zIndex
 import com.mckimquyen.reader.R
 import com.mckimquyen.reader.infrastructure.pref.LocalReadingPageTonalElevation
+import com.mckimquyen.reader.ui.component.base.BaseExtensibleVisibility
 import com.mckimquyen.reader.ui.component.base.CanBeDisabledIconButton
 import com.mckimquyen.reader.ui.component.base.FeedbackIconButton
-import com.mckimquyen.reader.ui.component.base.BaseExtensibleVisibility
 
 @Composable
 fun BottomBar(
@@ -48,10 +46,12 @@ fun BottomBar(
 ) {
     val tonalElevation = LocalReadingPageTonalElevation.current
 
+    // Collapses to 0 height when hidden (BaseExtensibleVisibility = shrink + fade): now that
+    // ReadingPage lays this out as a normal Column sibling (not an absolutely-positioned
+    // overlay with a manually-reserved height), a real collapse correctly reclaims the space
+    // for the article content below — Compose's Column/weight layout handles that automatically.
     Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .zIndex(1f),
+        modifier = Modifier.fillMaxWidth(),
         contentAlignment = Alignment.BottomCenter
     ) {
         BaseExtensibleVisibility(visible = isShow) {
@@ -115,10 +115,17 @@ fun BottomBar(
                         onNextArticle()
                     }
                     FeedbackIconButton(
-                        modifier = Modifier.size(40.dp),
+                        // FeedbackIconButton applies `modifier` straight to the icon glyph
+                        // (unlike CanBeDisabledIconButton above/below, whose `modifier` only
+                        // sizes the outer touch target while its icon glyph defaults to 24.dp) —
+                        // 24.dp here matches the actual rendered glyph size of every sibling icon
+                        // in this row. The previous 40.dp made this icon visibly ~1.67x larger.
+                        modifier = Modifier.size(24.dp),
                         imageVector = Icons.Rounded.Forum,
                         contentDescription = stringResource(R.string.deep_read_title),
-                        tint = MaterialTheme.colorScheme.primary,
+                        // Neutral tone matching the other stateless icon in this row (ExpandMore),
+                        // instead of the accent `primary` color that stood out from its siblings.
+                        tint = MaterialTheme.colorScheme.outline,
                     ) {
                         view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP)
                         onDeepRead()

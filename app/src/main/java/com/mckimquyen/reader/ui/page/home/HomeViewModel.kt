@@ -21,6 +21,8 @@ import com.mckimquyen.reader.infrastructure.di.IODispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -144,8 +146,14 @@ class HomeViewModel @Inject constructor(
         fetchArticles()
     }
 
-    fun fetchArticles() {
-        viewModelScope.launch(ioDispatcher) {
+    private var fetchArticlesJob: Job? = null
+
+    fun fetchArticles(debounceMs: Long = 0L) {
+        // Cancel any in-flight fetch so a slower, now-stale query can never overwrite
+        // the result of a query started more recently (e.g. fast typing in search).
+        fetchArticlesJob?.cancel()
+        fetchArticlesJob = viewModelScope.launch(ioDispatcher) {
+            if (debounceMs > 0) delay(debounceMs)
             val searchContent = _homeUiState.value.searchContent.trim()
             val isClusteringEnabled = context.flowStoryClustering
             val clusterResult = if (isClusteringEnabled && searchContent.isBlank()) {
@@ -199,7 +207,11 @@ class HomeViewModel @Inject constructor(
 
     fun inputSearchContent(content: String) {
         _homeUiState.update { it.copy(searchContent = content) }
-        fetchArticles()
+        fetchArticles(debounceMs = SEARCH_DEBOUNCE_MS)
+    }
+
+    private companion object {
+        const val SEARCH_DEBOUNCE_MS = 300L
     }
 }
 
