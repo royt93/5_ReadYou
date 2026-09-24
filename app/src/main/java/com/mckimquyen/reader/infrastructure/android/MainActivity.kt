@@ -42,6 +42,9 @@ class MainActivity : ComponentActivity() {
     @Inject
     lateinit var accountDao: AccountDao
 
+    @Inject
+    lateinit var wakeLockManager: WakeLockManager
+
     override fun attachBaseContext(newBase: Context) {
         val languagePref = try {
             newBase.getSharedPreferences("locale_prefs", Context.MODE_PRIVATE)
@@ -75,16 +78,19 @@ class MainActivity : ComponentActivity() {
     override fun onResume() {
         super.onResume()
 //        adView?.resume()
+        wakeLockManager.acquire()
         rateAppInApp(BuildConfig.DEBUG)
     }
 
     override fun onPause() {
 //        adView?.pause()
+        wakeLockManager.release()
         super.onPause()
     }
 
     override fun onDestroy() {
 //        adView?.destroy()
+        wakeLockManager.release()
         super.onDestroy()
     }
 
@@ -113,6 +119,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        window.addFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         androidx.core.view.WindowCompat.setDecorFitsSystemWindows(window, false)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             window.isStatusBarContrastEnforced = false
