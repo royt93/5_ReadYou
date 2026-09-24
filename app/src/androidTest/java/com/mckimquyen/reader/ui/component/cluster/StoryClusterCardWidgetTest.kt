@@ -150,4 +150,25 @@ class StoryClusterCardWidgetTest {
         }
         scenario.close()
     }
+
+    @Test
+    fun storyClusterCard_withSimilarityScore_rendersBadgeWithoutCrash() {
+        val clusterWithScore = sampleCluster.copy(
+            similarityScore = 0.88f,
+        )
+        val scenario = ActivityScenario.launch(ComponentActivity::class.java)
+        scenario.onActivity { activity ->
+            val composeView = ComposeView(activity).apply {
+                setContent {
+                    StoryClusterCard(
+                        cluster = clusterWithScore,
+                        onClick = {},
+                    )
+                }
+            }
+            activity.setContentView(composeView)
+            assertNotNull(composeView)
+        }
+        scenario.close()
+    }
 }

@@ -577,6 +577,7 @@
     <string name="story_cluster_mark_all_read">全部标为已读</string>
     <string name="story_cluster_sheet_title">新闻全景与多维视角</string>
     <string name="story_cluster_lead_badge">主导</string>
+    <string name="story_cluster_similarity_badge">%d%% 契合</string>
     <string name="semantic_search_title">AI 语义搜索</string>
     <string name="semantic_search_desc">根据概念与语义理解检索文章，而非仅仅精准匹配关键词</string>
     <string name="semantic_match_badge">%d%% 语义契合</string>

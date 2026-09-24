@@ -3,17 +3,39 @@ package com.mckimquyen.reader.infrastructure.ai.clustering
 import com.mckimquyen.reader.domain.model.article.ArticleWithFeed
 import com.mckimquyen.reader.domain.model.cluster.StoryCluster
 import com.mckimquyen.reader.domain.model.cluster.StoryClusterResult
+import java.util.Collections
+import java.util.LinkedHashMap
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.math.abs
-import kotlin.math.max
 import kotlin.math.min
+
+/**
+ * Trích xuất đặc trưng bài báo đã tokenize & phân tích cấu trúc từ vựng,
+ * được cache trong LruCache để tránh lặp lại công việc tokenize tốn kém.
+ */
+data class ArticleFeatures(
+    val fingerprint: String,
+    val tokensList: List<String>,
+    val tokens: Set<String>,
+    val bigrams: Set<String>,
+    val entities: Set<String>,
+    val descTokensList: List<String>,
+    val descTokens: Set<String>,
+    val blockingTokens: Set<String>,
+)
 
 /**
  * Thuật toán phân cụm sự kiện & gom tin tức trùng lặp (AI Story Clustering & Deduplication).
  * Phân tích độ tương đồng ngữ nghĩa, n-gram, thực thể tên riêng và thời gian phát hành
  * để gom các bài viết cùng chủ đề thành một Story Card đa góc nhìn.
+ *
+ * Tối ưu hóa hiệu năng [KNOW-04]:
+ * 1. LruCache Feature Cache (500 bài) theo fingerprint nội dung.
+ * 2. Inverted Index Token Blocking: giảm số cặp cần so sánh từ O(n²) xuống các bài có chung token/thực thể/bigram.
+ * 3. Điểm similarityScore thực tế: lấy điểm tương đồng nhỏ nhất giữa bài chính (leadArticle)
+ *    và các bài viết thành viên trong cụm (min similarity), loại bỏ hoàn toàn giá trị hardcode 0.85f.
  */
 @Singleton
 class StoryClusteringEngine @Inject constructor() {
@@ -21,6 +43,7 @@ class StoryClusteringEngine @Inject constructor() {
     companion object {
         const val DEFAULT_SIMILARITY_THRESHOLD = 0.45f
         const val DEFAULT_TIME_WINDOW_HOURS = 48L
+        private const val FEATURE_CACHE_SIZE = 500
 
         private val STOP_WORDS = setOf(
             // English
@@ -44,8 +67,96 @@ class StoryClusteringEngine @Inject constructor() {
         )
     }
 
+    // In-memory LRU Cache thread-safe cho các đặc trưng bài viết đã trích xuất
+    private val featureCache: MutableMap<String, ArticleFeatures> = Collections.synchronizedMap(
+        object : LinkedHashMap<String, ArticleFeatures>(FEATURE_CACHE_SIZE, 0.75f, true) {
+            override fun removeEldestEntry(eldest: MutableMap.MutableEntry<String, ArticleFeatures>?): Boolean {
+                return size > FEATURE_CACHE_SIZE
+            }
+        }
+    )
+
+    /**
+     * Tạo chuỗi fingerprint độc nhất dựa trên nội dung thực sự ảnh hưởng đến độ tương đồng.
+     */
+    fun computeArticleFingerprint(a: ArticleWithFeed): String {
+        val art = a.article
+        val title = art.title.trim()
+        val descSnippet = art.shortDescription.take(200).trim()
+        val time = art.date.time
+        return "${art.id}|${title.hashCode()}|${descSnippet.hashCode()}|$time"
+    }
+
+    /**
+     * Trích xuất các đặc trưng phân tích của bài báo hoặc lấy lại từ LRU Cache.
+     */
+    fun getOrExtractFeatures(a: ArticleWithFeed): ArticleFeatures {
+        val cacheKey = a.article.id
+        val fingerprint = computeArticleFingerprint(a)
+
+        synchronized(featureCache) {
+            val cached = featureCache[cacheKey]
+            if (cached != null && cached.fingerprint == fingerprint) {
+                return cached
+            }
+        }
+
+        val title = a.article.title.trim()
+        val tokensList = tokenizeList(title)
+        val tokens = tokensList.toSet()
+        val bigrams = extractBigrams(tokensList)
+        val entities = extractEntities(title)
+
+        val descTokensList = tokenizeList(a.article.shortDescription.take(200))
+        val descTokens = descTokensList.toSet()
+
+        // Các token dùng để tạo inverted index blocking
+        val blockingTokens = mutableSetOf<String>().apply {
+            addAll(tokens)
+            addAll(bigrams)
+            addAll(entities)
+            addAll(descTokens)
+        }
+
+        val features = ArticleFeatures(
+            fingerprint = fingerprint,
+            tokensList = tokensList,
+            tokens = tokens,
+            bigrams = bigrams,
+            entities = entities,
+            descTokensList = descTokensList,
+            descTokens = descTokens,
+            blockingTokens = blockingTokens,
+        )
+
+        synchronized(featureCache) {
+            featureCache[cacheKey] = features
+        }
+
+        return features
+    }
+
+    /**
+     * Xóa cache đặc trưng (dùng khi kiểm thử hoặc giải phóng tài nguyên).
+     */
+    fun clearCache() {
+        synchronized(featureCache) {
+            featureCache.clear()
+        }
+    }
+
+    /**
+     * Lấy kích thước hiện tại của cache đặc trưng.
+     */
+    fun cacheSize(): Int {
+        synchronized(featureCache) {
+            return featureCache.size
+        }
+    }
+
     /**
      * Nhận vào danh sách bài báo và phân cụm thành StoryClusterResult.
+     * Áp dụng Inverted Index Blocking + Tính similarityScore thực tế từ calculateSimilarity().
      */
     fun cluster(
         articles: List<ArticleWithFeed>,
@@ -60,22 +171,92 @@ class StoryClusteringEngine @Inject constructor() {
         val n = articles.size
         val dsu = DisjointSetUnion(n)
 
-        // So sánh từng cặp bài báo trong ngưỡng thời gian
+        // 1. Trích xuất đặc trưng (có cache) cho tất cả bài viết
+        val featuresList = ArrayList<ArticleFeatures>(n)
         for (i in 0 until n) {
-            val a1 = articles[i]
-            for (j in i + 1 until n) {
-                val a2 = articles[j]
-                val timeDiff = abs(a1.article.date.time - a2.article.date.time)
-                if (timeDiff <= windowMillis) {
-                    val similarity = calculateSimilarity(a1, a2)
-                    if (similarity >= threshold) {
-                        dsu.union(i, j)
+            featuresList.add(getOrExtractFeatures(articles[i]))
+        }
+
+        // 2. Xây dựng Inverted Index Blocking: token -> list of article indices
+        val tokenToArticles = mutableMapOf<String, MutableList<Int>>()
+        for (i in 0 until n) {
+            for (token in featuresList[i].blockingTokens) {
+                tokenToArticles.getOrPut(token) { mutableListOf() }.add(i)
+            }
+        }
+
+        // 3. Tìm các cặp bài viết tiềm năng (Candidate Pairs) có ít nhất 1 blocking token chung
+        // và nằm trong khung thời gian hợp lệ
+        // Key mã hóa cặp (i, j) với i < j: (i.toLong() shl 32) or (j.toLong() and 0xFFFFFFFFL)
+        val candidatePairs = mutableSetOf<Long>()
+        for ((_, docIndices) in tokenToArticles) {
+            val docCount = docIndices.size
+            if (docCount < 2) continue
+            // Nếu một token quá phổ biến (xuất hiện ở > 70% số bài viết), bỏ qua để tránh O(n^2) worst case
+            if (docCount > (n * 0.7f).toInt().coerceAtLeast(10)) continue
+
+            for (idxA in 0 until docCount) {
+                val i = docIndices[idxA]
+                val tI = articles[i].article.date.time
+                for (idxB in idxA + 1 until docCount) {
+                    val j = docIndices[idxB]
+                    val tJ = articles[j].article.date.time
+                    if (abs(tI - tJ) <= windowMillis) {
+                        val minIdx = if (i < j) i else j
+                        val maxIdx = if (i < j) j else i
+                        val pairKey = (minIdx.toLong() shl 32) or (maxIdx.toLong() and 0xFFFFFFFFL)
+                        candidatePairs.add(pairKey)
                     }
                 }
             }
         }
 
-        // Gom các bài viết theo từng cụm
+        // 4. Fallback an toàn: So sánh trực tiếp các bài có tiêu đề giống nhau hệt nhau
+        // (đề phòng trường hợp tiêu đề cực ngắn hoặc không sinh blocking token nào lọt stop words)
+        val titleMap = mutableMapOf<String, MutableList<Int>>()
+        for (i in 0 until n) {
+            val normalizedTitle = articles[i].article.title.trim().lowercase()
+            if (normalizedTitle.isNotBlank()) {
+                titleMap.getOrPut(normalizedTitle) { mutableListOf() }.add(i)
+            }
+        }
+        for ((_, indices) in titleMap) {
+            if (indices.size >= 2) {
+                for (x in 0 until indices.size) {
+                    for (y in x + 1 until indices.size) {
+                        val i = indices[x]
+                        val j = indices[y]
+                        if (abs(articles[i].article.date.time - articles[j].article.date.time) <= windowMillis) {
+                            val minIdx = if (i < j) i else j
+                            val maxIdx = if (i < j) j else i
+                            val pairKey = (minIdx.toLong() shl 32) or (maxIdx.toLong() and 0xFFFFFFFFL)
+                            candidatePairs.add(pairKey)
+                        }
+                    }
+                }
+            }
+        }
+
+        // 5. Tính toán similarity cho các candidate pairs và hợp nhất vào DSU
+        val pairSimilarityMap = mutableMapOf<Long, Float>()
+        for (pairKey in candidatePairs) {
+            val i = (pairKey ushr 32).toInt()
+            val j = (pairKey and 0xFFFFFFFFL).toInt()
+
+            val similarity = calculateSimilarityWithFeatures(
+                a1 = articles[i],
+                f1 = featuresList[i],
+                a2 = articles[j],
+                f2 = featuresList[j]
+            )
+            pairSimilarityMap[pairKey] = similarity
+
+            if (similarity >= threshold) {
+                dsu.union(i, j)
+            }
+        }
+
+        // 6. Gom các bài viết theo từng cụm
         val components = mutableMapOf<Int, MutableList<ArticleWithFeed>>()
         for (i in 0 until n) {
             val root = dsu.find(i)
@@ -86,6 +267,12 @@ class StoryClusteringEngine @Inject constructor() {
         val leadClusterMap = mutableMapOf<String, StoryCluster>()
         val nonLeadIds = mutableSetOf<String>()
 
+        // Map ngược articleId -> index trong articles để tra cứu pairSimilarityMap nhanh chóng
+        val articleIndexMap = HashMap<String, Int>(n)
+        for (i in 0 until n) {
+            articleIndexMap[articles[i].article.id] = i
+        }
+
         for ((_, clusterArticles) in components) {
             if (clusterArticles.size >= 2) {
                 // Chọn leadArticle: bài viết có tiêu đề + nội dung chi tiết nhất, hoặc mới nhất
@@ -95,6 +282,26 @@ class StoryClusteringEngine @Inject constructor() {
                 )
                 val leadArticle = sortedArticles.first()
                 val otherArticles = sortedArticles.drop(1)
+                val leadIdx = articleIndexMap[leadArticle.article.id] ?: 0
+
+                // 7. Tính similarityScore thực tế: min similarity giữa leadArticle và các bài khác trong cụm
+                var minSimilarity = 1.0f
+                for (other in otherArticles) {
+                    val otherIdx = articleIndexMap[other.article.id] ?: 0
+                    val minI = if (leadIdx < otherIdx) leadIdx else otherIdx
+                    val maxI = if (leadIdx < otherIdx) otherIdx else leadIdx
+                    val pairKey = (minI.toLong() shl 32) or (maxI.toLong() and 0xFFFFFFFFL)
+
+                    val sim = pairSimilarityMap[pairKey] ?: calculateSimilarityWithFeatures(
+                        a1 = leadArticle,
+                        f1 = featuresList[leadIdx],
+                        a2 = other,
+                        f2 = featuresList[otherIdx]
+                    )
+                    if (sim < minSimilarity) {
+                        minSimilarity = sim
+                    }
+                }
 
                 val keywords = extractKeywords(clusterArticles)
                 val clusterId = "cluster_${leadArticle.article.id}"
@@ -108,7 +315,7 @@ class StoryClusteringEngine @Inject constructor() {
                     sourceCount = clusterArticles.map { it.feed.id }.distinct().size,
                     articleCount = clusterArticles.size,
                     date = clusterArticles.maxOfOrNull { it.article.date } ?: leadArticle.article.date,
-                    similarityScore = 0.85f,
+                    similarityScore = minSimilarity,
                 )
 
                 clusters.add(cluster)
@@ -125,18 +332,20 @@ class StoryClusteringEngine @Inject constructor() {
     }
 
     /**
-     * Tính toán độ tương đồng giữa hai bài báo dựa trên từ khóa, n-gram và thực thể.
+     * Tính toán độ tương đồng giữa hai bài báo dựa trên đặc trưng đã trích xuất sẵn.
      */
-    fun calculateSimilarity(a1: ArticleWithFeed, a2: ArticleWithFeed): Float {
+    fun calculateSimilarityWithFeatures(
+        a1: ArticleWithFeed,
+        f1: ArticleFeatures,
+        a2: ArticleWithFeed,
+        f2: ArticleFeatures,
+    ): Float {
         val t1 = a1.article.title.trim()
         val t2 = a2.article.title.trim()
         if (t1.equals(t2, ignoreCase = true)) return 1.0f
 
-        val tokensList1 = tokenizeList(t1)
-        val tokensList2 = tokenizeList(t2)
-
-        val tokens1 = tokensList1.toSet()
-        val tokens2 = tokensList2.toSet()
+        val tokens1 = f1.tokens
+        val tokens2 = f2.tokens
 
         if (tokens1.isEmpty() || tokens2.isEmpty()) return 0.0f
 
@@ -144,9 +353,9 @@ class StoryClusteringEngine @Inject constructor() {
         val wordOverlap = overlapCoefficient(tokens1, tokens2)
         val wordScore = (wordJaccard * 0.45f) + (wordOverlap * 0.55f)
 
-        // N-gram similarity (bigrams) từ danh sách từ theo thứ tự
-        val bigrams1 = extractBigrams(tokensList1)
-        val bigrams2 = extractBigrams(tokensList2)
+        // N-gram similarity (bigrams)
+        val bigrams1 = f1.bigrams
+        val bigrams2 = f2.bigrams
         val bigramScore = if (bigrams1.isNotEmpty() && bigrams2.isNotEmpty()) {
             val bigramJaccard = jaccardSimilarity(bigrams1, bigrams2)
             val bigramOverlap = overlapCoefficient(bigrams1, bigrams2)
@@ -155,9 +364,9 @@ class StoryClusteringEngine @Inject constructor() {
             0f
         }
 
-        // Trích xuất từ viết hoa / thực thể / con số từ tiêu đề gốc (hỗ trợ Unicode)
-        val entities1 = extractEntities(t1)
-        val entities2 = extractEntities(t2)
+        // Thực thể tên riêng
+        val entities1 = f1.entities
+        val entities2 = f2.entities
         val entityBonus = if (entities1.isNotEmpty() && entities2.isNotEmpty()) {
             overlapCoefficient(entities1, entities2)
         } else {
@@ -165,11 +374,9 @@ class StoryClusteringEngine @Inject constructor() {
         }
 
         // Tương đồng mô tả phụ (nếu có)
-        val d1List = tokenizeList(a1.article.shortDescription.take(200))
-        val d2List = tokenizeList(a2.article.shortDescription.take(200))
-        val descScore = if (d1List.isNotEmpty() && d2List.isNotEmpty()) {
-            val d1 = d1List.toSet()
-            val d2 = d2List.toSet()
+        val d1 = f1.descTokens
+        val d2 = f2.descTokens
+        val descScore = if (d1.isNotEmpty() && d2.isNotEmpty()) {
             val jaccard = jaccardSimilarity(d1, d2)
             val overlap = overlapCoefficient(d1, d2)
             (jaccard * 0.4f) + (overlap * 0.6f)
@@ -185,6 +392,15 @@ class StoryClusteringEngine @Inject constructor() {
         }
 
         return min(1.0f, combinedScore)
+    }
+
+    /**
+     * Tính toán độ tương đồng giữa hai bài báo dựa trên từ khóa, n-gram và thực thể.
+     */
+    fun calculateSimilarity(a1: ArticleWithFeed, a2: ArticleWithFeed): Float {
+        val f1 = getOrExtractFeatures(a1)
+        val f2 = getOrExtractFeatures(a2)
+        return calculateSimilarityWithFeatures(a1, f1, a2, f2)
     }
 
     /**

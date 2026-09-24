@@ -69,6 +69,9 @@ class HomeViewModel @Inject constructor(
     private val _clusterResult = MutableStateFlow(StoryClusterResult.EMPTY)
     val clusterResult: StateFlow<StoryClusterResult> = _clusterResult.asStateFlow()
 
+    private var lastClusterAccountId: Int = -1
+    private var lastClusterFingerprint: String = ""
+
     private val _selectedCluster = MutableStateFlow<StoryCluster?>(null)
     val selectedCluster: StateFlow<StoryCluster?> = _selectedCluster.asStateFlow()
 
@@ -159,8 +162,20 @@ class HomeViewModel @Inject constructor(
             val clusterResult = if (isClusteringEnabled && searchContent.isBlank()) {
                 val accountId = context.currentAccountId
                 val recentArticles = articleDao.queryRecentArticlesWithFeed(accountId, limit = 150)
-                clusteringEngine.cluster(recentArticles)
+                val currentFingerprint = recentArticles.joinToString(";") { a ->
+                    clusteringEngine.computeArticleFingerprint(a)
+                }
+
+                if (accountId == lastClusterAccountId && currentFingerprint == lastClusterFingerprint) {
+                    _clusterResult.value
+                } else {
+                    lastClusterAccountId = accountId
+                    lastClusterFingerprint = currentFingerprint
+                    clusteringEngine.cluster(recentArticles)
+                }
             } else {
+                lastClusterAccountId = -1
+                lastClusterFingerprint = ""
                 StoryClusterResult.EMPTY
             }
             _clusterResult.value = clusterResult

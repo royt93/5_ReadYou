@@ -551,6 +551,7 @@
     <string name="story_cluster_mark_all_read">Đánh dấu tất cả đã đọc</string>
     <string name="story_cluster_sheet_title">Toàn Cảnh Góc Nhìn Đa Chiều</string>
     <string name="story_cluster_lead_badge">Chính</string>
+    <string name="story_cluster_similarity_badge">%d%% khớp</string>
     <string name="semantic_search_title">Tìm kiếm ngữ nghĩa AI</string>
     <string name="semantic_search_desc">Tìm bài viết theo khái niệm và ý nghĩa thay vì chỉ so khớp đúng từ khóa</string>
     <string name="semantic_match_badge">%d%% phù hợp</string>

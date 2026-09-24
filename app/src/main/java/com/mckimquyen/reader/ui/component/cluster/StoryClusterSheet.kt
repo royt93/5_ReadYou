@@ -168,11 +168,37 @@ fun StoryClusterSheetContent(
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.onSurface,
                     )
-                    Text(
-                        text = stringResource(R.string.story_cluster_badge, cluster.sourceCount),
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(6.dp),
+                    ) {
+                        Text(
+                            text = if (cluster.isMultiSource) {
+                                stringResource(R.string.story_cluster_badge, cluster.sourceCount)
+                            } else {
+                                stringResource(R.string.story_cluster_badge_single, cluster.articleCount)
+                            },
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                        if (cluster.similarityScore > 0f) {
+                            Surface(
+                                shape = RoundedCornerShape(6.dp),
+                                color = MaterialTheme.colorScheme.tertiaryContainer.copy(alpha = 0.7f),
+                            ) {
+                                Text(
+                                    text = stringResource(
+                                        R.string.story_cluster_similarity_badge,
+                                        (cluster.similarityScore * 100).toInt()
+                                    ),
+                                    modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp),
+                                    style = MaterialTheme.typography.labelSmall.copy(fontSize = 10.sp),
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.colorScheme.onTertiaryContainer,
+                                )
+                            }
+                        }
+                    }
                 }
             }
 

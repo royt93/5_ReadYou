@@ -110,4 +110,27 @@ class StoryClusterSheetWidgetTest {
         }
         scenario.close()
     }
+
+    @Test
+    fun storyClusterSheet_withSimilarityScore_rendersBadgeWithoutCrash() {
+        val clusterWithScore = sampleCluster.copy(
+            similarityScore = 0.92f,
+        )
+        val scenario = ActivityScenario.launch(ComponentActivity::class.java)
+        scenario.onActivity { activity ->
+            val composeView = ComposeView(activity).apply {
+                setContent {
+                    StoryClusterSheet(
+                        cluster = clusterWithScore,
+                        onDismissRequest = {},
+                        onArticleClick = {},
+                        onMarkAllRead = {},
+                    )
+                }
+            }
+            activity.setContentView(composeView)
+            assertNotNull(composeView)
+        }
+        scenario.close()
+    }
 }

@@ -5,6 +5,7 @@ import com.mckimquyen.reader.domain.model.article.ArticleWithFeed
 import com.mckimquyen.reader.domain.model.feed.Feed
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNotEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
 import org.junit.Before
@@ -24,6 +25,7 @@ class StoryClusteringEngineTest {
     @Before
     fun setUp() {
         engine = StoryClusteringEngine()
+        engine.clearCache()
     }
 
     private fun createArticle(
@@ -152,6 +154,35 @@ class StoryClusteringEngineTest {
     }
 
     @Test
+    fun cluster_computesRealSimilarityScore_insteadOfHardcoded085f() {
+        val now = System.currentTimeMillis()
+        val a1 = createArticle(
+            id = "a1",
+            title = "Apple ra mắt dòng iPhone 16 Pro Max với chip A18",
+            description = "Sự kiện rạng sáng nay Apple đã giới thiệu thế hệ iPhone 16 Pro Max cao cấp.",
+            feed = feedVnExpress,
+            date = Date(now),
+        )
+        val a2 = createArticle(
+            id = "a2",
+            title = "Apple công bố iPhone 16 Pro Max tích hợp chip A18",
+            description = "Toàn cảnh lễ ra mắt sản phẩm mới iPhone 16 Pro Max trang bị vi xử lý Apple A18.",
+            feed = feedTuoiTre,
+            date = Date(now - TimeUnit.HOURS.toMillis(1)),
+        )
+
+        val result = engine.cluster(listOf(a1, a2))
+        assertEquals(1, result.clusters.size)
+
+        val cluster = result.clusters.first()
+        val actualPairSim = engine.calculateSimilarity(a1, a2)
+
+        // Phải phản ánh đúng điểm tính toán thực tế, không bị gán chết 0.85f
+        assertEquals("similarityScore must match actual calculated similarity", actualPairSim, cluster.similarityScore, 0.001f)
+        assertTrue("similarityScore should be >= threshold", cluster.similarityScore >= 0.45f)
+    }
+
+    @Test
     fun cluster_respectsTimeWindowConstraint() {
         val now = System.currentTimeMillis()
         val a1 = createArticle(
@@ -195,5 +226,53 @@ class StoryClusteringEngineTest {
 
         val keywords = engine.extractKeywords(articles)
         assertTrue("Keywords should contain OpenAI or Gpt-5", keywords.any { it.contains("openai", ignoreCase = true) || it.contains("gpt", ignoreCase = true) })
+    }
+
+    @Test
+    fun featureCache_reusesCachedFeaturesOnSubsequentCalls() {
+        val a1 = createArticle("art_1", "Thị trường chứng khoán phục hồi mạnh mẽ sau phiên giảm", feed = feedVnExpress)
+        assertEquals(0, engine.cacheSize())
+
+        val f1 = engine.getOrExtractFeatures(a1)
+        assertEquals(1, engine.cacheSize())
+
+        val f2 = engine.getOrExtractFeatures(a1)
+        assertEquals("Should retrieve exactly same instance from cache", f1, f2)
+        assertEquals(1, engine.cacheSize())
+    }
+
+    @Test
+    fun featureCache_invalidatesWhenArticleContentChanges() {
+        val a1 = createArticle("art_1", "Tiêu đề ban đầu của bài báo", feed = feedVnExpress)
+        val f1 = engine.getOrExtractFeatures(a1)
+
+        val a1Updated = createArticle("art_1", "Tiêu đề đã được cập nhật khẩn cấp của bài báo", feed = feedVnExpress)
+        val f2 = engine.getOrExtractFeatures(a1Updated)
+
+        assertNotEquals("Fingerprint must change when title changes", f1.fingerprint, f2.fingerprint)
+        assertFalse("Tokens of updated article must differ", f1.tokens == f2.tokens)
+    }
+
+    @Test
+    fun invertedIndexBlocking_clustersArticlesSharingEntitiesOrBigrams() {
+        val now = System.currentTimeMillis()
+        val a1 = createArticle(
+            id = "x1",
+            title = "OpenAI chính thức công bố mô hình GPT-5 với năng lực suy luận vượt trội",
+            description = "Sự kiện ra mắt toàn cầu của OpenAI đã trình làng mô hình trí tuệ nhân tạo GPT-5.",
+            feed = feedTechCrunch,
+            date = Date(now),
+        )
+        val a2 = createArticle(
+            id = "x2",
+            title = "OpenAI công bố GPT-5 với năng lực suy luận tư duy thế hệ mới",
+            description = "Trí tuệ nhân tạo GPT-5 của OpenAI chính thức ra mắt toàn cầu với khả năng suy luận vượt trội.",
+            feed = feedBBC,
+            date = Date(now - TimeUnit.HOURS.toMillis(1)),
+        )
+
+        val result = engine.cluster(listOf(a1, a2))
+        assertEquals(1, result.clusters.size)
+        assertTrue(result.clusters.first().keywords.any { it.contains("openai", ignoreCase = true) || it.contains("gpt", ignoreCase = true) })
     }
 }

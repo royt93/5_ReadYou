@@ -175,4 +175,42 @@ class HomeViewModelSearchRaceTest {
 
         coVerify(exactly = 1) { articleDao.queryRecentArticlesWithFeed(any(), 150) }
     }
+
+    @Test
+    fun changeFilter_whenArticlesDoNotChange_skipsReClustering() = runTest(testDispatcher) {
+        val article = Article(
+            id = "art_1",
+            title = "Breaking News Event",
+            rawDescription = "",
+            shortDescription = "",
+            link = "https://example.com/1",
+            feedId = "feed_1",
+            accountId = 1,
+            date = Date(1000L),
+        )
+        val feed = Feed(
+            id = "feed_1",
+            name = "Feed",
+            url = "https://example.com/feed",
+            groupId = "group_1",
+            accountId = 1,
+            isFullContent = false,
+        )
+        val articleWithFeed = ArticleWithFeed(article, feed)
+        coEvery { articleDao.queryRecentArticlesWithFeed(any(), 150) } returns listOf(articleWithFeed)
+        every { clusteringEngine.computeArticleFingerprint(any()) } returns "art_1|fingerprint"
+        every { clusteringEngine.cluster(any()) } returns com.mckimquyen.reader.domain.model.cluster.StoryClusterResult.EMPTY
+
+        val viewModel = buildViewModel()
+
+        // Lần đầu khởi tạo / fetchArticles: clusteringEngine.cluster() được gọi 1 lần
+        viewModel.fetchArticles()
+        runCurrent()
+        verify(exactly = 1) { clusteringEngine.cluster(any()) }
+
+        // Đổi filter sang group/feed khác, dữ liệu top 150 bài viết không đổi -> KHÔNG gọi lại clusteringEngine.cluster()
+        viewModel.changeFilter(FilterState(group = null, feed = feed))
+        runCurrent()
+        verify(exactly = 1) { clusteringEngine.cluster(any()) }
+    }
 }
