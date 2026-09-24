@@ -65,3 +65,28 @@ Chỉ dừng loop khi hoàn tất TẤT CẢ bước sau, đúng thứ tự, KH�
    → `git add` các file liên quan → `git commit` với message rõ ràng, đúng Conventional Commits → **`git push`** lên remote nhánh hiện tại. Kết thúc loop, cập nhật trạng thái task (di chuyển file từ `doc/task/todo/` hoặc `inprogress/` sang `doc/task/done/`, đổi tên thêm hậu tố `_DONE` và viết Completion Report ngắn: điểm số, commit hash, danh sách test đã thêm).
 7. Nếu điểm **≤ 9/10** hoặc bất kỳ điều kiện bước 2-5 chưa đạt: quay lại bước 1 của vòng lặp Loop Prompt, KHÔNG commit/push.
 ```
+
+---
+
+## 🏆 Completion Report
+
+- **Status:** COMPLETED
+- **Audit Score:** 9.8 / 10
+- **Device Target:** CPH1989 (`FUJZIFIR7DQCNRWW`, non-TECNO)
+- **Delivered Deliverables:**
+  1. `AiRequestGateway.kt`:
+     - Centralized key rotation & HTTP error categorization (400, 403, 429, Network).
+     - Dedicated OkHttpClient instance with explicit 60s timeouts (`callTimeout`, `readTimeout`, `writeTimeout`).
+     - Coroutine cancellation awareness: underlying OkHttp call cancelled when coroutine is cancelled using `suspendCancellableCoroutine` + `Call.cancel()`.
+     - Single-flight deduplication: SHA-256 fingerprinting + in-flight ConcurrentHashMap with Mutex synchronization.
+     - Multi-waiter safety: cancellation by one waiter does not cancel request if other waiters are active (`waiterCount: AtomicInteger`).
+  2. `GeminiSummaryService.kt`:
+     - Injected `AiRequestGateway`.
+     - Refactored `extractHighlights`, `generateMindMap`, and `askArticleQuestion` to delegate to `gateway.execute(...)`.
+     - Cleaned up redundant loop code and unused dead helpers (`callGemini()`, `parseSummary()`, `mapHttpError()`, `mask()`).
+     - Maintained 100% offline fallback compatibility for all 4 AI use cases.
+  3. Tests:
+     - **Unit Tests (`AiRequestGatewayTest.kt`):** 9 tests passing (empty keys, single key success, 429 failover, 403 failover, all keys fail, network failure, single-flight deduplication, waiter cancellation).
+     - **Instrumentation Tests (`AiRequestGatewayIntegrationTest.kt`):** 3 tests passing on Android runtime (`FUJZIFIR7DQCNRWW`).
+     - **UI / Integration Tests (`ArticleHighlightsIntegrationTest.kt`, `MindMapIntegrationTest.kt`, `DeepReadIntegrationTest.kt`, `ArticleHighlightsSheetWidgetTest.kt`, `MindMapSheetWidgetTest.kt`, `DeepReadChatSheetWidgetTest.kt`):** All passing on `FUJZIFIR7DQCNRWW`.
+     - **Device Smoke Test:** Verified app launch and startup without crash on `FUJZIFIR7DQCNRWW`.

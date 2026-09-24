@@ -7,6 +7,7 @@ import com.mckimquyen.reader.domain.model.article.ArticleMindMap
 import com.mckimquyen.reader.domain.model.article.DeepReadMessage
 import com.mckimquyen.reader.domain.model.article.DeepReadSender
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.MediaType.Companion.toMediaType
@@ -30,6 +31,7 @@ import javax.inject.Singleton
 class GeminiSummaryService @Inject constructor(
     @ApplicationContext private val context: Context,
     private val okHttpClient: OkHttpClient,
+    private val gateway: AiRequestGateway,
 ) {
     /**
      * Exception phân loại theo TYPE (không chứa chuỗi hiển thị cho người dùng) để lớp UI tự
@@ -73,29 +75,21 @@ class GeminiSummaryService @Inject constructor(
         val body = cleaned.take(MAX_INPUT_CHARS)
         val requestBody = buildHighlightsRequestBody(title, body, languageTag)
 
-        var lastError: SummaryException? = null
-        for ((index, key) in keys.withIndex()) {
-            Log.d(TAG, "[extractHighlights] thử key #${index + 1}/${keys.size} (${mask(key)})")
-            try {
-                val rawText = callGeminiRaw(key, requestBody)
-                val highlights = ArticleHighlightsExtractor.parseGeminiResponse(rawText, totalWords)
-                Log.d(TAG, "[extractHighlights] ✅ key #${index + 1} OK, takeaways=${highlights.keyTakeaways.size} timeSaved=${highlights.readingTimeSavedMin}m")
-                return@withContext highlights
-            } catch (e: SummaryException) {
-                lastError = e
-                val tryNext = e is SummaryException.InvalidApiKey ||
-                    e is SummaryException.RateLimited ||
-                    e is SummaryException.Http
-                Log.w(TAG, "[extractHighlights] key #${index + 1} lỗi: ${e::class.simpleName}, tryNext=$tryNext")
-                if (!tryNext) break
-            } catch (e: Exception) {
-                Log.w(TAG, "[extractHighlights] unexpected error: $e")
-                break
-            }
+        try {
+            val rawText = gateway.execute(
+                useCase = "highlights",
+                requestBody = requestBody,
+                keys = keys,
+            )
+            val highlights = ArticleHighlightsExtractor.parseGeminiResponse(rawText, totalWords)
+            Log.d(TAG, "[extractHighlights] ✅ Gateway OK, takeaways=${highlights.keyTakeaways.size} timeSaved=${highlights.readingTimeSavedMin}m")
+            highlights
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            Log.w(TAG, "[extractHighlights] Không gọi được Gemini ($e), kích hoạt fallback ngoại tuyến")
+            ArticleHighlightsExtractor.extractOfflineHighlights(title, cleaned)
         }
-
-        Log.w(TAG, "[extractHighlights] Không gọi được Gemini ($lastError), kích hoạt fallback ngoại tuyến")
-        ArticleHighlightsExtractor.extractOfflineHighlights(title, cleaned)
     }
 
     /**
@@ -123,29 +117,21 @@ class GeminiSummaryService @Inject constructor(
         val body = cleaned.take(MAX_INPUT_CHARS)
         val requestBody = buildMindMapRequestBody(title, body, languageTag)
 
-        var lastError: SummaryException? = null
-        for ((index, key) in keys.withIndex()) {
-            Log.d(TAG, "[generateMindMap] thử key #${index + 1}/${keys.size} (${mask(key)})")
-            try {
-                val rawText = callGeminiRaw(key, requestBody)
-                val mindMap = ArticleMindMapExtractor.parseGeminiResponse(rawText, title)
-                Log.d(TAG, "[generateMindMap] ✅ key #${index + 1} OK, nodes=${mindMap.nodes.size}")
-                return@withContext mindMap
-            } catch (e: SummaryException) {
-                lastError = e
-                val tryNext = e is SummaryException.InvalidApiKey ||
-                    e is SummaryException.RateLimited ||
-                    e is SummaryException.Http
-                Log.w(TAG, "[generateMindMap] key #${index + 1} lỗi: ${e::class.simpleName}, tryNext=$tryNext")
-                if (!tryNext) break
-            } catch (e: Exception) {
-                Log.w(TAG, "[generateMindMap] unexpected error: $e")
-                break
-            }
+        try {
+            val rawText = gateway.execute(
+                useCase = "mindmap",
+                requestBody = requestBody,
+                keys = keys,
+            )
+            val mindMap = ArticleMindMapExtractor.parseGeminiResponse(rawText, title)
+            Log.d(TAG, "[generateMindMap] ✅ Gateway OK, nodes=${mindMap.nodes.size}")
+            mindMap
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            Log.w(TAG, "[generateMindMap] Không gọi được Gemini ($e), kích hoạt fallback ngoại tuyến")
+            ArticleMindMapExtractor.extractOfflineMindMap(title, cleaned)
         }
-
-        Log.w(TAG, "[generateMindMap] Không gọi được Gemini ($lastError), kích hoạt fallback ngoại tuyến")
-        ArticleMindMapExtractor.extractOfflineMindMap(title, cleaned)
     }
 
     /**
@@ -174,33 +160,25 @@ class GeminiSummaryService @Inject constructor(
         val body = cleaned.take(MAX_INPUT_CHARS)
         val requestBody = buildDeepReadRequestBody(title, body, chatHistory, question, languageTag)
 
-        var lastError: SummaryException? = null
-        for ((index, key) in keys.withIndex()) {
-            Log.d(TAG, "[askArticleQuestion] thử key #${index + 1}/${keys.size} (${mask(key)})")
-            try {
-                val rawAnswer = callGeminiRaw(key, requestBody)
-                Log.d(TAG, "[askArticleQuestion] ✅ key #${index + 1} OK, answerLen=${rawAnswer.length}")
-                return@withContext DeepReadMessage(
-                    sender = DeepReadSender.ASSISTANT,
-                    content = rawAnswer.trim(),
-                    isOfflineFallback = false,
-                    isGrounded = true,
-                )
-            } catch (e: SummaryException) {
-                lastError = e
-                val tryNext = e is SummaryException.InvalidApiKey ||
-                    e is SummaryException.RateLimited ||
-                    e is SummaryException.Http
-                Log.w(TAG, "[askArticleQuestion] key #${index + 1} lỗi: ${e::class.simpleName}, tryNext=$tryNext")
-                if (!tryNext) break
-            } catch (e: Exception) {
-                Log.w(TAG, "[askArticleQuestion] unexpected error: $e")
-                break
-            }
+        try {
+            val rawAnswer = gateway.execute(
+                useCase = "deepread",
+                requestBody = requestBody,
+                keys = keys,
+            )
+            Log.d(TAG, "[askArticleQuestion] ✅ Gateway OK, answerLen=${rawAnswer.length}")
+            DeepReadMessage(
+                sender = DeepReadSender.ASSISTANT,
+                content = rawAnswer.trim(),
+                isOfflineFallback = false,
+                isGrounded = true,
+            )
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            Log.w(TAG, "[askArticleQuestion] Không gọi được Gemini ($e), kích hoạt fallback ngoại tuyến")
+            ArticleDeepReadEngine.generateOfflineAnswer(title, cleaned, question, languageTag)
         }
-
-        Log.w(TAG, "[askArticleQuestion] Không gọi được Gemini ($lastError), kích hoạt fallback ngoại tuyến")
-        ArticleDeepReadEngine.generateOfflineAnswer(title, cleaned, question, languageTag)
     }
 
     /**
@@ -212,36 +190,6 @@ class GeminiSummaryService @Inject constructor(
         languageTag: String = currentLanguageTag(),
     ): String = extractHighlights(title, plainText, languageTag).formatAsPlainText()
 
-    /** Gọi Gemini với 1 key cụ thể, trả về văn bản trích xuất từ candidate 0 hoặc ném [SummaryException]. */
-    private fun callGeminiRaw(apiKey: String, requestBody: String): String {
-        val url = "https://generativelanguage.googleapis.com/v1beta/models/" +
-            "${GeminiConfig.MODEL}:generateContent?key=$apiKey"
-        Log.d(TAG, "[callGeminiRaw] POST .../models/${GeminiConfig.MODEL}:generateContent?key=${mask(apiKey)}")
-
-        val request = Request.Builder()
-            .url(url)
-            .post(requestBody.toRequestBody("application/json".toMediaType()))
-            .build()
-
-        val response = try {
-            okHttpClient.newCall(request).execute()
-        } catch (e: java.io.IOException) {
-            Log.w(TAG, "[callGeminiRaw] ❌ Network error: ${e.message}")
-            throw SummaryException.Network
-        }
-        return response.use {
-            val responseBody = it.body?.string().orEmpty()
-            Log.d(TAG, "[callGeminiRaw] HTTP ${it.code} responseLen=${responseBody.length}")
-            if (!it.isSuccessful) {
-                Log.w(TAG, "[callGeminiRaw] ❌ API error body=${responseBody.take(300)}")
-                throw mapHttpError(it.code)
-            }
-            parseSummary(responseBody)
-        }
-    }
-
-    /** Gọi Gemini trả về văn bản tóm tắt hoặc ném [SummaryException]. */
-    private fun callGemini(apiKey: String, requestBody: String): String = callGeminiRaw(apiKey, requestBody)
 
     private fun buildHighlightsRequestBody(title: String, body: String, languageTag: String): String {
         val prompt = buildString {
@@ -381,30 +329,6 @@ class GeminiSummaryService @Inject constructor(
         }.toString()
     }
 
-    private fun parseSummary(json: String): String {
-        return try {
-            val text = JSONObject(json)
-                .getJSONArray("candidates")
-                .getJSONObject(0)
-                .getJSONObject("content")
-                .getJSONArray("parts")
-                .getJSONObject(0)
-                .getString("text")
-                .trim()
-            text.ifBlank { throw SummaryException.EmptyResponse }
-        } catch (e: SummaryException) {
-            throw e
-        } catch (e: Exception) {
-            throw SummaryException.ParseError
-        }
-    }
-
-    private fun mapHttpError(code: Int): SummaryException = when (code) {
-        400, 403 -> SummaryException.InvalidApiKey
-        429 -> SummaryException.RateLimited
-        else -> SummaryException.Http(code)
-    }
-
     /**
      * Ngôn ngữ hiện tại của app (theo lựa chọn trong Settings, đã được RApp wrap vào context),
      * dùng để yêu cầu Gemini trả tóm tắt ĐÚNG ngôn ngữ người dùng đang xem.
@@ -415,15 +339,9 @@ class GeminiSummaryService @Inject constructor(
         return locale.toLanguageTag()
     }
 
-    /** Che bớt key khi log để không lộ key thật. */
-    private fun mask(key: String): String = when {
-        key.isBlank() -> "<empty>"
-        key.length <= 8 -> "***"
-        else -> "${key.take(4)}…${key.takeLast(4)} (len=${key.length})"
-    }
-
     companion object {
         private const val TAG = "roy93~AI"
         private const val MAX_INPUT_CHARS = 12_000
     }
 }
+
