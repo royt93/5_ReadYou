@@ -39,6 +39,12 @@ import com.mckimquyen.reader.ui.component.base.BottomDrawer
 import com.mckimquyen.reader.ui.component.ambient.ZenSoundSheet
 import com.mckimquyen.reader.ui.page.rsvp.RsvpReaderDialog
 import com.mckimquyen.reader.ui.page.rsvp.RsvpViewModel
+import android.widget.Toast
+import androidx.compose.ui.platform.LocalContext
+import com.mckimquyen.reader.R
+import com.mckimquyen.reader.ui.page.common.RouteName
+import com.mckimquyen.reader.ui.page.notebook.HighlightNoteDialog
+import com.mckimquyen.reader.ui.page.notebook.NotebookViewModel
 import com.mckimquyen.reader.ui.ext.collectAsStateValue
 import com.mckimquyen.reader.ui.ext.isScrollDown
 import com.mckimquyen.reader.ui.page.home.HomeViewModel
@@ -55,6 +61,10 @@ fun ReadingPage(
     val readingUiState = readingViewModel.readingUiState.collectAsStateValue()
     val homeUiState = homeViewModel.homeUiState.collectAsStateValue()
     val listState = rememberLazyListState()
+    val context = LocalContext.current
+
+    var showHighlightDialog by remember { mutableStateOf(false) }
+    val notebookViewModel: NotebookViewModel = hiltViewModel()
 
     var showZenAudioSheet by remember { mutableStateOf(false) }
     var showRsvpDialog by remember { mutableStateOf(false) }
@@ -209,6 +219,14 @@ fun ReadingPage(
                     onDeepRead = {
                         readingViewModel.openDeepRead()
                     },
+                    onHighlight = {
+                        showHighlightDialog = true
+                    },
+                    onNotebook = {
+                        navController.navigate(RouteName.NOTEBOOK) {
+                            launchSingleTop = true
+                        }
+                    },
                     onClose = {
                         navController.popBackStack()
                     },
@@ -312,6 +330,35 @@ fun ReadingPage(
             content = articleContent,
             viewModel = rsvpViewModel,
             onDismiss = { showRsvpDialog = false }
+        )
+    }
+
+    if (showHighlightDialog && readingUiState.articleWithFeed != null) {
+        val article = readingUiState.articleWithFeed.article
+        val feed = readingUiState.articleWithFeed.feed
+        HighlightNoteDialog(
+            initialText = "",
+            initialNote = "",
+            isEditing = false,
+            onDismissRequest = { showHighlightDialog = false },
+            onConfirm = { text, note, colorHex ->
+                notebookViewModel.addHighlight(
+                    articleId = article.id,
+                    articleTitle = article.title,
+                    feedName = feed.name,
+                    articleLink = article.link ?: "",
+                    selectedText = text,
+                    noteComment = note,
+                    colorHex = colorHex,
+                ) {
+                    Toast.makeText(
+                        context,
+                        context.getString(R.string.notebook_saved),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    showHighlightDialog = false
+                }
+            }
         )
     }
 }

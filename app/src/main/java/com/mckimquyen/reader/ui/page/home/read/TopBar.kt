@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AutoAwesome
+import androidx.compose.material.icons.outlined.AutoStories
+import androidx.compose.material.icons.outlined.BorderColor
 import androidx.compose.material.icons.outlined.Headphones
 import androidx.compose.material.icons.outlined.Palette
 import androidx.compose.material.icons.outlined.Share
@@ -59,6 +61,8 @@ fun TopBar(
     onSummary: () -> Unit = {},
     onMindMap: () -> Unit = {},
     onDeepRead: () -> Unit = {},
+    onHighlight: () -> Unit = {},
+    onNotebook: () -> Unit = {},
     onClose: () -> Unit = {},
 ) {
     val context = LocalContext.current
@@ -197,6 +201,32 @@ fun TopBar(
                                 onClick = {
                                     menuExpanded = false
                                     onDeepRead()
+                                }
+                            )
+                            DropdownMenuItem(
+                                text = { Text(stringResource(R.string.notebook_new_highlight)) },
+                                leadingIcon = {
+                                    Icon(
+                                        imageVector = Icons.Outlined.BorderColor,
+                                        contentDescription = null
+                                    )
+                                },
+                                onClick = {
+                                    menuExpanded = false
+                                    onHighlight()
+                                }
+                            )
+                            DropdownMenuItem(
+                                text = { Text(stringResource(R.string.notebook_title)) },
+                                leadingIcon = {
+                                    Icon(
+                                        imageVector = Icons.Outlined.AutoStories,
+                                        contentDescription = null
+                                    )
+                                },
+                                onClick = {
+                                    menuExpanded = false
+                                    onNotebook()
                                 }
                             )
                         }

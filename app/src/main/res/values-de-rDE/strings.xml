@@ -596,4 +596,28 @@
     <string name="watchdog_channel_name">Schlagwort-Dringlichkeitsalarm</string>
     <string name="watchdog_channel_desc">Dringliche Benachrichtigungen bei neuen Artikeln mit überwachten Begriffen</string>
     <string name="watchdog_preset_title">Schnellvorschläge</string>
+
+    <string name="notebook_title">Wissensnotizbuch</string>
+    <string name="notebook_settings_desc">Verwalten Sie hervorgehobene Zitate, Notizen und exportieren Sie nach Obsidian/Markdown</string>
+    <string name="notebook_new_highlight">Neue Hervorhebung &amp; Notiz</string>
+    <string name="notebook_edit_note">Notiz bearbeiten</string>
+    <string name="notebook_quote_label">Artikelzitat / Auszug</string>
+    <string name="notebook_quote_placeholder">Zitat einfügen oder eingeben...</string>
+    <string name="notebook_color_label">Hervorhebungsfarbe</string>
+    <string name="notebook_comment_label">Persönliche Erkenntnis / Kritische Notiz</string>
+    <string name="notebook_comment_placeholder">Gedanken, Reflexionen oder Gegenargumente hinzufügen...</string>
+    <string name="notebook_export_all">Alles nach Markdown exportieren</string>
+    <string name="notebook_search_hint">Zitate, Notizen oder Artikel durchsuchen...</string>
+    <string name="notebook_empty_title">Noch keine Hervorhebungen</string>
+    <string name="notebook_empty_subtitle">Markieren Sie Zitate beim Lesen, um Ihr zweites Gehirn aufzubauen.</string>
+    <string name="notebook_empty_search">Keine passenden Hervorhebungen gefunden</string>
+    <string name="notebook_saved_toast">Im Wissensnotizbuch gespeichert! 📚</string>
+
+    <string name="notebook_save">Speichern</string>
+    <string name="notebook_copy">Kopieren</string>
+    <string name="notebook_edit">Bearbeiten</string>
+    <string name="notebook_copied">In die Zwischenablage kopiert</string>
+    <string name="notebook_saved">Gespeichert</string>
+    <string name="notebook_deleted">Gelöscht</string>
+    <string name="notebook_untitled">Unbenannter Artikel</string>
 </resources>

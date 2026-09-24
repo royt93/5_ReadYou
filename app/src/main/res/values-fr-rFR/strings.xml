@@ -599,4 +599,28 @@
     <string name="watchdog_channel_name">Alerte Sentinelle</string>
     <string name="watchdog_channel_desc">Alertes prioritaires lorsque de nouveaux articles correspondent aux mots-clés</string>
     <string name="watchdog_preset_title">Suggestions rapides</string>
+
+    <string name="notebook_title">Carnet de connaissances</string>
+    <string name="notebook_settings_desc">Gérez les citations surlignées, notes personnelles et exportez vers Obsidian/Markdown</string>
+    <string name="notebook_new_highlight">Nouveau surlignage &amp; note</string>
+    <string name="notebook_edit_note">Modifier la note</string>
+    <string name="notebook_quote_label">Extrait d\'article / Citation</string>
+    <string name="notebook_quote_placeholder">Collez ou saisissez la citation...</string>
+    <string name="notebook_color_label">Couleur de surlignage</string>
+    <string name="notebook_comment_label">Réflexion personnelle / Note critique</string>
+    <string name="notebook_comment_placeholder">Ajoutez des réflexions ou contre-arguments...</string>
+    <string name="notebook_export_all">Tout exporter en Markdown</string>
+    <string name="notebook_search_hint">Rechercher des citations, notes ou articles...</string>
+    <string name="notebook_empty_title">Aucun surlignage pour le moment</string>
+    <string name="notebook_empty_subtitle">Surlignez les passages inspirants pour enrichir votre Second Cerveau.</string>
+    <string name="notebook_empty_search">Aucun surlignage correspondant</string>
+    <string name="notebook_saved_toast">Enregistré dans le carnet de connaissances ! 📚</string>
+
+    <string name="notebook_save">Enregistrer</string>
+    <string name="notebook_copy">Copier</string>
+    <string name="notebook_edit">Modifier</string>
+    <string name="notebook_copied">Copié dans le presse-papiers</string>
+    <string name="notebook_saved">Enregistré</string>
+    <string name="notebook_deleted">Supprimé</string>
+    <string name="notebook_untitled">Article sans titre</string>
 </resources>

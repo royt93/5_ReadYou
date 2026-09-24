@@ -12,7 +12,7 @@
 |---|---|---|---|---|
 | KNOW-01 | AI Deduplication & Story Clustering | ✅ Done (audit: 6.5/10, còn gap) | P1 | [`done/KNOW-01_dedup-clustering_DONE.md`](../done/KNOW-01_dedup-clustering_DONE.md) |
 | KNOW-02 | On-Device Semantic Search | ✅ Done (audit: 6/10, còn gap) | P2 | [`done/KNOW-02_semantic-search_DONE.md`](../done/KNOW-02_semantic-search_DONE.md) |
-| KNOW-03 | Sổ Tay Highlight & Xuất Notion/Obsidian/Markdown | 📋 Todo | P2 | [`todo/KNOW-03_notebook-highlight-export.md`](KNOW-03_notebook-highlight-export.md) |
+| KNOW-03 | Sổ Tay Highlight & Xuất Notion/Obsidian/Markdown | ✅ Done (Loop 14, audit: 9.8/10) | P2 | [`done/KNOW-03_notebook-highlight-export_DONE.md`](../done/KNOW-03_notebook-highlight-export_DONE.md) |
 | KNOW-04 | Incremental/Cached Story Clustering | 📋 Todo | P1 | [`todo/KNOW-04_incremental-cached-clustering.md`](KNOW-04_incremental-cached-clustering.md) |
 | KNOW-05 | Persistent Semantic Embedding Index | 📋 Todo | P1 | [`todo/KNOW-05_persistent-embedding-index.md`](KNOW-05_persistent-embedding-index.md) |
 | KNOW-06 | AI Request Gateway thống nhất | 📋 Todo | P1 | [`todo/KNOW-06_unified-ai-request-gateway.md`](KNOW-06_unified-ai-request-gateway.md) |

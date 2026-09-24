@@ -592,4 +592,28 @@
     <string name="watchdog_channel_name">關鍵字緊急預警</string>
     <string name="watchdog_channel_desc">新文章符合監控關鍵字時發送高優先順序預警通知</string>
     <string name="watchdog_preset_title">快捷建議</string>
+
+    <string name="notebook_title">知识笔记本</string>
+    <string name="notebook_settings_desc">管理高亮摘录、个人笔记并导出到 Obsidian/Markdown</string>
+    <string name="notebook_new_highlight">新建高亮与笔记</string>
+    <string name="notebook_edit_note">编辑笔记</string>
+    <string name="notebook_quote_label">文章摘录</string>
+    <string name="notebook_quote_placeholder">粘贴或输入高亮引文...</string>
+    <string name="notebook_color_label">高亮颜色</string>
+    <string name="notebook_comment_label">个人思考 / 批判性笔记</string>
+    <string name="notebook_comment_placeholder">添加思考、联系实际或反驳观点...</string>
+    <string name="notebook_export_all">全部导出为 Markdown</string>
+    <string name="notebook_search_hint">搜索高亮、笔记或文章...</string>
+    <string name="notebook_empty_title">暂无高亮摘录</string>
+    <string name="notebook_empty_subtitle">阅读时高亮精彩段落，构建您的第二大脑知识库。</string>
+    <string name="notebook_empty_search">未找到匹配的高亮</string>
+    <string name="notebook_saved_toast">已保存到知识笔记本！📚</string>
+
+    <string name="notebook_save">保存</string>
+    <string name="notebook_copy">复制</string>
+    <string name="notebook_edit">编辑</string>
+    <string name="notebook_copied">已复制到剪贴板</string>
+    <string name="notebook_saved">已保存</string>
+    <string name="notebook_deleted">已删除</string>
+    <string name="notebook_untitled">无标题文章</string>
 </resources>

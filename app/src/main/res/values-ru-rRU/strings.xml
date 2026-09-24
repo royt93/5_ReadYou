@@ -602,4 +602,28 @@
     <string name="watchdog_channel_name">Срочные оповещения сторожа</string>
     <string name="watchdog_channel_desc">Оповещения высокой важности при совпадении новых статей с ключевыми словами</string>
     <string name="watchdog_preset_title">Быстрые варианты</string>
+
+    <string name="notebook_title">Knowledge Notebook</string>
+    <string name="notebook_settings_desc">Manage highlighted quotes, personal notes, and export to Obsidian/Markdown</string>
+    <string name="notebook_new_highlight">New Highlight &amp; Note</string>
+    <string name="notebook_edit_note">Edit Note</string>
+    <string name="notebook_quote_label">Article Excerpt / Quote</string>
+    <string name="notebook_quote_placeholder">Paste or enter highlighted quote...</string>
+    <string name="notebook_color_label">Highlight Color</string>
+    <string name="notebook_comment_label">Personal Insight / Critical Note</string>
+    <string name="notebook_comment_placeholder">Add reflections, insights, or counter-arguments...</string>
+    <string name="notebook_export_all">Export All to Markdown</string>
+    <string name="notebook_search_hint">Search highlights, notes, or articles...</string>
+    <string name="notebook_empty_title">No Highlights Yet</string>
+    <string name="notebook_empty_subtitle">Highlight inspiring quotes while reading to organize your Second Brain knowledge.</string>
+    <string name="notebook_empty_search">No matching highlights found</string>
+    <string name="notebook_saved_toast">Saved to Knowledge Notebook! 📚</string>
+
+    <string name="notebook_save">Save</string>
+    <string name="notebook_copy">Copy</string>
+    <string name="notebook_edit">Edit</string>
+    <string name="notebook_copied">Copied to clipboard</string>
+    <string name="notebook_saved">Saved</string>
+    <string name="notebook_deleted">Deleted</string>
+    <string name="notebook_untitled">Untitled Article</string>
 </resources>

@@ -593,4 +593,28 @@
     <string name="watchdog_channel_name">キーワード緊急アラート</string>
     <string name="watchdog_channel_desc">新着記事が監視キーワードに一致した際、重要アラートを送信</string>
     <string name="watchdog_preset_title">おすすめ候補</string>
+
+    <string name="notebook_title">ナレッジノート</string>
+    <string name="notebook_settings_desc">ハイライト引用、個人メモを管理し、Obsidian/Markdown にエクスポート</string>
+    <string name="notebook_new_highlight">新しいハイライトとメモ</string>
+    <string name="notebook_edit_note">メモを編集</string>
+    <string name="notebook_quote_label">記事の引用</string>
+    <string name="notebook_quote_placeholder">ハイライト引用を貼り付けまたは入力...</string>
+    <string name="notebook_color_label">ハイライト色</string>
+    <string name="notebook_comment_label">個人の洞察 / メモ</string>
+    <string name="notebook_comment_placeholder">考え、気づき、または反論を追加...</string>
+    <string name="notebook_export_all">すべて Markdown にエクスポート</string>
+    <string name="notebook_search_hint">ハイライト、メモ、または記事を検索...</string>
+    <string name="notebook_empty_title">ハイライトはまだありません</string>
+    <string name="notebook_empty_subtitle">記事を読みながら引用をハイライトし、セカンドブレインを構築しましょう。</string>
+    <string name="notebook_empty_search">一致するハイライトは見つかりませんでした</string>
+    <string name="notebook_saved_toast">ナレッジノートに保存しました！📚</string>
+
+    <string name="notebook_save">保存</string>
+    <string name="notebook_copy">コピー</string>
+    <string name="notebook_edit">編集</string>
+    <string name="notebook_copied">クリップボードにコピーしました</string>
+    <string name="notebook_saved">保存しました</string>
+    <string name="notebook_deleted">削除しました</string>
+    <string name="notebook_untitled">無題の記事</string>
 </resources>

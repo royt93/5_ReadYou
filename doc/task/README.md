@@ -18,7 +18,7 @@
 | **3. NEW — Tính Năng Mới Chuẩn RSS** | 5 | `NEW-` | **P1 (High)** | [`03_NEW_CORE_FEATURES.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/todo/03_NEW_CORE_FEATURES.md) |
 | **4. IDEAS — Ý Tưởng Tăng Trưởng & Media** | 8 | `IDEA-` | **P2 (Medium)** | [`04_IDEAS_AND_GROWTH.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/todo/04_IDEAS_AND_GROWTH.md) |
 | **5. EXCLUSIVE — Tính Năng Độc Quyền "Killer"** | 14 (1 done: EXC-06) | `EXC-` | **P1 (High)** | [`05_EXCLUSIVE_KILLER_FEATURES.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/todo/05_EXCLUSIVE_KILLER_FEATURES.md) |
-| **6. KNOWLEDGE — AI Gom Cụm & Second Brain** | 7 (2 done: KNOW-01/02) | `KNOW-` | **P1 (High)** | [`06_NEXT_GEN_AI_KNOWLEDGE.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/todo/06_NEXT_GEN_AI_KNOWLEDGE.md) |
+| **6. KNOWLEDGE — AI Gom Cụm & Second Brain** | 7 (3 done: KNOW-01/02/03) | `KNOW-` | **P1 (High)** | [`06_NEXT_GEN_AI_KNOWLEDGE.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/todo/06_NEXT_GEN_AI_KNOWLEDGE.md) |
 | **7. INGESTION — Biến Mọi Web Thành RSS & Đọc Sau** | 4 | `INGEST-` | **P1 (High)** | [`07_UNIVERSAL_INGESTION_AND_SYNC.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/todo/07_UNIVERSAL_INGESTION_AND_SYNC.md) |
 | **8. ZEN — Đọc Siêu Tốc RSVP & Tập Trung Tuyệt Đối** | 8 | `ZEN-` | **P1 (High)** | [`08_ZEN_FOCUS_AND_SPEED_READING.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/todo/08_ZEN_FOCUS_AND_SPEED_READING.md) |
 | **9. REELS — Thẻ Lướt Dọc TikTok, Video PiP & Watchdog** | 6 (1 done: REEL-03) | `REEL-` | **P1 (High)** | [`09_VISUAL_REELS_AND_MEDIA.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/todo/09_VISUAL_REELS_AND_MEDIA.md) |
@@ -29,7 +29,7 @@
 | **14. COMMUTECAST — Radio AI 6:00 Sáng, Android Auto & Lockscreen** | 8 (1 done: DJ-04) | `DJ-` | **P0 (Critical Ad)** | [`14_COMMUTECAST_AUTONOMOUS_AI_DJ.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/todo/14_COMMUTECAST_AUTONOMOUS_AI_DJ.md) |
 | **15. BOUNTY HUNTER — Agent Điều Tra Sâu & Mạng Nhện Obsidian** | 4 | `BOUNTY-` | **P0 (Critical Ad)** | [`15_BOUNTY_HUNTER_AGENT_AND_GRAPH.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/todo/15_BOUNTY_HUNTER_AGENT_AND_GRAPH.md) |
 | **16. ECHOCHAMBER — La Bàn Thiên Kiến & Đấu Trường Phản Biện** | 4 | `ECHO-` | **P1 (High)** | [`16_ECHOCHAMBER_AND_BIAS_COMPASS.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/todo/16_ECHOCHAMBER_AND_BIAS_COMPASS.md) |
-| **TỔNG CỘNG** | **109 tasks** (7 done, 102 todo) | — | — | — |
+| **TỔNG CỘNG** | **109 tasks** (8 done, 101 todo) | — | — | — |
 
 ### ⚠️ Audit lại — 4 epic từng tuyên bố DONE nhưng có gap thực tế
 Điểm đã được chấm lại khách quan sau khi đối chiếu code thật (xem mục "⚠️ Audit lại" trong từng file):

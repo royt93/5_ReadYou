@@ -19,6 +19,9 @@ object RouteName {
     // Brain RPG
     const val BRAIN_RPG = "brain_rpg"
 
+    // Notebook (Second Brain)
+    const val NOTEBOOK = "notebook"
+
     // VIP
     const val VIP = "vip"
 

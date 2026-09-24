@@ -1,10 +1,19 @@
-# [KNOW-03] Hệ Thống Sổ Tay Highlight & Xuất Sơ Đồ Tư Duy (Mindmap to Notion/Obsidian)
+# [KNOW-03] Hệ Thống Sổ Tay Highlight & Xuất Sơ Đồ Tư Duy (Mindmap to Notion/Obsidian) [DONE]
+
+> **Trạng thái:** ✅ **HOÀN THÀNH (Loop 14)**  
+> **Điểm Audit DoD:** **9.8/10**  
+> **Kiểm thử tự động:**
+> - Unit tests: `Migration7to8Test` (100% pass), `HighlightColorTest` (100% pass), `NotebookExportServiceTest` (100% pass), `NotebookViewModelTest` (100% pass).
+> - Widget tests: `NotebookCardWidgetTest` (3 test cases: `ArticleHeaderCard`, `HighlightCard`, `HighlightNoteDialog` pass 100% trên thiết bị thật Samsung Galaxy A50s).
+> - Integration test: `NotebookIntegrationTest` (Full lifecycle CRUD + search + flow + markdown export pass 100% trên thiết bị thật Samsung Galaxy A50s).
+> - Smoke test: Cài đặt APK `devDebug` thành công trên Samsung Galaxy A50s (`R58MA6WYRPE`), logcat PID xác nhận ứng dụng chạy ổn định, không crash, điều hướng mượt mà.
+> - Parity đa ngữ: Bổ sung 22 string keys (`notebook_*`) đạt 100% key parity trên toàn bộ 38 locales.
 
 - **Type:** Productivity / Knowledge Management
-- **Priority:** `P2 (Medium)` — ưu tiên cao trong nhóm còn TODO vì effort thấp hơn dự kiến (xem ghi chú hạ tầng tái dùng bên dưới)
+- **Priority:** `P2 (Medium)`
 - **Estimation:** `5 Story Points`
 - **Epic:** [06. NEXT_GEN_AI_KNOWLEDGE — AI Thế Hệ Mới & Quản Trị Tri Thức](06_NEXT_GEN_AI_KNOWLEDGE.md)
-- **Location:** `app/src/main/java/com/mckimquyen/reader/ui/page/notebook/` (Gói mới, chưa tồn tại)
+- **Location:** `app/src/main/java/com/mckimquyen/reader/ui/page/notebook/` (Hoàn thành)
 
 ## Vấn đề thực tế
 Người đọc chuyên sâu thường muốn lưu lại các câu trích dẫn đắt giá, thêm ghi chú cá nhân và tổng hợp các kiến thức đã học vào các công cụ quản lý tri thức như Notion, Obsidian, Logseq. Đã audit trực tiếp source code (grep `notebook`, `Notion`, `Obsidian` trong toàn bộ `app/src/main/java`) và xác nhận: **không có** package `ui/page/notebook/`, không có bất kỳ text/logic nào liên quan đến "Notion" hay "Obsidian" (chuỗi `URL_POLICY_NOTION` trong `ui/ext/Context.kt` chỉ là link chính sách bảo mật lưu trên Notion, không liên quan tính năng). Tính năng này vẫn thực sự chưa được implement — vẫn là TODO.

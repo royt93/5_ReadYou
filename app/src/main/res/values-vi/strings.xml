@@ -566,4 +566,28 @@
     <string name="watchdog_channel_name">Cảnh Báo Từ Khóa Khẩn Cấp (Watchdog)</string>
     <string name="watchdog_channel_desc">Cảnh báo ưu tiên cao khi phát hiện bài viết chứa từ khóa quan trọng</string>
     <string name="watchdog_preset_title">Gợi ý theo dõi nhanh</string>
+
+    <string name="notebook_title">Sổ tay tri thức</string>
+    <string name="notebook_settings_desc">Quản lý trích dẫn highlight, ghi chú và xuất sang Obsidian/Markdown</string>
+    <string name="notebook_new_highlight">Tạo Highlight / Ghi chú</string>
+    <string name="notebook_edit_note">Chỉnh sửa ghi chú</string>
+    <string name="notebook_quote_label">Đoạn trích dẫn bài viết</string>
+    <string name="notebook_quote_placeholder">Dán hoặc nhập đoạn văn tâm đắc...</string>
+    <string name="notebook_color_label">Màu sắc highlight</string>
+    <string name="notebook_comment_label">Ghi chú cá nhân / Suy nghĩ phản biện</string>
+    <string name="notebook_comment_placeholder">Nhập suy nghĩ, liên hệ thực tế hoặc phản biện...</string>
+    <string name="notebook_export_all">Xuất tất cả sổ tay</string>
+    <string name="notebook_search_hint">Tìm kiếm trích dẫn, ghi chú hoặc bài báo...</string>
+    <string name="notebook_empty_title">Chưa có trích dẫn nào</string>
+    <string name="notebook_empty_subtitle">Bôi đen đoạn văn tâm đắc khi đọc bài để gom vào Sổ tay tri thức Second Brain của bạn.</string>
+    <string name="notebook_empty_search">Không tìm thấy kết quả phù hợp</string>
+    <string name="notebook_saved_toast">Đã lưu vào Sổ tay tri thức! 📚</string>
+
+    <string name="notebook_save">Lưu</string>
+    <string name="notebook_copy">Sao chép</string>
+    <string name="notebook_edit">Sửa</string>
+    <string name="notebook_copied">Đã sao chép vào bộ nhớ tạm</string>
+    <string name="notebook_saved">Đã lưu</string>
+    <string name="notebook_deleted">Đã xóa</string>
+    <string name="notebook_untitled">Bài viết không tiêu đề</string>
 </resources>

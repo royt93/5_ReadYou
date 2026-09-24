@@ -21,6 +21,8 @@ import com.mckimquyen.reader.domain.model.addedsource.AddedRssSource
 import com.mckimquyen.reader.domain.model.article.Article
 import com.mckimquyen.reader.domain.model.feed.Feed
 import com.mckimquyen.reader.domain.model.group.Group
+import com.mckimquyen.reader.domain.model.notebook.ArticleHighlightNote
+import com.mckimquyen.reader.domain.repository.ArticleHighlightDao
 import com.mckimquyen.reader.domain.repository.AccountDao
 import com.mckimquyen.reader.domain.repository.AddedRssSourceDao
 import com.mckimquyen.reader.domain.repository.ArticleDao
@@ -41,8 +43,9 @@ import java.util.Date
         Article::class,
         Group::class,
         AddedRssSource::class,
+        ArticleHighlightNote::class,
     ],
-    version = 7
+    version = 8
 )
 @TypeConverters(
     AndroidDatabase.DateConverters::class,
@@ -61,6 +64,7 @@ abstract class AndroidDatabase : RoomDatabase() {
     abstract fun articleDao(): ArticleDao
     abstract fun groupDao(): GroupDao
     abstract fun addedRssSourceDao(): AddedRssSourceDao
+    abstract fun articleHighlightDao(): ArticleHighlightDao
 
     companion object {
 
@@ -100,6 +104,7 @@ val allMigrations = arrayOf(
     MIGRATION_4_5,
     MIGRATION_5_6,
     MIGRATION_6_7,
+    MIGRATION_7_8,
 )
 
 @Suppress("ClassName")
@@ -208,6 +213,29 @@ object MIGRATION_6_7 : Migration(6, 7) {
         db.execSQL("CREATE INDEX IF NOT EXISTS index_article_accountId_isUnread_date ON article(accountId, isUnread, date)")
         db.execSQL("CREATE INDEX IF NOT EXISTS index_article_accountId_feedId_isUnread_date ON article(accountId, feedId, isUnread, date)")
         db.execSQL("CREATE INDEX IF NOT EXISTS index_article_accountId_isStarred_date ON article(accountId, isStarred, date)")
+    }
+}
+
+@Suppress("ClassName")
+object MIGRATION_7_8 : Migration(7, 8) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL(
+            """
+            CREATE TABLE IF NOT EXISTS article_highlight_note (
+                id TEXT NOT NULL PRIMARY KEY,
+                articleId TEXT NOT NULL,
+                articleTitle TEXT NOT NULL,
+                feedName TEXT NOT NULL,
+                articleLink TEXT NOT NULL,
+                selectedText TEXT NOT NULL,
+                noteComment TEXT NOT NULL,
+                colorHex TEXT NOT NULL,
+                createdAt INTEGER NOT NULL
+            )
+            """.trimIndent()
+        )
+        db.execSQL("CREATE INDEX IF NOT EXISTS index_article_highlight_note_articleId ON article_highlight_note(articleId)")
+        db.execSQL("CREATE INDEX IF NOT EXISTS index_article_highlight_note_createdAt ON article_highlight_note(createdAt)")
     }
 }
 

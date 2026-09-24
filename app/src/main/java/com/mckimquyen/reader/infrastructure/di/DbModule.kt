@@ -9,6 +9,7 @@ import dagger.hilt.components.SingletonComponent
 import com.mckimquyen.reader.domain.repository.AccountDao
 import com.mckimquyen.reader.domain.repository.AddedRssSourceDao
 import com.mckimquyen.reader.domain.repository.ArticleDao
+import com.mckimquyen.reader.domain.repository.ArticleHighlightDao
 import com.mckimquyen.reader.domain.repository.FeedDao
 import com.mckimquyen.reader.domain.repository.GroupDao
 import com.mckimquyen.reader.infrastructure.db.AndroidDatabase
@@ -22,6 +23,7 @@ import javax.inject.Singleton
  * - [GroupDao]
  * - [AccountDao]
  * - [AddedRssSourceDao]
+ * - [ArticleHighlightDao]
  */
 @Module
 @InstallIn(SingletonComponent::class)
@@ -51,6 +53,11 @@ object DbModule {
     @Singleton
     fun provideAddedRssSourceDao(androidDatabase: AndroidDatabase): AddedRssSourceDao =
         androidDatabase.addedRssSourceDao()
+
+    @Provides
+    @Singleton
+    fun provideArticleHighlightDao(androidDatabase: AndroidDatabase): ArticleHighlightDao =
+        androidDatabase.articleHighlightDao()
 
     @Provides
     @Singleton
