@@ -292,6 +292,28 @@ interface ArticleDao {
 
     @Query(
         """
+        UPDATE article SET aiSummary = :aiSummary 
+        WHERE id = :articleId
+        """
+    )
+    suspend fun updateAiSummary(
+        articleId: String,
+        aiSummary: String?,
+    )
+
+    @Query(
+        """
+        SELECT aiSummary FROM article 
+        WHERE id = :articleId 
+        LIMIT 1
+        """
+    )
+    suspend fun queryAiSummaryByArticleId(
+        articleId: String,
+    ): String?
+
+    @Query(
+        """
         DELETE FROM article
         WHERE accountId = :accountId
         AND feedId = :feedId

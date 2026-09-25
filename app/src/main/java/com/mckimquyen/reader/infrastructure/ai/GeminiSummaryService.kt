@@ -6,6 +6,8 @@ import com.mckimquyen.reader.domain.model.article.ArticleHighlights
 import com.mckimquyen.reader.domain.model.article.ArticleMindMap
 import com.mckimquyen.reader.domain.model.article.DeepReadMessage
 import com.mckimquyen.reader.domain.model.article.DeepReadSender
+import com.mckimquyen.reader.ui.ext.aiSummaryLength
+import com.mckimquyen.reader.ui.ext.customGeminiApiKey
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
@@ -49,6 +51,20 @@ class GeminiSummaryService @Inject constructor(
     }
 
     /**
+     * Resolves the list of active Gemini API keys.
+     * If the user provided a custom BYOK key, it is prioritized first, followed by default system keys.
+     */
+    fun resolveApiKeys(): List<String> {
+        val customKey = context.customGeminiApiKey.trim()
+        val defaultKeys = GeminiConfig.API_KEYS.map { it.trim() }.filter { it.isNotBlank() }
+        return if (customKey.isNotBlank()) {
+            (listOf(customKey) + defaultKeys).distinct()
+        } else {
+            defaultKeys.distinct()
+        }
+    }
+
+    /**
      * Trích xuất cấu trúc điểm nhấn [ArticleHighlights] (TL;DR, gạch đầu dòng ý chính, thời gian đọc
      * tiết kiệm, topic tags). Tự động fallback sang phân tích ngoại tuyến nếu Gemini không khả dụng.
      */
@@ -65,10 +81,10 @@ class GeminiSummaryService @Inject constructor(
         }
 
         val totalWords = cleaned.split(Regex("\\s+")).count { it.isNotBlank() }
-        val keys = GeminiConfig.API_KEYS.map { it.trim() }.filter { it.isNotBlank() }.distinct()
+        val keys = resolveApiKeys()
 
         if (keys.isEmpty()) {
-            Log.w(TAG, "[extractHighlights] GeminiConfig.API_KEYS rỗng -> fallback sang offline heuristics")
+            Log.w(TAG, "[extractHighlights] Keys rỗng -> fallback sang offline heuristics")
             return@withContext ArticleHighlightsExtractor.extractOfflineHighlights(title, cleaned)
         }
 
@@ -108,9 +124,9 @@ class GeminiSummaryService @Inject constructor(
             throw SummaryException.EmptyContent
         }
 
-        val keys = GeminiConfig.API_KEYS.map { it.trim() }.filter { it.isNotBlank() }.distinct()
+        val keys = resolveApiKeys()
         if (keys.isEmpty()) {
-            Log.w(TAG, "[generateMindMap] GeminiConfig.API_KEYS rỗng -> fallback sang offline mindmap")
+            Log.w(TAG, "[generateMindMap] Keys rỗng -> fallback sang offline mindmap")
             return@withContext ArticleMindMapExtractor.extractOfflineMindMap(title, cleaned)
         }
 
@@ -151,9 +167,9 @@ class GeminiSummaryService @Inject constructor(
             return@withContext ArticleDeepReadEngine.generateOfflineAnswer(title, "", question, languageTag)
         }
 
-        val keys = GeminiConfig.API_KEYS.map { it.trim() }.filter { it.isNotBlank() }.distinct()
+        val keys = resolveApiKeys()
         if (keys.isEmpty()) {
-            Log.w(TAG, "[askArticleQuestion] GeminiConfig.API_KEYS rỗng -> fallback offline")
+            Log.w(TAG, "[askArticleQuestion] Keys rỗng -> fallback offline")
             return@withContext ArticleDeepReadEngine.generateOfflineAnswer(title, cleaned, question, languageTag)
         }
 
@@ -190,14 +206,29 @@ class GeminiSummaryService @Inject constructor(
         languageTag: String = currentLanguageTag(),
     ): String = extractHighlights(title, plainText, languageTag).formatAsPlainText()
 
-
     private fun buildHighlightsRequestBody(title: String, body: String, languageTag: String): String {
+        val lengthMode = context.aiSummaryLength
+        val (tldrGuideline, takeawaysGuideline) = when (lengthMode) {
+            1 -> Pair(
+                "\"2-3 sentence comprehensive executive overview with background context\"",
+                "\"4 to 6 detailed, comprehensive key takeaway bullet points exploring depth and nuance\""
+            )
+            2 -> Pair(
+                "\"1 compact, high-impact TL;DR paragraph synthesizing the complete essence of the article\"",
+                "\"1 to 2 high-level takeaway bullet points\""
+            )
+            else -> Pair(
+                "\"1-2 sentence executive overview\"",
+                "\"3 to 4 clear, concise key takeaway bullet points (do not include bullet symbols)\""
+            )
+        }
+
         val prompt = buildString {
             append("Analyze the article below and return a concise, high-value highlights summary.\n")
             append("Provide the response strictly as a JSON object with this structure:\n")
             append("{\n")
-            append("  \"tldr\": \"1-2 sentence executive overview\",\n")
-            append("  \"takeaways\": [\"3 to 5 clear, concise key takeaway bullet points (do not include bullet symbols)\"],\n")
+            append("  \"tldr\": $tldrGuideline,\n")
+            append("  \"takeaways\": [$takeawaysGuideline],\n")
             append("  \"tags\": [\"2 to 4 key topic keywords/tags\"]\n")
             append("}\n")
             append("Return ONLY raw JSON, with no markdown formatting code blocks (no ```json) and no intro/outro.\n")

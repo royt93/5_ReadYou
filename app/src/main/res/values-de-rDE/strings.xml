@@ -621,4 +621,29 @@
     <string name="notebook_saved">Gespeichert</string>
     <string name="notebook_deleted">Gelöscht</string>
     <string name="notebook_untitled">Unbenannter Artikel</string>
+
+    <!-- ENH-03: AI Settings & BYOK -->
+    <string name="ai_settings_title">Künstliche Intelligenz (KI)</string>
+    <string name="ai_settings_desc">API-Schlüssel, benutzerdefinierte Anbieter und Zusammenfassungsformat</string>
+    <string name="ai_byok_title">Eigener API-Schlüssel (BYOK)</string>
+    <string name="ai_byok_desc">Verwenden Sie Ihren eigenen API-Schlüssel für unbegrenzte Zusammenfassungen unabhängig vom Kontingent.</string>
+    <string name="ai_provider_title">KI-Anbieter</string>
+    <string name="ai_gemini_key_hint">Google Gemini API-Schlüssel (AIzaSy...)</string>
+    <string name="ai_openai_key_hint">OpenAI API-Schlüssel (sk-...)</string>
+    <string name="ai_deepseek_key_hint">DeepSeek API-Schlüssel (sk-...)</string>
+    <string name="ai_groq_key_hint">Groq API-Schlüssel (gsk_...)</string>
+    <string name="ai_key_saved_toast">API-Schlüssel erfolgreich gespeichert</string>
+    <string name="ai_key_cleared_toast">API-Schlüssel gelöscht, Standardkontingent wiederhergestellt</string>
+    <string name="ai_summary_length_title">Zusammenfassungslänge &amp; Format</string>
+    <string name="ai_summary_length_brief">3 Stichpunkte</string>
+    <string name="ai_summary_length_brief_desc">30-Sekunden-Schnellüberblick der Kernpunkte</string>
+    <string name="ai_summary_length_detailed">Detailliertes Briefing</string>
+    <string name="ai_summary_length_detailed_desc">Umfassende Übersicht mit 4-6 Kernpunkten und Kontext</string>
+    <string name="ai_summary_length_tldr">TL;DR in 1 Absatz</string>
+    <string name="ai_summary_length_tldr_desc">Ein prägnanter Absatz als Kernaussage</string>
+    <string name="ai_storage_status_title">Offline-Persistenz</string>
+    <string name="ai_storage_status_desc">Zusammenfassungen werden lokal gespeichert und sind sofort offline verfügbar.</string>
+    <string name="ai_active_key_custom">Verwendet Ihren persönlichen API-Schlüssel</string>
+    <string name="ai_active_key_default">Verwendet das geteilte Standardkontingent</string>
+    <string name="ai_save">Speichern</string>
 </resources>

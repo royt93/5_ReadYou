@@ -30,6 +30,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.supervisorScope
+import kotlinx.coroutines.withContext
 import java.util.Date
 import java.util.UUID
 
@@ -146,6 +147,18 @@ abstract class AbstractRssRepository(
     open suspend fun markAsStarred(articleId: String, isStarred: Boolean) {
         val accountId = context.currentAccountId
         articleDao.markAsStarredByArticleId(accountId, articleId, isStarred)
+    }
+
+    open suspend fun updateArticleAiSummary(articleId: String, aiSummary: String?) {
+        withContext(dispatcherIO) {
+            articleDao.updateAiSummary(articleId, aiSummary)
+        }
+    }
+
+    open suspend fun queryArticleAiSummary(articleId: String): String? {
+        return withContext(dispatcherIO) {
+            articleDao.queryAiSummaryByArticleId(articleId)
+        }
     }
 
     private suspend fun syncFeed(feed: Feed): FeedWithArticle? {

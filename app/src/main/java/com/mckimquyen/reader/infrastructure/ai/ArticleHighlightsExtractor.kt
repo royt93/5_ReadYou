@@ -247,6 +247,28 @@ object ArticleHighlightsExtractor {
             .trim()
     }
 
+    private val gson by lazy { com.google.gson.Gson() }
+
+    /**
+     * Serializes [ArticleHighlights] into a JSON string suitable for Room DB persistence.
+     */
+    fun serialize(highlights: ArticleHighlights): String {
+        return gson.toJson(highlights)
+    }
+
+    /**
+     * Deserializes a JSON string back into [ArticleHighlights].
+     * If the string is not valid JSON (e.g. legacy plain text summary), wraps it gracefully in [ArticleHighlights].
+     */
+    fun deserialize(json: String?): ArticleHighlights? {
+        if (json.isNullOrBlank()) return null
+        return try {
+            gson.fromJson(json, ArticleHighlights::class.java)
+        } catch (e: Exception) {
+            ArticleHighlights(tldr = json.trim())
+        }
+    }
+
     private fun countWords(text: String): Int {
         return text.split(Regex("\\s+")).count { it.isNotBlank() }
     }

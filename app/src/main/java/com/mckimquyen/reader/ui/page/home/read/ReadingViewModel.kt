@@ -94,8 +94,15 @@ class ReadingViewModel @Inject constructor(
         fetchJob?.cancel()
         fetchJob = viewModelScope.launch {
             showLoading()
+            val articleWithFeed = rssService.get().findArticleById(articleId)
+            val persistedHighlights = articleWithFeed?.article?.aiSummary?.let { raw ->
+                if (raw.isNotBlank()) com.mckimquyen.reader.infrastructure.ai.ArticleHighlightsExtractor.deserialize(raw) else null
+            }
             _readingUiState.update {
-                it.copy(articleWithFeed = rssService.get().findArticleById(articleId))
+                it.copy(
+                    articleWithFeed = articleWithFeed,
+                    summaryState = if (persistedHighlights != null) SummaryState.Success(persistedHighlights) else it.summaryState,
+                )
             }
             _readingUiState.value.articleWithFeed?.let {
                 if (it.feed.isFullContent) internalRenderFullContent(shouldAutoPlay)
@@ -181,12 +188,13 @@ class ReadingViewModel @Inject constructor(
 
     // ---- AI Summary (Gemini) ----
 
-    /** Mở BottomSheet tóm tắt rồi gọi Gemini ngay. Nút ✨ chỉ hiện khi đã có key dev nhúng,
-     *  nên không cần hỏi key người dùng nữa. */
+    /** Mở BottomSheet tóm tắt. Nếu bài viết đã có bản tóm tắt lưu trong DB, hiển thị ngay mà không cần gọi API lại. */
     fun openSummary() {
         Log.d("roy93~AI", "[VM.openSummary] clicked, article=${_readingUiState.value.articleWithFeed?.article?.id}")
         _readingUiState.update { it.copy(showSummarySheet = true) }
-        requestSummary()
+        if (_readingUiState.value.summaryState !is SummaryState.Success) {
+            requestSummary()
+        }
     }
 
     fun dismissSummary() {
@@ -231,6 +239,12 @@ class ReadingViewModel @Inject constructor(
                 // result if it still belongs to the article currently displayed.
                 if (_readingUiState.value.articleWithFeed?.article?.id == requestArticleId) {
                     _readingUiState.update { it.copy(summaryState = SummaryState.Success(highlights)) }
+                    // Persist to Room SQLite DB so user never has to re-generate across sessions
+                    requestArticleId?.let { id ->
+                        val serialized = com.mckimquyen.reader.infrastructure.ai.ArticleHighlightsExtractor.serialize(highlights)
+                        rssService.get().updateArticleAiSummary(id, serialized)
+                        _readingUiState.value.articleWithFeed?.article?.aiSummary = serialized
+                    }
                 }
             } catch (e: CancellationException) {
                 throw e

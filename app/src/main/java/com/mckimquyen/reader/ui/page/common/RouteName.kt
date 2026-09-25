@@ -14,6 +14,7 @@ object RouteName {
 
     // Settings
     const val SETTINGS = "settings"
+    const val AI_SETTINGS = "ai_settings"
     const val ZEN_FOCUS = "zen_focus"
 
     // Brain RPG

@@ -15,6 +15,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AccountCircle
 import androidx.compose.material.icons.outlined.AddCircle
+import androidx.compose.material.icons.outlined.AutoAwesome
 import androidx.compose.material.icons.outlined.AutoStories
 import androidx.compose.material.icons.outlined.Build
 import androidx.compose.material.icons.outlined.Code
@@ -154,6 +155,17 @@ fun SettingsPage(
                         desc = BuildConfig.VERSION_NAME,
                         icon = Icons.Outlined.Build,
                     ) {
+                    }
+                }
+                item {
+                    SelectableSettingGroupItem(
+                        title = stringResource(R.string.ai_settings_title),
+                        desc = stringResource(R.string.ai_settings_desc),
+                        icon = Icons.Outlined.AutoAwesome,
+                    ) {
+                        navController.navigate(RouteName.AI_SETTINGS) {
+                            launchSingleTop = true
+                        }
                     }
                 }
                 item {

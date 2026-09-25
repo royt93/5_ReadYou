@@ -172,4 +172,54 @@ class ReadingViewModelSummaryTest {
         assertTrue(state is SummaryState.Error)
         assertEquals(R.string.summary_err_empty_content, (state as SummaryState.Error).messageRes)
     }
+
+    @Test
+    fun initData_articleHasPersistedAiSummary_immediatelyRestoresSuccessState() = runTest(testDispatcher) {
+        val sampleHighlights = ArticleHighlights(
+            tldr = "Persisted executive summary",
+            keyTakeaways = listOf("Point 1", "Point 2"),
+            readingTimeSavedMin = 2,
+        )
+        val serialized = com.mckimquyen.reader.infrastructure.ai.ArticleHighlightsExtractor.serialize(sampleHighlights)
+
+        val persistedArticle = dummyArticleWithFeed.copy(
+            article = dummyArticle.copy(aiSummary = serialized)
+        )
+        coEvery { repo.findArticleById("art_persisted") } returns persistedArticle
+
+        val viewModel = ReadingViewModel(rssService, rssHelper, ttsManager, summaryService, zenAudioManager)
+        viewModel.initData("art_persisted", autoTtsEnabled = false)
+        advanceUntilIdle()
+
+        val state = viewModel.readingUiState.value.summaryState
+        assertTrue("State must immediately be Success from cached DB summary", state is SummaryState.Success)
+        val success = state as SummaryState.Success
+        assertEquals("Persisted executive summary", success.highlights.tldr)
+        assertEquals(2, success.highlights.keyTakeaways.size)
+    }
+
+    @Test
+    fun openSummary_whenAlreadySuccess_doesNotCallSummaryServiceAgain() = runTest(testDispatcher) {
+        val sampleHighlights = ArticleHighlights(
+            tldr = "Already cached",
+            keyTakeaways = listOf("Cached takeaway"),
+        )
+        val serialized = com.mckimquyen.reader.infrastructure.ai.ArticleHighlightsExtractor.serialize(sampleHighlights)
+
+        val persistedArticle = dummyArticleWithFeed.copy(
+            article = dummyArticle.copy(aiSummary = serialized)
+        )
+        coEvery { repo.findArticleById("art_cached") } returns persistedArticle
+
+        val viewModel = ReadingViewModel(rssService, rssHelper, ttsManager, summaryService, zenAudioManager)
+        viewModel.initData("art_cached", autoTtsEnabled = false)
+        advanceUntilIdle()
+
+        viewModel.openSummary()
+        advanceUntilIdle()
+
+        assertTrue(viewModel.readingUiState.value.showSummarySheet)
+        // Verify summaryService was NOT called since it already had a Success state
+        io.mockk.coVerify(exactly = 0) { summaryService.extractHighlights(any(), any(), any()) }
+    }
 }

@@ -624,4 +624,29 @@
     <string name="notebook_saved">Enregistré</string>
     <string name="notebook_deleted">Supprimé</string>
     <string name="notebook_untitled">Article sans titre</string>
+
+    <!-- ENH-03: AI Settings & BYOK -->
+    <string name="ai_settings_title">Intelligence Artificielle (IA)</string>
+    <string name="ai_settings_desc">Clé API, fournisseur personnalisé et format de résumé</string>
+    <string name="ai_byok_title">Clé API personnelle (BYOK)</string>
+    <string name="ai_byok_desc">Utilisez votre propre clé API pour un nombre illimité de résumés sans dépendre du quota partagé.</string>
+    <string name="ai_provider_title">Fournisseur d\'IA</string>
+    <string name="ai_gemini_key_hint">Clé API Google Gemini (AIzaSy...)</string>
+    <string name="ai_openai_key_hint">Clé API OpenAI (sk-...)</string>
+    <string name="ai_deepseek_key_hint">Clé API DeepSeek (sk-...)</string>
+    <string name="ai_groq_key_hint">Clé API Groq (gsk_...)</string>
+    <string name="ai_key_saved_toast">Clé API enregistrée avec succès</string>
+    <string name="ai_key_cleared_toast">Clé API effacée, quota par défaut rétabli</string>
+    <string name="ai_summary_length_title">Format et longueur du résumé</string>
+    <string name="ai_summary_length_brief">3 points clés</string>
+    <string name="ai_summary_length_brief_desc">Lecture rapide en 30 secondes des points essentiels</string>
+    <string name="ai_summary_length_detailed">Briefing détaillé</string>
+    <string name="ai_summary_length_detailed_desc">Vue approfondie avec 4 à 6 points clés et contexte</string>
+    <string name="ai_summary_length_tldr">TL;DR en 1 paragraphe</string>
+    <string name="ai_summary_length_tldr_desc">Un seul paragraphe synthétique et percutant</string>
+    <string name="ai_storage_status_title">Persistance hors-ligne</string>
+    <string name="ai_storage_status_desc">Les résumés sont enregistrés sur votre appareil pour une lecture instantanée hors-ligne.</string>
+    <string name="ai_active_key_custom">Utilisation de votre clé API personnelle</string>
+    <string name="ai_active_key_default">Utilisation du quota partagé par défaut</string>
+    <string name="ai_save">Enregistrer</string>
 </resources>

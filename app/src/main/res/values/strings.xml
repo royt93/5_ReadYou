@@ -700,4 +700,29 @@
     <string name="notebook_saved">Saved</string>
     <string name="notebook_deleted">Deleted</string>
     <string name="notebook_untitled">Untitled Article</string>
+
+    <!-- ENH-03: AI Settings & BYOK -->
+    <string name="ai_settings_title">AI &amp; Summarization</string>
+    <string name="ai_settings_desc">API key, custom provider, and summary format</string>
+    <string name="ai_byok_title">Custom API Key (BYOK)</string>
+    <string name="ai_byok_desc">Use your personal API key for unlimited requests without relying on shared app quotas.</string>
+    <string name="ai_provider_title">AI Provider</string>
+    <string name="ai_gemini_key_hint">Gemini API Key (AIzaSy...)</string>
+    <string name="ai_openai_key_hint">OpenAI API Key (sk-...)</string>
+    <string name="ai_deepseek_key_hint">DeepSeek API Key (sk-...)</string>
+    <string name="ai_groq_key_hint">Groq API Key (gsk_...)</string>
+    <string name="ai_key_saved_toast">API key saved successfully</string>
+    <string name="ai_key_cleared_toast">API key cleared, reverted to default</string>
+    <string name="ai_summary_length_title">Summary Length &amp; Format</string>
+    <string name="ai_summary_length_brief">3 Bullet Points</string>
+    <string name="ai_summary_length_brief_desc">Quick 30-second read highlighting core points</string>
+    <string name="ai_summary_length_detailed">Detailed Briefing</string>
+    <string name="ai_summary_length_detailed_desc">In-depth overview with 4-6 takeaways and context</string>
+    <string name="ai_summary_length_tldr">1-Paragraph TL;DR</string>
+    <string name="ai_summary_length_tldr_desc">Single concise executive summary</string>
+    <string name="ai_storage_status_title">AI Offline Persistence</string>
+    <string name="ai_storage_status_desc">Summaries are permanently stored on your device for instant offline reading.</string>
+    <string name="ai_active_key_custom">Using your personal API key</string>
+    <string name="ai_active_key_default">Using default shared quota</string>
+    <string name="ai_save">Save</string>
 </resources>

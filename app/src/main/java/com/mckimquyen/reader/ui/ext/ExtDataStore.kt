@@ -47,6 +47,24 @@ val Context.flowStoryClustering: Boolean
 val Context.flowSemanticSearch: Boolean
     get() = this.dataStore.get(DataStoreKeys.FlowSemanticSearch) ?: true
 
+val Context.customGeminiApiKey: String
+    get() = this.dataStore.get(DataStoreKeys.CustomGeminiApiKey) ?: ""
+
+val Context.customOpenAiApiKey: String
+    get() = this.dataStore.get(DataStoreKeys.CustomOpenAiApiKey) ?: ""
+
+val Context.customDeepSeekApiKey: String
+    get() = this.dataStore.get(DataStoreKeys.CustomDeepSeekApiKey) ?: ""
+
+val Context.customGroqApiKey: String
+    get() = this.dataStore.get(DataStoreKeys.CustomGroqApiKey) ?: ""
+
+val Context.aiProvider: Int
+    get() = this.dataStore.get(DataStoreKeys.AiProvider) ?: 0
+
+val Context.aiSummaryLength: Int
+    get() = this.dataStore.get(DataStoreKeys.AiSummaryLength) ?: 0
+
 suspend fun <T> DataStore<Preferences>.put(dataStoreKeys: DataStoreKeys<T>, value: T) {
     this.edit {
         withContext(Dispatchers.IO) {
@@ -454,5 +472,36 @@ sealed class DataStoreKeys<T> {
 
         override val key: Preferences.Key<Int>
             get() = intPreferencesKey("languages")
+    }
+
+    // AI & BYOK
+    object CustomGeminiApiKey : DataStoreKeys<String>() {
+        override val key: Preferences.Key<String>
+            get() = stringPreferencesKey("customGeminiApiKey")
+    }
+
+    object CustomOpenAiApiKey : DataStoreKeys<String>() {
+        override val key: Preferences.Key<String>
+            get() = stringPreferencesKey("customOpenAiApiKey")
+    }
+
+    object CustomDeepSeekApiKey : DataStoreKeys<String>() {
+        override val key: Preferences.Key<String>
+            get() = stringPreferencesKey("customDeepSeekApiKey")
+    }
+
+    object CustomGroqApiKey : DataStoreKeys<String>() {
+        override val key: Preferences.Key<String>
+            get() = stringPreferencesKey("customGroqApiKey")
+    }
+
+    object AiProvider : DataStoreKeys<Int>() {
+        override val key: Preferences.Key<Int>
+            get() = intPreferencesKey("aiProvider")
+    }
+
+    object AiSummaryLength : DataStoreKeys<Int>() {
+        override val key: Preferences.Key<Int>
+            get() = intPreferencesKey("aiSummaryLength")
     }
 }
