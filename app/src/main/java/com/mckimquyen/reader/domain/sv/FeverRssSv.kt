@@ -64,16 +64,24 @@ class FeverRssSv @Inject constructor(
     override val delete: Boolean = false
     override val update: Boolean = false
 
-    private suspend fun getFeverAPI() =
-        FeverSecurityKey(accountDao.queryById(context.currentAccountId)!!.securityKey).run {
-            FeverAPI.getInstance(
-                serverUrl = serverUrl!!,
-                username = username!!,
-                password = password!!,
-                httpUsername = null,
-                httpPassword = null,
-            )
-        }
+    private suspend fun getFeverAPI(): FeverAPI {
+        val account = accountDao.queryById(context.currentAccountId)
+            ?: throw IllegalStateException("Account not found")
+        val securityKey = FeverSecurityKey(account.securityKey)
+        val serverUrl = securityKey.serverUrl
+            ?: throw IllegalStateException("Fever server URL not configured")
+        val username = securityKey.username
+            ?: throw IllegalStateException("Fever username not configured")
+        val password = securityKey.password
+            ?: throw IllegalStateException("Fever password not configured")
+        return FeverAPI.getInstance(
+            serverUrl = serverUrl,
+            username = username,
+            password = password,
+            httpUsername = null,
+            httpPassword = null,
+        )
+    }
 
     override suspend fun validCredentials(): Boolean = getFeverAPI().validCredentials() > 0
 
@@ -105,18 +113,25 @@ class FeverRssSv @Inject constructor(
         try {
             val preTime = System.currentTimeMillis()
             val accountId = context.currentAccountId
-            val account = accountDao.queryById(accountId)!!
+            val account = accountDao.queryById(accountId)
+                ?: throw IllegalStateException("Account not found")
             val feverAPI = getFeverAPI()
 
             // 1. Fetch the Fever groups
             groupDao.insertOrUpdate(
-                feverAPI.getGroups().groups?.map {
-                    Group(
-                        id = accountId.spacerDollar(it.id!!),
-                        name = it.title ?: context.getString(R.string.empty),
-                        accountId = accountId,
-                    )
-                } ?: emptyList()
+                feverAPI.getGroups().groups.orEmpty().mapNotNull { group ->
+                    val remoteGroupId = group.id
+                    if (remoteGroupId == null) {
+                        Log.w(TAG, "Skip Fever group without id")
+                        null
+                    } else {
+                        Group(
+                            id = accountId.spacerDollar(remoteGroupId),
+                            name = group.title ?: context.getString(R.string.empty),
+                            accountId = accountId,
+                        )
+                    }
+                }
             )
 
             // 2. Fetch the Fever feeds
@@ -132,54 +147,70 @@ class FeverRssSv @Inject constructor(
 
             // Fetch the Fever favicons
             val faviconsById = feverAPI.getFavicons().favicons?.associateBy { it.id } ?: emptyMap()
-            feedDao.insertOrUpdate(
-                feedsBody.feeds?.map {
+            val feeds = feedsBody.feeds.orEmpty().mapNotNull { feed ->
+                val remoteFeedId = feed.id
+                val url = feed.url
+                val remoteGroupId = remoteFeedId?.let { feedsGroupsMap[it.toString()] }
+                if (remoteFeedId == null || url == null || remoteGroupId == null) {
+                    // A feed without id/url/group cannot satisfy the Feed -> Group foreign key.
+                    Log.w(TAG, "Skip incomplete Fever feed id=$remoteFeedId hasUrl=${url != null} group=$remoteGroupId")
+                    null
+                } else {
                     Feed(
-                        id = accountId.spacerDollar(it.id!!),
-                        name = it.title ?: context.getString(R.string.empty),
-                        url = it.url!!,
-                        groupId = accountId.spacerDollar(feedsGroupsMap[it.id.toString()]!!),
+                        id = accountId.spacerDollar(remoteFeedId),
+                        name = feed.title ?: context.getString(R.string.empty),
+                        url = url,
+                        groupId = accountId.spacerDollar(remoteGroupId),
                         accountId = accountId,
-                        icon = faviconsById[it.favicon_id]?.data
+                        icon = faviconsById[feed.favicon_id]?.data
                     )
-                } ?: emptyList()
-            )
+                }
+            }
+            feedDao.insertOrUpdate(feeds)
 
             // 3. Fetch the Fever articles (up to unlimited counts)
             var sinceId = account.lastArticleId?.dollarLast() ?: ""
             var itemsBody = feverAPI.getItemsSince(sinceId)
             while (itemsBody.items?.isNotEmpty() == true) {
-                articleDao.insert(
-                    *itemsBody.items?.map {
+                val remoteItems = itemsBody.items.orEmpty()
+                val articles = remoteItems.mapNotNull { item ->
+                    val remoteItemId = item.id
+                    val remoteFeedId = item.feed_id
+                    if (remoteItemId == null || remoteFeedId == null) {
+                        // Article and Feed ids are required by Room primary/foreign keys.
+                        Log.w(TAG, "Skip incomplete Fever item id=$remoteItemId feedId=$remoteFeedId")
+                        null
+                    } else {
                         Article(
-                            id = accountId.spacerDollar(it.id!!),
-                            date = it.created_on_time?.run { Date(this * 1000) } ?: Date(),
+                            id = accountId.spacerDollar(remoteItemId),
+                            date = item.created_on_time?.run { Date(this * 1000) } ?: Date(),
                             title = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-                                Html.fromHtml(it.title ?: context.getString(R.string.empty), Html.FROM_HTML_MODE_LEGACY).toString()
+                                Html.fromHtml(item.title ?: context.getString(R.string.empty), Html.FROM_HTML_MODE_LEGACY).toString()
                             } else {
                                 @Suppress("DEPRECATION")
-                                Html.fromHtml(it.title ?: context.getString(R.string.empty)).toString()
+                                Html.fromHtml(item.title ?: context.getString(R.string.empty)).toString()
                             },
-                            author = it.author,
-                            rawDescription = it.html ?: "",
-                            shortDescription = (Readability4JExtended("", it.html ?: "")
+                            author = item.author,
+                            rawDescription = item.html ?: "",
+                            shortDescription = (Readability4JExtended("", item.html ?: "")
                                 .parse().textContent ?: "")
                                 .take(110)
                                 .trim(),
-                            fullContent = it.html,
-                            img = rssHelper.findImg(it.html ?: ""),
-                            link = it.url ?: "",
-                            feedId = accountId.spacerDollar(it.feed_id!!),
+                            fullContent = item.html,
+                            img = rssHelper.findImg(item.html ?: ""),
+                            link = item.url ?: "",
+                            feedId = accountId.spacerDollar(remoteFeedId),
                             accountId = accountId,
-                            isUnread = (it.is_read ?: 0) <= 0,
-                            isStarred = (it.is_saved ?: 0) > 0,
+                            isUnread = (item.is_read ?: 0) <= 0,
+                            isStarred = (item.is_saved ?: 0) > 0,
                             updateAt = Date(),
                         ).also {
-                            sinceId = it.id.dollarLast()
+                            sinceId = remoteItemId
                         }
-                    }?.toTypedArray() ?: emptyArray()
-                )
-                if (itemsBody.items?.size!! >= 50) {
+                    }
+                }
+                articleDao.insert(*articles.toTypedArray())
+                if (remoteItems.size >= FEVER_PAGE_SIZE) {
                     itemsBody = feverAPI.getItemsSince(sinceId)
                 } else {
                     break
@@ -273,5 +304,12 @@ class FeverRssSv @Inject constructor(
             status = if (isStarred) FeverDTO.StatusEnum.Saved else FeverDTO.StatusEnum.Unsaved,
             id = articleId.dollarLast()
         )
+    }
+
+    private companion object {
+        const val TAG = "RLog"
+
+        // Fever returns at most 50 items per page; a full page means more items may follow.
+        const val FEVER_PAGE_SIZE = 50
     }
 }

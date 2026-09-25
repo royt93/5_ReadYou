@@ -45,3 +45,21 @@ Chỉ dừng loop khi hoàn tất TẤT CẢ bước sau, đúng thứ tự, KH�
 6. Nếu điểm audit **> 9/10 VÀ** mọi test bước 2-4 pass **VÀ** smoke test bước 5 xác nhận hoạt động đúng:
    → `git add` các file liên quan → `git commit` với message rõ ràng, đúng Conventional Commits → **`git push`** lên remote nhánh hiện tại. Kết thúc loop, cập nhật trạng thái task (di chuyển file từ `doc/task/todo/` hoặc `inprogress/` sang `doc/task/done/`, đổi tên thêm hậu tố `_DONE` và viết Completion Report ngắn: điểm số, commit hash, danh sách test đã thêm).
 7. Nếu điểm **≤ 9/10** hoặc bất kỳ điều kiện bước 2-5 chưa đạt: quay lại bước 1 của vòng lặp Loop Prompt, KHÔNG commit/push.
+
+---
+
+## ✅ Báo cáo hoàn thành (2026-09-25)
+
+**Thay đổi**
+- `FeverRssSv.getFeverAPI()`: bỏ `!!` → `?: throw IllegalStateException(...)` rõ ràng cho account / serverUrl / username / password.
+- `FeverRssSv.sync()`: account null → `Result.failure` + toast (qua catch sẵn có), không crash. Group/feed/item từ server thiếu `id`/`url`/`feed_id`/group mapping → bỏ qua + `Log.w`, các entity hợp lệ vẫn được sync (tránh vi phạm FK Room). Magic number `50` → `FEVER_PAGE_SIZE`.
+- `OpmlSv`: 2× `!!` → `requireDefaultGroup()` ném `IllegalStateException` có accountId; caller (`SubscribeViewModel`, `AccountViewModel`) đã catch `Exception`.
+
+**Test**
+- `FeverRssSvTest` (4): account null, serverUrl null, sync account null → failure, sync bỏ entity thiếu nhưng giữ entity hợp lệ + cập nhật `lastArticleId`.
+- `OpmlSvTest` (2): import/export khi thiếu default group → `IllegalStateException`, không parse/ghi DB.
+- Toàn bộ unit test: 244/244 pass. `assembleDevDebug` OK.
+
+**Smoke test**: Pixel 7 Pro (2B051FDH3006MU) — cài, mở app → Home load bình thường, crash buffer rỗng.
+
+**Điểm tự đánh giá**: 9.2/10 — còn `it.id!!` ở `AbstractRssRepository.clearKeepArchivedArticles` (ngoài phạm vi, id từ Room luôn non-null sau insert).

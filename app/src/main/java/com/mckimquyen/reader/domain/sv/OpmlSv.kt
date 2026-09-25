@@ -38,7 +38,7 @@ class OpmlSv @Inject constructor(
      */
     @Throws(Exception::class)
     suspend fun saveToDatabase(inputStream: InputStream) {
-        val defaultGroup = groupDao.queryById(getDefaultGroupId(context.currentAccountId))!!
+        val defaultGroup = requireDefaultGroup(context.currentAccountId)
         val groupWithFeedList =
             OPMLDataSource.parseFileInputStream(inputStream, defaultGroup)
         groupWithFeedList.forEach { groupWithFeed ->
@@ -61,7 +61,7 @@ class OpmlSv @Inject constructor(
      */
     @Throws(Exception::class)
     suspend fun saveToString(accountId: Int): String {
-        val defaultGroup = groupDao.queryById(getDefaultGroupId(accountId))!!
+        val defaultGroup = requireDefaultGroup(accountId)
         return OpmlWriter().write(
             Opml(
                 "2.0",
@@ -96,6 +96,10 @@ class OpmlSv @Inject constructor(
             )
         )
     }
+
+    private suspend fun requireDefaultGroup(accountId: Int) =
+        groupDao.queryById(getDefaultGroupId(accountId))
+            ?: throw IllegalStateException("Default group not found for account $accountId")
 
     private fun getDefaultGroupId(accountId: Int): String = accountId.getDefaultGroupId()
 }
