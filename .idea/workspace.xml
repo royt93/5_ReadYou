@@ -16,150 +16,10 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6f28f826-4208-4800-b7bf-3c32f11fba88" name="Changes" comment="feat(workspace): update project setup with new files and configuration adjustments">
-      <change afterPath="$PROJECT_DIR$/app/src/test/java/com/mckimquyen/reader/ui/page/home/HomeViewModelSearchRaceTest.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/test/java/com/mckimquyen/reader/ui/page/home/read/ReadingViewModelArticleSwitchRaceTest.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/_TEMPLATE_TASK.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/done/DJ-04_app-open-rewarded-ads-monetization_DONE.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/done/EXC-06_ai-deep-read-chat_DONE.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/done/KNOW-01_dedup-clustering_DONE.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/done/KNOW-02_semantic-search_DONE.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/done/REEL-03_watchdog-keyword-alert_DONE.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/08_ZEN_FOCUS_AND_SPEED_READING.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/12_GAMIFIED_BRAIN_RPG_AND_WRAPPED.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/14_COMMUTECAST_AUTONOMOUS_AI_DJ.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/BOUNTY-01_contextual-agent-trigger.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/BOUNTY-02_executive-intelligence-dossier.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/BOUNTY-03_interactive-knowledge-graph.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/BOUNTY-04_rewarded-ad-token-sink.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/DJ-01_daily-scheduler-dual-mc-script.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/DJ-02_dual-voice-tts-lofi-audio-mixer.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/DJ-03_android-auto-lockscreen-mediasession.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/DJ-05_persist-episode-notification-ready-state.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/DJ-06_real-dual-voice-tts-or-honest-labeling.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/DJ-07_lofi-audio-mixing-media3-integration.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/DJ-08_time-budget-aware-content-selection.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/ECHO-01_bias-radar-sentiment-gauge.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/ECHO-02_steelman-rebuttal-box.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/ECHO-03_dual-perspective-quote-card.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/ECHO-04_voice-ai-debate-arena.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/ENH-01_accompanist-to-native-compose.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/ENH-02_room-fts-search.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/ENH-03_ai-summary-persistence-and-byok.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/ENH-04_tts-foreground-service.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/ENH-05_smart-thumbnail-extraction.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/ENH-06_okhttp-etag-caching.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/EXC-01_ai-daily-smart-digest.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/EXC-02_ai-podcast-studio.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/EXC-03_bionic-reading-mode.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/EXC-04_ai-clickbait-bias-buster.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/EXC-05_local-p2p-sync.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/EXC-07_bilingual-side-by-side-reader.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/EXC-08_second-brain-graph.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/EXC-09_original-source-dna.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/EXC-10_retraction-radar.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/EXC-11_temporal-ask-my-archive.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/EXC-12_ai-feed-autopilot.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/EXC-13_second-screen-mirror.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/EXC-14_feed-zero-triage-mode.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/FIX-01_composite-indexes-article-table.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/FIX-02_remove-lazyliststate-viewmodel.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/FIX-03_error-isolation-sync-concurrency.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/FIX-04_replace-favicon-heroku-endpoint.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/FIX-05_html-parsing-worker-thread.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/FIX-06_force-null-npe-fever-opml.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/FIX-07_post-notifications-permission.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/FIX-08_admob-rewarded-test-id-release.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/FIX-09_gemini-key-hardcoded.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/FIX-10_ai-result-leak-wrong-article.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/FIX-11_search-race-condition-homeviewmodel.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/FIX-12_main-thread-io-init-blocks.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/FIX-13_dead-code-callgemini.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/FIX-14_dead-todo-ui-cleanup.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/FIX-15_mindmap-hardcoded-strings.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/FRONT-01_ai-multi-agent-deep-dive.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/FRONT-02_decentralized-web3-social.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/FRONT-03_3d-knowledge-galaxy.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/FRONT-04_android-auto-and-wear-os.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/IDEA-01_reading-habits-heatmap.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/IDEA-02_home-widget-glance.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/IDEA-03_quote-card-social-share.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/IDEA-04_gamified-ad-streaks.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/IDEA-05_podcast-audio-player.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/IDEA-06_eink-mode.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/IDEA-07_on-this-day.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/IDEA-08_assistant-app-actions.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/INGEST-01_web-to-rss-generator.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/INGEST-02_android-share-target-read-later.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/INGEST-03_email-newsletter-ingestion-bridge.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/INGEST-04_multi-device-read-position-sync.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/KNOW-03_notebook-highlight-export.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/KNOW-04_incremental-cached-clustering.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/KNOW-05_persistent-embedding-index.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/KNOW-06_unified-ai-request-gateway.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/KNOW-07_semantic-smart-collections.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/NEW-01_google-reader-api-integration.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/NEW-02_opml-backup-webdav-drive.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/NEW-03_smart-feed-filter-rules.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/NEW-04_full-offline-precaching.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/NEW-05_feed-health-center.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/ORACLE-01_ai-predictive-claim-extractor.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/ORACLE-02_intel-points-betting-sheet.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/ORACLE-03_automated-arbiter-agent.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/ORACLE-04_rewarded-ads-points-economy.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/REEL-01_news-reels-tiktok-scroll.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/REEL-02_youtube-video-pip.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/REEL-04_watchdog-atomic-persistence.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/REEL-05_watchdog-batch-matching-perf.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/REEL-06_watchdog-alert-inbox.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/RPG-01_xp-skill-tree-system.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/RPG-02_ai-micro-quiz-engine.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/RPG-03_cognitive-decay-streak-shield.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/RPG-04_weekly-brain-wrapped-card.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/RPG-05_quiz-distractors-context-aware.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/RPG-06_streak-decay-testable-clock.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/RPG-07_room-migration-or-doc-alignment.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/RPG-08_persist-xp-awarded-articles.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/RPG-09_wrapped-full-spec-mvp.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/STRAT-01_zero-click-autonomous-podcast-dj.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/STRAT-02_curated-feed-marketplace.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/STRAT-03_doh-privacy-shield.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/ZEN-01_rsvp-speed-reading.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/ZEN-02_ambient-soundscapes.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/ZEN-03_scheduled-daily-edition.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/ZEN-04_rsvp-paragraph-pause-fix.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/ZEN-05_daily-edition-schedule-time-fix.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/ZEN-06_zen-audio-state-sync-fix.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/ZEN-07_adaptive-rsvp-trainer.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/task/todo/ZEN-08_cross-mode-reading-handoff.md" afterDir="false" />
+    <list default="true" id="6f28f826-4208-4800-b7bf-3c32f11fba88" name="Changes" comment="feat(home): implement debounce for article fetching and adjust layout for TopBar and BottomBar">
       <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetSelector.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deploymentTargetSelector.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/home/HomeViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/home/HomeViewModel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/home/read/BottomBar.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/home/read/BottomBar.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/home/read/Content.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/home/read/Content.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/home/read/ReadingPage.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/home/read/ReadingPage.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/home/read/ReadingViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/home/read/ReadingViewModel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/home/read/TopBar.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/home/read/TopBar.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/task/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/task/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/task/done/08_ZEN_FOCUS_AND_SPEED_READING_DONE.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/task/done/08_ZEN_FOCUS_AND_SPEED_READING_DONE.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/task/done/12_GAMIFIED_BRAIN_RPG_AND_WRAPPED_DONE.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/task/done/12_GAMIFIED_BRAIN_RPG_AND_WRAPPED_DONE.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/task/done/14_COMMUTECAST_AUTONOMOUS_AI_DJ_DONE.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/task/done/14_COMMUTECAST_AUTONOMOUS_AI_DJ_DONE.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/task/todo/01_FIX_BUGS_AND_STABILITY.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/task/todo/01_FIX_BUGS_AND_STABILITY.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/task/todo/02_ENHANCE_PERFORMANCE_AND_UX.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/task/todo/02_ENHANCE_PERFORMANCE_AND_UX.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/task/todo/03_NEW_CORE_FEATURES.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/task/todo/03_NEW_CORE_FEATURES.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/task/todo/04_IDEAS_AND_GROWTH.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/task/todo/04_IDEAS_AND_GROWTH.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/task/todo/05_EXCLUSIVE_KILLER_FEATURES.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/task/todo/05_EXCLUSIVE_KILLER_FEATURES.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/task/todo/06_NEXT_GEN_AI_KNOWLEDGE.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/task/todo/06_NEXT_GEN_AI_KNOWLEDGE.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/task/todo/07_UNIVERSAL_INGESTION_AND_SYNC.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/task/todo/07_UNIVERSAL_INGESTION_AND_SYNC.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/task/todo/09_VISUAL_REELS_AND_MEDIA.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/task/todo/09_VISUAL_REELS_AND_MEDIA.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/task/todo/10_FRONTIER_AND_ECOSYSTEM.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/task/todo/10_FRONTIER_AND_ECOSYSTEM.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/task/todo/11_AUTONOMOUS_COMMUNITY_PRIVACY.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/task/todo/11_AUTONOMOUS_COMMUNITY_PRIVACY.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/task/todo/13_THE_ORACLE_PREDICTION_MARKET.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/task/todo/13_THE_ORACLE_PREDICTION_MARKET.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/task/todo/15_BOUNTY_HUNTER_AGENT_AND_GRAPH.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/task/todo/15_BOUNTY_HUNTER_AGENT_AND_GRAPH.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/task/todo/16_ECHOCHAMBER_AND_BIAS_COMPASS.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/task/todo/16_ECHOCHAMBER_AND_BIAS_COMPASS.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -201,7 +61,7 @@
       <entry key="edit-panel" value="GPT-5 mini" />
     </selectedModels>
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[PhysicalDevice::serial=FUJZIFIR7DQCNRWW]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[PhysicalDevice::serial=2B051FDH3006MU]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -257,7 +117,7 @@
     &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
     &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260606_ReadYou&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou&quot;,
     &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;com.google.gct.login2.settings.GoogleLoginApplicationSettingsConfigurableProvider&quot;,
     &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;,
@@ -275,15 +135,213 @@
       <recent name="$PROJECT_DIR$/app/src/main/res/drawable" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Android App.androidTest">
     <configuration default="true" type="AppleRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" IS_LOCATION_SIMULATION_SUPPORTED="false" IS_LOCATION_SIMULATION_ALLOWED="true" APPLICATION_LANGUAGE="IDELaunchSchemeLanguageUseSystemLanguage" APPLICATION_REGION="" DEVELOPMENT_TEAM="" MAKE_ACTIVE="TRUE" SHOULD_DEBUG_EXTENSIONS="false">
       <embedded_app_extension_list />
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration name="androidTest" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
+      <module name="RSS_Cat_Hub.app.androidTest" />
+      <option name="ANDROID_RUN_CONFIGURATION_SCHEMA_VERSION" value="1" />
+      <option name="DEPLOY" value="true" />
+      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
+      <option name="DEPLOY_AS_INSTANT" value="false" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="ALL_USERS" value="false" />
+      <option name="ALWAYS_INSTALL_WITH_PM" value="false" />
+      <option name="ALLOW_ASSUME_VERIFIED" value="false" />
+      <option name="CLEAR_APP_STORAGE" value="false" />
+      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="RESTORE_ENABLED" value="false" />
+      <option name="RESTORE_FILE" value="" />
+      <option name="RESTORE_FRESH_INSTALL_ONLY" value="false" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
+      <option name="DEBUGGER_TYPE" value="Auto" />
+      <Auto>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+      </Auto>
+      <Hybrid>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+      </Hybrid>
+      <Java>
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+      </Java>
+      <Native>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+      </Native>
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Java/Kotlin Method Trace" />
+        <option name="STARTUP_NATIVE_MEMORY_PROFILING_ENABLED" value="false" />
+        <option name="NATIVE_MEMORY_SAMPLE_RATE_BYTES" value="2048" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <option name="SEARCH_ACTIVITY_IN_GLOBAL_SCOPE" value="false" />
+      <option name="SKIP_ACTIVITY_VALIDATION" value="false" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
       <module name="RSS_Cat_Hub.app" />
+      <option name="ANDROID_RUN_CONFIGURATION_SCHEMA_VERSION" value="1" />
+      <option name="DEPLOY" value="true" />
+      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
+      <option name="DEPLOY_AS_INSTANT" value="false" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="ALL_USERS" value="false" />
+      <option name="ALWAYS_INSTALL_WITH_PM" value="false" />
+      <option name="ALLOW_ASSUME_VERIFIED" value="false" />
+      <option name="CLEAR_APP_STORAGE" value="false" />
+      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="RESTORE_ENABLED" value="false" />
+      <option name="RESTORE_FILE" value="" />
+      <option name="RESTORE_FRESH_INSTALL_ONLY" value="false" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
+      <option name="DEBUGGER_TYPE" value="Auto" />
+      <Auto>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+      </Auto>
+      <Hybrid>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+      </Hybrid>
+      <Java>
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+      </Java>
+      <Native>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+      </Native>
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Java/Kotlin Method Trace" />
+        <option name="STARTUP_NATIVE_MEMORY_PROFILING_ENABLED" value="false" />
+        <option name="NATIVE_MEMORY_SAMPLE_RATE_BYTES" value="2048" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <option name="SEARCH_ACTIVITY_IN_GLOBAL_SCOPE" value="false" />
+      <option name="SKIP_ACTIVITY_VALIDATION" value="false" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="main" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
+      <module name="RSS_Cat_Hub.app.main" />
+      <option name="ANDROID_RUN_CONFIGURATION_SCHEMA_VERSION" value="1" />
+      <option name="DEPLOY" value="true" />
+      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
+      <option name="DEPLOY_AS_INSTANT" value="false" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="ALL_USERS" value="false" />
+      <option name="ALWAYS_INSTALL_WITH_PM" value="false" />
+      <option name="ALLOW_ASSUME_VERIFIED" value="false" />
+      <option name="CLEAR_APP_STORAGE" value="false" />
+      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="RESTORE_ENABLED" value="false" />
+      <option name="RESTORE_FILE" value="" />
+      <option name="RESTORE_FRESH_INSTALL_ONLY" value="false" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
+      <option name="DEBUGGER_TYPE" value="Auto" />
+      <Auto>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+      </Auto>
+      <Hybrid>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+      </Hybrid>
+      <Java>
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+      </Java>
+      <Native>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+      </Native>
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Java/Kotlin Method Trace" />
+        <option name="STARTUP_NATIVE_MEMORY_PROFILING_ENABLED" value="false" />
+        <option name="NATIVE_MEMORY_SAMPLE_RATE_BYTES" value="2048" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <option name="SEARCH_ACTIVITY_IN_GLOBAL_SCOPE" value="false" />
+      <option name="SKIP_ACTIVITY_VALIDATION" value="false" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="unitTest" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
+      <module name="RSS_Cat_Hub.app.unitTest" />
       <option name="ANDROID_RUN_CONFIGURATION_SCHEMA_VERSION" value="1" />
       <option name="DEPLOY" value="true" />
       <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
