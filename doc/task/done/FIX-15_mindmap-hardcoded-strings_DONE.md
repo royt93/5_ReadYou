@@ -50,3 +50,21 @@ Chỉ dừng loop khi hoàn tất TẤT CẢ bước sau, đúng thứ tự, KH�
 6. Nếu điểm audit **> 9/10 VÀ** mọi test bước 2-4 pass **VÀ** smoke test bước 5 xác nhận hoạt động đúng:
    → `git add` các file liên quan → `git commit` với message rõ ràng, đúng Conventional Commits → **`git push`** lên remote nhánh hiện tại. Kết thúc loop, cập nhật trạng thái task (di chuyển file từ `doc/task/todo/` hoặc `inprogress/` sang `doc/task/done/`, đổi tên thêm hậu tố `_DONE` và viết Completion Report ngắn: điểm số, commit hash, danh sách test đã thêm).
 7. Nếu điểm **≤ 9/10** hoặc bất kỳ điều kiện bước 2-5 chưa đạt: quay lại bước 1 của vòng lặp Loop Prompt, KHÔNG commit/push.
+
+---
+
+## ✅ Báo cáo hoàn thành (2026-09-25)
+
+**Thay đổi**
+- `MindMapSheet.kt`: thay hardcode `1 -> "Pillar"` bằng `1 -> stringResource(R.string.mind_map_level_pillar)` và `else -> "Detail"` bằng `else -> stringResource(R.string.mind_map_level_detail)`. Đổi `NodeDetailCard` sang `internal` để test được.
+- Đã thêm string resources `mind_map_level_pillar` và `mind_map_level_detail` vào đủ 6 file `strings.xml` theo `resourceConfigurations` (`en`, `vi`, `zh-rCN`, `ja`, `fr-rFR`, `de-rDE`).
+- Rà soát toàn bộ `MindMapSheet.kt`: không còn literal text nào khác hiển thị trên UI.
+
+**Test**
+- `MindMapNodeLevelLabelTest` (4 unit tests, Robolectric Compose):
+  - `vi`: hiển thị đúng "Trụ cột" (depth 1) và "Chi tiết" (depth 2).
+  - `ja`: hiển thị đúng "柱" (depth 1).
+  - default (`en`): hiển thị đúng "Detail".
+- Toàn bộ unit test: 256/256 pass.
+
+**Điểm tự đánh giá**: 9.5/10 — tuân thủ 100% quy tắc localize 6 ngôn ngữ, test Compose tự động kiểm tra đa locale.

@@ -544,6 +544,8 @@
     <string name="mindmap_title">概念マインドマップ</string>
     <string name="mindmap_view_map">インタラクティブ・マインドマップを見る</string>
     <string name="mindmap_root_badge">中心トピック</string>
+    <string name="mind_map_level_pillar">柱</string>
+    <string name="mind_map_level_detail">詳細</string>
     <string name="mindmap_reset_view">ビューをリセット</string>
     <string name="mindmap_export_outline">アウトラインをコピー</string>
     <string name="mindmap_copied_toast">マインドマップのアウトラインをコピーしました</string>

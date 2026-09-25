@@ -543,6 +543,8 @@
     <string name="mindmap_title">概念思维导图</string>
     <string name="mindmap_view_map">探索概念思维导图</string>
     <string name="mindmap_root_badge">核心主题</string>
+    <string name="mind_map_level_pillar">支柱</string>
+    <string name="mind_map_level_detail">细节</string>
     <string name="mindmap_reset_view">重置视图</string>
     <string name="mindmap_export_outline">复制大纲</string>
     <string name="mindmap_copied_toast">已复制思维导图大纲到剪贴板</string>

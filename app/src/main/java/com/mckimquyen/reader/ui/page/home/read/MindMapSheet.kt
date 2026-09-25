@@ -550,7 +550,7 @@ private fun MindMapNodeCard(
 }
 
 @Composable
-private fun NodeDetailCard(
+internal fun NodeDetailCard(
     node: MindMapNode,
     onDismiss: () -> Unit,
 ) {
@@ -579,8 +579,8 @@ private fun NodeDetailCard(
                     Text(
                         text = when (node.depth) {
                             0 -> stringResource(R.string.mindmap_root_badge)
-                            1 -> "Pillar"
-                            else -> "Detail"
+                            1 -> stringResource(R.string.mind_map_level_pillar)
+                            else -> stringResource(R.string.mind_map_level_detail)
                         },
                         style = MaterialTheme.typography.labelSmall,
                         fontWeight = FontWeight.Bold,

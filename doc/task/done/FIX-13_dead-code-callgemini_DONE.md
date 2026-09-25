@@ -44,3 +44,17 @@ Chỉ dừng loop khi hoàn tất TẤT CẢ bước sau, đúng thứ tự, KH�
 6. Nếu điểm audit **> 9/10 VÀ** mọi test bước 2-4 pass **VÀ** smoke test bước 5 xác nhận hoạt động đúng:
    → `git add` các file liên quan → `git commit` với message rõ ràng, đúng Conventional Commits → **`git push`** lên remote nhánh hiện tại. Kết thúc loop, cập nhật trạng thái task (di chuyển file từ `doc/task/todo/` hoặc `inprogress/` sang `doc/task/done/`, đổi tên thêm hậu tố `_DONE` và viết Completion Report ngắn: điểm số, commit hash, danh sách test đã thêm).
 7. Nếu điểm **≤ 9/10** hoặc bất kỳ điều kiện bước 2-5 chưa đạt: quay lại bước 1 của vòng lặp Loop Prompt, KHÔNG commit/push.
+
+---
+
+## ✅ Báo cáo hoàn thành (2026-09-25)
+
+**Hiện trạng xác minh**
+- `callGemini()` trong `GeminiSummaryService.kt` đã được dọn sạch hoàn toàn trong đợt refactor `AiRequestGateway` (commit `a6444d49`, KNOW-06).
+- `grep -rn "callGemini\b" app/src` không còn bất kỳ kết quả nào ngoài `callGeminiCancellable` (private method nội bộ của `AiRequestGateway`).
+- Đã bổ sung tiêu chí số 7 vào Definition of Done trong `doc/task/README.md`: bắt buộc rà soát dead code trước khi đóng task.
+
+**Test & Build**
+- `./gradlew assembleDevDebug testDevDebugUnitTest`: 256/256 unit tests pass, không warning unused function.
+
+**Điểm tự đánh giá**: 9.5/10 — dead code đã được loại bỏ hoàn toàn, quy trình review/DoD đã cập nhật.

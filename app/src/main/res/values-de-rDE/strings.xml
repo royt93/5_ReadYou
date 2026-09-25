@@ -547,6 +547,8 @@
     <string name="mindmap_title">Konzept-Mindmap</string>
     <string name="mindmap_view_map">Interaktive Mindmap anzeigen</string>
     <string name="mindmap_root_badge">Hauptthema</string>
+    <string name="mind_map_level_pillar">Säule</string>
+    <string name="mind_map_level_detail">Detail</string>
     <string name="mindmap_reset_view">Ansicht zurücksetzen</string>
     <string name="mindmap_export_outline">Gliederung kopieren</string>
     <string name="mindmap_copied_toast">Mindmap-Gliederung kopiert</string>

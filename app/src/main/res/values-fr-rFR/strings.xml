@@ -550,6 +550,8 @@
     <string name="mindmap_title">Carte heuristique conceptuelle</string>
     <string name="mindmap_view_map">Explorer la carte conceptuelle</string>
     <string name="mindmap_root_badge">Sujet principal</string>
+    <string name="mind_map_level_pillar">Pilier</string>
+    <string name="mind_map_level_detail">Détail</string>
     <string name="mindmap_reset_view">Réinitialiser la vue</string>
     <string name="mindmap_export_outline">Copier le plan</string>
     <string name="mindmap_copied_toast">Plan de la carte conceptuelle copié</string>

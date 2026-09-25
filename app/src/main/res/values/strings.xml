@@ -626,6 +626,8 @@
     <string name="mindmap_title">Concept Mind Map</string>
     <string name="mindmap_view_map">Explore Concept Mind Map</string>
     <string name="mindmap_root_badge">Core Subject</string>
+    <string name="mind_map_level_pillar">Pillar</string>
+    <string name="mind_map_level_detail">Detail</string>
     <string name="mindmap_reset_view">Reset View</string>
     <string name="mindmap_export_outline">Copy Outline</string>
     <string name="mindmap_copied_toast">Mind map outline copied to clipboard</string>

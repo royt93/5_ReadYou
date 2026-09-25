@@ -58,6 +58,7 @@ class FeverRssSvTest {
 
     @Before
     fun setUp() {
+        org.robolectric.shadows.ShadowLog.stream = System.out
         val context = ApplicationProvider.getApplicationContext<Context>()
         mockkObject(FeverAPI.Companion)
         every { FeverAPI.getInstance(any(), any(), any(), any(), any()) } returns feverApi

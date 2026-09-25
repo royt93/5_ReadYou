@@ -58,3 +58,4 @@ Một task chỉ được kéo từ `doc/task/todo/` sang `doc/task/inprogress/`
 4. **Lifecycle & Memory:** Không lưu `Context`, `Activity`, hoặc Compose `LazyListState` vào ViewModel hay static Singleton.
 5. **UI & Theme:** Hỗ trợ đầy đủ Material You Dynamic Color, Dark Mode, AMOLED, không vỡ layout trên tablet/màn hình gập.
 6. **Localization:** Toàn bộ text UI phải có trong `strings.xml` của cả 6 ngôn ngữ (`en`, `vi`, `zh-rCN`, `ja`, `fr`, `de`).
+7. **Dead Code:** Audit phải rà soát hàm/biến/import không còn call-site (Android Studio "Inspect Code" → Unused declaration, hoặc `grep` tên symbol), không chỉ dựa vào build/test pass.
