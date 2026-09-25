@@ -35,10 +35,10 @@ fun <T : Any> LazyPagingItems<T>.rememberLazyListState(): LazyListState {
 }
 
 /**
- * TODO: To be improved
+ * Detects whether the [LazyListState] is currently scrolling downward by comparing
+ * [firstVisibleItemIndex] and [firstVisibleItemScrollOffset] against pre-scroll baseline.
  *
- * Returns whether the LazyListState is currently in the
- * downward scrolling state.
+ * Returns true if the user is scrolling towards the end of the list, false otherwise.
  */
 @Composable
 fun LazyListState.isScrollDown(): Boolean {

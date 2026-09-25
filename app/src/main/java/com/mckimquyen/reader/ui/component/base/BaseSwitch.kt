@@ -40,16 +40,19 @@ fun BaseSwitch(
     Surface(
         modifier = modifier
             .size(56.dp, 28.dp)
-            .alpha(if (enable) 1f else 0.5f),
+            .alpha(if (enable) 1f else 0.38f),
         shape = CircleShape,
         color = animateColorAsState(
-            if (activated) (tonalPalettes primary 40) onDark (tonalPalettes secondary 50)
-            else (tonalPalettes neutralVariant 50) onDark (tonalPalettes neutral 30)
+            when {
+                !enable -> (tonalPalettes neutralVariant 80) onDark (tonalPalettes neutralVariant 30)
+                activated -> (tonalPalettes primary 40) onDark (tonalPalettes secondary 50)
+                else -> (tonalPalettes neutralVariant 50) onDark (tonalPalettes neutral 30)
+            }
         ).value
     ) {
         Box(
             modifier = Modifier.fillMaxSize()
-                    then if (onClick != null) Modifier.clickable { onClick() } else Modifier
+                    then if (enable && onClick != null) Modifier.clickable { onClick() } else Modifier
         ) {
             Surface(
                 modifier = Modifier
@@ -58,15 +61,17 @@ fun BaseSwitch(
                     .offset(x = animateDpAsState(if (activated) 32.dp else 4.dp).value),
                 shape = CircleShape,
                 color = animateColorAsState(
-                    if (activated) tonalPalettes primary 90
-                    else (tonalPalettes neutralVariant 70) onDark (tonalPalettes neutral 60)
+                    when {
+                        !enable -> (tonalPalettes neutral 60) onDark (tonalPalettes neutral 50)
+                        activated -> tonalPalettes primary 90
+                        else -> (tonalPalettes neutralVariant 70) onDark (tonalPalettes neutral 60)
+                    }
                 ).value
             ) {}
         }
     }
 }
 
-// TODO: inactivated colors
 @Composable
 fun SwitchHeadline(
     activated: Boolean,
@@ -79,14 +84,19 @@ fun SwitchHeadline(
     Surface(
         modifier = modifier,
         color = Color.Unspecified,
-        contentColor = tonalPalettes neutral 10,
+        contentColor = if (activated) tonalPalettes primary 10 else (tonalPalettes neutral 30) onDark (tonalPalettes neutral 80),
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp)
                 .clip(RoundedCornerShape(24.dp))
-                .background(tonalPalettes primary 90)
+                .background(
+                    animateColorAsState(
+                        if (activated) tonalPalettes primary 90
+                        else (tonalPalettes neutralVariant 90) onDark (tonalPalettes neutralVariant 30)
+                    ).value
+                )
                 .clickable { onClick() }
                 .padding(20.dp, 24.dp),
             verticalAlignment = Alignment.CenterVertically

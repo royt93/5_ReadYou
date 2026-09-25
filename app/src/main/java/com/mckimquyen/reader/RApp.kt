@@ -45,27 +45,6 @@ import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import javax.inject.Inject
 
-//https://www.reddit.com/r/rss/comments/fylt16/is_there_a_website_where_you_can_download_opml/
-
-//TODO finger print
-//TODO why you see ad
-
-//done mckimquyen
-//admob
-//review in app bingo
-//font scale
-//120hz
-//change icon launcher
-//double to exit app
-//leak canary
-//proguard
-//change pkg name manifest
-//policy
-//rate app, share app, more app
-//build version
-//keystore
-//beta tester
-
 @HiltAndroidApp
 class RApp : Application(), WorkConfiguration.Provider, ImageLoaderFactory {
 

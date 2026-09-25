@@ -23,7 +23,7 @@
 | FIX-11 | Race Condition Khi Tìm Kiếm Trong `HomeViewModel` | P0 | ✅ done | [`FIX-11_search-race-condition-homeviewmodel_DONE.md`](../done/FIX-11_search-race-condition-homeviewmodel_DONE.md) |
 | FIX-12 | I/O Đồng Bộ Trong `init{}` Block Vi Phạm DoD "Không I/O Trên Main Thread" | P1 | ✅ done | [`FIX-12_main-thread-io-init-blocks_DONE.md`](../done/FIX-12_main-thread-io-init-blocks_DONE.md) |
 | FIX-13 | Dead Code: Hàm `callGemini()` Không Còn Ai Gọi Trong `GeminiSummaryService` | P2, code quality | ✅ done | [`FIX-13_dead-code-callgemini_DONE.md`](../done/FIX-13_dead-code-callgemini_DONE.md) |
-| FIX-14 | Dọn Dẹp TODO Rải Rác & Tab Chết Không Có Hành Vi | P2 | todo | [`FIX-14_dead-todo-ui-cleanup.md`](FIX-14_dead-todo-ui-cleanup.md) |
+| FIX-14 | Dọn Dẹp TODO Rải Rác & Tab Chết Không Có Hành Vi | P2 | ✅ done | [`FIX-14_dead-todo-ui-cleanup_DONE.md`](../done/FIX-14_dead-todo-ui-cleanup_DONE.md) |
 | FIX-15 | Hardcode Tiếng Anh "Pillar"/"Detail" Trong `MindMapSheet` — Vi Phạm Quy Tắc Localize | P2, localization | ✅ done | [`FIX-15_mindmap-hardcoded-strings_DONE.md`](../done/FIX-15_mindmap-hardcoded-strings_DONE.md) |
 
 `*` FIX-01 → FIX-04 đã có dấu hiệu **implement xong trong code hiện tại** theo audit ngày 2026-09-06 (khớp với `doc/task/done/01_FOUNDATION_STABILITY_DONE.md`) — mỗi file con tương ứng đã có ghi chú "Ghi chú audit" ở cuối, cần xác nhận lại đầy đủ Acceptance Criteria + test trước khi chính thức chuyển sang `doc/task/done/`. FIX-05 → FIX-15 xác nhận **còn tồn tại** trong code tính đến thời điểm audit.
