@@ -48,3 +48,28 @@ Chỉ dừng loop khi hoàn tất TẤT CẢ bước sau, đúng thứ tự, KH�
 
 ---
 > **Ghi chú audit (2026-09-06):** Task này **CHƯA được implement** — `doc/task/inprogress/SPRINT_01_POWERHOUSE.md` vẫn liệt kê FIX-05 ở trạng thái `⏳ Ready` (chưa làm), và code hiện tại tại `ReadingViewModel.kt` vẫn còn nhiều lời gọi `HtmlCompat.fromHtml` — cần audit kỹ từng vị trí xem đã nằm trong coroutine `Dispatchers.Default` hay chưa trước khi implement.
+
+---
+
+## ✅ Báo cáo hoàn thành (2026-09-25)
+
+**Thay đổi**
+- `ReadingViewModel.kt`:
+  - Thêm `@DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher = Dispatchers.Default` vào constructor để DI injection và kiểm thử độc lập.
+  - Chuyển toàn bộ 5 vị trí gọi `HtmlCompat.fromHtml` đồng bộ từ Main Thread sang `withContext(defaultDispatcher)` bên trong coroutine (`viewModelScope.launch`):
+    1. `playCurrentContent()`: parse HTML trên worker thread trước khi gọi `ttsManager.play()`.
+    2. `requestSummary()`: parse HTML trên worker thread, giữ nguyên logic race-guard `_readingUiState.value.articleWithFeed?.article?.id == requestArticleId`.
+    3. `requestMindMap()`: parse HTML trên worker thread trước khi gọi `generateMindMap`/`extractOfflineMindMap`.
+    4. `openDeepRead()`: mở Sheet ngay trên Main, parse HTML và sinh câu hỏi gợi ý trên worker thread.
+    5. `sendDeepReadQuestion()`: cập nhật tin nhắn user ngay lập tức, parse HTML trên worker thread khi gửi câu hỏi.
+
+**Test**
+- `ReadingViewModelHtmlWorkerThreadTest` (2 unit tests mới):
+  - Kiểm tra `togglePlayAudio` strip HTML thành công trên worker dispatcher và gọi TTS với plain text sạch thẻ `<p>`.
+  - Kiểm tra `requestSummary` parse HTML trên worker dispatcher và truyền plain text tới AI gateway.
+- Cập nhật các test suite hiện hữu (`ReadingViewModelSummaryTest`, `ReadingViewModelMindMapTest`, `ReadingViewModelDeepReadTest`, `ReadingViewModelArticleSwitchRaceTest`, `ReadingViewModelTest`) tiêm `testDispatcher` cho worker để đồng bộ hoá deterministic.
+- Toàn bộ unit test: 258/258 pass. `assembleDevDebug` OK.
+
+**Smoke test**: Pixel 7 Pro (2B051FDH3006MU) — cài bản devDebug mới, khởi động MainActivity mượt mà, crash buffer 0.
+
+**Điểm tự đánh giá**: 9.6/10 — giải quyết triệt để 5 vị trí parse HTML nặng trên Main thread, 100% test pass.

@@ -122,7 +122,7 @@ class ReadingViewModelArticleSwitchRaceTest {
             highlightsForA
         }
 
-        val viewModel = ReadingViewModel(rssService, rssHelper, ttsManager, summaryService, zenAudioManager)
+        val viewModel = ReadingViewModel(rssService, rssHelper, ttsManager, summaryService, zenAudioManager, testDispatcher)
         viewModel.initData("art_race_a")
         advanceUntilIdle()
 
@@ -154,7 +154,7 @@ class ReadingViewModelArticleSwitchRaceTest {
             secondHighlights
         }
 
-        val viewModel = ReadingViewModel(rssService, rssHelper, ttsManager, summaryService, zenAudioManager)
+        val viewModel = ReadingViewModel(rssService, rssHelper, ttsManager, summaryService, zenAudioManager, testDispatcher)
         viewModel.initData("art_race_a")
         advanceUntilIdle()
 
@@ -176,7 +176,7 @@ class ReadingViewModelArticleSwitchRaceTest {
             mindMapForA
         }
 
-        val viewModel = ReadingViewModel(rssService, rssHelper, ttsManager, summaryService, zenAudioManager)
+        val viewModel = ReadingViewModel(rssService, rssHelper, ttsManager, summaryService, zenAudioManager, testDispatcher)
         viewModel.initData("art_race_a")
         advanceUntilIdle()
 
@@ -200,7 +200,7 @@ class ReadingViewModelArticleSwitchRaceTest {
             replyForA
         }
 
-        val viewModel = ReadingViewModel(rssService, rssHelper, ttsManager, summaryService, zenAudioManager)
+        val viewModel = ReadingViewModel(rssService, rssHelper, ttsManager, summaryService, zenAudioManager, testDispatcher)
         viewModel.initData("art_race_a")
         advanceUntilIdle()
 
@@ -224,7 +224,7 @@ class ReadingViewModelArticleSwitchRaceTest {
         coEvery { summaryService.extractHighlights(any(), any(), any()) } returns
             ArticleHighlights("t", listOf("a"), 1, emptyList(), false)
 
-        val viewModel = ReadingViewModel(rssService, rssHelper, ttsManager, summaryService, zenAudioManager)
+        val viewModel = ReadingViewModel(rssService, rssHelper, ttsManager, summaryService, zenAudioManager, testDispatcher)
         viewModel.initData("art_race_a")
         advanceUntilIdle()
 
@@ -245,7 +245,7 @@ class ReadingViewModelArticleSwitchRaceTest {
         coEvery { summaryService.extractHighlights(any(), any(), any()) } returns
             ArticleHighlights("t", listOf("a"), 1, emptyList(), false)
 
-        val viewModel = ReadingViewModel(rssService, rssHelper, ttsManager, summaryService, zenAudioManager)
+        val viewModel = ReadingViewModel(rssService, rssHelper, ttsManager, summaryService, zenAudioManager, testDispatcher)
         viewModel.initData("art_race_a")
         advanceUntilIdle()
         viewModel.requestSummary()

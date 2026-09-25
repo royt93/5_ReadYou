@@ -95,7 +95,7 @@ class ReadingViewModelMindMapTest {
 
     @Test
     fun openAndDismissMindMap_updatesSheetVisibilityState() = runTest(testDispatcher) {
-        val viewModel = ReadingViewModel(rssService, rssHelper, ttsManager, summaryService, zenAudioManager)
+        val viewModel = ReadingViewModel(rssService, rssHelper, ttsManager, summaryService, zenAudioManager, testDispatcher)
         viewModel.initData("art_map_1", autoTtsEnabled = false)
         advanceUntilIdle()
 
@@ -121,7 +121,7 @@ class ReadingViewModelMindMapTest {
         )
         coEvery { summaryService.generateMindMap(any(), any(), any()) } returns expectedMindMap
 
-        val viewModel = ReadingViewModel(rssService, rssHelper, ttsManager, summaryService, zenAudioManager)
+        val viewModel = ReadingViewModel(rssService, rssHelper, ttsManager, summaryService, zenAudioManager, testDispatcher)
         viewModel.initData("art_map_1", autoTtsEnabled = false)
         advanceUntilIdle()
 
@@ -138,7 +138,7 @@ class ReadingViewModelMindMapTest {
 
     @Test
     fun requestMindMap_forceOffline_generatesOfflineMindMap() = runTest(testDispatcher) {
-        val viewModel = ReadingViewModel(rssService, rssHelper, ttsManager, summaryService, zenAudioManager)
+        val viewModel = ReadingViewModel(rssService, rssHelper, ttsManager, summaryService, zenAudioManager, testDispatcher)
         viewModel.initData("art_map_1", autoTtsEnabled = false)
         advanceUntilIdle()
 
@@ -164,7 +164,7 @@ class ReadingViewModelMindMapTest {
         )
         coEvery { repo.findArticleById("art_empty_map") } returns emptyArticle
 
-        val viewModel = ReadingViewModel(rssService, rssHelper, ttsManager, summaryService, zenAudioManager)
+        val viewModel = ReadingViewModel(rssService, rssHelper, ttsManager, summaryService, zenAudioManager, testDispatcher)
         viewModel.initData("art_empty_map", autoTtsEnabled = false)
         advanceUntilIdle()
 

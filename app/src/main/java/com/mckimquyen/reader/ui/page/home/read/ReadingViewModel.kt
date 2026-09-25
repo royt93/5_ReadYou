@@ -20,8 +20,10 @@ import com.mckimquyen.reader.infrastructure.audio.TtsManager
 import com.mckimquyen.reader.infrastructure.audio.TtsState
 import com.mckimquyen.reader.infrastructure.audio.ambient.ZenAudioManager
 import com.mckimquyen.reader.infrastructure.rss.RssHelper
+import com.mckimquyen.reader.infrastructure.di.DefaultDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -32,6 +34,7 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -41,6 +44,7 @@ class ReadingViewModel @Inject constructor(
     private val ttsManager: TtsManager,
     private val summaryService: GeminiSummaryService,
     val zenAudioManager: ZenAudioManager,
+    @DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher = Dispatchers.Default,
 ) : ViewModel() {
 
     private val _readingUiState = MutableStateFlow(ReadingUiState())
@@ -167,13 +171,16 @@ class ReadingViewModel @Inject constructor(
             Log.d("roy93~", "ReadingViewModel content is null, cannot play")
             return
         }
-        Log.d("roy93~", "ReadingViewModel parsing HTML to plain text")
-        // Use Regex to remove HTML tags or parse it
-        val plainText = androidx.core.text.HtmlCompat.fromHtml(
-            content, androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY
-        ).toString()
-        Log.d("roy93~", "ReadingViewModel starting TTS play")
-        ttsManager.play(plainText)
+        viewModelScope.launch {
+            Log.d("roy93~", "ReadingViewModel parsing HTML to plain text")
+            val plainText = withContext(defaultDispatcher) {
+                androidx.core.text.HtmlCompat.fromHtml(
+                    content, androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY
+                ).toString()
+            }
+            Log.d("roy93~", "ReadingViewModel starting TTS play")
+            ttsManager.play(plainText)
+        }
     }
 
     fun togglePlayAudio() {
@@ -206,21 +213,27 @@ class ReadingViewModel @Inject constructor(
         val state = _readingUiState.value
         val article = state.articleWithFeed?.article
         val requestArticleId = article?.id
-        val plainText = state.content?.let {
-            androidx.core.text.HtmlCompat
-                .fromHtml(it, androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY)
-                .toString()
-        }.orEmpty()
-        Log.d("roy93~AI", "[VM.requestSummary] contentLen=${state.content?.length ?: 0} plainTextLen=${plainText.length} forceOffline=$forceOffline")
-
-        if (plainText.isBlank()) {
-            _readingUiState.update { it.copy(summaryState = SummaryState.Error(R.string.summary_err_empty_content)) }
-            return
-        }
+        val rawContent = state.content
 
         _readingUiState.update { it.copy(summaryState = SummaryState.Loading) }
         summaryJob?.cancel()
         summaryJob = viewModelScope.launch {
+            val plainText = withContext(defaultDispatcher) {
+                rawContent?.let {
+                    androidx.core.text.HtmlCompat
+                        .fromHtml(it, androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY)
+                        .toString()
+                }.orEmpty()
+            }
+            Log.d("roy93~AI", "[VM.requestSummary] contentLen=${rawContent?.length ?: 0} plainTextLen=${plainText.length} forceOffline=$forceOffline")
+
+            if (plainText.isBlank()) {
+                if (_readingUiState.value.articleWithFeed?.article?.id == requestArticleId) {
+                    _readingUiState.update { it.copy(summaryState = SummaryState.Error(R.string.summary_err_empty_content)) }
+                }
+                return@launch
+            }
+
             try {
                 val highlights = if (forceOffline) {
                     com.mckimquyen.reader.infrastructure.ai.ArticleHighlightsExtractor.extractOfflineHighlights(
@@ -274,21 +287,27 @@ class ReadingViewModel @Inject constructor(
         val state = _readingUiState.value
         val article = state.articleWithFeed?.article
         val requestArticleId = article?.id
-        val plainText = state.content?.let {
-            androidx.core.text.HtmlCompat
-                .fromHtml(it, androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY)
-                .toString()
-        }.orEmpty()
-        Log.d("roy93~AI", "[VM.requestMindMap] contentLen=${state.content?.length ?: 0} plainTextLen=${plainText.length} forceOffline=$forceOffline")
-
-        if (plainText.isBlank()) {
-            _readingUiState.update { it.copy(mindMapState = MindMapState.Error(R.string.summary_err_empty_content)) }
-            return
-        }
+        val rawContent = state.content
 
         _readingUiState.update { it.copy(mindMapState = MindMapState.Loading) }
         mindMapJob?.cancel()
         mindMapJob = viewModelScope.launch {
+            val plainText = withContext(defaultDispatcher) {
+                rawContent?.let {
+                    androidx.core.text.HtmlCompat
+                        .fromHtml(it, androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY)
+                        .toString()
+                }.orEmpty()
+            }
+            Log.d("roy93~AI", "[VM.requestMindMap] contentLen=${rawContent?.length ?: 0} plainTextLen=${plainText.length} forceOffline=$forceOffline")
+
+            if (plainText.isBlank()) {
+                if (_readingUiState.value.articleWithFeed?.article?.id == requestArticleId) {
+                    _readingUiState.update { it.copy(mindMapState = MindMapState.Error(R.string.summary_err_empty_content)) }
+                }
+                return@launch
+            }
+
             try {
                 val mindMap = if (forceOffline) {
                     com.mckimquyen.reader.infrastructure.ai.ArticleMindMapExtractor.extractOfflineMindMap(
@@ -322,41 +341,45 @@ class ReadingViewModel @Inject constructor(
         val state = _readingUiState.value
         val article = state.articleWithFeed?.article
         val articleId = article?.id.orEmpty()
-        val plainText = state.content?.let {
-            androidx.core.text.HtmlCompat
-                .fromHtml(it, androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY)
-                .toString()
-        }.orEmpty()
+        val rawContent = state.content
 
-        Log.d("roy93~AI", "[VM.openDeepRead] clicked, articleId=$articleId plainTextLen=${plainText.length}")
+        Log.d("roy93~AI", "[VM.openDeepRead] clicked, articleId=$articleId")
+
+        _readingUiState.update { it.copy(showDeepReadSheet = true) }
 
         val currentActive = state.deepReadState as? DeepReadState.Active
         if (currentActive == null || currentActive.session.articleId != articleId) {
             val title = article?.title.orEmpty()
-            val chips = com.mckimquyen.reader.infrastructure.ai.ArticleDeepReadEngine.generateSuggestedQuestions(
-                title = title,
-                plainText = plainText,
-            )
-            val welcomeMessage = DeepReadMessage(
-                sender = DeepReadSender.ASSISTANT,
-                content = "", // Display default localized welcome string in UI
-                isOfflineFallback = false,
-                isGrounded = true,
-            )
-            val newSession = DeepReadSession(
-                articleId = articleId,
-                articleTitle = title,
-                messages = listOf(welcomeMessage),
-                suggestedChips = chips,
-            )
-            _readingUiState.update {
-                it.copy(
-                    showDeepReadSheet = true,
-                    deepReadState = DeepReadState.Active(newSession)
+            viewModelScope.launch {
+                val plainText = withContext(defaultDispatcher) {
+                    rawContent?.let {
+                        androidx.core.text.HtmlCompat
+                            .fromHtml(it, androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY)
+                            .toString()
+                    }.orEmpty()
+                }
+                val chips = withContext(defaultDispatcher) {
+                    com.mckimquyen.reader.infrastructure.ai.ArticleDeepReadEngine.generateSuggestedQuestions(
+                        title = title,
+                        plainText = plainText,
+                    )
+                }
+                val welcomeMessage = DeepReadMessage(
+                    sender = DeepReadSender.ASSISTANT,
+                    content = "", // Display default localized welcome string in UI
+                    isOfflineFallback = false,
+                    isGrounded = true,
                 )
+                val newSession = DeepReadSession(
+                    articleId = articleId,
+                    articleTitle = title,
+                    messages = listOf(welcomeMessage),
+                    suggestedChips = chips,
+                )
+                if (_readingUiState.value.articleWithFeed?.article?.id == articleId) {
+                    _readingUiState.update { it.copy(deepReadState = DeepReadState.Active(newSession)) }
+                }
             }
-        } else {
-            _readingUiState.update { it.copy(showDeepReadSheet = true) }
         }
     }
 
@@ -398,14 +421,17 @@ class ReadingViewModel @Inject constructor(
 
         val article = state.articleWithFeed?.article
         val requestArticleId = active.session.articleId
-        val plainText = state.content?.let {
-            androidx.core.text.HtmlCompat
-                .fromHtml(it, androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY)
-                .toString()
-        }.orEmpty()
+        val rawContent = state.content
 
         deepReadJob?.cancel()
         deepReadJob = viewModelScope.launch {
+            val plainText = withContext(defaultDispatcher) {
+                rawContent?.let {
+                    androidx.core.text.HtmlCompat
+                        .fromHtml(it, androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY)
+                        .toString()
+                }.orEmpty()
+            }
             try {
                 val assistantReply = summaryService.askArticleQuestion(
                     title = article?.title.orEmpty(),

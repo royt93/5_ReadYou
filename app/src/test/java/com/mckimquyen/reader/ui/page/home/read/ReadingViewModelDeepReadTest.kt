@@ -99,6 +99,7 @@ class ReadingViewModelDeepReadTest {
             ttsManager = ttsManager,
             summaryService = summaryService,
             zenAudioManager = zenAudioManager,
+            defaultDispatcher = testDispatcher,
         )
     }
 

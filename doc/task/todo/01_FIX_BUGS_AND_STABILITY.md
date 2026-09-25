@@ -14,7 +14,7 @@
 | FIX-02 | Loại bỏ Compose `LazyListState` khỏi ViewModel & UiState | P0 | todo* | [`FIX-02_remove-lazyliststate-viewmodel.md`](FIX-02_remove-lazyliststate-viewmodel.md) |
 | FIX-03 | Bọc Error Isolation và điều chỉnh Concurrency khi đồng bộ RSS Feed | P0 | todo* | [`FIX-03_error-isolation-sync-concurrency.md`](FIX-03_error-isolation-sync-concurrency.md) |
 | FIX-04 | Thay thế Endpoint Favicon Heroku đã chết & Sửa lỗi `NoSuchElementException` | P0 | todo* | [`FIX-04_replace-favicon-heroku-endpoint.md`](FIX-04_replace-favicon-heroku-endpoint.md) |
-| FIX-05 | Đẩy tác vụ parse HTML của AI Summary và TTS sang Worker Thread | P1 | todo | [`FIX-05_html-parsing-worker-thread.md`](FIX-05_html-parsing-worker-thread.md) |
+| FIX-05 | Đẩy tác vụ parse HTML của AI Summary và TTS sang Worker Thread | P1 | ✅ done | [`FIX-05_html-parsing-worker-thread_DONE.md`](../done/FIX-05_html-parsing-worker-thread_DONE.md) |
 | FIX-06 | Loại bỏ Force-Null `!!` gây rủi ro NPE ở `FeverRssSv` và `OpmlSv` | P1 | ✅ done | [`FIX-06_force-null-npe-fever-opml_DONE.md`](../done/FIX-06_force-null-npe-fever-opml_DONE.md) |
 | FIX-07 | Kiểm tra Runtime Permission `POST_NOTIFICATIONS` trên Android 13+ (API 33+) | P1 | ✅ done | [`FIX-07_post-notifications-permission_DONE.md`](../done/FIX-07_post-notifications-permission_DONE.md) |
 | FIX-08 | Sửa AdMob Rewarded Ad Unit ID Test trên Release & Tối Ưu Ad Lifecycle | P1 | todo | [`FIX-08_admob-rewarded-test-id-release.md`](FIX-08_admob-rewarded-test-id-release.md) |

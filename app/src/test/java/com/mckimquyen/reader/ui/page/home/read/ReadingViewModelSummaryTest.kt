@@ -94,7 +94,7 @@ class ReadingViewModelSummaryTest {
 
     @Test
     fun openAndDismissSummary_updatesSheetVisibilityState() = runTest(testDispatcher) {
-        val viewModel = ReadingViewModel(rssService, rssHelper, ttsManager, summaryService, zenAudioManager)
+        val viewModel = ReadingViewModel(rssService, rssHelper, ttsManager, summaryService, zenAudioManager, testDispatcher)
         viewModel.initData("art_sum_1", autoTtsEnabled = false)
         advanceUntilIdle()
 
@@ -118,7 +118,7 @@ class ReadingViewModelSummaryTest {
         )
         coEvery { summaryService.extractHighlights(any(), any(), any()) } returns expectedHighlights
 
-        val viewModel = ReadingViewModel(rssService, rssHelper, ttsManager, summaryService, zenAudioManager)
+        val viewModel = ReadingViewModel(rssService, rssHelper, ttsManager, summaryService, zenAudioManager, testDispatcher)
         viewModel.initData("art_sum_1", autoTtsEnabled = false)
         advanceUntilIdle()
 
@@ -136,7 +136,7 @@ class ReadingViewModelSummaryTest {
 
     @Test
     fun requestSummary_forceOffline_generatesOfflineHighlights() = runTest(testDispatcher) {
-        val viewModel = ReadingViewModel(rssService, rssHelper, ttsManager, summaryService, zenAudioManager)
+        val viewModel = ReadingViewModel(rssService, rssHelper, ttsManager, summaryService, zenAudioManager, testDispatcher)
         viewModel.initData("art_sum_1", autoTtsEnabled = false)
         advanceUntilIdle()
 
@@ -161,7 +161,7 @@ class ReadingViewModelSummaryTest {
         )
         coEvery { repo.findArticleById("art_empty") } returns emptyArticle
 
-        val viewModel = ReadingViewModel(rssService, rssHelper, ttsManager, summaryService, zenAudioManager)
+        val viewModel = ReadingViewModel(rssService, rssHelper, ttsManager, summaryService, zenAudioManager, testDispatcher)
         viewModel.initData("art_empty", autoTtsEnabled = false)
         advanceUntilIdle()
 
@@ -187,7 +187,7 @@ class ReadingViewModelSummaryTest {
         )
         coEvery { repo.findArticleById("art_persisted") } returns persistedArticle
 
-        val viewModel = ReadingViewModel(rssService, rssHelper, ttsManager, summaryService, zenAudioManager)
+        val viewModel = ReadingViewModel(rssService, rssHelper, ttsManager, summaryService, zenAudioManager, testDispatcher)
         viewModel.initData("art_persisted", autoTtsEnabled = false)
         advanceUntilIdle()
 
@@ -211,7 +211,7 @@ class ReadingViewModelSummaryTest {
         )
         coEvery { repo.findArticleById("art_cached") } returns persistedArticle
 
-        val viewModel = ReadingViewModel(rssService, rssHelper, ttsManager, summaryService, zenAudioManager)
+        val viewModel = ReadingViewModel(rssService, rssHelper, ttsManager, summaryService, zenAudioManager, testDispatcher)
         viewModel.initData("art_cached", autoTtsEnabled = false)
         advanceUntilIdle()
 

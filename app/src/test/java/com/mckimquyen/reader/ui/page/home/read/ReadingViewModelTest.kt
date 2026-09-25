@@ -83,7 +83,8 @@ class ReadingViewModelTest {
             rssHelper = rssHelper,
             ttsManager = ttsManager,
             summaryService = summaryService,
-            zenAudioManager = zenAudioManager
+            zenAudioManager = zenAudioManager,
+            defaultDispatcher = testDispatcher
         )
 
         var receivedScrollEvent = false
