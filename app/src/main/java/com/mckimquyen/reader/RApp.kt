@@ -169,6 +169,15 @@ class RApp : Application(), WorkConfiguration.Provider, ImageLoaderFactory {
         val provider = if (BuildConfig.IS_ENABLE_ADMOB) "AdMob" else "AppLovin MAX"
         Log.d("roy93~Ad", "[setupAdmob] 🚀 ${SdkVersion.SDK_NAME} v${SdkVersion.VERSION_NAME}, provider=$provider, isDebug=${BuildConfig.DEBUG}")
 
+        if (!com.mckimquyen.reader.infrastructure.android.AdValidationHelper.validateReleaseAdConfig(
+                isDebug = BuildConfig.DEBUG,
+                isEnableAdmob = BuildConfig.IS_ENABLE_ADMOB,
+                admobRewardedId = BuildConfig.ADMOB_REWARDED_ID,
+            )
+        ) {
+            Log.e("roy93~Ad", "⚠️ Production release build must not use Google test ID for AdMob rewarded ad!")
+        }
+
         val adConfig = AdSdkConfig(
             isEnableAdmob          = BuildConfig.IS_ENABLE_ADMOB,
             isDebug                = BuildConfig.DEBUG,

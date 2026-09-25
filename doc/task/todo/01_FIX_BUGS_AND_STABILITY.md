@@ -17,7 +17,7 @@
 | FIX-05 | Đẩy tác vụ parse HTML của AI Summary và TTS sang Worker Thread | P1 | ✅ done | [`FIX-05_html-parsing-worker-thread_DONE.md`](../done/FIX-05_html-parsing-worker-thread_DONE.md) |
 | FIX-06 | Loại bỏ Force-Null `!!` gây rủi ro NPE ở `FeverRssSv` và `OpmlSv` | P1 | ✅ done | [`FIX-06_force-null-npe-fever-opml_DONE.md`](../done/FIX-06_force-null-npe-fever-opml_DONE.md) |
 | FIX-07 | Kiểm tra Runtime Permission `POST_NOTIFICATIONS` trên Android 13+ (API 33+) | P1 | ✅ done | [`FIX-07_post-notifications-permission_DONE.md`](../done/FIX-07_post-notifications-permission_DONE.md) |
-| FIX-08 | Sửa AdMob Rewarded Ad Unit ID Test trên Release & Tối Ưu Ad Lifecycle | P1 | todo | [`FIX-08_admob-rewarded-test-id-release.md`](FIX-08_admob-rewarded-test-id-release.md) |
+| FIX-08 | Sửa AdMob Rewarded Ad Unit ID Test trên Release & Tối Ưu Ad Lifecycle | P1 | ✅ done | [`FIX-08_admob-rewarded-test-id-release_DONE.md`](../done/FIX-08_admob-rewarded-test-id-release_DONE.md) |
 | FIX-09 | Gemini API Key Hardcode Trong APK (Chỉ Obfuscate, Không Bảo Mật Thật) | P0, security | ⏸️ deferred | [`FIX-09_gemini-key-hardcoded.md`](FIX-09_gemini-key-hardcoded.md) |
 | FIX-10 | Kết quả AI Summary/Deep Read/Mind Map Có Thể Rơi Nhầm Sang Bài Khác | P0 | ✅ done | [`FIX-10_ai-result-leak-wrong-article_DONE.md`](../done/FIX-10_ai-result-leak-wrong-article_DONE.md) |
 | FIX-11 | Race Condition Khi Tìm Kiếm Trong `HomeViewModel` | P0 | ✅ done | [`FIX-11_search-race-condition-homeviewmodel_DONE.md`](../done/FIX-11_search-race-condition-homeviewmodel_DONE.md) |

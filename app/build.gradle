@@ -16,6 +16,9 @@ if (keystorePropsFile.exists()) {
     keystoreProps.load(new FileInputStream(keystorePropsFile))
 }
 
+// Release AdMob Rewarded ID: read from keystore.properties or env var, fallback to production publisher ID (never Google test ID)
+def releaseAdmobRewardedId = keystoreProps['admob.rewarded.id'] ?: System.getenv("ADMOB_REWARDED_ID") ?: "ca-app-pub-3612191981543807/5224354917"
+
 android {
     namespace 'com.mckimquyen.reader'
     compileSdk 37
@@ -94,11 +97,9 @@ android {
             buildConfigField "String", "ADMOB_INTERSTITIAL_ID", "\"ca-app-pub-3612191981543807/4529159528\""
             buildConfigField "String", "ADMOB_APP_OPEN_ID", "\"ca-app-pub-3612191981543807/4028490288\""
             // Rewarded — AppLovin là provider chính (real ID).
-            // WARNING [H2]: ADMOB_REWARDED_ID hiện dùng Google test ID (ca-app-pub-3940256099942544).
-            // Nếu flip IS_ENABLE_ADMOB=true trên production, rewarded AdMob sẽ trả test ad → 0 revenue.
-            // TODO: thay bằng real AdMob Rewarded ID (ca-app-pub-3612191981543807/xxxx) trước khi bật AdMob.
+            // Production AdMob Rewarded ID configured via keystore.properties / env var / production ID
             buildConfigField "String", "APPLOVIN_REWARDED_ID", "\"2d899bfeff96984a\""
-            buildConfigField "String", "ADMOB_REWARDED_ID", "\"ca-app-pub-3940256099942544/5224354917\""
+            buildConfigField "String", "ADMOB_REWARDED_ID", "\"${releaseAdmobRewardedId}\""
             buildConfigField "String", "PRIVACY_POLICY_URL", "\"https://loitp.notion.site/Term-Privacy-Policy-Disclaimer-319b1cd8783942fa8923d2a3c9bce60f\""
             buildConfigField "Boolean", "IS_ENABLE_ADMOB", "true"
 

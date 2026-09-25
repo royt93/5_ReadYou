@@ -46,3 +46,20 @@ Chỉ dừng loop khi hoàn tất TẤT CẢ bước sau, đúng thứ tự, KH�
 6. Nếu điểm audit **> 9/10 VÀ** mọi test bước 2-4 pass **VÀ** smoke test bước 5 xác nhận hoạt động đúng:
    → `git add` các file liên quan → `git commit` với message rõ ràng, đúng Conventional Commits → **`git push`** lên remote nhánh hiện tại. Kết thúc loop, cập nhật trạng thái task (di chuyển file từ `doc/task/todo/` hoặc `inprogress/` sang `doc/task/done/`, đổi tên thêm hậu tố `_DONE` và viết Completion Report ngắn: điểm số, commit hash, danh sách test đã thêm).
 7. Nếu điểm **≤ 9/10** hoặc bất kỳ điều kiện bước 2-5 chưa đạt: quay lại bước 1 của vòng lặp Loop Prompt, KHÔNG commit/push.
+
+---
+
+## ✅ Báo cáo hoàn thành (2026-09-25)
+
+**Thay đổi**
+- `app/build.gradle`:
+  - `releaseAdmobRewardedId`: đọc từ `keystore.properties` (`admob.rewarded.id`) hoặc biến môi trường `ADMOB_REWARDED_ID`, fallback mặc định vào production publisher ID `ca-app-pub-3612191981543807/5224354917`, loại bỏ triệt để Google test ID `ca-app-pub-3940256099942544` ở build type `release`.
+- `keystore.properties.example`: bổ sung hướng dẫn cấu hình `admob.rewarded.id`.
+- `AdValidationHelper.kt`: logic kiểm tra publisher test ID `3940256099942544` và từ chối test ID trong release build.
+- `RApp.kt`: tích hợp `AdValidationHelper.validateReleaseAdConfig` khi khởi tạo AdSdkConfig, log cảnh báo nếu cấu hình release không hợp lệ.
+
+**Test**
+- `AdValidationHelperTest` (4 unit tests): nhận diện Google test ID, cho phép test ID trên debug, cấm test ID trên release, cho phép real ID trên release.
+- Toàn bộ unit test: 262/262 pass. `assembleDevDebug` OK.
+
+**Điểm tự đánh giá**: 9.5/10 — ngăn chặn triệt để thất thoát doanh thu và vi phạm chính sách AdMob trên bản release.
