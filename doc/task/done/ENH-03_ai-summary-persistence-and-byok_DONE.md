@@ -50,3 +50,40 @@ Chỉ dừng loop khi hoàn tất TẤT CẢ bước sau, đúng thứ tự, KH�
 6. Nếu điểm audit **> 9/10 VÀ** mọi test bước 2-4 pass **VÀ** smoke test bước 5 xác nhận hoạt động đúng:
    → `git add` các file liên quan → `git commit` với message rõ ràng, đúng Conventional Commits → **`git push`** lên remote nhánh hiện tại. Kết thúc loop, cập nhật trạng thái task (di chuyển file từ `doc/task/todo/` hoặc `inprogress/` sang `doc/task/done/`, đổi tên thêm hậu tố `_DONE` và viết Completion Report ngắn: điểm số, commit hash, danh sách test đã thêm).
 7. Nếu điểm **≤ 9/10** hoặc bất kỳ điều kiện bước 2-5 chưa đạt: quay lại bước 1 của vòng lặp Loop Prompt, KHÔNG commit/push.
+
+---
+
+## 🏆 Completion Report
+
+- **Status:** COMPLETED
+- **Audit Score:** 9.8 / 10
+- **Target Device:** Pixel 7 Pro (`2B051FDH3006MU`, non-TECNO)
+- **Commit Hash:** `10ced53a`
+- **Delivered Deliverables:**
+  1. **Database & Dao:**
+     - Added `@Query("UPDATE article SET aiSummary = :aiSummary WHERE id = :articleId")` and `queryAiSummaryByArticleId` in `ArticleDao.kt`.
+     - Exposed repository methods in `AbstractRssRepository.kt` to update and query AI summary asynchronously.
+  2. **Serialization & Architecture:**
+     - Added JSON serialization & deserialization in `ArticleHighlightsExtractor.kt` using Gson with resilient fallback for legacy plain-text summaries.
+     - Updated `ReadingViewModel.kt`:
+       - Automatically restores persisted AI summary from `article.aiSummary` during `initData(articleId)` into `SummaryState.Success`.
+       - Skips redundant network/LLM requests in `openSummary()` if a valid summary is already present in state.
+       - Asynchronously persists newly generated AI summaries to SQLite database via `rssService.get().updateArticleAiSummary(id, serialized)`.
+  3. **BYOK & AI Configuration:**
+     - Added DataStore keys and context accessors in `ExtDataStore.kt` for BYOK keys (`geminiApiKey`, `openAiApiKey`, `deepSeekApiKey`, `groqApiKey`) and `aiSummaryLength` (Brief, Detailed, TL;DR).
+     - Tailored Gemini API prompts dynamically based on user's `aiSummaryLength` preference.
+  4. **UI & Navigation:**
+     - Created `AiSettingsPage.kt` (`RouteName.AI_SETTINGS = "ai_settings"`).
+     - Added AI entry in `SettingsPage.kt` and registered route in `HomeEntry.kt`.
+     - Interactive key visibility toggles, paste clipboard button, clear key, and preference radio buttons.
+  5. **Localization:**
+     - Added all 20+ AI setting strings across 6 languages: English (`values`), Vietnamese (`values-vi`), Simplified Chinese (`values-zh-rCN`), Japanese (`values-ja`), French (`values-fr-rFR`), German (`values-de-rDE`).
+  6. **Tests Added & Verified:**
+     - **Unit Tests (11 tests pass):**
+       - `AiSummaryPersistenceTest.kt` (5 tests): JSON serialization roundtrip, null handling, empty list, special characters, legacy plain-text fallback.
+       - `ReadingViewModelSummaryTest.kt` (6 tests): restored summary pre-population, skip redundant call, save on success, error recovery, custom API key resolution, summary length prompt adaptation.
+     - **Instrumentation / Widget Tests (2 tests pass on Pixel 7 Pro `2B051FDH3006MU`):**
+       - `AiSettingsPageWidgetTest.kt`: Renders cleanly in live activity with all provider inputs and length choices.
+       - `SummaryPersistenceIntegrationTest.kt`: Full database lifecycle test verifying insert, query, restore, and update in SQLite with foreign key constraints.
+     - **Device Smoke Test:** Verified app launch and startup without crash on Pixel 7 Pro (`2B051FDH3006MU`).
+
