@@ -55,3 +55,25 @@ Chỉ dừng loop khi hoàn tất TẤT CẢ bước sau, đúng thứ tự, KH�
 6. Nếu điểm audit **> 9/10 VÀ** mọi test bước 2-4 pass **VÀ** smoke test bước 5 xác nhận hoạt động đúng:
    → `git add` các file liên quan → `git commit` với message rõ ràng, đúng Conventional Commits → **`git push`** lên remote nhánh hiện tại. Kết thúc loop, cập nhật trạng thái task (di chuyển file từ `doc/task/todo/` hoặc `inprogress/` sang `doc/task/done/`, đổi tên thêm hậu tố `_DONE` và viết Completion Report ngắn: điểm số, commit hash, danh sách test đã thêm).
 7. Nếu điểm **≤ 9/10** hoặc bất kỳ điều kiện bước 2-5 chưa đạt: quay lại bước 1 của vòng lặp Loop Prompt, KHÔNG commit/push.
+
+---
+
+## 🏆 Completion Report
+
+- **Status:** COMPLETED (2026-09-25)
+- **Audit Score:** 9.2 / 10
+- **Device Target:** Google Pixel 7 Pro (`2B051FDH3006MU`, API 37)
+- **Thay đổi chính:**
+  - `WatchdogManager`, `BrainRpgRepository`, `ZenDailyEditionManager` nhận thêm `@ApplicationScope CoroutineScope` và `@IODispatcher CoroutineDispatcher` qua Hilt. Constructor không còn đọc `SharedPreferences`; việc load chạy trong `applicationScope.launch(ioDispatcher)`.
+  - `StateFlow` khởi tạo bằng giá trị mặc định (`emptyList()`, `UserProgress()`, các hằng `DEFAULT_*` của Zen), rồi được cập nhật sau khi load xong.
+  - Mỗi class có `ensureLoaded()` (load đúng 1 lần, thread-safe). Mọi hàm ghi và hàm đọc đồng bộ (`addKeyword`, `checkArticle`, `addReadingXp`, `shouldSilenceImmediateNotification`...) gọi `ensureLoaded()` trước. Vì vậy thao tác xảy ra trước khi load async xong không ghi đè dữ liệu đã lưu, và sync nền không bỏ sót cảnh báo Watchdog.
+  - Zen: bỏ magic string `"07:00"` / `"20:00"`, dùng hằng `DEFAULT_*`.
+- **Unit test mới (tất cả pass, 238/238 unit test toàn repo pass):**
+  - `WatchdogManagerTest`: `constructor_loadsPersistedKeywordsAsynchronously`, `addKeyword_beforeAsyncLoad_keepsPersistedKeywords`, `checkArticle_beforeAsyncLoad_matchesPersistedKeywords`
+  - `BrainRpgRepositoryTest`: `constructor_loadsPersistedProgressAsynchronously`, `addReadingXp_beforeAsyncLoad_addsToPersistedTotal`
+  - `ZenDailyEditionManagerTest`: `constructor_doesNotReadPreferences_untilAsyncLoadRuns`, `setBatchSilence_beforeAsyncLoad_isNotOverwrittenByLateLoad`, `shouldSilenceImmediateNotification_beforeAsyncLoad_usesPersistedSettings`
+- **Integration test (Pixel 7 Pro, 10/10 pass):** `WatchdogIntegrationTest`, `BrainRpgIntegrationTest`, `ZenSpeedReadingIntegrationTest` (cập nhật constructor).
+- **Smoke test (Pixel 7 Pro):** seed dữ liệu vào 3 file prefs, cold-start (`LaunchState: COLD`, `TotalTime: 1038 ms`). Brain RPG hiển thị 350 XP / Cấp 3 / chuỗi 5 ngày; Watchdog hiển thị từ khoá "SmokeFix12" với "Đã bắt 7 bài"; Zen Settings hiển thị công tắc phát hành định giờ đang bật. Logcat: 0 `FATAL EXCEPTION`, 0 `ANR`. Đã xoá dữ liệu seed sau khi test.
+- **Lý do trừ điểm:**
+  - Nếu user thao tác trước khi load async xong, `ensureLoaded()` đọc prefs đồng bộ trên thread gọi (có thể là Main). Đây là đường hiếm và có chủ đích, để đổi lấy tính đúng của dữ liệu.
+  - Chưa có Compose UI test riêng cho `BrainRpgPage` / `ZenSettingsPage` ở trạng thái mặc định (Watchdog đã có `watchdogSheet_rendersEmptyState`). Trạng thái mặc định giống hệt giá trị trước khi sửa, và smoke test đã xác nhận hiển thị đúng.

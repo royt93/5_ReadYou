@@ -8,6 +8,9 @@ import com.mckimquyen.reader.domain.watchdog.WatchdogEngine
 import com.mckimquyen.reader.infrastructure.android.NotificationHelper
 import io.mockk.mockk
 import io.mockk.verify
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.StandardTestDispatcher
+import kotlinx.coroutines.test.TestScope
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
@@ -19,10 +22,16 @@ import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 import java.util.Date
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 
+@OptIn(ExperimentalCoroutinesApi::class)
 @RunWith(RobolectricTestRunner::class)
 @Config(manifest = Config.NONE)
 class WatchdogManagerTest {
+
+    // Unconfined: the async initial load runs inline, so tests see persisted state right away.
+    private val eagerScope = CoroutineScope(Dispatchers.Unconfined)
 
     private lateinit var context: Context
     private lateinit var engine: WatchdogEngine
@@ -45,7 +54,7 @@ class WatchdogManagerTest {
 
         engine = WatchdogEngine()
         notificationHelper = mockk(relaxed = true)
-        manager = WatchdogManager(context, engine, notificationHelper)
+        manager = WatchdogManager(context, engine, notificationHelper, eagerScope, Dispatchers.Unconfined)
     }
 
     private fun createArticle(
@@ -131,7 +140,7 @@ class WatchdogManagerTest {
         manager.incrementMatchCount(id1)
 
         // Instantiate new manager instance reading from same SharedPreferences
-        val newManager = WatchdogManager(context, engine, notificationHelper)
+        val newManager = WatchdogManager(context, engine, notificationHelper, eagerScope, Dispatchers.Unconfined)
         assertEquals(2, newManager.keywords.value.size)
         assertEquals("\$VNINDEX", newManager.keywords.value[0].keyword)
         assertEquals(1, newManager.keywords.value[0].matchCount)
@@ -184,5 +193,48 @@ class WatchdogManagerTest {
         verify(exactly = 0) {
             notificationHelper.notifyWatchdogAlert(any(), any(), any())
         }
+    }
+
+    @Test
+    fun constructor_loadsPersistedKeywordsAsynchronously() {
+        manager.addKeyword("Bitcoin")
+        val dispatcher = StandardTestDispatcher()
+        val scope = TestScope(dispatcher)
+
+        val lazyManager = WatchdogManager(context, engine, notificationHelper, scope, dispatcher)
+
+        // Nothing loaded in the constructor: the flow still holds its default.
+        assertTrue(lazyManager.keywords.value.isEmpty())
+
+        scope.testScheduler.advanceUntilIdle()
+
+        assertEquals(listOf("Bitcoin"), lazyManager.keywords.value.map { it.keyword })
+    }
+
+    @Test
+    fun addKeyword_beforeAsyncLoad_keepsPersistedKeywords() {
+        manager.addKeyword("Bitcoin")
+        val dispatcher = StandardTestDispatcher()
+        val scope = TestScope(dispatcher)
+        val lazyManager = WatchdogManager(context, engine, notificationHelper, scope, dispatcher)
+
+        assertTrue(lazyManager.addKeyword("Vàng"))
+        scope.testScheduler.advanceUntilIdle()
+
+        assertEquals(listOf("Bitcoin", "Vàng"), lazyManager.keywords.value.map { it.keyword })
+        val reloaded = WatchdogManager(context, engine, notificationHelper, eagerScope, Dispatchers.Unconfined)
+        assertEquals(listOf("Bitcoin", "Vàng"), reloaded.keywords.value.map { it.keyword })
+    }
+
+    @Test
+    fun checkArticle_beforeAsyncLoad_matchesPersistedKeywords() {
+        manager.addKeyword("Bitcoin")
+        val dispatcher = StandardTestDispatcher()
+        val lazyManager = WatchdogManager(context, engine, notificationHelper, TestScope(dispatcher), dispatcher)
+
+        val matched = lazyManager.checkArticle(createArticle("art_btc", "Giá Bitcoin tăng mạnh"))
+
+        assertNotNull(matched)
+        assertEquals("Bitcoin", matched?.keyword)
     }
 }

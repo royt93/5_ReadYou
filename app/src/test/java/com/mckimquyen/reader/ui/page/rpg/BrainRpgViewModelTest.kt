@@ -15,6 +15,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
+import kotlinx.coroutines.CoroutineScope
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @RunWith(RobolectricTestRunner::class)
@@ -32,7 +33,7 @@ class BrainRpgViewModelTest {
         Dispatchers.setMain(testDispatcher)
         context = ApplicationProvider.getApplicationContext()
         context.getSharedPreferences("brain_rpg_prefs", Context.MODE_PRIVATE).edit().clear().commit()
-        repository = BrainRpgRepository(context)
+        repository = BrainRpgRepository(context, CoroutineScope(Dispatchers.Unconfined), Dispatchers.Unconfined)
         quizGenerator = QuizGeneratorService()
         viewModel = BrainRpgViewModel(repository, quizGenerator)
     }

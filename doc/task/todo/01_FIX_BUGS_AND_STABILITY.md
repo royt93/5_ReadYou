@@ -18,10 +18,10 @@
 | FIX-06 | Loại bỏ Force-Null `!!` gây rủi ro NPE ở `FeverRssSv` và `OpmlSv` | P1 | todo | [`FIX-06_force-null-npe-fever-opml.md`](FIX-06_force-null-npe-fever-opml.md) |
 | FIX-07 | Kiểm tra Runtime Permission `POST_NOTIFICATIONS` trên Android 13+ (API 33+) | P1 | todo | [`FIX-07_post-notifications-permission.md`](FIX-07_post-notifications-permission.md) |
 | FIX-08 | Sửa AdMob Rewarded Ad Unit ID Test trên Release & Tối Ưu Ad Lifecycle | P1 | todo | [`FIX-08_admob-rewarded-test-id-release.md`](FIX-08_admob-rewarded-test-id-release.md) |
-| FIX-09 | Gemini API Key Hardcode Trong APK (Chỉ Obfuscate, Không Bảo Mật Thật) | P0, security | todo | [`FIX-09_gemini-key-hardcoded.md`](FIX-09_gemini-key-hardcoded.md) |
-| FIX-10 | Kết quả AI Summary/Deep Read/Mind Map Có Thể Rơi Nhầm Sang Bài Khác | P0 | todo | [`FIX-10_ai-result-leak-wrong-article.md`](FIX-10_ai-result-leak-wrong-article.md) |
-| FIX-11 | Race Condition Khi Tìm Kiếm Trong `HomeViewModel` | P0 | todo | [`FIX-11_search-race-condition-homeviewmodel.md`](FIX-11_search-race-condition-homeviewmodel.md) |
-| FIX-12 | I/O Đồng Bộ Trong `init{}` Block Vi Phạm DoD "Không I/O Trên Main Thread" | P1 | todo | [`FIX-12_main-thread-io-init-blocks.md`](FIX-12_main-thread-io-init-blocks.md) |
+| FIX-09 | Gemini API Key Hardcode Trong APK (Chỉ Obfuscate, Không Bảo Mật Thật) | P0, security | ⏸️ deferred | [`FIX-09_gemini-key-hardcoded.md`](FIX-09_gemini-key-hardcoded.md) |
+| FIX-10 | Kết quả AI Summary/Deep Read/Mind Map Có Thể Rơi Nhầm Sang Bài Khác | P0 | ✅ done | [`FIX-10_ai-result-leak-wrong-article_DONE.md`](../done/FIX-10_ai-result-leak-wrong-article_DONE.md) |
+| FIX-11 | Race Condition Khi Tìm Kiếm Trong `HomeViewModel` | P0 | ✅ done | [`FIX-11_search-race-condition-homeviewmodel_DONE.md`](../done/FIX-11_search-race-condition-homeviewmodel_DONE.md) |
+| FIX-12 | I/O Đồng Bộ Trong `init{}` Block Vi Phạm DoD "Không I/O Trên Main Thread" | P1 | ✅ done | [`FIX-12_main-thread-io-init-blocks_DONE.md`](../done/FIX-12_main-thread-io-init-blocks_DONE.md) |
 | FIX-13 | Dead Code: Hàm `callGemini()` Không Còn Ai Gọi Trong `GeminiSummaryService` | P2, code quality | todo | [`FIX-13_dead-code-callgemini.md`](FIX-13_dead-code-callgemini.md) |
 | FIX-14 | Dọn Dẹp TODO Rải Rác & Tab Chết Không Có Hành Vi | P2 | todo | [`FIX-14_dead-todo-ui-cleanup.md`](FIX-14_dead-todo-ui-cleanup.md) |
 | FIX-15 | Hardcode Tiếng Anh "Pillar"/"Detail" Trong `MindMapSheet` — Vi Phạm Quy Tắc Localize | P2, localization | todo | [`FIX-15_mindmap-hardcoded-strings.md`](FIX-15_mindmap-hardcoded-strings.md) |

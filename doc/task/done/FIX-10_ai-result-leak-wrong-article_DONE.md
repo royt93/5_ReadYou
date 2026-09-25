@@ -48,3 +48,24 @@ Chỉ dừng loop khi hoàn tất TẤT CẢ bước sau, đúng thứ tự, KH�
 6. Nếu điểm audit **> 9/10 VÀ** mọi test bước 2-4 pass **VÀ** smoke test bước 5 xác nhận hoạt động đúng:
    → `git add` các file liên quan → `git commit` với message rõ ràng, đúng Conventional Commits → **`git push`** lên remote nhánh hiện tại. Kết thúc loop, cập nhật trạng thái task (di chuyển file từ `doc/task/todo/` hoặc `inprogress/` sang `doc/task/done/`, đổi tên thêm hậu tố `_DONE` và viết Completion Report ngắn: điểm số, commit hash, danh sách test đã thêm).
 7. Nếu điểm **≤ 9/10** hoặc bất kỳ điều kiện bước 2-5 chưa đạt: quay lại bước 1 của vòng lặp Loop Prompt, KHÔNG commit/push.
+
+---
+
+## 🏆 Completion Report
+
+- **Status:** COMPLETED (xác nhận lại 2026-09-25)
+- **Commit:** `f83a7b0d` (fix + test ban đầu), `a44ccc13` (bổ sung test)
+- **Audit Score:** 9.2 / 10
+- **Thay đổi chính (`ReadingViewModel.kt`):**
+  - Lưu `summaryJob` / `mindMapJob` / `deepReadJob`, huỷ job cũ trước khi launch job mới.
+  - `initData()` khi đổi sang bài khác: huỷ cả 3 job và reset `summaryState` / `mindMapState` / `deepReadState` về `Idle`.
+  - Chụp `requestArticleId` trước khi gọi AI; chỉ ghi kết quả (thành công hoặc lỗi) nếu bài đang hiển thị vẫn là bài đó.
+  - Rethrow `CancellationException` để job bị huỷ không bị map nhầm thành lỗi UI.
+- **Unit test (`ReadingViewModelArticleSwitchRaceTest.kt`, 6/6 pass):**
+  - `requestSummary_lateResultForPreviousArticle_doesNotOverwriteNewArticleState`
+  - `requestMindMap_lateResultForPreviousArticle_doesNotOverwriteNewArticleState`
+  - `sendDeepReadQuestion_lateReplyForPreviousArticle_doesNotAppearAfterSwitchingArticle`
+  - `requestSummary_rapidDoubleRequestSameArticle_cancelledFirstCallDoesNotClobberSecondResult`
+  - `initData_switchingArticle_resetsAiStatesToIdle`
+  - `initData_reopeningSameArticle_doesNotResetAlreadyLoadedSummary`
+- **Còn thiếu (lý do trừ điểm):** chưa có smoke test ghi nhận trên device thật cho kịch bản đổi bài giữa lúc request AI đang chạy.

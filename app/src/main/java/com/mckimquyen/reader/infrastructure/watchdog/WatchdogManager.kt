@@ -6,10 +6,15 @@ import com.mckimquyen.reader.domain.model.feed.Feed
 import com.mckimquyen.reader.domain.model.watchdog.WatchdogKeyword
 import com.mckimquyen.reader.domain.watchdog.WatchdogEngine
 import com.mckimquyen.reader.infrastructure.android.NotificationHelper
+import com.mckimquyen.reader.infrastructure.di.ApplicationScope
+import com.mckimquyen.reader.infrastructure.di.IODispatcher
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 import org.json.JSONArray
 import org.json.JSONObject
 import java.util.Locale
@@ -25,25 +30,45 @@ class WatchdogManager @Inject constructor(
     @ApplicationContext private val context: Context,
     private val watchdogEngine: WatchdogEngine,
     private val notificationHelper: NotificationHelper,
+    @ApplicationScope applicationScope: CoroutineScope,
+    @IODispatcher ioDispatcher: CoroutineDispatcher,
 ) {
 
-    private val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+    private val prefs by lazy { context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE) }
 
     private val _keywords = MutableStateFlow<List<WatchdogKeyword>>(emptyList())
     val keywords: StateFlow<List<WatchdogKeyword>> = _keywords.asStateFlow()
 
+    private val loadLock = Any()
+
+    @Volatile
+    private var isLoaded = false
+
     init {
-        loadKeywords()
+        // Load off the constructing thread (usually Main, when Hilt builds the graph) so the
+        // SharedPreferences disk read never blocks startup. `keywords` emits emptyList() until then.
+        applicationScope.launch(ioDispatcher) { ensureLoaded() }
     }
 
-    private fun loadKeywords() {
-        val jsonStr = prefs.getString(KEY_WATCHDOG_LIST, null)
-        if (jsonStr.isNullOrBlank()) {
-            _keywords.value = emptyList()
-            return
+    /**
+     * Loads persisted keywords exactly once. Every mutation calls this first: if the user mutates
+     * before the async load finished, the persisted list is loaded (synchronously, rare path)
+     * before being modified, so saving never overwrites stored keywords with a partial list.
+     */
+    private fun ensureLoaded() {
+        if (isLoaded) return
+        synchronized(loadLock) {
+            if (isLoaded) return
+            _keywords.value = readKeywords()
+            isLoaded = true
         }
+    }
 
-        try {
+    private fun readKeywords(): List<WatchdogKeyword> {
+        val jsonStr = prefs.getString(KEY_WATCHDOG_LIST, null)
+        if (jsonStr.isNullOrBlank()) return emptyList()
+
+        return try {
             val jsonArray = JSONArray(jsonStr)
             val list = mutableListOf<WatchdogKeyword>()
             for (i in 0 until jsonArray.length()) {
@@ -58,9 +83,9 @@ class WatchdogManager @Inject constructor(
                     )
                 )
             }
-            _keywords.value = list
+            list
         } catch (e: Exception) {
-            _keywords.value = emptyList()
+            emptyList()
         }
     }
 
@@ -92,6 +117,7 @@ class WatchdogManager @Inject constructor(
         val trimmed = rawKeyword.trim()
         if (trimmed.isBlank()) return false
 
+        ensureLoaded()
         val current = _keywords.value
         if (current.any { it.keyword.equals(trimmed, ignoreCase = true) }) {
             return false
@@ -106,6 +132,7 @@ class WatchdogManager @Inject constructor(
      * Xóa từ khóa theo id.
      */
     fun removeKeyword(id: String) {
+        ensureLoaded()
         val updated = _keywords.value.filter { it.id != id }
         saveKeywords(updated)
     }
@@ -114,6 +141,7 @@ class WatchdogManager @Inject constructor(
      * Bật/tắt trạng thái theo dõi của từ khóa.
      */
     fun toggleKeyword(id: String, isEnabled: Boolean) {
+        ensureLoaded()
         val updated = _keywords.value.map {
             if (it.id == id) it.copy(isEnabled = isEnabled) else it
         }
@@ -124,6 +152,7 @@ class WatchdogManager @Inject constructor(
      * Tăng số lượng bài viết phát hiện được bởi từ khóa này.
      */
     fun incrementMatchCount(id: String) {
+        ensureLoaded()
         val updated = _keywords.value.map {
             if (it.id == id) it.copy(matchCount = it.matchCount + 1) else it
         }
@@ -134,6 +163,7 @@ class WatchdogManager @Inject constructor(
      * Kiểm tra nhanh một bài viết có khớp từ khóa nào đang bật hay không.
      */
     fun checkArticle(article: Article): WatchdogKeyword? {
+        ensureLoaded()
         return watchdogEngine.match(article, _keywords.value)
     }
 

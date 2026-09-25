@@ -17,6 +17,8 @@ import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 
 @RunWith(AndroidJUnit4::class)
 class ZenSpeedReadingIntegrationTest {
@@ -62,7 +64,7 @@ class ZenSpeedReadingIntegrationTest {
     @Test
     fun zenDailyEditionManager_persistsStateOnDevice() {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
-        val manager = ZenDailyEditionManager(context)
+        val manager = ZenDailyEditionManager(context, CoroutineScope(Dispatchers.Unconfined), Dispatchers.Unconfined)
 
         manager.setEnabled(true)
         assertTrue(manager.isEnabled.value)

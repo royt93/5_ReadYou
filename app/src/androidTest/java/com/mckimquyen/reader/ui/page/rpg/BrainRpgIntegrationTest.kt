@@ -11,6 +11,8 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 
 @RunWith(AndroidJUnit4::class)
 class BrainRpgIntegrationTest {
@@ -27,7 +29,7 @@ class BrainRpgIntegrationTest {
             .clear()
             .commit()
 
-        repository = BrainRpgRepository(context)
+        repository = BrainRpgRepository(context, CoroutineScope(Dispatchers.Unconfined), Dispatchers.Unconfined)
     }
 
     @Test
@@ -70,7 +72,7 @@ class BrainRpgIntegrationTest {
         assertTrue(current.streakShieldActive)
 
         // 6. Persistence check: recreate repository from SharedPreferences
-        val reloadedRepository = BrainRpgRepository(context)
+        val reloadedRepository = BrainRpgRepository(context, CoroutineScope(Dispatchers.Unconfined), Dispatchers.Unconfined)
         val persisted = reloadedRepository.userProgress.value
         assertEquals(350L, persisted.totalXp)
         assertEquals(3, persisted.level)

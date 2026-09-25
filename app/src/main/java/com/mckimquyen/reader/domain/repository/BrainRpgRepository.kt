@@ -5,17 +5,24 @@ import android.content.SharedPreferences
 import com.mckimquyen.reader.domain.model.rpg.LevelCalculator
 import com.mckimquyen.reader.domain.model.rpg.UserProgress
 import com.mckimquyen.reader.domain.sv.QuizGeneratorService
+import com.mckimquyen.reader.infrastructure.di.ApplicationScope
+import com.mckimquyen.reader.infrastructure.di.IODispatcher
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class BrainRpgRepository @Inject constructor(
-    @ApplicationContext private val context: Context
+    @ApplicationContext private val context: Context,
+    @ApplicationScope applicationScope: CoroutineScope,
+    @IODispatcher ioDispatcher: CoroutineDispatcher,
 ) {
     private val prefs: SharedPreferences by lazy {
         context.getSharedPreferences("brain_rpg_prefs", Context.MODE_PRIVATE)
@@ -30,10 +37,31 @@ class BrainRpgRepository @Inject constructor(
         QuizGeneratorService.CATEGORY_GENERAL
     )
 
-    private val _userProgress = MutableStateFlow(loadProgress())
+    // Starts at the in-memory default; the persisted progress is loaded off the constructing
+    // thread (usually Main, when Hilt builds the graph) so SharedPreferences I/O never blocks startup.
+    private val _userProgress = MutableStateFlow(UserProgress())
     val userProgress: StateFlow<UserProgress> = _userProgress.asStateFlow()
 
+    @Volatile
+    private var isLoaded = false
+
+    init {
+        applicationScope.launch(ioDispatcher) { ensureLoaded() }
+    }
+
     fun getProgress(): UserProgress = _userProgress.value
+
+    /**
+     * Loads persisted progress exactly once. Every mutation calls this first: if XP is awarded
+     * before the async load finished, the stored totals are loaded (synchronously, rare path)
+     * before being incremented, so the default in-memory state never overwrites saved progress.
+     */
+    @Synchronized
+    private fun ensureLoaded() {
+        if (isLoaded) return
+        _userProgress.value = loadProgress()
+        isLoaded = true
+    }
 
     @Synchronized
     private fun loadProgress(): UserProgress {
@@ -71,6 +99,7 @@ class BrainRpgRepository @Inject constructor(
 
     @Synchronized
     fun addReadingXp(category: String, amount: Long = 50L): UserProgress {
+        ensureLoaded()
         val current = _userProgress.value
         val todayEpochDay = currentEpochDay()
 
@@ -113,6 +142,7 @@ class BrainRpgRepository @Inject constructor(
 
     @Synchronized
     fun submitQuizResult(category: String, isCorrect: Boolean, xpMultiplier: Int = 1): Pair<UserProgress, Long> {
+        ensureLoaded()
         val current = _userProgress.value
         val baseAward = if (isCorrect) 150L else 0L
         val totalAward = baseAward * xpMultiplier
@@ -136,6 +166,7 @@ class BrainRpgRepository @Inject constructor(
 
     @Synchronized
     fun activateStreakShield(): Boolean {
+        ensureLoaded()
         prefs.edit().putBoolean(KEY_STREAK_SHIELD_ACTIVE, true).apply()
         val updated = loadProgress()
         _userProgress.value = updated
@@ -144,6 +175,7 @@ class BrainRpgRepository @Inject constructor(
 
     @Synchronized
     fun awardDoubleXpForQuiz(category: String, bonusXp: Long): UserProgress {
+        ensureLoaded()
         val current = _userProgress.value
         val newTotalXp = current.totalXp + bonusXp
         val newCatXp = (current.categoryXp[category] ?: 0L) + bonusXp

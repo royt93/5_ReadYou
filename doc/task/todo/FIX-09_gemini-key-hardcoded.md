@@ -55,3 +55,27 @@ Chỉ dừng loop khi hoàn tất TẤT CẢ bước sau, đúng thứ tự, KH�
 6. Nếu điểm audit **> 9/10 VÀ** mọi test bước 2-4 pass **VÀ** smoke test bước 5 xác nhận hoạt động đúng:
    → `git add` các file liên quan → `git commit` với message rõ ràng, đúng Conventional Commits → **`git push`** lên remote nhánh hiện tại. Kết thúc loop, cập nhật trạng thái task (di chuyển file từ `doc/task/todo/` hoặc `inprogress/` sang `doc/task/done/`, đổi tên thêm hậu tố `_DONE` và viết Completion Report ngắn: điểm số, commit hash, danh sách test đã thêm, và **xác nhận rõ ràng key Gemini gốc đã được revoke khỏi Google Cloud Console** nếu áp dụng).
 7. Nếu điểm **≤ 9/10** hoặc bất kỳ điều kiện bước 2-5 chưa đạt: quay lại bước 1 của vòng lặp Loop Prompt, KHÔNG commit/push.
+
+---
+
+## ⏸️ Trạng thái: TẠM HOÃN (quyết định ngày 2026-09-25)
+
+Chủ app quyết định **chưa** gỡ key khỏi APK trong đợt này. Chưa chọn giữa BYOK-only, Firebase AI Logic + App Check, hoặc backend proxy. Code **không thay đổi**: `GeminiConfig.API_KEYS` vẫn chứa 6 key obfuscate bằng XOR + Base64, và key vẫn khôi phục được 100% bằng decompile.
+
+### Rủi ro đã biết (chấp nhận tạm thời)
+- Bất kỳ ai decompile APK release đều có thể lấy key và gọi Gemini API bằng quota của app.
+- Hậu quả có thể xảy ra: hết quota, phát sinh chi phí, hoặc Google khoá key. Khi đó AI Summary / Mind Map / Deep Read / CommuteCast chuyển sang fallback offline, hoặc chỉ hoạt động với key BYOK của user.
+- Nơi dùng key hiện tại: `GeminiSummaryService.resolveApiKeys()` (key BYOK ưu tiên trước, rồi tới key mặc định), `AiRequestGateway`, `CommuteScriptService`.
+
+### Lớp phòng thủ tạm thời — cần làm thủ công trong Google Cloud Console
+Việc này **không thay thế** việc gỡ key khỏi APK. Nó chỉ giảm mức độ lạm dụng.
+1. Mở **APIs & Services → Credentials**, chọn lần lượt từng key trong 6 key.
+2. **Application restrictions:** chọn *Android apps*. Thêm package `com.mckimquyen.reader` với SHA-1 của keystore release. Nếu app phát hành qua Play App Signing, thêm cả SHA-1 của app signing key lấy trong Play Console.
+3. **API restrictions:** chọn *Restrict key*, chỉ cho phép *Generative Language API*.
+4. Mở **Quotas** của Generative Language API và đặt giới hạn request mỗi ngày / mỗi phút phù hợp với lưu lượng thật.
+5. Bật **budget alert** trong Billing để nhận cảnh báo khi chi phí tăng bất thường.
+
+Lưu ý: Android app restriction dựa vào header `X-Android-Package` / `X-Android-Cert` mà client tự gửi, nên kẻ tấn công vẫn giả mạo được. Hạn chế này chỉ chặn lạm dụng thông thường.
+
+### Điều kiện để mở lại task
+Chọn 1 trong 3 phương án ở Acceptance Criteria, sau đó thực hiện Loop Prompt phía trên. BYOK (ENH-03) đã có sẵn, nên phương án **BYOK-only** tốn ít công nhất.

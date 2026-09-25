@@ -21,6 +21,8 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import java.util.Date
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 
 @RunWith(AndroidJUnit4::class)
 class WatchdogIntegrationTest {
@@ -45,7 +47,7 @@ class WatchdogIntegrationTest {
 
         engine = WatchdogEngine()
         notificationHelper = NotificationHelper(context)
-        watchdogManager = WatchdogManager(context, engine, notificationHelper)
+        watchdogManager = WatchdogManager(context, engine, notificationHelper, CoroutineScope(Dispatchers.Unconfined), Dispatchers.Unconfined)
     }
 
     private fun createArticle(id: String, title: String, description: String = ""): Article {
