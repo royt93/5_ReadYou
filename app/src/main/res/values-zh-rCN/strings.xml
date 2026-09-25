@@ -42,6 +42,7 @@
     <string name="all_allow_notification_tips">允许 \"%1$s\" 分组中的所有订阅源发出通知</string>
     <string name="all_allow_notification_toast">已全部允许 \"%1$s\" 分组中的通知</string>
     <string name="all_deny_notification_toast">已全部拒绝 \"%1$s\" 分组中的通知</string>
+    <string name="notification_permission_denied">通知权限被拒绝。请在系统设置中开启以接收订阅通知。</string>
     <string name="parse_full_content">全文解析</string>
     <string name="all_parse_full_content_tips">对 \"%1$s\" 分组中的所有文章进行全文解析</string>
     <string name="all_parse_full_content_toast">全文解析 \"%1$s\" 分组中的文章</string>

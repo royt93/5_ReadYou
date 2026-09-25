@@ -44,3 +44,23 @@ Chỉ dừng loop khi hoàn tất TẤT CẢ bước sau, đúng thứ tự, KH�
 
 ---
 > **Ghi chú audit (2026-09-06):** Task này **CHƯA được implement** — `AndroidManifest.xml` đã khai báo `<uses-permission android:name="android.permission.POST_NOTIFICATIONS" />` nhưng chưa tìm thấy luồng runtime-request permission nào trong `app/src/main`. `NotificationHelper.kt` vẫn dùng `Random().nextInt() + article.id.hashCode()` ở 4 vị trí (không phải mã hash cố định). File `NotificationHelper.kt` cũng đang có thay đổi chưa commit theo `git status` — kiểm tra kỹ `git diff` trước khi bắt đầu để tránh làm việc trùng lặp.
+
+---
+
+## ✅ Báo cáo hoàn thành (2026-09-25)
+
+**Thay đổi**
+- `ui/ext/NotificationPermission.kt`: `rememberNotificationPermissionRequest()` (ActivityResultContracts.RequestPermission, chỉ Android 13+, chỉ khi chưa cấp) + `needsNotificationPermission()` thuần để test. Bị từ chối → toast `notification_permission_denied` (6 ngôn ngữ).
+- Gắn vào chip "Cho phép thông báo" của `FeedOptionView` (chỉ khi bật OFF→ON; dùng cho cả Subscribe dialog và Feed drawer) và nút "Cho phép" của `AllAllowNotificationDialog` (cấp group).
+- `NotificationHelper`: bỏ toàn bộ `Random()`; ID cố định `articleNotificationId` / `feedSummaryNotificationId` / `watchdogNotificationId` (có prefix để watchdog không đè thông báo thường). Mọi `notify` qua `post()` kiểm `areNotificationsEnabled()` → không post khi thiếu quyền.
+- Build: `testOptions.unitTests.includeAndroidResources = true` + `src/test/resources/robolectric.properties` (sdk=34, vì targetSdk 37 > max Robolectric 35).
+
+**Test**
+- `NotificationHelperTest` (7, Robolectric): ID deterministic, không trùng trên 500 bài + các loại, gate SDK/permission, không post khi tắt, notify 2 lần cùng bài → 1 thông báo, summary nhóm, watchdog không đè.
+- `FeedOptionViewNotificationWidgetTest` (Compose/Robolectric): bật → xin quyền, tắt → không xin. (Chuyển từ androidTest vì Espresso 3.6.1 lỗi `InputManager.getInstance` trên Android 17.)
+- `NotificationPermissionIntegrationTest` (androidTest, Pixel 7 Pro): NotificationHelper → NotificationManager thật, ID ổn định → 1 thông báo active. Pass.
+- Unit test toàn bộ: 251/251 pass.
+
+**Smoke test** Pixel 7 Pro (Android 17): revoke quyền → long-press nhóm "Mặc định" → "Cho phép thông báo" → "Cho phép" → `GrantPermissionsActivity` hệ thống hiện → cấp → `POST_NOTIFICATIONS: granted=true, USER_SET`.
+
+**Điểm tự đánh giá**: 9.1/10 — chưa có rationale dialog riêng khi user đã từ chối 2 lần (hệ thống không hiện lại; toast hướng dẫn vào Settings thay thế).

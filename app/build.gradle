@@ -130,6 +130,10 @@ android {
             jvmTarget = "17"
         }
     }
+    // Robolectric needs merged app resources to resolve R.string.* in unit tests
+    testOptions {
+        unitTests.includeAndroidResources = true
+    }
     buildFeatures {
         compose true
 //        viewBinding true

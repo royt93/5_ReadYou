@@ -44,6 +44,7 @@
     <string name="all_allow_notification_tips">Erlaube allen Feeds in der Gruppe „%1$s“ Benachrichtigungen zu senden.</string>
     <string name="all_allow_notification_toast">Alle Benachrichtigungen in der Gruppe „%1$s“ sind erlaubt</string>
     <string name="all_deny_notification_toast">Alle Benachrichtigungen in der Gruppe „%1$s“ werden abgelehnt</string>
+    <string name="notification_permission_denied">Benachrichtigungsberechtigung verweigert. Aktiviere sie in den Systemeinstellungen, um Feed-Benachrichtigungen zu erhalten.</string>
     <string name="parse_full_content">Gesamtinhalt abrufen</string>
     <string name="all_parse_full_content_tips">Gesamten Inhalt aller Artikel der Gruppe „%1$s“ abrufen.</string>
     <string name="all_parse_full_content_toast">Gesamten Inhalt von allen Artikeln in der Gruppe „%1$s“ abrufen</string>

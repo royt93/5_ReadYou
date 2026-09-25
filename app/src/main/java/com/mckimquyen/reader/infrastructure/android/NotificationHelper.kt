@@ -1,9 +1,11 @@
 package com.mckimquyen.reader.infrastructure.android
 
+import android.annotation.SuppressLint
 import android.app.*
 import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -12,7 +14,6 @@ import com.mckimquyen.reader.domain.model.article.Article
 import com.mckimquyen.reader.domain.model.feed.FeedWithArticle
 import com.mckimquyen.reader.ui.page.common.ExtraName
 import com.mckimquyen.reader.ui.page.common.NotificationGroupName
-import java.util.*
 import javax.inject.Inject
 
 class NotificationHelper @Inject constructor(
@@ -60,7 +61,23 @@ class NotificationHelper @Inject constructor(
             )
         }
 
+    /**
+     * False when the user denied POST_NOTIFICATIONS (Android 13+) or turned notifications off.
+     */
+    fun canPostNotifications(): Boolean = notificationManager.areNotificationsEnabled()
+
+    // Every notification goes through here so none is posted without permission (the OS would drop it silently).
+    @SuppressLint("MissingPermission")
+    private fun post(id: Int, notification: Notification) {
+        if (!canPostNotifications()) {
+            Log.w(TAG, "Skip notification $id: notifications are not allowed")
+            return
+        }
+        notificationManager.notify(id, notification)
+    }
+
     fun notify(feedWithArticle: FeedWithArticle) {
+        if (!canPostNotifications()) return
         notificationManager.createNotificationChannelGroup(
             NotificationChannelGroup(
                 feedWithArticle.feed.id,
@@ -80,7 +97,7 @@ class NotificationHelper @Inject constructor(
                 .setContentIntent(
                     PendingIntent.getActivity(
                         context,
-                        Random().nextInt() + article.id.hashCode(),
+                        articleNotificationId(article.id),
                         Intent(context, MainActivity::class.java).apply {
                             flags = Intent.FLAG_ACTIVITY_NEW_TASK or
                                     Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -99,8 +116,8 @@ class NotificationHelper @Inject constructor(
                         .setSummaryText(feedWithArticle.feed.name)
                 )
 
-            notificationManager.notify(
-                Random().nextInt() + article.id.hashCode(),
+            post(
+                articleNotificationId(article.id),
                 builder.build().apply {
                     flags = Notification.FLAG_AUTO_CANCEL
                 }
@@ -108,8 +125,8 @@ class NotificationHelper @Inject constructor(
         }
 
         if (feedWithArticle.articles.size > 1) {
-            notificationManager.notify(
-                Random().nextInt() + feedWithArticle.feed.id.hashCode(),
+            post(
+                feedSummaryNotificationId(feedWithArticle.feed.id),
                 NotificationCompat.Builder(context, NotificationGroupName.ARTICLE_UPDATE)
                     .setSmallIcon(R.drawable.ic_notification)
                     .setLargeIcon(
@@ -150,7 +167,7 @@ class NotificationHelper @Inject constructor(
             .setContentIntent(pendingIntent)
             .build()
 
-        notificationManager.notify(COMMUTE_NOTIFICATION_ID, notification)
+        post(COMMUTE_NOTIFICATION_ID, notification)
     }
 
     fun notifyDailyEdition(title: String, body: String, unreadCount: Int) {
@@ -173,7 +190,7 @@ class NotificationHelper @Inject constructor(
             .setContentIntent(pendingIntent)
             .build()
 
-        notificationManager.notify(ZEN_DAILY_EDITION_NOTIFICATION_ID, notification)
+        post(ZEN_DAILY_EDITION_NOTIFICATION_ID, notification)
     }
 
     fun notifyWatchdogAlert(article: Article, keyword: String, feedName: String) {
@@ -183,7 +200,7 @@ class NotificationHelper @Inject constructor(
         }
         val pendingIntent = PendingIntent.getActivity(
             context,
-            Random().nextInt() + article.id.hashCode(),
+            watchdogNotificationId(article.id),
             intent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
@@ -202,7 +219,7 @@ class NotificationHelper @Inject constructor(
             .setContentIntent(pendingIntent)
             .build()
 
-        notificationManager.notify(article.id.hashCode(), notification)
+        post(watchdogNotificationId(article.id), notification)
     }
 
     companion object {
@@ -212,5 +229,17 @@ class NotificationHelper @Inject constructor(
         const val EXTRA_START_COMMUTE = "extra_start_commute"
         const val ZEN_DAILY_EDITION_CHANNEL_ID = "zen_daily_edition_channel"
         const val ZEN_DAILY_EDITION_NOTIFICATION_ID = 9977
+        private const val TAG = "NotificationHelper"
+        private const val FEED_SUMMARY_ID_PREFIX = "feed_summary:"
+        private const val WATCHDOG_ID_PREFIX = "watchdog:"
+
+        // Stable IDs: re-notifying the same article replaces its notification instead of stacking
+        // duplicates, and the ID can be recomputed later to update or cancel it.
+        fun articleNotificationId(articleId: String): Int = articleId.hashCode()
+
+        fun feedSummaryNotificationId(feedId: String): Int = (FEED_SUMMARY_ID_PREFIX + feedId).hashCode()
+
+        // Prefixed so a watchdog alert never replaces the regular notification of the same article.
+        fun watchdogNotificationId(articleId: String): Int = (WATCHDOG_ID_PREFIX + articleId).hashCode()
     }
 }

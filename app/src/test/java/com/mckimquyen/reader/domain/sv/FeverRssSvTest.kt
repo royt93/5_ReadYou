@@ -21,6 +21,7 @@ import com.mckimquyen.reader.infrastructure.rss.RssHelper
 import com.mckimquyen.reader.infrastructure.rss.provider.fever.FeverAPI
 import com.mckimquyen.reader.infrastructure.rss.provider.fever.FeverDTO
 import com.mckimquyen.reader.infrastructure.watchdog.WatchdogManager
+import com.mckimquyen.reader.ui.ext.currentAccountId
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.every
@@ -44,8 +45,8 @@ import org.robolectric.annotation.Config
 @Config(sdk = [34], application = Application::class)
 class FeverRssSvTest {
 
-    // Context.currentAccountId falls back to 1 when DataStore has no value (fresh Robolectric app).
-    private val accountId = 1
+    // Read the real value: the DataStore singleton may keep an account id written by another test.
+    private val accountId by lazy { ApplicationProvider.getApplicationContext<Context>().currentAccountId }
 
     private val articleDao = mockk<ArticleDao>(relaxed = true)
     private val feedDao = mockk<FeedDao>(relaxed = true)
@@ -171,11 +172,11 @@ class FeverRssSvTest {
         val result = runBlocking { feverRssSv.sync(worker) }
 
         assertTrue(result is ListenableWorker.Result.Success)
-        assertEquals(listOf("1$1"), groups.captured.map { it.id })
-        assertEquals(listOf("1$12"), feeds.captured.map { it.id })
-        assertEquals(listOf("1$101"), articles.map { it.id })
-        assertEquals("1$12", articles.single().feedId)
-        assertEquals("1$101", updatedAccount.captured.lastArticleId)
+        assertEquals(listOf("$accountId\$1"), groups.captured.map { it.id })
+        assertEquals(listOf("$accountId\$12"), feeds.captured.map { it.id })
+        assertEquals(listOf("$accountId\$101"), articles.map { it.id })
+        assertEquals("$accountId\$12", articles.single().feedId)
+        assertEquals("$accountId\$101", updatedAccount.captured.lastArticleId)
     }
 
     private fun feedItem(id: Int?, url: String?) = FeverDTO.FeedItem(

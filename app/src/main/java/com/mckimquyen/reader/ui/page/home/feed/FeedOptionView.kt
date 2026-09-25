@@ -42,6 +42,7 @@ import com.mckimquyen.reader.R
 import com.mckimquyen.reader.domain.model.group.Group
 import com.mckimquyen.reader.ui.component.base.BaseSelectionChip
 import com.mckimquyen.reader.ui.component.base.Subtitle
+import com.mckimquyen.reader.ui.ext.rememberNotificationPermissionRequest
 import com.mckimquyen.reader.ui.theme.palette.alwaysLight
 
 @Composable
@@ -64,6 +65,7 @@ fun FeedOptionView(
     onAddNewGroup: () -> Unit = {},
     onFeedUrlClick: () -> Unit = {},
     onFeedUrlLongClick: () -> Unit = {},
+    requestNotificationPermission: () -> Unit = rememberNotificationPermissionRequest(),
 ) {
     LaunchedEffect(Unit) {
         if (groups.isNotEmpty() && selectedGroupId.isEmpty()) onGroupClick(groups.first().id)
@@ -88,6 +90,7 @@ fun FeedOptionView(
             parseFullContentPresetOnClick = parseFullContentPresetOnClick,
             clearArticlesOnClick = clearArticlesOnClick,
             unsubscribeOnClick = unsubscribeOnClick,
+            requestNotificationPermission = requestNotificationPermission,
         )
 
         if (showGroup) {
@@ -142,6 +145,7 @@ private fun Preset(
     parseFullContentPresetOnClick: () -> Unit = {},
     clearArticlesOnClick: () -> Unit = {},
     unsubscribeOnClick: () -> Unit = {},
+    requestNotificationPermission: () -> Unit = {},
 ) {
     Subtitle(text = stringResource(R.string.preset))
     Spacer(modifier = Modifier.height(10.dp))
@@ -166,6 +170,8 @@ private fun Preset(
                 )
             },
         ) {
+            // Only when turning notifications ON: asking while turning them off makes no sense.
+            if (!selectedAllowNotificationPreset) requestNotificationPermission()
             allowNotificationPresetOnClick()
         }
         BaseSelectionChip(

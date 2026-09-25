@@ -95,6 +95,7 @@
     <string name="selected">選択済み</string>
     <string name="all_allow_notification_tips">「%1$s」 グループのすべてのフィードに通知の送信を許可します。</string>
     <string name="all_deny_notification_toast">「%1$s」グループからの通知はすべて拒否されます</string>
+    <string name="notification_permission_denied">通知の権限が拒否されました。フィードの通知を受け取るにはシステム設定で許可してください。</string>
     <string name="all_parse_full_content_tips">「%1$s」 グループ内のすべての記事の完全なコンテンツを取得します。</string>
     <string name="all_parse_full_content_toast">「%1$s」 グループ内のすべての記事の完全なコンテンツを取得します</string>
     <string name="all_deny_parse_full_content_toast">「%1$s」 グループ内の記事は完全な内容を取得しないように設定されました</string>

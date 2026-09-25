@@ -47,6 +47,7 @@
     <string name="all_allow_notification_tips">Autoriser tous les flux du groupe « %1$s » à envoyer des notifications</string>
     <string name="all_allow_notification_toast">Toutes les notifications du groupe « %1$s » sont autorisées</string>
     <string name="all_deny_notification_toast">Toutes les notifications du groupe « %1$s » sont bloquées</string>
+    <string name="notification_permission_denied">Autorisation de notification refusée. Activez-la dans les paramètres système pour recevoir les notifications des flux.</string>
     <string name="parse_full_content">Analyser tout le contenu</string>
     <string name="all_parse_full_content_tips">Analyse de tout le contenu de tous les articles du groupe « %1$s »</string>
     <string name="all_parse_full_content_toast">Analyse de tout le contenu de tous les articles du groupe « %1$s »</string>

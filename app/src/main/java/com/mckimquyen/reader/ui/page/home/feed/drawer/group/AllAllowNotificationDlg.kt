@@ -13,6 +13,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.mckimquyen.reader.R
 import com.mckimquyen.reader.ui.component.base.BaseDlg
 import com.mckimquyen.reader.ui.ext.collectAsStateValue
+import com.mckimquyen.reader.ui.ext.rememberNotificationPermissionRequest
 import com.mckimquyen.reader.ui.ext.showToast
 
 @Composable
@@ -23,6 +24,7 @@ fun AllAllowNotificationDialog(
     val context = LocalContext.current
     val groupOptionUiState = groupOptionViewModel.groupOptionUiState.collectAsStateValue()
     val scope = rememberCoroutineScope()
+    val requestNotificationPermission = rememberNotificationPermissionRequest()
     val allowToastString = stringResource(R.string.all_allow_notification_toast, groupName)
     val denyToastString = stringResource(R.string.all_deny_notification_toast, groupName)
 
@@ -46,6 +48,7 @@ fun AllAllowNotificationDialog(
         confirmButton = {
             TextButton(
                 onClick = {
+                    requestNotificationPermission()
                     groupOptionViewModel.allAllowNotification(true) {
                         groupOptionViewModel.hideAllAllowNotificationDialog()
                         groupOptionViewModel.hideDrawer(scope)
