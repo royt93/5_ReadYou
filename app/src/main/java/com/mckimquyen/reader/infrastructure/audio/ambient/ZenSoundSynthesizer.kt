@@ -11,7 +11,14 @@ import kotlin.math.PI
 import kotlin.math.exp
 import kotlin.math.sin
 
-class ZenSoundSynthesizer {
+/**
+ * @param onStoppedUnexpectedly được gọi khi việc phát dừng KHÔNG do [stop] chủ động — tức
+ * AudioTrack ghi lỗi giữa luồng. Callback chạy trên thread synth nền, phía nhận phải tự
+ * chuyển về thread phù hợp trước khi cập nhật UI state.
+ */
+class ZenSoundSynthesizer(
+    private val onStoppedUnexpectedly: () -> Unit = {},
+) {
 
     companion object {
         private const val TAG = "ZenSynthesizer"
@@ -35,6 +42,14 @@ class ZenSoundSynthesizer {
     private var synthThread: Thread? = null
     private var audioTrack: AudioTrack? = null
 
+    @Volatile
+    private var forceFailWrites = false
+
+    /** Dành riêng cho test: ép vòng lặp write() giả lập lỗi để kiểm chứng cơ chế tự phục hồi. */
+    internal fun forceFailWritesForTest() {
+        forceFailWrites = true
+    }
+
     fun setVolume(vol: Float) {
         this.volume = vol.coerceIn(0f, 1f)
     }
@@ -43,21 +58,35 @@ class ZenSoundSynthesizer {
         this.currentType = type
     }
 
+    /**
+     * Bắt đầu synth. Trả về `false` nếu AudioTrack không khởi tạo được — caller (`ZenAudioManager`)
+     * sẽ giữ [isPlaying] là `false` và báo lỗi cho UI.
+     */
     @Synchronized
-    fun start(type: ZenSoundType, initialVolume: Float = 0.5f) {
+    fun start(type: ZenSoundType, initialVolume: Float = 0.5f): Boolean {
         if (isPlaying) {
             stop()
         }
 
         this.currentType = type
         this.volume = initialVolume.coerceIn(0f, 1f)
-        this.isPlaying = true
 
-        val minBufSize = AudioTrack.getMinBufferSize(
-            SAMPLE_RATE,
-            AudioFormat.CHANNEL_OUT_STEREO,
-            AudioFormat.ENCODING_PCM_16BIT
-        ).coerceAtLeast(BUFFER_SIZE * 2)
+        val minBufSize = try {
+            AudioTrack.getMinBufferSize(
+                SAMPLE_RATE,
+                AudioFormat.CHANNEL_OUT_STEREO,
+                AudioFormat.ENCODING_PCM_16BIT,
+            ).coerceAtLeast(BUFFER_SIZE * 2)
+        } catch (e: Exception) {
+            Log.e(TAG, "Failed to query AudioTrack buffer size (no audio device?)", e)
+            isPlaying = false
+            return false
+        }
+        if (minBufSize <= 0) {
+            Log.e(TAG, "Invalid AudioTrack buffer size: $minBufSize")
+            isPlaying = false
+            return false
+        }
 
         try {
             audioTrack = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -94,13 +123,22 @@ class ZenSoundSynthesizer {
         } catch (e: Exception) {
             Log.e(TAG, "Failed to initialize AudioTrack", e)
             isPlaying = false
-            return
+            try {
+                audioTrack?.release()
+            } catch (releaseError: Exception) {
+                Log.w(TAG, "Error releasing AudioTrack after init failure", releaseError)
+            }
+            audioTrack = null
+            return false
         }
 
+        // Only mark as playing once AudioTrack is actually up, so a failed init never reports true.
+        isPlaying = true
         synthThread = Thread({ runSynthesisLoop() }, "ZenSynthThread").apply {
             priority = Thread.NORM_PRIORITY
             start()
         }
+        return true
     }
 
     @Synchronized
@@ -227,12 +265,23 @@ class ZenSoundSynthesizer {
 
             if (!isPlaying) break
 
-            val written = try {
-                audioTrack?.write(buffer, 0, BUFFER_SIZE) ?: -1
-            } catch (e: Exception) {
+            val written = if (forceFailWrites) {
                 -1
+            } else {
+                try {
+                    audioTrack?.write(buffer, 0, BUFFER_SIZE) ?: -1
+                } catch (e: Exception) {
+                    Log.w(TAG, "AudioTrack write failed", e)
+                    -1
+                }
             }
-            if (written < 0) break
+            if (written < 0) {
+                // Unsolicited stop: reset own state and tell the manager so the UI does not stay
+                // stuck showing "playing" while the track is silent.
+                isPlaying = false
+                onStoppedUnexpectedly()
+                break
+            }
         }
     }
 }

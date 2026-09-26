@@ -525,6 +525,9 @@
     <string name="zen_evening_edition">Abendausgabe</string>
     <string name="zen_morning_edition_time">Zeit der Morgenausgabe</string>
     <string name="zen_evening_edition_time">Zeit der Abendausgabe</string>
+    <string name="zen_audio_focus_denied">Audiofokus von einer anderen App verweigert</string>
+    <string name="zen_audio_start_failed">Umgebungston konnte nicht gestartet werden</string>
+    <string name="zen_audio_interrupted">Umgebungston wurde unterbrochen</string>
     <string name="zen_daily_edition_title">Daily Focus Edition</string>
     <string name="zen_daily_edition_notification">%1$d unread articles ready for your focus reading.</string>
     <string name="zen_sleep_timer">Sleep Timer</string>

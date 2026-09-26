@@ -521,6 +521,9 @@
     <string name="zen_evening_edition">晚间版</string>
     <string name="zen_morning_edition_time">早间版时间</string>
     <string name="zen_evening_edition_time">晚间版时间</string>
+    <string name="zen_audio_focus_denied">其他应用占用了音频焦点</string>
+    <string name="zen_audio_start_failed">无法启动环境音效</string>
+    <string name="zen_audio_interrupted">环境音效已中断</string>
     <string name="zen_daily_edition_title">Daily Focus Edition</string>
     <string name="zen_daily_edition_notification">%1$d unread articles ready for your focus reading.</string>
     <string name="zen_sleep_timer">Sleep Timer</string>

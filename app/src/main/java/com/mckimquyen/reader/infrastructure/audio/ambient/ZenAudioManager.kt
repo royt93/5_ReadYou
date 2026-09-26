@@ -23,13 +23,23 @@ class ZenAudioManager @Inject constructor(
     @ApplicationContext private val context: Context
 ) {
     private val scope = CoroutineScope(Dispatchers.Main + SupervisorJob())
-    private val synthesizer = ZenSoundSynthesizer()
     private val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as? AudioManager
     private var audioFocusRequest: AudioFocusRequest? = null
     private var preDuckVolume: Float? = null
 
     private val _isPlaying = MutableStateFlow(false)
     val isPlaying: StateFlow<Boolean> = _isPlaying.asStateFlow()
+
+    /**
+     * Synthesizer báo ngược lên đây mỗi khi nó dừng phát — kể cả khi dừng ngoài ý muốn
+     * (AudioTrack.write lỗi, init thất bại), để UI không mắc kẹt ở trạng thái "đang phát".
+     * Callback có thể đến từ thread nền nên chuyển về [scope] (Main) trước khi ghi StateFlow.
+     */
+    private val synthesizer = ZenSoundSynthesizer(
+        onStoppedUnexpectedly = {
+            scope.launch { handleSynthesizerStopped() }
+        }
+    )
 
     private val _currentType = MutableStateFlow(ZenSoundType.GENTLE_RAIN)
     val currentType: StateFlow<ZenSoundType> = _currentType.asStateFlow()
@@ -39,6 +49,9 @@ class ZenAudioManager @Inject constructor(
 
     private val _sleepTimerMinutes = MutableStateFlow(0) // 0 = continuous
     val sleepTimerMinutes: StateFlow<Int> = _sleepTimerMinutes.asStateFlow()
+
+    private val _playbackError = MutableStateFlow<ZenPlaybackError?>(null)
+    val playbackError: StateFlow<ZenPlaybackError?> = _playbackError.asStateFlow()
 
     private var sleepJob: Job? = null
 
@@ -96,13 +109,53 @@ class ZenAudioManager @Inject constructor(
         }
     }
 
-    fun play(type: ZenSoundType? = null) {
-        requestAudioFocus()
+    /**
+     * Bật âm thanh nền. Trả về `false` (và không phát, không set [isPlaying]) khi hệ thống từ chối
+     * audio focus, hoặc khi synthesizer không khởi tạo được AudioTrack — để UI báo lỗi thay vì
+     * hiển thị "đang phát" trong im lặng.
+     */
+    fun play(type: ZenSoundType? = null): Boolean {
+        if (!requestAudioFocus()) {
+            _playbackError.value = ZenPlaybackError.AUDIO_FOCUS_DENIED
+            _isPlaying.value = false
+            return false
+        }
+
         val targetType = type ?: _currentType.value
         _currentType.value = targetType
+
+        val started = synthesizer.start(targetType, _volume.value)
+        if (!started) {
+            _playbackError.value = ZenPlaybackError.AUDIO_TRACK_FAILED
+            _isPlaying.value = false
+            abandonAudioFocus()
+            return false
+        }
+
+        _playbackError.value = null
         _isPlaying.value = true
-        synthesizer.start(targetType, _volume.value)
         scheduleSleepTimer(_sleepTimerMinutes.value)
+        return true
+    }
+
+    /** Dọn trạng thái khi synthesizer dừng ngoài ý muốn (không do [stop] gọi thủ công). */
+    private fun handleSynthesizerStopped() {
+        if (!_isPlaying.value) return
+        _isPlaying.value = false
+        _playbackError.value = ZenPlaybackError.PLAYBACK_INTERRUPTED
+        sleepJob?.cancel()
+        sleepJob = null
+        abandonAudioFocus()
+    }
+
+    /** Xoá cờ lỗi sau khi UI đã hiển thị thông báo. */
+    fun clearPlaybackError() {
+        _playbackError.value = null
+    }
+
+    /** Dành riêng cho test: ép synthesizer gặp lỗi write để verify cơ chế đồng bộ UI. */
+    internal fun forceSynthesizerFailureForTest() {
+        synthesizer.forceFailWritesForTest()
     }
 
     fun stop() {

@@ -528,6 +528,9 @@
     <string name="zen_evening_edition">Édition du soir</string>
     <string name="zen_morning_edition_time">Heure de l\'édition du matin</string>
     <string name="zen_evening_edition_time">Heure de l\'édition du soir</string>
+    <string name="zen_audio_focus_denied">Focus audio refusé par une autre application</string>
+    <string name="zen_audio_start_failed">Impossible de démarrer l\'audio d\'ambiance</string>
+    <string name="zen_audio_interrupted">L\'audio d\'ambiance a été interrompu</string>
     <string name="zen_daily_edition_title">Daily Focus Edition</string>
     <string name="zen_daily_edition_notification">%1$d unread articles ready for your focus reading.</string>
     <string name="zen_sleep_timer">Sleep Timer</string>

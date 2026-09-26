@@ -8,13 +8,17 @@ import com.mckimquyen.reader.domain.sv.DailyEditionWorker
 import com.mckimquyen.reader.domain.zen.ZenDailyEditionManager
 import com.mckimquyen.reader.infrastructure.android.NotificationHelper
 import com.mckimquyen.reader.infrastructure.audio.ambient.ZenAudioManager
+import com.mckimquyen.reader.infrastructure.audio.ambient.ZenPlaybackError
+import com.mckimquyen.reader.infrastructure.audio.ambient.ZenSoundSynthesizer
 import com.mckimquyen.reader.infrastructure.audio.ambient.ZenSoundType
 import androidx.activity.ComponentActivity
 import androidx.compose.ui.platform.ComposeView
 import androidx.test.core.app.ActivityScenario
 import com.mckimquyen.reader.ui.component.ambient.ZenSoundSheetContent
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -186,5 +190,97 @@ class ZenSpeedReadingIntegrationTest {
             assertNotNull(composeView)
         }
         scenario.close()
+    }
+
+    // ---- ZEN-06: ambient audio state must reflect reality on device ----
+
+    @Test
+    fun zenAudioManager_playThenStop_keepsStateAndErrorConsistentOnDevice() {
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        val manager = ZenAudioManager(context)
+
+        assertFalse("Initial state must be not playing", manager.isPlaying.value)
+        assertNull("No error before any playback attempt", manager.playbackError.value)
+
+        // Real device: audio focus is granted and AudioTrack initializes, so play() succeeds
+        // and isPlaying must agree with it. If the device denies focus, play() returns false
+        // and isPlaying must STILL be false — either way the two never disagree.
+        val started = manager.play(ZenSoundType.PINK_NOISE)
+        assertEquals("isPlaying must match play() result", started, manager.isPlaying.value)
+        if (started) {
+            assertNull("A successful play must clear the error flag", manager.playbackError.value)
+        } else {
+            assertNotNull("A failed play must expose an error", manager.playbackError.value)
+        }
+
+        manager.stop()
+        assertFalse("After stop, isPlaying must be false", manager.isPlaying.value)
+    }
+
+    @Test
+    fun zenSoundSynthesizer_startSucceedsAndStopResetsStateOnDevice() {
+        // The synthesizer's own flag must track the real AudioTrack lifecycle: true only while
+        // a track is actually up, false again after stop.
+        val synth = ZenSoundSynthesizer()
+        assertFalse(synth.isCurrentlyPlaying)
+
+        val started = synth.start(ZenSoundType.GENTLE_RAIN, 0.3f)
+        assertEquals("isCurrentlyPlaying must match start() result", started, synth.isCurrentlyPlaying)
+
+        synth.stop()
+        assertFalse("stop() must reset isCurrentlyPlaying", synth.isCurrentlyPlaying)
+    }
+
+    @Test
+    fun zenSoundSynthesizer_unexpectedStopCallbackFires_whenTrackWriteFails() {
+        // Releasing the AudioTrack under the synth thread makes write() fail, which is the
+        // exact path that previously left the UI stuck showing "playing".
+        var unexpectedStops = 0
+        val synth = ZenSoundSynthesizer(onStoppedUnexpectedly = { unexpectedStops++ })
+
+        val started = synth.start(ZenSoundType.PINK_NOISE, 0.2f)
+        if (!started) return // No audio device available; nothing to assert.
+
+        synth.forceFailWritesForTest()
+
+        // The synth thread needs a moment to hit the failing write and report back.
+        val deadline = System.currentTimeMillis() + 3000
+        while (System.currentTimeMillis() < deadline && synth.isCurrentlyPlaying) {
+            Thread.sleep(50)
+        }
+
+        assertFalse("isCurrentlyPlaying must reset after a write failure", synth.isCurrentlyPlaying)
+        assertTrue("onStoppedUnexpectedly must fire on write failure", unexpectedStops >= 1)
+
+        synth.stop()
+    }
+
+    @Test
+    fun zenAudioManager_syncsIsPlayingFalse_whenSynthesizerStopsUnexpectedly() {
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        val manager = ZenAudioManager(context)
+
+        val started = manager.play(ZenSoundType.GENTLE_RAIN)
+        if (!started) return // Focus denied on this device; the failure path is covered above.
+        assertTrue(manager.isPlaying.value)
+
+        manager.forceSynthesizerFailureForTest()
+
+        // The callback hops to the main dispatcher, so allow a short settle window.
+        val deadline = System.currentTimeMillis() + 3000
+        while (System.currentTimeMillis() < deadline && manager.isPlaying.value) {
+            Thread.sleep(50)
+        }
+
+        assertFalse(
+            "UI state must drop to false when playback dies on its own",
+            manager.isPlaying.value,
+        )
+        assertEquals(
+            ZenPlaybackError.PLAYBACK_INTERRUPTED,
+            manager.playbackError.value,
+        )
+
+        manager.stop()
     }
 }

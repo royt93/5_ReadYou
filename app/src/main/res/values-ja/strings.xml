@@ -522,6 +522,9 @@
     <string name="zen_evening_edition">夕刊</string>
     <string name="zen_morning_edition_time">朝刊の時刻</string>
     <string name="zen_evening_edition_time">夕刊の時刻</string>
+    <string name="zen_audio_focus_denied">他のアプリが音声フォーカスを使用中です</string>
+    <string name="zen_audio_start_failed">環境音を開始できませんでした</string>
+    <string name="zen_audio_interrupted">環境音が中断されました</string>
     <string name="zen_daily_edition_title">Daily Focus Edition</string>
     <string name="zen_daily_edition_notification">%1$d unread articles ready for your focus reading.</string>
     <string name="zen_sleep_timer">Sleep Timer</string>

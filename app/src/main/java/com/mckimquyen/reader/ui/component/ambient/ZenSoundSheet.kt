@@ -57,7 +57,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import android.widget.Toast
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.platform.LocalContext
 import com.mckimquyen.reader.R
+import com.mckimquyen.reader.infrastructure.audio.ambient.ZenPlaybackError
 import com.mckimquyen.reader.infrastructure.audio.ambient.ZenAudioManager
 import com.mckimquyen.reader.infrastructure.audio.ambient.ZenSoundType
 
@@ -101,6 +105,20 @@ fun ZenSoundSheetContent(
     val currentType by zenAudioManager.currentType.collectAsState()
     val volume by zenAudioManager.volume.collectAsState()
     val sleepTimer by zenAudioManager.sleepTimerMinutes.collectAsState()
+    val playbackError by zenAudioManager.playbackError.collectAsState()
+
+    val context = LocalContext.current
+    // Surface playback failures instead of silently showing a "playing" state.
+    LaunchedEffect(playbackError) {
+        val error = playbackError ?: return@LaunchedEffect
+        val messageRes = when (error) {
+            ZenPlaybackError.AUDIO_FOCUS_DENIED -> R.string.zen_audio_focus_denied
+            ZenPlaybackError.AUDIO_TRACK_FAILED -> R.string.zen_audio_start_failed
+            ZenPlaybackError.PLAYBACK_INTERRUPTED -> R.string.zen_audio_interrupted
+        }
+        Toast.makeText(context, context.getString(messageRes), Toast.LENGTH_SHORT).show()
+        zenAudioManager.clearPlaybackError()
+    }
 
     Surface(
         modifier = modifier
