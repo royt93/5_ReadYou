@@ -67,6 +67,7 @@ import com.mckimquyen.reader.ui.page.about.AboutActivity
 import androidx.compose.material.icons.outlined.CloudSync
 import androidx.compose.material.icons.outlined.FilterAlt
 import androidx.compose.material.icons.outlined.HealthAndSafety
+import androidx.compose.material.icons.outlined.Inbox
 import com.mckimquyen.reader.ui.page.common.RouteName
 import com.mckimquyen.reader.ui.page.setting.tip.UpdateDialog
 import com.mckimquyen.reader.ui.page.setting.tip.UpdateViewModel
@@ -233,6 +234,17 @@ fun SettingsPage(
                         icon = Icons.Outlined.HealthAndSafety,
                     ) {
                         navController.navigate(RouteName.FEED_HEALTH) {
+                            launchSingleTop = true
+                        }
+                    }
+                }
+                item {
+                    SelectableSettingGroupItem(
+                        title = stringResource(R.string.watchdog_inbox_title),
+                        desc = stringResource(R.string.watchdog_inbox_desc),
+                        icon = Icons.Outlined.Inbox,
+                    ) {
+                        navController.navigate(RouteName.WATCHDOG_INBOX) {
                             launchSingleTop = true
                         }
                     }

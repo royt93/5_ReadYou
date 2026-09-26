@@ -130,6 +130,8 @@ class HomeViewModel @Inject constructor(
 
     fun toggleWatchdogKeyword(id: String, isEnabled: Boolean) = watchdogManager.toggleKeyword(id, isEnabled)
 
+    fun snoozeWatchdogKeyword(id: String, durationMillis: Long) = watchdogManager.snoozeKeyword(id, durationMillis)
+
     val syncWorkLiveData = workManager.getWorkInfosByTagLiveData(SyncWorker.WORK_NAME)
 
     fun sync() {

@@ -600,6 +600,17 @@
     <string name="watchdog_channel_name">Schlagwort-Dringlichkeitsalarm</string>
     <string name="watchdog_channel_desc">Dringliche Benachrichtigungen bei neuen Artikeln mit überwachten Begriffen</string>
     <string name="watchdog_preset_title">Schnellvorschläge</string>
+    <string name="watchdog_inbox_title">Watchdog-Alarm-Postfach</string>
+    <string name="watchdog_inbox_desc">Verlauf der Artikel, die Notfall-Schlagwortalarme ausgelöst haben</string>
+    <string name="watchdog_inbox_empty">Noch keine Alarme ausgelöst</string>
+    <string name="watchdog_mark_all_read">Alle als gelesen markieren</string>
+    <string name="watchdog_clear_all">Verlauf löschen</string>
+    <string name="watchdog_snooze_title">Alarme pausieren</string>
+    <string name="watchdog_snooze_1h">1 Stunde pausieren</string>
+    <string name="watchdog_snooze_8h">8 Stunden pausieren</string>
+    <string name="watchdog_snooze_24h">24 Stunden pausieren</string>
+    <string name="watchdog_snooze_off">Pause aufheben</string>
+    <string name="watchdog_snoozed_badge">Pausiert</string>
 
     <string name="notebook_title">Wissensnotizbuch</string>
     <string name="notebook_settings_desc">Verwalten Sie hervorgehobene Zitate, Notizen und exportieren Sie nach Obsidian/Markdown</string>

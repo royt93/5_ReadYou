@@ -596,6 +596,17 @@
     <string name="watchdog_channel_name">关键词紧急预警</string>
     <string name="watchdog_channel_desc">新文章匹配监控关键词时发送高优先级预警通知</string>
     <string name="watchdog_preset_title">快捷建议</string>
+    <string name="watchdog_inbox_title">看门狗警报收件箱</string>
+    <string name="watchdog_inbox_desc">触发紧急关键词警报的文章历史记录</string>
+    <string name="watchdog_inbox_empty">尚未触发任何警报</string>
+    <string name="watchdog_mark_all_read">全部标记为已读</string>
+    <string name="watchdog_clear_all">清除历史记录</string>
+    <string name="watchdog_snooze_title">暂停警报</string>
+    <string name="watchdog_snooze_1h">暂停 1 小时</string>
+    <string name="watchdog_snooze_8h">暂停 8 小时</string>
+    <string name="watchdog_snooze_24h">暂停 24 小时</string>
+    <string name="watchdog_snooze_off">取消暂停</string>
+    <string name="watchdog_snoozed_badge">已暂停</string>
 
     <string name="notebook_title">知识笔记本</string>
     <string name="notebook_settings_desc">管理高亮摘录、个人笔记并导出到 Obsidian/Markdown</string>

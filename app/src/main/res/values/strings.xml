@@ -679,6 +679,17 @@
     <string name="watchdog_channel_name">Keyword Alert Watchdog</string>
     <string name="watchdog_channel_desc">High priority alerts when new articles match monitored keywords</string>
     <string name="watchdog_preset_title">Quick Suggestions</string>
+    <string name="watchdog_inbox_title">Watchdog Alert Inbox</string>
+    <string name="watchdog_inbox_desc">History of articles that triggered emergency keyword alerts</string>
+    <string name="watchdog_inbox_empty">No alerts triggered yet</string>
+    <string name="watchdog_mark_all_read">Mark all as read</string>
+    <string name="watchdog_clear_all">Clear history</string>
+    <string name="watchdog_snooze_title">Snooze alerts</string>
+    <string name="watchdog_snooze_1h">Snooze 1 hour</string>
+    <string name="watchdog_snooze_8h">Snooze 8 hours</string>
+    <string name="watchdog_snooze_24h">Snooze 24 hours</string>
+    <string name="watchdog_snooze_off">Cancel snooze</string>
+    <string name="watchdog_snoozed_badge">Snoozed</string>
 
     <string name="notebook_title">Knowledge Notebook</string>
     <string name="notebook_settings_desc">Manage highlighted quotes, personal notes, and export to Obsidian/Markdown</string>

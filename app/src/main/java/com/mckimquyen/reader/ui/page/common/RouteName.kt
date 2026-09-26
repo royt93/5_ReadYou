@@ -19,6 +19,7 @@ object RouteName {
     const val FEED_HEALTH = "feed_health"
     const val SMART_FILTER = "smart_filter"
     const val OPML_BACKUP = "opml_backup"
+    const val WATCHDOG_INBOX = "watchdog_inbox"
 
     // Brain RPG
     const val BRAIN_RPG = "brain_rpg"

@@ -603,6 +603,17 @@
     <string name="watchdog_channel_name">Alerte Sentinelle</string>
     <string name="watchdog_channel_desc">Alertes prioritaires lorsque de nouveaux articles correspondent aux mots-clés</string>
     <string name="watchdog_preset_title">Suggestions rapides</string>
+    <string name="watchdog_inbox_title">Boîte d\'alertes Watchdog</string>
+    <string name="watchdog_inbox_desc">Historique des articles ayant déclenché des alertes par mots-clés</string>
+    <string name="watchdog_inbox_empty">Aucune alerte déclenchée pour le moment</string>
+    <string name="watchdog_mark_all_read">Tout marquer comme lu</string>
+    <string name="watchdog_clear_all">Effacer l\'historique</string>
+    <string name="watchdog_snooze_title">Mettre en sourdine</string>
+    <string name="watchdog_snooze_1h">Sourdine 1 heure</string>
+    <string name="watchdog_snooze_8h">Sourdine 8 heures</string>
+    <string name="watchdog_snooze_24h">Sourdine 24 heures</string>
+    <string name="watchdog_snooze_off">Annuler la sourdine</string>
+    <string name="watchdog_snoozed_badge">En sourdine</string>
 
     <string name="notebook_title">Carnet de connaissances</string>
     <string name="notebook_settings_desc">Gérez les citations surlignées, notes personnelles et exportez vers Obsidian/Markdown</string>

@@ -372,6 +372,8 @@ fun FlowPage(
                     onAddKeyword = { homeViewModel.addWatchdogKeyword(it) },
                     onRemoveKeyword = { homeViewModel.removeWatchdogKeyword(it) },
                     onToggleKeyword = { id, enabled -> homeViewModel.toggleWatchdogKeyword(id, enabled) },
+                    onOpenInbox = { navController.navigate(RouteName.WATCHDOG_INBOX) { launchSingleTop = true } },
+                    onSnoozeKeyword = { id, duration -> homeViewModel.snoozeWatchdogKeyword(id, duration) },
                 )
             }
         },

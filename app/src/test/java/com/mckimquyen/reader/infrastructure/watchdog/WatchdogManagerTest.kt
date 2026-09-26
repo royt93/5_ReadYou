@@ -372,4 +372,94 @@ class WatchdogManagerTest {
         assertEquals(0, alertCount)
         verify(exactly = 0) { spyPrefs.edit() }
     }
+
+    // ---- REEL-06: Alert Inbox persistence, read state, snooze and quiet hours ----
+
+    @Test
+    fun checkAndNotify_match_savesUnreadAlertWithExcerpt() {
+        manager.addKeyword("Bitcoin")
+        val article = createArticle(
+            id = "btc_1",
+            title = "Thị trường tiền số hôm nay",
+            description = "Giá Bitcoin tăng mạnh sau tin ETF",
+        )
+
+        val notificationCount = manager.checkAndNotify(listOf(article), sampleFeed)
+
+        assertEquals(1, notificationCount)
+        assertEquals(1, manager.alerts.value.size)
+        val alert = manager.alerts.value.single()
+        assertEquals("btc_1", alert.articleId)
+        assertEquals("Bitcoin", alert.keyword)
+        assertTrue(alert.matchedExcerpt.contains("Bitcoin"))
+        assertFalse(alert.isRead)
+    }
+
+    @Test
+    fun alertReadActions_updateAndPersistAcrossInstances() {
+        manager.addKeyword("Bitcoin")
+        manager.checkAndNotify(
+            listOf(
+                createArticle("btc_1", "Bitcoin tăng"),
+                createArticle("btc_2", "Bitcoin giảm"),
+            ),
+            sampleFeed,
+        )
+        val firstId = manager.alerts.value.first().id
+
+        manager.markAlertAsRead(firstId)
+        assertTrue(manager.alerts.value.first { it.id == firstId }.isRead)
+        assertTrue(manager.alerts.value.any { !it.isRead })
+
+        manager.markAllAlertsAsRead()
+        assertTrue(manager.alerts.value.all { it.isRead })
+
+        val reloaded = WatchdogManager(context, engine, notificationHelper, eagerScope, Dispatchers.Unconfined)
+        assertEquals(2, reloaded.alerts.value.size)
+        assertTrue(reloaded.alerts.value.all { it.isRead })
+
+        reloaded.clearAlerts()
+        assertTrue(reloaded.alerts.value.isEmpty())
+        val afterClear = WatchdogManager(context, engine, notificationHelper, eagerScope, Dispatchers.Unconfined)
+        assertTrue(afterClear.alerts.value.isEmpty())
+    }
+
+    @Test
+    fun checkAndNotify_snoozedKeyword_savesHistoryButDoesNotNotify() {
+        manager.addKeyword("Bitcoin")
+        val keywordId = manager.keywords.value.single().id
+        manager.snoozeKeyword(keywordId, durationMillis = 60_000)
+
+        val notificationCount = manager.checkAndNotify(
+            listOf(createArticle("btc_snoozed", "Bitcoin lập đỉnh")),
+            sampleFeed,
+        )
+
+        assertEquals(0, notificationCount)
+        assertEquals(1, manager.alerts.value.size)
+        assertEquals("btc_snoozed", manager.alerts.value.single().articleId)
+        assertEquals(1, manager.keywords.value.single().matchCount)
+        verify(exactly = 0) { notificationHelper.notifyWatchdogAlert(any(), any(), any()) }
+    }
+
+    @Test
+    fun snoozeAndQuietHours_persistAcrossInstances() {
+        manager.addKeyword("Bitcoin")
+        val keywordId = manager.keywords.value.single().id
+        manager.snoozeKeyword(keywordId, durationMillis = 60_000)
+        manager.setQuietHours(keywordId, startMinute = 22 * 60, endMinute = 7 * 60)
+
+        val reloaded = WatchdogManager(context, engine, notificationHelper, eagerScope, Dispatchers.Unconfined)
+        val keyword = reloaded.keywords.value.single()
+        assertNotNull(keyword.snoozeUntil)
+        assertEquals(22 * 60, keyword.quietHoursStart)
+        assertEquals(7 * 60, keyword.quietHoursEnd)
+
+        reloaded.snoozeKeyword(keywordId, durationMillis = 0)
+        reloaded.setQuietHours(keywordId, startMinute = null, endMinute = null)
+        val cleared = reloaded.keywords.value.single()
+        assertNull(cleared.snoozeUntil)
+        assertNull(cleared.quietHoursStart)
+        assertNull(cleared.quietHoursEnd)
+    }
 }

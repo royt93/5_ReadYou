@@ -14,7 +14,10 @@ import com.mckimquyen.reader.infrastructure.android.NotificationHelper
 import com.mckimquyen.reader.infrastructure.watchdog.WatchdogManager
 import com.mckimquyen.reader.ui.component.watchdog.WatchdogBadge
 import com.mckimquyen.reader.ui.component.watchdog.WatchdogSheet
+import com.mckimquyen.reader.ui.page.watchdog.WatchdogInboxPage
+import com.mckimquyen.reader.ui.page.watchdog.WatchdogInboxViewModel
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
 import org.junit.Before
@@ -122,5 +125,84 @@ class WatchdogIntegrationTest {
             assertNotNull("UI attached and rendered without exception", composeView)
         }
         scenario.close()
+    }
+
+    @Test
+    fun alertInbox_persistsHistoryAndShowsExcerpt() {
+        watchdogManager.addKeyword("Bitcoin")
+        val article = createArticle("btc_1", "Bitcoin lập đỉnh mới", "Giá vượt 100k USD sau tin ETF")
+
+        watchdogManager.checkAndNotify(listOf(article), sampleFeed)
+
+        assertEquals(1, watchdogManager.alerts.value.size)
+        val alert = watchdogManager.alerts.value.single()
+        assertEquals("btc_1", alert.articleId)
+        assertTrue(alert.matchedExcerpt.contains("Bitcoin"))
+        assertFalse(alert.isRead)
+
+        // Reload new manager instance from same prefs
+        val reloaded = WatchdogManager(context, engine, notificationHelper, CoroutineScope(Dispatchers.Unconfined), Dispatchers.Unconfined)
+        assertEquals(1, reloaded.alerts.value.size)
+        assertEquals("btc_1", reloaded.alerts.value.single().articleId)
+    }
+
+    @Test
+    fun snoozeKeyword_savesHistoryButSuppressesNotification() {
+        watchdogManager.addKeyword("Bitcoin")
+        val kwId = watchdogManager.keywords.value.single().id
+        watchdogManager.snoozeKeyword(kwId, durationMillis = 60_000)
+
+        val article = createArticle("btc_snoozed", "Bitcoin lại tăng")
+
+        // Should save alert to inbox but NOT notify
+        val alertCount = watchdogManager.checkAndNotify(listOf(article), sampleFeed)
+        assertEquals(0, alertCount)
+        assertEquals(1, watchdogManager.alerts.value.size)
+        assertEquals(1, watchdogManager.keywords.value.single().matchCount)
+    }
+
+    @Test
+    fun watchdogInboxPage_rendersAlertsWithReadStateAndActions() {
+        watchdogManager.addKeyword("\$VIC")
+        watchdogManager.addKeyword("Bitcoin")
+        watchdogManager.checkAndNotify(
+            listOf(
+                createArticle("art_vic", "Cổ phiếu \$VIC tăng trần"),
+                createArticle("art_btc", "Bitcoin đạt đỉnh mới"),
+            ),
+            sampleFeed,
+        )
+
+        val scenario = ActivityScenario.launch(ComponentActivity::class.java)
+        scenario.onActivity { activity ->
+            val composeView = ComposeView(activity).apply {
+                setContent {
+                    WatchdogInboxPage(
+                        navController = androidx.navigation.compose.rememberNavController(),
+                        activity = activity,
+                        viewModel = WatchdogInboxViewModel(watchdogManager),
+                    )
+                }
+            }
+            activity.setContentView(composeView)
+            assertNotNull("Inbox page rendered without crash", composeView)
+        }
+        scenario.close()
+    }
+
+    @Test
+    fun alertInbox_markAsReadAndClear_persistsAcrossReloads() {
+        watchdogManager.addKeyword("Bitcoin")
+        watchdogManager.checkAndNotify(listOf(createArticle("btc_1", "Bitcoin tăng")), sampleFeed)
+
+        val alertId = watchdogManager.alerts.value.first().id
+        watchdogManager.markAlertAsRead(alertId)
+        assertTrue(watchdogManager.alerts.value.single().isRead)
+
+        watchdogManager.clearAlerts()
+        assertTrue(watchdogManager.alerts.value.isEmpty())
+
+        val reloaded = WatchdogManager(context, engine, notificationHelper, CoroutineScope(Dispatchers.Unconfined), Dispatchers.Unconfined)
+        assertTrue(reloaded.alerts.value.isEmpty())
     }
 }

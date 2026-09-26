@@ -27,12 +27,17 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Inbox
 import androidx.compose.material.icons.outlined.NotificationsActive
+import androidx.compose.material.icons.outlined.Snooze
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.DeleteOutline
+import androidx.compose.material.icons.rounded.Snooze
 import androidx.compose.material3.Button
 import androidx.compose.material3.Divider
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.FilterChipDefaults
@@ -104,6 +109,8 @@ fun WatchdogSheet(
     onAddKeyword: (String) -> Boolean,
     onRemoveKeyword: (String) -> Unit,
     onToggleKeyword: (String, Boolean) -> Unit,
+    onOpenInbox: () -> Unit = {},
+    onSnoozeKeyword: (String, Long) -> Unit = { _, _ -> },
 ) {
     Dialog(
         onDismissRequest = onDismissRequest,
@@ -148,6 +155,8 @@ fun WatchdogSheet(
                     onRemoveKeyword = onRemoveKeyword,
                     onToggleKeyword = onToggleKeyword,
                     onClose = onDismissRequest,
+                    onOpenInbox = onOpenInbox,
+                    onSnoozeKeyword = onSnoozeKeyword,
                 )
             }
         }
@@ -163,6 +172,8 @@ fun WatchdogSheetContent(
     onToggleKeyword: (String, Boolean) -> Unit,
     onClose: () -> Unit,
     modifier: Modifier = Modifier,
+    onOpenInbox: () -> Unit = {},
+    onSnoozeKeyword: (String, Long) -> Unit = { _, _ -> },
 ) {
     var inputText by remember { mutableStateOf("") }
     val presets = remember {
@@ -217,6 +228,16 @@ fun WatchdogSheetContent(
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis,
+                )
+            }
+            IconButton(
+                onClick = onOpenInbox,
+                modifier = Modifier.testTag("watchdog_inbox_btn"),
+            ) {
+                Icon(
+                    imageVector = Icons.Outlined.Inbox,
+                    contentDescription = stringResource(R.string.watchdog_inbox_title),
+                    tint = MaterialTheme.colorScheme.primary,
                 )
             }
             IconButton(onClick = onClose, modifier = Modifier.testTag("watchdog_close_btn")) {
@@ -376,6 +397,7 @@ fun WatchdogSheetContent(
                         keyword = item,
                         onToggle = { onToggleKeyword(item.id, it) },
                         onRemove = { onRemoveKeyword(item.id) },
+                        onSnooze = { duration -> onSnoozeKeyword(item.id, duration) },
                     )
                 }
             }
@@ -389,7 +411,11 @@ fun WatchdogKeywordRow(
     onToggle: (Boolean) -> Unit,
     onRemove: () -> Unit,
     modifier: Modifier = Modifier,
+    onSnooze: (Long) -> Unit = {},
 ) {
+    var showSnoozeMenu by remember { mutableStateOf(false) }
+    val isSnoozed = keyword.snoozeUntil?.let { it > System.currentTimeMillis() } == true
+
     Surface(
         modifier = modifier
             .fillMaxWidth()
@@ -417,6 +443,21 @@ fun WatchdogKeywordRow(
                         color = if (keyword.isEnabled) MaterialTheme.colorScheme.onSurface
                         else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
                     )
+                    if (isSnoozed) {
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Surface(
+                            color = MaterialTheme.colorScheme.tertiaryContainer.copy(alpha = 0.8f),
+                            shape = RoundedCornerShape(4.dp),
+                        ) {
+                            Text(
+                                modifier = Modifier.padding(horizontal = 4.dp, vertical = 1.dp),
+                                text = stringResource(R.string.watchdog_snoozed_badge),
+                                style = MaterialTheme.typography.labelSmall.copy(fontSize = 10.sp),
+                                color = MaterialTheme.colorScheme.onTertiaryContainer,
+                                fontWeight = FontWeight.SemiBold,
+                            )
+                        }
+                    }
                     if (keyword.matchCount > 0) {
                         Spacer(modifier = Modifier.width(8.dp))
                         Surface(
@@ -431,6 +472,55 @@ fun WatchdogKeywordRow(
                                 fontWeight = FontWeight.SemiBold,
                             )
                         }
+                    }
+                }
+            }
+
+            Box {
+                IconButton(
+                    onClick = { showSnoozeMenu = true },
+                    modifier = Modifier.testTag("watchdog_snooze_${keyword.keyword}"),
+                ) {
+                    Icon(
+                        imageVector = Icons.Rounded.Snooze,
+                        contentDescription = stringResource(R.string.watchdog_snooze_title),
+                        tint = if (isSnoozed) MaterialTheme.colorScheme.primary
+                        else MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
+                DropdownMenu(
+                    expanded = showSnoozeMenu,
+                    onDismissRequest = { showSnoozeMenu = false },
+                ) {
+                    DropdownMenuItem(
+                        text = { Text(stringResource(R.string.watchdog_snooze_1h)) },
+                        onClick = {
+                            showSnoozeMenu = false
+                            onSnooze(SNOOZE_1_HOUR_MS)
+                        },
+                    )
+                    DropdownMenuItem(
+                        text = { Text(stringResource(R.string.watchdog_snooze_8h)) },
+                        onClick = {
+                            showSnoozeMenu = false
+                            onSnooze(SNOOZE_8_HOURS_MS)
+                        },
+                    )
+                    DropdownMenuItem(
+                        text = { Text(stringResource(R.string.watchdog_snooze_24h)) },
+                        onClick = {
+                            showSnoozeMenu = false
+                            onSnooze(SNOOZE_24_HOURS_MS)
+                        },
+                    )
+                    if (isSnoozed) {
+                        DropdownMenuItem(
+                            text = { Text(stringResource(R.string.watchdog_snooze_off)) },
+                            onClick = {
+                                showSnoozeMenu = false
+                                onSnooze(SNOOZE_OFF_MS)
+                            },
+                        )
                     }
                 }
             }
@@ -454,3 +544,10 @@ fun WatchdogKeywordRow(
         }
     }
 }
+
+private const val MILLIS_PER_HOUR = 60 * 60 * 1000L
+
+const val SNOOZE_1_HOUR_MS = MILLIS_PER_HOUR
+const val SNOOZE_8_HOURS_MS = 8 * MILLIS_PER_HOUR
+const val SNOOZE_24_HOURS_MS = 24 * MILLIS_PER_HOUR
+const val SNOOZE_OFF_MS = 0L

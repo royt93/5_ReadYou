@@ -80,6 +80,48 @@ class WatchdogEngine @Inject constructor() {
 
         private fun matcherFor(cleanKw: String): KeywordMatcher =
             matcherCache.getOrPut(cleanKw) { KeywordMatcher.compile(cleanKw) }
+
+        private const val EXCERPT_CHARS_BEFORE = 40
+        private const val EXCERPT_CHARS_AFTER = 60
+        private const val EXCERPT_ELLIPSIS = "…"
+        private const val MINUTES_PER_DAY = 24 * 60
+
+        /**
+         * Trích đoạn văn bản quanh vị trí khớp đầu tiên (title → desc → content), giữ nguyên chữ hoa/thường
+         * gốc để hiển thị. Ticker `$VIC` được tìm cả dạng `$vic` lẫn `vic`. Không tìm thấy → trả về title.
+         */
+        fun extractExcerpt(keyword: String, title: String, desc: String, content: String?): String {
+            val cleanKw = keyword.trim()
+            val needles = listOf(cleanKw, cleanKw.removePrefix("$")).filter { it.isNotBlank() }.distinct()
+            val sources = listOf(title, desc, content?.take(MAX_CONTENT_SCAN_CHARS).orEmpty())
+            for (source in sources) {
+                for (needle in needles) {
+                    val idx = source.indexOf(needle, ignoreCase = true)
+                    if (idx < 0) continue
+                    val start = (idx - EXCERPT_CHARS_BEFORE).coerceAtLeast(0)
+                    val end = (idx + needle.length + EXCERPT_CHARS_AFTER).coerceAtMost(source.length)
+                    val prefix = if (start > 0) EXCERPT_ELLIPSIS else ""
+                    val suffix = if (end < source.length) EXCERPT_ELLIPSIS else ""
+                    return prefix + source.substring(start, end).trim() + suffix
+                }
+            }
+            return title
+        }
+
+        /**
+         * Từ khóa đang bị tắt tiếng thông báo (snooze chưa hết hạn, hoặc đang trong quiet hours)?
+         * [minuteOfDay] = phút trong ngày theo giờ địa phương (0..1439). Quiet hours hỗ trợ qua nửa đêm
+         * (start > end, ví dụ 22:00–07:00). start == end coi như tắt (không có khung giờ nào).
+         */
+        fun isMuted(keyword: WatchdogKeyword, nowMillis: Long, minuteOfDay: Int): Boolean {
+            val snoozeUntil = keyword.snoozeUntil
+            if (snoozeUntil != null && nowMillis < snoozeUntil) return true
+            val start = keyword.quietHoursStart ?: return false
+            val end = keyword.quietHoursEnd ?: return false
+            if (start !in 0 until MINUTES_PER_DAY || end !in 0 until MINUTES_PER_DAY || start == end) return false
+            return if (start < end) minuteOfDay in start until end
+            else minuteOfDay >= start || minuteOfDay < end
+        }
     }
 
     /** Precompiled, immutable matching strategy for one already-lowercased keyword. */

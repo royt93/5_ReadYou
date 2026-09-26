@@ -245,6 +245,14 @@ fun HomeEntry(
                 )
             }
 
+            // Watchdog Alert Inbox (REEL-06)
+            animatedComposable(route = RouteName.WATCHDOG_INBOX) {
+                com.mckimquyen.reader.ui.page.watchdog.WatchdogInboxPage(
+                    navController = navController,
+                    activity = activity
+                )
+            }
+
             // Brain RPG
             animatedComposable(route = RouteName.BRAIN_RPG) {
                 BrainRpgPage(navController = navController, activity = activity)

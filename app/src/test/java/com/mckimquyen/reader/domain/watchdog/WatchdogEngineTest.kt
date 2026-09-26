@@ -200,4 +200,107 @@ class WatchdogEngineTest {
         val matched = engine.match(article, listOf(WatchdogKeyword(id = "1", keyword = "Bitcoin")))
         assertNull(matched)
     }
+
+    // ---- REEL-06: excerpt extraction around the first match ----
+
+    @Test
+    fun extractExcerpt_keywordInTitle_keepsSurroundingContext() {
+        val excerpt = WatchdogEngine.extractExcerpt(
+            keyword = "Bitcoin",
+            title = "Thị trường tiền số: Bitcoin đạt đỉnh mới trong phiên châu Á",
+            desc = "",
+            content = null,
+        )
+        assertTrue(excerpt.contains("Bitcoin"))
+        assertTrue(excerpt.contains("đạt đỉnh"))
+    }
+
+    @Test
+    fun extractExcerpt_keywordOnlyInContent_usesContentAndAddsEllipsisWhenClipped() {
+        val padding = "x".repeat(80)
+        val excerpt = WatchdogEngine.extractExcerpt(
+            keyword = "Bitcoin",
+            title = "Bản tin",
+            desc = "Mô tả không liên quan",
+            content = "$padding Bitcoin tăng mạnh $padding",
+        )
+        assertTrue(excerpt.contains("Bitcoin"))
+        assertTrue(excerpt.startsWith("…") || excerpt.startsWith("x"))
+        assertTrue(excerpt.length < 80 + 7 + 80)
+    }
+
+    @Test
+    fun extractExcerpt_tickerWithDollar_alsoFindsBareTickerInText() {
+        val excerpt = WatchdogEngine.extractExcerpt(
+            keyword = "\$VIC",
+            title = "Khối ngoại mua ròng VIC đột biến",
+            desc = "",
+            content = null,
+        )
+        assertTrue(excerpt.contains("VIC"))
+    }
+
+    @Test
+    fun extractExcerpt_noMatchAnywhere_fallsBackToTitle() {
+        val excerpt = WatchdogEngine.extractExcerpt(
+            keyword = "Bitcoin",
+            title = "Bản tin thời tiết",
+            desc = "Nắng nóng",
+            content = "Mưa rào",
+        )
+        assertEquals("Bản tin thời tiết", excerpt)
+    }
+
+    // ---- REEL-06: snooze + quiet hours (including overnight wrap) ----
+
+    @Test
+    fun isMuted_snoozeInTheFuture_isMuted() {
+        val now = 1_000_000L
+        val kw = WatchdogKeyword(keyword = "Bitcoin", snoozeUntil = now + 60_000)
+        assertTrue(WatchdogEngine.isMuted(kw, now, minuteOfDay = 12 * 60))
+    }
+
+    @Test
+    fun isMuted_snoozeAlreadyExpired_isNotMuted() {
+        val now = 1_000_000L
+        val kw = WatchdogKeyword(keyword = "Bitcoin", snoozeUntil = now - 1)
+        assertFalse(WatchdogEngine.isMuted(kw, now, minuteOfDay = 12 * 60))
+    }
+
+    @Test
+    fun isMuted_quietHoursSameDay_mutesOnlyInsideWindow() {
+        // 09:00–17:00
+        val kw = WatchdogKeyword(keyword = "Bitcoin", quietHoursStart = 9 * 60, quietHoursEnd = 17 * 60)
+        assertFalse(WatchdogEngine.isMuted(kw, nowMillis = 0, minuteOfDay = 8 * 60 + 59))
+        assertTrue(WatchdogEngine.isMuted(kw, nowMillis = 0, minuteOfDay = 9 * 60))
+        assertTrue(WatchdogEngine.isMuted(kw, nowMillis = 0, minuteOfDay = 16 * 60 + 59))
+        assertFalse(WatchdogEngine.isMuted(kw, nowMillis = 0, minuteOfDay = 17 * 60))
+    }
+
+    @Test
+    fun isMuted_quietHoursOvernight_wrapsAcrossMidnight() {
+        // 22:00–07:00
+        val kw = WatchdogKeyword(keyword = "Bitcoin", quietHoursStart = 22 * 60, quietHoursEnd = 7 * 60)
+        assertTrue(WatchdogEngine.isMuted(kw, nowMillis = 0, minuteOfDay = 22 * 60))
+        assertTrue(WatchdogEngine.isMuted(kw, nowMillis = 0, minuteOfDay = 23 * 60 + 59))
+        assertTrue(WatchdogEngine.isMuted(kw, nowMillis = 0, minuteOfDay = 0))
+        assertTrue(WatchdogEngine.isMuted(kw, nowMillis = 0, minuteOfDay = 6 * 60 + 59))
+        assertFalse(WatchdogEngine.isMuted(kw, nowMillis = 0, minuteOfDay = 7 * 60))
+        assertFalse(WatchdogEngine.isMuted(kw, nowMillis = 0, minuteOfDay = 12 * 60))
+        assertFalse(WatchdogEngine.isMuted(kw, nowMillis = 0, minuteOfDay = 21 * 60 + 59))
+    }
+
+    @Test
+    fun isMuted_quietHoursStartEqualsEnd_treatedAsDisabled() {
+        val kw = WatchdogKeyword(keyword = "Bitcoin", quietHoursStart = 22 * 60, quietHoursEnd = 22 * 60)
+        assertFalse(WatchdogEngine.isMuted(kw, nowMillis = 0, minuteOfDay = 22 * 60))
+        assertFalse(WatchdogEngine.isMuted(kw, nowMillis = 0, minuteOfDay = 0))
+    }
+
+    @Test
+    fun isMuted_noSnoozeNoQuietHours_neverMuted() {
+        val kw = WatchdogKeyword(keyword = "Bitcoin")
+        assertFalse(WatchdogEngine.isMuted(kw, nowMillis = 0, minuteOfDay = 0))
+        assertFalse(WatchdogEngine.isMuted(kw, nowMillis = 0, minuteOfDay = 23 * 60 + 59))
+    }
 }

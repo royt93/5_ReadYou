@@ -597,6 +597,17 @@
     <string name="watchdog_channel_name">キーワード緊急アラート</string>
     <string name="watchdog_channel_desc">新着記事が監視キーワードに一致した際、重要アラートを送信</string>
     <string name="watchdog_preset_title">おすすめ候補</string>
+    <string name="watchdog_inbox_title">ウォッチドッグ受信トレイ</string>
+    <string name="watchdog_inbox_desc">緊急キーワードアラートを発生させた記事の履歴</string>
+    <string name="watchdog_inbox_empty">まだアラートは発生していません</string>
+    <string name="watchdog_mark_all_read">すべて既読にする</string>
+    <string name="watchdog_clear_all">履歴を消去</string>
+    <string name="watchdog_snooze_title">アラートをスヌーズ</string>
+    <string name="watchdog_snooze_1h">1時間スヌーズ</string>
+    <string name="watchdog_snooze_8h">8時間スヌーズ</string>
+    <string name="watchdog_snooze_24h">24時間スヌーズ</string>
+    <string name="watchdog_snooze_off">スヌーズを解除</string>
+    <string name="watchdog_snoozed_badge">スヌーズ中</string>
 
     <string name="notebook_title">ナレッジノート</string>
     <string name="notebook_settings_desc">ハイライト引用、個人メモを管理し、Obsidian/Markdown にエクスポート</string>

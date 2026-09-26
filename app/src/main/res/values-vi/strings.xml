@@ -570,6 +570,17 @@
     <string name="watchdog_channel_name">Cảnh Báo Từ Khóa Khẩn Cấp (Watchdog)</string>
     <string name="watchdog_channel_desc">Cảnh báo ưu tiên cao khi phát hiện bài viết chứa từ khóa quan trọng</string>
     <string name="watchdog_preset_title">Gợi ý theo dõi nhanh</string>
+    <string name="watchdog_inbox_title">Hộp Thư Cảnh Báo Watchdog</string>
+    <string name="watchdog_inbox_desc">Lịch sử các bài viết đã kích hoạt cảnh báo từ khóa khẩn cấp</string>
+    <string name="watchdog_inbox_empty">Chưa có cảnh báo nào được kích hoạt</string>
+    <string name="watchdog_mark_all_read">Đánh dấu tất cả đã đọc</string>
+    <string name="watchdog_clear_all">Xóa lịch sử</string>
+    <string name="watchdog_snooze_title">Tạm tắt thông báo</string>
+    <string name="watchdog_snooze_1h">Tạm tắt 1 giờ</string>
+    <string name="watchdog_snooze_8h">Tạm tắt 8 giờ</string>
+    <string name="watchdog_snooze_24h">Tạm tắt 24 giờ</string>
+    <string name="watchdog_snooze_off">Bỏ tạm tắt</string>
+    <string name="watchdog_snoozed_badge">Đã tạm tắt</string>
 
     <string name="notebook_title">Sổ tay tri thức</string>
     <string name="notebook_settings_desc">Quản lý trích dẫn highlight, ghi chú và xuất sang Obsidian/Markdown</string>

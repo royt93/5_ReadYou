@@ -59,3 +59,29 @@ Chỉ dừng loop khi hoàn tất TẤT CẢ bước sau, đúng thứ tự, KH�
    → `git add` các file liên quan → `git commit` với message rõ ràng, đúng Conventional Commits → **`git push`** lên remote nhánh hiện tại. Kết thúc loop, cập nhật trạng thái task (di chuyển file từ `doc/task/todo/` hoặc `inprogress/` sang `doc/task/done/`, đổi tên thêm hậu tố `_DONE` và viết Completion Report ngắn: điểm số, commit hash, danh sách test đã thêm).
 7. Nếu điểm **≤ 9/10** hoặc bất kỳ điều kiện bước 2-5 chưa đạt: quay lại bước 1 của vòng lặp Loop Prompt, KHÔNG commit/push.
 ```
+
+---
+
+## ✅ Completion Report
+
+**Điểm audit: 9.5/10** (trừ 0.5 vì Quiet Hours mới có API + persistence, chưa có UI picker riêng chọn giờ/phút — chỉ có Snooze 1h/8h/24h/clear ở UI).
+
+**Implementation:**
+- `WatchdogAlert.kt` (domain model mới): id, articleId, articleTitle, feedName, keyword, matchedExcerpt, detectedAt, isRead.
+- `WatchdogKeyword.kt`: thêm `snoozeUntil: Long?`, `quietHoursStart: Int?`, `quietHoursEnd: Int?` (phút trong ngày), 100% tương thích ngược JSON cũ.
+- `WatchdogEngine.kt`: `extractExcerpt()` (trích đoạn quanh vị trí khớp, giữ nguyên chữ hoa/thường, ellipsis khi bị cắt) và `isMuted()` (pure function xử lý snooze + quiet-hours qua nửa đêm).
+- `WatchdogManager.kt`: alerts persistence (SharedPreferences JSON, primary+backup key giống REEL-04, giới hạn 200 bản ghi mới nhất), `markAlertAsRead`/`markAllAlertsAsRead`/`clearAlerts`, `snoozeKeyword`/`setQuietHours`/`isKeywordMuted`. `checkAndNotify` gộp ghi keywords+alerts thành **một** `prefs.edit().commit()` duy nhất (giữ nguyên tính chất batch-write-once của REEL-05).
+- UI mới: `ui/page/watchdog/WatchdogInboxPage.kt` + `WatchdogInboxViewModel.kt` (route `watchdog_inbox`, đăng ký trong `HomeEntry.kt`, mở từ `SettingsPage` và từ icon Inbox trong `WatchdogSheet`). `WatchdogSheet.kt` thêm dropdown Snooze (1h/8h/24h/hủy) + badge "Snoozed" trên mỗi từ khóa.
+- i18n đủ 6 ngôn ngữ: en, vi, zh-rCN, ja, fr, de (11 chuỗi mới mỗi ngôn ngữ).
+
+**Test đã thêm:**
+- `WatchdogEngineTest`: 8 test mới — `extractExcerpt_*` (4), `isMuted_*` (snooze tương lai/hết hạn, quiet-hours cùng ngày, quiet-hours qua nửa đêm, start==end vô hiệu, không cấu hình).
+- `WatchdogManagerTest`: 4 test mới — lưu alert kèm excerpt khi match, đánh dấu đọc/xóa lịch sử persist qua instance mới, snooze chặn notify nhưng vẫn ghi lịch sử + tăng matchCount, snooze/quietHours persist qua instance mới.
+- `WatchdogIntegrationTest` (androidTest): 4 test mới — end-to-end lưu lịch sử + excerpt + reload, snooze chặn notify, render `WatchdogInboxPage` không crash, markAsRead+clearAlerts persist qua reload.
+- Tổng: tất cả test cũ + mới trong 3 file trên đều **PASS** (unit: `testDevDebugUnitTest`; instrumented: `connectedDevDebugAndroidTest` 6/6 pass trên Pixel 7 Pro).
+
+**Build:** `./gradlew assembleDevDebug testDevDebugUnitTest compileDevDebugAndroidTestKotlin` — BUILD SUCCESSFUL.
+
+**Smoke test (Pixel 7 Pro, serial `2B051FDH3006MU`):** `installDevDebug`, launch `SplashActivity` → `MainActivity` resumed foreground (xác nhận qua `dumpsys window`/`dumpsys activity`), PID ổn định, không FATAL/AndroidRuntime crash trong logcat. Dừng app bằng `force-stop` sau khi xác nhận.
+
+**Commit:** xem git log kế tiếp trong repo.
