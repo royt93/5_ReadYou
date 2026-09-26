@@ -55,10 +55,27 @@ class AdditionViewModel @Inject constructor(
             )
         }
     }
+
+    fun showAddGoogleReaderAccountDialog() {
+        _additionUiState.update {
+            it.copy(
+                addGoogleReaderAccountDialogVisible = true,
+            )
+        }
+    }
+
+    fun hideAddGoogleReaderAccountDialog() {
+        _additionUiState.update {
+            it.copy(
+                addGoogleReaderAccountDialogVisible = false,
+            )
+        }
+    }
 }
 
 @Keep
 data class AdditionUiState(
     val addLocalAccountDialogVisible: Boolean = false,
     val addFeverAccountDialogVisible: Boolean = false,
+    val addGoogleReaderAccountDialogVisible: Boolean = false,
 )

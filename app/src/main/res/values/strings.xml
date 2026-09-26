@@ -755,4 +755,5 @@
     <string name="webdav_backup_success">OPML backup uploaded successfully!</string>
     <string name="webdav_restore_success">Feeds and groups restored successfully from cloud!</string>
     <string name="webdav_last_backup">Last backup: %1$s</string>
+    <string name="invalid_credentials">Invalid credentials, please check server URL, username and password</string>
 </resources>

@@ -673,4 +673,5 @@
     <string name="webdav_backup_success">OPML バックアップが正常にアップロードされました！</string>
     <string name="webdav_restore_success">クラウドからフィードとグループが正常に復元されました！</string>
     <string name="webdav_last_backup">最終バックアップ：%1$s</string>
+    <string name="invalid_credentials">認証情報が無効です。サーバーURL、ユーザー名、パスワードを確認してください</string>
 </resources>

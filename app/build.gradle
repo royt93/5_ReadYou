@@ -225,6 +225,9 @@ dependencies {
 
     testImplementation "junit:junit:4.13.2"
     testImplementation "io.mockk:mockk:1.13.5"
+    // Pinned to the same okhttp version as the app (5.0.0-alpha.11) to avoid a binary-incompatible
+    // classpath clash with an older mockwebserver artifact built against a different okhttp internal API.
+    testImplementation "com.squareup.okhttp3:mockwebserver3-junit4:5.0.0-alpha.11"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4"
     // Robolectric: chạy unit test đụng android.util.Base64 / SharedPreferences trên JVM (không cần emulator)
     testImplementation "org.robolectric:robolectric:4.14.1"

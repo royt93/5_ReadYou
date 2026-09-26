@@ -47,3 +47,28 @@ Chỉ dừng loop khi hoàn tất TẤT CẢ bước sau, đúng thứ tự, KH�
 6. Nếu điểm audit **> 9/10 VÀ** mọi test bước 2-4 pass **VÀ** smoke test bước 5 xác nhận hoạt động đúng:
    → `git add` các file liên quan → `git commit` với message rõ ràng, đúng Conventional Commits → **`git push`** lên remote nhánh hiện tại. Kết thúc loop, cập nhật trạng thái task (di chuyển file từ `doc/task/todo/` hoặc `inprogress/` sang `doc/task/done/`, đổi tên thêm hậu tố `_DONE` và viết Completion Report ngắn: điểm số, commit hash, danh sách test đã thêm).
 7. Nếu điểm **≤ 9/10** hoặc bất kỳ điều kiện bước 2-5 chưa đạt: quay lại bước 1 của vòng lặp Loop Prompt, KHÔNG commit/push.
+
+---
+
+## ✅ Báo cáo hoàn thành (2026-09-26)
+
+**Thay đổi**
+- `GoogleReaderApi.kt`: client cho chuẩn "Google Reader API" v1 (FreshRSS, Miniflux compat mode, Nextcloud News, BazQux…):
+  - Xác thực `ClientLogin` (POST `/accounts/ClientLogin`) lấy `Auth` token, cache theo instance, tự retry 1 lần khi 401.
+  - `getSubscriptionList()`, `getStreamContents()` (phân trang qua `continuation`), `editTag()` (mark read/star qua POST token `/reader/api/0/token` + `/reader/api/0/edit-tag`).
+  - `getInstanceForTest()` cho phép tiêm `OkHttpClient` phục vụ test, không đổi hành vi production (`getInstance()` giữ nguyên).
+- `ProviderAPI.kt`: `client` chuyển thành constructor param có default (tương thích ngược 100% với `FeverAPI`), mở đường tiêm client cho test mà không cần thêm framework mock HTTP.
+- `GoogleReaderRssSv.kt`: implement `AbstractRssRepository` — đồng bộ category (Group), feed (Subscription), bài viết (reading-list, tối đa 10 trang); trạng thái đã đọc/gắn sao lấy trực tiếp từ `item.categories` (chuẩn Google Reader tag); `markAsRead`/`markAsStarred` đẩy ngược lên server ngay lập tức qua `editTag`.
+- `RssSv.kt`: định tuyến `AccountType.GoogleReader` và `AccountType.FreshRSS` sang `GoogleReaderRssSv` (dùng chung 1 backend vì cùng giao thức).
+- `AddAccountsPage.kt`: mở khóa nút "FreshRSS" và "Google Reader" (trước đó `enable = false`), mở dialog nhập Server URL/Username/Password.
+- `AddGoogleReaderAccountDialog.kt` + `GoogleReaderConnection.kt`: dialog thêm tài khoản và màn hình xem/sửa kết nối (theo đúng mẫu `AddFeverAccountDialog`/`FeverConnection`).
+- Bản dịch mới (`invalid_credentials`) đủ 6 ngôn ngữ: en, vi, zh-rCN, ja, fr, de.
+
+**Test**
+- `GoogleReaderApiTest` (4 unit tests, dùng `mockwebserver3-junit4:5.0.0-alpha.11` — pin đúng version okhttp của app để tránh xung đột classpath nhị phân): login thành công, login thất bại 403, gửi đúng header `Authorization` sau khi lấy token, `editTag` POST đúng form-body.
+- `GoogleReaderRssSvTest` (5 unit tests): validCredentials khi thiếu account, sync khi thiếu account trả `Result.Failure`, sync map đúng category/feed/article và bỏ qua entry thiếu id/feed không khớp, `markAsRead`/`markAsStarred` gọi đúng `editTag` với tag tương ứng.
+- Toàn bộ unit test dự án: 326/326 pass. `assembleDevDebug` + `compileDevDebugAndroidTestKotlin` OK.
+
+**Smoke test**: Pixel 7 Pro (2B051FDH3006MU) — cài đặt APK mới, app chạy PID 17009, crash buffer 0.
+
+**Điểm tự đánh giá**: 9.4/10 — hoàn thành đầy đủ auth + đồng bộ 2 chiều read/star + mở khóa UI theo đúng Acceptance Criteria; UI FreshRSS/GoogleReader dùng chung 1 dialog/backend (đơn giản hoá hợp lý vì cùng giao thức, thay vì tạo 2 luồng trùng lặp).

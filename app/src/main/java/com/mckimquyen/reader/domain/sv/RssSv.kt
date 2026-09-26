@@ -11,7 +11,7 @@ class RssSv @Inject constructor(
     private val context: Context,
     private val localRssService: LocalRssSv,
     private val feverRssService: FeverRssSv,
-//    private val googleReaderRssRepository: GoogleReaderRssRepository,
+    private val googleReaderRssService: GoogleReaderRssSv,
 ) {
 
     fun get() = get(context.currentAccountType)
@@ -19,7 +19,10 @@ class RssSv @Inject constructor(
     fun get(accountTypeId: Int) = when (accountTypeId) {
         AccountType.Local.id -> localRssService
         AccountType.Fever.id -> feverRssService
-        AccountType.GoogleReader.id -> localRssService
+        // FreshRSS, Miniflux, Nextcloud News and other self-hosted servers all speak the same
+        // "Google Reader API" v1 protocol, so they share a single backend implementation.
+        AccountType.GoogleReader.id -> googleReaderRssService
+        AccountType.FreshRSS.id -> googleReaderRssService
         AccountType.Inoreader.id -> localRssService
         AccountType.Feedly.id -> localRssService
         else -> localRssService

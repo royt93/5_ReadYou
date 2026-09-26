@@ -679,4 +679,5 @@
     <string name="webdav_backup_success">Sauvegarde OPML téléversée avec succès !</string>
     <string name="webdav_restore_success">Flux et groupes restaurés avec succès depuis le cloud !</string>
     <string name="webdav_last_backup">Dernière sauvegarde : %1$s</string>
+    <string name="invalid_credentials">Identifiants invalides, veuillez vérifier l\'URL du serveur, le nom d\'utilisateur et le mot de passe</string>
 </resources>

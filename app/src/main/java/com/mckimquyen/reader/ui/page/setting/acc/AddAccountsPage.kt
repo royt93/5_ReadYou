@@ -29,6 +29,7 @@ import com.mckimquyen.reader.ui.component.base.BaseScaffold
 import com.mckimquyen.reader.ui.component.base.Subtitle
 import com.mckimquyen.reader.ui.page.setting.SettingItem
 import com.mckimquyen.reader.ui.page.setting.acc.addition.AddFeverAccountDialog
+import com.mckimquyen.reader.ui.page.setting.acc.addition.AddGoogleReaderAccountDialog
 import com.mckimquyen.reader.ui.page.setting.acc.addition.AddLocalAccountDialog
 import com.mckimquyen.reader.ui.page.setting.acc.addition.AdditionViewModel
 import com.mckimquyen.reader.ui.theme.palette.onLight
@@ -98,21 +99,19 @@ fun AddAccountsPage(
                         text = stringResource(R.string.self_hosted),
                     )
                     SettingItem(
-                        enable = false,
                         title = stringResource(R.string.fresh_rss),
                         desc = stringResource(R.string.fresh_rss_desc),
                         iconPainter = painterResource(id = R.drawable.ic_freshrss),
                         onClick = {
-
+                            additionViewModel.showAddGoogleReaderAccountDialog()
                         },
                     ) {}
                     SettingItem(
-                        enable = false,
                         title = stringResource(R.string.google_reader),
                         desc = stringResource(R.string.google_reader_desc),
                         icon = Icons.Rounded.RssFeed,
                         onClick = {
-
+                            additionViewModel.showAddGoogleReaderAccountDialog()
                         },
                     ) {}
                     SettingItem(
@@ -135,6 +134,7 @@ fun AddAccountsPage(
 
     AddLocalAccountDialog(navController)
     AddFeverAccountDialog(navController)
+    AddGoogleReaderAccountDialog(navController)
 }
 
 @Preview

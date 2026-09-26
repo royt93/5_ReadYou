@@ -57,6 +57,7 @@ object GoogleReaderApiDto {
         val id: String? = null,
         val updated: Long? = null,
         val items: List<Item>? = null,
+        val continuation: String? = null,
     )
 
     @Keep
@@ -88,5 +89,17 @@ object GoogleReaderApiDto {
     data class OriginItem(
         val streamId: String? = null,
         val title: String? = null,
+    )
+
+    // stream/items/ids?output=json
+    @Keep
+    data class ItemRefs(
+        val itemRefs: List<ItemRef>? = null,
+        val continuation: String? = null,
+    )
+
+    @Keep
+    data class ItemRef(
+        val id: String? = null,
     )
 }

@@ -646,4 +646,5 @@
     <string name="webdav_backup_success">Đã sao lưu OPML lên đám mây thành công!</string>
     <string name="webdav_restore_success">Đã khôi phục nguồn và nhóm tin thành công từ đám mây!</string>
     <string name="webdav_last_backup">Sao lưu lần cuối: %1$s</string>
+    <string name="invalid_credentials">Thông tin đăng nhập không hợp lệ, vui lòng kiểm tra lại địa chỉ máy chủ, tên đăng nhập và mật khẩu</string>
 </resources>

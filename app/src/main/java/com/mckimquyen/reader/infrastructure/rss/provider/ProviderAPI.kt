@@ -6,12 +6,14 @@ import com.mckimquyen.reader.infrastructure.di.UserAgentInterceptor
 import com.mckimquyen.reader.infrastructure.di.cachingHttpClient
 import okhttp3.OkHttpClient
 
-abstract class ProviderAPI {
-
+abstract class ProviderAPI(
+    // ponytail: overridable only so tests can inject a client pointed at a local stub server;
+    // production code always uses the default.
     protected val client: OkHttpClient = cachingHttpClient()
         .newBuilder()
         .addNetworkInterceptor(UserAgentInterceptor)
         .build()
+) {
 
     protected val gson: Gson = GsonBuilder().create()
 
