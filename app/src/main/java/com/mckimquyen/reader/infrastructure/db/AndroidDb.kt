@@ -19,6 +19,7 @@ import com.mckimquyen.reader.domain.model.account.SyncOnlyWhenChargingConverters
 import com.mckimquyen.reader.domain.model.account.sec.DESUtils
 import com.mckimquyen.reader.domain.model.addedsource.AddedRssSource
 import com.mckimquyen.reader.domain.model.article.Article
+import com.mckimquyen.reader.domain.model.article.ArticleEmbeddingRecord
 import com.mckimquyen.reader.domain.model.article.ArticleFts
 import com.mckimquyen.reader.domain.model.feed.Feed
 import com.mckimquyen.reader.domain.model.feed.FeedErrorTypeConverters
@@ -29,6 +30,7 @@ import com.mckimquyen.reader.domain.repository.ArticleHighlightDao
 import com.mckimquyen.reader.domain.repository.AccountDao
 import com.mckimquyen.reader.domain.repository.AddedRssSourceDao
 import com.mckimquyen.reader.domain.repository.ArticleDao
+import com.mckimquyen.reader.domain.repository.ArticleEmbeddingDao
 import com.mckimquyen.reader.domain.repository.FeedDao
 import com.mckimquyen.reader.domain.repository.FeedHealthDao
 import com.mckimquyen.reader.domain.repository.GroupDao
@@ -50,8 +52,9 @@ import java.util.Date
         ArticleHighlightNote::class,
         ArticleFts::class,
         FeedHealthRecord::class,
+        ArticleEmbeddingRecord::class,
     ],
-    version = 10
+    version = 11
 )
 @TypeConverters(
     AndroidDatabase.DateConverters::class,
@@ -73,6 +76,7 @@ abstract class AndroidDatabase : RoomDatabase() {
     abstract fun addedRssSourceDao(): AddedRssSourceDao
     abstract fun articleHighlightDao(): ArticleHighlightDao
     abstract fun feedHealthDao(): FeedHealthDao
+    abstract fun articleEmbeddingDao(): ArticleEmbeddingDao
 
     companion object {
 
@@ -115,6 +119,7 @@ val allMigrations = arrayOf(
     MIGRATION_7_8,
     MIGRATION_8_9,
     MIGRATION_9_10,
+    MIGRATION_10_11,
 )
 
 @Suppress("ClassName")
@@ -312,6 +317,25 @@ object MIGRATION_9_10 : Migration(9, 10) {
             )
             """.trimIndent()
         )
+    }
+}
+
+@Suppress("ClassName")
+object MIGRATION_10_11 : Migration(10, 11) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL(
+            """
+            CREATE TABLE IF NOT EXISTS `article_embedding` (
+                `articleId` TEXT NOT NULL,
+                `contentHash` TEXT NOT NULL,
+                `embedding` TEXT NOT NULL,
+                `updatedAt` INTEGER NOT NULL,
+                PRIMARY KEY(`articleId`),
+                FOREIGN KEY(`articleId`) REFERENCES `article`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
+            )
+            """.trimIndent()
+        )
+        // No extra index: articleId is the primary key, so SQLite already indexes it.
     }
 }
 

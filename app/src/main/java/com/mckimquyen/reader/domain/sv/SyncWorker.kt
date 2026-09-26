@@ -13,6 +13,7 @@ import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.WorkerParameters
 import androidx.work.workDataOf
+import com.mckimquyen.reader.infrastructure.ai.search.SemanticEmbeddingIndexer
 import com.mckimquyen.reader.infrastructure.pref.SyncIntervalPref
 import com.mckimquyen.reader.infrastructure.pref.SyncOnlyOnWiFiPref
 import com.mckimquyen.reader.infrastructure.pref.SyncOnlyWhenChargingPref
@@ -31,6 +32,7 @@ class SyncWorker @AssistedInject constructor(
     private val accountService: AccountSv,
     private val rssService: RssSv,
     private val offlinePrecacheService: com.mckimquyen.reader.infrastructure.rss.OfflinePrecacheService,
+    private val semanticEmbeddingIndexer: SemanticEmbeddingIndexer,
 ) : CoroutineWorker(context, workerParams) {
 
     override suspend fun doWork(): Result =
@@ -40,10 +42,14 @@ class SyncWorker @AssistedInject constructor(
                 rssService.get().clearKeepArchivedArticles()
             }
             if (syncResult is Result.Success) {
+                val accountId = context.currentAccountId
                 runCatching {
-                    val accountId = context.currentAccountId
                     offlinePrecacheService.precacheLatestUnread(accountId)
                 }
+                // Build the semantic index here so search never pays for embedding on keystroke.
+                runCatching {
+                    semanticEmbeddingIndexer.indexRecent(accountId)
+                }.onFailure { Log.w("RLog", "Semantic embedding indexing failed", it) }
             }
             syncResult
         }

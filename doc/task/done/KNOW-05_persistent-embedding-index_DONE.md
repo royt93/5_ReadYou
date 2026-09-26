@@ -42,6 +42,34 @@ Mỗi vòng lặp:
 4. Build kiểm tra: `./gradlew assembleDevDebug`.
 5. Lặp lại tới khi Acceptance Criteria thỏa mãn 100%.
 
+## ✅ Completion Report (2026-09-27)
+
+**Điểm audit: 10/10** — Acceptance Criteria đạt 100%, mọi finding từ vòng review đã được xử lý.
+
+### Thiết kế
+- `ArticleEmbeddingRecord` (Room entity `article_embedding`): `articleId` PK, `contentHash` (SHA-256 **kèm `EMBEDDING_VERSION`** để tự vô hiệu cache khi thuật toán embedding đổi), `embedding` (64 float CSV), `updatedAt`. FK `article(id)` `ON DELETE/UPDATE CASCADE` → xoá bài tự xoá vector, không còn orphan.
+- `ArticleEmbeddingDao`: chỉ 4 method có caller thật (`insertOrUpdateAll`, `getByArticleIds`, `getByArticleId`, `count`).
+- Room `version = 11` + `MIGRATION_10_11`; **không tạo index phụ** (PK đã được SQLite index) — khớp chính xác `app/schemas/.../11.json`.
+- `SemanticSearchEngine.resolveEmbeddings()`: đúng **1 bulk read + 1 hash pass + tối đa 1 write** cho mỗi lần gọi, trả luôn map `articleId → vector` để `rank()` không truy vấn lại lần hai. `distinctBy` chống trùng id. `Mutex` bao cả đọc-tính-ghi nên nhiều coroutine không tính trùng. Vector hỏng/sai chiều → `toFloatArray()` trả null và được tính lại. Write bọc `runCatching` để bài bị xoá giữa lúc đọc-ghi không làm crash lúc đang gõ.
+- `SemanticEmbeddingIndexer` được gọi trong `SyncWorker.doWork()` sau khi sync thành công → index dựng **ngay sau sync**, không dồn vào keystroke đầu tiên.
+
+### Bằng chứng hiệu năng (Pixel 7 Pro `2B051FDH3006MU`, Room file thật, n=200)
+```
+KNOW-05 benchmark n=200 coldMs=316 warmSamplesMs=[179, 148, 149, 126, 151, 137, 146] warmMedianMs=148
+```
+Cold 316ms → warm median **148ms** (~2.1x), mọi keystroke ≤179ms. Warm search ghi **0** row.
+
+### Tests
+- Unit: `SemanticSearchEngineTest` (28), `SemanticEmbeddingIndexerTest` (5), `Migration10to11Test` (5). Full suite: **413 pass / 0 fail**.
+- Integration + widget trên device: `SemanticSearchIntegrationTest` (8), `SemanticSearchBenchmarkTest` (3), `SemanticSearchCardWidgetTest` (3). Full androidTest: **85 pass / 0 fail**.
+- Phủ: cache hit/miss/stale/corrupt/sai chiều, dedup id trùng, đồng thời 4 coroutine, cascade delete, hash boundary + truncation, empty/blank/limit=0, bulk-read (không N+1), warm search không ghi lại.
+
+### Smoke test nâng cấp DB (quan trọng)
+Smoke test **bắt được lỗi thật** mà unit test không thấy: migration tạo `CREATE UNIQUE INDEX` trong khi entity khai báo index non-unique → `IllegalStateException: Migration didn't properly handle: article_embedding` crash mọi máy nâng cấp từ v10 (fresh install không lộ).
+Cách xác minh: cài bản trước thay đổi → mở app (tạo DB v10) → cài bản mới đè lên.
+Sau khi sửa (bỏ index phụ): `MainActivity` resumed, process sống, logcat sạch (không `Migration didn't properly handle`, không `FATAL`, không `SQLiteConstraint`). Dump DB từ máy xác nhận `user_version=11`, bảng `article_embedding` đúng 4 cột, index duy nhất là `sqlite_autoindex_article_embedding_1` (PK).
+Đã thêm test `Migration10to11Test.migration10to11_declaresNoExtraIndexAndKeepsForeignKeyOnArticle` để chặn tái diễn.
+
 ## 🏁 Tín hiệu kết thúc loop (End-Loop Signal)
 Chỉ dừng loop khi hoàn tất TẤT CẢ bước sau, đúng thứ tự, KHÔNG bỏ bước:
 1. **Audit code changes**: tự review lại toàn bộ `git diff` so với Acceptance Criteria + Definition of Done trong doc/task/README.md. Chấm điểm khách quan trên thang **10** — không tự thổi điểm, nếu có test giả/mock rỗng/logic chưa đúng thì điểm phải phản ánh đúng thực tế.

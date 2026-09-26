@@ -120,8 +120,8 @@ class HomeViewModelSearchRaceTest {
             delay(500)
             emptyList()
         }
-        every { semanticSearchEngine.rank("a", any(), any(), any()) } returns result("a", "art_a")
-        every { semanticSearchEngine.rank("ab", any(), any(), any()) } returns result("ab", "art_ab")
+        coEvery { semanticSearchEngine.rank("a", any(), any(), any()) } returns result("a", "art_a")
+        coEvery { semanticSearchEngine.rank("ab", any(), any(), any()) } returns result("ab", "art_ab")
 
         val viewModel = buildViewModel()
 
@@ -133,8 +133,8 @@ class HomeViewModelSearchRaceTest {
         advanceUntilIdle()
 
         // The stale "a" query must never have reached rank(): it was cancelled mid-flight.
-        verify(exactly = 0) { semanticSearchEngine.rank("a", any(), any(), any()) }
-        verify(exactly = 1) { semanticSearchEngine.rank("ab", any(), any(), any()) }
+        coVerify(exactly = 0) { semanticSearchEngine.rank("a", any(), any(), any()) }
+        coVerify(exactly = 1) { semanticSearchEngine.rank("ab", any(), any(), any()) }
 
         val finalResults = viewModel.semanticSearchResults.value
         assertEquals(1, finalResults.size)
@@ -144,7 +144,7 @@ class HomeViewModelSearchRaceTest {
     @Test
     fun inputSearchContent_rapidTyping_debouncesToASingleQuery() = runTest(testDispatcher) {
         coEvery { articleDao.queryRecentArticlesWithFeed(any(), 200) } returns emptyList()
-        every { semanticSearchEngine.rank(any(), any(), any(), any()) } answers {
+        coEvery { semanticSearchEngine.rank(any(), any(), any(), any()) } answers {
             result(firstArg(), "art_final")
         }
 
@@ -160,7 +160,7 @@ class HomeViewModelSearchRaceTest {
 
         // Only the last keystroke should ever have triggered a real DB query / rank() call.
         coVerify(exactly = 1) { articleDao.queryRecentArticlesWithFeed(any(), 200) }
-        verify(exactly = 1) { semanticSearchEngine.rank("abc", any(), any(), any()) }
+        coVerify(exactly = 1) { semanticSearchEngine.rank("abc", any(), any(), any()) }
         assertEquals("art_final", viewModel.semanticSearchResults.value.first().articleWithFeed.article.id)
     }
 

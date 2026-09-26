@@ -1,6 +1,10 @@
 package com.mckimquyen.reader.infrastructure.ai.search
 
+import com.mckimquyen.reader.domain.model.article.ArticleEmbeddingRecord
 import com.mckimquyen.reader.domain.model.article.ArticleWithFeed
+import com.mckimquyen.reader.domain.repository.ArticleEmbeddingDao
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import java.util.Locale
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -8,23 +12,16 @@ import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.sqrt
 
-/**
- * Công cụ tìm kiếm ngữ nghĩa On-Device (Semantic Vector Search Engine).
- * Chiếu câu truy vấn và bài viết vào không gian vector 64 chiều dựa trên bản đồ khái niệm (Concept Ontology)
- * kết hợp băm n-gram đa ngữ (Subword Character N-Grams) và chuẩn hóa Cosine Similarity.
- *
- * Cho phép người dùng tìm kiếm theo ý niệm tự nhiên (vd: "công nghệ xanh", "chipset", "khủng hoảng giá cả")
- * ngay cả khi bài báo không chứa chính xác từ khóa đó.
- * Hoạt động 100% offline, bảo mật tuyệt đối, phản hồi < 50ms.
- */
+/** Offline 64-dimensional semantic search with a persistent per-article embedding index. */
 @Singleton
-class SemanticSearchEngine @Inject constructor() {
+class SemanticSearchEngine @Inject constructor(
+    private val articleEmbeddingDao: ArticleEmbeddingDao,
+) {
 
     companion object {
         const val EMBEDDING_DIM = 64
         const val DEFAULT_MIN_SCORE_THRESHOLD = 0.22f
 
-        // Bản đồ khái niệm đa ngôn ngữ (Tiếng Việt & English)
         private val CONCEPT_CLUSTERS: Map<String, Set<String>> = mapOf(
             "CLEAN_ENERGY" to setOf(
                 "năng lượng sạch", "năng lượng tái tạo", "pin mặt trời", "quang điện", "tuabin gió",
@@ -83,152 +80,175 @@ class SemanticSearchEngine @Inject constructor() {
         )
     }
 
+    /** Serializes cache inspection, embedding computation and write to avoid duplicate work. */
+    private val cacheLock = Mutex()
+
+    suspend fun cacheEmbeddings(articles: List<ArticleWithFeed>): CacheUpdateStats =
+        resolveEmbeddings(articles).stats
+
     /**
-     * Xếp hạng danh sách bài viết theo mức độ liên quan ngữ nghĩa với câu truy vấn.
+     * Returns every article's vector plus cache statistics, doing exactly one bulk read, one hash
+     * pass and at most one write. [rank] reuses the returned vectors instead of re-querying.
      */
-    fun rank(
+    private suspend fun resolveEmbeddings(articles: List<ArticleWithFeed>): ResolvedEmbeddings {
+        if (articles.isEmpty()) return ResolvedEmbeddings(emptyMap(), CacheUpdateStats.EMPTY)
+        // Deduplicate first: a repeated id would otherwise be embedded twice and overcount `written`,
+        // since REPLACE collapses same-PK rows into one.
+        val distinctArticles = articles.distinctBy { it.article.id }
+        return cacheLock.withLock {
+            val cachedById = articleEmbeddingDao.getByArticleIds(distinctArticles.map { it.article.id })
+                .associateBy { it.articleId }
+            val vectors = HashMap<String, FloatArray>(distinctArticles.size)
+            val records = mutableListOf<ArticleEmbeddingRecord>()
+            var hits = 0
+            var staleOrCorrupt = 0
+            distinctArticles.forEach { articleWithFeed ->
+                val article = articleWithFeed.article
+                val hash = ArticleEmbeddingRecord.computeContentHash(article.title, article.shortDescription)
+                val cached = cachedById[article.id]
+                val validVector = cached?.takeIf { it.contentHash == hash }?.toFloatArray(EMBEDDING_DIM)
+                if (validVector != null) {
+                    hits++
+                    vectors[article.id] = validVector
+                } else {
+                    if (cached != null) staleOrCorrupt++
+                    val vector = embed(
+                        ArticleEmbeddingRecord.documentText(article.title, article.shortDescription)
+                    )
+                    vectors[article.id] = vector
+                    records += ArticleEmbeddingRecord.fromFloatArray(article.id, hash, vector)
+                }
+            }
+            // An article deleted between the candidate read and this write would break the
+            // foreign key; the in-memory vectors stay valid, so ranking must not crash.
+            val persisted = records.isEmpty() || runCatching {
+                articleEmbeddingDao.insertOrUpdateAll(records)
+            }.isSuccess
+            ResolvedEmbeddings(
+                vectors = vectors,
+                stats = CacheUpdateStats(
+                    requested = distinctArticles.size,
+                    hits = hits,
+                    written = if (persisted) records.size else 0,
+                    staleOrCorrupt = staleOrCorrupt,
+                ),
+            )
+        }
+    }
+
+    suspend fun rank(
         query: String,
         articles: List<ArticleWithFeed>,
         minScoreThreshold: Float = DEFAULT_MIN_SCORE_THRESHOLD,
         limit: Int = 50,
     ): List<SemanticSearchResult> {
         val cleanQuery = query.trim()
-        if (cleanQuery.isBlank() || articles.isEmpty()) {
-            return emptyList()
-        }
+        if (cleanQuery.isBlank() || articles.isEmpty() || limit <= 0) return emptyList()
 
         val queryVector = embed(cleanQuery)
         val queryConcepts = detectConcepts(cleanQuery)
         val queryTokens = tokenize(cleanQuery)
+        // One pass builds/loads every vector; no second query and no second hash pass per keystroke.
+        val vectorsByArticleId = resolveEmbeddings(articles).vectors
 
-        val results = mutableListOf<SemanticSearchResult>()
-
-        for (art in articles) {
-            val docText = "${art.article.title} ${art.article.shortDescription.take(300)}"
-            val docVector = embed(docText)
+        return articles.mapNotNull { articleWithFeed ->
+            val article = articleWithFeed.article
+            val docText = ArticleEmbeddingRecord.documentText(article.title, article.shortDescription)
+            val docVector = vectorsByArticleId[article.id] ?: embed(docText)
             val docConcepts = detectConcepts(docText)
             val docTokens = tokenize(docText)
-
-            // 1. Tính khoảng cách Cosine giữa Vector truy vấn và Vector bài viết
-            val cosineSim = cosineSimilarity(queryVector, docVector)
-
-            // 2. Điểm trùng khớp khái niệm chủ đề
             val commonConcepts = queryConcepts.intersect(docConcepts)
             val conceptBonus = if (queryConcepts.isNotEmpty() && docConcepts.isNotEmpty()) {
                 commonConcepts.size.toFloat() / max(1, queryConcepts.size)
             } else {
                 0f
             }
-
-            // 3. Điểm giao thoa từ khóa (Token Overlap)
             val tokenOverlap = if (queryTokens.isNotEmpty() && docTokens.isNotEmpty()) {
-                val commonTokens = queryTokens.intersect(docTokens)
-                commonTokens.size.toFloat() / queryTokens.size.toFloat()
+                queryTokens.intersect(docTokens).size.toFloat() / queryTokens.size
             } else {
                 0f
             }
-
-            // Điểm kết hợp Hybrid (Vector Embeddings + Concept Affinity + Keyword Overlap)
-            val hybridScore = (cosineSim * 0.45f) + (conceptBonus * 0.35f) + (tokenOverlap * 0.20f)
-            val finalScore = min(1.0f, hybridScore)
-
-            if (finalScore >= minScoreThreshold) {
-                results.add(
-                    SemanticSearchResult(
-                        articleWithFeed = art,
-                        score = finalScore,
-                        matchedConcepts = commonConcepts.toList(),
-                    )
-                )
-            }
-        }
-
-        return results.sortedByDescending { it.score }.take(limit)
+            val score = min(
+                1f,
+                (cosineSimilarity(queryVector, docVector) * 0.45f) +
+                    (conceptBonus * 0.35f) +
+                    (tokenOverlap * 0.20f),
+            )
+            if (score < minScoreThreshold) null else SemanticSearchResult(
+                articleWithFeed = articleWithFeed,
+                score = score,
+                matchedConcepts = commonConcepts.toList(),
+            )
+        }.sortedByDescending { it.score }.take(limit)
     }
 
-    /**
-     * Biến đổi văn bản thành vector embedding 64 chiều cố định được chuẩn hóa L2.
-     */
     fun embed(text: String): FloatArray {
-        val vector = FloatArray(EMBEDDING_DIM) { 0f }
+        val vector = FloatArray(EMBEDDING_DIM)
         val lower = text.lowercase(Locale.ROOT)
-
-        // 1. Chiếu các cụm khái niệm ngữ nghĩa vào các chiều chuyên biệt (0..29)
-        var clusterIdx = 0
-        for ((_, keywords) in CONCEPT_CLUSTERS) {
-            val baseDim = (clusterIdx * 3) % 30
-            for (kw in keywords) {
-                if (lower.contains(kw)) {
-                    vector[baseDim] += 1.2f
-                    vector[baseDim + 1] += 0.8f
-                    vector[baseDim + 2] += 0.5f
+        CONCEPT_CLUSTERS.values.forEachIndexed { clusterIndex, keywords ->
+            val baseDimension = (clusterIndex * 3) % 30
+            keywords.forEach { keyword ->
+                if (lower.contains(keyword)) {
+                    vector[baseDimension] += 1.2f
+                    vector[baseDimension + 1] += 0.8f
+                    vector[baseDimension + 2] += 0.5f
                 }
             }
-            clusterIdx++
         }
-
-        // 2. Chiếu sub-word character 3-grams và 4-grams vào các chiều còn lại (30..63)
-        val tokens = tokenize(lower)
-        for (token in tokens) {
+        tokenize(lower).forEach { token ->
             if (token.length >= 3) {
-                for (i in 0..token.length - 3) {
-                    val triGram = token.substring(i, i + 3)
-                    val dim = 30 + (triGram.hashCode().let { if (it < 0) -it else it } % 34)
-                    vector[dim] += 0.4f
+                for (index in 0..token.length - 3) {
+                    val hash = token.substring(index, index + 3).hashCode()
+                    val positiveHash = hash.toLong().and(0x7fffffffL).toInt()
+                    vector[30 + (positiveHash % 34)] += 0.4f
                 }
             }
         }
-
-        // 3. Chuẩn hóa L2 (L2-normalization) để cosine similarity = tích vô hướng
         return l2Normalize(vector)
     }
 
-    /**
-     * Tính Cosine Similarity giữa 2 vector chuẩn hóa L2 (giá trị trong khoảng [0..1]).
-     */
-    fun cosineSimilarity(v1: FloatArray, v2: FloatArray): Float {
+    fun cosineSimilarity(first: FloatArray, second: FloatArray): Float {
         var dotProduct = 0f
-        for (i in 0 until min(v1.size, v2.size)) {
-            dotProduct += v1[i] * v2[i]
+        for (index in 0 until min(first.size, second.size)) {
+            dotProduct += first[index] * second[index]
         }
-        return max(0f, min(1.0f, dotProduct))
+        return max(0f, min(1f, dotProduct))
     }
 
-    /**
-     * Nhận diện các khái niệm ngữ nghĩa xuất hiện trong văn bản.
-     */
     fun detectConcepts(text: String): Set<String> {
         val lower = text.lowercase(Locale.ROOT)
-        val matched = mutableSetOf<String>()
-        for ((concept, keywords) in CONCEPT_CLUSTERS) {
-            if (keywords.any { lower.contains(it) }) {
-                matched.add(concept)
-            }
+        return CONCEPT_CLUSTERS.mapNotNullTo(mutableSetOf()) { (concept, keywords) ->
+            concept.takeIf { keywords.any(lower::contains) }
         }
-        return matched
     }
 
-    private fun tokenize(text: String): Set<String> {
-        val clean = text.lowercase(Locale.ROOT)
-            .replace(Regex("[^\\p{L}\\p{Nd}\\s]"), " ")
-        return clean.split(Regex("\\s+"))
-            .filter { it.length >= 2 && !STOP_WORDS.contains(it) }
-            .toSet()
-    }
+    fun tokenize(text: String): Set<String> = text.lowercase(Locale.ROOT)
+        .replace(Regex("[^\\p{L}\\p{Nd}\\s]"), " ")
+        .split(Regex("\\s+"))
+        .filter { it.length >= 2 && it !in STOP_WORDS }
+        .toSet()
 
     private fun l2Normalize(vector: FloatArray): FloatArray {
         var sumSquares = 0f
-        for (v in vector) {
-            sumSquares += v * v
-        }
+        vector.forEach { sumSquares += it * it }
         val norm = sqrt(sumSquares)
-        if (norm <= 1e-6f) {
-            return vector
-        }
-        val normalized = FloatArray(vector.size)
-        for (i in vector.indices) {
-            normalized[i] = vector[i] / norm
-        }
-        return normalized
+        if (norm <= 1e-6f) return vector
+        return FloatArray(vector.size) { index -> vector[index] / norm }
+    }
+}
+
+private data class ResolvedEmbeddings(
+    val vectors: Map<String, FloatArray>,
+    val stats: CacheUpdateStats,
+)
+
+data class CacheUpdateStats(
+    val requested: Int,
+    val hits: Int,
+    val written: Int,
+    val staleOrCorrupt: Int,
+) {
+    companion object {
+        val EMPTY = CacheUpdateStats(requested = 0, hits = 0, written = 0, staleOrCorrupt = 0)
     }
 }
