@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import java.util.Calendar
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -67,11 +68,9 @@ class ZenDailyEditionManager @Inject constructor(
         prefs.edit().putBoolean(KEY_ENABLED, enabled).apply()
         _isEnabled.value = enabled
         if (enabled) {
-            val wm = WorkManager.getInstance(context)
-            DailyEditionWorker.enqueueDailyWork(wm)
+            reschedule()
         } else {
-            val wm = WorkManager.getInstance(context)
-            DailyEditionWorker.cancelDailyWork(wm)
+            DailyEditionWorker.cancelDailyWork(WorkManager.getInstance(context))
         }
     }
 
@@ -81,21 +80,96 @@ class ZenDailyEditionManager @Inject constructor(
         _isBatchSilence.value = silence
     }
 
+    /**
+     * Đặt giờ bản tin buổi sáng. Lưu bền vững, cập nhật [morningTime], và lên lại lịch chạy
+     * (nếu tính năng đang bật) để lần chạy kế tiếp rơi đúng mốc giờ mới.
+     * Trả về false nếu [time] không đúng định dạng "HH:mm".
+     */
+    fun setMorningTime(time: String): Boolean {
+        if (!isValidTime(time)) return false
+        ensureLoaded()
+        prefs.edit().putString(KEY_MORNING_TIME, time).apply()
+        _morningTime.value = time
+        if (_isEnabled.value) reschedule()
+        return true
+    }
+
+    /**
+     * Đặt giờ bản tin buổi tối. Xem [setMorningTime].
+     */
+    fun setEveningTime(time: String): Boolean {
+        if (!isValidTime(time)) return false
+        ensureLoaded()
+        prefs.edit().putString(KEY_EVENING_TIME, time).apply()
+        _eveningTime.value = time
+        if (_isEnabled.value) reschedule()
+        return true
+    }
+
+    /** Lên lại lịch chạy theo giờ hiện tại (morning/evening). */
+    fun reschedule() {
+        ensureLoaded()
+        DailyEditionWorker.scheduleNext(
+            workManager = WorkManager.getInstance(context),
+            morningTime = _morningTime.value,
+            eveningTime = _eveningTime.value,
+        )
+    }
+
     fun shouldSilenceImmediateNotification(): Boolean {
         ensureLoaded()
         return _isEnabled.value && _isBatchSilence.value
     }
 
     companion object {
-        private const val PREF_NAME = "zen_daily_edition_prefs"
-        private const val KEY_ENABLED = "key_daily_edition_enabled"
-        private const val KEY_BATCH_SILENCE = "key_daily_edition_batch_silence"
-        private const val KEY_MORNING_TIME = "key_morning_time"
-        private const val KEY_EVENING_TIME = "key_evening_time"
+        const val PREF_NAME = "zen_daily_edition_prefs"
+        const val KEY_ENABLED = "key_daily_edition_enabled"
+        const val KEY_BATCH_SILENCE = "key_daily_edition_batch_silence"
+        const val KEY_MORNING_TIME = "key_morning_time"
+        const val KEY_EVENING_TIME = "key_evening_time"
+
+        const val DEFAULT_MORNING_TIME = "07:00"
+        const val DEFAULT_EVENING_TIME = "20:00"
 
         private const val DEFAULT_ENABLED = false
         private const val DEFAULT_BATCH_SILENCE = true
-        private const val DEFAULT_MORNING_TIME = "07:00"
-        private const val DEFAULT_EVENING_TIME = "20:00"
+
+        private val TIME_PATTERN = Regex("^([01]\\d|2[0-3]):([0-5]\\d)$")
+        private const val TIME_PARTS = 2
+
+        /** "HH:mm" hợp lệ trong khoảng 00:00–23:59. */
+        fun isValidTime(time: String): Boolean = TIME_PATTERN.matches(time.trim())
+
+        /**
+         * Số mili-giây từ [nowMillis] tới mốc giờ gần nhất tiếp theo trong [times] ("HH:mm").
+         * Bỏ qua mốc không hợp lệ. Nếu mọi mốc đã qua trong ngày hôm nay → nhảy sang ngày kế tiếp.
+         * Trả về null khi [times] không có mốc hợp lệ nào.
+         */
+        fun millisUntilNextOccurrence(times: List<String>, nowMillis: Long): Long? {
+            val valid = times.filter { isValidTime(it) }
+            if (valid.isEmpty()) return null
+
+            var best: Long? = null
+            for (time in valid) {
+                val parts = time.trim().split(":")
+                if (parts.size != TIME_PARTS) continue
+                val hour = parts[0].toIntOrNull() ?: continue
+                val minute = parts[1].toIntOrNull() ?: continue
+
+                val calendar = Calendar.getInstance().apply {
+                    timeInMillis = nowMillis
+                    set(Calendar.HOUR_OF_DAY, hour)
+                    set(Calendar.MINUTE, minute)
+                    set(Calendar.SECOND, 0)
+                    set(Calendar.MILLISECOND, 0)
+                }
+                if (calendar.timeInMillis <= nowMillis) {
+                    calendar.add(Calendar.DAY_OF_YEAR, 1)
+                }
+                val delay = calendar.timeInMillis - nowMillis
+                if (best == null || delay < best!!) best = delay
+            }
+            return best
+        }
     }
 }

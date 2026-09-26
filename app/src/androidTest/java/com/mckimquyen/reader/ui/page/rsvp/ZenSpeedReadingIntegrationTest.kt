@@ -4,6 +4,7 @@ import android.app.NotificationManager
 import android.content.Context
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
+import com.mckimquyen.reader.domain.sv.DailyEditionWorker
 import com.mckimquyen.reader.domain.zen.ZenDailyEditionManager
 import com.mckimquyen.reader.infrastructure.android.NotificationHelper
 import com.mckimquyen.reader.infrastructure.audio.ambient.ZenAudioManager
@@ -64,6 +65,11 @@ class ZenSpeedReadingIntegrationTest {
     @Test
     fun zenDailyEditionManager_persistsStateOnDevice() {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
+        val prefs = context.getSharedPreferences(
+            ZenDailyEditionManager.PREF_NAME,
+            Context.MODE_PRIVATE,
+        )
+        prefs.edit().clear().commit()
         val manager = ZenDailyEditionManager(context, CoroutineScope(Dispatchers.Unconfined), Dispatchers.Unconfined)
 
         manager.setEnabled(true)
@@ -72,6 +78,47 @@ class ZenSpeedReadingIntegrationTest {
         manager.setBatchSilence(true)
         assertTrue(manager.isBatchSilence.value)
         assertTrue(manager.shouldSilenceImmediateNotification())
+
+        manager.setEnabled(false)
+    }
+
+    @Test
+    fun zenDailyEditionManager_setTimesPersistAndSchedule() {
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        val prefs = context.getSharedPreferences(
+            ZenDailyEditionManager.PREF_NAME,
+            Context.MODE_PRIVATE,
+        )
+        prefs.edit().clear().commit()
+        val manager = ZenDailyEditionManager(context, CoroutineScope(Dispatchers.Unconfined), Dispatchers.Unconfined)
+
+        // Enable + set times -> triggers a real WorkManager schedule on device.
+        manager.setEnabled(true)
+        assertTrue("morning format", manager.setMorningTime("06:30"))
+        assertTrue("evening format", manager.setEveningTime("21:00"))
+
+        assertEquals("06:30", manager.morningTime.value)
+        assertEquals("21:00", manager.eveningTime.value)
+        assertEquals("06:30", prefs.getString(ZenDailyEditionManager.KEY_MORNING_TIME, "07:00"))
+        assertEquals("21:00", prefs.getString(ZenDailyEditionManager.KEY_EVENING_TIME, "20:00"))
+
+        // Each slot is anchored independently to its own configured hour (no fixed 12h cycle).
+        val now = System.currentTimeMillis()
+        val morningDelay = ZenDailyEditionManager.millisUntilNextOccurrence(listOf("06:30"), now)
+        val eveningDelay = ZenDailyEditionManager.millisUntilNextOccurrence(listOf("21:00"), now)
+
+        assertNotNull("Expected a morning delay", morningDelay)
+        assertNotNull("Expected an evening delay", eveningDelay)
+        assertTrue("Morning delay within 24h", morningDelay!! in 1..(24L * 60 * 60 * 1000))
+        assertTrue("Evening delay within 24h", eveningDelay!! in 1..(24L * 60 * 60 * 1000))
+        // Two distinct configured hours must never collapse onto the same instant.
+        assertTrue("Slots must be anchored separately", morningDelay != eveningDelay)
+
+        // Morning and evening run as two separate unique works so both fire each day.
+        assertTrue(
+            "Work names must differ",
+            DailyEditionWorker.WORK_NAME_MORNING != DailyEditionWorker.WORK_NAME_EVENING,
+        )
 
         manager.setEnabled(false)
     }

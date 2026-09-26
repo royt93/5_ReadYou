@@ -1,6 +1,8 @@
 package com.mckimquyen.reader.ui.page.setting.zen
 
 import android.app.Activity
+import android.app.TimePickerDialog
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -34,6 +36,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -149,23 +152,25 @@ fun ZenSettingsPage(
 
                             if (isDailyEnabled) {
                                 Spacer(modifier = Modifier.height(12.dp))
-                                Row(
-                                    modifier = Modifier.fillMaxWidth(),
-                                    verticalAlignment = Alignment.CenterVertically
-                                ) {
-                                    Icon(
-                                        imageVector = Icons.Outlined.MarkEmailRead,
-                                        contentDescription = null,
-                                        tint = MaterialTheme.colorScheme.secondary,
-                                        modifier = Modifier.size(20.dp)
-                                    )
-                                    Spacer(modifier = Modifier.width(12.dp))
-                                    Text(
-                                        text = "${stringResource(R.string.zen_morning_edition)}  •  ${stringResource(R.string.zen_evening_edition)}",
-                                        style = MaterialTheme.typography.labelMedium,
-                                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                                    )
-                                }
+                                EditionTimeRow(
+                                    label = stringResource(R.string.zen_morning_edition_time),
+                                    time = morningTime,
+                                    testTag = "zen_morning_time_row",
+                                    onPick = { hour, minute ->
+                                        zenDailyEditionManager.setMorningTime(formatTime(hour, minute))
+                                    },
+                                    activity = activity,
+                                )
+                                Spacer(modifier = Modifier.height(8.dp))
+                                EditionTimeRow(
+                                    label = stringResource(R.string.zen_evening_edition_time),
+                                    time = eveningTime,
+                                    testTag = "zen_evening_time_row",
+                                    onPick = { hour, minute ->
+                                        zenDailyEditionManager.setEveningTime(formatTime(hour, minute))
+                                    },
+                                    activity = activity,
+                                )
                             }
                         }
                     }
@@ -274,4 +279,65 @@ fun ZenSettingsPage(
             }
         }
     )
+}
+
+private const val TIME_PARTS = 2
+private const val DEFAULT_PICKER_HOUR = 7
+
+/** Một dòng chọn giờ phát hành: tap để mở [TimePickerDialog] hệ thống (24h theo cấu hình máy). */
+@Composable
+internal fun EditionTimeRow(
+    label: String,
+    time: String,
+    testTag: String,
+    activity: Activity,
+    onPick: (hour: Int, minute: Int) -> Unit,
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable {
+                val (hour, minute) = parseTime(time)
+                TimePickerDialog(
+                    activity,
+                    { _, pickedHour, pickedMinute -> onPick(pickedHour, pickedMinute) },
+                    hour,
+                    minute,
+                    true,
+                ).show()
+            }
+            .padding(vertical = 8.dp)
+            .testTag(testTag),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Icon(
+            imageVector = Icons.Outlined.MarkEmailRead,
+            contentDescription = null,
+            tint = MaterialTheme.colorScheme.secondary,
+            modifier = Modifier.size(20.dp),
+        )
+        Spacer(modifier = Modifier.width(12.dp))
+        Text(
+            modifier = Modifier.weight(1f),
+            text = label,
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurface,
+        )
+        Text(
+            text = time,
+            style = MaterialTheme.typography.titleSmall,
+            fontWeight = FontWeight.Bold,
+            color = MaterialTheme.colorScheme.primary,
+        )
+    }
+}
+
+internal fun formatTime(hour: Int, minute: Int): String = "%02d:%02d".format(hour, minute)
+
+internal fun parseTime(time: String): Pair<Int, Int> {
+    val parts = time.split(":")
+    if (parts.size != TIME_PARTS) return DEFAULT_PICKER_HOUR to 0
+    val hour = parts[0].toIntOrNull() ?: DEFAULT_PICKER_HOUR
+    val minute = parts[1].toIntOrNull() ?: 0
+    return hour to minute
 }

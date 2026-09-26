@@ -10,6 +10,7 @@ import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.TestScope
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
@@ -112,4 +113,148 @@ class ZenDailyEditionManagerTest {
         // Async load not run yet: defaults (enabled=false) would wrongly say "do not silence".
         assertTrue(manager.shouldSilenceImmediateNotification())
     }
+
+    // ---- ZEN-05: edition time validation, setters, and next-occurrence scheduling ----
+
+    @Test
+    fun isValidTime_acceptsHhMmAndRejectsMalformed() {
+        assertTrue(ZenDailyEditionManager.isValidTime("00:00"))
+        assertTrue(ZenDailyEditionManager.isValidTime("07:00"))
+        assertTrue(ZenDailyEditionManager.isValidTime("23:59"))
+        assertTrue(ZenDailyEditionManager.isValidTime(" 06:30 "))
+
+        assertFalse(ZenDailyEditionManager.isValidTime("24:00"))
+        assertFalse(ZenDailyEditionManager.isValidTime("07:60"))
+        assertFalse(ZenDailyEditionManager.isValidTime("7:00"))
+        assertFalse(ZenDailyEditionManager.isValidTime("07"))
+        assertFalse(ZenDailyEditionManager.isValidTime(""))
+        assertFalse(ZenDailyEditionManager.isValidTime("abc"))
+    }
+
+    @Test
+    fun millisUntilNextOccurrence_picksNearestUpcomingSlotToday() {
+        // 06:00 today -> next is 07:00 today (1 hour away).
+        val now = calendarAt(hour = 6, minute = 0)
+        val delay = ZenDailyEditionManager.millisUntilNextOccurrence(listOf("07:00", "20:00"), now)
+
+        assertEquals(60L * 60L * 1000L, delay)
+        assertEquals(7 to 0, hourMinuteOf(now + delay!!))
+    }
+
+    @Test
+    fun millisUntilNextOccurrence_morningPassed_usesEveningSlot() {
+        // 12:00 today -> morning 07:00 already passed, next is 20:00 today (8 hours away).
+        val now = calendarAt(hour = 12, minute = 0)
+        val delay = ZenDailyEditionManager.millisUntilNextOccurrence(listOf("07:00", "20:00"), now)
+
+        assertEquals(8L * 60L * 60L * 1000L, delay)
+        assertEquals(20 to 0, hourMinuteOf(now + delay!!))
+    }
+
+    @Test
+    fun millisUntilNextOccurrence_bothSlotsPassed_rollsOverToTomorrow() {
+        // 22:00 today -> both slots passed, next is 07:00 tomorrow (9 hours away).
+        val now = calendarAt(hour = 22, minute = 0)
+        val delay = ZenDailyEditionManager.millisUntilNextOccurrence(listOf("07:00", "20:00"), now)
+
+        assertEquals(9L * 60L * 60L * 1000L, delay)
+        val (hour, minute) = hourMinuteOf(now + delay!!)
+        assertEquals(7 to 0, hour to minute)
+        // Must land on the following calendar day, not the same day.
+        assertTrue((now + delay) > now)
+    }
+
+    @Test
+    fun millisUntilNextOccurrence_exactlyOnSlot_doesNotFireImmediately() {
+        // Exactly 07:00 -> the 07:00 slot must NOT be returned as 0 delay (that would re-fire
+        // instantly in a loop); it rolls to tomorrow, so the nearest slot is 20:00 today.
+        val now = calendarAt(hour = 7, minute = 0)
+        val delay = ZenDailyEditionManager.millisUntilNextOccurrence(listOf("07:00", "20:00"), now)
+
+        assertEquals(13L * 60L * 60L * 1000L, delay)
+        assertEquals(20 to 0, hourMinuteOf(now + delay!!))
+    }
+
+    @Test
+    fun millisUntilNextOccurrence_exactlyOnSlot_whenOnlySlotRollsFullDay() {
+        // With a single 07:00 slot and now exactly 07:00, the next occurrence is 24h later.
+        val now = calendarAt(hour = 7, minute = 0)
+        val delay = ZenDailyEditionManager.millisUntilNextOccurrence(listOf("07:00"), now)
+
+        assertEquals(24L * 60L * 60L * 1000L, delay)
+        assertEquals(7 to 0, hourMinuteOf(now + delay!!))
+    }
+
+    @Test
+    fun millisUntilNextOccurrence_ignoresInvalidSlotsAndUsesValidOne() {
+        val now = calendarAt(hour = 6, minute = 0)
+        val delay = ZenDailyEditionManager.millisUntilNextOccurrence(listOf("bad", "07:00"), now)
+
+        assertEquals(60L * 60L * 1000L, delay)
+    }
+
+    @Test
+    fun millisUntilNextOccurrence_allSlotsInvalid_returnsNull() {
+        val now = calendarAt(hour = 6, minute = 0)
+        assertNull(ZenDailyEditionManager.millisUntilNextOccurrence(listOf("", "nope"), now))
+        assertNull(ZenDailyEditionManager.millisUntilNextOccurrence(emptyList(), now))
+    }
+
+    @Test
+    fun setMorningTime_persistsAndUpdatesFlow_withoutSchedulingWhenDisabled() {
+        val manager = ZenDailyEditionManager(context, eagerScope, Dispatchers.Unconfined)
+
+        assertTrue(manager.setMorningTime("06:30"))
+
+        verify { editor.putString("key_morning_time", "06:30") }
+        assertEquals("06:30", manager.morningTime.value)
+        // Disabled feature must not touch WorkManager (getInstance would blow up on the mock context).
+    }
+
+    @Test
+    fun setEveningTime_persistsAndUpdatesFlow() {
+        val manager = ZenDailyEditionManager(context, eagerScope, Dispatchers.Unconfined)
+
+        assertTrue(manager.setEveningTime("21:00"))
+
+        verify { editor.putString("key_evening_time", "21:00") }
+        assertEquals("21:00", manager.eveningTime.value)
+    }
+
+    @Test
+    fun setMorningTime_invalidFormat_isRejectedAndLeavesStateUntouched() {
+        val manager = ZenDailyEditionManager(context, eagerScope, Dispatchers.Unconfined)
+        val before = manager.morningTime.value
+
+        assertFalse(manager.setMorningTime("25:99"))
+
+        verify(exactly = 0) { editor.putString("key_morning_time", any()) }
+        assertEquals(before, manager.morningTime.value)
+    }
+
+    @Test
+    fun setMorningTime_beforeAsyncLoad_isNotOverwrittenByLateLoad() {
+        every { prefs.getString("key_morning_time", "07:00") } returns "07:00"
+        val dispatcher = StandardTestDispatcher()
+        val scope = TestScope(dispatcher)
+        val manager = ZenDailyEditionManager(context, scope, dispatcher)
+
+        manager.setMorningTime("06:30")
+        scope.testScheduler.advanceUntilIdle()
+
+        assertEquals("06:30", manager.morningTime.value)
+    }
+
+    private fun calendarAt(hour: Int, minute: Int): Long =
+        java.util.Calendar.getInstance().apply {
+            set(java.util.Calendar.HOUR_OF_DAY, hour)
+            set(java.util.Calendar.MINUTE, minute)
+            set(java.util.Calendar.SECOND, 0)
+            set(java.util.Calendar.MILLISECOND, 0)
+        }.timeInMillis
+
+    private fun hourMinuteOf(millis: Long): Pair<Int, Int> =
+        java.util.Calendar.getInstance().apply { timeInMillis = millis }.let {
+            it.get(java.util.Calendar.HOUR_OF_DAY) to it.get(java.util.Calendar.MINUTE)
+        }
 }

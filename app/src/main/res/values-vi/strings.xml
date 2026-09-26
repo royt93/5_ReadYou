@@ -491,8 +491,10 @@
     <string name="zen_daily_edition">Bản tin tạp chí định giờ</string>
     <string name="zen_daily_edition_desc">Gom bài viết và tắt thông báo lẻ tẻ cho đến giờ đọc định kỳ</string>
     <string name="zen_daily_edition_enabled">Chế độ phát hành định giờ</string>
-    <string name="zen_morning_edition">Ấn phẩm buổi sáng (07:00)</string>
-    <string name="zen_evening_edition">Ấn phẩm buổi tối (20:00)</string>
+    <string name="zen_morning_edition">Ấn phẩm buổi sáng</string>
+    <string name="zen_evening_edition">Ấn phẩm buổi tối</string>
+    <string name="zen_morning_edition_time">Giờ ấn phẩm buổi sáng</string>
+    <string name="zen_evening_edition_time">Giờ ấn phẩm buổi tối</string>
     <string name="zen_daily_edition_title">Bản tin tiêu điểm trong ngày</string>
     <string name="zen_daily_edition_notification">%1$d bài viết mới đang chờ bạn đọc tập trung.</string>
     <string name="zen_sleep_timer">Hẹn giờ tắt</string>
