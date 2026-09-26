@@ -646,4 +646,12 @@
     <string name="ai_active_key_custom">個人用 API キーを使用中</string>
     <string name="ai_active_key_default">デフォルトの共有クォータを使用中</string>
     <string name="ai_save">保存</string>
+    <string name="feed_health_title">フィードヘルスセンター</string>
+    <string name="feed_health_desc">同期ステータス、遅延、接続問題を確認</string>
+    <string name="feed_health_retry_now">今すぐ再試行</string>
+    <string name="feed_health_healthy">正常</string>
+    <string name="feed_health_latency">遅延：%1$d ms</string>
+    <string name="feed_health_last_sync">最終同期：%1$s</string>
+    <string name="feed_health_never">なし</string>
+    <string name="feed_health_empty">登録されたフィードはありません</string>
 </resources>

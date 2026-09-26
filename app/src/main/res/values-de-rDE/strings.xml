@@ -649,4 +649,12 @@
     <string name="ai_active_key_custom">Verwendet Ihren persönlichen API-Schlüssel</string>
     <string name="ai_active_key_default">Verwendet das geteilte Standardkontingent</string>
     <string name="ai_save">Speichern</string>
+    <string name="feed_health_title">Feed-Zustandscenter</string>
+    <string name="feed_health_desc">Synchronisationsstatus, Latenz und Verbindungsfehler prüfen</string>
+    <string name="feed_health_retry_now">Jetzt wiederholen</string>
+    <string name="feed_health_healthy">Bereit</string>
+    <string name="feed_health_latency">Latenz: %1$d ms</string>
+    <string name="feed_health_last_sync">Letzte Synchr.: %1$s</string>
+    <string name="feed_health_never">Nie</string>
+    <string name="feed_health_empty">Keine Feeds abonniert</string>
 </resources>

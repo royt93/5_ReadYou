@@ -64,6 +64,7 @@ import com.mckimquyen.reader.ui.ext.openUrlInBrowser
 import com.mckimquyen.reader.ui.ext.rateApp
 import com.mckimquyen.reader.ui.ext.shareApp
 import com.mckimquyen.reader.ui.page.about.AboutActivity
+import androidx.compose.material.icons.outlined.HealthAndSafety
 import com.mckimquyen.reader.ui.page.common.RouteName
 import com.mckimquyen.reader.ui.page.setting.tip.UpdateDialog
 import com.mckimquyen.reader.ui.page.setting.tip.UpdateViewModel
@@ -219,6 +220,17 @@ fun SettingsPage(
                         icon = Icons.Outlined.AccountCircle,
                     ) {
                         navController.navigate(RouteName.ACCOUNTS) {
+                            launchSingleTop = true
+                        }
+                    }
+                }
+                item {
+                    SelectableSettingGroupItem(
+                        title = stringResource(R.string.feed_health_title),
+                        desc = stringResource(R.string.feed_health_desc),
+                        icon = Icons.Outlined.HealthAndSafety,
+                    ) {
+                        navController.navigate(RouteName.FEED_HEALTH) {
                             launchSingleTop = true
                         }
                     }

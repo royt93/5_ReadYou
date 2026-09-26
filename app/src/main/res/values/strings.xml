@@ -728,4 +728,12 @@
     <string name="ai_active_key_custom">Using your personal API key</string>
     <string name="ai_active_key_default">Using default shared quota</string>
     <string name="ai_save">Save</string>
+    <string name="feed_health_title">Feed Health Center</string>
+    <string name="feed_health_desc">Check sync status, latency, and connection issues</string>
+    <string name="feed_health_retry_now">Retry Now</string>
+    <string name="feed_health_healthy">Healthy</string>
+    <string name="feed_health_latency">Latency: %1$d ms</string>
+    <string name="feed_health_last_sync">Last sync: %1$s</string>
+    <string name="feed_health_never">Never</string>
+    <string name="feed_health_empty">No RSS feeds subscribed</string>
 </resources>

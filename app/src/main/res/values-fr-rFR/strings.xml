@@ -652,4 +652,12 @@
     <string name="ai_active_key_custom">Utilisation de votre clé API personnelle</string>
     <string name="ai_active_key_default">Utilisation du quota partagé par défaut</string>
     <string name="ai_save">Enregistrer</string>
+    <string name="feed_health_title">Santé des flux</string>
+    <string name="feed_health_desc">Vérifier l\'état de synchronisation, la latence et les erreurs</string>
+    <string name="feed_health_retry_now">Réessayer maintenant</string>
+    <string name="feed_health_healthy">Sain</string>
+    <string name="feed_health_latency">Latence : %1$d ms</string>
+    <string name="feed_health_last_sync">Dernier sync : %1$s</string>
+    <string name="feed_health_never">Jamais</string>
+    <string name="feed_health_empty">Aucun flux souscrit</string>
 </resources>

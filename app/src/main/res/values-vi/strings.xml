@@ -619,4 +619,12 @@
     <string name="ai_active_key_custom">Đang dùng API Key riêng của bạn</string>
     <string name="ai_active_key_default">Đang dùng quota chia sẻ mặc định</string>
     <string name="ai_save">Lưu</string>
+    <string name="feed_health_title">Trung tâm sức khỏe nguồn tin</string>
+    <string name="feed_health_desc">Kiểm tra trạng thái đồng bộ, độ trễ và sự cố kết nối</string>
+    <string name="feed_health_retry_now">Thử lại ngay</string>
+    <string name="feed_health_healthy">Khỏe mạnh</string>
+    <string name="feed_health_latency">Độ trễ: %1$d ms</string>
+    <string name="feed_health_last_sync">Đồng bộ lần cuối: %1$s</string>
+    <string name="feed_health_never">Chưa bao giờ</string>
+    <string name="feed_health_empty">Chưa đăng ký nguồn tin nào</string>
 </resources>

@@ -645,4 +645,12 @@
     <string name="ai_active_key_custom">正在使用个人 API Key</string>
     <string name="ai_active_key_default">正在使用默认共享配额</string>
     <string name="ai_save">保存</string>
+    <string name="feed_health_title">订阅源健康中心</string>
+    <string name="feed_health_desc">检查同步状态、延迟和连接问题</string>
+    <string name="feed_health_retry_now">立即重试</string>
+    <string name="feed_health_healthy">正常</string>
+    <string name="feed_health_latency">延迟：%1$d 毫秒</string>
+    <string name="feed_health_last_sync">上次同步：%1$s</string>
+    <string name="feed_health_never">从未</string>
+    <string name="feed_health_empty">暂无订阅源</string>
 </resources>

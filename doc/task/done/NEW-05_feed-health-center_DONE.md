@@ -54,3 +54,31 @@ Chỉ dừng loop khi hoàn tất TẤT CẢ bước sau, đúng thứ tự, KH�
 6. Nếu điểm audit **> 9/10 VÀ** mọi test bước 2-4 pass **VÀ** smoke test bước 5 xác nhận hoạt động đúng:
    → `git add` các file liên quan → `git commit` với message rõ ràng, đúng Conventional Commits → **`git push`** lên remote nhánh hiện tại. Kết thúc loop, cập nhật trạng thái task (di chuyển file từ `doc/task/todo/` hoặc `inprogress/` sang `doc/task/done/`, đổi tên thêm hậu tố `_DONE` và viết Completion Report ngắn: điểm số, commit hash, danh sách test đã thêm).
 7. Nếu điểm **≤ 9/10** hoặc bất kỳ điều kiện bước 2-5 chưa đạt: quay lại bước 1 của vòng lặp Loop Prompt, KHÔNG commit/push.
+
+---
+
+## ✅ Báo cáo hoàn thành (2026-09-26)
+
+**Backend & persistence** — commit `0f8dfad9`
+- Room DB v10: bảng `feed_health_record` lưu `lastSuccessTime`, `lastLatencyMs`, `lastErrorType`, `lastErrorMessage`, `lastErrorTime`.
+- `FeedErrorClassifier`: phân loại HTTP / Parser / Timeout / Network.
+- `AbstractRssRepository.syncSingleFeed()`: ghi trạng thái thành công/lỗi cho mọi feed; `retryFeedSync()` hỗ trợ đồng bộ riêng từng feed ngay lập tức.
+- `FeedHealthDao`: query/observe/upsert/delete trạng thái health.
+
+**UI Feed Health Center**
+- `FeedHealthPage` + `FeedHealthViewModel`: hiển thị danh sách feed, trạng thái healthy/error, latency, lần sync gần nhất, lỗi gần nhất.
+- Feed lỗi tự động sắp xếp lên đầu.
+- Nút “Retry Now” trigger sync riêng từng feed, hiển thị progress trong khi chạy và cập nhật state ngay qua Room Flow.
+- Route `FEED_HEALTH` tích hợp trong Settings với icon HealthAndSafety.
+- Đủ 6 ngôn ngữ: en, vi, zh-rCN, ja, fr, de.
+
+**Test**
+- `FeedErrorClassifierTest` (5): HTTP, parser, timeout, network và isFailing.
+- `Migration9to10Test` (1): live SQLite persistence.
+- `FeedHealthIntegrationTest` (1): Room DB v10 trên Pixel 7 Pro thật — pass.
+- `FeedHealthCardWidgetTest` (3): badge healthy/error, latency, error message, retry callback.
+- `FeedHealthViewModelTest` (2): feed lỗi sắp xếp đầu, retry gọi repository đúng 1 lần.
+- Toàn bộ unit test: 299/299 pass. `assembleDevDebug` + `compileDevDebugAndroidTestKotlin` OK.
+- Pixel 7 Pro integration: 2/2 connected tests (NEW-05 + ENH-04) pass, crash buffer 0 — commit `b96fa887`.
+
+**Điểm tự đánh giá**: 9.7/10 — hoàn chỉnh xuyên suốt Room → sync error tracking → UI → retry riêng → device integration.

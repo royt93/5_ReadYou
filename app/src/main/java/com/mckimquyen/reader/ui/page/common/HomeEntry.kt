@@ -221,6 +221,14 @@ fun HomeEntry(
                 ZenSettingsPage(navController = navController, activity = activity)
             }
 
+            // Feed Health Center
+            animatedComposable(route = RouteName.FEED_HEALTH) {
+                com.mckimquyen.reader.ui.page.setting.feedhealth.FeedHealthPage(
+                    navController = navController,
+                    activity = activity
+                )
+            }
+
             // Brain RPG
             animatedComposable(route = RouteName.BRAIN_RPG) {
                 BrainRpgPage(navController = navController, activity = activity)
