@@ -12,7 +12,7 @@ Epic này đã được tách thành các file task riêng theo `doc/task/_TEMPL
 | REEL-02 | Trình Xem Video RSS & YouTube PiP Không Quảng Cáo | P2 | 📋 Todo | [`todo/REEL-02_youtube-video-pip.md`](REEL-02_youtube-video-pip.md) |
 | REEL-03 | Chó Săn Cảnh Báo Từ Khóa Khẩn Cấp (Keyword Alert Watchdog) | P1 | ✅ Done (commit `f366bb9`) | [`done/REEL-03_watchdog-keyword-alert_DONE.md`](../done/REEL-03_watchdog-keyword-alert_DONE.md) |
 | REEL-04 | Watchdog Persistence Chưa Atomic (race condition + mất dữ liệu khi lỗi parse) | P1 | ✅ Done | [`done/REEL-04_watchdog-atomic-persistence_DONE.md`](../done/REEL-04_watchdog-atomic-persistence_DONE.md) |
-| REEL-05 | Watchdog Matcher Theo Batch, Tối Ưu Hiệu Năng | P2 | 📋 Todo | [`todo/REEL-05_watchdog-batch-matching-perf.md`](REEL-05_watchdog-batch-matching-perf.md) |
+| REEL-05 | Watchdog Matcher Theo Batch, Tối Ưu Hiệu Năng | P2 | ✅ Implemented | [`done/REEL-05_watchdog-batch-matching-perf_DONE.md`](../done/REEL-05_watchdog-batch-matching-perf_DONE.md) |
 | REEL-06 | Watchdog Alert Inbox — Màn Hình Lịch Sử Cảnh Báo Từ Khóa | P2 | 📋 Todo | [`todo/REEL-06_watchdog-alert-inbox.md`](REEL-06_watchdog-alert-inbox.md) |
 
 ## Ghi chú audit (2026-09-06)

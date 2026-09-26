@@ -6,7 +6,9 @@ import com.mckimquyen.reader.domain.model.article.Article
 import com.mckimquyen.reader.domain.model.feed.Feed
 import com.mckimquyen.reader.domain.watchdog.WatchdogEngine
 import com.mckimquyen.reader.infrastructure.android.NotificationHelper
+import io.mockk.every
 import io.mockk.mockk
+import io.mockk.spyk
 import io.mockk.verify
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
@@ -324,5 +326,50 @@ class WatchdogManagerTest {
     fun load_whenNoDataEverSaved_returnsEmptyWithoutError() {
         val fresh = WatchdogManager(context, engine, notificationHelper, eagerScope, Dispatchers.Unconfined)
         assertTrue(fresh.keywords.value.isEmpty())
+    }
+
+    // ---- REEL-05: batch persists once per checkAndNotify call, not once per match ----
+
+    @Test
+    fun checkAndNotify_multipleMatchesInOneBatch_persistsExactlyOnce() {
+        manager.addKeyword("\$VIC")
+
+        val realPrefs = context.getSharedPreferences("watchdog_prefs", Context.MODE_PRIVATE)
+        val spyPrefs = spyk(realPrefs)
+        val spyContext = spyk(context)
+        every { spyContext.getSharedPreferences("watchdog_prefs", Context.MODE_PRIVATE) } returns spyPrefs
+
+        // Fresh instance so its lazily-created `prefs` resolves to the spy, loading the keyword
+        // already persisted on disk by `manager` above.
+        val spyManager = WatchdogManager(spyContext, engine, notificationHelper, eagerScope, Dispatchers.Unconfined)
+
+        val articles = listOf(
+            createArticle("a1", "Cổ phiếu \$VIC tăng trần"),
+            createArticle("a2", "\$VIC lại tăng tiếp"),
+            createArticle("a3", "\$VIC tiếp tục lập đỉnh"),
+        )
+
+        val alertCount = spyManager.checkAndNotify(articles, sampleFeed)
+
+        assertEquals(3, alertCount)
+        assertEquals(3, spyManager.keywords.value.first().matchCount)
+        // One batch of 3 matches must produce exactly one write, not one write per match.
+        verify(exactly = 1) { spyPrefs.edit() }
+    }
+
+    @Test
+    fun checkAndNotify_emptyArticleList_doesNotTouchPersistence() {
+        manager.addKeyword("\$VIC")
+
+        val realPrefs = context.getSharedPreferences("watchdog_prefs", Context.MODE_PRIVATE)
+        val spyPrefs = spyk(realPrefs)
+        val spyContext = spyk(context)
+        every { spyContext.getSharedPreferences("watchdog_prefs", Context.MODE_PRIVATE) } returns spyPrefs
+        val spyManager = WatchdogManager(spyContext, engine, notificationHelper, eagerScope, Dispatchers.Unconfined)
+
+        val alertCount = spyManager.checkAndNotify(emptyList(), sampleFeed)
+
+        assertEquals(0, alertCount)
+        verify(exactly = 0) { spyPrefs.edit() }
     }
 }

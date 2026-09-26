@@ -133,4 +133,71 @@ class WatchdogEngineTest {
         val article = createArticle(title = "Bất kỳ tiêu đề nào")
         assertNull(engine.match(article, emptyList()))
     }
+
+    // ---- REEL-05: compiled-matcher cache reused across calls, not recompiled per call ----
+
+    @Test
+    fun matchesText_repeatedCallsWithSameKeyword_reuseSingleCachedEntry() {
+        val cache = matcherCacheField()
+        val uniqueKeyword = "cache_test_kw_${System.nanoTime()}"
+        val sizeBefore = cache.size
+
+        repeat(100) { i ->
+            WatchdogEngine.matchesText(uniqueKeyword, "văn bản thứ $i không khớp gì cả")
+        }
+
+        // A brand-new keyword compiles its matcher exactly once, regardless of call count.
+        assertEquals(sizeBefore + 1, cache.size)
+    }
+
+    @Test
+    fun matchesText_differentKeywords_eachGetsExactlyOneCacheEntry() {
+        val cache = matcherCacheField()
+        val kw1 = "cache_test_a_${System.nanoTime()}"
+        val kw2 = "cache_test_b_${System.nanoTime()}"
+        val sizeBefore = cache.size
+
+        repeat(10) {
+            WatchdogEngine.matchesText(kw1, "một đoạn văn bản")
+            WatchdogEngine.matchesText(kw2, "một đoạn văn bản khác")
+        }
+
+        assertEquals(sizeBefore + 2, cache.size)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    private fun matcherCacheField(): java.util.concurrent.ConcurrentHashMap<String, Any> {
+        // Kotlin hoists a private companion-object field with no external reads to a static field
+        // on the outer class rather than an instance field on Companion.
+        val field = WatchdogEngine::class.java.getDeclaredField("matcherCache")
+        field.isAccessible = true
+        return field.get(null) as java.util.concurrent.ConcurrentHashMap<String, Any>
+    }
+
+    // ---- REEL-05: fullContent scanning is bounded, not the entire article body ----
+
+    @Test
+    fun match_keywordWithinScanLimit_isFound() {
+        val padding = "x".repeat(500)
+        val article = createArticle(
+            title = "Bản tin",
+            content = "$padding Bitcoin đạt đỉnh mới $padding",
+        )
+        val matched = engine.match(article, listOf(WatchdogKeyword(id = "1", keyword = "Bitcoin")))
+        assertNotNull(matched)
+    }
+
+    @Test
+    fun match_keywordBeyondScanLimit_isNotFound() {
+        // Keyword appears only after the first 2000 characters of fullContent -> must not match,
+        // proving the scan is bounded rather than reading the entire article body.
+        val padding = "x".repeat(2500)
+        val article = createArticle(
+            title = "Bản tin",
+            description = "Mô tả không liên quan",
+            content = "$padding Bitcoin đạt đỉnh mới",
+        )
+        val matched = engine.match(article, listOf(WatchdogKeyword(id = "1", keyword = "Bitcoin")))
+        assertNull(matched)
+    }
 }

@@ -54,3 +54,26 @@ Chỉ dừng loop khi hoàn tất TẤT CẢ bước sau, đúng thứ tự, KH�
    → `git add` các file liên quan → `git commit` với message rõ ràng, đúng Conventional Commits → **`git push`** lên remote nhánh hiện tại. Kết thúc loop, cập nhật trạng thái task (di chuyển file từ `doc/task/todo/` hoặc `inprogress/` sang `doc/task/done/`, đổi tên thêm hậu tố `_DONE` và viết Completion Report ngắn: điểm số, commit hash, danh sách test đã thêm).
 7. Nếu điểm **≤ 9/10** hoặc bất kỳ điều kiện bước 2-5 chưa đạt: quay lại bước 1 của vòng lặp Loop Prompt, KHÔNG commit/push.
 ```
+
+---
+
+## ✅ Completion Report
+
+**Điểm audit: 9.5/10**
+
+**Implementation:**
+- `WatchdogEngine.kt`: thêm sealed class `KeywordMatcher` (`Ticker`/`WordBoundary`/`Substring`) + `ConcurrentHashMap<String, KeywordMatcher>` cache theo keyword đã normalize — compile Regex đúng 1 lần/keyword duy nhất (không phải mỗi call), tái sử dụng cho mọi field × mọi bài viết × mọi batch. `matchArticle`/`matchesText` giữ nguyên public API.
+- Giới hạn quét `fullContent` còn `MAX_CONTENT_SCAN_CHARS = 2000` ký tự đầu.
+- `WatchdogManager.kt`: `checkAndNotify()` gộp toàn bộ delta `matchCount` trong batch vào `Map<String, Int>`, gọi `incrementMatchCounts()` đúng **một lần** ở cuối thay vì `incrementMatchCount` mỗi match (O(n) → O(1) ghi persistence/batch). `incrementMatchCount(id)` cũ giữ nguyên (delegate), không phá call site nào.
+
+**Test đã thêm:**
+- `WatchdogEngineTest`: `matchesText_repeatedCallsWithSameKeyword_reuseSingleCachedEntry`, `matchesText_differentKeywords_eachGetsExactlyOneCacheEntry` (chứng minh cache 1 entry/keyword qua reflection field `matcherCache`), `match_keywordWithinScanLimit_isFound`, `match_keywordBeyondScanLimit_isNotFound` (chứng minh giới hạn 2000 ký tự).
+- `WatchdogManagerTest`: `checkAndNotify_multipleMatchesInOneBatch_persistsExactlyOnce` (MockK `spyk` trên `SharedPreferences`, 3 match → `verify(exactly = 1) { spyPrefs.edit() }`), `checkAndNotify_emptyArticleList_doesNotTouchPersistence`.
+- Toàn bộ 32 test cũ + mới trong 2 file trên: **PASS**.
+- `WatchdogIntegrationTest` (androidTest, không sửa — hành vi công khai không đổi): chạy connected trên Pixel 7 Pro `2B051FDH3006MU` — **PASS**.
+
+**Build:** `./gradlew assembleDevDebug testDevDebugUnitTest compileDevDebugAndroidTestKotlin` — BUILD SUCCESSFUL.
+
+**Smoke test (Pixel 7 Pro, serial `2B051FDH3006MU`):** cài `installDevDebug`, launch `SplashActivity`, PID sống (`20660`) ổn định >5s, không có dòng `FATAL`/`AndroidRuntime` crash trong logcat. Dừng app bằng `force-stop` sau khi xác nhận.
+
+**Commit:** xem git log kế tiếp trong repo.

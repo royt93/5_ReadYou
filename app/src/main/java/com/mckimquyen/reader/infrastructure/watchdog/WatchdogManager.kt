@@ -199,10 +199,20 @@ class WatchdogManager @Inject constructor(
      * Tăng số lượng bài viết phát hiện được bởi từ khóa này.
      */
     fun incrementMatchCount(id: String) {
+        incrementMatchCounts(mapOf(id to 1))
+    }
+
+    /**
+     * Cộng dồn nhiều lượt tăng `matchCount` (theo id) trong **một** lần đọc-sửa-ghi duy nhất, thay vì
+     * một lần ghi I/O riêng cho mỗi lượt tăng — dùng khi xử lý cả một batch bài viết khớp từ khóa.
+     */
+    fun incrementMatchCounts(deltasById: Map<String, Int>) {
+        if (deltasById.isEmpty()) return
         synchronized(mutationLock) {
             ensureLoaded()
             val updated = _keywords.value.map {
-                if (it.id == id) it.copy(matchCount = it.matchCount + 1) else it
+                val delta = deltasById[it.id]
+                if (delta != null) it.copy(matchCount = it.matchCount + delta) else it
             }
             saveKeywords(updated)
         }
@@ -218,11 +228,13 @@ class WatchdogManager @Inject constructor(
 
     /**
      * Quét danh sách bài viết mới được tải về từ chu kỳ đồng bộ nền và phát cảnh báo ưu tiên cao.
-     * Trả về tổng số cảnh báo đã kích hoạt.
+     * Trả về tổng số cảnh báo đã kích hoạt. Toàn bộ lượt tăng `matchCount` trong batch được gộp lại
+     * và ghi persistence đúng một lần ở cuối, thay vì ghi lặp lại cho từng bài viết khớp.
      */
     fun checkAndNotify(articles: List<Article>, feed: Feed): Int {
         if (articles.isEmpty()) return 0
         var alertCount = 0
+        val matchDeltas = mutableMapOf<String, Int>()
 
         for (article in articles) {
             val matchedKeyword = checkArticle(article)
@@ -232,10 +244,11 @@ class WatchdogManager @Inject constructor(
                     keyword = matchedKeyword.keyword,
                     feedName = feed.name,
                 )
-                incrementMatchCount(matchedKeyword.id)
+                matchDeltas.merge(matchedKeyword.id, 1, Int::plus)
                 alertCount++
             }
         }
+        incrementMatchCounts(matchDeltas)
         return alertCount
     }
 
