@@ -15,6 +15,28 @@ object RsvpTokenizer {
     private val htmlTagRegex = Regex("<[^>]*>")
     private val whitespaceRegex = Regex("\\s+")
 
+    // HTML tags that terminate a block/paragraph: closing them marks a paragraph boundary.
+    private val blockCloseTagRegex =
+        Regex("</(?:p|div|h[1-6]|li|blockquote|section|article|tr|td|th)\\s*>", RegexOption.IGNORE_CASE)
+    private val brTagRegex = Regex("<br\\s*/?\\s*>", RegexOption.IGNORE_CASE)
+    private val paragraphSeparatorRegex = Regex("\\n\\s*\\n")
+
+    private const val PARAGRAPH_SEPARATOR = "\n\n"
+
+    private const val PARAGRAPH_END_DELAY_MS = 250L
+    private const val SENTENCE_END_DELAY_MS = 200L
+    private const val CLAUSE_END_DELAY_MS = 80L
+    private const val LONG_WORD_DELAY_MS = 40L
+    private const val LONG_WORD_THRESHOLD = 10
+
+    private val sentenceEndChars = charArrayOf('.', '!', '?', ':')
+    private val clauseEndChars = charArrayOf(',', ';', '-', '—')
+
+    /**
+     * Bóc tag HTML + giải mã entity, gộp mọi khoảng trắng (kể cả ngắt đoạn) thành 1 space.
+     * Lưu ý: hàm này **không** giữ ranh giới đoạn văn — dùng [splitIntoParagraphs] khi cần
+     * biết đoạn văn nào với đoạn văn nào (ví dụ để tính [RsvpToken.isParagraphBreak]).
+     */
     fun cleanHtml(rawText: String): String {
         return rawText
             .replace(htmlTagRegex, " ")
@@ -27,6 +49,21 @@ object RsvpTokenizer {
             .replace("&gt;", ">")
             .replace(whitespaceRegex, " ")
             .trim()
+    }
+
+    /**
+     * Tách nội dung thành các đoạn văn đã làm sạch, **giữ ranh giới đoạn trước khi collapse whitespace**.
+     * Ranh giới được nhận diện từ: thẻ đóng block (`</p>`, `</div>`, `</h1..h6>`, `</li>`...),
+     * `<br>`/`<br/>` (kể cả cặp `<br><br>`), và chuỗi `\n\n` (hoặc `\r\n\r\n`) trong text gốc.
+     */
+    fun splitIntoParagraphs(rawText: String): List<String> {
+        val normalized = rawText
+            .replace(brTagRegex, PARAGRAPH_SEPARATOR)
+            .replace(blockCloseTagRegex, PARAGRAPH_SEPARATOR)
+        return normalized
+            .split(paragraphSeparatorRegex)
+            .map { cleanHtml(it) }
+            .filter { it.isNotBlank() }
     }
 
     fun calculateOrpIndex(word: String): Int {
@@ -44,30 +81,33 @@ object RsvpTokenizer {
         var delay = 0L
         val trimmed = word.trim()
         if (isParagraphEnd) {
-            delay += 250L
+            delay += PARAGRAPH_END_DELAY_MS
         }
-        if (trimmed.endsWith(".") || trimmed.endsWith("!") || trimmed.endsWith("?") || trimmed.endsWith(":")) {
-            delay += 200L
-        } else if (trimmed.endsWith(",") || trimmed.endsWith(";") || trimmed.endsWith("-") || trimmed.endsWith("—")) {
-            delay += 80L
+        if (trimmed.endsWithAny(sentenceEndChars)) {
+            delay += SENTENCE_END_DELAY_MS
+        } else if (trimmed.endsWithAny(clauseEndChars)) {
+            delay += CLAUSE_END_DELAY_MS
         }
-        if (trimmed.length > 10) {
-            delay += 40L
+        if (trimmed.length > LONG_WORD_THRESHOLD) {
+            delay += LONG_WORD_DELAY_MS
         }
         return delay
     }
 
-    fun tokenize(content: String): List<RsvpToken> {
-        val cleaned = cleanHtml(content)
-        if (cleaned.isBlank()) return emptyList()
+    private fun String.endsWithAny(chars: CharArray): Boolean =
+        isNotEmpty() && chars.any { this[length - 1] == it }
 
-        val paragraphs = cleaned.split("\n\n", "\r\n\r\n")
+    fun tokenize(content: String): List<RsvpToken> {
+        // Paragraph boundaries must be resolved on the raw text, before whitespace is collapsed —
+        // otherwise every paragraph separator is flattened to a single space and no token can ever
+        // be marked as a paragraph break.
+        val paragraphs = splitIntoParagraphs(content)
+        if (paragraphs.isEmpty()) return emptyList()
+
         val tokens = mutableListOf<RsvpToken>()
 
         for (pIndex in paragraphs.indices) {
-            val p = paragraphs[pIndex].trim()
-            if (p.isBlank()) continue
-            val rawWords = p.split(whitespaceRegex).filter { it.isNotBlank() }
+            val rawWords = paragraphs[pIndex].split(whitespaceRegex).filter { it.isNotBlank() }
 
             for (wIndex in rawWords.indices) {
                 val rawWord = rawWords[wIndex]

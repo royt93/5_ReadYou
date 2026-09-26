@@ -54,3 +54,32 @@ Chỉ dừng loop khi hoàn tất TẤT CẢ bước sau, đúng thứ tự, KH�
 6. Nếu điểm audit **> 9/10 VÀ** mọi test bước 2-4 pass **VÀ** smoke test bước 5 xác nhận hoạt động đúng:
    → `git add` các file liên quan → `git commit` với message rõ ràng, đúng Conventional Commits → **`git push`** lên remote nhánh hiện tại. Kết thúc loop, cập nhật trạng thái task (di chuyển file từ `doc/task/todo/` hoặc `inprogress/` sang `doc/task/done/`, đổi tên thêm hậu tố `_DONE` và viết Completion Report ngắn: điểm số, commit hash, danh sách test đã thêm).
 7. Nếu điểm **≤ 9/10** hoặc bất kỳ điều kiện bước 2-5 chưa đạt: quay lại bước 1 của vòng lặp Loop Prompt, KHÔNG commit/push.
+
+---
+
+## ✅ Completion Report
+
+**Điểm audit: 9.8/10**
+
+**Root cause:** `cleanHtml()` gộp mọi `\s+` (bao gồm `\n\n`) thành một space trước khi `tokenize()` gọi `split("\n\n")`; vì thế list paragraph luôn chỉ có một phần tử và `isParagraphBreak` không bao giờ `true`.
+
+**Fix:**
+- Thêm `splitIntoParagraphs(rawText)` trong `RsvpTokenizer`: thay `<br>`, closing block tag (`</p>`, `</div>`, heading, list item, blockquote...), và blank lines thành separator **trước** khi từng đoạn được đưa vào `cleanHtml()`.
+- `tokenize()` dùng danh sách đoạn đã làm sạch này; token cuối của mỗi đoạn (trừ đoạn cuối nội dung) nhận `isParagraphBreak = true` và `calculateExtraDelayMs()` cộng `PARAGRAPH_END_DELAY_MS = 250L`.
+- Giữ nguyên public contract cũ của `cleanHtml()` cho các caller/test hiện tại.
+- Trích các magic delay và regex intent thành named constants.
+
+**Tests mới (`RsvpTokenizerTest`):**
+- `tokenize_paragraphBreakTrueOnlyAtLastWordOfEachParagraph_htmlPTags`
+- `tokenize_paragraphBreak_trueAtEachParagraphBoundary_brTags`
+- `tokenize_paragraphBreak_threeParagraphsNewlineSeparator`
+- `tokenize_paragraphBreak_singleParagraph_noBreak`
+- `tokenize_paragraphEndWord_hasExtraDelayIncludingParagraph250ms`
+
+**Verification:**
+- `./gradlew testDevDebugUnitTest --tests "*RsvpTokenizerTest"` — PASS.
+- `./gradlew assembleDevDebug testDevDebugUnitTest compileDevDebugAndroidTestKotlin` — BUILD SUCCESSFUL.
+- `ZenSpeedReadingIntegrationTest` — PASS trên Pixel 7 Pro `2B051FDH3006MU`.
+- Smoke: `installDevDebug`, launch app, PID `30740` sống, no `FATAL EXCEPTION` trong logcat. App force-stop sau xác nhận.
+
+**Commit:** xem git log kế tiếp trong repo.

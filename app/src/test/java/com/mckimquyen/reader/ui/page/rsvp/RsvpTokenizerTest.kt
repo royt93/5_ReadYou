@@ -80,4 +80,65 @@ class RsvpTokenizerTest {
         assertTrue(RsvpTokenizer.tokenize("").isEmpty())
         assertTrue(RsvpTokenizer.tokenize("    \n\t  ").isEmpty())
     }
+
+    // ---- ZEN-04: paragraph boundary must be detected before whitespace collapse ----
+
+    @Test
+    fun tokenize_paragraphBreakTrueOnlyAtLastWordOfEachParagraph_htmlPTags() {
+        val html = "<p>First paragraph text here.</p><p>Second paragraph words here.</p>"
+        val tokens = RsvpTokenizer.tokenize(html)
+        assertFalse("Must produce tokens", tokens.isEmpty())
+
+        // 2 paragraphs x 4 words each.
+        assertEquals(8, tokens.size)
+
+        val breakIndices = tokens.mapIndexedNotNull { i, t -> if (t.isParagraphBreak) i else null }
+        // Exactly one paragraph break: the last word of the first of 2 paragraphs.
+        // Paragraph 1 is "First paragraph text here." -> 4 words at indices 0..3, break at 3.
+        assertEquals(listOf(3), breakIndices)
+        // The final paragraph's last word must NOT be a break.
+        assertFalse(tokens.last().isParagraphBreak)
+    }
+
+    @Test
+    fun tokenize_paragraphBreak_trueAtEachParagraphBoundary_brTags() {
+        val html = "<p>Intro line one</p><br><br><p>Second block of words here.</p>"
+        val tokens = RsvpTokenizer.tokenize(html)
+
+        val breakIndices = tokens.mapIndexedNotNull { i, t -> if (t.isParagraphBreak) i else null }
+        assertEquals(1, breakIndices.size)
+        // First paragraph "Intro line one" has 3 words -> break at index 2.
+        assertEquals(2, breakIndices.first())
+    }
+
+    @Test
+    fun tokenize_paragraphBreak_threeParagraphsNewlineSeparator() {
+        val text = "First para word.\n\nSecond para word here.\n\nThird para single."
+        val tokens = RsvpTokenizer.tokenize(text)
+
+        val breakIndices = tokens.mapIndexedNotNull { i, t -> if (t.isParagraphBreak) i else null }
+        assertEquals(2, breakIndices.size)
+        // Para 1 "First para word." -> 3 words, break at index 2.
+        assertEquals(2, breakIndices[0])
+        // Para 2 "Second para word here." -> 4 words, total so far 3+4=7, break at index 6.
+        assertEquals(6, breakIndices[1])
+        // The final (3rd) paragraph must not produce a break.
+        assertFalse(tokens.last().isParagraphBreak)
+    }
+
+    @Test
+    fun tokenize_paragraphBreak_singleParagraph_noBreak() {
+        val text = "Just one paragraph with several words in it."
+        val tokens = RsvpTokenizer.tokenize(text)
+        assertTrue(tokens.none { it.isParagraphBreak })
+    }
+
+    @Test
+    fun tokenize_paragraphEndWord_hasExtraDelayIncludingParagraph250ms() {
+        val html = "<p>Hello world end.</p><p>Another paragraph.</p>"
+        val tokens = RsvpTokenizer.tokenize(html)
+        val lastWordOfFirstPara = tokens[2] // "end." is 3rd word of first paragraph
+        assertTrue(lastWordOfFirstPara.isParagraphBreak)
+        assertTrue(lastWordOfFirstPara.extraDelayMs >= 250L) // paragraph end + sentence end
+    }
 }
