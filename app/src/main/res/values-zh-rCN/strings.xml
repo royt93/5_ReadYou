@@ -662,4 +662,14 @@
     <string name="smart_filter_action_star">加星标</string>
     <string name="smart_filter_field_title">标题</string>
     <string name="smart_filter_field_author">作者</string>
+    <string name="webdav_backup_title">WebDAV OPML 云备份</string>
+    <string name="webdav_backup_desc">自动将订阅源和分组同步到您的私有 Nextcloud/WebDAV 存储</string>
+    <string name="webdav_server_url">WebDAV 服务器地址</string>
+    <string name="webdav_username">用户名</string>
+    <string name="webdav_password">密码 / 应用令牌</string>
+    <string name="webdav_backup_now">立即备份</string>
+    <string name="webdav_restore_now">从云端恢复</string>
+    <string name="webdav_backup_success">OPML 备份上传成功！</string>
+    <string name="webdav_restore_success">已从云端成功恢复订阅源和分组！</string>
+    <string name="webdav_last_backup">上次备份：%1$s</string>
 </resources>

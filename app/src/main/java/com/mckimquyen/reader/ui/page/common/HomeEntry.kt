@@ -237,6 +237,14 @@ fun HomeEntry(
                 )
             }
 
+            // WebDAV Cloud Backup
+            animatedComposable(route = RouteName.OPML_BACKUP) {
+                com.mckimquyen.reader.ui.page.setting.backup.WebDavBackupPage(
+                    navController = navController,
+                    activity = activity
+                )
+            }
+
             // Brain RPG
             animatedComposable(route = RouteName.BRAIN_RPG) {
                 BrainRpgPage(navController = navController, activity = activity)

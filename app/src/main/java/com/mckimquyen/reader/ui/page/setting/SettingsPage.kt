@@ -64,6 +64,7 @@ import com.mckimquyen.reader.ui.ext.openUrlInBrowser
 import com.mckimquyen.reader.ui.ext.rateApp
 import com.mckimquyen.reader.ui.ext.shareApp
 import com.mckimquyen.reader.ui.page.about.AboutActivity
+import androidx.compose.material.icons.outlined.CloudSync
 import androidx.compose.material.icons.outlined.FilterAlt
 import androidx.compose.material.icons.outlined.HealthAndSafety
 import com.mckimquyen.reader.ui.page.common.RouteName
@@ -243,6 +244,17 @@ fun SettingsPage(
                         icon = Icons.Outlined.FilterAlt,
                     ) {
                         navController.navigate(RouteName.SMART_FILTER) {
+                            launchSingleTop = true
+                        }
+                    }
+                }
+                item {
+                    SelectableSettingGroupItem(
+                        title = stringResource(R.string.webdav_backup_title),
+                        desc = stringResource(R.string.webdav_backup_desc),
+                        icon = Icons.Outlined.CloudSync,
+                    ) {
+                        navController.navigate(RouteName.OPML_BACKUP) {
                             launchSingleTop = true
                         }
                     }

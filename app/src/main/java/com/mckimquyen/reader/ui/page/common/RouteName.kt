@@ -18,6 +18,7 @@ object RouteName {
     const val ZEN_FOCUS = "zen_focus"
     const val FEED_HEALTH = "feed_health"
     const val SMART_FILTER = "smart_filter"
+    const val OPML_BACKUP = "opml_backup"
 
     // Brain RPG
     const val BRAIN_RPG = "brain_rpg"

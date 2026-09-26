@@ -636,4 +636,14 @@
     <string name="smart_filter_action_star">Gắn sao bài viết</string>
     <string name="smart_filter_field_title">Tiêu đề</string>
     <string name="smart_filter_field_author">Tác giả</string>
+    <string name="webdav_backup_title">Sao lưu đám mây WebDAV</string>
+    <string name="webdav_backup_desc">Tự động đồng bộ nguồn và nhóm tin lên máy chủ Nextcloud/WebDAV cá nhân</string>
+    <string name="webdav_server_url">Địa chỉ máy chủ WebDAV</string>
+    <string name="webdav_username">Tên đăng nhập</string>
+    <string name="webdav_password">Mật khẩu / Token ứng dụng</string>
+    <string name="webdav_backup_now">Sao lưu ngay</string>
+    <string name="webdav_restore_now">Khôi phục từ đám mây</string>
+    <string name="webdav_backup_success">Đã sao lưu OPML lên đám mây thành công!</string>
+    <string name="webdav_restore_success">Đã khôi phục nguồn và nhóm tin thành công từ đám mây!</string>
+    <string name="webdav_last_backup">Sao lưu lần cuối: %1$s</string>
 </resources>

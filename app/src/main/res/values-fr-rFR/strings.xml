@@ -669,4 +669,14 @@
     <string name="smart_filter_action_star">Ajouter aux favoris</string>
     <string name="smart_filter_field_title">Titre</string>
     <string name="smart_filter_field_author">Auteur</string>
+    <string name="webdav_backup_title">Sauvegarde Cloud WebDAV</string>
+    <string name="webdav_backup_desc">Synchronisez automatiquement vos flux et groupes sur votre stockage Nextcloud/WebDAV privé</string>
+    <string name="webdav_server_url">URL du serveur WebDAV</string>
+    <string name="webdav_username">Nom d\'utilisateur</string>
+    <string name="webdav_password">Mot de passe / Jeton d\'application</string>
+    <string name="webdav_backup_now">Sauvegarder maintenant</string>
+    <string name="webdav_restore_now">Restaurer depuis le cloud</string>
+    <string name="webdav_backup_success">Sauvegarde OPML téléversée avec succès !</string>
+    <string name="webdav_restore_success">Flux et groupes restaurés avec succès depuis le cloud !</string>
+    <string name="webdav_last_backup">Dernière sauvegarde : %1$s</string>
 </resources>

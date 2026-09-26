@@ -745,4 +745,14 @@
     <string name="smart_filter_action_star">Star Article</string>
     <string name="smart_filter_field_title">Title</string>
     <string name="smart_filter_field_author">Author</string>
+    <string name="webdav_backup_title">WebDAV OPML Cloud Backup</string>
+    <string name="webdav_backup_desc">Sync your feeds &amp; groups automatically to your private Nextcloud/WebDAV storage</string>
+    <string name="webdav_server_url">WebDAV Server URL</string>
+    <string name="webdav_username">Username</string>
+    <string name="webdav_password">Password / App Token</string>
+    <string name="webdav_backup_now">Backup Now</string>
+    <string name="webdav_restore_now">Restore from Cloud</string>
+    <string name="webdav_backup_success">OPML backup uploaded successfully!</string>
+    <string name="webdav_restore_success">Feeds and groups restored successfully from cloud!</string>
+    <string name="webdav_last_backup">Last backup: %1$s</string>
 </resources>

@@ -663,4 +663,14 @@
     <string name="smart_filter_action_star">スターを付ける</string>
     <string name="smart_filter_field_title">タイトル</string>
     <string name="smart_filter_field_author">著者</string>
+    <string name="webdav_backup_title">WebDAV OPML クラウドバックアップ</string>
+    <string name="webdav_backup_desc">プライベートな Nextcloud/WebDAV ストレージに購読とグループを自動同期</string>
+    <string name="webdav_server_url">WebDAV サーバー URL</string>
+    <string name="webdav_username">ユーザー名</string>
+    <string name="webdav_password">パスワード / アプリトークン</string>
+    <string name="webdav_backup_now">今すぐバックアップ</string>
+    <string name="webdav_restore_now">クラウドから復元</string>
+    <string name="webdav_backup_success">OPML バックアップが正常にアップロードされました！</string>
+    <string name="webdav_restore_success">クラウドからフィードとグループが正常に復元されました！</string>
+    <string name="webdav_last_backup">最終バックアップ：%1$s</string>
 </resources>

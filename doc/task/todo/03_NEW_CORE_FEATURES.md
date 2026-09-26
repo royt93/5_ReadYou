@@ -11,7 +11,7 @@
 | # | Task | Priority | Est. (SP) | Status | File |
 |---|---|:---:|:---:|:---:|---|
 | NEW-01 | Tích Hợp Đầy Đủ Chuẩn Google Reader API (FreshRSS, Miniflux, Nextcloud News) | P1 (High) | 8 | 📋 Todo | [`NEW-01_google-reader-api-integration.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/todo/NEW-01_google-reader-api-integration.md) |
-| NEW-02 | Tự Động Sao Lưu & Đồng Bộ OPML Qua WebDAV & Google Drive | P2 (Medium) | 5 | 📋 Todo | [`NEW-02_opml-backup-webdav-drive.md`](file:///Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc/task/todo/NEW-02_opml-backup-webdav-drive.md) |
+| NEW-02 | Tự Động Sao Lưu & Đồng Bộ OPML Qua WebDAV & Google Drive | P2 (Medium) | 5 | ✅ Done | [`NEW-02_opml-backup-webdav-drive_DONE.md`](../done/NEW-02_opml-backup-webdav-drive_DONE.md) |
 | NEW-03 | Bộ Lọc Quy Tắc Thông Minh (Smart Feed Filter & Rule Engine) | P2 (Medium) | 5 | ✅ Done | [`NEW-03_smart-feed-filter-rules_DONE.md`](../done/NEW-03_smart-feed-filter-rules_DONE.md) |
 | NEW-04 | Chế Độ Đọc Ngoại Tuyến Toàn Diện (Full Offline Pre-Caching) | P2 (Medium) | 5 | ✅ Done | [`NEW-04_full-offline-precaching_DONE.md`](../done/NEW-04_full-offline-precaching_DONE.md) |
 | NEW-05 | Trung Tâm Sức Khỏe Nguồn Tin (Feed Health Center) | P1 (High) | 5 | ✅ Done | [`NEW-05_feed-health-center_DONE.md`](../done/NEW-05_feed-health-center_DONE.md) |
