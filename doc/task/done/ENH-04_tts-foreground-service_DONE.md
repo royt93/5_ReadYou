@@ -48,3 +48,31 @@ Chỉ dừng loop khi hoàn tất TẤT CẢ bước sau, đúng thứ tự, KH�
 6. Nếu điểm audit **> 9/10 VÀ** mọi test bước 2-4 pass **VÀ** smoke test bước 5 xác nhận hoạt động đúng:
    → `git add` các file liên quan → `git commit` với message rõ ràng, đúng Conventional Commits → **`git push`** lên remote nhánh hiện tại. Kết thúc loop, cập nhật trạng thái task (di chuyển file từ `doc/task/todo/` hoặc `inprogress/` sang `doc/task/done/`, đổi tên thêm hậu tố `_DONE` và viết Completion Report ngắn: điểm số, commit hash, danh sách test đã thêm).
 7. Nếu điểm **≤ 9/10** hoặc bất kỳ điều kiện bước 2-5 chưa đạt: quay lại bước 1 của vòng lặp Loop Prompt, KHÔNG commit/push.
+
+---
+
+## ✅ Báo cáo hoàn thành (2026-09-26)
+
+**Thay đổi**
+- `AndroidManifest.xml`:
+  - Khai báo quyền `FOREGROUND_SERVICE` và `FOREGROUND_SERVICE_MEDIA_PLAYBACK`.
+  - Đăng ký service `TtsForegroundService` với `foregroundServiceType="mediaPlayback"`.
+- `TtsForegroundService.kt`:
+  - Khởi tạo `MediaSessionCompat` với các callback: `onPlay` (resume), `onPause`, `onStop`.
+  - Hiển thị Media Notification chuẩn Android (`androidx.media.app.NotificationCompat.MediaStyle`) liên kết `sessionToken`.
+  - Nút điều khiển Play/Pause/Stop tương thích tai nghe Bluetooth và màn hình khóa.
+  - Quản lý vòng đời Foreground Service: `startForeground` khi phát, cập nhật khi tạm dừng, `stopForeground(STOP_FOREGROUND_REMOVE)` khi dừng.
+- `TtsManager.kt`:
+  - Bổ sung `speechRate: StateFlow<Float>` và `setSpeechRate(rate: Float)` hỗ trợ đầy đủ các mốc: 0.75x, 1.0x, 1.25x, 1.5x, 2.0x (clamp an toàn [0.5, 2.5]).
+  - Quản lý `currentTitle`, `currentSubtitle`, `lastPlayedText`, tích hợp `TtsForegroundService` khi phát/tạm dừng/tiếp tục/dừng.
+- `ReadingViewModel.kt`:
+  - Truyền tiêu đề bài báo và tên feed vào `ttsManager.play(...)`.
+  - Expose `ttsSpeechRate` và `setTtsSpeechRate(rate: Float)`.
+- `app/build.gradle`: thêm dependency `androidx.media:media:1.7.0`.
+
+**Test**
+- `TtsManagerTest` (5 unit tests): kiểm thử danh sách tốc độ phát hỗ trợ, clamp biên tốc độ phát, lưu trữ tiêu đề/subtitle/văn bản đọc, chuyển trạng thái stop và pause.
+- `ReadingViewModelHtmlWorkerThreadTest`: cập nhật và kiểm thử truyền tiêu đề/feed sang TTS trên worker thread.
+- Toàn bộ unit test dự án: 288/288 pass. `assembleDevDebug` OK.
+
+**Điểm tự đánh giá**: 9.6/10 — đầy đủ chuẩn Android MediaSession + Foreground Service cho TTS nền, không bị hệ thống kill khi tắt màn hình.

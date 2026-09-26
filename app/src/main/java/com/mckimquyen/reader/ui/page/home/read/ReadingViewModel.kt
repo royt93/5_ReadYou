@@ -167,6 +167,8 @@ class ReadingViewModel @Inject constructor(
 
     private fun playCurrentContent() {
         val content = _readingUiState.value.content
+        val title = _readingUiState.value.articleWithFeed?.article?.title.orEmpty()
+        val feedName = _readingUiState.value.articleWithFeed?.feed?.name.orEmpty()
         if (content == null) {
             Log.d("roy93~", "ReadingViewModel content is null, cannot play")
             return
@@ -179,9 +181,13 @@ class ReadingViewModel @Inject constructor(
                 ).toString()
             }
             Log.d("roy93~", "ReadingViewModel starting TTS play")
-            ttsManager.play(plainText)
+            ttsManager.play(plainText, title, feedName)
         }
     }
+
+    val ttsSpeechRate: StateFlow<Float> = ttsManager.speechRate
+
+    fun setTtsSpeechRate(rate: Float): Boolean = ttsManager.setSpeechRate(rate)
 
     fun togglePlayAudio() {
         Log.d("roy93~", "ReadingViewModel togglePlayAudio called. Current state: ${_readingUiState.value.ttsState}")

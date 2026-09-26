@@ -6,6 +6,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
 
     <!-- Advertising ID permission - used only for advertising and analytics -->
     <!-- This permission allows the app to retrieve and use the advertising identifier -->
@@ -82,6 +84,11 @@
         <activity
             android:name="androidx.activity.ComponentActivity"
             android:exported="true" />
+
+        <service
+            android:name=".infrastructure.audio.TtsForegroundService"
+            android:exported="false"
+            android:foregroundServiceType="mediaPlayback" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

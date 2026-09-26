@@ -122,7 +122,7 @@ class ReadingViewModelHtmlWorkerThreadTest {
         advanceUntilIdle()
 
         verify(exactly = 1) {
-            ttsManager.play("Heavy html paragraph")
+            ttsManager.play("Heavy html paragraph", "Very Long Article", "Feed")
         }
     }
 

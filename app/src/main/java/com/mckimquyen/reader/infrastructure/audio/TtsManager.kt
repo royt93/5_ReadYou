@@ -26,8 +26,27 @@ class TtsManager @Inject constructor(
     private val _ttsState = MutableStateFlow(TtsState.IDLE)
     val ttsState: StateFlow<TtsState> = _ttsState.asStateFlow()
 
+    private val _speechRate = MutableStateFlow(DEFAULT_SPEECH_RATE)
+    val speechRate: StateFlow<Float> = _speechRate.asStateFlow()
+
+    var currentTitle: String = ""
+        private set
+    var currentSubtitle: String = ""
+        private set
+    var lastPlayedText: String = ""
+        private set
+
     init {
         tts = TextToSpeech(context, this)
+    }
+
+    fun setSpeechRate(rate: Float): Boolean {
+        val clamped = rate.coerceIn(MIN_SPEECH_RATE, MAX_SPEECH_RATE)
+        val success = tts?.setSpeechRate(clamped) == TextToSpeech.SUCCESS
+        if (success) {
+            _speechRate.value = clamped
+        }
+        return success
     }
 
     override fun onInit(status: Int) {
@@ -68,13 +87,17 @@ class TtsManager @Inject constructor(
         }
     }
 
-    fun play(text: String) {
+    fun play(text: String, title: String = "", subtitle: String = "") {
         Log.d("roy93~", "TtsManager play text length: ${text.length}")
+        lastPlayedText = text
+        if (title.isNotBlank()) currentTitle = title
+        if (subtitle.isNotBlank()) currentSubtitle = subtitle
+
         if (!isInitialized) {
             Log.d("roy93~", "TtsManager play aborted: not initialized")
             return
         }
-        
+
         val maxLength = TextToSpeech.getMaxSpeechInputLength()
         if (text.length > maxLength) {
             Log.d("roy93~", "TtsManager play: text length > maxLength ($maxLength), chunking...")
@@ -88,6 +111,22 @@ class TtsManager @Inject constructor(
             tts?.speak(text, TextToSpeech.QUEUE_FLUSH, null, "TTS_ID")
         }
         _ttsState.value = TtsState.PLAYING
+        TtsForegroundService.start(context, currentTitle, currentSubtitle)
+    }
+
+    fun pause() {
+        Log.d("roy93~", "TtsManager pause()")
+        if (!isInitialized) return
+        tts?.stop()
+        _ttsState.value = TtsState.IDLE
+        TtsForegroundService.pause(context)
+    }
+
+    fun resume() {
+        Log.d("roy93~", "TtsManager resume()")
+        if (lastPlayedText.isNotBlank()) {
+            play(lastPlayedText, currentTitle, currentSubtitle)
+        }
     }
 
     fun stop() {
@@ -95,6 +134,7 @@ class TtsManager @Inject constructor(
         if (!isInitialized) return
         tts?.stop()
         _ttsState.value = TtsState.IDLE
+        TtsForegroundService.stop(context)
     }
 
     fun shutdown() {
@@ -104,5 +144,14 @@ class TtsManager @Inject constructor(
         tts?.shutdown()
         isInitialized = false
         _ttsState.value = TtsState.IDLE
+        TtsForegroundService.stop(context)
+    }
+
+    companion object {
+        const val DEFAULT_SPEECH_RATE = 1.0f
+        const val MIN_SPEECH_RATE = 0.5f
+        const val MAX_SPEECH_RATE = 2.5f
+
+        val SUPPORTED_SPEECH_RATES = listOf(0.75f, 1.0f, 1.25f, 1.5f, 2.0f)
     }
 }
