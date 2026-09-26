@@ -15,23 +15,20 @@ interface ArticleDao {
     @Transaction
     @Query(
         """
-        SELECT * FROM article
-        WHERE accountId = :accountId 
-        AND feedId IN (
+        SELECT article.* FROM article
+        JOIN article_fts ON article.rowid = article_fts.docid
+        WHERE article_fts MATCH :query
+        AND article.accountId = :accountId
+        AND article.feedId IN (
             SELECT id FROM feed WHERE groupId = :groupId
         )
-        AND isUnread = :isUnread
-        AND (
-            title LIKE '%' || :text || '%'
-            OR shortDescription LIKE '%' || :text || '%'
-            OR fullContent LIKE '%' || :text || '%'
-        )
-        ORDER BY date DESC
+        AND article.isUnread = :isUnread
+        ORDER BY article.date DESC
         """
     )
     fun searchArticleByGroupIdWhenIsUnread(
         accountId: Int,
-        text: String,
+        query: String,
         groupId: String,
         isUnread: Boolean,
     ): PagingSource<Int, ArticleWithFeed>
@@ -39,23 +36,20 @@ interface ArticleDao {
     @Transaction
     @Query(
         """
-        SELECT * FROM article
-        WHERE accountId = :accountId 
-        AND feedId IN (
+        SELECT article.* FROM article
+        JOIN article_fts ON article.rowid = article_fts.docid
+        WHERE article_fts MATCH :query
+        AND article.accountId = :accountId
+        AND article.feedId IN (
             SELECT id FROM feed WHERE groupId = :groupId
         )
-        AND isStarred = :isStarred
-        AND (
-            title LIKE '%' || :text || '%'
-            OR shortDescription LIKE '%' || :text || '%'
-            OR fullContent LIKE '%' || :text || '%'
-        )
-        ORDER BY date DESC
+        AND article.isStarred = :isStarred
+        ORDER BY article.date DESC
         """
     )
     fun searchArticleByGroupIdWhenIsStarred(
         accountId: Int,
-        text: String,
+        query: String,
         groupId: String,
         isStarred: Boolean,
     ): PagingSource<Int, ArticleWithFeed>
@@ -63,43 +57,37 @@ interface ArticleDao {
     @Transaction
     @Query(
         """
-        SELECT * FROM article
-        WHERE accountId = :accountId 
-        AND feedId IN (
+        SELECT article.* FROM article
+        JOIN article_fts ON article.rowid = article_fts.docid
+        WHERE article_fts MATCH :query
+        AND article.accountId = :accountId
+        AND article.feedId IN (
             SELECT id FROM feed WHERE groupId = :groupId
         )
-        AND (
-            title LIKE '%' || :text || '%'
-            OR shortDescription LIKE '%' || :text || '%'
-            OR fullContent LIKE '%' || :text || '%'
-        )
-        ORDER BY date DESC
+        ORDER BY article.date DESC
         """
     )
     fun searchArticleByGroupIdWhenAll(
         accountId: Int,
-        text: String,
+        query: String,
         groupId: String,
     ): PagingSource<Int, ArticleWithFeed>
 
     @Transaction
     @Query(
         """
-        SELECT * FROM article
-        WHERE accountId = :accountId 
-        AND feedId = :feedId
-        AND isUnread = :isUnread
-        AND (
-            title LIKE '%' || :text || '%'
-            OR shortDescription LIKE '%' || :text || '%'
-            OR fullContent LIKE '%' || :text || '%'
-        )
-        ORDER BY date DESC
+        SELECT article.* FROM article
+        JOIN article_fts ON article.rowid = article_fts.docid
+        WHERE article_fts MATCH :query
+        AND article.accountId = :accountId
+        AND article.feedId = :feedId
+        AND article.isUnread = :isUnread
+        ORDER BY article.date DESC
         """
     )
     fun searchArticleByFeedIdWhenIsUnread(
         accountId: Int,
-        text: String,
+        query: String,
         feedId: String,
         isUnread: Boolean,
     ): PagingSource<Int, ArticleWithFeed>
@@ -107,21 +95,18 @@ interface ArticleDao {
     @Transaction
     @Query(
         """
-        SELECT * FROM article
-        WHERE accountId = :accountId 
-        AND feedId = :feedId
-        AND isStarred = :isStarred
-        AND (
-            title LIKE '%' || :text || '%'
-            OR shortDescription LIKE '%' || :text || '%'
-            OR fullContent LIKE '%' || :text || '%'
-        )
-        ORDER BY date DESC
+        SELECT article.* FROM article
+        JOIN article_fts ON article.rowid = article_fts.docid
+        WHERE article_fts MATCH :query
+        AND article.accountId = :accountId
+        AND article.feedId = :feedId
+        AND article.isStarred = :isStarred
+        ORDER BY article.date DESC
         """
     )
     fun searchArticleByFeedIdWhenIsStarred(
         accountId: Int,
-        text: String,
+        query: String,
         feedId: String,
         isStarred: Boolean,
     ): PagingSource<Int, ArticleWithFeed>
@@ -129,79 +114,67 @@ interface ArticleDao {
     @Transaction
     @Query(
         """
-        SELECT * FROM article
-        WHERE accountId = :accountId 
-        AND feedId = :feedId 
-        AND (
-            title LIKE '%' || :text || '%'
-            OR shortDescription LIKE '%' || :text || '%'
-            OR fullContent LIKE '%' || :text || '%'
-        )
-        ORDER BY date DESC
+        SELECT article.* FROM article
+        JOIN article_fts ON article.rowid = article_fts.docid
+        WHERE article_fts MATCH :query
+        AND article.accountId = :accountId
+        AND article.feedId = :feedId
+        ORDER BY article.date DESC
         """
     )
     fun searchArticleByFeedIdWhenAll(
         accountId: Int,
-        text: String,
+        query: String,
         feedId: String,
     ): PagingSource<Int, ArticleWithFeed>
 
     @Transaction
     @Query(
         """
-        SELECT * FROM article
-        WHERE accountId = :accountId 
-        AND isUnread = :isUnread
-        AND (
-            title LIKE '%' || :text || '%'
-            OR shortDescription LIKE '%' || :text || '%'
-            OR fullContent LIKE '%' || :text || '%'
-        )
-        ORDER BY date DESC
+        SELECT article.* FROM article
+        JOIN article_fts ON article.rowid = article_fts.docid
+        WHERE article_fts MATCH :query
+        AND article.accountId = :accountId
+        AND article.isUnread = :isUnread
+        ORDER BY article.date DESC
         """
     )
     fun searchArticleWhenIsUnread(
         accountId: Int,
-        text: String,
+        query: String,
         isUnread: Boolean,
     ): PagingSource<Int, ArticleWithFeed>
 
     @Transaction
     @Query(
         """
-        SELECT * FROM article
-        WHERE accountId = :accountId 
-        AND isStarred = :isStarred
-        AND (
-            title LIKE '%' || :text || '%'
-            OR shortDescription LIKE '%' || :text || '%'
-            OR fullContent LIKE '%' || :text || '%'
-        )
-        ORDER BY date DESC
+        SELECT article.* FROM article
+        JOIN article_fts ON article.rowid = article_fts.docid
+        WHERE article_fts MATCH :query
+        AND article.accountId = :accountId
+        AND article.isStarred = :isStarred
+        ORDER BY article.date DESC
         """
     )
     fun searchArticleWhenIsStarred(
         accountId: Int,
-        text: String,
+        query: String,
         isStarred: Boolean,
     ): PagingSource<Int, ArticleWithFeed>
 
     @Transaction
     @Query(
         """
-        SELECT * FROM article
-        WHERE accountId = :accountId 
-        AND (
-            title LIKE '%' || :text || '%'
-            OR shortDescription LIKE '%' || :text || '%'
-            OR fullContent LIKE '%' || :text || '%'
-        )
-        ORDER BY date DESC
+        SELECT article.* FROM article
+        JOIN article_fts ON article.rowid = article_fts.docid
+        WHERE article_fts MATCH :query
+        AND article.accountId = :accountId
+        ORDER BY article.date DESC
         """
     )
     fun searchArticleWhenAll(
         accountId: Int,
-        text: String,
+        query: String,
     ): PagingSource<Int, ArticleWithFeed>
 
     @Query(

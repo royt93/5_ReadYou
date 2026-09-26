@@ -351,27 +351,24 @@ abstract class AbstractRssRepository(
         isUnread: Boolean,
     ): PagingSource<Int, ArticleWithFeed> {
         val accountId = context.currentAccountId
-//        Log.i(
-//            "RLog",
-//            "searchArticles: content: ${content}, accountId: ${accountId}, groupId: ${groupId}, feedId: ${feedId}, isStarred: ${isStarred}, isUnread: ${isUnread}"
-//        )
+        val query = com.mckimquyen.reader.domain.repository.ArticleSearchQuery.toMatchQuery(content)
         return when {
             groupId != null -> when {
-                isStarred -> articleDao.searchArticleByGroupIdWhenIsStarred(accountId, content, groupId, true)
-                isUnread -> articleDao.searchArticleByGroupIdWhenIsUnread(accountId, content, groupId, true)
-                else -> articleDao.searchArticleByGroupIdWhenAll(accountId, content, groupId)
+                isStarred -> articleDao.searchArticleByGroupIdWhenIsStarred(accountId, query, groupId, true)
+                isUnread -> articleDao.searchArticleByGroupIdWhenIsUnread(accountId, query, groupId, true)
+                else -> articleDao.searchArticleByGroupIdWhenAll(accountId, query, groupId)
             }
 
             feedId != null -> when {
-                isStarred -> articleDao.searchArticleByFeedIdWhenIsStarred(accountId, content, feedId, true)
-                isUnread -> articleDao.searchArticleByFeedIdWhenIsUnread(accountId, content, feedId, true)
-                else -> articleDao.searchArticleByFeedIdWhenAll(accountId, content, feedId)
+                isStarred -> articleDao.searchArticleByFeedIdWhenIsStarred(accountId, query, feedId, true)
+                isUnread -> articleDao.searchArticleByFeedIdWhenIsUnread(accountId, query, feedId, true)
+                else -> articleDao.searchArticleByFeedIdWhenAll(accountId, query, feedId)
             }
 
             else -> when {
-                isStarred -> articleDao.searchArticleWhenIsStarred(accountId, content, true)
-                isUnread -> articleDao.searchArticleWhenIsUnread(accountId, content, true)
-                else -> articleDao.searchArticleWhenAll(accountId, content)
+                isStarred -> articleDao.searchArticleWhenIsStarred(accountId, query, true)
+                isUnread -> articleDao.searchArticleWhenIsUnread(accountId, query, true)
+                else -> articleDao.searchArticleWhenAll(accountId, query)
             }
         }
     }

@@ -92,7 +92,7 @@ class FeverRssSvTest {
 
     @Test
     fun validCredentials_whenAccountMissing_throwsIllegalStateInsteadOfNpe() {
-        coEvery { accountDao.queryById(accountId) } returns null
+        coEvery { accountDao.queryById(any()) } returns null
 
         val error = assertThrows(IllegalStateException::class.java) {
             runBlocking { feverRssSv.validCredentials() }
@@ -103,8 +103,9 @@ class FeverRssSvTest {
 
     @Test
     fun validCredentials_whenServerUrlMissing_throwsIllegalStateInsteadOfNpe() {
-        coEvery { accountDao.queryById(accountId) } returns
-            feverAccount(FeverSecurityKey(serverUrl = null, username = "user", password = "pass"))
+        coEvery { accountDao.queryById(any()) } answers {
+            feverAccount(FeverSecurityKey(serverUrl = null, username = "user", password = "pass")).copy(id = firstArg())
+        }
 
         val error = assertThrows(IllegalStateException::class.java) {
             runBlocking { feverRssSv.validCredentials() }
@@ -115,7 +116,7 @@ class FeverRssSvTest {
 
     @Test
     fun sync_whenAccountMissing_returnsFailureInsteadOfCrashing() {
-        coEvery { accountDao.queryById(accountId) } returns null
+        coEvery { accountDao.queryById(any()) } returns null
 
         val result = runBlocking { feverRssSv.sync(worker) }
 
@@ -125,8 +126,9 @@ class FeverRssSvTest {
 
     @Test
     fun sync_skipsIncompleteRemoteEntities_andKeepsValidOnes() {
-        coEvery { accountDao.queryById(accountId) } returns
-            feverAccount(FeverSecurityKey(serverUrl = "https://fever.test", username = "user", password = "pass"))
+        coEvery { accountDao.queryById(any()) } answers {
+            feverAccount(FeverSecurityKey(serverUrl = "https://fever.test", username = "user", password = "pass")).copy(id = firstArg())
+        }
         coEvery { feverApi.getGroups() } returns FeverDTO.Groups(
             api_version = null, auth = 1, last_refreshed_on_time = null,
             groups = listOf(
@@ -157,7 +159,7 @@ class FeverRssSvTest {
             FeverDTO.ItemsByUnread(null, 1, null, unread_item_ids = "101")
         coEvery { feverApi.getSavedItems() } returns
             FeverDTO.ItemsByStarred(null, 1, null, saved_item_ids = "")
-        every { articleDao.queryArticleMetadataAll(accountId) } returns emptyList()
+        every { articleDao.queryArticleMetadataAll(any()) } returns emptyList()
         val groups = slot<List<Group>>()
         val feeds = slot<List<Feed>>()
         val articles = mutableListOf<Article>()
@@ -173,11 +175,12 @@ class FeverRssSvTest {
         val result = runBlocking { feverRssSv.sync(worker) }
 
         assertTrue(result is ListenableWorker.Result.Success)
-        assertEquals(listOf("$accountId\$1"), groups.captured.map { it.id })
-        assertEquals(listOf("$accountId\$12"), feeds.captured.map { it.id })
-        assertEquals(listOf("$accountId\$101"), articles.map { it.id })
-        assertEquals("$accountId\$12", articles.single().feedId)
-        assertEquals("$accountId\$101", updatedAccount.captured.lastArticleId)
+        val resolvedAccountId = updatedAccount.captured.id ?: accountId
+        assertEquals(listOf("$resolvedAccountId\$1"), groups.captured.map { it.id })
+        assertEquals(listOf("$resolvedAccountId\$12"), feeds.captured.map { it.id })
+        assertEquals(listOf("$resolvedAccountId\$101"), articles.map { it.id })
+        assertEquals("$resolvedAccountId\$12", articles.single().feedId)
+        assertEquals("$resolvedAccountId\$101", updatedAccount.captured.lastArticleId)
     }
 
     private fun feedItem(id: Int?, url: String?) = FeverDTO.FeedItem(

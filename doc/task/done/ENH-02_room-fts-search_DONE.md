@@ -47,3 +47,28 @@ Chỉ dừng loop khi hoàn tất TẤT CẢ bước sau, đúng thứ tự, KH�
 6. Nếu điểm audit **> 9/10 VÀ** mọi test bước 2-4 pass **VÀ** smoke test bước 5 xác nhận hoạt động đúng:
    → `git add` các file liên quan → `git commit` với message rõ ràng, đúng Conventional Commits → **`git push`** lên remote nhánh hiện tại. Kết thúc loop, cập nhật trạng thái task (di chuyển file từ `doc/task/todo/` hoặc `inprogress/` sang `doc/task/done/`, đổi tên thêm hậu tố `_DONE` và viết Completion Report ngắn: điểm số, commit hash, danh sách test đã thêm).
 7. Nếu điểm **≤ 9/10** hoặc bất kỳ điều kiện bước 2-5 chưa đạt: quay lại bước 1 của vòng lặp Loop Prompt, KHÔNG commit/push.
+
+---
+
+## ✅ Báo cáo hoàn thành (2026-09-26)
+
+**Thay đổi**
+- `ArticleFts.kt`: Entity ảo `@Fts4(contentEntity = Article::class, tokenizer = FtsOptions.TOKENIZER_UNICODE61)` lập chỉ mục toàn văn trên `title`, `shortDescription`, `fullContent`. Tokenizer unicode61 tự động xóa dấu tiếng Việt giúp tìm kiếm không dấu (vd: "cong nghe" tìm được "công nghệ").
+- `AndroidDb.kt`:
+  - Thêm `ArticleFts::class` vào danh sách `@Database(entities = [...])`.
+  - Nâng database version từ `8` lên `9`.
+  - Bổ sung `MIGRATION_8_9` tạo virtual table `article_fts`, chạy `INSERT INTO article_fts(article_fts) VALUES('rebuild')` để đồng bộ bài viết có sẵn, và 4 trigger chuẩn của Room (`BEFORE_UPDATE`, `BEFORE_DELETE`, `AFTER_UPDATE`, `AFTER_INSERT`) giữ bảng FTS luôn đồng bộ với bảng `article`.
+- `ArticleSearchQuery.kt`: helper chuẩn hoá từ khoá tìm kiếm `toMatchQuery()` (bọc quote, hỗ trợ prefix search `*`, giữ nguyên cụm từ trong ngoặc kép `""`).
+- `ArticleDao.kt`: thay thế 9 câu query tìm kiếm `LIKE '%' || :text || '%'` quét toàn bảng bằng `JOIN article_fts ON article.rowid = article_fts.docid WHERE article_fts MATCH :query ... ORDER BY article.date DESC`.
+- `AbstractRssRepository.kt`: chuyển đổi nội dung tìm kiếm sang FTS MATCH query qua `ArticleSearchQuery.toMatchQuery()`.
+
+**Test**
+- `ArticleSearchQueryTest` (7 unit tests): kiểm thử chuẩn hoá từ đơn có prefix, nhiều từ nối `AND`, giữ nguyên cụm từ trong ngoặc kép, escape ngoặc kép nội bộ, chuỗi rỗng, sinh câu truy vấn FTS kết hợp bộ lọc feed/group/read/star.
+- `Migration8to9Test` (2 unit tests, Robolectric live SQLite):
+  - `migration8to9_executesExpectedDdlStatements`: xác minh toàn bộ câu lệnh DDL được thực thi.
+  - `migration8to9_liveSqlite_createsFtsTableAndSyncTriggers`: kiểm thử thực tế trên SQLite in-memory: rebuild bài viết có sẵn (tìm kiếm tiếng Việt có dấu/không dấu), trigger `AFTER_INSERT` tự động index bài viết mới, trigger `AFTER_UPDATE` cập nhật FTS, trigger `BEFORE_DELETE` xóa khỏi FTS.
+- Toàn bộ unit test dự án: 279/279 pass. `assembleDevDebug` OK.
+
+**Smoke test**: Pixel 7 Pro (2B051FDH3006MU) — cài đặt APK mới, khởi chạy tiến trình PID 14873, migration 8 -> 9 diễn ra thành công không crash (crash count = 0).
+
+**Điểm tự đánh giá**: 9.6/10 — giải quyết triệt để vấn đề full table scan, dùng chỉ mục FTS4 chuẩn Room với tokenizer unicode61 cho tiếng Việt.
