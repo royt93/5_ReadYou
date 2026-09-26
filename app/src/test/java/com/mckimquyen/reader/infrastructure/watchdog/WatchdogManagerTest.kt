@@ -237,4 +237,92 @@ class WatchdogManagerTest {
         assertNotNull(matched)
         assertEquals("Bitcoin", matched?.keyword)
     }
+
+    // ---- REEL-04: atomic persistence, no lost updates under concurrency ----
+
+    @Test
+    fun concurrentIncrementMatchCount_fromMultipleThreads_doesNotLoseUpdates() {
+        manager.addKeyword("\$VIC")
+        val keywordId = manager.keywords.value.first().id
+
+        val threadCount = 20
+        val incrementsPerThread = 10
+        val threads = (1..threadCount).map {
+            Thread {
+                repeat(incrementsPerThread) {
+                    manager.incrementMatchCount(keywordId)
+                }
+            }
+        }
+        threads.forEach { it.start() }
+        threads.forEach { it.join() }
+
+        // Every increment must be reflected: no lost update from interleaved read-modify-write.
+        assertEquals(threadCount * incrementsPerThread, manager.keywords.value.first().matchCount)
+
+        // Reloading from disk must agree with the in-memory result (write path is also atomic).
+        val reloaded = WatchdogManager(context, engine, notificationHelper, eagerScope, Dispatchers.Unconfined)
+        assertEquals(threadCount * incrementsPerThread, reloaded.keywords.value.first().matchCount)
+    }
+
+    @Test
+    fun concurrentAddAndIncrement_simulatingUiEditVsBackgroundSync_doesNotLoseEither() {
+        manager.addKeyword("Bitcoin")
+        val bitcoinId = manager.keywords.value.first().id
+
+        // Simulates SyncWorker on a background thread incrementing matchCount for existing
+        // keywords while the UI thread concurrently adds a brand-new keyword.
+        val syncThread = Thread {
+            repeat(50) { manager.incrementMatchCount(bitcoinId) }
+        }
+        val uiThread = Thread {
+            repeat(5) { i -> manager.addKeyword("keyword_$i") }
+        }
+        syncThread.start()
+        uiThread.start()
+        syncThread.join()
+        uiThread.join()
+
+        assertEquals(6, manager.keywords.value.size) // Bitcoin + 5 new keywords, none lost
+        assertEquals(50, manager.keywords.value.first { it.id == bitcoinId }.matchCount)
+    }
+
+    // ---- REEL-04: corrupt JSON must not silently wipe existing data ----
+
+    @Test
+    fun load_whenPrimaryJsonCorrupt_recoversFromBackup() {
+        manager.addKeyword("\$VIC")
+        manager.addKeyword("Bitcoin")
+        val prefs = context.getSharedPreferences("watchdog_prefs", Context.MODE_PRIVATE)
+        // Second save() call promotes the first save's JSON to the backup key.
+        val backupJson = prefs.getString("watchdog_keywords_json_backup", null)
+        assertNotNull("Backup must exist after 2 saves", backupJson)
+
+        // Simulate primary corruption (e.g. process killed mid-write).
+        prefs.edit().putString("watchdog_keywords_json", "{not valid json!!").commit()
+
+        val recovered = WatchdogManager(context, engine, notificationHelper, eagerScope, Dispatchers.Unconfined)
+
+        assertFalse("Must recover keywords from backup, not wipe to empty", recovered.keywords.value.isEmpty())
+        assertEquals(listOf("\$VIC"), recovered.keywords.value.map { it.keyword })
+    }
+
+    @Test
+    fun load_whenBothPrimaryAndBackupCorrupt_returnsEmptyWithoutCrashing() {
+        val prefs = context.getSharedPreferences("watchdog_prefs", Context.MODE_PRIVATE)
+        prefs.edit()
+            .putString("watchdog_keywords_json", "not json")
+            .putString("watchdog_keywords_json_backup", "also not json")
+            .commit()
+
+        val recovered = WatchdogManager(context, engine, notificationHelper, eagerScope, Dispatchers.Unconfined)
+
+        assertTrue(recovered.keywords.value.isEmpty())
+    }
+
+    @Test
+    fun load_whenNoDataEverSaved_returnsEmptyWithoutError() {
+        val fresh = WatchdogManager(context, engine, notificationHelper, eagerScope, Dispatchers.Unconfined)
+        assertTrue(fresh.keywords.value.isEmpty())
+    }
 }

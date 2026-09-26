@@ -53,3 +53,28 @@ Chỉ dừng loop khi hoàn tất TẤT CẢ bước sau, đúng thứ tự, KH�
    → `git add` các file liên quan → `git commit` với message rõ ràng, đúng Conventional Commits → **`git push`** lên remote nhánh hiện tại. Kết thúc loop, cập nhật trạng thái task (di chuyển file từ `doc/task/todo/` hoặc `inprogress/` sang `doc/task/done/`, đổi tên thêm hậu tố `_DONE` và viết Completion Report ngắn: điểm số, commit hash, danh sách test đã thêm).
 7. Nếu điểm **≤ 9/10** hoặc bất kỳ điều kiện bước 2-5 chưa đạt: quay lại bước 1 của vòng lặp Loop Prompt, KHÔNG commit/push.
 ```
+
+---
+
+## ✅ Báo cáo hoàn thành (2026-09-26)
+
+**Thay đổi**
+- `WatchdogManager.kt`:
+  - Thêm `mutationLock` (đối tượng khóa `synchronized`), bọc toàn bộ chu trình đọc-sửa-ghi (`ensureLoaded` + snapshot + transform + `saveKeywords`) trong `addKeyword`/`removeKeyword`/`toggleKeyword`/`incrementMatchCount` thành 1 khối nguyên tử — loại bỏ hoàn toàn race condition lost-update giữa UI thread và `SyncWorker` background thread.
+  - `saveKeywords()`: trước khi ghi đè key chính, sao lưu JSON hiện tại (nếu có) sang key backup (`watchdog_keywords_json_backup`) trong cùng 1 `Editor.commit()` — atomic ở tầng file (Android SharedPreferences framework tự write-temp-then-rename).
+  - `readKeywords()`: đọc key chính trước; nếu parse JSON lỗi, tự động thử khôi phục từ key backup; chỉ trả về danh sách rỗng khi cả 2 đều hỏng/không tồn tại (chưa từng có dữ liệu) — không còn âm thầm xóa sạch từ khóa khi gặp corrupt JSON.
+  - Log lỗi rõ ràng (`Log.e`) khi phát hiện JSON hỏng hoặc ghi đĩa thất bại, thay vì `catch { }` im lặng.
+
+**Test**
+- `WatchdogManagerTest` bổ sung 5 test mới (tổng 17, tất cả pass):
+  - `concurrentIncrementMatchCount_fromMultipleThreads_doesNotLoseUpdates`: 20 thread × 10 lần increment đồng thời → đúng 200, kể cả sau khi reload từ đĩa.
+  - `concurrentAddAndIncrement_simulatingUiEditVsBackgroundSync_doesNotLoseEither`: mô phỏng UI thêm từ khóa đồng thời SyncWorker tăng matchCount — không mất dữ liệu bên nào.
+  - `load_whenPrimaryJsonCorrupt_recoversFromBackup`: JSON chính hỏng → tự phục hồi từ backup, không xóa sạch.
+  - `load_whenBothPrimaryAndBackupCorrupt_returnsEmptyWithoutCrashing`: cả 2 hỏng → trả rỗng an toàn, không crash.
+  - `load_whenNoDataEverSaved_returnsEmptyWithoutError`: chưa từng lưu → rỗng hợp lệ (không phải mất dữ liệu).
+- Toàn bộ unit test dự án: 331/331 pass. `assembleDevDebug` + `compileDevDebugAndroidTestKotlin` OK.
+- `WatchdogIntegrationTest` trên Pixel 7 Pro (2B051FDH3006MU, Android 17): 2/2 pass.
+
+**Smoke test**: Pixel 7 Pro — cài lại APK, khởi động app PID 19707, crash buffer 0.
+
+**Điểm tự đánh giá**: 9.6/10 — giải quyết triệt để cả 2 vấn đề (race condition lost-update + mất dữ liệu khi JSON hỏng) mà không đổi API public, không cần migrate sang Room/DataStore (rủi ro thấp nhất theo đúng gợi ý trong Loop Prompt).

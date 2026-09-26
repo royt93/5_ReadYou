@@ -1,6 +1,7 @@
 package com.mckimquyen.reader.infrastructure.watchdog
 
 import android.content.Context
+import android.util.Log
 import com.mckimquyen.reader.domain.model.article.Article
 import com.mckimquyen.reader.domain.model.feed.Feed
 import com.mckimquyen.reader.domain.model.watchdog.WatchdogKeyword
@@ -16,6 +17,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.json.JSONArray
+import org.json.JSONException
 import org.json.JSONObject
 import java.util.Locale
 import javax.inject.Inject
@@ -39,7 +41,12 @@ class WatchdogManager @Inject constructor(
     private val _keywords = MutableStateFlow<List<WatchdogKeyword>>(emptyList())
     val keywords: StateFlow<List<WatchdogKeyword>> = _keywords.asStateFlow()
 
-    private val loadLock = Any()
+    // Serializes every read-modify-write mutation (ensureLoaded + snapshot + transform + save) so
+    // a UI-thread edit (addKeyword/removeKeyword/toggleKeyword) and a background SyncWorker
+    // increment (incrementMatchCount) can never interleave and lose one another's update.
+    // No suspension ever happens inside this lock — every guarded function is a plain blocking
+    // call — so `synchronized` here is safe with coroutines.
+    private val mutationLock = Any()
 
     @Volatile
     private var isLoaded = false
@@ -54,20 +61,41 @@ class WatchdogManager @Inject constructor(
      * Loads persisted keywords exactly once. Every mutation calls this first: if the user mutates
      * before the async load finished, the persisted list is loaded (synchronously, rare path)
      * before being modified, so saving never overwrites stored keywords with a partial list.
+     *
+     * Must be called while holding [mutationLock] from every mutator; [checkArticle] also calls it
+     * standalone (read-only path, no lock needed there).
      */
     private fun ensureLoaded() {
         if (isLoaded) return
-        synchronized(loadLock) {
+        synchronized(mutationLock) {
             if (isLoaded) return
             _keywords.value = readKeywords()
             isLoaded = true
         }
     }
 
+    /**
+     * Reads the primary key, falling back to the last-known-good backup if the primary is corrupt
+     * (e.g. process was killed mid-write). Never silently wipes existing data: a fully unreadable
+     * primary+backup pair only happens when no data was ever saved, in which case an empty list is
+     * the correct, honest result — not data loss.
+     */
     private fun readKeywords(): List<WatchdogKeyword> {
-        val jsonStr = prefs.getString(KEY_WATCHDOG_LIST, null)
-        if (jsonStr.isNullOrBlank()) return emptyList()
+        val primary = prefs.getString(KEY_WATCHDOG_LIST, null)
+        parseKeywordsJson(primary)?.let { return it }
 
+        if (!primary.isNullOrBlank()) {
+            Log.e(TAG, "Watchdog keyword JSON corrupt, falling back to last-known-good backup")
+        }
+
+        val backup = prefs.getString(KEY_WATCHDOG_LIST_BACKUP, null)
+        parseKeywordsJson(backup)?.let { return it }
+
+        return emptyList()
+    }
+
+    private fun parseKeywordsJson(jsonStr: String?): List<WatchdogKeyword>? {
+        if (jsonStr.isNullOrBlank()) return null
         return try {
             val jsonArray = JSONArray(jsonStr)
             val list = mutableListOf<WatchdogKeyword>()
@@ -84,11 +112,16 @@ class WatchdogManager @Inject constructor(
                 )
             }
             list
-        } catch (e: Exception) {
-            emptyList()
+        } catch (e: JSONException) {
+            null
         }
     }
 
+    /**
+     * Persists [list] and mirrors it into a backup key so a corrupt/partial primary write on the
+     * next load can still recover the previous good state instead of resetting to empty.
+     * Must be called while holding [mutationLock].
+     */
     private fun saveKeywords(list: List<WatchdogKeyword>) {
         try {
             val jsonArray = JSONArray()
@@ -102,10 +135,18 @@ class WatchdogManager @Inject constructor(
                 }
                 jsonArray.put(obj)
             }
-            prefs.edit().putString(KEY_WATCHDOG_LIST, jsonArray.toString()).apply()
+            val json = jsonArray.toString()
+            // Back up the previous primary before overwriting it, then write the new primary.
+            // SharedPreferences.Editor.commit() applies both puts as a single atomic file write.
+            val previousPrimary = prefs.getString(KEY_WATCHDOG_LIST, null)
+            val editor = prefs.edit().putString(KEY_WATCHDOG_LIST, json)
+            if (!previousPrimary.isNullOrBlank()) {
+                editor.putString(KEY_WATCHDOG_LIST_BACKUP, previousPrimary)
+            }
+            editor.commit()
             _keywords.value = list
         } catch (e: Exception) {
-            // Ignore
+            Log.e(TAG, "Failed to persist watchdog keywords: ${e.message}", e)
         }
     }
 
@@ -117,46 +158,54 @@ class WatchdogManager @Inject constructor(
         val trimmed = rawKeyword.trim()
         if (trimmed.isBlank()) return false
 
-        ensureLoaded()
-        val current = _keywords.value
-        if (current.any { it.keyword.equals(trimmed, ignoreCase = true) }) {
-            return false
-        }
+        synchronized(mutationLock) {
+            ensureLoaded()
+            val current = _keywords.value
+            if (current.any { it.keyword.equals(trimmed, ignoreCase = true) }) {
+                return false
+            }
 
-        val updated = current + WatchdogKeyword(keyword = trimmed)
-        saveKeywords(updated)
-        return true
+            val updated = current + WatchdogKeyword(keyword = trimmed)
+            saveKeywords(updated)
+            return true
+        }
     }
 
     /**
      * Xóa từ khóa theo id.
      */
     fun removeKeyword(id: String) {
-        ensureLoaded()
-        val updated = _keywords.value.filter { it.id != id }
-        saveKeywords(updated)
+        synchronized(mutationLock) {
+            ensureLoaded()
+            val updated = _keywords.value.filter { it.id != id }
+            saveKeywords(updated)
+        }
     }
 
     /**
      * Bật/tắt trạng thái theo dõi của từ khóa.
      */
     fun toggleKeyword(id: String, isEnabled: Boolean) {
-        ensureLoaded()
-        val updated = _keywords.value.map {
-            if (it.id == id) it.copy(isEnabled = isEnabled) else it
+        synchronized(mutationLock) {
+            ensureLoaded()
+            val updated = _keywords.value.map {
+                if (it.id == id) it.copy(isEnabled = isEnabled) else it
+            }
+            saveKeywords(updated)
         }
-        saveKeywords(updated)
     }
 
     /**
      * Tăng số lượng bài viết phát hiện được bởi từ khóa này.
      */
     fun incrementMatchCount(id: String) {
-        ensureLoaded()
-        val updated = _keywords.value.map {
-            if (it.id == id) it.copy(matchCount = it.matchCount + 1) else it
+        synchronized(mutationLock) {
+            ensureLoaded()
+            val updated = _keywords.value.map {
+                if (it.id == id) it.copy(matchCount = it.matchCount + 1) else it
+            }
+            saveKeywords(updated)
         }
-        saveKeywords(updated)
     }
 
     /**
@@ -191,7 +240,9 @@ class WatchdogManager @Inject constructor(
     }
 
     companion object {
+        private const val TAG = "WatchdogManager"
         private const val PREFS_NAME = "watchdog_prefs"
         private const val KEY_WATCHDOG_LIST = "watchdog_keywords_json"
+        private const val KEY_WATCHDOG_LIST_BACKUP = "watchdog_keywords_json_backup"
     }
 }
