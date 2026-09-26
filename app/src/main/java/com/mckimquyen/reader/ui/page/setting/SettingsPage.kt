@@ -64,6 +64,7 @@ import com.mckimquyen.reader.ui.ext.openUrlInBrowser
 import com.mckimquyen.reader.ui.ext.rateApp
 import com.mckimquyen.reader.ui.ext.shareApp
 import com.mckimquyen.reader.ui.page.about.AboutActivity
+import androidx.compose.material.icons.outlined.FilterAlt
 import androidx.compose.material.icons.outlined.HealthAndSafety
 import com.mckimquyen.reader.ui.page.common.RouteName
 import com.mckimquyen.reader.ui.page.setting.tip.UpdateDialog
@@ -231,6 +232,17 @@ fun SettingsPage(
                         icon = Icons.Outlined.HealthAndSafety,
                     ) {
                         navController.navigate(RouteName.FEED_HEALTH) {
+                            launchSingleTop = true
+                        }
+                    }
+                }
+                item {
+                    SelectableSettingGroupItem(
+                        title = stringResource(R.string.smart_filter_title),
+                        desc = stringResource(R.string.smart_filter_desc),
+                        icon = Icons.Outlined.FilterAlt,
+                    ) {
+                        navController.navigate(RouteName.SMART_FILTER) {
                             launchSingleTop = true
                         }
                     }

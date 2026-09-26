@@ -54,10 +54,11 @@ class FeverRssSv @Inject constructor(
     private val defaultDispatcher: CoroutineDispatcher,
     workManager: WorkManager,
     watchdogManager: WatchdogManager,
+    smartFilterManager: com.mckimquyen.reader.infrastructure.filter.SmartFilterManager,
 ) : AbstractRssRepository(
     context, accountDao, articleDao, groupDao,
     feedDao, workManager, rssHelper, notificationHelper, ioDispatcher, defaultDispatcher,
-    watchdogManager, feedHealthDao
+    watchdogManager, feedHealthDao, smartFilterManager
 ) {
 
     override val subscribe: Boolean = false

@@ -229,6 +229,14 @@ fun HomeEntry(
                 )
             }
 
+            // Smart Filter Rules
+            animatedComposable(route = RouteName.SMART_FILTER) {
+                com.mckimquyen.reader.ui.page.setting.filter.SmartFilterPage(
+                    navController = navController,
+                    activity = activity
+                )
+            }
+
             // Brain RPG
             animatedComposable(route = RouteName.BRAIN_RPG) {
                 BrainRpgPage(navController = navController, activity = activity)

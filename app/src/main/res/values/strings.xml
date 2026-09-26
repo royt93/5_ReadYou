@@ -736,4 +736,13 @@
     <string name="feed_health_last_sync">Last sync: %1$s</string>
     <string name="feed_health_never">Never</string>
     <string name="feed_health_empty">No RSS feeds subscribed</string>
+    <string name="smart_filter_title">Smart Filter Rules</string>
+    <string name="smart_filter_desc">Auto mark as read or star articles matching keywords</string>
+    <string name="smart_filter_add_rule">Add Rule</string>
+    <string name="smart_filter_keyword_hint">Keyword (e.g. [Ad], Sponsored)</string>
+    <string name="smart_filter_empty">No filter rules configured</string>
+    <string name="smart_filter_action_read">Mark as Read</string>
+    <string name="smart_filter_action_star">Star Article</string>
+    <string name="smart_filter_field_title">Title</string>
+    <string name="smart_filter_field_author">Author</string>
 </resources>

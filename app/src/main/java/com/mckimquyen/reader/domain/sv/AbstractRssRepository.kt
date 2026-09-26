@@ -48,6 +48,7 @@ abstract class AbstractRssRepository(
     private val dispatcherDefault: CoroutineDispatcher,
     private val watchdogManager: WatchdogManager,
     private val feedHealthDao: FeedHealthDao,
+    private val smartFilterManager: com.mckimquyen.reader.infrastructure.filter.SmartFilterManager,
 ) {
 
     open val subscribe: Boolean = true
@@ -91,7 +92,8 @@ abstract class AbstractRssRepository(
                         .awaitAll()
                         .filterNotNull()
                         .forEach {
-                            val insertedArticles = articleDao.insertListIfNotExist(it.articles)
+                            val filteredArticles = smartFilterManager.applyRules(it.articles)
+                            val insertedArticles = articleDao.insertListIfNotExist(filteredArticles)
                             watchdogManager.checkAndNotify(insertedArticles, it.feed)
                             if (it.feed.isNotification && !shouldSilenceNotification()) {
                                 notificationHelper.notify(it.apply {
@@ -208,7 +210,8 @@ abstract class AbstractRssRepository(
 
     suspend fun retryFeedSync(feed: Feed): Boolean {
         val result = syncSingleFeed(feed) ?: return false
-        articleDao.insertListIfNotExist(result.articles)
+        val filtered = smartFilterManager.applyRules(result.articles)
+        articleDao.insertListIfNotExist(filtered)
         return true
     }
 

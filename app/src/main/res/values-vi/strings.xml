@@ -627,4 +627,13 @@
     <string name="feed_health_last_sync">Đồng bộ lần cuối: %1$s</string>
     <string name="feed_health_never">Chưa bao giờ</string>
     <string name="feed_health_empty">Chưa đăng ký nguồn tin nào</string>
+    <string name="smart_filter_title">Quy tắc bộ lọc thông minh</string>
+    <string name="smart_filter_desc">Tự động đánh dấu đã đọc hoặc gắn sao bài viết khớp từ khóa</string>
+    <string name="smart_filter_add_rule">Thêm quy tắc</string>
+    <string name="smart_filter_keyword_hint">Từ khóa (ví dụ: [Quảng cáo], Tài trợ)</string>
+    <string name="smart_filter_empty">Chưa thiết lập quy tắc bộ lọc nào</string>
+    <string name="smart_filter_action_read">Đánh dấu đã đọc</string>
+    <string name="smart_filter_action_star">Gắn sao bài viết</string>
+    <string name="smart_filter_field_title">Tiêu đề</string>
+    <string name="smart_filter_field_author">Tác giả</string>
 </resources>

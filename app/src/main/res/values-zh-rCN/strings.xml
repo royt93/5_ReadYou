@@ -653,4 +653,13 @@
     <string name="feed_health_last_sync">上次同步：%1$s</string>
     <string name="feed_health_never">从未</string>
     <string name="feed_health_empty">暂无订阅源</string>
+    <string name="smart_filter_title">智能过滤规则</string>
+    <string name="smart_filter_desc">自动将匹配关键词的文章标记为已读或加星</string>
+    <string name="smart_filter_add_rule">添加规则</string>
+    <string name="smart_filter_keyword_hint">关键词（例如：推广、赞助）</string>
+    <string name="smart_filter_empty">未配置过滤规则</string>
+    <string name="smart_filter_action_read">标记为已读</string>
+    <string name="smart_filter_action_star">加星标</string>
+    <string name="smart_filter_field_title">标题</string>
+    <string name="smart_filter_field_author">作者</string>
 </resources>

@@ -657,4 +657,13 @@
     <string name="feed_health_last_sync">Letzte Synchr.: %1$s</string>
     <string name="feed_health_never">Nie</string>
     <string name="feed_health_empty">Keine Feeds abonniert</string>
+    <string name="smart_filter_title">Intelligente Filterregeln</string>
+    <string name="smart_filter_desc">Artikel automatisch als gelesen markieren oder mit Stern versehen</string>
+    <string name="smart_filter_add_rule">Regel hinzufügen</string>
+    <string name="smart_filter_keyword_hint">Schlüsselwort (z.B. Anzeige, Gesponsert)</string>
+    <string name="smart_filter_empty">Keine Filterregeln konfiguriert</string>
+    <string name="smart_filter_action_read">Als gelesen markieren</string>
+    <string name="smart_filter_action_star">Mit Stern markieren</string>
+    <string name="smart_filter_field_title">Titel</string>
+    <string name="smart_filter_field_author">Autor</string>
 </resources>

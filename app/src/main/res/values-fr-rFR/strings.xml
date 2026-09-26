@@ -660,4 +660,13 @@
     <string name="feed_health_last_sync">Dernier sync : %1$s</string>
     <string name="feed_health_never">Jamais</string>
     <string name="feed_health_empty">Aucun flux souscrit</string>
+    <string name="smart_filter_title">Règles de filtrage intelligent</string>
+    <string name="smart_filter_desc">Marquer comme lu ou favori automatiquement selon les mots-clés</string>
+    <string name="smart_filter_add_rule">Ajouter une règle</string>
+    <string name="smart_filter_keyword_hint">Mot-clé (ex: Sponsorisé, Promo)</string>
+    <string name="smart_filter_empty">Aucune règle configurée</string>
+    <string name="smart_filter_action_read">Marquer comme lu</string>
+    <string name="smart_filter_action_star">Ajouter aux favoris</string>
+    <string name="smart_filter_field_title">Titre</string>
+    <string name="smart_filter_field_author">Auteur</string>
 </resources>

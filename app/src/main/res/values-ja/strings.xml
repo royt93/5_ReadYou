@@ -654,4 +654,13 @@
     <string name="feed_health_last_sync">最終同期：%1$s</string>
     <string name="feed_health_never">なし</string>
     <string name="feed_health_empty">登録されたフィードはありません</string>
+    <string name="smart_filter_title">スマートフィルタールール</string>
+    <string name="smart_filter_desc">キーワードに一致する記事を自動で既読化またはスター付与</string>
+    <string name="smart_filter_add_rule">ルールを追加</string>
+    <string name="smart_filter_keyword_hint">キーワード（例：PR、スポンサー）</string>
+    <string name="smart_filter_empty">フィルタールールが設定されていません</string>
+    <string name="smart_filter_action_read">既読にする</string>
+    <string name="smart_filter_action_star">スターを付ける</string>
+    <string name="smart_filter_field_title">タイトル</string>
+    <string name="smart_filter_field_author">著者</string>
 </resources>

@@ -31,6 +31,7 @@ class LocalRssSv @Inject constructor(
     private val defaultDispatcher: CoroutineDispatcher,
     workManager: WorkManager,
     watchdogManager: WatchdogManager,
+    smartFilterManager: com.mckimquyen.reader.infrastructure.filter.SmartFilterManager,
 ) : AbstractRssRepository(
     context,
     accountDao,
@@ -44,4 +45,5 @@ class LocalRssSv @Inject constructor(
     defaultDispatcher,
     watchdogManager,
     feedHealthDao,
+    smartFilterManager,
 )

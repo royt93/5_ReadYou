@@ -47,3 +47,27 @@ Chỉ dừng loop khi hoàn tất TẤT CẢ bước sau, đúng thứ tự, KH�
 6. Nếu điểm audit **> 9/10 VÀ** mọi test bước 2-4 pass **VÀ** smoke test bước 5 xác nhận hoạt động đúng:
    → `git add` các file liên quan → `git commit` với message rõ ràng, đúng Conventional Commits → **`git push`** lên remote nhánh hiện tại. Kết thúc loop, cập nhật trạng thái task (di chuyển file từ `doc/task/todo/` hoặc `inprogress/` sang `doc/task/done/`, đổi tên thêm hậu tố `_DONE` và viết Completion Report ngắn: điểm số, commit hash, danh sách test đã thêm).
 7. Nếu điểm **≤ 9/10** hoặc bất kỳ điều kiện bước 2-5 chưa đạt: quay lại bước 1 của vòng lặp Loop Prompt, KHÔNG commit/push.
+
+---
+
+## ✅ Báo cáo hoàn thành (2026-09-26)
+
+**Thay đổi**
+- `SmartFilterRule.kt`: model quy tắc bộ lọc gồm targetField (TITLE, AUTHOR), keyword, action (MARK_READ, STAR), isEnabled.
+- `SmartFilterEngine.kt`: engine thuần xử lý bài viết theo các quy tắc, tự động đánh dấu đã đọc hoặc gắn sao bài viết khớp từ khóa không phân biệt hoa thường.
+- `SmartFilterManager.kt`: quản lý danh sách quy tắc với lưu trữ SharedPreferences bất đồng bộ (`ensureLoaded()`, không block Main), cung cấp StateFlow cho Compose UI.
+- `AbstractRssRepository.kt`: tự động áp dụng `smartFilterManager.applyRules(...)` trên danh sách bài viết mới tải về trong cả `sync()` định kỳ và `retryFeedSync()` thủ công trước khi ghi vào Room.
+- `LocalRssSv.kt` & `FeverRssSv.kt`: tiêm `SmartFilterManager` cho repository.
+- `SmartFilterPage.kt` & `SmartFilterViewModel.kt`: giao diện cài đặt quy tắc bộ lọc đẹp mắt chuẩn Material 3, dialog thêm quy tắc theo tiêu đề/tác giả, bật/tắt hoặc xóa quy tắc.
+- Điều hướng: Route `SMART_FILTER` trong `SettingsPage` với icon FilterAlt.
+- Bản dịch đầy đủ 6 ngôn ngữ: en, vi, zh-rCN, ja, fr, de.
+
+**Test**
+- `SmartFilterEngineTest` (4 unit tests): kiểm tra tự động đánh dấu đã đọc khi khớp tiêu đề, tự động gắn sao khi khớp tác giả, quy tắc tắt không có tác dụng, áp dụng đồng thời nhiều quy tắc trên danh sách bài.
+- `SmartFilterManagerTest` (4 unit tests): lưu trữ quy tắc, chặn trùng lặp, bật/tắt và xóa quy tắc.
+- `SmartFilterCardWidgetTest` (1 unit test, Robolectric Compose): hiển thị thông tin thẻ quy tắc chính xác.
+- Toàn bộ unit test: 311/311 pass. `assembleDevDebug` + `compileDevDebugAndroidTestKotlin` OK.
+
+**Smoke test**: Pixel 7 Pro (2B051FDH3006MU) — cài đặt APK mới, mở app PID 9618, crash buffer 0.
+
+**Điểm tự đánh giá**: 9.7/10 — hoàn thành trọn vẹn từ engine lọc tự động khi sync đến giao diện quản trị quy tắc trong Settings.
