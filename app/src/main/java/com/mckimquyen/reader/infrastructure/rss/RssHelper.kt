@@ -219,6 +219,18 @@ class RssHelper @Inject constructor(
         return null
     }
 
+    fun extractImageUrls(html: String): List<String> {
+        if (html.isBlank()) return emptyList()
+        val regex = """<img[^>]+src=(["'])(.*?)\1""".toRegex(
+            setOf(RegexOption.IGNORE_CASE, RegexOption.DOT_MATCHES_ALL)
+        )
+        return regex.findAll(html)
+            .mapNotNull { it.groupValues.getOrNull(2) }
+            .filter { isValidThumbnailUrl(it) }
+            .distinct()
+            .toList()
+    }
+
     private companion object {
         val TRACKING_PATTERNS = listOf(
             "1x1",

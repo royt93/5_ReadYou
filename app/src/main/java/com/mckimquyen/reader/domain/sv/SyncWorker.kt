@@ -16,6 +16,7 @@ import androidx.work.workDataOf
 import com.mckimquyen.reader.infrastructure.pref.SyncIntervalPref
 import com.mckimquyen.reader.infrastructure.pref.SyncOnlyOnWiFiPref
 import com.mckimquyen.reader.infrastructure.pref.SyncOnlyWhenChargingPref
+import com.mckimquyen.reader.ui.ext.currentAccountId
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.Dispatchers
@@ -25,18 +26,26 @@ import java.util.concurrent.TimeUnit
 
 @HiltWorker
 class SyncWorker @AssistedInject constructor(
-    @Assisted context: Context,
+    @Assisted private val context: Context,
     @Assisted workerParams: WorkerParameters,
     private val accountService: AccountSv,
     private val rssService: RssSv,
+    private val offlinePrecacheService: com.mckimquyen.reader.infrastructure.rss.OfflinePrecacheService,
 ) : CoroutineWorker(context, workerParams) {
 
     override suspend fun doWork(): Result =
         withContext(Dispatchers.Default) {
             Log.i("RLog", "doWork: ")
-            rssService.get().sync(this@SyncWorker).also {
+            val syncResult = rssService.get().sync(this@SyncWorker).also {
                 rssService.get().clearKeepArchivedArticles()
             }
+            if (syncResult is Result.Success) {
+                runCatching {
+                    val accountId = context.currentAccountId
+                    offlinePrecacheService.precacheLatestUnread(accountId)
+                }
+            }
+            syncResult
         }
 
     companion object {

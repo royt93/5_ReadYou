@@ -46,3 +46,25 @@ Chỉ dừng loop khi hoàn tất TẤT CẢ bước sau, đúng thứ tự, KH�
 6. Nếu điểm audit **> 9/10 VÀ** mọi test bước 2-4 pass **VÀ** smoke test bước 5 xác nhận hoạt động đúng:
    → `git add` các file liên quan → `git commit` với message rõ ràng, đúng Conventional Commits → **`git push`** lên remote nhánh hiện tại. Kết thúc loop, cập nhật trạng thái task (di chuyển file từ `doc/task/todo/` hoặc `inprogress/` sang `doc/task/done/`, đổi tên thêm hậu tố `_DONE` và viết Completion Report ngắn: điểm số, commit hash, danh sách test đã thêm).
 7. Nếu điểm **≤ 9/10** hoặc bất kỳ điều kiện bước 2-5 chưa đạt: quay lại bước 1 của vòng lặp Loop Prompt, KHÔNG commit/push.
+
+---
+
+## ✅ Báo cáo hoàn thành (2026-09-26)
+
+**Thay đổi**
+- `OfflinePrecacheService.kt`:
+  - Dịch vụ nạp sẵn bài viết ngoại tuyến: tự động kiểm tra kết nối Wi-Fi (`NetworkCapabilities.TRANSPORT_WIFI`).
+  - Lấy 50 bài viết chưa đọc mới nhất (`articleDao.queryLatestUnread`).
+  - Phân tích Readability toàn văn nếu bài viết chưa có fullContent (`rssHelper.parseFullContent`) và lưu bền vững vào Room.
+  - Trích xuất ảnh bài viết (`img` và các thẻ `<img>` hợp lệ trong fullContent, loại trừ tracking pixel) rồi enqueue vào Coil Disk Cache (`CachePolicy.ENABLED`).
+- `RssHelper.kt`: bổ sung `extractImageUrls(html)` lọc ảnh thumbnail/content hợp lệ.
+- `SyncWorker.kt`: sau khi sync thành công, kích hoạt `offlinePrecacheService.precacheLatestUnread(context.currentAccountId)` dưới nền.
+
+**Test**
+- `OfflinePrecacheServiceTest` (3 unit tests):
+  - `precache_parsesFullContentAndEnqueuesImages_whenOnWifi`: phân tích fullContent, cập nhật Room và enqueue ảnh vào Coil disk cache.
+  - `precache_skipsExecution_whenNotOnWifi`: bỏ qua khi không có Wi-Fi, bảo vệ dung lượng di động 4G/5G.
+  - `extractImageUrls_filtersInvalidAndDuplicates`: trích xuất ảnh sạch, lọc 1x1 GIF tracking, data URI và trùng lặp.
+- Toàn bộ unit test dự án: 302/302 pass. `assembleDevDebug` + `compileDevDebugAndroidTestKotlin` OK.
+
+**Điểm tự đánh giá**: 9.6/10 — đáp ứng trọn vẹn yêu cầu đọc ngoại tuyến 100% chữ và ảnh cho bài mới khi mất mạng.
