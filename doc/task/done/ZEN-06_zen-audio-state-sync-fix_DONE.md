@@ -70,4 +70,4 @@ Mỗi vòng lặp:
 **Smoke test (Pixel 7 Pro `2B051FDH3006MU`, 2026-09-26):**
 - App launch sạch, `SplashActivity` resumed, không fatal exception, không runtime error trong logcat audio.
 
-**Commit:** `5fb2cdc2`
+**Commit:** `a3903d9f`

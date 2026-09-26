@@ -16,8 +16,21 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6f28f826-4208-4800-b7bf-3c32f11fba88" name="Changes" comment="feat(deployment): add multiple selection states for unitTest, main, and androidTest configurations">
+    <list default="true" id="6f28f826-4208-4800-b7bf-3c32f11fba88" name="Changes" comment="refactor(ui): update workspace configuration and clean up obsolete files">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/androidTest/java/com/mckimquyen/reader/ui/page/rsvp/ZenSpeedReadingIntegrationTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/androidTest/java/com/mckimquyen/reader/ui/page/rsvp/ZenSpeedReadingIntegrationTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/infrastructure/audio/ambient/ZenAudioManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/infrastructure/audio/ambient/ZenAudioManager.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/infrastructure/audio/ambient/ZenSoundSynthesizer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/infrastructure/audio/ambient/ZenSoundSynthesizer.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/component/ambient/ZenSoundSheet.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/component/ambient/ZenSoundSheet.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-de-rDE/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-de-rDE/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-fr-rFR/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-fr-rFR/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-ja/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-ja/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-vi/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-vi/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-zh-rCN/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-zh-rCN/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/test/java/com/mckimquyen/reader/infrastructure/audio/ambient/ZenSoundSynthesizerTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/test/java/com/mckimquyen/reader/infrastructure/audio/ambient/ZenSoundSynthesizerTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/task/todo/08_ZEN_FOCUS_AND_SPEED_READING.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/task/todo/08_ZEN_FOCUS_AND_SPEED_READING.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/task/todo/ZEN-06_zen-audio-state-sync-fix.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/task/done/ZEN-06_zen-audio-state-sync-fix_DONE.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,7 +72,7 @@
       <entry key="edit-panel" value="GPT-5 mini" />
     </selectedModels>
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[PhysicalDevice::serial=118743744X002560]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[PhysicalDevice::serial=2B051FDH3006MU]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -412,14 +425,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1759065326374</updated>
-    </task>
-    <task id="LOCAL-00020" summary="Adjust padding in AddSourceDetailPage&#10;&#10;This commit modifies the bottom padding of the `LazyColumn` in `AddSourceDetailPage.kt` from 16.dp to 0.dp.">
-      <option name="closed" value="true" />
-      <created>1759151836656</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1759151836656</updated>
     </task>
     <task id="LOCAL-00021" summary="Refactor AddSourcesPage and navigation&#10;&#10;This commit refactors the `AddSourcesPage.kt` and related navigation logic.&#10;&#10;- Renamed `AddSourcesPage` composable to `AddSourcesMainPage` in `app/src/main/java/com/mckimquyen/reader/ui/page/home/addsources/AddSourcesPage.kt`.&#10;- Updated the route in `HomeEntry.kt` to use `AddSourcesMainPage` for the `RouteName.ADD_SOURCES` destination.&#10;- In `FlowPage.kt` and `FeedsPage.kt`, when the &quot;AddSources&quot; tab is tapped, the app now navigates to the `RouteName.ADD_SOURCES` route, ensuring `launchSingleTop = true`. This prevents multiple instances of the `AddSourcesMainPage` from being created.">
       <option name="closed" value="true" />
@@ -805,12 +810,19 @@
       <option name="project" value="LOCAL" />
       <updated>1790396518317</updated>
     </task>
-    <option name="localTasksCounter" value="69" />
+    <task id="LOCAL-00069" summary="refactor(ui): update workspace configuration and clean up obsolete files">
+      <option name="closed" value="true" />
+      <created>1790413414974</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1790413414974</updated>
+    </task>
+    <option name="localTasksCounter" value="70" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
-    <MESSAGE value="Chore: Update project version and add development guidelines&#10;&#10;This commit updates the application versioning and introduces a development guidelines document. It also includes standard IDE configuration updates.&#10;&#10;- **`app/build.gradle`**:&#10;    - Bumped `versionCode` to `20260401` and `versionName` to `&quot;2026.04.01&quot;`.&#10;&#10;- **`doc/init.md` &amp; `app/doc/init.md`**:&#10;    - Created a new documentation file outlining high-priority coding standards, including:&#10;        - Requirement to use `AppSnackbar` instead of `Get.snack`.&#10;        - Mandatory use of `GetX` for state management instead of `setState` or `late` variables.&#10;        - Enforcement of currency formatting for amount-related text inputs.&#10;        - Requirements for consistent animations and memory leak prevention.&#10;&#10;- **`.idea/`**:&#10;    - Updated `modules.xml` to include the project module.&#10;    - Updated `workspace.xml` with recent task history and IDE state changes." />
     <MESSAGE value="Refactor: Fix memory leaks and update project documentation&#10;&#10;This commit addresses critical memory leaks related to `Activity` references and improves project documentation. It also includes several IDE configuration updates.&#10;&#10;- **`AdMobManager.kt`**:&#10;    - Fixed a major memory leak in `initSplashScreen` where a `CoroutineScope(Dispatchers.Default)` was collecting a `SharedFlow` indefinitely while holding a reference to the `Activity`.&#10;    - Refactored the logic to use the `Activity`'s `lifecycleScope` and `first()` to ensure the coroutine completes and the reference is released.&#10;    - Updated `EventBus` to use a `MutableSharedFlow` with `replay = 1` for more reliable event delivery during initialization.&#10;&#10;- **`MainActivity.kt`**:&#10;    - Added an `onDestroy` override to nullify the `AdMobManager.interstitialListener`. This prevents the Singleton `AdMobManager` from holding a strong reference to a destroyed `MainActivity`.&#10;&#10;- **Documentation**:&#10;    - Renamed `app/doc/init.md` to `doc/memory_leak.md` and significantly expanded it.&#10;    - Added a detailed report on potential and fixed memory leaks, covering `SharedFlow` collectors, Singleton listeners, and `Handler.postDelayed` usage.&#10;    - Included a summary of the project's architectural health and tech stack (Jetpack Compose, GetX, Hilt).&#10;&#10;- **IDE Configuration (`.idea/`)**:&#10;    - Added `markdown.xml` to configure the markdown preview provider.&#10;    - Updated `deviceStreaming.xml` with an extensive list of persistent device selection data for various Samsung, Google, and Motorola devices.&#10;    - Removed the redundant `modules.xml`.&#10;    - Updated `workspace.xml` with recent changes, task history, and component state." />
     <MESSAGE value="Refactor: Resolve Kotlin compiler warnings and clean up unused code&#10;&#10;This commit addresses numerous Kotlin compiler warnings across the project, including unused parameters, deprecated API usage, and scope opt-ins. It also introduces a new preference for automated text-to-speech (TTS).&#10;&#10;- **`infrastructure/db/AndroidDb.kt`**:&#10;    - Renamed the `database` parameter to `db` in all `Migration` objects to match the Room `Migration` supertype signature and resolve parameter name mismatch warnings.&#10;&#10;- **`infrastructure/pref/`**:&#10;    - Introduced **`AutoTtsPref.kt`** to manage a new automated TTS setting.&#10;    - Added `@Suppress(&quot;UNUSED_PARAMETER&quot;)` to the `toDesc(context: Context)` function across 26 preference files where the `context` was passed but not utilized in all branches.&#10;&#10;- **`ui/ext/Activity.kt` &amp; `WebView.kt`**:&#10;    - Applied `@file:Suppress(&quot;DEPRECATION&quot;)` and function-level suppressions to handle legacy `systemUiVisibility` and `WebView` APIs.&#10;    - Modernized `getScreenHeightIncludeNavigationBar()` to use `WindowMetrics` for devices running API 30+.&#10;&#10;- **Unused Code Cleanup**:&#10;    - **`FeedsPage.kt`**: Removed unused variables (`accountTabVisible`, `accounts`, `owner`) and redundant scope/lifecycle references.&#10;    - **`ReadingPage.kt` &amp; `Content.kt`**: Removed the unused `isShowToolBar` parameter.&#10;    - **`TopBar.kt`**: Removed unused `tonalElevation` local variable.&#10;    - **`FeedOptionDrawer.kt`**: Cleaned up unused context, view, and string resource references.&#10;    - **`AccountsPage.kt` &amp; `AddAccountsPage.kt`**: Removed unused `uiState` and `viewModel` references.&#10;    - **`FeedsPagePreview.kt` &amp; `FlowPagePreview.kt`**: Removed unused `topBarTonalElevation` parameters and updated their respective call sites.&#10;&#10;- **Infrastructure &amp; Maintenance**:&#10;    - **`doc/warning.md`**: Added a comprehensive report detailing the strategy for fixing various groups of compiler warnings.&#10;    - **`FeedsViewModel.kt` &amp; `AbstractRssRepository.kt`**: Added `@OptIn(ExperimentalCoroutinesApi::class)` to handle internal coroutine API usage.&#10;    - **`AdMobManager.kt`**: Moved deprecation suppressions to the function level for better coverage in `isDeviceConnected`.&#10;    - **`.idea/workspace.xml`**: Updated IDE state and project configuration." />
     <MESSAGE value="Feat: Implement ad-based AMOLED theme unlocking and Banner Ad integration&#10;&#10;This commit introduces a monetization feature where users can permanently unlock the &quot;True Black&quot; AMOLED theme by watching a video advertisement. It also integrates banner advertisements into the article reading view.&#10;&#10;- **Theme Unlocking Logic**:&#10;    - **`DarkThemePage.kt`**: Updated the AMOLED theme toggle to check for `AmoledUnlockedPref`. If locked, it prompts users with an `AlertDialog` to watch a rewarded video ad via `AdManager`. Upon successful completion, the theme is permanently unlocked and activated.&#10;    - **`AmoledUnlockedPref.kt`**: Created a new preference to persist the unlock status in DataStore.&#10;    - **`Settings.kt` &amp; `Pref.kt`**: Integrated the new `amoledUnlocked` preference into the global settings state and `CompositionLocal` providers.&#10;&#10;- **Ad Integration**:&#10;    - **`ComposeBannerAd.kt`**: Created a new Composable wrapper for AdMob banner ads using `AndroidView`, including lifecycle observer logic to handle pause/resume/destroy events.&#10;    - **`ReadingPage.kt`**: Integrated `ComposeBannerAd` into the reading view, positioned below the bottom toolbar.&#10;    - **`BottomBar.kt`**: Adjusted layout modifiers from `fillMaxSize` to `fillMaxWidth` and removed navigation bar padding to accommodate the banner ad placement.&#10;&#10;- **Localization &amp; Tooling**:&#10;    - **`strings.xml`**: Added new string resources (`unlock_amoled_theme`, `watch_ad`, `ad_not_ready`, etc.) across 30+ supported languages.&#10;    - **`translate_strings.py` &amp; `fix_quotes.py`**: Introduced Python automation scripts to manage bulk translations for the new strings and ensure proper quote escaping in XML files.&#10;&#10;- **Bug Fixes**:&#10;    - **`SVGString.kt`**: Added a safety check to the dynamic color parser to prevent crashes when split operations do not return the expected number of parts." />
@@ -835,7 +847,8 @@
     <MESSAGE value="Add initial project setup with Next.js, Tailwind CSS, and essential components" />
     <MESSAGE value="feat(workspace): update initial project setup with additional file changes and configuration updates" />
     <MESSAGE value="feat(deployment): add multiple selection states for unitTest, main, and androidTest configurations" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(deployment): add multiple selection states for unitTest, main, and androidTest configurations" />
+    <MESSAGE value="refactor(ui): update workspace configuration and clean up obsolete files" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor(ui): update workspace configuration and clean up obsolete files" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>
