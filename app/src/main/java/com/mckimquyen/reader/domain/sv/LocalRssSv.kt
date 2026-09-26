@@ -24,6 +24,7 @@ class LocalRssSv @Inject constructor(
     private val notificationHelper: NotificationHelper,
     private val accountDao: AccountDao,
     private val groupDao: GroupDao,
+    private val feedHealthDao: com.mckimquyen.reader.domain.repository.FeedHealthDao,
     @IODispatcher
     private val ioDispatcher: CoroutineDispatcher,
     @DefaultDispatcher
@@ -42,4 +43,5 @@ class LocalRssSv @Inject constructor(
     ioDispatcher,
     defaultDispatcher,
     watchdogManager,
+    feedHealthDao,
 )

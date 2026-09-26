@@ -61,6 +61,11 @@ object DbModule {
 
     @Provides
     @Singleton
+    fun provideFeedHealthDao(androidDatabase: AndroidDatabase): com.mckimquyen.reader.domain.repository.FeedHealthDao =
+        androidDatabase.feedHealthDao()
+
+    @Provides
+    @Singleton
     fun provideReaderDatabase(@ApplicationContext context: Context): AndroidDatabase =
         AndroidDatabase.getInstance(context)
 }

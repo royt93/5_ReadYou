@@ -75,6 +75,7 @@ class FeverRssSvTest {
             defaultDispatcher = Dispatchers.Unconfined,
             workManager = mockk<WorkManager>(relaxed = true),
             watchdogManager = mockk<WatchdogManager>(relaxed = true),
+            feedHealthDao = mockk(relaxed = true),
         )
     }
 

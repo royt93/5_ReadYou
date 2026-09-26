@@ -21,6 +21,8 @@ import com.mckimquyen.reader.domain.model.addedsource.AddedRssSource
 import com.mckimquyen.reader.domain.model.article.Article
 import com.mckimquyen.reader.domain.model.article.ArticleFts
 import com.mckimquyen.reader.domain.model.feed.Feed
+import com.mckimquyen.reader.domain.model.feed.FeedErrorTypeConverters
+import com.mckimquyen.reader.domain.model.feed.FeedHealthRecord
 import com.mckimquyen.reader.domain.model.group.Group
 import com.mckimquyen.reader.domain.model.notebook.ArticleHighlightNote
 import com.mckimquyen.reader.domain.repository.ArticleHighlightDao
@@ -28,6 +30,7 @@ import com.mckimquyen.reader.domain.repository.AccountDao
 import com.mckimquyen.reader.domain.repository.AddedRssSourceDao
 import com.mckimquyen.reader.domain.repository.ArticleDao
 import com.mckimquyen.reader.domain.repository.FeedDao
+import com.mckimquyen.reader.domain.repository.FeedHealthDao
 import com.mckimquyen.reader.domain.repository.GroupDao
 import com.mckimquyen.reader.infrastructure.pref.KeepArchivedPreference
 import com.mckimquyen.reader.infrastructure.pref.SyncIntervalPref
@@ -46,8 +49,9 @@ import java.util.Date
         AddedRssSource::class,
         ArticleHighlightNote::class,
         ArticleFts::class,
+        FeedHealthRecord::class,
     ],
-    version = 9
+    version = 10
 )
 @TypeConverters(
     AndroidDatabase.DateConverters::class,
@@ -58,6 +62,7 @@ import java.util.Date
     SyncOnlyWhenChargingConverters::class,
     KeepArchivedConverters::class,
     SyncBlockListConverters::class,
+    FeedErrorTypeConverters::class,
 )
 abstract class AndroidDatabase : RoomDatabase() {
 
@@ -67,6 +72,7 @@ abstract class AndroidDatabase : RoomDatabase() {
     abstract fun groupDao(): GroupDao
     abstract fun addedRssSourceDao(): AddedRssSourceDao
     abstract fun articleHighlightDao(): ArticleHighlightDao
+    abstract fun feedHealthDao(): FeedHealthDao
 
     companion object {
 
@@ -108,6 +114,7 @@ val allMigrations = arrayOf(
     MIGRATION_6_7,
     MIGRATION_7_8,
     MIGRATION_8_9,
+    MIGRATION_9_10,
 )
 
 @Suppress("ClassName")
@@ -289,5 +296,24 @@ object MIGRATION_8_9 : Migration(8, 9) {
         )
     }
 }
+
+@Suppress("ClassName")
+object MIGRATION_9_10 : Migration(9, 10) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL(
+            """
+            CREATE TABLE IF NOT EXISTS `feed_health_record` (
+                `feedId` TEXT NOT NULL PRIMARY KEY,
+                `lastSuccessTime` INTEGER,
+                `lastLatencyMs` INTEGER,
+                `lastErrorType` TEXT NOT NULL,
+                `lastErrorMessage` TEXT,
+                `lastErrorTime` INTEGER
+            )
+            """.trimIndent()
+        )
+    }
+}
+
 
 

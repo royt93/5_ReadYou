@@ -14,6 +14,7 @@ import com.mckimquyen.reader.domain.model.group.GroupWithFeed
 import com.mckimquyen.reader.domain.repository.AccountDao
 import com.mckimquyen.reader.domain.repository.ArticleDao
 import com.mckimquyen.reader.domain.repository.FeedDao
+import com.mckimquyen.reader.domain.repository.FeedHealthDao
 import com.mckimquyen.reader.domain.repository.GroupDao
 import com.mckimquyen.reader.infrastructure.android.NotificationHelper
 import com.mckimquyen.reader.infrastructure.pref.KeepArchivedPreference
@@ -46,6 +47,7 @@ abstract class AbstractRssRepository(
     private val dispatcherIO: CoroutineDispatcher,
     private val dispatcherDefault: CoroutineDispatcher,
     private val watchdogManager: WatchdogManager,
+    private val feedHealthDao: FeedHealthDao,
 ) {
 
     open val subscribe: Boolean = true
@@ -161,7 +163,8 @@ abstract class AbstractRssRepository(
         }
     }
 
-    private suspend fun syncFeed(feed: Feed): FeedWithArticle? {
+    suspend fun syncSingleFeed(feed: Feed): FeedWithArticle? {
+        val startTime = System.currentTimeMillis()
         return runCatching {
             val latest = articleDao.queryLatestByFeedId(context.currentAccountId, feed.id)
             val articles = rssHelper.queryRssXml(feed, latest?.link)
@@ -172,14 +175,41 @@ abstract class AbstractRssRepository(
                     e.printStackTrace()
                 }
             }
-            FeedWithArticle(
+            val result = FeedWithArticle(
                 feed = feed.apply { isNotification = feed.isNotification && articles.isNotEmpty() },
                 articles = articles
             )
+            feedHealthDao.upsert(
+                com.mckimquyen.reader.domain.model.feed.FeedHealthRecord(
+                    feedId = feed.id,
+                    lastSuccessTime = System.currentTimeMillis(),
+                    lastLatencyMs = System.currentTimeMillis() - startTime,
+                )
+            )
+            result
         }.getOrElse { e ->
             e.printStackTrace()
+            val previous = feedHealthDao.queryByFeedId(feed.id)
+            feedHealthDao.upsert(
+                com.mckimquyen.reader.domain.model.feed.FeedHealthRecord(
+                    feedId = feed.id,
+                    lastSuccessTime = previous?.lastSuccessTime,
+                    lastLatencyMs = System.currentTimeMillis() - startTime,
+                    lastErrorType = com.mckimquyen.reader.domain.model.feed.FeedErrorClassifier.classify(e),
+                    lastErrorMessage = e.message,
+                    lastErrorTime = System.currentTimeMillis(),
+                )
+            )
             null
         }
+    }
+
+    private suspend fun syncFeed(feed: Feed): FeedWithArticle? = syncSingleFeed(feed)
+
+    suspend fun retryFeedSync(feed: Feed): Boolean {
+        val result = syncSingleFeed(feed) ?: return false
+        articleDao.insertListIfNotExist(result.articles)
+        return true
     }
 
     suspend fun clearKeepArchivedArticles() {
