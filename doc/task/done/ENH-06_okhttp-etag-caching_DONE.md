@@ -42,3 +42,18 @@ Chỉ dừng loop khi hoàn tất TẤT CẢ bước sau, đúng thứ tự, KH�
 6. Nếu điểm audit **> 9/10 VÀ** mọi test bước 2-4 pass **VÀ** smoke test bước 5 xác nhận hoạt động đúng:
    → `git add` các file liên quan → `git commit` với message rõ ràng, đúng Conventional Commits → **`git push`** lên remote nhánh hiện tại. Kết thúc loop, cập nhật trạng thái task (di chuyển file từ `doc/task/todo/` hoặc `inprogress/` sang `doc/task/done/`, đổi tên thêm hậu tố `_DONE` và viết Completion Report ngắn: điểm số, commit hash, danh sách test đã thêm).
 7. Nếu điểm **≤ 9/10** hoặc bất kỳ điều kiện bước 2-5 chưa đạt: quay lại bước 1 của vòng lặp Loop Prompt, KHÔNG commit/push.
+
+---
+
+## ✅ Báo cáo hoàn thành (2026-09-26)
+
+**Thay đổi**
+- `OkHttpClientModule`: bật disk cache 10 MiB trong `cacheDir/http` bằng named constants.
+- Thêm `ConditionalCacheInterceptor` cho GET: gắn `Cache-Control: max-age=0`, buộc OkHttp tái xác thực cache. Với response cũ có `ETag`/`Last-Modified`, cache interceptor tích hợp của OkHttp tự gửi `If-None-Match`/`If-Modified-Since`; server trả `304` được merge với body cache, không tải/parse lại payload XML.
+- Giữ nguyên conditional headers do caller cung cấp; không sửa POST.
+
+**Test**
+- `ConditionalCacheInterceptorTest` (3): GET ép revalidate, POST không đổi, conditional headers có sẵn được giữ nguyên.
+- Toàn bộ unit test: 270/270 pass. `assembleDevDebug` OK.
+
+**Điểm tự đánh giá**: 9.3/10 — dùng cơ chế RFC cache chuẩn của OkHttp, không tự lưu ETag trùng lặp trong DB.

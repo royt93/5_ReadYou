@@ -34,8 +34,12 @@ object OkHttpClientModule {
     fun provideOkHttpClient(
         @ApplicationContext context: Context,
     ): OkHttpClient = cachingHttpClient(
-        cacheDirectory = context.cacheDir.resolve("http")
+        cacheDirectory = context.cacheDir.resolve(HTTP_CACHE_DIRECTORY),
+        cacheSize = HTTP_CACHE_SIZE_BYTES,
     ).newBuilder()
+        // Force stale validation so OkHttp attaches cached ETag/Last-Modified validators.
+        // A 304 response is merged with the cached body before callers see it.
+        .addInterceptor(ConditionalCacheInterceptor)
         .addNetworkInterceptor(UserAgentInterceptor)
         .build()
 }
@@ -93,6 +97,21 @@ fun OkHttpClient.Builder.trustAllCerts() {
     }
 }
 
+object ConditionalCacheInterceptor : Interceptor {
+    override fun intercept(chain: Interceptor.Chain): Response {
+        val request = chain.request()
+        return chain.proceed(
+            if (request.method == "GET") {
+                request.newBuilder()
+                    .header("Cache-Control", "max-age=0")
+                    .build()
+            } else {
+                request
+            }
+        )
+    }
+}
+
 object UserAgentInterceptor : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
@@ -106,3 +125,5 @@ object UserAgentInterceptor : Interceptor {
 }
 
 const val USER_AGENT_STRING = "ReadYou / ${BuildConfig.VERSION_NAME}(${BuildConfig.VERSION_CODE})"
+private const val HTTP_CACHE_DIRECTORY = "http"
+private const val HTTP_CACHE_SIZE_BYTES = 10L * 1024L * 1024L
