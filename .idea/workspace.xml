@@ -17,9 +17,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6f28f826-4208-4800-b7bf-3c32f11fba88" name="Changes" comment="feat(home): implement debounce for article fetching and adjust layout for TopBar and BottomBar">
-      <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetSelector.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deploymentTargetSelector.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/infrastructure/android/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/infrastructure/android/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/component/base/SwipeRefresh.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/component/base/SwipeRefresh.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/component/base/ViewPager.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/ext/ExtModifier.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/ext/ExtModifier.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/ext/ExtPagerState.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/common/HomeEntry.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/common/HomeEntry.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/home/feed/FeedOptionView.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/home/feed/FeedOptionView.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/home/feed/acc/AccountsTab.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/home/feed/acc/AccountsTab.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/home/feed/drawer/group/GroupOptionDrawer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/home/feed/drawer/group/GroupOptionDrawer.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/home/flow/FlowPage.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/home/flow/FlowPage.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/task/todo/ENH-01_accompanist-to-native-compose.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/task/done/ENH-01_accompanist-to-native-compose_DONE.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
