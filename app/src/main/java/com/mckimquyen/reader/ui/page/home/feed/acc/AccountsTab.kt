@@ -1,8 +1,13 @@
+@file:OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
+
 package com.mckimquyen.reader.ui.page.home.feed.acc
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -25,9 +30,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.google.accompanist.flowlayout.FlowCrossAxisAlignment
-import com.google.accompanist.flowlayout.FlowRow
-import com.google.accompanist.flowlayout.MainAxisAlignment
 import com.mckimquyen.reader.R
 import com.mckimquyen.reader.domain.model.account.Account
 import com.mckimquyen.reader.ui.component.base.BaseDlg
@@ -59,10 +61,8 @@ fun AccountsTab(
         },
         text = {
             FlowRow(
-                mainAxisAlignment = MainAxisAlignment.Start,
-                crossAxisAlignment = FlowCrossAxisAlignment.Start,
-                crossAxisSpacing = 10.dp,
-                mainAxisSpacing = 10.dp,
+                horizontalArrangement = Arrangement.spacedBy(10.dp),
+                verticalArrangement = Arrangement.spacedBy(10.dp),
             ) {
                 accounts.forEach { account ->
                     Column(

@@ -1,3 +1,5 @@
+@file:OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
+
 package com.mckimquyen.reader.ui.page.home.feed
 
 import androidx.compose.animation.animateContentSize
@@ -5,7 +7,9 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -35,9 +39,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.google.accompanist.flowlayout.FlowCrossAxisAlignment
-import com.google.accompanist.flowlayout.FlowRow
-import com.google.accompanist.flowlayout.MainAxisAlignment
 import com.mckimquyen.reader.R
 import com.mckimquyen.reader.domain.model.group.Group
 import com.mckimquyen.reader.ui.component.base.BaseSelectionChip
@@ -150,10 +151,8 @@ private fun Preset(
     Subtitle(text = stringResource(R.string.preset))
     Spacer(modifier = Modifier.height(10.dp))
     FlowRow(
-        mainAxisAlignment = MainAxisAlignment.Start,
-        crossAxisAlignment = FlowCrossAxisAlignment.Center,
-        crossAxisSpacing = 10.dp,
-        mainAxisSpacing = 10.dp,
+        horizontalArrangement = Arrangement.spacedBy(10.dp),
+        verticalArrangement = Arrangement.spacedBy(10.dp),
     ) {
         BaseSelectionChip(
             modifier = Modifier.animateContentSize(),
@@ -241,10 +240,8 @@ private fun AddToGroup(
         }
     } else {
         FlowRow(
-            mainAxisAlignment = MainAxisAlignment.Start,
-            crossAxisAlignment = FlowCrossAxisAlignment.Center,
-            crossAxisSpacing = 10.dp,
-            mainAxisSpacing = 10.dp,
+            horizontalArrangement = Arrangement.spacedBy(10.dp),
+            verticalArrangement = Arrangement.spacedBy(10.dp),
         ) {
             groups.forEach {
                 BaseSelectionChip(

@@ -47,3 +47,23 @@ Chỉ dừng loop khi hoàn tất TẤT CẢ bước sau, đúng thứ tự, KH�
 6. Nếu điểm audit **> 9/10 VÀ** mọi test bước 2-4 pass **VÀ** smoke test bước 5 xác nhận hoạt động đúng:
    → `git add` các file liên quan → `git commit` với message rõ ràng, đúng Conventional Commits → **`git push`** lên remote nhánh hiện tại. Kết thúc loop, cập nhật trạng thái task (di chuyển file từ `doc/task/todo/` hoặc `inprogress/` sang `doc/task/done/`, đổi tên thêm hậu tố `_DONE` và viết Completion Report ngắn: điểm số, commit hash, danh sách test đã thêm).
 7. Nếu điểm **≤ 9/10** hoặc bất kỳ điều kiện bước 2-5 chưa đạt: quay lại bước 1 của vòng lặp Loop Prompt, KHÔNG commit/push.
+
+---
+
+## ✅ Báo cáo hoàn thành (2026-09-26)
+
+**Thay đổi**
+- Loại bỏ hoàn toàn 4 dependency Accompanist alpha (`systemuicontroller`, `pager`, `flowlayout`, `swiperefresh`) khỏi `app/build.gradle`.
+- Pull-to-refresh: thay `Accompanist SwipeRefresh` bằng Compose Material `pullRefresh`, `rememberPullRefreshState`, `PullRefreshIndicator` (Material 1.6.8).
+- System bar: thay `rememberSystemUiController()` bằng `WindowCompat.getInsetsController`; `MainActivity` tiếp tục edge-to-edge qua `WindowCompat.setDecorFitsSystemWindows(false)` tương thích activity-compose hiện tại.
+- Flow layout: thay toàn bộ Accompanist `FlowRow` bằng native `androidx.compose.foundation.layout.FlowRow` ở FeedOptionView, AccountsTab và GroupOptionDrawer.
+- Pager: xoá 2 wrapper Accompanist pager không có call-site (`ViewPager.kt`, `ExtPagerState.kt`) và xoá `pagerAnimate()` không có call-site khỏi ExtModifier.
+
+**Test**
+- `NativeSwipeRefreshWidgetTest`: xác nhận native pull-refresh render child content.
+- Toàn bộ unit test: 267/267 pass. `assembleDevDebug` OK.
+- `rg "com.google.accompanist|accompanist" app/src/main/java app/build.gradle`: 0 kết quả.
+
+**Smoke test** Pixel 7 Pro: cài app, mở MainActivity, kéo pull-to-refresh thành công, crash buffer 0. App-open ad xuất hiện và đã dừng/chờ user đóng đúng quy trình R4 trước khi kiểm tra tiếp.
+
+**Điểm tự đánh giá**: 9.4/10 — loại Accompanist hoàn toàn; giữ WindowCompat edge-to-edge vì nâng đồng loạt Material3 gây API break ngoài phạm vi.

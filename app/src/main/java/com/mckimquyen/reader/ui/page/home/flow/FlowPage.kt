@@ -67,7 +67,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @OptIn(
-    com.google.accompanist.pager.ExperimentalPagerApi::class,
     androidx.compose.ui.ExperimentalComposeUiApi::class,
 )
 @Composable

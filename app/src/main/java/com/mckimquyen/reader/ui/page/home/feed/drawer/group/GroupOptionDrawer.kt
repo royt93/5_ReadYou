@@ -1,9 +1,13 @@
+@file:OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
+
 package com.mckimquyen.reader.ui.page.home.feed.drawer.group
 
 import android.content.Context
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.animateContentSize
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -35,9 +39,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.google.accompanist.flowlayout.FlowCrossAxisAlignment
-import com.google.accompanist.flowlayout.FlowRow
-import com.google.accompanist.flowlayout.MainAxisAlignment
 import com.mckimquyen.reader.R
 import com.mckimquyen.reader.domain.model.group.Group
 import com.mckimquyen.reader.ui.component.RenameDialog
@@ -168,10 +169,8 @@ private fun Preset(
     context: Context,
 ) {
     FlowRow(
-        mainAxisAlignment = MainAxisAlignment.Start,
-        crossAxisAlignment = FlowCrossAxisAlignment.Center,
-        crossAxisSpacing = 10.dp,
-        mainAxisSpacing = 10.dp,
+        horizontalArrangement = Arrangement.spacedBy(10.dp),
+        verticalArrangement = Arrangement.spacedBy(10.dp),
     ) {
         BaseSelectionChip(
             modifier = Modifier.animateContentSize(),
@@ -231,10 +230,8 @@ private fun FlowRowGroups(
     groupOptionViewModel: GroupOptionViewModel,
 ) {
     FlowRow(
-        mainAxisAlignment = MainAxisAlignment.Start,
-        crossAxisAlignment = FlowCrossAxisAlignment.Center,
-        crossAxisSpacing = 10.dp,
-        mainAxisSpacing = 10.dp,
+        horizontalArrangement = Arrangement.spacedBy(10.dp),
+        verticalArrangement = Arrangement.spacedBy(10.dp),
     ) {
         groupOptionUiState.groups.forEach {
             if (it.id != group?.id) {

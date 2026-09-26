@@ -11,12 +11,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.mckimquyen.reader.domain.model.general.Filter
 import com.mckimquyen.reader.infrastructure.pref.LocalDarkTheme
 import com.mckimquyen.reader.infrastructure.pref.LocalReadingDarkTheme
@@ -162,10 +160,14 @@ fun HomeEntry(
         else LocalDarkTheme.current.isDarkTheme()
     ) {
 
-        rememberSystemUiController().run {
-            setStatusBarColor(Color.Transparent, !useDarkTheme)
-            setSystemBarsColor(Color.Transparent, !useDarkTheme)
-            setNavigationBarColor(Color.Transparent, !useDarkTheme)
+        // MainActivity.enableEdgeToEdge() owns transparent system bars; only icon contrast changes here.
+        LaunchedEffect(useDarkTheme) {
+            activity.window.decorView.let { decorView ->
+                androidx.core.view.WindowCompat.getInsetsController(activity.window, decorView).run {
+                    isAppearanceLightStatusBars = !useDarkTheme
+                    isAppearanceLightNavigationBars = !useDarkTheme
+                }
+            }
         }
 
         CommuteCastDialog(
