@@ -8,7 +8,7 @@
 |---|---|---|---|---|---|
 | ENH-01 | Chuyển đổi thư viện Accompanist cũ sang Native Compose & Material 3 | P1 (High) | 5 SP | ✅ done | [ENH-01_accompanist-to-native-compose_DONE.md](../done/ENH-01_accompanist-to-native-compose_DONE.md) |
 | ENH-02 | Tích hợp Room Full-Text Search (FTS4 / FTS5) cho Tìm Kiếm Bài Báo | P1 (High) | 5 SP | ✅ done | [ENH-02_room-fts-search_DONE.md](../done/ENH-02_room-fts-search_DONE.md) |
-| ENH-03 | Lưu Trữ Kết Quả Tóm Tắt AI vào Database & Giao Diện Tùy Chỉnh API Key (BYOK) | P1 (High) | 5 SP | todo | [ENH-03_ai-summary-persistence-and-byok.md](ENH-03_ai-summary-persistence-and-byok.md) |
+| ENH-03 | Lưu Trữ Kết Quả Tóm Tắt AI vào Database & Giao Diện Tùy Chỉnh API Key (BYOK) | P1 (High) | 5 SP | ✅ done | [ENH-03_ai-summary-persistence-and-byok_DONE.md](../done/ENH-03_ai-summary-persistence-and-byok_DONE.md) |
 | ENH-04 | Foreground Service & Điều Khiển Màn Hình Khóa Cho Text-to-Speech (TTS) | P1 (High) | 5 SP | todo | [ENH-04_tts-foreground-service.md](ENH-04_tts-foreground-service.md) |
-| ENH-05 | Trích Xuất Ảnh Thumbnail Thông Minh từ `<enclosure>` và `<media:content>` | P2 (Medium) | 3 SP | todo | [ENH-05_smart-thumbnail-extraction.md](ENH-05_smart-thumbnail-extraction.md) |
+| ENH-05 | Trích Xuất Ảnh Thumbnail Thông Minh từ `<enclosure>` và `<media:content>` | P2 (Medium) | 3 SP | ✅ done | [ENH-05_smart-thumbnail-extraction_DONE.md](../done/ENH-05_smart-thumbnail-extraction_DONE.md) |
 | ENH-06 | OkHttp HTTP Caching với ETag & `If-Modified-Since` (`304 Not Modified`) | P2 (Medium) | 3 SP | ✅ done | [ENH-06_okhttp-etag-caching_DONE.md](../done/ENH-06_okhttp-etag-caching_DONE.md) |

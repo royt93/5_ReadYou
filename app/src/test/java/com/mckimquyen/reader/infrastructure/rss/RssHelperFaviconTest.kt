@@ -62,4 +62,61 @@ class RssHelperFaviconTest {
 
         assertEquals("https://www.google.com/s2/favicons?domain=techcrunch.com&sz=128", expectedIconUrl)
     }
+
+    @Test
+    fun extractThumbnail_prioritizesEnclosureOverHtmlImage() {
+        val enclosure = mockk<com.rometools.rome.feed.synd.SyndEnclosure> {
+            io.mockk.every { url } returns "https://example.com/enclosure_highres.jpg"
+            io.mockk.every { type } returns "image/jpeg"
+        }
+        val entry = mockk<com.rometools.rome.feed.synd.SyndEntry> {
+            io.mockk.every { enclosures } returns listOf(enclosure)
+            io.mockk.every { foreignMarkup } returns emptyList()
+        }
+        val html = """<img src="https://example.com/html_thumb.jpg"/>"""
+
+        val result = rssHelper.extractThumbnail(entry, html)
+        assertEquals("https://example.com/enclosure_highres.jpg", result)
+    }
+
+    @Test
+    fun extractThumbnail_prioritizesMediaContentOverHtmlImage() {
+        val mediaElement = org.jdom2.Element("content", "media", "http://search.yahoo.com/mrss/").apply {
+            setAttribute("url", "https://example.com/media_thumb.webp")
+            setAttribute("medium", "image")
+        }
+        val entry = mockk<com.rometools.rome.feed.synd.SyndEntry> {
+            io.mockk.every { enclosures } returns emptyList()
+            io.mockk.every { foreignMarkup } returns listOf(mediaElement)
+        }
+        val html = """<img src="https://example.com/html_thumb.jpg"/>"""
+
+        val result = rssHelper.extractThumbnail(entry, html)
+        assertEquals("https://example.com/media_thumb.webp", result)
+    }
+
+    @Test
+    fun extractThumbnail_rejectsTrackingPixelsAndFallsBackToValidHtml() {
+        val trackingEnclosure = mockk<com.rometools.rome.feed.synd.SyndEnclosure> {
+            io.mockk.every { url } returns "https://example.com/tracker/1x1.gif"
+            io.mockk.every { type } returns "image/gif"
+        }
+        val entry = mockk<com.rometools.rome.feed.synd.SyndEntry> {
+            io.mockk.every { enclosures } returns listOf(trackingEnclosure)
+            io.mockk.every { foreignMarkup } returns emptyList()
+        }
+        val html = """<img src="https://example.com/clean_image.png"/>"""
+
+        val result = rssHelper.extractThumbnail(entry, html)
+        assertEquals("https://example.com/clean_image.png", result)
+    }
+
+    @Test
+    fun isValidThumbnailUrl_filtersPixelsAndDataUris() {
+        org.junit.Assert.assertTrue(rssHelper.isValidThumbnailUrl("https://example.com/photo.jpg"))
+        org.junit.Assert.assertFalse(rssHelper.isValidThumbnailUrl("https://example.com/pixel.gif"))
+        org.junit.Assert.assertFalse(rssHelper.isValidThumbnailUrl("https://example.com/track/1x1.png"))
+        org.junit.Assert.assertFalse(rssHelper.isValidThumbnailUrl("data:image/png;base64,abc"))
+        org.junit.Assert.assertFalse(rssHelper.isValidThumbnailUrl("https://example.com/img.jpg", width = 1, height = 1))
+    }
 }

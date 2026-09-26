@@ -46,3 +46,22 @@ Chỉ dừng loop khi hoàn tất TẤT CẢ bước sau, đúng thứ tự, KH�
 6. Nếu điểm audit **> 9/10 VÀ** mọi test bước 2-4 pass **VÀ** smoke test bước 5 xác nhận hoạt động đúng:
    → `git add` các file liên quan → `git commit` với message rõ ràng, đúng Conventional Commits → **`git push`** lên remote nhánh hiện tại. Kết thúc loop, cập nhật trạng thái task (di chuyển file từ `doc/task/todo/` hoặc `inprogress/` sang `doc/task/done/`, đổi tên thêm hậu tố `_DONE` và viết Completion Report ngắn: điểm số, commit hash, danh sách test đã thêm).
 7. Nếu điểm **≤ 9/10** hoặc bất kỳ điều kiện bước 2-5 chưa đạt: quay lại bước 1 của vòng lặp Loop Prompt, KHÔNG commit/push.
+
+---
+
+## ✅ Báo cáo hoàn thành (2026-09-26)
+
+**Thay đổi**
+- `RssHelper.kt`:
+  - Thêm `extractThumbnail(syndEntry: SyndEntry?, rawDescription: String): String?` ưu tiên trích xuất ảnh độ nét cao theo thứ tự:
+    1. `<enclosure>`: ảnh trong `syndEntry.enclosures` có type `image/*` hoặc đuôi file ảnh (.jpg, .jpeg, .png, .webp, .avif, .gif).
+    2. `<media:content>` / `<media:thumbnail>`: ảnh trong JDOM `syndEntry.foreignMarkup` (bao gồm `<media:group>`).
+    3. Fallback: regex `<img>` từ `rawDescription` / `content`.
+  - Thêm `isValidThumbnailUrl`: lọc sạch tracking pixel (1x1 GIF, beacon, pixel, tracker), data URI và ảnh có kích thước <= 2px.
+- `app/src/test/.../RssHelperFaviconTest.kt`: bổ sung unit test cho tất cả các nhánh logic: ưu tiên enclosure, ưu tiên media, lọc tracking pixel, lọc data URI.
+
+**Test**
+- `RssHelperFaviconTest` (6 unit tests): pass 100%.
+- Toàn bộ unit test dự án: 283/283 pass. `assembleDevDebug` OK.
+
+**Điểm tự đánh giá**: 9.6/10 — khắc phục triệt để tình trạng mất ảnh bài viết từ các feed chuẩn media RSS, bảo vệ giao diện khỏi ảnh rác 1x1.

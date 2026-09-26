@@ -131,10 +131,33 @@ class RssHelper @Inject constructor(
                 .take(110)
                 .trim(),
             fullContent = content,
-            img = findImg((content ?: desc) ?: ""),
+            img = extractThumbnail(syndEntry, (content ?: desc) ?: ""),
             link = syndEntry.link ?: "",
             updateAt = Date(),
         )
+    }
+
+    /**
+     * Extracts article thumbnail prioritizing high-res `<enclosure>` and `<media:content>` / `<media:thumbnail>`
+     * before falling back to `<img>` in HTML content/description, filtering out 1x1 tracking pixels.
+     */
+    fun extractThumbnail(syndEntry: SyndEntry?, rawDescription: String): String? {
+        if (syndEntry != null) {
+            // 1. Enclosure (<enclosure type="image/..." url="..."/>)
+            val enclosureImg = syndEntry.enclosures.orEmpty().firstNotNullOfOrNull { enc ->
+                val isImage = enc.type?.startsWith("image", ignoreCase = true) == true ||
+                        isImageExtension(enc.url)
+                if (isImage && isValidThumbnailUrl(enc.url)) enc.url else null
+            }
+            if (enclosureImg != null) return enclosureImg
+
+            // 2. Media module (<media:content url="..."/> or <media:thumbnail url="..."/>)
+            val mediaImg = extractMediaThumbnail(syndEntry.foreignMarkup.orEmpty())
+            if (mediaImg != null) return mediaImg
+        }
+
+        // 3. Fallback to HTML description / content <img>
+        return findImg(rawDescription)
     }
 
     fun findImg(rawDescription: String): String? {
@@ -143,7 +166,70 @@ class RssHelper @Inject constructor(
         // And capturing original quote to use as ending quote
         val regex = """img.*?src=(["'])((?!data).*?)\1""".toRegex(RegexOption.DOT_MATCHES_ALL)
         // Base64 encoded images can be quite large - and crash database cursors
-        return regex.find(rawDescription)?.groupValues?.get(2)?.takeIf { !it.startsWith("data:") }
+        return regex.find(rawDescription)?.groupValues?.get(2)?.takeIf { isValidThumbnailUrl(it) }
+    }
+
+    fun isValidThumbnailUrl(url: String?, width: Int? = null, height: Int? = null): Boolean {
+        if (url.isNullOrBlank()) return false
+        if (!url.startsWith("http://", ignoreCase = true) && !url.startsWith("https://", ignoreCase = true)) return false
+        if (url.startsWith("data:", ignoreCase = true)) return false
+        if (width != null && width <= 2) return false
+        if (height != null && height <= 2) return false
+        val lower = url.lowercase()
+        return TRACKING_PATTERNS.none { lower.contains(it) }
+    }
+
+    private fun isImageExtension(url: String?): Boolean {
+        if (url.isNullOrBlank()) return false
+        val clean = url.substringBefore("?").substringBefore("#").lowercase()
+        return clean.endsWith(".jpg") || clean.endsWith(".jpeg") ||
+                clean.endsWith(".png") || clean.endsWith(".webp") ||
+                clean.endsWith(".avif") || clean.endsWith(".gif")
+    }
+
+    private fun extractMediaThumbnail(elements: List<org.jdom2.Element>): String? {
+        for (element in elements) {
+            val name = element.name.lowercase()
+            val prefix = element.namespacePrefix.lowercase()
+            val uri = element.namespaceURI.lowercase()
+            val isMedia = prefix == "media" || uri.contains("search.yahoo.com/mrss")
+
+            if (isMedia) {
+                if (name == "group") {
+                    val childImg = extractMediaThumbnail(element.children)
+                    if (childImg != null) return childImg
+                } else if (name == "content" || name == "thumbnail") {
+                    val url = element.getAttributeValue("url")
+                    val width = element.getAttributeValue("width")?.toIntOrNull()
+                    val height = element.getAttributeValue("height")?.toIntOrNull()
+                    val medium = element.getAttributeValue("medium")
+                    val type = element.getAttributeValue("type")
+
+                    val isImage = (medium?.equals("image", ignoreCase = true) == true) ||
+                            (type?.startsWith("image", ignoreCase = true) == true) ||
+                            isImageExtension(url) ||
+                            name == "thumbnail"
+
+                    if (isImage && isValidThumbnailUrl(url, width, height)) {
+                        return url
+                    }
+                }
+            }
+        }
+        return null
+    }
+
+    private companion object {
+        val TRACKING_PATTERNS = listOf(
+            "1x1",
+            "pixel",
+            "beacon",
+            "/open.gif",
+            "/feed-burner",
+            "statcounter",
+            "doubleclick",
+            "tracking",
+        )
     }
 
     @Throws(Exception::class)
