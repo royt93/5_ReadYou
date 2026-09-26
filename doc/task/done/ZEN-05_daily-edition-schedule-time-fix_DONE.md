@@ -67,4 +67,4 @@ Mỗi vòng lặp:
 - App khởi chạy sạch (`SplashActivity` resumed, process alive, không FATAL).
 - Logcat `D DailyEditionWorker: Scheduled next daily edition in 31927s` (enable, 22:07→07:00 sáng mai ✓), `30127s` sau khi set 06:30 (→06:30 sáng mai ✓), `30127s` sau set 21:00 (mốc gần nhất vẫn 06:30 ✓).
 
-**Commit:** (điền hash sau khi commit bên dưới)
+**Commit:** `11a25f9f`
