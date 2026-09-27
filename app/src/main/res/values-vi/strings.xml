@@ -687,4 +687,11 @@
     <string name="commute_media_action_stop">Dừng</string>
     <string name="commute_media_artist">Alex &amp; Sam · RSS Cat Hub</string>
     <string name="commute_media_album">Đài phát thanh AI CommuteCast</string>
+    <string name="commute_notification_title">☕ %1$s</string>
+    <string name="commute_notification_body">Bản tin sáng CommuteCast %1$d phút của bạn đã sẵn sàng! (%2$d điểm tin)</string>
+    <string name="commute_budget_3m">3 phút</string>
+    <string name="commute_budget_4m">4 phút</string>
+    <string name="commute_budget_8m">8 phút</string>
+    <string name="commute_budget_15m">15 phút</string>
+    <string name="commute_budget_label">Thời lượng:</string>
 </resources>

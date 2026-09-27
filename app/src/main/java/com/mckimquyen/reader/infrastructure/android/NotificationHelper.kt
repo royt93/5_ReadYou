@@ -146,7 +146,10 @@ class NotificationHelper @Inject constructor(
         }
     }
 
-    fun notifyCommuteCast(episode: com.mckimquyen.reader.domain.model.commute.CommuteEpisode) {
+    fun notifyCommuteCast(
+        episode: com.mckimquyen.reader.domain.model.commute.CommuteEpisode,
+        durationMinutes: Int = if (episode.isDeepDive) 15 else 4,
+    ) {
         val intent = Intent(context, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             putExtra(EXTRA_START_COMMUTE, true)
@@ -158,10 +161,14 @@ class NotificationHelper @Inject constructor(
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
+        val storyCount = episode.articleIds.size.coerceAtLeast(1)
+        val titleText = context.getString(R.string.commute_notification_title, episode.title)
+        val bodyText = context.getString(R.string.commute_notification_body, durationMinutes, storyCount)
+
         val notification = NotificationCompat.Builder(context, COMMUTE_CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_notification)
-            .setContentTitle("☕ ${episode.title}")
-            .setContentText("Alex & Sam đã chuẩn bị 5 điểm tin nổi bật sáng nay cho bạn!")
+            .setContentTitle(titleText)
+            .setContentText(bodyText)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setAutoCancel(true)
             .setContentIntent(pendingIntent)

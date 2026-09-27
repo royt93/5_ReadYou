@@ -12,6 +12,7 @@ import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.WorkerParameters
 import com.mckimquyen.reader.domain.repository.ArticleDao
+import com.mckimquyen.reader.ui.ext.commuteTimeBudgetMinutes
 import com.mckimquyen.reader.ui.ext.currentAccountId
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
@@ -29,6 +30,7 @@ class CommuteWorker @AssistedInject constructor(
     @Assisted workerParams: WorkerParameters,
     private val articleDao: ArticleDao,
     private val episodePreparer: CommuteEpisodePreparer,
+    private val contentSelector: CommuteContentSelector,
 ) : CoroutineWorker(context, workerParams) {
 
     companion object {
@@ -77,18 +79,33 @@ class CommuteWorker @AssistedInject constructor(
     override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
         try {
             val accountId = context.currentAccountId
-            val unreadArticles = articleDao.queryLatestUnread(accountId, limit = 5)
+            // Honors whatever budget the user last picked in the sheet (DJ-08); falls back to the
+            // 4-minute default if they never touched it.
+            val budgetMinutes = context.commuteTimeBudgetMinutes
+            val candidatePool = articleDao.queryLatestUnread(
+                accountId,
+                limit = CommuteContentSelector.MAX_CANDIDATES_QUERY_LIMIT
+            )
 
-            if (unreadArticles.isEmpty()) {
+            if (candidatePool.isEmpty()) {
                 Log.d(TAG, "No unread articles found for CommuteCast.")
                 return@withContext Result.success()
             }
 
-            Log.d(TAG, "Synthesizing CommuteCast episode for ${unreadArticles.size} articles...")
+            val selectedArticles = contentSelector.selectArticles(
+                candidates = candidatePool,
+                targetMinutes = budgetMinutes
+            )
+
+            Log.d(TAG, "Synthesizing CommuteCast episode for ${selectedArticles.size} selected articles from pool of ${candidatePool.size}...")
 
             // Generating, persisting and announcing all live in the preparer so they can be tested;
             // WorkerParameters cannot be built in a JVM test, so nothing testable belongs here.
-            when (episodePreparer.prepareAndNotify(unreadArticles, isDeepDive = false)) {
+            when (episodePreparer.prepareAndNotify(
+                selectedArticles,
+                isDeepDive = budgetMinutes >= CommuteContentSelector.DEFAULT_DEEP_DIVE_BUDGET_MINUTES,
+                durationMinutes = budgetMinutes
+            )) {
                 CommuteEpisodePreparer.Outcome.SUCCESS -> Result.success()
                 CommuteEpisodePreparer.Outcome.RETRY -> Result.retry()
             }

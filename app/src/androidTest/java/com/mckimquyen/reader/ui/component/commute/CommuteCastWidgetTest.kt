@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.activity.ComponentActivity
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewRootForTest
+import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.semantics.SemanticsNode
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.semantics.getOrNull
@@ -17,6 +18,7 @@ import com.mckimquyen.reader.domain.model.commute.CommuteEpisode
 import com.mckimquyen.reader.domain.model.commute.CommuteSpeaker
 import com.mckimquyen.reader.infrastructure.audio.CommutePlayerState
 import com.mckimquyen.reader.infrastructure.audio.CommuteVoiceMode
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
@@ -164,6 +166,31 @@ class CommuteCastWidgetTest {
         return own + children.flatMap { it.collectTexts() }
     }
 
+    /** Finds the clickable semantics node whose own text exactly matches [text] and invokes its click action. */
+    private fun SemanticsNode.clickNodeWithText(text: String): Boolean {
+        val ownTexts = config.getOrNull(SemanticsProperties.Text)?.map { it.text }.orEmpty()
+        if (text in ownTexts) {
+            val onClick = config.getOrNull(SemanticsActions.OnClick)
+            if (onClick?.action?.invoke() == true) return true
+        }
+        return children.any { it.clickNodeWithText(text) }
+    }
+
+    /**
+     * Walks down to the real [ViewRootForTest] (the ComposeView passed in from a test is itself
+     * just a plain ViewGroup wrapper — the semantics owner lives on its AndroidComposeView child)
+     * and clicks the semantics node whose text matches. Mirrors [collectSemanticTexts]'s walk.
+     */
+    private fun View.findAndClickSemanticText(text: String): Boolean {
+        if (this is ViewRootForTest) {
+            return semanticsOwner.rootSemanticsNode.clickNodeWithText(text)
+        }
+        if (this is ViewGroup) {
+            return (0 until childCount).any { getChildAt(it).findAndClickSemanticText(text) }
+        }
+        return false
+    }
+
     @Test
     fun awaitingPlayback_tellsTheUserTheVoicesArePreparing() {
         val expected = InstrumentationRegistry.getInstrumentation().targetContext
@@ -252,5 +279,81 @@ class CommuteCastWidgetTest {
             "Must announce dual voice when really available; rendered: $texts",
             texts.any { it == dualMessage },
         )
+    }
+
+    @Test
+    fun commuteCastUi_displaysTimeBudgetChips() {
+        val ctx = InstrumentationRegistry.getInstrumentation().targetContext
+        val expectedChips = listOf(
+            ctx.getString(R.string.commute_budget_3m),
+            ctx.getString(R.string.commute_budget_4m),
+            ctx.getString(R.string.commute_budget_8m),
+            ctx.getString(R.string.commute_budget_15m),
+        )
+
+        val texts = renderedTextsFor(
+            CommuteUiState(
+                isLoading = false,
+                playerState = CommutePlayerState(episode = sampleEpisode, isPlaying = false),
+                selectedBudgetMinutes = 4,
+            )
+        )
+
+        expectedChips.forEach { chipLabel ->
+            assertTrue(
+                "Expected time budget chip '$chipLabel' to be rendered; rendered: $texts",
+                texts.any { it == chipLabel },
+            )
+        }
+    }
+
+    @Test
+    fun commuteCastUi_clickingTimeBudgetChip_invokesCallback() {
+        val ctx = InstrumentationRegistry.getInstrumentation().targetContext
+        val chip8m = ctx.getString(R.string.commute_budget_8m)
+
+        var selectedMinutes: Int? = null
+        val testState = CommuteUiState(
+            isLoading = false,
+            playerState = CommutePlayerState(episode = sampleEpisode, isPlaying = false),
+            selectedBudgetMinutes = 4,
+        )
+
+        val scenario = ActivityScenario.launch(ComponentActivity::class.java)
+        val latch = CountDownLatch(1)
+        var rootView: View? = null
+        scenario.onActivity { activity ->
+            val composeView = ComposeView(activity).apply {
+                setContent {
+                    CommuteCastUi(
+                        uiState = testState,
+                        onTogglePlayPause = {},
+                        onSkipNext = {},
+                        onSkipPrevious = {},
+                        onSeekTo = {},
+                        onSelectBudget = { selectedMinutes = it },
+                        onUnlockDeepDive = {},
+                        onRetry = {},
+                        onClose = {},
+                    )
+                }
+            }
+            activity.setContentView(composeView)
+            rootView = composeView
+            composeView.post { latch.countDown() }
+        }
+
+        assertTrue("Compose tree never settled", latch.await(10, TimeUnit.SECONDS))
+
+        val clickLatch = CountDownLatch(1)
+        scenario.onActivity {
+            val clicked = rootView!!.findAndClickSemanticText(chip8m)
+            assertTrue("Must find a clickable node with text '$chip8m'", clicked)
+            clickLatch.countDown()
+        }
+        assertTrue("Click never processed", clickLatch.await(10, TimeUnit.SECONDS))
+
+        scenario.close()
+        assertEquals("Clicking the 8-min chip must report budget=8", 8, selectedMinutes)
     }
 }

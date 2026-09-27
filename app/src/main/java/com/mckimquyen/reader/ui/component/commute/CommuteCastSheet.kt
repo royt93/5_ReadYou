@@ -159,6 +159,7 @@ fun CommuteCastContent(
         onSkipNext = { viewModel.skipNext() },
         onSkipPrevious = { viewModel.skipPrevious() },
         onSeekTo = { viewModel.seekTo(it) },
+        onSelectBudget = { viewModel.selectTimeBudget(it) },
         onUnlockDeepDive = { viewModel.unlockDeepDiveSuccess() },
         onRetry = { viewModel.prepareOrPlay(forceRegenerate = true) },
         onClose = onClose,
@@ -174,6 +175,7 @@ fun CommuteCastUi(
     onSkipNext: () -> Unit,
     onSkipPrevious: () -> Unit,
     onSeekTo: (Int) -> Unit,
+    onSelectBudget: (Int) -> Unit = {},
     onUnlockDeepDive: () -> Unit,
     onRetry: () -> Unit,
     onClose: () -> Unit,
@@ -296,6 +298,49 @@ fun CommuteCastUi(
             style = MaterialTheme.typography.labelSmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
+
+        Spacer(modifier = Modifier.height(10.dp))
+
+        // Time Budget Selector Row (DJ-08: 3m, 4m, 8m, 15m)
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            Text(
+                text = stringResource(R.string.commute_budget_label),
+                style = MaterialTheme.typography.labelMedium,
+                fontWeight = FontWeight.Medium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+
+            val budgets = listOf(
+                3 to stringResource(R.string.commute_budget_3m),
+                4 to stringResource(R.string.commute_budget_4m),
+                8 to stringResource(R.string.commute_budget_8m),
+                15 to stringResource(R.string.commute_budget_15m),
+            )
+
+            budgets.forEach { (mins, label) ->
+                val isSelected = uiState.selectedBudgetMinutes == mins
+                Surface(
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(8.dp))
+                        .clickable(enabled = !uiState.isLoading) { onSelectBudget(mins) },
+                    shape = RoundedCornerShape(8.dp),
+                    color = if (isSelected) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.6f),
+                    border = if (isSelected) BorderStroke(1.dp, MaterialTheme.colorScheme.primary) else null
+                ) {
+                    Text(
+                        text = label,
+                        modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp),
+                        style = MaterialTheme.typography.labelSmall,
+                        fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal,
+                        color = if (isSelected) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+            }
+        }
 
         Spacer(modifier = Modifier.height(12.dp))
 

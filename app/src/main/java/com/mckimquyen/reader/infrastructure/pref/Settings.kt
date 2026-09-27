@@ -83,6 +83,7 @@ data class Settings(
     val openLink: OpenLinkPref = OpenLinkPref.default,
     val openLinkSpecificBrowser: OpenLinkSpecificBrowserPref = OpenLinkSpecificBrowserPref.default,
     val autoTts: AutoTtsPref = AutoTtsPref.default,
+    val commuteTimeBudget: CommuteTimeBudgetPref = CommuteTimeBudgetPref.default,
 
     // Languages
     val languages: LanguagesPref = LanguagesPref.default,
@@ -194,6 +195,7 @@ val LocalOpenLink =
 val LocalOpenLinkSpecificBrowser =
     compositionLocalOf { OpenLinkSpecificBrowserPref.default }
 val LocalAutoTts = compositionLocalOf<AutoTtsPref> { AutoTtsPref.default }
+val LocalCommuteTimeBudget = compositionLocalOf<CommuteTimeBudgetPref> { CommuteTimeBudgetPref.default }
 
 // Languages
 val LocalLanguages =
@@ -282,6 +284,7 @@ fun SettingsProvider(
         LocalOpenLink provides settings.openLink,
         LocalOpenLinkSpecificBrowser provides settings.openLinkSpecificBrowser,
         LocalAutoTts provides settings.autoTts,
+        LocalCommuteTimeBudget provides settings.commuteTimeBudget,
 
         // Languages
         LocalLanguages provides settings.languages,

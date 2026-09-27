@@ -717,4 +717,11 @@
     <string name="commute_media_action_stop">Stopp</string>
     <string name="commute_media_artist">Alex &amp; Sam · RSS Cat Hub</string>
     <string name="commute_media_album">CommuteCast KI-Radio</string>
+    <string name="commute_notification_title">☕ %1$s</string>
+    <string name="commute_notification_body">Dein %1$d-minütiges CommuteCast-Morgenradio ist bereit! (%2$d Meldungen)</string>
+    <string name="commute_budget_3m">3 Min.</string>
+    <string name="commute_budget_4m">4 Min.</string>
+    <string name="commute_budget_8m">8 Min.</string>
+    <string name="commute_budget_15m">15 Min.</string>
+    <string name="commute_budget_label">Dauer:</string>
 </resources>

@@ -56,6 +56,8 @@ class CommuteCastViewModelTest {
     private val episodeStore = mockk<CommuteEpisodeStore>(relaxed = true)
     private val playerStateFlow = MutableStateFlow(CommutePlayerState())
 
+    private val contentSelector = mockk<com.mckimquyen.reader.domain.sv.CommuteContentSelector>(relaxed = true)
+
     private val storedEpisode = CommuteEpisode(
         id = "ep_stored",
         title = "Stored Bulletin",
@@ -71,7 +73,7 @@ class CommuteCastViewModelTest {
         every { audioPlayer.playerState } returns playerStateFlow
         coEvery { episodeStore.load() } returns null
         coEvery { episodeStore.save(any()) } just Runs
-        viewModel = CommuteCastViewModel(application, articleDao, scriptService, audioPlayer, episodeStore)
+        viewModel = CommuteCastViewModel(application, articleDao, scriptService, audioPlayer, episodeStore, contentSelector)
     }
 
     @After
@@ -87,7 +89,7 @@ class CommuteCastViewModelTest {
         val lookup = CompletableDeferred<CommuteEpisode?>()
         coEvery { episodeStore.load() } coAnswers { lookup.await() }
 
-        val vm = CommuteCastViewModel(application, articleDao, scriptService, audioPlayer, episodeStore)
+        val vm = CommuteCastViewModel(application, articleDao, scriptService, audioPlayer, episodeStore, contentSelector)
 
         assertTrue("Must report loading until the stored episode is known", vm.uiState.value.isLoading)
         assertEquals(null, vm.uiState.value.errorMessage)
@@ -100,7 +102,7 @@ class CommuteCastViewModelTest {
     @Test
     fun restoringAStoredEpisode_doesNotCallTheScriptService() = runTest(testDispatcher) {
         coEvery { episodeStore.load() } returns storedEpisode
-        viewModel = CommuteCastViewModel(application, articleDao, scriptService, audioPlayer, episodeStore)
+        viewModel = CommuteCastViewModel(application, articleDao, scriptService, audioPlayer, episodeStore, contentSelector)
         advanceUntilIdle()
 
         verify { audioPlayer.prepareEpisode(storedEpisode) }
@@ -146,8 +148,10 @@ class CommuteCastViewModelTest {
 
     @Test
     fun generatingANewEpisode_alsoPersistsIt() = runTest(testDispatcher) {
+        val sampleArticle = mockk<Article>(relaxed = true)
         val generated = storedEpisode.copy(id = "ep_generated")
-        coEvery { articleDao.queryLatestUnread(any(), any()) } returns listOf(mockk<Article>(relaxed = true))
+        coEvery { articleDao.queryLatestUnread(any(), any()) } returns listOf(sampleArticle)
+        every { contentSelector.selectArticles(any(), any(), any(), any()) } returns listOf(sampleArticle)
         coEvery { scriptService.generateScript(any(), any(), any()) } returns generated
 
         viewModel.prepareOrPlay(forceRegenerate = true)
@@ -164,6 +168,21 @@ class CommuteCastViewModelTest {
         // not drive, so wait for the call rather than assuming advanceUntilIdle covered it.
         coVerify(timeout = VERIFY_TIMEOUT_MS, exactly = 1) { episodeStore.save(generated) }
         verify(timeout = VERIFY_TIMEOUT_MS) { audioPlayer.playEpisode(generated, startFromIndex = 0) }
+    }
+
+    @Test
+    fun selectTimeBudget_updatesStateAndTriggersRegeneration() = runTest(testDispatcher) {
+        val sampleArticle = mockk<Article>(relaxed = true)
+        val generated = storedEpisode.copy(id = "ep_8min")
+        coEvery { articleDao.queryLatestUnread(any(), any()) } returns listOf(sampleArticle)
+        every { contentSelector.selectArticles(any(), targetMinutes = 8, any(), any()) } returns listOf(sampleArticle)
+        coEvery { scriptService.generateScript(any(), any(), any()) } returns generated
+
+        viewModel.selectTimeBudget(8)
+        advanceUntilIdle()
+
+        assertEquals(8, viewModel.uiState.value.selectedBudgetMinutes)
+        verify(timeout = VERIFY_TIMEOUT_MS) { contentSelector.selectArticles(any(), targetMinutes = 8, any(), any()) }
     }
 
     private companion object {

@@ -12,6 +12,7 @@ import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.mckimquyen.reader.domain.model.account.AccountType
+import com.mckimquyen.reader.domain.sv.CommuteContentSelector
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.first
@@ -64,6 +65,9 @@ val Context.aiProvider: Int
 
 val Context.aiSummaryLength: Int
     get() = this.dataStore.get(DataStoreKeys.AiSummaryLength) ?: 0
+
+val Context.commuteTimeBudgetMinutes: Int
+    get() = this.dataStore.get(DataStoreKeys.CommuteTimeBudget) ?: CommuteContentSelector.DEFAULT_STANDARD_BUDGET_MINUTES
 
 suspend fun <T> DataStore<Preferences>.put(dataStoreKeys: DataStoreKeys<T>, value: T) {
     this.edit {
@@ -509,5 +513,10 @@ sealed class DataStoreKeys<T> {
     object AiSummaryLength : DataStoreKeys<Int>() {
         override val key: Preferences.Key<Int>
             get() = intPreferencesKey("aiSummaryLength")
+    }
+
+    object CommuteTimeBudget : DataStoreKeys<Int>() {
+        override val key: Preferences.Key<Int>
+            get() = intPreferencesKey("commuteTimeBudget")
     }
 }

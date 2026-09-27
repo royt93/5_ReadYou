@@ -8,14 +8,14 @@
 
 | Task | Tiêu đề | Priority | Trạng thái | File |
 |---|---|---|---|---|
-| DJ-01 | Bộ Lập Lịch Tự Động Buổi Sáng & Kịch Bản 2 MC | P1 | 🟡 Todo (implement phần lớn, thiếu tiêu chí "điểm tương tác") | [`todo/DJ-01_daily-scheduler-dual-mc-script.md`](DJ-01_daily-scheduler-dual-mc-script.md) |
+| DJ-01 | Bộ Lập Lịch Tự Động Buổi Sáng & Kịch Bản 2 MC | P1 | ✅ Done | [`done/DJ-01_daily-scheduler-dual-mc-script_DONE.md`](../done/DJ-01_daily-scheduler-dual-mc-script_DONE.md) |
 | DJ-02 | Động Cơ Phát Âm 2 Giọng Kèm Nhạc Nền Lofi (Dual-Voice TTS & Audio Mixer) | P1 | 📋 Todo (chưa đạt AC — chỉ 1 giọng đổi pitch, không có lofi) | [`todo/DJ-02_dual-voice-tts-lofi-audio-mixer.md`](DJ-02_dual-voice-tts-lofi-audio-mixer.md) |
 | DJ-03 | Tích Hợp Android Auto & Lockscreen MediaSession | P1 | ✅ Done | [`done/DJ-03_android-auto-lockscreen-mediasession_DONE.md`](../done/DJ-03_android-auto-lockscreen-mediasession_DONE.md) |
 | DJ-04 | Tối Ưu Doanh Thu Buổi Sáng Với App Open & Rewarded Ads | P0 | ✅ Done (rewarded ad gating cho Deep Dive + notification deep-link hoạt động đúng) | [`done/DJ-04_app-open-rewarded-ads-monetization_DONE.md`](../done/DJ-04_app-open-rewarded-ads-monetization_DONE.md) |
 | DJ-05 | Episode Không Được Persist — Mất Nội Dung Khi Process Bị Kill | **P0** | ✅ Done | [`done/DJ-05_persist-episode-notification-ready-state_DONE.md`](../done/DJ-05_persist-episode-notification-ready-state_DONE.md) |
 | DJ-06 | "Dual-Voice TTS" Thực Chất Chỉ 1 Giọng Đổi Pitch — Sai Sự Thật So Với Tuyên Bố | P1 | ✅ Done | [`done/DJ-06_real-dual-voice-tts-or-honest-labeling_DONE.md`](../done/DJ-06_real-dual-voice-tts-or-honest-labeling_DONE.md) |
 | DJ-07 | Thiếu Audio Mixing/Lofi Nền Và Tích Hợp Media3/Android Auto | P2 | ✅ Done | [`done/DJ-07_lofi-audio-mixing-media3-integration_DONE.md`](../done/DJ-07_lofi-audio-mixing-media3-integration_DONE.md) |
-| DJ-08 | Chọn Nội Dung Chưa Theo Ngân Sách Thời Gian Người Dùng | P2 | 🆕 Todo (gap phát hiện qua audit) | [`todo/DJ-08_time-budget-aware-content-selection.md`](DJ-08_time-budget-aware-content-selection.md) |
+| DJ-08 | Chọn Nội Dung Chưa Theo Ngân Sách Thời Gian Người Dùng | P2 | ✅ Done | [`done/DJ-08_time-budget-aware-content-selection_DONE.md`](../done/DJ-08_time-budget-aware-content-selection_DONE.md) |
 
 - **Completion report gốc (đã bổ sung mục audit):** [`doc/task/done/14_COMMUTECAST_AUTONOMOUS_AI_DJ_DONE.md`](../done/14_COMMUTECAST_AUTONOMOUS_AI_DJ_DONE.md)
 - **Commit implement gốc:** `26b07a9` (`feat(commute): implement Epic 14 CommuteCast AI DJ ...`)
@@ -44,3 +44,9 @@
 - Phát hiện và sửa luôn 1 vi phạm threading rule (R5): decode artwork bitmap ban đầu chạy đồng bộ trên Main thread, đã chuyển sang `Dispatchers.Default` trong `onCreate()`.
 - Xác nhận thật trên Pixel 7 Pro qua `dumpsys media_session`: `metadata: size=6, description=CommuteCast Morning Edition, Alex & Sam · RSS Cat Hub, Đài phát thanh AI CommuteCast`, `actions=1663` (đủ bitmask FF/rewind/playFromMediaId). Giới hạn: chưa có ảnh chụp Desktop Head Unit thật (môi trường bật Developer Mode không ổn định) — dùng `MediaBrowserCompat` client thật + `dumpsys` làm bằng chứng thay thế, theo đúng nhánh dự phòng đã duyệt trước.
 - Epic 14: DJ-03/04/05/06/07 đã Done. Còn lại: DJ-01 (P1, thiếu tiêu chí điểm tương tác), DJ-08 (P2, ngân sách thời gian).
+
+## Cập nhật 2026-09-27 — DJ-01 & DJ-08 hoàn tất, Epic 14 hoàn thành toàn bộ
+- **DJ-01 (P1) và DJ-08 (P2) đã xong**, thực hiện đồng thời vì chung code path. Tạo mới `CommuteContentSelector` (`domain/sv/CommuteContentSelector.kt`): tính **điểm tương tác thật** (recency phân rã hyperbolic + bonus Starred/ReadLater/độ phong phú tóm tắt) thay cho `ORDER BY date DESC` thuần túy trước đây, đồng thời **ước lượng thời lượng nói** (word count / ~150 từ/phút) để chọn đủ bài khớp **ngân sách thời gian** (3/4/8/15 phút) và ép buộc **đa dạng nguồn tin** (tối đa 2 bài liên tiếp cùng `feedId`).
+- Thêm `CommuteTimeBudgetPref` (DataStore) + hàng chip chọn thời lượng trong `CommuteCastSheet` — chọn xong **persist thật qua DataStore**, xác nhận bằng smoke test force-stop toàn bộ process rồi mở lại app, chip vẫn giữ đúng lựa chọn. `CommuteWorker` (job 6h sáng) đọc pref này thay vì hardcode 4 phút. Notification cũng đổi từ text hardcode "5 điểm tin" sang template localize theo số phút/số bài thực tế (đủ 6 ngôn ngữ).
+- Test: unit 497/497 pass (bao gồm `CommuteContentSelectorTest` 7 case, `CommuteTimeBudgetPrefTest` 4 case), instrumented 121/121 pass trên Pixel 7 Pro thật (bao gồm `CommuteContentSelectionIntegrationTest` 3 case trên Room DB thật, `CommuteCastWidgetTest` +2 case click chip thật qua semantics).
+- **Epic 14 CommuteCast Autonomous AI DJ: TẤT CẢ 6 task hiện hành (DJ-01, DJ-03 đến DJ-08) đã Done.** DJ-02 giữ nguyên trong `todo/` chỉ vì đã được DJ-06+DJ-07 giải quyết tách nhỏ (không cần làm riêng nữa — xem note DJ-02 nếu cần đóng chính thức).

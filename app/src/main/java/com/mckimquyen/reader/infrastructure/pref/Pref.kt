@@ -82,6 +82,7 @@ fun Preferences.toSettings(): Settings {
         openLink = OpenLinkPref.fromPreferences(this),
         openLinkSpecificBrowser = OpenLinkSpecificBrowserPref.fromPreferences(this),
         autoTts = AutoTtsPref.fromPreferences(this),
+        commuteTimeBudget = CommuteTimeBudgetPref.fromPreferences(this),
 
         // Languages
         languages = LanguagesPref.fromPreferences(this),

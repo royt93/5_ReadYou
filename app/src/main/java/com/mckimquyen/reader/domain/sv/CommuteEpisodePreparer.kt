@@ -34,7 +34,11 @@ class CommuteEpisodePreparer @Inject constructor(
      * Order matters: storing before notifying is what lets a tap on the notification play the exact
      * bulletin that was promised, even after the system has reclaimed the process.
      */
-    suspend fun prepareAndNotify(articles: List<Article>, isDeepDive: Boolean): Outcome {
+    suspend fun prepareAndNotify(
+        articles: List<Article>,
+        isDeepDive: Boolean,
+        durationMinutes: Int = if (isDeepDive) 15 else 4,
+    ): Outcome {
         val episode = scriptService.generateScript(articles, isDeepDive = isDeepDive)
 
         if (episode.dialogues.isEmpty()) {
@@ -53,7 +57,7 @@ class CommuteEpisodePreparer @Inject constructor(
             return Outcome.RETRY
         }
 
-        notificationHelper.notifyCommuteCast(episode)
+        notificationHelper.notifyCommuteCast(episode, durationMinutes = durationMinutes)
         Log.d(TAG, "CommuteCast episode persisted and announced: ${episode.id}")
         return Outcome.SUCCESS
     }

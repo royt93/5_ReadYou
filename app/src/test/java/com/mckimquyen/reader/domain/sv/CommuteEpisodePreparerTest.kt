@@ -55,7 +55,7 @@ class CommuteEpisodePreparerTest {
 
         coEvery { episodeStore.save(any()) } just Runs
         every { audioPlayer.prepareEpisode(any()) } just Runs
-        every { notificationHelper.notifyCommuteCast(any()) } just Runs
+        every { notificationHelper.notifyCommuteCast(any(), any()) } just Runs
 
         preparer = CommuteEpisodePreparer(scriptService, episodeStore, audioPlayer, notificationHelper)
     }
@@ -70,7 +70,7 @@ class CommuteEpisodePreparerTest {
         assertEquals(CommuteEpisodePreparer.Outcome.SUCCESS, outcome)
         coVerify(exactly = 1) { episodeStore.save(goodEpisode) }
         verify(exactly = 1) { audioPlayer.prepareEpisode(goodEpisode) }
-        verify(exactly = 1) { notificationHelper.notifyCommuteCast(goodEpisode) }
+        verify(exactly = 1) { notificationHelper.notifyCommuteCast(goodEpisode, any()) }
     }
 
     @Test
@@ -81,7 +81,7 @@ class CommuteEpisodePreparerTest {
 
         assertEquals(CommuteEpisodePreparer.Outcome.RETRY, outcome)
         coVerify(exactly = 0) { episodeStore.save(any()) }
-        verify(exactly = 0) { notificationHelper.notifyCommuteCast(any()) }
+        verify(exactly = 0) { notificationHelper.notifyCommuteCast(any(), any()) }
         coVerify(exactly = 0) { audioPlayer.awaitReady(any()) }
     }
 
@@ -95,7 +95,7 @@ class CommuteEpisodePreparerTest {
         assertEquals(CommuteEpisodePreparer.Outcome.RETRY, outcome)
         // The work is not lost — it is saved — but promising audio the device cannot speak is not on.
         coVerify(exactly = 1) { episodeStore.save(goodEpisode) }
-        verify(exactly = 0) { notificationHelper.notifyCommuteCast(any()) }
+        verify(exactly = 0) { notificationHelper.notifyCommuteCast(any(), any()) }
     }
 
     @Test
