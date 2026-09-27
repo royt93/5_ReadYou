@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.BoxWithConstraintsScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -40,6 +41,7 @@ import coil.size.Precision
 import coil.size.Size
 import coil.size.pxOrElse
 import com.mckimquyen.reader.R
+import com.mckimquyen.reader.infrastructure.media.video.ArticleVideoExtractor
 import com.mckimquyen.reader.infrastructure.pref.LocalReadingImageMaximize
 import com.mckimquyen.reader.ui.component.base.BaseAsyncImage
 import org.jsoup.Jsoup
@@ -655,7 +657,45 @@ private fun TextComposer.appendTextChildren(
                     }
 
                     "video" -> {
-                        // not implemented yet. remember to disable selection
+                        // Collect the element's own src plus any <source> children, then play the
+                        // first one ExoPlayer can actually open. Unplayable markup renders nothing,
+                        // exactly as before.
+                        val videoUrl = sequenceOf(element.absUrl("src") to element.attr("type"))
+                            .plus(
+                                element.select("source").asSequence()
+                                    .map { it.absUrl("src") to it.attr("type") }
+                            )
+                            .firstOrNull { (url, type) ->
+                                ArticleVideoExtractor.isPlayable(url, type)
+                            }
+                            ?.first
+
+                        if (videoUrl != null) {
+                            appendImage(onLinkClick = onLinkClick) {
+                                lazyListScope.item {
+                                    Column(
+                                        modifier = Modifier
+                                            .padding(horizontal = textHorizontalPadding().dp)
+                                            .width(MAX_CONTENT_WIDTH.dp)
+                                    ) {
+                                        // Player controls need touch input, so selection must stay
+                                        // off inside this block.
+                                        DisableSelection {
+                                            ArticleVideoPlayer(
+                                                url = videoUrl,
+                                                modifier = Modifier
+                                                    .fillMaxWidth()
+                                                    .padding(horizontal = imageHorizontalPadding().dp)
+                                                    .aspectRatio(VIDEO_ASPECT_RATIO)
+                                                    .clip(imageShape()),
+                                            )
+                                        }
+
+                                        Spacer(modifier = Modifier.height(textHorizontalPadding().dp))
+                                    }
+                                }
+                            }
+                        }
                     }
 
                     else -> {

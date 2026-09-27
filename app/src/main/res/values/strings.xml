@@ -772,4 +772,13 @@
     <string name="webdav_restore_success">Feeds and groups restored successfully from cloud!</string>
     <string name="webdav_last_backup">Last backup: %1$s</string>
     <string name="invalid_credentials">Invalid credentials, please check server URL, username and password</string>
+
+    <!-- News Reels (REEL-01/02) -->
+    <string name="reels_title">Reels</string>
+    <string name="reels_desc">Browse stories as full-screen news reels</string>
+    <string name="reels_swipe_hint">Swipe up for next · Swipe right to read</string>
+    <string name="reels_empty">No stories available yet</string>
+    <string name="reels_has_video">This story contains a video</string>
+    <string name="reading_video_autoplay">Autoplay videos</string>
+    <string name="reading_video_autoplay_desc">Start article videos muted, without tapping</string>
 </resources>

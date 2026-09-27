@@ -35,6 +35,7 @@ import com.mckimquyen.reader.ui.page.home.feed.FeedsPage
 import com.mckimquyen.reader.ui.page.home.flow.FlowPage
 import com.mckimquyen.reader.ui.page.home.read.ReadingPage
 import com.mckimquyen.reader.ui.page.notebook.NotebookPage
+import com.mckimquyen.reader.ui.page.reels.ReelsPage
 import com.mckimquyen.reader.ui.page.rpg.BrainRpgPage
 import com.mckimquyen.reader.ui.page.setting.SettingsPage
 import com.mckimquyen.reader.ui.page.setting.ai.AiSettingsPage
@@ -200,6 +201,11 @@ fun HomeEntry(
             }
             animatedComposable(route = RouteName.ADD_SOURCES) {
                 AddSourcesMainPage(navController = navController)
+            }
+
+            // News Reels
+            animatedComposable(route = RouteName.REELS) {
+                ReelsPage(navController = navController)
             }
             animatedComposable(route = "${RouteName.ADD_SOURCES_DETAIL}/{countryCode}") { backStackEntry ->
                 val countryCode = backStackEntry.arguments?.getString("countryCode") ?: "en"

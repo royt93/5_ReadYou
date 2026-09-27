@@ -689,4 +689,13 @@
     <string name="webdav_restore_success">已从云端成功恢复订阅源和分组！</string>
     <string name="webdav_last_backup">上次备份：%1$s</string>
     <string name="invalid_credentials">凭据无效，请检查服务器地址、用户名和密码</string>
+
+    <!-- News Reels (REEL-01/02) -->
+    <string name="reels_title">新闻短片</string>
+    <string name="reels_desc">以全屏新闻卡片浏览文章</string>
+    <string name="reels_swipe_hint">向上滑看下一篇 · 向右滑阅读</string>
+    <string name="reels_empty">暂无可显示的文章</string>
+    <string name="reels_has_video">此文章包含视频</string>
+    <string name="reading_video_autoplay">自动播放视频</string>
+    <string name="reading_video_autoplay_desc">文章中的视频静音自动播放</string>
 </resources>

@@ -693,4 +693,13 @@
     <string name="webdav_restore_success">Feeds und Gruppen erfolgreich aus der Cloud wiederhergestellt!</string>
     <string name="webdav_last_backup">Letzte Sicherung: %1$s</string>
     <string name="invalid_credentials">Ungültige Anmeldedaten, bitte Server-URL, Benutzername und Passwort prüfen</string>
+
+    <!-- News Reels (REEL-01/02) -->
+    <string name="reels_title">Nachrichten-Reels</string>
+    <string name="reels_desc">Artikel als Nachrichtenkarten im Vollbild ansehen</string>
+    <string name="reels_swipe_hint">Nach oben für den nächsten Beitrag · nach rechts zum Lesen</string>
+    <string name="reels_empty">Noch keine Artikel verfügbar</string>
+    <string name="reels_has_video">Dieser Artikel enthält ein Video</string>
+    <string name="reading_video_autoplay">Videos automatisch abspielen</string>
+    <string name="reading_video_autoplay_desc">Startet Artikelvideos stumm, ohne Tippen</string>
 </resources>

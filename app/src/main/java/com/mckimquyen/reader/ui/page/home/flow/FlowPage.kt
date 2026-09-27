@@ -13,6 +13,7 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material.icons.outlined.NotificationsActive
+import androidx.compose.material.icons.outlined.PlayCircle
 import androidx.compose.material.icons.outlined.Podcasts
 import androidx.compose.material.icons.outlined.Psychology
 import androidx.compose.material.icons.rounded.DoneAll
@@ -165,6 +166,15 @@ fun FlowPage(
                             markAsRead = !markAsRead
                             onSearch = false
                         }
+                    }
+                }
+                FeedbackIconButton(
+                    imageVector = Icons.Outlined.PlayCircle,
+                    contentDescription = stringResource(R.string.reels_title),
+                    tint = MaterialTheme.colorScheme.onSurface,
+                ) {
+                    navController.navigate(RouteName.REELS) {
+                        launchSingleTop = true
                     }
                 }
                 FeedbackIconButton(
@@ -385,6 +395,14 @@ fun FlowPage(
                 filterBarPadding = filterBarPadding.dp,
                 filterBarTonalElevation = filterBarTonalElevation.value.dp,
             ) {
+                // Reels is a destination, not a filter: open it and leave the flow state untouched
+                // so returning lands on the same list with the same scroll position.
+                if (it.isReels()) {
+                    navController.navigate(RouteName.REELS) {
+                        launchSingleTop = true
+                    }
+                    return@FilterBar
+                }
                 // Khi tap AddSources, chỉ cần thay đổi filter state, UI sẽ tự động update
                 if (!it.isAddSources()) {
                     scope.launch {

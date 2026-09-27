@@ -41,6 +41,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.mckimquyen.reader.R
 import com.mckimquyen.reader.infrastructure.pref.LocalReadingAutoHideToolbar
+import com.mckimquyen.reader.infrastructure.pref.LocalReadingVideoAutoplay
+import com.mckimquyen.reader.infrastructure.pref.not
 import com.mckimquyen.reader.infrastructure.pref.LocalReadingDarkTheme
 import com.mckimquyen.reader.infrastructure.pref.LocalReadingFonts
 import com.mckimquyen.reader.infrastructure.pref.LocalReadingPageTonalElevation
@@ -75,6 +77,7 @@ fun ReadingStylePage(
     val tonalElevation = LocalReadingPageTonalElevation.current
     val fonts = LocalReadingFonts.current
     val autoHideToolbar = LocalReadingAutoHideToolbar.current
+    val videoAutoplay = LocalReadingVideoAutoplay.current
 
     var tonalElevationDialogVisible by remember { mutableStateOf(false) }
     var fontsDialogVisible by remember { mutableStateOf(false) }
@@ -191,6 +194,17 @@ fun ReadingStylePage(
                     ) {
                         BaseSwitch(activated = autoHideToolbar.value) {
                             (!autoHideToolbar).put(context, scope)
+                        }
+                    }
+                    SettingItem(
+                        title = stringResource(R.string.reading_video_autoplay),
+                        desc = stringResource(R.string.reading_video_autoplay_desc),
+                        onClick = {
+                            (!videoAutoplay).put(context, scope)
+                        },
+                    ) {
+                        BaseSwitch(activated = videoAutoplay.value) {
+                            (!videoAutoplay).put(context, scope)
                         }
                     }
                     SettingItem(

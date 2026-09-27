@@ -696,4 +696,13 @@
     <string name="webdav_restore_success">Flux et groupes restaurés avec succès depuis le cloud !</string>
     <string name="webdav_last_backup">Dernière sauvegarde : %1$s</string>
     <string name="invalid_credentials">Identifiants invalides, veuillez vérifier l\'URL du serveur, le nom d\'utilisateur et le mot de passe</string>
+
+    <!-- News Reels (REEL-01/02) -->
+    <string name="reels_title">Actualités express</string>
+    <string name="reels_desc">Parcourir les articles sous forme de fiches plein écran</string>
+    <string name="reels_swipe_hint">Balayez vers le haut pour continuer · vers la droite pour lire</string>
+    <string name="reels_empty">Aucun article disponible</string>
+    <string name="reels_has_video">Cet article contient une vidéo</string>
+    <string name="reading_video_autoplay">Lecture auto des vidéos</string>
+    <string name="reading_video_autoplay_desc">Démarre les vidéos en sourdine, sans appuyer</string>
 </resources>

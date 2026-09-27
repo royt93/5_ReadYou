@@ -22,6 +22,8 @@ import com.google.android.play.core.review.ReviewInfo
 import com.google.android.play.core.review.ReviewManagerFactory
 import com.mckimquyen.reader.BuildConfig
 import com.mckimquyen.reader.domain.repository.AccountDao
+import com.mckimquyen.reader.infrastructure.media.video.VideoPipController
+import com.mckimquyen.reader.infrastructure.media.video.VideoPipHelper
 import com.mckimquyen.reader.infrastructure.pref.AccountSettingsProvider
 import com.mckimquyen.reader.infrastructure.pref.LanguagesPref
 import com.mckimquyen.reader.infrastructure.pref.SettingsProvider
@@ -73,6 +75,29 @@ class MainActivity : ComponentActivity() {
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         setIntent(intent)
+    }
+
+    /**
+     * Shrinks an in-article video into Picture-in-Picture when the user leaves the app, so playback
+     * survives navigating away. No video playing means normal backgrounding.
+     */
+    override fun onUserLeaveHint() {
+        super.onUserLeaveHint()
+        val video = VideoPipController.playing ?: return
+        VideoPipHelper.enterPip(this, video.width, video.height)
+    }
+
+    override fun onPictureInPictureModeChanged(
+        isInPictureInPictureMode: Boolean,
+        newConfig: Configuration,
+    ) {
+        super.onPictureInPictureModeChanged(isInPictureInPictureMode, newConfig)
+        // FLAG_KEEP_SCREEN_ON fights the PiP window, so drop it while shrunk and restore it after.
+        if (isInPictureInPictureMode) {
+            window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        } else {
+            window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        }
     }
 
     override fun onResume() {

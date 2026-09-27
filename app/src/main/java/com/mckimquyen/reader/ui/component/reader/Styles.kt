@@ -30,6 +30,9 @@ import com.mckimquyen.reader.ui.ext.alphaLN
 
 const val MAX_CONTENT_WIDTH = 840.0
 
+/** Player box shape before the real video size is known; 16:9 matches most web video. */
+const val VIDEO_ASPECT_RATIO = 16f / 9f
+
 @Stable
 @Composable
 @ReadOnlyComposable

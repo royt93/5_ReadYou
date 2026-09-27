@@ -370,6 +370,16 @@ private fun filterChange(
     filterState: FilterState,
     isNavigate: Boolean = true,
 ) {
+    // Reels is a destination, not a filter, so it always opens and never changes the stored filter.
+    // It ignores isNavigate on purpose: the feeds bottom bar passes false to stay on the page,
+    // which for every other entry means "just switch the filter" but here would mean doing nothing.
+    if (filterState.filter.isReels()) {
+        navController.navigate(RouteName.REELS) {
+            launchSingleTop = true
+        }
+        return
+    }
+
     homeViewModel.changeFilter(filterState)
     if (isNavigate) {
         if (filterState.filter.isAddSources()) {

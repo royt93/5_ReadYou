@@ -394,6 +394,12 @@ sealed class DataStoreKeys<T> {
             get() = booleanPreferencesKey("readingAutoHideToolbar")
     }
 
+    object ReadingVideoAutoplay : DataStoreKeys<Boolean>() {
+
+        override val key: Preferences.Key<Boolean>
+            get() = booleanPreferencesKey("readingVideoAutoplay")
+    }
+
     object ReadingTitleBold : DataStoreKeys<Boolean>() {
 
         override val key: Preferences.Key<Boolean>

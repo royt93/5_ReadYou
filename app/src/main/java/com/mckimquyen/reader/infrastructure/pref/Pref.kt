@@ -59,6 +59,7 @@ fun Preferences.toSettings(): Settings {
         readingDarkTheme = ReadingDarkThemePref.fromPreferences(this),
         readingPageTonalElevation = ReadingPageTonalElevationPref.fromPreferences(this),
         readingAutoHideToolbar = ReadingAutoHideToolbarPreference.fromPreferences(this),
+        readingVideoAutoplay = ReadingVideoAutoplayPref.fromPreferences(this),
         readingTextFontSize = ReadingTextFontSizePref.fromPreferences(this),
         readingLetterSpacing = ReadingLetterSpacingPref.fromPreferences(this),
         readingTextHorizontalPadding = ReadingTextHorizontalPaddingPref.fromPreferences(this),

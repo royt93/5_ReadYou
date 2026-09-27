@@ -12,6 +12,9 @@ object RouteName {
     const val ADD_SOURCES = "add_sources"
     const val ADD_SOURCES_DETAIL = "add_sources_detail"
 
+    // News Reels
+    const val REELS = "reels"
+
     // Settings
     const val SETTINGS = "settings"
     const val AI_SETTINGS = "ai_settings"

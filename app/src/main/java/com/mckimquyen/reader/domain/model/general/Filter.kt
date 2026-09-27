@@ -2,8 +2,10 @@ package com.mckimquyen.reader.domain.model.general
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.FiberManualRecord
+import androidx.compose.material.icons.outlined.PlayCircle
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.FiberManualRecord
+import androidx.compose.material.icons.rounded.PlayCircle
 import androidx.compose.material.icons.rounded.Star
 import androidx.compose.material.icons.rounded.StarOutline
 import androidx.compose.material.icons.rounded.Subject
@@ -16,6 +18,7 @@ import androidx.compose.ui.res.stringResource
 import com.mckimquyen.reader.R
 import com.mckimquyen.reader.domain.model.general.Filter.Companion.All
 import com.mckimquyen.reader.domain.model.general.Filter.Companion.AddSources
+import com.mckimquyen.reader.domain.model.general.Filter.Companion.Reels
 import com.mckimquyen.reader.domain.model.general.Filter.Companion.Starred
 import com.mckimquyen.reader.domain.model.general.Filter.Companion.Unread
 
@@ -26,6 +29,11 @@ import com.mckimquyen.reader.domain.model.general.Filter.Companion.Unread
  * - [Unread]: unread items
  * - [Starred]: starred items
  * - [AddSources]: add sources page
+ * - [Reels]: full-screen reels browsing page
+ *
+ * [AddSources] and [Reels] are not article filters: picking them navigates to a dedicated page
+ * instead of narrowing the flow, so callers must branch on [isAddSources] / [isReels] before
+ * treating the selection as a query condition.
  */
 class Filter private constructor(
     val index: Int,
@@ -37,6 +45,10 @@ class Filter private constructor(
     fun isUnread(): Boolean = this == Unread
     fun isAll(): Boolean = this == All
     fun isAddSources(): Boolean = this == AddSources
+    fun isReels(): Boolean = this == Reels
+
+    /** True when picking this entry should open another page rather than filter the flow. */
+    fun isNavigationTarget(): Boolean = isAddSources() || isReels()
 
     @Stable
     @Composable
@@ -44,6 +56,7 @@ class Filter private constructor(
         Unread -> stringResource(R.string.unread)
         Starred -> stringResource(R.string.starred)
         AddSources -> "Add Sources"
+        Reels -> stringResource(R.string.reels_title)
         else -> stringResource(R.string.all)
     }
 
@@ -54,6 +67,7 @@ class Filter private constructor(
         Starred -> pluralStringResource(R.plurals.starred_desc, important, important)
         Unread -> pluralStringResource(R.plurals.unread_desc, important, important)
         AddSources -> "Browse and add RSS sources"
+        Reels -> stringResource(R.string.reels_desc)
         else -> pluralStringResource(R.plurals.all_desc, important, important)
     }
 
@@ -79,6 +93,13 @@ class Filter private constructor(
             iconOutline = Icons.Rounded.Add,
             iconFilled = Icons.Rounded.Add,
         )
-        val values = listOf(Starred, Unread, All, AddSources)
+        val Reels = Filter(
+            index = 4,
+            iconOutline = Icons.Outlined.PlayCircle,
+            iconFilled = Icons.Rounded.PlayCircle,
+        )
+
+        // Material3 NavigationBar renders 3-5 destinations; this list is exactly at that ceiling.
+        val values = listOf(Starred, Unread, All, AddSources, Reels)
     }
 }

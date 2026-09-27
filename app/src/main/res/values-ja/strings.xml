@@ -690,4 +690,13 @@
     <string name="webdav_restore_success">クラウドからフィードとグループが正常に復元されました！</string>
     <string name="webdav_last_backup">最終バックアップ：%1$s</string>
     <string name="invalid_credentials">認証情報が無効です。サーバーURL、ユーザー名、パスワードを確認してください</string>
+
+    <!-- News Reels (REEL-01/02) -->
+    <string name="reels_title">ニュースリール</string>
+    <string name="reels_desc">全画面のニュースカードで記事を見る</string>
+    <string name="reels_swipe_hint">上にスワイプで次へ · 右にスワイプで読む</string>
+    <string name="reels_empty">表示できる記事がありません</string>
+    <string name="reels_has_video">この記事には動画があります</string>
+    <string name="reading_video_autoplay">動画を自動再生</string>
+    <string name="reading_video_autoplay_desc">記事内の動画をミュートで自動再生</string>
 </resources>
