@@ -76,6 +76,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.mckimquyen.reader.R
 import com.mckimquyen.reader.domain.model.commute.CommuteDialogue
 import com.mckimquyen.reader.domain.model.commute.CommuteSpeaker
+import com.mckimquyen.reader.infrastructure.audio.CommuteVoiceMode
 import com.mckimquyen.reader.ui.ext.findActivity
 import com.roy.sdkadbmob.AdManager
 
@@ -261,7 +262,9 @@ fun CommuteCastUi(
                 modifier = Modifier.weight(1f),
                 speaker = CommuteSpeaker.ALEX,
                 name = stringResource(R.string.commute_host_alex),
-                roleDesc = "Giọng nam phân tích",
+                // Describes the role, not a gender: the TTS API cannot report a voice's gender, so
+                // claiming one would be inventing it.
+                roleDesc = stringResource(R.string.commute_role_alex),
                 isSpeaking = isPlaying && currentSpeaker == CommuteSpeaker.ALEX,
                 primaryColor = MaterialTheme.colorScheme.primary,
             )
@@ -269,11 +272,28 @@ fun CommuteCastUi(
                 modifier = Modifier.weight(1f),
                 speaker = CommuteSpeaker.SAM,
                 name = stringResource(R.string.commute_host_sam),
-                roleDesc = "Giọng nữ phản biện",
+                roleDesc = stringResource(R.string.commute_role_sam),
                 isSpeaking = isPlaying && currentSpeaker == CommuteSpeaker.SAM,
                 primaryColor = MaterialTheme.colorScheme.tertiary,
             )
         }
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        // Say plainly whether this device really gives the hosts two voices, so the feature is not
+        // advertised as "dual voice" when it is pitch-shifting one voice.
+        Text(
+            modifier = Modifier.fillMaxWidth(),
+            text = stringResource(
+                if (playerState.voiceMode == CommuteVoiceMode.REAL_DUAL) {
+                    R.string.commute_voice_mode_dual
+                } else {
+                    R.string.commute_voice_mode_simulated
+                }
+            ),
+            style = MaterialTheme.typography.labelSmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
 
         Spacer(modifier = Modifier.height(12.dp))
 
@@ -531,7 +551,7 @@ private fun HostCard(
                     color = MaterialTheme.colorScheme.onSurface,
                 )
                 Text(
-                    text = if (isSpeaking) "🎙️ Đang nói..." else roleDesc,
+                    text = if (isSpeaking) stringResource(R.string.commute_now_speaking) else roleDesc,
                     style = MaterialTheme.typography.labelSmall,
                     color = if (isSpeaking) primaryColor.copy(alpha = pulseAlpha) else MaterialTheme.colorScheme.onSurfaceVariant,
                     fontWeight = if (isSpeaking) FontWeight.Bold else FontWeight.Normal,

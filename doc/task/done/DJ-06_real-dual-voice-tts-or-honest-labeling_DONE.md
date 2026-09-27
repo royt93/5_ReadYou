@@ -71,3 +71,25 @@ Chỉ dừng loop khi hoàn tất TẤT CẢ bước sau, đúng thứ tự, KH�
 6. Nếu điểm audit **> 9/10 VÀ** mọi test bước 2-4 pass **VÀ** smoke test bước 5 xác nhận hoạt động đúng:
    → `git add` các file liên quan → `git commit` với message rõ ràng, đúng Conventional Commits → **`git push`** lên remote nhánh hiện tại. Kết thúc loop, cập nhật trạng thái task (di chuyển file từ `doc/task/todo/` sang `doc/task/done/`, đổi tên thêm hậu tố `_DONE` và viết Completion Report ngắn: điểm số, commit hash, danh sách test đã thêm).
 7. Nếu điểm **≤ 9/10** hoặc bất kỳ điều kiện bước 2-5 chưa đạt: quay lại bước 1 của vòng lặp Loop Prompt, KHÔNG commit/push.
+
+## ✅ Completion Report (2026-09-27)
+
+**Điểm audit: 9.5/10** — Acceptance Criteria thỏa mãn 100%:
+- ✅ **Hai giọng thật khi thiết bị có ≥2 voice**: `CommuteVoiceSelector` lọc offline-only (`!isNetworkConnectionRequired`, tránh đứt giọng khi mất mạng), lọc theo locale episode, sort theo tên (tất định) → `REAL_DUAL`. Khi phát thật, Alex và Sam được gán `tts.voice` riêng, pitch và speechRate để ở 1.0 (trung tính, không méo chồng lên voice thật).
+- ✅ **Nói thật khi chỉ có 1 voice**: fallback về `SIMULATED` (pitch 0.92/1.28 như cũ), nhưng UI hiện nhãn rõ ràng: "Chế độ giọng đơn — thiết bị không hỗ trợ đa giọng" (`commute_voice_mode_simulated`, đủ 6 locale), không quảng cáo sai là "Dual-Voice".
+- ✅ **Sửa các tuyên bố nam/nữ vô căn cứ**: API Android `Voice` **không có trường giới tính** — không thể xác định voice nào là nam hay nữ. Đã sửa mô tả model `CommuteSpeaker` (ALEX = dẫn chính/phân tích, SAM = đồng dẫn/phản biện, không hứa "nam trầm/nữ năng động"), sửa `roleDesc` trong `CommuteCastSheet` từ chuỗi hardcode tiếng Việt sang string resource mô tả vai trò nội địa hóa 6 locale (`commute_role_alex`, `commute_role_sam`), sửa chuỗi "Đang nói..." hardcode thành `commute_now_speaking`.
+- −0.5: không thể chọn đúng 1 giọng nam + 1 giọng nữ như đề bài gốc mong muốn, vì Android platform không cung cấp metadata giới tính qua `Voice` API — đã phản ánh trung thực giới hạn này vào UI và doc thay vì hứa hươu vượn.
+
+**Tests thêm (469 unit pass, 11/11 device pass):**
+- Unit `CommuteVoiceSelectorTest` (7): rỗng rơi về SIMULATED; 1 voice rơi về SIMULATED; 2 voice offline cùng locale → REAL_DUAL khác nhau; **sort tất định không phụ thuộc thứ tự Set**; voice khác locale bị loại; **voice cần mạng bị loại**; voice trùng tên không bị tính thành 2.
+- Unit `CommuteAudioPlayerTest` (+2): Robolectric không có voice → báo `SIMULATED` trung thực; `shutdown` xoá `voiceAssignment` và đưa `voiceMode` về SIMULATED.
+- Widget `CommuteCastWidgetTest` (+2): `SIMULATED` → hiện đúng nhãn đơn giọng; `REAL_DUAL` → hiện đúng nhãn hai giọng.
+
+**Smoke test (Pixel 7 Pro `2B051FDH3006MU`, 2026-09-27) — bằng chứng cụ thể:**
+- Logcat khởi tạo TTS: `CommuteAudioPlayer TTS ready, voiceMode=REAL_DUAL, alex=vi-VN-language, sam=vi-vn-x-gft-local`.
+- Máy thật phát hiện **2 voice offline tiếng Việt riêng biệt**: `vi-VN-language` và `vi-vn-x-gft-local` → chuyển sang `REAL_DUAL`.
+- Dump UI xác nhận nhãn: `'Hai giọng riêng của thiết bị'` (đúng locale tiếng Việt trên máy).
+- Khi đóng sheet, 0 FATAL, 0 AndroidRuntime.
+
+**Giới hạn đã biết:**
+- Phụ thuộc vào giọng TTS cài trên máy người dùng. Với thiết bị chỉ cài 1 voice tiếng Việt mặc định, app sẽ tự động rơi về `SIMULATED` và hiện nhãn trung thực.

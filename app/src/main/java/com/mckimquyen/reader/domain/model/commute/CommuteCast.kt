@@ -3,10 +3,16 @@ package com.mckimquyen.reader.domain.model.commute
 import androidx.annotation.Keep
 import java.util.Date
 
+/**
+ * The two hosts of an episode.
+ *
+ * Their difference is one of role, not of gender: Android's TTS API cannot report a voice's gender,
+ * so the app picks two *different* voices when the device has them and never claims which is which.
+ */
 @Keep
 enum class CommuteSpeaker {
-    ALEX, // Host chính: Giọng nam trầm, phong thái phân tích, điềm tĩnh
-    SAM,  // Co-host: Giọng nữ trẻ trung, năng động, phản biện và hào hứng
+    ALEX, // Anchor: leads the bulletin, analytical
+    SAM,  // Co-host: pushes back, keeps the pace up
 }
 
 @Keep

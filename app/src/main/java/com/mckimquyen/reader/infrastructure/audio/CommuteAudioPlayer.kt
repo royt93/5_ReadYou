@@ -38,13 +38,24 @@ data class CommutePlayerState(
      * honoured automatically as soon as initialisation finishes.
      */
     val isAwaitingPlayback: Boolean = false,
+    /**
+     * Whether the two hosts really get two different voices on this device.
+     *
+     * Exposed so the UI can say which it is instead of advertising "dual voice" either way.
+     */
+    val voiceMode: CommuteVoiceMode = CommuteVoiceMode.SIMULATED,
 ) {
     val currentDialogue: CommuteDialogue?
         get() = episode?.dialogues?.getOrNull(currentDialogueIndex)
 }
 
 /**
- * Trình phát âm thanh radio song thoại 2 MC (Dual-Voice TTS) với chuyển đổi cao độ và nhịp độ tự động.
+ * Speaks a two-host radio episode.
+ *
+ * When the device offers at least two usable voices, Alex and Sam get one each, which is a real
+ * difference in voice. When it does not, playback falls back to shifting pitch and rate on the one
+ * available voice — a rough imitation, and [CommutePlayerState.voiceMode] says so, so the UI can
+ * tell the user rather than claiming two voices it does not have.
  */
 @Singleton
 class CommuteAudioPlayer @Inject constructor(
@@ -54,11 +65,25 @@ class CommuteAudioPlayer @Inject constructor(
     companion object {
         private const val TAG = "CommuteAudioPlayer"
         private const val UTTERANCE_PREFIX = "COMMUTE_LINE_"
+
+        /** Two real voices already sound different; leave them as the engine recorded them. */
+        private const val NEUTRAL_PITCH = 1.0f
+        private const val NEUTRAL_RATE = 1.0f
+
+        // Fallback for a device with only one usable voice: shift pitch and rate so the two hosts
+        // are at least distinguishable. An imitation, not two voices — the UI says as much.
+        private const val SIMULATED_ALEX_PITCH = 0.92f
+        private const val SIMULATED_ALEX_RATE = 1.0f
+        private const val SIMULATED_SAM_PITCH = 1.28f
+        private const val SIMULATED_SAM_RATE = 1.06f
     }
 
     private var tts: TextToSpeech? = null
     private var isInitialized = false
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
+
+    /** Resolved once at init: which voice each host speaks with, or null when there is only one. */
+    private var voiceAssignment: CommuteVoiceAssignment? = null
 
     private val _playerState = MutableStateFlow(CommutePlayerState())
     val playerState: StateFlow<CommutePlayerState> = _playerState.asStateFlow()
@@ -75,8 +100,20 @@ class CommuteAudioPlayer @Inject constructor(
             }
             isInitialized = true
             setupUtteranceListener()
-            _playerState.update { it.copy(isTtsReady = true) }
-            Log.d(TAG, "CommuteAudioPlayer TTS initialized successfully.")
+
+            // Resolve the voices once here rather than per line: getVoices() queries the engine and
+            // the answer cannot change while it is running.
+            val assignment = CommuteVoiceSelector.select(
+                voices = runCatching { tts?.voices }.getOrNull().orEmpty(),
+                targetLocale = Locale.getDefault(),
+            )
+            voiceAssignment = assignment
+            _playerState.update { it.copy(isTtsReady = true, voiceMode = assignment.mode) }
+            Log.d(
+                TAG,
+                "CommuteAudioPlayer TTS ready, voiceMode=${assignment.mode}, " +
+                    "alex=${assignment.alex?.name}, sam=${assignment.sam?.name}"
+            )
 
             // Honour a play request that arrived while the engine was still starting, instead of
             // leaving the user with a notification they tapped and nothing to hear.
@@ -222,20 +259,43 @@ class CommuteAudioPlayer @Inject constructor(
 
         _playerState.update { it.copy(isAwaitingPlayback = false) }
 
-        // Điều chỉnh cao độ và tốc độ nói theo từng nhân vật
-        when (currentDialogue.speaker) {
-            CommuteSpeaker.ALEX -> {
-                tts?.setPitch(0.92f)        // Giọng nam trầm ấm, điềm tĩnh
-                tts?.setSpeechRate(1.0f)     // Tốc độ bình thường
-            }
-            CommuteSpeaker.SAM -> {
-                tts?.setPitch(1.28f)        // Giọng nữ năng động, tươi sáng
-                tts?.setSpeechRate(1.06f)    // Nhịp độ nhanh hơn đôi chút
-            }
-        }
+        applyVoiceFor(currentDialogue.speaker)
 
         val utteranceId = "$UTTERANCE_PREFIX${_playerState.value.currentDialogueIndex}"
         tts?.speak(currentDialogue.text, TextToSpeech.QUEUE_FLUSH, null, utteranceId)
+    }
+
+    /**
+     * Makes [speaker] sound like themselves.
+     *
+     * With two real voices available, each host simply gets their own and pitch stays neutral —
+     * bending a distinct voice on top of that only makes it sound synthetic. With one voice, pitch
+     * and rate are all there is to work with, which is an imitation, not two voices.
+     */
+    private fun applyVoiceFor(speaker: CommuteSpeaker) {
+        val assignment = voiceAssignment
+        val voice = when (speaker) {
+            CommuteSpeaker.ALEX -> assignment?.alex
+            CommuteSpeaker.SAM -> assignment?.sam
+        }
+
+        if (assignment?.mode == CommuteVoiceMode.REAL_DUAL && voice != null) {
+            tts?.voice = voice
+            tts?.setPitch(NEUTRAL_PITCH)
+            tts?.setSpeechRate(NEUTRAL_RATE)
+            return
+        }
+
+        when (speaker) {
+            CommuteSpeaker.ALEX -> {
+                tts?.setPitch(SIMULATED_ALEX_PITCH)
+                tts?.setSpeechRate(SIMULATED_ALEX_RATE)
+            }
+            CommuteSpeaker.SAM -> {
+                tts?.setPitch(SIMULATED_SAM_PITCH)
+                tts?.setSpeechRate(SIMULATED_SAM_RATE)
+            }
+        }
     }
 
     fun stopAndReset() {
@@ -254,6 +314,15 @@ class CommuteAudioPlayer @Inject constructor(
         tts?.stop()
         tts?.shutdown()
         isInitialized = false
-        _playerState.update { it.copy(isTtsReady = false, isAwaitingPlayback = false, isPlaying = false) }
+        // The voices belonged to the engine that just went away; a re-init has to resolve its own.
+        voiceAssignment = null
+        _playerState.update {
+            it.copy(
+                isTtsReady = false,
+                isAwaitingPlayback = false,
+                isPlaying = false,
+                voiceMode = CommuteVoiceMode.SIMULATED,
+            )
+        }
     }
 }

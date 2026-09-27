@@ -16,6 +16,7 @@ import com.mckimquyen.reader.domain.model.commute.CommuteDialogue
 import com.mckimquyen.reader.domain.model.commute.CommuteEpisode
 import com.mckimquyen.reader.domain.model.commute.CommuteSpeaker
 import com.mckimquyen.reader.infrastructure.audio.CommutePlayerState
+import com.mckimquyen.reader.infrastructure.audio.CommuteVoiceMode
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
@@ -208,6 +209,48 @@ class CommuteCastWidgetTest {
         assertTrue(
             "Expected the dialogue to be shown; rendered: $texts",
             texts.any { it == sampleEpisode.dialogues.first().text },
+        )
+    }
+
+    @Test
+    fun voiceMode_tellsTheUserWhenOnlyOneVoiceIsAvailable() {
+        val simulatedMessage = InstrumentationRegistry.getInstrumentation().targetContext
+            .getString(R.string.commute_voice_mode_simulated)
+
+        val texts = renderedTextsFor(
+            CommuteUiState(
+                isLoading = false,
+                playerState = CommutePlayerState(
+                    episode = sampleEpisode,
+                    voiceMode = CommuteVoiceMode.SIMULATED,
+                ),
+            )
+        )
+
+        assertTrue(
+            "Must state single-voice mode honestly; rendered: $texts",
+            texts.any { it == simulatedMessage },
+        )
+    }
+
+    @Test
+    fun voiceMode_announcesTwoRealVoicesWhenTheDeviceOffersThem() {
+        val dualMessage = InstrumentationRegistry.getInstrumentation().targetContext
+            .getString(R.string.commute_voice_mode_dual)
+
+        val texts = renderedTextsFor(
+            CommuteUiState(
+                isLoading = false,
+                playerState = CommutePlayerState(
+                    episode = sampleEpisode,
+                    voiceMode = CommuteVoiceMode.REAL_DUAL,
+                ),
+            )
+        )
+
+        assertTrue(
+            "Must announce dual voice when really available; rendered: $texts",
+            texts.any { it == dualMessage },
         )
     }
 }

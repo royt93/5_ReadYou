@@ -706,4 +706,9 @@
     <string name="reading_video_autoplay">Lecture auto des vidéos</string>
     <string name="reading_video_autoplay_desc">Démarre les vidéos en sourdine, sans appuyer</string>
     <string name="commute_tts_preparing">Préparation des voix…</string>
+    <string name="commute_role_alex">Présentateur · analyse</string>
+    <string name="commute_role_sam">Co-animateur · contrepoint</string>
+    <string name="commute_now_speaking">🎙️ Parle en ce moment…</string>
+    <string name="commute_voice_mode_dual">Deux voix distinctes de l\'appareil</string>
+    <string name="commute_voice_mode_simulated">Mode voix unique — cet appareil n\'a pas de seconde voix</string>
 </resources>

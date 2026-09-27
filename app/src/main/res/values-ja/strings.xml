@@ -700,4 +700,9 @@
     <string name="reading_video_autoplay">動画を自動再生</string>
     <string name="reading_video_autoplay_desc">記事内の動画をミュートで自動再生</string>
     <string name="commute_tts_preparing">音声を準備しています…</string>
+    <string name="commute_role_alex">メイン · 分析</string>
+    <string name="commute_role_sam">共同司会 · 反論</string>
+    <string name="commute_now_speaking">🎙️ 話しています…</string>
+    <string name="commute_voice_mode_dual">端末の 2 つの異なる音声</string>
+    <string name="commute_voice_mode_simulated">単一音声モード — この端末には 2 つ目の音声がありません</string>
 </resources>

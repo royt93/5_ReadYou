@@ -699,4 +699,9 @@
     <string name="reading_video_autoplay">自动播放视频</string>
     <string name="reading_video_autoplay_desc">文章中的视频静音自动播放</string>
     <string name="commute_tts_preparing">正在准备语音…</string>
+    <string name="commute_role_alex">主播 · 分析</string>
+    <string name="commute_role_sam">联合主播 · 反驳</string>
+    <string name="commute_now_speaking">🎙️ 正在讲话…</string>
+    <string name="commute_voice_mode_dual">设备的两个独立语音</string>
+    <string name="commute_voice_mode_simulated">单语音模式 — 此设备没有第二种语音</string>
 </resources>

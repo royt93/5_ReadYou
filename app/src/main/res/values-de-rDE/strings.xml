@@ -703,4 +703,9 @@
     <string name="reading_video_autoplay">Videos automatisch abspielen</string>
     <string name="reading_video_autoplay_desc">Startet Artikelvideos stumm, ohne Tippen</string>
     <string name="commute_tts_preparing">Stimmen werden vorbereitet …</string>
+    <string name="commute_role_alex">Moderation · Analyse</string>
+    <string name="commute_role_sam">Co-Moderation · Gegenrede</string>
+    <string name="commute_now_speaking">🎙️ Spricht gerade …</string>
+    <string name="commute_voice_mode_dual">Zwei separate Gerätestimmen</string>
+    <string name="commute_voice_mode_simulated">Einzelstimmen-Modus – dieses Gerät hat keine zweite Stimme</string>
 </resources>

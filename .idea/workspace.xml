@@ -19,11 +19,9 @@
     <list default="true" id="6f28f826-4208-4800-b7bf-3c32f11fba88" name="Changes" comment="refactor(ui): update workspace configuration and clean up obsolete files">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/androidTest/java/com/mckimquyen/reader/ui/component/commute/CommuteCastWidgetTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/androidTest/java/com/mckimquyen/reader/ui/component/commute/CommuteCastWidgetTest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/domain/sv/CommuteWorker.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/domain/sv/CommuteWorker.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/domain/model/commute/CommuteCast.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/domain/model/commute/CommuteCast.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/infrastructure/audio/CommuteAudioPlayer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/infrastructure/audio/CommuteAudioPlayer.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/component/ambient/ZenSoundSheet.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/component/ambient/ZenSoundSheet.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/component/commute/CommuteCastSheet.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/component/commute/CommuteCastSheet.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/component/commute/CommuteCastViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/component/commute/CommuteCastViewModel.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values-de-rDE/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-de-rDE/strings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values-fr-rFR/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-fr-rFR/strings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values-ja/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-ja/strings.xml" afterDir="false" />
@@ -31,7 +29,8 @@
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values-zh-rCN/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-zh-rCN/strings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/test/java/com/mckimquyen/reader/infrastructure/audio/CommuteAudioPlayerTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/test/java/com/mckimquyen/reader/infrastructure/audio/CommuteAudioPlayerTest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/test/java/com/mckimquyen/reader/ui/component/commute/CommuteCastViewModelTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/test/java/com/mckimquyen/reader/ui/component/commute/CommuteCastViewModelTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/task/todo/14_COMMUTECAST_AUTONOMOUS_AI_DJ.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/task/todo/14_COMMUTECAST_AUTONOMOUS_AI_DJ.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/task/todo/DJ-06_real-dual-voice-tts-or-honest-labeling.md" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

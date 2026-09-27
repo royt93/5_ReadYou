@@ -135,12 +135,22 @@ class CommuteAudioPlayerTest {
     }
 
     @Test
-    fun shutdown_reportsTheEngineAsNoLongerReady() {
+    fun aPlayerWithoutTwoDeviceVoices_reportsSimulatedModeHonestly() {
+        // Robolectric exposes no installed TTS voices. That is the same contract as a real device
+        // with fewer than two suitable offline voices: it must never claim REAL_DUAL.
+        player.onInit(TextToSpeech.SUCCESS)
+
+        assertEquals(CommuteVoiceMode.SIMULATED, player.playerState.value.voiceMode)
+    }
+
+    @Test
+    fun shutdown_reportsTheEngineAsNoLongerReadyAndDropsItsVoiceAssignment() {
         player.shutdown()
         val state = player.playerState.value
 
         assertFalse(state.isTtsReady)
         assertFalse(state.isPlaying)
         assertFalse(state.isAwaitingPlayback)
+        assertEquals(CommuteVoiceMode.SIMULATED, state.voiceMode)
     }
 }

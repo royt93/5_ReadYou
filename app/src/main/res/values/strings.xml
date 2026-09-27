@@ -782,4 +782,9 @@
     <string name="reading_video_autoplay">Autoplay videos</string>
     <string name="reading_video_autoplay_desc">Start article videos muted, without tapping</string>
     <string name="commute_tts_preparing">Preparing the voices…</string>
+    <string name="commute_role_alex">Anchor · analysis</string>
+    <string name="commute_role_sam">Co-host · counterpoint</string>
+    <string name="commute_now_speaking">🎙️ Speaking now…</string>
+    <string name="commute_voice_mode_dual">Two separate device voices</string>
+    <string name="commute_voice_mode_simulated">Single-voice mode — this device has no second voice</string>
 </resources>

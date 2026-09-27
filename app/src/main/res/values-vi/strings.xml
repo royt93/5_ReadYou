@@ -673,4 +673,9 @@
     <string name="reading_video_autoplay">Tự phát video</string>
     <string name="reading_video_autoplay_desc">Video trong bài tự chạy ở chế độ tắt tiếng</string>
     <string name="commute_tts_preparing">Đang chuẩn bị giọng đọc…</string>
+    <string name="commute_role_alex">Dẫn chính · phân tích</string>
+    <string name="commute_role_sam">Đồng dẫn · phản biện</string>
+    <string name="commute_now_speaking">🎙️ Đang nói…</string>
+    <string name="commute_voice_mode_dual">Hai giọng riêng của thiết bị</string>
+    <string name="commute_voice_mode_simulated">Chế độ giọng đơn — thiết bị không hỗ trợ đa giọng</string>
 </resources>
