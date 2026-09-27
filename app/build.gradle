@@ -35,8 +35,16 @@ android {
             useSupportLibrary true
         }
 
-        // Keep only major languages to reduce APK size
-        resourceConfigurations += ['en', 'vi', 'zh-rCN', 'ja', 'fr', 'de']
+        // Ship every locale we actually maintain a translation for (must exactly match each
+        // res/values-<qualifier>/ directory name — a qualifier here that doesn't match a real
+        // directory silently drops that locale's strings from the APK at build time; see
+        // doc/task/done/FIX-16_i18n-resource-qualifier-mismatch_DONE.md for the bug this fixed).
+        resourceConfigurations += [
+                'en', 'ar', 'az', 'bg', 'ca', 'cs-rCZ', 'da', 'de-rDE', 'es-rES', 'eu-rES', 'fa',
+                'fr-rFR', 'hi-rIN', 'hu', 'in-rID', 'it-rIT', 'iw', 'ja', 'kn', 'lzh', 'ml', 'my',
+                'nb-rNO', 'nl', 'nn', 'pl-rPL', 'pt', 'pt-rBR', 'ro', 'ru-rRU', 'sl', 'sr', 'sv',
+                'tr', 'uk', 'vi', 'zh-rCN', 'zh-rTW',
+        ]
 
         javaCompileOptions {
             annotationProcessorOptions {
