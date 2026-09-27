@@ -64,6 +64,7 @@ import com.mckimquyen.reader.R
 import com.mckimquyen.reader.infrastructure.audio.ambient.ZenPlaybackError
 import com.mckimquyen.reader.infrastructure.audio.ambient.ZenAudioManager
 import com.mckimquyen.reader.infrastructure.audio.ambient.ZenSoundType
+import com.mckimquyen.reader.ui.ext.DialogEdgeToEdge
 
 @Composable
 fun ZenSoundSheet(
@@ -75,6 +76,7 @@ fun ZenSoundSheet(
         onDismissRequest = onDismiss,
         properties = DialogProperties(usePlatformDefaultWidth = false)
     ) {
+        DialogEdgeToEdge()
         Box(
             modifier = Modifier
                 .fillMaxSize()

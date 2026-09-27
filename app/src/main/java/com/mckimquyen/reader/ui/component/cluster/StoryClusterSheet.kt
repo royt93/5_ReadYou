@@ -16,7 +16,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.imePadding
-import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -54,6 +54,7 @@ import com.mckimquyen.reader.R
 import com.mckimquyen.reader.domain.model.article.ArticleWithFeed
 import com.mckimquyen.reader.domain.model.cluster.StoryCluster
 import com.mckimquyen.reader.ui.component.FeedIcon
+import com.mckimquyen.reader.ui.ext.DialogEdgeToEdge
 
 /**
  * Dialog hiển thị toàn cảnh đa chiều (Multi-Perspective View)
@@ -76,6 +77,7 @@ fun StoryClusterSheet(
             dismissOnClickOutside = true,
         )
     ) {
+        DialogEdgeToEdge()
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -127,7 +129,7 @@ fun StoryClusterSheetContent(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .navigationBarsPadding()
+            .safeDrawingPadding()
             .imePadding()
             .padding(horizontal = 16.dp),
     ) {

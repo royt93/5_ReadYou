@@ -704,4 +704,11 @@
     <string name="commute_now_speaking">🎙️ 正在讲话…</string>
     <string name="commute_voice_mode_dual">设备的两个独立语音</string>
     <string name="commute_voice_mode_simulated">单语音模式 — 此设备没有第二种语音</string>
+    <string name="commute_media_channel_name">CommuteCast 广播播放</string>
+    <string name="commute_media_channel_desc">CommuteCast AI 广播锁屏与媒体控制</string>
+    <string name="commute_media_action_play">播放</string>
+    <string name="commute_media_action_pause">暂停</string>
+    <string name="commute_media_action_prev">上一句</string>
+    <string name="commute_media_action_next">下一句</string>
+    <string name="commute_media_action_stop">停止</string>
 </resources>

@@ -77,6 +77,7 @@ import com.mckimquyen.reader.R
 import com.mckimquyen.reader.domain.model.commute.CommuteDialogue
 import com.mckimquyen.reader.domain.model.commute.CommuteSpeaker
 import com.mckimquyen.reader.infrastructure.audio.CommuteVoiceMode
+import com.mckimquyen.reader.ui.ext.DialogEdgeToEdge
 import com.mckimquyen.reader.ui.ext.findActivity
 import com.roy.sdkadbmob.AdManager
 
@@ -96,6 +97,7 @@ fun CommuteCastDialog(
             dismissOnClickOutside = true,
         )
     ) {
+        DialogEdgeToEdge()
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -116,7 +118,7 @@ fun CommuteCastDialog(
             Surface(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .fillMaxHeight(0.88f)
+                    .fillMaxHeight(0.90f)
                     .clickable(
                         interactionSource = remember { MutableInteractionSource() },
                         indication = null,
@@ -192,10 +194,10 @@ fun CommuteCastUi(
     Column(
         modifier = modifier
             .fillMaxSize()
-            // safeDrawing, not just the navigation bar: this window is edge-to-edge, so the sheet
-            // has to clear the status bar, the camera cutout and the side gestures too. With only
-            // the bottom inset, the close button slid under the cutout in landscape and on a
-            // folded screen, exactly where it cannot be tapped.
+            // safeDrawing, not just the navigation bar: the dialog window is edge-to-edge (see
+            // DialogEdgeToEdge), so the sheet has to clear the status bar, the camera cutout and the
+            // gesture bar too, or its close button and transport controls land where taps do not
+            // reach them.
             .safeDrawingPadding()
             .padding(horizontal = 20.dp, vertical = 12.dp),
     ) {

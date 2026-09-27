@@ -153,4 +153,41 @@ class CommuteAudioPlayerTest {
         assertFalse(state.isAwaitingPlayback)
         assertEquals(CommuteVoiceMode.SIMULATED, state.voiceMode)
     }
+
+    @Test
+    fun handleUtteranceStart_startsAmbientLoopAndDucksVolume() {
+        player.prepareEpisode(sampleEpisode)
+        player.handleUtteranceStart("COMMUTE_LINE_0")
+
+        assertTrue("Player state must indicate isPlaying", player.playerState.value.isPlaying)
+    }
+
+    @Test
+    fun handleUtteranceDone_restoresAmbientLoop() {
+        player.prepareEpisode(sampleEpisode)
+        player.handleUtteranceStart("COMMUTE_LINE_0")
+        player.handleUtteranceDone("COMMUTE_LINE_0")
+
+        assertTrue("Player state must still be playing until completed", player.playerState.value.isPlaying)
+    }
+
+    @Test
+    fun pause_pausesAmbientLoop() {
+        player.prepareEpisode(sampleEpisode)
+        player.handleUtteranceStart("COMMUTE_LINE_0")
+        player.pause()
+
+        assertFalse(player.playerState.value.isPlaying)
+        assertFalse(player.ambientLoop.isPlaying)
+    }
+
+    @Test
+    fun stopAndReset_stopsAmbientLoop() {
+        player.prepareEpisode(sampleEpisode)
+        player.handleUtteranceStart("COMMUTE_LINE_0")
+        player.stopAndReset()
+
+        assertFalse(player.playerState.value.isPlaying)
+        assertFalse(player.ambientLoop.isPlaying)
+    }
 }

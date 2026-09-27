@@ -1,9 +1,14 @@
 package com.mckimquyen.reader.infrastructure.audio
 
 import android.content.Context
+import android.media.AudioAttributes
+import android.media.AudioFocusRequest
+import android.media.AudioManager
+import android.os.Build
 import android.speech.tts.TextToSpeech
 import android.speech.tts.UtteranceProgressListener
 import android.util.Log
+import androidx.annotation.VisibleForTesting
 import com.mckimquyen.reader.domain.model.commute.CommuteDialogue
 import com.mckimquyen.reader.domain.model.commute.CommuteEpisode
 import com.mckimquyen.reader.domain.model.commute.CommuteSpeaker
@@ -50,17 +55,20 @@ data class CommutePlayerState(
 }
 
 /**
- * Speaks a two-host radio episode.
+ * Speaks a two-host radio episode with background lofi audio mixing, ducking, and lock-screen controls.
  *
- * When the device offers at least two usable voices, Alex and Sam get one each, which is a real
- * difference in voice. When it does not, playback falls back to shifting pitch and rate on the one
- * available voice — a rough imitation, and [CommutePlayerState.voiceMode] says so, so the UI can
- * tell the user rather than claiming two voices it does not have.
+ * When the device offers at least two usable voices, Alex and Sam get one each. When it does not,
+ * playback falls back to shifting pitch and rate on the one available voice, and [CommutePlayerState.voiceMode]
+ * says so honestly.
  */
 @Singleton
 class CommuteAudioPlayer @Inject constructor(
     @ApplicationContext private val context: Context,
+    val ambientLoop: CommuteAmbientLoop,
 ) : TextToSpeech.OnInitListener {
+
+    /** Secondary constructor preserving test backward compatibility. */
+    constructor(@ApplicationContext context: Context) : this(context, CommuteAmbientLoop(context))
 
     companion object {
         private const val TAG = "CommuteAudioPlayer"
@@ -82,6 +90,26 @@ class CommuteAudioPlayer @Inject constructor(
     private var isInitialized = false
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
 
+    private val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as? AudioManager
+    private var audioFocusRequest: AudioFocusRequest? = null
+
+    private val audioFocusChangeListener = AudioManager.OnAudioFocusChangeListener { focusChange ->
+        when (focusChange) {
+            AudioManager.AUDIOFOCUS_LOSS,
+            AudioManager.AUDIOFOCUS_LOSS_TRANSIENT -> {
+                pause()
+            }
+            AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK -> {
+                ambientLoop.setVolume(CommuteAmbientLoop.DUCKED_VOLUME * 0.5f)
+            }
+            AudioManager.AUDIOFOCUS_GAIN -> {
+                if (_playerState.value.isPlaying) {
+                    ambientLoop.setVolume(CommuteAmbientLoop.DUCKED_VOLUME)
+                }
+            }
+        }
+    }
+
     /** Resolved once at init: which voice each host speaks with, or null when there is only one. */
     private var voiceAssignment: CommuteVoiceAssignment? = null
 
@@ -101,8 +129,6 @@ class CommuteAudioPlayer @Inject constructor(
             isInitialized = true
             setupUtteranceListener()
 
-            // Resolve the voices once here rather than per line: getVoices() queries the engine and
-            // the answer cannot change while it is running.
             val assignment = CommuteVoiceSelector.select(
                 voices = runCatching { tts?.voices }.getOrNull().orEmpty(),
                 targetLocale = Locale.getDefault(),
@@ -115,8 +141,6 @@ class CommuteAudioPlayer @Inject constructor(
                     "alex=${assignment.alex?.name}, sam=${assignment.sam?.name}"
             )
 
-            // Honour a play request that arrived while the engine was still starting, instead of
-            // leaving the user with a notification they tapped and nothing to hear.
             if (_playerState.value.isAwaitingPlayback) {
                 Log.d(TAG, "TTS ready: starting the playback that was waiting for it.")
                 speakCurrentDialogue()
@@ -129,9 +153,6 @@ class CommuteAudioPlayer @Inject constructor(
 
     /**
      * Waits until the engine is usable, up to [timeoutMs].
-     *
-     * The morning worker calls this before notifying, so a notification is never sent promising
-     * audio the device cannot actually produce.
      */
     suspend fun awaitReady(timeoutMs: Long): Boolean =
         withTimeoutOrNull(timeoutMs) {
@@ -140,9 +161,6 @@ class CommuteAudioPlayer @Inject constructor(
 
     /**
      * Loads [episode] as the current one without speaking a word.
-     *
-     * Replaces the old trick of calling [playEpisode] and then [pause]: that briefly queued a real
-     * utterance, so a background job could emit a burst of speech before stopping it.
      */
     fun prepareEpisode(episode: CommuteEpisode) {
         _playerState.update {
@@ -159,32 +177,67 @@ class CommuteAudioPlayer @Inject constructor(
     private fun setupUtteranceListener() {
         tts?.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
             override fun onStart(utteranceId: String?) {
-                _playerState.update { it.copy(isPlaying = true) }
+                handleUtteranceStart(utteranceId)
             }
 
             override fun onDone(utteranceId: String?) {
-                scope.launch {
-                    advanceNextDialogue()
-                }
+                handleUtteranceDone(utteranceId)
             }
 
             @Deprecated("Deprecated in Java")
             override fun onError(utteranceId: String?) {
-                Log.e(TAG, "Utterance error: $utteranceId")
-                _playerState.update { it.copy(isPlaying = false) }
+                handleUtteranceError(utteranceId, errorCode = null)
             }
 
             override fun onError(utteranceId: String?, errorCode: Int) {
-                Log.e(TAG, "Utterance error: $utteranceId, code: $errorCode")
-                _playerState.update { it.copy(isPlaying = false) }
+                handleUtteranceError(utteranceId, errorCode = errorCode)
             }
         })
     }
 
+    @VisibleForTesting
+    internal fun handleUtteranceStart(utteranceId: String?) {
+        requestAudioFocus()
+        ambientLoop.start()
+        ambientLoop.setVolume(CommuteAmbientLoop.DUCKED_VOLUME)
+        _playerState.update { it.copy(isPlaying = true) }
+
+        val episode = _playerState.value.episode
+        val dialogue = _playerState.value.currentDialogue
+        if (episode != null && dialogue != null) {
+            try {
+                CommuteMediaSessionService.start(
+                    context = context,
+                    title = episode.title,
+                    subtitle = "${dialogue.speaker.name}: ${dialogue.text}"
+                )
+            } catch (e: Exception) {
+                Log.w(TAG, "Could not start CommuteMediaSessionService", e)
+            }
+        }
+    }
+
+    @VisibleForTesting
+    internal fun handleUtteranceDone(utteranceId: String?) {
+        ambientLoop.setVolume(CommuteAmbientLoop.NORMAL_VOLUME)
+        scope.launch {
+            advanceNextDialogue()
+        }
+    }
+
+    @VisibleForTesting
+    internal fun handleUtteranceError(utteranceId: String?, errorCode: Int?) {
+        Log.e(TAG, "Utterance error: $utteranceId, code: $errorCode")
+        ambientLoop.pause()
+        _playerState.update { it.copy(isPlaying = false) }
+        try {
+            CommuteMediaSessionService.pause(context)
+        } catch (e: Exception) {
+            Log.w(TAG, "Could not pause CommuteMediaSessionService", e)
+        }
+    }
+
     fun playEpisode(episode: CommuteEpisode, startFromIndex: Int = 0) {
-        // isPlaying is not set here: only the engine's own onStart callback knows playback really
-        // began. Claiming it up front left the UI stuck showing "playing" over silence whenever the
-        // engine was not ready yet.
         _playerState.update {
             it.copy(
                 episode = episode,
@@ -202,9 +255,14 @@ class CommuteAudioPlayer @Inject constructor(
 
     fun pause() {
         tts?.stop()
-        // Clearing the pending request matters: without it, a user who pauses while the engine is
-        // still starting would be surprised by playback beginning on its own once it is ready.
+        ambientLoop.pause()
+        abandonAudioFocus()
         _playerState.update { it.copy(isPlaying = false, isAwaitingPlayback = false) }
+        try {
+            CommuteMediaSessionService.pause(context)
+        } catch (e: Exception) {
+            Log.w(TAG, "Could not pause CommuteMediaSessionService", e)
+        }
     }
 
     fun skipNext() {
@@ -241,7 +299,15 @@ class CommuteAudioPlayer @Inject constructor(
             speakCurrentDialogue()
         } else {
             // Đã hoàn thành toàn bộ tập phát thanh
+            tts?.stop()
+            ambientLoop.stop()
+            abandonAudioFocus()
             _playerState.update { it.copy(isPlaying = false, isCompleted = true) }
+            try {
+                CommuteMediaSessionService.stop(context)
+            } catch (e: Exception) {
+                Log.w(TAG, "Could not stop CommuteMediaSessionService", e)
+            }
             Log.d(TAG, "CommuteCast Episode completed.")
         }
     }
@@ -250,8 +316,6 @@ class CommuteAudioPlayer @Inject constructor(
         val currentDialogue = _playerState.value.currentDialogue ?: return
 
         if (!isInitialized) {
-            // Remember the request rather than dropping it silently, and tell the UI we are waiting
-            // so the user sees "preparing" instead of a dead button.
             _playerState.update { it.copy(isAwaitingPlayback = true, isPlaying = false) }
             Log.d(TAG, "TTS not ready yet; playback queued until onInit completes.")
             return
@@ -265,13 +329,6 @@ class CommuteAudioPlayer @Inject constructor(
         tts?.speak(currentDialogue.text, TextToSpeech.QUEUE_FLUSH, null, utteranceId)
     }
 
-    /**
-     * Makes [speaker] sound like themselves.
-     *
-     * With two real voices available, each host simply gets their own and pitch stays neutral —
-     * bending a distinct voice on top of that only makes it sound synthetic. With one voice, pitch
-     * and rate are all there is to work with, which is an imitation, not two voices.
-     */
     private fun applyVoiceFor(speaker: CommuteSpeaker) {
         val assignment = voiceAssignment
         val voice = when (speaker) {
@@ -298,8 +355,50 @@ class CommuteAudioPlayer @Inject constructor(
         }
     }
 
+    private fun requestAudioFocus(): Boolean {
+        val am = audioManager ?: return true
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val req = AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK)
+                .setAudioAttributes(
+                    AudioAttributes.Builder()
+                        .setUsage(AudioAttributes.USAGE_MEDIA)
+                        .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
+                        .build()
+                )
+                .setOnAudioFocusChangeListener(audioFocusChangeListener)
+                .build()
+            audioFocusRequest = req
+            am.requestAudioFocus(req) == AudioManager.AUDIOFOCUS_REQUEST_GRANTED
+        } else {
+            @Suppress("DEPRECATION")
+            am.requestAudioFocus(
+                audioFocusChangeListener,
+                AudioManager.STREAM_MUSIC,
+                AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK
+            ) == AudioManager.AUDIOFOCUS_REQUEST_GRANTED
+        }
+    }
+
+    private fun abandonAudioFocus() {
+        val am = audioManager ?: return
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            audioFocusRequest?.let { am.abandonAudioFocusRequest(it) }
+            audioFocusRequest = null
+        } else {
+            @Suppress("DEPRECATION")
+            am.abandonAudioFocus(audioFocusChangeListener)
+        }
+    }
+
     fun stopAndReset() {
         tts?.stop()
+        ambientLoop.stop()
+        abandonAudioFocus()
+        try {
+            CommuteMediaSessionService.stop(context)
+        } catch (e: Exception) {
+            Log.w(TAG, "Could not stop CommuteMediaSessionService", e)
+        }
         _playerState.update {
             it.copy(
                 isPlaying = false,
@@ -313,8 +412,14 @@ class CommuteAudioPlayer @Inject constructor(
     fun shutdown() {
         tts?.stop()
         tts?.shutdown()
+        ambientLoop.stop()
+        abandonAudioFocus()
+        try {
+            CommuteMediaSessionService.stop(context)
+        } catch (e: Exception) {
+            Log.w(TAG, "Could not stop CommuteMediaSessionService", e)
+        }
         isInitialized = false
-        // The voices belonged to the engine that just went away; a re-init has to resolve its own.
         voiceAssignment = null
         _playerState.update {
             it.copy(

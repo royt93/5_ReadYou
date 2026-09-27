@@ -711,4 +711,11 @@
     <string name="commute_now_speaking">🎙️ Parle en ce moment…</string>
     <string name="commute_voice_mode_dual">Deux voix distinctes de l\'appareil</string>
     <string name="commute_voice_mode_simulated">Mode voix unique — cet appareil n\'a pas de seconde voix</string>
+    <string name="commute_media_channel_name">Lecture radio CommuteCast</string>
+    <string name="commute_media_channel_desc">Commandes multimédias et écran de verrouillage pour la radio IA CommuteCast</string>
+    <string name="commute_media_action_play">Lecture</string>
+    <string name="commute_media_action_pause">Pause</string>
+    <string name="commute_media_action_prev">Dialogue précédent</string>
+    <string name="commute_media_action_next">Dialogue suivant</string>
+    <string name="commute_media_action_stop">Arrêter</string>
 </resources>

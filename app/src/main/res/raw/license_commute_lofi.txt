@@ -1,0 +1,4 @@
+Audio Asset License:
+File: commute_lofi_pad.wav
+Author: Synthetic algorithmic waveform generated via Python stdlib for RSS Cat Hub CommuteCast feature.
+License: Dedicated to the public domain (CC0 1.0 Universal). Free for commercial and non-commercial use with no attribution required.

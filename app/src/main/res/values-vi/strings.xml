@@ -678,4 +678,11 @@
     <string name="commute_now_speaking">🎙️ Đang nói…</string>
     <string name="commute_voice_mode_dual">Hai giọng riêng của thiết bị</string>
     <string name="commute_voice_mode_simulated">Chế độ giọng đơn — thiết bị không hỗ trợ đa giọng</string>
+    <string name="commute_media_channel_name">Phát thanh CommuteCast</string>
+    <string name="commute_media_channel_desc">Điều khiển đài phát thanh AI CommuteCast trên màn hình khóa</string>
+    <string name="commute_media_action_play">Phát</string>
+    <string name="commute_media_action_pause">Tạm dừng</string>
+    <string name="commute_media_action_prev">Câu trước</string>
+    <string name="commute_media_action_next">Câu tiếp theo</string>
+    <string name="commute_media_action_stop">Dừng</string>
 </resources>

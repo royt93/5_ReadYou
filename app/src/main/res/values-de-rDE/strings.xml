@@ -708,4 +708,11 @@
     <string name="commute_now_speaking">🎙️ Spricht gerade …</string>
     <string name="commute_voice_mode_dual">Zwei separate Gerätestimmen</string>
     <string name="commute_voice_mode_simulated">Einzelstimmen-Modus – dieses Gerät hat keine zweite Stimme</string>
+    <string name="commute_media_channel_name">CommuteCast Radio-Wiedergabe</string>
+    <string name="commute_media_channel_desc">Sperrbildschirm- und Mediensteuerung für das CommuteCast KI-Radio</string>
+    <string name="commute_media_action_play">Wiedergabe</string>
+    <string name="commute_media_action_pause">Pause</string>
+    <string name="commute_media_action_prev">Vorheriger Dialog</string>
+    <string name="commute_media_action_next">Nächster Dialog</string>
+    <string name="commute_media_action_stop">Stopp</string>
 </resources>
