@@ -702,4 +702,5 @@
     <string name="reels_has_video">Dieser Artikel enthält ein Video</string>
     <string name="reading_video_autoplay">Videos automatisch abspielen</string>
     <string name="reading_video_autoplay_desc">Startet Artikelvideos stumm, ohne Tippen</string>
+    <string name="commute_tts_preparing">Stimmen werden vorbereitet …</string>
 </resources>

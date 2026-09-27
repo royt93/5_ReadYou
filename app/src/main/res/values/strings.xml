@@ -781,4 +781,5 @@
     <string name="reels_has_video">This story contains a video</string>
     <string name="reading_video_autoplay">Autoplay videos</string>
     <string name="reading_video_autoplay_desc">Start article videos muted, without tapping</string>
+    <string name="commute_tts_preparing">Preparing the voices…</string>
 </resources>

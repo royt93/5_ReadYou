@@ -12,8 +12,6 @@ import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.WorkerParameters
 import com.mckimquyen.reader.domain.repository.ArticleDao
-import com.mckimquyen.reader.infrastructure.android.NotificationHelper
-import com.mckimquyen.reader.infrastructure.audio.CommuteAudioPlayer
 import com.mckimquyen.reader.ui.ext.currentAccountId
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
@@ -30,9 +28,7 @@ class CommuteWorker @AssistedInject constructor(
     @Assisted private val context: Context,
     @Assisted workerParams: WorkerParameters,
     private val articleDao: ArticleDao,
-    private val scriptService: CommuteScriptService,
-    private val notificationHelper: NotificationHelper,
-    private val commuteAudioPlayer: CommuteAudioPlayer,
+    private val episodePreparer: CommuteEpisodePreparer,
 ) : CoroutineWorker(context, workerParams) {
 
     companion object {
@@ -89,17 +85,13 @@ class CommuteWorker @AssistedInject constructor(
             }
 
             Log.d(TAG, "Synthesizing CommuteCast episode for ${unreadArticles.size} articles...")
-            val episode = scriptService.generateScript(unreadArticles, isDeepDive = false)
 
-            // Lưu episode vào audio player sẵn sàng
-            commuteAudioPlayer.playEpisode(episode, startFromIndex = 0)
-            commuteAudioPlayer.pause() // Đặt ở trạng thái sẵn sàng phát
-
-            // Bắn thông báo sáng
-            notificationHelper.notifyCommuteCast(episode)
-            Log.d(TAG, "CommuteCast Episode generated and notification dispatched successfully.")
-
-            Result.success()
+            // Generating, persisting and announcing all live in the preparer so they can be tested;
+            // WorkerParameters cannot be built in a JVM test, so nothing testable belongs here.
+            when (episodePreparer.prepareAndNotify(unreadArticles, isDeepDive = false)) {
+                CommuteEpisodePreparer.Outcome.SUCCESS -> Result.success()
+                CommuteEpisodePreparer.Outcome.RETRY -> Result.retry()
+            }
         } catch (e: Exception) {
             Log.e(TAG, "CommuteWorker failed: ${e.message}", e)
             Result.retry()

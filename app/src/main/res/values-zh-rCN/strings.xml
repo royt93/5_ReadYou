@@ -698,4 +698,5 @@
     <string name="reels_has_video">此文章包含视频</string>
     <string name="reading_video_autoplay">自动播放视频</string>
     <string name="reading_video_autoplay_desc">文章中的视频静音自动播放</string>
+    <string name="commute_tts_preparing">正在准备语音…</string>
 </resources>

@@ -699,4 +699,5 @@
     <string name="reels_has_video">この記事には動画があります</string>
     <string name="reading_video_autoplay">動画を自動再生</string>
     <string name="reading_video_autoplay_desc">記事内の動画をミュートで自動再生</string>
+    <string name="commute_tts_preparing">音声を準備しています…</string>
 </resources>

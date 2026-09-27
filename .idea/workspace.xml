@@ -18,26 +18,20 @@
   <component name="ChangeListManager">
     <list default="true" id="6f28f826-4208-4800-b7bf-3c32f11fba88" name="Changes" comment="refactor(ui): update workspace configuration and clean up obsolete files">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/domain/model/general/Filter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/domain/model/general/Filter.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/infrastructure/android/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/infrastructure/android/MainActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/infrastructure/pref/Pref.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/infrastructure/pref/Pref.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/infrastructure/pref/Settings.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/infrastructure/pref/Settings.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/component/reader/HtmlToComposable.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/component/reader/HtmlToComposable.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/component/reader/Styles.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/component/reader/Styles.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/ext/ExtDataStore.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/ext/ExtDataStore.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/common/HomeEntry.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/common/HomeEntry.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/common/RouteName.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/common/RouteName.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/home/feed/FeedsPage.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/home/feed/FeedsPage.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/home/flow/FlowPage.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/home/flow/FlowPage.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/setting/color/reading/ReadingStylePage.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/page/setting/color/reading/ReadingStylePage.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/androidTest/java/com/mckimquyen/reader/ui/component/commute/CommuteCastWidgetTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/androidTest/java/com/mckimquyen/reader/ui/component/commute/CommuteCastWidgetTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/domain/sv/CommuteWorker.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/domain/sv/CommuteWorker.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/infrastructure/audio/CommuteAudioPlayer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/infrastructure/audio/CommuteAudioPlayer.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/component/ambient/ZenSoundSheet.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/component/ambient/ZenSoundSheet.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/component/commute/CommuteCastSheet.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/component/commute/CommuteCastSheet.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/component/commute/CommuteCastViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/ui/component/commute/CommuteCastViewModel.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values-de-rDE/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-de-rDE/strings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values-fr-rFR/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-fr-rFR/strings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values-ja/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-ja/strings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values-vi/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-vi/strings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values-zh-rCN/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-zh-rCN/strings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/test/java/com/mckimquyen/reader/infrastructure/audio/CommuteAudioPlayerTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/test/java/com/mckimquyen/reader/infrastructure/audio/CommuteAudioPlayerTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/test/java/com/mckimquyen/reader/ui/component/commute/CommuteCastViewModelTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/test/java/com/mckimquyen/reader/ui/component/commute/CommuteCastViewModelTest.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,7 +73,7 @@
       <entry key="edit-panel" value="GPT-5 mini" />
     </selectedModels>
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[PhysicalDevice::serial=2B051FDH3006MU]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[PhysicalDevice::serial=118743744X002560]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />

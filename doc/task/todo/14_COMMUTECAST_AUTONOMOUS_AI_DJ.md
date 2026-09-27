@@ -12,7 +12,7 @@
 | DJ-02 | Động Cơ Phát Âm 2 Giọng Kèm Nhạc Nền Lofi (Dual-Voice TTS & Audio Mixer) | P1 | 📋 Todo (chưa đạt AC — chỉ 1 giọng đổi pitch, không có lofi) | [`todo/DJ-02_dual-voice-tts-lofi-audio-mixer.md`](DJ-02_dual-voice-tts-lofi-audio-mixer.md) |
 | DJ-03 | Tích Hợp Android Auto & Lockscreen MediaSession | P1 | 📋 Todo (0% implement — không có Media3/MediaSessionService nào trong code) | [`todo/DJ-03_android-auto-lockscreen-mediasession.md`](DJ-03_android-auto-lockscreen-mediasession.md) |
 | DJ-04 | Tối Ưu Doanh Thu Buổi Sáng Với App Open & Rewarded Ads | P0 | ✅ Done (rewarded ad gating cho Deep Dive + notification deep-link hoạt động đúng) | [`done/DJ-04_app-open-rewarded-ads-monetization_DONE.md`](../done/DJ-04_app-open-rewarded-ads-monetization_DONE.md) |
-| DJ-05 | Episode Không Được Persist — Mất Nội Dung Khi Process Bị Kill | **P0** | 🆕 Todo (gap phát hiện qua audit) | [`todo/DJ-05_persist-episode-notification-ready-state.md`](DJ-05_persist-episode-notification-ready-state.md) |
+| DJ-05 | Episode Không Được Persist — Mất Nội Dung Khi Process Bị Kill | **P0** | ✅ Done | [`done/DJ-05_persist-episode-notification-ready-state_DONE.md`](../done/DJ-05_persist-episode-notification-ready-state_DONE.md) |
 | DJ-06 | "Dual-Voice TTS" Thực Chất Chỉ 1 Giọng Đổi Pitch — Sai Sự Thật So Với Tuyên Bố | P1 | 🆕 Todo (gap phát hiện qua audit) | [`todo/DJ-06_real-dual-voice-tts-or-honest-labeling.md`](DJ-06_real-dual-voice-tts-or-honest-labeling.md) |
 | DJ-07 | Thiếu Audio Mixing/Lofi Nền Và Tích Hợp Media3/Android Auto | P2 | 🆕 Todo (gap phát hiện qua audit) | [`todo/DJ-07_lofi-audio-mixing-media3-integration.md`](DJ-07_lofi-audio-mixing-media3-integration.md) |
 | DJ-08 | Chọn Nội Dung Chưa Theo Ngân Sách Thời Gian Người Dùng | P2 | 🆕 Todo (gap phát hiện qua audit) | [`todo/DJ-08_time-budget-aware-content-selection.md`](DJ-08_time-budget-aware-content-selection.md) |
@@ -25,3 +25,9 @@
 - Epic gốc trước đây gộp cả 4 task vào 1 file duy nhất nằm ở `doc/task/done/14_COMMUTECAST_AUTONOMOUS_AI_DJ_DONE.md` (không có bản riêng trong `todo/`). File này (`todo/14_COMMUTECAST_AUTONOMOUS_AI_DJ.md`) được tạo mới làm Epic Index sau khi tách từng task thành file riêng theo `doc/task/_TEMPLATE_TASK.md`.
 - DJ-01 và DJ-02/DJ-03 vẫn nằm ở `todo/` dù đã có implementation một phần, vì chưa đáp ứng đủ Acceptance Criteria gốc — xem audit note trong từng file task.
 - DJ-04 là task duy nhất trong 4 task gốc được xác nhận đạt chất lượng "done" thực sự qua audit code, nên đặt tại `done/`.
+
+## Cập nhật 2026-09-27 — DJ-05 hoàn tất
+- **DJ-05 (P0) đã xong.** Episode nay persist qua `CommuteEpisodeStore` (SharedPreferences + JSON, theo tiền lệ `WatchdogManager`, không cần migration Room). Notification chỉ bắn sau khi episode đã lưu, không rỗng, và TTS thật sự sẵn sàng. Smoke test trên Pixel 7 Pro xác nhận `dateMillis` không đổi sau `force-stop` → không gọi lại AI.
+- Sửa kèm 4 bug thật ngoài AC: `isPlaying` lạc quan ở 5 hàm; `playEpisode()+pause()` trong Worker phát tiếng rồi tắt; `pause()` không xoá cờ chờ gây tự phát bất ngờ; episode sinh từ UI không được persist.
+- Sửa kèm lỗi edge-to-edge: `CommuteCastUi` và `ZenSoundSheet` đổi `navigationBarsPadding()` → `safeDrawingPadding()`.
+- Gap P0 nghiêm trọng nhất của epic đã đóng. Còn lại: DJ-01 (tiêu chí "điểm tương tác"), DJ-02/DJ-06 (dual-voice), DJ-03/DJ-07 (Media3/Android Auto/lofi), DJ-08 (ngân sách thời gian).

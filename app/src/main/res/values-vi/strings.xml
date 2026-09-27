@@ -672,4 +672,5 @@
     <string name="reels_has_video">Bài viết này có video</string>
     <string name="reading_video_autoplay">Tự phát video</string>
     <string name="reading_video_autoplay_desc">Video trong bài tự chạy ở chế độ tắt tiếng</string>
+    <string name="commute_tts_preparing">Đang chuẩn bị giọng đọc…</string>
 </resources>

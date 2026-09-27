@@ -14,8 +14,11 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withTimeoutOrNull
 import java.util.Locale
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -26,6 +29,15 @@ data class CommutePlayerState(
     val isPlaying: Boolean = false,
     val isCompleted: Boolean = false,
     val isDeepDiveUnlocked: Boolean = false,
+    /** True once `TextToSpeech.onInit` has reported success; nothing can be spoken before then. */
+    val isTtsReady: Boolean = false,
+    /**
+     * A play request arrived before the engine was ready and is waiting for it.
+     *
+     * The UI shows this as "preparing" instead of the silence users used to get, and the request is
+     * honoured automatically as soon as initialisation finishes.
+     */
+    val isAwaitingPlayback: Boolean = false,
 ) {
     val currentDialogue: CommuteDialogue?
         get() = episode?.dialogues?.getOrNull(currentDialogueIndex)
@@ -63,9 +75,47 @@ class CommuteAudioPlayer @Inject constructor(
             }
             isInitialized = true
             setupUtteranceListener()
+            _playerState.update { it.copy(isTtsReady = true) }
             Log.d(TAG, "CommuteAudioPlayer TTS initialized successfully.")
+
+            // Honour a play request that arrived while the engine was still starting, instead of
+            // leaving the user with a notification they tapped and nothing to hear.
+            if (_playerState.value.isAwaitingPlayback) {
+                Log.d(TAG, "TTS ready: starting the playback that was waiting for it.")
+                speakCurrentDialogue()
+            }
         } else {
             Log.e(TAG, "CommuteAudioPlayer TTS init failed with status: $status")
+            _playerState.update { it.copy(isTtsReady = false, isAwaitingPlayback = false) }
+        }
+    }
+
+    /**
+     * Waits until the engine is usable, up to [timeoutMs].
+     *
+     * The morning worker calls this before notifying, so a notification is never sent promising
+     * audio the device cannot actually produce.
+     */
+    suspend fun awaitReady(timeoutMs: Long): Boolean =
+        withTimeoutOrNull(timeoutMs) {
+            playerState.map { it.isTtsReady }.first { it }
+        } ?: false
+
+    /**
+     * Loads [episode] as the current one without speaking a word.
+     *
+     * Replaces the old trick of calling [playEpisode] and then [pause]: that briefly queued a real
+     * utterance, so a background job could emit a burst of speech before stopping it.
+     */
+    fun prepareEpisode(episode: CommuteEpisode) {
+        _playerState.update {
+            it.copy(
+                episode = episode,
+                currentDialogueIndex = 0,
+                isPlaying = false,
+                isCompleted = false,
+                isAwaitingPlayback = false,
+            )
         }
     }
 
@@ -95,11 +145,13 @@ class CommuteAudioPlayer @Inject constructor(
     }
 
     fun playEpisode(episode: CommuteEpisode, startFromIndex: Int = 0) {
+        // isPlaying is not set here: only the engine's own onStart callback knows playback really
+        // began. Claiming it up front left the UI stuck showing "playing" over silence whenever the
+        // engine was not ready yet.
         _playerState.update {
             it.copy(
                 episode = episode,
                 currentDialogueIndex = startFromIndex,
-                isPlaying = true,
                 isCompleted = false
             )
         }
@@ -108,13 +160,14 @@ class CommuteAudioPlayer @Inject constructor(
 
     fun resume() {
         if (_playerState.value.episode == null) return
-        _playerState.update { it.copy(isPlaying = true) }
         speakCurrentDialogue()
     }
 
     fun pause() {
         tts?.stop()
-        _playerState.update { it.copy(isPlaying = false) }
+        // Clearing the pending request matters: without it, a user who pauses while the engine is
+        // still starting would be surprised by playback beginning on its own once it is ready.
+        _playerState.update { it.copy(isPlaying = false, isAwaitingPlayback = false) }
     }
 
     fun skipNext() {
@@ -124,7 +177,7 @@ class CommuteAudioPlayer @Inject constructor(
     fun skipPrevious() {
         val currentIndex = _playerState.value.currentDialogueIndex
         if (currentIndex > 0) {
-            _playerState.update { it.copy(currentDialogueIndex = currentIndex - 1, isPlaying = true) }
+            _playerState.update { it.copy(currentDialogueIndex = currentIndex - 1) }
             speakCurrentDialogue()
         }
     }
@@ -132,7 +185,7 @@ class CommuteAudioPlayer @Inject constructor(
     fun seekToDialogue(index: Int) {
         val total = _playerState.value.episode?.dialogues?.size ?: 0
         if (index in 0 until total) {
-            _playerState.update { it.copy(currentDialogueIndex = index, isPlaying = true) }
+            _playerState.update { it.copy(currentDialogueIndex = index) }
             speakCurrentDialogue()
         }
     }
@@ -147,7 +200,7 @@ class CommuteAudioPlayer @Inject constructor(
         val nextIndex = currentState.currentDialogueIndex + 1
 
         if (nextIndex < episode.dialogues.size) {
-            _playerState.update { it.copy(currentDialogueIndex = nextIndex, isPlaying = true) }
+            _playerState.update { it.copy(currentDialogueIndex = nextIndex) }
             speakCurrentDialogue()
         } else {
             // Đã hoàn thành toàn bộ tập phát thanh
@@ -157,8 +210,17 @@ class CommuteAudioPlayer @Inject constructor(
     }
 
     private fun speakCurrentDialogue() {
-        if (!isInitialized) return
         val currentDialogue = _playerState.value.currentDialogue ?: return
+
+        if (!isInitialized) {
+            // Remember the request rather than dropping it silently, and tell the UI we are waiting
+            // so the user sees "preparing" instead of a dead button.
+            _playerState.update { it.copy(isAwaitingPlayback = true, isPlaying = false) }
+            Log.d(TAG, "TTS not ready yet; playback queued until onInit completes.")
+            return
+        }
+
+        _playerState.update { it.copy(isAwaitingPlayback = false) }
 
         // Điều chỉnh cao độ và tốc độ nói theo từng nhân vật
         when (currentDialogue.speaker) {
@@ -182,7 +244,8 @@ class CommuteAudioPlayer @Inject constructor(
             it.copy(
                 isPlaying = false,
                 currentDialogueIndex = 0,
-                isCompleted = false
+                isCompleted = false,
+                isAwaitingPlayback = false,
             )
         }
     }
@@ -191,5 +254,6 @@ class CommuteAudioPlayer @Inject constructor(
         tts?.stop()
         tts?.shutdown()
         isInitialized = false
+        _playerState.update { it.copy(isTtsReady = false, isAwaitingPlayback = false, isPlaying = false) }
     }
 }

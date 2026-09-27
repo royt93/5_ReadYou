@@ -22,7 +22,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -191,7 +191,11 @@ fun CommuteCastUi(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .navigationBarsPadding()
+            // safeDrawing, not just the navigation bar: this window is edge-to-edge, so the sheet
+            // has to clear the status bar, the camera cutout and the side gestures too. With only
+            // the bottom inset, the close button slid under the cutout in landscape and on a
+            // folded screen, exactly where it cannot be tapped.
+            .safeDrawingPadding()
             .padding(horizontal = 20.dp, vertical = 12.dp),
     ) {
         // Handle bar
@@ -292,6 +296,24 @@ fun CommuteCastUi(
                     Spacer(modifier = Modifier.height(12.dp))
                     Text(
                         text = stringResource(R.string.commute_generating),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
+            } else if (playerState.isAwaitingPlayback) {
+                // The speech engine is still starting. Saying so beats the old behaviour, where the
+                // play request was dropped and the screen simply sat there.
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center,
+                ) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(42.dp),
+                        color = MaterialTheme.colorScheme.primary,
+                    )
+                    Spacer(modifier = Modifier.height(12.dp))
+                    Text(
+                        text = stringResource(R.string.commute_tts_preparing),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
