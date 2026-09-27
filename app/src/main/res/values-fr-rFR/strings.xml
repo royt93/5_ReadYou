@@ -718,4 +718,6 @@
     <string name="commute_media_action_prev">Dialogue précédent</string>
     <string name="commute_media_action_next">Dialogue suivant</string>
     <string name="commute_media_action_stop">Arrêter</string>
+    <string name="commute_media_artist">Alex &amp; Sam · RSS Cat Hub</string>
+    <string name="commute_media_album">Radio IA CommuteCast</string>
 </resources>

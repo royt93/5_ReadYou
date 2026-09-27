@@ -52,3 +52,46 @@ Chỉ dừng loop khi hoàn tất TẤT CẢ bước sau, đúng thứ tự, KH�
 6. Nếu điểm audit **> 9/10 VÀ** mọi test bước 2-4 pass **VÀ** smoke test bước 5 xác nhận hoạt động đúng:
    → `git add` các file liên quan → `git commit` với message rõ ràng, đúng Conventional Commits → **`git push`** lên remote nhánh hiện tại. Kết thúc loop, cập nhật trạng thái task (di chuyển file từ `doc/task/todo/` sang `doc/task/done/`, đổi tên thêm hậu tố `_DONE` và viết Completion Report ngắn: điểm số, commit hash, danh sách test đã thêm).
 7. Nếu điểm **≤ 9/10** hoặc bất kỳ điều kiện bước 2-5 chưa đạt: quay lại bước 1 của vòng lặp Loop Prompt, KHÔNG commit/push.
+
+---
+
+## ✅ Completion Report (2026-09-27)
+
+**Điểm tự audit: 9.4/10**
+
+### Đối chiếu Acceptance Criteria
+- ✅ "Tên bản tin, hình ảnh bìa và các phím điều hướng xuất hiện trực tiếp trên màn hình xe hơi": `CommuteMediaSessionService` nâng cấp từ `Service` thường thành `MediaBrowserServiceCompat` — đúng API chuẩn Google cho Media App trên Android Auto/Automotive OS (không cần `media3-session`, giữ đúng quyết định kiến trúc đã chốt ở DJ-07). Xuất bản `MediaMetadataCompat` thật (title/artist/album/artwork/duration) qua `mediaSession.setMetadata()`. Khai báo `com.google.android.gms.car.application` meta-data + `res/xml/automotive_app_desc.xml` + intent-filter `android.media.browse.MediaBrowserService`.
+- ✅ "Thao tác bấm tạm dừng trên vô-lăng xe phản hồi ngay lập tức": `MediaSessionCompat.Callback` xử lý đầy đủ `onPlay/onPause/onSkipToNext/onSkipToPrevious/onPlayFromMediaId`. Verify thật bằng `MediaControllerCompat.transportControls` từ instrumented test trên Pixel 7 Pro — không throw, phản hồi đúng.
+
+### Quyết định thiết kế (đã chốt với người dùng qua AskUserQuestion)
+1. **"Nút tua 10s" → skip dòng thoại**: engine phát theo từng dòng TTS, không có timeline giây thật. Dịch `onFastForward()/onRewind()` thành `skipNext()/skipPrevious()` — trung thực, cùng tinh thần với cách DJ-06 xử lý "hai giọng nam/nữ" (không giả vờ có thứ không làm được thật). `onSeekTo(pos)` là no-op có chủ đích, ghi rõ trong comment.
+2. **`onGetRoot()` xác thực bằng allow-list tên package**: `CommuteAutoPackageValidator` (object thuần, unit test 100%) — allow tự app + `com.google.android.projection.gearhead` (Android Auto) + `com.google.android.apps.automotive.templates.host` + `com.android.car.media` (Automotive OS). Đánh dấu `ponytail:` rõ giới hạn (không verify signing cert) + đường nâng cấp nếu phát hành rộng rãi.
+3. **Không thêm `media3-session`**: giữ nguyên `MediaBrowserServiceCompat` (từ `androidx.media:media:1.7.0` đã có sẵn trong classpath, không cần dependency mới) — nguồn phát là `TextToSpeech`, dùng Media3 buộc viết `Player` adapter giả lập ~20 method không cần thiết.
+
+### Bug thật phát hiện & sửa giữa quá trình implement (không nằm trong AC gốc)
+- **Vi phạm threading (CLAUDE.md R5)**: `getOrDecodeArtwork()` ban đầu decode `BitmapFactory` đồng bộ trên Main thread mỗi lần build notification/metadata. Sửa: decode 1 lần duy nhất trong `onCreate()` qua `scope.launch(Dispatchers.Default)`, cache vào field `@Volatile`. Trước khi decode xong lần đầu, metadata/notification đơn giản không có art — lần cập nhật tiếp theo (luôn có, vì mỗi dòng thoại là một lần cập nhật) tự bổ sung.
+
+### Test
+- Unit (485 pass, +8 so với DJ-07): `CommuteAutoPackageValidatorTest` (7 case: tự app, Android Auto, Automotive OS host, Car Media, package lạ, null, blank, case-mismatch).
+- Instrumented trên Pixel 7 Pro (18/18 pass, +3 mới, không hồi quy DJ-05/06/07/edge-to-edge):
+  - `CommuteMediaBrowserIntegrationTest` (3 test, mới): `MediaBrowserCompat` thật kết nối → `onConnected()` thành công + root đúng ID; `subscribe()` nhận đúng `MediaItem` playable với `mediaId` cố định; `MediaControllerCompat.transportControls` (`fastForward/rewind/pause/playFromMediaId`) gọi tới service không crash.
+  - `CommuteMediaSessionServiceIntegrationTest` (2, giữ nguyên từ DJ-07): notification `MediaStyle` vẫn đúng sau khi đổi kế thừa sang `MediaBrowserServiceCompat`.
+  - `CommuteEpisodePersistenceIntegrationTest`, `CommuteCastWidgetTest` (7), `CommuteCastInsetsTest`, `DialogEdgeToEdgeTest` (2): không hồi quy.
+
+### Smoke test Pixel 7 Pro `2B051FDH3006MU` (bằng chứng cụ thể)
+- `dumpsys media_session`: `state=PlaybackState {state=PLAYING(3), ... actions=1663, ...}` (bitmask bao gồm PLAY/PAUSE/STOP/PLAY_PAUSE/PLAY_FROM_MEDIA_ID/SKIP_NEXT/SKIP_PREV/FAST_FORWARD/REWIND — đúng action set khai báo), `metadata: size=6, description=CommuteCast Morning Edition, Alex & Sam · RSS Cat Hub, Đài phát thanh AI CommuteCast` — xác nhận title/artist/album publish đúng, thật, không suy đoán.
+- Logcat: `MediaSessionStack: addSession/removeSession` sạch sẽ qua nhiều lần connect/disconnect test, không rò rỉ session.
+- 0 FATAL EXCEPTION, 0 lỗi decode artwork trong toàn bộ phiên smoke test.
+- **Giới hạn đã biết**: Không lấy được ảnh chụp màn hình Desktop Head Unit (DHU) thật — máy có cài sẵn `desktop-head-unit` + Android Auto 17.6, nhưng thao tác bật Developer Mode qua chạm UI (tap 10 lần vào "Phiên bản") không ổn định trong môi trường test (app điều hướng lung tung), và môi trường adb gặp vài lần chập chờn USB khi thao tác song song 2 thiết bị. Theo đúng nhánh dự phòng đã duyệt trước với người dùng: dùng `MediaBrowserCompat` client thật + `dumpsys` làm bằng chứng thay thế — đã đủ chứng minh service tuân thủ đúng contract mà Android Auto/Automotive OS dùng để browse/play, nhưng chưa có xác nhận thị giác 100% trên UI xe thật.
+
+### Vì sao 9.4 chứ không phải 10
+- Trừ 0.4: chưa có bằng chứng hình ảnh DHU/màn hình xe thật (chỉ có bằng chứng giao thức + service, không phải giao diện hiển thị cuối).
+- Trừ 0.2: package validator chỉ allow-list theo tên, không verify chữ ký APK (giới hạn đã ghi `ponytail:`, đã thống nhất trước với người dùng là đủ cho quy mô P1/5SP).
+
+### Test đã thêm (danh sách đầy đủ)
+- `app/src/main/java/.../infrastructure/audio/CommuteAutoPackageValidator.kt` (mới)
+- `app/src/test/java/.../infrastructure/audio/CommuteAutoPackageValidatorTest.kt` (mới, 7 test)
+- `app/src/androidTest/java/.../infrastructure/audio/CommuteMediaBrowserIntegrationTest.kt` (mới, 3 test)
+
+### Commit
+- Sẽ push kèm message `feat(commute): DJ-03 Android Auto media browsing via MediaBrowserServiceCompat`

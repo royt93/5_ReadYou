@@ -712,4 +712,6 @@
     <string name="commute_media_action_prev">前の発言</string>
     <string name="commute_media_action_next">次の発言</string>
     <string name="commute_media_action_stop">停止</string>
+    <string name="commute_media_artist">Alex &amp; Sam · RSS Cat Hub</string>
+    <string name="commute_media_album">CommuteCast AI ラジオ</string>
 </resources>

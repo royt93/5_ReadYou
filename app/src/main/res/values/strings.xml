@@ -794,4 +794,6 @@
     <string name="commute_media_action_prev">Previous dialogue</string>
     <string name="commute_media_action_next">Next dialogue</string>
     <string name="commute_media_action_stop">Stop</string>
+    <string name="commute_media_artist">Alex &amp; Sam · RSS Cat Hub</string>
+    <string name="commute_media_album">CommuteCast AI Radio</string>
 </resources>

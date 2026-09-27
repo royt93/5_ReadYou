@@ -4,38 +4,74 @@ import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
-import android.app.Service
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Build
-import android.os.IBinder
+import android.support.v4.media.MediaBrowserCompat.MediaItem
+import android.support.v4.media.MediaDescriptionCompat
+import android.support.v4.media.MediaMetadataCompat
 import android.support.v4.media.session.MediaSessionCompat
 import android.support.v4.media.session.PlaybackStateCompat
+import android.util.Log
 import androidx.core.app.NotificationCompat
+import androidx.media.MediaBrowserServiceCompat
 import androidx.media.app.NotificationCompat.MediaStyle
 import com.mckimquyen.reader.R
+import com.mckimquyen.reader.domain.model.commute.CommuteEpisode
 import com.mckimquyen.reader.infrastructure.android.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
- * Foreground Service hosting the MediaSession and lock-screen/Bluetooth media controls for CommuteCast.
+ * Foreground service hosting CommuteCast's [MediaSessionCompat], lock-screen/Bluetooth media
+ * controls, and — via [MediaBrowserServiceCompat] — the browsable content tree Android Auto and
+ * Android Automotive OS need to list and play CommuteCast from the car's own screen.
+ *
+ * Binding for browsing (Android Auto connecting, listing content) works without ever starting the
+ * foreground service or posting a notification; only actually playing promotes this to a started,
+ * foreground service, exactly as [CommuteAudioPlayer.handleUtteranceStart] already triggers via
+ * [start].
  */
 @AndroidEntryPoint
-class CommuteMediaSessionService : Service() {
+class CommuteMediaSessionService : MediaBrowserServiceCompat() {
 
     @Inject
     lateinit var audioPlayer: CommuteAudioPlayer
 
+    @Inject
+    lateinit var episodeStore: CommuteEpisodeStore
+
     private var mediaSession: MediaSessionCompat? = null
+    private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
+
+    /**
+     * Decoded once and reused: car head units and the lock screen both want the same artwork.
+     * `@Volatile` because it is written from the background decode in [onCreate] and read from the
+     * main thread in [buildNotification]/[publishMetadata]/[toBrowsableMediaItem].
+     */
+    @Volatile
+    private var cachedArtwork: Bitmap? = null
 
     override fun onCreate() {
         super.onCreate()
         createNotificationChannel()
+        // Decoded off the main thread once at startup rather than lazily inline: BitmapFactory is
+        // disk/CPU work, and CLAUDE.md's threading rule (no heavy I/O on Main) applies to a Service
+        // exactly as it does everywhere else. A play request arriving before this finishes simply
+        // gets a notification/metadata without artwork for that one call; the next state update
+        // (there is always at least one more per dialogue line) fills it in.
+        scope.launch(Dispatchers.Default) { decodeArtwork() }
         mediaSession = MediaSessionCompat(this, TAG).apply {
             setCallback(object : MediaSessionCompat.Callback() {
                 override fun onPlay() {
-                    audioPlayer.resume()
+                    resumeOrPlayLatestEpisode()
                 }
 
                 override fun onPause() {
@@ -54,9 +90,117 @@ class CommuteMediaSessionService : Service() {
                     audioPlayer.stopAndReset()
                     stopServiceGracefully()
                 }
+
+                override fun onPlayFromMediaId(mediaId: String?, extras: android.os.Bundle?) {
+                    if (mediaId != MEDIA_ID_LATEST_EPISODE) {
+                        Log.w(TAG, "onPlayFromMediaId: unknown mediaId=$mediaId")
+                        return
+                    }
+                    resumeOrPlayLatestEpisode()
+                }
+
+                // The engine speaks one dialogue line at a time; there is no real audio timeline to
+                // scrub within a line. "Tua" (seek) is honoured as skip-to-adjacent-line instead of
+                // a fabricated time-based seek, matching the honesty precedent from DJ-06's voice
+                // labelling (no promising something the TTS API cannot actually do).
+                override fun onFastForward() {
+                    audioPlayer.skipNext()
+                }
+
+                override fun onRewind() {
+                    audioPlayer.skipPrevious()
+                }
+
+                override fun onSeekTo(pos: Long) {
+                    // No-op, deliberately: there is no millisecond-addressable position to seek to.
+                }
             })
             isActive = true
         }
+        sessionToken = mediaSession?.sessionToken
+    }
+
+    private fun resumeOrPlayLatestEpisode() {
+        val existing = audioPlayer.playerState.value.episode
+        if (existing != null) {
+            audioPlayer.resume()
+            return
+        }
+        scope.launch {
+            val stored = episodeStore.load()
+            if (stored == null) {
+                Log.w(TAG, "No CommuteCast episode available to play from a media control request.")
+                return@launch
+            }
+            audioPlayer.playEpisode(stored)
+        }
+    }
+
+    // --- MediaBrowserServiceCompat: content tree Android Auto/Automotive OS browse and play ---
+
+    override fun onGetRoot(
+        clientPackageName: String,
+        clientUid: Int,
+        rootHints: android.os.Bundle?,
+    ): BrowserRoot? {
+        if (!CommuteAutoPackageValidator.isTrusted(clientPackageName, packageName)) {
+            Log.w(TAG, "Rejected MediaBrowser connection from untrusted package: $clientPackageName")
+            return null
+        }
+        return BrowserRoot(MEDIA_ROOT_ID, null)
+    }
+
+    override fun onLoadChildren(parentId: String, result: Result<List<MediaItem>>) {
+        if (parentId != MEDIA_ROOT_ID) {
+            result.sendResult(null)
+            return
+        }
+
+        result.detach()
+        scope.launch {
+            val episode = audioPlayer.playerState.value.episode ?: episodeStore.load()
+            val children = if (episode != null) listOf(episode.toBrowsableMediaItem()) else emptyList()
+            result.sendResult(children)
+        }
+    }
+
+    private fun CommuteEpisode.toBrowsableMediaItem(): MediaItem {
+        val subtitle = dialogues.firstOrNull()?.text.orEmpty()
+        val description = MediaDescriptionCompat.Builder()
+            .setMediaId(MEDIA_ID_LATEST_EPISODE)
+            .setTitle(title)
+            .setSubtitle(subtitle)
+            .setIconBitmap(getOrDecodeArtwork())
+            .build()
+        return MediaItem(description, MediaItem.FLAG_PLAYABLE)
+    }
+
+    private fun decodeArtwork() {
+        if (cachedArtwork != null) return
+        try {
+            // Downsampled 4x (960 -> ~240px): plenty sharp for a car tile or lock-screen art, far
+            // cheaper to decode/pass than the full-resolution launcher asset.
+            val options = BitmapFactory.Options().apply { inSampleSize = 4 }
+            cachedArtwork = BitmapFactory.decodeResource(resources, R.drawable.ic_launcher_960, options)
+        } catch (e: Exception) {
+            Log.w(TAG, "Could not decode CommuteCast artwork", e)
+        }
+    }
+
+    /** Whatever is cached right now — null on the very first call until [decodeArtwork] finishes. */
+    private fun getOrDecodeArtwork(): Bitmap? = cachedArtwork
+
+    private fun publishMetadata(title: String, dialogueText: String) {
+        val metadata = MediaMetadataCompat.Builder()
+            .putString(MediaMetadataCompat.METADATA_KEY_TITLE, title)
+            .putString(MediaMetadataCompat.METADATA_KEY_ARTIST, getString(R.string.commute_media_artist))
+            .putString(MediaMetadataCompat.METADATA_KEY_ALBUM, getString(R.string.commute_media_album))
+            .putString(MediaMetadataCompat.METADATA_KEY_DISPLAY_DESCRIPTION, dialogueText)
+            // Unknown/indefinite duration: the engine has no fixed-length audio track to report.
+            .putLong(MediaMetadataCompat.METADATA_KEY_DURATION, -1L)
+            .putBitmap(MediaMetadataCompat.METADATA_KEY_ALBUM_ART, getOrDecodeArtwork())
+            .build()
+        mediaSession?.setMetadata(metadata)
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -70,6 +214,7 @@ class CommuteMediaSessionService : Service() {
 
         when (action) {
             ACTION_PLAY -> {
+                publishMetadata(title, subtitle)
                 updatePlaybackState(PlaybackStateCompat.STATE_PLAYING)
                 val notification = buildNotification(title, subtitle, isPlaying = true)
                 startForeground(NOTIFICATION_ID, notification)
@@ -104,8 +249,11 @@ class CommuteMediaSessionService : Service() {
             PlaybackStateCompat.ACTION_PAUSE or
             PlaybackStateCompat.ACTION_STOP or
             PlaybackStateCompat.ACTION_PLAY_PAUSE or
+            PlaybackStateCompat.ACTION_PLAY_FROM_MEDIA_ID or
             PlaybackStateCompat.ACTION_SKIP_TO_NEXT or
-            PlaybackStateCompat.ACTION_SKIP_TO_PREVIOUS
+            PlaybackStateCompat.ACTION_SKIP_TO_PREVIOUS or
+            PlaybackStateCompat.ACTION_FAST_FORWARD or
+            PlaybackStateCompat.ACTION_REWIND
         mediaSession?.setPlaybackState(
             PlaybackStateCompat.Builder()
                 .setActions(actions)
@@ -183,6 +331,7 @@ class CommuteMediaSessionService : Service() {
 
         return NotificationCompat.Builder(this, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_notification)
+            .setLargeIcon(getOrDecodeArtwork())
             .setContentTitle(title)
             .setContentText(subtitle)
             .setContentIntent(openAppIntent)
@@ -216,17 +365,23 @@ class CommuteMediaSessionService : Service() {
     }
 
     override fun onDestroy() {
+        scope.cancel()
         mediaSession?.release()
         mediaSession = null
+        cachedArtwork = null
         super.onDestroy()
     }
-
-    override fun onBind(intent: Intent?): IBinder? = null
 
     companion object {
         const val TAG = "CommuteMediaSession"
         const val CHANNEL_ID = "commute_cast_playback_channel"
         const val NOTIFICATION_ID = 9183
+
+        /** Root id Android Auto/Automotive OS ask for children of; the whole tree is one level deep. */
+        const val MEDIA_ROOT_ID = "commutecast_root"
+
+        /** The only playable item CommuteCast currently exposes: its single latest episode. */
+        const val MEDIA_ID_LATEST_EPISODE = "commutecast_latest_episode"
 
         const val ACTION_PLAY = "com.mckimquyen.reader.commute.ACTION_PLAY"
         const val ACTION_PAUSE = "com.mckimquyen.reader.commute.ACTION_PAUSE"

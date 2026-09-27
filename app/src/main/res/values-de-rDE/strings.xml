@@ -715,4 +715,6 @@
     <string name="commute_media_action_prev">Vorheriger Dialog</string>
     <string name="commute_media_action_next">Nächster Dialog</string>
     <string name="commute_media_action_stop">Stopp</string>
+    <string name="commute_media_artist">Alex &amp; Sam · RSS Cat Hub</string>
+    <string name="commute_media_album">CommuteCast KI-Radio</string>
 </resources>

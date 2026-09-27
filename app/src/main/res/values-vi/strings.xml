@@ -685,4 +685,6 @@
     <string name="commute_media_action_prev">Câu trước</string>
     <string name="commute_media_action_next">Câu tiếp theo</string>
     <string name="commute_media_action_stop">Dừng</string>
+    <string name="commute_media_artist">Alex &amp; Sam · RSS Cat Hub</string>
+    <string name="commute_media_album">Đài phát thanh AI CommuteCast</string>
 </resources>
