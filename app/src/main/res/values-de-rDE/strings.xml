@@ -743,4 +743,7 @@
     <string name="second_brain_node_articles">%1$d Artikel</string>
     <string name="second_brain_range_label">Zeitraum</string>
     <string name="second_brain_related">Verwandte Artikel</string>
+
+    <!-- Bionic Reading (EXC-03) -->
+    <string name="bionic_reading_desc">Hebt die ersten Buchstaben jedes Wortes fett hervor, um schneller zu überfliegen</string>
 </resources>

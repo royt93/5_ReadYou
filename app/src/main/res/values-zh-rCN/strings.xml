@@ -739,4 +739,7 @@
     <string name="second_brain_node_articles">%1$d 篇文章</string>
     <string name="second_brain_range_label">时间范围</string>
     <string name="second_brain_related">相关文章</string>
+
+    <!-- Bionic Reading (EXC-03) -->
+    <string name="bionic_reading_desc">加粗每个单词的开头字母，帮助你更快浏览</string>
 </resources>

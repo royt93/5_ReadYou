@@ -740,4 +740,7 @@
     <string name="second_brain_node_articles">%1$d 件の記事</string>
     <string name="second_brain_range_label">期間</string>
     <string name="second_brain_related">関連記事</string>
+
+    <!-- Bionic Reading (EXC-03) -->
+    <string name="bionic_reading_desc">各単語の最初の文字を太字にして、流し読みしやすくします</string>
 </resources>

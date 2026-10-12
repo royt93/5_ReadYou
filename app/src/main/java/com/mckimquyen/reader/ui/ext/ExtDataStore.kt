@@ -404,6 +404,12 @@ sealed class DataStoreKeys<T> {
             get() = booleanPreferencesKey("readingVideoAutoplay")
     }
 
+    object ReadingBionic : DataStoreKeys<Boolean>() {
+
+        override val key: Preferences.Key<Boolean>
+            get() = booleanPreferencesKey("readingBionic")
+    }
+
     object ReadingTitleBold : DataStoreKeys<Boolean>() {
 
         override val key: Preferences.Key<Boolean>

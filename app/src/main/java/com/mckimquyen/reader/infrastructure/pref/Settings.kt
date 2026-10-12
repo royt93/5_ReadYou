@@ -61,6 +61,7 @@ data class Settings(
     val readingPageTonalElevation: ReadingPageTonalElevationPref = ReadingPageTonalElevationPref.default,
     val readingAutoHideToolbar: ReadingAutoHideToolbarPreference = ReadingAutoHideToolbarPreference.default,
     val readingVideoAutoplay: ReadingVideoAutoplayPref = ReadingVideoAutoplayPref.default,
+    val readingBionic: ReadingBionicPref = ReadingBionicPref.default,
     val readingTextFontSize: Int = ReadingTextFontSizePref.default,
     val readingLetterSpacing: Double = ReadingLetterSpacingPref.default,
     val readingTextHorizontalPadding: Int = ReadingTextHorizontalPaddingPref.default,
@@ -165,6 +166,8 @@ val LocalReadingAutoHideToolbar =
     compositionLocalOf<ReadingAutoHideToolbarPreference> { ReadingAutoHideToolbarPreference.default }
 val LocalReadingVideoAutoplay =
     compositionLocalOf<ReadingVideoAutoplayPref> { ReadingVideoAutoplayPref.default }
+val LocalReadingBionic =
+    compositionLocalOf<ReadingBionicPref> { ReadingBionicPref.default }
 val LocalReadingTextFontSize = compositionLocalOf { ReadingTextFontSizePref.default }
 val LocalReadingLetterSpacing = compositionLocalOf { ReadingLetterSpacingPref.default }
 val LocalReadingTextHorizontalPadding = compositionLocalOf { ReadingTextHorizontalPaddingPref.default }
@@ -262,6 +265,7 @@ fun SettingsProvider(
         LocalReadingPageTonalElevation provides settings.readingPageTonalElevation,
         LocalReadingAutoHideToolbar provides settings.readingAutoHideToolbar,
         LocalReadingVideoAutoplay provides settings.readingVideoAutoplay,
+        LocalReadingBionic provides settings.readingBionic,
         LocalReadingTextFontSize provides settings.readingTextFontSize,
         LocalReadingLetterSpacing provides settings.readingLetterSpacing,
         LocalReadingTextHorizontalPadding provides settings.readingTextHorizontalPadding,

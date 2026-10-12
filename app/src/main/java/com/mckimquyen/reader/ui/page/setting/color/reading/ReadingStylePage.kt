@@ -41,6 +41,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.mckimquyen.reader.R
 import com.mckimquyen.reader.infrastructure.pref.LocalReadingAutoHideToolbar
+import com.mckimquyen.reader.infrastructure.pref.LocalReadingBionic
 import com.mckimquyen.reader.infrastructure.pref.LocalReadingVideoAutoplay
 import com.mckimquyen.reader.infrastructure.pref.not
 import com.mckimquyen.reader.infrastructure.pref.LocalReadingDarkTheme
@@ -78,6 +79,7 @@ fun ReadingStylePage(
     val fonts = LocalReadingFonts.current
     val autoHideToolbar = LocalReadingAutoHideToolbar.current
     val videoAutoplay = LocalReadingVideoAutoplay.current
+    val bionic = LocalReadingBionic.current
 
     var tonalElevationDialogVisible by remember { mutableStateOf(false) }
     var fontsDialogVisible by remember { mutableStateOf(false) }
@@ -173,17 +175,13 @@ fun ReadingStylePage(
                     }
                     SettingItem(
                         title = stringResource(R.string.bionic_reading),
-                        separatedActions = true,
-                        enable = false,
+                        desc = stringResource(R.string.bionic_reading_desc),
                         onClick = {
-//                            (!articleListDesc).put(context, scope)
+                            (!bionic).put(context, scope)
                         },
                     ) {
-                        BaseSwitch(
-                            activated = false,
-                            enable = false,
-                        ) {
-//                            (!articleListDesc).put(context, scope)
+                        BaseSwitch(activated = bionic.value) {
+                            (!bionic).put(context, scope)
                         }
                     }
                     SettingItem(

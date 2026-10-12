@@ -42,6 +42,7 @@ import coil.size.Size
 import coil.size.pxOrElse
 import com.mckimquyen.reader.R
 import com.mckimquyen.reader.infrastructure.media.video.ArticleVideoExtractor
+import com.mckimquyen.reader.infrastructure.pref.LocalReadingBionic
 import com.mckimquyen.reader.infrastructure.pref.LocalReadingImageMaximize
 import com.mckimquyen.reader.ui.component.base.BaseAsyncImage
 import org.jsoup.Jsoup
@@ -82,7 +83,8 @@ private fun LazyListScope.formatBody(
 ) {
     val composer = TextComposer { paragraphBuilder ->
         item {
-            val paragraph = paragraphBuilder.toAnnotatedString()
+            // Bionic applies to prose only. Code blocks go through formatCodeBlock and are never touched.
+            val paragraph = paragraphBuilder.toAnnotatedString().withBionic(LocalReadingBionic.current.value)
 
             // ClickableText prevents taps from deselecting selected text
             // So use regular Text if possible

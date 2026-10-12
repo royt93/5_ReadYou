@@ -713,4 +713,7 @@
     <string name="second_brain_node_articles">%1$d bài viết</string>
     <string name="second_brain_range_label">Khoảng thời gian</string>
     <string name="second_brain_related">Bài viết liên quan</string>
+
+    <!-- Bionic Reading (EXC-03) -->
+    <string name="bionic_reading_desc">In đậm những chữ cái đầu của mỗi từ để đọc lướt nhanh hơn</string>
 </resources>

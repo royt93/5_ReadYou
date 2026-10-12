@@ -711,4 +711,7 @@
     <string name="second_brain_node_articles">%1$d articles</string>
     <string name="second_brain_range_label">Time range</string>
     <string name="second_brain_related">Related articles</string>
+
+    <!-- Bionic Reading (EXC-03) -->
+    <string name="bionic_reading_desc">Bold the first letters of each word to help you skim faster</string>
 </resources>
