@@ -201,4 +201,62 @@ class BilingualReadingWidgetTest {
         gate.complete(Unit)
         composeRule.waitUntil(5_000) { translations().isNotEmpty() }
     }
+
+    @Test
+    fun changingTheTargetLanguage_dropsTheOldTranslation_andShowsTheNewOne() {
+        val fake = Recording { text, target -> TranslationResult.Translated("$target:$text") }
+        var target by mutableStateOf(ReadingBilingualTargetPref("fr"))
+        composeRule.setContent {
+            CompositionLocalProvider(
+                LocalReadingBilingual provides ReadingBilingualPref.ON,
+                LocalReadingBilingualTarget provides target,
+                LocalParagraphTranslator provides fake,
+            ) {
+                Column {
+                    Text("anchor", modifier = Modifier.testTag("anchor"))
+                    LazyColumn {
+                        Reader(link = "https://example.test/", content = "<p>Retarget this paragraph.</p>", onLinkClick = {})
+                    }
+                }
+            }
+        }
+        composeRule.onNodeWithTag("anchor").assertIsDisplayed()
+        composeRule.waitUntil(5_000) { translations() == listOf("fr:Retarget this paragraph.") }
+
+        target = ReadingBilingualTargetPref("de")
+        composeRule.waitUntil(5_000) { translations() == listOf("de:Retarget this paragraph.") }
+        assertEquals(listOf("fr", "de"), fake.requests.map { it.second })
+    }
+
+    @Test
+    fun aSlowRequestForTheOldTarget_neverOverwritesTheNewTarget() {
+        val gateFr = CompletableDeferred<Unit>()
+        val fake = Recording { text, target ->
+            if (target == "fr") gateFr.await()
+            TranslationResult.Translated("$target:$text")
+        }
+        var target by mutableStateOf(ReadingBilingualTargetPref("fr"))
+        composeRule.setContent {
+            CompositionLocalProvider(
+                LocalReadingBilingual provides ReadingBilingualPref.ON,
+                LocalReadingBilingualTarget provides target,
+                LocalParagraphTranslator provides fake,
+            ) {
+                Column {
+                    Text("anchor", modifier = Modifier.testTag("anchor"))
+                    LazyColumn {
+                        Reader(link = "https://example.test/", content = "<p>Race between two languages.</p>", onLinkClick = {})
+                    }
+                }
+            }
+        }
+        composeRule.onNodeWithTag("anchor").assertIsDisplayed()
+        composeRule.waitUntil(5_000) { fake.requests.isNotEmpty() }
+
+        target = ReadingBilingualTargetPref("de")
+        composeRule.waitUntil(5_000) { translations() == listOf("de:Race between two languages.") }
+        gateFr.complete(Unit) // the stale French answer arrives late
+        composeRule.waitForIdle()
+        assertEquals(listOf("de:Race between two languages."), translations())
+    }
 }
