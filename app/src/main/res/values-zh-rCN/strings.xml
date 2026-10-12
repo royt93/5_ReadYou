@@ -727,4 +727,16 @@
     <string name="commute_budget_8m">8分钟</string>
     <string name="commute_budget_15m">15分钟</string>
     <string name="commute_budget_label">时长：</string>
+
+    <!-- Second Brain (EXC-08) -->
+    <string name="second_brain_title">第二大脑</string>
+    <string name="second_brain_settings_desc">查看你阅读的主题如何随时间相互关联</string>
+    <string name="second_brain_empty">阅读或收藏几篇文章后，主题图谱会显示在这里。</string>
+    <string name="second_brain_loading">正在构建图谱…</string>
+    <string name="second_brain_error">无法构建图谱，请重试。</string>
+    <string name="second_brain_retry">重试</string>
+    <string name="second_brain_graph_desc">主题图谱：%1$d 个主题，%2$d 条连接</string>
+    <string name="second_brain_node_articles">%1$d 篇文章</string>
+    <string name="second_brain_range_label">时间范围</string>
+    <string name="second_brain_related">相关文章</string>
 </resources>

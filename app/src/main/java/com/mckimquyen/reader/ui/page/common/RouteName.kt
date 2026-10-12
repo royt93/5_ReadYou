@@ -31,6 +31,9 @@ object RouteName {
     // Notebook (Second Brain)
     const val NOTEBOOK = "notebook"
 
+    // Second Brain graph (EXC-08)
+    const val SECOND_BRAIN = "second_brain"
+
     // VIP
     const val VIP = "vip"
 

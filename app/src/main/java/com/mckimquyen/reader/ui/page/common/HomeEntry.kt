@@ -38,6 +38,8 @@ import com.mckimquyen.reader.ui.page.digest.DigestPage
 import com.mckimquyen.reader.ui.page.digest.DigestViewModel
 import com.mckimquyen.reader.ui.page.notebook.NotebookPage
 import com.mckimquyen.reader.ui.page.reels.ReelsPage
+import com.mckimquyen.reader.ui.page.secondbrain.SecondBrainPage
+import com.mckimquyen.reader.ui.page.secondbrain.SecondBrainViewModel
 import com.mckimquyen.reader.ui.page.rpg.BrainRpgPage
 import com.mckimquyen.reader.ui.page.setting.SettingsPage
 import com.mckimquyen.reader.ui.page.setting.ai.AiSettingsPage
@@ -282,6 +284,19 @@ fun HomeEntry(
             // Notebook (Second Brain)
             animatedComposable(route = RouteName.NOTEBOOK) {
                 NotebookPage(navController = navController)
+            }
+
+            // Second Brain graph (EXC-08)
+            animatedComposable(route = RouteName.SECOND_BRAIN) {
+                val secondBrainViewModel: SecondBrainViewModel = hiltViewModel()
+                val state by secondBrainViewModel.state.collectAsState()
+                SecondBrainPage(
+                    state = state,
+                    onSelectNode = secondBrainViewModel::selectNode,
+                    onRangeChange = secondBrainViewModel::setRange,
+                    onOpenArticle = { id -> navController.navigate("${RouteName.READING}/$id") { launchSingleTop = true } },
+                    onRetry = secondBrainViewModel::refresh,
+                )
             }
 
             // VIP

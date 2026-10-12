@@ -222,6 +222,20 @@ class SemanticSearchEngine @Inject constructor(
         }
     }
 
+    /**
+     * Like [detectConcepts] but a keyword only counts when it appears as a whole word/phrase, so short
+     * keywords ("ai", "ev", "gen") do not fire inside unrelated words ("blockchain", "seven", "general").
+     * Used where false positives would draw wrong links (the Second Brain graph).
+     */
+    fun detectConceptsStrict(text: String): Set<String> {
+        val padded = " " + text.lowercase(Locale.ROOT)
+            .replace(Regex("[^\\p{L}\\p{Nd}\\s]"), " ")
+            .replace(Regex("\\s+"), " ") + " "
+        return CONCEPT_CLUSTERS.mapNotNullTo(mutableSetOf()) { (concept, keywords) ->
+            concept.takeIf { keywords.any { padded.contains(" $it ") } }
+        }
+    }
+
     fun tokenize(text: String): Set<String> = text.lowercase(Locale.ROOT)
         .replace(Regex("[^\\p{L}\\p{Nd}\\s]"), " ")
         .split(Regex("\\s+"))

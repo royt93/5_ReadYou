@@ -147,6 +147,15 @@ class SemanticSearchEngineTest {
     }
 
     @Test
+    fun detectConceptsStrict_requiresWholeWords_butStillMatchesMultiWordPhrases() {
+        assertTrue("ARTIFICIAL_INTELLIGENCE" !in engine.detectConceptsStrict("blockchain raised seven"))
+        assertTrue("ARTIFICIAL_INTELLIGENCE" in engine.detectConceptsStrict("Big AI, small chips"))
+        assertTrue("ARTIFICIAL_INTELLIGENCE" in engine.detectConceptsStrict("a machine learning breakthrough"))
+        assertTrue("ELECTRIC_VEHICLES" in engine.detectConceptsStrict("The EV market"))
+        assertTrue(engine.detectConceptsStrict("").isEmpty())
+    }
+
+    @Test
     fun detectConcepts_identifiesMultipleCategoriesCorrectly() {
         val concepts = engine.detectConcepts(
             "Tesla phát triển xe điện và siêu máy tính AI tự hành tích hợp chip bán dẫn"

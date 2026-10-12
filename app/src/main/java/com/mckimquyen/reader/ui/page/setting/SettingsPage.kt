@@ -25,6 +25,7 @@ import androidx.compose.material.icons.outlined.Language
 import androidx.compose.material.icons.outlined.Lightbulb
 import androidx.compose.material.icons.outlined.Palette
 import androidx.compose.material.icons.outlined.Policy
+import androidx.compose.material.icons.outlined.Hub
 import androidx.compose.material.icons.outlined.Psychology
 import androidx.compose.material.icons.outlined.Share
 import androidx.compose.material.icons.outlined.Spa
@@ -190,6 +191,17 @@ fun SettingsPage(
                         icon = Icons.Outlined.AutoStories,
                     ) {
                         navController.navigate(RouteName.NOTEBOOK) {
+                            launchSingleTop = true
+                        }
+                    }
+                }
+                item {
+                    SelectableSettingGroupItem(
+                        title = stringResource(R.string.second_brain_title),
+                        desc = stringResource(R.string.second_brain_settings_desc),
+                        icon = Icons.Outlined.Hub,
+                    ) {
+                        navController.navigate(RouteName.SECOND_BRAIN) {
                             launchSingleTop = true
                         }
                     }

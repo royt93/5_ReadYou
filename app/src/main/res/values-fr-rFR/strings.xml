@@ -734,4 +734,16 @@
     <string name="commute_budget_8m">8 min</string>
     <string name="commute_budget_15m">15 min</string>
     <string name="commute_budget_label">Durée :</string>
+
+    <!-- Second Brain (EXC-08) -->
+    <string name="second_brain_title">Second cerveau</string>
+    <string name="second_brain_settings_desc">Voyez comment les sujets que vous lisez se relient au fil du temps</string>
+    <string name="second_brain_empty">Lisez ou enregistrez quelques articles et votre graphe de sujets apparaîtra ici.</string>
+    <string name="second_brain_loading">Création du graphe…</string>
+    <string name="second_brain_error">Impossible de créer le graphe. Réessayez.</string>
+    <string name="second_brain_retry">Réessayer</string>
+    <string name="second_brain_graph_desc">Graphe de sujets : %1$d sujets et %2$d liens</string>
+    <string name="second_brain_node_articles">%1$d articles</string>
+    <string name="second_brain_range_label">Période</string>
+    <string name="second_brain_related">Articles liés</string>
 </resources>

@@ -731,4 +731,16 @@
     <string name="commute_budget_8m">8 Min.</string>
     <string name="commute_budget_15m">15 Min.</string>
     <string name="commute_budget_label">Dauer:</string>
+
+    <!-- Second Brain (EXC-08) -->
+    <string name="second_brain_title">Zweites Gehirn</string>
+    <string name="second_brain_settings_desc">Sehen Sie, wie Ihre gelesenen Themen im Lauf der Zeit zusammenhängen</string>
+    <string name="second_brain_empty">Lesen oder speichern Sie einige Artikel, dann erscheint hier Ihr Themengraph.</string>
+    <string name="second_brain_loading">Graph wird erstellt…</string>
+    <string name="second_brain_error">Graph konnte nicht erstellt werden. Erneut versuchen.</string>
+    <string name="second_brain_retry">Erneut versuchen</string>
+    <string name="second_brain_graph_desc">Themengraph mit %1$d Themen und %2$d Verbindungen</string>
+    <string name="second_brain_node_articles">%1$d Artikel</string>
+    <string name="second_brain_range_label">Zeitraum</string>
+    <string name="second_brain_related">Verwandte Artikel</string>
 </resources>

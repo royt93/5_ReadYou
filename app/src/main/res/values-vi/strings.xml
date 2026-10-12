@@ -701,4 +701,16 @@
     <string name="commute_budget_8m">8 phút</string>
     <string name="commute_budget_15m">15 phút</string>
     <string name="commute_budget_label">Thời lượng:</string>
+
+    <!-- Second Brain (EXC-08) -->
+    <string name="second_brain_title">Bộ não thứ hai</string>
+    <string name="second_brain_settings_desc">Xem các chủ đề bạn đọc liên kết với nhau theo thời gian thế nào</string>
+    <string name="second_brain_empty">Hãy đọc hoặc lưu vài bài, đồ thị chủ đề sẽ hiện ở đây.</string>
+    <string name="second_brain_loading">Đang dựng đồ thị…</string>
+    <string name="second_brain_error">Không thể dựng đồ thị. Hãy thử lại.</string>
+    <string name="second_brain_retry">Thử lại</string>
+    <string name="second_brain_graph_desc">Đồ thị chủ đề với %1$d chủ đề và %2$d liên kết</string>
+    <string name="second_brain_node_articles">%1$d bài viết</string>
+    <string name="second_brain_range_label">Khoảng thời gian</string>
+    <string name="second_brain_related">Bài viết liên quan</string>
 </resources>

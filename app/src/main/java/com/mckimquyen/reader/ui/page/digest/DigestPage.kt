@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Button
@@ -15,11 +16,14 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.mckimquyen.reader.R
 import com.mckimquyen.reader.domain.model.digest.DailyDigest
 import com.mckimquyen.reader.infrastructure.ai.DailyDigestContent
+
+const val DIGEST_TITLE_TAG = "digest_title"
 
 @Composable
 fun DigestPage(
@@ -28,9 +32,14 @@ fun DigestPage(
     onRetry: () -> Unit,
     onOpenSource: (String) -> Unit,
     onSelectDigest: (String) -> Unit = {},
+    modifier: Modifier = Modifier,
 ) {
-    Column(Modifier.fillMaxSize().padding(16.dp)) {
-        Text(stringResource(R.string.daily_digest_title), style = MaterialTheme.typography.h5)
+    Column(modifier.fillMaxSize().safeDrawingPadding().padding(16.dp)) {
+        Text(
+            stringResource(R.string.daily_digest_title),
+            style = MaterialTheme.typography.h5,
+            modifier = Modifier.testTag(DIGEST_TITLE_TAG),
+        )
         Spacer(Modifier.height(12.dp))
         when (state) {
             DigestUiState.Loading -> CircularProgressIndicator()

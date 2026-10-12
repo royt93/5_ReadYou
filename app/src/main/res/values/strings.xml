@@ -810,4 +810,16 @@
     <string name="commute_budget_8m">8 min</string>
     <string name="commute_budget_15m">15 min</string>
     <string name="commute_budget_label">Duration:</string>
+
+    <!-- Second Brain (EXC-08) -->
+    <string name="second_brain_title">Second Brain</string>
+    <string name="second_brain_settings_desc">See how the topics you read connect over time</string>
+    <string name="second_brain_empty">Read or save a few articles and your topic graph will appear here.</string>
+    <string name="second_brain_loading">Building your graph…</string>
+    <string name="second_brain_error">Could not build the graph. Try again.</string>
+    <string name="second_brain_retry">Retry</string>
+    <string name="second_brain_graph_desc">Topic graph with %1$d topics and %2$d connections</string>
+    <string name="second_brain_node_articles">%1$d articles</string>
+    <string name="second_brain_range_label">Time range</string>
+    <string name="second_brain_related">Related articles</string>
 </resources>
