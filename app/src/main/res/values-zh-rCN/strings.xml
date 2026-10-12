@@ -742,4 +742,9 @@
 
     <!-- Bionic Reading (EXC-03) -->
     <string name="bionic_reading_desc">加粗每个单词的开头字母，帮助你更快浏览</string>
+    <!-- Bilingual Reader (EXC-07) -->
+    <string name="bilingual_reading">双语阅读</string>
+    <string name="bilingual_reading_desc">在每个段落下显示设备端翻译。首次使用会下载语言模型（约 30 MB）。</string>
+    <string name="bilingual_target_language">翻译为</string>
+    <string name="bilingual_target_auto">跟随应用语言</string>
 </resources>

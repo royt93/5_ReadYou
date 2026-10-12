@@ -749,4 +749,9 @@
 
     <!-- Bionic Reading (EXC-03) -->
     <string name="bionic_reading_desc">Met en gras les premières lettres de chaque mot pour lire plus vite</string>
+    <!-- Bilingual Reader (EXC-07) -->
+    <string name="bilingual_reading">Lecture bilingue</string>
+    <string name="bilingual_reading_desc">Affiche une traduction sur l\'appareil sous chaque paragraphe. Un modèle de langue (environ 30 Mo) est téléchargé la première fois.</string>
+    <string name="bilingual_target_language">Traduire en</string>
+    <string name="bilingual_target_auto">Suivre la langue de l\'application</string>
 </resources>

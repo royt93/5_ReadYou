@@ -62,6 +62,8 @@ data class Settings(
     val readingAutoHideToolbar: ReadingAutoHideToolbarPreference = ReadingAutoHideToolbarPreference.default,
     val readingVideoAutoplay: ReadingVideoAutoplayPref = ReadingVideoAutoplayPref.default,
     val readingBionic: ReadingBionicPref = ReadingBionicPref.default,
+    val readingBilingual: ReadingBilingualPref = ReadingBilingualPref.default,
+    val readingBilingualTarget: ReadingBilingualTargetPref = ReadingBilingualTargetPref.default,
     val readingTextFontSize: Int = ReadingTextFontSizePref.default,
     val readingLetterSpacing: Double = ReadingLetterSpacingPref.default,
     val readingTextHorizontalPadding: Int = ReadingTextHorizontalPaddingPref.default,
@@ -168,6 +170,10 @@ val LocalReadingVideoAutoplay =
     compositionLocalOf<ReadingVideoAutoplayPref> { ReadingVideoAutoplayPref.default }
 val LocalReadingBionic =
     compositionLocalOf<ReadingBionicPref> { ReadingBionicPref.default }
+val LocalReadingBilingual =
+    compositionLocalOf<ReadingBilingualPref> { ReadingBilingualPref.default }
+val LocalReadingBilingualTarget =
+    compositionLocalOf<ReadingBilingualTargetPref> { ReadingBilingualTargetPref.default }
 val LocalReadingTextFontSize = compositionLocalOf { ReadingTextFontSizePref.default }
 val LocalReadingLetterSpacing = compositionLocalOf { ReadingLetterSpacingPref.default }
 val LocalReadingTextHorizontalPadding = compositionLocalOf { ReadingTextHorizontalPaddingPref.default }
@@ -266,6 +272,8 @@ fun SettingsProvider(
         LocalReadingAutoHideToolbar provides settings.readingAutoHideToolbar,
         LocalReadingVideoAutoplay provides settings.readingVideoAutoplay,
         LocalReadingBionic provides settings.readingBionic,
+        LocalReadingBilingual provides settings.readingBilingual,
+        LocalReadingBilingualTarget provides settings.readingBilingualTarget,
         LocalReadingTextFontSize provides settings.readingTextFontSize,
         LocalReadingLetterSpacing provides settings.readingLetterSpacing,
         LocalReadingTextHorizontalPadding provides settings.readingTextHorizontalPadding,

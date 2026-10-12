@@ -746,4 +746,9 @@
 
     <!-- Bionic Reading (EXC-03) -->
     <string name="bionic_reading_desc">Hebt die ersten Buchstaben jedes Wortes fett hervor, um schneller zu überfliegen</string>
+    <!-- Bilingual Reader (EXC-07) -->
+    <string name="bilingual_reading">Zweisprachiges Lesen</string>
+    <string name="bilingual_reading_desc">Zeigt unter jedem Absatz eine Übersetzung auf dem Gerät an. Beim ersten Mal wird ein Sprachmodell (ca. 30 MB) heruntergeladen.</string>
+    <string name="bilingual_target_language">Übersetzen in</string>
+    <string name="bilingual_target_auto">App-Sprache verwenden</string>
 </resources>

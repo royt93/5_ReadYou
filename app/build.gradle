@@ -237,6 +237,12 @@ dependencies {
 
     implementation "androidx.media:media:1.7.0"
 
+    // Bilingual Reader (EXC-07): on-device translation. Language models (~30 MB each) are downloaded on
+    // demand, not bundled in the APK. language-id detects paragraphs already in the target language.
+    implementation "com.google.mlkit:translate:17.0.3"
+    implementation "com.google.mlkit:language-id:17.0.6"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.8.1"
+
     testImplementation "junit:junit:4.13.2"
     testImplementation "io.mockk:mockk:1.13.5"
     // Pinned to the same okhttp version as the app (5.0.0-alpha.11) to avoid a binary-incompatible

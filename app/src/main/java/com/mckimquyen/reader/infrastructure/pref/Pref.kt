@@ -61,6 +61,8 @@ fun Preferences.toSettings(): Settings {
         readingAutoHideToolbar = ReadingAutoHideToolbarPreference.fromPreferences(this),
         readingVideoAutoplay = ReadingVideoAutoplayPref.fromPreferences(this),
         readingBionic = ReadingBionicPref.fromPreferences(this),
+        readingBilingual = ReadingBilingualPref.fromPreferences(this),
+        readingBilingualTarget = ReadingBilingualTargetPref.fromPreferences(this),
         readingTextFontSize = ReadingTextFontSizePref.fromPreferences(this),
         readingLetterSpacing = ReadingLetterSpacingPref.fromPreferences(this),
         readingTextHorizontalPadding = ReadingTextHorizontalPaddingPref.fromPreferences(this),

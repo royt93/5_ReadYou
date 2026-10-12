@@ -410,6 +410,18 @@ sealed class DataStoreKeys<T> {
             get() = booleanPreferencesKey("readingBionic")
     }
 
+    object ReadingBilingual : DataStoreKeys<Boolean>() {
+
+        override val key: Preferences.Key<Boolean>
+            get() = booleanPreferencesKey("readingBilingual")
+    }
+
+    object ReadingBilingualTarget : DataStoreKeys<String>() {
+
+        override val key: Preferences.Key<String>
+            get() = stringPreferencesKey("readingBilingualTarget")
+    }
+
     object ReadingTitleBold : DataStoreKeys<Boolean>() {
 
         override val key: Preferences.Key<Boolean>

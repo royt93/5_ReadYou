@@ -37,11 +37,16 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
+import java.util.Locale
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.mckimquyen.reader.R
 import com.mckimquyen.reader.infrastructure.pref.LocalReadingAutoHideToolbar
+import com.mckimquyen.reader.domain.model.bilingual.BilingualLanguages
+import com.mckimquyen.reader.infrastructure.pref.LocalReadingBilingual
+import com.mckimquyen.reader.infrastructure.pref.LocalReadingBilingualTarget
 import com.mckimquyen.reader.infrastructure.pref.LocalReadingBionic
+import com.mckimquyen.reader.infrastructure.pref.ReadingBilingualTargetPref
 import com.mckimquyen.reader.infrastructure.pref.LocalReadingVideoAutoplay
 import com.mckimquyen.reader.infrastructure.pref.not
 import com.mckimquyen.reader.infrastructure.pref.LocalReadingDarkTheme
@@ -80,9 +85,12 @@ fun ReadingStylePage(
     val autoHideToolbar = LocalReadingAutoHideToolbar.current
     val videoAutoplay = LocalReadingVideoAutoplay.current
     val bionic = LocalReadingBionic.current
+    val bilingual = LocalReadingBilingual.current
+    val bilingualTarget = LocalReadingBilingualTarget.current
 
     var tonalElevationDialogVisible by remember { mutableStateOf(false) }
     var fontsDialogVisible by remember { mutableStateOf(false) }
+    var bilingualTargetDialogVisible by remember { mutableStateOf(false) }
 
     val launcher = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri ->
         uri?.let {
@@ -184,6 +192,22 @@ fun ReadingStylePage(
                             (!bionic).put(context, scope)
                         }
                     }
+                    SettingItem(
+                        title = stringResource(R.string.bilingual_reading),
+                        desc = stringResource(R.string.bilingual_reading_desc),
+                        onClick = {
+                            (!bilingual).put(context, scope)
+                        },
+                    ) {
+                        BaseSwitch(activated = bilingual.value) {
+                            (!bilingual).put(context, scope)
+                        }
+                    }
+                    SettingItem(
+                        title = stringResource(R.string.bilingual_target_language),
+                        desc = bilingualTargetLabel(bilingualTarget.value),
+                        onClick = { bilingualTargetDialogVisible = true },
+                    ) {}
                     SettingItem(
                         title = stringResource(R.string.auto_hide_toolbars),
                         onClick = {
@@ -311,4 +335,28 @@ fun ReadingStylePage(
     ) {
         fontsDialogVisible = false
     }
+
+    RadioDlg(
+        visible = bilingualTargetDialogVisible,
+        title = stringResource(R.string.bilingual_target_language),
+        options = (listOf(BilingualLanguages.AUTO) + BilingualLanguages.supported).map { code ->
+            RadioDialogOption(
+                text = bilingualTargetLabel(code),
+                selected = code == bilingualTarget.value,
+            ) {
+                ReadingBilingualTargetPref(code).put(context, scope)
+            }
+        }
+    ) {
+        bilingualTargetDialogVisible = false
+    }
 }
+
+@Composable
+private fun bilingualTargetLabel(code: String): String =
+    if (code == BilingualLanguages.AUTO) {
+        stringResource(R.string.bilingual_target_auto)
+    } else {
+        Locale.forLanguageTag(code).getDisplayName(Locale.getDefault())
+            .replaceFirstChar { it.titlecase(Locale.getDefault()) }
+    }

@@ -25,7 +25,8 @@ sealed class ReadingBionicPref(val value: Boolean) : Pref() {
 
     companion object {
 
-        val default = OFF
+        // A getter, not a field: reading OFF first would otherwise capture a half-initialised OFF (null).
+        val default: ReadingBionicPref get() = OFF
 
         fun fromPreferences(preferences: Preferences) =
             when (preferences[DataStoreKeys.ReadingBionic.key]) {

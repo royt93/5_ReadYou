@@ -29,6 +29,7 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
@@ -42,6 +43,7 @@ import coil.size.Size
 import coil.size.pxOrElse
 import com.mckimquyen.reader.R
 import com.mckimquyen.reader.infrastructure.media.video.ArticleVideoExtractor
+import com.mckimquyen.reader.infrastructure.pref.LocalReadingBilingual
 import com.mckimquyen.reader.infrastructure.pref.LocalReadingBionic
 import com.mckimquyen.reader.infrastructure.pref.LocalReadingImageMaximize
 import com.mckimquyen.reader.ui.component.base.BaseAsyncImage
@@ -86,32 +88,20 @@ private fun LazyListScope.formatBody(
             // Bionic applies to prose only. Code blocks go through formatCodeBlock and are never touched.
             val paragraph = paragraphBuilder.toAnnotatedString().withBionic(LocalReadingBionic.current.value)
 
-            // ClickableText prevents taps from deselecting selected text
-            // So use regular Text if possible
-            if (paragraph.getStringAnnotations("URL", 0, paragraph.length)
-                    .isNotEmpty()
-            ) {
-                ClickableText(
-                    text = paragraph,
-                    style = bodyStyle(),
-                    modifier = Modifier
-                        .padding(horizontal = textHorizontalPadding().dp)
-                        .width(MAX_CONTENT_WIDTH.dp)
-                ) { offset ->
-                    paragraph.getStringAnnotations("URL", offset, offset)
-                        .firstOrNull()
-                        ?.let {
-                            onLinkClick(it.item)
-                        }
+            // With Bilingual Reader on, each paragraph gets its own translation right under it. With it off the
+            // chunk is rendered exactly as before (one Text), so nothing changes for readers who don't use it.
+            val parts = if (LocalReadingBilingual.current.value) splitParagraphs(paragraph) else listOf(paragraph)
+            Column {
+                parts.forEachIndexed { index, part ->
+                    if (index > 0) Spacer(modifier = Modifier.height(PARAGRAPH_GAP.dp))
+                    ParagraphText(part, onLinkClick)
+                    BilingualParagraph(
+                        original = part.text,
+                        modifier = Modifier
+                            .padding(horizontal = textHorizontalPadding().dp)
+                            .width(MAX_CONTENT_WIDTH.dp),
+                    )
                 }
-            } else {
-                Text(
-                    text = paragraph,
-                    style = bodyStyle(),
-                    modifier = Modifier
-                        .padding(horizontal = textHorizontalPadding().dp)
-                        .width(MAX_CONTENT_WIDTH.dp)
-                )
             }
         }
     }
@@ -126,6 +116,35 @@ private fun LazyListScope.formatBody(
     )
 
     composer.terminateCurrentText()
+}
+
+private const val PARAGRAPH_GAP = 12
+
+@Composable
+private fun ParagraphText(paragraph: AnnotatedString, onLinkClick: (String) -> Unit) {
+    // ClickableText prevents taps from deselecting selected text
+    // So use regular Text if possible
+    if (paragraph.getStringAnnotations("URL", 0, paragraph.length).isNotEmpty()) {
+        ClickableText(
+            text = paragraph,
+            style = bodyStyle(),
+            modifier = Modifier
+                .padding(horizontal = textHorizontalPadding().dp)
+                .width(MAX_CONTENT_WIDTH.dp)
+        ) { offset ->
+            paragraph.getStringAnnotations("URL", offset, offset)
+                .firstOrNull()
+                ?.let { onLinkClick(it.item) }
+        }
+    } else {
+        Text(
+            text = paragraph,
+            style = bodyStyle(),
+            modifier = Modifier
+                .padding(horizontal = textHorizontalPadding().dp)
+                .width(MAX_CONTENT_WIDTH.dp)
+        )
+    }
 }
 
 private fun LazyListScope.formatCodeBlock(

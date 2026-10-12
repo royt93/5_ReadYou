@@ -716,4 +716,9 @@
 
     <!-- Bionic Reading (EXC-03) -->
     <string name="bionic_reading_desc">In đậm những chữ cái đầu của mỗi từ để đọc lướt nhanh hơn</string>
+    <!-- Bilingual Reader (EXC-07) -->
+    <string name="bilingual_reading">Đọc song ngữ</string>
+    <string name="bilingual_reading_desc">Hiện bản dịch trên thiết bị dưới mỗi đoạn. Mô hình ngôn ngữ (khoảng 30 MB) được tải ở lần đầu.</string>
+    <string name="bilingual_target_language">Dịch sang</string>
+    <string name="bilingual_target_auto">Theo ngôn ngữ ứng dụng</string>
 </resources>

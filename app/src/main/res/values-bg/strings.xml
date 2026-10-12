@@ -709,4 +709,9 @@
 
     <!-- Bionic Reading (EXC-03) -->
     <string name="bionic_reading_desc">Bold the first letters of each word to help you skim faster</string>
+    <!-- Bilingual Reader (EXC-07) -->
+    <string name="bilingual_reading">Bilingual Reader</string>
+    <string name="bilingual_reading_desc">Show an on-device translation under each paragraph. A language model (about 30 MB) is downloaded the first time.</string>
+    <string name="bilingual_target_language">Translate into</string>
+    <string name="bilingual_target_auto">Follow app language</string>
 </resources>
