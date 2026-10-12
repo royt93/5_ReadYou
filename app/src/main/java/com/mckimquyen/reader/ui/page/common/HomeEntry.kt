@@ -34,6 +34,8 @@ import com.mckimquyen.reader.ui.page.home.addsources.AddSourcesMainPage
 import com.mckimquyen.reader.ui.page.home.feed.FeedsPage
 import com.mckimquyen.reader.ui.page.home.flow.FlowPage
 import com.mckimquyen.reader.ui.page.home.read.ReadingPage
+import com.mckimquyen.reader.ui.page.digest.DigestPage
+import com.mckimquyen.reader.ui.page.digest.DigestViewModel
 import com.mckimquyen.reader.ui.page.notebook.NotebookPage
 import com.mckimquyen.reader.ui.page.reels.ReelsPage
 import com.mckimquyen.reader.ui.page.rpg.BrainRpgPage
@@ -194,6 +196,19 @@ fun HomeEntry(
                 FlowPage(
                     navController = navController,
                     homeViewModel = homeViewModel,
+                )
+            }
+            animatedComposable(route = RouteName.DAILY_DIGEST) {
+                val digestViewModel: DigestViewModel = hiltViewModel()
+                val state by digestViewModel.state.collectAsState()
+                DigestPage(
+                    state = state,
+                    onGenerate = { digestViewModel.generate() },
+                    onRetry = { digestViewModel.generate() },
+                    onOpenSource = { articleId ->
+                        navController.navigate("${RouteName.READING}/$articleId") { launchSingleTop = true }
+                    },
+                    onSelectDigest = { id -> digestViewModel.selectDigest(id) },
                 )
             }
             animatedComposable(route = "${RouteName.READING}/{articleId}") {

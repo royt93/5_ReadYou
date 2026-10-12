@@ -720,4 +720,13 @@
     <string name="zen_audio_start_failed">No s\'ha pogut iniciar l\'àudio ambiental</string>
     <string name="zen_evening_edition_time">Hora de l\'edició de la tarda</string>
     <string name="zen_morning_edition_time">Hora de l\'edició del matí</string>
+
+    <!-- Daily Digest -->
+    <string name="daily_digest_empty">No unread articles with content to summarize.</string>
+    <string name="daily_digest_error">Could not create digest. Check your connection and try again.</string>
+    <string name="daily_digest_generate">Create Morning Brief</string>
+    <string name="daily_digest_history">Saved digests</string>
+    <string name="daily_digest_loading">Creating your digest…</string>
+    <string name="daily_digest_sources">Sources</string>
+    <string name="daily_digest_title">AI Daily Digest</string>
 </resources>

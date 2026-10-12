@@ -611,6 +611,13 @@
     <string name="watchdog_inbox_title">Boîte d\'alertes Watchdog</string>
     <string name="watchdog_inbox_desc">Historique des articles ayant déclenché des alertes par mots-clés</string>
     <string name="watchdog_inbox_empty">Aucune alerte déclenchée pour le moment</string>
+    <string name="daily_digest_title">Résumé quotidien IA</string>
+    <string name="daily_digest_generate">Créer le briefing du matin</string>
+    <string name="daily_digest_history">Résumés enregistrés</string>
+    <string name="daily_digest_empty">Aucun article non lu ne contient de texte à résumer.</string>
+    <string name="daily_digest_loading">Création du résumé…</string>
+    <string name="daily_digest_error">Impossible de créer le résumé. Vérifiez la connexion et réessayez.</string>
+    <string name="daily_digest_sources">Sources</string>
     <string name="watchdog_mark_all_read">Tout marquer comme lu</string>
     <string name="watchdog_clear_all">Effacer l\'historique</string>
     <string name="watchdog_snooze_title">Mettre en sourdine</string>

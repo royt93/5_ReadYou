@@ -605,6 +605,13 @@
     <string name="watchdog_inbox_title">ウォッチドッグ受信トレイ</string>
     <string name="watchdog_inbox_desc">緊急キーワードアラートを発生させた記事の履歴</string>
     <string name="watchdog_inbox_empty">まだアラートは発生していません</string>
+    <string name="daily_digest_title">AIデイリーダイジェスト</string>
+    <string name="daily_digest_generate">朝のブリーフを作成</string>
+    <string name="daily_digest_history">保存済みダイジェスト</string>
+    <string name="daily_digest_empty">要約できる未読記事がありません。</string>
+    <string name="daily_digest_loading">ダイジェストを作成中…</string>
+    <string name="daily_digest_error">ダイジェストを作成できません。接続を確認して再試行してください。</string>
+    <string name="daily_digest_sources">情報源</string>
     <string name="watchdog_mark_all_read">すべて既読にする</string>
     <string name="watchdog_clear_all">履歴を消去</string>
     <string name="watchdog_snooze_title">アラートをスヌーズ</string>

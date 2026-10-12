@@ -20,6 +20,7 @@ import com.mckimquyen.reader.domain.model.account.sec.DESUtils
 import com.mckimquyen.reader.domain.model.addedsource.AddedRssSource
 import com.mckimquyen.reader.domain.model.article.Article
 import com.mckimquyen.reader.domain.model.article.ArticleEmbeddingRecord
+import com.mckimquyen.reader.domain.model.digest.DailyDigest
 import com.mckimquyen.reader.domain.model.article.ArticleFts
 import com.mckimquyen.reader.domain.model.feed.Feed
 import com.mckimquyen.reader.domain.model.feed.FeedErrorTypeConverters
@@ -30,6 +31,7 @@ import com.mckimquyen.reader.domain.repository.ArticleHighlightDao
 import com.mckimquyen.reader.domain.repository.AccountDao
 import com.mckimquyen.reader.domain.repository.AddedRssSourceDao
 import com.mckimquyen.reader.domain.repository.ArticleDao
+import com.mckimquyen.reader.domain.repository.DailyDigestDao
 import com.mckimquyen.reader.domain.repository.ArticleEmbeddingDao
 import com.mckimquyen.reader.domain.repository.FeedDao
 import com.mckimquyen.reader.domain.repository.FeedHealthDao
@@ -53,8 +55,9 @@ import java.util.Date
         ArticleFts::class,
         FeedHealthRecord::class,
         ArticleEmbeddingRecord::class,
+        DailyDigest::class,
     ],
-    version = 11
+    version = 12
 )
 @TypeConverters(
     AndroidDatabase.DateConverters::class,
@@ -77,6 +80,7 @@ abstract class AndroidDatabase : RoomDatabase() {
     abstract fun articleHighlightDao(): ArticleHighlightDao
     abstract fun feedHealthDao(): FeedHealthDao
     abstract fun articleEmbeddingDao(): ArticleEmbeddingDao
+    abstract fun dailyDigestDao(): DailyDigestDao
 
     companion object {
 
@@ -120,6 +124,7 @@ val allMigrations = arrayOf(
     MIGRATION_8_9,
     MIGRATION_9_10,
     MIGRATION_10_11,
+    MIGRATION_11_12,
 )
 
 @Suppress("ClassName")
@@ -339,5 +344,22 @@ object MIGRATION_10_11 : Migration(10, 11) {
     }
 }
 
-
-
+@Suppress("ClassName")
+object MIGRATION_11_12 : Migration(11, 12) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL(
+            """
+            CREATE TABLE IF NOT EXISTS `daily_digest` (
+                `id` TEXT NOT NULL,
+                `createdAt` INTEGER NOT NULL,
+                `headline` TEXT NOT NULL,
+                `contentJson` TEXT NOT NULL,
+                `sourceArticleIdsJson` TEXT NOT NULL,
+                `accountId` INTEGER NOT NULL,
+                PRIMARY KEY(`id`)
+            )
+            """.trimIndent()
+        )
+        db.execSQL("CREATE INDEX IF NOT EXISTS index_daily_digest_accountId_createdAt ON daily_digest(accountId, createdAt)")
+    }
+}

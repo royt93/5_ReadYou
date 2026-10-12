@@ -608,6 +608,13 @@
     <string name="watchdog_inbox_title">Watchdog-Alarm-Postfach</string>
     <string name="watchdog_inbox_desc">Verlauf der Artikel, die Notfall-Schlagwortalarme ausgelöst haben</string>
     <string name="watchdog_inbox_empty">Noch keine Alarme ausgelöst</string>
+    <string name="daily_digest_title">Tägliche KI-Zusammenfassung</string>
+    <string name="daily_digest_generate">Morgenbriefing erstellen</string>
+    <string name="daily_digest_history">Gespeicherte Briefings</string>
+    <string name="daily_digest_empty">Keine ungelesenen Artikel mit Inhalt zum Zusammenfassen.</string>
+    <string name="daily_digest_loading">Zusammenfassung wird erstellt…</string>
+    <string name="daily_digest_error">Zusammenfassung konnte nicht erstellt werden. Verbindung prüfen und erneut versuchen.</string>
+    <string name="daily_digest_sources">Quellen</string>
     <string name="watchdog_mark_all_read">Alle als gelesen markieren</string>
     <string name="watchdog_clear_all">Verlauf löschen</string>
     <string name="watchdog_snooze_title">Alarme pausieren</string>

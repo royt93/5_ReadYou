@@ -604,6 +604,13 @@
     <string name="watchdog_inbox_title">看门狗警报收件箱</string>
     <string name="watchdog_inbox_desc">触发紧急关键词警报的文章历史记录</string>
     <string name="watchdog_inbox_empty">尚未触发任何警报</string>
+    <string name="daily_digest_title">AI 每日简报</string>
+    <string name="daily_digest_generate">生成晨间简报</string>
+    <string name="daily_digest_history">已保存的简报</string>
+    <string name="daily_digest_empty">没有可用于摘要的未读文章。</string>
+    <string name="daily_digest_loading">正在生成简报…</string>
+    <string name="daily_digest_error">无法生成简报。请检查网络后重试。</string>
+    <string name="daily_digest_sources">来源</string>
     <string name="watchdog_mark_all_read">全部标记为已读</string>
     <string name="watchdog_clear_all">清除历史记录</string>
     <string name="watchdog_snooze_title">暂停警报</string>

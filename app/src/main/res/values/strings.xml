@@ -687,6 +687,13 @@
     <string name="watchdog_inbox_title">Watchdog Alert Inbox</string>
     <string name="watchdog_inbox_desc">History of articles that triggered emergency keyword alerts</string>
     <string name="watchdog_inbox_empty">No alerts triggered yet</string>
+    <string name="daily_digest_title">AI Daily Digest</string>
+    <string name="daily_digest_generate">Create Morning Brief</string>
+    <string name="daily_digest_history">Saved digests</string>
+    <string name="daily_digest_empty">No unread articles with content to summarize.</string>
+    <string name="daily_digest_loading">Creating your digest…</string>
+    <string name="daily_digest_error">Could not create digest. Check your connection and try again.</string>
+    <string name="daily_digest_sources">Sources</string>
     <string name="watchdog_mark_all_read">Mark all as read</string>
     <string name="watchdog_clear_all">Clear history</string>
     <string name="watchdog_snooze_title">Snooze alerts</string>

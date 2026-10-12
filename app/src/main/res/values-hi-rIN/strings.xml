@@ -718,4 +718,13 @@
     <string name="zen_audio_start_failed">एम्बिएंट ऑडियो शुरू नहीं हो सका</string>
     <string name="zen_evening_edition_time">शाम के संस्करण का समय</string>
     <string name="zen_morning_edition_time">सुबह के संस्करण का समय</string>
+
+    <!-- Daily Digest -->
+    <string name="daily_digest_empty">No unread articles with content to summarize.</string>
+    <string name="daily_digest_error">Could not create digest. Check your connection and try again.</string>
+    <string name="daily_digest_generate">Create Morning Brief</string>
+    <string name="daily_digest_history">Saved digests</string>
+    <string name="daily_digest_loading">Creating your digest…</string>
+    <string name="daily_digest_sources">Sources</string>
+    <string name="daily_digest_title">AI Daily Digest</string>
 </resources>

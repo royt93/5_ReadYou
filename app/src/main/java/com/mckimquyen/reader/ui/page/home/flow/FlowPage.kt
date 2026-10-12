@@ -12,6 +12,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
+import androidx.compose.material.icons.rounded.Article
 import androidx.compose.material.icons.outlined.NotificationsActive
 import androidx.compose.material.icons.outlined.PlayCircle
 import androidx.compose.material.icons.outlined.Podcasts
@@ -167,6 +168,13 @@ fun FlowPage(
                             onSearch = false
                         }
                     }
+                }
+                FeedbackIconButton(
+                    imageVector = Icons.Rounded.Article,
+                    contentDescription = stringResource(R.string.daily_digest_title),
+                    tint = MaterialTheme.colorScheme.onSurface,
+                ) {
+                    navController.navigate(RouteName.DAILY_DIGEST) { launchSingleTop = true }
                 }
                 FeedbackIconButton(
                     imageVector = Icons.Outlined.PlayCircle,

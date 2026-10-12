@@ -685,4 +685,13 @@
     <string name="commute_budget_8m">8 мин</string>
     <string name="commute_budget_15m">15 мин</string>
     <string name="commute_budget_label">Продължителност:</string>
+
+    <!-- Daily Digest -->
+    <string name="daily_digest_empty">No unread articles with content to summarize.</string>
+    <string name="daily_digest_error">Could not create digest. Check your connection and try again.</string>
+    <string name="daily_digest_generate">Create Morning Brief</string>
+    <string name="daily_digest_history">Saved digests</string>
+    <string name="daily_digest_loading">Creating your digest…</string>
+    <string name="daily_digest_sources">Sources</string>
+    <string name="daily_digest_title">AI Daily Digest</string>
 </resources>

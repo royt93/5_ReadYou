@@ -578,6 +578,13 @@
     <string name="watchdog_inbox_title">Hộp Thư Cảnh Báo Watchdog</string>
     <string name="watchdog_inbox_desc">Lịch sử các bài viết đã kích hoạt cảnh báo từ khóa khẩn cấp</string>
     <string name="watchdog_inbox_empty">Chưa có cảnh báo nào được kích hoạt</string>
+    <string name="daily_digest_title">Bản tin AI hằng ngày</string>
+    <string name="daily_digest_generate">Tạo bản tin buổi sáng</string>
+    <string name="daily_digest_history">Bản tin đã lưu</string>
+    <string name="daily_digest_empty">Không có bài chưa đọc đủ nội dung để tổng hợp.</string>
+    <string name="daily_digest_loading">Đang tạo bản tin…</string>
+    <string name="daily_digest_error">Không thể tạo bản tin. Kiểm tra kết nối rồi thử lại.</string>
+    <string name="daily_digest_sources">Nguồn tin</string>
     <string name="watchdog_mark_all_read">Đánh dấu tất cả đã đọc</string>
     <string name="watchdog_clear_all">Xóa lịch sử</string>
     <string name="watchdog_snooze_title">Tạm tắt thông báo</string>
