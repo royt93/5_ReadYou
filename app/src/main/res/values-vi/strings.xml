@@ -582,9 +582,7 @@
     <string name="daily_digest_generate">Tạo bản tin buổi sáng</string>
     <string name="daily_digest_history">Bản tin đã lưu</string>
     <string name="daily_digest_empty">Không có bài chưa đọc đủ nội dung để tổng hợp.</string>
-    <string name="daily_digest_loading">Đang tạo bản tin…</string>
     <string name="daily_digest_error">Không thể tạo bản tin. Kiểm tra kết nối rồi thử lại.</string>
-    <string name="daily_digest_sources">Nguồn tin</string>
     <string name="watchdog_mark_all_read">Đánh dấu tất cả đã đọc</string>
     <string name="watchdog_clear_all">Xóa lịch sử</string>
     <string name="watchdog_snooze_title">Tạm tắt thông báo</string>
@@ -706,7 +704,6 @@
     <string name="second_brain_title">Bộ não thứ hai</string>
     <string name="second_brain_settings_desc">Xem các chủ đề bạn đọc liên kết với nhau theo thời gian thế nào</string>
     <string name="second_brain_empty">Hãy đọc hoặc lưu vài bài, đồ thị chủ đề sẽ hiện ở đây.</string>
-    <string name="second_brain_loading">Đang dựng đồ thị…</string>
     <string name="second_brain_error">Không thể dựng đồ thị. Hãy thử lại.</string>
     <string name="second_brain_retry">Thử lại</string>
     <string name="second_brain_graph_desc">Đồ thị chủ đề với %1$d chủ đề và %2$d liên kết</string>

@@ -9,6 +9,9 @@ import java.util.Locale
 object BrainGraphBuilder {
     const val MAX_NODES = 200
 
+    /** 200 nodes can imply ~20k pairs; every edge is a canvas line, so keep only the strongest. */
+    const val MAX_EDGES = 300
+
     fun build(
         articles: List<BrainArticle>,
         fromTime: Long = Long.MIN_VALUE,
@@ -55,6 +58,8 @@ object BrainGraphBuilder {
         }
         val edges = pairCounts.entries
             .map { (pair, count) -> BrainEdge(pair.first, pair.second, count) }
+            .sortedWith(compareByDescending<BrainEdge> { it.weight }.thenBy { it.from }.thenBy { it.to })
+            .take(MAX_EDGES)
             .sortedWith(compareBy({ it.from }, { it.to }))
 
         val referenced = nodes.flatMapTo(hashSetOf()) { it.articleIds }

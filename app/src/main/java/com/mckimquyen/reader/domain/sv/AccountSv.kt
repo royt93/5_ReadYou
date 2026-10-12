@@ -9,6 +9,7 @@ import com.mckimquyen.reader.domain.model.account.AccountType
 import com.mckimquyen.reader.domain.model.group.Group
 import com.mckimquyen.reader.domain.repository.AccountDao
 import com.mckimquyen.reader.domain.repository.ArticleDao
+import com.mckimquyen.reader.domain.repository.DailyDigestDao
 import com.mckimquyen.reader.domain.repository.FeedDao
 import com.mckimquyen.reader.domain.repository.GroupDao
 import com.mckimquyen.reader.ui.ext.DataStoreKeys
@@ -29,6 +30,7 @@ class AccountSv @Inject constructor(
     private val feedDao: FeedDao,
     private val articleDao: ArticleDao,
     private val rssService: RssSv,
+    private val digestDao: DailyDigestDao,
 ) {
 
     fun getAccounts(): Flow<List<Account>> = accountDao.queryAllAsFlow()
@@ -84,6 +86,7 @@ class AccountSv @Inject constructor(
             articleDao.deleteByAccountId(accountId)
             feedDao.deleteByAccountId(accountId)
             groupDao.deleteByAccountId(accountId)
+            digestDao.deleteByAccountId(accountId)
             accountDao.delete(it)
             accountDao.queryAll().getOrNull(0)?.let {
                 context.dataStore.put(dataStoreKeys = DataStoreKeys.CurrentAccountId, value = it.id!!)

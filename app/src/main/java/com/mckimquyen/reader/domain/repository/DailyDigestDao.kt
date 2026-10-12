@@ -16,4 +16,7 @@ interface DailyDigestDao {
 
     @Query("SELECT * FROM daily_digest WHERE id = :id AND accountId = :accountId LIMIT 1")
     suspend fun queryById(id: String, accountId: Int): DailyDigest?
+
+    @Query("DELETE FROM daily_digest WHERE accountId = :accountId")
+    suspend fun deleteByAccountId(accountId: Int)
 }

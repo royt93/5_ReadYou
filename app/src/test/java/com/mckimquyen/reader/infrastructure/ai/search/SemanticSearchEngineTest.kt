@@ -482,4 +482,24 @@ class SemanticSearchEngineTest {
             assertEquals(expected[index], actual[index], 0.0001f)
         }
     }
+
+    @Test
+    fun detectConceptsStrict_handlesPunctuationUnicodeAndWhitespaceRuns() {
+        assertTrue("ARTIFICIAL_INTELLIGENCE" in engine.detectConceptsStrict("Big   AI!!!\n\tand\u00A0chips"))
+        assertTrue("ARTIFICIAL_INTELLIGENCE" in engine.detectConceptsStrict("(AI)-powered"))
+        assertTrue(engine.detectConceptsStrict("   \n\t ").isEmpty())
+        assertTrue(engine.detectConceptsStrict("人工知能 and 日本語").none { it == "ELECTRIC_VEHICLES" })
+    }
+
+    @Test
+    fun detectConceptsStrict_fiveHundredArticlesStayFast() {
+        val text = "Researchers say AI and machine learning will reshape electric vehicles and the EV market. " * 5
+        engine.detectConceptsStrict(text) // warm up
+        val start = System.nanoTime()
+        repeat(500) { engine.detectConceptsStrict(text) }
+        val ms = (System.nanoTime() - start) / 1_000_000
+        assertTrue("500 articles took ${ms}ms (graph load budget is 1s)", ms < 1_000)
+    }
+
+    private operator fun String.times(n: Int) = repeat(n)
 }

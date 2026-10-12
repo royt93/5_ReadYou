@@ -701,15 +701,12 @@
     <string name="daily_digest_error">Could not create digest. Check your connection and try again.</string>
     <string name="daily_digest_generate">Create Morning Brief</string>
     <string name="daily_digest_history">Saved digests</string>
-    <string name="daily_digest_loading">Creating your digest…</string>
-    <string name="daily_digest_sources">Sources</string>
     <string name="daily_digest_title">AI Daily Digest</string>
 
     <!-- Second Brain (EXC-08) -->
     <string name="second_brain_title">Second Brain</string>
     <string name="second_brain_settings_desc">See how the topics you read connect over time</string>
     <string name="second_brain_empty">Read or save a few articles and your topic graph will appear here.</string>
-    <string name="second_brain_loading">Building your graph…</string>
     <string name="second_brain_error">Could not build the graph. Try again.</string>
     <string name="second_brain_retry">Retry</string>
     <string name="second_brain_graph_desc">Topic graph with %1$d topics and %2$d connections</string>

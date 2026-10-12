@@ -16,6 +16,7 @@ import com.mckimquyen.reader.ui.ext.currentAccountId
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -39,11 +40,15 @@ class DigestViewModel @Inject constructor(
         loadLatest()
     }
 
+    private var generateJob: Job? = null
+
     fun generate() {
-        viewModelScope.launch {
+        // A second tap while a brief is being written must not start a second (billable) model call.
+        if (generateJob?.isActive == true) return
+        generateJob = viewModelScope.launch {
             _state.value = DigestUiState.Loading
             try {
-                val accountId = context.currentAccountId
+                val accountId = withContext(ioDispatcher) { context.currentAccountId }
                 val digest = digestSv.generate(accountId)
                 if (digest == null) {
                     _state.value = DigestUiState.Empty
@@ -72,8 +77,14 @@ class DigestViewModel @Inject constructor(
     }
 
     private suspend fun stateFor(digest: DailyDigest, history: List<DailyDigest>): DigestUiState = withContext(ioDispatcher) {
-        val content = Gson().fromJson(digest.contentJson, DailyDigestContent::class.java)
-        val sourceIds = Gson().fromJson(digest.sourceArticleIdsJson, Array<String>::class.java).toList()
+        // Gson bypasses Kotlin null-safety, so a malformed stored row can yield null fields that would only blow
+        // up later during composition. Reject them here, inside the callers' try/catch.
+        val content = checkNotNull(Gson().fromJson(digest.contentJson, DailyDigestContent::class.java)) { "empty digest" }
+        @Suppress("SENSELESS_COMPARISON") // Gson can leave a non-null Kotlin field null
+        check(content.sections != null) { "digest without sections" }
+        val sourceIds = checkNotNull(Gson().fromJson(digest.sourceArticleIdsJson, Array<String>::class.java)) {
+            "digest without source ids"
+        }.toList()
         val sources = sourceIds.mapNotNull { id ->
             val article = articleDao.queryById(id)?.article ?: return@mapNotNull null
             val feed = feedDao.queryById(article.feedId)

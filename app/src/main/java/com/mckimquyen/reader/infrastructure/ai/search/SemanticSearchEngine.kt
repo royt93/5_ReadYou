@@ -22,6 +22,10 @@ class SemanticSearchEngine @Inject constructor(
         const val EMBEDDING_DIM = 64
         const val DEFAULT_MIN_SCORE_THRESHOLD = 0.22f
 
+        // Compiled once: detectConceptsStrict runs for every article when the Second Brain graph loads.
+        private val NON_WORD_CHARS = Regex("[^\\p{L}\\p{Nd}\\s]")
+        private val WHITESPACE_RUN = Regex("\\s+")
+
         private val CONCEPT_CLUSTERS: Map<String, Set<String>> = mapOf(
             "CLEAN_ENERGY" to setOf(
                 "năng lượng sạch", "năng lượng tái tạo", "pin mặt trời", "quang điện", "tuabin gió",
@@ -229,8 +233,8 @@ class SemanticSearchEngine @Inject constructor(
      */
     fun detectConceptsStrict(text: String): Set<String> {
         val padded = " " + text.lowercase(Locale.ROOT)
-            .replace(Regex("[^\\p{L}\\p{Nd}\\s]"), " ")
-            .replace(Regex("\\s+"), " ") + " "
+            .replace(NON_WORD_CHARS, " ")
+            .replace(WHITESPACE_RUN, " ") + " "
         return CONCEPT_CLUSTERS.mapNotNullTo(mutableSetOf()) { (concept, keywords) ->
             concept.takeIf { keywords.any { padded.contains(" $it ") } }
         }

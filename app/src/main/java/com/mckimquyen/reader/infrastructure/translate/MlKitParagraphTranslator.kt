@@ -7,6 +7,7 @@ import com.google.mlkit.nl.translate.TranslateLanguage
 import com.google.mlkit.nl.translate.Translation
 import com.google.mlkit.nl.translate.Translator
 import com.google.mlkit.nl.translate.TranslatorOptions
+import com.mckimquyen.reader.domain.model.bilingual.ClosableLruPool
 import com.mckimquyen.reader.domain.model.bilingual.ParagraphTranslator
 import com.mckimquyen.reader.domain.model.bilingual.TranslationResult
 import kotlinx.coroutines.tasks.await
@@ -23,7 +24,11 @@ import java.io.Closeable
 class MlKitParagraphTranslator : ParagraphTranslator, Closeable {
 
     private val identifier: LanguageIdentifier = LanguageIdentification.getClient()
-    private val translators = HashMap<String, Translator>()
+    // Bounded: one native translator per source>target pair would otherwise grow with every language met.
+    private val translators = ClosableLruPool<String, Translator>(MAX_TRANSLATORS) { pair ->
+        val (source, target) = pair.split(PAIR_SEPARATOR)
+        Translation.getClient(TranslatorOptions.Builder().setSourceLanguage(source).setTargetLanguage(target).build())
+    }
 
     override suspend fun translate(text: String, target: String): TranslationResult {
         val detected = identifier.identifyLanguage(text).await()
@@ -37,22 +42,17 @@ class MlKitParagraphTranslator : ParagraphTranslator, Closeable {
         return TranslationResult.Translated(translator.translate(text).await())
     }
 
-    @Synchronized
-    private fun translatorFor(source: String, target: String): Translator =
-        translators.getOrPut("$source>$target") {
-            Translation.getClient(
-                TranslatorOptions.Builder().setSourceLanguage(source).setTargetLanguage(target).build()
-            )
-        }
+    private fun translatorFor(source: String, target: String): Translator = translators.get("$source$PAIR_SEPARATOR$target")
 
     @Synchronized
     override fun close() {
-        translators.values.forEach(Translator::close)
-        translators.clear()
+        translators.closeAll()
         identifier.close()
     }
 
     private companion object {
         const val UNDETERMINED_LANGUAGE = "und"
+        const val PAIR_SEPARATOR = ">"
+        const val MAX_TRANSLATORS = 3
     }
 }

@@ -24,28 +24,35 @@ class CachingParagraphTranslator(
     }
     private val inFlight = HashMap<String, CompletableDeferred<TranslationResult>>()
 
+    private sealed interface Claim {
+        data class Hit(val result: TranslationResult) : Claim
+        data class Owner(val deferred: CompletableDeferred<TranslationResult>) : Claim
+        data class Waiter(val deferred: CompletableDeferred<TranslationResult>) : Claim
+    }
+
+    private fun claim(key: String): Claim = synchronized(lock) {
+        cache[key]?.let { return@synchronized Claim.Hit(it) }
+        inFlight[key]?.let { return@synchronized Claim.Waiter(it) }
+        Claim.Owner(CompletableDeferred<TranslationResult>().also { inFlight[key] = it })
+    }
+
     override suspend fun translate(text: String, target: String): TranslationResult {
         val key = "$target$KEY_SEPARATOR$text"
         while (true) {
-            var owned: CompletableDeferred<TranslationResult>? = null
-            var running: CompletableDeferred<TranslationResult>? = null
-            synchronized(lock) {
-                cache[key]?.let { return it }
-                running = inFlight[key]
-                if (running == null) {
-                    owned = CompletableDeferred<TranslationResult>().also { inFlight[key] = it }
+            when (val claim = claim(key)) {
+                is Claim.Hit -> return claim.result
+                is Claim.Owner -> return runOwned(key, claim.deferred, text, target)
+                is Claim.Waiter -> {
+                    val shared = try {
+                        claim.deferred.await()
+                    } catch (e: CancellationException) {
+                        // Either this caller was cancelled (propagate) or the owner was (take over on the next loop).
+                        currentCoroutineContext().ensureActive()
+                        null
+                    }
+                    if (shared != null) return shared
                 }
             }
-            owned?.let { return runOwned(key, it, text, target) }
-
-            val shared = try {
-                running!!.await()
-            } catch (e: CancellationException) {
-                // Either this caller was cancelled (propagate) or the owner was (take over on the next loop).
-                currentCoroutineContext().ensureActive()
-                null
-            }
-            if (shared != null) return shared
         }
     }
 

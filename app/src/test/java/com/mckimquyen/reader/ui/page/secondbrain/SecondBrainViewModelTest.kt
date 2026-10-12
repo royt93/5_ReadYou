@@ -54,7 +54,7 @@ class SecondBrainViewModelTest {
     @After
     fun tearDown() = Dispatchers.resetMain()
 
-    private fun vm() = SecondBrainViewModel(context, sv)
+    private fun vm() = SecondBrainViewModel(context, sv, dispatcher)
 
     @Test
     fun startsLoading_thenShowsTheGraph() = runTest(dispatcher) {

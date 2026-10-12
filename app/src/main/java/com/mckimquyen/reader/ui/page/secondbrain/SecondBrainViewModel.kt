@@ -5,21 +5,25 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mckimquyen.reader.domain.sv.SecondBrainSv
+import com.mckimquyen.reader.infrastructure.di.IODispatcher
 import com.mckimquyen.reader.ui.ext.currentAccountId
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
 class SecondBrainViewModel @Inject constructor(
     @ApplicationContext private val context: Context,
     private val secondBrainSv: SecondBrainSv,
+    @IODispatcher private val ioDispatcher: CoroutineDispatcher,
 ) : ViewModel() {
     private val _state = MutableStateFlow<SecondBrainUiState>(SecondBrainUiState.Loading)
     val state: StateFlow<SecondBrainUiState> = _state.asStateFlow()
@@ -50,7 +54,9 @@ class SecondBrainViewModel @Inject constructor(
         loadJob = viewModelScope.launch {
             if (_state.value !is SecondBrainUiState.Ready) _state.value = SecondBrainUiState.Loading
             try {
-                val graph = secondBrainSv.load(context.currentAccountId, from, to)
+                // currentAccountId reads DataStore synchronously, so keep it off the main thread.
+                val accountId = withContext(ioDispatcher) { context.currentAccountId }
+                val graph = secondBrainSv.load(accountId, from, to)
                 val stableMin = minBound ?: graph.minTime
                 val stableMax = maxBound ?: graph.maxTime
                 val bounded = graph.copy(minTime = stableMin, maxTime = stableMax)

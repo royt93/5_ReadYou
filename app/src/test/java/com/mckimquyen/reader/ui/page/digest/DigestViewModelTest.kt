@@ -227,4 +227,52 @@ class DigestViewModelTest {
         advanceUntilIdle()
         assertEquals("unknown id leaves the current digest", "b", (vm.state.value as DigestUiState.Success).digest.id)
     }
+
+    @Test
+    fun doubleTapOnGenerate_runsOneGeneration_notTwo() = runTest(dispatcher) {
+        coEvery { digestDao.queryRecent(any(), any()) } returns emptyList()
+        val gate = CompletableDeferred<Unit>()
+        val fresh = digest("fresh")
+        coEvery { sv.generate(any()) } coAnswers { gate.await(); fresh }
+        coEvery { sv.history(any()) } returns listOf(fresh)
+        coEvery { articleDao.queryById("a1") } returns article("a1", "Story")
+        val vm = vm()
+        advanceUntilIdle()
+
+        vm.generate()
+        vm.generate() // second tap while the first is still running
+        advanceUntilIdle()
+        gate.complete(Unit)
+        advanceUntilIdle()
+
+        coVerify(exactly = 1) { sv.generate(any()) }
+        assertEquals("fresh", (vm.state.value as DigestUiState.Success).digest.id)
+    }
+
+    @Test
+    fun aStoredDigestWithNoSections_showsError_notACrashInComposition() = runTest(dispatcher) {
+        // Gson bypasses Kotlin null-safety: a row whose JSON lacks `sections` yields sections == null.
+        val broken = digest("d").copy(contentJson = "{\"headline\":\"Only a headline\"}")
+        coEvery { digestDao.queryRecent(any(), any()) } returns listOf(broken)
+        // Everything else resolves fine, so ONLY the missing sections can make this an Error.
+        coEvery { articleDao.queryById("a1") } returns article("a1", "Story")
+        val vm = vm()
+        advanceUntilIdle()
+        val state = vm.state.value
+        // Whatever the outcome, a Success must never carry null sections (DigestPage would NPE composing it).
+        @Suppress("USELESS_CAST", "UNNECESSARY_SAFE_CALL")
+        val sections = (state as? DigestUiState.Success)?.content?.sections as List<*>?
+        assertEquals(DigestUiState.Error, state)
+        assertEquals(null, sections)
+    }
+
+    @Test
+    fun aStoredDigestWithNoSourceList_showsError() = runTest(dispatcher) {
+        val broken = digest("d").copy(sourceArticleIdsJson = "null")
+        coEvery { digestDao.queryRecent(any(), any()) } returns listOf(broken)
+        coEvery { articleDao.queryById(any()) } returns article("a1", "Story")
+        val vm = vm()
+        advanceUntilIdle()
+        assertEquals(DigestUiState.Error, vm.state.value)
+    }
 }

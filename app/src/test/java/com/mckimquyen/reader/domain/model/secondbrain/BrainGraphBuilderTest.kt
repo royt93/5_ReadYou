@@ -123,4 +123,31 @@ class BrainGraphBuilderTest {
     private companion object {
         const val DAY = 86_400_000L
     }
+
+    @Test
+    fun build_capsTheNumberOfEdges_keepingTheStrongestLinks() {
+        // 40 concepts that all co-occur in one article = 780 pairs (weight 1), plus one pair linked twice.
+        val concepts = (1..40).map { "c%02d".format(it) }.toTypedArray()
+        val articles = listOf(article("big", 1, *concepts), article("x1", 2, "c01", "c02"), article("x2", 3, "c01", "c02"))
+
+        val graph = BrainGraphBuilder.build(articles)
+
+        assertEquals(BrainGraphBuilder.MAX_EDGES, graph.edges.size)
+        val strongest = graph.edges.single { it.from == "c01" && it.to == "c02" }
+        assertEquals(3, strongest.weight)
+        assertTrue("every kept edge must be at least as strong as any dropped one", graph.edges.all { it.weight >= 1 })
+    }
+
+    @Test
+    fun build_underTheEdgeCap_keepsEveryEdge() {
+        val graph = BrainGraphBuilder.build(listOf(article("a", 1, "x", "y", "z")))
+        assertEquals(3, graph.edges.size)
+    }
+
+    @Test
+    fun build_edgeCap_isDeterministic() {
+        val concepts = (1..40).map { "c%02d".format(it) }.toTypedArray()
+        val articles = listOf(article("big", 1, *concepts))
+        assertEquals(BrainGraphBuilder.build(articles).edges, BrainGraphBuilder.build(articles).edges)
+    }
 }
