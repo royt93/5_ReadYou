@@ -748,4 +748,5 @@
     <string name="bilingual_reading_desc">各段落の下に端末内翻訳を表示します。初回は言語モデル（約 30 MB）をダウンロードします。</string>
     <string name="bilingual_target_language">翻訳先の言語</string>
     <string name="bilingual_target_auto">アプリの言語に合わせる</string>
+    <string name="second_brain_empty_window">この期間にはトピックが見つかりませんでした。スライダーを動かして範囲を広げてください。</string>
 </resources>

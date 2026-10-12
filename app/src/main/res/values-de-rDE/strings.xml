@@ -751,4 +751,5 @@
     <string name="bilingual_reading_desc">Zeigt unter jedem Absatz eine Übersetzung auf dem Gerät an. Beim ersten Mal wird ein Sprachmodell (ca. 30 MB) heruntergeladen.</string>
     <string name="bilingual_target_language">Übersetzen in</string>
     <string name="bilingual_target_auto">App-Sprache verwenden</string>
+    <string name="second_brain_empty_window">In diesem Zeitraum wurden keine Themen gefunden. Ziehen Sie den Schieberegler, um ihn zu erweitern.</string>
 </resources>

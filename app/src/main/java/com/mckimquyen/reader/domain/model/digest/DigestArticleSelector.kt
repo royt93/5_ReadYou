@@ -1,6 +1,7 @@
 package com.mckimquyen.reader.domain.model.digest
 
 import com.mckimquyen.reader.domain.model.article.Article
+import com.mckimquyen.reader.infrastructure.ai.ArticleHighlightsExtractor
 
 const val DAILY_DIGEST_MAX_ARTICLES = 20
 
@@ -17,7 +18,9 @@ object DigestArticleSelector {
         .asSequence()
         .filter { it.isUnread }
         .mapNotNull { article ->
-            val content = sequenceOf(article.aiSummary, article.fullContent, article.rawDescription, article.shortDescription)
+            // aiSummary holds a serialized ArticleHighlights JSON (or legacy plain text), never prose to send as-is.
+            val aiSummaryText = ArticleHighlightsExtractor.deserialize(article.aiSummary)?.tldr
+            val content = sequenceOf(aiSummaryText, article.fullContent, article.rawDescription, article.shortDescription)
                 .filterNotNull()
                 .firstOrNull { it.isNotBlank() }
                 ?.trim()

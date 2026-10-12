@@ -10,10 +10,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Button
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
@@ -24,6 +24,8 @@ import com.mckimquyen.reader.domain.model.digest.DailyDigest
 import com.mckimquyen.reader.infrastructure.ai.DailyDigestContent
 
 const val DIGEST_TITLE_TAG = "digest_title"
+
+private const val HISTORY_LIST_HEIGHT = 96
 
 @Composable
 fun DigestPage(
@@ -37,7 +39,7 @@ fun DigestPage(
     Column(modifier.fillMaxSize().safeDrawingPadding().padding(16.dp)) {
         Text(
             stringResource(R.string.daily_digest_title),
-            style = MaterialTheme.typography.h5,
+            style = MaterialTheme.typography.headlineSmall,
             modifier = Modifier.testTag(DIGEST_TITLE_TAG),
         )
         Spacer(Modifier.height(12.dp))
@@ -52,22 +54,23 @@ fun DigestPage(
                 Button(onClick = onRetry) { Text(stringResource(R.string.daily_digest_generate)) }
             }
             is DigestUiState.Success -> {
-                Text(stringResource(R.string.daily_digest_history), style = MaterialTheme.typography.subtitle1)
-                LazyColumn(modifier = Modifier.height(96.dp)) {
+                Text(stringResource(R.string.daily_digest_history), style = MaterialTheme.typography.titleMedium)
+                LazyColumn(modifier = Modifier.height(HISTORY_LIST_HEIGHT.dp)) {
                     items(state.history, key = { it.id }) { digest ->
                         Text(
                             digest.headline,
                             modifier = Modifier.fillMaxWidth().clickable { onSelectDigest(digest.id) }.padding(vertical = 6.dp),
-                            color = if (digest.id == state.digest.id) MaterialTheme.colors.primary else MaterialTheme.colors.onSurface,
+                            color = if (digest.id == state.digest.id) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface,
                         )
                     }
                 }
-                Text(state.digest.headline, style = MaterialTheme.typography.h6)
+                Text(state.digest.headline, style = MaterialTheme.typography.titleLarge)
                 val content = state.content
-                LazyColumn {
-                    content.sections.forEach { section ->
-                        item(key = "section-${section.title}") {
-                            Text(section.title, style = MaterialTheme.typography.subtitle1, modifier = Modifier.padding(top = 12.dp))
+                LazyColumn(modifier = Modifier.weight(1f)) {
+                    content.sections.forEachIndexed { sectionIndex, section ->
+                        // Titles come from the model and may repeat, so the index is part of the key.
+                        item(key = "section-$sectionIndex-${section.title}") {
+                            Text(section.title, style = MaterialTheme.typography.titleMedium, modifier = Modifier.padding(top = 12.dp))
                         }
                         items(section.items) { item ->
                             Column {
@@ -77,7 +80,7 @@ fun DigestPage(
                                     Text(
                                         source.title,
                                         modifier = Modifier.fillMaxWidth().clickable { onOpenSource(source.id) }.padding(vertical = 4.dp),
-                                        color = MaterialTheme.colors.primary,
+                                        color = MaterialTheme.colorScheme.primary,
                                     )
                                 }
                             }

@@ -747,4 +747,5 @@
     <string name="bilingual_reading_desc">在每个段落下显示设备端翻译。首次使用会下载语言模型（约 30 MB）。</string>
     <string name="bilingual_target_language">翻译为</string>
     <string name="bilingual_target_auto">跟随应用语言</string>
+    <string name="second_brain_empty_window">此时间范围内没有找到主题。拖动滑块以扩大范围。</string>
 </resources>

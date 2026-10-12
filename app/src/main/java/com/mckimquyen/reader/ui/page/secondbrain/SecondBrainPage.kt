@@ -85,12 +85,16 @@ private fun ReadyContent(
 ) {
     val graph = state.graph
     val description = stringResource(R.string.second_brain_graph_desc, graph.nodes.size, graph.edges.size)
-    BrainGraphCanvas(
-        graph = graph,
-        selectedNodeId = state.selectedNodeId,
-        onSelectNode = onSelectNode,
-        modifier = Modifier.fillMaxWidth().aspectRatio(1f).semantics { contentDescription = description },
-    )
+    if (graph.nodes.isEmpty()) {
+        Text(stringResource(R.string.second_brain_empty_window), modifier = Modifier.padding(vertical = 16.dp))
+    } else {
+        BrainGraphCanvas(
+            graph = graph,
+            selectedNodeId = state.selectedNodeId,
+            onSelectNode = onSelectNode,
+            modifier = Modifier.fillMaxWidth().aspectRatio(1f).semantics { contentDescription = description },
+        )
+    }
 
     if (graph.maxTime > graph.minTime) {
         Text(stringResource(R.string.second_brain_range_label), style = MaterialTheme.typography.labelLarge)

@@ -754,4 +754,5 @@
     <string name="bilingual_reading_desc">Affiche une traduction sur l\'appareil sous chaque paragraphe. Un modèle de langue (environ 30 Mo) est téléchargé la première fois.</string>
     <string name="bilingual_target_language">Traduire en</string>
     <string name="bilingual_target_auto">Suivre la langue de l\'application</string>
+    <string name="second_brain_empty_window">Aucun sujet dans cette période. Faites glisser le curseur pour l\'élargir.</string>
 </resources>

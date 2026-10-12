@@ -747,4 +747,5 @@
     <string name="bilingual_reading_desc">Show an on-device translation under each paragraph. A language model (about 30 MB) is downloaded the first time.</string>
     <string name="bilingual_target_language">Translate into</string>
     <string name="bilingual_target_auto">Follow app language</string>
+    <string name="second_brain_empty_window">No concepts were found in this time range. Drag the slider to widen it.</string>
 </resources>

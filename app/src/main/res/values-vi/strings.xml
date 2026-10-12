@@ -721,4 +721,5 @@
     <string name="bilingual_reading_desc">Hiện bản dịch trên thiết bị dưới mỗi đoạn. Mô hình ngôn ngữ (khoảng 30 MB) được tải ở lần đầu.</string>
     <string name="bilingual_target_language">Dịch sang</string>
     <string name="bilingual_target_auto">Theo ngôn ngữ ứng dụng</string>
+    <string name="second_brain_empty_window">Không có chủ đề nào trong khoảng thời gian này. Kéo thanh trượt để mở rộng.</string>
 </resources>

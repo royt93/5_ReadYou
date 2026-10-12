@@ -1,7 +1,10 @@
 package com.mckimquyen.reader.domain.model.digest
 
 import com.mckimquyen.reader.domain.model.article.Article
+import com.mckimquyen.reader.domain.model.article.ArticleHighlights
+import com.mckimquyen.reader.infrastructure.ai.ArticleHighlightsExtractor
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Test
 import java.util.Date
 
@@ -69,5 +72,49 @@ class DigestArticleSelectorTest {
         )
 
         assertEquals(emptyList<DigestArticleSource>(), DigestArticleSelector.select(listOf(readArticle)))
+    }
+
+    private fun unread(summary: String?, raw: String = "Raw body") = Article(
+        id = "a",
+        date = Date(1L),
+        title = "Title",
+        rawDescription = raw,
+        shortDescription = "",
+        fullContent = null,
+        link = "https://example.test/a",
+        feedId = "feed",
+        accountId = 1,
+        isUnread = true,
+        aiSummary = summary,
+    )
+
+    @Test
+    fun aSerializedAiSummary_contributesItsTldr_notTheRawJson() {
+        val json = ArticleHighlightsExtractor.serialize(
+            ArticleHighlights(tldr = "The short version.", keyTakeaways = listOf("k1"), tags = listOf("ai")),
+        )
+        val content = DigestArticleSelector.select(listOf(unread(json))).single().content
+
+        assertEquals("The short version.", content)
+        assertFalse("raw JSON must never reach the model", content.contains("keyTakeaways") || content.contains("{"))
+    }
+
+    @Test
+    fun anAiSummaryWithABlankTldr_fallsBackToTheArticleBody() {
+        val json = ArticleHighlightsExtractor.serialize(ArticleHighlights(tldr = "  ", tags = listOf("ai")))
+        assertEquals("Raw body", DigestArticleSelector.select(listOf(unread(json))).single().content)
+    }
+
+    @Test
+    fun aLegacyPlainTextAiSummary_isStillUsedAsText() {
+        assertEquals(
+            "An old plain summary.",
+            DigestArticleSelector.select(listOf(unread("An old plain summary."))).single().content,
+        )
+    }
+
+    @Test
+    fun noAiSummary_usesTheBody() {
+        assertEquals("Raw body", DigestArticleSelector.select(listOf(unread(null))).single().content)
     }
 }

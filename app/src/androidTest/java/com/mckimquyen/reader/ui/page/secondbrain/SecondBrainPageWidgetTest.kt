@@ -127,4 +127,13 @@ class SecondBrainPageWidgetTest {
         composeRule.onNodeWithText(str(R.string.second_brain_range_label)).assertIsDisplayed()
         composeRule.runOnIdle { assertTrue(graph.maxTime > graph.minTime) }
     }
+
+    @Test
+    fun readyWithNoConceptInTheWindow_showsAHint_andKeepsTheRangeSliderToWidenIt() {
+        val quiet = BrainGraph(emptyList(), emptyList(), 1_000L, 2_000L)
+        show(SecondBrainUiState.Ready(quiet, null, 1_200L, 1_300L))
+
+        composeRule.onNodeWithText(str(R.string.second_brain_empty_window)).assertIsDisplayed()
+        composeRule.onNodeWithText(str(R.string.second_brain_range_label)).assertIsDisplayed()
+    }
 }

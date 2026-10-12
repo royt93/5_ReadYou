@@ -18,7 +18,9 @@ sealed interface SecondBrainUiState {
 /** Pure state transitions so they can be unit tested without Android or coroutines. */
 object SecondBrainStateReducer {
     fun fromGraph(graph: BrainGraph, selectedNodeId: String?, from: Long, to: Long): SecondBrainUiState {
-        if (graph.nodes.isEmpty()) return SecondBrainUiState.Empty
+        // No concept in the chosen window is not "no data": while the full history spans a range the user can
+        // still drag the slider back, so stay Ready instead of stranding them on a dead-end message.
+        if (graph.nodes.isEmpty() && graph.maxTime <= graph.minTime) return SecondBrainUiState.Empty
         val lo = minOf(from, to).coerceIn(graph.minTime, graph.maxTime)
         val hi = maxOf(from, to).coerceIn(graph.minTime, graph.maxTime)
         val selection = selectedNodeId?.takeIf { id -> graph.nodes.any { it.id == id } }
