@@ -14,23 +14,25 @@ import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import android.os.SystemClock
 import android.widget.Toast
 import com.mckimquyen.reader.R
 import com.mckimquyen.reader.infrastructure.pref.LocalOpenLink
 import com.mckimquyen.reader.infrastructure.pref.LocalOpenLinkSpecificBrowser
 import com.mckimquyen.reader.infrastructure.pref.LocalReadingSubheadUpperCase
 import com.mckimquyen.reader.ui.component.base.BaseExtensibleVisibility
+import com.mckimquyen.reader.ui.component.reader.BodyItemRange
+import com.mckimquyen.reader.ui.component.reader.ItemCountingScope
 import com.mckimquyen.reader.ui.component.reader.Reader
+import com.mckimquyen.reader.ui.component.reader.recordRange
 import com.mckimquyen.reader.ui.component.rpg.BrainQuizCard
 import com.mckimquyen.reader.ui.ext.drawVerticalScrollbar
 import com.mckimquyen.reader.ui.ext.openURL
@@ -49,6 +51,7 @@ fun Content(
     isLoading: Boolean,
     articleId: String = "",
     brainRpgViewModel: BrainRpgViewModel? = null,
+    completionClock: () -> Long = SystemClock::elapsedRealtime,
 ) {
     val context = LocalContext.current
     val subheadUpperCase = LocalReadingSubheadUpperCase.current
@@ -68,21 +71,13 @@ fun Content(
         brainRpgViewModel?.quizGeneratorService?.detectCategory(title, content) ?: ""
     }
 
-    LaunchedEffect(listState, articleId, articleCategory) {
-        if (articleId.isNotBlank() && brainRpgViewModel != null) {
-            snapshotFlow {
-                val layout = listState.layoutInfo
-                val totalItems = layout.totalItemsCount
-                val lastVisible = layout.visibleItemsInfo.lastOrNull()?.index ?: 0
-                totalItems > 0 && lastVisible >= (totalItems * 0.75f).toInt()
-            }.collect { isNearBottom ->
-                if (isNearBottom) {
-                    brainRpgViewModel.onArticleReadFinished(articleId, articleCategory) {
-                        Toast.makeText(context, context.getString(R.string.brain_rpg_reading_reward), Toast.LENGTH_SHORT).show()
-                    }
-                }
+    val bodyRange = remember { BodyItemRange() }
+    if (brainRpgViewModel != null) {
+        ReadingCompletionTracker(listState, articleId, bodyRange, clock = completionClock, onCompleted = {
+            brainRpgViewModel.onArticleReadFinished(articleId, articleCategory) {
+                Toast.makeText(context, context.getString(R.string.brain_rpg_reading_reward), Toast.LENGTH_SHORT).show()
             }
-        }
+        })
     }
 
     SelectionContainer {
@@ -92,6 +87,9 @@ fun Content(
                 .drawVerticalScrollbar(listState),
             state = listState,
         ) {
+          // Counting scope lets the tracker know exactly which items Reader appended (metadata/loader/quiz excluded).
+          with(ItemCountingScope(this)) {
+            bodyRange.clear()
             item {
                 // TopBar is now a normal Column sibling above this Content (see ReadingPage.kt),
                 // so it already claims its own space — no manual status-bar/TopBar-height
@@ -132,14 +130,16 @@ fun Content(
                 }
             }
             if (!isLoading) {
-                Reader(
-                    subheadUpperCase = subheadUpperCase.value,
-                    link = link ?: "",
-                    content = content,
-                    onLinkClick = {
-                        context.openURL(it, openLink, openLinkSpecificBrowser)
-                    }
-                )
+                recordRange(bodyRange) {
+                    Reader(
+                        subheadUpperCase = subheadUpperCase.value,
+                        link = link ?: "",
+                        content = content,
+                        onLinkClick = {
+                            context.openURL(it, openLink, openLinkSpecificBrowser)
+                        }
+                    )
+                }
                 if (quiz != null) {
                     item {
                         BrainQuizCard(
@@ -168,6 +168,7 @@ fun Content(
                 // calculation needed here anymore).
                 Spacer(modifier = Modifier.height(24.dp))
             }
+          }
         }
     }
 }
