@@ -21,6 +21,13 @@ class BrainRpgViewModel @Inject constructor(
 
     val userProgress: StateFlow<UserProgress> = repository.userProgress
 
+    /** Cached ids whose double-XP bonus was taken; Compose reads this instead of querying Room. */
+    val doubleRewardedArticleIds: StateFlow<Set<String>> = repository.doubleRewardedArticleIds
+
+    fun refresh() {
+        viewModelScope.launch { repository.refresh() }
+    }
+
     /**
      * Idempotency lives in [BrainRpgRepository] (persisted), not in this ViewModel: a recreated ViewModel or a killed
      * process must not let the same article be rewarded again. [onRewarded] only fires when XP was really awarded.
@@ -28,7 +35,7 @@ class BrainRpgViewModel @Inject constructor(
     fun onArticleReadFinished(articleId: String, category: String, onRewarded: ((Long) -> Unit)? = null) {
         if (articleId.isBlank()) return
         viewModelScope.launch {
-            val awarded = repository.awardReadingXpOnce(articleId, category, BrainRpgRepository.READING_XP)
+            val awarded = repository.awardReadingXpOnce(articleId, category, READING_XP)
             if (awarded > 0L) onRewarded?.invoke(awarded)
         }
     }
@@ -40,9 +47,6 @@ class BrainRpgViewModel @Inject constructor(
         }
     }
 
-    /** Whether the "double the XP" bonus for this article was already taken (persisted, survives a restart). */
-    fun isDoubleRewardClaimed(articleId: String): Boolean = repository.isDoubleRewardClaimed(articleId)
-
     /** Awards the double-XP bonus once; [onDone] gets true only when XP was really added. */
     fun claimDoubleReward(articleId: String, category: String, bonusXp: Long, onDone: (Boolean) -> Unit) {
         viewModelScope.launch {
@@ -52,7 +56,7 @@ class BrainRpgViewModel @Inject constructor(
 
     fun doubleQuizReward(activity: Activity, articleId: String, category: String, bonusXp: Long, onDone: (Boolean) -> Unit) {
         // Do not even offer the rewarded ad when the bonus was already taken.
-        if (repository.isDoubleRewardClaimed(articleId)) {
+        if (articleId in doubleRewardedArticleIds.value) {
             onDone(false)
             return
         }
@@ -78,5 +82,9 @@ class BrainRpgViewModel @Inject constructor(
                 onDone(false)
             }
         }
+    }
+
+    private companion object {
+        const val READING_XP = 50L
     }
 }

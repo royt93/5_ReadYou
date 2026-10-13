@@ -15,6 +15,8 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
@@ -58,6 +60,9 @@ fun Content(
             brainRpgViewModel.quizGeneratorService.generateQuiz(articleId, title, content, author)
         } else null
     }
+
+    val doubleRewardedIds by (brainRpgViewModel?.doubleRewardedArticleIds ?: remember { kotlinx.coroutines.flow.MutableStateFlow(emptySet<String>()) })
+        .collectAsState()
 
     val articleCategory = remember(title, content) {
         brainRpgViewModel?.quizGeneratorService?.detectCategory(title, content) ?: ""
@@ -139,7 +144,7 @@ fun Content(
                     item {
                         BrainQuizCard(
                             quiz = quiz,
-                            doubleAlreadyClaimed = brainRpgViewModel?.isDoubleRewardClaimed(quiz.articleId) == true,
+                            doubleAlreadyClaimed = quiz.articleId in doubleRewardedIds,
                             onAnswerSubmitted = { isCorrect ->
                                 brainRpgViewModel?.submitQuizAnswer(quiz.articleId, quiz.category, isCorrect) { _, awarded ->
                                     if (isCorrect && awarded > 0) {

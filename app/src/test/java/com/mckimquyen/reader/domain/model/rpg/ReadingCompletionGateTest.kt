@@ -70,4 +70,15 @@ class ReadingCompletionGateTest {
         assertTrue(gate.isComplete("a1", 99, 0, 100, 30_000L))
         assertFalse("a completion is emitted only once per article visit", gate.isComplete("a1", 99, 0, 100, 31_000L))
     }
+
+    @Test
+    fun repeatedSameArticleNotification_doesNotResetTheDwellTimer() {
+        gate.onArticleChanged("a1", 0L)
+        gate.onForegroundChanged(true, 0L)
+        gate.isComplete("a1", 99, 0, 100, 25_000L)
+
+        gate.onArticleChanged("a1", 25_000L) // recomposition/same article callback, not a new visit
+
+        assertTrue(gate.isComplete("a1", 99, 0, 100, 30_000L))
+    }
 }

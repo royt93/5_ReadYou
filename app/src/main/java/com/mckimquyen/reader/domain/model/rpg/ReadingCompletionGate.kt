@@ -13,7 +13,9 @@ class ReadingCompletionGate(
 
     /** A different article visit starts a fresh continuous dwell period. */
     fun onArticleChanged(articleId: String, nowMillis: Long) {
-        activeArticleId = articleId.takeIf(String::isNotBlank)
+        val nextArticleId = articleId.takeIf(String::isNotBlank)
+        if (nextArticleId == activeArticleId) return
+        activeArticleId = nextArticleId
         accumulatedForegroundMillis = 0L
         foregroundStartedAt = nowMillis.takeIf { foreground && activeArticleId != null }
         emittedForCurrentVisit = false

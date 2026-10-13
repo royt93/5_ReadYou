@@ -10,7 +10,10 @@ data class UserProgress(
     val streakDays: Int = 1,
     val lastReadEpochDay: Long = 0L,
     val streakShieldActive: Boolean = false,
+    /** Base (earned, never decayed) XP per category. */
     val categoryXp: Map<String, Long> = emptyMap(),
+    /** Last qualifying practice per category; used to derive display decay. */
+    val categoryLastPracticedAt: Map<String, Long> = emptyMap(),
     val quizzesAttempted: Int = 0,
     val quizzesPassed: Int = 0
 ) {

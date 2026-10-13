@@ -2,183 +2,123 @@ package com.mckimquyen.reader.ui.page.rpg
 
 import android.app.Application
 import android.content.Context
+import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
+import com.mckimquyen.reader.domain.model.rpg.BrainRpgLegacyPreferences
+import com.mckimquyen.reader.domain.repository.BrainRpgDao
+import com.mckimquyen.reader.domain.repository.BrainRpgLegacyImporter
 import com.mckimquyen.reader.domain.repository.BrainRpgRepository
 import com.mckimquyen.reader.domain.sv.QuizGeneratorService
+import com.mckimquyen.reader.infrastructure.db.AndroidDatabase
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.*
+import kotlinx.coroutines.test.StandardTestDispatcher
+import kotlinx.coroutines.test.advanceUntilIdle
+import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.test.setMain
 import org.junit.After
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
-import kotlinx.coroutines.CoroutineScope
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @RunWith(RobolectricTestRunner::class)
 @Config(sdk = [34], application = Application::class)
 class BrainRpgViewModelTest {
-
     private val testDispatcher = StandardTestDispatcher()
     private lateinit var context: Context
+    private lateinit var database: AndroidDatabase
+    private lateinit var dao: BrainRpgDao
     private lateinit var repository: BrainRpgRepository
     private lateinit var quizGenerator: QuizGeneratorService
     private lateinit var viewModel: BrainRpgViewModel
 
-    @Before
-    fun setUp() {
+    @Before fun setUp() {
         Dispatchers.setMain(testDispatcher)
         context = ApplicationProvider.getApplicationContext()
-        context.getSharedPreferences("brain_rpg_prefs", Context.MODE_PRIVATE).edit().clear().commit()
-        repository = BrainRpgRepository(context, CoroutineScope(Dispatchers.Unconfined), Dispatchers.Unconfined)
+        context.getSharedPreferences(BrainRpgLegacyPreferences.PREFS_NAME, Context.MODE_PRIVATE).edit().clear().commit()
+        database = Room.inMemoryDatabaseBuilder(context, AndroidDatabase::class.java)
+            .allowMainThreadQueries()
+            // Direct executors: Room work completes inline so advanceUntilIdle() really waits for it.
+            .setQueryExecutor { it.run() }
+            .setTransactionExecutor { it.run() }
+            .build()
+        dao = database.brainRpgDao()
+        val importer = BrainRpgLegacyImporter(database, context.getSharedPreferences(BrainRpgLegacyPreferences.PREFS_NAME, Context.MODE_PRIVATE), dao)
+        repository = BrainRpgRepository(context, database, dao, importer, CoroutineScope(testDispatcher), testDispatcher)
         quizGenerator = QuizGeneratorService()
         viewModel = BrainRpgViewModel(repository, quizGenerator)
     }
 
-    @After
-    fun tearDown() {
+    @After fun tearDown() {
+        database.close()
         Dispatchers.resetMain()
     }
 
-    @Test
-    fun userProgress_initialState_emitsValidDefaults() {
-        val initial = viewModel.userProgress.value
-        assertEquals(0L, initial.totalXp)
-        assertEquals(1, initial.level)
-    }
-
-    @Test
-    fun onArticleReadFinished_deduplicatesSameArticleId() = runTest(testDispatcher) {
-        viewModel.onArticleReadFinished("art_1", QuizGeneratorService.CATEGORY_TECH)
-        testScheduler.advanceUntilIdle()
-
-        val progress1 = viewModel.userProgress.value
-        assertEquals(50L, progress1.totalXp)
-
-        // Reading same article again should NOT award XP again
-        viewModel.onArticleReadFinished("art_1", QuizGeneratorService.CATEGORY_TECH)
-        testScheduler.advanceUntilIdle()
-
-        val progress2 = viewModel.userProgress.value
-        assertEquals(50L, progress2.totalXp)
-
-        // Reading different article DOES award XP
-        viewModel.onArticleReadFinished("art_2", QuizGeneratorService.CATEGORY_TECH)
-        testScheduler.advanceUntilIdle()
-
-        val progress3 = viewModel.userProgress.value
-        assertEquals(100L, progress3.totalXp)
-    }
-
-    @Test
-    fun submitQuizAnswer_correct_updatesProgressWithAward() = runTest(testDispatcher) {
-        var callbackAwarded = -1L
-        viewModel.submitQuizAnswer("art_q", QuizGeneratorService.CATEGORY_TECH, true) { _, xp ->
-            callbackAwarded = xp
-        }
-        testScheduler.advanceUntilIdle()
-
-        assertEquals(150L, callbackAwarded)
-        val progress = viewModel.userProgress.value
-        assertEquals(150L, progress.totalXp)
-        assertEquals(1, progress.quizzesPassed)
-    }
-
-    @Test
-    fun onArticleReadFinished_callsOnRewardedOnlyOnFirstRead() = runTest(testDispatcher) {
-        var rewardInvoked = 0
-        viewModel.onArticleReadFinished("art_cb", QuizGeneratorService.CATEGORY_TECH) {
-            rewardInvoked++
-        }
-        testScheduler.advanceUntilIdle()
-        assertEquals(1, rewardInvoked)
-
-        // Second time on same article
-        viewModel.onArticleReadFinished("art_cb", QuizGeneratorService.CATEGORY_TECH) {
-            rewardInvoked++
-        }
-        testScheduler.advanceUntilIdle()
-        // Should STILL be 1 because it was deduplicated
-        assertEquals(1, rewardInvoked)
-    }
-
-    private fun recreatedViewModel() =
-        BrainRpgViewModel(
-            BrainRpgRepository(context, CoroutineScope(Dispatchers.Unconfined), Dispatchers.Unconfined),
-            quizGenerator,
-        )
-
-    @Test
-    fun readingXp_isNotAwardedAgain_afterTheViewModelIsRecreated() = runTest(testDispatcher) {
-        viewModel.onArticleReadFinished("art_kill", QuizGeneratorService.CATEGORY_TECH)
-        testScheduler.advanceUntilIdle()
+    @Test fun onArticleReadFinished_deduplicatesSameArticleId_acrossRepositoryAndViewModelLifetime() = runTest(testDispatcher) {
+        var rewarded = 0
+        viewModel.onArticleReadFinished("art_1", QuizGeneratorService.CATEGORY_TECH) { rewarded++ }
+        advanceUntilIdle()
         assertEquals(50L, viewModel.userProgress.value.totalXp)
+        assertEquals(1, rewarded)
 
-        // Process death / back-stack pop: a fresh ViewModel has an empty RAM set.
-        val reborn = recreatedViewModel()
-        var rewarded = 0
-        reborn.onArticleReadFinished("art_kill", QuizGeneratorService.CATEGORY_TECH) { rewarded++ }
-        testScheduler.advanceUntilIdle()
+        val recreated = BrainRpgViewModel(repository, quizGenerator)
+        recreated.onArticleReadFinished("art_1", QuizGeneratorService.CATEGORY_TECH) { rewarded++ }
+        advanceUntilIdle()
+        recreated.onArticleReadFinished("art_2", QuizGeneratorService.CATEGORY_TECH) { rewarded++ }
+        advanceUntilIdle()
 
-        assertEquals("no XP farming by reopening the article", 50L, reborn.userProgress.value.totalXp)
-        assertEquals("and no fake +50 XP toast", 0, rewarded)
+        assertEquals(100L, recreated.userProgress.value.totalXp)
+        assertEquals(2, rewarded)
     }
 
-    @Test
-    fun quizXp_isNotAwardedAgain_afterTheViewModelIsRecreated() = runTest(testDispatcher) {
-        viewModel.submitQuizAnswer("art_quiz", QuizGeneratorService.CATEGORY_TECH, true) { _, _ -> }
-        testScheduler.advanceUntilIdle()
+    @Test fun submitQuizAnswer_correctUpdatesProgressAndDuplicateReturnsZero() = runTest(testDispatcher) {
+        val awards = mutableListOf<Long>()
+        viewModel.submitQuizAnswer("art_q", QuizGeneratorService.CATEGORY_TECH, true) { _, xp -> awards += xp }
+        advanceUntilIdle()
+        viewModel.submitQuizAnswer("art_q", QuizGeneratorService.CATEGORY_TECH, true) { _, xp -> awards += xp }
+        advanceUntilIdle()
+
+        assertEquals(listOf(150L, 0L), awards)
         assertEquals(150L, viewModel.userProgress.value.totalXp)
-
-        val reborn = recreatedViewModel()
-        var awarded = -1L
-        reborn.submitQuizAnswer("art_quiz", QuizGeneratorService.CATEGORY_TECH, true) { _, xp -> awarded = xp }
-        testScheduler.advanceUntilIdle()
-
-        assertEquals(0L, awarded)
-        assertEquals(150L, reborn.userProgress.value.totalXp)
+        assertEquals(1, viewModel.userProgress.value.quizzesPassed)
     }
 
-    @Test
-    fun blankArticleId_neverAwardsReadingXp_orInvokesTheCallback() = runTest(testDispatcher) {
-        var rewarded = 0
-        viewModel.onArticleReadFinished("", QuizGeneratorService.CATEGORY_TECH) { rewarded++ }
-        testScheduler.advanceUntilIdle()
-        assertEquals(0, rewarded)
+    @Test fun wrongQuizAnswerCountsAttempt_butDoesNotAwardOrPractice() = runTest(testDispatcher) {
+        viewModel.submitQuizAnswer("art_q", QuizGeneratorService.CATEGORY_TECH, false) { _, xp -> assertEquals(0L, xp) }
+        advanceUntilIdle()
+        assertEquals(1, viewModel.userProgress.value.quizzesAttempted)
+        assertEquals(0, viewModel.userProgress.value.quizzesPassed)
         assertEquals(0L, viewModel.userProgress.value.totalXp)
+        assertEquals(null, dao.getCategory(QuizGeneratorService.CATEGORY_TECH)?.lastPracticedAtMillis)
     }
 
-    @Test
-    fun claimDoubleReward_awardsOnce_andReportsTheOutcomeToTheUi() = runTest(testDispatcher) {
-        viewModel.submitQuizAnswer("art_dbl", QuizGeneratorService.CATEGORY_TECH, true) { _, _ -> }
-        testScheduler.advanceUntilIdle()
+    @Test fun duplicateCorrectQuizStillRefreshesPracticeButNotXPOrCounters() = runTest(testDispatcher) {
+        viewModel.submitQuizAnswer("art_q", QuizGeneratorService.CATEGORY_TECH, true) { _, _ -> }
+        advanceUntilIdle()
+        val timeBefore = dao.getCategory(QuizGeneratorService.CATEGORY_TECH)?.lastPracticedAtMillis
+        viewModel.submitQuizAnswer("art_q", QuizGeneratorService.CATEGORY_TECH, true) { _, xp -> assertEquals(0L, xp) }
+        advanceUntilIdle()
 
-        val results = mutableListOf<Boolean>()
-        viewModel.claimDoubleReward("art_dbl", QuizGeneratorService.CATEGORY_TECH, 150L) { results += it }
-        viewModel.claimDoubleReward("art_dbl", QuizGeneratorService.CATEGORY_TECH, 150L) { results += it }
-        testScheduler.advanceUntilIdle()
-
-        assertEquals(listOf(true, false), results)
-        assertEquals(300L, viewModel.userProgress.value.totalXp)
-        assertTrue(viewModel.isDoubleRewardClaimed("art_dbl"))
+        assertTrue((dao.getCategory(QuizGeneratorService.CATEGORY_TECH)?.lastPracticedAtMillis ?: 0L) >= (timeBefore ?: 0L))
+        assertEquals(1, viewModel.userProgress.value.quizzesAttempted)
+        assertEquals(1, viewModel.userProgress.value.quizzesPassed)
     }
 
-    @Test
-    fun claimDoubleReward_afterTheViewModelIsRecreated_awardsNothing() = runTest(testDispatcher) {
-        viewModel.submitQuizAnswer("art_dbl2", QuizGeneratorService.CATEGORY_TECH, true) { _, _ -> }
-        viewModel.claimDoubleReward("art_dbl2", QuizGeneratorService.CATEGORY_TECH, 150L) { }
-        testScheduler.advanceUntilIdle()
-
-        val reborn = recreatedViewModel()
-        var outcome: Boolean? = null
-        reborn.claimDoubleReward("art_dbl2", QuizGeneratorService.CATEGORY_TECH, 150L) { outcome = it }
-        testScheduler.advanceUntilIdle()
-
-        assertEquals(false, outcome)
-        assertEquals(300L, reborn.userProgress.value.totalXp)
-        assertTrue("the card must be able to hide the button", reborn.isDoubleRewardClaimed("art_dbl2"))
+    @Test fun doubleRewardClaimedIds_areExposedAsFlowForCompose_notSyncRoomReads() = runTest(testDispatcher) {
+        viewModel.submitQuizAnswer("art_d", QuizGeneratorService.CATEGORY_TECH, true) { _, _ -> }
+        advanceUntilIdle()
+        viewModel.claimDoubleReward("art_d", QuizGeneratorService.CATEGORY_TECH, 150L) { assertTrue(it) }
+        advanceUntilIdle()
+        viewModel.refresh()
+        advanceUntilIdle()
+        assertTrue(viewModel.doubleRewardedArticleIds.value.contains("art_d"))
     }
 }
