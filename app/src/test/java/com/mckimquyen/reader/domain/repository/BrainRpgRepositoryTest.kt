@@ -119,6 +119,43 @@ class BrainRpgRepositoryTest {
         assertEquals(100L, dao.getCategory(QuizGeneratorService.CATEGORY_TECH)?.baseXp)
     }
 
+    @Test fun recoverCategory_resetsOnlyThatCategoryPracticeTime_withoutChangingXp() = runTest {
+        repository.awardReadingXpOnce("r-tech", QuizGeneratorService.CATEGORY_TECH, 100L, NOW)
+        repository.awardReadingXpOnce("r-sci", QuizGeneratorService.CATEGORY_SCIENCE, 80L, NOW)
+        val later = NOW + 3 * com.mckimquyen.reader.domain.model.rpg.CategoryDecay.WEEK_MILLIS
+
+        assertTrue(repository.recoverCategory(QuizGeneratorService.CATEGORY_TECH, later))
+
+        assertEquals(later, dao.getCategory(QuizGeneratorService.CATEGORY_TECH)?.lastPracticedAtMillis)
+        assertEquals(NOW, dao.getCategory(QuizGeneratorService.CATEGORY_SCIENCE)?.lastPracticedAtMillis)
+        assertEquals(100L, dao.getCategory(QuizGeneratorService.CATEGORY_TECH)?.baseXp)
+        assertEquals(180L, dao.getProfile()?.baseTotalXp)
+        val progress = repository.refresh(later)
+        assertEquals(100L, progress.categoryXp[QuizGeneratorService.CATEGORY_TECH])
+        assertTrue(progress.categoryXp[QuizGeneratorService.CATEGORY_SCIENCE]!! < 80L)
+    }
+
+    @Test fun recoverCategory_refusesWhenNotDecayed_unknownOrBlank() = runTest {
+        repository.awardReadingXpOnce("r-tech", QuizGeneratorService.CATEGORY_TECH, 100L, NOW)
+        assertFalse("fresh category has nothing to recover", repository.recoverCategory(QuizGeneratorService.CATEGORY_TECH, NOW + 1_000L))
+        assertFalse(repository.recoverCategory("never-practiced", NOW + 10 * com.mckimquyen.reader.domain.model.rpg.CategoryDecay.WEEK_MILLIS))
+        assertFalse(repository.recoverCategory("  ", NOW + 10 * com.mckimquyen.reader.domain.model.rpg.CategoryDecay.WEEK_MILLIS))
+        assertEquals(NOW, dao.getCategory(QuizGeneratorService.CATEGORY_TECH)?.lastPracticedAtMillis)
+    }
+
+    @Test fun recoverCategory_clockRollback_neverMovesPracticeTimeBackwards() = runTest {
+        repository.awardReadingXpOnce("r-tech", QuizGeneratorService.CATEGORY_TECH, 100L, NOW)
+        assertFalse(repository.recoverCategory(QuizGeneratorService.CATEGORY_TECH, NOW - 1_000L))
+        assertEquals(NOW, dao.getCategory(QuizGeneratorService.CATEGORY_TECH)?.lastPracticedAtMillis)
+    }
+
+    @Test fun recoverCategory_secondCallRightAfterIsRefused() = runTest {
+        repository.awardReadingXpOnce("r-tech", QuizGeneratorService.CATEGORY_TECH, 100L, NOW)
+        val later = NOW + 2 * com.mckimquyen.reader.domain.model.rpg.CategoryDecay.WEEK_MILLIS
+        assertTrue(repository.recoverCategory(QuizGeneratorService.CATEGORY_TECH, later))
+        assertFalse("a duplicate ad callback must not recover twice", repository.recoverCategory(QuizGeneratorService.CATEGORY_TECH, later + 1_000L))
+    }
+
     @Test fun repeatedQualifyingRead_doesNotAwardAgain_butRefreshesPractice() = runTest {
         repository.awardReadingXpOnce("a1", QuizGeneratorService.CATEGORY_TECH, nowMillis = NOW)
         assertEquals(0L, repository.awardReadingXpOnce("a1", QuizGeneratorService.CATEGORY_TECH, nowMillis = NOW + 1_000))

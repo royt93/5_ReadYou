@@ -112,6 +112,68 @@ class BrainRpgViewModelTest {
         assertEquals(1, viewModel.userProgress.value.quizzesPassed)
     }
 
+    @Test fun recoverCategory_adEarned_resetsThatCategoryOnly() = runTest(testDispatcher) {
+        viewModel.onArticleReadFinished("a-t", QuizGeneratorService.CATEGORY_TECH)
+        viewModel.onArticleReadFinished("a-s", QuizGeneratorService.CATEGORY_SCIENCE)
+        advanceUntilIdle()
+        val old = System.currentTimeMillis() - 3 * com.mckimquyen.reader.domain.model.rpg.CategoryDecay.WEEK_MILLIS
+        dao.upsertCategory(requireNotNull(dao.getCategory(QuizGeneratorService.CATEGORY_TECH)).copy(lastPracticedAtMillis = old))
+        dao.upsertCategory(requireNotNull(dao.getCategory(QuizGeneratorService.CATEGORY_SCIENCE)).copy(lastPracticedAtMillis = old))
+        viewModel.refresh()
+        advanceUntilIdle()
+
+        var result: Boolean? = null
+        viewModel.recoverCategory(QuizGeneratorService.CATEGORY_TECH, showAd = { onEarned -> onEarned(true) }) { result = it }
+        advanceUntilIdle()
+
+        assertEquals(true, result)
+        assertTrue(requireNotNull(dao.getCategory(QuizGeneratorService.CATEGORY_TECH)).lastPracticedAtMillis > old)
+        assertEquals(old, dao.getCategory(QuizGeneratorService.CATEGORY_SCIENCE)?.lastPracticedAtMillis)
+    }
+
+    @Test fun recoverCategory_adNotEarned_changesNothing_andReportsFailure() = runTest(testDispatcher) {
+        viewModel.onArticleReadFinished("a-t", QuizGeneratorService.CATEGORY_TECH)
+        advanceUntilIdle()
+        val old = System.currentTimeMillis() - 3 * com.mckimquyen.reader.domain.model.rpg.CategoryDecay.WEEK_MILLIS
+        dao.upsertCategory(requireNotNull(dao.getCategory(QuizGeneratorService.CATEGORY_TECH)).copy(lastPracticedAtMillis = old))
+        viewModel.refresh()
+        advanceUntilIdle()
+
+        var result: Boolean? = null
+        viewModel.recoverCategory(QuizGeneratorService.CATEGORY_TECH, showAd = { onEarned -> onEarned(false) }) { result = it }
+        advanceUntilIdle()
+
+        assertEquals(false, result)
+        assertEquals(old, dao.getCategory(QuizGeneratorService.CATEGORY_TECH)?.lastPracticedAtMillis)
+    }
+
+    @Test fun recoverCategory_notDecayed_neverShowsTheAd() = runTest(testDispatcher) {
+        viewModel.onArticleReadFinished("a-t", QuizGeneratorService.CATEGORY_TECH)
+        advanceUntilIdle()
+        var adShown = false
+        var result: Boolean? = null
+        viewModel.recoverCategory(QuizGeneratorService.CATEGORY_TECH, showAd = { adShown = true }) { result = it }
+        advanceUntilIdle()
+
+        assertFalse("must not offer an ad when there is nothing to recover", adShown)
+        assertEquals(false, result)
+    }
+
+    @Test fun recoverCategory_ignoresASecondEarnedCallback() = runTest(testDispatcher) {
+        viewModel.onArticleReadFinished("a-t", QuizGeneratorService.CATEGORY_TECH)
+        advanceUntilIdle()
+        val old = System.currentTimeMillis() - 3 * com.mckimquyen.reader.domain.model.rpg.CategoryDecay.WEEK_MILLIS
+        dao.upsertCategory(requireNotNull(dao.getCategory(QuizGeneratorService.CATEGORY_TECH)).copy(lastPracticedAtMillis = old))
+        viewModel.refresh()
+        advanceUntilIdle()
+
+        val results = mutableListOf<Boolean>()
+        viewModel.recoverCategory(QuizGeneratorService.CATEGORY_TECH, showAd = { onEarned -> onEarned(true); onEarned(true) }) { results += it }
+        advanceUntilIdle()
+
+        assertEquals("a duplicate ad callback reports once", listOf(true), results)
+    }
+
     @Test fun doubleRewardClaimedIds_areExposedAsFlowForCompose_notSyncRoomReads() = runTest(testDispatcher) {
         viewModel.submitQuizAnswer("art_d", QuizGeneratorService.CATEGORY_TECH, true) { _, _ -> }
         advanceUntilIdle()

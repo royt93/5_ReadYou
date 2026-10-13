@@ -491,6 +491,10 @@
     <string name="brain_rpg_category_health">Health &amp; Lifestyle</string>
     <string name="brain_rpg_category_philosophy">Philosophy &amp; Ideas</string>
     <string name="brain_rpg_category_general">General Knowledge</string>
+    <string name="brain_rpg_recover_action">回復（広告を見る）</string>
+    <string name="brain_rpg_recover_pending">広告を待っています…</string>
+    <string name="brain_rpg_recover_success">カテゴリを更新しました！</string>
+    <string name="brain_rpg_recover_unavailable">回復できません</string>
     <string name="brain_rpg_decay_notification_channel_desc">カテゴリ XP の毎日の減衰サマリー</string>
     <string name="brain_rpg_decay_notification_channel">Brain RPG リマインダー</string>
     <string name="brain_rpg_decay_notification_content">保持 XP が減少中のカテゴリ：%1$d。復習：%2$s</string>

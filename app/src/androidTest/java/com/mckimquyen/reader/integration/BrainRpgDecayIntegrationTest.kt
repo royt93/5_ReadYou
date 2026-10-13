@@ -51,4 +51,34 @@ class BrainRpgDecayIntegrationTest {
         assertEquals(100L, afterWeek.totalXp)
         assertEquals(100L, db.brainRpgDao().getCategory(category)?.baseXp)
     }
+
+    @Test fun recovery_resetsOnlyTheChosenCategory_keepsXpAndLevel() = runBlocking {
+        val tech = QuizGeneratorService.CATEGORY_TECH
+        val science = QuizGeneratorService.CATEGORY_SCIENCE
+        val practiced = 1_800_000_000_000L
+        val week = 7L * 24L * 60L * 60L * 1_000L
+        repository.awardReadingXpOnce("rec-tech", tech, 100L, practiced)
+        repository.awardReadingXpOnce("rec-sci", science, 100L, practiced)
+        val before = repository.refresh(practiced + 2 * week)
+        assertEquals(81L, before.categoryXp[tech])
+
+        assertEquals(true, repository.recoverCategory(tech, practiced + 2 * week))
+
+        val after = repository.refresh(practiced + 2 * week)
+        assertEquals(100L, after.categoryXp[tech])
+        assertEquals("the other category keeps decaying", 81L, after.categoryXp[science])
+        assertEquals(before.totalXp, after.totalXp)
+        assertEquals(before.level, after.level)
+        assertEquals(100L, after.categoryBaseXp[tech])
+    }
+
+    @Test fun recovery_isRefusedWhenNothingDecayed_andSurvivesRepeatedCallbacks() = runBlocking {
+        val tech = QuizGeneratorService.CATEGORY_TECH
+        val practiced = 1_800_000_000_000L
+        repository.awardReadingXpOnce("rec-fresh", tech, 100L, practiced)
+        assertEquals(false, repository.recoverCategory(tech, practiced + 1_000L))
+        val later = practiced + 3L * 7L * 24L * 60L * 60L * 1_000L
+        assertEquals(true, repository.recoverCategory(tech, later))
+        assertEquals(false, repository.recoverCategory(tech, later + 5_000L))
+    }
 }

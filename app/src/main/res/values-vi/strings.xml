@@ -464,6 +464,10 @@
     <string name="brain_rpg_category_health">Sức Khỏe &amp; Thể Chất</string>
     <string name="brain_rpg_category_philosophy">Triết Học &amp; Tư Duy</string>
     <string name="brain_rpg_category_general">Tri Thức Tổng Hợp</string>
+    <string name="brain_rpg_recover_action">Khôi phục (Xem quảng cáo)</string>
+    <string name="brain_rpg_recover_pending">Đang chờ quảng cáo…</string>
+    <string name="brain_rpg_recover_success">Đã làm mới danh mục!</string>
+    <string name="brain_rpg_recover_unavailable">Không thể khôi phục</string>
     <string name="brain_rpg_decay_notification_channel_desc">Tóm tắt giảm XP danh mục hằng ngày</string>
     <string name="brain_rpg_decay_notification_channel">Nhắc ôn Brain RPG</string>
     <string name="brain_rpg_decay_notification_content">Danh mục đang giảm XP giữ lại: %1$d. Ôn tập: %2$s</string>

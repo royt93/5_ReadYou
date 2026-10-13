@@ -65,6 +65,37 @@ class BrainRpgViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Rewarded recovery for ONE decayed category. The ad is only offered when the cached progress shows real decay,
+     * and the repository re-validates at claim time (the ad callback is async and may repeat). [onDone] fires once:
+     * true only when the category was really reset. [showAd] is injectable so this stays unit-testable.
+     */
+    fun recoverCategory(
+        categoryId: String,
+        showAd: ((Boolean) -> Unit) -> Unit,
+        onDone: (Boolean) -> Unit,
+    ) {
+        val progress = userProgress.value
+        val base = progress.categoryBaseXp[categoryId] ?: 0L
+        val effective = progress.categoryXp[categoryId] ?: 0L
+        if (base <= 0L || effective >= base) {
+            onDone(false)
+            return
+        }
+        val handled = java.util.concurrent.atomic.AtomicBoolean(false)
+        showAd { earned ->
+            if (!handled.compareAndSet(false, true)) return@showAd
+            if (!earned) {
+                onDone(false)
+                return@showAd
+            }
+            viewModelScope.launch { onDone(repository.recoverCategory(categoryId)) }
+        }
+    }
+
+    fun recoverCategory(activity: Activity, categoryId: String, onDone: (Boolean) -> Unit) =
+        recoverCategory(categoryId, showAd = { cb -> AdManager.showRewarded(activity) { earned -> cb(earned) } }, onDone = onDone)
+
     fun retryQuiz(activity: Activity, onDone: (Boolean) -> Unit) {
         AdManager.showRewarded(activity) { earned ->
             onDone(earned)

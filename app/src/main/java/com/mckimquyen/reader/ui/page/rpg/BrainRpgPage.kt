@@ -44,6 +44,7 @@ fun BrainRpgPage(
     val progress by viewModel.userProgress.collectAsState()
 
     LaunchedEffect(viewModel) { viewModel.refresh() }
+    var recoveringCategoryId by remember { mutableStateOf<String?>(null) }
 
     BackHandler {
         navController.popBackStack()
@@ -100,7 +101,20 @@ fun BrainRpgPage(
 
                 // 3. Knowledge Tree (Categories)
                 item {
-                    KnowledgeSkillTreeCard(progress = progress)
+                    KnowledgeSkillTreeCard(
+                        progress = progress,
+                        recoveringCategoryId = recoveringCategoryId,
+                        onRecover = { categoryId ->
+                            if (recoveringCategoryId == null) {
+                                recoveringCategoryId = categoryId
+                                viewModel.recoverCategory(activity, categoryId) { recovered ->
+                                    recoveringCategoryId = null
+                                    val message = if (recovered) R.string.brain_rpg_recover_success else R.string.brain_rpg_recover_unavailable
+                                    Toast.makeText(context, context.getString(message), Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                        },
+                    )
                     Spacer(modifier = Modifier.height(16.dp))
                 }
 
@@ -312,7 +326,11 @@ internal fun StreakShieldCard(
 }
 
 @Composable
-internal fun KnowledgeSkillTreeCard(progress: UserProgress) {
+internal fun KnowledgeSkillTreeCard(
+    progress: UserProgress,
+    recoveringCategoryId: String? = null,
+    onRecover: ((String) -> Unit)? = null,
+) {
     val categories = listOf(
         QuizGeneratorService.CATEGORY_TECH to (Icons.Outlined.Memory to stringResource(R.string.brain_rpg_category_tech)),
         QuizGeneratorService.CATEGORY_BUSINESS to (Icons.Outlined.TrendingUp to stringResource(R.string.brain_rpg_category_business)),
@@ -390,6 +408,21 @@ internal fun KnowledgeSkillTreeCard(progress: UserProgress) {
                                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                                     )
                                 }
+                            }
+                        }
+                        val decayedBase = progress.categoryBaseXp[key] ?: catXp
+                        if (onRecover != null && decayedBase > catXp) {
+                            val isPending = recoveringCategoryId == key
+                            TextButton(
+                                onClick = { onRecover(key) },
+                                // One ad at a time: every recovery button is locked while one is pending.
+                                enabled = recoveringCategoryId == null,
+                            ) {
+                                Text(
+                                    text = if (isPending) stringResource(R.string.brain_rpg_recover_pending)
+                                    else stringResource(R.string.brain_rpg_recover_action),
+                                    style = MaterialTheme.typography.labelMedium,
+                                )
                             }
                         }
                         Spacer(modifier = Modifier.height(4.dp))

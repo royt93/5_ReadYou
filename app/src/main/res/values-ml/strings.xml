@@ -565,6 +565,10 @@
     <string name="brain_rpg_category_health">Health &amp; Lifestyle</string>
     <string name="brain_rpg_category_philosophy">Philosophy &amp; Ideas</string>
     <string name="brain_rpg_category_general">General Knowledge</string>
+    <string name="brain_rpg_recover_action">Recover (Watch ad)</string>
+    <string name="brain_rpg_recover_pending">Waiting for ad…</string>
+    <string name="brain_rpg_recover_success">Category refreshed!</string>
+    <string name="brain_rpg_recover_unavailable">Recovery unavailable</string>
     <string name="brain_rpg_decay_notification_title">Review your categories</string>
     <string name="brain_rpg_decay_notification_body">Categories losing retained XP: %1$d. Practice: %2$s</string>
     <string name="brain_rpg_decay_notification_content">Categories losing retained XP: %1$d. Practice: %2$s</string>

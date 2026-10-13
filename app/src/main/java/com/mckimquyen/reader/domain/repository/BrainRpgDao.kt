@@ -120,6 +120,19 @@ abstract class BrainRpgDao {
         return true
     }
 
+    /**
+     * Rewarded recovery: resets only [categoryId]'s practice time, and only while it has actually decayed
+     * (>= 1 full week, XP > 0, clock not rolled back). Eligibility and write share one transaction, so a late or
+     * duplicate ad callback cannot recover twice. Never touches XP, counters or the reward ledger.
+     */
+    @Transaction
+    open suspend fun recoverDecayedCategory(categoryId: String, nowMillis: Long, minDecayMillis: Long): Boolean {
+        val category = getCategory(categoryId) ?: return false
+        if (category.baseXp <= 0L || nowMillis - category.lastPracticedAtMillis < minDecayMillis) return false
+        updatePracticeTimestamp(categoryId, nowMillis)
+        return true
+    }
+
     @Transaction
     open suspend fun recordWrongQuizAttempt() {
         val current = getProfile() ?: BrainRpgProfileEntity()

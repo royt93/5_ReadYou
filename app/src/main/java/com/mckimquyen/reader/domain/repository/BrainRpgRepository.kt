@@ -159,6 +159,20 @@ class BrainRpgRepository @Inject constructor(
         true
     }
 
+    /**
+     * Called after a rewarded ad was earned. Eligibility is re-validated here (not just before the ad was shown),
+     * because the callback is asynchronous and may arrive late or twice. Returns true only when state changed.
+     */
+    suspend fun recoverCategory(categoryId: String, nowMillis: Long = System.currentTimeMillis()): Boolean {
+        if (categoryId.isBlank()) return false
+        return mutationMutex.withLock {
+            legacyImporter.ensureImported(nowMillis)
+            val recovered = dao.recoverDecayedCategory(categoryId, nowMillis, CategoryDecay.WEEK_MILLIS)
+            if (recovered) refresh(nowMillis)
+            recovered
+        }
+    }
+
     suspend fun recordWrongQuizAttempt(): UserProgress = mutationMutex.withLock {
         legacyImporter.ensureImported(System.currentTimeMillis())
         dao.recordWrongQuizAttempt()
