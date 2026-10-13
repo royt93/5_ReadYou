@@ -9,6 +9,14 @@ _None._
 
 _None. Campaign (EXC-01, EXC-08, EXC-03, EXC-07) complete._
 
+## ⏸️ Deferred
+
+- FIX-09 — Gemini API key hardcoded in APK (P0 security). **Deferred on 2026-10-13 by the owner; re-raise around 2026-11-13.**
+  - Fact: `GeminiConfig.kt` ships several default keys only XOR+Base64 with a fixed PAD, so anyone decompiling the APK can recover them. Every AI feature (summary, Deep Read, Mind Map, Daily Digest, CommuteCast) resolves keys through `GeminiSummaryService.resolveApiKeys()`: the user's BYOK key first, then these defaults.
+  - Removing the defaults without a replacement disables AI for every user who has not entered their own key (BYOK users are unaffected; offline highlights still work).
+  - Options discussed: (a) only reduce risk (restrict keys to package+SHA-1 and Generative Language API in Google Cloud, set quotas, document it), (b) BYOK only, (c) own proxy backend, (d) Firebase AI Logic + App Check. No option chosen yet.
+  - Revoking/rotating keys in Google Cloud Console is a manual owner action, not done here.
+
 ## ✅ Implemented
 
 - EXC-01 — AI Daily Smart Digest. Generation via Gemini, Room history, source links, unit/widget/integration tests, Tecno smoke verified. Committed locally (8c9301e0).
