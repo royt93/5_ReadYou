@@ -12,6 +12,7 @@ import coil.ImageLoader
 import coil.ImageLoaderFactory
 import com.mckimquyen.reader.domain.sv.AccountSv
 import com.mckimquyen.reader.domain.sv.AppSv
+import com.mckimquyen.reader.domain.sv.BrainRpgDecayWorker
 import com.mckimquyen.reader.domain.sv.CommuteWorker
 import com.mckimquyen.reader.domain.sv.LocalRssSv
 import com.mckimquyen.reader.domain.sv.OpmlSv
@@ -206,6 +207,7 @@ class RApp : Application(), WorkConfiguration.Provider, ImageLoaderFactory {
     private suspend fun workerInit() {
         rssSv.get().doSync(isOnStart = true)
         CommuteWorker.enqueueDailyWork(workManager)
+        BrainRpgDecayWorker.enqueueDailyWork(workManager)
     }
 
     private suspend fun checkUpdate() {

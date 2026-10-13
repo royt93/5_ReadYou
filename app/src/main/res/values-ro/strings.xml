@@ -496,6 +496,11 @@
     <string name="brain_rpg_category_health">Health &amp; Lifestyle</string>
     <string name="brain_rpg_category_philosophy">Philosophy &amp; Ideas</string>
     <string name="brain_rpg_category_general">General Knowledge</string>
+    <string name="brain_rpg_decay_notification_title">Review your categories</string>
+    <string name="brain_rpg_decay_notification_body">Categories losing retained XP: %1$d. Practice: %2$s</string>
+    <string name="brain_rpg_decay_notification_content">Categories losing retained XP: %1$d. Practice: %2$s</string>
+    <string name="brain_rpg_decay_notification_channel">Brain RPG reminders</string>
+    <string name="brain_rpg_decay_notification_channel_desc">Daily category decay summary</string>
     <string name="brain_rpg_xp_retained">Base %1$d XP · %2$d%% retained</string>
     <string name="brain_rpg_streak_shield_success">Streak Shield activated!</string>
     <string name="brain_rpg_streak_shield_protected">Protected</string>

@@ -85,8 +85,16 @@ fun HomeEntry(
     val intent by rememberSaveable { mutableStateOf(context.findActivity()?.intent) }
     var openArticleId by rememberSaveable {
         mutableStateOf(intent?.extras?.getString(ExtraName.ARTICLE_ID) ?: "")
-    }.also {
-        intent?.replaceExtras(null)
+    }
+    var initialRoute by rememberSaveable {
+        mutableStateOf(intent?.getStringExtra(NotificationHelper.EXTRA_INITIAL_ROUTE).orEmpty())
+    }
+    intent?.replaceExtras(null)
+    LaunchedEffect(initialRoute) {
+        if (initialRoute.isNotBlank()) {
+            navController.navigate(initialRoute) { launchSingleTop = true }
+            initialRoute = ""
+        }
     }
 
     val showCommuteCast by homeViewModel.showCommuteCast.collectAsState()

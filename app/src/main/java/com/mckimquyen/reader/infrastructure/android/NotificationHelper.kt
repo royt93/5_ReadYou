@@ -13,6 +13,7 @@ import com.mckimquyen.reader.R
 import com.mckimquyen.reader.domain.model.article.Article
 import com.mckimquyen.reader.domain.model.feed.FeedWithArticle
 import com.mckimquyen.reader.ui.page.common.ExtraName
+import com.mckimquyen.reader.ui.page.common.RouteName
 import com.mckimquyen.reader.ui.page.common.NotificationGroupName
 import javax.inject.Inject
 
@@ -46,6 +47,15 @@ class NotificationHelper @Inject constructor(
                     NotificationManager.IMPORTANCE_DEFAULT
                 ).apply {
                     description = "Bản tin tạp chí định giờ sáng và tối"
+                }
+            )
+            createNotificationChannel(
+                NotificationChannel(
+                    RPG_DECAY_CHANNEL_ID,
+                    context.getString(R.string.brain_rpg_decay_notification_channel),
+                    NotificationManager.IMPORTANCE_DEFAULT,
+                ).apply {
+                    description = context.getString(R.string.brain_rpg_decay_notification_channel_desc)
                 }
             )
             createNotificationChannel(
@@ -200,6 +210,33 @@ class NotificationHelper @Inject constructor(
         post(ZEN_DAILY_EDITION_NOTIFICATION_ID, notification)
     }
 
+    fun notifyRpgDecay(title: String, body: String) {
+        val intent = Intent(context, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            putExtra(EXTRA_INITIAL_ROUTE, RouteName.BRAIN_RPG)
+        }
+        val pendingIntent = PendingIntent.getActivity(
+            context,
+            RPG_DECAY_NOTIFICATION_ID,
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
+        )
+        val notification = NotificationCompat.Builder(context, RPG_DECAY_CHANNEL_ID)
+            .setSmallIcon(R.drawable.ic_notification)
+            .setContentTitle(title)
+            .setContentText(body)
+            .setStyle(NotificationCompat.BigTextStyle().bigText(body))
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setAutoCancel(true)
+            .setContentIntent(pendingIntent)
+            .build()
+        post(RPG_DECAY_NOTIFICATION_ID, notification)
+    }
+
+    fun cancelRpgDecay() {
+        notificationManager.cancel(RPG_DECAY_NOTIFICATION_ID)
+    }
+
     fun notifyWatchdogAlert(article: Article, keyword: String, feedName: String) {
         val intent = Intent(context, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -230,6 +267,9 @@ class NotificationHelper @Inject constructor(
     }
 
     companion object {
+        const val RPG_DECAY_CHANNEL_ID = "brain_rpg_decay_channel"
+        const val RPG_DECAY_NOTIFICATION_ID = 9966
+        const val EXTRA_INITIAL_ROUTE = "extra_initial_route"
         const val WATCHDOG_CHANNEL_ID = "watchdog_keyword_alert_channel"
         const val COMMUTE_CHANNEL_ID = "commute_cast_channel"
         const val COMMUTE_NOTIFICATION_ID = 9988
