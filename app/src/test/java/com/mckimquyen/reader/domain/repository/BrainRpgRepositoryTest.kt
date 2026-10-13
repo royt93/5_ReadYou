@@ -138,4 +138,95 @@ class BrainRpgRepositoryTest {
         assertEquals(200L, lazyRepository.userProgress.value.totalXp)
         assertEquals(200L, lazyRepository.userProgress.value.categoryXp[QuizGeneratorService.CATEGORY_TECH])
     }
+
+    private fun freshRepositorySameStorage() =
+        BrainRpgRepository(context, CoroutineScope(Dispatchers.Unconfined), Dispatchers.Unconfined)
+
+    @Test
+    fun awardReadingXpOnce_awardsTheFirstTime_andReturnsTheAmount() {
+        val awarded = repository.awardReadingXpOnce("art-1", QuizGeneratorService.CATEGORY_TECH, 50L)
+
+        assertEquals(50L, awarded)
+        assertEquals(50L, repository.getProgress().totalXp)
+    }
+
+    @Test
+    fun awardReadingXpOnce_secondCallForTheSameArticle_awardsNothing() {
+        repository.awardReadingXpOnce("art-1", QuizGeneratorService.CATEGORY_TECH, 50L)
+        val again = repository.awardReadingXpOnce("art-1", QuizGeneratorService.CATEGORY_TECH, 50L)
+
+        assertEquals("a repeat must report that nothing was awarded", 0L, again)
+        assertEquals(50L, repository.getProgress().totalXp)
+    }
+
+    @Test
+    fun awardReadingXpOnce_survivesTheProcessBeingKilled() {
+        repository.awardReadingXpOnce("art-1", QuizGeneratorService.CATEGORY_TECH, 50L)
+
+        // A brand new repository on the same storage = app killed and reopened (RAM state is gone).
+        val afterRestart = freshRepositorySameStorage()
+        val again = afterRestart.awardReadingXpOnce("art-1", QuizGeneratorService.CATEGORY_TECH, 50L)
+
+        assertEquals(0L, again)
+        assertEquals(50L, afterRestart.getProgress().totalXp)
+    }
+
+    @Test
+    fun awardReadingXpOnce_differentArticlesEachAward() {
+        repository.awardReadingXpOnce("art-1", QuizGeneratorService.CATEGORY_TECH, 50L)
+        repository.awardReadingXpOnce("art-2", QuizGeneratorService.CATEGORY_TECH, 50L)
+
+        assertEquals(100L, repository.getProgress().totalXp)
+    }
+
+    @Test
+    fun awardReadingXpOnce_blankArticleId_awardsNothing() {
+        assertEquals(0L, repository.awardReadingXpOnce("", QuizGeneratorService.CATEGORY_TECH, 50L))
+        assertEquals(0L, repository.awardReadingXpOnce("   ", QuizGeneratorService.CATEGORY_TECH, 50L))
+        assertEquals(0L, repository.getProgress().totalXp)
+    }
+
+    @Test
+    fun submitQuizResultOnce_correctAnswer_awardsOncePerArticle() {
+        val (first, firstAward) = repository.submitQuizResultOnce("art-1", QuizGeneratorService.CATEGORY_TECH, true)
+        val (second, secondAward) = repository.submitQuizResultOnce("art-1", QuizGeneratorService.CATEGORY_TECH, true)
+
+        assertEquals(150L, firstAward)
+        assertEquals(0L, secondAward)
+        assertEquals(150L, first.totalXp)
+        assertEquals("a repeat must not add XP", 150L, second.totalXp)
+        assertEquals("a repeat must not inflate the pass count either", 1, second.quizzesPassed)
+    }
+
+    @Test
+    fun submitQuizResultOnce_survivesTheProcessBeingKilled() {
+        repository.submitQuizResultOnce("art-1", QuizGeneratorService.CATEGORY_TECH, true)
+
+        val afterRestart = freshRepositorySameStorage()
+        val (progress, award) = afterRestart.submitQuizResultOnce("art-1", QuizGeneratorService.CATEGORY_TECH, true)
+
+        assertEquals(0L, award)
+        assertEquals(150L, progress.totalXp)
+    }
+
+    @Test
+    fun submitQuizResultOnce_aWrongAnswerDoesNotUseUpTheReward_soARetryCanStillEarnIt() {
+        val (afterWrong, wrongAward) = repository.submitQuizResultOnce("art-1", QuizGeneratorService.CATEGORY_TECH, false)
+        val (afterRetry, retryAward) = repository.submitQuizResultOnce("art-1", QuizGeneratorService.CATEGORY_TECH, true)
+
+        assertEquals(0L, wrongAward)
+        assertEquals(1, afterWrong.quizzesAttempted)
+        assertEquals(150L, retryAward)
+        assertEquals(150L, afterRetry.totalXp)
+        assertEquals(2, afterRetry.quizzesAttempted)
+    }
+
+    @Test
+    fun readingAndQuizRewardsForTheSameArticle_areIndependent() {
+        repository.awardReadingXpOnce("art-1", QuizGeneratorService.CATEGORY_TECH, 50L)
+        val (_, quizAward) = repository.submitQuizResultOnce("art-1", QuizGeneratorService.CATEGORY_TECH, true)
+
+        assertEquals(150L, quizAward)
+        assertEquals(200L, repository.getProgress().totalXp)
+    }
 }

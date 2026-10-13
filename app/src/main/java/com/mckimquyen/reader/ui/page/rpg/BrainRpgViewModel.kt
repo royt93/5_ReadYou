@@ -21,21 +21,21 @@ class BrainRpgViewModel @Inject constructor(
 
     val userProgress: StateFlow<UserProgress> = repository.userProgress
 
-    private val readArticleIds = mutableSetOf<String>()
-
+    /**
+     * Idempotency lives in [BrainRpgRepository] (persisted), not in this ViewModel: a recreated ViewModel or a killed
+     * process must not let the same article be rewarded again. [onRewarded] only fires when XP was really awarded.
+     */
     fun onArticleReadFinished(articleId: String, category: String, onRewarded: ((Long) -> Unit)? = null) {
         if (articleId.isBlank()) return
-        if (readArticleIds.add(articleId)) {
-            viewModelScope.launch {
-                repository.addReadingXp(category, 50L)
-                onRewarded?.invoke(50L)
-            }
+        viewModelScope.launch {
+            val awarded = repository.awardReadingXpOnce(articleId, category, BrainRpgRepository.READING_XP)
+            if (awarded > 0L) onRewarded?.invoke(awarded)
         }
     }
 
-    fun submitQuizAnswer(category: String, isCorrect: Boolean, onResult: (UserProgress, Long) -> Unit) {
+    fun submitQuizAnswer(articleId: String, category: String, isCorrect: Boolean, onResult: (UserProgress, Long) -> Unit) {
         viewModelScope.launch {
-            val (updated, xpAwarded) = repository.submitQuizResult(category, isCorrect)
+            val (updated, xpAwarded) = repository.submitQuizResultOnce(articleId, category, isCorrect)
             onResult(updated, xpAwarded)
         }
     }

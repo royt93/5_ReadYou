@@ -140,7 +140,7 @@ fun Content(
                         BrainQuizCard(
                             quiz = quiz,
                             onAnswerSubmitted = { isCorrect ->
-                                brainRpgViewModel?.submitQuizAnswer(quiz.category, isCorrect) { _, awarded ->
+                                brainRpgViewModel?.submitQuizAnswer(quiz.articleId, quiz.category, isCorrect) { _, awarded ->
                                     if (isCorrect && awarded > 0) {
                                         Toast.makeText(context, "+$awarded XP! 🎉", Toast.LENGTH_SHORT).show()
                                     }

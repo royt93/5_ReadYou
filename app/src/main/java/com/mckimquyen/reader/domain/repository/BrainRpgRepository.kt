@@ -140,6 +140,44 @@ class BrainRpgRepository @Inject constructor(
         return updated
     }
 
+    /**
+     * Awards reading XP at most once per article, forever: the set of rewarded article ids lives in storage, so a
+     * killed process or a re-created ViewModel cannot farm the same article again. Returns the XP actually awarded
+     * (0 when the article was already rewarded or the id is blank).
+     */
+    @Synchronized
+    fun awardReadingXpOnce(articleId: String, category: String, amount: Long = READING_XP): Long {
+        if (articleId.isBlank()) return 0L
+        ensureLoaded()
+        if (!markRewarded(KEY_READ_REWARDED, articleId)) return 0L
+        addReadingXp(category, amount)
+        return amount
+    }
+
+    /**
+     * Quiz reward at most once per article. Only a CORRECT answer uses the reward up: a wrong answer is still
+     * counted as an attempt but leaves the reward available for a retry. A repeat of a rewarded quiz changes nothing
+     * (no XP, no extra attempt/pass count). Returns the updated progress and the XP awarded (0 when blocked).
+     */
+    @Synchronized
+    fun submitQuizResultOnce(articleId: String, category: String, isCorrect: Boolean): Pair<UserProgress, Long> {
+        ensureLoaded()
+        if (articleId.isBlank()) return submitQuizResult(category, isCorrect)
+        if (articleId in rewardedIds(KEY_QUIZ_REWARDED)) return _userProgress.value to 0L
+        if (isCorrect) markRewarded(KEY_QUIZ_REWARDED, articleId)
+        return submitQuizResult(category, isCorrect)
+    }
+
+    private fun rewardedIds(key: String): Set<String> = prefs.getStringSet(key, emptySet()) ?: emptySet()
+
+    /** Persists [articleId] in the set at [key]; false when it was already there. Commits synchronously on purpose. */
+    private fun markRewarded(key: String, articleId: String): Boolean {
+        val current = rewardedIds(key)
+        if (articleId in current) return false
+        // getStringSet returns an instance that must not be modified, so write a fresh copy.
+        return prefs.edit().putStringSet(key, current + articleId).commit()
+    }
+
     @Synchronized
     fun submitQuizResult(category: String, isCorrect: Boolean, xpMultiplier: Int = 1): Pair<UserProgress, Long> {
         ensureLoaded()
@@ -202,5 +240,8 @@ class BrainRpgRepository @Inject constructor(
         private const val KEY_QUIZZES_ATTEMPTED = "brain_rpg_quizzes_attempted"
         private const val KEY_QUIZZES_PASSED = "brain_rpg_quizzes_passed"
         private const val KEY_CAT_PREFIX = "brain_rpg_cat"
+        private const val KEY_READ_REWARDED = "brain_rpg_read_rewarded_ids"
+        private const val KEY_QUIZ_REWARDED = "brain_rpg_quiz_rewarded_ids"
+        const val READING_XP = 50L
     }
 }

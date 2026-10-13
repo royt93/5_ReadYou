@@ -76,7 +76,7 @@ class BrainRpgViewModelTest {
     @Test
     fun submitQuizAnswer_correct_updatesProgressWithAward() = runTest(testDispatcher) {
         var callbackAwarded = -1L
-        viewModel.submitQuizAnswer(QuizGeneratorService.CATEGORY_TECH, true) { _, xp ->
+        viewModel.submitQuizAnswer("art_q", QuizGeneratorService.CATEGORY_TECH, true) { _, xp ->
             callbackAwarded = xp
         }
         testScheduler.advanceUntilIdle()
@@ -103,5 +103,51 @@ class BrainRpgViewModelTest {
         testScheduler.advanceUntilIdle()
         // Should STILL be 1 because it was deduplicated
         assertEquals(1, rewardInvoked)
+    }
+
+    private fun recreatedViewModel() =
+        BrainRpgViewModel(
+            BrainRpgRepository(context, CoroutineScope(Dispatchers.Unconfined), Dispatchers.Unconfined),
+            quizGenerator,
+        )
+
+    @Test
+    fun readingXp_isNotAwardedAgain_afterTheViewModelIsRecreated() = runTest(testDispatcher) {
+        viewModel.onArticleReadFinished("art_kill", QuizGeneratorService.CATEGORY_TECH)
+        testScheduler.advanceUntilIdle()
+        assertEquals(50L, viewModel.userProgress.value.totalXp)
+
+        // Process death / back-stack pop: a fresh ViewModel has an empty RAM set.
+        val reborn = recreatedViewModel()
+        var rewarded = 0
+        reborn.onArticleReadFinished("art_kill", QuizGeneratorService.CATEGORY_TECH) { rewarded++ }
+        testScheduler.advanceUntilIdle()
+
+        assertEquals("no XP farming by reopening the article", 50L, reborn.userProgress.value.totalXp)
+        assertEquals("and no fake +50 XP toast", 0, rewarded)
+    }
+
+    @Test
+    fun quizXp_isNotAwardedAgain_afterTheViewModelIsRecreated() = runTest(testDispatcher) {
+        viewModel.submitQuizAnswer("art_quiz", QuizGeneratorService.CATEGORY_TECH, true) { _, _ -> }
+        testScheduler.advanceUntilIdle()
+        assertEquals(150L, viewModel.userProgress.value.totalXp)
+
+        val reborn = recreatedViewModel()
+        var awarded = -1L
+        reborn.submitQuizAnswer("art_quiz", QuizGeneratorService.CATEGORY_TECH, true) { _, xp -> awarded = xp }
+        testScheduler.advanceUntilIdle()
+
+        assertEquals(0L, awarded)
+        assertEquals(150L, reborn.userProgress.value.totalXp)
+    }
+
+    @Test
+    fun blankArticleId_neverAwardsReadingXp_orInvokesTheCallback() = runTest(testDispatcher) {
+        var rewarded = 0
+        viewModel.onArticleReadFinished("", QuizGeneratorService.CATEGORY_TECH) { rewarded++ }
+        testScheduler.advanceUntilIdle()
+        assertEquals(0, rewarded)
+        assertEquals(0L, viewModel.userProgress.value.totalXp)
     }
 }

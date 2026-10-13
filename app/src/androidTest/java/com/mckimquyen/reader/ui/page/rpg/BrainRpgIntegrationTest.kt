@@ -80,4 +80,41 @@ class BrainRpgIntegrationTest {
         assertTrue(persisted.streakShieldActive)
         assertEquals(100, persisted.quizAccuracyPercent)
     }
+
+    private fun restartedRepository() =
+        BrainRpgRepository(context, CoroutineScope(Dispatchers.Unconfined), Dispatchers.Unconfined)
+
+    @Test
+    fun readingXp_isAwardedOncePerArticle_evenAfterTheProcessRestarts() {
+        assertEquals(50L, repository.awardReadingXpOnce("art-int-1", QuizGeneratorService.CATEGORY_TECH, 50L))
+
+        val afterRestart = restartedRepository()
+        assertEquals(50L, afterRestart.userProgress.value.totalXp)
+        assertEquals(0L, afterRestart.awardReadingXpOnce("art-int-1", QuizGeneratorService.CATEGORY_TECH, 50L))
+        assertEquals("XP is unchanged by a repeat", 50L, afterRestart.userProgress.value.totalXp)
+        assertEquals(50L, afterRestart.awardReadingXpOnce("art-int-2", QuizGeneratorService.CATEGORY_TECH, 50L))
+    }
+
+    @Test
+    fun quizXp_isAwardedOncePerArticle_evenAfterTheProcessRestarts() {
+        val (_, first) = repository.submitQuizResultOnce("art-int-q", QuizGeneratorService.CATEGORY_TECH, true)
+        assertEquals(150L, first)
+
+        val afterRestart = restartedRepository()
+        val (progress, again) = afterRestart.submitQuizResultOnce("art-int-q", QuizGeneratorService.CATEGORY_TECH, true)
+        assertEquals(0L, again)
+        assertEquals(150L, progress.totalXp)
+        assertEquals(1, progress.quizzesPassed)
+    }
+
+    @Test
+    fun aWrongQuizAnswer_leavesTheRewardAvailableForARetryAcrossARestart() {
+        repository.submitQuizResultOnce("art-int-w", QuizGeneratorService.CATEGORY_TECH, false)
+
+        val afterRestart = restartedRepository()
+        val (progress, award) = afterRestart.submitQuizResultOnce("art-int-w", QuizGeneratorService.CATEGORY_TECH, true)
+        assertEquals(150L, award)
+        assertEquals(150L, progress.totalXp)
+        assertEquals(2, progress.quizzesAttempted)
+    }
 }
