@@ -90,9 +90,18 @@ Chỉ dừng loop khi hoàn tất TẤT CẢ bước sau, đúng thứ tự, KH�
 - Còn lại **3 lỗi pre-existing, ngoài phạm vi** (không sửa): `MissingIntentFilterForMediaSearch` (AndroidManifest), `MissingOnPlayFromSearch` ở `CommuteMediaSessionService.kt` và `TtsForegroundService.kt`. Lint vẫn exit 1 vì các lỗi này.
 - File RPG-07 không còn lỗi lint; 1 warning `ModifierParameter` ở `BrainQuizCard.kt` (không thuộc file đã đổi).
 
+### Smoke thủ công trên Tecno `115333744A005844` (2026-10-13, bản dev debug)
+- Kéo nhanh xuống cuối bài trong ~6 s: **0 XP** (không farm được bằng fling).
+- Ở lại bài ~38 s và cuộn qua thân bài: **+50 XP** vào "Tri Thức Tổng Hợp". Trả lời quiz đúng: **+150 XP** (tổng 200 XP, Cấp 2).
+- Tắt hẳn app, mở lại, đọc lại đúng bài 38 s và trả lời quiz đúng lại: tổng vẫn **200 XP**. DB: đúng 1 dòng `READ` + 1 dòng `QUIZ` cho bài đó (DB v13).
+- Decay (lùi `lastPracticedAt` 8 ngày trong DB dev): trang RPG hiện **180 XP · "Gốc 200 XP · còn 90%"** kèm nút "Khôi phục (Xem quảng cáo)".
+- Thông báo: processor chạy trên DB thật bằng instrumented test tạm (đã xoá) → thông báo ID 9966 xuất hiện ("Ôn lại các danh mục"). **Chạm thông báo mở thẳng trang Brain RPG** (deep link xác nhận trên máy thật).
+- Recovery: chạm nút → toast **"Không thể khôi phục"**, XP/ngày ôn không đổi (180 XP, gốc 200). Chưa tạo được quảng cáo rewarded nên **nhánh "ad earned → reset" chưa được xác nhận trên máy thật** (chỉ có unit/widget/integration). Không thử lại.
+- Dữ liệu RPG dev trên Tecno đã khôi phục về bản backup trước khi backdate. Dừng mỗi khi gặp quảng cáo toàn màn hình; Pixel không đụng.
+- Lưu ý: thông báo đang hiển thị chuỗi cũ ("Danh mục đang giảm XP giữ lại: 1. Ô…") vì thiếu cài lại APK sau khi sửa key; sau cài lại bản `08217be4` đã đúng key.
+
 ### Chưa verify / giới hạn
-- **Chưa smoke thủ công** trên máy thật (đọc <30 s, đọc đủ, quiz, thông báo thật, chạm thông báo mở RPG) — chờ chủ dự án.
-- Deep-link từ thông báo mới được test ở mức intent extra, chưa chạy luồng chạm thông báo thật.
+- Nhánh recovery "ad earned → reset" chưa xác nhận trên máy thật (chỉ có test tự động); nút hiển thị đúng nhưng ad rewarded không khả dụng lúc thử.
 - Worker integration test dùng Room in-memory, không dùng DB file thật.
 - Không có migration downgrade (cùng pattern các migration cũ): hạ APK xuống bản trước v13 sẽ làm Room lỗi.
 - `lastPracticedAt` của category đã import = thời điểm import (spec #9).
