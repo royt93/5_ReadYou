@@ -43,6 +43,8 @@ fun BrainRpgPage(
     val context = LocalContext.current
     val progress by viewModel.userProgress.collectAsState()
 
+    LaunchedEffect(viewModel) { viewModel.refresh() }
+
     BackHandler {
         navController.popBackStack()
     }
@@ -372,12 +374,23 @@ internal fun KnowledgeSkillTreeCard(progress: UserProgress) {
                                 fontWeight = FontWeight.Medium,
                                 color = MaterialTheme.colorScheme.onSurface
                             )
-                            Text(
-                                text = "$catXp XP",
-                                style = MaterialTheme.typography.bodySmall,
-                                fontWeight = FontWeight.SemiBold,
-                                color = MaterialTheme.colorScheme.primary
-                            )
+                            Column(horizontalAlignment = Alignment.End) {
+                                Text(
+                                    text = "$catXp XP",
+                                    style = MaterialTheme.typography.bodySmall,
+                                    fontWeight = FontWeight.SemiBold,
+                                    color = MaterialTheme.colorScheme.primary
+                                )
+                                val baseXp = progress.categoryBaseXp[key] ?: catXp
+                                if (baseXp > catXp && baseXp > 0L) {
+                                    val retainedPercent = (catXp.toDouble() * PERCENT_SCALE / baseXp).toInt()
+                                    Text(
+                                        text = stringResource(R.string.brain_rpg_xp_retained, baseXp, retainedPercent),
+                                        style = MaterialTheme.typography.labelSmall,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    )
+                                }
+                            }
                         }
                         Spacer(modifier = Modifier.height(4.dp))
                         LinearProgressIndicator(
@@ -395,6 +408,8 @@ internal fun KnowledgeSkillTreeCard(progress: UserProgress) {
         }
     }
 }
+
+private const val PERCENT_SCALE = 100L
 
 @Composable
 internal fun QuizStatsCard(progress: UserProgress) {

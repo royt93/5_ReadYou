@@ -110,6 +110,15 @@ class BrainRpgRepositoryTest {
         assertTrue(dao.hasReward("a1", BrainRpgRewardType.READ))
     }
 
+    @Test fun categoryXpDecaysForDisplayButBaseXpAndTotalXpStayUnchanged() = runTest {
+        repository.awardReadingXpOnce("decay", QuizGeneratorService.CATEGORY_TECH, 100L, NOW)
+        val decayed = repository.refresh(nowMillis = NOW + com.mckimquyen.reader.domain.model.rpg.CategoryDecay.WEEK_MILLIS)
+        assertEquals(90L, decayed.categoryXp[QuizGeneratorService.CATEGORY_TECH])
+        assertEquals(100L, decayed.categoryBaseXp[QuizGeneratorService.CATEGORY_TECH])
+        assertEquals(100L, decayed.totalXp)
+        assertEquals(100L, dao.getCategory(QuizGeneratorService.CATEGORY_TECH)?.baseXp)
+    }
+
     @Test fun repeatedQualifyingRead_doesNotAwardAgain_butRefreshesPractice() = runTest {
         repository.awardReadingXpOnce("a1", QuizGeneratorService.CATEGORY_TECH, nowMillis = NOW)
         assertEquals(0L, repository.awardReadingXpOnce("a1", QuizGeneratorService.CATEGORY_TECH, nowMillis = NOW + 1_000))

@@ -464,6 +464,7 @@
     <string name="brain_rpg_category_health">Sức Khỏe &amp; Thể Chất</string>
     <string name="brain_rpg_category_philosophy">Triết Học &amp; Tư Duy</string>
     <string name="brain_rpg_category_general">Tri Thức Tổng Hợp</string>
+    <string name="brain_rpg_xp_retained">Gốc %1$d XP · còn %2$d%%</string>
     <string name="brain_rpg_streak_shield_success">Khiên Streak đã được kích hoạt!</string>
     <string name="brain_rpg_streak_shield_protected">Bảo Vệ</string>
     <string name="brain_rpg_target_xp">Mục tiêu: %1$d XP</string>

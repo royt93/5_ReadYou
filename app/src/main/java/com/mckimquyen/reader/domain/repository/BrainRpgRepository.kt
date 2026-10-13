@@ -3,6 +3,7 @@ package com.mckimquyen.reader.domain.repository
 import android.content.Context
 import androidx.room.withTransaction
 import com.mckimquyen.reader.domain.model.rpg.BrainRpgCategoryEntity
+import com.mckimquyen.reader.domain.model.rpg.CategoryDecay
 import com.mckimquyen.reader.domain.model.rpg.BrainRpgProfileEntity
 import com.mckimquyen.reader.domain.model.rpg.BrainRpgRewardEntity
 import com.mckimquyen.reader.domain.model.rpg.BrainRpgRewardType
@@ -45,7 +46,7 @@ class BrainRpgRepository @Inject constructor(
     }
 
     /** Room is the source of truth; every read awaits the retry-safe legacy import first. */
-    suspend fun refresh(): UserProgress = refreshMutex.withLock {
+    suspend fun refresh(nowMillis: Long = System.currentTimeMillis()): UserProgress = refreshMutex.withLock {
         legacyImporter.ensureImported(System.currentTimeMillis())
         val profile = dao.getProfile() ?: BrainRpgProfileEntity().also { dao.upsertProfile(it) }
         val categories = dao.getCategories()
@@ -61,7 +62,10 @@ class BrainRpgRepository @Inject constructor(
             streakDays = profile.streakDays,
             lastReadEpochDay = profile.lastReadEpochDay,
             streakShieldActive = profile.streakShieldActive,
-            categoryXp = categories.associate { it.categoryId to it.baseXp },
+            categoryXp = categories.associate { category ->
+                category.categoryId to CategoryDecay.effectiveXp(category.baseXp, category.lastPracticedAtMillis, nowMillis)
+            },
+            categoryBaseXp = categories.associate { it.categoryId to it.baseXp },
             categoryLastPracticedAt = categories.associate { it.categoryId to it.lastPracticedAtMillis },
             quizzesAttempted = profile.quizzesAttempted,
             quizzesPassed = profile.quizzesPassed,
@@ -110,7 +114,7 @@ class BrainRpgRepository @Inject constructor(
         if (articleId.isBlank() || !isCorrect) {
             val updated = database.withTransaction {
                 if (!isCorrect) dao.recordWrongQuizAttempt()
-                refreshInsideTransaction()
+                refreshInsideTransaction(nowMillis)
             }
             refresh()
             return@withLock updated to 0L
@@ -161,7 +165,7 @@ class BrainRpgRepository @Inject constructor(
         refresh()
     }
 
-    private suspend fun refreshInsideTransaction(): UserProgress {
+    private suspend fun refreshInsideTransaction(nowMillis: Long): UserProgress {
         val profile = requireNotNull(dao.getProfile())
         val categories = dao.getCategories()
         val level = LevelCalculator.calculateLevel(profile.baseTotalXp)
@@ -175,7 +179,10 @@ class BrainRpgRepository @Inject constructor(
             streakDays = profile.streakDays,
             lastReadEpochDay = profile.lastReadEpochDay,
             streakShieldActive = profile.streakShieldActive,
-            categoryXp = categories.associate { it.categoryId to it.baseXp },
+            categoryXp = categories.associate { category ->
+                category.categoryId to CategoryDecay.effectiveXp(category.baseXp, category.lastPracticedAtMillis, nowMillis)
+            },
+            categoryBaseXp = categories.associate { it.categoryId to it.baseXp },
             categoryLastPracticedAt = categories.associate { it.categoryId to it.lastPracticedAtMillis },
             quizzesAttempted = profile.quizzesAttempted,
             quizzesPassed = profile.quizzesPassed,

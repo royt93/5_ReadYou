@@ -571,6 +571,7 @@
     <string name="brain_rpg_category_health">Health &amp; Lifestyle</string>
     <string name="brain_rpg_category_philosophy">Philosophy &amp; Ideas</string>
     <string name="brain_rpg_category_general">General Knowledge</string>
+    <string name="brain_rpg_xp_retained">Base %1$d XP · %2$d%% retained</string>
     <string name="brain_rpg_streak_shield_success">Streak Shield activated!</string>
     <string name="brain_rpg_streak_shield_protected">Protected</string>
     <string name="brain_rpg_target_xp">Target: %1$d XP</string>
