@@ -14,6 +14,7 @@ import com.mckimquyen.reader.domain.repository.DailyDigestDao
 import com.mckimquyen.reader.domain.repository.ArticleHighlightDao
 import com.mckimquyen.reader.domain.repository.FeedDao
 import com.mckimquyen.reader.domain.repository.GroupDao
+import com.mckimquyen.reader.domain.repository.BrainRpgDao
 import com.mckimquyen.reader.infrastructure.db.AndroidDatabase
 import javax.inject.Singleton
 
@@ -75,6 +76,11 @@ object DbModule {
     @Singleton
     fun provideDailyDigestDao(androidDatabase: AndroidDatabase): DailyDigestDao =
         androidDatabase.dailyDigestDao()
+
+    @Provides
+    @Singleton
+    fun provideBrainRpgDao(androidDatabase: AndroidDatabase): BrainRpgDao =
+        androidDatabase.brainRpgDao()
 
     @Provides
     @Singleton

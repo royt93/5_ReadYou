@@ -22,6 +22,10 @@ import com.mckimquyen.reader.domain.model.article.Article
 import com.mckimquyen.reader.domain.model.article.ArticleEmbeddingRecord
 import com.mckimquyen.reader.domain.model.digest.DailyDigest
 import com.mckimquyen.reader.domain.model.article.ArticleFts
+import com.mckimquyen.reader.domain.model.rpg.BrainRpgCategoryEntity
+import com.mckimquyen.reader.domain.model.rpg.BrainRpgProfileEntity
+import com.mckimquyen.reader.domain.model.rpg.BrainRpgRewardEntity
+import com.mckimquyen.reader.domain.model.rpg.BrainRpgRewardTypeConverters
 import com.mckimquyen.reader.domain.model.feed.Feed
 import com.mckimquyen.reader.domain.model.feed.FeedErrorTypeConverters
 import com.mckimquyen.reader.domain.model.feed.FeedHealthRecord
@@ -36,6 +40,7 @@ import com.mckimquyen.reader.domain.repository.ArticleEmbeddingDao
 import com.mckimquyen.reader.domain.repository.FeedDao
 import com.mckimquyen.reader.domain.repository.FeedHealthDao
 import com.mckimquyen.reader.domain.repository.GroupDao
+import com.mckimquyen.reader.domain.repository.BrainRpgDao
 import com.mckimquyen.reader.infrastructure.pref.KeepArchivedPreference
 import com.mckimquyen.reader.infrastructure.pref.SyncIntervalPref
 import com.mckimquyen.reader.infrastructure.pref.SyncOnStartPref
@@ -56,8 +61,11 @@ import java.util.Date
         FeedHealthRecord::class,
         ArticleEmbeddingRecord::class,
         DailyDigest::class,
+        BrainRpgProfileEntity::class,
+        BrainRpgCategoryEntity::class,
+        BrainRpgRewardEntity::class,
     ],
-    version = 12
+    version = 13
 )
 @TypeConverters(
     AndroidDatabase.DateConverters::class,
@@ -69,6 +77,7 @@ import java.util.Date
     KeepArchivedConverters::class,
     SyncBlockListConverters::class,
     FeedErrorTypeConverters::class,
+    BrainRpgRewardTypeConverters::class,
 )
 abstract class AndroidDatabase : RoomDatabase() {
 
@@ -81,6 +90,7 @@ abstract class AndroidDatabase : RoomDatabase() {
     abstract fun feedHealthDao(): FeedHealthDao
     abstract fun articleEmbeddingDao(): ArticleEmbeddingDao
     abstract fun dailyDigestDao(): DailyDigestDao
+    abstract fun brainRpgDao(): BrainRpgDao
 
     companion object {
 
@@ -125,6 +135,7 @@ val allMigrations = arrayOf(
     MIGRATION_9_10,
     MIGRATION_10_11,
     MIGRATION_11_12,
+    MIGRATION_12_13,
 )
 
 @Suppress("ClassName")
@@ -361,5 +372,49 @@ object MIGRATION_11_12 : Migration(11, 12) {
             """.trimIndent()
         )
         db.execSQL("CREATE INDEX IF NOT EXISTS index_daily_digest_accountId_createdAt ON daily_digest(accountId, createdAt)")
+    }
+}
+
+
+@Suppress("ClassName")
+object MIGRATION_12_13 : Migration(12, 13) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL(
+            """
+            CREATE TABLE IF NOT EXISTS `brain_rpg_profile` (
+                `id` INTEGER NOT NULL,
+                `baseTotalXp` INTEGER NOT NULL,
+                `streakDays` INTEGER NOT NULL,
+                `lastReadEpochDay` INTEGER NOT NULL,
+                `streakShieldActive` INTEGER NOT NULL,
+                `quizzesAttempted` INTEGER NOT NULL,
+                `quizzesPassed` INTEGER NOT NULL,
+                `legacyImportComplete` INTEGER NOT NULL,
+                PRIMARY KEY(`id`)
+            )
+            """.trimIndent()
+        )
+        db.execSQL(
+            """
+            CREATE TABLE IF NOT EXISTS `brain_rpg_category` (
+                `categoryId` TEXT NOT NULL,
+                `baseXp` INTEGER NOT NULL,
+                `lastPracticedAtMillis` INTEGER NOT NULL,
+                `lastDecayNotificationEpochDay` INTEGER NOT NULL,
+                PRIMARY KEY(`categoryId`)
+            )
+            """.trimIndent()
+        )
+        db.execSQL(
+            """
+            CREATE TABLE IF NOT EXISTS `brain_rpg_reward` (
+                `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                `articleId` TEXT NOT NULL,
+                `rewardType` TEXT NOT NULL,
+                `createdAtMillis` INTEGER NOT NULL
+            )
+            """.trimIndent()
+        )
+        db.execSQL("CREATE UNIQUE INDEX IF NOT EXISTS index_brain_rpg_reward_articleId_rewardType ON brain_rpg_reward(articleId, rewardType)")
     }
 }

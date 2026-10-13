@@ -143,6 +143,7 @@ android {
     testOptions {
         unitTests.includeAndroidResources = true
     }
+    sourceSets.getByName("androidTest").assets.srcDir("$projectDir/schemas")
     buildFeatures {
         compose true
 //        viewBinding true
