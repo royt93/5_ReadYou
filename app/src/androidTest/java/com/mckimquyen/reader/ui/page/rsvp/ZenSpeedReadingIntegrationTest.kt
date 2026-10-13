@@ -12,6 +12,7 @@ import com.mckimquyen.reader.infrastructure.audio.ambient.ZenPlaybackError
 import com.mckimquyen.reader.infrastructure.audio.ambient.ZenSoundSynthesizer
 import com.mckimquyen.reader.infrastructure.audio.ambient.ZenSoundType
 import androidx.activity.ComponentActivity
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.platform.ComposeView
 import androidx.test.core.app.ActivityScenario
 import com.mckimquyen.reader.ui.component.ambient.ZenSoundSheetContent
@@ -136,7 +137,7 @@ class ZenSpeedReadingIntegrationTest {
             val composeView = ComposeView(activity).apply {
                 setContent {
                     RsvpReaderContent(
-                        uiState = viewModel.uiState.value,
+                        uiState = viewModel.uiState.collectAsState().value,
                         viewModel = viewModel,
                         onDismiss = {}
                     )

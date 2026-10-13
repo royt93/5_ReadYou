@@ -3,6 +3,8 @@ package com.mckimquyen.reader.integration
 import android.app.NotificationManager
 import android.content.Context
 import androidx.activity.ComponentActivity
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.ComposeView
 import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider
@@ -113,7 +115,7 @@ class WatchdogIntegrationTest {
 
                     // Sheet rendering with active keywords
                     WatchdogSheet(
-                        keywords = watchdogManager.keywords.value,
+                        keywords = watchdogManager.keywords.collectAsState().value,
                         onDismissRequest = {},
                         onAddKeyword = { watchdogManager.addKeyword(it) },
                         onRemoveKeyword = { watchdogManager.removeKeyword(it) },
@@ -180,7 +182,7 @@ class WatchdogIntegrationTest {
                     WatchdogInboxPage(
                         navController = androidx.navigation.compose.rememberNavController(),
                         activity = activity,
-                        viewModel = WatchdogInboxViewModel(watchdogManager),
+                        viewModel = remember { WatchdogInboxViewModel(watchdogManager) },
                     )
                 }
             }

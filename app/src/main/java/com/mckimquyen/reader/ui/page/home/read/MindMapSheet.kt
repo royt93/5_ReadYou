@@ -13,7 +13,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTransformGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -306,7 +305,7 @@ private fun MindMapInteractiveCanvas(
     val lineColor = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.7f)
     val accentLineColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.5f)
 
-    BoxWithConstraints(
+    Box(
         modifier = modifier
             .fillMaxSize()
             .clip(RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp))

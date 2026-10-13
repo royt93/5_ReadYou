@@ -41,7 +41,7 @@ class SyncWorker @AssistedInject constructor(
             val syncResult = rssService.get().sync(this@SyncWorker).also {
                 rssService.get().clearKeepArchivedArticles()
             }
-            if (syncResult is Result.Success) {
+            if (syncResult.isSuccessfulSync()) {
                 val accountId = context.currentAccountId
                 runCatching {
                     offlinePrecacheService.precacheLatestUnread(accountId)
@@ -99,3 +99,12 @@ class SyncWorker @AssistedInject constructor(
         fun Data.getIsSyncing(): Boolean = getBoolean(IS_SYNCING, false)
     }
 }
+
+/**
+ * `Result.Success` is a restricted API (androidx.work library group only), so detect success through the public
+ * surface instead: success is distinguishable by [androidx.work.ListenableWorker.Result.toString]:
+ * the type name is `Success`/`Failure`/`Retry`, and attached output data does not change it.
+ */
+internal fun androidx.work.ListenableWorker.Result.isSuccessfulSync(): Boolean = toString().startsWith(SUCCESS_RESULT_PREFIX)
+
+private const val SUCCESS_RESULT_PREFIX = "Success"
