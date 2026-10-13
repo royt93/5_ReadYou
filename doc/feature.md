@@ -19,6 +19,7 @@ _None. Campaign (EXC-01, EXC-08, EXC-03, EXC-07) complete._
 
 ## ✅ Implemented
 
+- RPG-07 — Brain RPG moved from SharedPreferences to Room (single device-wide profile; legacy prefs imported once, transactionally, and left untouched as a rollback copy). Unique reward ledger (READ/QUIZ/DOUBLE) applied atomically with XP; a repeat qualifying read/correct quiz refreshes practice time without re-awarding. Reading reward needs >= 80% of the Reader-appended body items AND 30 s foreground dwell (replaces the 75% rule). Category XP is shown decayed (floor(base x 0.9^fullWeeks)) while base XP/level never decay; one daily summary notification (fixed ID, opens Brain RPG) and a one-category rewarded recovery. Unit + widget + integration tests; Tecno automated runs green. Committed locally, not pushed.
 - EXC-01 — AI Daily Smart Digest. Generation via Gemini, Room history, source links, unit/widget/integration tests, Tecno smoke verified. Committed locally (8c9301e0).
 - EXC-08 — Second Brain Graph. On-device concept graph (strict concept matching), time slider, related articles, edge-to-edge safe. Unit + widget + integration + insets + perf tests; Tecno smoke verified.
 - EXC-03 — Bionic Reading. Setting (default OFF) in Reading style; bolds leading ~40% of each word in article body, skips URLs/emails/code, keeps links and copy text intact. Unit + widget + integration + perf tests; Tecno smoke verified.

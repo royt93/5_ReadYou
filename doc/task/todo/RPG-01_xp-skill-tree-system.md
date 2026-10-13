@@ -52,4 +52,6 @@ Chỉ dừng loop khi hoàn tất TẤT CẢ bước sau, đúng thứ tự, KH�
 7. Nếu điểm **≤ 9/10** hoặc bất kỳ điều kiện bước 2-5 chưa đạt: quay lại bước 1 của vòng lặp Loop Prompt, KHÔNG commit/push.
 
 ---
+> **Cập nhật 2026-10-13 (RPG-07):** Lưu trữ nay là **Room** (`brain_rpg_profile`, `brain_rpg_category`, `brain_rpg_reward`, DB v13; import một lần từ `brain_rpg_prefs`). Ngưỡng cộng XP đọc là **80% số item thân bài do `Reader` thêm + 30 giây foreground** (không còn 75%). Ghi chú audit 2026-09-06 bên dưới phản ánh trạng thái cũ (SharedPreferences).
+
 > **Ghi chú audit (2026-09-06):** Code hiện tại đã triển khai cơ chế cộng XP theo chủ đề (`BrainRpgRepository.addReadingXp`), nhưng dùng `SharedPreferences` thay vì Room, và ngưỡng kích hoạt là 75% cuộn (`Content.kt` dòng 77: `totalItems * 0.75f`) — KHÔNG có điều kiện thời gian đọc tối thiểu 30 giây như đặc tả. Task này coi như "implemented nhưng lệch spec" — xem RPG-06/07/08 để fix từng gap cụ thể thay vì làm lại toàn bộ ở đây.

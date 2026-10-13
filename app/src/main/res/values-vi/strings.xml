@@ -470,9 +470,8 @@
     <string name="brain_rpg_recover_unavailable">Không thể khôi phục</string>
     <string name="brain_rpg_decay_notification_channel_desc">Tóm tắt giảm XP danh mục hằng ngày</string>
     <string name="brain_rpg_decay_notification_channel">Nhắc ôn Brain RPG</string>
-    <string name="brain_rpg_decay_notification_content">Danh mục đang giảm XP giữ lại: %1$d. Ôn tập: %2$s</string>
-    <string name="brain_rpg_decay_notification_body">Ôn lại các danh mục</string>
-    <string name="brain_rpg_decay_notification_title">Nhắc ôn Brain RPG</string>
+    <string name="brain_rpg_decay_notification_body">Danh mục đang giảm XP giữ lại: %1$d. Ôn tập: %2$s</string>
+    <string name="brain_rpg_decay_notification_title">Ôn lại các danh mục</string>
     <string name="brain_rpg_xp_retained">Gốc %1$d XP · còn %2$d%%</string>
     <string name="brain_rpg_streak_shield_success">Khiên Streak đã được kích hoạt!</string>
     <string name="brain_rpg_streak_shield_protected">Bảo Vệ</string>

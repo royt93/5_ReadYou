@@ -52,4 +52,6 @@ Chỉ dừng loop khi hoàn tất TẤT CẢ bước sau, đúng thứ tự, KH�
 7. Nếu điểm **≤ 9/10** hoặc bất kỳ điều kiện bước 2-5 chưa đạt: quay lại bước 1 của vòng lặp Loop Prompt, KHÔNG commit/push.
 
 ---
+> **Cập nhật 2026-10-13 (RPG-07):** Cognitive decay đã triển khai: XP category **hiển thị** giảm `floor(base × 0.9^số tuần đầy đủ)` khi không ôn tập, XP gốc/level không giảm. Có thông báo tóm tắt hằng ngày (WorkManager, ID cố định, mở trang Brain RPG) và rewarded recovery cho **một** category. Streak Shield giữ nguyên hành vi cũ.
+
 > **Ghi chú audit (2026-09-06):** Streak counting + Streak Shield (xem quảng cáo để bảo lưu chuỗi) đã hoạt động ở mức cơ bản trong `BrainRpgRepository`. Nhưng: (1) không có "Cognitive Decay" thực sự — XP theo category không giảm dần khi >7 ngày không đọc, chỉ có nhãn UI tĩnh; (2) không có dialog chủ động cảnh báo "mất streak" khi mở app — StreakShieldCard chỉ là nút bấm thủ công trong trang RPG; (3) logic ngày dùng `System.currentTimeMillis()` trực tiếp nên không unit-test được các case nghỉ/giữ/dùng-shield. Điểm audit thực tế cho phần "Cognitive Decay" theo đúng đặc tả: thấp, cần fix ở RPG-03 (dialog + decay worker) và RPG-06 (testability).

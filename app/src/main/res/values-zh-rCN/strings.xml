@@ -495,10 +495,9 @@
     <string name="brain_rpg_recover_success">分类已刷新！</string>
     <string name="brain_rpg_recover_unavailable">无法恢复</string>
     <string name="brain_rpg_decay_notification_channel_desc">每日分类衰减摘要</string>
-    <string name="brain_rpg_decay_notification_channel">Brain RPG 提醒</string>
-    <string name="brain_rpg_decay_notification_content">正在减少保留 XP 的分类：%1$d。复习：%2$s</string>
-    <string name="brain_rpg_decay_notification_body">复习分类</string>
-    <string name="brain_rpg_decay_notification_title">Brain RPG 复习提醒</string>
+    <string name="brain_rpg_decay_notification_channel">Brain RPG 复习提醒</string>
+    <string name="brain_rpg_decay_notification_body">正在减少保留 XP 的分类：%1$d。复习：%2$s</string>
+    <string name="brain_rpg_decay_notification_title">复习分类</string>
     <string name="brain_rpg_xp_retained">基础 %1$d XP · 保留 %2$d%%</string>
     <string name="brain_rpg_streak_shield_success">连续阅读护盾已激活！</string>
     <string name="brain_rpg_streak_shield_protected">保护中</string>

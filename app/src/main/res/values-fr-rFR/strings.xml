@@ -503,9 +503,8 @@
     <string name="brain_rpg_recover_unavailable">Récupération indisponible</string>
     <string name="brain_rpg_decay_notification_channel_desc">Résumé quotidien de la baisse d’XP par catégorie</string>
     <string name="brain_rpg_decay_notification_channel">Rappels Brain RPG</string>
-    <string name="brain_rpg_decay_notification_content">Catégories dont l’XP retenue diminue : %1$d. À réviser : %2$s</string>
-    <string name="brain_rpg_decay_notification_body">Révisez vos catégories</string>
-    <string name="brain_rpg_decay_notification_title">Rappels Brain RPG</string>
+    <string name="brain_rpg_decay_notification_body">Catégories dont l’XP retenue diminue : %1$d. À réviser : %2$s</string>
+    <string name="brain_rpg_decay_notification_title">Révisez vos catégories</string>
     <string name="brain_rpg_xp_retained">Base : %1$d XP · %2$d%% conservés</string>
     <string name="brain_rpg_streak_shield_success">Bouclier de série activé !</string>
     <string name="brain_rpg_streak_shield_protected">Protégé</string>

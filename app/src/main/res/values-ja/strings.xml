@@ -496,10 +496,9 @@
     <string name="brain_rpg_recover_success">カテゴリを更新しました！</string>
     <string name="brain_rpg_recover_unavailable">回復できません</string>
     <string name="brain_rpg_decay_notification_channel_desc">カテゴリ XP の毎日の減衰サマリー</string>
-    <string name="brain_rpg_decay_notification_channel">Brain RPG リマインダー</string>
-    <string name="brain_rpg_decay_notification_content">保持 XP が減少中のカテゴリ：%1$d。復習：%2$s</string>
-    <string name="brain_rpg_decay_notification_body">カテゴリを復習</string>
-    <string name="brain_rpg_decay_notification_title">Brain RPG 復習リマインダー</string>
+    <string name="brain_rpg_decay_notification_channel">Brain RPG 復習リマインダー</string>
+    <string name="brain_rpg_decay_notification_body">保持 XP が減少中のカテゴリ：%1$d。復習：%2$s</string>
+    <string name="brain_rpg_decay_notification_title">カテゴリを復習</string>
     <string name="brain_rpg_xp_retained">基礎 %1$d XP・維持 %2$d%%</string>
     <string name="brain_rpg_streak_shield_success">連続ストリークシールドが有効化されました！</string>
     <string name="brain_rpg_streak_shield_protected">保護中</string>

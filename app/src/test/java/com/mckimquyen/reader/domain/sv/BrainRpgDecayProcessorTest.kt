@@ -13,6 +13,7 @@ import com.mckimquyen.reader.infrastructure.android.NotificationHelper
 import com.mckimquyen.reader.infrastructure.db.AndroidDatabase
 import io.mockk.every
 import io.mockk.mockk
+import io.mockk.slot
 import io.mockk.verify
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
@@ -47,6 +48,21 @@ class BrainRpgDecayProcessorTest {
     }
 
     @After fun tearDown() = db.close()
+
+    @Test fun summaryText_namesEveryDecayingCategoryAndTheirCount() = runBlocking {
+        seed(QuizGeneratorService.CATEGORY_TECH, practicedAt = NOW - 8 * DAY)
+        seed(QuizGeneratorService.CATEGORY_BUSINESS, practicedAt = NOW - 15 * DAY)
+        val title = slot<String>()
+        val body = slot<String>()
+        every { notifications.notifyRpgDecay(capture(title), capture(body)) } returns Unit
+
+        processor.run(NOW)
+
+        assertEquals(context.getString(com.mckimquyen.reader.R.string.brain_rpg_decay_notification_title), title.captured)
+        assertTrue("count missing: ${body.captured}", body.captured.contains("2"))
+        assertTrue(body.captured.contains(context.getString(com.mckimquyen.reader.R.string.brain_rpg_category_tech)))
+        assertTrue(body.captured.contains(context.getString(com.mckimquyen.reader.R.string.brain_rpg_category_business)))
+    }
 
     @Test fun freshCategory_cancelsSummaryAndDoesNotNotify() = runBlocking {
         seed("Tech & AI", practicedAt = NOW - 6 * DAY)

@@ -18,7 +18,7 @@
 | 4 | Weekly "Brain Wrapped" 9:16 | P2 | 8 SP | 🟡 Chỉ MVP text-share — xem RPG-09 | [`RPG-04_weekly-brain-wrapped-card.md`](RPG-04_weekly-brain-wrapped-card.md) |
 | 5 | **[MỚI]** Quiz "AI" thực chất là giả — distractor tĩnh, đáp án đoán được qua độ dài | **P1** | 5 SP | 📋 Todo | [`RPG-05_quiz-distractors-context-aware.md`](RPG-05_quiz-distractors-context-aware.md) |
 | 6 | **[MỚI]** Streak/decay logic không test được — inject Clock + test đa-ngày | **P1** | 3 SP | 📋 Todo | [`RPG-06_streak-decay-testable-clock.md`](RPG-06_streak-decay-testable-clock.md) |
-| 7 | **[MỚI]** Sai lệch tài liệu vs code: Room vs SharedPreferences, ngưỡng 80%+30s vs 75% | P2 | 5 SP | 📋 Todo | [`RPG-07_room-migration-or-doc-alignment.md`](RPG-07_room-migration-or-doc-alignment.md) |
+| 7 | **[MỚI]** Sai lệch tài liệu vs code: Room vs SharedPreferences, ngưỡng 80%+30s vs 75% | P2 | 5 SP | ✅ Done (Hướng A) | [`RPG-07_room-migration-or-doc-alignment_DONE.md`](../done/RPG-07_room-migration-or-doc-alignment_DONE.md) |
 | 8 | **[MỚI]** XP farm exploit sau khi app bị kill/recreate — persist idempotency | **P1** | 3 SP | 📋 Todo | [`RPG-08_persist-xp-awarded-articles.md`](RPG-08_persist-xp-awarded-articles.md) |
 | 9 | **[MỚI]** "Wrapped" chỉ là share text — bổ sung radar chart, ảnh 1080×1920, nhắc lịch Chủ Nhật | P2 | 8 SP | 📋 Todo | [`RPG-09_wrapped-full-spec-mvp.md`](RPG-09_wrapped-full-spec-mvp.md) |
 
