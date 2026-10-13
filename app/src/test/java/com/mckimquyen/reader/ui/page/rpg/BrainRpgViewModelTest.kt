@@ -150,4 +150,35 @@ class BrainRpgViewModelTest {
         assertEquals(0, rewarded)
         assertEquals(0L, viewModel.userProgress.value.totalXp)
     }
+
+    @Test
+    fun claimDoubleReward_awardsOnce_andReportsTheOutcomeToTheUi() = runTest(testDispatcher) {
+        viewModel.submitQuizAnswer("art_dbl", QuizGeneratorService.CATEGORY_TECH, true) { _, _ -> }
+        testScheduler.advanceUntilIdle()
+
+        val results = mutableListOf<Boolean>()
+        viewModel.claimDoubleReward("art_dbl", QuizGeneratorService.CATEGORY_TECH, 150L) { results += it }
+        viewModel.claimDoubleReward("art_dbl", QuizGeneratorService.CATEGORY_TECH, 150L) { results += it }
+        testScheduler.advanceUntilIdle()
+
+        assertEquals(listOf(true, false), results)
+        assertEquals(300L, viewModel.userProgress.value.totalXp)
+        assertTrue(viewModel.isDoubleRewardClaimed("art_dbl"))
+    }
+
+    @Test
+    fun claimDoubleReward_afterTheViewModelIsRecreated_awardsNothing() = runTest(testDispatcher) {
+        viewModel.submitQuizAnswer("art_dbl2", QuizGeneratorService.CATEGORY_TECH, true) { _, _ -> }
+        viewModel.claimDoubleReward("art_dbl2", QuizGeneratorService.CATEGORY_TECH, 150L) { }
+        testScheduler.advanceUntilIdle()
+
+        val reborn = recreatedViewModel()
+        var outcome: Boolean? = null
+        reborn.claimDoubleReward("art_dbl2", QuizGeneratorService.CATEGORY_TECH, 150L) { outcome = it }
+        testScheduler.advanceUntilIdle()
+
+        assertEquals(false, outcome)
+        assertEquals(300L, reborn.userProgress.value.totalXp)
+        assertTrue("the card must be able to hide the button", reborn.isDoubleRewardClaimed("art_dbl2"))
+    }
 }

@@ -229,4 +229,52 @@ class BrainRpgRepositoryTest {
         assertEquals(150L, quizAward)
         assertEquals(200L, repository.getProgress().totalXp)
     }
+
+    @Test
+    fun awardDoubleXpForQuizOnce_afterACorrectQuiz_awardsTheBonusOnce() {
+        repository.submitQuizResultOnce("art-d", QuizGeneratorService.CATEGORY_TECH, true)
+
+        val first = repository.awardDoubleXpForQuizOnce("art-d", QuizGeneratorService.CATEGORY_TECH, 150L)
+        val second = repository.awardDoubleXpForQuizOnce("art-d", QuizGeneratorService.CATEGORY_TECH, 150L)
+
+        assertEquals(150L, first)
+        assertEquals("a repeat must award nothing", 0L, second)
+        assertEquals(300L, repository.getProgress().totalXp)
+        assertTrue(repository.isDoubleRewardClaimed("art-d"))
+    }
+
+    @Test
+    fun awardDoubleXpForQuizOnce_withoutACorrectQuiz_awardsNothing() {
+        assertEquals(0L, repository.awardDoubleXpForQuizOnce("art-x", QuizGeneratorService.CATEGORY_TECH, 150L))
+        repository.submitQuizResultOnce("art-x", QuizGeneratorService.CATEGORY_TECH, false)
+        assertEquals("a wrong answer earns no double either", 0L, repository.awardDoubleXpForQuizOnce("art-x", QuizGeneratorService.CATEGORY_TECH, 150L))
+        assertEquals(0L, repository.getProgress().totalXp)
+        assertFalse(repository.isDoubleRewardClaimed("art-x"))
+    }
+
+    @Test
+    fun awardDoubleXpForQuizOnce_survivesTheProcessBeingKilled() {
+        repository.submitQuizResultOnce("art-d", QuizGeneratorService.CATEGORY_TECH, true)
+        repository.awardDoubleXpForQuizOnce("art-d", QuizGeneratorService.CATEGORY_TECH, 150L)
+
+        val afterRestart = freshRepositorySameStorage()
+        assertTrue(afterRestart.isDoubleRewardClaimed("art-d"))
+        assertEquals(0L, afterRestart.awardDoubleXpForQuizOnce("art-d", QuizGeneratorService.CATEGORY_TECH, 150L))
+        assertEquals(300L, afterRestart.getProgress().totalXp)
+    }
+
+    @Test
+    fun awardDoubleXpForQuizOnce_isPerArticle() {
+        repository.submitQuizResultOnce("a1", QuizGeneratorService.CATEGORY_TECH, true)
+        repository.submitQuizResultOnce("a2", QuizGeneratorService.CATEGORY_TECH, true)
+
+        assertEquals(150L, repository.awardDoubleXpForQuizOnce("a1", QuizGeneratorService.CATEGORY_TECH, 150L))
+        assertEquals(150L, repository.awardDoubleXpForQuizOnce("a2", QuizGeneratorService.CATEGORY_TECH, 150L))
+    }
+
+    @Test
+    fun awardDoubleXpForQuizOnce_blankArticleId_awardsNothing() {
+        assertEquals(0L, repository.awardDoubleXpForQuizOnce("", QuizGeneratorService.CATEGORY_TECH, 150L))
+        assertFalse(repository.isDoubleRewardClaimed(""))
+    }
 }

@@ -117,4 +117,16 @@ class BrainRpgIntegrationTest {
         assertEquals(150L, progress.totalXp)
         assertEquals(2, progress.quizzesAttempted)
     }
+
+    @Test
+    fun doubleXp_canBeClaimedOnlyOncePerArticle_evenAfterTheProcessRestarts() {
+        repository.submitQuizResultOnce("art-int-d", QuizGeneratorService.CATEGORY_TECH, true)
+        assertEquals(150L, repository.awardDoubleXpForQuizOnce("art-int-d", QuizGeneratorService.CATEGORY_TECH, 150L))
+        assertTrue(repository.isDoubleRewardClaimed("art-int-d"))
+
+        val afterRestart = restartedRepository()
+        assertTrue("the button must stay hidden after a restart", afterRestart.isDoubleRewardClaimed("art-int-d"))
+        assertEquals(0L, afterRestart.awardDoubleXpForQuizOnce("art-int-d", QuizGeneratorService.CATEGORY_TECH, 150L))
+        assertEquals(300L, afterRestart.userProgress.value.totalXp)
+    }
 }

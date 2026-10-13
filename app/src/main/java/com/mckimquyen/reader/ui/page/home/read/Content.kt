@@ -139,6 +139,7 @@ fun Content(
                     item {
                         BrainQuizCard(
                             quiz = quiz,
+                            doubleAlreadyClaimed = brainRpgViewModel?.isDoubleRewardClaimed(quiz.articleId) == true,
                             onAnswerSubmitted = { isCorrect ->
                                 brainRpgViewModel?.submitQuizAnswer(quiz.articleId, quiz.category, isCorrect) { _, awarded ->
                                     if (isCorrect && awarded > 0) {
@@ -147,7 +148,7 @@ fun Content(
                                 }
                             },
                             onDoubleXpRequested = { act, onDone ->
-                                brainRpgViewModel?.doubleQuizReward(act, quiz.category, 150L, onDone)
+                                brainRpgViewModel?.doubleQuizReward(act, quiz.articleId, quiz.category, 150L, onDone)
                             },
                             onRetryQuizRequested = { act, onDone ->
                                 brainRpgViewModel?.retryQuiz(act, onDone)

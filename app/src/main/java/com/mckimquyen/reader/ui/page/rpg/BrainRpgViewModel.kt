@@ -40,16 +40,24 @@ class BrainRpgViewModel @Inject constructor(
         }
     }
 
-    fun doubleQuizReward(activity: Activity, category: String, bonusXp: Long, onDone: (Boolean) -> Unit) {
+    /** Whether the "double the XP" bonus for this article was already taken (persisted, survives a restart). */
+    fun isDoubleRewardClaimed(articleId: String): Boolean = repository.isDoubleRewardClaimed(articleId)
+
+    /** Awards the double-XP bonus once; [onDone] gets true only when XP was really added. */
+    fun claimDoubleReward(articleId: String, category: String, bonusXp: Long, onDone: (Boolean) -> Unit) {
+        viewModelScope.launch {
+            onDone(repository.awardDoubleXpForQuizOnce(articleId, category, bonusXp) > 0L)
+        }
+    }
+
+    fun doubleQuizReward(activity: Activity, articleId: String, category: String, bonusXp: Long, onDone: (Boolean) -> Unit) {
+        // Do not even offer the rewarded ad when the bonus was already taken.
+        if (repository.isDoubleRewardClaimed(articleId)) {
+            onDone(false)
+            return
+        }
         AdManager.showRewarded(activity) { earned ->
-            if (earned) {
-                viewModelScope.launch {
-                    repository.awardDoubleXpForQuiz(category, bonusXp)
-                    onDone(true)
-                }
-            } else {
-                onDone(false)
-            }
+            if (earned) claimDoubleReward(articleId, category, bonusXp, onDone) else onDone(false)
         }
     }
 

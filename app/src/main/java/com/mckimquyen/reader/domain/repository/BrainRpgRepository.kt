@@ -168,6 +168,25 @@ class BrainRpgRepository @Inject constructor(
         return submitQuizResult(category, isCorrect)
     }
 
+    /**
+     * "Watch an ad to double the quiz XP", at most once per article: only after the quiz was answered correctly
+     * (that is what [KEY_QUIZ_REWARDED] records) and only if not claimed before. Returns the bonus awarded (0 when
+     * blocked). The claimed set is stored, so it survives a restart and lets the UI hide the button.
+     */
+    @Synchronized
+    fun awardDoubleXpForQuizOnce(articleId: String, category: String, bonusXp: Long): Long {
+        if (articleId.isBlank()) return 0L
+        ensureLoaded()
+        if (articleId !in rewardedIds(KEY_QUIZ_REWARDED)) return 0L
+        if (!markRewarded(KEY_DOUBLE_REWARDED, articleId)) return 0L
+        awardDoubleXpForQuiz(category, bonusXp)
+        return bonusXp
+    }
+
+    @Synchronized
+    fun isDoubleRewardClaimed(articleId: String): Boolean =
+        articleId.isNotBlank() && articleId in rewardedIds(KEY_DOUBLE_REWARDED)
+
     private fun rewardedIds(key: String): Set<String> = prefs.getStringSet(key, emptySet()) ?: emptySet()
 
     /** Persists [articleId] in the set at [key]; false when it was already there. Commits synchronously on purpose. */
@@ -242,6 +261,7 @@ class BrainRpgRepository @Inject constructor(
         private const val KEY_CAT_PREFIX = "brain_rpg_cat"
         private const val KEY_READ_REWARDED = "brain_rpg_read_rewarded_ids"
         private const val KEY_QUIZ_REWARDED = "brain_rpg_quiz_rewarded_ids"
+        private const val KEY_DOUBLE_REWARDED = "brain_rpg_double_rewarded_ids"
         const val READING_XP = 50L
     }
 }

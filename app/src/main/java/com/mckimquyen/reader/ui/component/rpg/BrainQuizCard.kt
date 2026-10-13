@@ -34,6 +34,8 @@ import com.mckimquyen.reader.ui.ext.findActivity
 @Composable
 fun BrainQuizCard(
     quiz: QuizQuestion,
+    /** The bonus was already taken for this article (persisted), so the button must not come back after a restart. */
+    doubleAlreadyClaimed: Boolean = false,
     onAnswerSubmitted: (isCorrect: Boolean) -> Unit,
     onDoubleXpRequested: (activity: Activity, onDone: (Boolean) -> Unit) -> Unit,
     onRetryQuizRequested: (activity: Activity, onDone: (Boolean) -> Unit) -> Unit,
@@ -43,7 +45,7 @@ fun BrainQuizCard(
     val activity = remember(context) { context.findActivity() }
 
     var selectedIndex by remember(quiz.articleId) { mutableStateOf<Int?>(null) }
-    var isDoubled by remember(quiz.articleId) { mutableStateOf(false) }
+    var isDoubled by remember(quiz.articleId, doubleAlreadyClaimed) { mutableStateOf(doubleAlreadyClaimed) }
 
     val isAnswered = selectedIndex != null
     val isCorrect = selectedIndex == quiz.correctAnswerIndex
