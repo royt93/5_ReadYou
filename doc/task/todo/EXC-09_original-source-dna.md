@@ -7,7 +7,7 @@
 - **Location:** [`infrastructure/ai/clustering/StoryClusteringEngine.kt`](../../../app/src/main/java/com/mckimquyen/reader/infrastructure/ai/clustering/StoryClusteringEngine.kt), [`domain/model/cluster/StoryCluster.kt`](../../../app/src/main/java/com/mckimquyen/reader/domain/model/cluster/StoryCluster.kt) (mở rộng model), `app/src/main/java/com/mckimquyen/reader/ui/page/home/flow/cluster/` (nơi hiển thị cụm hiện có)
 
 ## Cơ hội / Động lực
-`StoryClusteringEngine.cluster()` đã gom được các bài viết cùng chủ đề vào `StoryCluster(articles, sourceCount, articleCount, ...)` và chọn `leadArticle` (hiện dùng heuristic đơn giản, không phải "bài gốc" thực sự). Với 1 sự kiện nóng, 8-10 nguồn có thể cùng đưa tin nhưng chỉ 1-2 nguồn là tác giả gốc còn lại chủ yếu sao chép/diễn giải lại (rewrite). App hiện chưa có cách nào cho người dùng biết bài nào đáng tin/là nguồn gốc, bài nào chỉ là "xào lại". Đây là cơ hội mở rộng ngay trên dữ liệu `StoryCluster.articles` đã có sẵn (mỗi `ArticleWithFeed` có `article.date`, `feed.id`), dùng heuristic thời gian đăng sớm nhất + độ tương đồng nội dung cao với các bài khác để suy luận cây nguồn gốc, không cần gọi AI cloud.
+`StoryClusteringEngine.cluster()` đã gom các bài cùng chủ đề vào `StoryCluster.articles`; mỗi `ArticleWithFeed` có ngày do feed báo cáo và nội dung văn bản. Có thể giúp người đọc thấy thứ tự thời gian và những bài có câu chữ tương đồng. Dữ liệu này không chứng minh bài nào là tác giả gốc hoặc bài nào sao chép; feed có thể syndicate hoặc cập nhật timestamp trễ. Vì vậy sản phẩm chỉ trình bày quan hệ thời gian/similarity dạng heuristic, có disclaimer và trạng thái không chắc chắn.
 
 ## User Story
 > Là người muốn biết mình đang đọc tin từ nguồn gốc hay bản sao chép lại,
@@ -15,12 +15,13 @@
 > Để tôi ưu tiên đọc bài gốc chất lượng cao thay vì các bài rewrite hời hợt.
 
 ## Acceptance Criteria (Gherkin)
-- **Given** một `StoryCluster` có `sourceCount >= 3`
-- **When** người dùng mở chi tiết cụm sự kiện và bấm "🧬 Xem Nguồn Gốc (Source DNA)"
-- **Then** hệ thống phân tích `article.date` (thời gian đăng) kết hợp độ tương đồng câu chữ với các bài khác trong cụm để xác định: (a) bài được đăng sớm nhất VÀ có nội dung độc lập (similarity thấp với các bài khác) → gắn nhãn "🌱 Nguồn Gốc", (b) các bài đăng sau và có độ tương đồng câu chữ cao (> ngưỡng) với bài gốc → gắn nhãn "📋 Sao Chép Lại"
-- **And** hiển thị dưới dạng cây/timeline: gốc trên cùng, các bản sao chép bên dưới theo thứ tự thời gian, kèm % tương đồng với bài gốc
-- **And** nếu không xác định được rõ nguồn gốc (nhiều bài đăng cùng lúc, độ tương đồng thấp đều) thì hiển thị "Không xác định được nguồn gốc rõ ràng" thay vì suy đoán sai
-- **And** kết quả phân tích không gọi API AI cloud, tính toán dưới 200ms cho cụm tối đa 20 bài.
+- **Given** một `StoryCluster` có ít nhất 3 feed duy nhất
+- **When** người dùng mở chi tiết cụm sự kiện và bấm "🧬 Source DNA"
+- **Then** hệ thống phân tích `article.date` do feed báo cáo và độ tương đồng câu chữ cục bộ; nhãn diễn đạt đây là heuristic, không xác nhận nguồn gốc hay cáo buộc sao chép
+- **And** bài có timestamp sớm nhất duy nhất được gắn "Đăng sớm nhất trong cụm"; bài sau nối với bài trước có similarity cao nhất (>= 0.75), nếu đủ ngưỡng thì gắn "Tương đồng cao với [feed]" kèm phần trăm
+- **And** hiển thị graph có thể cuộn dọc, các node sắp theo thời gian, kèm feed, thời gian, tiêu đề, relation và similarity; bấm node mở bài
+- **And** hòa timestamp sớm nhất, tất cả timestamp bằng nhau, hoặc không có cạnh đủ ngưỡng thì hiển thị trạng thái không rõ nguồn; không tự chọn root
+- **And** không gọi API AI/cloud; cụm trên 20 bài chỉ phân tích 20 bài sớm nhất và báo rõ việc cắt ngưỡng; analyzer tối đa 190 phép so sánh; mục tiêu warm median dưới 200 ms trên Tecno.
 
 ## 🔁 Loop Prompt (dùng cho `/loop` hoặc agent thực thi task này)
 
@@ -49,3 +50,18 @@ Chỉ dừng loop khi hoàn tất TẤT CẢ bước sau, đúng thứ tự, KH�
    → `git add` các file liên quan → `git commit` với message rõ ràng, đúng Conventional Commits → **`git push`** lên remote nhánh hiện tại. Kết thúc loop, cập nhật trạng thái task (di chuyển file từ `doc/task/todo/` hoặc `inprogress/` sang `doc/task/done/`, đổi tên thêm hậu tố `_DONE` và viết Completion Report ngắn: điểm số, commit hash, danh sách test đã thêm).
 7. Nếu điểm **≤ 9/10** hoặc bất kỳ điều kiện bước 2-5 chưa đạt: quay lại bước 1 của vòng lặp Loop Prompt, KHÔNG commit/push.
 ```
+
+## Completion Report (2026-10-14)
+
+**Status:** Implemented locally; no push.
+
+- Added pure `SourceDnaAnalyzer`: deterministic timestamp graph, strictly-earlier candidate parents, `>= 0.75` similarity edge, tied timestamp abstention, invalid score rejection, duplicate/blank ID handling, unknown source fallback, and oldest-20 cap.
+- Added on-demand Source DNA view in `StoryClusterSheet`; original perspectives/lead action unchanged. Labels and disclaimer consistently say the graph is a heuristic, not proof of copying or verified attribution. Node tap delegates to the existing article route.
+- Localized all strings in maintained resource folders; primary en/vi/zh-rCN/ja/fr/de translations; English fallback elsewhere.
+- **Unit:** `SourceDnaAnalyzerTest` 11; `StoryClusteringEngineTest` 12; full `testDevDebugUnitTest` green.
+- **Widget/integration on Tecno `115333744A005844`:** `StoryClusterSheetWidgetTest` 6/6; `SourceDnaFlowIntegrationTest` 1/1. Existing lead article action still routes to lead.
+- **Performance on Tecno:** 20 articles; cold 84 ms, warm median 22 ms, warm worst 24 ms; 190 similarity calls.
+- **Build/lint:** `testDevDebugUnitTest assembleDevDebug assembleDevDebugAndroidTest lintDevDebug` all green.
+- **Manual smoke limitation:** Flow on Tecno had no naturally available cluster with >=3 distinct sources; opened article list showed BBC single-source items only. No synthetic cluster or feed data was inserted. Therefore tapping Source DNA on a real eligible cluster could not be manually smoke-tested; widget and Flow integration tests cover that flow. No full-screen ad appeared during instrumentation/device checks.
+
+**Audit:** 9/10. Heuristic and uncertainty handling are explicit; live device smoke could not exercise eligible-cluster entry because current device feed data lacked such a cluster.

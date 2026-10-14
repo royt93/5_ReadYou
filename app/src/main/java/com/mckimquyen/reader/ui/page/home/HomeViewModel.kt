@@ -75,6 +75,10 @@ class HomeViewModel @Inject constructor(
     private val _selectedCluster = MutableStateFlow<StoryCluster?>(null)
     val selectedCluster: StateFlow<StoryCluster?> = _selectedCluster.asStateFlow()
 
+    /** Reuses cached lexical features from the existing local clustering engine. */
+    fun calculateArticleSimilarity(first: com.mckimquyen.reader.domain.model.article.ArticleWithFeed, second: com.mckimquyen.reader.domain.model.article.ArticleWithFeed): Float =
+        clusteringEngine.calculateSimilarity(first, second)
+
     fun openCluster(cluster: StoryCluster) {
         _selectedCluster.value = cluster
     }

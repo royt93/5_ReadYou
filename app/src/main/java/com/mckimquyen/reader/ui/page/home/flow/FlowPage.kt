@@ -377,7 +377,8 @@ fun FlowPage(
                 },
                 onMarkAllRead = { cluster ->
                     homeViewModel.markClusterAsRead(cluster)
-                }
+                },
+                calculateSimilarity = homeViewModel::calculateArticleSimilarity,
             )
 
             // Sheet quản lý từ khóa theo dõi khẩn cấp (Watchdog)

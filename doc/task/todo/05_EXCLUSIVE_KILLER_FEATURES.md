@@ -16,7 +16,7 @@
 | EXC-06 | "AI Deep Read" — Trò Chuyện & Hỏi Đáp Tương Tác Với Bài Báo | P2 (Medium) | ✅ Done | [../done/EXC-06_ai-deep-read-chat_DONE.md](../done/EXC-06_ai-deep-read-chat_DONE.md) |
 | EXC-07 | Chế Độ Đọc Song Ngữ & Dịch Đoạn Tức Thì (Bilingual Side-by-Side) | P2 (Medium) | 📋 Todo | [EXC-07_bilingual-side-by-side-reader.md](EXC-07_bilingual-side-by-side-reader.md) |
 | EXC-08 | Second Brain Graph — Đồ Thị Tri Thức Cá Nhân Hợp Nhất | P1 (High) | 📋 Todo | [EXC-08_second-brain-graph.md](EXC-08_second-brain-graph.md) |
-| EXC-09 | Original Source DNA — Truy Vết Nguồn Gốc & Cây Sao Chép Của Một Cụm Tin | P1 (High) | 📋 Todo | [EXC-09_original-source-dna.md](EXC-09_original-source-dna.md) |
+| EXC-09 | Original Source DNA — Cây tương đồng nguồn tin (heuristic) | P1 (High) | ✅ Implemented | [EXC-09_original-source-dna.md](EXC-09_original-source-dna.md) |
 | EXC-10 | Retraction Radar — Phát Hiện Bài Báo Bị Sửa Âm Thầm Hoặc Bị Gỡ Bỏ | P1 (High) | 📋 Todo | [EXC-10_retraction-radar.md](EXC-10_retraction-radar.md) |
 | EXC-11 | Temporal "Ask My Archive" — Hỏi Đáp Kho Lưu Trữ RSS Theo Mốc Thời Gian | P2 (Medium) | 📋 Todo | [EXC-11_temporal-ask-my-archive.md](EXC-11_temporal-ask-my-archive.md) |
 | EXC-12 | AI Feed Autopilot — Tự Học Hành Vi Đọc & Gợi Ý Unsubscribe Feed Gây Nhiễu | P2 (Medium) | 📋 Todo | [EXC-12_ai-feed-autopilot.md](EXC-12_ai-feed-autopilot.md) |

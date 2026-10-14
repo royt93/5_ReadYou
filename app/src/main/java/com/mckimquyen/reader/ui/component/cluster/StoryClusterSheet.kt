@@ -30,6 +30,7 @@ import androidx.compose.material.icons.rounded.DoneAll
 import androidx.compose.material.icons.rounded.MenuBook
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -38,10 +39,14 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -53,8 +58,14 @@ import androidx.compose.ui.window.DialogProperties
 import com.mckimquyen.reader.R
 import com.mckimquyen.reader.domain.model.article.ArticleWithFeed
 import com.mckimquyen.reader.domain.model.cluster.StoryCluster
+import com.mckimquyen.reader.domain.model.cluster.SourceDnaAnalyzer
+import com.mckimquyen.reader.domain.model.cluster.SourceDnaNode
+import com.mckimquyen.reader.domain.model.cluster.SourceDnaRelation
+import com.mckimquyen.reader.domain.model.cluster.SourceDnaResult
 import com.mckimquyen.reader.ui.component.FeedIcon
 import com.mckimquyen.reader.ui.ext.DialogEdgeToEdge
+import java.text.DateFormat
+import java.util.Date
 
 /**
  * Dialog hiển thị toàn cảnh đa chiều (Multi-Perspective View)
@@ -66,6 +77,7 @@ fun StoryClusterSheet(
     onDismissRequest: () -> Unit,
     onArticleClick: (ArticleWithFeed) -> Unit,
     onMarkAllRead: (StoryCluster) -> Unit = {},
+    calculateSimilarity: (ArticleWithFeed, ArticleWithFeed) -> Float = { _, _ -> 0f },
 ) {
     if (cluster == null) return
 
@@ -112,6 +124,7 @@ fun StoryClusterSheet(
                     onArticleClick = onArticleClick,
                     onMarkAllRead = onMarkAllRead,
                     onClose = onDismissRequest,
+                    calculateSimilarity = calculateSimilarity,
                 )
             }
         }
@@ -125,7 +138,11 @@ fun StoryClusterSheetContent(
     onMarkAllRead: (StoryCluster) -> Unit,
     onClose: () -> Unit,
     modifier: Modifier = Modifier,
+    calculateSimilarity: (ArticleWithFeed, ArticleWithFeed) -> Float = { _, _ -> 0f },
 ) {
+    var sourceDnaResult by remember(cluster.id) { mutableStateOf<SourceDnaResult?>(null) }
+    var sourceDnaFailed by remember(cluster.id) { mutableStateOf(false) }
+    val canOpenSourceDna = cluster.articles.map { it.feed.id }.distinct().size >= SOURCE_DNA_MIN_SOURCES
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -252,34 +269,77 @@ fun StoryClusterSheetContent(
         Divider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.4f))
         Spacer(modifier = Modifier.height(8.dp))
 
-        // Danh sách góc nhìn từ các nguồn báo
-        Text(
-            text = stringResource(R.string.story_cluster_all_perspectives, cluster.articles.size),
-            style = MaterialTheme.typography.labelLarge,
-            fontWeight = FontWeight.SemiBold,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            modifier = Modifier.padding(vertical = 4.dp),
-        )
-
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f, fill = false)
-                .heightIn(max = 380.dp),
-            verticalArrangement = Arrangement.spacedBy(10.dp),
-            contentPadding = PaddingValues(vertical = 6.dp),
-        ) {
-            items(cluster.articles, key = { it.article.id }) { articleWithFeed ->
-                val isLead = articleWithFeed.article.id == cluster.leadArticle.article.id
-                PerspectiveArticleCard(
-                    articleWithFeed = articleWithFeed,
-                    isLead = isLead,
-                    onClick = {
-                        onClose()
-                        onArticleClick(articleWithFeed)
-                    },
+        val dna = sourceDnaResult
+        if (dna == null) {
+            // Danh sách góc nhìn từ các nguồn báo
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Text(
+                    text = stringResource(R.string.story_cluster_all_perspectives, cluster.articles.size),
+                    style = MaterialTheme.typography.labelLarge,
+                    fontWeight = FontWeight.SemiBold,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(vertical = 4.dp),
+                )
+                if (canOpenSourceDna) {
+                    TextButton(
+                        onClick = {
+                            sourceDnaFailed = false
+                            sourceDnaResult = runCatching {
+                                SourceDnaAnalyzer.analyze(cluster.articles, calculateSimilarity)
+                            }.onFailure { sourceDnaFailed = true }.getOrNull()
+                        },
+                    ) {
+                        Text(text = stringResource(R.string.source_dna_action))
+                    }
+                }
+            }
+            if (sourceDnaFailed) {
+                Text(
+                    text = stringResource(R.string.source_dna_error),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.error,
                 )
             }
+
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f, fill = false)
+                    .heightIn(max = 380.dp),
+                verticalArrangement = Arrangement.spacedBy(10.dp),
+                contentPadding = PaddingValues(vertical = 6.dp),
+            ) {
+                items(cluster.articles, key = { it.article.id }) { articleWithFeed ->
+                    val isLead = articleWithFeed.article.id == cluster.leadArticle.article.id
+                    PerspectiveArticleCard(
+                        articleWithFeed = articleWithFeed,
+                        isLead = isLead,
+                        onClick = {
+                            onClose()
+                            onArticleClick(articleWithFeed)
+                        },
+                    )
+                }
+            }
+        } else {
+            SourceDnaGraph(
+                result = dna,
+                onBack = { sourceDnaResult = null },
+                onArticleClick = {
+                    onClose()
+                    onArticleClick(it)
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f, fill = false)
+                    .heightIn(max = 380.dp),
+            )
         }
 
         Spacer(modifier = Modifier.height(14.dp))
@@ -429,6 +489,127 @@ fun PerspectiveArticleCard(
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis,
+                )
+            }
+        }
+    }
+}
+
+private const val SOURCE_DNA_MIN_SOURCES = 3
+private const val SOURCE_DNA_PERCENT_SCALE = 100
+private val SOURCE_DNA_BRANCH_INDENT = 14.dp
+
+@Composable
+private fun SourceDnaGraph(
+    result: SourceDnaResult,
+    onBack: () -> Unit,
+    onArticleClick: (ArticleWithFeed) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    val unknownSource = stringResource(R.string.source_dna_unknown_source)
+    val articleById = result.nodes.associateBy { it.article.article.id }
+    LazyColumn(
+        modifier = modifier,
+        verticalArrangement = Arrangement.spacedBy(10.dp),
+        contentPadding = PaddingValues(vertical = 6.dp),
+    ) {
+        item {
+            Column {
+                TextButton(onClick = onBack) { Text(text = stringResource(R.string.source_dna_back)) }
+                Text(
+                    text = stringResource(R.string.source_dna_title),
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold,
+                )
+                Text(
+                    text = stringResource(R.string.source_dna_disclaimer),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+                if (result.isEarliestAmbiguous || !result.hasAnySimilarityEdge) {
+                    Text(
+                        text = stringResource(R.string.source_dna_uncertain),
+                        style = MaterialTheme.typography.bodySmall,
+                        fontWeight = FontWeight.SemiBold,
+                        color = MaterialTheme.colorScheme.tertiary,
+                    )
+                }
+                if (result.wasTruncated) {
+                    Text(
+                        text = stringResource(R.string.source_dna_showing_earliest_limit, result.analyzedArticleCount),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
+            }
+        }
+        items(result.nodes, key = { it.article.article.id }) { node ->
+            SourceDnaNodeCard(
+                node = node,
+                parent = node.parentArticleId?.let(articleById::get),
+                unknownSource = unknownSource,
+                onClick = { onArticleClick(node.article) },
+            )
+        }
+    }
+}
+
+@Composable
+private fun SourceDnaNodeCard(
+    node: SourceDnaNode,
+    parent: SourceDnaNode?,
+    unknownSource: String,
+    onClick: () -> Unit,
+) {
+    val context = LocalContext.current
+    val sourceLabel = node.sourceLabel ?: unknownSource
+    val feedReportedTime = remember(node.article.article.date, context.resources.configuration.locales) {
+        DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(Date(node.article.article.date.time))
+    }
+    val parentLabel = parent?.sourceLabel ?: unknownSource
+    val label = when (node.relation) {
+        SourceDnaRelation.EARLIEST_IN_CLUSTER -> stringResource(R.string.source_dna_earliest_posted)
+        SourceDnaRelation.HIGH_SIMILARITY -> stringResource(R.string.source_dna_high_similarity_to, parentLabel)
+        SourceDnaRelation.NO_CLEAR_RELATIONSHIP -> stringResource(R.string.source_dna_no_clear_relationship)
+    }
+    Surface(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(start = if (node.parentArticleId == null) 0.dp else SOURCE_DNA_BRANCH_INDENT)
+            .clip(RoundedCornerShape(14.dp))
+            .clickable(onClick = onClick),
+        shape = RoundedCornerShape(14.dp),
+        color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.45f),
+    ) {
+        Column(modifier = Modifier.padding(horizontal = 14.dp, vertical = 10.dp)) {
+            Text(
+                text = sourceLabel,
+                style = MaterialTheme.typography.labelSmall,
+                fontWeight = FontWeight.SemiBold,
+                color = MaterialTheme.colorScheme.primary,
+            )
+            Text(
+                text = stringResource(R.string.source_dna_feed_reported_time, feedReportedTime),
+                style = MaterialTheme.typography.labelSmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+            Text(
+                text = node.article.article.title,
+                style = MaterialTheme.typography.titleSmall,
+                fontWeight = FontWeight.SemiBold,
+                color = MaterialTheme.colorScheme.onSurface,
+            )
+            Text(
+                text = label,
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+            node.similarityToParent?.let { similarity ->
+                Text(
+                    text = stringResource(R.string.source_dna_similarity, (similarity * SOURCE_DNA_PERCENT_SCALE).toInt()),
+                    style = MaterialTheme.typography.labelSmall,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             }
         }
