@@ -33,8 +33,9 @@ class TtsForegroundService : Service() {
         super.onCreate()
         createNotificationChannel()
         mediaSession = MediaSessionCompat(this, TAG).apply {
-            setCallback(object : MediaSessionCompat.Callback() {
-                override fun onPlay() {
+            setCallback(object : PlayFromSearchCallback(playSingleItem = ttsManager::resume) {
+
+                override fun onPlayFromSearch(query: String?, extras: android.os.Bundle?) {
                     ttsManager.resume()
                 }
 

@@ -69,8 +69,9 @@ class CommuteMediaSessionService : MediaBrowserServiceCompat() {
         // (there is always at least one more per dialogue line) fills it in.
         scope.launch(Dispatchers.Default) { decodeArtwork() }
         mediaSession = MediaSessionCompat(this, TAG).apply {
-            setCallback(object : MediaSessionCompat.Callback() {
-                override fun onPlay() {
+            setCallback(object : PlayFromSearchCallback(playSingleItem = ::resumeOrPlayLatestEpisode) {
+
+                override fun onPlayFromSearch(query: String?, extras: android.os.Bundle?) {
                     resumeOrPlayLatestEpisode()
                 }
 
