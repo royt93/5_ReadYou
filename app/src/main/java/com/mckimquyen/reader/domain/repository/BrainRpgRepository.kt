@@ -66,7 +66,6 @@ class BrainRpgRepository @Inject constructor(
                 category.categoryId to CategoryDecay.effectiveXp(category.baseXp, category.lastPracticedAtMillis, nowMillis)
             },
             categoryBaseXp = categories.associate { it.categoryId to it.baseXp },
-            categoryLastPracticedAt = categories.associate { it.categoryId to it.lastPracticedAtMillis },
             quizzesAttempted = profile.quizzesAttempted,
             quizzesPassed = profile.quizzesPassed,
         )
@@ -197,7 +196,6 @@ class BrainRpgRepository @Inject constructor(
                 category.categoryId to CategoryDecay.effectiveXp(category.baseXp, category.lastPracticedAtMillis, nowMillis)
             },
             categoryBaseXp = categories.associate { it.categoryId to it.baseXp },
-            categoryLastPracticedAt = categories.associate { it.categoryId to it.lastPracticedAtMillis },
             quizzesAttempted = profile.quizzesAttempted,
             quizzesPassed = profile.quizzesPassed,
         )

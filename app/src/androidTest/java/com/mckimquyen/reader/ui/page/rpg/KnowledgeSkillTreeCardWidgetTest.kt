@@ -25,7 +25,6 @@ class KnowledgeSkillTreeCardWidgetTest {
         UserProgress(
             categoryXp = mapOf(TECH to 90L),
             categoryBaseXp = mapOf(TECH to 100L),
-            categoryLastPracticedAt = mapOf(TECH to 1L),
         ),
     ) { texts ->
         assertTrue(texts.any { it == "90 XP" })

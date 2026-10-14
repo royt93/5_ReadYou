@@ -132,7 +132,6 @@ class BrainRpgIntegrationTest {
         assertEquals(0L, afterRestart.awardReadingXpOnce("art-int-p", tech, 50L, later))
         val progress = afterRestart.refresh()
         assertEquals(50L, progress.totalXp)
-        assertEquals(later, progress.categoryLastPracticedAt[tech])
     }
 
     @Test

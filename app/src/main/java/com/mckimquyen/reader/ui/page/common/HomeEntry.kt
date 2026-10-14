@@ -90,12 +90,7 @@ fun HomeEntry(
         mutableStateOf(intent?.getStringExtra(NotificationHelper.EXTRA_INITIAL_ROUTE).orEmpty())
     }
     intent?.replaceExtras(null)
-    LaunchedEffect(initialRoute) {
-        if (initialRoute.isNotBlank()) {
-            navController.navigate(initialRoute) { launchSingleTop = true }
-            initialRoute = ""
-        }
-    }
+    val notificationRoute = initialRoute.takeIf(String::isNotBlank)
 
     val showCommuteCast by homeViewModel.showCommuteCast.collectAsState()
 
@@ -113,13 +108,9 @@ fun HomeEntry(
             }.first()
         }
 
-        when (initialPage) {
-            1 -> {
-                navController.navigate(RouteName.FLOW) {
-                    launchSingleTop = true
-                }
-            }
-            // Other initial pages
+        resolveInitialRoute(notificationRoute, initialPage)?.let { route ->
+            navController.navigate(route) { launchSingleTop = true }
+            if (route == RouteName.BRAIN_RPG) initialRoute = ""
         }
 
         // Load initial filter asynchronously to avoid blocking

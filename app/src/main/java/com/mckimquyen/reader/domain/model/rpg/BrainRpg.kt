@@ -14,8 +14,6 @@ data class UserProgress(
     val categoryXp: Map<String, Long> = emptyMap(),
     /** Base (earned, never decayed) XP per category. */
     val categoryBaseXp: Map<String, Long> = categoryXp,
-    /** Last qualifying practice per category; used to derive display decay. */
-    val categoryLastPracticedAt: Map<String, Long> = emptyMap(),
     val quizzesAttempted: Int = 0,
     val quizzesPassed: Int = 0
 ) {
