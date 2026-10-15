@@ -12,13 +12,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
-import androidx.compose.material.icons.rounded.Article
-import androidx.compose.material.icons.outlined.NotificationsActive
-import androidx.compose.material.icons.outlined.PlayCircle
-import androidx.compose.material.icons.outlined.Podcasts
-import androidx.compose.material.icons.outlined.Psychology
-import androidx.compose.material.icons.rounded.DoneAll
 import androidx.compose.material.icons.rounded.Search
+import androidx.compose.material.icons.rounded.MoreVert
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -95,6 +90,7 @@ fun FlowPage(
     val scope = rememberCoroutineScope()
     val focusRequester = remember { FocusRequester() }
     var markAsRead by remember { mutableStateOf(false) }
+    var actionsExpanded by remember { mutableStateOf(false) }
     var onSearch by remember { mutableStateOf(false) }
     var isSyncing by remember { mutableStateOf(false) }
     // observeAsState() is the correct Compose-idiomatic way to observe LiveData.
@@ -150,64 +146,34 @@ fun FlowPage(
         actions = {
             // Chỉ hiển thị action buttons khi không ở tab AddSources
             if (!filterUiState.filter.isAddSources()) {
-                BaseExtensibleVisibility(visible = !filterUiState.filter.isStarred()) {
-                    FeedbackIconButton(
-                        imageVector = Icons.Rounded.DoneAll,
-                        contentDescription = stringResource(R.string.mark_all_as_read),
-                        tint = if (markAsRead) {
-                            MaterialTheme.colorScheme.primary
-                        } else {
-                            MaterialTheme.colorScheme.onSurface
-                        },
-                    ) {
+                FeedbackIconButton(
+                    imageVector = Icons.Rounded.MoreVert,
+                    contentDescription = stringResource(R.string.more),
+                    onClick = { actionsExpanded = true },
+                )
+                FlowActionsMenu(
+                    expanded = actionsExpanded,
+                    showMarkAllAsRead = !filterUiState.filter.isStarred(),
+                    onDismiss = { actionsExpanded = false },
+                    onMarkAllAsRead = if (!filterUiState.filter.isStarred()) ({
                         scope.launch {
-                            if (listState.firstVisibleItemIndex != 0) {
-                                listState.scrollToItem(0)
-                            }
+                            if (listState.firstVisibleItemIndex != 0) listState.scrollToItem(0)
                             markAsRead = !markAsRead
                             onSearch = false
                         }
-                    }
-                }
-                FeedbackIconButton(
-                    imageVector = Icons.Rounded.Article,
-                    contentDescription = stringResource(R.string.daily_digest_title),
-                    tint = MaterialTheme.colorScheme.onSurface,
-                ) {
-                    navController.navigate(RouteName.DAILY_DIGEST) { launchSingleTop = true }
-                }
-                FeedbackIconButton(
-                    imageVector = Icons.Outlined.PlayCircle,
-                    contentDescription = stringResource(R.string.reels_title),
-                    tint = MaterialTheme.colorScheme.onSurface,
-                ) {
-                    navController.navigate(RouteName.REELS) {
-                        launchSingleTop = true
-                    }
-                }
-                FeedbackIconButton(
-                    imageVector = Icons.Outlined.Podcasts,
-                    contentDescription = stringResource(R.string.commute_cast_title),
-                    tint = MaterialTheme.colorScheme.onSurface,
-                ) {
-                    homeViewModel.openCommuteCast()
-                }
-                FeedbackIconButton(
-                    imageVector = Icons.Outlined.Psychology,
-                    contentDescription = stringResource(R.string.brain_rpg_title),
-                    tint = MaterialTheme.colorScheme.onSurface,
-                ) {
-                    navController.navigate(RouteName.BRAIN_RPG) {
-                        launchSingleTop = true
-                    }
-                }
-                FeedbackIconButton(
-                    imageVector = Icons.Outlined.NotificationsActive,
-                    contentDescription = stringResource(R.string.watchdog_title),
-                    tint = MaterialTheme.colorScheme.onSurface,
-                ) {
-                    homeViewModel.openWatchdogSheet()
-                }
+                    }) else null,
+                    onDailyDigest = {
+                        navController.navigate(RouteName.DAILY_DIGEST) { launchSingleTop = true }
+                    },
+                    onReels = {
+                        navController.navigate(RouteName.REELS) { launchSingleTop = true }
+                    },
+                    onCommuteCast = { homeViewModel.openCommuteCast() },
+                    onBrainRpg = {
+                        navController.navigate(RouteName.BRAIN_RPG) { launchSingleTop = true }
+                    },
+                    onWatchdog = { homeViewModel.openWatchdogSheet() },
+                )
                 FeedbackIconButton(
                     imageVector = Icons.Rounded.Search,
                     contentDescription = stringResource(R.string.search),
