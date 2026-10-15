@@ -1,0 +1,45 @@
+<h2>Chọn cách trình bày Source DNA</h2>
+<p class="subtitle">Cả hai phương án giữ nhãn thận trọng: thời gian đăng + tương đồng là suy luận, không chứng minh sao chép. Chọn layout dễ đọc hơn khi so sánh 3–10 nguồn.</p>
+
+<div class="options">
+  <div class="option" data-choice="branching" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>Đồ thị nhánh theo thời gian (Recommended)</h3>
+      <div class="mockup">
+        <div class="mockup-header">Source DNA · 5 nguồn · Suy luận từ thời gian và nội dung</div>
+        <div class="mockup-body" style="font-family:system-ui;line-height:1.3">
+          <div style="margin:auto;max-width:320px;border:1px solid #aaa;border-radius:12px;padding:10px">
+            <b>09:05 · BBC News</b><br><small>Bài đăng sớm nhất trong cụm</small>
+          </div>
+          <div style="text-align:center;color:#888;padding:5px">↓  similarity 84%</div>
+          <div style="display:flex;gap:8px;justify-content:center">
+            <div style="border:1px solid #aaa;border-radius:10px;padding:8px;flex:1"><b>09:40 · Feed B</b><br><small>Tương đồng cao · 84%</small></div>
+            <div style="border:1px solid #aaa;border-radius:10px;padding:8px;flex:1"><b>10:10 · Feed C</b><br><small>Tương đồng vừa · 61%</small></div>
+          </div>
+          <div style="text-align:center;color:#888;padding:5px">↓  similarity 78%</div>
+          <div style="margin:auto;max-width:320px;border:1px solid #aaa;border-radius:10px;padding:8px"><b>11:25 · Feed D</b><br><small>Tương đồng cao với Feed B · 78%</small></div>
+        </div>
+      </div>
+      <p><b>Ưu:</b> thấy quan hệ gần nhất, phân nhánh dễ nhìn. <b>Nhược:</b> nhiều nhánh có thể chật trên điện thoại; cần layout cuộn.</p>
+    </div>
+  </div>
+  <div class="option" data-choice="timeline" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>Timeline tuyến tính</h3>
+      <div class="mockup">
+        <div class="mockup-header">Source DNA · sắp theo giờ đăng</div>
+        <div class="mockup-body" style="font-family:system-ui;line-height:1.3">
+          <div style="border-left:3px solid #888;margin-left:16px;padding:0 0 12px 14px"><b>09:05 · BBC News</b><br><small>Bài đăng sớm nhất trong cụm</small></div>
+          <div style="border-left:3px solid #888;margin-left:16px;padding:0 0 12px 14px"><b>09:40 · Feed B</b><br><small>Tương đồng cao với bài đăng sớm nhất · 84%</small></div>
+          <div style="border-left:3px solid #888;margin-left:16px;padding:0 0 12px 14px"><b>10:10 · Feed C</b><br><small>Tương đồng vừa · 61%</small></div>
+          <div style="border-left:3px solid #888;margin-left:16px;padding-left:14px"><b>11:25 · Feed D</b><br><small>Tương đồng cao với Feed B · 78%</small></div>
+        </div>
+      </div>
+      <p><b>Ưu:</b> đọc gọn trên mobile, thứ tự thời gian rõ. <b>Nhược:</b> quan hệ nhánh ít trực quan hơn.</p>
+    </div>
+  </div>
+</div>
+
+<p class="subtitle">Các kết quả không rõ nguồn sẽ hiện trạng thái “Không xác định được nguồn gốc rõ ràng”, không ép chọn bài gốc.</p>
