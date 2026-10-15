@@ -36,9 +36,9 @@ internal class WebFeedScraper(
             ?: return@withContext WebFeedDiscoveryResult.InvalidUrl
         val requestClient = try {
             clientFactory(httpUrl.toString())
-        } catch (_: IllegalArgumentException) {
-            return@withContext WebFeedDiscoveryResult.UnsafeUrl
         } catch (_: java.net.UnknownHostException) {
+            return@withContext WebFeedDiscoveryResult.UnsafeUrl
+        } catch (_: IllegalArgumentException) {
             return@withContext WebFeedDiscoveryResult.UnsafeUrl
         } catch (_: java.io.IOException) {
             return@withContext WebFeedDiscoveryResult.UnsafeUrl

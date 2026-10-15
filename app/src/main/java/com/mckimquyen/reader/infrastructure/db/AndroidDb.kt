@@ -65,7 +65,7 @@ import java.util.Date
         BrainRpgCategoryEntity::class,
         BrainRpgRewardEntity::class,
     ],
-    version = 13
+    version = 14
 )
 @TypeConverters(
     AndroidDatabase.DateConverters::class,
@@ -136,6 +136,7 @@ val allMigrations = arrayOf(
     MIGRATION_10_11,
     MIGRATION_11_12,
     MIGRATION_12_13,
+    MIGRATION_13_14,
 )
 
 @Suppress("ClassName")
@@ -375,6 +376,14 @@ object MIGRATION_11_12 : Migration(11, 12) {
     }
 }
 
+
+@Suppress("ClassName")
+object MIGRATION_13_14 : Migration(13, 14) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL("ALTER TABLE feed ADD COLUMN sourceType TEXT NOT NULL DEFAULT 'RSS'")
+        db.execSQL("ALTER TABLE feed ADD COLUMN sourceUrl TEXT DEFAULT NULL")
+    }
+}
 
 @Suppress("ClassName")
 object MIGRATION_12_13 : Migration(12, 13) {

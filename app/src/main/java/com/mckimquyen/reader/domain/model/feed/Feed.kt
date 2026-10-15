@@ -33,10 +33,19 @@ data class Feed(
     var isNotification: Boolean = false,
     @ColumnInfo
     var isFullContent: Boolean = false,
+    @ColumnInfo(defaultValue = "'RSS'")
+    var sourceType: String = RSS_SOURCE_TYPE,
+    @ColumnInfo
+    var sourceUrl: String? = null,
 ) {
 
     @Ignore
     var important: Int? = 0
+
+    companion object {
+        const val RSS_SOURCE_TYPE = "RSS"
+        const val WEB_SOURCE_TYPE = "WEB"
+    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -52,6 +61,8 @@ data class Feed(
         if (accountId != other.accountId) return false
         if (isNotification != other.isNotification) return false
         if (isFullContent != other.isFullContent) return false
+        if (sourceType != other.sourceType) return false
+        if (sourceUrl != other.sourceUrl) return false
         if (important != other.important) return false
 
         return true
@@ -66,6 +77,8 @@ data class Feed(
         result = 31 * result + accountId
         result = 31 * result + isNotification.hashCode()
         result = 31 * result + isFullContent.hashCode()
+        result = 31 * result + sourceType.hashCode()
+        result = 31 * result + (sourceUrl?.hashCode() ?: 0)
         result = 31 * result + (important ?: 0)
         return result
     }
