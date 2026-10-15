@@ -49,7 +49,13 @@ class RssHelper @Inject constructor(
                 groupId = "",
                 accountId = accountId,
             )
-            val list = syndFeed.entries.map { article(feed, context.currentAccountId, it) }
+            val list = syndFeed.entries.mapNotNull { entry ->
+                runCatching { article(feed, context.currentAccountId, entry) }
+                    .onFailure { error ->
+                        Log.w("RLog", "Skip malformed RSS entry: ${entry.link}", error)
+                    }
+                    .getOrNull()
+            }
             FeedWithArticle(feed, list)
         }
     }
@@ -126,10 +132,7 @@ class RssHelper @Inject constructor(
             },
             author = syndEntry.author,
             rawDescription = (content ?: desc) ?: "",
-            shortDescription = (Readability4JExtended("", desc ?: content ?: "")
-                .parse().textContent ?: "")
-                .take(110)
-                .trim(),
+            shortDescription = RssDescriptionParser.shortDescription(desc ?: content),
             fullContent = content,
             img = extractThumbnail(syndEntry, (content ?: desc) ?: ""),
             link = syndEntry.link ?: "",

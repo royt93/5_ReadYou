@@ -21,6 +21,7 @@ import com.mckimquyen.reader.infrastructure.di.DefaultDispatcher
 import com.mckimquyen.reader.infrastructure.di.IODispatcher
 import com.mckimquyen.reader.infrastructure.di.MainDispatcher
 import com.mckimquyen.reader.infrastructure.rss.RssHelper
+import com.mckimquyen.reader.infrastructure.rss.RssDescriptionParser
 import com.mckimquyen.reader.infrastructure.rss.provider.fever.FeverAPI
 import com.mckimquyen.reader.infrastructure.rss.provider.fever.FeverDTO
 import com.mckimquyen.reader.infrastructure.watchdog.WatchdogManager
@@ -32,7 +33,6 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.supervisorScope
 import kotlinx.coroutines.withContext
-import net.dankito.readability4j.extended.Readability4JExtended
 import java.util.Date
 import javax.inject.Inject
 
@@ -175,41 +175,41 @@ class FeverRssSv @Inject constructor(
             var itemsBody = feverAPI.getItemsSince(sinceId)
             while (itemsBody.items?.isNotEmpty() == true) {
                 val remoteItems = itemsBody.items.orEmpty()
+                remoteItems.lastOrNull()?.id?.let { sinceId = it }
                 val articles = remoteItems.mapNotNull { item ->
-                    val remoteItemId = item.id
-                    val remoteFeedId = item.feed_id
-                    if (remoteItemId == null || remoteFeedId == null) {
-                        // Article and Feed ids are required by Room primary/foreign keys.
-                        Log.w(TAG, "Skip incomplete Fever item id=$remoteItemId feedId=$remoteFeedId")
-                        null
-                    } else {
-                        Article(
-                            id = accountId.spacerDollar(remoteItemId),
-                            date = item.created_on_time?.run { Date(this * 1000) } ?: Date(),
-                            title = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-                                Html.fromHtml(item.title ?: context.getString(R.string.empty), Html.FROM_HTML_MODE_LEGACY).toString()
-                            } else {
-                                @Suppress("DEPRECATION")
-                                Html.fromHtml(item.title ?: context.getString(R.string.empty)).toString()
-                            },
-                            author = item.author,
-                            rawDescription = item.html ?: "",
-                            shortDescription = (Readability4JExtended("", item.html ?: "")
-                                .parse().textContent ?: "")
-                                .take(110)
-                                .trim(),
-                            fullContent = item.html,
-                            img = rssHelper.findImg(item.html ?: ""),
-                            link = item.url ?: "",
-                            feedId = accountId.spacerDollar(remoteFeedId),
-                            accountId = accountId,
-                            isUnread = (item.is_read ?: 0) <= 0,
-                            isStarred = (item.is_saved ?: 0) > 0,
-                            updateAt = Date(),
-                        ).also {
-                            sinceId = remoteItemId
+                    runCatching {
+                        val remoteItemId = item.id
+                        val remoteFeedId = item.feed_id
+                        if (remoteItemId == null || remoteFeedId == null) {
+                            // Article and Feed ids are required by Room primary/foreign keys.
+                            Log.w(TAG, "Skip incomplete Fever item id=$remoteItemId feedId=$remoteFeedId")
+                            null
+                        } else {
+                            Article(
+                                id = accountId.spacerDollar(remoteItemId),
+                                date = item.created_on_time?.run { Date(this * 1000) } ?: Date(),
+                                title = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                                    Html.fromHtml(item.title ?: context.getString(R.string.empty), Html.FROM_HTML_MODE_LEGACY).toString()
+                                } else {
+                                    @Suppress("DEPRECATION")
+                                    Html.fromHtml(item.title ?: context.getString(R.string.empty)).toString()
+                                },
+                                author = item.author,
+                                rawDescription = item.html ?: "",
+                                shortDescription = RssDescriptionParser.shortDescription(item.html),
+                                fullContent = item.html,
+                                img = rssHelper.findImg(item.html ?: ""),
+                                link = item.url ?: "",
+                                feedId = accountId.spacerDollar(remoteFeedId),
+                                accountId = accountId,
+                                isUnread = (item.is_read ?: 0) <= 0,
+                                isStarred = (item.is_saved ?: 0) > 0,
+                                updateAt = Date(),
+                            )
                         }
-                    }
+                    }.onFailure { error ->
+                        Log.w(TAG, "Skip malformed Fever item id=${item.id}", error)
+                    }.getOrNull()
                 }
                 articleDao.insert(*articles.toTypedArray())
                 if (remoteItems.size >= FEVER_PAGE_SIZE) {
