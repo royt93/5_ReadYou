@@ -148,7 +148,7 @@
 - Create: `app/src/test/java/com/mckimquyen/reader/infrastructure/sync/WebDavReadPositionSyncerTest.kt`
 
 - [ ] **Step 1: Write failing test for WebDavReadPositionSyncer**
-  Kiểm tra serializer/deserializer JSON danh sách `ArticleReadPosition`, merge remote positions với local qua `ReadPositionConflictResolver`.
+  Kiểm tra serializer/deserializer JSON danh sách `WebDavReadPositionItem(feedUrl, articleLink, progress, lastReadTime)`, map sang `ArticleReadPosition` cục bộ, merge remote positions với local qua `ReadPositionConflictResolver`.
 
 - [ ] **Step 2: Run test to verify it fails**
   Run: `./gradlew testDevDebugUnitTest --tests "com.mckimquyen.reader.infrastructure.sync.WebDavReadPositionSyncerTest"`
