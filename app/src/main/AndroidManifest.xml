@@ -90,6 +90,19 @@
             android:theme="@style/Theme.Reader" />
 
         <activity
+            android:name=".ui.page.share.ShareTargetActivity"
+            android:exported="true"
+            android:theme="@style/Theme.Reader.Transparent"
+            android:excludeFromRecents="true"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+        </activity>
+
+        <activity
             android:name="androidx.activity.ComponentActivity"
             android:exported="true" />
 
