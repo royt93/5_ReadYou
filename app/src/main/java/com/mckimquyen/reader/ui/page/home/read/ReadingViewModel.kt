@@ -148,7 +148,9 @@ class ReadingViewModel @Inject constructor(
                 it.copy(
                     content = rssHelper.parseFullContent(
                         _readingUiState.value.articleWithFeed?.article?.link ?: "",
-                        _readingUiState.value.articleWithFeed?.article?.title ?: ""
+                        _readingUiState.value.articleWithFeed?.article?.title ?: "",
+                        _readingUiState.value.articleWithFeed?.feed?.sourceType
+                            ?: com.mckimquyen.reader.domain.model.feed.Feed.RSS_SOURCE_TYPE,
                     ),
                     isFullContent = true
                 )

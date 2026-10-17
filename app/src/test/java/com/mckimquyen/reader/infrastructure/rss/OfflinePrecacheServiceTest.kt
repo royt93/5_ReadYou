@@ -28,6 +28,7 @@ class OfflinePrecacheServiceTest {
 
     private lateinit var context: Context
     private val articleDao = mockk<ArticleDao>(relaxed = true)
+    private val feedDao = mockk<com.mckimquyen.reader.domain.repository.FeedDao>(relaxed = true)
     private val rssHelper = mockk<RssHelper>(relaxed = true)
     private val imageLoader = mockk<ImageLoader>(relaxed = true)
     private lateinit var service: OfflinePrecacheService
@@ -50,12 +51,14 @@ class OfflinePrecacheServiceTest {
     @Before
     fun setUp() {
         context = ApplicationProvider.getApplicationContext()
+        coEvery { feedDao.queryById(any()) } returns null
         val realService = OfflinePrecacheService(
             context = context,
             articleDao = articleDao,
             rssHelper = rssHelper,
             imageLoader = imageLoader,
             ioDispatcher = Dispatchers.Unconfined,
+            feedDao = feedDao,
         )
         service = spyk(realService)
     }
@@ -74,6 +77,29 @@ class OfflinePrecacheServiceTest {
         coVerify(exactly = 1) { articleDao.update(match { it.id == "art_precache_1" && it.fullContent?.contains("Full content") == true }) }
         // 2 images enqueued: banner.jpg + photo.png
         io.mockk.verify(exactly = 2) { imageLoader.enqueue(any()) }
+    }
+
+    @Test
+    fun precache_usesHardenedFetchForWebFeedArticles() = runBlocking {
+        every { service.isOnWifi() } returns true
+        coEvery { articleDao.queryLatestUnread(accountId = 1, limit = 50) } returns listOf(sampleArticle)
+        coEvery { feedDao.queryById("feed_space") } returns com.mckimquyen.reader.domain.model.feed.Feed(
+            id = "feed_space", name = "Space", url = "https://example.com", groupId = "g", accountId = 1,
+            sourceType = com.mckimquyen.reader.domain.model.feed.Feed.WEB_SOURCE_TYPE,
+            sourceUrl = "https://example.com",
+        )
+        coEvery { rssHelper.parseFullContent(sampleArticle.link, sampleArticle.title, any()) } returns "<p>Full content text</p>"
+        every { rssHelper.extractImageUrls(any()) } returns emptyList()
+
+        service.precacheLatestUnread(accountId = 1, limit = 50)
+
+        coVerify {
+            rssHelper.parseFullContent(
+                sampleArticle.link, sampleArticle.title,
+                com.mckimquyen.reader.domain.model.feed.Feed.WEB_SOURCE_TYPE,
+            )
+        }
+        io.mockk.verify(exactly = 0) { imageLoader.enqueue(any()) }
     }
 
     @Test

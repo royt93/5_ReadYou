@@ -1,13 +1,13 @@
 package com.mckimquyen.reader.infrastructure.rss.scraper
 
+import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
-import okhttp3.Response
 
-internal sealed interface WebFeedDiscoveryResult {
+sealed interface WebFeedDiscoveryResult {
     data class Preview(val siteTitle: String, val articles: List<WebArticleCandidate>) : WebFeedDiscoveryResult
     data object InvalidUrl : WebFeedDiscoveryResult
     data object UnsafeUrl : WebFeedDiscoveryResult
@@ -21,21 +21,25 @@ internal sealed interface WebFeedDiscoveryResult {
     data object TooFewCandidates : WebFeedDiscoveryResult
 }
 
-internal sealed interface WebFeedRefreshResult {
+sealed interface WebFeedRefreshResult {
     data class Success(val articles: List<WebArticleCandidate>) : WebFeedRefreshResult
     data class Failure(val reason: WebFeedDiscoveryResult) : WebFeedRefreshResult
 }
 
-internal class WebFeedScraper(
-    private val clientFactory: (String) -> OkHttpClient,
+class WebFeedScraper @Inject constructor(
+    private val httpClient: WebFeedHttpClient,
     private val parser: WebFeedParser,
-    private val maxResponseBytes: Long = DEFAULT_MAX_RESPONSE_BYTES,
 ) {
+    internal constructor(httpClient: WebFeedHttpClient, parser: WebFeedParser, maxResponseBytes: Long) : this(httpClient, parser) {
+        this.responseByteLimit = maxResponseBytes
+    }
+
+    private var responseByteLimit: Long = DEFAULT_MAX_RESPONSE_BYTES
     suspend fun discover(url: String): WebFeedDiscoveryResult = withContext(Dispatchers.IO) {
         val httpUrl = url.toHttpUrlOrNull()
             ?: return@withContext WebFeedDiscoveryResult.InvalidUrl
         val requestClient = try {
-            clientFactory(httpUrl.toString())
+            httpClient.create(httpUrl.toString())
         } catch (_: java.net.UnknownHostException) {
             return@withContext WebFeedDiscoveryResult.UnsafeUrl
         } catch (_: IllegalArgumentException) {
@@ -51,16 +55,31 @@ internal class WebFeedScraper(
         else -> WebFeedRefreshResult.Failure(result)
     }
 
-    private suspend fun fetchAndParse(url: String, requestClient: OkHttpClient): WebFeedDiscoveryResult {
-        val request = Request.Builder().url(url).get().build()
-        val response = try {
-            requestClient.newCall(request).execute()
-        } catch (_: java.net.SocketTimeoutException) {
-            return WebFeedDiscoveryResult.Timeout
-        } catch (_: java.io.IOException) {
-            return WebFeedDiscoveryResult.HttpError(0)
+    private suspend fun fetchAndParse(url: String, requestClient: OkHttpClient): WebFeedDiscoveryResult =
+        kotlinx.coroutines.suspendCancellableCoroutine { continuation ->
+            val call = requestClient.newCall(Request.Builder().url(url).get().build())
+            continuation.invokeOnCancellation { call.cancel() }
+            call.enqueue(object : okhttp3.Callback {
+                override fun onFailure(call: okhttp3.Call, e: java.io.IOException) {
+                    continuation.resumeWith(Result.success(networkFailure(e)))
+                }
+
+                override fun onResponse(call: okhttp3.Call, response: okhttp3.Response) {
+                    val result = runCatching {
+                        response.use { parseResponse(url, it) }
+                    }.recoverCatching { e ->
+                        if (e is java.io.IOException) networkFailure(e) else throw e
+                    }
+                    continuation.resumeWith(result)
+                }
+            })
         }
-        response.use { safeResponse ->
+
+    private fun networkFailure(error: java.io.IOException): WebFeedDiscoveryResult =
+        if (error is java.net.SocketTimeoutException) WebFeedDiscoveryResult.Timeout
+        else WebFeedDiscoveryResult.HttpError(0)
+
+    private fun parseResponse(url: String, safeResponse: okhttp3.Response): WebFeedDiscoveryResult {
             if (safeResponse.code in REDIRECT_STATUS_CODES) return WebFeedDiscoveryResult.RedirectRejected
             if (!safeResponse.isSuccessful) return WebFeedDiscoveryResult.HttpError(safeResponse.code)
             val contentType = safeResponse.header(CONTENT_TYPE_HEADER).orEmpty()
@@ -68,15 +87,15 @@ internal class WebFeedScraper(
                 return WebFeedDiscoveryResult.NonHtml
             }
             val body = safeResponse.body ?: return WebFeedDiscoveryResult.NonHtml
-            if (body.contentLength() > maxResponseBytes) return WebFeedDiscoveryResult.ResponseTooLarge
+            if (body.contentLength() > responseByteLimit) return WebFeedDiscoveryResult.ResponseTooLarge
             val source = body.source()
             val buffer = okio.Buffer()
-            while (buffer.size <= maxResponseBytes) {
-                val remaining = maxResponseBytes + 1 - buffer.size
+            while (buffer.size <= responseByteLimit) {
+                val remaining = responseByteLimit + 1 - buffer.size
                 val read = source.read(buffer, minOf(remaining, READ_CHUNK_BYTES))
                 if (read == -1L) break
             }
-            if (buffer.size > maxResponseBytes) return WebFeedDiscoveryResult.ResponseTooLarge
+            if (buffer.size > responseByteLimit) return WebFeedDiscoveryResult.ResponseTooLarge
             val html = buffer.readByteArray().toString(Charsets.UTF_8)
             return when (val parsed = parser.parse(url.toHttpUrlOrNull() ?: return WebFeedDiscoveryResult.InvalidUrl, html)) {
                 is WebFeedParseResult.Success -> WebFeedDiscoveryResult.Preview(parsed.siteTitle, parsed.articles)
@@ -84,7 +103,6 @@ internal class WebFeedScraper(
                 WebFeedParseResult.Ambiguous -> WebFeedDiscoveryResult.Ambiguous
                 WebFeedParseResult.TooFewCandidates -> WebFeedDiscoveryResult.TooFewCandidates
             }
-        }
     }
 
     private companion object {

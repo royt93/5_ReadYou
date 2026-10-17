@@ -14,7 +14,7 @@ class WebFeedParserTest {
             <article><h2><a href="/story/3">Third report</a></h2></article>
             </body></html>"""
 
-        val result = WebFeedParser.parse("https://news.example/world/".toHttpUrl(), html)
+        val result = WebFeedParser().parse("https://news.example/world/".toHttpUrl(), html)
 
         assertTrue(result is WebFeedParseResult.Success)
         val success = result as WebFeedParseResult.Success
@@ -41,7 +41,7 @@ class WebFeedParserTest {
             <article><h2><a href="/other">Other</a></h2></article>
             </body></html>"""
 
-        val result = WebFeedParser.parse("https://news.example/".toHttpUrl(), html)
+        val result = WebFeedParser().parse("https://news.example/".toHttpUrl(), html)
 
         assertEquals(WebFeedParseResult.TooFewCandidates, result)
     }
@@ -55,7 +55,24 @@ class WebFeedParserTest {
             <article><a href="/four">No title</a></article>
             </body></html>"""
 
-        assertEquals(WebFeedParseResult.TooFewCandidates, WebFeedParser.parse("https://news.example/".toHttpUrl(), html))
+        assertEquals(WebFeedParseResult.TooFewCandidates, WebFeedParser().parse("https://news.example/".toHttpUrl(), html))
+    }
+
+    @Test
+    fun skipsMediaLinksAndFallsBackToNextArticleAnchor() {
+        val html = """<html><body>
+            <article><h2>Episode one</h2><a href="/audio/1.mp3?t=x">Listen</a><a href="/story/1">Read</a></article>
+            <article><h2><a href="/clip/2.mp4">Video two</a></h2><a href="/story/2">Read</a></article>
+            <article><h2><a href="/story/3">Story three</a></h2></article>
+            <article><h2><a href="/podcast.m4a">Audio only</a></h2></article>
+            </body></html>"""
+
+        val result = WebFeedParser().parse("https://news.example/".toHttpUrl(), html) as WebFeedParseResult.Success
+
+        assertEquals(
+            listOf("https://news.example/story/1", "https://news.example/story/2", "https://news.example/story/3"),
+            result.articles.map { it.url.toString() },
+        )
     }
 
     @Test
@@ -65,7 +82,7 @@ class WebFeedParserTest {
             <ul class="popular"><li><a href="/p1">Popular one</a></li><li><a href="/p2">Popular two</a></li><li><a href="/p3">Popular three</a></li></ul>
             </body></html>"""
 
-        val result = WebFeedParser.parse("https://news.example/".toHttpUrl(), html)
+        val result = WebFeedParser().parse("https://news.example/".toHttpUrl(), html)
 
         assertEquals(WebFeedParseResult.Ambiguous, result)
     }
@@ -80,7 +97,7 @@ class WebFeedParserTest {
             <article><h2><a href="/c">Article three</a></h2></article>
             </body></html>"""
 
-        val result = WebFeedParser.parse("https://news.example/".toHttpUrl(), html) as WebFeedParseResult.Success
+        val result = WebFeedParser().parse("https://news.example/".toHttpUrl(), html) as WebFeedParseResult.Success
 
         assertEquals(listOf("Article one", "Article two", "Article three"), result.articles.map { it.title })
     }

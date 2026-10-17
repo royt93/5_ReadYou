@@ -82,6 +82,12 @@
     <string name="go_to">移動</string>
     <string name="paste">貼り付け</string>
     <string name="feed_or_site_url">フィードまたはサイトの URL</string>
+    <string name="web_feed_unsupported">このページの静的な記事一覧を認識できませんでした。</string>
+    <string name="web_feed_invalid_url">公開 HTTPS URL を使用してください。ローカルまたはプライベートネットワークには対応していません。</string>
+    <string name="web_feed_fetch_failed">ページを安全に取得できませんでした。URL を確認して再試行してください。</string>
+    <string name="web_feed_preview_notice">このページから記事が見つかりました。確認してローカルウェブフィードを追加してください。</string>
+    <string name="web_feed_add">ウェブフィードを追加</string>
+    <string name="web_feed_preview">ウェブフィードをプレビュー</string>
     <string name="syncing">同期中…</string>
     <string name="refresh">更新</string>
     <string name="defaults">デフォルト</string>

@@ -61,20 +61,27 @@ class RssHelper @Inject constructor(
     }
 
     @Throws(Exception::class)
-    suspend fun parseFullContent(link: String, title: String): String {
+    suspend fun parseFullContent(link: String, title: String, sourceType: String = Feed.RSS_SOURCE_TYPE): String {
         return withContext(ioDispatcher) {
-            val response = response(okHttpClient, link)
-            val content = response.body.string()
-            val readability4J = Readability4JExtended(link, content)
-            val articleContent = readability4J.parse().articleContent
-            if (articleContent == null) {
-                ""
-            } else {
+            val client = if (sourceType == Feed.WEB_SOURCE_TYPE) {
+                com.mckimquyen.reader.infrastructure.rss.scraper.WebFeedHttpClient().create(link)
+            } else okHttpClient
+            response(client, link).use { response ->
+                val body = response.body
+                val mediaType = body.contentType()
+                if (!response.isSuccessful || mediaType?.toString()?.substringBefore(';')?.lowercase() !in HTML_MEDIA_TYPES ||
+                    body.contentLength() > MAX_FULL_CONTENT_BYTES
+                ) return@use ""
+                val source = body.source()
+                if (source.request(MAX_FULL_CONTENT_BYTES + 1)) return@use ""
+                val content = source.readString(mediaType?.charset(Charsets.UTF_8) ?: Charsets.UTF_8)
+                if ('\u0000' in content) return@use ""
+                val articleContent = Readability4JExtended(link, content).parse().articleContent ?: return@use ""
                 val h1Element = articleContent.selectFirst("h1")
                 if (h1Element != null && h1Element.hasText() && h1Element.text() == title) {
                     h1Element.remove()
                 }
-                articleContent.toString()
+                articleContent.toString().takeIf { it.toByteArray(Charsets.UTF_8).size <= MAX_FULL_CONTENT_BYTES }.orEmpty()
             }
         }
     }
@@ -235,6 +242,8 @@ class RssHelper @Inject constructor(
     }
 
     private companion object {
+        const val MAX_FULL_CONTENT_BYTES = 1_048_576L
+        val HTML_MEDIA_TYPES = setOf("text/html", "application/xhtml+xml")
         val TRACKING_PATTERNS = listOf(
             "1x1",
             "pixel",

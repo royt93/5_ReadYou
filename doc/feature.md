@@ -7,7 +7,7 @@ _None._
 
 ## 🟡 In progress
 
-_None. Campaign (EXC-01, EXC-08, EXC-03, EXC-07) complete._
+_None._
 
 ## ⏸️ Deferred
 
@@ -19,6 +19,7 @@ _None. Campaign (EXC-01, EXC-08, EXC-03, EXC-07) complete._
 
 ## ✅ Implemented
 
+- INGEST-01 — Web-to-RSS Generator (static HTTPS list pages -> local `WEB` feed with preview/confirm). MVP supports static HTML with at least 3 candidates. Scraper runs on isolated hardened `OkHttpClient` (no redirects, strict TLS, DNS-pinned, bounded 1 MiB streaming). Room schema v14 adds `sourceType`/`sourceUrl`. Local sync dispatches `WEB` feeds through `WebFeedScraper.refresh()` and reuses Room dedupe (`insertListIfNotExist`). Full-content fetch hardened with 1 MiB limit, HTML/XHTML MIME check, and NUL byte rejection; `WEB` feed image background prefetch skipped until per-image DNS pinning exists. Live smoke verified on Pixel_10_Pro emulator (NPR News, NPR Politics, 301-redirect reject on Guardian, cancel/confirm UI states). 802 unit tests, 5 Android instrumentation tests (Room preview persistence, full-content safety, Room v14 migration), lint, and builds pass. Audit score 9.4/10. Committed locally, pushed.
 - RPG-07 — Brain RPG moved from SharedPreferences to Room (single device-wide profile; legacy prefs imported once, transactionally, and left untouched as a rollback copy). Unique reward ledger (READ/QUIZ/DOUBLE) applied atomically with XP; a repeat qualifying read/correct quiz refreshes practice time without re-awarding. Reading reward needs >= 80% of the Reader-appended body items AND 30 s foreground dwell (replaces the 75% rule). Category XP is shown decayed (floor(base x 0.9^fullWeeks)) while base XP/level never decay; one daily summary notification (fixed ID, opens Brain RPG) and a one-category rewarded recovery. Unit + widget + integration tests; Tecno automated runs green. Committed locally, not pushed.
 - EXC-01 — AI Daily Smart Digest. Generation via Gemini, Room history, source links, unit/widget/integration tests, Tecno smoke verified. Committed locally (8c9301e0).
 - EXC-08 — Second Brain Graph. On-device concept graph (strict concept matching), time slider, related articles, edge-to-edge safe. Unit + widget + integration + insets + perf tests; Tecno smoke verified.

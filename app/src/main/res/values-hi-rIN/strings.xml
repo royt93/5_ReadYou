@@ -767,4 +767,10 @@
     <string name="bilingual_target_language">Translate into</string>
     <string name="bilingual_target_auto">Follow app language</string>
     <string name="second_brain_empty_window">No concepts were found in this time range. Drag the slider to widen it.</string>
+    <string name="web_feed_unsupported">Could not identify a static article list on this page.</string>
+    <string name="web_feed_invalid_url">Use a public HTTPS URL. Local or private network addresses are not supported.</string>
+    <string name="web_feed_fetch_failed">Could not safely fetch this page. Check the URL and try again.</string>
+    <string name="web_feed_preview_notice">Preview found articles from this page. Confirm to add a local web feed.</string>
+    <string name="web_feed_add">Add web feed</string>
+    <string name="web_feed_preview">Preview web feed</string>
 </resources>

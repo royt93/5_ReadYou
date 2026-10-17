@@ -8,7 +8,7 @@
 
 | Task | Priority | Status | Link |
 |---|---|---|---|
-| [INGEST-01] Web-to-RSS Generator (Biến Bất Kỳ Website Nào Thành RSS Feed) | P1 (High) | 📋 Todo | [`INGEST-01_web-to-rss-generator.md`](INGEST-01_web-to-rss-generator.md) |
+| [INGEST-01] Web-to-RSS Generator (Biến Bất Kỳ Website Nào Thành RSS Feed) | P1 (High) | ✅ Done | [`../done/INGEST-01_web-to-rss-generator_DONE.md`](../done/INGEST-01_web-to-rss-generator_DONE.md) |
 | [INGEST-02] Android Share Target — Đọc Sau (Read-Later) Từ Chrome & Mạng Xã Hội | P2 (Medium) | 📋 Todo | [`INGEST-02_android-share-target-read-later.md`](INGEST-02_android-share-target-read-later.md) |
 | [INGEST-03] Bản Tin Email & Newsletter Ingestion Bridge | P2 (Medium) | 📋 Todo | [`INGEST-03_email-newsletter-ingestion-bridge.md`](INGEST-03_email-newsletter-ingestion-bridge.md) |
 | [INGEST-04] Multi-device Read Position Sync | P2 (Medium) | 📋 Todo | [`INGEST-04_multi-device-read-position-sync.md`](INGEST-04_multi-device-read-position-sync.md) |

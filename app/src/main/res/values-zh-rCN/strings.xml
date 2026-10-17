@@ -35,6 +35,12 @@
     <string name="clear">清空</string>
     <string name="paste">粘贴</string>
     <string name="feed_or_site_url">订阅源或站点链接</string>
+    <string name="web_feed_unsupported">无法识别此页面上的静态文章列表。</string>
+    <string name="web_feed_invalid_url">请输入公开 HTTPS 链接。不支持本地或私有网络地址。</string>
+    <string name="web_feed_fetch_failed">无法安全获取此页面。请检查链接后重试。</string>
+    <string name="web_feed_preview_notice">已找到此页面的文章。确认后添加本地网页源。</string>
+    <string name="web_feed_add">添加网页源</string>
+    <string name="web_feed_preview">预览网页源</string>
     <string name="import_from_opml">导入 OPML 文件</string>
     <string name="preset">预设</string>
     <string name="selected">已选择</string>

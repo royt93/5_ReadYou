@@ -23,6 +23,7 @@ class OfflinePrecacheService @Inject constructor(
     private val rssHelper: RssHelper,
     private val imageLoader: ImageLoader,
     @IODispatcher private val ioDispatcher: CoroutineDispatcher,
+    private val feedDao: com.mckimquyen.reader.domain.repository.FeedDao,
 ) {
 
     suspend fun precacheLatestUnread(accountId: Int, limit: Int = DEFAULT_LIMIT): Int =
@@ -33,9 +34,11 @@ class OfflinePrecacheService @Inject constructor(
             var cachedCount = 0
 
             for (article in articles) {
+                val sourceType = feedDao.queryById(article.feedId)?.sourceType
+                    ?: com.mckimquyen.reader.domain.model.feed.Feed.RSS_SOURCE_TYPE
                 val fullContent = article.fullContent
                     ?.takeIf { it.isNotBlank() }
-                    ?: runCatching { rssHelper.parseFullContent(article.link, article.title) }
+                    ?: runCatching { rssHelper.parseFullContent(article.link, article.title, sourceType) }
                         .getOrNull()
                         .orEmpty()
 
@@ -44,7 +47,8 @@ class OfflinePrecacheService @Inject constructor(
                     articleDao.update(article)
                 }
 
-                val urls = buildList {
+                // ponytail: WEB image prefetch stays off until each image URL uses validated/pinned DNS.
+                val urls = if (sourceType == com.mckimquyen.reader.domain.model.feed.Feed.WEB_SOURCE_TYPE) emptyList() else buildList {
                     article.img?.takeIf { it.isNotBlank() }?.let(::add)
                     addAll(rssHelper.extractImageUrls(fullContent))
                 }.distinct().take(MAX_IMAGES_PER_ARTICLE)

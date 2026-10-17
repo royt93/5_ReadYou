@@ -14,6 +14,14 @@ import com.mckimquyen.reader.infrastructure.rss.RssHelper
 import com.mckimquyen.reader.infrastructure.android.NotificationHelper
 import com.mckimquyen.reader.infrastructure.watchdog.WatchdogManager
 import javax.inject.Inject
+import com.mckimquyen.reader.domain.model.article.Article
+import com.mckimquyen.reader.domain.model.feed.Feed
+import com.mckimquyen.reader.infrastructure.rss.RssDescriptionParser
+import com.mckimquyen.reader.infrastructure.rss.scraper.WebFeedScraper
+import com.mckimquyen.reader.infrastructure.rss.scraper.WebFeedRefreshResult
+import com.mckimquyen.reader.ui.ext.spacerDollar
+import java.util.Date
+import java.util.UUID
 
 class LocalRssSv @Inject constructor(
     @ApplicationContext
@@ -32,6 +40,7 @@ class LocalRssSv @Inject constructor(
     workManager: WorkManager,
     watchdogManager: WatchdogManager,
     smartFilterManager: com.mckimquyen.reader.infrastructure.filter.SmartFilterManager,
+    private val webFeedScraper: WebFeedScraper,
 ) : AbstractRssRepository(
     context,
     accountDao,
@@ -46,4 +55,30 @@ class LocalRssSv @Inject constructor(
     watchdogManager,
     feedHealthDao,
     smartFilterManager,
-)
+) {
+    override suspend fun queryFeedArticles(feed: Feed, latestLink: String?): List<Article> {
+        if (feed.sourceType != Feed.WEB_SOURCE_TYPE) return super.queryFeedArticles(feed, latestLink)
+        return when (val result = webFeedScraper.refresh(feed.sourceUrl ?: feed.url)) {
+            is WebFeedRefreshResult.Success -> result.articles.mapNotNull { candidate ->
+                if (candidate.title.isBlank() || candidate.url.scheme != "https") return@mapNotNull null
+                Article(
+                    id = feed.accountId.spacerDollar(UUID.randomUUID().toString()),
+                    date = candidate.publishedAt ?: Date(),
+                    title = candidate.title,
+                    rawDescription = "",
+                    shortDescription = candidate.title.take(RssDescriptionParser.MAX_SHORT_DESCRIPTION_LENGTH),
+                    link = candidate.url.toString(),
+                    feedId = feed.id,
+                    accountId = feed.accountId,
+                )
+            }
+            is WebFeedRefreshResult.Failure -> when (result.reason) {
+                com.mckimquyen.reader.infrastructure.rss.scraper.WebFeedDiscoveryResult.Timeout ->
+                    throw java.net.SocketTimeoutException("Web feed refresh timed out")
+                is com.mckimquyen.reader.infrastructure.rss.scraper.WebFeedDiscoveryResult.HttpError ->
+                    throw java.io.IOException("HTTP ${result.reason.statusCode}")
+                else -> throw java.io.IOException("Web feed refresh failed: ${result.reason}")
+            }
+        }
+    }
+}

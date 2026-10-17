@@ -37,6 +37,12 @@
     <string name="clear">Löschen</string>
     <string name="paste">Einfügen</string>
     <string name="feed_or_site_url">Feed- oder Website-URL</string>
+    <string name="web_feed_unsupported">Auf dieser Seite wurde keine statische Artikelliste erkannt.</string>
+    <string name="web_feed_invalid_url">Verwende eine öffentliche HTTPS-URL. Lokale oder private Netzwerkadressen werden nicht unterstützt.</string>
+    <string name="web_feed_fetch_failed">Diese Seite konnte nicht sicher geladen werden. Prüfe die URL und versuche es erneut.</string>
+    <string name="web_feed_preview_notice">Artikel auf dieser Seite gefunden. Bestätige, um einen lokalen Web-Feed hinzuzufügen.</string>
+    <string name="web_feed_add">Web-Feed hinzufügen</string>
+    <string name="web_feed_preview">Web-Feed-Vorschau</string>
     <string name="import_from_opml">Aus OPML importieren</string>
     <string name="preset">Voreinstellung</string>
     <string name="selected">Ausgewählte</string>

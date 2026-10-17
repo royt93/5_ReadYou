@@ -73,8 +73,10 @@ fun SubscribeDialog(
         visible = subscribeUiState.visible,
         properties = DialogProperties(usePlatformDefaultWidth = false),
         onDismissRequest = {
-            focusManager.clearFocus()
-            subscribeViewModel.hideDrawer()
+            if (!subscribeUiState.savingWebFeed) {
+                focusManager.clearFocus()
+                subscribeViewModel.hideDrawer()
+            }
         },
         icon = {
             Icon(
@@ -122,7 +124,15 @@ fun SubscribeDialog(
                         },
                     )
                 } else {
-                    FeedOptionView(
+                    if (subscribeUiState.webPreview) {
+                        WebFeedPreviewContent(
+                            siteTitle = subscribeUiState.feed?.name.orEmpty(),
+                            articles = subscribeUiState.articles,
+                            onConfirm = { subscribeViewModel.confirmWebFeed() },
+                            onCancel = { subscribeViewModel.cancelWebFeedPreview() },
+                            saving = subscribeUiState.savingWebFeed,
+                        )
+                    } else FeedOptionView(
                         link = subscribeUiState.linkContent,
                         groups = groupsState.value,
                         selectedAllowNotificationPreset = subscribeUiState.allowNotificationPreset,
@@ -163,7 +173,7 @@ fun SubscribeDialog(
                         }
                     )
                 }
-            } else {
+            } else if (!subscribeUiState.webPreview) {
                 TextButton(
                     onClick = {
                         focusManager.clearFocus()
@@ -188,6 +198,7 @@ fun SubscribeDialog(
                 }
             } else {
                 TextButton(
+                    enabled = !subscribeUiState.savingWebFeed,
                     onClick = {
                         focusManager.clearFocus()
                         subscribeViewModel.hideDrawer()

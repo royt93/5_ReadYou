@@ -39,6 +39,12 @@
     <string name="clear">Clear</string>
     <string name="paste">Paste</string>
     <string name="feed_or_site_url">Feed or Site URL</string>
+    <string name="web_feed_unsupported">Could not identify a static article list on this page.</string>
+    <string name="web_feed_invalid_url">Use a public HTTPS URL. Local or private network addresses are not supported.</string>
+    <string name="web_feed_fetch_failed">Could not safely fetch this page. Check the URL and try again.</string>
+    <string name="web_feed_preview_notice">Preview found articles from this page. Confirm to add a local web feed.</string>
+    <string name="web_feed_add">Add web feed</string>
+    <string name="web_feed_preview">Preview web feed</string>
     <string name="import_from_opml">Import from OPML</string>
     <string name="preset">Preset</string>
     <string name="selected">Selected</string>

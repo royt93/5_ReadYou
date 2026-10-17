@@ -1,18 +1,19 @@
 package com.mckimquyen.reader.infrastructure.rss.scraper
 
 import java.net.URI
+import javax.inject.Inject
 import java.util.Date
 import okhttp3.HttpUrl
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Element
 
-internal data class WebArticleCandidate(
+data class WebArticleCandidate(
     val title: String,
     val url: HttpUrl,
     val publishedAt: Date?,
 )
 
-internal sealed interface WebFeedParseResult {
+sealed interface WebFeedParseResult {
     data class Success(
         val siteTitle: String,
         val articles: List<WebArticleCandidate>,
@@ -23,7 +24,7 @@ internal sealed interface WebFeedParseResult {
     data object TooFewCandidates : WebFeedParseResult
 }
 
-internal object WebFeedParser {
+class WebFeedParser @Inject constructor() {
     fun parse(sourceUrl: HttpUrl, html: String): WebFeedParseResult {
         val document = Jsoup.parse(html, sourceUrl.toString())
         val groups = document.select("article")
@@ -54,8 +55,9 @@ internal object WebFeedParser {
     private fun articleCandidate(element: Element, sourceUrl: HttpUrl): WebArticleCandidate? {
         val heading = element.selectFirst("h1, h2, h3, h4") ?: return null
         val title = heading.text().trim().takeIf(String::isNotBlank) ?: return null
-        val anchor = heading.selectFirst("a[href]") ?: element.selectFirst("a[href]") ?: return null
-        val url = canonicalUrl(anchor.attr("href"), sourceUrl) ?: return null
+        val url = (heading.select("a[href]") + element.select("a[href]"))
+            .firstNotNullOfOrNull { canonicalUrl(it.attr("href"), sourceUrl)?.takeUnless(::isMediaUrl) }
+            ?: return null
         val date = element.selectFirst("time[datetime]")?.attr("datetime")?.let(::parseDate)
         return WebArticleCandidate(title, url, date)
     }
@@ -64,7 +66,7 @@ internal object WebFeedParser {
         if (anchor.parents().any { it.tagName() in NON_ARTICLE_CONTAINERS }) return null
         val title = anchor.text().trim().takeIf(String::isNotBlank) ?: return null
         if (title.length > MAX_CANDIDATE_TITLE_LENGTH) return null
-        val url = canonicalUrl(anchor.attr("href"), sourceUrl) ?: return null
+        val url = canonicalUrl(anchor.attr("href"), sourceUrl)?.takeUnless(::isMediaUrl) ?: return null
         val date = anchor.parents().firstNotNullOfOrNull { parent ->
             parent.selectFirst("time[datetime]")?.attr("datetime")?.let(::parseDate)
         }
@@ -82,6 +84,10 @@ internal object WebFeedParser {
         return resolved.newBuilder().fragment(null).build()
     }
 
+    // Article pages only: audio/video/archives are never HTML article bodies (NPR .mp3 was stored as 15.9 MB).
+    private fun isMediaUrl(url: HttpUrl): Boolean =
+        url.encodedPath.substringAfterLast('.', "").lowercase() in MEDIA_EXTENSIONS
+
     private fun siteTitle(document: org.jsoup.nodes.Document, sourceUrl: HttpUrl): String =
         document.selectFirst("meta[property=og:site_name]")?.attr("content")?.trim()?.takeIf(String::isNotBlank)
             ?: document.title().trim().takeIf(String::isNotBlank)
@@ -92,7 +98,13 @@ internal object WebFeedParser {
 
     private data class LinkCandidate(val article: WebArticleCandidate, val parentSelector: String)
 
-    private const val MINIMUM_ARTICLE_COUNT = 3
-    private const val MAX_CANDIDATE_TITLE_LENGTH = 180
-    private val NON_ARTICLE_CONTAINERS = setOf("nav", "aside", "header", "footer")
+    companion object {
+        const val MINIMUM_ARTICLE_COUNT = 3
+        const val MAX_CANDIDATE_TITLE_LENGTH = 180
+        val NON_ARTICLE_CONTAINERS = setOf("nav", "aside", "header", "footer")
+        val MEDIA_EXTENSIONS = setOf(
+            "mp3", "m4a", "aac", "ogg", "oga", "wav", "flac", "mp4", "m4v", "mov", "webm", "mkv", "avi",
+            "pdf", "zip", "gz", "rar", "7z", "apk", "exe", "dmg",
+        )
+    }
 }

@@ -38,6 +38,12 @@
     <string name="clear">Xóa</string>
     <string name="paste">Dán</string>
     <string name="feed_or_site_url">Feed hoặc URL</string>
+    <string name="web_feed_unsupported">Không nhận diện được danh sách bài viết tĩnh trên trang này.</string>
+    <string name="web_feed_invalid_url">Dùng URL HTTPS công khai. Không hỗ trợ địa chỉ mạng cục bộ hoặc riêng tư.</string>
+    <string name="web_feed_fetch_failed">Không thể tải trang an toàn. Hãy kiểm tra URL và thử lại.</string>
+    <string name="web_feed_preview_notice">Đã tìm thấy bài viết trên trang. Xác nhận để thêm web feed cục bộ.</string>
+    <string name="web_feed_add">Thêm web feed</string>
+    <string name="web_feed_preview">Xem trước web feed</string>
     <string name="import_from_opml">Nhập từ OPML</string>
     <string name="selected">Đã chọn</string>
     <string name="allow_notification">Cho phép thông báo</string>

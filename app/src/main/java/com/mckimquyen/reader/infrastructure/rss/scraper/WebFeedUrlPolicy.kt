@@ -3,14 +3,14 @@ package com.mckimquyen.reader.infrastructure.rss.scraper
 import java.net.InetAddress
 import java.net.URI
 
-internal enum class WebFeedUrlValidation {
+enum class WebFeedUrlValidation {
     Valid,
     InvalidUrl,
     UnsafeAddress,
     DnsFailure,
 }
 
-internal object WebFeedUrlPolicy {
+object WebFeedUrlPolicy {
     fun validate(url: String, resolvedAddresses: List<InetAddress>): WebFeedUrlValidation {
         val uri = runCatching { URI(url) }.getOrNull()
             ?: return WebFeedUrlValidation.InvalidUrl

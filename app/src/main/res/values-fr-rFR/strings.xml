@@ -40,6 +40,12 @@
     <string name="clear">Vider</string>
     <string name="paste">Coller</string>
     <string name="feed_or_site_url">URL de flux ou de site</string>
+    <string name="web_feed_unsupported">Impossible de détecter une liste d’articles statique sur cette page.</string>
+    <string name="web_feed_invalid_url">Utilisez une URL HTTPS publique. Les adresses locales ou privées ne sont pas prises en charge.</string>
+    <string name="web_feed_fetch_failed">Impossible de récupérer cette page en toute sécurité. Vérifiez l’URL et réessayez.</string>
+    <string name="web_feed_preview_notice">Des articles ont été trouvés sur cette page. Confirmez pour ajouter un flux Web local.</string>
+    <string name="web_feed_add">Ajouter le flux Web</string>
+    <string name="web_feed_preview">Aperçu du flux Web</string>
     <string name="import_from_opml">Importer depuis un fichier OPML</string>
     <string name="preset">Préréglages</string>
     <string name="selected">Sélectionné</string>

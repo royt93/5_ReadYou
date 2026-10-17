@@ -66,8 +66,10 @@ class WebFeedHttpClientTest {
         }
     }
 
-    private fun testClient() = WebFeedHttpClient.newBuilder()
+    private fun testClient() = okhttp3.OkHttpClient.Builder()
         .dns(Dns { listOf(InetAddress.getByName("127.0.0.1")) })
+        .followRedirects(false)
+        .followSslRedirects(false)
         .sslSocketFactory(clientCertificates.sslSocketFactory(), clientCertificates.trustManager)
         .hostnameVerifier { _, _ -> true }
         .build()
@@ -89,7 +91,7 @@ class WebFeedHttpClientTest {
     @Test
     fun clientDisablesRedirectsAndPinsValidatedDnsAnswers() {
         val publicAddress = InetAddress.getByName("93.184.216.34")
-        val client = WebFeedHttpClient.create(
+        val client = WebFeedHttpClient().create(
             "https://news.example/rss",
             Dns { host ->
                 assertEquals("news.example", host)
@@ -107,7 +109,7 @@ class WebFeedHttpClientTest {
     @Test
     fun clientRejectsUnsafeDnsAnswersBeforeReturningHttpClient() {
         assertThrows(IllegalArgumentException::class.java) {
-            WebFeedHttpClient.create("https://news.example/rss", Dns { listOf(InetAddress.getByName("192.168.1.10")) })
+            WebFeedHttpClient().create("https://news.example/rss", Dns { listOf(InetAddress.getByName("192.168.1.10")) })
         }
     }
 
@@ -115,7 +117,7 @@ class WebFeedHttpClientTest {
     fun clientRejectsCleartextUrlBeforeDnsLookup() {
         var dnsCalled = false
         assertThrows(IllegalArgumentException::class.java) {
-            WebFeedHttpClient.create("http://news.example/rss", Dns {
+            WebFeedHttpClient().create("http://news.example/rss", Dns {
                 dnsCalled = true
                 listOf(InetAddress.getByName("93.184.216.34"))
             })

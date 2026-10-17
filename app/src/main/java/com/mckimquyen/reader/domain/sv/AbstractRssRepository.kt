@@ -165,11 +165,14 @@ abstract class AbstractRssRepository(
         }
     }
 
+    protected open suspend fun queryFeedArticles(feed: Feed, latestLink: String?): List<Article> =
+        rssHelper.queryRssXml(feed, latestLink)
+
     suspend fun syncSingleFeed(feed: Feed): FeedWithArticle? {
         val startTime = System.currentTimeMillis()
         return runCatching {
             val latest = articleDao.queryLatestByFeedId(context.currentAccountId, feed.id)
-            val articles = rssHelper.queryRssXml(feed, latest?.link)
+            val articles = queryFeedArticles(feed, latest?.link)
             if (feed.icon == null) {
                 try {
                     rssHelper.queryRssIcon(feedDao, feed)

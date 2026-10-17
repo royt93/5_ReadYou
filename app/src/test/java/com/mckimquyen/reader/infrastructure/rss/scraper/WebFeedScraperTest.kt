@@ -1,10 +1,17 @@
 package com.mckimquyen.reader.infrastructure.rss.scraper
 
 import java.net.InetAddress
+import okio.buffer
+import io.mockk.every
+import io.mockk.coEvery
+import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
 import mockwebserver3.MockResponse
 import mockwebserver3.MockWebServer
 import okhttp3.Dns
+import okhttp3.MediaType.Companion.toMediaType
+import kotlinx.coroutines.cancelAndJoin
+import kotlinx.coroutines.launch
 import okhttp3.HttpUrl.Companion.toHttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -21,7 +28,6 @@ class WebFeedScraperTest {
     private lateinit var server: MockWebServer
     private lateinit var scraper: WebFeedScraper
     private val sourceHost = "www.example.test"
-    private var clientFactoryCalls = 0
     private lateinit var clientAddress: InetAddress
 
     @Before
@@ -29,11 +35,8 @@ class WebFeedScraperTest {
         server = httpsServer().apply { start() }
         clientAddress = InetAddress.getByName(server.hostName)
         scraper = WebFeedScraper(
-            clientFactory = { url ->
-                clientFactoryCalls++
-                client(url)
-            },
-            parser = WebFeedParser,
+            httpClient = httpClient(),
+            parser = WebFeedParser(),
             maxResponseBytes = 4096,
         )
     }
@@ -53,7 +56,6 @@ class WebFeedScraperTest {
         val preview = result as WebFeedDiscoveryResult.Preview
         assertEquals("Example Journal", preview.siteTitle)
         assertEquals(3, preview.articles.size)
-        assertEquals("HTTPS request client constructed once with DNS pinned for validated URL", 1, clientFactoryCalls)
     }
 
     @Test
@@ -111,20 +113,84 @@ class WebFeedScraperTest {
         assertEquals(WebFeedDiscoveryResult.TooFewCandidates, result)
     }
 
-    private fun client(validatedUrl: String): OkHttpClient {
-        val pinnedUrl = validatedUrl.toHttpUrl()
-        return WebFeedHttpClient.newBuilder()
-            .dns(Dns { host ->
-                assertEquals(pinnedUrl.host, host)
-                listOf(clientAddress)
-            })
+    @Test
+    fun midBodyIoFailureReturnsTypedErrorAndClosesBody() = runBlocking {
+        var closed = false
+        val source = object : okio.Source {
+            override fun read(sink: okio.Buffer, byteCount: Long): Long = throw java.io.IOException("broken body")
+            override fun timeout() = okio.Timeout.NONE
+            override fun close() { closed = true }
+        }
+        val body = object : okhttp3.ResponseBody() {
+            private val buffered = source.buffer()
+            override fun contentType() = "text/html".toMediaType()
+            override fun contentLength() = -1L
+            override fun source() = buffered
+        }
+        val client = OkHttpClient.Builder().addInterceptor { chain ->
+            okhttp3.Response.Builder().request(chain.request()).protocol(okhttp3.Protocol.HTTP_1_1)
+                .code(200).message("OK").header("Content-Type", "text/html").body(body).build()
+        }.build()
+        try {
+            val factory = mockk<WebFeedHttpClient> { coEvery { create(any()) } returns client }
+            assertEquals(WebFeedDiscoveryResult.HttpError(0), WebFeedScraper(factory, WebFeedParser()).discover("https://example.test/news"))
+            assertTrue(closed)
+        } finally {
+            client.connectionPool.evictAll()
+            client.dispatcher.executorService.shutdown()
+        }
+    }
+
+    @Test
+    fun cancelWhileReadingBodyCancelsHttpCall() = runBlocking {
+        val entered = java.util.concurrent.CountDownLatch(1)
+        val released = java.util.concurrent.CountDownLatch(1)
+        val cancelled = java.util.concurrent.CountDownLatch(1)
+        val client = OkHttpClient.Builder().eventListener(object : okhttp3.EventListener() {
+            override fun canceled(call: okhttp3.Call) { cancelled.countDown() }
+        }).addInterceptor { chain ->
+            okhttp3.Response.Builder().request(chain.request()).protocol(okhttp3.Protocol.HTTP_1_1)
+                .code(200).message("OK").header("Content-Type", "text/html").body(object : okhttp3.ResponseBody() {
+                    private val buffered = object : okio.Source {
+                        override fun read(sink: okio.Buffer, byteCount: Long): Long {
+                            entered.countDown()
+                            released.await()
+                            return -1
+                        }
+                        override fun timeout() = okio.Timeout.NONE
+                        override fun close() {}
+                    }.buffer()
+                    override fun contentType() = "text/html".toMediaType()
+                    override fun contentLength() = -1L
+                    override fun source() = buffered
+                }).build()
+        }.build()
+        val factory = mockk<WebFeedHttpClient> { coEvery { create(any()) } returns client }
+        val job = launch(kotlinx.coroutines.Dispatchers.IO) { WebFeedScraper(factory, WebFeedParser()).discover("https://example.test/news") }
+        try {
+            assertTrue(entered.await(5, TimeUnit.SECONDS))
+            job.cancel()
+            assertTrue("Cancellation must reach HTTP call while body read is blocked", cancelled.await(2, TimeUnit.SECONDS))
+        } finally {
+            released.countDown()
+            job.cancelAndJoin()
+            client.connectionPool.evictAll()
+            client.dispatcher.executorService.shutdown()
+        }
+    }
+
+    private fun httpClient(): WebFeedHttpClient = mockk {
+        coEvery { create(any()) } returns client()
+    }
+
+    private fun client(): OkHttpClient = OkHttpClient.Builder()
+        .dns(Dns { listOf(clientAddress) })
         .sslSocketFactory(clientCertificates.sslSocketFactory(), clientCertificates.trustManager)
         .hostnameVerifier { _, _ -> true }
         .followRedirects(false)
         .followSslRedirects(false)
-            .callTimeout(5, TimeUnit.SECONDS)
-            .build()
-    }
+        .callTimeout(5, TimeUnit.SECONDS)
+        .build()
 
     private fun htmlResponse(html: String) =
         MockResponse().setHeader("Content-Type", "text/html; charset=utf-8").setBody(html)
