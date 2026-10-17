@@ -7,7 +7,7 @@ _None._
 
 ## 🟡 In progress
 
-_None._
+- INGEST-02 — Android Share Target: Lưu bài đọc sau (Read Later) từ Chrome & app ngoài qua Android Share Sheet. Translucent ShareTargetActivity + Compose ModalBottomSheet xác nhận, System Feed 'Đọc sau', WorkManager tải ngầm toàn văn bằng Readability.
 
 ## ⏸️ Deferred
 
