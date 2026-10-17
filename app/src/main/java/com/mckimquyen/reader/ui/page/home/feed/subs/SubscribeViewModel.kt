@@ -45,6 +45,7 @@ class SubscribeViewModel @Inject constructor(
     private val rssHelper: RssHelper,
     private val androidStringsHelper: AndroidStringsHelper,
     private val webFeedScraper: WebFeedScraper,
+    private val newsletterUrlResolver: com.mckimquyen.reader.infrastructure.newsletter.NewsletterUrlResolver,
 ) : ViewModel() {
 
     private val _subscribeUiState = MutableStateFlow(SubscribeUiState())
@@ -145,8 +146,15 @@ class SubscribeViewModel @Inject constructor(
                     return@launch
                 }
                 val link = _subscribeUiState.value.linkContent
-                try {
-                    val feedWithArticle = rssHelper.searchFeed(link)
+                var feedWithArticle = runCatching { rssHelper.searchFeed(link) }.getOrNull()
+                if (feedWithArticle == null) {
+                    val resolvedUrl = runCatching { newsletterUrlResolver.resolveToRssUrl(link) }.getOrNull()
+                    if (!resolvedUrl.isNullOrBlank() && resolvedUrl != link) {
+                        feedWithArticle = runCatching { rssHelper.searchFeed(resolvedUrl) }.getOrNull()
+                    }
+                }
+
+                if (feedWithArticle != null) {
                     webPreviewFeed = null
                     webPreviewArticles = emptyList()
                     _subscribeUiState.update {
@@ -157,8 +165,10 @@ class SubscribeViewModel @Inject constructor(
                         )
                     }
                     switchPage(false)
-                } catch (rssError: Exception) {
-                    if (context.currentAccountType != AccountType.Local.id) throw rssError
+                } else {
+                    if (context.currentAccountType != AccountType.Local.id) {
+                        throw IllegalStateException("Failed to parse RSS feed from $link")
+                    }
                     when (val result = webFeedScraper.discover(link)) {
                         is WebFeedDiscoveryResult.Preview -> {
                             val accountId = context.currentAccountId

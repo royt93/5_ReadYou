@@ -80,7 +80,9 @@ class SubscribeViewModelWebFeedTest {
         every { rssService.get() } returns localService
         coEvery { localService.pullGroups() } returns flowOf(mutableListOf(group))
         coEvery { localService.isFeedExist(any()) } returns false
-        viewModel = SubscribeViewModel(context, mockk<OpmlSv>(relaxed = true), rssService, rssHelper, strings, scraper)
+        val newsletterUrlResolver = mockk<com.mckimquyen.reader.infrastructure.newsletter.NewsletterUrlResolver>()
+        coEvery { newsletterUrlResolver.resolveToRssUrl(any()) } returns null
+        viewModel = SubscribeViewModel(context, mockk<OpmlSv>(relaxed = true), rssService, rssHelper, strings, scraper, newsletterUrlResolver)
         viewModel.init()
     }
 
