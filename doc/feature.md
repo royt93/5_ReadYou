@@ -7,7 +7,7 @@ _None._
 
 ## 🟡 In progress
 
-_None._
+- INGEST-03 — Bản Tin Email & Newsletter Ingestion Bridge: Giải mã và chuẩn hóa các nguồn bản tin Substack, Ghost, Beehiiv, Medium sang feed RSS sạch, tự động loại bỏ chữ ký email, tracking pixel, nút unsubscribe và form subscribe rác.
 
 ## ⏸️ Deferred
 
