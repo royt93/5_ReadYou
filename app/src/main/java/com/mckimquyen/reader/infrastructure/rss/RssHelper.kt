@@ -81,7 +81,8 @@ class RssHelper @Inject constructor(
                 if (h1Element != null && h1Element.hasText() && h1Element.text() == title) {
                     h1Element.remove()
                 }
-                articleContent.toString().takeIf { it.toByteArray(Charsets.UTF_8).size <= MAX_FULL_CONTENT_BYTES }.orEmpty()
+                val cleaned = com.mckimquyen.reader.infrastructure.newsletter.NewsletterSanitizer.cleanArticleHtml(articleContent.toString())
+                cleaned.takeIf { it.toByteArray(Charsets.UTF_8).size <= MAX_FULL_CONTENT_BYTES }.orEmpty()
             }
         }
     }
@@ -126,6 +127,9 @@ class RssHelper @Inject constructor(
                     "desc: ${desc}\n" +
                     "content: ${content}\n"
         )
+        val rawSource = (content ?: desc) ?: ""
+        val cleanRaw = com.mckimquyen.reader.infrastructure.newsletter.NewsletterSanitizer.cleanArticleHtml(rawSource)
+        val cleanFull = content?.let { com.mckimquyen.reader.infrastructure.newsletter.NewsletterSanitizer.cleanArticleHtml(it) }
         return Article(
             id = accountId.spacerDollar(UUID.randomUUID().toString()),
             accountId = accountId,
@@ -138,10 +142,10 @@ class RssHelper @Inject constructor(
                 Html.fromHtml(syndEntry.title.toString()).toString()
             },
             author = syndEntry.author,
-            rawDescription = (content ?: desc) ?: "",
-            shortDescription = RssDescriptionParser.shortDescription(desc ?: content),
-            fullContent = content,
-            img = extractThumbnail(syndEntry, (content ?: desc) ?: ""),
+            rawDescription = cleanRaw,
+            shortDescription = RssDescriptionParser.shortDescription(cleanRaw),
+            fullContent = cleanFull,
+            img = extractThumbnail(syndEntry, rawSource),
             link = syndEntry.link ?: "",
             updateAt = Date(),
         )
