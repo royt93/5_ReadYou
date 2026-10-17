@@ -63,6 +63,7 @@ data class Settings(
     val readingVideoAutoplay: ReadingVideoAutoplayPref = ReadingVideoAutoplayPref.default,
     val readingBionic: ReadingBionicPref = ReadingBionicPref.default,
     val readingBilingual: ReadingBilingualPref = ReadingBilingualPref.default,
+    val readPositionSync: ReadPositionSyncPref = ReadPositionSyncPref.default,
     val readingBilingualTarget: ReadingBilingualTargetPref = ReadingBilingualTargetPref.default,
     val readingTextFontSize: Int = ReadingTextFontSizePref.default,
     val readingLetterSpacing: Double = ReadingLetterSpacingPref.default,
@@ -172,6 +173,8 @@ val LocalReadingBionic =
     compositionLocalOf<ReadingBionicPref> { ReadingBionicPref.default }
 val LocalReadingBilingual =
     compositionLocalOf<ReadingBilingualPref> { ReadingBilingualPref.default }
+val LocalReadPositionSync =
+    compositionLocalOf<ReadPositionSyncPref> { ReadPositionSyncPref.default }
 val LocalReadingBilingualTarget =
     compositionLocalOf<ReadingBilingualTargetPref> { ReadingBilingualTargetPref.default }
 val LocalReadingTextFontSize = compositionLocalOf { ReadingTextFontSizePref.default }
@@ -273,6 +276,7 @@ fun SettingsProvider(
         LocalReadingVideoAutoplay provides settings.readingVideoAutoplay,
         LocalReadingBionic provides settings.readingBionic,
         LocalReadingBilingual provides settings.readingBilingual,
+        LocalReadPositionSync provides settings.readPositionSync,
         LocalReadingBilingualTarget provides settings.readingBilingualTarget,
         LocalReadingTextFontSize provides settings.readingTextFontSize,
         LocalReadingLetterSpacing provides settings.readingLetterSpacing,

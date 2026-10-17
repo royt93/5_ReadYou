@@ -754,4 +754,6 @@
     <string name="share_target_cancel_btn">Hủy</string>
     <string name="share_target_saved_toast">Đã lưu vào Đọc sau</string>
     <string name="share_target_invalid_url">Không tìm thấy liên kết hợp lệ</string>
+    <string name="read_position_sync">Đồng bộ vị trí đọc</string>
+    <string name="read_position_sync_desc">Lưu và khôi phục vị trí đọc trên thiết bị này và đồng bộ qua WebDAV khi được cấu hình</string>
 </resources>

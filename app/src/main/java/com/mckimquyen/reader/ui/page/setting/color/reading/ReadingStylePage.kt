@@ -46,6 +46,7 @@ import com.mckimquyen.reader.domain.model.bilingual.BilingualLanguages
 import com.mckimquyen.reader.infrastructure.pref.LocalReadingBilingual
 import com.mckimquyen.reader.infrastructure.pref.LocalReadingBilingualTarget
 import com.mckimquyen.reader.infrastructure.pref.LocalReadingBionic
+import com.mckimquyen.reader.infrastructure.pref.LocalReadPositionSync
 import com.mckimquyen.reader.infrastructure.pref.ReadingBilingualTargetPref
 import com.mckimquyen.reader.infrastructure.pref.LocalReadingVideoAutoplay
 import com.mckimquyen.reader.infrastructure.pref.not
@@ -85,6 +86,7 @@ fun ReadingStylePage(
     val autoHideToolbar = LocalReadingAutoHideToolbar.current
     val videoAutoplay = LocalReadingVideoAutoplay.current
     val bionic = LocalReadingBionic.current
+    val readPositionSync = LocalReadPositionSync.current
     val bilingual = LocalReadingBilingual.current
     val bilingualTarget = LocalReadingBilingualTarget.current
 
@@ -190,6 +192,17 @@ fun ReadingStylePage(
                     ) {
                         BaseSwitch(activated = bionic.value) {
                             (!bionic).put(context, scope)
+                        }
+                    }
+                    SettingItem(
+                        title = stringResource(R.string.read_position_sync),
+                        desc = stringResource(R.string.read_position_sync_desc),
+                        onClick = {
+                            (!readPositionSync).put(context, scope)
+                        },
+                    ) {
+                        BaseSwitch(activated = readPositionSync.value) {
+                            (!readPositionSync).put(context, scope)
                         }
                     }
                     SettingItem(

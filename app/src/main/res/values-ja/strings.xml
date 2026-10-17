@@ -781,4 +781,6 @@
     <string name="share_target_cancel_btn">キャンセル</string>
     <string name="share_target_saved_toast">後で読むに保存しました</string>
     <string name="share_target_invalid_url">有効なリンクが見つかりません</string>
+    <string name="read_position_sync">読書位置を同期</string>
+    <string name="read_position_sync_desc">この端末で読書位置を保存・復元し、設定時はWebDAV経由で同期します</string>
 </resources>

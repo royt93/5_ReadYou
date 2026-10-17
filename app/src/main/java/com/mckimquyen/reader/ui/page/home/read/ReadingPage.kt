@@ -25,6 +25,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.first
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -83,6 +86,30 @@ fun ReadingPage(
                 listState.scrollToItem(0)
             }
         }
+    }
+
+    LaunchedEffect(Unit) {
+        readingViewModel.restoreScrollPositionEvent.collect { progress ->
+            snapshotFlow { listState.layoutInfo.totalItemsCount }
+                .first { it > 0 }
+            val lastIndex = (listState.layoutInfo.totalItemsCount - 1).coerceAtLeast(0)
+            val targetIndex = (progress * lastIndex).toInt().coerceIn(0, lastIndex)
+            listState.scrollToItem(targetIndex)
+        }
+    }
+
+    LaunchedEffect(readingUiState.articleWithFeed?.article?.id, listState) {
+        snapshotFlow {
+            val itemCount = listState.layoutInfo.totalItemsCount
+            val firstIndex = listState.firstVisibleItemIndex
+            if (itemCount > 1) firstIndex.toFloat() / (itemCount - 1) else 0f
+        }
+            .distinctUntilChanged()
+            .collect { progress ->
+                readingUiState.articleWithFeed?.article?.id?.let { articleId ->
+                    readingViewModel.saveReadPosition(articleId, progress.coerceIn(0f, 1f))
+                }
+            }
     }
 
     val pagingItems = homeUiState.pagingData.collectAsLazyPagingItems().itemSnapshotList

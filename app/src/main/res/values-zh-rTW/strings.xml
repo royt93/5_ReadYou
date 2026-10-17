@@ -779,4 +779,6 @@
     <string name="share_target_cancel_btn">Cancel</string>
     <string name="share_target_saved_toast">Saved to Read Later</string>
     <string name="share_target_invalid_url">No valid link found</string>
+    <string name="read_position_sync">同步閱讀進度</string>
+    <string name="read_position_sync_desc">在此裝置上儲存並恢復閱讀進度，並在設定時透過 WebDAV 進行同步</string>
 </resources>

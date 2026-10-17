@@ -784,4 +784,6 @@
     <string name="share_target_cancel_btn">Abbrechen</string>
     <string name="share_target_saved_toast">Für später gespeichert</string>
     <string name="share_target_invalid_url">Kein gültiger Link gefunden</string>
+    <string name="read_position_sync">Leseposition synchronisieren</string>
+    <string name="read_position_sync_desc">Speichern und Wiederherstellen der Leseposition auf diesem Gerät sowie Synchronisierung über WebDAV, sofern konfiguriert</string>
 </resources>

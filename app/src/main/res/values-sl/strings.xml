@@ -752,4 +752,6 @@
     <string name="share_target_cancel_btn">Cancel</string>
     <string name="share_target_saved_toast">Saved to Read Later</string>
     <string name="share_target_invalid_url">No valid link found</string>
+    <string name="read_position_sync">Sync reading position</string>
+    <string name="read_position_sync_desc">Save and restore your reading position on this device and sync it through WebDAV when configured</string>
 </resources>

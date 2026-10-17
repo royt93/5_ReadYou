@@ -20,6 +20,9 @@ import com.mckimquyen.reader.infrastructure.audio.TtsManager
 import com.mckimquyen.reader.infrastructure.audio.TtsState
 import com.mckimquyen.reader.infrastructure.audio.ambient.ZenAudioManager
 import com.mckimquyen.reader.infrastructure.rss.RssHelper
+import com.mckimquyen.reader.domain.model.article.ArticleReadPosition
+import com.mckimquyen.reader.domain.model.article.ReadPositionConflictResolver
+import com.mckimquyen.reader.domain.repository.ArticleReadPositionDao
 import com.mckimquyen.reader.infrastructure.di.DefaultDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CancellationException
@@ -45,6 +48,7 @@ class ReadingViewModel @Inject constructor(
     private val summaryService: GeminiSummaryService,
     val zenAudioManager: ZenAudioManager,
     @DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher = Dispatchers.Default,
+    private val articleReadPositionDao: ArticleReadPositionDao? = null,
 ) : ViewModel() {
 
     private val _readingUiState = MutableStateFlow(ReadingUiState())
@@ -52,6 +56,9 @@ class ReadingViewModel @Inject constructor(
 
     private val _scrollToTopEvent = MutableSharedFlow<Unit>(extraBufferCapacity = 1)
     val scrollToTopEvent: SharedFlow<Unit> = _scrollToTopEvent.asSharedFlow()
+
+    private val _restoreScrollPositionEvent = MutableSharedFlow<Float>(extraBufferCapacity = 1)
+    val restoreScrollPositionEvent: SharedFlow<Float> = _restoreScrollPositionEvent.asSharedFlow()
 
     private var fetchJob: Job? = null
     private var summaryJob: Job? = null
@@ -99,12 +106,14 @@ class ReadingViewModel @Inject constructor(
         fetchJob = viewModelScope.launch {
             showLoading()
             val articleWithFeed = rssService.get().findArticleById(articleId)
+            val savedPosition = articleReadPositionDao?.getPosition(articleId)
             val persistedHighlights = articleWithFeed?.article?.aiSummary?.let { raw ->
                 if (raw.isNotBlank()) com.mckimquyen.reader.infrastructure.ai.ArticleHighlightsExtractor.deserialize(raw) else null
             }
             _readingUiState.update {
                 it.copy(
                     articleWithFeed = articleWithFeed,
+                    savedReadPosition = savedPosition,
                     summaryState = if (persistedHighlights != null) SummaryState.Success(persistedHighlights) else it.summaryState,
                 )
             }
@@ -112,8 +121,33 @@ class ReadingViewModel @Inject constructor(
                 if (it.feed.isFullContent) internalRenderFullContent(shouldAutoPlay)
                 else renderDescriptionContent(shouldAutoPlay)
             }
-            _scrollToTopEvent.tryEmit(Unit)
+            if (savedPosition != null) {
+                _restoreScrollPositionEvent.emit(savedPosition.progress)
+            } else {
+                _scrollToTopEvent.tryEmit(Unit)
+            }
             hideLoading()
+        }
+    }
+
+    fun saveReadPosition(articleId: String, progress: Float) {
+        val dao = articleReadPositionDao ?: return
+        if (progress < MIN_SAVED_PROGRESS || progress > MAX_SAVED_PROGRESS) return
+        viewModelScope.launch {
+            val articleWithFeed = _readingUiState.value.articleWithFeed ?: return@launch
+            if (articleWithFeed.article.id != articleId) return@launch
+            val existing = dao.getPosition(articleId)
+            val current = ArticleReadPosition(
+                articleId = articleId,
+                accountId = articleWithFeed.article.accountId,
+                feedUrl = articleWithFeed.feed.url,
+                articleLink = articleWithFeed.article.link,
+                progress = progress,
+                lastReadTime = System.currentTimeMillis(),
+                isSynced = false,
+            )
+            val resolved = ReadPositionConflictResolver.resolve(existing, current) ?: current
+            dao.upsertPosition(resolved.copy(isSynced = false))
         }
     }
 
@@ -549,6 +583,11 @@ class ReadingViewModel @Inject constructor(
         }
     }
 
+    private companion object {
+        const val MIN_SAVED_PROGRESS = 0.05f
+        const val MAX_SAVED_PROGRESS = 0.95f
+    }
+
     fun recorderNextArticle(pagingItems: ItemSnapshotList<ArticleFlowItem>) {
         if (pagingItems.size > 0) {
             val cur = _readingUiState.value.articleWithFeed?.article
@@ -588,6 +627,7 @@ data class ReadingUiState(
     val ttsState: TtsState = TtsState.IDLE,
     val showSummarySheet: Boolean = false,
     val summaryState: SummaryState = SummaryState.Idle,
+    val savedReadPosition: ArticleReadPosition? = null,
     val showMindMapSheet: Boolean = false,
     val mindMapState: MindMapState = MindMapState.Idle,
     val showDeepReadSheet: Boolean = false,

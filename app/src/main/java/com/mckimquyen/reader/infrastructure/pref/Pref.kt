@@ -62,6 +62,7 @@ fun Preferences.toSettings(): Settings {
         readingVideoAutoplay = ReadingVideoAutoplayPref.fromPreferences(this),
         readingBionic = ReadingBionicPref.fromPreferences(this),
         readingBilingual = ReadingBilingualPref.fromPreferences(this),
+        readPositionSync = ReadPositionSyncPref.fromPreferences(this),
         readingBilingualTarget = ReadingBilingualTargetPref.fromPreferences(this),
         readingTextFontSize = ReadingTextFontSizePref.fromPreferences(this),
         readingLetterSpacing = ReadingLetterSpacingPref.fromPreferences(this),

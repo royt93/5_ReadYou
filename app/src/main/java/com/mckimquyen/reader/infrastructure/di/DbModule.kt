@@ -9,6 +9,7 @@ import dagger.hilt.components.SingletonComponent
 import com.mckimquyen.reader.domain.repository.AccountDao
 import com.mckimquyen.reader.domain.repository.AddedRssSourceDao
 import com.mckimquyen.reader.domain.repository.ArticleDao
+import com.mckimquyen.reader.domain.repository.ArticleReadPositionDao
 import com.mckimquyen.reader.domain.repository.ArticleEmbeddingDao
 import com.mckimquyen.reader.domain.repository.DailyDigestDao
 import com.mckimquyen.reader.domain.repository.ArticleHighlightDao
@@ -38,6 +39,11 @@ object DbModule {
     @Singleton
     fun provideArticleDao(androidDatabase: AndroidDatabase): ArticleDao =
         androidDatabase.articleDao()
+
+    @Provides
+    @Singleton
+    fun provideArticleReadPositionDao(androidDatabase: AndroidDatabase): ArticleReadPositionDao =
+        androidDatabase.articleReadPositionDao()
 
     @Provides
     @Singleton

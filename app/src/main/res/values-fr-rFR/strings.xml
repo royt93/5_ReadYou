@@ -787,4 +787,6 @@
     <string name="share_target_cancel_btn">Annuler</string>
     <string name="share_target_saved_toast">Enregistré pour plus tard</string>
     <string name="share_target_invalid_url">Aucun lien valide trouvé</string>
+    <string name="read_position_sync">Synchroniser la position de lecture</string>
+    <string name="read_position_sync_desc">Enregistrez et restaurez votre position de lecture sur cet appareil et synchronisez-la via WebDAV si configuré</string>
 </resources>
