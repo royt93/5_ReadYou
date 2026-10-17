@@ -856,4 +856,11 @@
     <string name="bilingual_target_language">Translate into</string>
     <string name="bilingual_target_auto">Follow app language</string>
     <string name="second_brain_empty_window">No concepts were found in this time range. Drag the slider to widen it.</string>
+
+    <!-- Share Target / Read Later (INGEST-02) -->
+    <string name="read_later_feed_title">Read Later</string>
+    <string name="share_target_save_btn">Save to Read Later</string>
+    <string name="share_target_cancel_btn">Cancel</string>
+    <string name="share_target_saved_toast">Saved to Read Later</string>
+    <string name="share_target_invalid_url">No valid link found</string>
 </resources>

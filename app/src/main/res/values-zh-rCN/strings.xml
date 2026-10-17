@@ -773,4 +773,11 @@
     <string name="bilingual_target_language">翻译为</string>
     <string name="bilingual_target_auto">跟随应用语言</string>
     <string name="second_brain_empty_window">此时间范围内没有找到主题。拖动滑块以扩大范围。</string>
+
+    <!-- Share Target / Read Later (INGEST-02) -->
+    <string name="read_later_feed_title">稍后阅读</string>
+    <string name="share_target_save_btn">保存到稍后阅读</string>
+    <string name="share_target_cancel_btn">取消</string>
+    <string name="share_target_saved_toast">已保存到稍后阅读</string>
+    <string name="share_target_invalid_url">未找到有效链接</string>
 </resources>

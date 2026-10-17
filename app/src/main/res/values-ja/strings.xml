@@ -774,4 +774,11 @@
     <string name="bilingual_target_language">翻訳先の言語</string>
     <string name="bilingual_target_auto">アプリの言語に合わせる</string>
     <string name="second_brain_empty_window">この期間にはトピックが見つかりませんでした。スライダーを動かして範囲を広げてください。</string>
+
+    <!-- Share Target / Read Later (INGEST-02) -->
+    <string name="read_later_feed_title">後で読む</string>
+    <string name="share_target_save_btn">後で読むに保存</string>
+    <string name="share_target_cancel_btn">キャンセル</string>
+    <string name="share_target_saved_toast">後で読むに保存しました</string>
+    <string name="share_target_invalid_url">有効なリンクが見つかりません</string>
 </resources>

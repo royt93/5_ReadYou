@@ -777,4 +777,11 @@
     <string name="bilingual_target_language">Übersetzen in</string>
     <string name="bilingual_target_auto">App-Sprache verwenden</string>
     <string name="second_brain_empty_window">In diesem Zeitraum wurden keine Themen gefunden. Ziehen Sie den Schieberegler, um ihn zu erweitern.</string>
+
+    <!-- Share Target / Read Later (INGEST-02) -->
+    <string name="read_later_feed_title">Später lesen</string>
+    <string name="share_target_save_btn">Für später speichern</string>
+    <string name="share_target_cancel_btn">Abbrechen</string>
+    <string name="share_target_saved_toast">Für später gespeichert</string>
+    <string name="share_target_invalid_url">Kein gültiger Link gefunden</string>
 </resources>

@@ -780,4 +780,11 @@
     <string name="bilingual_target_language">Traduire en</string>
     <string name="bilingual_target_auto">Suivre la langue de l\'application</string>
     <string name="second_brain_empty_window">Aucun sujet dans cette période. Faites glisser le curseur pour l\'élargir.</string>
+
+    <!-- Share Target / Read Later (INGEST-02) -->
+    <string name="read_later_feed_title">À lire plus tard</string>
+    <string name="share_target_save_btn">Enregistrer pour plus tard</string>
+    <string name="share_target_cancel_btn">Annuler</string>
+    <string name="share_target_saved_toast">Enregistré pour plus tard</string>
+    <string name="share_target_invalid_url">Aucun lien valide trouvé</string>
 </resources>
