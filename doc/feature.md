@@ -7,7 +7,7 @@ _None._
 
 ## 🟡 In progress
 
-- INGEST-02 — Android Share Target: Lưu bài đọc sau (Read Later) từ Chrome & app ngoài qua Android Share Sheet. Translucent ShareTargetActivity + Compose ModalBottomSheet xác nhận, System Feed 'Đọc sau', WorkManager tải ngầm toàn văn bằng Readability.
+_None._
 
 ## ⏸️ Deferred
 
@@ -19,6 +19,7 @@ _None._
 
 ## ✅ Implemented
 
+- INGEST-02 — Android Share Target: Lưu bài đọc sau (Read Later) từ Chrome, Twitter/X và app ngoài qua Android Share Sheet. `ShareTargetActivity` trong suốt + Compose ModalBottomSheet xác nhận URL và tiêu đề, tự động đảm bảo System Feed "Đọc sau" (`id = "system_feed_read_later"`, `sourceType = "READ_LATER"`), lưu placeholder `Article(isReadLater = true)` vào Room và dispatch `ReadLaterWorker` (WorkManager) tải ngầm toàn văn qua `RssHelper.parseFullContent` (giới hạn 1 MiB, MIME validation, chống NUL byte). Đủ 37 locale strings, 813 unit tests pass, instrumentation test pass trên Pixel_10_Pro emulator-5554, live smoke test verified. Audit score 9.6/10. Committed locally, pushed.
 - INGEST-01 — Web-to-RSS Generator (static HTTPS list pages -> local `WEB` feed with preview/confirm). MVP supports static HTML with at least 3 candidates. Scraper runs on isolated hardened `OkHttpClient` (no redirects, strict TLS, DNS-pinned, bounded 1 MiB streaming). Room schema v14 adds `sourceType`/`sourceUrl`. Local sync dispatches `WEB` feeds through `WebFeedScraper.refresh()` and reuses Room dedupe (`insertListIfNotExist`). Full-content fetch hardened with 1 MiB limit, HTML/XHTML MIME check, and NUL byte rejection; `WEB` feed image background prefetch skipped until per-image DNS pinning exists. Live smoke verified on Pixel_10_Pro emulator (NPR News, NPR Politics, 301-redirect reject on Guardian, cancel/confirm UI states). 802 unit tests, 5 Android instrumentation tests (Room preview persistence, full-content safety, Room v14 migration), lint, and builds pass. Audit score 9.4/10. Committed locally, pushed.
 - RPG-07 — Brain RPG moved from SharedPreferences to Room (single device-wide profile; legacy prefs imported once, transactionally, and left untouched as a rollback copy). Unique reward ledger (READ/QUIZ/DOUBLE) applied atomically with XP; a repeat qualifying read/correct quiz refreshes practice time without re-awarding. Reading reward needs >= 80% of the Reader-appended body items AND 30 s foreground dwell (replaces the 75% rule). Category XP is shown decayed (floor(base x 0.9^fullWeeks)) while base XP/level never decay; one daily summary notification (fixed ID, opens Brain RPG) and a one-category rewarded recovery. Unit + widget + integration tests; Tecno automated runs green. Committed locally, not pushed.
 - EXC-01 — AI Daily Smart Digest. Generation via Gemini, Room history, source links, unit/widget/integration tests, Tecno smoke verified. Committed locally (8c9301e0).

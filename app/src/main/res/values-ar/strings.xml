@@ -750,4 +750,11 @@
     <string name="web_feed_preview_notice">Preview found articles from this page. Confirm to add a local web feed.</string>
     <string name="web_feed_add">Add web feed</string>
     <string name="web_feed_preview">Preview web feed</string>
+
+    <!-- Share Target / Read Later (INGEST-02) -->
+    <string name="read_later_feed_title">Read Later</string>
+    <string name="share_target_save_btn">Save to Read Later</string>
+    <string name="share_target_cancel_btn">Cancel</string>
+    <string name="share_target_saved_toast">Saved to Read Later</string>
+    <string name="share_target_invalid_url">No valid link found</string>
 </resources>
