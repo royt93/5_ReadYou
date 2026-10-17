@@ -57,6 +57,9 @@ class LocalRssSv @Inject constructor(
     smartFilterManager,
 ) {
     override suspend fun queryFeedArticles(feed: Feed, latestLink: String?): List<Article> {
+        if (feed.sourceType == Feed.READ_LATER_SOURCE_TYPE || feed.id == Feed.READ_LATER_FEED_ID) {
+            return emptyList()
+        }
         if (feed.sourceType != Feed.WEB_SOURCE_TYPE) return super.queryFeedArticles(feed, latestLink)
         return when (val result = webFeedScraper.refresh(feed.sourceUrl ?: feed.url)) {
             is WebFeedRefreshResult.Success -> result.articles.mapNotNull { candidate ->

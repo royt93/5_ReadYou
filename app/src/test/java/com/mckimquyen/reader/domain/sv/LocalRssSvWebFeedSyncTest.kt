@@ -65,6 +65,17 @@ class LocalRssSvWebFeedSyncTest {
     }
 
     @Test
+    fun systemReadLaterFeedIsNeverFetchedOverNetwork() = runBlocking {
+        val readLater = feed.copy(
+            id = Feed.READ_LATER_FEED_ID, url = Feed.READ_LATER_URL,
+            sourceType = Feed.READ_LATER_SOURCE_TYPE, sourceUrl = Feed.READ_LATER_URL,
+        )
+        service.syncSingleFeed(readLater)
+        coVerify(exactly = 0) { rss.queryRssXml(any(), any()) }
+        coVerify(exactly = 0) { scraper.refresh(any()) }
+    }
+
+    @Test
     fun failedWebRefreshRecordsHealthAndDoesNotBlockNextRssFeed() = runBlocking {
         coEvery { scraper.refresh(SOURCE_URL) } returns WebFeedRefreshResult.Failure(WebFeedDiscoveryResult.Timeout)
         assertNull(service.syncSingleFeed(feed))
