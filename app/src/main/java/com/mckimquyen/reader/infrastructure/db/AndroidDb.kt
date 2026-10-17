@@ -19,6 +19,7 @@ import com.mckimquyen.reader.domain.model.account.SyncOnlyWhenChargingConverters
 import com.mckimquyen.reader.domain.model.account.sec.DESUtils
 import com.mckimquyen.reader.domain.model.addedsource.AddedRssSource
 import com.mckimquyen.reader.domain.model.article.Article
+import com.mckimquyen.reader.domain.model.article.ArticleReadPosition
 import com.mckimquyen.reader.domain.model.article.ArticleEmbeddingRecord
 import com.mckimquyen.reader.domain.model.digest.DailyDigest
 import com.mckimquyen.reader.domain.model.article.ArticleFts
@@ -32,6 +33,7 @@ import com.mckimquyen.reader.domain.model.feed.FeedHealthRecord
 import com.mckimquyen.reader.domain.model.group.Group
 import com.mckimquyen.reader.domain.model.notebook.ArticleHighlightNote
 import com.mckimquyen.reader.domain.repository.ArticleHighlightDao
+import com.mckimquyen.reader.domain.repository.ArticleReadPositionDao
 import com.mckimquyen.reader.domain.repository.AccountDao
 import com.mckimquyen.reader.domain.repository.AddedRssSourceDao
 import com.mckimquyen.reader.domain.repository.ArticleDao
@@ -64,8 +66,9 @@ import java.util.Date
         BrainRpgProfileEntity::class,
         BrainRpgCategoryEntity::class,
         BrainRpgRewardEntity::class,
+        ArticleReadPosition::class,
     ],
-    version = 14
+    version = 15
 )
 @TypeConverters(
     AndroidDatabase.DateConverters::class,
@@ -90,6 +93,7 @@ abstract class AndroidDatabase : RoomDatabase() {
     abstract fun feedHealthDao(): FeedHealthDao
     abstract fun articleEmbeddingDao(): ArticleEmbeddingDao
     abstract fun dailyDigestDao(): DailyDigestDao
+    abstract fun articleReadPositionDao(): ArticleReadPositionDao
     abstract fun brainRpgDao(): BrainRpgDao
 
     companion object {
@@ -137,6 +141,7 @@ val allMigrations = arrayOf(
     MIGRATION_11_12,
     MIGRATION_12_13,
     MIGRATION_13_14,
+    MIGRATION_14_15,
 )
 
 @Suppress("ClassName")
