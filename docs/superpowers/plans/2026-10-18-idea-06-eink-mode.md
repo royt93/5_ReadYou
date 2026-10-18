@@ -184,11 +184,11 @@
 - Modify: `doc/feature.md`
 - Create on completion: `doc/task/done/IDEA-06_eink-mode_DONE.md`
 
-- [ ] **Step 1: Integration test DataStore→CompositionLocal→theme**
+- [x] **Step 1: Integration test DataStore→CompositionLocal→theme**
   Toggle the real pref in test DataStore; assert Theme background changes white/black/white across OFF→ON→OFF and stored dark theme remains unchanged.
-- [ ] **Step 2: Instrumentation test on `emulator-5554`**
+- [ ] **Step 2: Instrumentation test on `emulator-5554`** — partial: tap/volume/theme/title insets covered; full Reader bottom insets and selection/video/RSVP smoke remain unverified.
   Verify tap-zone page turn changes visible LazyList item, center tap preserves it, volume keys route only while Reader visible + E-Ink ON + TTS stopped, and top/bottom UI clears system bar insets.
-- [ ] **Step 3: Interruption/lifecycle test**
+- [ ] **Step 3: Interruption/lifecycle test** — partial: composition disposal/TTS/off-mode covered; test currently closes Activity instead of recreation.
   Press volume while Reader active, navigate away/recreate Activity, then press volume on another screen; ensure no stale handler consumes it. Start TTS while Reader remains visible; verify volume not consumed. This is the lifecycle/no-leak regression test.
 - [ ] **Step 4: Test maintained locales**
   `./gradlew testDevDebugUnitTest --tests "com.mckimquyen.reader.infrastructure.pref.StringResourceParityTest"`
