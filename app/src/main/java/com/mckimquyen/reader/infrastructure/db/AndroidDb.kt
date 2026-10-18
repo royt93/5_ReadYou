@@ -21,6 +21,8 @@ import com.mckimquyen.reader.domain.model.addedsource.AddedRssSource
 import com.mckimquyen.reader.domain.model.article.Article
 import com.mckimquyen.reader.domain.model.article.ArticleReadPosition
 import com.mckimquyen.reader.domain.model.article.ArticleEmbeddingRecord
+import com.mckimquyen.reader.domain.model.collection.SmartCollection
+import com.mckimquyen.reader.domain.model.collection.SmartCollectionArticle
 import com.mckimquyen.reader.domain.model.digest.DailyDigest
 import com.mckimquyen.reader.domain.model.article.ArticleFts
 import com.mckimquyen.reader.domain.model.rpg.BrainRpgCategoryEntity
@@ -43,6 +45,7 @@ import com.mckimquyen.reader.domain.repository.FeedDao
 import com.mckimquyen.reader.domain.repository.FeedHealthDao
 import com.mckimquyen.reader.domain.repository.GroupDao
 import com.mckimquyen.reader.domain.repository.BrainRpgDao
+import com.mckimquyen.reader.domain.repository.SmartCollectionDao
 import com.mckimquyen.reader.infrastructure.pref.KeepArchivedPreference
 import com.mckimquyen.reader.infrastructure.pref.SyncIntervalPref
 import com.mckimquyen.reader.infrastructure.pref.SyncOnStartPref
@@ -67,8 +70,10 @@ import java.util.Date
         BrainRpgCategoryEntity::class,
         BrainRpgRewardEntity::class,
         ArticleReadPosition::class,
+        SmartCollection::class,
+        SmartCollectionArticle::class,
     ],
-    version = 15
+    version = 16
 )
 @TypeConverters(
     AndroidDatabase.DateConverters::class,
@@ -95,6 +100,7 @@ abstract class AndroidDatabase : RoomDatabase() {
     abstract fun dailyDigestDao(): DailyDigestDao
     abstract fun articleReadPositionDao(): ArticleReadPositionDao
     abstract fun brainRpgDao(): BrainRpgDao
+    abstract fun smartCollectionDao(): SmartCollectionDao
 
     companion object {
 
@@ -142,6 +148,7 @@ val allMigrations = arrayOf(
     MIGRATION_12_13,
     MIGRATION_13_14,
     MIGRATION_14_15,
+    MIGRATION_15_16,
 )
 
 @Suppress("ClassName")
@@ -358,6 +365,42 @@ object MIGRATION_10_11 : Migration(10, 11) {
             """.trimIndent()
         )
         // No extra index: articleId is the primary key, so SQLite already indexes it.
+    }
+}
+
+@Suppress("ClassName")
+object MIGRATION_15_16 : Migration(15, 16) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL(
+            """
+            CREATE TABLE IF NOT EXISTS `smart_collection` (
+                `id` TEXT NOT NULL,
+                `accountId` INTEGER NOT NULL,
+                `name` TEXT NOT NULL,
+                `query` TEXT NOT NULL,
+                `minScoreThreshold` REAL NOT NULL,
+                `createdAt` INTEGER NOT NULL,
+                PRIMARY KEY(`id`),
+                FOREIGN KEY(`accountId`) REFERENCES `account`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE
+            )
+            """.trimIndent()
+        )
+        db.execSQL("CREATE INDEX IF NOT EXISTS index_smart_collection_accountId ON smart_collection(accountId)")
+        db.execSQL(
+            """
+            CREATE TABLE IF NOT EXISTS `smart_collection_article` (
+                `collectionId` TEXT NOT NULL,
+                `articleId` TEXT NOT NULL,
+                `score` REAL NOT NULL,
+                `matchedAt` INTEGER NOT NULL,
+                PRIMARY KEY(`collectionId`, `articleId`),
+                FOREIGN KEY(`collectionId`) REFERENCES `smart_collection`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE,
+                FOREIGN KEY(`articleId`) REFERENCES `article`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE
+            )
+            """.trimIndent()
+        )
+        db.execSQL("CREATE INDEX IF NOT EXISTS index_smart_collection_article_collectionId ON smart_collection_article(collectionId)")
+        db.execSQL("CREATE INDEX IF NOT EXISTS index_smart_collection_article_articleId ON smart_collection_article(articleId)")
     }
 }
 
