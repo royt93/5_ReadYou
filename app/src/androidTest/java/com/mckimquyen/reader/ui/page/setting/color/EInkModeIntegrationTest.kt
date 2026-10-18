@@ -8,6 +8,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.hasText
+import androidx.compose.ui.test.hasScrollToIndexAction
+import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performScrollToNode
 import androidx.datastore.preferences.core.edit
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
@@ -119,6 +123,28 @@ class EInkModeIntegrationTest {
         }
         val titleTop = composeRule.onAllNodes(hasText(title)).fetchSemanticsNodes().minOf { it.boundsInWindow.top }
         assertTrue("Title ($titleTop) must sit below status bar inset ($topInset)", titleTop >= topInset)
+    }
+
+    @Test
+    fun realSettingsRowPersistsToggleAndRestoresDarkPreference() {
+        composeRule.setContent {
+            SettingsProvider {
+                AppTheme(useDarkTheme = true) {
+                    ColorAndStylePage(navController = NavHostController(composeRule.activity))
+                }
+            }
+        }
+        val label = composeRule.activity.getString(R.string.eink_mode_title)
+        composeRule.onNode(hasScrollToIndexAction()).performScrollToNode(hasText(label))
+        composeRule.onNodeWithText(label).performClick()
+        composeRule.waitUntil(TIMEOUT_MS) {
+            runBlocking { context.dataStore.data.first()[DataStoreKeys.EInkMode.key] == true }
+        }
+        composeRule.onNodeWithText(label).performClick()
+        composeRule.waitUntil(TIMEOUT_MS) {
+            runBlocking { context.dataStore.data.first()[DataStoreKeys.EInkMode.key] == false }
+        }
+        assertEquals(DarkThemePref.ON.value, runBlocking { context.dataStore.data.first()[DataStoreKeys.DarkTheme.key] })
     }
 
     private companion object {
