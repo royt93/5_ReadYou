@@ -30,7 +30,7 @@ android {
         versionCode 20260906
         versionName "2026.09.06"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner providers.gradleProperty("testRunner").getOrElse("androidx.test.runner.AndroidJUnitRunner")
         vectorDrawables {
             useSupportLibrary true
         }

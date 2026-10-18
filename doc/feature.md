@@ -2,12 +2,12 @@
 
 ## 📋 Picked
 
-- **IDEA-06 — E-Ink mode** (`doc/task/todo/IDEA-06_eink-mode.md`): Implementation is next after KNOW-07, as requested.
+- Không có mục mới được chọn.
 
 
 ## 🟡 In progress
 
-- **IDEA-06 — E-Ink mode design** (`docs/superpowers/specs/2026-10-18-idea-06-eink-mode-design.md`): Design approved; implementation plan prepared. Awaiting plan-review approval before implementation.
+- **IDEA-06 — E-Ink mode** (`docs/superpowers/specs/2026-10-18-idea-06-eink-mode-design.md`): Preference/theme, image grayscale, localized Color & Style toggle, app transition suppression, Reader tap zones and conditional volume-key page turns implemented. `testDevDebugUnitTest`: 929 pass; `assembleDevDebug`: pass; `compileDevDebugAndroidTestKotlin`: pass; 5 tap/theme/insets instrumentation tests pass twice on `emulator-5554` using isolated `EInkUiTestRunner`; 5 volume instrumentation tests previously passed with standard runner. Standard app instrumentation runner can launch app-open ad activities; isolated runner skips `RApp` startup for UI-focused tests. Golden screenshots, profiling/memory/jank and network-conditioning tests remain unavailable/not run; IAP/ad mediation not applicable. No claim for full manual navigation smoke test.
 
 ## ✅ Recently implemented
 

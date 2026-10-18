@@ -15,7 +15,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import kotlinx.coroutines.launch
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
-import androidx.compose.ui.test.onRoot
+import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performTouchInput
 import androidx.compose.ui.test.click
 import androidx.compose.ui.platform.testTag
@@ -39,7 +39,7 @@ class EInkPageTurnInstrumentationTest {
             scope = rememberCoroutineScope()
             LazyColumn(
                 state = listState,
-                modifier = Modifier.fillMaxSize().eInkTapZones(enabled = true, key = ARTICLE_ID) { direction ->
+                modifier = Modifier.fillMaxSize().testTag(ROOT_TAG).eInkTapZones(enabled = true, key = ARTICLE_ID) { direction ->
                     scope.launch { listState.turnPage(direction) }
                 },
             ) {
@@ -51,18 +51,18 @@ class EInkPageTurnInstrumentationTest {
         composeRule.waitForIdle()
 
         val startIndex = listState.firstVisibleItemIndex
-        composeRule.onRoot().performTouchInput { click(centerRight) }
+        composeRule.onNodeWithTag(ROOT_TAG).performTouchInput { click(centerRight) }
         composeRule.waitForIdle()
         assertTrue("Right edge should advance one viewport, from $startIndex", listState.firstVisibleItemIndex > startIndex)
 
         val afterNext = listState.firstVisibleItemIndex
-        composeRule.onRoot().performTouchInput { click(centerLeft) }
+        composeRule.onNodeWithTag(ROOT_TAG).performTouchInput { click(centerLeft) }
         composeRule.waitForIdle()
         assertTrue("Left edge should retreat", listState.firstVisibleItemIndex < afterNext)
 
         composeRule.runOnUiThread { kotlinx.coroutines.runBlocking { listState.scrollToItem(0) } }
         composeRule.waitForIdle()
-        composeRule.onRoot().performTouchInput { click(centerLeft) }
+        composeRule.onNodeWithTag(ROOT_TAG).performTouchInput { click(centerLeft) }
         composeRule.waitForIdle()
         assertEquals(0, listState.firstVisibleItemIndex)
     }
@@ -70,15 +70,14 @@ class EInkPageTurnInstrumentationTest {
     @Test
     fun centerTapKeepsChildClickAndDoesNotTurnPage() {
         lateinit var listState: androidx.compose.foundation.lazy.LazyListState
-        lateinit var clickCount: androidx.compose.runtime.MutableIntState
         lateinit var scope: kotlinx.coroutines.CoroutineScope
+        val clickCount = java.util.concurrent.atomic.AtomicInteger()
         composeRule.setContent {
             listState = rememberLazyListState()
-            clickCount = remember { mutableIntStateOf(0) }
             scope = rememberCoroutineScope()
             LazyColumn(
                 state = listState,
-                modifier = Modifier.fillMaxSize().eInkTapZones(enabled = true, key = ARTICLE_ID) { direction ->
+                modifier = Modifier.fillMaxSize().testTag(ROOT_TAG).eInkTapZones(enabled = true, key = ARTICLE_ID) { direction ->
                     scope.launch { listState.turnPage(direction) }
                 },
             ) {
@@ -86,7 +85,7 @@ class EInkPageTurnInstrumentationTest {
                     Box(
                         Modifier.fillMaxSize()
                             .height(ITEM_HEIGHT)
-                            .clickable { clickCount.intValue++ }
+                            .clickable { clickCount.incrementAndGet() }
                             .testTag("row-$index")
                     ) { Text("row-$index") }
                 }
@@ -94,25 +93,21 @@ class EInkPageTurnInstrumentationTest {
         }
         composeRule.waitForIdle()
         val initial = listState.firstVisibleItemIndex
-        composeRule.onRoot().performTouchInput { click(center) }
+        composeRule.onNodeWithTag(ROOT_TAG).performTouchInput { click(center) }
         composeRule.waitForIdle()
 
-        assertEquals(1, clickCount.intValue)
+        assertEquals(1, clickCount.get())
         assertEquals(initial, listState.firstVisibleItemIndex)
     }
 
     @Test
     fun disabledModeDoesNotPageTurn() {
         lateinit var listState: androidx.compose.foundation.lazy.LazyListState
-        lateinit var scope: kotlinx.coroutines.CoroutineScope
         composeRule.setContent {
             listState = rememberLazyListState()
-            scope = rememberCoroutineScope()
             LazyColumn(
                 state = listState,
-                modifier = Modifier.fillMaxSize().eInkTapZones(enabled = false, key = ARTICLE_ID) { direction ->
-                    scope.launch { listState.turnPage(direction) }
-                },
+                modifier = Modifier.fillMaxSize().testTag(ROOT_TAG).eInkTapZones(enabled = false, key = ARTICLE_ID) {},
             ) {
                 items((0 until ITEM_COUNT).toList()) { index ->
                     Box(Modifier.fillMaxSize().height(ITEM_HEIGHT)) { Text("row-$index") }
@@ -120,13 +115,14 @@ class EInkPageTurnInstrumentationTest {
             }
         }
         composeRule.waitForIdle()
-        composeRule.onRoot().performTouchInput { click(centerRight) }
+        composeRule.onNodeWithTag(ROOT_TAG).performTouchInput { click(centerRight) }
         composeRule.waitForIdle()
         assertEquals(0, listState.firstVisibleItemIndex)
     }
 
     private companion object {
         const val ARTICLE_ID = "test-article"
+        const val ROOT_TAG = "reader-list"
         const val ITEM_COUNT = 20
         val ITEM_HEIGHT = 100.dp
     }
