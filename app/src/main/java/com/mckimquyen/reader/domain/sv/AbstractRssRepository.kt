@@ -1,6 +1,7 @@
 package com.mckimquyen.reader.domain.sv
 
 import android.content.Context
+import android.util.Log
 import androidx.paging.PagingSource
 import androidx.work.CoroutineWorker
 import androidx.work.ListenableWorker
@@ -23,6 +24,7 @@ import com.mckimquyen.reader.infrastructure.rss.RssHelper
 import com.mckimquyen.reader.infrastructure.watchdog.WatchdogManager
 import com.mckimquyen.reader.ui.ext.currentAccountId
 import com.mckimquyen.reader.ui.ext.spacerDollar
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.async
@@ -49,6 +51,7 @@ abstract class AbstractRssRepository(
     private val watchdogManager: WatchdogManager,
     private val feedHealthDao: FeedHealthDao,
     private val smartFilterManager: com.mckimquyen.reader.infrastructure.filter.SmartFilterManager,
+    private val smartCollectionMatcher: SmartCollectionMatcher? = null,
 ) {
 
     open val subscribe: Boolean = true
@@ -99,6 +102,17 @@ abstract class AbstractRssRepository(
                                 notificationHelper.notify(it.apply {
                                     articles = insertedArticles
                                 })
+                            }
+                            if (insertedArticles.isNotEmpty()) {
+                                smartCollectionMatcher?.let { matcher ->
+                                    runCatching {
+                                        val candidates = insertedArticles.map { article -> ArticleWithFeed(article, it.feed) }
+                                        matcher.matchNewArticles(accountId, candidates)
+                                    }.onFailure { error ->
+                                        if (error is CancellationException) throw error
+                                        Log.w("RLog", "SmartCollection matching failed", error)
+                                    }
+                                }
                             }
                         }
                 }

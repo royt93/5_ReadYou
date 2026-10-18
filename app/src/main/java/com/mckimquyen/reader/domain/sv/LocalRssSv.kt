@@ -41,6 +41,7 @@ class LocalRssSv @Inject constructor(
     watchdogManager: WatchdogManager,
     smartFilterManager: com.mckimquyen.reader.infrastructure.filter.SmartFilterManager,
     private val webFeedScraper: WebFeedScraper,
+    smartCollectionMatcher: SmartCollectionMatcher? = null,
 ) : AbstractRssRepository(
     context,
     accountDao,
@@ -55,6 +56,7 @@ class LocalRssSv @Inject constructor(
     watchdogManager,
     feedHealthDao,
     smartFilterManager,
+    smartCollectionMatcher,
 ) {
     override suspend fun queryFeedArticles(feed: Feed, latestLink: String?): List<Article> {
         if (feed.sourceType == Feed.READ_LATER_SOURCE_TYPE || feed.id == Feed.READ_LATER_FEED_ID) {

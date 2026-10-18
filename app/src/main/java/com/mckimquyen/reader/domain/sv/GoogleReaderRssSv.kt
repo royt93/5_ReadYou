@@ -59,10 +59,11 @@ class GoogleReaderRssSv @Inject constructor(
     workManager: WorkManager,
     watchdogManager: WatchdogManager,
     smartFilterManager: SmartFilterManager,
+    smartCollectionMatcher: SmartCollectionMatcher? = null,
 ) : AbstractRssRepository(
     context, accountDao, articleDao, groupDao,
     feedDao, workManager, rssHelper, notificationHelper, ioDispatcher, defaultDispatcher,
-    watchdogManager, feedHealthDao, smartFilterManager,
+    watchdogManager, feedHealthDao, smartFilterManager, smartCollectionMatcher,
 ) {
 
     override val subscribe: Boolean = false

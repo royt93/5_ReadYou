@@ -18,6 +18,7 @@ import com.mckimquyen.reader.domain.repository.GroupDao
 import com.mckimquyen.reader.domain.model.rpg.BrainRpgLegacyPreferences
 import com.mckimquyen.reader.domain.repository.BrainRpgDao
 import com.mckimquyen.reader.domain.repository.BrainRpgLegacyImporter
+import com.mckimquyen.reader.domain.repository.SmartCollectionDao
 import com.mckimquyen.reader.infrastructure.db.AndroidDatabase
 import javax.inject.Singleton
 
@@ -89,6 +90,11 @@ object DbModule {
     @Singleton
     fun provideBrainRpgDao(androidDatabase: AndroidDatabase): BrainRpgDao =
         androidDatabase.brainRpgDao()
+
+    @Provides
+    @Singleton
+    fun provideSmartCollectionDao(androidDatabase: AndroidDatabase): SmartCollectionDao =
+        androidDatabase.smartCollectionDao()
 
     @Provides
     @Singleton
