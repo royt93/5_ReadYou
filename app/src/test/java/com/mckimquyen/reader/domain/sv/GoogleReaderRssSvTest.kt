@@ -81,6 +81,7 @@ class GoogleReaderRssSvTest {
             smartFilterManager = mockk<SmartFilterManager>(relaxed = true) {
                 every { applyRules(any()) } answers { firstArg() }
             },
+            smartCollectionMatcher = mockk(relaxed = true),
         )
     }
 

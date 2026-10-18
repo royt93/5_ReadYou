@@ -80,6 +80,7 @@ class FeverRssSvTest {
             watchdogManager = mockk<WatchdogManager>(relaxed = true),
             feedHealthDao = mockk(relaxed = true),
             smartFilterManager = mockk(relaxed = true),
+            smartCollectionMatcher = mockk(relaxed = true),
         )
     }
 

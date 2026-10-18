@@ -24,6 +24,7 @@ class SmartCollectionMatcherTest {
 
     private val smartCollectionDao: SmartCollectionDao = mockk(relaxed = true)
     private val semanticSearchEngine: SemanticSearchEngine = mockk(relaxed = true)
+    private val articleDao: com.mckimquyen.reader.domain.repository.ArticleDao = mockk(relaxed = true)
 
     private lateinit var matcher: SmartCollectionMatcher
 
@@ -32,6 +33,7 @@ class SmartCollectionMatcherTest {
         matcher = SmartCollectionMatcher(
             smartCollectionDao = smartCollectionDao,
             semanticSearchEngine = semanticSearchEngine,
+            articleDao = articleDao,
             dispatcher = Dispatchers.Unconfined,
         )
     }
