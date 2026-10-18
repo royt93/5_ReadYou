@@ -6,6 +6,8 @@ import kotlinx.coroutines.flow.Flow
 import com.mckimquyen.reader.domain.model.article.Article
 import com.mckimquyen.reader.domain.model.article.ArticleMeta
 import com.mckimquyen.reader.domain.model.article.ArticleWithFeed
+import com.mckimquyen.reader.domain.model.statistics.FeedReadCount
+import com.mckimquyen.reader.domain.model.statistics.ReadingDayCount
 import com.mckimquyen.reader.domain.model.feed.ImportantNum
 import java.util.*
 
@@ -407,7 +409,7 @@ interface ArticleDao {
         """
         SELECT a.id, a.date, a.title, a.author, a.rawDescription, 
         a.shortDescription, a.fullContent, a.img, a.link, a.feedId, 
-        a.accountId, a.isUnread, a.isStarred, a.isReadLater, a.updateAt, a.aiSummary 
+        a.accountId, a.isUnread, a.isStarred, a.isReadLater, a.updateAt, a.aiSummary, a.readAt 
         FROM article AS a
         LEFT JOIN feed AS b ON b.id = a.feedId
         LEFT JOIN `group` AS c ON c.id = b.groupId
@@ -427,7 +429,7 @@ interface ArticleDao {
         """
         SELECT a.id, a.date, a.title, a.author, a.rawDescription, 
         a.shortDescription, a.fullContent, a.img, a.link, a.feedId, 
-        a.accountId, a.isUnread, a.isStarred, a.isReadLater, a.updateAt, a.aiSummary 
+        a.accountId, a.isUnread, a.isStarred, a.isReadLater, a.updateAt, a.aiSummary, a.readAt 
         FROM article AS a
         LEFT JOIN feed AS b ON b.id = a.feedId
         LEFT JOIN `group` AS c ON c.id = b.groupId
@@ -449,7 +451,7 @@ interface ArticleDao {
         """
         SELECT a.id, a.date, a.title, a.author, a.rawDescription, 
         a.shortDescription, a.fullContent, a.img, a.link, a.feedId, 
-        a.accountId, a.isUnread, a.isStarred, a.isReadLater, a.updateAt, a.aiSummary 
+        a.accountId, a.isUnread, a.isStarred, a.isReadLater, a.updateAt, a.aiSummary, a.readAt 
         FROM article AS a
         LEFT JOIN feed AS b ON b.id = a.feedId
         LEFT JOIN `group` AS c ON c.id = b.groupId
@@ -516,7 +518,7 @@ interface ArticleDao {
         """
         SELECT a.id, a.date, a.title, a.author, a.rawDescription, 
         a.shortDescription, a.fullContent, a.img, a.link, a.feedId, 
-        a.accountId, a.isUnread, a.isStarred, a.isReadLater, a.updateAt, a.aiSummary 
+        a.accountId, a.isUnread, a.isStarred, a.isReadLater, a.updateAt, a.aiSummary, a.readAt 
         FROM article AS a LEFT JOIN feed AS b 
         ON a.feedId = b.id
         WHERE a.feedId = :feedId 
@@ -621,6 +623,45 @@ interface ArticleDao {
         currentYear: String,
         limit: Int = 5,
     ): List<ArticleWithFeed>
+
+    /** Ghi nhận thời điểm đọc đầu tiên; nếu đã có thì giữ nguyên (COALESCE). */
+    @Query(
+        """
+        UPDATE article
+        SET readAt = COALESCE(readAt, :readAt)
+        WHERE id = :articleId AND accountId = :accountId
+        """
+    )
+    suspend fun markOpened(accountId: Int, articleId: String, readAt: Long)
+
+    /** Số bài đọc theo từng ngày local trong cửa sổ từ :sinceMillis. */
+    @Query(
+        """
+        SELECT strftime('%Y-%m-%d', readAt / 1000, 'unixepoch', 'localtime') AS day, COUNT(*) AS count
+        FROM article
+        WHERE accountId = :accountId AND readAt IS NOT NULL AND readAt >= :sinceMillis
+        GROUP BY day
+        ORDER BY day ASC
+        """
+    )
+    suspend fun queryReadingDayCounts(accountId: Int, sinceMillis: Long): List<ReadingDayCount>
+
+    /** Tổng số bài đã được ghi nhận đọc của tài khoản. */
+    @Query("SELECT COUNT(*) FROM article WHERE accountId = :accountId AND readAt IS NOT NULL")
+    suspend fun queryTotalRead(accountId: Int): Int
+
+    /** Top nguồn tin có nhiều bài đọc nhất, tie-break theo tên nguồn. */
+    @Query(
+        """
+        SELECT f.id AS feedId, f.name AS feedName, COUNT(*) AS count
+        FROM article a JOIN feed f ON a.feedId = f.id
+        WHERE a.accountId = :accountId AND a.readAt IS NOT NULL
+        GROUP BY f.id
+        ORDER BY count DESC, f.name ASC
+        LIMIT :limit
+        """
+    )
+    suspend fun queryTopFeeds(accountId: Int, limit: Int = 5): List<FeedReadCount>
 
     @Update
     suspend fun update(vararg article: Article)

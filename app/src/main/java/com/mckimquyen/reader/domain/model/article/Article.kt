@@ -58,6 +58,8 @@ data class Article(
     var updateAt: Date? = null,
     @ColumnInfo
     var aiSummary: String? = null,
+    @ColumnInfo
+    var readAt: Long? = null,
 ) {
 
     @Ignore

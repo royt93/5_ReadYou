@@ -73,7 +73,7 @@ import java.util.Date
         SmartCollection::class,
         SmartCollectionArticle::class,
     ],
-    version = 16
+    version = 17
 )
 @TypeConverters(
     AndroidDatabase.DateConverters::class,
@@ -149,6 +149,7 @@ val allMigrations = arrayOf(
     MIGRATION_13_14,
     MIGRATION_14_15,
     MIGRATION_15_16,
+    MIGRATION_16_17,
 )
 
 @Suppress("ClassName")
@@ -369,6 +370,12 @@ object MIGRATION_10_11 : Migration(10, 11) {
 }
 
 @Suppress("ClassName")
+object MIGRATION_16_17 : Migration(16, 17) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL("ALTER TABLE article ADD COLUMN readAt INTEGER DEFAULT NULL")
+    }
+}
+
 object MIGRATION_15_16 : Migration(15, 16) {
     override fun migrate(db: SupportSQLiteDatabase) {
         db.execSQL(
