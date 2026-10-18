@@ -2,10 +2,14 @@
 
 ## 📋 Picked
 
-- **Next: IDEA-06 — E-Ink mode** (`doc/task/todo/IDEA-06_eink-mode.md`). Selected after KNOW-07 in requested sequence.
+- **IDEA-06 — E-Ink mode** (`doc/task/todo/IDEA-06_eink-mode.md`): Implementation is next after KNOW-07, as requested.
 
 
 ## 🟡 In progress
+
+- **IDEA-06 — E-Ink mode design** (`docs/superpowers/specs/2026-10-18-idea-06-eink-mode-design.md`): Design approved; implementation plan prepared. Awaiting plan-review approval before implementation.
+
+## ✅ Recently implemented
 
 - **KNOW-07 — Semantic Smart Collections** (`doc/task/done/KNOW-07_semantic-smart-collections_DONE.md`): Room v16 collections for saved semantic queries, exact incremental matching after article insertion, dedicated list/detail UI, edit-query re-evaluation with bounded account-scoped batches and transaction-safe membership replacement. 893 unit tests pass; build and Pixel edge-to-edge instrumentation pass. Lint blocked by local Android SDK 37 API metadata; see completion report for limits. Commits local on `dev`, not pushed.
 
