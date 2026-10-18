@@ -2,7 +2,7 @@
 
 ## 📋 Picked
 
-- Không có mục mới được chọn.
+- **IDEA-07 — On This Day** (`doc/task/todo/IDEA-07_on-this-day.md`): Design approved at `docs/superpowers/specs/2026-10-18-idea-07-on-this-day-design.md`; implementation plan is next. Definition: local calendar date, `isUnread = false`, publication month/day, earlier years, max 5, FeedsPage card plus dedicated screen.
 
 
 ## 🟡 In progress
