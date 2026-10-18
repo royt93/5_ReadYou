@@ -7,10 +7,11 @@
 
 ## 🟡 In progress
 
-- **IDEA-06 — E-Ink mode** (`docs/superpowers/specs/2026-10-18-idea-06-eink-mode-design.md`): Preference/theme, image grayscale, localized Color & Style toggle, app transition suppression, Reader tap zones and conditional volume-key page turns implemented. `testDevDebugUnitTest`: 935 pass; `assembleDevDebug`: pass; `compileDevDebugAndroidTestKotlin`: pass; 18 E-Ink instrumentation tests pass together on `emulator-5554` using isolated `EInkUiTestRunner` (tap/settings/theme/palette/volume lifecycle/image pixels/loopback slow-503/Reader link-selection-insets/video playback/perf-heap budget); 2 physical-key dispatch/pass-through tests passed with the standard runner earlier. Review fixes cover direct tonal-palette colour leakage, E-Ink dark-helper isolation, Reader toolbar animation suppression and tall-item page turns. Standard app instrumentation runner can launch app-open ad activities; isolated runner skips `RApp` startup for UI-focused tests. Golden screenshot framework, Macrobenchmark/Perfetto jank profiling and real-app full-navigation smoke remain not run; loopback image network conditioning and bounded perf/heap regression checks were run; IAP/ad mediation not applicable. No claim for full manual navigation smoke test.
+- Không có mục nào đang thực hiện.
 
 ## ✅ Recently implemented
 
+- **IDEA-06 — E-Ink mode** (`doc/task/done/IDEA-06_eink-mode_DONE.md`): Preference DataStore (default OFF), theme monochrome, grayscale ảnh tĩnh, tắt animation, tap-zone lật trang và phím volume trong Reader. 935 unit tests pass; 18 instrumentation tests pass trên emulator-5554 với runner cô lập; 2 tests phím cứng pass với runner chuẩn; live smoke test xác nhận lật trang bằng tap/volume, bàn phím volume trả về OS sau khi rời Reader. Commits local trên `dev`, chưa push.
 - **KNOW-07 — Semantic Smart Collections** (`doc/task/done/KNOW-07_semantic-smart-collections_DONE.md`): Room v16 collections for saved semantic queries, exact incremental matching after article insertion, dedicated list/detail UI, edit-query re-evaluation with bounded account-scoped batches and transaction-safe membership replacement. 893 unit tests pass; build and Pixel edge-to-edge instrumentation pass. Lint blocked by local Android SDK 37 API metadata; see completion report for limits. Commits local on `dev`, not pushed.
 
 ## ⏸️ Deferred

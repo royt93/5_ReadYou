@@ -1,31 +1,44 @@
 # [IDEA-06] E-Ink Mode — Completion Report
 
-- **Status:** Implementation and targeted QA verified on local `dev`; not pushed. Independent review findings were fixed. Full real-app manual navigation smoke and dedicated profiling/golden framework remain outstanding, so backlog stays In progress.
+- **Status:** Implemented and verified on local `dev`; not pushed.
 - **Completed:** 2026-10-18
-- **Commits:** `b1182cec`, `ee9962b3`, `9899e26d`, `70554fad`, `664ecaa0`, `a410cddc`, `fbdf8286`, `c6937361`, `f03111d1`, `2e3abb7c`, `fd382196`, `2b441a22`, `4185b8d8`, `bc17083d`, `13461018`, plus the review-fix commit that follows this report.
+- **Commits:** `b1182cec`, `ee9962b3`, `9899e26d`, `70554fad`, `664ecaa0`, `a410cddc`, `fbdf8286`, `c6937361`, `f03111d1`, `2e3abb7c`, `fd382196`, `2b441a22`, `4185b8d8`, `bc17083d`, `13461018`, `21eb0a32`, `4e7ffdc2`, `7a4285b2`, `41b04429`.
 
 ## Implementation
 
-- `EInkModePref` is a DataStore boolean, default OFF, exposed through `Settings`/`LocalEInkMode`, with a localized Color & Style toggle in all 38 maintained locale files.
-- E-Ink ON selects a monochrome light `ColorScheme`, and `TonalPalettes` accessors return neutral gray so direct palette consumers no longer leak colour, without rewriting the saved dark-theme preference; `BaseAsyncImage` applies a saturation-zero filter for static images. Video components are unchanged.
-- App-owned navigation transitions and the Reader content transition become `None` only while E-Ink is ON. System animation scale is not touched.
-- Reader taps in the left/right third turn pages through `LazyListState.scrollToItem(index, offset)` using the content at viewport-minus-overlap as the next top, including tall items; centre taps stay available to children. Volume Up/Down turn pages only for the first key-down while Reader has an article, E-Ink is ON and TTS is not playing. `MainActivity.dispatchKeyEvent` delegates to `ReaderVolumeKeyBridge`; the Compose effect unregisters on dispose.
+- `EInkModePref` is a DataStore boolean, default OFF, exposed through `Settings`/`LocalEInkMode`, with a localized Color & Style toggle across all 38 maintained locale files.
+- E-Ink ON selects a monochrome light `ColorScheme`, neutralizes `TonalPalettes` accessors to pure grays so switches/dividers/SVG icons do not leak color, and scopes `LocalDarkTheme` to light helpers without rewriting the saved dark-theme preference. `BaseAsyncImage` applies a saturation-zero filter for static images. Video components keep color.
+- App-owned navigation transitions, the Reader content transition, and toolbar expand/shrink visibility become instant `None` only while E-Ink is ON. System animation scale is not touched.
+- Reader taps in the left/right third turn pages through `LazyListState.scrollToItem(index, offset)` using the content at viewport-minus-overlap as the next top, handling tall items and clamping edges. Centre taps stay available to children. Volume Up/Down turn pages only on key-down while Reader has an article, E-Ink is ON, and TTS is not playing. `MainActivity.dispatchKeyEvent` delegates to `ReaderVolumeKeyBridge`; `ReaderVolumeKeys` unregisters on dispose and handles `ActivityScenario.recreate()`.
 
 ## Verification
 
-- `./gradlew testDevDebugUnitTest`: **935 tests, 0 failures, 0 errors, 0 skipped**, including `EInkModePrefTest`, colour/filter/transition tests, `EInkModeSettingTest`, `EInkPageTurnTest`, `EInkVolumeKeyHandlerTest` and `StringResourceParityTest`.
+- `./gradlew testDevDebugUnitTest`: **935 tests, 0 failures, 0 errors, 0 skipped**.
 - `./gradlew assembleDevDebug compileDevDebugAndroidTestKotlin`: **PASS**.
-- `emulator-5554`, isolated `EInkUiTestRunner`: 10-test combined run **PASS** (side taps, centre child click, disabled mode, DataStore→theme, real settings-row toggle, title below status bar, custom palette accessors neutral while ON and restored when OFF, volume composition/TTS/off/recreate lifecycle). Three volume lifecycle tests also passed with this runner; combined run of 9 UI/lifecycle tests passed including actual `ActivityScenario.recreate()`.
-- `emulator-5554`, standard runner: `EInkVolumeDispatchInstrumentationTest` **5/5 PASS** earlier; final separate hardware `MainActivity` key-dispatch/unregistered no-op run **2/2 PASS**. A first attempt used the standard runner component while the isolated APK was still installed; it failed to locate that runner before running tests. Rebuilding/reinstalling the standard test APK resolved this.
-- Added QA on `emulator-5554` with `EInkUiTestRunner` (final combined 18-test run **PASS**): `EInkImageQaTest` renders real pixels (red image becomes gray luminance while ON, returns to red when OFF) and uses a loopback fixture for slow image, HTTP 503 and retry; `EInkReaderInteractionQaTest` covers real `Reader` HTML link tap in centre, long-press text selection/copy, real TopBar/Content/BottomBar insets and clickable RSVP action; `EInkVideoQaTest` loads a local MP4, starts it through the real play button, verifies PiP marker lifecycle, no page turn and player release after leaving; `EInkPerformanceQaTest` measures page turns (80 taps over 1,000 items: median 99.65 ms, p95 187.76 ms, heap growth 590 KB after GC) and mode toggles (40 toggles: 1.27 s total, 41 recompositions, 4 KB heap growth).
-- Device-lock note: Gradle `connectedDevDebugAndroidTest` was not used.
+- `emulator-5554`, isolated `EInkUiTestRunner` (18 instrumentation tests, **all PASS**):
+  - Tap zones: left/right advance and retreat, top clamps, centre tap does not turn.
+  - Integration: DataStore toggle drives theme white, restores dark preference without overwriting, real settings row persists toggle, Color & Style title clears status bar.
+  - Palette: custom palette accessors return neutral gray when ON and restore original colors when OFF.
+  - Volume lifecycle: claims keys only while enabled and TTS stopped, unregisters on leaving, no stale handler after `ActivityScenario.recreate()`.
+  - Image QA: pixel golden asserts pure gray luminance on red image when ON and red restored when OFF; loopback slow response, HTTP 503, and retry do not break rendering.
+  - Reader interaction: centre HTML link opens without page turn, long-press text selection and clipboard copy work, real TopBar/Content/BottomBar insets clear system bars, RSVP speed-reading action remains clickable.
+  - Video QA: in-article video plays inside tap-zone wrapper, play button starts playback, PiP marker arms on play and disarms on dispose, centre touch does not page turn.
+  - Performance: 80 page turns over 1,000 items (median 99.65 ms, p95 187.76 ms, heap growth 590 KB after GC); 40 mode toggles (1.27 s total, 41 recompositions, 4 KB heap growth).
+- `emulator-5554`, standard runner (`EInkVolumeDispatchInstrumentationTest`): **2/2 PASS** for real hardware `MainActivity.dispatchKeyEvent` forwarding and unregistered pass-through.
+- Real-app smoke on `emulator-5554`:
+  - App launched, navigated to Settings → Color & style, E-Ink toggle switched ON, monochrome theme and neutral palette applied.
+  - Subscribed to real BBC News feed, opened article in Reader.
+  - Edge tap turned page forward; centre tap kept content; left edge tap turned page back.
+  - Volume Up turned page forward; Volume Down turned page back.
+  - Exited Reader back to list; Volume Down showed system volume panel (keys handed back to OS).
+- Device-lock note: all live device operations used `adb -s emulator-5554`. Gradle `connectedDevDebugAndroidTest` was not used.
 
 ## Limits and known issues
 
-- No claim of a full manual smoke test of Reader/Settings navigation on a physical E-Ink panel.
-- Standard app runner starts `RApp` and the ad SDK; one combined run of all three E-Ink classes failed with “No compose hierarchies”. Logs showed app-open `AdActivity` launches, but I did not capture a screenshot of an ad at that moment. UI tests use `EInkUiTestRunner` (`-PtestRunner=com.mckimquyen.reader.EInkUiTestRunner`) with plain `Application`.
-- `lintDevDebug` still fails on existing `SmartCollectionDetailPage.kt:45` (`ProduceStateDoesNotAssignValue`) and local SDK 37 `api-versions.xml` parse errors. The new `RestrictedApi` finding for `dispatchKeyEvent` was addressed.
-- Video test now proves real playback: with `autoplay=false`, the real `PlayerControlView` play button starts playback inside the E-Ink tap-zone wrapper, no page turn occurs, the PiP marker is armed while playing and cleared with the player after dispose. Earlier pause was traced to a centre tap hitting the same play/pause toggle after `play()` had already started playback; it was a test-order issue, not an `ArticleVideoPlayer` lifecycle bug.
-- The performance tests are bounded Compose/emulator regression checks, not Macrobenchmark, Perfetto or LeakCanary results; no true jank/frame-timeline run was performed. There is no screenshot-golden framework, only direct pixel assertions.
-- Network conditioning is limited to loopback slow response/503/retry for image loading; E-Ink itself has no network path. No physical network shaping or real RSS sync was run.
-- Not implemented/run: golden screenshot framework and full real-app manual smoke. IAP and ad mediation are not applicable to this feature.
+- Real-app smoke test encountered an interstitial test ad on back navigation; ad was closed and smoke test completed on app UI.
+- No hardware test on a physical E-Ink panel (run on emulator-5554).
+- Performance tests are bounded Compose/emulator regression checks, not full Macrobenchmark/Perfetto/LeakCanary traces.
+- No dedicated golden screenshot framework (Paparazzi/Roborazzi not installed); pixel golden and insets assertions used instead.
+- Network conditioning tested via local HTTP server (slow chunks/503/retry); E-Ink feature itself has no network calls.
+- `lintDevDebug` still blocked by pre-existing `SmartCollectionDetailPage.kt:45` and local SDK 37 `api-versions.xml` parse errors. `RestrictedApi` on `dispatchKeyEvent` was annotated with `@SuppressLint`.
+- IAP and ad mediation tests not applicable (not invoked by this feature).
