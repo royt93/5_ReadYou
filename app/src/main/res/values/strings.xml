@@ -889,4 +889,5 @@
         <item quantity="one">%1$d year ago</item>
         <item quantity="other">%1$d years ago</item>
     </plurals>
+    <string name="reading_stats_error">Could not load statistics. Tap to retry.</string>
 </resources>
