@@ -1,8 +1,8 @@
 # [IDEA-06] E-Ink Mode — Completion Report
 
-- **Status:** Implemented on local `dev`; not pushed. Independent subagent review had not returned when this report was written.
+- **Status:** Implemented on local `dev`; not pushed. Independent subagent review had not returned when this report was written; no external review result is claimed.
 - **Completed:** 2026-10-18
-- **Commits:** `b1182cec`, `ee9962b3`, `9899e26d`, `70554fad`, `664ecaa0`, `a410cddc`, `fbdf8286`, `c6937361`, `f03111d1`, `2e3abb7c`.
+- **Commits:** `b1182cec`, `ee9962b3`, `9899e26d`, `70554fad`, `664ecaa0`, `a410cddc`, `fbdf8286`, `c6937361`, `f03111d1`, `2e3abb7c`, `fd382196`, `2b441a22`, `4185b8d8`, `bc17083d`.
 
 ## Implementation
 
@@ -15,8 +15,8 @@
 
 - `./gradlew testDevDebugUnitTest`: **929 tests, 0 failures, 0 errors, 0 skipped**, including `EInkModePrefTest`, colour/filter/transition tests, `EInkModeSettingTest`, `EInkPageTurnTest`, `EInkVolumeKeyHandlerTest` and `StringResourceParityTest`.
 - `./gradlew assembleDevDebug compileDevDebugAndroidTestKotlin`: **PASS**.
-- `emulator-5554`, isolated `EInkUiTestRunner`: `EInkPageTurnInstrumentationTest` + `EInkModeIntegrationTest` **6/6 PASS** (side taps, centre child click, disabled mode, DataStore→theme, real settings-row toggle, title below status bar). Three volume lifecycle tests also passed with this runner; a combined run of 9 UI/lifecycle tests passed.
-- `emulator-5554`, standard runner: `EInkVolumeDispatchInstrumentationTest` **5/5 PASS** earlier, including real `MainActivity` key dispatch and unregistered no-op.
+- `emulator-5554`, isolated `EInkUiTestRunner`: `EInkPageTurnInstrumentationTest` + `EInkModeIntegrationTest` **6/6 PASS** (side taps, centre child click, disabled mode, DataStore→theme, real settings-row toggle, title below status bar). Three volume lifecycle tests also passed with this runner; combined run of 9 UI/lifecycle tests passed including actual `ActivityScenario.recreate()`.
+- `emulator-5554`, standard runner: `EInkVolumeDispatchInstrumentationTest` **5/5 PASS** earlier; final separate hardware `MainActivity` key-dispatch/unregistered no-op run **2/2 PASS**. A first attempt used the standard runner component while the isolated APK was still installed; it failed to locate that runner before running tests. Rebuilding/reinstalling the standard test APK resolved this.
 - Device-lock note: Gradle `connectedDevDebugAndroidTest` was not used.
 
 ## Limits and known issues
