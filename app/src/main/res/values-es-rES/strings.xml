@@ -803,4 +803,12 @@
     <string name="save">Save</string>
     <string name="eink_mode_title">Optimización E-Ink</string>
     <string name="eink_mode_desc">Pantalla monocroma, imágenes en escala de grises y sin animaciones; toca los bordes o usa los botones de volumen para pasar página.</string>
+    <string name="on_this_day_title">Un día como hoy</string>
+    <string name="on_this_day_desc">Artículos que has leído y que se publicaron este día en años anteriores</string>
+    <string name="on_this_day_empty">No se encontraron artículos leídos de este día en años anteriores</string>
+    <string name="on_this_day_error">No se pudieron cargar los artículos. Toca para reintentar.</string>
+    <plurals name="on_this_day_years_ago">
+        <item quantity="one">hace %1$d año</item>
+        <item quantity="other">hace %1$d años</item>
+    </plurals>
 </resources>

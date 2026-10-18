@@ -872,4 +872,14 @@
     <string name="save">Save</string>
     <string name="eink_mode_title">Optymalizacja E-Ink</string>
     <string name="eink_mode_desc">Monochromatyczny ekran, obrazy w skali szarości i brak animacji; dotknij krawędzi lub użyj przycisków głośności, aby przewracać strony.</string>
+    <string name="on_this_day_title">W tym dniu</string>
+    <string name="on_this_day_desc">Przeczytane artykuły opublikowane tego dnia w poprzednich latach</string>
+    <string name="on_this_day_empty">Nie znaleziono przeczytanych artykułów z tego dnia w poprzednich latach</string>
+    <string name="on_this_day_error">Nie udało się wczytać artykułów. Dotknij, aby spróbować ponownie.</string>
+    <plurals name="on_this_day_years_ago">
+        <item quantity="one">%1$d rok temu</item>
+        <item quantity="few">%1$d lata temu</item>
+        <item quantity="many">%1$d lat temu</item>
+        <item quantity="other">%1$d roku temu</item>
+    </plurals>
 </resources>

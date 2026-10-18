@@ -871,4 +871,12 @@
     <string name="save">Save</string>
     <string name="eink_mode_title">E-Ink optimizazioa</string>
     <string name="eink_mode_desc">Pantaila monokromoa, gris-eskalako irudiak eta aplikazio-animaziorik ez; ukitu orri-ertzak edo erabili bolumen-botoiak orriak pasatzeko.</string>
+    <string name="on_this_day_title">Egun honetan</string>
+    <string name="on_this_day_desc">Aurreko urteetan egun honetan argitaratutako irakurritako artikuluak</string>
+    <string name="on_this_day_empty">Ez da aurkitu aurreko urteetako egun honetako irakurritako artikulurik</string>
+    <string name="on_this_day_error">Ezin izan dira artikuluak kargatu. Sakatu berriro saiatzeko.</string>
+    <plurals name="on_this_day_years_ago">
+        <item quantity="one">duela %1$d urte</item>
+        <item quantity="other">duela %1$d urte</item>
+    </plurals>
 </resources>

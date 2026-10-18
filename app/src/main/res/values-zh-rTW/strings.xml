@@ -797,4 +797,11 @@
     <string name="save">Save</string>
     <string name="eink_mode_title">E-Ink 最佳化</string>
     <string name="eink_mode_desc">單色顯示、圖片轉為灰階並停用應用程式動畫；點擊頁面邊緣或使用音量鍵翻頁。</string>
+    <string name="on_this_day_title">歷史上的今天</string>
+    <string name="on_this_day_desc">往年今天發布、且你已讀過的文章</string>
+    <string name="on_this_day_empty">找不到往年今天發布的已讀文章</string>
+    <string name="on_this_day_error">無法載入文章。點按重試。</string>
+    <plurals name="on_this_day_years_ago">
+        <item quantity="other">%1$d 年前</item>
+    </plurals>
 </resources>

@@ -770,4 +770,14 @@
     <string name="save">Save</string>
     <string name="eink_mode_title">Optimizacija E-Ink</string>
     <string name="eink_mode_desc">Enobarvni zaslon, sivinske slike in brez animacij; za obračanje strani tapnite robove ali uporabite gumba za glasnost.</string>
+    <string name="on_this_day_title">Na ta dan</string>
+    <string name="on_this_day_desc">Prebrani članki, objavljeni na ta dan v preteklih letih</string>
+    <string name="on_this_day_empty">Za ta dan v preteklih letih ni najdenih prebranih člankov</string>
+    <string name="on_this_day_error">Člankov ni bilo mogoče naložiti. Tapnite za ponovni poskus.</string>
+    <plurals name="on_this_day_years_ago">
+        <item quantity="one">pred %1$d letom</item>
+        <item quantity="two">pred %1$d letoma</item>
+        <item quantity="few">pred %1$d leti</item>
+        <item quantity="other">pred %1$d leti</item>
+    </plurals>
 </resources>

@@ -775,4 +775,16 @@
     <string name="save">Save</string>
     <string name="eink_mode_title">تحسين شاشة الحبر الإلكتروني</string>
     <string name="eink_mode_desc">عرض أحادي اللون، صور بتدرج رمادي، بلا حركات للتطبيق؛ اضغط حواف الصفحة أو استخدم أزرار الصوت لتقليب الصفحات.</string>
+    <string name="on_this_day_title">في مثل هذا اليوم</string>
+    <string name="on_this_day_desc">مقالات قرأتها نُشرت في هذا اليوم في السنوات السابقة</string>
+    <string name="on_this_day_empty">لم يتم العثور على مقالات مقروءة من هذا اليوم في السنوات السابقة</string>
+    <string name="on_this_day_error">تعذر تحميل المقالات. اضغط لإعادة المحاولة.</string>
+    <plurals name="on_this_day_years_ago">
+        <item quantity="zero">قبل %1$d سنة</item>
+        <item quantity="one">قبل سنة واحدة</item>
+        <item quantity="two">قبل سنتين</item>
+        <item quantity="few">قبل %1$d سنوات</item>
+        <item quantity="many">قبل %1$d سنة</item>
+        <item quantity="other">قبل %1$d سنة</item>
+    </plurals>
 </resources>

@@ -803,4 +803,13 @@
     <string name="save">Save</string>
     <string name="eink_mode_title">Optimizare E-Ink</string>
     <string name="eink_mode_desc">Afișaj monocrom, imagini în tonuri de gri și fără animații; atinge marginile sau folosește butoanele de volum pentru a întoarce pagina.</string>
+    <string name="on_this_day_title">În această zi</string>
+    <string name="on_this_day_desc">Articole citite care au fost publicate în această zi în anii anteriori</string>
+    <string name="on_this_day_empty">Nu s-au găsit articole citite din această zi în anii anteriori</string>
+    <string name="on_this_day_error">Articolele nu au putut fi încărcate. Atingeți pentru a reîncerca.</string>
+    <plurals name="on_this_day_years_ago">
+        <item quantity="one">acum %1$d an</item>
+        <item quantity="few">acum %1$d ani</item>
+        <item quantity="other">acum %1$d de ani</item>
+    </plurals>
 </resources>

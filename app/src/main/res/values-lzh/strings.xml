@@ -872,4 +872,11 @@
     <string name="save">Save</string>
     <string name="eink_mode_title">E-Ink 優化</string>
     <string name="eink_mode_desc">單色顯示、灰階圖像、停用應用動畫；點擊頁側或按音量鍵翻頁。</string>
+    <string name="on_this_day_title">往年今日</string>
+    <string name="on_this_day_desc">往歲此日所刊，而君已讀之文</string>
+    <string name="on_this_day_empty">往歲此日，無已讀之文</string>
+    <string name="on_this_day_error">文不能載。輕觸以復試。</string>
+    <plurals name="on_this_day_years_ago">
+        <item quantity="other">%1$d 年前</item>
+    </plurals>
 </resources>

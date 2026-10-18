@@ -798,4 +798,11 @@
     <string name="read_position_sync_desc">在此设备上保存并恢复阅读进度，并在配置时通过 WebDAV 进行同步</string>
     <string name="eink_mode_title">E-Ink 优化</string>
     <string name="eink_mode_desc">单色显示、图片转为灰度并关闭应用动画；点击页面边缘或使用音量键翻页。</string>
+    <string name="on_this_day_title">历史上的今天</string>
+    <string name="on_this_day_desc">往年今天发布、且你已读过的文章</string>
+    <string name="on_this_day_empty">未找到往年今天发布的已读文章</string>
+    <string name="on_this_day_error">无法加载文章。点按重试。</string>
+    <plurals name="on_this_day_years_ago">
+        <item quantity="other">%1$d 年前</item>
+    </plurals>
 </resources>

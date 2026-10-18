@@ -802,4 +802,12 @@
     <string name="save">Speichern</string>
     <string name="eink_mode_title">E-Ink-Optimierung</string>
     <string name="eink_mode_desc">Monochromes Display, Graustufenbilder, keine App-Animationen; Seitenränder antippen oder Lautstärketasten zum Umblättern verwenden.</string>
+    <string name="on_this_day_title">An diesem Tag</string>
+    <string name="on_this_day_desc">Gelesene Artikel, die an diesem Tag in früheren Jahren veröffentlicht wurden</string>
+    <string name="on_this_day_empty">Keine gelesenen Artikel von diesem Tag in früheren Jahren gefunden</string>
+    <string name="on_this_day_error">Artikel konnten nicht geladen werden. Zum Wiederholen tippen.</string>
+    <plurals name="on_this_day_years_ago">
+        <item quantity="one">vor %1$d Jahr</item>
+        <item quantity="other">vor %1$d Jahren</item>
+    </plurals>
 </resources>

@@ -873,4 +873,12 @@
     <string name="save">Save</string>
     <string name="eink_mode_title">E-Ink ഒപ്റ്റിമൈസേഷൻ</string>
     <string name="eink_mode_desc">മോണോക്രോം ഡിസ്പ്ലേ, ഗ്രേസ്‌കെയിൽ ചിത്രങ്ങൾ, ആപ്പ് ആനിമേഷനുകളില്ല; പേജ് മാറ്റാൻ വശങ്ങളിൽ തൊടുക അല്ലെങ്കിൽ വോള്യം ബട്ടണുകൾ ഉപയോഗിക്കുക.</string>
+    <string name="on_this_day_title">ഈ ദിവസം</string>
+    <string name="on_this_day_desc">മുൻ വർഷങ്ങളിൽ ഇതേ ദിവസം പ്രസിദ്ധീകരിച്ച, നിങ്ങൾ വായിച്ച ലേഖനങ്ങൾ</string>
+    <string name="on_this_day_empty">മുൻ വർഷങ്ങളിലെ ഈ ദിവസത്തെ വായിച്ച ലേഖനങ്ങൾ കണ്ടെത്തിയില്ല</string>
+    <string name="on_this_day_error">ലേഖനങ്ങൾ ലോഡ് ചെയ്യാനായില്ല. വീണ്ടും ശ്രമിക്കാൻ ടാപ്പ് ചെയ്യുക.</string>
+    <plurals name="on_this_day_years_ago">
+        <item quantity="one">%1$d വർഷം മുമ്പ്</item>
+        <item quantity="other">%1$d വർഷം മുമ്പ്</item>
+    </plurals>
 </resources>

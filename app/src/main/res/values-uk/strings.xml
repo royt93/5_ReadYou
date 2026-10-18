@@ -806,4 +806,14 @@
     <string name="save">Save</string>
     <string name="eink_mode_title">Оптимізація E-Ink</string>
     <string name="eink_mode_desc">Монохромний екран, зображення у відтінках сірого, без анімацій; торкайтеся країв або використовуйте кнопки гучності для гортання.</string>
+    <string name="on_this_day_title">Цього дня</string>
+    <string name="on_this_day_desc">Прочитані статті, опубліковані цього дня в попередні роки</string>
+    <string name="on_this_day_empty">Прочитаних статей за цей день у попередні роки не знайдено</string>
+    <string name="on_this_day_error">Не вдалося завантажити статті. Торкніться, щоб повторити.</string>
+    <plurals name="on_this_day_years_ago">
+        <item quantity="one">%1$d рік тому</item>
+        <item quantity="few">%1$d роки тому</item>
+        <item quantity="many">%1$d років тому</item>
+        <item quantity="other">%1$d року тому</item>
+    </plurals>
 </resources>

@@ -805,4 +805,12 @@
     <string name="save">Enregistrer</string>
     <string name="eink_mode_title">Optimisation E-Ink</string>
     <string name="eink_mode_desc">Affichage monochrome, images en niveaux de gris, sans animations ; touchez les bords ou utilisez les boutons de volume pour tourner les pages.</string>
+    <string name="on_this_day_title">Ce jour-là</string>
+    <string name="on_this_day_desc">Articles lus publiés à cette date lors des années précédentes</string>
+    <string name="on_this_day_empty">Aucun article lu publié à cette date lors des années précédentes</string>
+    <string name="on_this_day_error">Impossible de charger les articles. Touchez pour réessayer.</string>
+    <plurals name="on_this_day_years_ago">
+        <item quantity="one">il y a %1$d an</item>
+        <item quantity="other">il y a %1$d ans</item>
+    </plurals>
 </resources>

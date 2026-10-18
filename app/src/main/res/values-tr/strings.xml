@@ -801,4 +801,12 @@
     <string name="save">Save</string>
     <string name="eink_mode_title">E-Ink optimizasyonu</string>
     <string name="eink_mode_desc">Tek renkli ekran, gri tonlamalı görseller ve uygulama animasyonları kapalı; sayfa çevirmek için kenarlara dokunun veya ses tuşlarını kullanın.</string>
+    <string name="on_this_day_title">Bugün Tarihte</string>
+    <string name="on_this_day_desc">Önceki yıllarda bu günde yayımlanmış, okuduğunuz makaleler</string>
+    <string name="on_this_day_empty">Önceki yıllardan bu güne ait okunmuş makale bulunamadı</string>
+    <string name="on_this_day_error">Makaleler yüklenemedi. Yeniden denemek için dokunun.</string>
+    <plurals name="on_this_day_years_ago">
+        <item quantity="one">%1$d yıl önce</item>
+        <item quantity="other">%1$d yıl önce</item>
+    </plurals>
 </resources>

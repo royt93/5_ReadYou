@@ -772,4 +772,11 @@
     <string name="read_position_sync_desc">Lưu và khôi phục vị trí đọc trên thiết bị này và đồng bộ qua WebDAV khi được cấu hình</string>
     <string name="eink_mode_title">Tối ưu E-Ink</string>
     <string name="eink_mode_desc">Màn hình đơn sắc, ảnh thang xám, tắt hoạt ảnh ứng dụng; chạm mép trang hoặc dùng phím âm lượng để lật trang.</string>
+    <string name="on_this_day_title">Ngày này năm xưa</string>
+    <string name="on_this_day_desc">Các bài đã đọc được xuất bản vào ngày này ở những năm trước</string>
+    <string name="on_this_day_empty">Không tìm thấy bài đã đọc nào của ngày này ở những năm trước</string>
+    <string name="on_this_day_error">Không thể tải bài viết. Chạm để thử lại.</string>
+    <plurals name="on_this_day_years_ago">
+        <item quantity="other">%1$d năm trước</item>
+    </plurals>
 </resources>

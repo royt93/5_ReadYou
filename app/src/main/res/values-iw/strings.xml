@@ -879,4 +879,13 @@
     <string name="save">Save</string>
     <string name="eink_mode_title">מיטוב E-Ink</string>
     <string name="eink_mode_desc">תצוגה מונוכרומטית, תמונות בגווני אפור וללא הנפשות; יש להקיש בשולי העמוד או להשתמש בלחצני עוצמת הקול לדפדוף.</string>
+    <string name="on_this_day_title">ביום זה</string>
+    <string name="on_this_day_desc">מאמרים שקראת ופורסמו בתאריך זה בשנים קודמות</string>
+    <string name="on_this_day_empty">לא נמצאו מאמרים שנקראו מתאריך זה בשנים קודמות</string>
+    <string name="on_this_day_error">לא ניתן לטעון את המאמרים. הקש כדי לנסות שוב.</string>
+    <plurals name="on_this_day_years_ago">
+        <item quantity="one">לפני שנה</item>
+        <item quantity="two">לפני שנתיים</item>
+        <item quantity="other">לפני %1$d שנים</item>
+    </plurals>
 </resources>

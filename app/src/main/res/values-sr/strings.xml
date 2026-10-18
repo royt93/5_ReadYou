@@ -804,4 +804,13 @@
     <string name="save">Save</string>
     <string name="eink_mode_title">E-Ink optimizacija</string>
     <string name="eink_mode_desc">Monohromatski ekran, slike u sivim tonovima i bez animacija; dodirnite ivice ili koristite tastere za jačinu zvuka za listanje.</string>
+    <string name="on_this_day_title">На данашњи дан</string>
+    <string name="on_this_day_desc">Прочитани чланци објављени на овај дан у претходним годинама</string>
+    <string name="on_this_day_empty">Нису пронађени прочитани чланци за овај дан из претходних година</string>
+    <string name="on_this_day_error">Чланци нису могли да се учитају. Додирните да покушате поново.</string>
+    <plurals name="on_this_day_years_ago">
+        <item quantity="one">пре %1$d годину</item>
+        <item quantity="few">пре %1$d године</item>
+        <item quantity="other">пре %1$d година</item>
+    </plurals>
 </resources>

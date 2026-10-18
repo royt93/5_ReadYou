@@ -873,4 +873,12 @@
     <string name="save">Save</string>
     <string name="eink_mode_title">E-Ink-optimalisering</string>
     <string name="eink_mode_desc">Monokrom skjerm, gråtonebilete og ingen app-animasjonar; trykk på sidekantane eller bruk volumknappane for å bla.</string>
+    <string name="on_this_day_title">På denne dagen</string>
+    <string name="on_this_day_desc">Artiklar du har lese som vart publiserte denne datoen i tidlegare år</string>
+    <string name="on_this_day_empty">Fann ingen lesne artiklar frå denne datoen i tidlegare år</string>
+    <string name="on_this_day_error">Kunne ikkje laste artiklane. Trykk for å prøve igjen.</string>
+    <plurals name="on_this_day_years_ago">
+        <item quantity="one">for %1$d år sidan</item>
+        <item quantity="other">for %1$d år sidan</item>
+    </plurals>
 </resources>

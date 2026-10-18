@@ -799,4 +799,11 @@
     <string name="save">Save</string>
     <string name="eink_mode_title">Optimasi E-Ink</string>
     <string name="eink_mode_desc">Tampilan monokrom, gambar skala abu-abu, tanpa animasi aplikasi; ketuk tepi halaman atau gunakan tombol volume untuk membalik halaman.</string>
+    <string name="on_this_day_title">Pada Hari Ini</string>
+    <string name="on_this_day_desc">Artikel yang sudah Anda baca dan terbit pada tanggal ini di tahun-tahun sebelumnya</string>
+    <string name="on_this_day_empty">Tidak ada artikel yang sudah dibaca dari tanggal ini di tahun-tahun sebelumnya</string>
+    <string name="on_this_day_error">Artikel tidak dapat dimuat. Ketuk untuk mencoba lagi.</string>
+    <plurals name="on_this_day_years_ago">
+        <item quantity="other">%1$d tahun lalu</item>
+    </plurals>
 </resources>

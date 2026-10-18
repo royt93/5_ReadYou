@@ -872,4 +872,12 @@
     <string name="save">Save</string>
     <string name="eink_mode_title">E-Ink optimallaşdırması</string>
     <string name="eink_mode_desc">Monoxrom ekran, boz tonlu şəkillər, tətbiq animasiyaları yoxdur; səhifəni çevirmək üçün kənarlara toxunun və ya səs düymələrindən istifadə edin.</string>
+    <string name="on_this_day_title">Bu gün</string>
+    <string name="on_this_day_desc">Əvvəlki illərdə bu gün dərc edilmiş oxuduğunuz məqalələr</string>
+    <string name="on_this_day_empty">Əvvəlki illərdən bu günə aid oxunmuş məqalə tapılmadı</string>
+    <string name="on_this_day_error">Məqalələr yüklənmədi. Yenidən cəhd üçün toxunun.</string>
+    <plurals name="on_this_day_years_ago">
+        <item quantity="one">%1$d il əvvəl</item>
+        <item quantity="other">%1$d il əvvəl</item>
+    </plurals>
 </resources>

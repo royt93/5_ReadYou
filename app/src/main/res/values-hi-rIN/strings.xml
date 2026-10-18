@@ -798,4 +798,12 @@
     <string name="save">Save</string>
     <string name="eink_mode_title">E-Ink अनुकूलन</string>
     <string name="eink_mode_desc">एकरंगी डिस्प्ले, ग्रेस्केल चित्र और ऐप ऐनिमेशन बंद; पेज बदलने के लिए किनारों पर टैप करें या वॉल्यूम बटन दबाएँ।</string>
+    <string name="on_this_day_title">आज के दिन</string>
+    <string name="on_this_day_desc">वे पढ़े हुए लेख जो पिछले वर्षों में इसी दिन प्रकाशित हुए थे</string>
+    <string name="on_this_day_empty">पिछले वर्षों के इस दिन का कोई पढ़ा हुआ लेख नहीं मिला</string>
+    <string name="on_this_day_error">लेख लोड नहीं हो सके। दोबारा कोशिश के लिए टैप करें।</string>
+    <plurals name="on_this_day_years_ago">
+        <item quantity="one">%1$d वर्ष पहले</item>
+        <item quantity="other">%1$d वर्ष पहले</item>
+    </plurals>
 </resources>

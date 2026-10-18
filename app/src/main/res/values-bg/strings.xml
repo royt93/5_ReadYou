@@ -765,4 +765,12 @@
     <string name="save">Save</string>
     <string name="eink_mode_title">Оптимизация за E-Ink</string>
     <string name="eink_mode_desc">Монохромен екран, изображения в сивата гама, без анимации; докоснете краищата или използвайте бутоните за звук за прелистване.</string>
+    <string name="on_this_day_title">На този ден</string>
+    <string name="on_this_day_desc">Статии, които сте прочели и са публикувани на тази дата в предишни години</string>
+    <string name="on_this_day_empty">Няма прочетени статии от този ден в предишни години</string>
+    <string name="on_this_day_error">Статиите не можаха да се заредят. Докоснете, за да опитате отново.</string>
+    <plurals name="on_this_day_years_ago">
+        <item quantity="one">преди %1$d година</item>
+        <item quantity="other">преди %1$d години</item>
+    </plurals>
 </resources>

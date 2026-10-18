@@ -800,4 +800,12 @@
     <string name="save">Save</string>
     <string name="eink_mode_title">E-Ink-optimering</string>
     <string name="eink_mode_desc">Monokrom skärm, gråskalebilder och inga appanimeringar; tryck på sidkanterna eller använd volymknapparna för att bläddra.</string>
+    <string name="on_this_day_title">På den här dagen</string>
+    <string name="on_this_day_desc">Lästa artiklar som publicerades den här dagen tidigare år</string>
+    <string name="on_this_day_empty">Inga lästa artiklar hittades från den här dagen tidigare år</string>
+    <string name="on_this_day_error">Det gick inte att läsa in artiklarna. Tryck för att försöka igen.</string>
+    <plurals name="on_this_day_years_ago">
+        <item quantity="one">för %1$d år sedan</item>
+        <item quantity="other">för %1$d år sedan</item>
+    </plurals>
 </resources>

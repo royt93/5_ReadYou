@@ -800,4 +800,12 @@
     <string name="save">Save</string>
     <string name="eink_mode_title">بهینه‌سازی E-Ink</string>
     <string name="eink_mode_desc">نمایش تک‌رنگ، تصاویر خاکستری و بدون پویانمایی برنامه؛ برای ورق‌زدن لبه صفحه را لمس کنید یا از کلیدهای صدا استفاده کنید.</string>
+    <string name="on_this_day_title">در چنین روزی</string>
+    <string name="on_this_day_desc">مقاله‌هایی که خوانده‌اید و در چنین روزی در سال‌های گذشته منتشر شده‌اند</string>
+    <string name="on_this_day_empty">هیچ مقاله خوانده‌شده‌ای از چنین روزی در سال‌های گذشته پیدا نشد</string>
+    <string name="on_this_day_error">بارگذاری مقاله‌ها ممکن نشد. برای تلاش دوباره ضربه بزنید.</string>
+    <plurals name="on_this_day_years_ago">
+        <item quantity="one">%1$d سال پیش</item>
+        <item quantity="other">%1$d سال پیش</item>
+    </plurals>
 </resources>

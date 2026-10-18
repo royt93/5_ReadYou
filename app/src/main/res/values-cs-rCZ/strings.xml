@@ -875,4 +875,14 @@
     <string name="save">Save</string>
     <string name="eink_mode_title">Optimalizace pro E-Ink</string>
     <string name="eink_mode_desc">Černobílý displej, obrázky v odstínech šedi, animace vypnuté; stránky otáčejte klepnutím na okraj nebo tlačítky hlasitosti.</string>
+    <string name="on_this_day_title">Tento den</string>
+    <string name="on_this_day_desc">Přečtené články, které byly v předchozích letech zveřejněny v tento den</string>
+    <string name="on_this_day_empty">Z tohoto dne v předchozích letech nebyly nalezeny žádné přečtené články</string>
+    <string name="on_this_day_error">Články se nepodařilo načíst. Klepnutím to zkusíte znovu.</string>
+    <plurals name="on_this_day_years_ago">
+        <item quantity="one">před %1$d rokem</item>
+        <item quantity="few">před %1$d lety</item>
+        <item quantity="many">před %1$d roku</item>
+        <item quantity="other">před %1$d lety</item>
+    </plurals>
 </resources>

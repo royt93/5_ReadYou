@@ -800,4 +800,12 @@
     <string name="save">Save</string>
     <string name="eink_mode_title">Optimització per a E-Ink</string>
     <string name="eink_mode_desc">Pantalla monocroma, imatges en escala de grisos i sense animacions; toca les vores o usa els botons de volum per passar pàgina.</string>
+    <string name="on_this_day_title">Un dia com avui</string>
+    <string name="on_this_day_desc">Articles que has llegit i que es van publicar aquest dia en anys anteriors</string>
+    <string name="on_this_day_empty">No s\'han trobat articles llegits d\'aquest dia en anys anteriors</string>
+    <string name="on_this_day_error">No s\'han pogut carregar els articles. Toca per tornar-ho a provar.</string>
+    <plurals name="on_this_day_years_ago">
+        <item quantity="one">fa %1$d any</item>
+        <item quantity="other">fa %1$d anys</item>
+    </plurals>
 </resources>

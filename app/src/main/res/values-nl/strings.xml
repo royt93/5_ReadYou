@@ -801,4 +801,12 @@
     <string name="save">Save</string>
     <string name="eink_mode_title">E-Ink-optimalisatie</string>
     <string name="eink_mode_desc">Monochroom scherm, grijswaardenafbeeldingen en geen app-animaties; tik op de paginaranden of gebruik volumeknoppen om te bladeren.</string>
+    <string name="on_this_day_title">Op deze dag</string>
+    <string name="on_this_day_desc">Gelezen artikelen die op deze dag in eerdere jaren zijn gepubliceerd</string>
+    <string name="on_this_day_empty">Geen gelezen artikelen van deze dag in eerdere jaren gevonden</string>
+    <string name="on_this_day_error">Artikelen konden niet worden geladen. Tik om opnieuw te proberen.</string>
+    <plurals name="on_this_day_years_ago">
+        <item quantity="one">%1$d jaar geleden</item>
+        <item quantity="other">%1$d jaar geleden</item>
+    </plurals>
 </resources>

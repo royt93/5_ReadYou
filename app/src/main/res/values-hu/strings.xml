@@ -796,4 +796,12 @@
     <string name="save">Save</string>
     <string name="eink_mode_title">E-Ink optimalizálás</string>
     <string name="eink_mode_desc">Monokróm kijelző, szürkeárnyalatos képek, animációk nélkül; lapozáshoz koppints a szélekre vagy használd a hangerőgombokat.</string>
+    <string name="on_this_day_title">Ezen a napon</string>
+    <string name="on_this_day_desc">Az Ön által elolvasott cikkek, amelyek korábbi években ezen a napon jelentek meg</string>
+    <string name="on_this_day_empty">Nem található olvasott cikk erről a napról a korábbi évekből</string>
+    <string name="on_this_day_error">A cikkek betöltése nem sikerült. Koppintson az újrapróbálkozáshoz.</string>
+    <plurals name="on_this_day_years_ago">
+        <item quantity="one">%1$d éve</item>
+        <item quantity="other">%1$d éve</item>
+    </plurals>
 </resources>
