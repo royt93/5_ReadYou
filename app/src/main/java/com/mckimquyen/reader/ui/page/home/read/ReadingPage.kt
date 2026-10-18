@@ -3,13 +3,15 @@ package com.mckimquyen.reader.ui.page.home.read
 import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
+import androidx.compose.animation.togetherWith
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
-import androidx.compose.animation.with
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.Spacer
@@ -36,6 +38,7 @@ import androidx.navigation.NavHostController
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.mckimquyen.reader.infrastructure.audio.TtsState
 import com.mckimquyen.reader.infrastructure.pref.LocalReadingAutoHideToolbar
+import com.mckimquyen.reader.infrastructure.pref.LocalEInkMode
 import com.mckimquyen.reader.infrastructure.pref.LocalReadingPageTonalElevation
 import com.mckimquyen.reader.infrastructure.pref.LocalReadPositionSync
 import com.mckimquyen.reader.infrastructure.pref.LocalAutoTts
@@ -61,6 +64,7 @@ fun ReadingPage(
     homeViewModel: HomeViewModel,
     readingViewModel: ReadingViewModel = hiltViewModel(),
 ) {
+    val eInkEnabled = LocalEInkMode.current.value
     val tonalElevation = LocalReadingPageTonalElevation.current
     val readPositionSyncEnabled = LocalReadPositionSync.current.value
     val autoTts = LocalAutoTts.current.value
@@ -275,17 +279,22 @@ fun ReadingPage(
                         AnimatedContent(
                             targetState = readingUiState.content ?: "",
                             transitionSpec = {
-                                slideInVertically(
-                                    spring(
-                                        dampingRatio = Spring.DampingRatioNoBouncy,
-                                        stiffness = Spring.StiffnessLow,
-                                    )
-                                ) { height -> height / 2 } with slideOutVertically { height -> -(height / 2) } + fadeOut(
-                                    spring(
-                                        dampingRatio = Spring.DampingRatioNoBouncy,
-                                        stiffness = Spring.StiffnessLow,
-                                    )
-                                )
+                                if (eInkEnabled) {
+                                    EnterTransition.None togetherWith ExitTransition.None
+                                } else {
+                                    slideInVertically(
+                                        spring(
+                                            dampingRatio = Spring.DampingRatioNoBouncy,
+                                            stiffness = Spring.StiffnessLow,
+                                        )
+                                    ) { height -> height / 2 } togetherWith
+                                        (slideOutVertically { height -> -(height / 2) } + fadeOut(
+                                            spring(
+                                                dampingRatio = Spring.DampingRatioNoBouncy,
+                                                stiffness = Spring.StiffnessLow,
+                                            )
+                                        ))
+                                }
                             }
                         ) { target ->
                             Content(
