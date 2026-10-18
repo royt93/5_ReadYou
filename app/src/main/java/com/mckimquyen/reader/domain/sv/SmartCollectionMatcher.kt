@@ -51,7 +51,9 @@ class SmartCollectionMatcher @Inject constructor(
 
     suspend fun reevaluateCollection(accountId: Int, collectionId: String): Int =
         withContext(dispatcher) {
-            val collection = smartCollectionDao.getCollectionById(collectionId) ?: return@withContext 0
+            val collection = smartCollectionDao.getCollectionById(collectionId)
+                ?.takeIf { it.accountId == accountId }
+                ?: return@withContext 0
             val matches = mutableListOf<SmartCollectionArticle>()
             var offset = 0
             val matchedAt = System.currentTimeMillis()
