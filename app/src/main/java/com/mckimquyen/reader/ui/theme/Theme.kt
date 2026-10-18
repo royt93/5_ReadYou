@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.platform.LocalContext
 import com.mckimquyen.reader.infrastructure.pref.LocalBasicFonts
+import com.mckimquyen.reader.infrastructure.pref.LocalEInkMode
 import com.mckimquyen.reader.infrastructure.pref.LocalThemeIndex
 import com.mckimquyen.reader.ui.theme.palette.LocalTonalPalettes
 import com.mckimquyen.reader.ui.theme.palette.TonalPalettes
@@ -21,6 +22,7 @@ fun AppTheme(
     content: @Composable () -> Unit,
 ) {
     val themeIndex = LocalThemeIndex.current
+    val eInkEnabled = LocalEInkMode.current.value
 
     val tonalPalettes = wallpaperPalettes[
         if (themeIndex >= wallpaperPalettes.size) {
@@ -40,9 +42,11 @@ fun AppTheme(
             LocalTextStyle provides LocalTextStyle.current.applyTextDirection()
         ) {
             MaterialTheme(
-                colorScheme =
-                if (useDarkTheme) dynamicDarkColorScheme()
-                else dynamicLightColorScheme(),
+                colorScheme = when {
+                    eInkEnabled -> eInkLightColorScheme()
+                    useDarkTheme -> dynamicDarkColorScheme()
+                    else -> dynamicLightColorScheme()
+                },
                 typography = LocalBasicFonts.current.asTypography(LocalContext.current)
                     .applyTextDirection(),
                 shapes = Shapes,

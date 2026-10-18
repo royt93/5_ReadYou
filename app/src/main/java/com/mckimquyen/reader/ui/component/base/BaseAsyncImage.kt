@@ -11,6 +11,7 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.graphics.DefaultAlpha
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.painter.Painter
@@ -22,8 +23,14 @@ import coil.size.Precision
 import coil.size.Scale
 import coil.size.Size
 import com.mckimquyen.reader.R
+import com.mckimquyen.reader.infrastructure.pref.LocalEInkMode
 
 val SIZE_1000 = Size(1000, 1000)
+
+internal fun grayscaleColorMatrix(): ColorMatrix = ColorMatrix().apply { setToSaturation(0f) }
+
+internal fun eInkImageColorFilter(enabled: Boolean): ColorFilter? =
+    if (enabled) ColorFilter.colorMatrix(grayscaleColorMatrix()) else null
 
 @Suppress("UNUSED_PARAMETER")
 @Composable
@@ -41,6 +48,7 @@ fun BaseAsyncImage(
     cornerRadius: androidx.compose.ui.unit.Dp = 12.dp,
 ) {
     val shape = if (enableClipping) RoundedCornerShape(cornerRadius) else RectangleShape
+    val eInkFilter = eInkImageColorFilter(LocalEInkMode.current.value)
 
     Image(
         painter = rememberAsyncImagePainter(
@@ -62,6 +70,7 @@ fun BaseAsyncImage(
         ),
         contentDescription = contentDescription,
         contentScale = contentScale,
+        colorFilter = eInkFilter,
         modifier = modifier
             .clip(shape)
             .background(
