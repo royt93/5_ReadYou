@@ -808,4 +808,30 @@
         <item quantity="one">for %1$d år siden</item>
         <item quantity="other">for %1$d år siden</item>
     </plurals>
+    <string name="reading_stats_title">Læsestatistik</string>
+    <string name="reading_stats_settings_desc">Varmekort, stime og dine mest læste kilder</string>
+    <string name="reading_stats_total">Læst i alt</string>
+    <string name="reading_stats_today">I dag</string>
+    <string name="reading_stats_current_streak">Nuværende stime</string>
+    <string name="reading_stats_longest_streak">Længste stime</string>
+    <string name="reading_stats_avg_per_day">Gns. pr. aktiv dag</string>
+    <string name="reading_stats_top_feeds">Top-kilder</string>
+    <string name="reading_stats_empty">Ingen læsehistorik endnu. Statistikken tæller fra denne opdatering.</string>
+    <string name="reading_stats_error">Statistikken kunne ikke indlæses. Tryk for at prøve igen.</string>
+    <string name="reading_stats_badge_week">7-dages stime</string>
+    <string name="reading_stats_badge_month">30-dages stime</string>
+    <string name="reading_stats_less">Mindre</string>
+    <string name="reading_stats_more">Mere</string>
+    <plurals name="reading_stats_days">
+        <item quantity="one">%1$d dag</item>
+        <item quantity="other">%1$d dage</item>
+    </plurals>
+    <plurals name="reading_stats_heatmap_desc">
+        <item quantity="one">Læsevarmekort: %1$d aktiv dag i det seneste år</item>
+        <item quantity="other">Læsevarmekort: %1$d aktive dage i det seneste år</item>
+    </plurals>
+    <plurals name="reading_stats_articles">
+        <item quantity="one">%1$d artikel</item>
+        <item quantity="other">%1$d artikler</item>
+    </plurals>
 </resources>

@@ -811,4 +811,30 @@
         <item quantity="one">hace %1$d año</item>
         <item quantity="other">hace %1$d años</item>
     </plurals>
+    <string name="reading_stats_title">Estadísticas de lectura</string>
+    <string name="reading_stats_settings_desc">Mapa de calor, rachas y tus fuentes más leídas</string>
+    <string name="reading_stats_total">Total leído</string>
+    <string name="reading_stats_today">Hoy</string>
+    <string name="reading_stats_current_streak">Racha actual</string>
+    <string name="reading_stats_longest_streak">Racha más larga</string>
+    <string name="reading_stats_avg_per_day">Media por día activo</string>
+    <string name="reading_stats_top_feeds">Fuentes principales</string>
+    <string name="reading_stats_empty">Aún no hay historial de lectura. Las estadísticas cuentan desde esta actualización.</string>
+    <string name="reading_stats_error">No se pudieron cargar las estadísticas. Toca para reintentar.</string>
+    <string name="reading_stats_badge_week">Racha de 7 días</string>
+    <string name="reading_stats_badge_month">Racha de 30 días</string>
+    <string name="reading_stats_less">Menos</string>
+    <string name="reading_stats_more">Más</string>
+    <plurals name="reading_stats_days">
+        <item quantity="one">%1$d día</item>
+        <item quantity="other">%1$d días</item>
+    </plurals>
+    <plurals name="reading_stats_heatmap_desc">
+        <item quantity="one">Mapa de lectura: %1$d día activo en el último año</item>
+        <item quantity="other">Mapa de lectura: %1$d días activos en el último año</item>
+    </plurals>
+    <plurals name="reading_stats_articles">
+        <item quantity="one">%1$d artículo</item>
+        <item quantity="other">%1$d artículos</item>
+    </plurals>
 </resources>

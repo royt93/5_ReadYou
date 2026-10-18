@@ -808,4 +808,30 @@
         <item quantity="one">fa %1$d any</item>
         <item quantity="other">fa %1$d anys</item>
     </plurals>
+    <string name="reading_stats_title">Estadístiques de lectura</string>
+    <string name="reading_stats_settings_desc">Mapa de calor, ratxes i les fonts més llegides</string>
+    <string name="reading_stats_total">Total llegit</string>
+    <string name="reading_stats_today">Avui</string>
+    <string name="reading_stats_current_streak">Ratxa actual</string>
+    <string name="reading_stats_longest_streak">Ratxa més llarga</string>
+    <string name="reading_stats_avg_per_day">Mitjana per dia actiu</string>
+    <string name="reading_stats_top_feeds">Fonts principals</string>
+    <string name="reading_stats_empty">Encara no hi ha historial de lectura. Les estadístiques compten des d\'aquesta actualització.</string>
+    <string name="reading_stats_error">No s\'han pogut carregar les estadístiques. Toca per tornar-ho a provar.</string>
+    <string name="reading_stats_badge_week">Ratxa de 7 dies</string>
+    <string name="reading_stats_badge_month">Ratxa de 30 dies</string>
+    <string name="reading_stats_less">Menys</string>
+    <string name="reading_stats_more">Més</string>
+    <plurals name="reading_stats_days">
+        <item quantity="one">%1$d dia</item>
+        <item quantity="other">%1$d dies</item>
+    </plurals>
+    <plurals name="reading_stats_heatmap_desc">
+        <item quantity="one">Mapa de lectura: %1$d dia actiu l\'últim any</item>
+        <item quantity="other">Mapa de lectura: %1$d dies actius l\'últim any</item>
+    </plurals>
+    <plurals name="reading_stats_articles">
+        <item quantity="one">%1$d article</item>
+        <item quantity="other">%1$d articles</item>
+    </plurals>
 </resources>

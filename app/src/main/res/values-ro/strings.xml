@@ -812,4 +812,33 @@
         <item quantity="few">acum %1$d ani</item>
         <item quantity="other">acum %1$d de ani</item>
     </plurals>
+    <string name="reading_stats_title">Statistici de citire</string>
+    <string name="reading_stats_settings_desc">Hartă termică, serii și cele mai citite surse</string>
+    <string name="reading_stats_total">Total citite</string>
+    <string name="reading_stats_today">Astăzi</string>
+    <string name="reading_stats_current_streak">Seria curentă</string>
+    <string name="reading_stats_longest_streak">Cea mai lungă serie</string>
+    <string name="reading_stats_avg_per_day">Medie pe zi activă</string>
+    <string name="reading_stats_top_feeds">Surse de top</string>
+    <string name="reading_stats_empty">Încă nu există istoric de citire. Statisticile se calculează de la această actualizare.</string>
+    <string name="reading_stats_error">Statisticile nu au putut fi încărcate. Atingeți pentru a reîncerca.</string>
+    <string name="reading_stats_badge_week">Serie de 7 zile</string>
+    <string name="reading_stats_badge_month">Serie de 30 de zile</string>
+    <string name="reading_stats_less">Mai puțin</string>
+    <string name="reading_stats_more">Mai mult</string>
+    <plurals name="reading_stats_days">
+        <item quantity="one">%1$d zi</item>
+        <item quantity="few">%1$d zile</item>
+        <item quantity="other">%1$d de zile</item>
+    </plurals>
+    <plurals name="reading_stats_heatmap_desc">
+        <item quantity="one">Hartă de citire: %1$d zi activă în ultimul an</item>
+        <item quantity="few">Hartă de citire: %1$d zile active în ultimul an</item>
+        <item quantity="other">Hartă de citire: %1$d de zile active în ultimul an</item>
+    </plurals>
+    <plurals name="reading_stats_articles">
+        <item quantity="one">%1$d articol</item>
+        <item quantity="few">%1$d articole</item>
+        <item quantity="other">%1$d de articole</item>
+    </plurals>
 </resources>

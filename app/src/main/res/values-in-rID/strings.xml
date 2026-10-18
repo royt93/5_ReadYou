@@ -806,4 +806,27 @@
     <plurals name="on_this_day_years_ago">
         <item quantity="other">%1$d tahun lalu</item>
     </plurals>
+    <string name="reading_stats_title">Statistik Membaca</string>
+    <string name="reading_stats_settings_desc">Peta panas, rentetan, dan sumber yang paling sering dibaca</string>
+    <string name="reading_stats_total">Total dibaca</string>
+    <string name="reading_stats_today">Hari ini</string>
+    <string name="reading_stats_current_streak">Rentetan saat ini</string>
+    <string name="reading_stats_longest_streak">Rentetan terpanjang</string>
+    <string name="reading_stats_avg_per_day">Rata-rata per hari aktif</string>
+    <string name="reading_stats_top_feeds">Sumber teratas</string>
+    <string name="reading_stats_empty">Belum ada riwayat membaca. Statistik dihitung mulai pembaruan ini.</string>
+    <string name="reading_stats_error">Statistik tidak dapat dimuat. Ketuk untuk mencoba lagi.</string>
+    <string name="reading_stats_badge_week">Rentetan 7 hari</string>
+    <string name="reading_stats_badge_month">Rentetan 30 hari</string>
+    <string name="reading_stats_less">Lebih sedikit</string>
+    <string name="reading_stats_more">Lebih banyak</string>
+    <plurals name="reading_stats_days">
+        <item quantity="other">%1$d hari</item>
+    </plurals>
+    <plurals name="reading_stats_heatmap_desc">
+        <item quantity="other">Peta panas membaca: %1$d hari aktif dalam setahun terakhir</item>
+    </plurals>
+    <plurals name="reading_stats_articles">
+        <item quantity="other">%1$d artikel</item>
+    </plurals>
 </resources>

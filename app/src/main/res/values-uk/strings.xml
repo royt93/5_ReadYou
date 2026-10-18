@@ -816,4 +816,36 @@
         <item quantity="many">%1$d років тому</item>
         <item quantity="other">%1$d року тому</item>
     </plurals>
+    <string name="reading_stats_title">Статистика читання</string>
+    <string name="reading_stats_settings_desc">Теплова карта, серії та найчитаніші джерела</string>
+    <string name="reading_stats_total">Усього прочитано</string>
+    <string name="reading_stats_today">Сьогодні</string>
+    <string name="reading_stats_current_streak">Поточна серія</string>
+    <string name="reading_stats_longest_streak">Найдовша серія</string>
+    <string name="reading_stats_avg_per_day">У середньому за активний день</string>
+    <string name="reading_stats_top_feeds">Топ джерел</string>
+    <string name="reading_stats_empty">Історії читання ще немає. Статистика рахується з цього оновлення.</string>
+    <string name="reading_stats_error">Не вдалося завантажити статистику. Торкніться, щоб повторити.</string>
+    <string name="reading_stats_badge_week">Серія 7 днів</string>
+    <string name="reading_stats_badge_month">Серія 30 днів</string>
+    <string name="reading_stats_less">Менше</string>
+    <string name="reading_stats_more">Більше</string>
+    <plurals name="reading_stats_days">
+        <item quantity="one">%1$d день</item>
+        <item quantity="few">%1$d дні</item>
+        <item quantity="many">%1$d днів</item>
+        <item quantity="other">%1$d дня</item>
+    </plurals>
+    <plurals name="reading_stats_heatmap_desc">
+        <item quantity="one">Карта читання: %1$d активний день за останній рік</item>
+        <item quantity="few">Карта читання: %1$d активні дні за останній рік</item>
+        <item quantity="many">Карта читання: %1$d активних днів за останній рік</item>
+        <item quantity="other">Карта читання: %1$d активного дня за останній рік</item>
+    </plurals>
+    <plurals name="reading_stats_articles">
+        <item quantity="one">%1$d стаття</item>
+        <item quantity="few">%1$d статті</item>
+        <item quantity="many">%1$d статей</item>
+        <item quantity="other">%1$d статті</item>
+    </plurals>
 </resources>

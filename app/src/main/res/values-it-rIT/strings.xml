@@ -809,4 +809,30 @@
         <item quantity="one">%1$d anno fa</item>
         <item quantity="other">%1$d anni fa</item>
     </plurals>
+    <string name="reading_stats_title">Statistiche di lettura</string>
+    <string name="reading_stats_settings_desc">Mappa di calore, serie e le tue fonti più lette</string>
+    <string name="reading_stats_total">Totale letti</string>
+    <string name="reading_stats_today">Oggi</string>
+    <string name="reading_stats_current_streak">Serie attuale</string>
+    <string name="reading_stats_longest_streak">Serie più lunga</string>
+    <string name="reading_stats_avg_per_day">Media per giorno attivo</string>
+    <string name="reading_stats_top_feeds">Fonti principali</string>
+    <string name="reading_stats_empty">Ancora nessuna cronologia di lettura. Le statistiche contano da questo aggiornamento.</string>
+    <string name="reading_stats_error">Impossibile caricare le statistiche. Tocca per riprovare.</string>
+    <string name="reading_stats_badge_week">Serie di 7 giorni</string>
+    <string name="reading_stats_badge_month">Serie di 30 giorni</string>
+    <string name="reading_stats_less">Meno</string>
+    <string name="reading_stats_more">Più</string>
+    <plurals name="reading_stats_days">
+        <item quantity="one">%1$d giorno</item>
+        <item quantity="other">%1$d giorni</item>
+    </plurals>
+    <plurals name="reading_stats_heatmap_desc">
+        <item quantity="one">Mappa di lettura: %1$d giorno attivo nell\'ultimo anno</item>
+        <item quantity="other">Mappa di lettura: %1$d giorni attivi nell\'ultimo anno</item>
+    </plurals>
+    <plurals name="reading_stats_articles">
+        <item quantity="one">%1$d articolo</item>
+        <item quantity="other">%1$d articoli</item>
+    </plurals>
 </resources>

@@ -808,4 +808,30 @@
         <item quantity="one">%1$d سال پیش</item>
         <item quantity="other">%1$d سال پیش</item>
     </plurals>
+    <string name="reading_stats_title">آمار مطالعه</string>
+    <string name="reading_stats_settings_desc">نقشه حرارتی، رشته‌ها و پرخوان‌ترین منابع شما</string>
+    <string name="reading_stats_total">مجموع خوانده‌شده</string>
+    <string name="reading_stats_today">امروز</string>
+    <string name="reading_stats_current_streak">رشته فعلی</string>
+    <string name="reading_stats_longest_streak">طولانی‌ترین رشته</string>
+    <string name="reading_stats_avg_per_day">میانگین در هر روز فعال</string>
+    <string name="reading_stats_top_feeds">منابع برتر</string>
+    <string name="reading_stats_empty">هنوز سابقه مطالعه‌ای وجود ندارد. آمار از این به‌روزرسانی شروع می‌شود.</string>
+    <string name="reading_stats_error">بارگذاری آمار ممکن نشد. برای تلاش دوباره ضربه بزنید.</string>
+    <string name="reading_stats_badge_week">رشته ۷ روزه</string>
+    <string name="reading_stats_badge_month">رشته ۳۰ روزه</string>
+    <string name="reading_stats_less">کمتر</string>
+    <string name="reading_stats_more">بیشتر</string>
+    <plurals name="reading_stats_days">
+        <item quantity="one">%1$d روز</item>
+        <item quantity="other">%1$d روز</item>
+    </plurals>
+    <plurals name="reading_stats_heatmap_desc">
+        <item quantity="one">نقشه حرارتی مطالعه: %1$d روز فعال در سال گذشته</item>
+        <item quantity="other">نقشه حرارتی مطالعه: %1$d روز فعال در سال گذشته</item>
+    </plurals>
+    <plurals name="reading_stats_articles">
+        <item quantity="one">%1$d مقاله</item>
+        <item quantity="other">%1$d مقاله</item>
+    </plurals>
 </resources>

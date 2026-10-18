@@ -804,4 +804,30 @@
         <item quantity="one">%1$d éve</item>
         <item quantity="other">%1$d éve</item>
     </plurals>
+    <string name="reading_stats_title">Olvasási statisztika</string>
+    <string name="reading_stats_settings_desc">Hőtérkép, sorozatok és a legtöbbet olvasott forrásaid</string>
+    <string name="reading_stats_total">Összesen elolvasva</string>
+    <string name="reading_stats_today">Ma</string>
+    <string name="reading_stats_current_streak">Jelenlegi sorozat</string>
+    <string name="reading_stats_longest_streak">Leghosszabb sorozat</string>
+    <string name="reading_stats_avg_per_day">Átlag aktív naponként</string>
+    <string name="reading_stats_top_feeds">Top források</string>
+    <string name="reading_stats_empty">Még nincs olvasási előzmény. A statisztika ettől a frissítéstől számol.</string>
+    <string name="reading_stats_error">A statisztika betöltése nem sikerült. Koppintson az újrapróbálkozáshoz.</string>
+    <string name="reading_stats_badge_week">7 napos sorozat</string>
+    <string name="reading_stats_badge_month">30 napos sorozat</string>
+    <string name="reading_stats_less">Kevesebb</string>
+    <string name="reading_stats_more">Több</string>
+    <plurals name="reading_stats_days">
+        <item quantity="one">%1$d nap</item>
+        <item quantity="other">%1$d nap</item>
+    </plurals>
+    <plurals name="reading_stats_heatmap_desc">
+        <item quantity="one">Olvasási hőtérkép: %1$d aktív nap az elmúlt évben</item>
+        <item quantity="other">Olvasási hőtérkép: %1$d aktív nap az elmúlt évben</item>
+    </plurals>
+    <plurals name="reading_stats_articles">
+        <item quantity="one">%1$d cikk</item>
+        <item quantity="other">%1$d cikk</item>
+    </plurals>
 </resources>

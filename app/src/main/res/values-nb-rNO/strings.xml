@@ -809,4 +809,30 @@
         <item quantity="one">for %1$d år siden</item>
         <item quantity="other">for %1$d år siden</item>
     </plurals>
+    <string name="reading_stats_title">Lesestatistikk</string>
+    <string name="reading_stats_settings_desc">Varmekart, rekker og dine mest leste kilder</string>
+    <string name="reading_stats_total">Totalt lest</string>
+    <string name="reading_stats_today">I dag</string>
+    <string name="reading_stats_current_streak">Nåværende rekke</string>
+    <string name="reading_stats_longest_streak">Lengste rekke</string>
+    <string name="reading_stats_avg_per_day">Snitt per aktiv dag</string>
+    <string name="reading_stats_top_feeds">Toppkilder</string>
+    <string name="reading_stats_empty">Ingen lesehistorikk ennå. Statistikken teller fra denne oppdateringen.</string>
+    <string name="reading_stats_error">Kunne ikke laste statistikken. Trykk for å prøve igjen.</string>
+    <string name="reading_stats_badge_week">7-dagers rekke</string>
+    <string name="reading_stats_badge_month">30-dagers rekke</string>
+    <string name="reading_stats_less">Mindre</string>
+    <string name="reading_stats_more">Mer</string>
+    <plurals name="reading_stats_days">
+        <item quantity="one">%1$d dag</item>
+        <item quantity="other">%1$d dager</item>
+    </plurals>
+    <plurals name="reading_stats_heatmap_desc">
+        <item quantity="one">Lesevarmekart: %1$d aktiv dag det siste året</item>
+        <item quantity="other">Lesevarmekart: %1$d aktive dager det siste året</item>
+    </plurals>
+    <plurals name="reading_stats_articles">
+        <item quantity="one">%1$d artikkel</item>
+        <item quantity="other">%1$d artikler</item>
+    </plurals>
 </resources>

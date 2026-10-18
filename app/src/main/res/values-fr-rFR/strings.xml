@@ -813,4 +813,30 @@
         <item quantity="one">il y a %1$d an</item>
         <item quantity="other">il y a %1$d ans</item>
     </plurals>
+    <string name="reading_stats_title">Statistiques de lecture</string>
+    <string name="reading_stats_settings_desc">Carte de chaleur, séries et vos sources les plus lues</string>
+    <string name="reading_stats_total">Total lu</string>
+    <string name="reading_stats_today">Aujourd\'hui</string>
+    <string name="reading_stats_current_streak">Série actuelle</string>
+    <string name="reading_stats_longest_streak">Plus longue série</string>
+    <string name="reading_stats_avg_per_day">Moyenne par jour actif</string>
+    <string name="reading_stats_top_feeds">Sources principales</string>
+    <string name="reading_stats_empty">Pas encore d\'historique de lecture. Les statistiques comptent à partir de cette mise à jour.</string>
+    <string name="reading_stats_error">Impossible de charger les statistiques. Touchez pour réessayer.</string>
+    <string name="reading_stats_badge_week">Série de 7 jours</string>
+    <string name="reading_stats_badge_month">Série de 30 jours</string>
+    <string name="reading_stats_less">Moins</string>
+    <string name="reading_stats_more">Plus</string>
+    <plurals name="reading_stats_days">
+        <item quantity="one">%1$d jour</item>
+        <item quantity="other">%1$d jours</item>
+    </plurals>
+    <plurals name="reading_stats_heatmap_desc">
+        <item quantity="one">Carte de lecture : %1$d jour actif sur la dernière année</item>
+        <item quantity="other">Carte de lecture : %1$d jours actifs sur la dernière année</item>
+    </plurals>
+    <plurals name="reading_stats_articles">
+        <item quantity="one">%1$d article</item>
+        <item quantity="other">%1$d articles</item>
+    </plurals>
 </resources>

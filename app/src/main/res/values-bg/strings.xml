@@ -773,4 +773,30 @@
         <item quantity="one">преди %1$d година</item>
         <item quantity="other">преди %1$d години</item>
     </plurals>
+    <string name="reading_stats_title">Статистика на четенето</string>
+    <string name="reading_stats_settings_desc">Топлинна карта, серии и най-четените източници</string>
+    <string name="reading_stats_total">Общо прочетени</string>
+    <string name="reading_stats_today">Днес</string>
+    <string name="reading_stats_current_streak">Текуща серия</string>
+    <string name="reading_stats_longest_streak">Най-дълга серия</string>
+    <string name="reading_stats_avg_per_day">Средно на активен ден</string>
+    <string name="reading_stats_top_feeds">Топ източници</string>
+    <string name="reading_stats_empty">Още няма история на четене. Статистиката се брои от тази актуализация.</string>
+    <string name="reading_stats_error">Статистиката не можа да се зареди. Докоснете, за да опитате отново.</string>
+    <string name="reading_stats_badge_week">Серия от 7 дни</string>
+    <string name="reading_stats_badge_month">Серия от 30 дни</string>
+    <string name="reading_stats_less">По-малко</string>
+    <string name="reading_stats_more">Повече</string>
+    <plurals name="reading_stats_days">
+        <item quantity="one">%1$d ден</item>
+        <item quantity="other">%1$d дни</item>
+    </plurals>
+    <plurals name="reading_stats_heatmap_desc">
+        <item quantity="one">Карта на четенето: %1$d активен ден през последната година</item>
+        <item quantity="other">Карта на четенето: %1$d активни дни през последната година</item>
+    </plurals>
+    <plurals name="reading_stats_articles">
+        <item quantity="one">%1$d статия</item>
+        <item quantity="other">%1$d статии</item>
+    </plurals>
 </resources>

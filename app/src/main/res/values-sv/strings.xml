@@ -808,4 +808,30 @@
         <item quantity="one">för %1$d år sedan</item>
         <item quantity="other">för %1$d år sedan</item>
     </plurals>
+    <string name="reading_stats_title">Lässtatistik</string>
+    <string name="reading_stats_settings_desc">Värmekarta, serier och dina mest lästa källor</string>
+    <string name="reading_stats_total">Totalt läst</string>
+    <string name="reading_stats_today">Idag</string>
+    <string name="reading_stats_current_streak">Nuvarande serie</string>
+    <string name="reading_stats_longest_streak">Längsta serie</string>
+    <string name="reading_stats_avg_per_day">Snitt per aktiv dag</string>
+    <string name="reading_stats_top_feeds">Toppkällor</string>
+    <string name="reading_stats_empty">Ingen lashistorik än. Statistiken räknas från den här uppdateringen.</string>
+    <string name="reading_stats_error">Det gick inte att läsa in statistiken. Tryck för att försöka igen.</string>
+    <string name="reading_stats_badge_week">7-dagarsserie</string>
+    <string name="reading_stats_badge_month">30-dagarsserie</string>
+    <string name="reading_stats_less">Mindre</string>
+    <string name="reading_stats_more">Mer</string>
+    <plurals name="reading_stats_days">
+        <item quantity="one">%1$d dag</item>
+        <item quantity="other">%1$d dagar</item>
+    </plurals>
+    <plurals name="reading_stats_heatmap_desc">
+        <item quantity="one">Lasvärmekarta: %1$d aktiv dag det senaste året</item>
+        <item quantity="other">Lasvärmekarta: %1$d aktiva dagar det senaste året</item>
+    </plurals>
+    <plurals name="reading_stats_articles">
+        <item quantity="one">%1$d artikel</item>
+        <item quantity="other">%1$d artiklar</item>
+    </plurals>
 </resources>

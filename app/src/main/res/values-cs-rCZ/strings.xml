@@ -885,4 +885,36 @@
         <item quantity="many">před %1$d roku</item>
         <item quantity="other">před %1$d lety</item>
     </plurals>
+    <string name="reading_stats_title">Statistiky čtení</string>
+    <string name="reading_stats_settings_desc">Teplotní mapa, série a nejčtenější zdroje</string>
+    <string name="reading_stats_total">Celkem přečteno</string>
+    <string name="reading_stats_today">Dnes</string>
+    <string name="reading_stats_current_streak">Aktuální série</string>
+    <string name="reading_stats_longest_streak">Nejdelší série</string>
+    <string name="reading_stats_avg_per_day">Průměr na aktivní den</string>
+    <string name="reading_stats_top_feeds">Nejčtenější zdroje</string>
+    <string name="reading_stats_empty">Zatím žádná historie čtení. Statistiky se počítají od této aktualizace.</string>
+    <string name="reading_stats_error">Statistiky se nepodařilo načíst. Klepnutím to zkusíte znovu.</string>
+    <string name="reading_stats_badge_week">Série 7 dní</string>
+    <string name="reading_stats_badge_month">Série 30 dní</string>
+    <string name="reading_stats_less">Méně</string>
+    <string name="reading_stats_more">Více</string>
+    <plurals name="reading_stats_days">
+        <item quantity="one">%1$d den</item>
+        <item quantity="few">%1$d dny</item>
+        <item quantity="many">%1$d dne</item>
+        <item quantity="other">%1$d dní</item>
+    </plurals>
+    <plurals name="reading_stats_heatmap_desc">
+        <item quantity="one">Mapa čtení: %1$d aktivní den za poslední rok</item>
+        <item quantity="few">Mapa čtení: %1$d aktivní dny za poslední rok</item>
+        <item quantity="many">Mapa čtení: %1$d aktivního dne za poslední rok</item>
+        <item quantity="other">Mapa čtení: %1$d aktivních dní za poslední rok</item>
+    </plurals>
+    <plurals name="reading_stats_articles">
+        <item quantity="one">%1$d článek</item>
+        <item quantity="few">%1$d články</item>
+        <item quantity="many">%1$d článku</item>
+        <item quantity="other">%1$d článků</item>
+    </plurals>
 </resources>

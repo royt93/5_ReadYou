@@ -813,4 +813,33 @@
         <item quantity="few">пре %1$d године</item>
         <item quantity="other">пре %1$d година</item>
     </plurals>
+    <string name="reading_stats_title">Статистика читања</string>
+    <string name="reading_stats_settings_desc">Топлотна мапа, серије и најчитанији извори</string>
+    <string name="reading_stats_total">Укупно прочитано</string>
+    <string name="reading_stats_today">Данас</string>
+    <string name="reading_stats_current_streak">Тренутна серија</string>
+    <string name="reading_stats_longest_streak">Најдужа серија</string>
+    <string name="reading_stats_avg_per_day">Просек по активном дану</string>
+    <string name="reading_stats_top_feeds">Најбољи извори</string>
+    <string name="reading_stats_empty">Историје читања још нема. Статистика се рачуна од овог ажурирања.</string>
+    <string name="reading_stats_error">Статистика није могла да се учита. Додирните да покушате поново.</string>
+    <string name="reading_stats_badge_week">Серија од 7 дана</string>
+    <string name="reading_stats_badge_month">Серија од 30 дана</string>
+    <string name="reading_stats_less">Мање</string>
+    <string name="reading_stats_more">Више</string>
+    <plurals name="reading_stats_days">
+        <item quantity="one">%1$d дан</item>
+        <item quantity="few">%1$d дана</item>
+        <item quantity="other">%1$d дана</item>
+    </plurals>
+    <plurals name="reading_stats_heatmap_desc">
+        <item quantity="one">Мапа читања: %1$d активан дан у последњој години</item>
+        <item quantity="few">Мапа читања: %1$d активна дана у последњој години</item>
+        <item quantity="other">Мапа читања: %1$d активних дана у последњој години</item>
+    </plurals>
+    <plurals name="reading_stats_articles">
+        <item quantity="one">%1$d чланак</item>
+        <item quantity="few">%1$d чланка</item>
+        <item quantity="other">%1$d чланака</item>
+    </plurals>
 </resources>

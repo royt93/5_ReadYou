@@ -806,4 +806,30 @@
         <item quantity="one">%1$d वर्ष पहले</item>
         <item quantity="other">%1$d वर्ष पहले</item>
     </plurals>
+    <string name="reading_stats_title">पढ़ने के आँकड़े</string>
+    <string name="reading_stats_settings_desc">हीटमैप, स्ट्रीक और आपके सबसे ज़्यादा पढ़े गए स्रोत</string>
+    <string name="reading_stats_total">कुल पढ़े गए</string>
+    <string name="reading_stats_today">आज</string>
+    <string name="reading_stats_current_streak">मौजूदा स्ट्रीक</string>
+    <string name="reading_stats_longest_streak">सबसे लंबी स्ट्रीक</string>
+    <string name="reading_stats_avg_per_day">प्रति सक्रिय दिन औसत</string>
+    <string name="reading_stats_top_feeds">शीर्ष स्रोत</string>
+    <string name="reading_stats_empty">अभी तक कोई पढ़ने का इतिहास नहीं है। आँकड़े इस अपडेट से गिने जाते हैं।</string>
+    <string name="reading_stats_error">आँकड़े लोड नहीं हो सके। दोबारा कोशिश के लिए टैप करें।</string>
+    <string name="reading_stats_badge_week">7 दिन की स्ट्रीक</string>
+    <string name="reading_stats_badge_month">30 दिन की स्ट्रीक</string>
+    <string name="reading_stats_less">कम</string>
+    <string name="reading_stats_more">अधिक</string>
+    <plurals name="reading_stats_days">
+        <item quantity="one">%1$d दिन</item>
+        <item quantity="other">%1$d दिन</item>
+    </plurals>
+    <plurals name="reading_stats_heatmap_desc">
+        <item quantity="one">पढ़ने का हीटमैप: पिछले साल %1$d सक्रिय दिन</item>
+        <item quantity="other">पढ़ने का हीटमैप: पिछले साल %1$d सक्रिय दिन</item>
+    </plurals>
+    <plurals name="reading_stats_articles">
+        <item quantity="one">%1$d लेख</item>
+        <item quantity="other">%1$d लेख</item>
+    </plurals>
 </resources>

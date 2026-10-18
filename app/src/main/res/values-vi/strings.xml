@@ -779,4 +779,27 @@
     <plurals name="on_this_day_years_ago">
         <item quantity="other">%1$d năm trước</item>
     </plurals>
+    <string name="reading_stats_title">Thống kê đọc</string>
+    <string name="reading_stats_settings_desc">Bản đồ nhiệt, chuỗi ngày và các nguồn bạn đọc nhiều nhất</string>
+    <string name="reading_stats_total">Tổng đã đọc</string>
+    <string name="reading_stats_today">Hôm nay</string>
+    <string name="reading_stats_current_streak">Chuỗi hiện tại</string>
+    <string name="reading_stats_longest_streak">Chuỗi dài nhất</string>
+    <string name="reading_stats_avg_per_day">Trung bình mỗi ngày hoạt động</string>
+    <string name="reading_stats_top_feeds">Nguồn hàng đầu</string>
+    <string name="reading_stats_empty">Chưa có lịch sử đọc. Thống kê được tính từ bản cập nhật này.</string>
+    <string name="reading_stats_error">Không thể tải thống kê. Chạm để thử lại.</string>
+    <string name="reading_stats_badge_week">Chuỗi 7 ngày</string>
+    <string name="reading_stats_badge_month">Chuỗi 30 ngày</string>
+    <string name="reading_stats_less">Ít hơn</string>
+    <string name="reading_stats_more">Nhiều hơn</string>
+    <plurals name="reading_stats_days">
+        <item quantity="other">%1$d ngày</item>
+    </plurals>
+    <plurals name="reading_stats_heatmap_desc">
+        <item quantity="other">Bản đồ nhiệt đọc: %1$d ngày hoạt động trong năm qua</item>
+    </plurals>
+    <plurals name="reading_stats_articles">
+        <item quantity="other">%1$d bài viết</item>
+    </plurals>
 </resources>

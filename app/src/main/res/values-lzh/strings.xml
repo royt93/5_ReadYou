@@ -879,4 +879,27 @@
     <plurals name="on_this_day_years_ago">
         <item quantity="other">%1$d 年前</item>
     </plurals>
+    <string name="reading_stats_title">閱讀統計</string>
+    <string name="reading_stats_settings_desc">熱力圖、連讀之日及所讀最多之源</string>
+    <string name="reading_stats_total">共讀</string>
+    <string name="reading_stats_today">今日</string>
+    <string name="reading_stats_current_streak">現連續</string>
+    <string name="reading_stats_longest_streak">最長連續</string>
+    <string name="reading_stats_avg_per_day">每活躍日均讀</string>
+    <string name="reading_stats_top_feeds">首要之源</string>
+    <string name="reading_stats_empty">尚無閱讀之跡。統計自此次更新始計。</string>
+    <string name="reading_stats_error">統計不能載。輕觸以復試。</string>
+    <string name="reading_stats_badge_week">連讀七日</string>
+    <string name="reading_stats_badge_month">連讀三十日</string>
+    <string name="reading_stats_less">少</string>
+    <string name="reading_stats_more">多</string>
+    <plurals name="reading_stats_days">
+        <item quantity="other">%1$d 日</item>
+    </plurals>
+    <plurals name="reading_stats_heatmap_desc">
+        <item quantity="other">閱讀熱力圖：去歲活躍 %1$d 日</item>
+    </plurals>
+    <plurals name="reading_stats_articles">
+        <item quantity="other">%1$d 篇</item>
+    </plurals>
 </resources>

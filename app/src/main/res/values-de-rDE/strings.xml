@@ -810,4 +810,30 @@
         <item quantity="one">vor %1$d Jahr</item>
         <item quantity="other">vor %1$d Jahren</item>
     </plurals>
+    <string name="reading_stats_title">Lesestatistik</string>
+    <string name="reading_stats_settings_desc">Heatmap, Serien und deine meistgelesenen Quellen</string>
+    <string name="reading_stats_total">Insgesamt gelesen</string>
+    <string name="reading_stats_today">Heute</string>
+    <string name="reading_stats_current_streak">Aktuelle Serie</string>
+    <string name="reading_stats_longest_streak">Längste Serie</string>
+    <string name="reading_stats_avg_per_day">Ø pro aktivem Tag</string>
+    <string name="reading_stats_top_feeds">Top-Quellen</string>
+    <string name="reading_stats_empty">Noch kein Leseverlauf. Die Statistik zählt ab diesem Update.</string>
+    <string name="reading_stats_error">Statistik konnte nicht geladen werden. Zum Wiederholen tippen.</string>
+    <string name="reading_stats_badge_week">7-Tage-Serie</string>
+    <string name="reading_stats_badge_month">30-Tage-Serie</string>
+    <string name="reading_stats_less">Weniger</string>
+    <string name="reading_stats_more">Mehr</string>
+    <plurals name="reading_stats_days">
+        <item quantity="one">%1$d Tag</item>
+        <item quantity="other">%1$d Tage</item>
+    </plurals>
+    <plurals name="reading_stats_heatmap_desc">
+        <item quantity="one">Lese-Heatmap: %1$d aktiver Tag im letzten Jahr</item>
+        <item quantity="other">Lese-Heatmap: %1$d aktive Tage im letzten Jahr</item>
+    </plurals>
+    <plurals name="reading_stats_articles">
+        <item quantity="one">%1$d Artikel</item>
+        <item quantity="other">%1$d Artikel</item>
+    </plurals>
 </resources>

@@ -809,4 +809,30 @@
         <item quantity="one">%1$d yıl önce</item>
         <item quantity="other">%1$d yıl önce</item>
     </plurals>
+    <string name="reading_stats_title">Okuma İstatistikleri</string>
+    <string name="reading_stats_settings_desc">Isı haritası, seriler ve en çok okuduğunuz kaynaklar</string>
+    <string name="reading_stats_total">Toplam okunan</string>
+    <string name="reading_stats_today">Bugün</string>
+    <string name="reading_stats_current_streak">Mevcut seri</string>
+    <string name="reading_stats_longest_streak">En uzun seri</string>
+    <string name="reading_stats_avg_per_day">Aktif gün başına ortalama</string>
+    <string name="reading_stats_top_feeds">En iyi kaynaklar</string>
+    <string name="reading_stats_empty">Henüz okuma geçmişi yok. İstatistikler bu güncellemeden itibaren sayılır.</string>
+    <string name="reading_stats_error">İstatistikler yüklenemedi. Yeniden denemek için dokunun.</string>
+    <string name="reading_stats_badge_week">7 günlük seri</string>
+    <string name="reading_stats_badge_month">30 günlük seri</string>
+    <string name="reading_stats_less">Daha az</string>
+    <string name="reading_stats_more">Daha çok</string>
+    <plurals name="reading_stats_days">
+        <item quantity="one">%1$d gün</item>
+        <item quantity="other">%1$d gün</item>
+    </plurals>
+    <plurals name="reading_stats_heatmap_desc">
+        <item quantity="one">Okuma ısı haritası: son yılda %1$d aktif gün</item>
+        <item quantity="other">Okuma ısı haritası: son yılda %1$d aktif gün</item>
+    </plurals>
+    <plurals name="reading_stats_articles">
+        <item quantity="one">%1$d makale</item>
+        <item quantity="other">%1$d makale</item>
+    </plurals>
 </resources>

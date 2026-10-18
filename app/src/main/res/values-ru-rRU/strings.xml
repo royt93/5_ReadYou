@@ -816,4 +816,36 @@
         <item quantity="many">%1$d лет назад</item>
         <item quantity="other">%1$d года назад</item>
     </plurals>
+    <string name="reading_stats_title">Статистика чтения</string>
+    <string name="reading_stats_settings_desc">Тепловая карта, серии и самые читаемые источники</string>
+    <string name="reading_stats_total">Всего прочитано</string>
+    <string name="reading_stats_today">Сегодня</string>
+    <string name="reading_stats_current_streak">Текущая серия</string>
+    <string name="reading_stats_longest_streak">Самая длинная серия</string>
+    <string name="reading_stats_avg_per_day">В среднем за активный день</string>
+    <string name="reading_stats_top_feeds">Топ источников</string>
+    <string name="reading_stats_empty">Истории чтения пока нет. Статистика считается с этого обновления.</string>
+    <string name="reading_stats_error">Не удалось загрузить статистику. Нажмите, чтобы повторить.</string>
+    <string name="reading_stats_badge_week">Серия 7 дней</string>
+    <string name="reading_stats_badge_month">Серия 30 дней</string>
+    <string name="reading_stats_less">Меньше</string>
+    <string name="reading_stats_more">Больше</string>
+    <plurals name="reading_stats_days">
+        <item quantity="one">%1$d день</item>
+        <item quantity="few">%1$d дня</item>
+        <item quantity="many">%1$d дней</item>
+        <item quantity="other">%1$d дня</item>
+    </plurals>
+    <plurals name="reading_stats_heatmap_desc">
+        <item quantity="one">Карта чтения: %1$d активный день за последний год</item>
+        <item quantity="few">Карта чтения: %1$d активных дня за последний год</item>
+        <item quantity="many">Карта чтения: %1$d активных дней за последний год</item>
+        <item quantity="other">Карта чтения: %1$d активного дня за последний год</item>
+    </plurals>
+    <plurals name="reading_stats_articles">
+        <item quantity="one">%1$d статья</item>
+        <item quantity="few">%1$d статьи</item>
+        <item quantity="many">%1$d статей</item>
+        <item quantity="other">%1$d статьи</item>
+    </plurals>
 </resources>

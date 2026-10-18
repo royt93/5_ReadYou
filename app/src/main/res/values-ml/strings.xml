@@ -881,4 +881,30 @@
         <item quantity="one">%1$d വർഷം മുമ്പ്</item>
         <item quantity="other">%1$d വർഷം മുമ്പ്</item>
     </plurals>
+    <string name="reading_stats_title">വായനാ സ്ഥിതിവിവരക്കണക്കുകൾ</string>
+    <string name="reading_stats_settings_desc">ഹീറ്റ്‌മാപ്പ്, തുടർച്ചകൾ, ഏറ്റവും കൂടുതൽ വായിച്ച ഉറവിടങ്ങൾ</string>
+    <string name="reading_stats_total">ആകെ വായിച്ചത്</string>
+    <string name="reading_stats_today">ഇന്ന്</string>
+    <string name="reading_stats_current_streak">നിലവിലെ തുടർച്ച</string>
+    <string name="reading_stats_longest_streak">ഏറ്റവും നീണ്ട തുടർച്ച</string>
+    <string name="reading_stats_avg_per_day">സജീവ ദിവസത്തിന് ശരാശരി</string>
+    <string name="reading_stats_top_feeds">പ്രധാന ഉറവിടങ്ങൾ</string>
+    <string name="reading_stats_empty">ഇതുവരെ വായനാ ചരിത്രമില്ല. ഈ അപ്‌ഡേറ്റ് മുതൽ കണക്കാക്കും.</string>
+    <string name="reading_stats_error">സ്ഥിതിവിവരക്കണക്കുകൾ ലോഡ് ചെയ്യാനായില്ല. വീണ്ടും ശ്രമിക്കാൻ ടാപ്പ് ചെയ്യുക.</string>
+    <string name="reading_stats_badge_week">7 ദിവസത്തെ തുടർച്ച</string>
+    <string name="reading_stats_badge_month">30 ദിവസത്തെ തുടർച്ച</string>
+    <string name="reading_stats_less">കുറവ്</string>
+    <string name="reading_stats_more">കൂടുതൽ</string>
+    <plurals name="reading_stats_days">
+        <item quantity="one">%1$d ദിവസം</item>
+        <item quantity="other">%1$d ദിവസം</item>
+    </plurals>
+    <plurals name="reading_stats_heatmap_desc">
+        <item quantity="one">വായനാ ഹീറ്റ്‌മാപ്പ്: കഴിഞ്ഞ വർഷം %1$d സജീവ ദിവസം</item>
+        <item quantity="other">വായനാ ഹീറ്റ്‌മാപ്പ്: കഴിഞ്ഞ വർഷം %1$d സജീവ ദിവസം</item>
+    </plurals>
+    <plurals name="reading_stats_articles">
+        <item quantity="one">%1$d ലേഖനം</item>
+        <item quantity="other">%1$d ലേഖനങ്ങൾ</item>
+    </plurals>
 </resources>

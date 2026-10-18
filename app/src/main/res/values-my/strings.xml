@@ -879,4 +879,27 @@
     <plurals name="on_this_day_years_ago">
         <item quantity="other">လွန်ခဲ့သော %1$d နှစ်</item>
     </plurals>
+    <string name="reading_stats_title">ဖတ်ရှုမှု စာရင်းအင်း</string>
+    <string name="reading_stats_settings_desc">အပူချိန်မြေပုံ၊ ဆက်တိုက်ရက်များနှင့် အများဆုံးဖတ်သော ရင်းမြစ်များ</string>
+    <string name="reading_stats_total">စုစုပေါင်း ဖတ်ပြီး</string>
+    <string name="reading_stats_today">ယနေ့</string>
+    <string name="reading_stats_current_streak">လက်ရှိ ဆက်တိုက်</string>
+    <string name="reading_stats_longest_streak">အရှည်ဆုံး ဆက်တိုက်</string>
+    <string name="reading_stats_avg_per_day">လှုပ်ရှားသောနေ့ တစ်ရက်လျှင် ပျမ်းမျှ</string>
+    <string name="reading_stats_top_feeds">ထိပ်တန်း ရင်းမြစ်များ</string>
+    <string name="reading_stats_empty">ဖတ်ရှုမှု မှတ်တမ်း မရှိသေးပါ။ စာရင်းအင်းကို ဤအပ်ဒိတ်မှ စတင်ရေတွက်ပါသည်။</string>
+    <string name="reading_stats_error">စာရင်းအင်း ဖွင့်၍မရပါ။ ပြန်ကြိုးစားရန် ထိပါ။</string>
+    <string name="reading_stats_badge_week">၇ ရက်ဆက်တိုက်</string>
+    <string name="reading_stats_badge_month">၃၀ ရက်ဆက်တိုက်</string>
+    <string name="reading_stats_less">လျော့နည်း</string>
+    <string name="reading_stats_more">ပိုများ</string>
+    <plurals name="reading_stats_days">
+        <item quantity="other">%1$d ရက်</item>
+    </plurals>
+    <plurals name="reading_stats_heatmap_desc">
+        <item quantity="other">ဖတ်ရှုမှု အပူချိန်မြေပုံ- ပြီးခဲ့သောနှစ်တွင် လှုပ်ရှားသောနေ့ %1$d ရက်</item>
+    </plurals>
+    <plurals name="reading_stats_articles">
+        <item quantity="other">ဆောင်းပါး %1$d ပုဒ်</item>
+    </plurals>
 </resources>

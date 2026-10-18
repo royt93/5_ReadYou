@@ -888,4 +888,33 @@
         <item quantity="two">לפני שנתיים</item>
         <item quantity="other">לפני %1$d שנים</item>
     </plurals>
+    <string name="reading_stats_title">סטטיסטיקת קריאה</string>
+    <string name="reading_stats_settings_desc">מפת חום, רצפים והמקורות שקראת הכי הרבה</string>
+    <string name="reading_stats_total">סך הכל נקראו</string>
+    <string name="reading_stats_today">היום</string>
+    <string name="reading_stats_current_streak">רצף נוכחי</string>
+    <string name="reading_stats_longest_streak">הרצף הארוך ביותר</string>
+    <string name="reading_stats_avg_per_day">ממוצע ליום פעיל</string>
+    <string name="reading_stats_top_feeds">המקורות המובילים</string>
+    <string name="reading_stats_empty">אין עדיין היסטוריית קריאה. הסטטיסטיקה נספרת מעדכון זה.</string>
+    <string name="reading_stats_error">לא ניתן לטעון את הסטטיסטיקה. הקש כדי לנסות שוב.</string>
+    <string name="reading_stats_badge_week">רצף של 7 ימים</string>
+    <string name="reading_stats_badge_month">רצף של 30 ימים</string>
+    <string name="reading_stats_less">פחות</string>
+    <string name="reading_stats_more">יותר</string>
+    <plurals name="reading_stats_days">
+        <item quantity="one">יום אחד</item>
+        <item quantity="two">יומיים</item>
+        <item quantity="other">%1$d ימים</item>
+    </plurals>
+    <plurals name="reading_stats_heatmap_desc">
+        <item quantity="one">מפת קריאה: יום פעיל אחד בשנה האחרונה</item>
+        <item quantity="two">מפת קריאה: יומיים פעילים בשנה האחרונה</item>
+        <item quantity="other">מפת קריאה: %1$d ימים פעילים בשנה האחרונה</item>
+    </plurals>
+    <plurals name="reading_stats_articles">
+        <item quantity="one">מאמר אחד</item>
+        <item quantity="two">שני מאמרים</item>
+        <item quantity="other">%1$d מאמרים</item>
+    </plurals>
 </resources>

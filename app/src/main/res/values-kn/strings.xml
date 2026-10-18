@@ -880,4 +880,30 @@
         <item quantity="one">%1$d ವರ್ಷದ ಹಿಂದೆ</item>
         <item quantity="other">%1$d ವರ್ಷಗಳ ಹಿಂದೆ</item>
     </plurals>
+    <string name="reading_stats_title">ಓದುವ ಅಂಕಿಅಂಶಗಳು</string>
+    <string name="reading_stats_settings_desc">ಹೀಟ್‌ಮ್ಯಾಪ್, ಸರಣಿಗಳು ಮತ್ತು ನೀವು ಹೆಚ್ಚು ಓದಿದ ಮೂಲಗಳು</string>
+    <string name="reading_stats_total">ಒಟ್ಟು ಓದಿದ್ದು</string>
+    <string name="reading_stats_today">ಇಂದು</string>
+    <string name="reading_stats_current_streak">ಪ್ರಸ್ತುತ ಸರಣಿ</string>
+    <string name="reading_stats_longest_streak">ಅತಿ ಉದ್ದದ ಸರಣಿ</string>
+    <string name="reading_stats_avg_per_day">ಸಕ್ರಿಯ ದಿನಕ್ಕೆ ಸರಾಸರಿ</string>
+    <string name="reading_stats_top_feeds">ಪ್ರಮುಖ ಮೂಲಗಳು</string>
+    <string name="reading_stats_empty">ಇನ್ನೂ ಓದಿನ ಇತಿಹಾಸವಿಲ್ಲ. ಅಂಕಿಅಂಶಗಳು ಈ ಅಪ್‌ಡೇಟ್‌ನಿಂದ ಲೆಕ್ಕಹಾಕಲ್ಪಡುತ್ತವೆ.</string>
+    <string name="reading_stats_error">ಅಂಕಿಅಂಶಗಳನ್ನು ಲೋಡ್ ಮಾಡಲಾಗಲಿಲ್ಲ. ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಲು ಟ್ಯಾಪ್ ಮಾಡಿ.</string>
+    <string name="reading_stats_badge_week">7 ದಿನಗಳ ಸರಣಿ</string>
+    <string name="reading_stats_badge_month">30 ದಿನಗಳ ಸರಣಿ</string>
+    <string name="reading_stats_less">ಕಡಿಮೆ</string>
+    <string name="reading_stats_more">ಹೆಚ್ಚು</string>
+    <plurals name="reading_stats_days">
+        <item quantity="one">%1$d ದಿನ</item>
+        <item quantity="other">%1$d ದಿನಗಳು</item>
+    </plurals>
+    <plurals name="reading_stats_heatmap_desc">
+        <item quantity="one">ಓದುವ ಹೀಟ್‌ಮ್ಯಾಪ್: ಕಳೆದ ವರ್ಷದಲ್ಲಿ %1$d ಸಕ್ರಿಯ ದಿನ</item>
+        <item quantity="other">ಓದುವ ಹೀಟ್‌ಮ್ಯಾಪ್: ಕಳೆದ ವರ್ಷದಲ್ಲಿ %1$d ಸಕ್ರಿಯ ದಿನಗಳು</item>
+    </plurals>
+    <plurals name="reading_stats_articles">
+        <item quantity="one">%1$d ಲೇಖನ</item>
+        <item quantity="other">%1$d ಲೇಖನಗಳು</item>
+    </plurals>
 </resources>

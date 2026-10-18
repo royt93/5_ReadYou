@@ -805,4 +805,27 @@
     <plurals name="on_this_day_years_ago">
         <item quantity="other">%1$d 年前</item>
     </plurals>
+    <string name="reading_stats_title">阅读统计</string>
+    <string name="reading_stats_settings_desc">热力图、连续记录和最常读的来源</string>
+    <string name="reading_stats_total">累计已读</string>
+    <string name="reading_stats_today">今天</string>
+    <string name="reading_stats_current_streak">当前连续</string>
+    <string name="reading_stats_longest_streak">最长连续</string>
+    <string name="reading_stats_avg_per_day">活跃日均</string>
+    <string name="reading_stats_top_feeds">热门来源</string>
+    <string name="reading_stats_empty">还没有阅读记录。统计从本次更新开始计算。</string>
+    <string name="reading_stats_error">无法加载统计。点按重试。</string>
+    <string name="reading_stats_badge_week">连续 7 天</string>
+    <string name="reading_stats_badge_month">连续 30 天</string>
+    <string name="reading_stats_less">较少</string>
+    <string name="reading_stats_more">较多</string>
+    <plurals name="reading_stats_days">
+        <item quantity="other">%1$d 天</item>
+    </plurals>
+    <plurals name="reading_stats_heatmap_desc">
+        <item quantity="other">阅读热力图：过去一年有 %1$d 个活跃日</item>
+    </plurals>
+    <plurals name="reading_stats_articles">
+        <item quantity="other">%1$d 篇文章</item>
+    </plurals>
 </resources>

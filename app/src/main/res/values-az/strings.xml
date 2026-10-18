@@ -880,4 +880,30 @@
         <item quantity="one">%1$d il əvvəl</item>
         <item quantity="other">%1$d il əvvəl</item>
     </plurals>
+    <string name="reading_stats_title">Oxuma statistikası</string>
+    <string name="reading_stats_settings_desc">İstilik xəritəsi, ardıcıllıqlar və ən çox oxunan mənbələr</string>
+    <string name="reading_stats_total">Cəmi oxunub</string>
+    <string name="reading_stats_today">Bu gün</string>
+    <string name="reading_stats_current_streak">Cari ardıcıllıq</string>
+    <string name="reading_stats_longest_streak">Ən uzun ardıcıllıq</string>
+    <string name="reading_stats_avg_per_day">Aktiv gün üzrə orta</string>
+    <string name="reading_stats_top_feeds">Ən çox oxunan mənbələr</string>
+    <string name="reading_stats_empty">Hələ oxu tarixçəsi yoxdur. Statistika bu yenilənmədən hesablanmağa başlayır.</string>
+    <string name="reading_stats_error">Statistikanı yükləmək mümkün olmadı. Yenidən cəhd üçün toxunun.</string>
+    <string name="reading_stats_badge_week">7 günlük ardıcıllıq</string>
+    <string name="reading_stats_badge_month">30 günlük ardıcıllıq</string>
+    <string name="reading_stats_less">Az</string>
+    <string name="reading_stats_more">Çox</string>
+    <plurals name="reading_stats_days">
+        <item quantity="one">%1$d gün</item>
+        <item quantity="other">%1$d gün</item>
+    </plurals>
+    <plurals name="reading_stats_heatmap_desc">
+        <item quantity="one">Oxu istilik xəritəsi: son ildə %1$d aktiv gün</item>
+        <item quantity="other">Oxu istilik xəritəsi: son ildə %1$d aktiv gün</item>
+    </plurals>
+    <plurals name="reading_stats_articles">
+        <item quantity="one">%1$d məqalə</item>
+        <item quantity="other">%1$d məqalə</item>
+    </plurals>
 </resources>

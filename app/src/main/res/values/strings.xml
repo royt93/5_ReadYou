@@ -890,4 +890,29 @@
         <item quantity="other">%1$d years ago</item>
     </plurals>
     <string name="reading_stats_error">Could not load statistics. Tap to retry.</string>
+    <string name="reading_stats_title">Reading Statistics</string>
+    <string name="reading_stats_settings_desc">Heatmap, streaks and your most-read sources</string>
+    <string name="reading_stats_total">Total read</string>
+    <string name="reading_stats_today">Today</string>
+    <string name="reading_stats_current_streak">Current streak</string>
+    <string name="reading_stats_longest_streak">Longest streak</string>
+    <string name="reading_stats_avg_per_day">Avg per active day</string>
+    <string name="reading_stats_top_feeds">Top sources</string>
+    <string name="reading_stats_empty">No reading history yet. Statistics start counting from this update.</string>
+    <string name="reading_stats_badge_week">7-day streak</string>
+    <string name="reading_stats_badge_month">30-day streak</string>
+    <string name="reading_stats_less">Less</string>
+    <string name="reading_stats_more">More</string>
+    <plurals name="reading_stats_days">
+        <item quantity="one">%1$d day</item>
+        <item quantity="other">%1$d days</item>
+    </plurals>
+    <plurals name="reading_stats_heatmap_desc">
+        <item quantity="one">Reading heatmap: %1$d active day in the last year</item>
+        <item quantity="other">Reading heatmap: %1$d active days in the last year</item>
+    </plurals>
+    <plurals name="reading_stats_articles">
+        <item quantity="one">%1$d article</item>
+        <item quantity="other">%1$d articles</item>
+    </plurals>
 </resources>

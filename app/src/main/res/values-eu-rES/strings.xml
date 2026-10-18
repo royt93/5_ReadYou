@@ -879,4 +879,30 @@
         <item quantity="one">duela %1$d urte</item>
         <item quantity="other">duela %1$d urte</item>
     </plurals>
+    <string name="reading_stats_title">Irakurketa estatistikak</string>
+    <string name="reading_stats_settings_desc">Bero-mapa, segidak eta gehien irakurritako iturriak</string>
+    <string name="reading_stats_total">Guztira irakurrita</string>
+    <string name="reading_stats_today">Gaur</string>
+    <string name="reading_stats_current_streak">Uneko segida</string>
+    <string name="reading_stats_longest_streak">Segida luzeena</string>
+    <string name="reading_stats_avg_per_day">Batez bestekoa egun aktiboko</string>
+    <string name="reading_stats_top_feeds">Iturri nagusiak</string>
+    <string name="reading_stats_empty">Oraindik ez dago irakurketa historiarik. Estatistikak eguneratze honetatik aurrera zenbatzen dira.</string>
+    <string name="reading_stats_error">Ezin izan dira estatistikak kargatu. Sakatu berriro saiatzeko.</string>
+    <string name="reading_stats_badge_week">7 eguneko segida</string>
+    <string name="reading_stats_badge_month">30 eguneko segida</string>
+    <string name="reading_stats_less">Gutxiago</string>
+    <string name="reading_stats_more">Gehiago</string>
+    <plurals name="reading_stats_days">
+        <item quantity="one">%1$d egun</item>
+        <item quantity="other">%1$d egun</item>
+    </plurals>
+    <plurals name="reading_stats_heatmap_desc">
+        <item quantity="one">Irakurketa bero-mapa: %1$d egun aktibo azken urtean</item>
+        <item quantity="other">Irakurketa bero-mapa: %1$d egun aktibo azken urtean</item>
+    </plurals>
+    <plurals name="reading_stats_articles">
+        <item quantity="one">%1$d artikulu</item>
+        <item quantity="other">%1$d artikulu</item>
+    </plurals>
 </resources>

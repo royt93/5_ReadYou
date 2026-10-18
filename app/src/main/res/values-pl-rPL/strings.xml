@@ -882,4 +882,36 @@
         <item quantity="many">%1$d lat temu</item>
         <item quantity="other">%1$d roku temu</item>
     </plurals>
+    <string name="reading_stats_title">Statystyki czytania</string>
+    <string name="reading_stats_settings_desc">Mapa aktywności, serie i najczęściej czytane źródła</string>
+    <string name="reading_stats_total">Łącznie przeczytano</string>
+    <string name="reading_stats_today">Dziś</string>
+    <string name="reading_stats_current_streak">Obecna seria</string>
+    <string name="reading_stats_longest_streak">Najdłuższa seria</string>
+    <string name="reading_stats_avg_per_day">Średnio na aktywny dzień</string>
+    <string name="reading_stats_top_feeds">Najlepsze źródła</string>
+    <string name="reading_stats_empty">Brak historii czytania. Statystyki liczą się od tej aktualizacji.</string>
+    <string name="reading_stats_error">Nie udało się wczytać statystyk. Dotknij, aby spróbować ponownie.</string>
+    <string name="reading_stats_badge_week">Seria 7 dni</string>
+    <string name="reading_stats_badge_month">Seria 30 dni</string>
+    <string name="reading_stats_less">Mniej</string>
+    <string name="reading_stats_more">Więcej</string>
+    <plurals name="reading_stats_days">
+        <item quantity="one">%1$d dzień</item>
+        <item quantity="few">%1$d dni</item>
+        <item quantity="many">%1$d dni</item>
+        <item quantity="other">%1$d dnia</item>
+    </plurals>
+    <plurals name="reading_stats_heatmap_desc">
+        <item quantity="one">Mapa czytania: %1$d aktywny dzień w ostatnim roku</item>
+        <item quantity="few">Mapa czytania: %1$d aktywne dni w ostatnim roku</item>
+        <item quantity="many">Mapa czytania: %1$d aktywnych dni w ostatnim roku</item>
+        <item quantity="other">Mapa czytania: %1$d aktywnego dnia w ostatnim roku</item>
+    </plurals>
+    <plurals name="reading_stats_articles">
+        <item quantity="one">%1$d artykuł</item>
+        <item quantity="few">%1$d artykuły</item>
+        <item quantity="many">%1$d artykułów</item>
+        <item quantity="other">%1$d artykułu</item>
+    </plurals>
 </resources>

@@ -787,4 +787,42 @@
         <item quantity="many">قبل %1$d سنة</item>
         <item quantity="other">قبل %1$d سنة</item>
     </plurals>
+    <string name="reading_stats_title">إحصائيات القراءة</string>
+    <string name="reading_stats_settings_desc">خريطة حرارية وسلاسل القراءة وأكثر مصادرك قراءة</string>
+    <string name="reading_stats_total">إجمالي المقروء</string>
+    <string name="reading_stats_today">اليوم</string>
+    <string name="reading_stats_current_streak">السلسلة الحالية</string>
+    <string name="reading_stats_longest_streak">أطول سلسلة</string>
+    <string name="reading_stats_avg_per_day">المتوسط لكل يوم نشط</string>
+    <string name="reading_stats_top_feeds">أهم المصادر</string>
+    <string name="reading_stats_empty">لا يوجد سجل قراءة بعد. تبدأ الإحصائيات من هذا التحديث.</string>
+    <string name="reading_stats_error">تعذر تحميل الإحصائيات. اضغط لإعادة المحاولة.</string>
+    <string name="reading_stats_badge_week">سلسلة 7 أيام</string>
+    <string name="reading_stats_badge_month">سلسلة 30 يومًا</string>
+    <string name="reading_stats_less">أقل</string>
+    <string name="reading_stats_more">أكثر</string>
+    <plurals name="reading_stats_days">
+        <item quantity="zero">%1$d يوم</item>
+        <item quantity="one">يوم واحد</item>
+        <item quantity="two">يومان</item>
+        <item quantity="few">%1$d أيام</item>
+        <item quantity="many">%1$d يومًا</item>
+        <item quantity="other">%1$d يوم</item>
+    </plurals>
+    <plurals name="reading_stats_heatmap_desc">
+        <item quantity="zero">خريطة القراءة: %1$d يوم نشط في السنة الماضية</item>
+        <item quantity="one">خريطة القراءة: يوم نشط واحد في السنة الماضية</item>
+        <item quantity="two">خريطة القراءة: يومان نشطان في السنة الماضية</item>
+        <item quantity="few">خريطة القراءة: %1$d أيام نشطة في السنة الماضية</item>
+        <item quantity="many">خريطة القراءة: %1$d يومًا نشطًا في السنة الماضية</item>
+        <item quantity="other">خريطة القراءة: %1$d يوم نشط في السنة الماضية</item>
+    </plurals>
+    <plurals name="reading_stats_articles">
+        <item quantity="zero">%1$d مقال</item>
+        <item quantity="one">مقال واحد</item>
+        <item quantity="two">مقالان</item>
+        <item quantity="few">%1$d مقالات</item>
+        <item quantity="many">%1$d مقالًا</item>
+        <item quantity="other">%1$d مقال</item>
+    </plurals>
 </resources>
