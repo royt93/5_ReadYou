@@ -15,7 +15,7 @@
 
 - `./gradlew testDevDebugUnitTest`: **929 tests, 0 failures, 0 errors, 0 skipped**, including `EInkModePrefTest`, colour/filter/transition tests, `EInkModeSettingTest`, `EInkPageTurnTest`, `EInkVolumeKeyHandlerTest` and `StringResourceParityTest`.
 - `./gradlew assembleDevDebug compileDevDebugAndroidTestKotlin`: **PASS**.
-- `emulator-5554`, isolated `EInkUiTestRunner`: `EInkPageTurnInstrumentationTest` + `EInkModeIntegrationTest` **6/6 PASS** (side taps, centre child click, disabled mode, DataStore→theme, real settings-row toggle, title below status bar). Three volume lifecycle tests also passed with this runner.
+- `emulator-5554`, isolated `EInkUiTestRunner`: `EInkPageTurnInstrumentationTest` + `EInkModeIntegrationTest` **6/6 PASS** (side taps, centre child click, disabled mode, DataStore→theme, real settings-row toggle, title below status bar). Three volume lifecycle tests also passed with this runner; a combined run of 9 UI/lifecycle tests passed.
 - `emulator-5554`, standard runner: `EInkVolumeDispatchInstrumentationTest` **5/5 PASS** earlier, including real `MainActivity` key dispatch and unregistered no-op.
 - Device-lock note: Gradle `connectedDevDebugAndroidTest` was not used.
 
