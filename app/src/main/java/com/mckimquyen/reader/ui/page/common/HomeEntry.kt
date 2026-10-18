@@ -36,6 +36,7 @@ import com.mckimquyen.reader.ui.page.home.feed.FeedsPage
 import com.mckimquyen.reader.ui.page.home.flow.FlowPage
 import com.mckimquyen.reader.ui.page.collection.SmartCollectionDetailPage
 import com.mckimquyen.reader.ui.page.collection.SmartCollectionsPage
+import com.mckimquyen.reader.ui.page.onthisday.OnThisDayPage
 import com.mckimquyen.reader.ui.page.home.read.ReadingPage
 import com.mckimquyen.reader.ui.page.digest.DigestPage
 import com.mckimquyen.reader.ui.page.digest.DigestViewModel
@@ -202,6 +203,9 @@ fun HomeEntry(
             }
             animatedComposable(route = RouteName.SMART_COLLECTIONS, eInk = eInk) {
                 SmartCollectionsPage(navController = navController)
+            }
+            animatedComposable(route = RouteName.ON_THIS_DAY, eInk = eInk) {
+                OnThisDayPage(navController = navController)
             }
             animatedComposable(route = RouteName.SMART_COLLECTION_DETAIL, eInk = eInk) { backStackEntry ->
                 val collectionId = backStackEntry.arguments?.getString("collectionId").orEmpty()
