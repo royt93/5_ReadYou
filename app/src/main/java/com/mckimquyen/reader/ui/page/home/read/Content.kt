@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.runtime.rememberCoroutineScope
+import kotlinx.coroutines.launch
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.text.selection.DisableSelection
 import androidx.compose.foundation.text.selection.SelectionContainer
@@ -26,6 +28,7 @@ import android.os.SystemClock
 import android.widget.Toast
 import com.mckimquyen.reader.R
 import com.mckimquyen.reader.infrastructure.pref.LocalOpenLink
+import com.mckimquyen.reader.infrastructure.pref.LocalEInkMode
 import com.mckimquyen.reader.infrastructure.pref.LocalOpenLinkSpecificBrowser
 import com.mckimquyen.reader.infrastructure.pref.LocalReadingSubheadUpperCase
 import com.mckimquyen.reader.ui.component.base.BaseExtensibleVisibility
@@ -57,6 +60,7 @@ fun Content(
     val subheadUpperCase = LocalReadingSubheadUpperCase.current
     val openLink = LocalOpenLink.current
     val openLinkSpecificBrowser = LocalOpenLinkSpecificBrowser.current
+    val eInkEnabled = LocalEInkMode.current.value
 
     val quiz = remember(articleId, title, content) {
         if (articleId.isNotBlank() && (title.isNotBlank() || content.isNotBlank()) && brainRpgViewModel != null) {
@@ -71,6 +75,8 @@ fun Content(
         brainRpgViewModel?.quizGeneratorService?.detectCategory(title, content) ?: ""
     }
 
+    val pageTurnScope = rememberCoroutineScope()
+
     val bodyRange = remember { BodyItemRange() }
     if (brainRpgViewModel != null) {
         ReadingCompletionTracker(listState, articleId, bodyRange, clock = completionClock, onCompleted = {
@@ -84,6 +90,9 @@ fun Content(
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
+                .eInkTapZones(enabled = eInkEnabled, key = articleId) { direction ->
+                    pageTurnScope.launch { listState.turnPage(direction) }
+                }
                 .drawVerticalScrollbar(listState),
             state = listState,
         ) {

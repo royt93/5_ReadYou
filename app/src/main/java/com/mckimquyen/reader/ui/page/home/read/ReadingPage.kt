@@ -21,12 +21,15 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.rememberUpdatedState
+import kotlinx.coroutines.launch
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -96,6 +99,27 @@ fun ReadingPage(
     }
 
     val currentArticleId by rememberUpdatedState(readingUiState.articleWithFeed?.article?.id)
+
+    // Volume keys turn pages only while this Reader is composed, E-Ink is on and TTS is not playing.
+    val ttsPlaying by rememberUpdatedState(readingUiState.ttsState == TtsState.PLAYING)
+    val pageTurnScope = rememberCoroutineScope()
+    DisposableEffect(eInkEnabled, listState) {
+        if (!eInkEnabled) return@DisposableEffect onDispose {}
+        val handler: (Int, Int, Int) -> Boolean = { keyCode, action, repeatCount ->
+            val direction = resolveVolumeKeyTurn(
+                keyCode = keyCode,
+                action = action,
+                repeatCount = repeatCount,
+                eInk = true,
+                ttsPlaying = ttsPlaying,
+                readerActive = true,
+            )
+            if (direction != null) pageTurnScope.launch { listState.turnPage(direction) }
+            direction != null
+        }
+        ReaderVolumeKeyBridge.register(handler)
+        onDispose { ReaderVolumeKeyBridge.unregister(handler) }
+    }
 
     LaunchedEffect(Unit) {
         readingViewModel.restoreScrollPositionEvent.collect { event ->

@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.os.LocaleList
 import android.util.Log
 import android.view.Display
+import android.view.KeyEvent
 import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -29,6 +30,7 @@ import com.mckimquyen.reader.infrastructure.pref.LanguagesPref
 import com.mckimquyen.reader.infrastructure.pref.SettingsProvider
 import com.roy.sdkadbmob.AdManager
 import com.mckimquyen.reader.ui.page.common.HomeEntry
+import com.mckimquyen.reader.ui.page.home.read.ReaderVolumeKeyBridge
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Calendar
 import java.util.Locale
@@ -70,6 +72,11 @@ class MainActivity : ComponentActivity() {
 
         val wrappedContext = newBase.createConfigurationContext(configuration)
         super.attachBaseContext(wrappedContext)
+    }
+
+    override fun dispatchKeyEvent(event: KeyEvent): Boolean {
+        if (ReaderVolumeKeyBridge.dispatch(event.keyCode, event.action, event.repeatCount)) return true
+        return super.dispatchKeyEvent(event)
     }
 
     override fun onNewIntent(intent: Intent) {
