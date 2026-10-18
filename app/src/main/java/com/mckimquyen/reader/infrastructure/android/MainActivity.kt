@@ -74,6 +74,8 @@ class MainActivity : ComponentActivity() {
         super.attachBaseContext(wrappedContext)
     }
 
+    // Callback công khai của Activity; AndroidX core gắn RestrictedApi lên override kế thừa.
+    @android.annotation.SuppressLint("RestrictedApi")
     override fun dispatchKeyEvent(event: KeyEvent): Boolean {
         if (ReaderVolumeKeyBridge.dispatch(event.keyCode, event.action, event.repeatCount)) return true
         return super.dispatchKeyEvent(event)
