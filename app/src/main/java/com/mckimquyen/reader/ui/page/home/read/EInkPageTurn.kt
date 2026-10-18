@@ -46,31 +46,30 @@ fun resolvePageTurn(
     val first = visible.minByOrNull { it.index } ?: return null
     val last = visible.maxByOrNull { it.index } ?: return null
     val lastIndex = totalCount - 1
-    if (direction == PageDirection.NEXT && last.index >= lastIndex) return null
+    val shift = viewportHeight - (viewportHeight / OVERLAP_DIVISOR).coerceAtLeast(1)
 
-    val overlap = (viewportHeight / OVERLAP_DIVISOR).coerceAtLeast(1)
     return when (direction) {
         PageDirection.NEXT -> {
-            if (visible.size == 1 && first.size > viewportHeight) {
-                val targetOffset = -first.offset + viewportHeight - overlap
-                if (targetOffset + viewportHeight >= first.size && first.index < lastIndex) {
-                    PageTarget(first.index + 1, 0)
-                } else {
-                    PageTarget(first.index, targetOffset.coerceAtLeast(0))
-                }
-            } else {
-                PageTarget(last.index.coerceAtMost(lastIndex), 0)
-            }
+            // Whole tail already on screen: another turn would only expose blank space.
+            if (last.index == lastIndex && last.offset + last.size <= viewportHeight) return null
+            // Scroll so the content currently at (viewport - overlap) becomes the viewport top.
+            val landing = visible.firstOrNull { shift >= it.offset && shift < it.offset + it.size }
+                ?: return null
+            PageTarget(landing.index, shift - landing.offset)
         }
         PageDirection.PREVIOUS -> {
-            if (first.size > viewportHeight && visible.size == 1) {
-                val currentOffset = -first.offset
-                val targetOffset = (currentOffset - (viewportHeight - overlap)).coerceAtLeast(0)
-                if (targetOffset == currentOffset) null else PageTarget(first.index, targetOffset)
+            val into = (-first.offset).coerceAtLeast(0)
+            if (visible.size == 1) {
+                when {
+                    into > shift -> PageTarget(first.index, into - shift)
+                    into > 0 -> PageTarget(first.index, 0)
+                    first.index > 0 -> PageTarget(first.index - 1, 0)
+                    else -> null
+                }
             } else {
                 val advance = (visible.size - 1).coerceAtLeast(1)
                 val target = (first.index - advance).coerceAtLeast(0)
-                if (target == first.index && first.offset >= 0) null else PageTarget(target, 0)
+                if (target == first.index && into == 0) null else PageTarget(target, 0)
             }
         }
     }

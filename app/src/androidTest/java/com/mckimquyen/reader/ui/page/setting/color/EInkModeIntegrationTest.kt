@@ -126,6 +126,35 @@ class EInkModeIntegrationTest {
     }
 
     @Test
+    fun customPaletteAccessorsAreNeutralOnRealSettingsPageAndRestoreWhenOff() {
+        val colors = java.util.concurrent.atomic.AtomicReference<List<Color>>(emptyList())
+        val customPalette = com.mckimquyen.reader.ui.theme.palette.TonalPalettes(20.0, 60.0)
+        composeRule.setContent {
+            SettingsProvider {
+                AppTheme(useDarkTheme = true, wallpaperPalettes = listOf(customPalette)) {
+                    val palette = com.mckimquyen.reader.ui.theme.palette.LocalTonalPalettes.current
+                    val observed = listOf(
+                        palette primary 40, palette secondary 50, palette tertiary 60,
+                        palette neutral 90, palette neutralVariant 80, palette error 40,
+                        customPalette primary 90,
+                    )
+                    androidx.compose.runtime.SideEffect { colors.set(observed) }
+                    ColorAndStylePage(navController = NavHostController(composeRule.activity))
+                }
+            }
+        }
+        composeRule.waitUntil(TIMEOUT_MS) { colors.get().isNotEmpty() }
+        val original = colors.get()
+        assertTrue(original.any { it.red != it.green || it.green != it.blue })
+        runBlocking { context.dataStore.put(DataStoreKeys.EInkMode, true) }
+        composeRule.waitUntil(TIMEOUT_MS) {
+            colors.get().all { it.red == it.green && it.green == it.blue }
+        }
+        runBlocking { context.dataStore.put(DataStoreKeys.EInkMode, false) }
+        composeRule.waitUntil(TIMEOUT_MS) { colors.get() == original }
+    }
+
+    @Test
     fun realSettingsRowPersistsToggleAndRestoresDarkPreference() {
         composeRule.setContent {
             SettingsProvider {

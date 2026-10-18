@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.ui.graphics.Color
+import com.mckimquyen.reader.infrastructure.pref.LocalEInkMode
 import com.mckimquyen.reader.ui.theme.palette.colorspace.cielab.CieLab
 import com.mckimquyen.reader.ui.theme.palette.colorspace.zcam.Izazbz.Companion.toIzazbz
 import com.mckimquyen.reader.ui.theme.palette.core.clampToRgb
@@ -25,6 +26,13 @@ import com.mckimquyen.reader.ui.theme.palette.core.zcamLch
 typealias TonalValue = Int
 
 typealias TonalPalette = MutableMap<TonalValue, Color>
+
+private const val MAX_TONE = 100
+
+internal fun eInkTonalColor(tone: TonalValue): Color {
+    val value = tone.coerceIn(0, MAX_TONE).toFloat() / MAX_TONE
+    return Color(value, value, value)
+}
 
 val tonalTokens = listOf(0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 95, 99, 100)
 
@@ -50,7 +58,8 @@ data class TonalPalettes(
 ) {
 
     @Composable
-    infix fun primary(tone: TonalValue): Color = primary.getOrPut(tone) {
+    infix fun primary(tone: TonalValue): Color =
+        if (LocalEInkMode.current.value) eInkTonalColor(tone) else primary.getOrPut(tone) {
         zcamLch(
             L = tone.toZcamLightness(),
             C = (1.2 * primaryChroma / MaterialYouStandard.sRGBLightnessChromaMap.maxOf { it.value })
@@ -60,7 +69,8 @@ data class TonalPalettes(
     }
 
     @Composable
-    infix fun secondary(tone: TonalValue): Color = secondary.getOrPut(tone) {
+    infix fun secondary(tone: TonalValue): Color =
+        if (LocalEInkMode.current.value) eInkTonalColor(tone) else secondary.getOrPut(tone) {
         zcamLch(
             L = tone.toZcamLightness(),
             C = MaterialYouStandard.sRGBLightnessChromaMap.getValue(tone) / 3.0,
@@ -69,7 +79,8 @@ data class TonalPalettes(
     }
 
     @Composable
-    infix fun tertiary(tone: TonalValue): Color = tertiary.getOrPut(tone) {
+    infix fun tertiary(tone: TonalValue): Color =
+        if (LocalEInkMode.current.value) eInkTonalColor(tone) else tertiary.getOrPut(tone) {
         zcamLch(
             L = tone.toZcamLightness(),
             C = MaterialYouStandard.sRGBLightnessChromaMap.getValue(tone) * 2.0 / 3.0,
@@ -78,7 +89,8 @@ data class TonalPalettes(
     }
 
     @Composable
-    infix fun neutral(tone: TonalValue): Color = neutral.getOrPut(tone) {
+    infix fun neutral(tone: TonalValue): Color =
+        if (LocalEInkMode.current.value) eInkTonalColor(tone) else neutral.getOrPut(tone) {
         zcamLch(
             L = tone.toZcamLightness(),
             C = MaterialYouStandard.sRGBLightnessChromaMap.getValue(tone) / 12.0,
@@ -87,7 +99,8 @@ data class TonalPalettes(
     }
 
     @Composable
-    infix fun neutralVariant(tone: TonalValue): Color = neutralVariant.getOrPut(tone) {
+    infix fun neutralVariant(tone: TonalValue): Color =
+        if (LocalEInkMode.current.value) eInkTonalColor(tone) else neutralVariant.getOrPut(tone) {
         zcamLch(
             L = tone.toZcamLightness(),
             C = MaterialYouStandard.sRGBLightnessChromaMap.getValue(tone) / 6.0,
@@ -96,7 +109,8 @@ data class TonalPalettes(
     }
 
     @Composable
-    infix fun error(tone: TonalValue): Color = error.getOrPut(tone) {
+    infix fun error(tone: TonalValue): Color =
+        if (LocalEInkMode.current.value) eInkTonalColor(tone) else error.getOrPut(tone) {
         zcamLch(
             L = tone.toZcamLightness(),
             C = MaterialYouStandard.sRGBLightnessChromaMap.getValue(tone),

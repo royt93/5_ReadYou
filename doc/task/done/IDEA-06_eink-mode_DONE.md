@@ -1,21 +1,21 @@
 # [IDEA-06] E-Ink Mode — Completion Report
 
-- **Status:** Implemented on local `dev`; not pushed. Independent subagent review had not returned when this report was written; no external review result is claimed.
+- **Status:** Implemented on local `dev`; not pushed. Independent subagent review completed; two validated findings were fixed (tonal-palette colour leak and page-turn tall/partial-item edge cases). A separate full-screen emulator smoke walk-through is still not claimed.
 - **Completed:** 2026-10-18
-- **Commits:** `b1182cec`, `ee9962b3`, `9899e26d`, `70554fad`, `664ecaa0`, `a410cddc`, `fbdf8286`, `c6937361`, `f03111d1`, `2e3abb7c`, `fd382196`, `2b441a22`, `4185b8d8`, `bc17083d`.
+- **Commits:** `b1182cec`, `ee9962b3`, `9899e26d`, `70554fad`, `664ecaa0`, `a410cddc`, `fbdf8286`, `c6937361`, `f03111d1`, `2e3abb7c`, `fd382196`, `2b441a22`, `4185b8d8`, `bc17083d`, `13461018`, plus the review-fix commit that follows this report.
 
 ## Implementation
 
 - `EInkModePref` is a DataStore boolean, default OFF, exposed through `Settings`/`LocalEInkMode`, with a localized Color & Style toggle in all 38 maintained locale files.
-- E-Ink ON selects a monochrome light `ColorScheme` without rewriting the saved dark-theme preference; `BaseAsyncImage` applies a saturation-zero filter for static images. Video components are unchanged.
+- E-Ink ON selects a monochrome light `ColorScheme`, and `TonalPalettes` accessors return neutral gray so direct palette consumers no longer leak colour, without rewriting the saved dark-theme preference; `BaseAsyncImage` applies a saturation-zero filter for static images. Video components are unchanged.
 - App-owned navigation transitions and the Reader content transition become `None` only while E-Ink is ON. System animation scale is not touched.
-- Reader taps in the left/right third turn pages through `LazyListState.scrollToItem(index, offset)`; centre taps stay available to children. Volume Up/Down turn pages only for the first key-down while Reader has an article, E-Ink is ON and TTS is not playing. `MainActivity.dispatchKeyEvent` delegates to `ReaderVolumeKeyBridge`; the Compose effect unregisters on dispose.
+- Reader taps in the left/right third turn pages through `LazyListState.scrollToItem(index, offset)` using the content at viewport-minus-overlap as the next top, including tall items; centre taps stay available to children. Volume Up/Down turn pages only for the first key-down while Reader has an article, E-Ink is ON and TTS is not playing. `MainActivity.dispatchKeyEvent` delegates to `ReaderVolumeKeyBridge`; the Compose effect unregisters on dispose.
 
 ## Verification
 
-- `./gradlew testDevDebugUnitTest`: **929 tests, 0 failures, 0 errors, 0 skipped**, including `EInkModePrefTest`, colour/filter/transition tests, `EInkModeSettingTest`, `EInkPageTurnTest`, `EInkVolumeKeyHandlerTest` and `StringResourceParityTest`.
+- `./gradlew testDevDebugUnitTest`: **934 tests, 0 failures, 0 errors, 0 skipped**, including `EInkModePrefTest`, colour/filter/transition tests, `EInkModeSettingTest`, `EInkPageTurnTest`, `EInkVolumeKeyHandlerTest` and `StringResourceParityTest`.
 - `./gradlew assembleDevDebug compileDevDebugAndroidTestKotlin`: **PASS**.
-- `emulator-5554`, isolated `EInkUiTestRunner`: `EInkPageTurnInstrumentationTest` + `EInkModeIntegrationTest` **6/6 PASS** (side taps, centre child click, disabled mode, DataStore→theme, real settings-row toggle, title below status bar). Three volume lifecycle tests also passed with this runner; combined run of 9 UI/lifecycle tests passed including actual `ActivityScenario.recreate()`.
+- `emulator-5554`, isolated `EInkUiTestRunner`: 10-test combined run **PASS** (side taps, centre child click, disabled mode, DataStore→theme, real settings-row toggle, title below status bar, custom palette accessors neutral while ON and restored when OFF, volume composition/TTS/off/recreate lifecycle). Three volume lifecycle tests also passed with this runner; combined run of 9 UI/lifecycle tests passed including actual `ActivityScenario.recreate()`.
 - `emulator-5554`, standard runner: `EInkVolumeDispatchInstrumentationTest` **5/5 PASS** earlier; final separate hardware `MainActivity` key-dispatch/unregistered no-op run **2/2 PASS**. A first attempt used the standard runner component while the isolated APK was still installed; it failed to locate that runner before running tests. Rebuilding/reinstalling the standard test APK resolved this.
 - Device-lock note: Gradle `connectedDevDebugAndroidTest` was not used.
 

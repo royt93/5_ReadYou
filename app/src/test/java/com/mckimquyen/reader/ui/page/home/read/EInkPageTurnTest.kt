@@ -52,7 +52,7 @@ class EInkPageTurnTest {
             totalCount = 20,
             viewportHeight = 1000,
         )
-        assertEquals(PageTarget(index = 3, offset = 0), target)
+        assertEquals(PageTarget(index = 3, offset = 150), target)
     }
 
     @Test
@@ -104,10 +104,34 @@ class EInkPageTurnTest {
     }
 
     @Test
-    fun next_tallItemEndingMovesOntoFollowingItem() {
+    fun next_nearEndOfTallItemKeepsUnreadTailInsteadOfSkippingIt() {
         val tall = listOf(PageItem(index = 2, offset = -3900, size = 5000))
         val target = resolvePageTurn(PageDirection.NEXT, tall, 10, 1000)
-        assertEquals(PageTarget(index = 3, offset = 0), target)
+        assertEquals(PageTarget(index = 2, offset = 4800), target)
+    }
+
+    @Test
+    fun next_lastTallItemCanAdvanceUntilItsBottomIsVisible() {
+        val tall = listOf(PageItem(index = 0, offset = -900, size = 5000))
+        assertEquals(PageTarget(0, 1800), resolvePageTurn(PageDirection.NEXT, tall, 1, 1000))
+        assertNull(resolvePageTurn(PageDirection.NEXT, listOf(PageItem(0, -4000, 5000)), 1, 1000))
+    }
+
+    @Test
+    fun next_partialFinalItemStillAdvancesWithOverlap() {
+        val visible = listOf(PageItem(0, -100, 500), PageItem(1, 400, 1500))
+        assertEquals(PageTarget(1, 500), resolvePageTurn(PageDirection.NEXT, visible, 2, 1000))
+    }
+
+    @Test
+    fun next_nearlyOffscreenFirstItemDoesNotWasteATapOnTinyProgress() {
+        val visible = listOf(PageItem(0, -900, 950), PageItem(1, 50, 5000))
+        assertEquals(PageTarget(1, 850), resolvePageTurn(PageDirection.NEXT, visible, 3, 1000))
+    }
+
+    @Test
+    fun previous_atStartOfTallItemMovesToPrecedingItem() {
+        assertEquals(PageTarget(1, 0), resolvePageTurn(PageDirection.PREVIOUS, listOf(PageItem(2, 0, 5000)), 10, 1000))
     }
 
     @Test
