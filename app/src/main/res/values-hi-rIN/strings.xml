@@ -796,4 +796,6 @@
     <string name="smart_collection_rename_title">Edit smart collection</string>
     <string name="smart_collection_empty_articles">No matching new articles yet. New matches will appear after sync.</string>
     <string name="save">Save</string>
+    <string name="eink_mode_title">E-Ink अनुकूलन</string>
+    <string name="eink_mode_desc">एकरंगी डिस्प्ले, ग्रेस्केल चित्र और ऐप ऐनिमेशन बंद; पेज बदलने के लिए किनारों पर टैप करें या वॉल्यूम बटन दबाएँ।</string>
 </resources>

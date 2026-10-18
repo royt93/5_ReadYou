@@ -57,6 +57,8 @@ import com.mckimquyen.reader.infrastructure.pref.CustomPrimaryColorPref
 import com.mckimquyen.reader.infrastructure.pref.LocalBasicFonts
 import com.mckimquyen.reader.infrastructure.pref.LocalCustomPrimaryColor
 import com.mckimquyen.reader.infrastructure.pref.LocalDarkTheme
+import com.mckimquyen.reader.infrastructure.pref.LocalEInkMode
+import com.mckimquyen.reader.infrastructure.pref.EInkModePref
 import com.mckimquyen.reader.infrastructure.pref.LocalThemeIndex
 import com.mckimquyen.reader.infrastructure.pref.ThemeIndexPref
 import com.mckimquyen.reader.infrastructure.pref.not
@@ -91,6 +93,7 @@ fun ColorAndStylePage(
     val context = LocalContext.current
     val darkTheme = LocalDarkTheme.current
     val darkThemeNot = !darkTheme
+    val eInkMode = LocalEInkMode.current
     val themeIndex = LocalThemeIndex.current
     val customPrimaryColor = LocalCustomPrimaryColor.current
     val fonts = LocalBasicFonts.current
@@ -203,6 +206,16 @@ fun ColorAndStylePage(
                             activated = darkTheme.isDarkTheme()
                         ) {
                             darkThemeNot.put(context, scope)
+                        }
+                    }
+                    SettingItem(
+                        title = stringResource(R.string.eink_mode_title),
+                        desc = stringResource(R.string.eink_mode_desc),
+                        separatedActions = true,
+                        onClick = { (!eInkMode).put(context, scope) },
+                    ) {
+                        BaseSwitch(activated = eInkMode.value) {
+                            (!eInkMode).put(context, scope)
                         }
                     }
                     SettingItem(

@@ -773,4 +773,6 @@
     <string name="smart_collection_rename_title">Edit smart collection</string>
     <string name="smart_collection_empty_articles">No matching new articles yet. New matches will appear after sync.</string>
     <string name="save">Save</string>
+    <string name="eink_mode_title">تحسين شاشة الحبر الإلكتروني</string>
+    <string name="eink_mode_desc">عرض أحادي اللون، صور بتدرج رمادي، بلا حركات للتطبيق؛ اضغط حواف الصفحة أو استخدم أزرار الصوت لتقليب الصفحات.</string>
 </resources>

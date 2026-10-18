@@ -801,4 +801,6 @@
     <string name="smart_collection_rename_title">Edit smart collection</string>
     <string name="smart_collection_empty_articles">No matching new articles yet. New matches will appear after sync.</string>
     <string name="save">Save</string>
+    <string name="eink_mode_title">Otimização E-Ink</string>
+    <string name="eink_mode_desc">Tela monocromática, imagens em tons de cinza e sem animações; toque nas bordas ou use os botões de volume para virar páginas.</string>
 </resources>

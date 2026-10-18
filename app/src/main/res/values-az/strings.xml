@@ -870,4 +870,6 @@
     <string name="smart_collection_rename_title">Edit smart collection</string>
     <string name="smart_collection_empty_articles">No matching new articles yet. New matches will appear after sync.</string>
     <string name="save">Save</string>
+    <string name="eink_mode_title">E-Ink optimallaşdırması</string>
+    <string name="eink_mode_desc">Monoxrom ekran, boz tonlu şəkillər, tətbiq animasiyaları yoxdur; səhifəni çevirmək üçün kənarlara toxunun və ya səs düymələrindən istifadə edin.</string>
 </resources>

@@ -799,4 +799,6 @@
     <string name="smart_collection_rename_title">Edit smart collection</string>
     <string name="smart_collection_empty_articles">No matching new articles yet. New matches will appear after sync.</string>
     <string name="save">Save</string>
+    <string name="eink_mode_title">E-Ink-optimalisering</string>
+    <string name="eink_mode_desc">Monokrom skjerm, gråtonebilder og ingen app-animasjoner; trykk på sidekantene eller bruk volumknappene for å bla.</string>
 </resources>

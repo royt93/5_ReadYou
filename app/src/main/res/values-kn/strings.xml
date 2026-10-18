@@ -870,4 +870,6 @@
     <string name="smart_collection_rename_title">Edit smart collection</string>
     <string name="smart_collection_empty_articles">No matching new articles yet. New matches will appear after sync.</string>
     <string name="save">Save</string>
+    <string name="eink_mode_title">E-Ink ಆಪ್ಟಿಮೈಜೇಶನ್</string>
+    <string name="eink_mode_desc">ಏಕವರ್ಣದ ಪ್ರದರ್ಶನ, ಗ್ರೇಸ್ಕೇಲ್ ಚಿತ್ರಗಳು ಮತ್ತು ಆ್ಯಪ್ ಅನಿಮೇಷನ್ ಇಲ್ಲ; ಪುಟ ತಿರುಗಿಸಲು ಅಂಚುಗಳನ್ನು ಟ್ಯಾಪ್ ಮಾಡಿ ಅಥವಾ ವಾಲ್ಯೂಮ್ ಬಟನ್ ಬಳಸಿ.</string>
 </resources>

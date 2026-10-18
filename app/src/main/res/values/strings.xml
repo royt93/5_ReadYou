@@ -879,4 +879,6 @@
     <string name="share_target_cancel_btn">Cancel</string>
     <string name="share_target_saved_toast">Saved to Read Later</string>
     <string name="share_target_invalid_url">No valid link found</string>
+    <string name="eink_mode_title">E-Ink Optimisation</string>
+    <string name="eink_mode_desc">Pure monochrome display, grayscale images, no app animations, tap page edges or use volume keys to turn pages.</string>
 </resources>

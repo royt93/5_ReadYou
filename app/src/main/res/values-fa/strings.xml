@@ -798,4 +798,6 @@
     <string name="smart_collection_rename_title">Edit smart collection</string>
     <string name="smart_collection_empty_articles">No matching new articles yet. New matches will appear after sync.</string>
     <string name="save">Save</string>
+    <string name="eink_mode_title">بهینه‌سازی E-Ink</string>
+    <string name="eink_mode_desc">نمایش تک‌رنگ، تصاویر خاکستری و بدون پویانمایی برنامه؛ برای ورق‌زدن لبه صفحه را لمس کنید یا از کلیدهای صدا استفاده کنید.</string>
 </resources>

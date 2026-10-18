@@ -800,4 +800,6 @@
     <string name="smart_collection_rename_title">Intelligente Sammlung bearbeiten</string>
     <string name="smart_collection_empty_articles">Noch keine passenden neuen Artikel. Neue Treffer erscheinen nach der Synchronisierung.</string>
     <string name="save">Speichern</string>
+    <string name="eink_mode_title">E-Ink-Optimierung</string>
+    <string name="eink_mode_desc">Monochromes Display, Graustufenbilder, keine App-Animationen; Seitenränder antippen oder Lautstärketasten zum Umblättern verwenden.</string>
 </resources>

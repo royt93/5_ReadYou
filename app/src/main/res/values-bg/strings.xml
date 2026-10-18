@@ -763,4 +763,6 @@
     <string name="smart_collection_rename_title">Edit smart collection</string>
     <string name="smart_collection_empty_articles">No matching new articles yet. New matches will appear after sync.</string>
     <string name="save">Save</string>
+    <string name="eink_mode_title">Оптимизация за E-Ink</string>
+    <string name="eink_mode_desc">Монохромен екран, изображения в сивата гама, без анимации; докоснете краищата или използвайте бутоните за звук за прелистване.</string>
 </resources>

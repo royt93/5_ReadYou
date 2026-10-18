@@ -803,4 +803,6 @@
     <string name="smart_collection_rename_title">Modifier la collection intelligente</string>
     <string name="smart_collection_empty_articles">Aucun nouvel article correspondant. Les résultats apparaîtront après la synchronisation.</string>
     <string name="save">Enregistrer</string>
+    <string name="eink_mode_title">Optimisation E-Ink</string>
+    <string name="eink_mode_desc">Affichage monochrome, images en niveaux de gris, sans animations ; touchez les bords ou utilisez les boutons de volume pour tourner les pages.</string>
 </resources>
