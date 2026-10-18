@@ -33,7 +33,7 @@ class SmartCollectionsPageTest {
         val app = ApplicationProvider.getApplicationContext<Application>()
         val dao = mockk<SmartCollectionDao>()
         every { dao.observeCollectionsWithCount(any()) } returns MutableStateFlow(emptyList())
-        val viewModel = SmartCollectionsViewModel(app, dao)
+        val viewModel = SmartCollectionsViewModel(app, dao, mockk(relaxed = true))
 
         composeTestRule.setContent {
             SmartCollectionsPage(navController = NavHostController(app), viewModel = viewModel)
@@ -59,7 +59,7 @@ class SmartCollectionsPageTest {
                 )
             )
         )
-        val viewModel = SmartCollectionsViewModel(app, dao)
+        val viewModel = SmartCollectionsViewModel(app, dao, mockk(relaxed = true))
 
         composeTestRule.setContent {
             SmartCollectionsPage(navController = NavHostController(app), viewModel = viewModel)
@@ -70,11 +70,37 @@ class SmartCollectionsPageTest {
     }
 
     @Test
+    fun page_populatedState_displaysArticleCount() {
+        val app = ApplicationProvider.getApplicationContext<Application>()
+        val dao = mockk<SmartCollectionDao>()
+        every { dao.observeCollectionsWithCount(any()) } returns MutableStateFlow(
+            listOf(
+                SmartCollectionWithCount(
+                    collection = SmartCollection(
+                        id = "col-ai",
+                        accountId = 0,
+                        name = "AI updates",
+                        query = "AI in Europe",
+                    ),
+                    articleCount = 7,
+                )
+            )
+        )
+        val viewModel = SmartCollectionsViewModel(app, dao, mockk(relaxed = true))
+
+        composeTestRule.setContent {
+            SmartCollectionsPage(navController = NavHostController(app), viewModel = viewModel)
+        }
+
+        composeTestRule.onNodeWithText("7 articles").assertIsDisplayed()
+    }
+
+    @Test
     fun page_addButton_showsCreateDialog() {
         val app = ApplicationProvider.getApplicationContext<Application>()
         val dao = mockk<SmartCollectionDao>()
         every { dao.observeCollectionsWithCount(any()) } returns MutableStateFlow(emptyList())
-        val viewModel = SmartCollectionsViewModel(app, dao)
+        val viewModel = SmartCollectionsViewModel(app, dao, mockk(relaxed = true))
 
         composeTestRule.setContent {
             SmartCollectionsPage(navController = NavHostController(app), viewModel = viewModel)

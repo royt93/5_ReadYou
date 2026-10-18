@@ -7,6 +7,7 @@ import com.mckimquyen.reader.domain.model.article.ArticleWithFeed
 import com.mckimquyen.reader.domain.model.collection.SmartCollection
 import com.mckimquyen.reader.domain.model.collection.SmartCollectionWithCount
 import com.mckimquyen.reader.domain.repository.SmartCollectionDao
+import com.mckimquyen.reader.domain.sv.SmartCollectionMatcher
 import com.mckimquyen.reader.ui.ext.currentAccountId
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -21,6 +22,7 @@ import javax.inject.Inject
 class SmartCollectionsViewModel @Inject constructor(
     @ApplicationContext private val context: Context,
     private val smartCollectionDao: SmartCollectionDao,
+    private val smartCollectionMatcher: SmartCollectionMatcher,
 ) : ViewModel() {
 
     val collectionsWithCount: StateFlow<List<SmartCollectionWithCount>> =
@@ -52,7 +54,11 @@ class SmartCollectionsViewModel @Inject constructor(
         val cleanQuery = query.trim()
         if (cleanName.isBlank() || cleanQuery.isBlank()) return
         viewModelScope.launch {
+            val oldQuery = smartCollectionDao.getCollectionById(id)?.query
             smartCollectionDao.updateCollection(id = id, name = cleanName, query = cleanQuery)
+            if (oldQuery != null && oldQuery != cleanQuery) {
+                smartCollectionMatcher.reevaluateCollection(context.currentAccountId, id)
+            }
             onComplete()
         }
     }

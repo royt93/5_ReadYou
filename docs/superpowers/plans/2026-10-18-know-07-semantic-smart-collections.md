@@ -4,7 +4,7 @@
 
 **Goal:** Xây dựng tính năng Semantic Smart Collections (KNOW-07) cho phép lưu các câu truy vấn tự nhiên thành các bộ sưu tập thông minh, tự động đối chiếu các bài báo mới sau mỗi chu kỳ đồng bộ RSS bằng SemanticSearchEngine và embedding index persistent, hiển thị và quản lý trong màn hình điều hướng riêng.
 
-**Architecture:** Sử dụng Room Database v16 với 2 bảng `smart_collection` và `smart_collection_article` (liên kết nhiều-nhiều, foreign key ON DELETE CASCADE). Một service chuyên trách `SmartCollectionMatcher` chạy trong `SyncWorker` ngay sau khi tải bài viết mới để ghép nối bài với collections đạt ngưỡng `0.22f`. UI xây dựng bằng Jetpack Compose gồm `SmartCollectionsPage`, `SmartCollectionDetailPage`, dialog tạo nhanh từ `FlowPage` khi tìm kiếm ngữ nghĩa, và menu điều hướng trong `FlowActionsMenu`.
+**Architecture:** Sử dụng Room Database v16 với 2 bảng `smart_collection` và `smart_collection_article` (liên kết nhiều-nhiều, foreign key ON DELETE CASCADE). Một service chuyên trách `SmartCollectionMatcher` chạy ngay sau khi repository chèn bài mới để ghép chính xác candidates với collections, dùng threshold `0.22f`. UI xây dựng bằng Jetpack Compose gồm `SmartCollectionsPage`, `SmartCollectionDetailPage`, dialog tạo nhanh từ `FlowPage` khi tìm kiếm ngữ nghĩa, và menu điều hướng trong `FlowActionsMenu`.
 
 **Tech Stack:** Kotlin 2.1.0, Jetpack Compose, Material 3, Room Database 2.6.1 (KAPT, schema v16), Navigation Compose, Coroutines/Flow, JUnit4, Robolectric, MockK.
 
@@ -90,7 +90,7 @@
 
 ---
 
-### Task 3: SmartCollectionMatcher Service & SyncWorker Integration (TDD)
+### Task 3: SmartCollectionMatcher Service & Repository Sync Integration (TDD)
 
 **Files:**
 - Create: `app/src/main/java/com/mckimquyen/reader/domain/sv/SmartCollectionMatcher.kt`
@@ -173,9 +173,16 @@
 
 ### Task 5: Comprehensive Verification & Multi-Perspective Audit
 
+**Additional verification files:**
+- Test: `app/src/test/java/com/mckimquyen/reader/domain/sv/SmartCollectionReevaluationTest.kt`
+- Test: `app/src/test/java/com/mckimquyen/reader/domain/repository/ArticleDaoReadCollectionsTest.kt`
+- Test: `app/src/test/java/com/mckimquyen/reader/ui/page/collection/SaveSmartCollectionDialogTest.kt`
+- Test: `app/src/test/java/com/mckimquyen/reader/ui/page/collection/SmartCollectionsPageTest.kt`
+- Test: `app/src/androidTest/java/com/mckimquyen/reader/ui/page/collection/SmartCollectionEdgeToEdgeTest.kt`
+
 - [ ] **Step 1: Chạy toàn bộ Unit Tests**
   Run: `./gradlew testDevDebugUnitTest`
-  Expected: >= 865 unit tests PASS.
+  Expected: All unit tests PASS, including account isolation, exact query re-evaluation and cancellation preserving previous memberships.
 
 - [ ] **Step 2: Chạy Lint kiểm tra tài nguyên và code quality**
   Run: `./gradlew lintDevDebug`

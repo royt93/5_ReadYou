@@ -591,6 +591,17 @@ interface ArticleDao {
     )
     suspend fun queryRecentArticlesWithFeed(accountId: Int, limit: Int = 150): List<ArticleWithFeed>
 
+    @Transaction
+    @Query(
+        """
+        SELECT * FROM article
+        WHERE accountId = :accountId
+        ORDER BY date DESC, id DESC
+        LIMIT :limit OFFSET :offset
+        """
+    )
+    suspend fun queryArticlesWithFeedPage(accountId: Int, limit: Int, offset: Int): List<ArticleWithFeed>
+
     @Update
     suspend fun update(vararg article: Article)
 

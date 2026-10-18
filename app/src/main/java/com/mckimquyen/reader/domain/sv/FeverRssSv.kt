@@ -55,7 +55,7 @@ class FeverRssSv @Inject constructor(
     workManager: WorkManager,
     watchdogManager: WatchdogManager,
     smartFilterManager: com.mckimquyen.reader.infrastructure.filter.SmartFilterManager,
-    smartCollectionMatcher: SmartCollectionMatcher? = null,
+    smartCollectionMatcher: SmartCollectionMatcher,
 ) : AbstractRssRepository(
     context, accountDao, articleDao, groupDao,
     feedDao, workManager, rssHelper, notificationHelper, ioDispatcher, defaultDispatcher,

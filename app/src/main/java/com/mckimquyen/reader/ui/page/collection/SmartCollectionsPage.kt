@@ -27,6 +27,10 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.navigationBars
+import androidx.compose.foundation.layout.statusBars
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -60,10 +64,16 @@ fun SmartCollectionsPage(
     var showCreateDialog by remember { mutableStateOf(false) }
     var editingCollection by remember { mutableStateOf<SmartCollectionWithCount?>(null) }
 
+    val statusBarTop = WindowInsets.statusBars.asPaddingValues().calculateTopPadding()
+    val navBarBottom = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()
+
     Scaffold(
         topBar = {
             Row(
-                modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp, vertical = 8.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = statusBarTop)
+                    .padding(horizontal = 8.dp, vertical = 8.dp),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 FeedbackIconButton(
@@ -73,7 +83,7 @@ fun SmartCollectionsPage(
                     onClick = { navController.popBackStack() },
                 )
                 Text(
-                    modifier = Modifier.weight(1f),
+                    modifier = Modifier.weight(1f).testTag(TEST_TAG_TITLE),
                     text = stringResource(R.string.smart_collections_title),
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.SemiBold,
@@ -84,14 +94,17 @@ fun SmartCollectionsPage(
             }
         },
         floatingActionButton = {
-            FloatingActionButton(onClick = { showCreateDialog = true }) {
+            FloatingActionButton(
+                modifier = Modifier.padding(bottom = navBarBottom).testTag(TEST_TAG_FAB),
+                onClick = { showCreateDialog = true },
+            ) {
                 Icon(Icons.Rounded.Add, contentDescription = stringResource(R.string.smart_collection_save_action))
             }
         },
     ) { innerPadding ->
         if (collections.isEmpty()) {
             Column(
-                modifier = Modifier.fillMaxSize().padding(innerPadding).padding(24.dp),
+                modifier = Modifier.fillMaxSize().padding(innerPadding).padding(bottom = navBarBottom).padding(24.dp),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
@@ -110,7 +123,7 @@ fun SmartCollectionsPage(
             }
         } else {
             LazyColumn(
-                modifier = Modifier.fillMaxSize().padding(innerPadding),
+                modifier = Modifier.fillMaxSize().padding(innerPadding).padding(bottom = navBarBottom),
                 verticalArrangement = Arrangement.spacedBy(12.dp),
             ) {
                 items(collections, key = { it.collection.id }) { collection ->
@@ -226,4 +239,6 @@ private fun SmartCollectionCard(
     }
 }
 
-private const val TEST_TAG_EMPTY = "smart_collections_empty"
+internal const val TEST_TAG_EMPTY = "smart_collections_empty"
+internal const val TEST_TAG_TITLE = "smart_collections_title"
+internal const val TEST_TAG_FAB = "smart_collections_fab"

@@ -5,6 +5,7 @@ import androidx.test.core.app.ApplicationProvider
 import com.mckimquyen.reader.domain.model.collection.SmartCollection
 import com.mckimquyen.reader.domain.model.collection.SmartCollectionWithCount
 import com.mckimquyen.reader.domain.repository.SmartCollectionDao
+import com.mckimquyen.reader.domain.sv.SmartCollectionMatcher
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
@@ -32,6 +33,7 @@ class SmartCollectionsViewModelTest {
 
     private val testDispatcher = StandardTestDispatcher()
     private val smartCollectionDao: SmartCollectionDao = mockk(relaxed = true)
+    private val smartCollectionMatcher: SmartCollectionMatcher = mockk(relaxed = true)
     private lateinit var viewModel: SmartCollectionsViewModel
 
     @Before
@@ -54,6 +56,7 @@ class SmartCollectionsViewModelTest {
         viewModel = SmartCollectionsViewModel(
             context = app,
             smartCollectionDao = smartCollectionDao,
+            smartCollectionMatcher = smartCollectionMatcher,
         )
     }
 
@@ -89,11 +92,34 @@ class SmartCollectionsViewModelTest {
     }
 
     @Test
-    fun updateCollection_callsDaoUpdate() = runTest(testDispatcher) {
+    fun updateCollection_changedQueryReevaluatesMembership() = runTest(testDispatcher) {
+        coEvery { smartCollectionDao.getCollectionById("col-1") } returns SmartCollection(
+            id = "col-1",
+            accountId = 0,
+            name = "AI Tech",
+            query = "old query",
+        )
+
         viewModel.updateCollection("col-1", "New Name", "new query")
         advanceUntilIdle()
 
         coVerify(exactly = 1) { smartCollectionDao.updateCollection("col-1", "New Name", "new query") }
+        coVerify(exactly = 1) { smartCollectionMatcher.reevaluateCollection(any(), "col-1") }
+    }
+
+    @Test
+    fun updateCollection_nameOnlyDoesNotReevaluateMembership() = runTest(testDispatcher) {
+        coEvery { smartCollectionDao.getCollectionById("col-1") } returns SmartCollection(
+            id = "col-1",
+            accountId = 0,
+            name = "AI Tech",
+            query = "same query",
+        )
+
+        viewModel.updateCollection("col-1", "New Name", "same query")
+        advanceUntilIdle()
+
+        coVerify(exactly = 0) { smartCollectionMatcher.reevaluateCollection(any(), any()) }
     }
 
     @Test

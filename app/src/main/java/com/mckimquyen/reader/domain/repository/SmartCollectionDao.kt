@@ -39,11 +39,20 @@ interface SmartCollectionDao {
     @Query("UPDATE smart_collection SET name = :name, query = :query WHERE id = :id")
     suspend fun updateCollection(id: String, name: String, query: String)
 
+    @Query("DELETE FROM smart_collection_article WHERE collectionId = :collectionId")
+    suspend fun deleteMatches(collectionId: String)
+
     @Query("DELETE FROM smart_collection WHERE id = :id")
     suspend fun deleteCollection(id: String)
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertMatches(matches: List<SmartCollectionArticle>): List<Long>
+
+    @Transaction
+    suspend fun replaceMatches(collectionId: String, matches: List<SmartCollectionArticle>) {
+        deleteMatches(collectionId)
+        if (matches.isNotEmpty()) insertMatches(matches)
+    }
 
     @Transaction
     @Query(

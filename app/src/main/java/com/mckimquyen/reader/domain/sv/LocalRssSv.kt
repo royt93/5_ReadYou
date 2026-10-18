@@ -41,7 +41,7 @@ class LocalRssSv @Inject constructor(
     watchdogManager: WatchdogManager,
     smartFilterManager: com.mckimquyen.reader.infrastructure.filter.SmartFilterManager,
     private val webFeedScraper: WebFeedScraper,
-    smartCollectionMatcher: SmartCollectionMatcher? = null,
+    smartCollectionMatcher: SmartCollectionMatcher,
 ) : AbstractRssRepository(
     context,
     accountDao,

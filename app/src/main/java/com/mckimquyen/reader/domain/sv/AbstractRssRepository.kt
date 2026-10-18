@@ -51,7 +51,7 @@ abstract class AbstractRssRepository(
     private val watchdogManager: WatchdogManager,
     private val feedHealthDao: FeedHealthDao,
     private val smartFilterManager: com.mckimquyen.reader.infrastructure.filter.SmartFilterManager,
-    private val smartCollectionMatcher: SmartCollectionMatcher? = null,
+    private val smartCollectionMatcher: SmartCollectionMatcher,
 ) {
 
     open val subscribe: Boolean = true
@@ -104,14 +104,12 @@ abstract class AbstractRssRepository(
                                 })
                             }
                             if (insertedArticles.isNotEmpty()) {
-                                smartCollectionMatcher?.let { matcher ->
-                                    runCatching {
-                                        val candidates = insertedArticles.map { article -> ArticleWithFeed(article, it.feed) }
-                                        matcher.matchNewArticles(accountId, candidates)
-                                    }.onFailure { error ->
-                                        if (error is CancellationException) throw error
-                                        Log.w("RLog", "SmartCollection matching failed", error)
-                                    }
+                                runCatching {
+                                    val candidates = insertedArticles.map { article -> ArticleWithFeed(article, it.feed) }
+                                    smartCollectionMatcher.matchNewArticles(accountId, candidates)
+                                }.onFailure { error ->
+                                    if (error is CancellationException) throw error
+                                    Log.w("RLog", "SmartCollection matching failed", error)
                                 }
                             }
                         }
