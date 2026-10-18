@@ -1,6 +1,6 @@
 # [KNOW-07] Semantic Smart Collections — Completion Report
 
-- **Status:** Implemented; commits local on `dev`, not pushed.
+- **Status:** Implemented; changes pushed to `origin/dev` on 2026-10-18 after fixing the pre-push matcher result-limit regression.
 - **Completed:** 2026-10-18
 - **Commits:**
   - `eda5b7a0` — Room v16 entities, DAO, migration, DAO/migration tests, spec and implementation plan.
@@ -31,6 +31,7 @@
 ## Verification
 
 - `./gradlew testDevDebugUnitTest` — **PASS**, 893 tests at original completion (latest combined suite: 937; see review follow-up above).
+- `SmartCollectionReviewRegressionTest` uses 60 incremental and 260 paged candidate matches; all matches persist beyond the semantic search default limit of 50.
 - `./gradlew assembleDevDebug` — **PASS**.
 - `./gradlew compileDevDebugAndroidTestKotlin` — **PASS**.
 - `adb -s emulator-5554 shell am instrument -w -e class com.mckimquyen.reader.ui.page.collection.SmartCollectionEdgeToEdgeTest com.mckimquyen.reader.test/androidx.test.runner.AndroidJUnitRunner` — **PASS**, 1 test on locked Pixel emulator.
