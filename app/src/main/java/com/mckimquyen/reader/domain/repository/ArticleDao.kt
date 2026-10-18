@@ -602,6 +602,26 @@ interface ArticleDao {
     )
     suspend fun queryArticlesWithFeedPage(accountId: Int, limit: Int, offset: Int): List<ArticleWithFeed>
 
+    /** Bài đã đọc, xuất bản cùng ngày/tháng (giờ local) ở các năm trước. `monthDay` dạng `MM-dd`. */
+    @Transaction
+    @Query(
+        """
+        SELECT * FROM article
+        WHERE accountId = :accountId
+          AND isUnread = 0
+          AND strftime('%m-%d', date / 1000, 'unixepoch', 'localtime') = :monthDay
+          AND strftime('%Y', date / 1000, 'unixepoch', 'localtime') < :currentYear
+        ORDER BY date DESC, id DESC
+        LIMIT :limit
+        """
+    )
+    suspend fun queryOnThisDay(
+        accountId: Int,
+        monthDay: String,
+        currentYear: String,
+        limit: Int = 5,
+    ): List<ArticleWithFeed>
+
     @Update
     suspend fun update(vararg article: Article)
 
