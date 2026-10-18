@@ -17,6 +17,10 @@
 
 ## ⏸️ Deferred
 
+- IDEA-04 — Gamified Ad Streaks (`doc/task/todo/IDEA-04_gamified-ad-streaks.md`) và mọi task ad/IAP/money. **Deferred on 2026-10-18 by the owner ("bỏ qua các task về ad/iap/money, tháng sau mới làm"); revisit around 2026-11-18.**
+  - Fact: `AdManager.activateVipByKey(context, key, days)` (AdmobApplovinWrapper 1.1.5) ghi đè hạn VIP = now + days, không cộng dồn; nút xem ad ở `VipManagementPage` đang `enabled = !isActive`. Streak hằng ngày phải tự tính số ngày còn lại trước khi gọi.
+  - Chưa chọn thiết kế; brainstorming dừng trước khi viết spec.
+
 - FIX-09 — Gemini API key hardcoded in APK (P0 security). **Deferred on 2026-10-13 by the owner; re-raise around 2026-11-13.**
   - Fact: `GeminiConfig.kt` ships several default keys only XOR+Base64 with a fixed PAD, so anyone decompiling the APK can recover them. Every AI feature (summary, Deep Read, Mind Map, Daily Digest, CommuteCast) resolves keys through `GeminiSummaryService.resolveApiKeys()`: the user's BYOK key first, then these defaults.
   - Removing the defaults without a replacement disables AI for every user who has not entered their own key (BYOK users are unaffected; offline highlights still work).
