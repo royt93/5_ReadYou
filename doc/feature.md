@@ -2,7 +2,7 @@
 
 ## 📋 Picked
 
-- **IDEA-07 — On This Day** (`doc/task/todo/IDEA-07_on-this-day.md`): Design approved at `docs/superpowers/specs/2026-10-18-idea-07-on-this-day-design.md`; implementation plan is next. Definition: local calendar date, `isUnread = false`, publication month/day, earlier years, max 5, FeedsPage card plus dedicated screen.
+- Chưa có mục nào được pick tiếp theo.
 
 
 ## 🟡 In progress
@@ -11,6 +11,7 @@
 
 ## ✅ Recently implemented
 
+- **IDEA-07 — On This Day** (`doc/task/done/IDEA-07_on-this-day_DONE.md`): Gợi ý bài đã đọc xuất bản cùng ngày các năm trước. `OnThisDayCalendar` (MM-dd local, leap-day/midnight-safe), Room query lọc theo ngày/năm/account/isUnread, `OnThisDayViewModel` IO-safe, bản dịch 38 locale đủ plurals, card FeedsPage tự ẩn khi không có bài và màn riêng `RouteName.ON_THIS_DAY` qua menu FlowPage. 958 unit tests pass (21 tests mới); edge-to-edge instrumentation pass trên emulator-5554; smoke test thật xác nhận empty state, card xuất hiện khi có bài mẫu, điều hướng Reader và khôi phục DB sạch. Commits local trên `dev`, chưa push.
 - **IDEA-06 — E-Ink mode** (`doc/task/done/IDEA-06_eink-mode_DONE.md`): Preference DataStore (default OFF), theme monochrome, grayscale ảnh tĩnh, tắt animation, tap-zone lật trang và phím volume trong Reader. 935 unit tests pass; 18 instrumentation tests pass trên emulator-5554 với runner cô lập; 2 tests phím cứng pass với runner chuẩn; live smoke test xác nhận lật trang bằng tap/volume, bàn phím volume trả về OS sau khi rời Reader. Commits local trên `dev`, chưa push.
 - **KNOW-07 — Semantic Smart Collections** (`doc/task/done/KNOW-07_semantic-smart-collections_DONE.md`): Room v16 collections for saved semantic queries, exact incremental matching after article insertion, dedicated list/detail UI, edit-query re-evaluation with bounded account-scoped batches and transaction-safe membership replacement. 893 unit tests pass; build and Pixel edge-to-edge instrumentation pass. Lint blocked by local Android SDK 37 API metadata; see completion report for limits. Commits local on `dev`, not pushed.
 
