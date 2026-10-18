@@ -2,8 +2,6 @@ package com.mckimquyen.reader.ui.page.home.read
 
 import com.mckimquyen.reader.domain.model.article.ArticleReadPosition
 import com.mckimquyen.reader.domain.model.article.ArticleWithFeed
-import com.mckimquyen.reader.domain.model.article.ReadPositionConflictResolver
-import com.mckimquyen.reader.domain.model.feed.Feed
 import com.mckimquyen.reader.domain.repository.ArticleReadPositionDao
 import com.mckimquyen.reader.domain.sv.RssSv
 import com.mckimquyen.reader.infrastructure.ai.GeminiSummaryService
@@ -16,7 +14,7 @@ import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.resetMain
@@ -71,11 +69,34 @@ class ReadingViewModelPositionTest {
             coEvery { findArticleById(ARTICLE_ID) } returns articleWithFeed
         }
         coEvery { readPositionDao.getPosition(ARTICLE_ID) } returns savedPosition
+
         viewModel.initData(ARTICLE_ID)
         advanceUntilIdle()
 
         assertEquals(savedPosition, viewModel.readingUiState.value.savedReadPosition)
         coVerify { readPositionDao.getPosition(ARTICLE_ID) }
+    }
+
+    @Test
+    fun initData_whenReadPositionSyncDisabled_skipsSavedPositionLookupAndRestore() = runTest(dispatcher) {
+        val articleWithFeed = mockk<ArticleWithFeed>(relaxed = true) {
+            every { article.id } returns ARTICLE_ID
+            every { article.accountId } returns ACCOUNT_ID
+        }
+        every { rssService.get() } returns mockk {
+            coEvery { findArticleById(ARTICLE_ID) } returns articleWithFeed
+        }
+        var restoredEvent: ReadPositionRestoreEvent? = null
+        val collectJob = backgroundScope.launch {
+            viewModel.restoreScrollPositionEvent.collect { restoredEvent = it }
+        }
+
+        viewModel.initData(ARTICLE_ID, readPositionSyncEnabled = false)
+        advanceUntilIdle()
+
+        assertNull(restoredEvent)
+        coVerify(exactly = 0) { readPositionDao.getPosition(any()) }
+        collectJob.cancel()
     }
 
     @Test
@@ -95,6 +116,8 @@ class ReadingViewModelPositionTest {
         val articleWithFeed = mockk<ArticleWithFeed>(relaxed = true) {
             every { article.id } returns ARTICLE_ID
             every { article.accountId } returns ACCOUNT_ID
+            every { feed.url } returns "https://example.com/feed"
+            every { article.link } returns "https://example.com/article"
         }
         every { rssService.get() } returns mockk {
             coEvery { findArticleById(ARTICLE_ID) } returns articleWithFeed
@@ -120,6 +143,8 @@ class ReadingViewModelPositionTest {
         val articleWithFeed = mockk<ArticleWithFeed>(relaxed = true) {
             every { article.id } returns ARTICLE_ID
             every { article.accountId } returns ACCOUNT_ID
+            every { feed.url } returns "https://example.com/feed"
+            every { article.link } returns "https://example.com/article"
         }
         every { rssService.get() } returns mockk {
             coEvery { findArticleById(ARTICLE_ID) } returns articleWithFeed

@@ -21,6 +21,23 @@ interface ArticleReadPositionDao {
     @Query("SELECT * FROM article_read_position WHERE isSynced = 0")
     suspend fun getUnsyncedPositions(): List<ArticleReadPosition>
 
+    @Query("SELECT * FROM article_read_position WHERE accountId = :accountId")
+    suspend fun getAllPositions(accountId: Int): List<ArticleReadPosition>
+
     @Query("UPDATE article_read_position SET isSynced = 1 WHERE articleId = :articleId")
     suspend fun markSynced(articleId: String)
+
+    @Query(
+        """
+        UPDATE article_read_position
+        SET isSynced = 1
+        WHERE articleId = :articleId
+        AND lastReadTime = :lastReadTime
+        AND progress = :progress
+        """
+    )
+    suspend fun markSyncedIfUnchanged(articleId: String, lastReadTime: Long, progress: Float): Int
+
+    @Query("UPDATE article_read_position SET isSynced = 1 WHERE accountId = :accountId")
+    suspend fun markAllSynced(accountId: Int)
 }

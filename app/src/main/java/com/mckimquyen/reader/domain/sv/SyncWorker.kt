@@ -14,6 +14,10 @@ import androidx.work.WorkManager
 import androidx.work.WorkerParameters
 import androidx.work.workDataOf
 import com.mckimquyen.reader.infrastructure.ai.search.SemanticEmbeddingIndexer
+import com.mckimquyen.reader.infrastructure.sync.WebDavReadPositionSyncer
+import com.mckimquyen.reader.ui.ext.DataStoreKeys
+import com.mckimquyen.reader.ui.ext.dataStore
+import com.mckimquyen.reader.ui.ext.get
 import com.mckimquyen.reader.infrastructure.pref.SyncIntervalPref
 import com.mckimquyen.reader.infrastructure.pref.SyncOnlyOnWiFiPref
 import com.mckimquyen.reader.infrastructure.pref.SyncOnlyWhenChargingPref
@@ -33,6 +37,7 @@ class SyncWorker @AssistedInject constructor(
     private val rssService: RssSv,
     private val offlinePrecacheService: com.mckimquyen.reader.infrastructure.rss.OfflinePrecacheService,
     private val semanticEmbeddingIndexer: SemanticEmbeddingIndexer,
+    private val webDavReadPositionSyncer: WebDavReadPositionSyncer,
 ) : CoroutineWorker(context, workerParams) {
 
     override suspend fun doWork(): Result =
@@ -43,6 +48,11 @@ class SyncWorker @AssistedInject constructor(
             }
             if (syncResult.isSuccessfulSync()) {
                 val accountId = context.currentAccountId
+                val readPositionSyncEnabled = context.dataStore.get(DataStoreKeys.ReadPositionSync) ?: true
+                if (readPositionSyncEnabled) {
+                    webDavReadPositionSyncer.syncPositions(accountId)
+                        .onFailure { Log.w("RLog", "WebDAV read-position sync failed", it) }
+                }
                 runCatching {
                     offlinePrecacheService.precacheLatestUnread(accountId)
                 }

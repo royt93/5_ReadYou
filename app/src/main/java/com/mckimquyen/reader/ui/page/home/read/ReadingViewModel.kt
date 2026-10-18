@@ -57,8 +57,8 @@ class ReadingViewModel @Inject constructor(
     private val _scrollToTopEvent = MutableSharedFlow<Unit>(extraBufferCapacity = 1)
     val scrollToTopEvent: SharedFlow<Unit> = _scrollToTopEvent.asSharedFlow()
 
-    private val _restoreScrollPositionEvent = MutableSharedFlow<Float>(extraBufferCapacity = 1)
-    val restoreScrollPositionEvent: SharedFlow<Float> = _restoreScrollPositionEvent.asSharedFlow()
+    private val _restoreScrollPositionEvent = MutableSharedFlow<ReadPositionRestoreEvent>(extraBufferCapacity = 1)
+    val restoreScrollPositionEvent: SharedFlow<ReadPositionRestoreEvent> = _restoreScrollPositionEvent.asSharedFlow()
 
     private var fetchJob: Job? = null
     private var summaryJob: Job? = null
@@ -76,7 +76,11 @@ class ReadingViewModel @Inject constructor(
         }
     }
 
-    fun initData(articleId: String, autoTtsEnabled: Boolean = false) {
+    fun initData(
+        articleId: String,
+        autoTtsEnabled: Boolean = false,
+        readPositionSyncEnabled: Boolean = true,
+    ) {
         // Capture current TTS state before switching feed
         val wasPlaying = _readingUiState.value.ttsState == TtsState.PLAYING
         val shouldAutoPlay = autoTtsEnabled || wasPlaying
@@ -106,7 +110,7 @@ class ReadingViewModel @Inject constructor(
         fetchJob = viewModelScope.launch {
             showLoading()
             val articleWithFeed = rssService.get().findArticleById(articleId)
-            val savedPosition = articleReadPositionDao?.getPosition(articleId)
+            val savedPosition = if (readPositionSyncEnabled) articleReadPositionDao?.getPosition(articleId) else null
             val persistedHighlights = articleWithFeed?.article?.aiSummary?.let { raw ->
                 if (raw.isNotBlank()) com.mckimquyen.reader.infrastructure.ai.ArticleHighlightsExtractor.deserialize(raw) else null
             }
@@ -122,7 +126,7 @@ class ReadingViewModel @Inject constructor(
                 else renderDescriptionContent(shouldAutoPlay)
             }
             if (savedPosition != null) {
-                _restoreScrollPositionEvent.emit(savedPosition.progress)
+                _restoreScrollPositionEvent.emit(ReadPositionRestoreEvent(articleId, savedPosition.progress))
             } else {
                 _scrollToTopEvent.tryEmit(Unit)
             }
@@ -616,6 +620,11 @@ class ReadingViewModel @Inject constructor(
         }
     }
 }
+
+data class ReadPositionRestoreEvent(
+    val articleId: String,
+    val progress: Float,
+)
 
 @Keep
 data class ReadingUiState(

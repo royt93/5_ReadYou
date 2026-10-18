@@ -12,6 +12,8 @@ object MIGRATION_14_15 : Migration(14, 15) {
             CREATE TABLE IF NOT EXISTS `article_read_position` (
                 `articleId` TEXT NOT NULL,
                 `accountId` INTEGER NOT NULL,
+                `feedUrl` TEXT NOT NULL,
+                `articleLink` TEXT NOT NULL,
                 `progress` REAL NOT NULL,
                 `lastReadTime` INTEGER NOT NULL,
                 `isSynced` INTEGER NOT NULL,

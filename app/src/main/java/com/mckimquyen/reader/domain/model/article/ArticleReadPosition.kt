@@ -30,6 +30,10 @@ data class ArticleReadPosition(
     val articleId: String,
     @ColumnInfo(name = "accountId")
     val accountId: Int,
+    @ColumnInfo(name = "feedUrl")
+    val feedUrl: String,
+    @ColumnInfo(name = "articleLink")
+    val articleLink: String,
     @ColumnInfo(name = "progress")
     val progress: Float,
     @ColumnInfo(name = "lastReadTime")

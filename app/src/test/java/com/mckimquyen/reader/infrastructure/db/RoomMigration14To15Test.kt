@@ -31,8 +31,8 @@ class RoomMigration14To15Test {
 
         db.execSQL(
             """
-            INSERT INTO article_read_position (articleId, accountId, progress, lastReadTime, isSynced)
-            VALUES ('art_123', 1, 0.65, 1700000000000, 0)
+            INSERT INTO article_read_position (articleId, accountId, feedUrl, articleLink, progress, lastReadTime, isSynced)
+            VALUES ('art_123', 1, 'https://example.com/feed', 'https://example.com/article', 0.65, 1700000000000, 0)
             """.trimIndent()
         )
 

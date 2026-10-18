@@ -76,6 +76,19 @@ class ArticleReadPositionDaoTest {
     }
 
     @Test
+    fun markSyncedIfUnchanged_doesNotMarkNewerConcurrentPositionSynced() = kotlinx.coroutines.runBlocking {
+        val snapshot = position(progress = 0.4f)
+        dao.upsertPosition(snapshot)
+        dao.upsertPosition(snapshot.copy(progress = 0.8f, lastReadTime = NEWER_TIMESTAMP, isSynced = false))
+
+        val affectedRows = dao.markSyncedIfUnchanged(ARTICLE_ID, snapshot.lastReadTime, snapshot.progress)
+
+        assertEquals(0, affectedRows)
+        assertEquals(false, dao.getPosition(ARTICLE_ID)?.isSynced)
+        assertEquals(0.8f, dao.getPosition(ARTICLE_ID)?.progress ?: 0f, 0.001f)
+    }
+
+    @Test
     fun deletingArticle_cascadesToReadPosition() = kotlinx.coroutines.runBlocking {
         dao.upsertPosition(position(progress = 0.4f))
 
@@ -87,6 +100,8 @@ class ArticleReadPositionDaoTest {
     private fun position(progress: Float) = ArticleReadPosition(
         articleId = ARTICLE_ID,
         accountId = ACCOUNT_ID,
+        feedUrl = "https://example.com/feed",
+        articleLink = "https://example.com/1",
         progress = progress,
         lastReadTime = OLDER_TIMESTAMP,
         isSynced = false,

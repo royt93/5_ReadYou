@@ -24,6 +24,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -36,6 +37,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import com.mckimquyen.reader.infrastructure.audio.TtsState
 import com.mckimquyen.reader.infrastructure.pref.LocalReadingAutoHideToolbar
 import com.mckimquyen.reader.infrastructure.pref.LocalReadingPageTonalElevation
+import com.mckimquyen.reader.infrastructure.pref.LocalReadPositionSync
 import com.mckimquyen.reader.infrastructure.pref.LocalAutoTts
 import com.mckimquyen.reader.ui.component.base.BaseScaffold
 import com.mckimquyen.reader.ui.component.base.BottomDrawer
@@ -60,6 +62,7 @@ fun ReadingPage(
     readingViewModel: ReadingViewModel = hiltViewModel(),
 ) {
     val tonalElevation = LocalReadingPageTonalElevation.current
+    val readPositionSyncEnabled = LocalReadPositionSync.current.value
     val autoTts = LocalAutoTts.current.value
     val readingUiState = readingViewModel.readingUiState.collectAsStateValue()
     val homeUiState = homeViewModel.homeUiState.collectAsStateValue()
@@ -88,17 +91,22 @@ fun ReadingPage(
         }
     }
 
+    val currentArticleId by rememberUpdatedState(readingUiState.articleWithFeed?.article?.id)
+
     LaunchedEffect(Unit) {
-        readingViewModel.restoreScrollPositionEvent.collect { progress ->
+        readingViewModel.restoreScrollPositionEvent.collect { event ->
+            if (event.articleId != currentArticleId) return@collect
             snapshotFlow { listState.layoutInfo.totalItemsCount }
-                .first { it > 0 }
+                .first { it > 1 }
             val lastIndex = (listState.layoutInfo.totalItemsCount - 1).coerceAtLeast(0)
-            val targetIndex = (progress * lastIndex).toInt().coerceIn(0, lastIndex)
+            val targetIndex = (event.progress * lastIndex).toInt().coerceIn(0, lastIndex)
             listState.scrollToItem(targetIndex)
         }
     }
 
-    LaunchedEffect(readingUiState.articleWithFeed?.article?.id, listState) {
+    LaunchedEffect(readingUiState.articleWithFeed?.article?.id, readingUiState.isLoading, listState, readPositionSyncEnabled) {
+        val currentArticleId = readingUiState.articleWithFeed?.article?.id ?: return@LaunchedEffect
+        if (readingUiState.isLoading) return@LaunchedEffect
         snapshotFlow {
             val itemCount = listState.layoutInfo.totalItemsCount
             val firstIndex = listState.firstVisibleItemIndex
@@ -106,8 +114,9 @@ fun ReadingPage(
         }
             .distinctUntilChanged()
             .collect { progress ->
-                readingUiState.articleWithFeed?.article?.id?.let { articleId ->
-                    readingViewModel.saveReadPosition(articleId, progress.coerceIn(0f, 1f))
+                if (!readPositionSyncEnabled) return@collect
+                if (readingUiState.articleWithFeed?.article?.id == currentArticleId && !readingUiState.isLoading) {
+                    readingViewModel.saveReadPosition(currentArticleId, progress.coerceIn(0f, 1f))
                 }
             }
     }
@@ -124,7 +133,7 @@ fun ReadingPage(
         navController.currentBackStackEntryFlow.collect {
             it.arguments?.getString("articleId")?.let { articleId ->
                 if (readingUiState.articleWithFeed?.article?.id != articleId) {
-                    readingViewModel.initData(articleId, autoTts)
+                    readingViewModel.initData(articleId, autoTts, readPositionSyncEnabled)
                 }
             }
         }

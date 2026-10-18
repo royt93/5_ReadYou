@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 15,
-    "identityHash": "d644789c7d7153d0cfbcf0b2594dc01b",
+    "identityHash": "5ce31c6e9a7028ed2506809c1a92b15e",
     "entities": [
       {
         "tableName": "account",
@@ -882,7 +882,7 @@
       },
       {
         "tableName": "article_read_position",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`articleId` TEXT NOT NULL, `accountId` INTEGER NOT NULL, `progress` REAL NOT NULL, `lastReadTime` INTEGER NOT NULL, `isSynced` INTEGER NOT NULL, PRIMARY KEY(`articleId`), FOREIGN KEY(`articleId`) REFERENCES `article`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`articleId` TEXT NOT NULL, `accountId` INTEGER NOT NULL, `feedUrl` TEXT NOT NULL, `articleLink` TEXT NOT NULL, `progress` REAL NOT NULL, `lastReadTime` INTEGER NOT NULL, `isSynced` INTEGER NOT NULL, PRIMARY KEY(`articleId`), FOREIGN KEY(`articleId`) REFERENCES `article`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "articleId",
@@ -894,6 +894,18 @@
             "fieldPath": "accountId",
             "columnName": "accountId",
             "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "feedUrl",
+            "columnName": "feedUrl",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "articleLink",
+            "columnName": "articleLink",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
@@ -967,7 +979,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd644789c7d7153d0cfbcf0b2594dc01b')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5ce31c6e9a7028ed2506809c1a92b15e')"
     ]
   }
 }

@@ -52,6 +52,8 @@ class ReadPositionConflictResolverTest {
     private fun position(progress: Float, lastReadTime: Long = OLDER_TIMESTAMP) = ArticleReadPosition(
         articleId = ARTICLE_ID,
         accountId = ACCOUNT_ID,
+        feedUrl = FEED_URL,
+        articleLink = ARTICLE_LINK,
         progress = progress,
         lastReadTime = lastReadTime,
         isSynced = false,
@@ -60,6 +62,8 @@ class ReadPositionConflictResolverTest {
     private companion object {
         const val ARTICLE_ID = "article-id"
         const val ACCOUNT_ID = 1
+        const val FEED_URL = "https://example.com/feed"
+        const val ARTICLE_LINK = "https://example.com/article"
         const val LOCAL_PROGRESS = 0.4f
         const val REMOTE_PROGRESS = 0.7f
         const val OLDER_TIMESTAMP = 1_700_000_000_000L
