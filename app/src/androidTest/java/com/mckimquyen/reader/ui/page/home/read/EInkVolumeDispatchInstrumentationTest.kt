@@ -85,7 +85,7 @@ class EInkVolumeDispatchInstrumentationTest {
         composeRule.waitForIdle()
         assertTrue(ReaderVolumeKeyBridge.dispatch(KeyEvent.KEYCODE_VOLUME_UP, KeyEvent.ACTION_DOWN, 0))
 
-        composeRule.activityRule.scenario.close()
+        composeRule.activityRule.scenario.recreate()
         InstrumentationRegistry.getInstrumentation().waitForIdleSync()
         assertFalse(ReaderVolumeKeyBridge.dispatch(KeyEvent.KEYCODE_VOLUME_UP, KeyEvent.ACTION_DOWN, 0))
     }
