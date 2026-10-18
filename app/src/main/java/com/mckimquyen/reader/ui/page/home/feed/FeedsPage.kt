@@ -26,6 +26,7 @@ import androidx.compose.material.icons.rounded.Refresh
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -37,6 +38,9 @@ import androidx.compose.runtime.snapshots.SnapshotStateMap
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -58,6 +62,7 @@ import com.mckimquyen.reader.ui.component.base.DisplayText
 import com.mckimquyen.reader.ui.component.base.FeedbackIconButton
 import com.mckimquyen.reader.ui.component.base.BaseScaffold
 import com.mckimquyen.reader.ui.component.base.Subtitle
+import com.mckimquyen.reader.ui.component.onthisday.OnThisDayCard
 import com.mckimquyen.reader.ui.ext.alphaLN
 import com.mckimquyen.reader.ui.ext.collectAsStateValue
 import com.mckimquyen.reader.ui.ext.findActivity
@@ -71,6 +76,8 @@ import com.mckimquyen.reader.ui.page.home.feed.drawer.group.GroupOptionDrawer
 import com.mckimquyen.reader.ui.page.home.feed.subs.SubscribeDialog
 import com.mckimquyen.reader.ui.page.home.feed.subs.SubscribeViewModel
 import com.mckimquyen.reader.ui.page.home.addsources.CountriesList
+import com.mckimquyen.reader.ui.page.onthisday.OnThisDayUiState
+import com.mckimquyen.reader.ui.page.onthisday.OnThisDayViewModel
 import kotlin.collections.set
 import kotlin.math.ln
 
@@ -82,9 +89,20 @@ fun FeedsPage(
     navController: NavHostController,
     feedsViewModel: FeedsViewModel = hiltViewModel(),
     subscribeViewModel: SubscribeViewModel = hiltViewModel(),
+    onThisDayViewModel: OnThisDayViewModel = hiltViewModel(),
     homeViewModel: HomeViewModel,
 ) {
     val context = LocalContext.current
+    val onThisDayState = onThisDayViewModel.state.collectAsStateValue()
+    // Làm mới khi quay lại màn hình (vd qua nửa đêm). Observer được gỡ khi rời composition.
+    val lifecycleOwner = LocalLifecycleOwner.current
+    DisposableEffect(lifecycleOwner, onThisDayViewModel) {
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_RESUME) onThisDayViewModel.refresh()
+        }
+        lifecycleOwner.lifecycle.addObserver(observer)
+        onDispose { lifecycleOwner.lifecycle.removeObserver(observer) }
+    }
     val topBarTonalElevation = LocalFeedsTopBarTonalElevation.current
     val groupListTonalElevation = LocalFeedsGroupListTonalElevation.current
     val groupListExpand = LocalFeedsGroupListExpand.current
@@ -244,6 +262,24 @@ fun FeedsPage(
                                 group = null,
                                 feed = null,
                             )
+                        )
+                    }
+                }
+                if (onThisDayState is OnThisDayUiState.Content) {
+                    item {
+                        OnThisDayCard(
+                            articles = onThisDayState.articles,
+                            currentYear = onThisDayState.currentYear,
+                            onArticleClick = { articleId ->
+                                navController.navigate("${RouteName.READING}/$articleId") {
+                                    launchSingleTop = true
+                                }
+                            },
+                            onSeeAllClick = {
+                                navController.navigate(RouteName.ON_THIS_DAY) {
+                                    launchSingleTop = true
+                                }
+                            },
                         )
                     }
                 }

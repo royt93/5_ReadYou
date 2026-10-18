@@ -184,6 +184,9 @@ fun FlowPage(
                     onSmartCollections = {
                         navController.navigate(RouteName.SMART_COLLECTIONS) { launchSingleTop = true }
                     },
+                    onOnThisDay = {
+                        navController.navigate(RouteName.ON_THIS_DAY) { launchSingleTop = true }
+                    },
                 )
                 FeedbackIconButton(
                     imageVector = Icons.Rounded.Search,

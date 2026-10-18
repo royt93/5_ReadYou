@@ -1,6 +1,7 @@
 package com.mckimquyen.reader.ui.page.home.flow
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.History
 import androidx.compose.material.icons.outlined.NotificationsActive
 import androidx.compose.material.icons.outlined.Podcasts
 import androidx.compose.material.icons.outlined.Psychology
@@ -28,6 +29,7 @@ internal fun FlowActionsMenu(
     onBrainRpg: () -> Unit = {},
     onWatchdog: () -> Unit = {},
     onSmartCollections: () -> Unit = {},
+    onOnThisDay: () -> Unit = {},
 ) {
     DropdownMenu(
         expanded = expanded,
@@ -44,6 +46,11 @@ internal fun FlowActionsMenu(
             text = { Text(stringResource(R.string.smart_collections_title)) },
             leadingIcon = { Icon(Icons.Rounded.AutoAwesome, contentDescription = null) },
             onClick = { onDismiss(); onSmartCollections() },
+        )
+        DropdownMenuItem(
+            text = { Text(stringResource(R.string.on_this_day_title)) },
+            leadingIcon = { Icon(Icons.Outlined.History, contentDescription = null) },
+            onClick = { onDismiss(); onOnThisDay() },
         )
         DropdownMenuItem(
             text = { Text(stringResource(R.string.daily_digest_title)) },
