@@ -64,6 +64,7 @@ data class Settings(
     val readingBionic: ReadingBionicPref = ReadingBionicPref.default,
     val readingBilingual: ReadingBilingualPref = ReadingBilingualPref.default,
     val readPositionSync: ReadPositionSyncPref = ReadPositionSyncPref.default,
+    val eInkMode: EInkModePref = EInkModePref.default,
     val readingBilingualTarget: ReadingBilingualTargetPref = ReadingBilingualTargetPref.default,
     val readingTextFontSize: Int = ReadingTextFontSizePref.default,
     val readingLetterSpacing: Double = ReadingLetterSpacingPref.default,
@@ -175,6 +176,8 @@ val LocalReadingBilingual =
     compositionLocalOf<ReadingBilingualPref> { ReadingBilingualPref.default }
 val LocalReadPositionSync =
     compositionLocalOf<ReadPositionSyncPref> { ReadPositionSyncPref.default }
+val LocalEInkMode =
+    compositionLocalOf<EInkModePref> { EInkModePref.default }
 val LocalReadingBilingualTarget =
     compositionLocalOf<ReadingBilingualTargetPref> { ReadingBilingualTargetPref.default }
 val LocalReadingTextFontSize = compositionLocalOf { ReadingTextFontSizePref.default }
@@ -277,6 +280,7 @@ fun SettingsProvider(
         LocalReadingBionic provides settings.readingBionic,
         LocalReadingBilingual provides settings.readingBilingual,
         LocalReadPositionSync provides settings.readPositionSync,
+        LocalEInkMode provides settings.eInkMode,
         LocalReadingBilingualTarget provides settings.readingBilingualTarget,
         LocalReadingTextFontSize provides settings.readingTextFontSize,
         LocalReadingLetterSpacing provides settings.readingLetterSpacing,

@@ -416,6 +416,12 @@ sealed class DataStoreKeys<T> {
             get() = booleanPreferencesKey("readPositionSync")
     }
 
+    object EInkMode : DataStoreKeys<Boolean>() {
+
+        override val key: Preferences.Key<Boolean>
+            get() = booleanPreferencesKey("eInkMode")
+    }
+
     object ReadingBilingual : DataStoreKeys<Boolean>() {
 
         override val key: Preferences.Key<Boolean>

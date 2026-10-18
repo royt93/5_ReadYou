@@ -63,6 +63,7 @@ fun Preferences.toSettings(): Settings {
         readingBionic = ReadingBionicPref.fromPreferences(this),
         readingBilingual = ReadingBilingualPref.fromPreferences(this),
         readPositionSync = ReadPositionSyncPref.fromPreferences(this),
+        eInkMode = EInkModePref.fromPreferences(this),
         readingBilingualTarget = ReadingBilingualTargetPref.fromPreferences(this),
         readingTextFontSize = ReadingTextFontSizePref.fromPreferences(this),
         readingLetterSpacing = ReadingLetterSpacingPref.fromPreferences(this),
