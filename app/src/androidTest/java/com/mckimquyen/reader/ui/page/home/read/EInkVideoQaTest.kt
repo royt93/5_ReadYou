@@ -62,25 +62,24 @@ class EInkVideoQaTest {
                 composeRule.runOnUiThread { ready = playerView.player?.playbackState == Player.STATE_READY }
                 ready
             }
-            composeRule.runOnUiThread {
-                playerView.showController()
-                // Chạm giữa AndroidView thật: event phải tới player view hierarchy, tap-zone không được lật trang.
-                val now = android.os.SystemClock.uptimeMillis()
-                val down = MotionEvent.obtain(now, now, MotionEvent.ACTION_DOWN, playerView.width / 2f, playerView.height / 2f, 0)
-                val up = MotionEvent.obtain(now, now + TAP_DURATION_MS, MotionEvent.ACTION_UP, playerView.width / 2f, playerView.height / 2f, 0)
-                try {
-                    playerView.dispatchTouchEvent(down)
-                    playerView.dispatchTouchEvent(up)
-                } finally { down.recycle(); up.recycle() }
-                val button = playerView.findViewById<View>(androidx.media3.ui.R.id.exo_play_pause)
-                assertNotNull("Player phải có play/pause control", button)
-                assertTrue("Play button phải enabled trong controller", requireNotNull(button).isEnabled)
-            }
+            // PlayerView ở trạng thái paused; controller bật khi chạm giữa. Click vào nút play/pause
+            // thật của PlayerControlView phải bắt đầu phát và không được lật trang.
+            composeRule.runOnUiThread { playerView.showController() }
             composeRule.waitForIdle()
+            androidx.test.espresso.Espresso.onView(
+                androidx.test.espresso.matcher.ViewMatchers.withId(androidx.media3.ui.R.id.exo_play_pause)
+            ).perform(androidx.test.espresso.action.ViewActions.click())
+            composeRule.waitUntil(TIMEOUT_MS) {
+                var playing = false
+                composeRule.runOnUiThread { playing = playerView.player?.isPlaying == true }
+                playing
+            }
             assertEquals("Center video không được lật trang", 0, turns.get())
+            assertNotNull("Playback phải đặt PiP marker", VideoPipController.playing)
             visible = false
             composeRule.waitForIdle()
             composeRule.runOnUiThread { assertNull("PlayerView còn giữ player sau dispose", playerView.player) }
+            assertNull("Dispose phải bỏ PiP marker", VideoPipController.playing)
         } finally {
             visible = false
             composeRule.waitForIdle()
