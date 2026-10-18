@@ -36,6 +36,7 @@ class SmartCollectionMatcher @Inject constructor(
                     query = collection.query,
                     articles = candidateArticles,
                     minScoreThreshold = collection.minScoreThreshold,
+                    limit = candidateArticles.size,
                 ).map { result ->
                     SmartCollectionArticle(
                         collectionId = collection.id,
@@ -69,6 +70,7 @@ class SmartCollectionMatcher @Inject constructor(
                     query = collection.query,
                     articles = candidates,
                     minScoreThreshold = collection.minScoreThreshold,
+                    limit = candidates.size,
                 ).map { result ->
                     SmartCollectionArticle(
                         collectionId = collectionId,

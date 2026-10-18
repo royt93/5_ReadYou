@@ -19,9 +19,18 @@
 - Editing a collection query re-evaluates that account's articles in bounded pages. Matches replace atomically; interruption before replacement preserves previous memberships. Account mismatch is rejected.
 - Compose screens provide list/detail, create/edit/delete, semantic-search quick-save and Flow overflow navigation. Status/navigation inset padding is explicit. UI strings added for all shipped locales.
 
+## Pre-push review follow-up
+
+- Reviewed `origin/dev..ddeebd07` (30 commits, KNOW-07 and IDEA-06) directly after independent reviewers could not start because of API rate limits. Review covered migration/entity/DAO wiring, sync insertion hook, matcher and query re-evaluation, collection UI/routes, E-Ink preference/theme/input lifecycle, and tests.
+- Confirmed and fixed one blocking defect: `SemanticSearchEngine.rank()` defaults to 50 search results; collection matching must not truncate eligible memberships. Both incremental matching and paged re-evaluation now pass the candidate count explicitly as `limit`.
+- Regression tests use the real semantic engine: before fix, 60 candidates produced 50 memberships and 260 candidates across two pages produced 100; after fix, every expected ID is retained.
+- Latest `testDevDebugUnitTest assembleDevDebug compileDevDebugAndroidTestKotlin`: **PASS**, 937 tests, 0 failures/errors/skipped. No live device tests were repeated for this two-line matching fix.
+- Removed one trailing whitespace line in this feature's implementation plan. Unrelated `.idea` changes are excluded from commits/push.
+- Previously recorded lint and dedicated profiling/golden limitations remain; this review does not claim exhaustive concurrency or full end-to-end sync verification.
+
 ## Verification
 
-- `./gradlew testDevDebugUnitTest` — **PASS**, 893 tests.
+- `./gradlew testDevDebugUnitTest` — **PASS**, 893 tests at original completion (latest combined suite: 937; see review follow-up above).
 - `./gradlew assembleDevDebug` — **PASS**.
 - `./gradlew compileDevDebugAndroidTestKotlin` — **PASS**.
 - `adb -s emulator-5554 shell am instrument -w -e class com.mckimquyen.reader.ui.page.collection.SmartCollectionEdgeToEdgeTest com.mckimquyen.reader.test/androidx.test.runner.AndroidJUnitRunner` — **PASS**, 1 test on locked Pixel emulator.

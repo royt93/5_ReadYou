@@ -98,7 +98,7 @@
 - Modify: `app/src/main/java/com/mckimquyen/reader/domain/sv/AbstractRssRepository.kt`
 - Modify: `app/src/main/java/com/mckimquyen/reader/domain/repository/ArticleDao.kt` (add bounded query for recent articles after sync)
 - Create: `app/src/test/java/com/mckimquyen/reader/domain/sv/SmartCollectionMatcherTest.kt`
-- Modify: `app/src/test/java/com/mckimquyen/reader/domain/repository/ArticleDaoTest.kt` (query bounds/account isolation) 
+- Modify: `app/src/test/java/com/mckimquyen/reader/domain/repository/ArticleDaoTest.kt` (query bounds/account isolation)
 
 **Interfaces:**
 - Produces: `SmartCollectionMatcher.matchNewArticles(accountId: Int, candidateArticles: List<ArticleWithFeed>): Int`
