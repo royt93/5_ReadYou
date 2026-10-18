@@ -28,6 +28,10 @@ object RouteName {
     // Brain RPG
     const val BRAIN_RPG = "brain_rpg"
 
+    // Smart Collections (KNOW-07)
+    const val SMART_COLLECTIONS = "smart_collections"
+    const val SMART_COLLECTION_DETAIL = "smart_collections/{collectionId}"
+
     // Notebook (Second Brain)
     const val NOTEBOOK = "notebook"
 

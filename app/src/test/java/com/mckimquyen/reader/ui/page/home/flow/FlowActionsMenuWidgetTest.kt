@@ -47,7 +47,7 @@ class FlowActionsMenuWidgetTest {
             FlowToolbarActionsHarness(showMarkAllAsRead = true)
         }
         composeRule.onNodeWithContentDescription(context.getString(R.string.more)).performClick()
-        listOf(R.string.mark_all_as_read, R.string.commute_cast_title, R.string.brain_rpg_title, R.string.watchdog_title)
+        listOf(R.string.mark_all_as_read, R.string.commute_cast_title, R.string.brain_rpg_title, R.string.watchdog_title, R.string.smart_collections_title)
             .forEach { composeRule.onNodeWithText(context.getString(it)).assertIsDisplayed() }
         composeRule.onNodeWithContentDescription(context.getString(R.string.search)).assertIsDisplayed()
         composeRule.onNodeWithContentDescription(context.getString(R.string.back)).assertIsDisplayed()
@@ -73,6 +73,7 @@ class FlowActionsMenuWidgetTest {
                 onCommuteCast = { selected += 1 },
                 onBrainRpg = { selected += 2 },
                 onWatchdog = { selected += 3 },
+                onSmartCollections = { selected += 4 },
             )
         }
         val actions = listOf(
@@ -80,6 +81,7 @@ class FlowActionsMenuWidgetTest {
             R.string.commute_cast_title,
             R.string.brain_rpg_title,
             R.string.watchdog_title,
+            R.string.smart_collections_title,
         )
         actions.forEachIndexed { index, stringId ->
             val label = context.getString(stringId)
@@ -99,6 +101,7 @@ class FlowActionsMenuWidgetTest {
         onCommuteCast: () -> Unit = {},
         onBrainRpg: () -> Unit = {},
         onWatchdog: () -> Unit = {},
+        onSmartCollections: () -> Unit = {},
     ) {
         var expanded by remember { mutableStateOf(false) }
         Row(Modifier.width(320.dp)) {
@@ -116,6 +119,7 @@ class FlowActionsMenuWidgetTest {
             onCommuteCast = onCommuteCast,
             onBrainRpg = onBrainRpg,
             onWatchdog = onWatchdog,
+            onSmartCollections = onSmartCollections,
         )
     }
 }

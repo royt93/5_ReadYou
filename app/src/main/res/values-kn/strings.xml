@@ -856,4 +856,18 @@
     <string name="share_target_invalid_url">No valid link found</string>
     <string name="read_position_sync">Sync reading position</string>
     <string name="read_position_sync_desc">Save and restore your reading position on this device and sync it through WebDAV when configured</string>
+    <string name="smart_collections_title">Smart Collections</string>
+    <string name="smart_collection_save_title">Save Semantic Collection</string>
+    <string name="smart_collection_name">Collection name</string>
+    <string name="smart_collection_query">Topic query</string>
+    <string name="smart_collection_save_action">Save as collection</string>
+    <string name="smart_collection_empty">No smart collections yet. Save a semantic search to follow a topic.</string>
+    <string name="smart_collection_articles_count">%1$d articles</string>
+    <string name="smart_collection_edit">Edit</string>
+    <string name="smart_collection_delete">Delete</string>
+    <string name="smart_collection_delete_confirm">Delete this collection? Its articles will remain in your library.</string>
+    <string name="smart_collection_saved">Smart collection saved</string>
+    <string name="smart_collection_rename_title">Edit smart collection</string>
+    <string name="smart_collection_empty_articles">No matching new articles yet. New matches will appear after sync.</string>
+    <string name="save">Save</string>
 </resources>

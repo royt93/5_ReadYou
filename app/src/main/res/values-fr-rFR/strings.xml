@@ -789,4 +789,18 @@
     <string name="share_target_invalid_url">Aucun lien valide trouvé</string>
     <string name="read_position_sync">Synchroniser la position de lecture</string>
     <string name="read_position_sync_desc">Enregistrez et restaurez votre position de lecture sur cet appareil et synchronisez-la via WebDAV si configuré</string>
+    <string name="smart_collections_title">Collections intelligentes</string>
+    <string name="smart_collection_save_title">Enregistrer une collection sémantique</string>
+    <string name="smart_collection_name">Nom de la collection</string>
+    <string name="smart_collection_query">Sujet à suivre</string>
+    <string name="smart_collection_save_action">Enregistrer comme collection</string>
+    <string name="smart_collection_empty">Aucune collection intelligente. Enregistrez une recherche sémantique pour suivre un sujet.</string>
+    <string name="smart_collection_articles_count">%1$d articles</string>
+    <string name="smart_collection_edit">Modifier</string>
+    <string name="smart_collection_delete">Supprimer</string>
+    <string name="smart_collection_delete_confirm">Supprimer cette collection ? Les articles resteront dans votre bibliothèque.</string>
+    <string name="smart_collection_saved">Collection intelligente enregistrée</string>
+    <string name="smart_collection_rename_title">Modifier la collection intelligente</string>
+    <string name="smart_collection_empty_articles">Aucun nouvel article correspondant. Les résultats apparaîtront après la synchronisation.</string>
+    <string name="save">Enregistrer</string>
 </resources>

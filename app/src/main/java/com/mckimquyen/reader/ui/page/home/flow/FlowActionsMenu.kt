@@ -5,6 +5,7 @@ import androidx.compose.material.icons.outlined.NotificationsActive
 import androidx.compose.material.icons.outlined.Podcasts
 import androidx.compose.material.icons.outlined.Psychology
 import androidx.compose.material.icons.rounded.Article
+import androidx.compose.material.icons.rounded.AutoAwesome
 import androidx.compose.material.icons.rounded.DoneAll
 import androidx.compose.material.icons.outlined.PlayCircle
 import androidx.compose.material3.DropdownMenu
@@ -26,6 +27,7 @@ internal fun FlowActionsMenu(
     onCommuteCast: () -> Unit = {},
     onBrainRpg: () -> Unit = {},
     onWatchdog: () -> Unit = {},
+    onSmartCollections: () -> Unit = {},
 ) {
     DropdownMenu(
         expanded = expanded,
@@ -38,6 +40,11 @@ internal fun FlowActionsMenu(
                 onClick = { onDismiss(); onMarkAllAsRead?.invoke() },
             )
         }
+        DropdownMenuItem(
+            text = { Text(stringResource(R.string.smart_collections_title)) },
+            leadingIcon = { Icon(Icons.Rounded.AutoAwesome, contentDescription = null) },
+            onClick = { onDismiss(); onSmartCollections() },
+        )
         DropdownMenuItem(
             text = { Text(stringResource(R.string.daily_digest_title)) },
             leadingIcon = { Icon(Icons.Rounded.Article, contentDescription = null) },

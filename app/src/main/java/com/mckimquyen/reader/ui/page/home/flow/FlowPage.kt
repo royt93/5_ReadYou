@@ -1,8 +1,10 @@
 package com.mckimquyen.reader.ui.page.home.flow
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBars
@@ -15,6 +17,8 @@ import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material.icons.rounded.MoreVert
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
@@ -59,6 +63,8 @@ import com.mckimquyen.reader.ui.component.watchdog.LocalWatchdogKeywords
 import com.mckimquyen.reader.ui.component.watchdog.WatchdogSheet
 import com.mckimquyen.reader.ui.component.base.Subtitle
 import com.mckimquyen.reader.ui.component.search.SemanticSearchCard
+import com.mckimquyen.reader.ui.page.collection.SaveSmartCollectionDialog
+import com.mckimquyen.reader.ui.page.collection.SmartCollectionsViewModel
 import androidx.compose.foundation.lazy.items
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -93,6 +99,8 @@ fun FlowPage(
     var actionsExpanded by remember { mutableStateOf(false) }
     var onSearch by remember { mutableStateOf(false) }
     var isSyncing by remember { mutableStateOf(false) }
+    var showSaveCollectionDialog by remember { mutableStateOf(false) }
+    val smartCollectionsViewModel: SmartCollectionsViewModel = hiltViewModel()
     // observeAsState() is the correct Compose-idiomatic way to observe LiveData.
     // Raw .observe() in a composable body registers a new observer every recomposition.
     val workInfoList by homeViewModel.syncWorkLiveData.observeAsState()
@@ -173,6 +181,9 @@ fun FlowPage(
                         navController.navigate(RouteName.BRAIN_RPG) { launchSingleTop = true }
                     },
                     onWatchdog = { homeViewModel.openWatchdogSheet() },
+                    onSmartCollections = {
+                        navController.navigate(RouteName.SMART_COLLECTIONS) { launchSingleTop = true }
+                    },
                 )
                 FeedbackIconButton(
                     imageVector = Icons.Rounded.Search,
@@ -274,10 +285,16 @@ fun FlowPage(
 
                     if (onSearch && semanticResults.isNotEmpty()) {
                         item {
-                            Subtitle(
-                                modifier = Modifier.padding(horizontal = 24.dp),
-                                text = stringResource(R.string.semantic_search_results_title),
-                            )
+                            Row(
+                                modifier = Modifier.fillMaxWidth().padding(horizontal = 24.dp, vertical = 8.dp),
+                                horizontalArrangement = androidx.compose.foundation.layout.Arrangement.SpaceBetween,
+                                verticalAlignment = androidx.compose.ui.Alignment.CenterVertically,
+                            ) {
+                                Subtitle(text = stringResource(R.string.semantic_search_results_title))
+                                androidx.compose.material3.TextButton(onClick = { showSaveCollectionDialog = true }) {
+                                    Text(stringResource(R.string.smart_collection_save_action))
+                                }
+                            }
                         }
                         items(semanticResults, key = { "semantic_${it.articleWithFeed.article.id}" }) { result ->
                             SemanticSearchCard(
@@ -393,4 +410,20 @@ fun FlowPage(
             }
         }
     )
+
+    if (showSaveCollectionDialog) {
+        val currentQuery = homeUiState.searchContent.trim()
+        val context = androidx.compose.ui.platform.LocalContext.current
+        val savedToastText = stringResource(R.string.smart_collection_saved)
+        SaveSmartCollectionDialog(
+            initialQuery = currentQuery,
+            onDismiss = { showSaveCollectionDialog = false },
+            onSave = { name, query ->
+                smartCollectionsViewModel.createCollection(name, query) {
+                    showSaveCollectionDialog = false
+                    android.widget.Toast.makeText(context, savedToastText, android.widget.Toast.LENGTH_SHORT).show()
+                }
+            },
+        )
+    }
 }

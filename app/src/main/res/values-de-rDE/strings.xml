@@ -786,4 +786,18 @@
     <string name="share_target_invalid_url">Kein gültiger Link gefunden</string>
     <string name="read_position_sync">Leseposition synchronisieren</string>
     <string name="read_position_sync_desc">Speichern und Wiederherstellen der Leseposition auf diesem Gerät sowie Synchronisierung über WebDAV, sofern konfiguriert</string>
+    <string name="smart_collections_title">Intelligente Sammlungen</string>
+    <string name="smart_collection_save_title">Semantische Sammlung speichern</string>
+    <string name="smart_collection_name">Name der Sammlung</string>
+    <string name="smart_collection_query">Thema beobachten</string>
+    <string name="smart_collection_save_action">Als Sammlung speichern</string>
+    <string name="smart_collection_empty">Noch keine intelligenten Sammlungen. Speichern Sie eine semantische Suche, um ein Thema zu verfolgen.</string>
+    <string name="smart_collection_articles_count">%1$d Artikel</string>
+    <string name="smart_collection_edit">Bearbeiten</string>
+    <string name="smart_collection_delete">Löschen</string>
+    <string name="smart_collection_delete_confirm">Diese Sammlung löschen? Die Artikel bleiben in Ihrer Bibliothek erhalten.</string>
+    <string name="smart_collection_saved">Intelligente Sammlung gespeichert</string>
+    <string name="smart_collection_rename_title">Intelligente Sammlung bearbeiten</string>
+    <string name="smart_collection_empty_articles">Noch keine passenden neuen Artikel. Neue Treffer erscheinen nach der Synchronisierung.</string>
+    <string name="save">Speichern</string>
 </resources>
