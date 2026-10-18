@@ -4,6 +4,10 @@ import android.view.KeyEvent
 import androidx.compose.foundation.gestures.awaitEachGesture
 import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.PointerEventPass
 import androidx.compose.ui.input.pointer.pointerInput
@@ -38,6 +42,7 @@ fun resolvePageTurn(
     viewportHeight: Int,
 ): PageTarget? {
     if (visible.isEmpty() || totalCount <= 0 || viewportHeight <= 0) return null
+    if (visible.any { it.index !in 0 until totalCount || it.size <= 0 }) return null
     val first = visible.minByOrNull { it.index } ?: return null
     val last = visible.maxByOrNull { it.index } ?: return null
     val lastIndex = totalCount - 1
@@ -109,6 +114,38 @@ object ReaderVolumeKeyBridge {
 
     internal fun clearForTest() {
         handler = null
+    }
+}
+
+/**
+ * Claims hardware volume keys for page turning while [enabled] and TTS is not playing. The handler
+ * is registered only for this composition's lifetime, so leaving the Reader, turning E-Ink off or
+ * recreating the Activity always hands the keys back to the system.
+ */
+@Composable
+internal fun ReaderVolumeKeys(
+    enabled: Boolean,
+    ttsPlaying: Boolean,
+    onTurn: (PageDirection) -> Unit,
+) {
+    val currentTtsPlaying by rememberUpdatedState(ttsPlaying)
+    val currentOnTurn by rememberUpdatedState(onTurn)
+    DisposableEffect(enabled) {
+        if (!enabled) return@DisposableEffect onDispose {}
+        val handler: (Int, Int, Int) -> Boolean = { keyCode, action, repeatCount ->
+            val direction = resolveVolumeKeyTurn(
+                keyCode = keyCode,
+                action = action,
+                repeatCount = repeatCount,
+                eInk = true,
+                ttsPlaying = currentTtsPlaying,
+                readerActive = true,
+            )
+            direction?.let(currentOnTurn)
+            direction != null
+        }
+        ReaderVolumeKeyBridge.register(handler)
+        onDispose { ReaderVolumeKeyBridge.unregister(handler) }
     }
 }
 
