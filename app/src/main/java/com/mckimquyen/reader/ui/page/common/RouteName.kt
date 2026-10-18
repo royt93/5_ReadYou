@@ -31,6 +31,7 @@ object RouteName {
     // Smart Collections (KNOW-07)
     const val SMART_COLLECTIONS = "smart_collections"
     const val ON_THIS_DAY = "on_this_day"
+    const val READING_STATISTICS = "reading_statistics"
     const val SMART_COLLECTION_DETAIL = "smart_collections/{collectionId}"
 
     // Notebook (Second Brain)

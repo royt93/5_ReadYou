@@ -17,6 +17,7 @@ import androidx.compose.material.icons.outlined.AccountCircle
 import androidx.compose.material.icons.outlined.AddCircle
 import androidx.compose.material.icons.outlined.AutoAwesome
 import androidx.compose.material.icons.outlined.AutoStories
+import androidx.compose.material.icons.outlined.BarChart
 import androidx.compose.material.icons.outlined.Build
 import androidx.compose.material.icons.outlined.Code
 import androidx.compose.material.icons.outlined.Download
@@ -180,6 +181,17 @@ fun SettingsPage(
                         icon = Icons.Outlined.Psychology,
                     ) {
                         navController.navigate(RouteName.BRAIN_RPG) {
+                            launchSingleTop = true
+                        }
+                    }
+                }
+                item {
+                    SelectableSettingGroupItem(
+                        title = stringResource(R.string.reading_stats_title),
+                        desc = stringResource(R.string.reading_stats_settings_desc),
+                        icon = Icons.Outlined.BarChart,
+                    ) {
+                        navController.navigate(RouteName.READING_STATISTICS) {
                             launchSingleTop = true
                         }
                     }
