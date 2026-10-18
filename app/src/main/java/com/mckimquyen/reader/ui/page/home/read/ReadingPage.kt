@@ -156,6 +156,7 @@ fun ReadingPage(
     LaunchedEffect(readingUiState.articleWithFeed?.article?.id) {
         Log.i("RLog", "ReadPage: ${readingUiState.articleWithFeed}")
         readingUiState.articleWithFeed?.let {
+            readingViewModel.recordOpened()
             if (it.article.isUnread) {
                 readingViewModel.markUnread(false)
             }

@@ -22,8 +22,10 @@ import com.mckimquyen.reader.infrastructure.audio.ambient.ZenAudioManager
 import com.mckimquyen.reader.infrastructure.rss.RssHelper
 import com.mckimquyen.reader.domain.model.article.ArticleReadPosition
 import com.mckimquyen.reader.domain.model.article.ReadPositionConflictResolver
+import com.mckimquyen.reader.domain.repository.ArticleDao
 import com.mckimquyen.reader.domain.repository.ArticleReadPositionDao
 import com.mckimquyen.reader.infrastructure.di.DefaultDispatcher
+import com.mckimquyen.reader.infrastructure.di.IODispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineDispatcher
@@ -49,6 +51,8 @@ class ReadingViewModel @Inject constructor(
     val zenAudioManager: ZenAudioManager,
     @DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher = Dispatchers.Default,
     private val articleReadPositionDao: ArticleReadPositionDao? = null,
+    private val articleDao: ArticleDao? = null,
+    @IODispatcher private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
 ) : ViewModel() {
 
     private val _readingUiState = MutableStateFlow(ReadingUiState())
@@ -529,6 +533,26 @@ class ReadingViewModel @Inject constructor(
         ttsManager.stop()
         zenAudioManager.stop()
         super.onCleared()
+    }
+
+    /**
+     * Ghi nhận lần đọc đầu tiên của bài đang mở (readAt giữ nguyên nếu đã có). Lỗi DB chỉ log, không crash.
+     * Không gọi từ markUnread/markAllAsRead/sync: chỉ khi người dùng thật sự mở bài ở Reader.
+     */
+    fun recordOpened(nowMillis: Long = System.currentTimeMillis()) {
+        val dao = articleDao ?: return
+        val article = _readingUiState.value.articleWithFeed?.article ?: return
+        val accountId = article.accountId
+        val articleId = article.id
+        viewModelScope.launch(ioDispatcher) {
+            try {
+                dao.markOpened(accountId, articleId, nowMillis)
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                Log.w("ReadingViewModel", "markOpened failed", e)
+            }
+        }
     }
 
     fun markUnread(isUnread: Boolean) {
