@@ -200,6 +200,24 @@ class SmartCollectionDaoTest {
         assertEquals(1, count)
     }
 
+    @Test
+    fun replaceMatches_failedReplacementRollsBackAndKeepsPreviousMembership() = runBlocking {
+        val col = smartCollection()
+        dao.upsertCollection(col)
+        dao.insertMatches(listOf(SmartCollectionArticle(col.id, ARTICLE_ID, score = 0.5f)))
+
+        runCatching {
+            dao.replaceMatches(
+                col.id,
+                listOf(SmartCollectionArticle(col.id, "missing-article", score = 0.8f)),
+            )
+        }
+
+        assertEquals(1, dao.countArticles(col.id))
+        val retained = dao.observeArticlesInCollection(col.id).first()
+        assertEquals(ARTICLE_ID, retained.single().article.id)
+    }
+
     // ── Observe articles in collection ────────────────────────────────────────
 
     @Test

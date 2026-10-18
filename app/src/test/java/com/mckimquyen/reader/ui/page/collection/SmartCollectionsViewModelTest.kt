@@ -6,6 +6,7 @@ import com.mckimquyen.reader.domain.model.collection.SmartCollection
 import com.mckimquyen.reader.domain.model.collection.SmartCollectionWithCount
 import com.mckimquyen.reader.domain.repository.SmartCollectionDao
 import com.mckimquyen.reader.domain.sv.SmartCollectionMatcher
+import com.mckimquyen.reader.ui.ext.currentAccountId
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
@@ -34,6 +35,7 @@ class SmartCollectionsViewModelTest {
     private val testDispatcher = StandardTestDispatcher()
     private val smartCollectionDao: SmartCollectionDao = mockk(relaxed = true)
     private val smartCollectionMatcher: SmartCollectionMatcher = mockk(relaxed = true)
+    private val matchAccounts = mutableListOf<Int>()
     private lateinit var viewModel: SmartCollectionsViewModel
 
     @Before
@@ -52,6 +54,11 @@ class SmartCollectionsViewModelTest {
                 )
             )
         )
+        matchAccounts.clear()
+        coEvery { smartCollectionMatcher.reevaluateCollection(any(), any()) } coAnswers {
+            matchAccounts += firstArg<Int>()
+            0
+        }
         val app = ApplicationProvider.getApplicationContext<Application>()
         viewModel = SmartCollectionsViewModel(
             context = app,
@@ -105,6 +112,8 @@ class SmartCollectionsViewModelTest {
 
         coVerify(exactly = 1) { smartCollectionDao.updateCollection("col-1", "New Name", "new query") }
         coVerify(exactly = 1) { smartCollectionMatcher.reevaluateCollection(any(), "col-1") }
+        val expectedAccountId = ApplicationProvider.getApplicationContext<Application>().currentAccountId
+        assertEquals(listOf(expectedAccountId), matchAccounts)
     }
 
     @Test
