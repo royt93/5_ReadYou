@@ -11,6 +11,14 @@ import org.junit.Test
 class EInkTransitionTest {
 
     @Test
+    fun eInkOn_readerToolbarVisibilityTransitionsAreInstant() {
+        assertEquals(EnterTransition.None, com.mckimquyen.reader.ui.component.base.extensibleEnterTransition(true))
+        assertEquals(ExitTransition.None, com.mckimquyen.reader.ui.component.base.extensibleExitTransition(true))
+        assertNotEquals(EnterTransition.None, com.mckimquyen.reader.ui.component.base.extensibleEnterTransition(false))
+        assertNotEquals(ExitTransition.None, com.mckimquyen.reader.ui.component.base.extensibleExitTransition(false))
+    }
+
+    @Test
     fun eInkOn_navigationTransitionsAreInstant() {
         assertEquals(EnterTransition.None, navEnterTransition(eInk = true))
         assertEquals(ExitTransition.None, navExitTransition(eInk = true))

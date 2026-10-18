@@ -1,6 +1,6 @@
 # [IDEA-06] E-Ink Mode — Completion Report
 
-- **Status:** Implemented on local `dev`; not pushed. Independent subagent review completed; two validated findings were fixed (tonal-palette colour leak and page-turn tall/partial-item edge cases). A separate full-screen emulator smoke walk-through is still not claimed.
+- **Status:** Implemented on local `dev`; not pushed. Independent subagent review completed; fixes cover tonal-palette colour leak, E-Ink dark-helper isolation, Reader toolbar visibility animations and tall/partial-item page turns. A separate full-screen manual navigation smoke walk-through is not claimed.
 - **Completed:** 2026-10-18
 - **Commits:** `b1182cec`, `ee9962b3`, `9899e26d`, `70554fad`, `664ecaa0`, `a410cddc`, `fbdf8286`, `c6937361`, `f03111d1`, `2e3abb7c`, `fd382196`, `2b441a22`, `4185b8d8`, `bc17083d`, `13461018`, plus the review-fix commit that follows this report.
 
@@ -13,7 +13,7 @@
 
 ## Verification
 
-- `./gradlew testDevDebugUnitTest`: **934 tests, 0 failures, 0 errors, 0 skipped**, including `EInkModePrefTest`, colour/filter/transition tests, `EInkModeSettingTest`, `EInkPageTurnTest`, `EInkVolumeKeyHandlerTest` and `StringResourceParityTest`.
+- `./gradlew testDevDebugUnitTest`: **935 tests, 0 failures, 0 errors, 0 skipped**, including `EInkModePrefTest`, colour/filter/transition tests, `EInkModeSettingTest`, `EInkPageTurnTest`, `EInkVolumeKeyHandlerTest` and `StringResourceParityTest`.
 - `./gradlew assembleDevDebug compileDevDebugAndroidTestKotlin`: **PASS**.
 - `emulator-5554`, isolated `EInkUiTestRunner`: 10-test combined run **PASS** (side taps, centre child click, disabled mode, DataStore→theme, real settings-row toggle, title below status bar, custom palette accessors neutral while ON and restored when OFF, volume composition/TTS/off/recreate lifecycle). Three volume lifecycle tests also passed with this runner; combined run of 9 UI/lifecycle tests passed including actual `ActivityScenario.recreate()`.
 - `emulator-5554`, standard runner: `EInkVolumeDispatchInstrumentationTest` **5/5 PASS** earlier; final separate hardware `MainActivity` key-dispatch/unregistered no-op run **2/2 PASS**. A first attempt used the standard runner component while the isolated APK was still installed; it failed to locate that runner before running tests. Rebuilding/reinstalling the standard test APK resolved this.

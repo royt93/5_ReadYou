@@ -75,11 +75,14 @@ class EInkModeIntegrationTest {
     fun toggleDrivesThemeWhiteAndRestoresUserDarkThemeWithoutOverwritingIt() {
         var background by mutableStateOf(Color.Unspecified)
         var onBackground by mutableStateOf(Color.Unspecified)
+        var themeSeesDark by mutableStateOf(false)
         composeRule.setContent {
             SettingsProvider {
                 AppTheme(useDarkTheme = true) {
                     background = MaterialTheme.colorScheme.background
                     onBackground = MaterialTheme.colorScheme.onBackground
+                    themeSeesDark = com.mckimquyen.reader.infrastructure.pref.LocalDarkTheme.current.value ==
+                        DarkThemePref.ON.value
                 }
             }
         }
@@ -90,6 +93,7 @@ class EInkModeIntegrationTest {
         runBlocking { context.dataStore.put(DataStoreKeys.EInkMode, EInkModePref.ON.value) }
         composeRule.waitUntil(TIMEOUT_MS) { background == Color.White }
         assertEquals(Color.Black, onBackground)
+        assertTrue("E-Ink content must not see dark theme helpers", !themeSeesDark)
         assertEquals(
             "E-Ink must not overwrite the saved dark-theme preference",
             DarkThemePref.ON.value,

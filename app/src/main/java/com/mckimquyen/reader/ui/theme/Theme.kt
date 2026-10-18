@@ -5,7 +5,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.platform.LocalContext
+import com.mckimquyen.reader.infrastructure.pref.DarkThemePref
 import com.mckimquyen.reader.infrastructure.pref.LocalBasicFonts
+import com.mckimquyen.reader.infrastructure.pref.LocalDarkTheme
 import com.mckimquyen.reader.infrastructure.pref.LocalEInkMode
 import com.mckimquyen.reader.infrastructure.pref.LocalThemeIndex
 import com.mckimquyen.reader.ui.theme.palette.LocalTonalPalettes
@@ -39,7 +41,10 @@ fun AppTheme(
     ProvideZcamViewingConditions {
         CompositionLocalProvider(
             LocalTonalPalettes provides tonalPalettes.apply { Preparing() },
-            LocalTextStyle provides LocalTextStyle.current.applyTextDirection()
+            LocalTextStyle provides LocalTextStyle.current.applyTextDirection(),
+            // E-Ink is always light: helpers such as onLight/onDark must not pick dark tones, but the
+            // saved dark-theme preference itself is never rewritten.
+            LocalDarkTheme provides if (eInkEnabled) DarkThemePref.OFF else LocalDarkTheme.current,
         ) {
             MaterialTheme(
                 colorScheme = when {

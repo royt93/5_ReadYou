@@ -157,16 +157,13 @@ fun HomeEntry(
         }
     }
 
-    val useDarkTheme = if (isReadingPage) {
+    val useDarkTheme = !eInk && if (isReadingPage) {
         LocalReadingDarkTheme.current.isDarkTheme()
     } else {
         LocalDarkTheme.current.isDarkTheme()
     }
 
-    AppTheme(
-        useDarkTheme = if (isReadingPage) LocalReadingDarkTheme.current.isDarkTheme()
-        else LocalDarkTheme.current.isDarkTheme()
-    ) {
+    AppTheme(useDarkTheme = useDarkTheme) {
 
         // MainActivity.enableEdgeToEdge() owns transparent system bars; only icon contrast changes here.
         LaunchedEffect(useDarkTheme) {
