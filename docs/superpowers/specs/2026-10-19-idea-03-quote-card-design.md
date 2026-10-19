@@ -39,7 +39,7 @@ Readers who find a good passage take raw screenshots to post on social networks.
 
 ## 5. Sheet, ViewModel and Sharing
 
-- `QuoteCardSheet` (`ModalBottomSheet`): preview image, three template chips, a note when the quote was cut, a Share button and an error message with retry.
+- `QuoteCardSheetContent` renders inside the existing `BottomDrawer` (Material 2 `ModalBottomSheetLayout`) that `ReadingPage` already uses; `material3:1.0.1` has no `ModalBottomSheet`. It shows the preview image, three template chips, a note when the quote was cut, a Share button and an error message with retry. `ReadingPage` opens it through a new `showQuoteSheet` state next to the summary/mind-map/deep-read flags and closes it through the same back/dismiss handling.
 - `QuoteCardViewModel` (Hilt) holds the selected template and state `Idle`, `Rendering`, `Ready(bitmap, wasCut)`, `Error`. Changing the template cancels the previous render job. The ViewModel never holds `Context` or `Activity`; it receives them as arguments or through injected helpers. The bitmap is recycled when replaced or when the ViewModel is cleared.
 - `QuoteCardSharer` writes the PNG to `cacheDir/quote_cards/quote_<random>.png` on `@IODispatcher`, deletes files older than a named retention period when it writes a new one, gets the URI with `FileProvider.getUriForFile`, and builds `ACTION_SEND` with `type = "image/png"`, `EXTRA_STREAM`, `ClipData` and `FLAG_GRANT_READ_URI_PERMISSION`, wrapped in `Intent.createChooser`. Failures to write or start the chooser surface as the sheet error state.
 
@@ -57,7 +57,7 @@ Add strings for the sheet title, the three template names, Share, "Quote was sho
 - `QuoteCardSharer`: file is created under `quote_cards`, PNG signature is valid, URI authority is `${packageName}.fileprovider`, intent action/type/flags, old files pruned.
 
 ### Compose and instrumentation
-- Widget tests: sheet shows three templates, selecting one changes the preview state, the note appears only when cut, Share invokes the callback.
+- Widget tests: sheet content shows three templates, selecting one changes the preview state, the note appears only when cut, Share invokes the callback.
 - Instrumentation on the Tecno (`adb -s 115333744A005844` only, isolated `EInkUiTestRunner`): sheet clears status and navigation insets; `FileProvider` URI written by `QuoteCardSharer` opens and decodes as a 1080×1350 bitmap through `ContentResolver`.
 - Real-app smoke on the Tecno: confirm the custom toolbar still allows long-press selection in a real article, shows "Share quote", opens the sheet, switches templates and reaches the system chooser. Check the foreground window with `dumpsys` before every tap, take a screenshot after every step and stop immediately if a full-screen ad covers the UI, then wait for the user's "done". Banners that do not cover the UI are skipped.
 
