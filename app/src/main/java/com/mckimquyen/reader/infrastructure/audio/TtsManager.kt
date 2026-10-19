@@ -131,6 +131,16 @@ class TtsManager @Inject constructor(
         TtsForegroundService.start(context, currentTitle, currentSubtitle)
     }
 
+    /**
+     * Đọc một câu thông báo ngắn (không có tin, hết tin) mà KHÔNG đụng tới trạng thái phát lại: không ghi đè
+     * [lastPlayedText]/tiêu đề và không phát [completions], để nút Play sau đó vẫn đọc lại đúng bài.
+     */
+    fun speakNotice(text: String) {
+        if (!isInitialized || text.isBlank()) return
+        lastUtteranceId = null
+        tts?.speak(text, TextToSpeech.QUEUE_FLUSH, null, NOTICE_UTTERANCE_ID)
+    }
+
     fun pause() {
         Log.d("roy93~", "TtsManager pause()")
         lastUtteranceId = null
@@ -171,6 +181,7 @@ class TtsManager @Inject constructor(
         const val DEFAULT_SPEECH_RATE = 1.0f
         const val COMPLETION_BUFFER = 1
         private const val UTTERANCE_ID = "TTS_ID"
+        private const val NOTICE_UTTERANCE_ID = "TTS_NOTICE"
         private const val UTTERANCE_ID_PREFIX = "TTS_ID_"
         const val MIN_SPEECH_RATE = 0.5f
         const val MAX_SPEECH_RATE = 2.5f

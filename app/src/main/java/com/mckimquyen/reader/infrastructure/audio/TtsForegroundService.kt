@@ -15,6 +15,12 @@ import androidx.core.app.NotificationCompat
 import androidx.media.app.NotificationCompat.MediaStyle
 import com.mckimquyen.reader.R
 import com.mckimquyen.reader.infrastructure.android.MainActivity
+import com.mckimquyen.reader.domain.sv.ReadNewsController
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -26,6 +32,11 @@ class TtsForegroundService : Service() {
 
     @Inject
     lateinit var ttsManager: TtsManager
+
+    @Inject
+    lateinit var readNewsController: ReadNewsController
+
+    private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
 
     private var mediaSession: MediaSessionCompat? = null
 
@@ -45,6 +56,10 @@ class TtsForegroundService : Service() {
 
                 override fun onStop() {
                     ttsManager.stop()
+                }
+
+                override fun onSkipToNext() {
+                    advanceReadNews()
                 }
             })
             isActive = true
@@ -73,15 +88,17 @@ class TtsForegroundService : Service() {
                 stopForeground(STOP_FOREGROUND_REMOVE)
                 stopSelf()
             }
+            ACTION_NEXT -> advanceReadNews()
         }
         return START_NOT_STICKY
     }
 
     private fun updatePlaybackState(state: Int) {
-        val actions = PlaybackStateCompat.ACTION_PLAY or
+        var actions = PlaybackStateCompat.ACTION_PLAY or
                 PlaybackStateCompat.ACTION_PAUSE or
                 PlaybackStateCompat.ACTION_STOP or
                 PlaybackStateCompat.ACTION_PLAY_PAUSE
+        if (readNewsController.hasQueue.value) actions = actions or PlaybackStateCompat.ACTION_SKIP_TO_NEXT
         mediaSession?.setPlaybackState(
             PlaybackStateCompat.Builder()
                 .setActions(actions)
@@ -134,22 +151,50 @@ class TtsForegroundService : Service() {
         ).build()
 
         val token = mediaSession?.sessionToken
+        val hasQueue = readNewsController.hasQueue.value
 
-        return NotificationCompat.Builder(this, CHANNEL_ID)
+        val builder = NotificationCompat.Builder(this, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_notification)
             .setContentTitle(title)
             .setContentText(subtitle)
             .setContentIntent(openAppIntent)
             .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
             .addAction(toggleAction)
+        if (hasQueue) {
+            val nextIntent = PendingIntent.getService(
+                this, NEXT_REQUEST_CODE,
+                Intent(this, TtsForegroundService::class.java).apply { action = ACTION_NEXT },
+                PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+            )
+            builder.addAction(
+                NotificationCompat.Action.Builder(
+                    android.R.drawable.ic_media_next,
+                    getString(R.string.read_news_next),
+                    nextIntent
+                ).build()
+            )
+        }
+        return builder
             .addAction(stopAction)
             .setStyle(
                 MediaStyle()
                     .setMediaSession(token)
-                    .setShowActionsInCompactView(0, 1)
+                    .setShowActionsInCompactView(*TtsNotificationActions.compactIndices(hasQueue).toIntArray())
             )
             .setOngoing(isPlaying)
             .build()
+    }
+
+    /** Chuyển sang bài tin kế tiếp, rồi làm mới thông báo để nút Next biến mất khi hết hàng đợi. */
+    private fun advanceReadNews() {
+        serviceScope.launch {
+            readNewsController.next()
+            val manager = getSystemService(NotificationManager::class.java)
+            manager.notify(
+                NOTIFICATION_ID,
+                buildNotification(ttsManager.currentTitle, ttsManager.currentSubtitle, isPlaying = true),
+            )
+        }
     }
 
     private fun createNotificationChannel() {
@@ -168,6 +213,7 @@ class TtsForegroundService : Service() {
     }
 
     override fun onDestroy() {
+        serviceScope.cancel()
         mediaSession?.release()
         mediaSession = null
         super.onDestroy()
@@ -183,6 +229,8 @@ class TtsForegroundService : Service() {
         const val ACTION_PLAY = "com.mckimquyen.reader.tts.ACTION_PLAY"
         const val ACTION_PAUSE = "com.mckimquyen.reader.tts.ACTION_PAUSE"
         const val ACTION_STOP = "com.mckimquyen.reader.tts.ACTION_STOP"
+        const val ACTION_NEXT = "com.mckimquyen.reader.tts.ACTION_NEXT"
+        private const val NEXT_REQUEST_CODE = 3
 
         const val EXTRA_TITLE = "extra_title"
         const val EXTRA_SUBTITLE = "extra_subtitle"
@@ -214,4 +262,19 @@ class TtsForegroundService : Service() {
             context.startService(intent)
         }
     }
+}
+
+/** Quyết định thuần các hành động hiện trên thông báo media TTS (test được không cần Service). */
+object TtsNotificationActions {
+    private const val TOGGLE = "toggle"
+    private const val NEXT = "next"
+    private const val STOP = "stop"
+
+    /** Thứ tự hiển thị: toggle, next (chỉ khi còn hàng đợi tin), stop. */
+    fun actionNames(isPlaying: Boolean, hasQueue: Boolean): List<String> =
+        if (hasQueue) listOf(TOGGLE, NEXT, STOP) else listOf(TOGGLE, STOP)
+
+    /** Chỉ số các hành động hiện ở dạng thu gọn: tất cả hành động đang hiển thị. */
+    fun compactIndices(hasQueue: Boolean): List<Int> =
+        actionNames(isPlaying = true, hasQueue = hasQueue).indices.toList()
 }

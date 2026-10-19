@@ -167,4 +167,30 @@ class TtsManagerTest {
 
         assertEquals(TtsState.IDLE, manager.ttsState.value)
     }
+
+    @Test
+    fun speakNotice_speaksWithoutOverwritingResumeState() {
+        initializedListener()
+        manager.play("Article body", "Title", "Feed")
+
+        manager.speakNotice("No more new articles")
+
+        val tts = ShadowTextToSpeech.getLastTextToSpeechInstance()
+        assertEquals("No more new articles", shadowOf(tts).lastSpokenText)
+        assertEquals("Article body", manager.lastPlayedText)
+        assertEquals("Title", manager.currentTitle)
+    }
+
+    @Test
+    fun speakNotice_doesNotEmitArticleCompletion() = runTest {
+        val listener = initializedListener()
+        val emitted = mutableListOf<Unit>()
+        backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { manager.completions.collect { emitted += it } }
+        manager.play("Article body", "Title", "Feed")
+
+        manager.speakNotice("No new articles")
+        listener.onDone("TTS_NOTICE")
+
+        assertEquals(0, emitted.size)
+    }
 }

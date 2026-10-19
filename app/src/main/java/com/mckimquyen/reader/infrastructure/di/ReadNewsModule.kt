@@ -18,7 +18,7 @@ object ReadNewsModule {
     fun provideReadNewsSpeaker(ttsManager: TtsManager): ReadNewsSpeaker = object : ReadNewsSpeaker {
         override val completions: Flow<Unit> = ttsManager.completions
         override fun play(text: String, title: String, subtitle: String) = ttsManager.play(text, title, subtitle)
-        override fun speakNotice(text: String) = ttsManager.play(text, "", "")
+        override fun speakNotice(text: String) = ttsManager.speakNotice(text)
         override fun stop() = ttsManager.stop()
     }
 }
