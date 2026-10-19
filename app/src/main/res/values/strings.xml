@@ -923,4 +923,6 @@
     <string name="quote_card_template_dark">Dark Studio</string>
     <string name="quote_card_cut_note">Quote was shortened</string>
     <string name="quote_card_chooser_title">Share quote card</string>
+    <string name="read_news_no_unread">No new articles</string>
+    <string name="read_news_queue_finished">No more new articles</string>
 </resources>
