@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.ComponentActivity
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -22,6 +23,8 @@ import androidx.compose.ui.semantics.SemanticsNode
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.semantics.getOrNull
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.onAllNodesWithTag
+import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.longClick
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performTouchInput
@@ -30,6 +33,7 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.mckimquyen.reader.ui.component.base.BottomDrawer
 import com.mckimquyen.reader.domain.model.quote.QuoteCardSpec
 import com.mckimquyen.reader.domain.model.quote.QuoteCardTemplate
 import com.mckimquyen.reader.infrastructure.quote.QuoteCardRenderer
@@ -123,6 +127,48 @@ class QuoteCardInstrumentationTest {
         val (previewTop, shareBottom, decorHeight) = measured ?: throw AssertionError("Sheet content or system insets not observed")
         assertTrue("Preview under status bar: top=$previewTop inset=${insets.first}", previewTop >= insets.first)
         assertTrue("Share overlaps nav bar: bottom=$shareBottom limit=${decorHeight - insets.second}", shareBottom <= decorHeight - insets.second)
+    }
+
+    @OptIn(androidx.compose.material.ExperimentalMaterialApi::class)
+    @Test
+    fun sheetInRealBottomDrawer_showsShareButtonWithoutDragging() {
+        val bitmap = Bitmap.createBitmap(108, 135, Bitmap.Config.ARGB_8888)
+        val activity = composeRule.activity
+        composeRule.runOnUiThread { WindowCompat.setDecorFitsSystemWindows(activity.window, false) }
+        composeRule.setContent {
+            AppTheme(useDarkTheme = false) {
+                val drawerState = androidx.compose.material.rememberModalBottomSheetState(
+                    androidx.compose.material.ModalBottomSheetValue.Hidden
+                )
+                androidx.compose.runtime.LaunchedEffect(Unit) { drawerState.show() }
+                BottomDrawer(
+                    drawerState = drawerState,
+                    sheetContent = {
+                        QuoteCardSheetContent(
+                            state = QuoteCardUiState.Ready(bitmap, QuoteCardTemplate.MINIMALIST, true),
+                            selected = QuoteCardTemplate.MINIMALIST,
+                            onSelectTemplate = {},
+                            onShare = {},
+                            onRetry = {},
+                        )
+                    },
+                ) { androidx.compose.foundation.layout.Box(Modifier.fillMaxSize()) }
+            }
+        }
+        composeRule.waitUntil(TIMEOUT_MS) {
+            composeRule.onAllNodesWithTag(QUOTE_SHEET_SHARE_TAG).fetchSemanticsNodes().isNotEmpty()
+        }
+        composeRule.waitForIdle()
+
+        val share = composeRule.onNodeWithTag(QUOTE_SHEET_SHARE_TAG).fetchSemanticsNode().boundsInWindow
+        val decor = activity.window.decorView
+        val navInset = ViewCompat.getRootWindowInsets(decor)
+            ?.getInsets(WindowInsetsCompat.Type.navigationBars())?.bottom ?: 0
+        val limit = decor.height - navInset
+        assertTrue(
+            "Nút Share phải hiện ngay khi sheet mở, không cần kéo: bottom=${share.bottom} limit=$limit",
+            share.bottom <= limit,
+        )
     }
 
     @Test
