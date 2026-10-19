@@ -124,7 +124,11 @@ class TtsManager @Inject constructor(
         }
     }
 
+    /** Gọi ở đầu mỗi [play] để nguồn âm thanh khác (podcast) tự tạm dừng; không phát khi pause/stop/speakNotice. */
+    var onPlayRequested: (() -> Unit)? = null
+
     fun play(text: String, title: String = "", subtitle: String = "") {
+        onPlayRequested?.invoke()
         Log.d("roy93~", "TtsManager play text length: ${text.length}")
         lastPlayedText = text
         if (title.isNotBlank()) currentTitle = title

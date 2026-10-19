@@ -254,4 +254,29 @@ class TtsManagerTest {
 
         assertEquals(TtsState.PLAY_ERROR, manager.ttsState.value)
     }
+
+    @Test
+    fun play_invokesOnPlayRequestedFirst_evenBeforeInit() {
+        var calls = 0
+        manager.onPlayRequested = { calls++ }
+
+        manager.play("Text", "T", "F")
+        assertEquals(1, calls)
+
+        manager.onInit(TextToSpeech.SUCCESS)
+        assertEquals(2, calls)
+    }
+
+    @Test
+    fun pauseStopAndNotice_doNotInvokeOnPlayRequested() {
+        var calls = 0
+        manager.onPlayRequested = { calls++ }
+        manager.onInit(TextToSpeech.SUCCESS)
+
+        manager.pause()
+        manager.stop()
+        manager.speakNotice("Notice")
+
+        assertEquals(0, calls)
+    }
 }
