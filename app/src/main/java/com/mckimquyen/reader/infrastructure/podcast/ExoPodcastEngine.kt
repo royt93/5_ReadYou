@@ -9,6 +9,7 @@ import androidx.media3.common.PlaybackException
 import androidx.media3.common.PlaybackParameters
 import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
+import androidx.media3.datasource.DefaultDataSource
 import androidx.media3.datasource.DefaultHttpDataSource
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.exoplayer.source.DefaultMediaSourceFactory
@@ -24,9 +25,12 @@ class ExoPodcastEngine(context: Context) : PodcastEngine {
     private val player: ExoPlayer = ExoPlayer.Builder(context)
         .setMediaSourceFactory(
             DefaultMediaSourceFactory(
-                DefaultHttpDataSource.Factory()
-                    .setConnectTimeoutMs(CONNECT_TIMEOUT_MS)
-                    .setReadTimeoutMs(READ_TIMEOUT_MS)
+                DefaultDataSource.Factory(
+                    context,
+                    DefaultHttpDataSource.Factory()
+                        .setConnectTimeoutMs(CONNECT_TIMEOUT_MS)
+                        .setReadTimeoutMs(READ_TIMEOUT_MS),
+                )
             )
         )
         .setAudioAttributes(
