@@ -4,8 +4,11 @@ import android.content.Context
 import android.speech.tts.TextToSpeech
 import android.util.Log
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import java.util.Locale
 import javax.inject.Inject
@@ -25,6 +28,14 @@ class TtsManager @Inject constructor(
 
     private val _ttsState = MutableStateFlow(TtsState.IDLE)
     val ttsState: StateFlow<TtsState> = _ttsState.asStateFlow()
+
+    private val _completions = MutableSharedFlow<Unit>(extraBufferCapacity = COMPLETION_BUFFER)
+
+    /** Phát đúng một lần khi đoạn đọc CUỐI của một lần [play] kết thúc; không phát sau pause/stop/shutdown. */
+    val completions: SharedFlow<Unit> = _completions.asSharedFlow()
+
+    /** Id utterance cuối của lần [play] hiện tại; null khi không còn gì đang chờ hoàn thành. */
+    private var lastUtteranceId: String? = null
 
     private val _speechRate = MutableStateFlow(DEFAULT_SPEECH_RATE)
     val speechRate: StateFlow<Float> = _speechRate.asStateFlow()
@@ -70,6 +81,10 @@ class TtsManager @Inject constructor(
                 override fun onDone(utteranceId: String?) {
                     Log.d("roy93~", "TtsManager onDone: $utteranceId")
                     _ttsState.value = TtsState.IDLE
+                    if (utteranceId != null && utteranceId == lastUtteranceId) {
+                        lastUtteranceId = null
+                        _completions.tryEmit(Unit)
+                    }
                 }
                 @Deprecated("Deprecated in Java", ReplaceWith("onError(utteranceId: String?, errorCode: Int)"))
                 override fun onError(utteranceId: String?) {
@@ -102,13 +117,15 @@ class TtsManager @Inject constructor(
         if (text.length > maxLength) {
             Log.d("roy93~", "TtsManager play: text length > maxLength ($maxLength), chunking...")
             val chunks = text.chunked(maxLength - 100)
+            lastUtteranceId = "$UTTERANCE_ID_PREFIX${chunks.lastIndex}"
             chunks.forEachIndexed { index, chunk ->
                 val queueMode = if (index == 0) TextToSpeech.QUEUE_FLUSH else TextToSpeech.QUEUE_ADD
-                tts?.speak(chunk, queueMode, null, "TTS_ID_$index")
+                tts?.speak(chunk, queueMode, null, "$UTTERANCE_ID_PREFIX$index")
             }
         } else {
             Log.d("roy93~", "TtsManager play: text length OK")
-            tts?.speak(text, TextToSpeech.QUEUE_FLUSH, null, "TTS_ID")
+            lastUtteranceId = UTTERANCE_ID
+            tts?.speak(text, TextToSpeech.QUEUE_FLUSH, null, UTTERANCE_ID)
         }
         _ttsState.value = TtsState.PLAYING
         TtsForegroundService.start(context, currentTitle, currentSubtitle)
@@ -116,6 +133,7 @@ class TtsManager @Inject constructor(
 
     fun pause() {
         Log.d("roy93~", "TtsManager pause()")
+        lastUtteranceId = null
         if (!isInitialized) return
         tts?.stop()
         _ttsState.value = TtsState.IDLE
@@ -131,6 +149,7 @@ class TtsManager @Inject constructor(
 
     fun stop() {
         Log.d("roy93~", "TtsManager stop()")
+        lastUtteranceId = null
         if (!isInitialized) return
         tts?.stop()
         _ttsState.value = TtsState.IDLE
@@ -139,6 +158,7 @@ class TtsManager @Inject constructor(
 
     fun shutdown() {
         Log.d("roy93~", "TtsManager shutdown()")
+        lastUtteranceId = null
         if (!isInitialized) return
         tts?.stop()
         tts?.shutdown()
@@ -149,6 +169,9 @@ class TtsManager @Inject constructor(
 
     companion object {
         const val DEFAULT_SPEECH_RATE = 1.0f
+        const val COMPLETION_BUFFER = 1
+        private const val UTTERANCE_ID = "TTS_ID"
+        private const val UTTERANCE_ID_PREFIX = "TTS_ID_"
         const val MIN_SPEECH_RATE = 0.5f
         const val MAX_SPEECH_RATE = 2.5f
 
