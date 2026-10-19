@@ -36,6 +36,9 @@ import kotlinx.coroutines.flow.first
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.mckimquyen.reader.domain.model.article.AudioInfo
+import com.mckimquyen.reader.ui.page.home.read.podcast.PodcastPlayerBar
+import com.mckimquyen.reader.ui.page.home.read.podcast.PodcastPlayerViewModel
 import com.mckimquyen.reader.ui.page.home.read.quote.QuoteCardViewModel
 import com.mckimquyen.reader.ui.page.home.read.quote.QuoteCardSheetContent
 import androidx.navigation.NavHostController
@@ -368,6 +371,30 @@ fun ReadingPage(
                 // never torn down/reloaded by the toolbar auto-hide toggle, and renders at its
                 // own natural size (no forced height/clip needed now that nothing has to match
                 // a separately-computed reservation).
+                val podcastArticle = readingUiState.articleWithFeed?.article
+                if (podcastArticle?.audioUrl != null) {
+                    val podcastViewModel: PodcastPlayerViewModel = hiltViewModel()
+                    val podcastState = podcastViewModel.state.collectAsStateValue()
+                    val feedName = readingUiState.articleWithFeed.feed.name
+                    LaunchedEffect(podcastArticle.id) {
+                        podcastViewModel.bind(
+                            podcastArticle.id, podcastArticle.title, feedName,
+                            AudioInfo(podcastArticle.audioUrl!!, podcastArticle.audioMime, podcastArticle.audioDurationSec),
+                        )
+                    }
+                    if (podcastState.articleId == podcastArticle.id) {
+                        PodcastPlayerBar(
+                            state = podcastState,
+                            onToggle = podcastViewModel::onToggle,
+                            onSkip = podcastViewModel::onSkip,
+                            onSeek = podcastViewModel::onSeek,
+                            onSpeed = podcastViewModel::onSpeed,
+                            onSleep = podcastViewModel::onSleep,
+                            onRetry = podcastViewModel::onRetry,
+                        )
+                    }
+                }
+
                 if (readingUiState.articleWithFeed != null) {
                     BottomBar(
                         isShow = isShowToolBar,
