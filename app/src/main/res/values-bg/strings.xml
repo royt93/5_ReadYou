@@ -799,4 +799,12 @@
         <item quantity="one">%1$d статия</item>
         <item quantity="other">%1$d статии</item>
     </plurals>
+    <string name="quote_card_title">Споделяне на цитат</string>
+    <string name="quote_card_share">Сподели</string>
+    <string name="quote_card_template_minimalist">Минималистичен</string>
+    <string name="quote_card_template_gradient">Градиент</string>
+    <string name="quote_card_template_dark">Dark Studio</string>
+    <string name="quote_card_cut_note">Цитатът е съкратен</string>
+    <string name="quote_card_error">Картата с цитат не можа да се създаде. Докоснете, за да опитате отново.</string>
+    <string name="quote_card_chooser_title">Споделяне на карта с цитат</string>
 </resources>

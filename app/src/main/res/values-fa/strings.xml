@@ -834,4 +834,12 @@
         <item quantity="one">%1$d مقاله</item>
         <item quantity="other">%1$d مقاله</item>
     </plurals>
+    <string name="quote_card_title">اشتراک‌گذاری نقل‌قول</string>
+    <string name="quote_card_share">اشتراک‌گذاری</string>
+    <string name="quote_card_template_minimalist">مینیمال</string>
+    <string name="quote_card_template_gradient">گرادیان</string>
+    <string name="quote_card_template_dark">Dark Studio</string>
+    <string name="quote_card_cut_note">نقل‌قول کوتاه شد</string>
+    <string name="quote_card_error">ساخت کارت نقل‌قول ممکن نشد. برای تلاش دوباره ضربه بزنید.</string>
+    <string name="quote_card_chooser_title">اشتراک‌گذاری کارت نقل‌قول</string>
 </resources>

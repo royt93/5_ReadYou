@@ -825,4 +825,12 @@
         <item quantity="many">%1$d مقالًا</item>
         <item quantity="other">%1$d مقال</item>
     </plurals>
+    <string name="quote_card_title">مشاركة اقتباس</string>
+    <string name="quote_card_share">مشاركة</string>
+    <string name="quote_card_template_minimalist">بسيط</string>
+    <string name="quote_card_template_gradient">متدرج</string>
+    <string name="quote_card_template_dark">Dark Studio</string>
+    <string name="quote_card_cut_note">تم اختصار الاقتباس</string>
+    <string name="quote_card_error">تعذر إنشاء بطاقة الاقتباس. اضغط لإعادة المحاولة.</string>
+    <string name="quote_card_chooser_title">مشاركة بطاقة الاقتباس</string>
 </resources>

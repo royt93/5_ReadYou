@@ -906,4 +906,12 @@
         <item quantity="one">%1$d məqalə</item>
         <item quantity="other">%1$d məqalə</item>
     </plurals>
+    <string name="quote_card_title">Sitatı paylaş</string>
+    <string name="quote_card_share">Paylaş</string>
+    <string name="quote_card_template_minimalist">Minimalist</string>
+    <string name="quote_card_template_gradient">Qradiyent</string>
+    <string name="quote_card_template_dark">Dark Studio</string>
+    <string name="quote_card_cut_note">Sitat qısaldıldı</string>
+    <string name="quote_card_error">Sitat kartı yaradıla bilmədi. Yenidən cəhd üçün toxunun.</string>
+    <string name="quote_card_chooser_title">Sitat kartını paylaş</string>
 </resources>

@@ -907,4 +907,12 @@
         <item quantity="one">%1$d ലേഖനം</item>
         <item quantity="other">%1$d ലേഖനങ്ങൾ</item>
     </plurals>
+    <string name="quote_card_title">ഉദ്ധരണി പങ്കിടുക</string>
+    <string name="quote_card_share">പങ്കിടുക</string>
+    <string name="quote_card_template_minimalist">മിനിമലിസ്റ്റ്</string>
+    <string name="quote_card_template_gradient">ഗ്രേഡിയന്റ്</string>
+    <string name="quote_card_template_dark">Dark Studio</string>
+    <string name="quote_card_cut_note">ഉദ്ധരണി ചുരുക്കി</string>
+    <string name="quote_card_error">ഉദ്ധരണി കാർഡ് സൃഷ്ടിക്കാനായില്ല. വീണ്ടും ശ്രമിക്കാൻ ടാപ്പ് ചെയ്യുക.</string>
+    <string name="quote_card_chooser_title">ഉദ്ധരണി കാർഡ് പങ്കിടുക</string>
 </resources>

@@ -835,4 +835,12 @@
         <item quantity="one">%1$d makale</item>
         <item quantity="other">%1$d makale</item>
     </plurals>
+    <string name="quote_card_title">Alıntıyı paylaş</string>
+    <string name="quote_card_share">Paylaş</string>
+    <string name="quote_card_template_minimalist">Minimalist</string>
+    <string name="quote_card_template_gradient">Gradyan</string>
+    <string name="quote_card_template_dark">Dark Studio</string>
+    <string name="quote_card_cut_note">Alıntı kısaltıldı</string>
+    <string name="quote_card_error">Alıntı kartı oluşturulamadı. Yeniden denemek için dokunun.</string>
+    <string name="quote_card_chooser_title">Alıntı kartını paylaş</string>
 </resources>

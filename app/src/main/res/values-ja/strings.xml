@@ -829,4 +829,12 @@
     <plurals name="reading_stats_articles">
         <item quantity="other">%1$d 件の記事</item>
     </plurals>
+    <string name="quote_card_title">引用を共有</string>
+    <string name="quote_card_share">共有</string>
+    <string name="quote_card_template_minimalist">ミニマル</string>
+    <string name="quote_card_template_gradient">グラデーション</string>
+    <string name="quote_card_template_dark">Dark Studio</string>
+    <string name="quote_card_cut_note">引用を短縮しました</string>
+    <string name="quote_card_error">引用カードを作成できませんでした。タップして再試行してください。</string>
+    <string name="quote_card_chooser_title">引用カードを共有</string>
 </resources>

@@ -837,4 +837,12 @@
         <item quantity="one">%1$d artículo</item>
         <item quantity="other">%1$d artículos</item>
     </plurals>
+    <string name="quote_card_title">Compartir cita</string>
+    <string name="quote_card_share">Compartir</string>
+    <string name="quote_card_template_minimalist">Minimalista</string>
+    <string name="quote_card_template_gradient">Degradado</string>
+    <string name="quote_card_template_dark">Dark Studio</string>
+    <string name="quote_card_cut_note">La cita se ha acortado</string>
+    <string name="quote_card_error">No se pudo crear la tarjeta de cita. Toca para reintentar.</string>
+    <string name="quote_card_chooser_title">Compartir tarjeta de cita</string>
 </resources>

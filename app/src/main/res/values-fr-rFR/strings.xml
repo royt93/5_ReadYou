@@ -839,4 +839,12 @@
         <item quantity="one">%1$d article</item>
         <item quantity="other">%1$d articles</item>
     </plurals>
+    <string name="quote_card_title">Partager la citation</string>
+    <string name="quote_card_share">Partager</string>
+    <string name="quote_card_template_minimalist">Minimaliste</string>
+    <string name="quote_card_template_gradient">Dégradé</string>
+    <string name="quote_card_template_dark">Dark Studio</string>
+    <string name="quote_card_cut_note">La citation a été raccourcie</string>
+    <string name="quote_card_error">Impossible de créer la carte de citation. Touchez pour réessayer.</string>
+    <string name="quote_card_chooser_title">Partager la carte de citation</string>
 </resources>

@@ -914,4 +914,12 @@
         <item quantity="many">%1$d artykułów</item>
         <item quantity="other">%1$d artykułu</item>
     </plurals>
+    <string name="quote_card_title">Udostępnij cytat</string>
+    <string name="quote_card_share">Udostępnij</string>
+    <string name="quote_card_template_minimalist">Minimalistyczny</string>
+    <string name="quote_card_template_gradient">Gradient</string>
+    <string name="quote_card_template_dark">Dark Studio</string>
+    <string name="quote_card_cut_note">Cytat został skrócony</string>
+    <string name="quote_card_error">Nie udało się utworzyć karty z cytatem. Dotknij, aby spróbować ponownie.</string>
+    <string name="quote_card_chooser_title">Udostępnij kartę z cytatem</string>
 </resources>

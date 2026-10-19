@@ -902,4 +902,12 @@
     <plurals name="reading_stats_articles">
         <item quantity="other">ဆောင်းပါး %1$d ပုဒ်</item>
     </plurals>
+    <string name="quote_card_title">ကိုးကားချက်ကို မျှဝေရန်</string>
+    <string name="quote_card_share">မျှဝေရန်</string>
+    <string name="quote_card_template_minimalist">မီနီမယ်လစ်</string>
+    <string name="quote_card_template_gradient">ဂရေဒီယင့်</string>
+    <string name="quote_card_template_dark">Dark Studio</string>
+    <string name="quote_card_cut_note">ကိုးကားချက်ကို အတိုချုံ့ထားသည်</string>
+    <string name="quote_card_error">ကိုးကားချက်ကတ် ဖန်တီး၍မရပါ။ ပြန်ကြိုးစားရန် ထိပါ။</string>
+    <string name="quote_card_chooser_title">ကိုးကားချက်ကတ်ကို မျှဝေရန်</string>
 </resources>

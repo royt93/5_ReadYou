@@ -827,4 +827,12 @@
     <plurals name="reading_stats_articles">
         <item quantity="other">%1$d 篇文章</item>
     </plurals>
+    <string name="quote_card_title">分享引文</string>
+    <string name="quote_card_share">分享</string>
+    <string name="quote_card_template_minimalist">極簡</string>
+    <string name="quote_card_template_gradient">漸層</string>
+    <string name="quote_card_template_dark">Dark Studio</string>
+    <string name="quote_card_cut_note">引文已縮短</string>
+    <string name="quote_card_error">無法建立引文卡片。點按重試。</string>
+    <string name="quote_card_chooser_title">分享引文卡片</string>
 </resources>

@@ -829,4 +829,12 @@
     <plurals name="reading_stats_articles">
         <item quantity="other">%1$d artikel</item>
     </plurals>
+    <string name="quote_card_title">Bagikan kutipan</string>
+    <string name="quote_card_share">Bagikan</string>
+    <string name="quote_card_template_minimalist">Minimalis</string>
+    <string name="quote_card_template_gradient">Gradien</string>
+    <string name="quote_card_template_dark">Dark Studio</string>
+    <string name="quote_card_cut_note">Kutipan dipersingkat</string>
+    <string name="quote_card_error">Kartu kutipan tidak dapat dibuat. Ketuk untuk mencoba lagi.</string>
+    <string name="quote_card_chooser_title">Bagikan kartu kutipan</string>
 </resources>

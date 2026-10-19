@@ -917,4 +917,12 @@
         <item quantity="many">%1$d článku</item>
         <item quantity="other">%1$d článků</item>
     </plurals>
+    <string name="quote_card_title">Sdílet citát</string>
+    <string name="quote_card_share">Sdílet</string>
+    <string name="quote_card_template_minimalist">Minimalistický</string>
+    <string name="quote_card_template_gradient">Přechod</string>
+    <string name="quote_card_template_dark">Dark Studio</string>
+    <string name="quote_card_cut_note">Citát byl zkrácen</string>
+    <string name="quote_card_error">Kartu s citátem se nepodařilo vytvořit. Klepnutím to zkusíte znovu.</string>
+    <string name="quote_card_chooser_title">Sdílet kartu s citátem</string>
 </resources>

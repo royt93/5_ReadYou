@@ -834,4 +834,12 @@
         <item quantity="one">%1$d article</item>
         <item quantity="other">%1$d articles</item>
     </plurals>
+    <string name="quote_card_title">Comparteix la cita</string>
+    <string name="quote_card_share">Comparteix</string>
+    <string name="quote_card_template_minimalist">Minimalista</string>
+    <string name="quote_card_template_gradient">Degradat</string>
+    <string name="quote_card_template_dark">Dark Studio</string>
+    <string name="quote_card_cut_note">La cita s\'ha escurçat</string>
+    <string name="quote_card_error">No s\'ha pogut crear la targeta de cita. Toca per tornar-ho a provar.</string>
+    <string name="quote_card_chooser_title">Comparteix la targeta de cita</string>
 </resources>

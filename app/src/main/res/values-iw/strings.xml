@@ -917,4 +917,12 @@
         <item quantity="two">שני מאמרים</item>
         <item quantity="other">%1$d מאמרים</item>
     </plurals>
+    <string name="quote_card_title">שיתוף ציטוט</string>
+    <string name="quote_card_share">שיתוף</string>
+    <string name="quote_card_template_minimalist">מינימליסטי</string>
+    <string name="quote_card_template_gradient">מעבר צבעים</string>
+    <string name="quote_card_template_dark">Dark Studio</string>
+    <string name="quote_card_cut_note">הציטוט קוצר</string>
+    <string name="quote_card_error">לא ניתן ליצור את כרטיס הציטוט. הקש כדי לנסות שוב.</string>
+    <string name="quote_card_chooser_title">שיתוף כרטיס ציטוט</string>
 </resources>

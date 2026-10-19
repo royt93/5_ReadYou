@@ -802,4 +802,12 @@
     <plurals name="reading_stats_articles">
         <item quantity="other">%1$d bài viết</item>
     </plurals>
+    <string name="quote_card_title">Chia sẻ trích dẫn</string>
+    <string name="quote_card_share">Chia sẻ</string>
+    <string name="quote_card_template_minimalist">Tối giản</string>
+    <string name="quote_card_template_gradient">Chuyển sắc</string>
+    <string name="quote_card_template_dark">Dark Studio</string>
+    <string name="quote_card_cut_note">Đoạn trích đã được rút gọn</string>
+    <string name="quote_card_error">Không thể tạo thẻ trích dẫn. Chạm để thử lại.</string>
+    <string name="quote_card_chooser_title">Chia sẻ thẻ trích dẫn</string>
 </resources>

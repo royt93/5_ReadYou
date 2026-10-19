@@ -848,4 +848,12 @@
         <item quantity="many">%1$d статей</item>
         <item quantity="other">%1$d статьи</item>
     </plurals>
+    <string name="quote_card_title">Поделиться цитатой</string>
+    <string name="quote_card_share">Поделиться</string>
+    <string name="quote_card_template_minimalist">Минимализм</string>
+    <string name="quote_card_template_gradient">Градиент</string>
+    <string name="quote_card_template_dark">Dark Studio</string>
+    <string name="quote_card_cut_note">Цитата сокращена</string>
+    <string name="quote_card_error">Не удалось создать карточку с цитатой. Нажмите, чтобы повторить.</string>
+    <string name="quote_card_chooser_title">Поделиться карточкой с цитатой</string>
 </resources>

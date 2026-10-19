@@ -836,4 +836,12 @@
         <item quantity="one">%1$d Artikel</item>
         <item quantity="other">%1$d Artikel</item>
     </plurals>
+    <string name="quote_card_title">Zitat teilen</string>
+    <string name="quote_card_share">Teilen</string>
+    <string name="quote_card_template_minimalist">Minimalistisch</string>
+    <string name="quote_card_template_gradient">Verlauf</string>
+    <string name="quote_card_template_dark">Dark Studio</string>
+    <string name="quote_card_cut_note">Zitat wurde gekürzt</string>
+    <string name="quote_card_error">Zitatkarte konnte nicht erstellt werden. Zum Wiederholen tippen.</string>
+    <string name="quote_card_chooser_title">Zitatkarte teilen</string>
 </resources>

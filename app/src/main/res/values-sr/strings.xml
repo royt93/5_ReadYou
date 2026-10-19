@@ -842,4 +842,12 @@
         <item quantity="few">%1$d чланка</item>
         <item quantity="other">%1$d чланака</item>
     </plurals>
+    <string name="quote_card_title">Подели цитат</string>
+    <string name="quote_card_share">Подели</string>
+    <string name="quote_card_template_minimalist">Минималистички</string>
+    <string name="quote_card_template_gradient">Градијент</string>
+    <string name="quote_card_template_dark">Dark Studio</string>
+    <string name="quote_card_cut_note">Цитат је скраћен</string>
+    <string name="quote_card_error">Картица са цитатом није могла да се направи. Додирните да покушате поново.</string>
+    <string name="quote_card_chooser_title">Подели картицу са цитатом</string>
 </resources>

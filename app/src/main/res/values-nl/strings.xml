@@ -835,4 +835,12 @@
         <item quantity="one">%1$d artikel</item>
         <item quantity="other">%1$d artikelen</item>
     </plurals>
+    <string name="quote_card_title">Citaat delen</string>
+    <string name="quote_card_share">Delen</string>
+    <string name="quote_card_template_minimalist">Minimalistisch</string>
+    <string name="quote_card_template_gradient">Kleurverloop</string>
+    <string name="quote_card_template_dark">Dark Studio</string>
+    <string name="quote_card_cut_note">Citaat is ingekort</string>
+    <string name="quote_card_error">Citaatkaart kon niet worden gemaakt. Tik om opnieuw te proberen.</string>
+    <string name="quote_card_chooser_title">Citaatkaart delen</string>
 </resources>

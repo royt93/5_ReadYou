@@ -835,4 +835,12 @@
         <item quantity="one">%1$d artikkel</item>
         <item quantity="other">%1$d artikler</item>
     </plurals>
+    <string name="quote_card_title">Del sitat</string>
+    <string name="quote_card_share">Del</string>
+    <string name="quote_card_template_minimalist">Minimalistisk</string>
+    <string name="quote_card_template_gradient">Gradient</string>
+    <string name="quote_card_template_dark">Dark Studio</string>
+    <string name="quote_card_cut_note">Sitatet ble forkortet</string>
+    <string name="quote_card_error">Kunne ikke opprette sitatkortet. Trykk for å prøve igjen.</string>
+    <string name="quote_card_chooser_title">Del sitatkort</string>
 </resources>
