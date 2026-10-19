@@ -925,4 +925,13 @@
     <string name="quote_card_chooser_title">Share quote card</string>
     <string name="read_news_no_unread">No new articles</string>
     <string name="read_news_queue_finished">No more new articles</string>
+    <string name="read_news_shortcut_short">Read news</string>
+    <string name="read_news_shortcut_long">Read the latest unread news</string>
+    <string name="read_news_error">Could not read the news</string>
+    <string name="read_news_next">Next</string>
+    <string-array name="read_news_thing_names" translatable="false">
+        <item>news</item>
+        <item>latest news</item>
+        <item>unread news</item>
+    </string-array>
 </resources>

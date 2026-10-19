@@ -68,6 +68,10 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+            <meta-data
+                android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
         </activity>
 
         <activity
@@ -88,6 +92,24 @@
             android:name=".ui.page.about.AboutActivity"
             android:exported="true"
             android:theme="@style/Theme.Reader" />
+
+        <activity
+            android:name=".ui.page.readnews.ReadNewsActivity"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:noHistory="true"
+            android:theme="@style/Theme.Reader.Transparent">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="read-news"
+                    android:scheme="rsscathub" />
+            </intent-filter>
+        </activity>
 
         <activity
             android:name=".ui.page.share.ShareTargetActivity"

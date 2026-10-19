@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- App Action: "Ok Google, đọc tin RSS Cat Hub" -> built-in intent GET_THING.
+         Assistant chỉ nạp capability này cho bản cài từ Google Play đã liên kết trong Play Console
+         (hoặc qua App Actions Test Tool); không thể kích hoạt bằng adb. -->
+    <capability android:name="actions.intent.GET_THING">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="rsscathub://read-news"
+            android:targetClass="com.mckimquyen.reader.ui.page.readnews.ReadNewsActivity"
+            android:targetPackage="com.mckimquyen.reader">
+            <parameter
+                android:name="thing.name"
+                android:key="thing_name" />
+        </intent>
+    </capability>
+
+    <shortcut
+        android:enabled="true"
+        android:icon="@mipmap/ic_launcher"
+        android:shortcutId="read_latest_news"
+        android:shortcutLongLabel="@string/read_news_shortcut_long"
+        android:shortcutShortLabel="@string/read_news_shortcut_short">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="rsscathub://read-news"
+            android:targetClass="com.mckimquyen.reader.ui.page.readnews.ReadNewsActivity"
+            android:targetPackage="com.mckimquyen.reader" />
+        <capability-binding android:key="actions.intent.GET_THING">
+            <parameter-binding
+                android:key="thing.name"
+                android:value="@array/read_news_thing_names" />
+        </capability-binding>
+    </shortcut>
+</shortcuts>
