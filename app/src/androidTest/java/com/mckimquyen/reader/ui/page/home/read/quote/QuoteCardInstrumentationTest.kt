@@ -138,7 +138,8 @@ class QuoteCardInstrumentationTest {
         composeRule.setContent {
             AppTheme(useDarkTheme = false) {
                 val drawerState = androidx.compose.material.rememberModalBottomSheetState(
-                    androidx.compose.material.ModalBottomSheetValue.Hidden
+                    initialValue = androidx.compose.material.ModalBottomSheetValue.Hidden,
+                    skipHalfExpanded = true,
                 )
                 androidx.compose.runtime.LaunchedEffect(Unit) { drawerState.show() }
                 BottomDrawer(

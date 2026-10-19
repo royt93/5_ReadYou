@@ -168,7 +168,13 @@ fun ReadingPage(
 
     // BottomSheet "Tóm tắt bằng AI" — dùng BottomDrawer chuẩn của app (ModalBottomSheetLayout)
     // để có drag handle, shape và xử lý system insets đúng (không lỗi edge-to-edge).
-    val summaryDrawerState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
+    // skipHalfExpanded: sheet trích dẫn cao hơn nửa màn hình, nếu mở ở HalfExpanded thì nút Chia sẻ nằm dưới mép
+    // và người dùng phải tự kéo lên (đã thấy trên Tecno). Drawer này dùng chung với các sheet AI (tóm tắt, mind map,
+    // Deep Read): khi nội dung của chúng cao hơn nửa màn hình, chúng cũng sẽ mở thẳng Expanded thay vì HalfExpanded.
+    val summaryDrawerState = rememberModalBottomSheetState(
+        initialValue = ModalBottomSheetValue.Hidden,
+        skipHalfExpanded = true,
+    )
 
     val quoteViewModel: QuoteCardViewModel = hiltViewModel()
     val quoteState by quoteViewModel.state.collectAsState()
