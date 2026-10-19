@@ -16,9 +16,16 @@ import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import com.mckimquyen.reader.ui.component.quote.QuoteTextToolbar
+import com.mckimquyen.reader.ui.component.quote.QuoteShareChip
+import com.mckimquyen.reader.domain.model.quote.QuoteSelection
+import androidx.compose.ui.platform.LocalTextToolbar
+import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -55,6 +62,7 @@ fun Content(
     articleId: String = "",
     brainRpgViewModel: BrainRpgViewModel? = null,
     completionClock: () -> Long = SystemClock::elapsedRealtime,
+    onShareQuote: (String) -> Unit = {},
 ) {
     val context = LocalContext.current
     val subheadUpperCase = LocalReadingSubheadUpperCase.current
@@ -86,6 +94,22 @@ fun Content(
         })
     }
 
+    // Toolbar bọc: giữ menu chọn chữ gốc, thêm chip "Chia sẻ trích dẫn". Khi chia sẻ, đoạn chọn được copy
+    // vào clipboard để đọc lại, rồi clipboard của người dùng được khôi phục ngay trước khi mở sheet.
+    val platformToolbar = LocalTextToolbar.current
+    val clipboard = LocalClipboardManager.current
+    val latestOnShareQuote by rememberUpdatedState(onShareQuote)
+    val quoteToolbar = remember(platformToolbar, clipboard) {
+        QuoteTextToolbar(platformToolbar) {
+            val previous = clipboard.getClip()
+            val selected = QuoteSelection.sanitize(clipboard.getText()?.text)
+            previous?.let { clipboard.setClip(it) }
+            if (selected != null) latestOnShareQuote(selected)
+        }
+    }
+
+    Box {
+    CompositionLocalProvider(LocalTextToolbar provides quoteToolbar) {
     SelectionContainer {
         LazyColumn(
             modifier = Modifier
@@ -179,5 +203,8 @@ fun Content(
             }
           }
         }
+    }
+    }
+    QuoteShareChip(quoteToolbar)
     }
 }

@@ -36,6 +36,8 @@ import kotlinx.coroutines.flow.first
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.mckimquyen.reader.ui.page.home.read.quote.QuoteCardViewModel
+import com.mckimquyen.reader.ui.page.home.read.quote.QuoteCardSheetContent
 import androidx.navigation.NavHostController
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.mckimquyen.reader.infrastructure.audio.TtsState
@@ -51,6 +53,7 @@ import com.mckimquyen.reader.ui.page.rsvp.RsvpReaderDialog
 import com.mckimquyen.reader.ui.page.rsvp.RsvpViewModel
 import android.widget.Toast
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import com.mckimquyen.reader.R
 import com.mckimquyen.reader.ui.page.common.RouteName
 import com.mckimquyen.reader.ui.page.notebook.HighlightNoteDialog
@@ -167,7 +170,19 @@ fun ReadingPage(
     // để có drag handle, shape và xử lý system insets đúng (không lỗi edge-to-edge).
     val summaryDrawerState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
 
-    val isAnySheetOpen = readingUiState.showSummarySheet || readingUiState.showMindMapSheet || readingUiState.showDeepReadSheet
+    val quoteViewModel: QuoteCardViewModel = hiltViewModel()
+    val quoteState by quoteViewModel.state.collectAsState()
+    val quoteTemplate by quoteViewModel.selectedTemplate.collectAsState()
+    val quoteScope = rememberCoroutineScope()
+    val quoteChooserTitle = stringResource(R.string.quote_card_chooser_title)
+    val isAnySheetOpen = readingUiState.showSummarySheet || readingUiState.showMindMapSheet ||
+        readingUiState.showDeepReadSheet || readingUiState.showQuoteSheet
+
+    // Render lại thẻ mỗi khi mở sheet với đoạn trích mới; giải phóng bitmap khi đóng.
+    LaunchedEffect(readingUiState.quoteSpec) {
+        val spec = readingUiState.quoteSpec
+        if (spec != null) quoteViewModel.start(spec) else quoteViewModel.dismiss()
+    }
 
     // Đồng bộ trạng thái mở/đóng từ ViewModel -> drawer.
     LaunchedEffect(isAnySheetOpen) {
@@ -180,10 +195,13 @@ fun ReadingPage(
             readingViewModel.dismissSummary()
             readingViewModel.dismissMindMap()
             readingViewModel.dismissDeepRead()
+            readingViewModel.dismissQuoteSheet()
         }
     }
     BackHandler(isAnySheetOpen) {
-        if (readingUiState.showDeepReadSheet) {
+        if (readingUiState.showQuoteSheet) {
+            readingViewModel.dismissQuoteSheet()
+        } else if (readingUiState.showDeepReadSheet) {
             readingViewModel.dismissDeepRead()
         } else if (readingUiState.showMindMapSheet) {
             readingViewModel.dismissMindMap()
@@ -195,7 +213,19 @@ fun ReadingPage(
     BottomDrawer(
         drawerState = summaryDrawerState,
         sheetContent = {
-            if (readingUiState.showDeepReadSheet) {
+            if (readingUiState.showQuoteSheet) {
+                QuoteCardSheetContent(
+                    state = quoteState,
+                    selected = quoteTemplate,
+                    onSelectTemplate = { quoteViewModel.selectTemplate(it) },
+                    onShare = {
+                        quoteScope.launch {
+                            quoteViewModel.prepareShareIntent(quoteChooserTitle)?.let { context.startActivity(it) }
+                        }
+                    },
+                    onRetry = { readingUiState.quoteSpec?.let { quoteViewModel.start(it) } },
+                )
+            } else if (readingUiState.showDeepReadSheet) {
                 DeepReadChatSheetContent(
                     state = readingUiState.deepReadState,
                     onSendQuestion = { question -> readingViewModel.sendDeepReadQuestion(question) },
@@ -319,6 +349,7 @@ fun ReadingPage(
                                 listState = listState,
                                 articleId = readingUiState.articleWithFeed.article.id,
                                 brainRpgViewModel = androidx.hilt.navigation.compose.hiltViewModel(),
+                                onShareQuote = { readingViewModel.openQuoteSheet(it) },
                             )
                         }
                     }
