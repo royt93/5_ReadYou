@@ -12,6 +12,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import com.mckimquyen.reader.domain.model.article.Article
+import com.mckimquyen.reader.domain.model.article.AudioEnclosure
 import com.mckimquyen.reader.domain.model.feed.Feed
 import com.mckimquyen.reader.domain.model.feed.FeedWithArticle
 import com.mckimquyen.reader.domain.repository.FeedDao
@@ -108,7 +109,7 @@ class RssHelper @Inject constructor(
             listOf()
         }
 
-    private fun article(
+    internal fun article(
         feed: Feed,
         accountId: Int,
         syndEntry: SyndEntry,
@@ -130,6 +131,7 @@ class RssHelper @Inject constructor(
         val rawSource = (content ?: desc) ?: ""
         val cleanRaw = com.mckimquyen.reader.infrastructure.newsletter.NewsletterSanitizer.cleanArticleHtml(rawSource)
         val cleanFull = content?.let { com.mckimquyen.reader.infrastructure.newsletter.NewsletterSanitizer.cleanArticleHtml(it) }
+        val audio = AudioEnclosure.from(syndEntry)
         return Article(
             id = accountId.spacerDollar(UUID.randomUUID().toString()),
             accountId = accountId,
@@ -148,6 +150,9 @@ class RssHelper @Inject constructor(
             img = extractThumbnail(syndEntry, rawSource),
             link = syndEntry.link ?: "",
             updateAt = Date(),
+            audioUrl = audio?.url,
+            audioMime = audio?.mime,
+            audioDurationSec = audio?.durationSec,
         )
     }
 

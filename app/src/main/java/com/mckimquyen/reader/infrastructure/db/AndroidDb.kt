@@ -73,7 +73,7 @@ import java.util.Date
         SmartCollection::class,
         SmartCollectionArticle::class,
     ],
-    version = 17
+    version = 18
 )
 @TypeConverters(
     AndroidDatabase.DateConverters::class,
@@ -150,6 +150,7 @@ val allMigrations = arrayOf(
     MIGRATION_14_15,
     MIGRATION_15_16,
     MIGRATION_16_17,
+    MIGRATION_17_18,
 )
 
 @Suppress("ClassName")
@@ -366,6 +367,15 @@ object MIGRATION_10_11 : Migration(10, 11) {
             """.trimIndent()
         )
         // No extra index: articleId is the primary key, so SQLite already indexes it.
+    }
+}
+
+@Suppress("ClassName")
+object MIGRATION_17_18 : Migration(17, 18) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL("ALTER TABLE article ADD COLUMN audioUrl TEXT DEFAULT NULL")
+        db.execSQL("ALTER TABLE article ADD COLUMN audioMime TEXT DEFAULT NULL")
+        db.execSQL("ALTER TABLE article ADD COLUMN audioDurationSec INTEGER DEFAULT NULL")
     }
 }
 

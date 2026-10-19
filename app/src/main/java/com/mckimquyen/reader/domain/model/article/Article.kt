@@ -60,6 +60,12 @@ data class Article(
     var aiSummary: String? = null,
     @ColumnInfo
     var readAt: Long? = null,
+    @ColumnInfo
+    var audioUrl: String? = null,
+    @ColumnInfo
+    var audioMime: String? = null,
+    @ColumnInfo
+    var audioDurationSec: Int? = null,
 ) {
 
     @Ignore
