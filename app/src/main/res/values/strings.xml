@@ -915,4 +915,5 @@
         <item quantity="one">%1$d article</item>
         <item quantity="other">%1$d articles</item>
     </plurals>
+    <string name="quote_card_error">Could not create the quote card. Tap to retry.</string>
 </resources>
