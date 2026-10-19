@@ -922,4 +922,10 @@
     <string name="quote_card_cut_note">Cytat został skrócony</string>
     <string name="quote_card_error">Nie udało się utworzyć karty z cytatem. Dotknij, aby spróbować ponownie.</string>
     <string name="quote_card_chooser_title">Udostępnij kartę z cytatem</string>
+    <string name="read_news_shortcut_short">Czytaj wiadomości</string>
+    <string name="read_news_shortcut_long">Przeczytaj najnowsze nieprzeczytane wiadomości</string>
+    <string name="read_news_no_unread">Brak nowych artykułów</string>
+    <string name="read_news_queue_finished">Brak kolejnych nowych artykułów</string>
+    <string name="read_news_error">Nie udało się odczytać wiadomości</string>
+    <string name="read_news_next">Dalej</string>
 </resources>

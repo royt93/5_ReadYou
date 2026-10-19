@@ -845,4 +845,10 @@
     <string name="quote_card_cut_note">La cita se ha acortado</string>
     <string name="quote_card_error">No se pudo crear la tarjeta de cita. Toca para reintentar.</string>
     <string name="quote_card_chooser_title">Compartir tarjeta de cita</string>
+    <string name="read_news_shortcut_short">Leer noticias</string>
+    <string name="read_news_shortcut_long">Leer las últimas noticias sin leer</string>
+    <string name="read_news_no_unread">No hay artículos nuevos</string>
+    <string name="read_news_queue_finished">No hay más artículos nuevos</string>
+    <string name="read_news_error">No se pudieron leer las noticias</string>
+    <string name="read_news_next">Siguiente</string>
 </resources>

@@ -833,4 +833,10 @@
     <string name="quote_card_cut_note">تم اختصار الاقتباس</string>
     <string name="quote_card_error">تعذر إنشاء بطاقة الاقتباس. اضغط لإعادة المحاولة.</string>
     <string name="quote_card_chooser_title">مشاركة بطاقة الاقتباس</string>
+    <string name="read_news_shortcut_short">قراءة الأخبار</string>
+    <string name="read_news_shortcut_long">قراءة أحدث الأخبار غير المقروءة</string>
+    <string name="read_news_no_unread">لا توجد مقالات جديدة</string>
+    <string name="read_news_queue_finished">لا توجد مقالات جديدة أخرى</string>
+    <string name="read_news_error">تعذرت قراءة الأخبار</string>
+    <string name="read_news_next">التالي</string>
 </resources>

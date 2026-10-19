@@ -914,4 +914,10 @@
     <string name="quote_card_cut_note">ಉಲ್ಲೇಖವನ್ನು ಚಿಕ್ಕದಾಗಿಸಲಾಗಿದೆ</string>
     <string name="quote_card_error">ಉಲ್ಲೇಖ ಕಾರ್ಡ್ ರಚಿಸಲಾಗಲಿಲ್ಲ. ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಲು ಟ್ಯಾಪ್ ಮಾಡಿ.</string>
     <string name="quote_card_chooser_title">ಉಲ್ಲೇಖ ಕಾರ್ಡ್ ಹಂಚಿಕೊಳ್ಳಿ</string>
+    <string name="read_news_shortcut_short">ಸುದ್ದಿ ಓದಿ</string>
+    <string name="read_news_shortcut_long">ಇತ್ತೀಚಿನ ಓದದ ಸುದ್ದಿಗಳನ್ನು ಓದಿ</string>
+    <string name="read_news_no_unread">ಹೊಸ ಲೇಖನಗಳಿಲ್ಲ</string>
+    <string name="read_news_queue_finished">ಇನ್ನು ಹೊಸ ಲೇಖನಗಳಿಲ್ಲ</string>
+    <string name="read_news_error">ಸುದ್ದಿ ಓದಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ</string>
+    <string name="read_news_next">ಮುಂದೆ</string>
 </resources>

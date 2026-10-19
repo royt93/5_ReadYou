@@ -915,4 +915,10 @@
     <string name="quote_card_cut_note">ഉദ്ധരണി ചുരുക്കി</string>
     <string name="quote_card_error">ഉദ്ധരണി കാർഡ് സൃഷ്ടിക്കാനായില്ല. വീണ്ടും ശ്രമിക്കാൻ ടാപ്പ് ചെയ്യുക.</string>
     <string name="quote_card_chooser_title">ഉദ്ധരണി കാർഡ് പങ്കിടുക</string>
+    <string name="read_news_shortcut_short">വാർത്തകൾ വായിക്കുക</string>
+    <string name="read_news_shortcut_long">ഏറ്റവും പുതിയ വായിക്കാത്ത വാർത്തകൾ വായിക്കുക</string>
+    <string name="read_news_no_unread">പുതിയ ലേഖനങ്ങളില്ല</string>
+    <string name="read_news_queue_finished">കൂടുതൽ പുതിയ ലേഖനങ്ങളില്ല</string>
+    <string name="read_news_error">വാർത്തകൾ വായിക്കാനായില്ല</string>
+    <string name="read_news_next">അടുത്തത്</string>
 </resources>

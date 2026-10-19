@@ -850,4 +850,10 @@
     <string name="quote_card_cut_note">Цитат је скраћен</string>
     <string name="quote_card_error">Картица са цитатом није могла да се направи. Додирните да покушате поново.</string>
     <string name="quote_card_chooser_title">Подели картицу са цитатом</string>
+    <string name="read_news_shortcut_short">Читај вести</string>
+    <string name="read_news_shortcut_long">Читај најновије непрочитане вести</string>
+    <string name="read_news_no_unread">Нема нових чланака</string>
+    <string name="read_news_queue_finished">Нема више нових чланака</string>
+    <string name="read_news_error">Вести није могуће прочитати</string>
+    <string name="read_news_next">Следеће</string>
 </resources>

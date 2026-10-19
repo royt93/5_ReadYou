@@ -840,4 +840,10 @@
     <string name="quote_card_cut_note">उद्धरण छोटा किया गया</string>
     <string name="quote_card_error">उद्धरण कार्ड नहीं बन सका। दोबारा कोशिश के लिए टैप करें।</string>
     <string name="quote_card_chooser_title">उद्धरण कार्ड साझा करें</string>
+    <string name="read_news_shortcut_short">समाचार पढ़ें</string>
+    <string name="read_news_shortcut_long">नवीनतम अपठित समाचार पढ़ें</string>
+    <string name="read_news_no_unread">कोई नया लेख नहीं</string>
+    <string name="read_news_queue_finished">कोई और नया लेख नहीं</string>
+    <string name="read_news_error">समाचार पढ़े नहीं जा सके</string>
+    <string name="read_news_next">अगला</string>
 </resources>

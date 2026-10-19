@@ -807,4 +807,10 @@
     <string name="quote_card_cut_note">Цитатът е съкратен</string>
     <string name="quote_card_error">Картата с цитат не можа да се създаде. Докоснете, за да опитате отново.</string>
     <string name="quote_card_chooser_title">Споделяне на карта с цитат</string>
+    <string name="read_news_shortcut_short">Чети новините</string>
+    <string name="read_news_shortcut_long">Чети най-новите непрочетени новини</string>
+    <string name="read_news_no_unread">Няма нови статии</string>
+    <string name="read_news_queue_finished">Няма повече нови статии</string>
+    <string name="read_news_error">Новините не можаха да бъдат прочетени</string>
+    <string name="read_news_next">Напред</string>
 </resources>

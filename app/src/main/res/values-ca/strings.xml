@@ -842,4 +842,10 @@
     <string name="quote_card_cut_note">La cita s\'ha escurçat</string>
     <string name="quote_card_error">No s\'ha pogut crear la targeta de cita. Toca per tornar-ho a provar.</string>
     <string name="quote_card_chooser_title">Comparteix la targeta de cita</string>
+    <string name="read_news_shortcut_short">Llegeix les notícies</string>
+    <string name="read_news_shortcut_long">Llegeix les últimes notícies no llegides</string>
+    <string name="read_news_no_unread">No hi ha articles nous</string>
+    <string name="read_news_queue_finished">No hi ha més articles nous</string>
+    <string name="read_news_error">No s\'han pogut llegir les notícies</string>
+    <string name="read_news_next">Següent</string>
 </resources>

@@ -849,4 +849,10 @@
     <string name="quote_card_cut_note">Citatul a fost scurtat</string>
     <string name="quote_card_error">Cardul cu citat nu a putut fi creat. Atingeți pentru a reîncerca.</string>
     <string name="quote_card_chooser_title">Distribuie cardul cu citat</string>
+    <string name="read_news_shortcut_short">Citește știrile</string>
+    <string name="read_news_shortcut_long">Citește cele mai recente știri necitite</string>
+    <string name="read_news_no_unread">Niciun articol nou</string>
+    <string name="read_news_queue_finished">Niciun alt articol nou</string>
+    <string name="read_news_error">Știrile nu au putut fi citite</string>
+    <string name="read_news_next">Următorul</string>
 </resources>

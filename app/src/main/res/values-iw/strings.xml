@@ -925,4 +925,10 @@
     <string name="quote_card_cut_note">הציטוט קוצר</string>
     <string name="quote_card_error">לא ניתן ליצור את כרטיס הציטוט. הקש כדי לנסות שוב.</string>
     <string name="quote_card_chooser_title">שיתוף כרטיס ציטוט</string>
+    <string name="read_news_shortcut_short">הקראת חדשות</string>
+    <string name="read_news_shortcut_long">הקראת החדשות האחרונות שלא נקראו</string>
+    <string name="read_news_no_unread">אין מאמרים חדשים</string>
+    <string name="read_news_queue_finished">אין עוד מאמרים חדשים</string>
+    <string name="read_news_error">לא ניתן היה להקריא את החדשות</string>
+    <string name="read_news_next">הבא</string>
 </resources>

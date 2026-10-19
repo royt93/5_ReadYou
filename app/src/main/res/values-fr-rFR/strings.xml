@@ -847,4 +847,10 @@
     <string name="quote_card_cut_note">La citation a été raccourcie</string>
     <string name="quote_card_error">Impossible de créer la carte de citation. Touchez pour réessayer.</string>
     <string name="quote_card_chooser_title">Partager la carte de citation</string>
+    <string name="read_news_shortcut_short">Lire les actualités</string>
+    <string name="read_news_shortcut_long">Lire les dernières actualités non lues</string>
+    <string name="read_news_no_unread">Aucun nouvel article</string>
+    <string name="read_news_queue_finished">Plus aucun nouvel article</string>
+    <string name="read_news_error">Impossible de lire les actualités</string>
+    <string name="read_news_next">Suivant</string>
 </resources>

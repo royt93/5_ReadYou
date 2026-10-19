@@ -820,4 +820,10 @@
     <string name="quote_card_cut_note">Citat je bil skrajšan</string>
     <string name="quote_card_error">Kartice s citatom ni bilo mogoče ustvariti. Tapnite za ponovni poskus.</string>
     <string name="quote_card_chooser_title">Deli kartico s citatom</string>
+    <string name="read_news_shortcut_short">Beri novice</string>
+    <string name="read_news_shortcut_long">Preberi najnovejše neprebrane novice</string>
+    <string name="read_news_no_unread">Ni novih člankov</string>
+    <string name="read_news_queue_finished">Ni več novih člankov</string>
+    <string name="read_news_error">Novic ni bilo mogoče prebrati</string>
+    <string name="read_news_next">Naprej</string>
 </resources>

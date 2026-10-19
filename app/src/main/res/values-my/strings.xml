@@ -910,4 +910,10 @@
     <string name="quote_card_cut_note">ကိုးကားချက်ကို အတိုချုံ့ထားသည်</string>
     <string name="quote_card_error">ကိုးကားချက်ကတ် ဖန်တီး၍မရပါ။ ပြန်ကြိုးစားရန် ထိပါ။</string>
     <string name="quote_card_chooser_title">ကိုးကားချက်ကတ်ကို မျှဝေရန်</string>
+    <string name="read_news_shortcut_short">သတင်းဖတ်ပေးရန်</string>
+    <string name="read_news_shortcut_long">မဖတ်ရသေးသော နောက်ဆုံးသတင်းများကို ဖတ်ပေးရန်</string>
+    <string name="read_news_no_unread">သတင်းအသစ် မရှိပါ</string>
+    <string name="read_news_queue_finished">သတင်းအသစ် ထပ်မရှိတော့ပါ</string>
+    <string name="read_news_error">သတင်းကို ဖတ်ပေး၍မရပါ</string>
+    <string name="read_news_next">နောက်တစ်ခု</string>
 </resources>

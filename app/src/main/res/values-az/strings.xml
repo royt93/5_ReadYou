@@ -914,4 +914,10 @@
     <string name="quote_card_cut_note">Sitat qısaldıldı</string>
     <string name="quote_card_error">Sitat kartı yaradıla bilmədi. Yenidən cəhd üçün toxunun.</string>
     <string name="quote_card_chooser_title">Sitat kartını paylaş</string>
+    <string name="read_news_shortcut_short">Xəbərləri oxu</string>
+    <string name="read_news_shortcut_long">Ən son oxunmamış xəbərləri oxu</string>
+    <string name="read_news_no_unread">Yeni məqalə yoxdur</string>
+    <string name="read_news_queue_finished">Başqa yeni məqalə yoxdur</string>
+    <string name="read_news_error">Xəbərləri oxumaq mümkün olmadı</string>
+    <string name="read_news_next">Növbəti</string>
 </resources>

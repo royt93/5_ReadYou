@@ -915,4 +915,10 @@
     <string name="quote_card_cut_note">Sitatet vart forkorta</string>
     <string name="quote_card_error">Kunne ikkje lage sitatkortet. Trykk for å prøve igjen.</string>
     <string name="quote_card_chooser_title">Del sitatkort</string>
+    <string name="read_news_shortcut_short">Les nyheiter</string>
+    <string name="read_news_shortcut_long">Les dei siste ulesne nyheitene</string>
+    <string name="read_news_no_unread">Ingen nye artiklar</string>
+    <string name="read_news_queue_finished">Ingen fleire nye artiklar</string>
+    <string name="read_news_error">Kunne ikkje lese nyheitene</string>
+    <string name="read_news_next">Neste</string>
 </resources>

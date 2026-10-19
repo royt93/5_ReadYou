@@ -836,4 +836,10 @@
     <string name="quote_card_cut_note">引文已缩短</string>
     <string name="quote_card_error">无法创建引文卡片。点按重试。</string>
     <string name="quote_card_chooser_title">分享引文卡片</string>
+    <string name="read_news_shortcut_short">朗读新闻</string>
+    <string name="read_news_shortcut_long">朗读最新未读新闻</string>
+    <string name="read_news_no_unread">没有新文章</string>
+    <string name="read_news_queue_finished">没有更多新文章</string>
+    <string name="read_news_error">无法朗读新闻</string>
+    <string name="read_news_next">下一篇</string>
 </resources>

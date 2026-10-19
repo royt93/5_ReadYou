@@ -838,4 +838,10 @@
     <string name="quote_card_cut_note">Az idézet rövidítve lett</string>
     <string name="quote_card_error">Az idézetkártya létrehozása nem sikerült. Koppintson az újrapróbálkozáshoz.</string>
     <string name="quote_card_chooser_title">Idézetkártya megosztása</string>
+    <string name="read_news_shortcut_short">Hírek felolvasása</string>
+    <string name="read_news_shortcut_long">A legfrissebb olvasatlan hírek felolvasása</string>
+    <string name="read_news_no_unread">Nincs új cikk</string>
+    <string name="read_news_queue_finished">Nincs több új cikk</string>
+    <string name="read_news_error">A hírek felolvasása nem sikerült</string>
+    <string name="read_news_next">Következő</string>
 </resources>

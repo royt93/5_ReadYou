@@ -913,4 +913,10 @@
     <string name="quote_card_cut_note">Aipua laburtu da</string>
     <string name="quote_card_error">Ezin izan da aipu-txartela sortu. Sakatu berriro saiatzeko.</string>
     <string name="quote_card_chooser_title">Partekatu aipu-txartela</string>
+    <string name="read_news_shortcut_short">Irakurri albisteak</string>
+    <string name="read_news_shortcut_long">Irakurri irakurri gabeko azken albisteak</string>
+    <string name="read_news_no_unread">Ez dago artikulu berririk</string>
+    <string name="read_news_queue_finished">Ez dago artikulu berri gehiagorik</string>
+    <string name="read_news_error">Ezin izan dira albisteak irakurri</string>
+    <string name="read_news_next">Hurrengoa</string>
 </resources>

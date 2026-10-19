@@ -843,4 +843,10 @@
     <string name="quote_card_cut_note">Alıntı kısaltıldı</string>
     <string name="quote_card_error">Alıntı kartı oluşturulamadı. Yeniden denemek için dokunun.</string>
     <string name="quote_card_chooser_title">Alıntı kartını paylaş</string>
+    <string name="read_news_shortcut_short">Haberleri oku</string>
+    <string name="read_news_shortcut_long">En son okunmamış haberleri oku</string>
+    <string name="read_news_no_unread">Yeni makale yok</string>
+    <string name="read_news_queue_finished">Başka yeni makale yok</string>
+    <string name="read_news_error">Haberler okunamadı</string>
+    <string name="read_news_next">Sonraki</string>
 </resources>

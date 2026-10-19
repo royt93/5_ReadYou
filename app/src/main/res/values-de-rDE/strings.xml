@@ -844,4 +844,10 @@
     <string name="quote_card_cut_note">Zitat wurde gekürzt</string>
     <string name="quote_card_error">Zitatkarte konnte nicht erstellt werden. Zum Wiederholen tippen.</string>
     <string name="quote_card_chooser_title">Zitatkarte teilen</string>
+    <string name="read_news_shortcut_short">Nachrichten vorlesen</string>
+    <string name="read_news_shortcut_long">Die neuesten ungelesenen Nachrichten vorlesen</string>
+    <string name="read_news_no_unread">Keine neuen Artikel</string>
+    <string name="read_news_queue_finished">Keine weiteren neuen Artikel</string>
+    <string name="read_news_error">Nachrichten konnten nicht vorgelesen werden</string>
+    <string name="read_news_next">Weiter</string>
 </resources>

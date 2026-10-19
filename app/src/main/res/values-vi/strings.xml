@@ -810,4 +810,10 @@
     <string name="quote_card_cut_note">Đoạn trích đã được rút gọn</string>
     <string name="quote_card_error">Không thể tạo thẻ trích dẫn. Chạm để thử lại.</string>
     <string name="quote_card_chooser_title">Chia sẻ thẻ trích dẫn</string>
+    <string name="read_news_shortcut_short">Đọc tin</string>
+    <string name="read_news_shortcut_long">Đọc tin chưa đọc mới nhất</string>
+    <string name="read_news_no_unread">Không có tin mới</string>
+    <string name="read_news_queue_finished">Không còn tin mới</string>
+    <string name="read_news_error">Không thể đọc tin</string>
+    <string name="read_news_next">Tiếp theo</string>
 </resources>

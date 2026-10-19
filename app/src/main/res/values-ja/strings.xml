@@ -837,4 +837,10 @@
     <string name="quote_card_cut_note">引用を短縮しました</string>
     <string name="quote_card_error">引用カードを作成できませんでした。タップして再試行してください。</string>
     <string name="quote_card_chooser_title">引用カードを共有</string>
+    <string name="read_news_shortcut_short">ニュースを読み上げ</string>
+    <string name="read_news_shortcut_long">最新の未読ニュースを読み上げ</string>
+    <string name="read_news_no_unread">新しい記事はありません</string>
+    <string name="read_news_queue_finished">これ以上新しい記事はありません</string>
+    <string name="read_news_error">ニュースを読み上げられませんでした</string>
+    <string name="read_news_next">次へ</string>
 </resources>

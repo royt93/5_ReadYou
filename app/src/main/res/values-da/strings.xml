@@ -842,4 +842,10 @@
     <string name="quote_card_cut_note">Citatet blev forkortet</string>
     <string name="quote_card_error">Citatkortet kunne ikke oprettes. Tryk for at prøve igen.</string>
     <string name="quote_card_chooser_title">Del citatkort</string>
+    <string name="read_news_shortcut_short">Læs nyheder</string>
+    <string name="read_news_shortcut_long">Læs de seneste ulæste nyheder</string>
+    <string name="read_news_no_unread">Ingen nye artikler</string>
+    <string name="read_news_queue_finished">Ikke flere nye artikler</string>
+    <string name="read_news_error">Kunne ikke læse nyhederne</string>
+    <string name="read_news_next">Næste</string>
 </resources>

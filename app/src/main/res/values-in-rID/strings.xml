@@ -837,4 +837,10 @@
     <string name="quote_card_cut_note">Kutipan dipersingkat</string>
     <string name="quote_card_error">Kartu kutipan tidak dapat dibuat. Ketuk untuk mencoba lagi.</string>
     <string name="quote_card_chooser_title">Bagikan kartu kutipan</string>
+    <string name="read_news_shortcut_short">Bacakan berita</string>
+    <string name="read_news_shortcut_long">Bacakan berita terbaru yang belum dibaca</string>
+    <string name="read_news_no_unread">Tidak ada artikel baru</string>
+    <string name="read_news_queue_finished">Tidak ada artikel baru lagi</string>
+    <string name="read_news_error">Tidak dapat membacakan berita</string>
+    <string name="read_news_next">Berikutnya</string>
 </resources>

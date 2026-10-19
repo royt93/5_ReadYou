@@ -910,4 +910,10 @@
     <string name="quote_card_cut_note">引文已略</string>
     <string name="quote_card_error">引文之卡不能成。輕觸以復試。</string>
     <string name="quote_card_chooser_title">分享引文之卡</string>
+    <string name="read_news_shortcut_short">誦新聞</string>
+    <string name="read_news_shortcut_long">誦最新未讀之新聞</string>
+    <string name="read_news_no_unread">無新文</string>
+    <string name="read_news_queue_finished">無更多新文</string>
+    <string name="read_news_error">新聞不能誦</string>
+    <string name="read_news_next">次</string>
 </resources>

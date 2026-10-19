@@ -925,4 +925,10 @@
     <string name="quote_card_cut_note">Citát byl zkrácen</string>
     <string name="quote_card_error">Kartu s citátem se nepodařilo vytvořit. Klepnutím to zkusíte znovu.</string>
     <string name="quote_card_chooser_title">Sdílet kartu s citátem</string>
+    <string name="read_news_shortcut_short">Číst zprávy</string>
+    <string name="read_news_shortcut_long">Přečíst nejnovější nepřečtené zprávy</string>
+    <string name="read_news_no_unread">Žádné nové články</string>
+    <string name="read_news_queue_finished">Žádné další nové články</string>
+    <string name="read_news_error">Zprávy se nepodařilo přečíst</string>
+    <string name="read_news_next">Další</string>
 </resources>

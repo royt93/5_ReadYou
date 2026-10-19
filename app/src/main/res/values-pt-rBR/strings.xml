@@ -845,4 +845,10 @@
     <string name="quote_card_cut_note">A citação foi encurtada</string>
     <string name="quote_card_error">Não foi possível criar o cartão de citação. Toque para tentar novamente.</string>
     <string name="quote_card_chooser_title">Compartilhar cartão de citação</string>
+    <string name="read_news_shortcut_short">Ler notícias</string>
+    <string name="read_news_shortcut_long">Ler as últimas notícias não lidas</string>
+    <string name="read_news_no_unread">Nenhum artigo novo</string>
+    <string name="read_news_queue_finished">Não há mais artigos novos</string>
+    <string name="read_news_error">Não foi possível ler as notícias</string>
+    <string name="read_news_next">Próximo</string>
 </resources>

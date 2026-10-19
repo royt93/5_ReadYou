@@ -843,4 +843,10 @@
     <string name="quote_card_cut_note">Sitatet ble forkortet</string>
     <string name="quote_card_error">Kunne ikke opprette sitatkortet. Trykk for å prøve igjen.</string>
     <string name="quote_card_chooser_title">Del sitatkort</string>
+    <string name="read_news_shortcut_short">Les nyheter</string>
+    <string name="read_news_shortcut_long">Les de siste uleste nyhetene</string>
+    <string name="read_news_no_unread">Ingen nye artikler</string>
+    <string name="read_news_queue_finished">Ingen flere nye artikler</string>
+    <string name="read_news_error">Kunne ikke lese nyhetene</string>
+    <string name="read_news_next">Neste</string>
 </resources>

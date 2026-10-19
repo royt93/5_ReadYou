@@ -843,4 +843,10 @@
     <string name="quote_card_cut_note">Citaat is ingekort</string>
     <string name="quote_card_error">Citaatkaart kon niet worden gemaakt. Tik om opnieuw te proberen.</string>
     <string name="quote_card_chooser_title">Citaatkaart delen</string>
+    <string name="read_news_shortcut_short">Nieuws voorlezen</string>
+    <string name="read_news_shortcut_long">De nieuwste ongelezen berichten voorlezen</string>
+    <string name="read_news_no_unread">Geen nieuwe artikelen</string>
+    <string name="read_news_queue_finished">Geen nieuwe artikelen meer</string>
+    <string name="read_news_error">Nieuws kon niet worden voorgelezen</string>
+    <string name="read_news_next">Volgende</string>
 </resources>

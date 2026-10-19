@@ -843,4 +843,10 @@
     <string name="quote_card_cut_note">La citazione è stata accorciata</string>
     <string name="quote_card_error">Impossibile creare la carta della citazione. Tocca per riprovare.</string>
     <string name="quote_card_chooser_title">Condividi la carta della citazione</string>
+    <string name="read_news_shortcut_short">Leggi le notizie</string>
+    <string name="read_news_shortcut_long">Leggi le ultime notizie non lette</string>
+    <string name="read_news_no_unread">Nessun nuovo articolo</string>
+    <string name="read_news_queue_finished">Nessun altro nuovo articolo</string>
+    <string name="read_news_error">Impossibile leggere le notizie</string>
+    <string name="read_news_next">Avanti</string>
 </resources>

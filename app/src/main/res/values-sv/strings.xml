@@ -842,4 +842,10 @@
     <string name="quote_card_cut_note">Citatet har förkortats</string>
     <string name="quote_card_error">Det gick inte att skapa citatkortet. Tryck för att försöka igen.</string>
     <string name="quote_card_chooser_title">Dela citatkort</string>
+    <string name="read_news_shortcut_short">Läs nyheter</string>
+    <string name="read_news_shortcut_long">Läs de senaste olästa nyheterna</string>
+    <string name="read_news_no_unread">Inga nya artiklar</string>
+    <string name="read_news_queue_finished">Inga fler nya artiklar</string>
+    <string name="read_news_error">Det gick inte att läsa upp nyheterna</string>
+    <string name="read_news_next">Nästa</string>
 </resources>

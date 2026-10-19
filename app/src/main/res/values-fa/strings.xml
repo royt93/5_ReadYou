@@ -842,4 +842,10 @@
     <string name="quote_card_cut_note">نقل‌قول کوتاه شد</string>
     <string name="quote_card_error">ساخت کارت نقل‌قول ممکن نشد. برای تلاش دوباره ضربه بزنید.</string>
     <string name="quote_card_chooser_title">اشتراک‌گذاری کارت نقل‌قول</string>
+    <string name="read_news_shortcut_short">خواندن اخبار</string>
+    <string name="read_news_shortcut_long">خواندن آخرین اخبار نخوانده</string>
+    <string name="read_news_no_unread">مقاله جدیدی وجود ندارد</string>
+    <string name="read_news_queue_finished">مقاله جدید دیگری وجود ندارد</string>
+    <string name="read_news_error">خواندن اخبار ممکن نشد</string>
+    <string name="read_news_next">بعدی</string>
 </resources>
