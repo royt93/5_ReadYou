@@ -193,4 +193,65 @@ class TtsManagerTest {
 
         assertEquals(0, emitted.size)
     }
+
+    @Test
+    fun play_beforeInit_isQueuedAndSpokenOnceTheEngineIsReady() {
+        // Khởi động nguội (deep link / Assistant): play() chạy trước khi onInit được gọi.
+        manager.play("Early article", "Early title", "Early feed")
+        val tts = ShadowTextToSpeech.getLastTextToSpeechInstance()
+        assertEquals("chưa init thì chưa nói được", null, shadowOf(tts).lastSpokenText)
+
+        manager.onInit(TextToSpeech.SUCCESS)
+
+        assertEquals("Early article", shadowOf(tts).lastSpokenText)
+        assertEquals(TtsState.PLAYING, manager.ttsState.value)
+    }
+
+    @Test
+    fun play_beforeInit_keepsOnlyTheLatestRequest() {
+        manager.play("First", "T1", "F1")
+        manager.play("Second", "T2", "F2")
+
+        manager.onInit(TextToSpeech.SUCCESS)
+
+        assertEquals("Second", shadowOf(ShadowTextToSpeech.getLastTextToSpeechInstance()).lastSpokenText)
+    }
+
+    @Test
+    fun stop_beforeInit_cancelsThePendingRequest() {
+        manager.play("Pending", "T", "F")
+        manager.stop()
+
+        manager.onInit(TextToSpeech.SUCCESS)
+
+        assertEquals(null, shadowOf(ShadowTextToSpeech.getLastTextToSpeechInstance()).lastSpokenText)
+    }
+
+    @Test
+    fun pause_beforeInit_cancelsThePendingRequest() {
+        manager.play("Pending", "T", "F")
+        manager.pause()
+
+        manager.onInit(TextToSpeech.SUCCESS)
+
+        assertEquals(null, shadowOf(ShadowTextToSpeech.getLastTextToSpeechInstance()).lastSpokenText)
+    }
+
+    @Test
+    fun speakNotice_beforeInit_isSpokenOnceTheEngineIsReady() {
+        manager.speakNotice("No new articles")
+
+        manager.onInit(TextToSpeech.SUCCESS)
+
+        assertEquals("No new articles", shadowOf(ShadowTextToSpeech.getLastTextToSpeechInstance()).lastSpokenText)
+    }
+
+    @Test
+    fun onInitFailure_dropsPendingRequestAndReportsError() {
+        manager.play("Pending", "T", "F")
+
+        manager.onInit(TextToSpeech.ERROR)
+
+        assertEquals(TtsState.PLAY_ERROR, manager.ttsState.value)
+    }
 }

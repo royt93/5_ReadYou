@@ -37,6 +37,17 @@ class TtsManager @Inject constructor(
     /** Id utterance cuối của lần [play] hiện tại; null khi không còn gì đang chờ hoàn thành. */
     private var lastUtteranceId: String? = null
 
+    /**
+     * Yêu cầu nói đến TRƯỚC khi engine khởi tạo xong (khởi động nguội từ shortcut/Assistant: onInit chạy bất đồng bộ).
+     * Chỉ giữ yêu cầu mới nhất; được phát khi onInit thành công, bị huỷ bởi pause/stop/shutdown hoặc khi onInit lỗi.
+     */
+    private var pendingSpeech: PendingSpeech? = null
+
+    private sealed interface PendingSpeech {
+        data object Play : PendingSpeech
+        data class Notice(val text: String) : PendingSpeech
+    }
+
     private val _speechRate = MutableStateFlow(DEFAULT_SPEECH_RATE)
     val speechRate: StateFlow<Float> = _speechRate.asStateFlow()
 
@@ -72,7 +83,7 @@ class TtsManager @Inject constructor(
                 tts?.setLanguage(Locale.US)
             }
             isInitialized = true
-            
+
             tts?.setOnUtteranceProgressListener(object : android.speech.tts.UtteranceProgressListener() {
                 override fun onStart(utteranceId: String?) {
                     Log.d("roy93~", "TtsManager onStart: $utteranceId")
@@ -96,9 +107,20 @@ class TtsManager @Inject constructor(
                     _ttsState.value = TtsState.PLAY_ERROR
                 }
             })
+            flushPendingSpeech()
         } else {
             Log.e("roy93~", "TtsManager Initialization Failed!")
+            pendingSpeech = null
             _ttsState.value = TtsState.PLAY_ERROR
+        }
+    }
+
+    private fun flushPendingSpeech() {
+        val pending = pendingSpeech ?: return
+        pendingSpeech = null
+        when (pending) {
+            PendingSpeech.Play -> play(lastPlayedText, currentTitle, currentSubtitle)
+            is PendingSpeech.Notice -> speakNotice(pending.text)
         }
     }
 
@@ -109,7 +131,8 @@ class TtsManager @Inject constructor(
         if (subtitle.isNotBlank()) currentSubtitle = subtitle
 
         if (!isInitialized) {
-            Log.d("roy93~", "TtsManager play aborted: not initialized")
+            Log.d("roy93~", "TtsManager play queued: engine not initialized yet")
+            pendingSpeech = PendingSpeech.Play
             return
         }
 
@@ -136,7 +159,11 @@ class TtsManager @Inject constructor(
      * [lastPlayedText]/tiêu đề và không phát [completions], để nút Play sau đó vẫn đọc lại đúng bài.
      */
     fun speakNotice(text: String) {
-        if (!isInitialized || text.isBlank()) return
+        if (text.isBlank()) return
+        if (!isInitialized) {
+            pendingSpeech = PendingSpeech.Notice(text)
+            return
+        }
         lastUtteranceId = null
         tts?.speak(text, TextToSpeech.QUEUE_FLUSH, null, NOTICE_UTTERANCE_ID)
     }
@@ -144,6 +171,7 @@ class TtsManager @Inject constructor(
     fun pause() {
         Log.d("roy93~", "TtsManager pause()")
         lastUtteranceId = null
+        pendingSpeech = null
         if (!isInitialized) return
         tts?.stop()
         _ttsState.value = TtsState.IDLE
@@ -160,6 +188,7 @@ class TtsManager @Inject constructor(
     fun stop() {
         Log.d("roy93~", "TtsManager stop()")
         lastUtteranceId = null
+        pendingSpeech = null
         if (!isInitialized) return
         tts?.stop()
         _ttsState.value = TtsState.IDLE
@@ -169,6 +198,7 @@ class TtsManager @Inject constructor(
     fun shutdown() {
         Log.d("roy93~", "TtsManager shutdown()")
         lastUtteranceId = null
+        pendingSpeech = null
         if (!isInitialized) return
         tts?.stop()
         tts?.shutdown()
