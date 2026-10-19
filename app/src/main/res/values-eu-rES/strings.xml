@@ -919,4 +919,19 @@
     <string name="read_news_queue_finished">Ez dago artikulu berri gehiagorik</string>
     <string name="read_news_error">Ezin izan dira albisteak irakurri</string>
     <string name="read_news_next">Hurrengoa</string>
+    <string name="podcast_channel_name">Podcast erreprodukzioa</string>
+    <string name="podcast_play">Erreproduzitu</string>
+    <string name="podcast_pause">Pausatu</string>
+    <string name="podcast_stop">Gelditu</string>
+    <string name="podcast_skip_back">15 segundo atzera</string>
+    <string name="podcast_skip_forward">15 segundo aurrera</string>
+    <string name="podcast_seek">Erreprodukzio-posizioa</string>
+    <string name="podcast_speed">Erreprodukzio-abiadura</string>
+    <string name="podcast_sleep_timer">Lo-tenporizadorea</string>
+    <string name="podcast_sleep_off">Desaktibatuta</string>
+    <string name="podcast_error">Ezin izan da atal hau erreproduzitu.</string>
+    <plurals name="podcast_sleep_minutes">
+        <item quantity="one">%1$d minutu</item>
+        <item quantity="other">%1$d minutu</item>
+    </plurals>
 </resources>

@@ -849,4 +849,19 @@
     <string name="read_news_queue_finished">Başka yeni makale yok</string>
     <string name="read_news_error">Haberler okunamadı</string>
     <string name="read_news_next">Sonraki</string>
+    <string name="podcast_channel_name">Podcast oynatma</string>
+    <string name="podcast_play">Oynat</string>
+    <string name="podcast_pause">Duraklat</string>
+    <string name="podcast_stop">Durdur</string>
+    <string name="podcast_skip_back">15 saniye geri</string>
+    <string name="podcast_skip_forward">15 saniye ileri</string>
+    <string name="podcast_seek">Oynatma konumu</string>
+    <string name="podcast_speed">Oynatma hızı</string>
+    <string name="podcast_sleep_timer">Uyku zamanlayıcısı</string>
+    <string name="podcast_sleep_off">Kapalı</string>
+    <string name="podcast_error">Bu bölüm oynatılamadı.</string>
+    <plurals name="podcast_sleep_minutes">
+        <item quantity="one">%1$d dakika</item>
+        <item quantity="other">%1$d dakika</item>
+    </plurals>
 </resources>

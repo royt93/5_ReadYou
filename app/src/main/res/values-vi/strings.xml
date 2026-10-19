@@ -816,4 +816,18 @@
     <string name="read_news_queue_finished">Không còn tin mới</string>
     <string name="read_news_error">Không thể đọc tin</string>
     <string name="read_news_next">Tiếp theo</string>
+    <string name="podcast_channel_name">Phát podcast</string>
+    <string name="podcast_play">Phát</string>
+    <string name="podcast_pause">Tạm dừng</string>
+    <string name="podcast_stop">Dừng</string>
+    <string name="podcast_skip_back">Lùi 15 giây</string>
+    <string name="podcast_skip_forward">Tua tới 15 giây</string>
+    <string name="podcast_seek">Vị trí phát</string>
+    <string name="podcast_speed">Tốc độ phát</string>
+    <string name="podcast_sleep_timer">Hẹn giờ tắt</string>
+    <string name="podcast_sleep_off">Tắt</string>
+    <string name="podcast_error">Không thể phát tập này.</string>
+    <plurals name="podcast_sleep_minutes">
+        <item quantity="other">%1$d phút</item>
+    </plurals>
 </resources>

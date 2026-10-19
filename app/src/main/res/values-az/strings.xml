@@ -920,4 +920,19 @@
     <string name="read_news_queue_finished">Başqa yeni məqalə yoxdur</string>
     <string name="read_news_error">Xəbərləri oxumaq mümkün olmadı</string>
     <string name="read_news_next">Növbəti</string>
+    <string name="podcast_channel_name">Podkast oxudulması</string>
+    <string name="podcast_play">Oxut</string>
+    <string name="podcast_pause">Fasilə ver</string>
+    <string name="podcast_stop">Dayandır</string>
+    <string name="podcast_skip_back">15 saniyə geri</string>
+    <string name="podcast_skip_forward">15 saniyə irəli</string>
+    <string name="podcast_seek">Oxutma mövqeyi</string>
+    <string name="podcast_speed">Oxutma sürəti</string>
+    <string name="podcast_sleep_timer">Yatma taymeri</string>
+    <string name="podcast_sleep_off">Söndürülüb</string>
+    <string name="podcast_error">Bu epizodu oxutmaq mümkün olmadı.</string>
+    <plurals name="podcast_sleep_minutes">
+        <item quantity="one">%1$d dəqiqə</item>
+        <item quantity="other">%1$d dəqiqə</item>
+    </plurals>
 </resources>

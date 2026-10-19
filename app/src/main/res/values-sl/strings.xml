@@ -826,4 +826,21 @@
     <string name="read_news_queue_finished">Ni več novih člankov</string>
     <string name="read_news_error">Novic ni bilo mogoče prebrati</string>
     <string name="read_news_next">Naprej</string>
+    <string name="podcast_channel_name">Predvajanje podcastov</string>
+    <string name="podcast_play">Predvajaj</string>
+    <string name="podcast_pause">Premor</string>
+    <string name="podcast_stop">Ustavi</string>
+    <string name="podcast_skip_back">Nazaj za 15 sekund</string>
+    <string name="podcast_skip_forward">Naprej za 15 sekund</string>
+    <string name="podcast_seek">Položaj predvajanja</string>
+    <string name="podcast_speed">Hitrost predvajanja</string>
+    <string name="podcast_sleep_timer">Časovnik spanja</string>
+    <string name="podcast_sleep_off">Izklopljeno</string>
+    <string name="podcast_error">Te epizode ni bilo mogoče predvajati.</string>
+    <plurals name="podcast_sleep_minutes">
+        <item quantity="one">%1$d minuta</item>
+        <item quantity="two">%1$d minuti</item>
+        <item quantity="few">%1$d minute</item>
+        <item quantity="other">%1$d minut</item>
+    </plurals>
 </resources>

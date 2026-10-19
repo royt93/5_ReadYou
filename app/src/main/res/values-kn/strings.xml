@@ -920,4 +920,19 @@
     <string name="read_news_queue_finished">ಇನ್ನು ಹೊಸ ಲೇಖನಗಳಿಲ್ಲ</string>
     <string name="read_news_error">ಸುದ್ದಿ ಓದಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ</string>
     <string name="read_news_next">ಮುಂದೆ</string>
+    <string name="podcast_channel_name">ಪಾಡ್‌ಕಾಸ್ಟ್ ಪ್ಲೇಬ್ಯಾಕ್</string>
+    <string name="podcast_play">ಪ್ಲೇ</string>
+    <string name="podcast_pause">ವಿರಾಮ</string>
+    <string name="podcast_stop">ನಿಲ್ಲಿಸಿ</string>
+    <string name="podcast_skip_back">15 ಸೆಕೆಂಡ್ ಹಿಂದೆ</string>
+    <string name="podcast_skip_forward">15 ಸೆಕೆಂಡ್ ಮುಂದೆ</string>
+    <string name="podcast_seek">ಪ್ಲೇಬ್ಯಾಕ್ ಸ್ಥಾನ</string>
+    <string name="podcast_speed">ಪ್ಲೇಬ್ಯಾಕ್ ವೇಗ</string>
+    <string name="podcast_sleep_timer">ಸ್ಲೀಪ್ ಟೈಮರ್</string>
+    <string name="podcast_sleep_off">ಆಫ್</string>
+    <string name="podcast_error">ಈ ಎಪಿಸೋಡ್ ಪ್ಲೇ ಮಾಡಲಾಗಲಿಲ್ಲ.</string>
+    <plurals name="podcast_sleep_minutes">
+        <item quantity="one">%1$d ನಿಮಿಷ</item>
+        <item quantity="other">%1$d ನಿಮಿಷ</item>
+    </plurals>
 </resources>

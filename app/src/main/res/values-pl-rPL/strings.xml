@@ -928,4 +928,21 @@
     <string name="read_news_queue_finished">Brak kolejnych nowych artykułów</string>
     <string name="read_news_error">Nie udało się odczytać wiadomości</string>
     <string name="read_news_next">Dalej</string>
+    <string name="podcast_channel_name">Odtwarzanie podcastów</string>
+    <string name="podcast_play">Odtwarzaj</string>
+    <string name="podcast_pause">Wstrzymaj</string>
+    <string name="podcast_stop">Zatrzymaj</string>
+    <string name="podcast_skip_back">Cofnij o 15 sekund</string>
+    <string name="podcast_skip_forward">Przewiń o 15 sekund</string>
+    <string name="podcast_seek">Pozycja odtwarzania</string>
+    <string name="podcast_speed">Szybkość odtwarzania</string>
+    <string name="podcast_sleep_timer">Wyłącznik czasowy</string>
+    <string name="podcast_sleep_off">Wyłączony</string>
+    <string name="podcast_error">Nie udało się odtworzyć tego odcinka.</string>
+    <plurals name="podcast_sleep_minutes">
+        <item quantity="one">%1$d minuta</item>
+        <item quantity="few">%1$d minuty</item>
+        <item quantity="many">%1$d minut</item>
+        <item quantity="other">%1$d minuty</item>
+    </plurals>
 </resources>

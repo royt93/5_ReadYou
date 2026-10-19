@@ -848,4 +848,19 @@
     <string name="read_news_queue_finished">No hi ha més articles nous</string>
     <string name="read_news_error">No s\'han pogut llegir les notícies</string>
     <string name="read_news_next">Següent</string>
+    <string name="podcast_channel_name">Reproducció de pòdcasts</string>
+    <string name="podcast_play">Reprodueix</string>
+    <string name="podcast_pause">Pausa</string>
+    <string name="podcast_stop">Atura</string>
+    <string name="podcast_skip_back">Enrere 15 segons</string>
+    <string name="podcast_skip_forward">Endavant 15 segons</string>
+    <string name="podcast_seek">Posició de reproducció</string>
+    <string name="podcast_speed">Velocitat de reproducció</string>
+    <string name="podcast_sleep_timer">Temporitzador de son</string>
+    <string name="podcast_sleep_off">Desactivat</string>
+    <string name="podcast_error">No s\'ha pogut reproduir aquest episodi.</string>
+    <plurals name="podcast_sleep_minutes">
+        <item quantity="one">%1$d minut</item>
+        <item quantity="other">%1$d minuts</item>
+    </plurals>
 </resources>

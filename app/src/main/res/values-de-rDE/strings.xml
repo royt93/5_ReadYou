@@ -850,4 +850,19 @@
     <string name="read_news_queue_finished">Keine weiteren neuen Artikel</string>
     <string name="read_news_error">Nachrichten konnten nicht vorgelesen werden</string>
     <string name="read_news_next">Weiter</string>
+    <string name="podcast_channel_name">Podcast-Wiedergabe</string>
+    <string name="podcast_play">Wiedergabe</string>
+    <string name="podcast_pause">Pause</string>
+    <string name="podcast_stop">Stopp</string>
+    <string name="podcast_skip_back">15 Sekunden zurück</string>
+    <string name="podcast_skip_forward">15 Sekunden vor</string>
+    <string name="podcast_seek">Wiedergabeposition</string>
+    <string name="podcast_speed">Wiedergabegeschwindigkeit</string>
+    <string name="podcast_sleep_timer">Einschlaftimer</string>
+    <string name="podcast_sleep_off">Aus</string>
+    <string name="podcast_error">Diese Folge konnte nicht abgespielt werden.</string>
+    <plurals name="podcast_sleep_minutes">
+        <item quantity="one">%1$d Minute</item>
+        <item quantity="other">%1$d Minuten</item>
+    </plurals>
 </resources>

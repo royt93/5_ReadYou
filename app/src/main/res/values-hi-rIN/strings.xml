@@ -846,4 +846,19 @@
     <string name="read_news_queue_finished">कोई और नया लेख नहीं</string>
     <string name="read_news_error">समाचार पढ़े नहीं जा सके</string>
     <string name="read_news_next">अगला</string>
+    <string name="podcast_channel_name">पॉडकास्ट प्लेबैक</string>
+    <string name="podcast_play">चलाएँ</string>
+    <string name="podcast_pause">रोकें</string>
+    <string name="podcast_stop">बंद करें</string>
+    <string name="podcast_skip_back">15 सेकंड पीछे</string>
+    <string name="podcast_skip_forward">15 सेकंड आगे</string>
+    <string name="podcast_seek">प्लेबैक स्थिति</string>
+    <string name="podcast_speed">प्लेबैक गति</string>
+    <string name="podcast_sleep_timer">स्लीप टाइमर</string>
+    <string name="podcast_sleep_off">बंद</string>
+    <string name="podcast_error">यह एपिसोड नहीं चलाया जा सका.</string>
+    <plurals name="podcast_sleep_minutes">
+        <item quantity="one">%1$d मिनट</item>
+        <item quantity="other">%1$d मिनट</item>
+    </plurals>
 </resources>

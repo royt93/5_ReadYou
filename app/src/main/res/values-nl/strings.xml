@@ -849,4 +849,19 @@
     <string name="read_news_queue_finished">Geen nieuwe artikelen meer</string>
     <string name="read_news_error">Nieuws kon niet worden voorgelezen</string>
     <string name="read_news_next">Volgende</string>
+    <string name="podcast_channel_name">Podcast afspelen</string>
+    <string name="podcast_play">Afspelen</string>
+    <string name="podcast_pause">Pauzeren</string>
+    <string name="podcast_stop">Stoppen</string>
+    <string name="podcast_skip_back">15 seconden terug</string>
+    <string name="podcast_skip_forward">15 seconden vooruit</string>
+    <string name="podcast_seek">Afspeelpositie</string>
+    <string name="podcast_speed">Afspeelsnelheid</string>
+    <string name="podcast_sleep_timer">Slaaptimer</string>
+    <string name="podcast_sleep_off">Uit</string>
+    <string name="podcast_error">Deze aflevering kon niet worden afgespeeld.</string>
+    <plurals name="podcast_sleep_minutes">
+        <item quantity="one">%1$d minuut</item>
+        <item quantity="other">%1$d minuten</item>
+    </plurals>
 </resources>

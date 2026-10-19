@@ -931,4 +931,21 @@
     <string name="read_news_queue_finished">אין עוד מאמרים חדשים</string>
     <string name="read_news_error">לא ניתן היה להקריא את החדשות</string>
     <string name="read_news_next">הבא</string>
+    <string name="podcast_channel_name">ניגון פודקאסטים</string>
+    <string name="podcast_play">הפעל</string>
+    <string name="podcast_pause">השהה</string>
+    <string name="podcast_stop">עצור</string>
+    <string name="podcast_skip_back">15 שניות אחורה</string>
+    <string name="podcast_skip_forward">15 שניות קדימה</string>
+    <string name="podcast_seek">מיקום ההשמעה</string>
+    <string name="podcast_speed">מהירות ההשמעה</string>
+    <string name="podcast_sleep_timer">טיימר שינה</string>
+    <string name="podcast_sleep_off">כבוי</string>
+    <string name="podcast_error">לא ניתן היה להפעיל את הפרק הזה.</string>
+    <plurals name="podcast_sleep_minutes">
+        <item quantity="one">%1$d דקה</item>
+        <item quantity="two">%1$d דקות</item>
+        <item quantity="many">%1$d דקות</item>
+        <item quantity="other">%1$d דקות</item>
+    </plurals>
 </resources>

@@ -844,4 +844,19 @@
     <string name="read_news_queue_finished">Nincs több új cikk</string>
     <string name="read_news_error">A hírek felolvasása nem sikerült</string>
     <string name="read_news_next">Következő</string>
+    <string name="podcast_channel_name">Podcast-lejátszás</string>
+    <string name="podcast_play">Lejátszás</string>
+    <string name="podcast_pause">Szünet</string>
+    <string name="podcast_stop">Leállítás</string>
+    <string name="podcast_skip_back">15 másodperc vissza</string>
+    <string name="podcast_skip_forward">15 másodperc előre</string>
+    <string name="podcast_seek">Lejátszási pozíció</string>
+    <string name="podcast_speed">Lejátszási sebesség</string>
+    <string name="podcast_sleep_timer">Alvásidőzítő</string>
+    <string name="podcast_sleep_off">Ki</string>
+    <string name="podcast_error">Ezt az epizódot nem sikerült lejátszani.</string>
+    <plurals name="podcast_sleep_minutes">
+        <item quantity="one">%1$d perc</item>
+        <item quantity="other">%1$d perc</item>
+    </plurals>
 </resources>

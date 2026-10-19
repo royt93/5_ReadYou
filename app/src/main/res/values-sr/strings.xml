@@ -856,4 +856,20 @@
     <string name="read_news_queue_finished">Нема више нових чланака</string>
     <string name="read_news_error">Вести није могуће прочитати</string>
     <string name="read_news_next">Следеће</string>
+    <string name="podcast_channel_name">Пуштање подкаста</string>
+    <string name="podcast_play">Пусти</string>
+    <string name="podcast_pause">Паузирај</string>
+    <string name="podcast_stop">Заустави</string>
+    <string name="podcast_skip_back">Назад 15 секунди</string>
+    <string name="podcast_skip_forward">Напред 15 секунди</string>
+    <string name="podcast_seek">Позиција пуштања</string>
+    <string name="podcast_speed">Брзина пуштања</string>
+    <string name="podcast_sleep_timer">Тајмер за спавање</string>
+    <string name="podcast_sleep_off">Искључено</string>
+    <string name="podcast_error">Ова епизода није могла да се пусти.</string>
+    <plurals name="podcast_sleep_minutes">
+        <item quantity="one">%1$d минут</item>
+        <item quantity="few">%1$d минута</item>
+        <item quantity="other">%1$d минута</item>
+    </plurals>
 </resources>

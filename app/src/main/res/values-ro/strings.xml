@@ -855,4 +855,20 @@
     <string name="read_news_queue_finished">Niciun alt articol nou</string>
     <string name="read_news_error">Știrile nu au putut fi citite</string>
     <string name="read_news_next">Următorul</string>
+    <string name="podcast_channel_name">Redare podcast</string>
+    <string name="podcast_play">Redă</string>
+    <string name="podcast_pause">Pauză</string>
+    <string name="podcast_stop">Oprește</string>
+    <string name="podcast_skip_back">Înapoi 15 secunde</string>
+    <string name="podcast_skip_forward">Înainte 15 secunde</string>
+    <string name="podcast_seek">Poziția de redare</string>
+    <string name="podcast_speed">Viteza de redare</string>
+    <string name="podcast_sleep_timer">Temporizator de somn</string>
+    <string name="podcast_sleep_off">Oprit</string>
+    <string name="podcast_error">Acest episod nu a putut fi redat.</string>
+    <plurals name="podcast_sleep_minutes">
+        <item quantity="one">%1$d minut</item>
+        <item quantity="few">%1$d minute</item>
+        <item quantity="other">%1$d de minute</item>
+    </plurals>
 </resources>

@@ -813,4 +813,19 @@
     <string name="read_news_queue_finished">Няма повече нови статии</string>
     <string name="read_news_error">Новините не можаха да бъдат прочетени</string>
     <string name="read_news_next">Напред</string>
+    <string name="podcast_channel_name">Възпроизвеждане на подкаст</string>
+    <string name="podcast_play">Пусни</string>
+    <string name="podcast_pause">Пауза</string>
+    <string name="podcast_stop">Спри</string>
+    <string name="podcast_skip_back">Назад с 15 секунди</string>
+    <string name="podcast_skip_forward">Напред с 15 секунди</string>
+    <string name="podcast_seek">Позиция на възпроизвеждане</string>
+    <string name="podcast_speed">Скорост на възпроизвеждане</string>
+    <string name="podcast_sleep_timer">Таймер за заспиване</string>
+    <string name="podcast_sleep_off">Изкл.</string>
+    <string name="podcast_error">Този епизод не може да се възпроизведе.</string>
+    <plurals name="podcast_sleep_minutes">
+        <item quantity="one">%1$d минута</item>
+        <item quantity="other">%1$d минути</item>
+    </plurals>
 </resources>

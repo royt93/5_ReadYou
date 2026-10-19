@@ -848,4 +848,19 @@
     <string name="read_news_queue_finished">Inga fler nya artiklar</string>
     <string name="read_news_error">Det gick inte att läsa upp nyheterna</string>
     <string name="read_news_next">Nästa</string>
+    <string name="podcast_channel_name">Uppspelning av poddar</string>
+    <string name="podcast_play">Spela upp</string>
+    <string name="podcast_pause">Pausa</string>
+    <string name="podcast_stop">Stoppa</string>
+    <string name="podcast_skip_back">15 sekunder bakåt</string>
+    <string name="podcast_skip_forward">15 sekunder framåt</string>
+    <string name="podcast_seek">Uppspelningsposition</string>
+    <string name="podcast_speed">Uppspelningshastighet</string>
+    <string name="podcast_sleep_timer">Insomningstimer</string>
+    <string name="podcast_sleep_off">Av</string>
+    <string name="podcast_error">Det gick inte att spela upp avsnittet.</string>
+    <plurals name="podcast_sleep_minutes">
+        <item quantity="one">%1$d minut</item>
+        <item quantity="other">%1$d minuter</item>
+    </plurals>
 </resources>

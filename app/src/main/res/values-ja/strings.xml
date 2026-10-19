@@ -843,4 +843,18 @@
     <string name="read_news_queue_finished">これ以上新しい記事はありません</string>
     <string name="read_news_error">ニュースを読み上げられませんでした</string>
     <string name="read_news_next">次へ</string>
+    <string name="podcast_channel_name">ポッドキャスト再生</string>
+    <string name="podcast_play">再生</string>
+    <string name="podcast_pause">一時停止</string>
+    <string name="podcast_stop">停止</string>
+    <string name="podcast_skip_back">15秒戻る</string>
+    <string name="podcast_skip_forward">15秒進む</string>
+    <string name="podcast_seek">再生位置</string>
+    <string name="podcast_speed">再生速度</string>
+    <string name="podcast_sleep_timer">スリープタイマー</string>
+    <string name="podcast_sleep_off">オフ</string>
+    <string name="podcast_error">このエピソードを再生できませんでした。</string>
+    <plurals name="podcast_sleep_minutes">
+        <item quantity="other">%1$d分</item>
+    </plurals>
 </resources>

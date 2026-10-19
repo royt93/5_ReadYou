@@ -916,4 +916,18 @@
     <string name="read_news_queue_finished">သတင်းအသစ် ထပ်မရှိတော့ပါ</string>
     <string name="read_news_error">သတင်းကို ဖတ်ပေး၍မရပါ</string>
     <string name="read_news_next">နောက်တစ်ခု</string>
+    <string name="podcast_channel_name">ပေါ့ဒ်ကာစ် ဖွင့်ခြင်း</string>
+    <string name="podcast_play">ဖွင့်ရန်</string>
+    <string name="podcast_pause">ခေတ္တရပ်ရန်</string>
+    <string name="podcast_stop">ရပ်ရန်</string>
+    <string name="podcast_skip_back">၁၅ စက္ကန့် နောက်ဆုတ်ရန်</string>
+    <string name="podcast_skip_forward">၁၅ စက္ကန့် ရှေ့သို့သွားရန်</string>
+    <string name="podcast_seek">ဖွင့်နေသည့်နေရာ</string>
+    <string name="podcast_speed">ဖွင့်မြန်နှုန်း</string>
+    <string name="podcast_sleep_timer">အိပ်ချိန်သတ်မှတ်ကိရိယာ</string>
+    <string name="podcast_sleep_off">ပိတ်</string>
+    <string name="podcast_error">ဤအပိုင်းကို ဖွင့်၍မရပါ။</string>
+    <plurals name="podcast_sleep_minutes">
+        <item quantity="other">%1$d မိနစ်</item>
+    </plurals>
 </resources>

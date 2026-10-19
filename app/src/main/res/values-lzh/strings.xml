@@ -916,4 +916,18 @@
     <string name="read_news_queue_finished">無更多新文</string>
     <string name="read_news_error">新聞不能誦</string>
     <string name="read_news_next">次</string>
+    <string name="podcast_channel_name">播客</string>
+    <string name="podcast_play">播放</string>
+    <string name="podcast_pause">暫停</string>
+    <string name="podcast_stop">止</string>
+    <string name="podcast_skip_back">退十五秒</string>
+    <string name="podcast_skip_forward">進十五秒</string>
+    <string name="podcast_seek">播放之位</string>
+    <string name="podcast_speed">播放之速</string>
+    <string name="podcast_sleep_timer">就寢計時</string>
+    <string name="podcast_sleep_off">關</string>
+    <string name="podcast_error">此集不能播放。</string>
+    <plurals name="podcast_sleep_minutes">
+        <item quantity="other">%1$d 分</item>
+    </plurals>
 </resources>

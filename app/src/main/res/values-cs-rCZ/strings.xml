@@ -931,4 +931,21 @@
     <string name="read_news_queue_finished">Žádné další nové články</string>
     <string name="read_news_error">Zprávy se nepodařilo přečíst</string>
     <string name="read_news_next">Další</string>
+    <string name="podcast_channel_name">Přehrávání podcastů</string>
+    <string name="podcast_play">Přehrát</string>
+    <string name="podcast_pause">Pozastavit</string>
+    <string name="podcast_stop">Zastavit</string>
+    <string name="podcast_skip_back">Zpět o 15 sekund</string>
+    <string name="podcast_skip_forward">Vpřed o 15 sekund</string>
+    <string name="podcast_seek">Pozice přehrávání</string>
+    <string name="podcast_speed">Rychlost přehrávání</string>
+    <string name="podcast_sleep_timer">Časovač vypnutí</string>
+    <string name="podcast_sleep_off">Vypnuto</string>
+    <string name="podcast_error">Tuto epizodu se nepodařilo přehrát.</string>
+    <plurals name="podcast_sleep_minutes">
+        <item quantity="one">%1$d minuta</item>
+        <item quantity="few">%1$d minuty</item>
+        <item quantity="many">%1$d minuty</item>
+        <item quantity="other">%1$d minut</item>
+    </plurals>
 </resources>

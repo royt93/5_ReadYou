@@ -862,4 +862,21 @@
     <string name="read_news_queue_finished">Больше нет новых статей</string>
     <string name="read_news_error">Не удалось прочитать новости</string>
     <string name="read_news_next">Далее</string>
+    <string name="podcast_channel_name">Воспроизведение подкастов</string>
+    <string name="podcast_play">Воспроизвести</string>
+    <string name="podcast_pause">Пауза</string>
+    <string name="podcast_stop">Стоп</string>
+    <string name="podcast_skip_back">Назад на 15 секунд</string>
+    <string name="podcast_skip_forward">Вперёд на 15 секунд</string>
+    <string name="podcast_seek">Позиция воспроизведения</string>
+    <string name="podcast_speed">Скорость воспроизведения</string>
+    <string name="podcast_sleep_timer">Таймер сна</string>
+    <string name="podcast_sleep_off">Выкл.</string>
+    <string name="podcast_error">Не удалось воспроизвести этот выпуск.</string>
+    <plurals name="podcast_sleep_minutes">
+        <item quantity="one">%1$d минута</item>
+        <item quantity="few">%1$d минуты</item>
+        <item quantity="many">%1$d минут</item>
+        <item quantity="other">%1$d минуты</item>
+    </plurals>
 </resources>

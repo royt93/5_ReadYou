@@ -843,4 +843,18 @@
     <string name="read_news_queue_finished">Tidak ada artikel baru lagi</string>
     <string name="read_news_error">Tidak dapat membacakan berita</string>
     <string name="read_news_next">Berikutnya</string>
+    <string name="podcast_channel_name">Pemutaran podcast</string>
+    <string name="podcast_play">Putar</string>
+    <string name="podcast_pause">Jeda</string>
+    <string name="podcast_stop">Berhenti</string>
+    <string name="podcast_skip_back">Mundur 15 detik</string>
+    <string name="podcast_skip_forward">Maju 15 detik</string>
+    <string name="podcast_seek">Posisi pemutaran</string>
+    <string name="podcast_speed">Kecepatan pemutaran</string>
+    <string name="podcast_sleep_timer">Timer tidur</string>
+    <string name="podcast_sleep_off">Mati</string>
+    <string name="podcast_error">Tidak dapat memutar episode ini.</string>
+    <plurals name="podcast_sleep_minutes">
+        <item quantity="other">%1$d menit</item>
+    </plurals>
 </resources>

@@ -848,4 +848,19 @@
     <string name="read_news_queue_finished">مقاله جدید دیگری وجود ندارد</string>
     <string name="read_news_error">خواندن اخبار ممکن نشد</string>
     <string name="read_news_next">بعدی</string>
+    <string name="podcast_channel_name">پخش پادکست</string>
+    <string name="podcast_play">پخش</string>
+    <string name="podcast_pause">مکث</string>
+    <string name="podcast_stop">توقف</string>
+    <string name="podcast_skip_back">۱۵ ثانیه عقب</string>
+    <string name="podcast_skip_forward">۱۵ ثانیه جلو</string>
+    <string name="podcast_seek">موقعیت پخش</string>
+    <string name="podcast_speed">سرعت پخش</string>
+    <string name="podcast_sleep_timer">زمان‌سنج خواب</string>
+    <string name="podcast_sleep_off">خاموش</string>
+    <string name="podcast_error">پخش این قسمت ممکن نبود.</string>
+    <plurals name="podcast_sleep_minutes">
+        <item quantity="one">%1$d دقیقه</item>
+        <item quantity="other">%1$d دقیقه</item>
+    </plurals>
 </resources>

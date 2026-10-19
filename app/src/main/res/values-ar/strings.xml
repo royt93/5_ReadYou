@@ -839,4 +839,23 @@
     <string name="read_news_queue_finished">لا توجد مقالات جديدة أخرى</string>
     <string name="read_news_error">تعذرت قراءة الأخبار</string>
     <string name="read_news_next">التالي</string>
+    <string name="podcast_channel_name">تشغيل البودكاست</string>
+    <string name="podcast_play">تشغيل</string>
+    <string name="podcast_pause">إيقاف مؤقت</string>
+    <string name="podcast_stop">إيقاف</string>
+    <string name="podcast_skip_back">رجوع 15 ثانية</string>
+    <string name="podcast_skip_forward">تقديم 15 ثانية</string>
+    <string name="podcast_seek">موضع التشغيل</string>
+    <string name="podcast_speed">سرعة التشغيل</string>
+    <string name="podcast_sleep_timer">مؤقّت النوم</string>
+    <string name="podcast_sleep_off">إيقاف</string>
+    <string name="podcast_error">تعذّر تشغيل هذه الحلقة.</string>
+    <plurals name="podcast_sleep_minutes">
+        <item quantity="zero">%1$d دقيقة</item>
+        <item quantity="one">دقيقة واحدة</item>
+        <item quantity="two">دقيقتان</item>
+        <item quantity="few">%1$d دقائق</item>
+        <item quantity="many">%1$d دقيقة</item>
+        <item quantity="other">%1$d دقيقة</item>
+    </plurals>
 </resources>

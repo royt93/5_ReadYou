@@ -851,4 +851,19 @@
     <string name="read_news_queue_finished">No hay más artículos nuevos</string>
     <string name="read_news_error">No se pudieron leer las noticias</string>
     <string name="read_news_next">Siguiente</string>
+    <string name="podcast_channel_name">Reproducción de pódcast</string>
+    <string name="podcast_play">Reproducir</string>
+    <string name="podcast_pause">Pausa</string>
+    <string name="podcast_stop">Detener</string>
+    <string name="podcast_skip_back">Retroceder 15 segundos</string>
+    <string name="podcast_skip_forward">Avanzar 15 segundos</string>
+    <string name="podcast_seek">Posición de reproducción</string>
+    <string name="podcast_speed">Velocidad de reproducción</string>
+    <string name="podcast_sleep_timer">Temporizador de apagado</string>
+    <string name="podcast_sleep_off">Desactivado</string>
+    <string name="podcast_error">No se pudo reproducir este episodio.</string>
+    <plurals name="podcast_sleep_minutes">
+        <item quantity="one">%1$d minuto</item>
+        <item quantity="other">%1$d minutos</item>
+    </plurals>
 </resources>

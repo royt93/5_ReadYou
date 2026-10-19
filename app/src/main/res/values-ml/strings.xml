@@ -921,4 +921,19 @@
     <string name="read_news_queue_finished">കൂടുതൽ പുതിയ ലേഖനങ്ങളില്ല</string>
     <string name="read_news_error">വാർത്തകൾ വായിക്കാനായില്ല</string>
     <string name="read_news_next">അടുത്തത്</string>
+    <string name="podcast_channel_name">പോഡ്‌കാസ്റ്റ് പ്ലേബാക്ക്</string>
+    <string name="podcast_play">പ്ലേ ചെയ്യുക</string>
+    <string name="podcast_pause">താൽക്കാലികമായി നിർത്തുക</string>
+    <string name="podcast_stop">നിർത്തുക</string>
+    <string name="podcast_skip_back">15 സെക്കൻഡ് പിന്നോട്ട്</string>
+    <string name="podcast_skip_forward">15 സെക്കൻഡ് മുന്നോട്ട്</string>
+    <string name="podcast_seek">പ്ലേബാക്ക് സ്ഥാനം</string>
+    <string name="podcast_speed">പ്ലേബാക്ക് വേഗത</string>
+    <string name="podcast_sleep_timer">സ്ലീപ് ടൈമർ</string>
+    <string name="podcast_sleep_off">ഓഫ്</string>
+    <string name="podcast_error">ഈ എപ്പിസോഡ് പ്ലേ ചെയ്യാനായില്ല.</string>
+    <plurals name="podcast_sleep_minutes">
+        <item quantity="one">%1$d മിനിറ്റ്</item>
+        <item quantity="other">%1$d മിനിറ്റ്</item>
+    </plurals>
 </resources>

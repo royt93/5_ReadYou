@@ -848,4 +848,19 @@
     <string name="read_news_queue_finished">Ikke flere nye artikler</string>
     <string name="read_news_error">Kunne ikke læse nyhederne</string>
     <string name="read_news_next">Næste</string>
+    <string name="podcast_channel_name">Afspilning af podcasts</string>
+    <string name="podcast_play">Afspil</string>
+    <string name="podcast_pause">Pause</string>
+    <string name="podcast_stop">Stop</string>
+    <string name="podcast_skip_back">15 sekunder tilbage</string>
+    <string name="podcast_skip_forward">15 sekunder frem</string>
+    <string name="podcast_seek">Afspilningsposition</string>
+    <string name="podcast_speed">Afspilningshastighed</string>
+    <string name="podcast_sleep_timer">Sovetimer</string>
+    <string name="podcast_sleep_off">Fra</string>
+    <string name="podcast_error">Afsnittet kunne ikke afspilles.</string>
+    <plurals name="podcast_sleep_minutes">
+        <item quantity="one">%1$d minut</item>
+        <item quantity="other">%1$d minutter</item>
+    </plurals>
 </resources>
