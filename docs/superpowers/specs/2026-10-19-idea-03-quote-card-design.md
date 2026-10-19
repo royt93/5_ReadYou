@@ -20,13 +20,13 @@ Readers who find a good passage take raw screenshots to post on social networks.
 | Limit the quote to 280 characters (`QUOTE_MAX_CHARS`), cut on a word boundary and append "…". | Keeps the card readable on social networks. The sheet tells the user when text was cut. |
 | Three templates: Minimalist, Gradient Material, Dark Studio. | Required by the acceptance criteria. |
 | Share the PNG through the existing `FileProvider` (`${applicationId}.fileprovider`) from `cacheDir/quote_cards/`. | `file_paths.xml` already exposes `cache-path name="cache" path="."`, so no provider change is needed. |
-| Restore the user's previous clipboard after the sheet closes. | The toolbar action needs the selected text, which is obtained by asking Compose to copy it. |
+| Restore the user's previous clipboard immediately after the selected text has been read, before the sheet opens. | The toolbar action needs the selected text, which is obtained by asking Compose to copy it. |
 
 ## 3. Selection Hook
 
 - In `Content.kt` wrap the Reader `SelectionContainer` with `CompositionLocalProvider(LocalTextToolbar provides QuoteTextToolbar(...))`.
-- `QuoteTextToolbar` delegates to the platform toolbar it replaces, keeps Copy/Cut/Paste/Select all and adds a "Share quote" item only when `onCopyRequested` is available. The exact `TextToolbar` interface is checked against the resolved Compose version before coding.
-- Tapping the item: remember the current primary clip, call `onCopyRequested()`, read the clip text, pass it to `QuoteSelection.sanitize`, restore the previous clip, then open the sheet. An empty result opens nothing.
+- `QuoteTextToolbar` wraps the platform toolbar and forwards Copy/Cut/Paste/Select all unchanged. Android's `AndroidTextToolbar` has no hook for extra items (checked with `javap` on Compose UI 1.7.8; the `TextToolbar` interface is `showMenu(rect, onCopy, onPaste, onCut, onSelectAll)`, `hide()`, `status`), so a "Share quote" chip is shown in a Compose `Popup` anchored next to the toolbar rect while the toolbar is shown and a selection exists.
+- Tapping the chip: remember the current primary clip, call `onCopyRequested()`, read the clip text, pass it to `QuoteSelection.sanitize`, restore the previous clip, then open the sheet. An empty result opens nothing.
 - `QuoteSelection.sanitize(raw: String): String?` is pure: trims, collapses runs of whitespace and line breaks into single spaces, returns null when blank.
 - Metadata (title, feed, date) stays inside `DisableSelection`, so only article body text can be quoted.
 
