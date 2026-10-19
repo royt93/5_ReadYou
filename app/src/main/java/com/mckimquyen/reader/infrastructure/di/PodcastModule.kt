@@ -5,7 +5,10 @@ import com.mckimquyen.reader.domain.sv.PodcastServiceStarter
 import com.mckimquyen.reader.domain.sv.TtsGate
 import com.mckimquyen.reader.infrastructure.audio.TtsManager
 import com.mckimquyen.reader.infrastructure.audio.TtsState
+import android.content.Context
+import com.mckimquyen.reader.infrastructure.podcast.PodcastPlaybackService
 import dagger.Module
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
@@ -30,5 +33,6 @@ object PodcastModule {
 
     @Provides
     @Singleton
-    fun providePodcastServiceStarter(): PodcastServiceStarter = PodcastServiceStarter { }
+    fun providePodcastServiceStarter(@ApplicationContext context: Context): PodcastServiceStarter =
+        PodcastServiceStarter { PodcastPlaybackService.start(context) }
 }

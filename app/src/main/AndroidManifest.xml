@@ -134,6 +134,11 @@
             android:foregroundServiceType="mediaPlayback" />
 
         <service
+            android:name=".infrastructure.podcast.PodcastPlaybackService"
+            android:exported="false"
+            android:foregroundServiceType="mediaPlayback" />
+
+        <service
             android:name=".infrastructure.audio.CommuteMediaSessionService"
             android:exported="true"
             android:foregroundServiceType="mediaPlayback">

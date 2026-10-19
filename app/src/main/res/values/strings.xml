@@ -929,6 +929,21 @@
     <string name="read_news_shortcut_long">Read the latest unread news</string>
     <string name="read_news_error">Could not read the news</string>
     <string name="read_news_next">Next</string>
+    <string name="podcast_channel_name">Podcast playback</string>
+    <string name="podcast_play">Play</string>
+    <string name="podcast_pause">Pause</string>
+    <string name="podcast_stop">Stop</string>
+    <string name="podcast_skip_back">Back 15 seconds</string>
+    <string name="podcast_skip_forward">Forward 15 seconds</string>
+    <string name="podcast_seek">Playback position</string>
+    <string name="podcast_speed">Playback speed</string>
+    <string name="podcast_sleep_timer">Sleep timer</string>
+    <string name="podcast_sleep_off">Off</string>
+    <string name="podcast_error">Could not play this episode.</string>
+    <plurals name="podcast_sleep_minutes">
+        <item quantity="one">%1$d minute</item>
+        <item quantity="other">%1$d minutes</item>
+    </plurals>
     <string-array name="read_news_thing_names" translatable="false">
         <item>news</item>
         <item>latest news</item>
