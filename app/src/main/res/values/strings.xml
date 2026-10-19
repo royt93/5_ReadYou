@@ -916,4 +916,11 @@
         <item quantity="other">%1$d articles</item>
     </plurals>
     <string name="quote_card_error">Could not create the quote card. Tap to retry.</string>
+    <string name="quote_card_title">Share quote</string>
+    <string name="quote_card_share">Share</string>
+    <string name="quote_card_template_minimalist">Minimalist</string>
+    <string name="quote_card_template_gradient">Gradient</string>
+    <string name="quote_card_template_dark">Dark Studio</string>
+    <string name="quote_card_cut_note">Quote was shortened</string>
+    <string name="quote_card_chooser_title">Share quote card</string>
 </resources>

@@ -22,6 +22,8 @@ import com.mckimquyen.reader.infrastructure.audio.ambient.ZenAudioManager
 import com.mckimquyen.reader.infrastructure.rss.RssHelper
 import com.mckimquyen.reader.domain.model.article.ArticleReadPosition
 import com.mckimquyen.reader.domain.model.article.ReadPositionConflictResolver
+import com.mckimquyen.reader.domain.model.quote.QuoteCardSpec
+import com.mckimquyen.reader.domain.model.quote.QuoteSelection
 import com.mckimquyen.reader.domain.repository.ArticleDao
 import com.mckimquyen.reader.domain.repository.ArticleReadPositionDao
 import com.mckimquyen.reader.infrastructure.di.DefaultDispatcher
@@ -252,6 +254,27 @@ class ReadingViewModel @Inject constructor(
         if (_readingUiState.value.summaryState !is SummaryState.Success) {
             requestSummary()
         }
+    }
+
+    /** Mở sheet chia sẻ trích dẫn cho đoạn đang chọn; bỏ qua nếu rỗng hoặc chưa có bài. */
+    fun openQuoteSheet(rawSelection: String) {
+        val quote = QuoteSelection.sanitize(rawSelection) ?: return
+        val loaded = _readingUiState.value.articleWithFeed ?: return
+        _readingUiState.update {
+            it.copy(
+                showQuoteSheet = true,
+                quoteSpec = QuoteCardSpec(
+                    quote = quote,
+                    feedName = loaded.feed.name,
+                    author = loaded.article.author,
+                    articleTitle = loaded.article.title,
+                ),
+            )
+        }
+    }
+
+    fun dismissQuoteSheet() {
+        _readingUiState.update { it.copy(showQuoteSheet = false, quoteSpec = null) }
     }
 
     fun dismissSummary() {
@@ -665,6 +688,8 @@ data class ReadingUiState(
     val mindMapState: MindMapState = MindMapState.Idle,
     val showDeepReadSheet: Boolean = false,
     val deepReadState: DeepReadState = DeepReadState.Idle,
+    val showQuoteSheet: Boolean = false,
+    val quoteSpec: QuoteCardSpec? = null,
 )
 
 /** Trạng thái của luồng hỏi đáp tương tác AI Deep Read. */
