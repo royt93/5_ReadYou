@@ -129,6 +129,17 @@ class PodcastPlayerBarTest {
         rule.onNodeWithTag(PODCAST_SPEED_TAG).assertDoesNotExist()
     }
 
+    @Test fun skipLabel_isCentredHorizontallyAndPushedBelowTheArrowhead() {
+        show(paused, expand = true)
+        listOf(false to PODCAST_BACK_TAG, true to PODCAST_FORWARD_TAG).forEach { (isForward, buttonTag) ->
+            val button = rule.onNodeWithTag(buttonTag).fetchSemanticsNode().boundsInRoot
+            val label = rule.onNodeWithTag(PODCAST_SKIP_LABEL_TAG_PREFIX + isForward, useUnmergedTree = true).fetchSemanticsNode().boundsInRoot
+            assertEquals("label x centre, forward=$isForward", button.center.x, label.center.x, 1f)
+            assertTrue("label must sit below the button centre, forward=$isForward: ${label.center.y} vs ${button.center.y}", label.center.y > button.center.y + 1f)
+            assertTrue("label centre stays within the lower half of the button, forward=$isForward: label=$label button=$button", label.center.y < button.bottom - 2f)
+        }
+    }
+
     @Test fun collapseAgain_hidesControls() {
         show(paused, expand = true)
         rule.onNodeWithTag(PODCAST_EXPAND_TAG).performClick()

@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
@@ -67,6 +68,7 @@ const val PODCAST_SPEED_TAG = "podcast_speed"
 const val PODCAST_SLEEP_TAG = "podcast_sleep"
 const val PODCAST_EXPAND_TAG = "podcast_expand"
 const val PODCAST_TITLE_TAG = "podcast_title"
+const val PODCAST_SKIP_LABEL_TAG_PREFIX = "podcast_skip_label_"
 const val PODCAST_ERROR_TAG = "podcast_error"
 const val PODCAST_RETRY_TAG = "podcast_retry"
 const val PODCAST_SPEED_ITEM_TAG_PREFIX = "podcast_speed_item_"
@@ -82,6 +84,9 @@ private val TOGGLE_BUTTON_SIZE = 48.dp
 private val SKIP_BUTTON_SIZE = 40.dp
 private val SKIP_ICON_SIZE = 30.dp
 private val SKIP_LABEL_SIZE = 8.sp
+
+/** The replay glyph's arrowhead sits above its ring, so the digits are pushed down into the free space of the ring. */
+private val SKIP_LABEL_OFFSET_Y = 2.5.dp
 private val SMALL_ICON_SIZE = 20.dp
 private val TIME_MIN_WIDTH = 36.dp
 private val BAR_CORNER = 16.dp
@@ -304,6 +309,7 @@ private fun SkipButton(isForward: Boolean, onClick: () -> Unit, tag: String, des
                 PodcastPlaybackController.SKIP_INTERVAL_SEC.toString(),
                 fontSize = SKIP_LABEL_SIZE,
                 fontWeight = FontWeight.Bold,
+                modifier = Modifier.offset(y = SKIP_LABEL_OFFSET_Y).testTag(PODCAST_SKIP_LABEL_TAG_PREFIX + isForward),
             )
         }
     }
