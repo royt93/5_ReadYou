@@ -109,6 +109,26 @@ class PodcastPlayerBarTest {
         assertEquals("skip group centred", bar.center.x, (back.left + forward.right) / 2f, bar.width * 0.05f)
     }
 
+    @Test fun title_isShownWhenPresent_andHiddenWhenBlank() {
+        show(paused.copy(title = "Anatomy of a movie market"))
+        rule.onNodeWithTag(PODCAST_TITLE_TAG).assertIsDisplayed()
+        rule.onNodeWithText("Anatomy of a movie market").assertIsDisplayed()
+    }
+
+    @Test fun blankTitle_hasNoTitleRow() {
+        show(paused.copy(title = ""))
+        rule.onNodeWithTag(PODCAST_TITLE_TAG).assertDoesNotExist()
+    }
+
+    @Test fun tappingTitle_togglesExpansion() {
+        show(paused.copy(title = "Episode"))
+        rule.onNodeWithTag(PODCAST_SPEED_TAG).assertDoesNotExist()
+        rule.onNodeWithTag(PODCAST_TITLE_TAG).performClick()
+        rule.onNodeWithTag(PODCAST_SPEED_TAG).assertIsDisplayed()
+        rule.onNodeWithTag(PODCAST_TITLE_TAG).performClick()
+        rule.onNodeWithTag(PODCAST_SPEED_TAG).assertDoesNotExist()
+    }
+
     @Test fun collapseAgain_hidesControls() {
         show(paused, expand = true)
         rule.onNodeWithTag(PODCAST_EXPAND_TAG).performClick()

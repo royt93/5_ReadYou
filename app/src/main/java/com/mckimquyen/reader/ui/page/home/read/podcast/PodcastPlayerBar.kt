@@ -1,6 +1,8 @@
 package com.mckimquyen.reader.ui.page.home.read.podcast
 
 import androidx.compose.animation.animateContentSize
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,6 +13,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Bedtime
@@ -46,6 +49,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mckimquyen.reader.R
@@ -62,6 +66,7 @@ const val PODCAST_SEEK_TAG = "podcast_seek"
 const val PODCAST_SPEED_TAG = "podcast_speed"
 const val PODCAST_SLEEP_TAG = "podcast_sleep"
 const val PODCAST_EXPAND_TAG = "podcast_expand"
+const val PODCAST_TITLE_TAG = "podcast_title"
 const val PODCAST_ERROR_TAG = "podcast_error"
 const val PODCAST_RETRY_TAG = "podcast_retry"
 const val PODCAST_SPEED_ITEM_TAG_PREFIX = "podcast_speed_item_"
@@ -80,6 +85,8 @@ private val SKIP_LABEL_SIZE = 8.sp
 private val SMALL_ICON_SIZE = 20.dp
 private val TIME_MIN_WIDTH = 36.dp
 private val BAR_CORNER = 16.dp
+private val EXPAND_BUTTON_SIZE = 32.dp
+private const val EXPAND_BG_ALPHA = 0.12f
 private val BAR_MARGIN_H = 12.dp
 private val BAR_MARGIN_V = 6.dp
 private val PILL_HEIGHT = 36.dp
@@ -137,6 +144,19 @@ fun PodcastPlayerBar(
                     }
                 }
             }
+            if (state.title.isNotBlank()) {
+                Text(
+                    text = state.title,
+                    style = MaterialTheme.typography.labelLarge,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable { expanded = !expanded }
+                        .padding(start = 12.dp, end = 12.dp, top = 8.dp)
+                        .testTag(PODCAST_TITLE_TAG),
+                )
+            }
             val seekDescription = stringResource(R.string.podcast_seek)
             Row(Modifier.fillMaxWidth().height(ROW_HEIGHT), verticalAlignment = Alignment.CenterVertically) {
                 ToggleButton(isPlaying, onToggle)
@@ -171,10 +191,17 @@ fun PodcastPlayerBar(
                     modifier = Modifier.widthIn(min = TIME_MIN_WIDTH),
                 )
                 IconButton(onClick = { expanded = !expanded }, modifier = Modifier.testTag(PODCAST_EXPAND_TAG)) {
-                    Icon(
-                        imageVector = if (expanded) Icons.Rounded.KeyboardArrowDown else Icons.Rounded.KeyboardArrowUp,
-                        contentDescription = stringResource(if (expanded) R.string.podcast_collapse else R.string.podcast_expand),
-                    )
+                    Box(
+                        modifier = Modifier
+                            .size(EXPAND_BUTTON_SIZE)
+                            .background(MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = EXPAND_BG_ALPHA), CircleShape),
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        Icon(
+                            imageVector = if (expanded) Icons.Rounded.KeyboardArrowDown else Icons.Rounded.KeyboardArrowUp,
+                            contentDescription = stringResource(if (expanded) R.string.podcast_collapse else R.string.podcast_expand),
+                        )
+                    }
                 }
             }
             if (expanded) {
