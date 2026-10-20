@@ -945,4 +945,6 @@
         <item quantity="many">%1$d minut</item>
         <item quantity="other">%1$d minuty</item>
     </plurals>
+    <string name="podcast_expand">Rozwiń odtwarzacz</string>
+    <string name="podcast_collapse">Zwiń odtwarzacz</string>
 </resources>

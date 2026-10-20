@@ -861,4 +861,6 @@
         <item quantity="one">%1$d मिनट</item>
         <item quantity="other">%1$d मिनट</item>
     </plurals>
+    <string name="podcast_expand">प्लेयर बड़ा करें</string>
+    <string name="podcast_collapse">प्लेयर छोटा करें</string>
 </resources>

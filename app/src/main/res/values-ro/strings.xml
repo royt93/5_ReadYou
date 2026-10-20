@@ -871,4 +871,6 @@
         <item quantity="few">%1$d minute</item>
         <item quantity="other">%1$d de minute</item>
     </plurals>
+    <string name="podcast_expand">Extinde playerul</string>
+    <string name="podcast_collapse">Restrânge playerul</string>
 </resources>

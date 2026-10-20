@@ -7,6 +7,8 @@ import androidx.compose.ui.semantics.getOrNull
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.assertCountEquals
+import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
@@ -40,7 +42,7 @@ class PodcastPlayerBarTest {
         var retries = 0
     }
 
-    private fun show(state: PodcastPlaybackState, calls: Calls = Calls()): Calls {
+    private fun show(state: PodcastPlaybackState, calls: Calls = Calls(), expand: Boolean = false): Calls {
         rule.setContent {
             PodcastPlayerBar(
                 state = state,
@@ -52,6 +54,7 @@ class PodcastPlayerBarTest {
                 onRetry = { calls.retries++ },
             )
         }
+        if (expand) rule.onNodeWithTag(PODCAST_EXPAND_TAG).performClick()
         return calls
     }
 
@@ -63,12 +66,54 @@ class PodcastPlayerBarTest {
         assertEquals("0:00", formatPlaybackTime(-3))
     }
 
-    @Test fun paused_showsPlayAndTimes() {
+    @Test fun collapsed_showsPlayTimesSeekAndExpandOnly() {
         show(paused)
         rule.onNodeWithTag(PODCAST_BAR_TAG).assertIsDisplayed()
         rule.onNodeWithContentDescription("Play").assertIsDisplayed()
         rule.onNodeWithText("0:00").assertIsDisplayed()
         rule.onNodeWithText("10:00").assertIsDisplayed()
+        rule.onNodeWithTag(PODCAST_SEEK_TAG).assertIsDisplayed()
+        rule.onNodeWithTag(PODCAST_EXPAND_TAG).assertIsDisplayed()
+        rule.onNodeWithTag(PODCAST_SPEED_TAG).assertDoesNotExist()
+        rule.onNodeWithTag(PODCAST_SLEEP_TAG).assertDoesNotExist()
+        rule.onNodeWithTag(PODCAST_BACK_TAG).assertDoesNotExist()
+        rule.onNodeWithTag(PODCAST_FORWARD_TAG).assertDoesNotExist()
+    }
+
+    @Test fun expand_revealsControlsAndSingleToggle() {
+        show(paused, expand = true)
+        rule.onNodeWithTag(PODCAST_SPEED_TAG).assertIsDisplayed()
+        rule.onNodeWithTag(PODCAST_SLEEP_TAG).assertIsDisplayed()
+        rule.onNodeWithTag(PODCAST_BACK_TAG).assertIsDisplayed()
+        rule.onNodeWithTag(PODCAST_FORWARD_TAG).assertIsDisplayed()
+        rule.onAllNodesWithTag(PODCAST_TOGGLE_TAG).assertCountEquals(1)
+        rule.onNodeWithContentDescription("Collapse player").assertIsDisplayed()
+    }
+
+    @Test fun playButton_staysInSamePlaceWhenExpanding() {
+        show(paused)
+        val before = rule.onNodeWithTag(PODCAST_TOGGLE_TAG).fetchSemanticsNode().boundsInRoot
+        rule.onNodeWithTag(PODCAST_EXPAND_TAG).performClick()
+        rule.waitForIdle()
+        val after = rule.onNodeWithTag(PODCAST_TOGGLE_TAG).fetchSemanticsNode().boundsInRoot
+        assertEquals("play left edge must not move", before.left, after.left, 1f)
+        assertEquals("play width must not change", before.width, after.width, 1f)
+    }
+
+    @Test fun expandedRow_groupsSkipsAtCentre() {
+        show(paused, expand = true)
+        val back = rule.onNodeWithTag(PODCAST_BACK_TAG).fetchSemanticsNode().boundsInRoot
+        val forward = rule.onNodeWithTag(PODCAST_FORWARD_TAG).fetchSemanticsNode().boundsInRoot
+        val bar = rule.onNodeWithTag(PODCAST_BAR_TAG).fetchSemanticsNode().boundsInRoot
+        assertTrue("skips must be adjacent, gap=${forward.left - back.right}", forward.left - back.right <= back.width)
+        assertEquals("skip group centred", bar.center.x, (back.left + forward.right) / 2f, bar.width * 0.05f)
+    }
+
+    @Test fun collapseAgain_hidesControls() {
+        show(paused, expand = true)
+        rule.onNodeWithTag(PODCAST_EXPAND_TAG).performClick()
+        rule.onNodeWithTag(PODCAST_SPEED_TAG).assertDoesNotExist()
+        rule.onNodeWithContentDescription("Expand player").assertIsDisplayed()
     }
 
     @Test fun playing_showsPause() {
@@ -76,8 +121,14 @@ class PodcastPlayerBarTest {
         rule.onNodeWithContentDescription("Pause").assertIsDisplayed()
     }
 
+    @Test fun toggleWorksCollapsedAndExpanded() {
+        val collapsed = show(paused)
+        rule.onNodeWithTag(PODCAST_TOGGLE_TAG).performClick()
+        assertEquals(1, collapsed.toggles)
+    }
+
     @Test fun controls_callIntents() {
-        val calls = show(paused)
+        val calls = show(paused, expand = true)
         rule.onNodeWithTag(PODCAST_TOGGLE_TAG).performClick()
         rule.onNodeWithTag(PODCAST_BACK_TAG).performClick()
         rule.onNodeWithTag(PODCAST_FORWARD_TAG).performClick()
@@ -85,8 +136,8 @@ class PodcastPlayerBarTest {
         assertEquals(listOf(-15, 15), calls.skips)
     }
 
-    @Test fun speedChip_showsCurrentAndPicksSpeed() {
-        val calls = show(paused)
+    @Test fun speedPill_showsCurrentAndPicksSpeed() {
+        val calls = show(paused, expand = true)
         rule.onNodeWithText("1.0×").assertIsDisplayed()
         rule.onNodeWithTag(PODCAST_SPEED_TAG).performClick()
         listOf(1.0f, 1.25f, 1.5f, 1.75f, 2.0f).forEach { rule.onNodeWithTag(PODCAST_SPEED_ITEM_TAG_PREFIX + it).assertIsDisplayed() }
@@ -94,8 +145,9 @@ class PodcastPlayerBarTest {
         assertEquals(listOf(1.5f), calls.speeds)
     }
 
-    @Test fun sleepButton_offThenPicksTimerAndOff() {
-        val calls = show(paused)
+    @Test fun sleepPill_showsOffThenPicksTimerAndOff() {
+        val calls = show(paused, expand = true)
+        rule.onNodeWithText("Off").assertIsDisplayed()
         rule.onNodeWithTag(PODCAST_SLEEP_TAG).performClick()
         listOf(15, 30, 45).forEach { rule.onNodeWithTag(PODCAST_SLEEP_ITEM_TAG_PREFIX + it).assertIsDisplayed() }
         rule.onNodeWithTag(PODCAST_SLEEP_ITEM_TAG_PREFIX + 30).performClick()
@@ -104,8 +156,8 @@ class PodcastPlayerBarTest {
         assertEquals(listOf(30, null), calls.sleeps)
     }
 
-    @Test fun sleepButton_showsRemainingTime() {
-        show(paused.copy(sleepRemainingSec = 899))
+    @Test fun sleepPill_showsRemainingTimeOnOneLine() {
+        show(paused.copy(sleepRemainingSec = 899), expand = true)
         rule.onNodeWithText("14:59").assertIsDisplayed()
     }
 
@@ -131,8 +183,8 @@ class PodcastPlayerBarTest {
     }
 
     @Test fun interactiveNodes_haveDescriptions() {
-        show(paused)
-        listOf("Play", "Back 15 seconds", "Forward 15 seconds", "Playback speed", "Sleep timer", "Playback position").forEach {
+        show(paused, expand = true)
+        listOf("Play", "Back 15 seconds", "Forward 15 seconds", "Playback speed", "Sleep timer", "Playback position", "Collapse player").forEach {
             rule.onNode(hasContentDescription(it)).assertExists()
         }
     }

@@ -935,4 +935,6 @@
         <item quantity="one">%1$d dəqiqə</item>
         <item quantity="other">%1$d dəqiqə</item>
     </plurals>
+    <string name="podcast_expand">Pleyeri genişləndir</string>
+    <string name="podcast_collapse">Pleyeri yığ</string>
 </resources>

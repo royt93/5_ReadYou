@@ -858,4 +858,6 @@
         <item quantity="many">%1$d دقيقة</item>
         <item quantity="other">%1$d دقيقة</item>
     </plurals>
+    <string name="podcast_expand">توسيع المشغّل</string>
+    <string name="podcast_collapse">طي المشغّل</string>
 </resources>

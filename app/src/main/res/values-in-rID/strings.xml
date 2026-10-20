@@ -857,4 +857,6 @@
     <plurals name="podcast_sleep_minutes">
         <item quantity="other">%1$d menit</item>
     </plurals>
+    <string name="podcast_expand">Perluas pemutar</string>
+    <string name="podcast_collapse">Ciutkan pemutar</string>
 </resources>

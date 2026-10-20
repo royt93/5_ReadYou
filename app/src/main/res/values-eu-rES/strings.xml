@@ -934,4 +934,6 @@
         <item quantity="one">%1$d minutu</item>
         <item quantity="other">%1$d minutu</item>
     </plurals>
+    <string name="podcast_expand">Zabaldu erreproduzigailua</string>
+    <string name="podcast_collapse">Tolestu erreproduzigailua</string>
 </resources>

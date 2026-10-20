@@ -872,4 +872,6 @@
         <item quantity="few">%1$d минута</item>
         <item quantity="other">%1$d минута</item>
     </plurals>
+    <string name="podcast_expand">Прошири плејер</string>
+    <string name="podcast_collapse">Скупи плејер</string>
 </resources>

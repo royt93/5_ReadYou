@@ -863,4 +863,6 @@
         <item quantity="one">%1$d دقیقه</item>
         <item quantity="other">%1$d دقیقه</item>
     </plurals>
+    <string name="podcast_expand">باز کردن پخش‌کننده</string>
+    <string name="podcast_collapse">بستن پخش‌کننده</string>
 </resources>

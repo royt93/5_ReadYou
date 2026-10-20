@@ -936,4 +936,6 @@
         <item quantity="one">%1$d മിനിറ്റ്</item>
         <item quantity="other">%1$d മിനിറ്റ്</item>
     </plurals>
+    <string name="podcast_expand">പ്ലേയർ വികസിപ്പിക്കുക</string>
+    <string name="podcast_collapse">പ്ലേയർ ചുരുക്കുക</string>
 </resources>

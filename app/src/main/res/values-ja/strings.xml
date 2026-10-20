@@ -857,4 +857,6 @@
     <plurals name="podcast_sleep_minutes">
         <item quantity="other">%1$d分</item>
     </plurals>
+    <string name="podcast_expand">プレーヤーを展開</string>
+    <string name="podcast_collapse">プレーヤーを折りたたむ</string>
 </resources>

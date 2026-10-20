@@ -936,4 +936,6 @@
         <item quantity="one">%1$d minutt</item>
         <item quantity="other">%1$d minutt</item>
     </plurals>
+    <string name="podcast_expand">Utvid spelaren</string>
+    <string name="podcast_collapse">Skjul spelaren</string>
 </resources>

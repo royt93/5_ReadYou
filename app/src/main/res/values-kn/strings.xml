@@ -935,4 +935,6 @@
         <item quantity="one">%1$d ನಿಮಿಷ</item>
         <item quantity="other">%1$d ನಿಮಿಷ</item>
     </plurals>
+    <string name="podcast_expand">ಪ್ಲೇಯರ್ ವಿಸ್ತರಿಸಿ</string>
+    <string name="podcast_collapse">ಪ್ಲೇಯರ್ ಕುಗ್ಗಿಸಿ</string>
 </resources>

@@ -948,4 +948,6 @@
         <item quantity="many">%1$d דקות</item>
         <item quantity="other">%1$d דקות</item>
     </plurals>
+    <string name="podcast_expand">הרחבת הנגן</string>
+    <string name="podcast_collapse">כיווץ הנגן</string>
 </resources>

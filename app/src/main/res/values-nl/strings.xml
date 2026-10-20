@@ -864,4 +864,6 @@
         <item quantity="one">%1$d minuut</item>
         <item quantity="other">%1$d minuten</item>
     </plurals>
+    <string name="podcast_expand">Speler uitvouwen</string>
+    <string name="podcast_collapse">Speler samenvouwen</string>
 </resources>

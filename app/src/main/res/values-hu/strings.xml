@@ -859,4 +859,6 @@
         <item quantity="one">%1$d perc</item>
         <item quantity="other">%1$d perc</item>
     </plurals>
+    <string name="podcast_expand">Lejátszó kibontása</string>
+    <string name="podcast_collapse">Lejátszó összecsukása</string>
 </resources>

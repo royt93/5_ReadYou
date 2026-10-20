@@ -865,4 +865,6 @@
         <item quantity="one">%1$d Minute</item>
         <item quantity="other">%1$d Minuten</item>
     </plurals>
+    <string name="podcast_expand">Player erweitern</string>
+    <string name="podcast_collapse">Player einklappen</string>
 </resources>

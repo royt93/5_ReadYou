@@ -863,4 +863,6 @@
         <item quantity="one">%1$d minut</item>
         <item quantity="other">%1$d minutter</item>
     </plurals>
+    <string name="podcast_expand">Udvid afspiller</string>
+    <string name="podcast_collapse">Skjul afspiller</string>
 </resources>

@@ -843,4 +843,6 @@
         <item quantity="few">%1$d minute</item>
         <item quantity="other">%1$d minut</item>
     </plurals>
+    <string name="podcast_expand">Razširi predvajalnik</string>
+    <string name="podcast_collapse">Strni predvajalnik</string>
 </resources>

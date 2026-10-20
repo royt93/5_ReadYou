@@ -936,6 +936,8 @@
     <string name="podcast_skip_back">Back 15 seconds</string>
     <string name="podcast_skip_forward">Forward 15 seconds</string>
     <string name="podcast_seek">Playback position</string>
+    <string name="podcast_expand">Expand player</string>
+    <string name="podcast_collapse">Collapse player</string>
     <string name="podcast_speed">Playback speed</string>
     <string name="podcast_sleep_timer">Sleep timer</string>
     <string name="podcast_sleep_off">Off</string>

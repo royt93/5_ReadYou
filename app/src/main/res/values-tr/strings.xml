@@ -864,4 +864,6 @@
         <item quantity="one">%1$d dakika</item>
         <item quantity="other">%1$d dakika</item>
     </plurals>
+    <string name="podcast_expand">Oynatıcıyı genişlet</string>
+    <string name="podcast_collapse">Oynatıcıyı daralt</string>
 </resources>

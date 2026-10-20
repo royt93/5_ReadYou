@@ -930,4 +930,6 @@
     <plurals name="podcast_sleep_minutes">
         <item quantity="other">%1$d 分</item>
     </plurals>
+    <string name="podcast_expand">展播器</string>
+    <string name="podcast_collapse">收播器</string>
 </resources>

@@ -867,4 +867,6 @@
         <item quantity="one">%1$d minuto</item>
         <item quantity="other">%1$d minutos</item>
     </plurals>
+    <string name="podcast_expand">Expandir leitor</string>
+    <string name="podcast_collapse">Recolher leitor</string>
 </resources>

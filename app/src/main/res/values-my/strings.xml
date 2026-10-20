@@ -930,4 +930,6 @@
     <plurals name="podcast_sleep_minutes">
         <item quantity="other">%1$d မိနစ်</item>
     </plurals>
+    <string name="podcast_expand">ပလေယာကို ချဲ့ရန်</string>
+    <string name="podcast_collapse">ပလေယာကို ချုံ့ရန်</string>
 </resources>

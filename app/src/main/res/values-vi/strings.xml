@@ -830,4 +830,6 @@
     <plurals name="podcast_sleep_minutes">
         <item quantity="other">%1$d phút</item>
     </plurals>
+    <string name="podcast_expand">Mở rộng trình phát</string>
+    <string name="podcast_collapse">Thu gọn trình phát</string>
 </resources>
