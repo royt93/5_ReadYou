@@ -938,4 +938,5 @@
     </plurals>
     <string name="podcast_expand">പ്ലേയർ വികസിപ്പിക്കുക</string>
     <string name="podcast_collapse">പ്ലേയർ ചുരുക്കുക</string>
+    <string name="podcast_play_episode">പ്ലേ ചെയ്യുക: %1$s</string>
 </resources>

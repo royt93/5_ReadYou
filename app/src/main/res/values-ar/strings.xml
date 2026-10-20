@@ -860,4 +860,5 @@
     </plurals>
     <string name="podcast_expand">توسيع المشغّل</string>
     <string name="podcast_collapse">طي المشغّل</string>
+    <string name="podcast_play_episode">تشغيل: %1$s</string>
 </resources>

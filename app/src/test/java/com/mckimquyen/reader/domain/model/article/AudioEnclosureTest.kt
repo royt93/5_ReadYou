@@ -32,8 +32,14 @@ class AudioEnclosureTest {
         assertNull(AudioEnclosure.from(entry("""<enclosure url="https://x/a.jpg" type="image/jpeg" length="1"/>""")))
     }
 
-    @Test fun httpRejected() {
-        assertNull(AudioEnclosure.from(entry("""<enclosure url="http://x/e.mp3" type="audio/mpeg" length="1"/>""")))
+    @Test fun httpIsAccepted_andUpgradedAtPlaybackTime() {
+        assertEquals("http://x/e.mp3", AudioEnclosure.from(entry("""<enclosure url="http://x/e.mp3" type="audio/mpeg" length="1"/>"""))?.url)
+    }
+
+    @Test fun otherSchemesAreRejected() {
+        assertNull(AudioEnclosure.from(entry("""<enclosure url="ftp://x/e.mp3" type="audio/mpeg" length="1"/>""")))
+        assertNull(AudioEnclosure.from(entry("""<enclosure url="file:///sdcard/e.mp3" type="audio/mpeg" length="1"/>""")))
+        assertNull(AudioEnclosure.from(entry("""<enclosure url="javascript:alert(1)" type="audio/mpeg" length="1"/>""")))
     }
 
     @Test fun audioPickedAfterImage() {

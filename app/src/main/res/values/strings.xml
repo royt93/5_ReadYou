@@ -931,6 +931,7 @@
     <string name="read_news_next">Next</string>
     <string name="podcast_channel_name">Podcast playback</string>
     <string name="podcast_play">Play</string>
+    <string name="podcast_play_episode">Play: %1$s</string>
     <string name="podcast_pause">Pause</string>
     <string name="podcast_stop">Stop</string>
     <string name="podcast_skip_back">Back 15 seconds</string>

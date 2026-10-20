@@ -832,4 +832,5 @@
     </plurals>
     <string name="podcast_expand">Mở rộng trình phát</string>
     <string name="podcast_collapse">Thu gọn trình phát</string>
+    <string name="podcast_play_episode">Phát: %1$s</string>
 </resources>

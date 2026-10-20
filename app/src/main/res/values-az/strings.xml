@@ -937,4 +937,5 @@
     </plurals>
     <string name="podcast_expand">Pleyeri genişləndir</string>
     <string name="podcast_collapse">Pleyeri yığ</string>
+    <string name="podcast_play_episode">Oxut: %1$s</string>
 </resources>

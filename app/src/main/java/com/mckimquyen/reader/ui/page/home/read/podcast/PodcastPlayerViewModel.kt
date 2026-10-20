@@ -17,9 +17,11 @@ class PodcastPlayerViewModel @Inject constructor(
 
     /** Selects the episode unless it is already the active one (so a running session keeps playing). */
     fun bind(articleId: String, title: String, feedName: String, audio: AudioInfo) {
-        if (controller.state.value.articleId == articleId) return
         controller.open(articleId, title, feedName, audio)
     }
+
+    fun playEpisode(articleId: String, title: String, feedName: String, audio: AudioInfo) =
+        controller.playEpisode(articleId, title, feedName, audio)
 
     fun onToggle() = controller.toggle()
     fun onSkip(seconds: Int) = controller.skip(seconds)

@@ -857,4 +857,5 @@
     </plurals>
     <string name="podcast_expand">展開播放器</string>
     <string name="podcast_collapse">收合播放器</string>
+    <string name="podcast_play_episode">播放：%1$s</string>
 </resources>

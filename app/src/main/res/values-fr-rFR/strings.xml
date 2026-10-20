@@ -870,4 +870,5 @@
     </plurals>
     <string name="podcast_expand">Développer le lecteur</string>
     <string name="podcast_collapse">Réduire le lecteur</string>
+    <string name="podcast_play_episode">Lire : %1$s</string>
 </resources>

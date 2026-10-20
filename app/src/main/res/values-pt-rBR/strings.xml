@@ -868,4 +868,5 @@
     </plurals>
     <string name="podcast_expand">Expandir player</string>
     <string name="podcast_collapse">Recolher player</string>
+    <string name="podcast_play_episode">Reproduzir: %1$s</string>
 </resources>

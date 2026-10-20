@@ -845,4 +845,5 @@
     </plurals>
     <string name="podcast_expand">Razširi predvajalnik</string>
     <string name="podcast_collapse">Strni predvajalnik</string>
+    <string name="podcast_play_episode">Predvajaj: %1$s</string>
 </resources>

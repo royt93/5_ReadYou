@@ -6,16 +6,16 @@ import java.net.URI
 
 object AudioEnclosure {
     private const val AUDIO_MIME_PREFIX = "audio/"
-    private const val HTTPS = "https"
+    private val ALLOWED_SCHEMES = setOf("https", "http")
     private const val ITUNES_PREFIX = "itunes"
     private const val DURATION_NAME = "duration"
     private val AUDIO_EXTENSIONS = listOf(".mp3", ".m4a", ".aac", ".ogg")
 
-    /** First audio enclosure with an https URL, or null. Duration comes from `<itunes:duration>`. */
+    /** First audio enclosure with an http(s) URL, or null (http is upgraded to https at playback time). Duration comes from `<itunes:duration>`. */
     fun from(entry: SyndEntry): AudioInfo? {
         val enclosure = entry.enclosures.orEmpty().firstOrNull { isAudio(it) } ?: return null
         val url = enclosure.url?.trim().orEmpty()
-        if (!isHttps(url)) return null
+        if (!isWebUrl(url)) return null
         return AudioInfo(url, enclosure.type?.takeIf { it.isNotBlank() }, durationOf(entry))
     }
 
@@ -26,8 +26,8 @@ object AudioEnclosure {
         return AUDIO_EXTENSIONS.any { path.endsWith(it) }
     }
 
-    private fun isHttps(url: String): Boolean =
-        runCatching { URI(url).scheme.equals(HTTPS, ignoreCase = true) }.getOrDefault(false)
+    private fun isWebUrl(url: String): Boolean =
+        runCatching { URI(url).scheme?.lowercase() in ALLOWED_SCHEMES }.getOrDefault(false)
 
     private fun durationOf(entry: SyndEntry): Int? =
         entry.foreignMarkup.orEmpty()

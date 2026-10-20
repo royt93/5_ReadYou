@@ -863,4 +863,5 @@
     </plurals>
     <string name="podcast_expand">प्लेयर बड़ा करें</string>
     <string name="podcast_collapse">प्लेयर छोटा करें</string>
+    <string name="podcast_play_episode">चलाएँ: %1$s</string>
 </resources>

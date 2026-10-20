@@ -937,4 +937,5 @@
     </plurals>
     <string name="podcast_expand">ಪ್ಲೇಯರ್ ವಿಸ್ತರಿಸಿ</string>
     <string name="podcast_collapse">ಪ್ಲೇಯರ್ ಕುಗ್ಗಿಸಿ</string>
+    <string name="podcast_play_episode">ಪ್ಲೇ: %1$s</string>
 </resources>

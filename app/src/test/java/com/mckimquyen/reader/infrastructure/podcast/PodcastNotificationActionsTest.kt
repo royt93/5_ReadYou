@@ -8,14 +8,12 @@ import org.junit.Test
 
 class PodcastNotificationActionsTest {
 
-    @Test fun actionOrder_isSameWhenPlayingOrPaused() {
-        val expected = listOf("rewind", "toggle", "forward", "stop")
-        assertEquals(expected, PodcastNotificationActions.actionNames(true))
-        assertEquals(expected, PodcastNotificationActions.actionNames(false))
+    @Test fun actionOrder_isFixed() {
+        assertEquals(listOf("rewind", "toggle", "forward", "stop"), PodcastNotificationActions.actionNames)
     }
 
     @Test fun compactIndices_pointAtRewindToggleForward() {
-        val names = PodcastNotificationActions.actionNames(true)
+        val names = PodcastNotificationActions.actionNames
         assertEquals(
             listOf("rewind", "toggle", "forward"),
             PodcastNotificationActions.compactIndices.map { names[it] },

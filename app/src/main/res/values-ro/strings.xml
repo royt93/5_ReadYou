@@ -873,4 +873,5 @@
     </plurals>
     <string name="podcast_expand">Extinde playerul</string>
     <string name="podcast_collapse">Restrânge playerul</string>
+    <string name="podcast_play_episode">Redă: %1$s</string>
 </resources>

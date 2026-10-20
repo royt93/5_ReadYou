@@ -23,12 +23,14 @@ class PodcastPlaybackControllerTest {
         val calls = mutableListOf<String>()
         var position = 0
         var duration = 0
+        var reportedStatus = PodcastStatus.PLAYING
         override fun prepare(url: String, startPositionSec: Int) { calls += "prepare:$url@$startPositionSec" }
-        override fun play() { calls += "play" }
-        override fun pause() { calls += "pause" }
+        override fun play() { calls += "play"; reportedStatus = PodcastStatus.PLAYING }
+        override fun pause() { calls += "pause"; reportedStatus = PodcastStatus.PAUSED }
         override fun stop() { calls += "stop" }
         override fun seekToSec(sec: Int) { calls += "seek:$sec" }
         override fun setSpeed(speed: Float) { calls += "speed:$speed" }
+        override fun status() = reportedStatus
         override fun positionSec() = position
         override fun durationSec() = duration
     }
@@ -223,15 +225,14 @@ class PodcastPlaybackControllerTest {
         assertEquals(PodcastStatus.PREPARING, controller.state.value.status)
     }
 
-    @Test fun open_otherEpisodeWhilePlaying_stopsCurrentAndSwitches() {
+    @Test fun open_otherEpisodeWhilePlaying_keepsCurrentEpisode() {
         val engine = attached()
         controller.open("a1", "T", "F", audio)
         controller.play()
         engine.calls.clear()
         controller.open("a2", "T2", "F", AudioInfo("https://x/2.mp3", null, null))
-        assertTrue(engine.calls.contains("stop"))
-        assertEquals("a2", controller.state.value.articleId)
-        assertEquals(PodcastStatus.PAUSED, controller.state.value.status)
+        assertTrue(engine.calls.isEmpty())
+        assertEquals("a1", controller.state.value.articleId)
     }
 
     @Test fun open_sameEpisodeAgain_keepsPlaying() {
@@ -251,8 +252,11 @@ class PodcastPlaybackControllerTest {
         controller.play()
         controller.stop()
         assertEquals(PodcastStatus.IDLE, controller.state.value.status)
-        assertNull(controller.state.value.articleId)
+        assertEquals("a1", controller.state.value.articleId)
         assertTrue(engine.calls.contains("stop"))
+        engine.calls.clear()
+        controller.play()
+        assertTrue(engine.calls.any { it.startsWith("prepare:") })
     }
 
     @Test fun detachEngine_whilePlaying_setsPausedAndKeepsPosition() {
@@ -265,6 +269,49 @@ class PodcastPlaybackControllerTest {
         assertEquals(PodcastStatus.PAUSED, controller.state.value.status)
         assertEquals(77, controller.state.value.positionSec)
         assertEquals(77, positions.load("a1"))
+    }
+
+    @Test fun timerSetBeforePlayback_startsCountingOnlyWhenPlayRequested() {
+        controller.open("a1", "T", "F", audio)
+        controller.startSleepTimer(15)
+        now += 20 * 60_000L
+        controller.play()
+        val engine = attached()
+        controller.onEngineTick()
+        assertEquals(900, controller.state.value.sleepRemainingSec)
+        assertEquals(PodcastStatus.PLAYING, controller.state.value.status)
+        assertTrue(engine.calls.contains("play"))
+    }
+
+    @Test fun tick_doesNotClaimPlayingWhileBuffering() {
+        val engine = attached()
+        controller.open("a1", "T", "F", audio)
+        controller.play()
+        engine.reportedStatus = PodcastStatus.PREPARING
+        controller.onEngineTick()
+        assertEquals(PodcastStatus.PREPARING, controller.state.value.status)
+    }
+
+    @Test fun tick_reflectsEnginePauseFromAudioFocusLoss() {
+        val engine = attached()
+        controller.open("a1", "T", "F", audio)
+        controller.play()
+        controller.onEngineTick()
+        engine.reportedStatus = PodcastStatus.PAUSED
+        controller.onEngineTick()
+        assertEquals(PodcastStatus.PAUSED, controller.state.value.status)
+    }
+
+    @Test fun explicitPlayEpisode_replacesPlayingEpisode() {
+        val engine = attached()
+        controller.open("a", "A", "F", audio)
+        controller.play()
+        engine.calls.clear()
+        controller.playEpisode("b", "B", "F", AudioInfo("https://x/b.mp3", null, 600))
+        assertEquals("b", controller.state.value.articleId)
+        assertTrue(engine.calls.contains("stop"))
+        assertTrue(engine.calls.contains("prepare:https://x/b.mp3@0"))
+        assertTrue(engine.calls.contains("play"))
     }
 
     private companion object {

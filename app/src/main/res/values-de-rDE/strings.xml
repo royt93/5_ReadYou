@@ -867,4 +867,5 @@
     </plurals>
     <string name="podcast_expand">Player erweitern</string>
     <string name="podcast_collapse">Player einklappen</string>
+    <string name="podcast_play_episode">Abspielen: %1$s</string>
 </resources>

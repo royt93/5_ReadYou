@@ -865,4 +865,5 @@
     </plurals>
     <string name="podcast_expand">Amplia el reproductor</string>
     <string name="podcast_collapse">Redueix el reproductor</string>
+    <string name="podcast_play_episode">Reprodueix: %1$s</string>
 </resources>

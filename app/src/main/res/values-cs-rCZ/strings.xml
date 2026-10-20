@@ -950,4 +950,5 @@
     </plurals>
     <string name="podcast_expand">Rozbalit přehrávač</string>
     <string name="podcast_collapse">Sbalit přehrávač</string>
+    <string name="podcast_play_episode">Přehrát: %1$s</string>
 </resources>

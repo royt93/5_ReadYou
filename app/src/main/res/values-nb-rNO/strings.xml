@@ -866,4 +866,5 @@
     </plurals>
     <string name="podcast_expand">Utvid spilleren</string>
     <string name="podcast_collapse">Skjul spilleren</string>
+    <string name="podcast_play_episode">Spill av: %1$s</string>
 </resources>

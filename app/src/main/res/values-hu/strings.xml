@@ -861,4 +861,5 @@
     </plurals>
     <string name="podcast_expand">Lejátszó kibontása</string>
     <string name="podcast_collapse">Lejátszó összecsukása</string>
+    <string name="podcast_play_episode">Lejátszás: %1$s</string>
 </resources>

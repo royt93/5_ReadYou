@@ -27,6 +27,7 @@ class PodcastPlaybackController @Inject constructor(
     private var preparedArticleId: String? = null
     private var pendingPlay = false
     private var playingTicks = 0
+    private var pendingSleepMinutes: Int? = null
 
     init {
         tts.setOnPlayRequested { pause() }
@@ -34,7 +35,16 @@ class PodcastPlaybackController @Inject constructor(
 
     /** Selects an episode and restores its saved position. Never autoplays. */
     fun open(articleId: String, title: String, feedName: String, audio: AudioInfo) {
-        if (_state.value.articleId == articleId) return
+        if (_state.value.articleId == articleId || _state.value.isActive()) return
+        selectEpisode(articleId, title, feedName, audio)
+    }
+
+    fun playEpisode(articleId: String, title: String, feedName: String, audio: AudioInfo) {
+        if (_state.value.articleId != articleId) selectEpisode(articleId, title, feedName, audio)
+        play()
+    }
+
+    private fun selectEpisode(articleId: String, title: String, feedName: String, audio: AudioInfo) {
         saveCurrentPosition()
         if (preparedArticleId != null) engine?.stop()
         preparedArticleId = null
@@ -73,6 +83,11 @@ class PodcastPlaybackController @Inject constructor(
     fun play() {
         if (audio == null || _state.value.articleId == null) return
         if (tts.isSpeaking) tts.stop()
+        pendingSleepMinutes?.let {
+            sleepTimer.start(it)
+            pendingSleepMinutes = null
+            update { copy(sleepRemainingSec = sleepTimer.remainingSec()) }
+        }
         val e = engine
         if (e == null) {
             if (!pendingPlay) {
@@ -101,9 +116,8 @@ class PodcastPlaybackController @Inject constructor(
         preparedArticleId = null
         pendingPlay = false
         playingTicks = 0
-        audio = null
-        sleepTimer.cancel()
-        _state.value = PodcastPlaybackState(speed = _state.value.speed)
+        cancelSleepTimer()
+        update { copy(status = PodcastStatus.IDLE) }
     }
 
     fun skip(seconds: Int) = seekTo(_state.value.positionSec + seconds)
@@ -125,11 +139,19 @@ class PodcastPlaybackController @Inject constructor(
 
     fun startSleepTimer(minutes: Int) {
         if (minutes !in SleepTimer.OPTIONS_MINUTES) return
-        sleepTimer.start(minutes)
-        update { copy(sleepRemainingSec = sleepTimer.remainingSec()) }
+        if (!_state.value.isActive()) {
+            sleepTimer.cancel()
+            pendingSleepMinutes = minutes
+            update { copy(sleepRemainingSec = minutes * SECONDS_PER_MINUTE) }
+        } else {
+            pendingSleepMinutes = null
+            sleepTimer.start(minutes)
+            update { copy(sleepRemainingSec = sleepTimer.remainingSec()) }
+        }
     }
 
     fun cancelSleepTimer() {
+        pendingSleepMinutes = null
         sleepTimer.cancel()
         update { copy(sleepRemainingSec = null) }
     }
@@ -146,7 +168,7 @@ class PodcastPlaybackController @Inject constructor(
             copy(
                 positionSec = position,
                 durationSec = duration,
-                status = if (wasStarting) PodcastStatus.PLAYING else status,
+                status = if (status != PodcastStatus.ERROR) e.status() else status,
                 sleepRemainingSec = sleepTimer.remainingSec(),
             )
         }
@@ -207,6 +229,7 @@ class PodcastPlaybackController @Inject constructor(
         status == PodcastStatus.PLAYING || status == PodcastStatus.PREPARING
 
     companion object {
+        private const val SECONDS_PER_MINUTE = 60
         const val SKIP_INTERVAL_SEC = 15
         const val TICK_MS = 1_000L
         val SPEEDS = listOf(1.0f, 1.25f, 1.5f, 1.75f, 2.0f)

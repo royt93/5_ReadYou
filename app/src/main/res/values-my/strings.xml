@@ -932,4 +932,5 @@
     </plurals>
     <string name="podcast_expand">ပလေယာကို ချဲ့ရန်</string>
     <string name="podcast_collapse">ပလေယာကို ချုံ့ရန်</string>
+    <string name="podcast_play_episode">ဖွင့်ရန်: %1$s</string>
 </resources>

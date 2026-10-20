@@ -372,27 +372,39 @@ fun ReadingPage(
                 // own natural size (no forced height/clip needed now that nothing has to match
                 // a separately-computed reservation).
                 val podcastArticle = readingUiState.articleWithFeed?.article
-                if (podcastArticle?.audioUrl != null) {
-                    val podcastViewModel: PodcastPlayerViewModel = hiltViewModel()
-                    val podcastState = podcastViewModel.state.collectAsStateValue()
-                    val feedName = readingUiState.articleWithFeed.feed.name
-                    LaunchedEffect(podcastArticle.id) {
+                val podcastUrl = podcastArticle?.audioUrl
+                val podcastViewModel: PodcastPlayerViewModel = hiltViewModel()
+                val podcastState = podcastViewModel.state.collectAsStateValue()
+                val podcastFeedName = readingUiState.articleWithFeed?.feed?.name.orEmpty()
+                LaunchedEffect(podcastArticle?.id) {
+                    if (podcastArticle != null && podcastUrl != null) {
                         podcastViewModel.bind(
-                            podcastArticle.id, podcastArticle.title, feedName,
-                            AudioInfo(podcastArticle.audioUrl!!, podcastArticle.audioMime, podcastArticle.audioDurationSec),
+                            podcastArticle.id, podcastArticle.title, podcastFeedName,
+                            AudioInfo(podcastUrl, podcastArticle.audioMime, podcastArticle.audioDurationSec),
                         )
                     }
-                    if (podcastState.articleId == podcastArticle.id) {
-                        PodcastPlayerBar(
-                            state = podcastState,
-                            onToggle = podcastViewModel::onToggle,
-                            onSkip = podcastViewModel::onSkip,
-                            onSeek = podcastViewModel::onSeek,
-                            onSpeed = podcastViewModel::onSpeed,
-                            onSleep = podcastViewModel::onSleep,
-                            onRetry = podcastViewModel::onRetry,
-                        )
-                    }
+                }
+                if (podcastArticle != null && podcastUrl != null && podcastState.articleId != podcastArticle.id) {
+                    com.mckimquyen.reader.ui.page.home.read.podcast.PodcastEpisodeAction(
+                        title = podcastArticle.title,
+                        onPlay = {
+                            podcastViewModel.playEpisode(
+                                podcastArticle.id, podcastArticle.title, podcastFeedName,
+                                AudioInfo(podcastUrl, podcastArticle.audioMime, podcastArticle.audioDurationSec),
+                            )
+                        },
+                    )
+                }
+                if (podcastState.articleId != null) {
+                    PodcastPlayerBar(
+                        state = podcastState,
+                        onToggle = podcastViewModel::onToggle,
+                        onSkip = podcastViewModel::onSkip,
+                        onSeek = podcastViewModel::onSeek,
+                        onSpeed = podcastViewModel::onSpeed,
+                        onSleep = podcastViewModel::onSleep,
+                        onRetry = podcastViewModel::onRetry,
+                    )
                 }
 
                 if (readingUiState.articleWithFeed != null) {

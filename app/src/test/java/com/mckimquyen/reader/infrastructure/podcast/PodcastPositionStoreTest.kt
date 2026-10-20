@@ -75,10 +75,31 @@ class PodcastPositionStoreTest {
         assertEquals(42, PodcastPositionStore(context).load("a"))
     }
 
-    @Test fun malformedStoredStringIsIgnored() {
+    @Test fun idsContainingDelimitersRoundTrip() {
+        val id = "1\$tag:google.com,2005:reader/item/000123"
+        store.save(id, 321, 5_000)
+        store.save("plain", 5, 5_000)
+        assertEquals(321, store.load(id))
+        assertEquals(5, store.load("plain"))
+        assertEquals(321, PodcastPositionStore(context).load(id))
+    }
+
+    @Test fun malformedJsonIsIgnoredWithoutCrashing() {
         context.getSharedPreferences(PodcastPositionStore.PREFS_NAME, Context.MODE_PRIVATE)
-            .edit().putString("entries", "garbage,,:5,ok:7,bad:x").commit()
+            .edit().putString("entries_json", "{not json").commit()
+        assertEquals(0, store.load("any"))
+        store.save("a", 9, 600)
+        assertEquals(9, store.load("a"))
+    }
+
+    @Test fun legacyFormatIsStillReadAndMigratedOnNextSave() {
+        val prefs = context.getSharedPreferences(PodcastPositionStore.PREFS_NAME, Context.MODE_PRIVATE)
+        prefs.edit().putString("entries", "garbage,,:5,ok:7,bad:x").commit()
         assertEquals(7, store.load("ok"))
         assertEquals(0, store.load("bad"))
+        store.save("new", 3, 600)
+        assertEquals(7, store.load("ok"))
+        assertEquals(3, store.load("new"))
+        assertEquals(false, prefs.contains("entries"))
     }
 }

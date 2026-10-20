@@ -865,4 +865,5 @@
     </plurals>
     <string name="podcast_expand">Expandera spelaren</string>
     <string name="podcast_collapse">Minimera spelaren</string>
+    <string name="podcast_play_episode">Spela upp: %1$s</string>
 </resources>

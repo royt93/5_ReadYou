@@ -936,4 +936,5 @@
     </plurals>
     <string name="podcast_expand">Zabaldu erreproduzigailua</string>
     <string name="podcast_collapse">Tolestu erreproduzigailua</string>
+    <string name="podcast_play_episode">Erreproduzitu: %1$s</string>
 </resources>

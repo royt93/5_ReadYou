@@ -859,4 +859,5 @@
     </plurals>
     <string name="podcast_expand">Perluas pemutar</string>
     <string name="podcast_collapse">Ciutkan pemutar</string>
+    <string name="podcast_play_episode">Putar: %1$s</string>
 </resources>

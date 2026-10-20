@@ -947,4 +947,5 @@
     </plurals>
     <string name="podcast_expand">Rozwiń odtwarzacz</string>
     <string name="podcast_collapse">Zwiń odtwarzacz</string>
+    <string name="podcast_play_episode">Odtwórz: %1$s</string>
 </resources>

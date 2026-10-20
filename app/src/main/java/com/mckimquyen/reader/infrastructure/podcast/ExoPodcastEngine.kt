@@ -13,6 +13,8 @@ import androidx.media3.datasource.DefaultDataSource
 import androidx.media3.datasource.DefaultHttpDataSource
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.exoplayer.source.DefaultMediaSourceFactory
+import com.mckimquyen.reader.domain.model.article.AudioUrlCandidates
+import com.mckimquyen.reader.domain.model.podcast.PodcastStatus
 import com.mckimquyen.reader.domain.sv.PodcastEngine
 
 /** ExoPlayer-backed [PodcastEngine]. Create and call on the main thread. */
@@ -21,6 +23,10 @@ class ExoPodcastEngine(context: Context) : PodcastEngine {
 
     var onEnded: (() -> Unit)? = null
     var onError: (() -> Unit)? = null
+
+    private var candidates: List<String> = emptyList()
+    private var candidateIndex = 0
+    private var initialPositionSec = 0
 
     private val player: ExoPlayer = ExoPlayer.Builder(context)
         .setMediaSourceFactory(
@@ -49,13 +55,23 @@ class ExoPodcastEngine(context: Context) : PodcastEngine {
                 }
 
                 override fun onPlayerError(error: PlaybackException) {
-                    onError?.invoke()
+                    if (candidateIndex + 1 < candidates.size) {
+                        candidateIndex++
+                        val resumeSec = maxOf(initialPositionSec, positionSec())
+                        player.setMediaItem(MediaItem.fromUri(candidates[candidateIndex]), resumeSec * MILLIS_PER_SECOND)
+                        player.prepare()
+                    } else {
+                        onError?.invoke()
+                    }
                 }
             })
         }
 
     override fun prepare(url: String, startPositionSec: Int) {
-        player.setMediaItem(MediaItem.fromUri(url), startPositionSec * MILLIS_PER_SECOND)
+        candidates = AudioUrlCandidates.of(url)
+        candidateIndex = 0
+        initialPositionSec = startPositionSec
+        player.setMediaItem(MediaItem.fromUri(candidates.first()), startPositionSec * MILLIS_PER_SECOND)
         player.prepare()
     }
 
@@ -75,6 +91,14 @@ class ExoPodcastEngine(context: Context) : PodcastEngine {
     }
 
     override fun positionSec(): Int = (player.currentPosition / MILLIS_PER_SECOND).toInt()
+
+    override fun status(): PodcastStatus = when {
+        player.playerError != null -> PodcastStatus.ERROR
+        !player.playWhenReady -> PodcastStatus.PAUSED
+        player.playbackState == Player.STATE_BUFFERING || player.playbackState == Player.STATE_IDLE -> PodcastStatus.PREPARING
+        player.isPlaying -> PodcastStatus.PLAYING
+        else -> PodcastStatus.PAUSED
+    }
 
     override fun durationSec(): Int =
         player.duration.takeIf { it != C.TIME_UNSET }?.let { (it / MILLIS_PER_SECOND).toInt() } ?: 0

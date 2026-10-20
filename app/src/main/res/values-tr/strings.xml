@@ -866,4 +866,5 @@
     </plurals>
     <string name="podcast_expand">Oynatıcıyı genişlet</string>
     <string name="podcast_collapse">Oynatıcıyı daralt</string>
+    <string name="podcast_play_episode">Oynat: %1$s</string>
 </resources>

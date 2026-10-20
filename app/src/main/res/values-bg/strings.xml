@@ -830,4 +830,5 @@
     </plurals>
     <string name="podcast_expand">Разгъни плейъра</string>
     <string name="podcast_collapse">Свий плейъра</string>
+    <string name="podcast_play_episode">Пусни: %1$s</string>
 </resources>

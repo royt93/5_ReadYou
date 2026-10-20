@@ -881,4 +881,5 @@
     </plurals>
     <string name="podcast_expand">Розгорнути плеєр</string>
     <string name="podcast_collapse">Згорнути плеєр</string>
+    <string name="podcast_play_episode">Відтворити: %1$s</string>
 </resources>

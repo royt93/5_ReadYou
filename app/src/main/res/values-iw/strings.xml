@@ -950,4 +950,5 @@
     </plurals>
     <string name="podcast_expand">הרחבת הנגן</string>
     <string name="podcast_collapse">כיווץ הנגן</string>
+    <string name="podcast_play_episode">הפעל: %1$s</string>
 </resources>

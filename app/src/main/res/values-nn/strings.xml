@@ -938,4 +938,5 @@
     </plurals>
     <string name="podcast_expand">Utvid spelaren</string>
     <string name="podcast_collapse">Skjul spelaren</string>
+    <string name="podcast_play_episode">Spel av: %1$s</string>
 </resources>

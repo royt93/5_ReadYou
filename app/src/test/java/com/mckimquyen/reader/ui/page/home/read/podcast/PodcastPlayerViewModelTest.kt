@@ -29,10 +29,15 @@ class PodcastPlayerViewModelTest {
         verify(exactly = 1) { controller.open("a1", "T", "F", audio) }
     }
 
-    @Test fun bind_sameActiveEpisode_doesNothing() {
+    @Test fun bind_delegatesSameEpisodeGuardToController() {
         flow.value = PodcastPlaybackState(articleId = "a1")
         viewModel.bind("a1", "T", "F", audio)
-        verify(exactly = 0) { controller.open(any(), any(), any(), any()) }
+        verify(exactly = 1) { controller.open("a1", "T", "F", audio) }
+    }
+
+    @Test fun playEpisode_explicitlySelectsAndPlaysRequestedEpisode() {
+        viewModel.playEpisode("b", "B", "Feed", audio)
+        verify(exactly = 1) { controller.playEpisode("b", "B", "Feed", audio) }
     }
 
     @Test fun intents_forwardToController() {

@@ -8,6 +8,7 @@ import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import android.os.SystemClock
 import android.os.IBinder
 import android.support.v4.media.MediaMetadataCompat
 import android.support.v4.media.session.MediaSessionCompat
@@ -17,6 +18,8 @@ import androidx.core.content.ContextCompat
 import androidx.media.app.NotificationCompat.MediaStyle
 import com.mckimquyen.reader.R
 import com.mckimquyen.reader.domain.model.podcast.PodcastPlaybackState
+import com.mckimquyen.reader.domain.model.podcast.PodcastIdlePolicy
+import com.mckimquyen.reader.domain.model.podcast.SessionSyncPolicy
 import com.mckimquyen.reader.domain.model.podcast.PodcastStatus
 import com.mckimquyen.reader.domain.sv.PodcastPlaybackController
 import com.mckimquyen.reader.infrastructure.android.MainActivity
@@ -40,6 +43,9 @@ class PodcastPlaybackService : Service() {
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
     private var engine: ExoPodcastEngine? = null
     private var session: MediaSessionCompat? = null
+    private val idlePolicy = PodcastIdlePolicy(nowMillis = SystemClock::elapsedRealtime)
+    private val sessionSync = SessionSyncPolicy()
+    private var lastMetadata: Triple<String, String, Int>? = null
     private var lastNotificationKey: Triple<String?, PodcastStatus, String>? = null
 
     override fun onCreate() {
@@ -68,7 +74,7 @@ class PodcastPlaybackService : Service() {
             while (isActive) {
                 controller.onEngineTick()
                 render(controller.state.value)
-                if (controller.state.value.status == PodcastStatus.IDLE) {
+                if (idlePolicy.shouldStop(controller.state.value.status)) {
                     stopForeground(STOP_FOREGROUND_REMOVE)
                     stopSelf()
                     break
@@ -108,12 +114,17 @@ class PodcastPlaybackService : Service() {
             PodcastStatus.IDLE -> PlaybackStateCompat.STATE_STOPPED
         }
         val speed = if (state.status == PodcastStatus.PLAYING) state.speed else 0f
+        if (sessionSync.needsUpdate(state.status, state.speed, state.positionSec, SystemClock.elapsedRealtime())) {
         session?.setPlaybackState(
             PlaybackStateCompat.Builder()
                 .setActions(SESSION_ACTIONS)
                 .setState(code, state.positionSec * MILLIS_PER_SECOND, speed)
                 .build()
         )
+        }
+        val metadata = Triple(state.title, state.feedName, state.durationSec)
+        if (metadata == lastMetadata) return
+        lastMetadata = metadata
         session?.setMetadata(
             MediaMetadataCompat.Builder()
                 .putString(MediaMetadataCompat.METADATA_KEY_TITLE, state.title)
@@ -142,7 +153,7 @@ class PodcastPlaybackService : Service() {
             .setContentIntent(openApp)
             .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
             .setOngoing(isPlaying)
-        PodcastNotificationActions.actionNames(isPlaying).forEachIndexed { index, name ->
+        PodcastNotificationActions.actionNames.forEachIndexed { index, name ->
             val (icon, label, action) = when (name) {
                 PodcastNotificationActions.REWIND ->
                     Triple(android.R.drawable.ic_media_rew, getString(R.string.podcast_skip_back), ACTION_REWIND)

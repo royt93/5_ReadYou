@@ -865,4 +865,5 @@
     </plurals>
     <string name="podcast_expand">Udvid afspiller</string>
     <string name="podcast_collapse">Skjul afspiller</string>
+    <string name="podcast_play_episode">Afspil: %1$s</string>
 </resources>

@@ -866,4 +866,5 @@
     </plurals>
     <string name="podcast_expand">Speler uitvouwen</string>
     <string name="podcast_collapse">Speler samenvouwen</string>
+    <string name="podcast_play_episode">Afspelen: %1$s</string>
 </resources>

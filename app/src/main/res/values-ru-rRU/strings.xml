@@ -881,4 +881,5 @@
     </plurals>
     <string name="podcast_expand">Развернуть плеер</string>
     <string name="podcast_collapse">Свернуть плеер</string>
+    <string name="podcast_play_episode">Воспроизвести: %1$s</string>
 </resources>

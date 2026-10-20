@@ -7,7 +7,7 @@
 
 ## 🟡 In progress
 
-- Không có mục nào đang thực hiện.
+- **IDEA-05 — Podcast & Audio RSS Player:** Đang sửa các regression từ review và hoàn tất kiểm thử trên `emulator-5554`. Quyết định của owner: đọc tập B không dừng tập A; bar tiếp tục điều khiển A và có nút phát B; audio HTTP thử HTTPS trước rồi fallback HTTP. UI collapse/expand và số 15 đã kiểm trên Tecno/emulator. Báo cáo DONE hiện là bản nháp, chưa đóng task.
 
 ## ✅ Recently implemented
 

@@ -932,4 +932,5 @@
     </plurals>
     <string name="podcast_expand">展播器</string>
     <string name="podcast_collapse">收播器</string>
+    <string name="podcast_play_episode">播放：%1$s</string>
 </resources>

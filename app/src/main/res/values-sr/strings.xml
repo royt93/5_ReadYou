@@ -874,4 +874,5 @@
     </plurals>
     <string name="podcast_expand">Прошири плејер</string>
     <string name="podcast_collapse">Скупи плејер</string>
+    <string name="podcast_play_episode">Пусти: %1$s</string>
 </resources>
