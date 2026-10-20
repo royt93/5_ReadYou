@@ -4,17 +4,17 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Bedtime
-import androidx.compose.material.icons.rounded.FastForward
-import androidx.compose.material.icons.rounded.FastRewind
+import androidx.compose.material.icons.rounded.Replay
 import androidx.compose.material.icons.rounded.Pause
 import androidx.compose.material.icons.rounded.PlayArrow
-import androidx.compose.material.icons.rounded.Speed
-import androidx.compose.material3.AssistChip
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -22,6 +22,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Slider
+import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -32,6 +33,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.semantics.stateDescription
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
@@ -60,9 +64,18 @@ const val PODCAST_SLEEP_OFF_ITEM_TAG = "podcast_sleep_item_off"
 
 private const val SECONDS_PER_MINUTE = 60
 private const val SECONDS_PER_HOUR = 3600
-private val TOGGLE_SIZE = 56.dp
-private val SKIP_LABEL_SIZE = 10.sp
-private val ICON_SIZE = 28.dp
+private val TOGGLE_ICON_SIZE = 40.dp
+private val TOGGLE_BUTTON_SIZE = 52.dp
+private val SKIP_BUTTON_SIZE = 44.dp
+private val SKIP_ICON_SIZE = 32.dp
+private val SKIP_LABEL_SIZE = 9.sp
+private val ROW_HEIGHT = 48.dp
+private val TIME_MIN_WIDTH = 40.dp
+private val BAR_CORNER = 16.dp
+private val SLEEP_ICON_SIZE = 22.dp
+private val BAR_MARGIN_H = 12.dp
+private val BAR_MARGIN_V = 6.dp
+private const val INACTIVE_TRACK_ALPHA = 0.3f
 
 internal fun formatPlaybackTime(totalSec: Int): String {
     val sec = totalSec.coerceAtLeast(0)
@@ -89,73 +102,72 @@ fun PodcastPlayerBar(
     var dragging by remember { mutableStateOf<Float?>(null) }
     var speedMenu by remember { mutableStateOf(false) }
     var sleepMenu by remember { mutableStateOf(false) }
+    val shownPosition = (dragging ?: state.positionSec.toFloat()).coerceIn(0f, upper.toFloat())
 
     Surface(
-        modifier = modifier.fillMaxWidth().testTag(PODCAST_BAR_TAG),
-        color = MaterialTheme.colorScheme.surfaceVariant,
+        modifier = modifier
+            .padding(horizontal = BAR_MARGIN_H, vertical = BAR_MARGIN_V)
+            .fillMaxWidth()
+            .testTag(PODCAST_BAR_TAG),
+        shape = RoundedCornerShape(BAR_CORNER),
+        color = MaterialTheme.colorScheme.secondaryContainer,
+        tonalElevation = 2.dp,
     ) {
-        Column(Modifier.padding(horizontal = 16.dp, vertical = 8.dp)) {
+        Column(Modifier.padding(horizontal = 8.dp)) {
             if (state.status == PodcastStatus.ERROR) {
                 Row(
-                    modifier = Modifier.fillMaxWidth().testTag(PODCAST_ERROR_TAG),
+                    modifier = Modifier.fillMaxWidth().padding(start = 8.dp).testTag(PODCAST_ERROR_TAG),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
-                    Text(stringResource(R.string.podcast_error), color = MaterialTheme.colorScheme.error, modifier = Modifier.weight(1f))
+                    Text(stringResource(R.string.podcast_error), color = MaterialTheme.colorScheme.error, style = MaterialTheme.typography.bodyMedium, modifier = Modifier.weight(1f))
                     TextButton(onClick = onRetry, modifier = Modifier.testTag(PODCAST_RETRY_TAG)) {
                         Text(stringResource(R.string.retry))
                     }
                 }
             }
             val seekDescription = stringResource(R.string.podcast_seek)
-            Slider(
-                value = (dragging ?: state.positionSec.toFloat()).coerceIn(0f, upper.toFloat()),
-                onValueChange = { dragging = it },
-                onValueChangeFinished = {
-                    dragging?.let { onSeek(it.toInt()) }
-                    dragging = null
-                },
-                valueRange = 0f..upper.toFloat(),
-                enabled = state.durationSec > 0,
-                modifier = Modifier.fillMaxWidth().testTag(PODCAST_SEEK_TAG).semantics { contentDescription = seekDescription },
-            )
-            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                Text(formatPlaybackTime((dragging ?: state.positionSec.toFloat()).toInt()), style = MaterialTheme.typography.labelMedium)
-                Text(formatPlaybackTime(state.durationSec), style = MaterialTheme.typography.labelMedium)
-            }
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                SkipButton(
-                    isForward = false,
-                    onClick = { onSkip(-PodcastPlaybackController.SKIP_INTERVAL_SEC) },
-                    tag = PODCAST_BACK_TAG,
-                    description = stringResource(R.string.podcast_skip_back),
+            Row(Modifier.fillMaxWidth().height(ROW_HEIGHT), verticalAlignment = Alignment.CenterVertically) {
+                Text(
+                    formatPlaybackTime(shownPosition.toInt()),
+                    style = MaterialTheme.typography.labelMedium,
+                    modifier = Modifier.widthIn(min = TIME_MIN_WIDTH).padding(start = 8.dp),
                 )
-                IconButton(onClick = onToggle, modifier = Modifier.size(TOGGLE_SIZE).testTag(PODCAST_TOGGLE_TAG)) {
-                    Icon(
-                        imageVector = if (isPlaying) Icons.Rounded.Pause else Icons.Rounded.PlayArrow,
-                        contentDescription = stringResource(if (isPlaying) R.string.podcast_pause else R.string.podcast_play),
-                        modifier = Modifier.size(TOGGLE_SIZE),
-                    )
-                }
-                SkipButton(
-                    isForward = true,
-                    onClick = { onSkip(PodcastPlaybackController.SKIP_INTERVAL_SEC) },
-                    tag = PODCAST_FORWARD_TAG,
-                    description = stringResource(R.string.podcast_skip_forward),
+                Slider(
+                    value = shownPosition,
+                    onValueChange = { dragging = it },
+                    onValueChangeFinished = {
+                        dragging?.let { onSeek(it.toInt()) }
+                        dragging = null
+                    },
+                    valueRange = 0f..upper.toFloat(),
+                    enabled = state.durationSec > 0,
+                    colors = SliderDefaults.colors(
+                        thumbColor = MaterialTheme.colorScheme.primary,
+                        activeTrackColor = MaterialTheme.colorScheme.primary,
+                        inactiveTrackColor = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = INACTIVE_TRACK_ALPHA),
+                    ),
+                    modifier = Modifier.weight(1f).testTag(PODCAST_SEEK_TAG).semantics { contentDescription = seekDescription },
+                )
+                Text(
+                    formatPlaybackTime(state.durationSec),
+                    style = MaterialTheme.typography.labelMedium,
+                    modifier = Modifier.widthIn(min = TIME_MIN_WIDTH).padding(end = 8.dp),
                 )
             }
-            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                Box {
-                    AssistChip(
+            Row(Modifier.fillMaxWidth().height(ROW_HEIGHT + 4.dp), verticalAlignment = Alignment.CenterVertically) {
+                Box(Modifier.weight(1f), contentAlignment = Alignment.CenterStart) {
+                    val speedDescription = stringResource(R.string.podcast_speed)
+                    val speedLabel = "${state.speed}×"
+                    TextButton(
                         onClick = { speedMenu = true },
-                        label = { Text("${state.speed}×") },
-                        leadingIcon = { Icon(Icons.Rounded.Speed, contentDescription = stringResource(R.string.podcast_speed)) },
-                        modifier = Modifier.testTag(PODCAST_SPEED_TAG),
-                    )
+                        modifier = Modifier.testTag(PODCAST_SPEED_TAG).semantics {
+                            contentDescription = speedDescription
+                            stateDescription = speedLabel
+                        },
+                    ) {
+                        Text(speedLabel, fontWeight = FontWeight.SemiBold)
+                    }
                     DropdownMenu(expanded = speedMenu, onDismissRequest = { speedMenu = false }) {
                         PodcastPlaybackController.SPEEDS.forEach { speed ->
                             DropdownMenuItem(
@@ -166,13 +178,48 @@ fun PodcastPlayerBar(
                         }
                     }
                 }
-                Box {
-                    AssistChip(
-                        onClick = { sleepMenu = true },
-                        label = { Text(state.sleepRemainingSec?.let(::formatPlaybackTime) ?: stringResource(R.string.podcast_sleep_off)) },
-                        leadingIcon = { Icon(Icons.Rounded.Bedtime, contentDescription = stringResource(R.string.podcast_sleep_timer)) },
-                        modifier = Modifier.testTag(PODCAST_SLEEP_TAG),
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    SkipButton(
+                        isForward = false,
+                        onClick = { onSkip(-PodcastPlaybackController.SKIP_INTERVAL_SEC) },
+                        tag = PODCAST_BACK_TAG,
+                        description = stringResource(R.string.podcast_skip_back),
                     )
+                    IconButton(onClick = onToggle, modifier = Modifier.size(TOGGLE_BUTTON_SIZE).testTag(PODCAST_TOGGLE_TAG)) {
+                        Icon(
+                            imageVector = if (isPlaying) Icons.Rounded.Pause else Icons.Rounded.PlayArrow,
+                            contentDescription = stringResource(if (isPlaying) R.string.podcast_pause else R.string.podcast_play),
+                            modifier = Modifier.size(TOGGLE_ICON_SIZE),
+                        )
+                    }
+                    SkipButton(
+                        isForward = true,
+                        onClick = { onSkip(PodcastPlaybackController.SKIP_INTERVAL_SEC) },
+                        tag = PODCAST_FORWARD_TAG,
+                        description = stringResource(R.string.podcast_skip_forward),
+                    )
+                }
+                Box(Modifier.weight(1f), contentAlignment = Alignment.CenterEnd) {
+                    val sleepDescription = stringResource(R.string.podcast_sleep_timer)
+                    val remaining = state.sleepRemainingSec
+                    TextButton(
+                        onClick = { sleepMenu = true },
+                        modifier = Modifier.testTag(PODCAST_SLEEP_TAG).semantics {
+                            contentDescription = sleepDescription
+                            remaining?.let { stateDescription = formatPlaybackTime(it) }
+                        },
+                    ) {
+                        Icon(Icons.Rounded.Bedtime, contentDescription = null, modifier = Modifier.size(SLEEP_ICON_SIZE))
+                        if (remaining != null) {
+                            Text(
+                                formatPlaybackTime(remaining),
+                                maxLines = 1,
+                                softWrap = false,
+                                fontWeight = FontWeight.SemiBold,
+                                modifier = Modifier.padding(start = 4.dp),
+                            )
+                        }
+                    }
                     DropdownMenu(expanded = sleepMenu, onDismissRequest = { sleepMenu = false }) {
                         DropdownMenuItem(
                             text = { Text(stringResource(R.string.podcast_sleep_off)) },
@@ -193,16 +240,21 @@ fun PodcastPlayerBar(
     }
 }
 
+/** Replay arrow with "15" centred inside; the forward variant mirrors the arrow only, never the digits. */
 @Composable
 private fun SkipButton(isForward: Boolean, onClick: () -> Unit, tag: String, description: String) {
-    IconButton(onClick = onClick, modifier = Modifier.testTag(tag)) {
+    IconButton(onClick = onClick, modifier = Modifier.size(SKIP_BUTTON_SIZE).testTag(tag)) {
         Box(contentAlignment = Alignment.Center) {
             Icon(
-                imageVector = if (isForward) Icons.Rounded.FastForward else Icons.Rounded.FastRewind,
+                imageVector = Icons.Rounded.Replay,
                 contentDescription = description,
-                modifier = Modifier.size(ICON_SIZE),
+                modifier = Modifier.size(SKIP_ICON_SIZE).graphicsLayer { scaleX = if (isForward) -1f else 1f },
             )
-            Text(PodcastPlaybackController.SKIP_INTERVAL_SEC.toString(), fontSize = SKIP_LABEL_SIZE, modifier = Modifier.padding(top = ICON_SIZE / 2))
+            Text(
+                PodcastPlaybackController.SKIP_INTERVAL_SEC.toString(),
+                fontSize = SKIP_LABEL_SIZE,
+                fontWeight = FontWeight.Bold,
+            )
         }
     }
 }
