@@ -78,7 +78,7 @@ class ArticleListCursorWindowInstrumentationTest {
     }
 
     @Test fun readNews_readsFullBodyPastCursorWindowWithoutNetwork() = runBlocking {
-        val text = "word ".repeat(WORD_REPEATS) + " END_MARKER"
+        val text = "word ".repeat(WORD_REPEATS) + "END_MARKER"
         seed("Short teaser", "<p>$text</p>")
         var spoken: String? = null
         val speaker = object : ReadNewsSpeaker {
