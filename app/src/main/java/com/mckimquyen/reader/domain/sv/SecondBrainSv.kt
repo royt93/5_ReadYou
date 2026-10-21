@@ -28,7 +28,7 @@ class SecondBrainSv @Inject constructor(
         fromTime: Long = Long.MIN_VALUE,
         toTime: Long = Long.MAX_VALUE,
     ): BrainGraph = withContext(defaultDispatcher) {
-        val articles = articleDao.queryRecentArticlesWithFeed(accountId, MAX_ARTICLES).map(::toBrainArticle)
+        val articles = articleDao.queryRecentArticleListWithFeed(accountId, MAX_ARTICLES).map { it.toArticleWithFeed() }.map(::toBrainArticle)
         BrainGraphBuilder.build(articles, fromTime, toTime)
     }
 

@@ -2,6 +2,7 @@ package com.mckimquyen.reader.domain.sv
 
 import com.mckimquyen.reader.domain.model.article.Article
 import com.mckimquyen.reader.domain.model.article.ArticleHighlights
+import com.mckimquyen.reader.domain.model.article.toListItemWithFeed
 import com.mckimquyen.reader.domain.model.article.ArticleWithFeed
 import com.mckimquyen.reader.domain.model.feed.Feed
 import com.mckimquyen.reader.domain.repository.ArticleDao
@@ -66,10 +67,10 @@ class SecondBrainSvTest {
 
     @Test
     fun load_buildsGraphFromRecentArticles_forTheGivenAccount() = runBlocking {
-        coEvery { articleDao.queryRecentArticlesWithFeed(1, any()) } returns listOf(
+        coEvery { articleDao.queryRecentArticleListWithFeed(1, any()) } returns listOf(
             article("a1", "AI chips", "nvidia machine learning semiconductor"),
             article("a2", "Bitcoin", "bitcoin crypto", day = 2),
-        )
+        ).map { it.toListItemWithFeed() }
 
         val graph = service.load(accountId = 1)
 
@@ -80,7 +81,7 @@ class SecondBrainSvTest {
 
     @Test
     fun load_noArticles_returnsEmptyGraph() = runBlocking {
-        coEvery { articleDao.queryRecentArticlesWithFeed(1, any()) } returns emptyList()
+        coEvery { articleDao.queryRecentArticleListWithFeed(1, any()) } returns emptyList()
         assertEquals(0, service.load(1).nodes.size)
     }
 }

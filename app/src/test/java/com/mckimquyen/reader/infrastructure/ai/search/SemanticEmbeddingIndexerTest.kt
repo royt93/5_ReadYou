@@ -1,6 +1,7 @@
 package com.mckimquyen.reader.infrastructure.ai.search
 
 import com.mckimquyen.reader.domain.model.article.Article
+import com.mckimquyen.reader.domain.model.article.toListItemWithFeed
 import com.mckimquyen.reader.domain.model.article.ArticleWithFeed
 import com.mckimquyen.reader.domain.model.feed.Feed
 import com.mckimquyen.reader.domain.repository.ArticleDao
@@ -54,8 +55,8 @@ class SemanticEmbeddingIndexerTest {
     fun indexRecent_embedsEveryRecentArticleOnce() = runBlocking {
         val articles = (1..3).map { article("art_$it") }
         coEvery {
-            articleDao.queryRecentArticlesWithFeed(ACCOUNT_ID, SemanticEmbeddingIndexer.DEFAULT_INDEX_LIMIT)
-        } returns articles
+            articleDao.queryRecentArticleListWithFeed(ACCOUNT_ID, SemanticEmbeddingIndexer.DEFAULT_INDEX_LIMIT)
+        } returns articles.map { it.toListItemWithFeed() }
 
         val stats = indexer.indexRecent(ACCOUNT_ID)
 
@@ -69,8 +70,8 @@ class SemanticEmbeddingIndexerTest {
     fun indexRecent_runAgain_isPureCacheHit() = runBlocking {
         val articles = (1..3).map { article("art_$it") }
         coEvery {
-            articleDao.queryRecentArticlesWithFeed(ACCOUNT_ID, SemanticEmbeddingIndexer.DEFAULT_INDEX_LIMIT)
-        } returns articles
+            articleDao.queryRecentArticleListWithFeed(ACCOUNT_ID, SemanticEmbeddingIndexer.DEFAULT_INDEX_LIMIT)
+        } returns articles.map { it.toListItemWithFeed() }
         indexer.indexRecent(ACCOUNT_ID)
         val rowsAfterFirstRun = fakeEmbeddingDao.insertedRows
 
@@ -84,7 +85,7 @@ class SemanticEmbeddingIndexerTest {
     @Test
     fun indexRecent_noArticles_isNoOp() = runBlocking {
         coEvery {
-            articleDao.queryRecentArticlesWithFeed(ACCOUNT_ID, SemanticEmbeddingIndexer.DEFAULT_INDEX_LIMIT)
+            articleDao.queryRecentArticleListWithFeed(ACCOUNT_ID, SemanticEmbeddingIndexer.DEFAULT_INDEX_LIMIT)
         } returns emptyList()
 
         val stats = indexer.indexRecent(ACCOUNT_ID)
@@ -98,17 +99,17 @@ class SemanticEmbeddingIndexerTest {
         val stats = indexer.indexRecent(ACCOUNT_ID, limit = 0)
 
         assertEquals(CacheUpdateStats.EMPTY, stats)
-        coVerify(exactly = 0) { articleDao.queryRecentArticlesWithFeed(any(), any()) }
+        coVerify(exactly = 0) { articleDao.queryRecentArticleListWithFeed(any(), any()) }
     }
 
     @Test
     fun indexRecent_honoursExplicitLimit() = runBlocking {
-        coEvery { articleDao.queryRecentArticlesWithFeed(ACCOUNT_ID, 2) } returns listOf(article("a"), article("b"))
+        coEvery { articleDao.queryRecentArticleListWithFeed(ACCOUNT_ID, 2) } returns listOf(article("a"), article("b")).map { it.toListItemWithFeed() }
 
         val stats = indexer.indexRecent(ACCOUNT_ID, limit = 2)
 
         assertEquals(2, stats.requested)
-        coVerify(exactly = 1) { articleDao.queryRecentArticlesWithFeed(ACCOUNT_ID, 2) }
+        coVerify(exactly = 1) { articleDao.queryRecentArticleListWithFeed(ACCOUNT_ID, 2) }
     }
 
     private companion object {

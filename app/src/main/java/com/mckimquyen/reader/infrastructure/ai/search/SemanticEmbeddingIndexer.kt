@@ -15,7 +15,7 @@ class SemanticEmbeddingIndexer @Inject constructor(
         limit: Int = DEFAULT_INDEX_LIMIT,
     ): CacheUpdateStats {
         if (limit <= 0) return CacheUpdateStats.EMPTY
-        val articles = articleDao.queryRecentArticlesWithFeed(accountId, limit)
+        val articles = articleDao.queryRecentArticleListWithFeed(accountId, limit).map { it.toArticleWithFeed() }
         return semanticSearchEngine.cacheEmbeddings(articles)
     }
 

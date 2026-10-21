@@ -108,19 +108,19 @@ Native characterization disproves the assumption that many 140 KB rows alone mus
 - Consumes: `ArticleListItemWithFeed` from Task 1.
 - Produces: all metadata-only consumers use the lightweight DAO result, and their algorithms consume `title` + `shortDescription` only.
 
-- [ ] **Step 1: Add failing tests**
+- [x] **Step 1: Add failing tests**
   - Home story clustering receives correct IDs/title/shortDescription/feed and uses the lightweight query; semantic search candidates still return the same article titles/order.
   - `SemanticEmbeddingIndexer` caches embeddings derived from each light row's title + shortDescription and preserves `CacheUpdateStats`.
   - `SecondBrainSv` builds the same graph node IDs/titles/concepts from light rows.
   - Tests should fail at compilation where return types are still `ArticleWithFeed`.
-- [ ] **Step 2: Run focused tests (RED)**
+- [x] **Step 2: Run focused tests (RED)**
   - `./gradlew testDevDebugUnitTest --tests "*HomeViewModel*" --tests "*SemanticEmbeddingIndexer*" --tests "*SecondBrain*"`
-- [ ] **Step 3: Implement caller type updates**
+- [x] **Step 3: Implement caller type updates**
   - Replace imports/types to use `ArticleListItemWithFeed`.
   - Keep Home fingerprint and semantic document input sourced from `title` + `shortDescription`; do not request body rows.
   - Keep Second Brain's concept/tag derivation and ordering unchanged.
-- [ ] **Step 4: Run focused tests (GREEN)** and `./gradlew compileDevDebugKotlin -q`.
-- [ ] **Step 5: Commit** — `fix(article): use lightweight projections for metadata consumers`.
+- [x] **Step 4: Run focused tests (GREEN)** and `./gradlew compileDevDebugKotlin -q`.
+- [x] **Step 5: Commit** — `fix(article): use lightweight projections for metadata consumers`.
 
 ---
 

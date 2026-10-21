@@ -5,6 +5,7 @@ import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import androidx.work.WorkManager
 import com.mckimquyen.reader.domain.model.article.Article
+import com.mckimquyen.reader.domain.model.article.toListItemWithFeed
 import com.mckimquyen.reader.domain.model.article.ArticleWithFeed
 import com.mckimquyen.reader.domain.model.feed.Feed
 import com.mckimquyen.reader.domain.repository.ArticleDao
@@ -116,7 +117,7 @@ class HomeViewModelSearchRaceTest {
         // First keystroke "a": debounce 300ms, then a slow 500ms DB read.
         // Second keystroke "ab" arrives at t=400ms, i.e. AFTER the first query's debounce
         // has already elapsed and it is mid-flight on the (mocked) DB read.
-        coEvery { articleDao.queryRecentArticlesWithFeed(any(), 200) } coAnswers {
+        coEvery { articleDao.queryRecentArticleListWithFeed(any(), 200) } coAnswers {
             delay(500)
             emptyList()
         }
@@ -143,7 +144,7 @@ class HomeViewModelSearchRaceTest {
 
     @Test
     fun inputSearchContent_rapidTyping_debouncesToASingleQuery() = runTest(testDispatcher) {
-        coEvery { articleDao.queryRecentArticlesWithFeed(any(), 200) } returns emptyList()
+        coEvery { articleDao.queryRecentArticleListWithFeed(any(), 200) } returns emptyList()
         coEvery { semanticSearchEngine.rank(any(), any(), any(), any()) } answers {
             result(firstArg(), "art_final")
         }
@@ -159,21 +160,21 @@ class HomeViewModelSearchRaceTest {
         advanceUntilIdle()
 
         // Only the last keystroke should ever have triggered a real DB query / rank() call.
-        coVerify(exactly = 1) { articleDao.queryRecentArticlesWithFeed(any(), 200) }
+        coVerify(exactly = 1) { articleDao.queryRecentArticleListWithFeed(any(), 200) }
         coVerify(exactly = 1) { semanticSearchEngine.rank("abc", any(), any(), any()) }
         assertEquals("art_final", viewModel.semanticSearchResults.value.first().articleWithFeed.article.id)
     }
 
     @Test
     fun changeFilter_isNotDebounced_appliesImmediately() = runTest(testDispatcher) {
-        coEvery { articleDao.queryRecentArticlesWithFeed(any(), 150) } returns emptyList()
+        coEvery { articleDao.queryRecentArticleListWithFeed(any(), 150) } returns emptyList()
 
         val viewModel = buildViewModel()
         viewModel.changeFilter(FilterState())
         // changeFilter must not wait out a debounce window before its query starts.
         runCurrent()
 
-        coVerify(exactly = 1) { articleDao.queryRecentArticlesWithFeed(any(), 150) }
+        coVerify(exactly = 1) { articleDao.queryRecentArticleListWithFeed(any(), 150) }
     }
 
     @Test
@@ -197,7 +198,7 @@ class HomeViewModelSearchRaceTest {
             isFullContent = false,
         )
         val articleWithFeed = ArticleWithFeed(article, feed)
-        coEvery { articleDao.queryRecentArticlesWithFeed(any(), 150) } returns listOf(articleWithFeed)
+        coEvery { articleDao.queryRecentArticleListWithFeed(any(), 150) } returns listOf(articleWithFeed.toListItemWithFeed())
         every { clusteringEngine.computeArticleFingerprint(any()) } returns "art_1|fingerprint"
         every { clusteringEngine.cluster(any()) } returns com.mckimquyen.reader.domain.model.cluster.StoryClusterResult.EMPTY
 

@@ -22,4 +22,17 @@ data class ArticleListItem(
     val audioUrl: String?,
     val audioMime: String?,
     val audioDurationSec: Int?,
-)
+) {
+    /** Adapter cho thuật toán cũ; không dùng kết quả thiếu body để ghi đè entity trong DB. */
+    fun toArticle(body: ArticleBody? = null): Article {
+        require(body == null || body.articleId == id) { "Body belongs to another article" }
+        return Article(
+            id = id, date = date, title = title, author = author,
+            rawDescription = body?.rawDescription.orEmpty(), fullContent = body?.fullContent,
+            shortDescription = shortDescription, img = img, link = link, feedId = feedId,
+            accountId = accountId, isUnread = isUnread, isStarred = isStarred, isReadLater = isReadLater,
+            updateAt = updateAt, aiSummary = aiSummary, readAt = readAt,
+            audioUrl = audioUrl, audioMime = audioMime, audioDurationSec = audioDurationSec,
+        )
+    }
+}

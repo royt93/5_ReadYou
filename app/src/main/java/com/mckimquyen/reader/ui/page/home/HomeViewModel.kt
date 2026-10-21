@@ -167,7 +167,7 @@ class HomeViewModel @Inject constructor(
             val isClusteringEnabled = context.flowStoryClustering
             val clusterResult = if (isClusteringEnabled && searchContent.isBlank()) {
                 val accountId = context.currentAccountId
-                val recentArticles = articleDao.queryRecentArticlesWithFeed(accountId, limit = 150)
+                val recentArticles = articleDao.queryRecentArticleListWithFeed(accountId, limit = 150).map { it.toArticleWithFeed() }
                 val currentFingerprint = recentArticles.joinToString(";") { a ->
                     clusteringEngine.computeArticleFingerprint(a)
                 }
@@ -188,7 +188,7 @@ class HomeViewModel @Inject constructor(
 
             if (searchContent.isNotBlank() && context.flowSemanticSearch) {
                 val accountId = context.currentAccountId
-                val candidates = articleDao.queryRecentArticlesWithFeed(accountId, limit = 200)
+                val candidates = articleDao.queryRecentArticleListWithFeed(accountId, limit = 200).map { it.toArticleWithFeed() }
                 _semanticSearchResults.value = semanticSearchEngine.rank(searchContent, candidates)
             } else {
                 _semanticSearchResults.value = emptyList()

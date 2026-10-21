@@ -7,4 +7,6 @@ import com.mckimquyen.reader.domain.model.feed.Feed
 data class ArticleListItemWithFeed(
     @Embedded val article: ArticleListItem,
     @Relation(parentColumn = "feedId", entityColumn = "id") val feed: Feed,
-)
+) {
+    fun toArticleWithFeed(body: ArticleBody? = null): ArticleWithFeed = ArticleWithFeed(article.toArticle(body), feed)
+}
