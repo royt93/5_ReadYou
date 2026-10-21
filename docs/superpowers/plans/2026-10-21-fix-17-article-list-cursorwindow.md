@@ -165,22 +165,22 @@ Native characterization disproves the assumption that many 140 KB rows alone mus
 - Consumes: light unread rows from `queryLatestUnread`, `queryArticleBody(accountId, ids)` and the one stable body-attachment helper established in Task 1.
 - Produces: consumers keep complete text and old selection/order/queue limits, while only fetching bodies for IDs actually used.
 
-- [ ] **Step 1: Write failing consumer tests (RED)**
+- [x] **Step 1: Write failing consumer tests (RED)**
   - `ReadNewsController`: receives 10 light unread candidates, fetches bodies only for attempted candidates (skip blank article as before), uses `fullContent ?: rawDescription`, keeps title/feed and marks the same articles read after completion.
   - `CommuteWorker`/content-selection boundary: metadata candidate pool remains capped at `CommuteContentSelector.MAX_CANDIDATES_QUERY_LIMIT`; after selector chooses IDs, body lookup requests only those IDs and `CommuteEpisodePreparer` receives full text.
   - `CommuteCastViewModel`: selected article text remains intact after DAO conversion.
   - `DailyEditionWorker` counts metadata only and never fetches body. `DailyDigestSv` must inspect candidates in existing order, load content only where aiSummary does not already suffice, preserve blank-body skipping and fill up to the existing article cap.
   - `OfflinePrecacheService`: load stored fullContent safely for each selected ID; reuse nonblank cache, otherwise parse network. Add narrow `updateFullContent` DAO operation instead of updating an Article reconstructed without bodies, preventing data loss.
   - Include empty unread list, missing body row and one blank body; verify old empty/skip behavior.
-- [ ] **Step 2: Run focused tests (RED)**
+- [x] **Step 2: Run focused tests (RED)**
   - `./gradlew testDevDebugUnitTest --tests "*ReadNewsControllerTest" --tests "*Commute*Test" --tests "*DailyEdition*Test" --tests "*DailyDigest*Test" --tests "*OfflinePrecacheServiceTest"`
-- [ ] **Step 3: Implement**
+- [x] **Step 3: Implement**
   - Use lightweight unread query first.
   - Identify exact IDs after each consumer's existing selection/queue logic; call the shared body helper for that subset only.
   - Reassemble in the pre-existing candidate order; map missing-body rows to the same prior blank/fallback semantics, never fabricate body text.
   - Keep each query account-scoped; do not call legacy full-body `queryById` in a loop.
-- [ ] **Step 4: Run focused tests GREEN**, then `./gradlew compileDevDebugKotlin -q`.
-- [ ] **Step 5: Commit** — `fix(article): fetch bodies selectively for unread consumers`.
+- [x] **Step 4: Run focused tests GREEN**, then `./gradlew compileDevDebugKotlin -q`.
+- [x] **Step 5: Commit** — `fix(article): fetch bodies selectively for unread consumers`.
 
 ---
 
@@ -199,3 +199,10 @@ Native characterization disproves the assumption that many 140 KB rows alone mus
 - [ ] **Step 3: Device/emulator smoke** — first list devices and obey the session's device lock. On a clean/approved DB, open Home and Planet Money, Reels, run TTS and CommuteCast if configured; verify visible article lists and full text behavior, then capture logcat filtered for `SQLiteBlobTooBigException`. Do not delete/alter device data except via app UI; backup first if test feed changes are needed. Preserve the prior emulator DB backup `/Users/loitran/podcast_bak_emulator`.
 - [ ] **Step 4: Report** — record exact reproduction database shape, test counts, emulator/device serial and observed behavior; mention any unrelated remaining `CursorWindow` query honestly. Add FIX-17 to `doc/feature.md` as implemented, change epic row to ✅ done, `git rm doc/task/todo/FIX-17_article-list-cursorwindow.md`.
 - [ ] **Step 5: Commit** — `test(db): prevent CursorWindow overflow in article list reads`, then `docs: finalize FIX-17 CursorWindow stability report`. Do not push unless the user asks.
+
+## Verification log
+
+- 2026-10-21: Task 1 native Room baseline: two old SELECT * queries fail with SQLiteBlobTooBigException for one 3 MiB body; many 140 KB rows pass. New projections plus 64 KiB BLOB slices pass.
+- Tasks 2–4: metadata-only Home/semantic/graph/Commute/DailyEdition, selective Reels/TTS/Digest/cache verified by focused tests. No stored text truncation.
+- Full host run with JAVA_TOOL_OPTIONS=-javaagent:<resolved ByteBuddy agent jar>: 1231 tests, zero failures/errors/skipped, assembleDevDebug and compileDevDebugAndroidTestKotlin pass. Default host test JVM intermittently cannot self-attach ByteBuddy; full runs failed before executing MockK assertions. No repo JVM setting changed.
+- Device verification pending: only Pixel appears in adb; session target remains Tecno 115333744A005844. Do not switch devices without user request.

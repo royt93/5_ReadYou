@@ -27,6 +27,13 @@ interface ArticleDao {
     @Query("SELECT " + ARTICLE_LIST_COLUMNS + " FROM article WHERE accountId = :accountId ORDER BY date DESC LIMIT :limit")
     suspend fun queryRecentArticleListWithFeed(accountId: Int, limit: Int = 150): List<ArticleListItemWithFeed>
 
+    @Transaction
+    @Query("SELECT " + ARTICLE_LIST_COLUMNS + " FROM article WHERE accountId = :accountId AND id = :articleId")
+    suspend fun queryArticleListWithFeedById(accountId: Int, articleId: String): ArticleListItemWithFeed?
+
+    @Query("UPDATE article SET fullContent = :content WHERE accountId = :accountId AND id = :articleId")
+    suspend fun updateFullContent(accountId: Int, articleId: String, content: String)
+
     @Query("SELECT length(CAST(rawDescription AS BLOB)) AS rawBytes, length(CAST(fullContent AS BLOB)) AS fullBytes FROM article WHERE accountId = :accountId AND id = :articleId")
     suspend fun queryArticleBodyLengths(accountId: Int, articleId: String): ArticleBodyLengths?
 
@@ -620,27 +627,6 @@ interface ArticleDao {
 
     @Insert
     suspend fun insertList(articles: List<Article>)
-
-    @Query(
-        """
-        SELECT * FROM article
-        WHERE accountId = :accountId AND isUnread = 1
-        ORDER BY date DESC
-        LIMIT :limit
-        """
-    )
-    suspend fun queryLatestUnread(accountId: Int, limit: Int = 5): List<Article>
-
-    @Transaction
-    @Query(
-        """
-        SELECT * FROM article
-        WHERE accountId = :accountId
-        ORDER BY date DESC
-        LIMIT :limit
-        """
-    )
-    suspend fun queryRecentArticlesWithFeed(accountId: Int, limit: Int = 150): List<ArticleWithFeed>
 
     @Transaction
     @Query(

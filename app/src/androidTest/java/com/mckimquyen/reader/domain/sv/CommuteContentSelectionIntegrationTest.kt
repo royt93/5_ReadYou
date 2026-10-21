@@ -109,7 +109,7 @@ class CommuteContentSelectionIntegrationTest {
         )
         articleDao.insertList(listOf(starredOld, freshUnstarred))
 
-        val candidates = articleDao.queryLatestUnread(accountId = 1, limit = 50)
+        val candidates = articleDao.queryUnreadArticleList(accountId = 1, limit = 50).map { it.toArticle() }
         assertEquals(2, candidates.size)
 
         val selectedOrder = candidates
@@ -157,7 +157,7 @@ class CommuteContentSelectionIntegrationTest {
         }
         articleDao.insertList(spammedArticles + qualityArticles)
 
-        val candidates = articleDao.queryLatestUnread(accountId = 1, limit = 50)
+        val candidates = articleDao.queryUnreadArticleList(accountId = 1, limit = 50).map { it.toArticle() }
         assertEquals(12, candidates.size)
 
         val selected = selector.selectArticles(candidates, targetMinutes = 4, maxConsecutivePerFeed = 2)
@@ -185,7 +185,7 @@ class CommuteContentSelectionIntegrationTest {
     @Test
     fun selectArticles_onRealDb_emptyInbox_returnsEmptyWithoutCrashing() = runBlocking {
         setUpFeeds()
-        val candidates = articleDao.queryLatestUnread(accountId = 1, limit = 50)
+        val candidates = articleDao.queryUnreadArticleList(accountId = 1, limit = 50).map { it.toArticle() }
         assertEquals(0, candidates.size)
 
         val selected = selector.selectArticles(candidates, targetMinutes = 4)

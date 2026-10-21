@@ -59,9 +59,9 @@ class FullContentSafetyIntegrationTest {
             if (content.isNotBlank()) database.articleDao().update(article.apply { fullContent = content })
 
             assertEquals("", content)
-            val rows = database.articleDao().queryLatestUnread(ACCOUNT_ID, QUERY_LIMIT)
+            val rows = database.articleDao().queryUnreadArticleList(ACCOUNT_ID, QUERY_LIMIT)
             assertEquals(listOf(article.id), rows.map { it.id })
-            assertNull(rows.single().fullContent)
+            assertNull(database.articleDao().queryArticleBody(ACCOUNT_ID, rows.single().id)?.fullContent)
         } finally {
             client.connectionPool.evictAll()
             client.dispatcher.executorService.shutdown()

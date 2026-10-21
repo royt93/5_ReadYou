@@ -88,7 +88,7 @@ class WebFeedRoomEndToEndTest {
 
         server.enqueue(html(listOf(1, 2, 3)))
         service.subscribe(feed, requireNotNull(service.syncSingleFeed(feed)).articles)
-        assertEquals(3, dao.queryLatestUnread(feed.accountId, 50).size)
+        assertEquals(3, dao.queryUnreadArticleList(feed.accountId, 50).size)
 
         server.enqueue(html(listOf(1, 2, 3)))
         assertEquals(0, dao.insertListIfNotExist(requireNotNull(service.syncSingleFeed(feed)).articles).size)
@@ -96,8 +96,8 @@ class WebFeedRoomEndToEndTest {
         server.enqueue(html(listOf(1, 2, 3, 4), includeBadCandidate = true))
         val refreshed = dao.insertListIfNotExist(requireNotNull(service.syncSingleFeed(feed)).articles)
         assertEquals(listOf("Report 4"), refreshed.map { it.title })
-        assertEquals(4, dao.queryLatestUnread(feed.accountId, 50).size)
-        assertEquals(setOf(feed.id), dao.queryLatestUnread(feed.accountId, 50).map { it.feedId }.toSet())
+        assertEquals(4, dao.queryUnreadArticleList(feed.accountId, 50).size)
+        assertEquals(setOf(feed.id), dao.queryUnreadArticleList(feed.accountId, 50).map { it.feedId }.toSet())
     }
 
     private fun testClient() = OkHttpClient.Builder()

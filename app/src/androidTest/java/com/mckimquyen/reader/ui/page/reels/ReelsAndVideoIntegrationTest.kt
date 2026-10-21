@@ -92,7 +92,7 @@ class ReelsAndVideoIntegrationTest {
 
     @Test
     fun storedArticlesBecomeReelCardsWithOfflineBullets() = runBlocking {
-        val stored = database.articleDao().queryRecentArticlesWithFeed(ACCOUNT_ID, limit = 50)
+        val stored = database.articleDao().queryRecentArticleListWithFeed(ACCOUNT_ID, limit = 50).map { it.toArticleWithFeed(database.articleDao().queryArticleBody(ACCOUNT_ID, it.article.id)) }
         assertEquals(3, stored.size)
 
         val items = stored.map { withFeed ->
@@ -123,7 +123,7 @@ class ReelsAndVideoIntegrationTest {
 
     @Test
     fun reelsPagerRendersRealArticlesOnDevice() = runBlocking {
-        val stored = database.articleDao().queryRecentArticlesWithFeed(ACCOUNT_ID, limit = 50)
+        val stored = database.articleDao().queryRecentArticleListWithFeed(ACCOUNT_ID, limit = 50).map { it.toArticleWithFeed(database.articleDao().queryArticleBody(ACCOUNT_ID, it.article.id)) }
         val items = stored.map { it.toReelItem(bullets = listOf("One", "Two", "Three"), hasVideo = false) }
 
         val scenario = ActivityScenario.launch(ComponentActivity::class.java)

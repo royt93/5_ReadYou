@@ -4,6 +4,8 @@ import android.app.Application
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import coil.ImageLoader
+import com.mckimquyen.reader.domain.model.article.ArticleBody
+import com.mckimquyen.reader.domain.model.article.toListItem
 import com.mckimquyen.reader.domain.model.article.Article
 import com.mckimquyen.reader.domain.repository.ArticleDao
 import io.mockk.coEvery
@@ -66,7 +68,7 @@ class OfflinePrecacheServiceTest {
     @Test
     fun precache_parsesFullContentAndEnqueuesImages_whenOnWifi() = runBlocking {
         every { service.isOnWifi() } returns true
-        coEvery { articleDao.queryLatestUnread(accountId = 1, limit = 50) } returns listOf(sampleArticle)
+        coEvery { articleDao.queryUnreadArticleList(accountId = 1, limit = 50) } returns listOf(sampleArticle.toListItem())
         coEvery { rssHelper.parseFullContent("https://example.com/jwst", "NASA James Webb Space Telescope") } returns
                 "<p>Full content text</p><img src=\"https://example.com/photo.png\"/>"
         every { rssHelper.extractImageUrls(any()) } returns listOf("https://example.com/photo.png")
@@ -74,7 +76,8 @@ class OfflinePrecacheServiceTest {
         val cachedCount = service.precacheLatestUnread(accountId = 1, limit = 50)
 
         assertEquals(1, cachedCount)
-        coVerify(exactly = 1) { articleDao.update(match { it.id == "art_precache_1" && it.fullContent?.contains("Full content") == true }) }
+        coVerify(exactly = 1) { articleDao.updateFullContent(1, "art_precache_1", match { it.contains("Full content") }) }
+        coVerify(exactly = 0) { articleDao.update(any()) }
         // 2 images enqueued: banner.jpg + photo.png
         io.mockk.verify(exactly = 2) { imageLoader.enqueue(any()) }
     }
@@ -82,7 +85,7 @@ class OfflinePrecacheServiceTest {
     @Test
     fun precache_usesHardenedFetchForWebFeedArticles() = runBlocking {
         every { service.isOnWifi() } returns true
-        coEvery { articleDao.queryLatestUnread(accountId = 1, limit = 50) } returns listOf(sampleArticle)
+        coEvery { articleDao.queryUnreadArticleList(accountId = 1, limit = 50) } returns listOf(sampleArticle.toListItem())
         coEvery { feedDao.queryById("feed_space") } returns com.mckimquyen.reader.domain.model.feed.Feed(
             id = "feed_space", name = "Space", url = "https://example.com", groupId = "g", accountId = 1,
             sourceType = com.mckimquyen.reader.domain.model.feed.Feed.WEB_SOURCE_TYPE,
@@ -109,7 +112,18 @@ class OfflinePrecacheServiceTest {
         val cachedCount = service.precacheLatestUnread(accountId = 1)
 
         assertEquals(0, cachedCount)
-        coVerify(exactly = 0) { articleDao.queryLatestUnread(any(), any()) }
+        coVerify(exactly = 0) { articleDao.queryUnreadArticleList(any(), any()) }
+    }
+
+    @Test
+    fun precache_reusesFullContentAndDoesNotOverwriteOtherColumns() = runBlocking {
+        every { service.isOnWifi() } returns true
+        coEvery { articleDao.queryUnreadArticleList(1, 50) } returns listOf(sampleArticle.toListItem())
+        coEvery { articleDao.queryArticleBody(1, sampleArticle.id) } returns ArticleBody(sampleArticle.id, "Original raw", "Cached body")
+        assertEquals(1, service.precacheLatestUnread(1))
+        coVerify(exactly = 0) { rssHelper.parseFullContent(any(), any(), any()) }
+        coVerify(exactly = 0) { articleDao.update(any()) }
+        coVerify(exactly = 0) { articleDao.updateFullContent(any(), any(), any()) }
     }
 
     @Test

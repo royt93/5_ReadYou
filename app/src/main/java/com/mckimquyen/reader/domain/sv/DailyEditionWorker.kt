@@ -110,7 +110,7 @@ class DailyEditionWorker @AssistedInject constructor(
     override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
         try {
             val accountId = context.currentAccountId
-            val unreadArticles = articleDao.queryLatestUnread(accountId, MAX_UNREAD_ARTICLES)
+            val unreadArticles = articleDao.queryUnreadArticleList(accountId, MAX_UNREAD_ARTICLES)
             if (unreadArticles.isNotEmpty()) {
                 val isMorning = inputData.getBoolean(KEY_IS_MORNING, true)
                 val title = if (isMorning) {

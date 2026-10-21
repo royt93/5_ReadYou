@@ -54,7 +54,7 @@ class ReadNewsController @Inject constructor(
     suspend fun start(): ReadNewsOutcome = lock.withLock {
         try {
             val accountId = context.currentAccountId
-            val unread = withContext(ioDispatcher) { articleDao.queryLatestUnread(accountId, READ_NEWS_QUEUE_LIMIT) }
+            val unread = withContext(ioDispatcher) { articleDao.queryUnreadArticleList(accountId, READ_NEWS_QUEUE_LIMIT) }
             if (unread.isEmpty()) {
                 clearQueue()
                 speaker.speakNotice(context.getString(R.string.read_news_no_unread))
@@ -94,8 +94,10 @@ class ReadNewsController @Inject constructor(
     /** Phát bài đọc được đầu tiên từ [from]; false nếu không còn bài nào có nội dung. */
     private suspend fun playFrom(from: Int): Boolean {
         for (index in from until queue.size) {
-            val item = withContext(ioDispatcher) { articleDao.queryById(queue[index]) } ?: continue
-            val html = item.article.fullContent ?: item.article.rawDescription
+            val accountId = context.currentAccountId
+            val item = withContext(ioDispatcher) { articleDao.queryArticleListWithFeedById(accountId, queue[index]) } ?: continue
+            val body = withContext(ioDispatcher) { articleDao.queryArticleBody(accountId, queue[index]) } ?: continue
+            val html = body.fullContent ?: body.rawDescription
             val text = withContext(defaultDispatcher) { plainText(html) }
             if (text.isBlank()) continue
             position = index

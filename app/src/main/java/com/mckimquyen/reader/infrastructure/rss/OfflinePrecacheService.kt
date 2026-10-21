@@ -7,7 +7,6 @@ import androidx.core.content.getSystemService
 import coil.ImageLoader
 import coil.request.CachePolicy
 import coil.request.ImageRequest
-import com.mckimquyen.reader.domain.model.article.Article
 import com.mckimquyen.reader.domain.repository.ArticleDao
 import com.mckimquyen.reader.infrastructure.di.IODispatcher
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -30,21 +29,21 @@ class OfflinePrecacheService @Inject constructor(
         withContext(ioDispatcher) {
             if (!isOnWifi()) return@withContext 0
 
-            val articles = articleDao.queryLatestUnread(accountId, limit)
+            val articles = articleDao.queryUnreadArticleList(accountId, limit)
             var cachedCount = 0
 
             for (article in articles) {
                 val sourceType = feedDao.queryById(article.feedId)?.sourceType
                     ?: com.mckimquyen.reader.domain.model.feed.Feed.RSS_SOURCE_TYPE
-                val fullContent = article.fullContent
+                val storedContent = articleDao.queryArticleBody(accountId, article.id)?.fullContent
+                val fullContent = storedContent
                     ?.takeIf { it.isNotBlank() }
                     ?: runCatching { rssHelper.parseFullContent(article.link, article.title, sourceType) }
                         .getOrNull()
                         .orEmpty()
 
-                if (fullContent.isNotBlank() && fullContent != article.fullContent) {
-                    article.fullContent = fullContent
-                    articleDao.update(article)
+                if (fullContent.isNotBlank() && fullContent != storedContent) {
+                    articleDao.updateFullContent(accountId, article.id, fullContent)
                 }
 
                 // ponytail: WEB image prefetch stays off until each image URL uses validated/pinned DNS.

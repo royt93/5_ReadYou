@@ -125,7 +125,7 @@ class StoryClusteringIntegrationTest {
         articleDao.insert(article1, article2, article3)
 
         // 3. Query recent articles via ArticleDao exactly as HomeViewModel does
-        val queriedArticles = articleDao.queryRecentArticlesWithFeed(accountId = 1, limit = 150)
+        val queriedArticles = articleDao.queryRecentArticleListWithFeed(accountId = 1, limit = 150).map { it.toArticleWithFeed() }
         assertEquals(3, queriedArticles.size)
 
         // 4. Run StoryClusteringEngine on DB results (Cold cache run)

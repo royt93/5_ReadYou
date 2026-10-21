@@ -5,6 +5,7 @@ import androidx.test.core.app.ApplicationProvider
 import com.mckimquyen.reader.domain.model.account.Account
 import com.mckimquyen.reader.domain.model.account.AccountType
 import com.mckimquyen.reader.domain.model.article.Article
+import com.mckimquyen.reader.domain.model.article.ArticleBody
 import com.mckimquyen.reader.domain.model.feed.Feed
 import com.mckimquyen.reader.domain.model.group.Group
 import com.mckimquyen.reader.infrastructure.db.AndroidDatabase
@@ -78,6 +79,15 @@ class ArticleDaoLightweightReadTest {
         assertEquals("", db.articleDao().queryArticleBody(ACCOUNT, "empty")?.fullContent)
         assertEquals(null, db.articleDao().queryArticleBody(OTHER_ACCOUNT, "empty"))
         assertEquals(null, db.articleDao().queryArticleBody(ACCOUNT, "missing"))
+    }
+
+    @Test fun updateFullContent_keepsRawAndOtherAccountUntouched() = runBlocking {
+        db.articleDao().insert(article("a", "Original raw").copy(fullContent = null))
+        db.articleDao().updateFullContent(OTHER_ACCOUNT, "a", "Wrong account")
+        assertEquals(null, db.articleDao().queryArticleBody(ACCOUNT, "a")?.fullContent)
+        db.articleDao().updateFullContent(ACCOUNT, "a", "Cached")
+        assertEquals(ArticleBody("a", "Original raw", "Cached"), db.articleDao().queryArticleBody(ACCOUNT, "a"))
+        assertEquals("Summary a", db.articleDao().queryArticleListWithFeedById(ACCOUNT, "a")?.article?.shortDescription)
     }
 
     private companion object {

@@ -4,6 +4,9 @@ import android.app.Application
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import com.mckimquyen.reader.domain.model.article.Article
+import com.mckimquyen.reader.domain.model.article.ArticleBody
+import com.mckimquyen.reader.domain.model.article.toListItem
+import com.mckimquyen.reader.domain.model.article.toListItemWithFeed
 import com.mckimquyen.reader.domain.model.article.ArticleWithFeed
 import com.mckimquyen.reader.domain.model.feed.Feed
 import com.mckimquyen.reader.domain.repository.ArticleDao
@@ -70,9 +73,22 @@ class ReadNewsControllerTest {
 
     private fun daoWith(vararg articles: Article): ArticleDao {
         val dao = mockk<ArticleDao>(relaxed = true)
-        coEvery { dao.queryLatestUnread(any(), any()) } returns articles.toList()
-        articles.forEach { coEvery { dao.queryById(it.id) } returns withFeed(it) }
+        coEvery { dao.queryUnreadArticleList(any(), any()) } returns articles.map { it.toListItem() }
+        articles.forEach {
+            coEvery { dao.queryArticleListWithFeedById(it.accountId, it.id) } returns withFeed(it).toListItemWithFeed()
+            coEvery { dao.queryArticleBody(it.accountId, it.id) } returns ArticleBody(it.id, it.rawDescription, it.fullContent)
+        }
         return dao
+    }
+
+    @Test
+    fun start_fetchesOnlyAttemptedBodyAndNeverLoadsFullEntity() = runTest {
+        val dao = daoWith(article("a1"), article("a2"))
+        val controller = build(dao, FakeSpeaker())
+        controller.start()
+        coVerify(exactly = 1) { dao.queryArticleBody(1, "a1") }
+        coVerify(exactly = 0) { dao.queryArticleBody(1, "a2") }
+        coVerify(exactly = 0) { dao.queryById(any()) }
     }
 
     @Test
@@ -138,7 +154,7 @@ class ReadNewsControllerTest {
         val dao = daoWith(article("a1"))
         build(dao, FakeSpeaker()).start()
 
-        coVerify(exactly = 1) { dao.queryLatestUnread(1, ReadNewsController.READ_NEWS_QUEUE_LIMIT) }
+        coVerify(exactly = 1) { dao.queryUnreadArticleList(1, ReadNewsController.READ_NEWS_QUEUE_LIMIT) }
     }
 
     @Test
@@ -223,13 +239,13 @@ class ReadNewsControllerTest {
         controller.start()
 
         assertEquals(listOf("Title a1", "Title a2", "Title a1"), speaker.played.map { it.title })
-        coVerify(exactly = 2) { dao.queryLatestUnread(any(), any()) }
+        coVerify(exactly = 2) { dao.queryUnreadArticleList(any(), any()) }
     }
 
     @Test
     fun start_whenDaoThrows_returnsErrorAndDoesNotCrash() = runTest {
         val dao = mockk<ArticleDao>(relaxed = true)
-        coEvery { dao.queryLatestUnread(any(), any()) } throws IOException("disk")
+        coEvery { dao.queryUnreadArticleList(any(), any()) } throws IOException("disk")
         val controller = build(dao, FakeSpeaker())
 
         assertEquals(ReadNewsOutcome.ERROR, controller.start())
@@ -238,7 +254,7 @@ class ReadNewsControllerTest {
     @Test
     fun start_rethrowsCancellation() = runTest {
         val dao = mockk<ArticleDao>(relaxed = true)
-        coEvery { dao.queryLatestUnread(any(), any()) } throws CancellationException("cancelled")
+        coEvery { dao.queryUnreadArticleList(any(), any()) } throws CancellationException("cancelled")
         val controller = build(dao, FakeSpeaker())
 
         var thrown: Throwable? = null

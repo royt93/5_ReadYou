@@ -96,7 +96,7 @@ class CommuteCastViewModel @Inject constructor(
                 val context = getApplication<Application>()
                 val accountId = context.currentAccountId
                 val candidatePool = withContext(Dispatchers.IO) {
-                    articleDao.queryLatestUnread(
+                    articleDao.queryUnreadArticleList(
                         accountId,
                         limit = CommuteContentSelector.MAX_CANDIDATES_QUERY_LIMIT
                     )
@@ -104,7 +104,7 @@ class CommuteCastViewModel @Inject constructor(
 
                 val articles = withContext(Dispatchers.Default) {
                     contentSelector.selectArticles(
-                        candidates = candidatePool,
+                        candidates = candidatePool.map { it.toArticle() },
                         targetMinutes = budgetMinutes
                     )
                 }

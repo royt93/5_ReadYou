@@ -80,7 +80,7 @@ class WebFeedPreviewPersistenceTest {
     }
 
     private fun feedCount() = runBlocking(Dispatchers.IO) { requireNotNull(database).feedDao().queryAll(ACCOUNT_ID).size }
-    private fun articleCount() = runBlocking(Dispatchers.IO) { requireNotNull(database).articleDao().queryLatestUnread(ACCOUNT_ID, ARTICLE_COUNT + 1).size }
+    private fun articleCount() = runBlocking(Dispatchers.IO) { requireNotNull(database).articleDao().queryUnreadArticleList(ACCOUNT_ID, ARTICLE_COUNT + 1).size }
 
     private companion object {
         const val ACCOUNT_ID = 1

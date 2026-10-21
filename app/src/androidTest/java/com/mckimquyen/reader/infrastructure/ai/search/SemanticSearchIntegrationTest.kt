@@ -144,7 +144,7 @@ class SemanticSearchIntegrationTest {
     @Test
     fun rank_afterIndexing_writesNothingAndStillRanksConceptually() = runBlocking {
         indexer.indexRecent(ACCOUNT_ID)
-        val articles = database.articleDao().queryRecentArticlesWithFeed(ACCOUNT_ID, 200)
+        val articles = database.articleDao().queryRecentArticleListWithFeed(ACCOUNT_ID, 200).map { it.toArticleWithFeed() }
 
         val energyMatches = engine.rank("công nghệ năng lượng sạch và phát triển bền vững", articles)
         val topEnergy = energyMatches.firstOrNull()
@@ -167,7 +167,7 @@ class SemanticSearchIntegrationTest {
 
     @Test
     fun rank_repeatedKeystrokes_areFasterOnWarmIndexThanColdStart() = runBlocking {
-        val articles = database.articleDao().queryRecentArticlesWithFeed(ACCOUNT_ID, 200)
+        val articles = database.articleDao().queryRecentArticleListWithFeed(ACCOUNT_ID, 200).map { it.toArticleWithFeed() }
 
         val coldNanos = measureNanos { engine.rank("năng lượng", articles) }
         val warmNanos = (1..5).minOf { index -> measureNanos { engine.rank("năng lượng $index", articles) } }
@@ -219,7 +219,7 @@ class SemanticSearchIntegrationTest {
     @Test
     fun semanticSearchCard_rendersTopResultOnDevice() = runBlocking {
         indexer.indexRecent(ACCOUNT_ID)
-        val articles = database.articleDao().queryRecentArticlesWithFeed(ACCOUNT_ID, 200)
+        val articles = database.articleDao().queryRecentArticleListWithFeed(ACCOUNT_ID, 200).map { it.toArticleWithFeed() }
         val topResult = engine.rank("năng lượng sạch", articles).first()
 
         val scenario = ActivityScenario.launch(ComponentActivity::class.java)

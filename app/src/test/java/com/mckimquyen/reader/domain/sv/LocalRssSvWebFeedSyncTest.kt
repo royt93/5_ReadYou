@@ -111,7 +111,7 @@ class LocalRssSvWebFeedSyncTest {
             coEvery { scraper.refresh(SOURCE_URL) } returns WebFeedRefreshResult.Success(candidates() + WebArticleCandidate("Report 4", "https://example.test/story/4".toHttpUrl(), null))
             val refreshed = requireNotNull(service.syncSingleFeed(feed)).articles
             assertEquals(listOf("Report 4"), dao.insertListIfNotExist(refreshed).map { it.title })
-            assertEquals(4, dao.queryLatestUnread(feed.accountId, 50).size)
+            assertEquals(4, dao.queryUnreadArticleList(feed.accountId, 50).size)
         } finally {
             database.close()
         }

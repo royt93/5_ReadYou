@@ -82,7 +82,7 @@ class CommuteWorker @AssistedInject constructor(
             // Honors whatever budget the user last picked in the sheet (DJ-08); falls back to the
             // 4-minute default if they never touched it.
             val budgetMinutes = context.commuteTimeBudgetMinutes
-            val candidatePool = articleDao.queryLatestUnread(
+            val candidatePool = articleDao.queryUnreadArticleList(
                 accountId,
                 limit = CommuteContentSelector.MAX_CANDIDATES_QUERY_LIMIT
             )
@@ -93,7 +93,7 @@ class CommuteWorker @AssistedInject constructor(
             }
 
             val selectedArticles = contentSelector.selectArticles(
-                candidates = candidatePool,
+                candidates = candidatePool.map { it.toArticle() },
                 targetMinutes = budgetMinutes
             )
 

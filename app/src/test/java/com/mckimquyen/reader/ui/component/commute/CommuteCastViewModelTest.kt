@@ -2,6 +2,7 @@ package com.mckimquyen.reader.ui.component.commute
 
 import android.app.Application
 import androidx.test.core.app.ApplicationProvider
+import com.mckimquyen.reader.domain.model.article.toListItem
 import com.mckimquyen.reader.domain.model.article.Article
 import com.mckimquyen.reader.domain.model.commute.CommuteDialogue
 import com.mckimquyen.reader.domain.model.commute.CommuteEpisode
@@ -148,9 +149,9 @@ class CommuteCastViewModelTest {
 
     @Test
     fun generatingANewEpisode_alsoPersistsIt() = runTest(testDispatcher) {
-        val sampleArticle = mockk<Article>(relaxed = true)
+        val sampleArticle = Article(id = "a", date = Date(), title = "Title", rawDescription = "Body", shortDescription = "Summary", link = "https://x/a", feedId = "f", accountId = 1)
         val generated = storedEpisode.copy(id = "ep_generated")
-        coEvery { articleDao.queryLatestUnread(any(), any()) } returns listOf(sampleArticle)
+        coEvery { articleDao.queryUnreadArticleList(any(), any()) } returns listOf(sampleArticle.toListItem())
         every { contentSelector.selectArticles(any(), any(), any(), any()) } returns listOf(sampleArticle)
         coEvery { scriptService.generateScript(any(), any(), any()) } returns generated
 
@@ -167,14 +168,15 @@ class CommuteCastViewModelTest {
         // prepareOrPlay hops onto the real Dispatchers.IO/Default, which the test scheduler does
         // not drive, so wait for the call rather than assuming advanceUntilIdle covered it.
         coVerify(timeout = VERIFY_TIMEOUT_MS, exactly = 1) { episodeStore.save(generated) }
+        coVerify(exactly = 0) { articleDao.queryArticleBody(any(), any()) }
         verify(timeout = VERIFY_TIMEOUT_MS) { audioPlayer.playEpisode(generated, startFromIndex = 0) }
     }
 
     @Test
     fun selectTimeBudget_updatesStateAndTriggersRegeneration() = runTest(testDispatcher) {
-        val sampleArticle = mockk<Article>(relaxed = true)
+        val sampleArticle = Article(id = "a", date = Date(), title = "Title", rawDescription = "Body", shortDescription = "Summary", link = "https://x/a", feedId = "f", accountId = 1)
         val generated = storedEpisode.copy(id = "ep_8min")
-        coEvery { articleDao.queryLatestUnread(any(), any()) } returns listOf(sampleArticle)
+        coEvery { articleDao.queryUnreadArticleList(any(), any()) } returns listOf(sampleArticle.toListItem())
         every { contentSelector.selectArticles(any(), targetMinutes = 8, any(), any()) } returns listOf(sampleArticle)
         coEvery { scriptService.generateScript(any(), any(), any()) } returns generated
 

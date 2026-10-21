@@ -65,7 +65,7 @@ class SemanticSearchBenchmarkTest {
 
     @Test
     fun searchOn200Articles_isFasterAfterIndexingAndStaysUnderBudget() = runBlocking {
-        val candidates = database.articleDao().queryRecentArticlesWithFeed(ACCOUNT_ID, ARTICLE_COUNT)
+        val candidates = database.articleDao().queryRecentArticleListWithFeed(ACCOUNT_ID, ARTICLE_COUNT).map { it.toArticleWithFeed() }
         assertEquals(ARTICLE_COUNT, candidates.size)
 
         // Cold: nothing indexed yet, so this call also builds all 200 vectors.
@@ -107,7 +107,7 @@ class SemanticSearchBenchmarkTest {
     @Test
     fun searchAfterSyncIndexing_writesNothingOnTheKeystrokePath() = runBlocking {
         indexer.indexRecent(ACCOUNT_ID, limit = ARTICLE_COUNT)
-        val candidates = database.articleDao().queryRecentArticlesWithFeed(ACCOUNT_ID, ARTICLE_COUNT)
+        val candidates = database.articleDao().queryRecentArticleListWithFeed(ACCOUNT_ID, ARTICLE_COUNT).map { it.toArticleWithFeed() }
 
         val results = engine.rank("pin mặt trời", candidates)
         val statsDuringSearch = engine.cacheEmbeddings(candidates)
