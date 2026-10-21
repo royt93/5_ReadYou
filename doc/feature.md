@@ -2,12 +2,12 @@
 
 ## 📋 Picked
 
-- **FIX-17 — Tránh CursorWindow overflow khi đọc danh sách bài dài** (`doc/task/todo/FIX-17_article-list-cursorwindow.md`; design: `docs/superpowers/specs/2026-10-21-fix-17-article-list-cursorwindow-design.md`): đã duyệt thiết kế lightweight bulk projections + body fetch chọn lọc theo ID, giữ nguyên full content cho caller cần. Reproduced trên emulator 2026-10-20 với NPR body dài (~100,990 chars): `SQLiteBlobTooBigException` trong `queryRecentArticlesWithFeed`; `queryLatestUnread` cũng phát sinh từ `CommuteWorker`. Chưa implement.
+- Chưa có mục nào được pick tiếp theo.
 
 
 ## 🟡 In progress
 
-- Không có mục nào đang thực hiện.
+- **FIX-17 — CursorWindow-safe article reads:** Đang thực thi plan. Native Room regression đã tái hiện lỗi với một body >3 MB; nhiều hàng 140 KB không tự gây lỗi. Task 1 có metadata projection nhẹ và đọc body theo đoạn byte 64 KiB để giữ đủ Unicode. Chưa chuyển caller; chưa hoàn tất.
 
 ## ✅ Recently implemented
 

@@ -1,6 +1,6 @@
 # [FIX-17] Article List CursorWindow Stability — Design Specification
 
-- **Status:** Written spec awaiting owner review
+- **Status:** Approved; implementation refinement 2026-10-21
 - **Date:** 2026-10-21
 - **Priority:** P1 (High)
 - **Epic:** 01. FIX — Sửa Lỗi, Ổn Định & Ad Unit
@@ -9,20 +9,20 @@
 
 ## 1. Problem & Goal
 
-On emulator `emulator-5554`, opening the 355-article Planet Money feed after importing a 34-article NPR news feed left the article list empty. `logcat` showed `SQLiteBlobTooBigException: Row too big to fit into CursorWindow` from `ArticleDao.queryRecentArticlesWithFeed`, whose SQL is `SELECT * FROM article ... LIMIT :limit`. The failing row had about 100 KB of `fullContent`; its size alone is below a CursorWindow, but collecting 15 rows reached the platform window limit. `queryLatestUnread` has the same `SELECT *` shape and failed in `CommuteWorker` on the same database. The error is caught by callers, so UI/worker presents an empty result rather than a visible crash.
+On emulator `emulator-5554`, opening the 355-article Planet Money feed after importing a 34-article NPR news feed left the article list empty. `logcat` showed `SQLiteBlobTooBigException: Row too big to fit into CursorWindow` from `ArticleDao.queryRecentArticlesWithFeed`, whose SQL is `SELECT * FROM article ... LIMIT :limit`. The backup has a maximum article payload of about 101 KB. The exact reason that particular device query overflowed is not yet proven: SQLite normally refills its window rather than requiring the whole result to fit. A native Room characterization test independently confirms that a single >3 MB body makes both current bulk queries fail; many 140 KB rows do not fail. `queryLatestUnread` has the same `SELECT *` shape and failed in `CommuteWorker` on the same database. The error is caught by callers, so UI/worker presents an empty result rather than a visible crash.
 
 FIX-17 must keep complete article text for features that need it, while avoiding loading full bodies into bulk list queries. It must preserve current ordering, account scoping, feed relations, result limits, and consumer behavior.
 
 ## 2. Accepted Design
 
-**Lightweight bulk reads plus selective body fetches.** DAO list APIs return only fields needed for listing/scoring (`id`, `date`, `title`, `author`, `shortDescription`, `img`, `link`, `feedId`, `accountId`, read/star flags, metadata and feed relation). They do not select `rawDescription` or `fullContent`. Add a body-only DAO API keyed by account and article IDs to fetch complete `rawDescription`/`fullContent` only for the small subset that will actually be read or summarized. Batch/chunk explicit ID lists within SQLite's bind-parameter limit. Do not truncate or alter stored article text.
+**Lightweight bulk reads plus per-article selective body fetches.** DAO list APIs return only fields needed for listing/scoring (`id`, `date`, `title`, `author`, `shortDescription`, `img`, `link`, `feedId`, `accountId`, read/star flags, metadata and feed relation). They do not select `rawDescription` or `fullContent`. Add an account-scoped body lookup that reads one selected article at a time through bounded SQL BLOB slices, reconstructing the original UTF-8 bytes; neither a single oversized body nor several bodies are materialized in one cursor. Do not truncate or alter stored article text.
 
 Use caller needs:
 - Home story clustering and semantic search: current algorithms use title/short description; use light rows only.
-- Reels: select recent metadata, then fetch full bodies for the bounded reel candidate IDs before summarizing/extracting video.
+- Reels: select recent metadata, then fetch full bodies one selected ID at a time for the bounded reel candidates before summarizing/extracting video.
 - `SemanticEmbeddingIndexer`: pass light rows; embedding source is title + short description.
 - `SecondBrainSv`: pass light rows; graph uses title + short description.
-- `queryLatestUnread` consumers: return light unread candidates. `ReadNewsController` fetches full body only for up to `READ_NEWS_QUEUE_LIMIT` chosen IDs; `CommuteWorker` fetches bodies only after `CommuteContentSelector` chooses the small set to synthesize; `DailyEditionWorker`, `DailyDigestSv`, and `OfflinePrecacheService` retain behavior and fetch bodies only if they actually consume them.
+- `queryLatestUnread` consumers: return light unread candidates. `ReadNewsController` fetches body one ID at a time only as it tries up to `READ_NEWS_QUEUE_LIMIT`; `CommuteWorker` fetches full text only after `CommuteContentSelector` chooses articles to synthesize. `DailyEditionWorker` needs metadata only; `DailyDigestSv` fetches bodies only for selected sources; `OfflinePrecacheService` reads each selected existing fullContent through the safe body API before deciding whether network parsing is necessary; updates only the fullContent column, never writes an incomplete metadata-backed Article.
 
 No fallback that reloads all rows with full bodies. Missing IDs in a body lookup are skipped without corrupting order. Preserve title, feed name and all body precedence rules.
 
@@ -30,14 +30,14 @@ No fallback that reloads all rows with full bodies. Missing IDs in a body lookup
 
 - Add lightweight projection models (for example `ArticleListItem` and `ArticleListItemWithFeed`) in `domain/model/article/`; choose exact names during implementation after checking current `ArticleWithFeed` usage. These projections must not contain `rawDescription` or `fullContent`.
 - Change `ArticleDao.queryRecentArticlesWithFeed(accountId, limit)` and `queryLatestUnread(accountId, limit)` to return lightweight models (or replace them with explicitly named light-query methods and migrate every caller; do not leave unsafe `SELECT *` aliases callable by bulk consumers).
-- Add `ArticleDao.queryArticleBodies(accountId, articleIds)` returning complete body records (`articleId`, `rawDescription`, `fullContent`) for only requested IDs. Apply ID chunking in a small repository/DAO helper if caller sets can exceed a safe bind count; preserve input order at the caller when joining results.
+- Add `ArticleDao.queryArticleBody(accountId, articleId)` returning one complete body record (`articleId`, `rawDescription`, `fullContent`) or null. Internally read byte lengths and bounded BLOB slices under a transaction; a direct full-body row is not safe for bodies exceeding CursorWindow. Callers iterate only their selected IDs, with cancellation/error handling preserved.
 - Keep Room schema version unchanged: no persisted schema change is needed.
 
 ## 4. Error Handling and Compatibility
 
 - Account scope must be included in every body lookup; IDs from another account return no body.
-- Empty ID list returns empty without SQL `IN ()`.
-- Large ID collections are chunked below a named SQLite bind-parameter limit; no magic count.
+- Empty selected-ID lists perform no body query.
+- Body slices are at most `64 * 1024` bytes per column per query; lengths and slices are account-scoped. Reconstruct bytes before UTF-8 decoding, including code points crossing slice boundaries.
 - Every old consumer retains complete content wherever it previously used content; no excerpt cap is introduced.
 - UI list paging queries that already select explicit metadata columns are not broadened or rewritten unless the failing path proves they participate.
 - The observed database and backup files on test devices are test data only; no hand-edited SQLite cleanup is part of the fix.
@@ -46,7 +46,7 @@ No fallback that reloads all rows with full bodies. Missing IDs in a body lookup
 
 ### Room / DAO regression
 - Robolectric in-memory Room v18 test inserts enough articles to exceed CursorWindow when bodies are materialized (include at least one body >100 KB and multiple large bodies), then calls both lightweight bulk queries. Assert they complete and return all expected IDs/account scope/order without returning body fields.
-- Call `queryArticleBodies` for a subset and assert exact `rawDescription`/`fullContent`, order reconstruction, account isolation, unknown IDs ignored, empty IDs safe, and ID chunking over the named maximum.
+- Call `queryArticleBody` for selected IDs and assert exact multi-megabyte raw/full text, Unicode across slice boundaries, null versus empty fullContent, account isolation and unknown IDs. Empty candidate lists must not trigger queries.
 - Keep a regression assertion on SQL projection/query behavior so later changes cannot reintroduce full body columns into bulk list queries.
 
 ### Consumer behavior

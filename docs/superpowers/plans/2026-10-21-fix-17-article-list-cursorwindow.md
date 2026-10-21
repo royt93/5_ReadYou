@@ -8,12 +8,16 @@
 
 **Tech Stack:** Kotlin, Room/KAPT, SQLite, Coroutines, JUnit4, Robolectric, MockK, `./gradlew`.
 
+## Implementation refinement (approved 2026-10-21)
+
+Native characterization disproves the assumption that many 140 KB rows alone must overflow: SQLite refills its window. Both old queries fail on a single 3 MiB body. A single-ID full-body SELECT is also unsafe, so body loading uses lossless bounded byte slices. OfflinePrecache does consume cached fullContent and must retain reuse behavior; only DailyEdition is count-only.
+
 ## Global Constraints
 
 - Do not truncate, compress, delete or rewrite stored article bodies.
 - Bulk projections must omit `rawDescription` and `fullContent`.
 - Every body lookup includes `accountId`; an empty ID list returns empty without `IN ()`.
-- ID queries use a named maximum below SQLite's bind-variable limit and chunk larger lists; keep caller order when joining results.
+- Selected IDs are read individually; body retrieval uses 64 KiB SQL BLOB slices per column under a transaction, then reassembles UTF-8 bytes exactly. No direct full-body SELECT and no multi-body cursor.
 - Preserve ordering, account scope, feed relation, limit and current text precedence (`fullContent ?: rawDescription`).
 - Do not change Room schema version.
 - Do not hand-edit device/emulator databases.
@@ -46,40 +50,45 @@
       @Relation(parentColumn = "feedId", entityColumn = "id") val feed: Feed)
   data class ArticleBody(val articleId: String, val rawDescription: String, val fullContent: String?)
 
-  suspend fun ArticleDao.queryArticleBodies(accountId: Int, articleIds: List<String>): List<ArticleBody>
+  suspend fun ArticleDao.queryArticleBody(accountId: Int, articleId: String): ArticleBody?
   ```
   Keep `ArticleListItem` to metadata fields used by current consumers. Never add `rawDescription`/`fullContent` to it. If Room `@Relation` does not work reliably for a projection in this repo's Room version, use an explicit joined projection containing only feed fields those callers use; demonstrate with a Room test.
-- Body query limit: `ArticleDao.MAX_BODY_IDS_PER_QUERY = 900` (named; below common SQLite 999 bind limit, leaving one bind for account ID). Caller helper chunks IDs at this bound, de-duplicates input IDs, queries each chunk, and reassembles in original ID order. Add a helper in `domain/repository` only if needed to avoid repeating chunking; keep one implementation.
+- Body query bound: `ARTICLE_BODY_CHUNK_BYTES = 64 * 1024`. SQL first returns raw/full byte lengths, then `substr(CAST(rawDescription AS BLOB), :offset, :size)` and the equivalent fullContent slice. Accumulate ByteArrays before decoding UTF-8; preserve null fullContent. One transaction covers lengths and every slice. Missing ID returns null. No bind-list helper is needed.
 
-- [ ] **Step 1: Write failing Room test**
+- [x] **Step 1: Write failing Room test**
   - In-memory `AndroidDatabase` v18 with migrations `MIGRATION_14_15`, `MIGRATION_15_16`, `MIGRATION_16_17`, `MIGRATION_17_18`; account A/B, separate groups/feeds.
   - Insert 20 articles into account A, 3 into B. Use a named test body constant of 140,000 characters in both `rawDescription` and `fullContent`; insert a shorter article between them by date.
   - Call the new light `queryRecentArticlesWithFeed` with limit 20 and light `queryLatestUnread` with limit 20. Assert both complete, expected ID order, account isolation and feed name. Assert each projected article exposes expected metadata but there is no body field in projection API.
-  - Call `queryArticleBodies(A, [largeA, short, missing, otherAccountId])`: assert the two A rows return exact original strings, missing/other-account IDs are absent, and caller can map them back in requested order.
-  - Empty IDs return empty. A list with `MAX_BODY_IDS_PER_QUERY + 5` IDs returns expected rows across multiple chunks; include one ID containing comma/colon to prove the body lookup does not parse delimiters.
-  - **Expected RED:** compilation fails because projections/queries do not exist.
+  - Call `queryArticleBody(A, [largeA, short, missing, otherAccountId])`: assert the two A rows return exact original strings, missing/other-account IDs are absent, and caller can map them back in requested order.
+  - Test multiple 64 KiB slices including an ID containing comma/colon; exact UTF-8 round trip must hold even across a multibyte character split.
+  - **Expected RED:** first run existing query APIs with a 3 MiB body and native Robolectric SQLite; both throw SQLiteBlobTooBigException. The many-140-KB-rows characterization should pass. After observing RED, switch assertions to new lightweight APIs.
 
-- [ ] **Step 2: Run focused RED test**
+- [x] **Step 2: Run focused RED test**
   - Run: `./gradlew testDevDebugUnitTest --tests "*ArticleDaoLightweightReadTest"`
-  - Expected: compile/test fails for missing projection/query API (not for the large-body exception).
+  - Expected: existing bulk queries fail with SQLiteBlobTooBigException; no compiler errors. Record this evidence before creating API.
 
-- [ ] **Step 3: Implement projection and DAO**
+- [x] **Step 3: Implement projection and DAO**
   - Add Room-compatible projection data classes with exact metadata fields above; use `@ColumnInfo` names only where property names differ from schema.
-  - Change `queryRecentArticlesWithFeed` to explicitly select only metadata columns and return `List<ArticleListItemWithFeed>`.
-  - Change `queryLatestUnread` to explicitly select only metadata columns and return `List<ArticleListItem>`.
-  - Add a private SQL query for body rows:
+  - Add `queryRecentArticleListWithFeed` returning `List<ArticleListItemWithFeed>` with explicit columns. Keep old method until callers migrate in Tasks 2–4, then remove it.
+  - Add `queryUnreadArticleList` returning `List<ArticleListItem>`. Keep old method until callers migrate in Tasks 2–4, then remove it.
+  - Add account-scoped length and slice queries, returning `ArticleBodyLengths` and `ArticleBodyChunk`:
     ```sql
-    SELECT id AS articleId, rawDescription, fullContent
-    FROM article
-    WHERE accountId = :accountId AND id IN (:articleIds)
+    SELECT length(CAST(rawDescription AS BLOB)) AS rawBytes,
+           length(CAST(fullContent AS BLOB)) AS fullBytes
+    FROM article WHERE accountId = :accountId AND id = :articleId
     ```
-    Guard `articleIds.isEmpty()` before executing. Implement chunking with the named 900-ID bound and preserve unique input order.
+    ```sql
+    SELECT substr(CAST(rawDescription AS BLOB), :offset, :size) AS raw,
+           substr(CAST(fullContent AS BLOB), :offset, :size) AS full
+    FROM article WHERE accountId = :accountId AND id = :articleId
+    ```
+    `queryArticleBody` runs under `@Transaction`, reads slices starting at SQLite offset 1, and reconstructs all bytes before UTF-8 decoding. A disappearing row must throw, not return partial content. Test Unicode split across boundaries, null/empty fullContent and missing/foreign account.
   - Ensure mapping includes `shortDescription`, `aiSummary`, `readAt`, audio fields, unread/star/read-later flags as needed by existing consumer code, but no text body.
 
-- [ ] **Step 4: Run focused tests GREEN**
+- [x] **Step 4: Run focused tests GREEN**
   - Run the same command; expected all projection, account, body, order, empty-ID, large-ID and large-row assertions pass with no `SQLiteBlobTooBigException`.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
   - `git add app/src/main/java/com/mckimquyen/reader/domain/model/article/ArticleListItem.kt app/src/main/java/com/mckimquyen/reader/domain/model/article/ArticleListItemWithFeed.kt app/src/main/java/com/mckimquyen/reader/domain/model/article/ArticleBody.kt app/src/main/java/com/mckimquyen/reader/domain/repository/ArticleDao.kt app/src/test/java/com/mckimquyen/reader/domain/repository/ArticleDaoLightweightReadTest.kt`
   - Commit: `fix(db): add lightweight article list reads and selective body lookup`
 
@@ -119,11 +128,10 @@
 
 **Files:**
 - Modify: `app/src/main/java/com/mckimquyen/reader/ui/page/reels/ReelsViewModel.kt`
-- Modify: `app/src/main/java/com/mckimquyen/reader/domain/model/article/ArticleVideoExtractor.kt` only if its API needs no change (prefer no change)
 - Modify/create: `app/src/test/java/com/mckimquyen/reader/ui/page/reels/ReelsViewModelTest.kt`
 
 **Interfaces:**
-- Consumes: light rows and `queryArticleBodies` (Task 1).
+- Consumes: light rows and `queryArticleBody` (Task 1).
 - Produces: Reels still summarizes/extracts video from `fullContent ?: rawDescription` for its bounded `REEL_LIMIT = 50` candidates without a bulk full-body query.
 
 - [ ] **Step 1: Write failing tests (RED)**
@@ -154,15 +162,15 @@
 - Create: focused `DailyEditionWorker` consumer test only if existing Zen daily-edition tests do not cover its DAO/body mapping.
 
 **Interfaces:**
-- Consumes: light unread rows from `queryLatestUnread`, `queryArticleBodies(accountId, ids)` and the one stable body-attachment helper established in Task 1.
+- Consumes: light unread rows from `queryLatestUnread`, `queryArticleBody(accountId, ids)` and the one stable body-attachment helper established in Task 1.
 - Produces: consumers keep complete text and old selection/order/queue limits, while only fetching bodies for IDs actually used.
 
 - [ ] **Step 1: Write failing consumer tests (RED)**
   - `ReadNewsController`: receives 10 light unread candidates, fetches bodies only for attempted candidates (skip blank article as before), uses `fullContent ?: rawDescription`, keeps title/feed and marks the same articles read after completion.
   - `CommuteWorker`/content-selection boundary: metadata candidate pool remains capped at `CommuteContentSelector.MAX_CANDIDATES_QUERY_LIMIT`; after selector chooses IDs, body lookup requests only those IDs and `CommuteEpisodePreparer` receives full text.
   - `CommuteCastViewModel`: selected article text remains intact after DAO conversion.
-  - `DailyEditionWorker` and `DailyDigestSv`: their selector and summary receive the same full text for consumed articles, and ignore unselected bodies.
-  - `OfflinePrecacheService`: caches only the same selected unread candidates and does not fetch article bodies if it does not consume them; if it does use body in current implementation, preserve exact current precedence and assert targeted ID lookup.
+  - `DailyEditionWorker` counts metadata only and never fetches body. `DailyDigestSv` must inspect candidates in existing order, load content only where aiSummary does not already suffice, preserve blank-body skipping and fill up to the existing article cap.
+  - `OfflinePrecacheService`: load stored fullContent safely for each selected ID; reuse nonblank cache, otherwise parse network. Add narrow `updateFullContent` DAO operation instead of updating an Article reconstructed without bodies, preventing data loss.
   - Include empty unread list, missing body row and one blank body; verify old empty/skip behavior.
 - [ ] **Step 2: Run focused tests (RED)**
   - `./gradlew testDevDebugUnitTest --tests "*ReadNewsControllerTest" --tests "*Commute*Test" --tests "*DailyEdition*Test" --tests "*DailyDigest*Test" --tests "*OfflinePrecacheServiceTest"`

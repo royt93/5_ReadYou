@@ -6,6 +6,12 @@ import kotlinx.coroutines.flow.Flow
 import com.mckimquyen.reader.domain.model.article.Article
 import com.mckimquyen.reader.domain.model.article.ArticleMeta
 import com.mckimquyen.reader.domain.model.article.ArticleWithFeed
+import com.mckimquyen.reader.domain.model.article.ArticleListItem
+import com.mckimquyen.reader.domain.model.article.ArticleListItemWithFeed
+import com.mckimquyen.reader.domain.model.article.ArticleBody
+import com.mckimquyen.reader.domain.model.article.ArticleBodyLengths
+import com.mckimquyen.reader.domain.model.article.ArticleBodyChunk
+import java.io.ByteArrayOutputStream
 import com.mckimquyen.reader.domain.model.statistics.FeedReadCount
 import com.mckimquyen.reader.domain.model.statistics.ReadingDayCount
 import com.mckimquyen.reader.domain.model.feed.ImportantNum
@@ -13,6 +19,45 @@ import java.util.*
 
 @Dao
 interface ArticleDao {
+
+    @Query("SELECT " + ARTICLE_LIST_COLUMNS + " FROM article WHERE accountId = :accountId AND isUnread = 1 ORDER BY date DESC LIMIT :limit")
+    suspend fun queryUnreadArticleList(accountId: Int, limit: Int = 5): List<ArticleListItem>
+
+    @Transaction
+    @Query("SELECT " + ARTICLE_LIST_COLUMNS + " FROM article WHERE accountId = :accountId ORDER BY date DESC LIMIT :limit")
+    suspend fun queryRecentArticleListWithFeed(accountId: Int, limit: Int = 150): List<ArticleListItemWithFeed>
+
+    @Query("SELECT length(CAST(rawDescription AS BLOB)) AS rawBytes, length(CAST(fullContent AS BLOB)) AS fullBytes FROM article WHERE accountId = :accountId AND id = :articleId")
+    suspend fun queryArticleBodyLengths(accountId: Int, articleId: String): ArticleBodyLengths?
+
+    @Query("SELECT substr(CAST(rawDescription AS BLOB), :offset, :size) AS raw, substr(CAST(fullContent AS BLOB), :offset, :size) AS `full` FROM article WHERE accountId = :accountId AND id = :articleId")
+    suspend fun queryArticleBodyChunk(accountId: Int, articleId: String, offset: Int, size: Int): ArticleBodyChunk?
+
+    /** Đọc dưới cùng transaction, mỗi cursor chỉ chứa hai đoạn byte hữu hạn. */
+    @Transaction
+    suspend fun queryArticleBody(accountId: Int, articleId: String): ArticleBody? {
+        val lengths = queryArticleBodyLengths(accountId, articleId) ?: return null
+        val raw = ByteArrayOutputStream()
+        val full = lengths.fullBytes?.let { ByteArrayOutputStream() }
+        var offset = 0
+        val totalBytes = maxOf(lengths.rawBytes, lengths.fullBytes ?: 0)
+        while (offset < totalBytes) {
+            val chunk = checkNotNull(queryArticleBodyChunk(accountId, articleId, offset + SQLITE_FIRST_BYTE, ARTICLE_BODY_CHUNK_BYTES)) {
+                "Article disappeared while reading its body: $articleId"
+            }
+            raw.write(chunk.raw)
+            chunk.full?.let { full?.write(it) }
+            offset += ARTICLE_BODY_CHUNK_BYTES
+        }
+        check(raw.size() == lengths.rawBytes && full?.size() == lengths.fullBytes) { "Incomplete article body: $articleId" }
+        return ArticleBody(articleId, raw.toString(Charsets.UTF_8.name()), full?.toString(Charsets.UTF_8.name()))
+    }
+
+    companion object {
+        private const val SQLITE_FIRST_BYTE = 1
+        const val ARTICLE_BODY_CHUNK_BYTES = 64 * 1024
+        const val ARTICLE_LIST_COLUMNS = "id, date, title, author, shortDescription, img, link, feedId, accountId, isUnread, isStarred, isReadLater, updateAt, aiSummary, readAt, audioUrl, audioMime, audioDurationSec"
+    }
 
     @Transaction
     @Query(
