@@ -49,11 +49,15 @@ class ReelsViewModel @Inject constructor(
         viewModelScope.launch {
             _uiState.value = _uiState.value.copy(isLoading = true)
 
-            val articles = withContext(ioDispatcher) {
-                articleDao.queryRecentArticlesWithFeed(context.currentAccountId, limit = REEL_LIMIT)
+            val accountId = context.currentAccountId
+            val candidates = withContext(ioDispatcher) {
+                articleDao.queryRecentArticleListWithFeed(accountId, limit = REEL_LIMIT)
             }
-            // Summarising is CPU work over article bodies, so keep it off the IO pool and off Main.
-            val items = withContext(defaultDispatcher) { articles.map(::buildItem) }
+            // Chỉ giữ body của một bài trong bộ nhớ rồi chuyển ngay thành card nhẹ.
+            val items = candidates.map { candidate ->
+                val body = withContext(ioDispatcher) { articleDao.queryArticleBody(accountId, candidate.article.id) }
+                withContext(defaultDispatcher) { buildItem(candidate.toArticleWithFeed(body)) }
+            }
 
             _uiState.value = ReelsUiState(items = items, isLoading = false)
         }

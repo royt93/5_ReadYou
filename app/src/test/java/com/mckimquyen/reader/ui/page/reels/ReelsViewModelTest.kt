@@ -4,9 +4,12 @@ import android.app.Application
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import com.mckimquyen.reader.domain.model.article.Article
+import com.mckimquyen.reader.domain.model.article.ArticleBody
+import com.mckimquyen.reader.domain.model.article.toListItemWithFeed
 import com.mckimquyen.reader.domain.model.article.ArticleWithFeed
 import com.mckimquyen.reader.domain.model.feed.Feed
 import com.mckimquyen.reader.domain.repository.ArticleDao
+import io.mockk.coVerify
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
@@ -61,7 +64,7 @@ class ReelsViewModelTest {
         html: String = LONG_BODY,
         img: String? = "https://cdn.example.com/cover.jpg",
         fullContent: String? = null,
-    ) = ArticleWithFeed(
+    ): ArticleWithFeed = ArticleWithFeed(
         article = Article(
             id = id,
             title = title,
@@ -81,12 +84,14 @@ class ReelsViewModelTest {
             groupId = "g1",
             accountId = ACCOUNT_ID,
         ),
-    )
+    ).also {
+        coEvery { articleDao.queryArticleBody(ACCOUNT_ID, id) } returns ArticleBody(id, html, fullContent)
+    }
 
     @Test
     fun `maps articles into cards with at most three offline bullets`() = runTest(testDispatcher) {
-        coEvery { articleDao.queryRecentArticlesWithFeed(any(), any()) } returns
-            listOf(articleWithFeed("a1"))
+        coEvery { articleDao.queryRecentArticleListWithFeed(any(), any()) } returns
+            listOf(articleWithFeed("a1")).map { it.toListItemWithFeed() }
 
         val state = viewModel().let { advanceUntilIdle(); it.uiState.value }
 
@@ -108,8 +113,8 @@ class ReelsViewModelTest {
 
     @Test
     fun `strips html so bullets never contain markup`() = runTest(testDispatcher) {
-        coEvery { articleDao.queryRecentArticlesWithFeed(any(), any()) } returns
-            listOf(articleWithFeed("a1"))
+        coEvery { articleDao.queryRecentArticleListWithFeed(any(), any()) } returns
+            listOf(articleWithFeed("a1")).map { it.toListItemWithFeed() }
 
         val state = viewModel().let { advanceUntilIdle(); it.uiState.value }
 
@@ -119,11 +124,11 @@ class ReelsViewModelTest {
 
     @Test
     fun `flags articles that carry a playable video`() = runTest(testDispatcher) {
-        coEvery { articleDao.queryRecentArticlesWithFeed(any(), any()) } returns listOf(
+        coEvery { articleDao.queryRecentArticleListWithFeed(any(), any()) } returns listOf(
             articleWithFeed("withVideo", html = """$LONG_BODY<video src="https://c.example/v.mp4"></video>"""),
             articleWithFeed("withIframe", html = """$LONG_BODY<iframe src="https://www.youtube.com/embed/x"></iframe>"""),
             articleWithFeed("plain"),
-        )
+        ).map { it.toListItemWithFeed() }
 
         val items = viewModel().let { advanceUntilIdle(); it.uiState.value.items }
 
@@ -137,13 +142,13 @@ class ReelsViewModelTest {
 
     @Test
     fun `prefers fullContent over rawDescription when summarising`() = runTest(testDispatcher) {
-        coEvery { articleDao.queryRecentArticlesWithFeed(any(), any()) } returns listOf(
+        coEvery { articleDao.queryRecentArticleListWithFeed(any(), any()) } returns listOf(
             articleWithFeed(
                 id = "a1",
                 html = "<p>Stub teaser text that should be ignored entirely.</p>",
                 fullContent = LONG_BODY,
             )
-        )
+        ).map { it.toListItemWithFeed() }
 
         val bullets = viewModel().let { advanceUntilIdle(); it.uiState.value.items.first().bullets }
 
@@ -155,7 +160,7 @@ class ReelsViewModelTest {
 
     @Test
     fun `reports empty state when there are no articles`() = runTest(testDispatcher) {
-        coEvery { articleDao.queryRecentArticlesWithFeed(any(), any()) } returns emptyList()
+        coEvery { articleDao.queryRecentArticleListWithFeed(any(), any()) } returns emptyList()
 
         val state = viewModel().let { advanceUntilIdle(); it.uiState.value }
 
@@ -166,8 +171,8 @@ class ReelsViewModelTest {
 
     @Test
     fun `survives articles with no cover image and no body`() = runTest(testDispatcher) {
-        coEvery { articleDao.queryRecentArticlesWithFeed(any(), any()) } returns
-            listOf(articleWithFeed("bare", html = "", img = null))
+        coEvery { articleDao.queryRecentArticleListWithFeed(any(), any()) } returns
+            listOf(articleWithFeed("bare", html = "", img = null)).map { it.toListItemWithFeed() }
 
         val item = viewModel().let { advanceUntilIdle(); it.uiState.value.items.first() }
 
@@ -181,7 +186,18 @@ class ReelsViewModelTest {
         assertFalse(ReelsUiState(items = emptyList(), isLoading = true).isEmpty)
     }
 
+    @Test fun `loads only selected bodies and retains video at end of long content`() = runTest(testDispatcher) {
+        val longHtml = "<p>" + "text ".repeat(LARGE_BODY_WORDS) + "</p><video src=\"https://c.example/end.mp4\"></video>"
+        coEvery { articleDao.queryRecentArticleListWithFeed(ACCOUNT_ID, ReelsViewModel.REEL_LIMIT) } returns
+            listOf(articleWithFeed("large", fullContent = longHtml)).map { it.toListItemWithFeed() }
+        val items = viewModel().let { advanceUntilIdle(); it.uiState.value.items }
+        assertTrue(items.single().hasVideo)
+        coVerify(exactly = 1) { articleDao.queryArticleBody(ACCOUNT_ID, "large") }
+        coVerify(exactly = 0) { articleDao.queryArticleBody(any(), neq("large")) }
+    }
+
     private companion object {
+        const val LARGE_BODY_WORDS = 30_000
         const val ACCOUNT_ID = 1
         const val FEED_ID = "f1"
         const val FIXED_DATE_MILLIS = 1_700_000_000_000L

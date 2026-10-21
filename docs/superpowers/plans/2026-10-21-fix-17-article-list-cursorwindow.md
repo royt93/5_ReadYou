@@ -134,16 +134,16 @@ Native characterization disproves the assumption that many 140 KB rows alone mus
 - Consumes: light rows and `queryArticleBody` (Task 1).
 - Produces: Reels still summarizes/extracts video from `fullContent ?: rawDescription` for its bounded `REEL_LIMIT = 50` candidates without a bulk full-body query.
 
-- [ ] **Step 1: Write failing tests (RED)**
+- [x] **Step 1: Write failing tests (RED)**
   - DAO returns 3 light rows; body lookup returns two long bodies; assert `ReelsViewModel` passes full text to summary/video extraction for those IDs, uses existing fallback for missing body, preserves article/feed/title/date ordering, and never asks bodies for IDs outside the page candidate IDs.
   - Add a >100 KB article fixture and assert Reels data still loads (Room test from Task 1 proves the DB query safety).
-- [ ] **Step 2: Run `./gradlew testDevDebugUnitTest --tests "*ReelsViewModelTest"` and confirm failure**
-- [ ] **Step 3: Implement**
+- [x] **Step 2: Run `./gradlew testDevDebugUnitTest --tests "*ReelsViewModelTest"` and confirm failure**
+- [x] **Step 3: Implement**
   - Fetch 50 light candidates using `queryRecentArticlesWithFeed`.
   - Call the body helper only for those candidate IDs.
   - Join body records by article ID; construct the minimal body-bearing object needed by current `buildItem`, without changing content precedence.
-- [ ] **Step 4: Run test GREEN**, then `./gradlew compileDevDebugKotlin -q`.
-- [ ] **Step 5: Commit** — `fix(reels): load full article bodies only for selected candidates`.
+- [x] **Step 4: Run test GREEN**, then `./gradlew compileDevDebugKotlin -q`.
+- [x] **Step 5: Commit** — `fix(reels): load full article bodies only for selected candidates`.
 
 ---
 
