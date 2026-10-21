@@ -7,7 +7,7 @@
 
 ## 🟡 In progress
 
-- **FIX-17 — CursorWindow-safe article reads:** Đang thực thi plan. Native Room regression đã tái hiện lỗi với một body >3 MB; nhiều hàng 140 KB không tự gây lỗi. Task 1 có metadata projection nhẹ và đọc body theo đoạn byte 64 KiB để giữ đủ Unicode. Chưa chuyển caller; chưa hoàn tất.
+- **FIX-17 — CursorWindow-safe article reads:** Task 1–4 đã commit (`dd50557f`, `b7784d61`, `8a2aa979`, `e4661212`): metadata projection nhẹ, body byte-slices 64 KiB bảo toàn Unicode; đã chuyển Home/search/graph/Reels/TTS/Commute/Digest/DailyEdition/OfflinePrecache và xoá hai bulk API cũ. Native Room tái hiện lỗi một body >3 MB; nhiều hàng 140 KB không tự gây lỗi. Host: 1231 unit tests, 0 failures/errors/skipped, assemble và androidTest compile pass khi nạp ByteBuddy javaagent từ lúc khởi động (môi trường mặc định lỗi self-attach). Task 5 chưa xong: instrumentation mới chỉ compile, smoke đang chờ Tecno `115333744A005844` kết nối; không dùng Pixel thay thế.
 
 ## ✅ Recently implemented
 
