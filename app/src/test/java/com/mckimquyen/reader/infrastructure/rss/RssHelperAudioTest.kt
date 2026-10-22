@@ -2,20 +2,22 @@ package com.mckimquyen.reader.infrastructure.rss
 
 import android.app.Application
 import androidx.test.core.app.ApplicationProvider
-import com.mckimquyen.reader.domain.model.feed.Feed
 import com.mckimquyen.reader.domain.model.article.FullContentPolicy
-import com.rometools.rome.feed.synd.SyndEntry
+import com.mckimquyen.reader.domain.model.feed.Feed
+import com.rometools.rome.feed.synd.SyndContentImpl
+import com.rometools.rome.feed.synd.SyndEntryImpl
 import com.rometools.rome.io.SyndFeedInput
 import kotlinx.coroutines.Dispatchers
 import okhttp3.OkHttpClient
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
 import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
+import org.robolectric.shadows.ShadowLog
 import java.io.StringReader
 
 @RunWith(RobolectricTestRunner::class)
@@ -34,7 +36,7 @@ class RssHelperAudioTest {
         )
     }
 
-    private fun entry(itemBody: String): SyndEntry {
+    private fun entry(itemBody: String): com.rometools.rome.feed.synd.SyndEntry {
         val xml = """<?xml version="1.0" encoding="UTF-8"?>
             <rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:content="http://purl.org/rss/1.0/modules/content/">
             <channel><title>T</title><link>https://x</link><description>d</description>
@@ -43,57 +45,74 @@ class RssHelperAudioTest {
         return SyndFeedInput().build(StringReader(xml)).entries.first()
     }
 
-    @Test
-    fun audioItem_storesThreeFields() {
-        val article = rssHelper.article(
-            feed, 1,
-            entry("""<enclosure url="https://cdn.example.com/ep1.mp3" type="audio/mpeg" length="100"/><itunes:duration>61</itunes:duration>"""),
-        )
+    @Test fun audioItem_storesThreeFields() {
+        val article = rssHelper.article(feed, 1, entry("""<enclosure url="https://cdn.example.com/ep1.mp3" type="audio/mpeg" length="100"/><itunes:duration>61</itunes:duration>"""))
         assertEquals("https://cdn.example.com/ep1.mp3", article.audioUrl)
         assertEquals("audio/mpeg", article.audioMime)
         assertEquals(61, article.audioDurationSec)
     }
 
-    @Test
-    fun textItem_leavesAudioNull() {
+    @Test fun textItem_leavesAudioNull() {
         val article = rssHelper.article(feed, 1, entry(""))
         assertNull(article.audioUrl)
         assertNull(article.audioMime)
         assertNull(article.audioDurationSec)
     }
 
-    @Test
-    fun articleAcceptsEncodedBodyExactlyAtUtf8Limit() {
-        val body = "x".repeat(FullContentPolicy.MAX_STORED_FULL_CONTENT_BYTES)
-        val parsed = entry("""<content:encoded><![CDATA[$body]]></content:encoded>""")
-        assertTrue("Rome should expose the full entry content", parsed.contents.any { it.value.length >= body.length })
-        val article = rssHelper.article(feed, 1, parsed)
-        assertEquals(body, article.fullContent)
-        assertTrue(article.rawDescription.isNotBlank())
-        assertTrue(article.shortDescription.isNotBlank())
-        assertEquals("https://x/e", article.link)
+    @Test fun imageEnclosure_keepsThumbnailAndNoAudio() {
+        val article = rssHelper.article(feed, 1, entry("""<enclosure url="https://cdn.example.com/pic.jpg" type="image/jpeg" length="1"/>"""))
+        assertEquals("https://cdn.example.com/pic.jpg", article.img)
+        assertNull(article.audioUrl)
     }
 
-    @Test
-    fun articleRejectsEncodedBodyOverLimitButKeepsMetadataAndSummary() {
-        val body = "x".repeat(FullContentPolicy.MAX_STORED_FULL_CONTENT_BYTES + 1)
-        val parsed = entry("""<content:encoded><![CDATA[$body]]></content:encoded>""")
-        assertTrue("Rome should expose the full entry content", parsed.contents.any { it.value.length >= body.length })
-        val article = rssHelper.article(feed, 1, parsed)
-        assertNull(article.fullContent)
+    @Test fun articleAcceptsEncodedBodyAtLimitAndPreservesMetadata() {
+        val body = "x".repeat(FullContentPolicy.MAX_STORED_FULL_CONTENT_BYTES)
+        val article = rssHelper.article(feed, 1, entry("""<content:encoded><![CDATA[$body]]></content:encoded>"""))
+        assertEquals(body, article.fullContent)
         assertTrue(article.rawDescription.isNotBlank())
         assertTrue(article.shortDescription.isNotBlank())
         assertEquals("Ep", article.title)
         assertEquals("https://x/e", article.link)
     }
 
-    @Test
-    fun imageEnclosure_keepsThumbnailAndNoAudio() {
-        val article = rssHelper.article(
-            feed, 1,
-            entry("""<enclosure url="https://cdn.example.com/pic.jpg" type="image/jpeg" length="1"/>"""),
-        )
-        assertEquals("https://cdn.example.com/pic.jpg", article.img)
-        assertNull(article.audioUrl)
+    @Test fun articleLogsOnlySizesAndRedactsSensitiveUrlQuery() {
+        val descriptionSentinel = "DESCRIPTION_PRIVATE_SENTINEL"
+        val contentSentinel = "CONTENT_PRIVATE_SENTINEL"
+        val directEntry = SyndEntryImpl().apply {
+            title = "Safe title"
+            link = "https://example.test/feed/item?token=SECRET_TOKEN"
+            description = SyndContentImpl().apply { type = "text/plain"; value = descriptionSentinel }
+            contents = listOf(SyndContentImpl().apply { type = "text/html"; value = contentSentinel })
+        }
+        ShadowLog.clear()
+        rssHelper.article(feed, 1, directEntry)
+        val logs = ShadowLog.getLogs().joinToString("\\n") { it.msg }
+        assertTrue(logs.contains("source=content"))
+        assertTrue(logs.contains("descriptionBytes="))
+        assertTrue(logs.contains("entryUrl=https://example.test/feed/item?<redacted>"))
+        assertTrue(!logs.contains(descriptionSentinel))
+        assertTrue(!logs.contains(contentSentinel))
+        assertTrue(!logs.contains("SECRET_TOKEN"))
+    }
+
+    @Test fun articleRejectsOverLimitEncodedBodyAndLogsNoPayload() {
+        val sentinel = "RSS_BODY_SECRET_SENTINEL"
+        val body = sentinel + "x".repeat(FullContentPolicy.MAX_STORED_FULL_CONTENT_BYTES + 1 - sentinel.length)
+        val directEntry = SyndEntryImpl().apply {
+            title = "Oversized fixture"
+            link = "https://example.test/oversized"
+            description = SyndContentImpl().apply { type = "text/plain"; value = "Safe short description" }
+            contents = listOf(SyndContentImpl().apply { type = "text/html"; value = body })
+        }
+        ShadowLog.clear()
+        val article = rssHelper.article(feed, 1, directEntry)
+        assertNull(article.fullContent)
+        assertEquals("Oversized fixture", article.title)
+        assertEquals("https://example.test/oversized", article.link)
+        assertTrue(article.rawDescription.isNotBlank())
+        val logs = ShadowLog.getLogs().joinToString("\n") { it.msg }
+        assertTrue(logs.contains("source=RSS"))
+        assertTrue(logs.contains("bytes=${FullContentPolicy.MAX_STORED_FULL_CONTENT_BYTES + 1}"))
+        assertTrue(!logs.contains(sentinel))
     }
 }

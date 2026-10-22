@@ -25,6 +25,7 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.executeAsync
 import java.io.InputStream
+import java.net.URI
 import java.util.*
 import javax.inject.Inject
 
@@ -125,21 +126,21 @@ class RssHelper @Inject constructor(
         val content = syndEntry.contents
             .takeIf { it.isNotEmpty() }
             ?.let { it.joinToString("\n") { it.value } }
-        Log.i(
-            "RLog",
-            "request rss:\n" +
-                    "name: ${feed.name}\n" +
-                    "feedUrl: ${feed.url}\n" +
-                    "url: ${syndEntry.link}\n" +
-                    "title: ${syndEntry.title}\n" +
-                    "desc: ${desc}\n" +
-                    "content: ${content}\n"
-        )
+        val chosenSource = if (!content.isNullOrBlank()) "content" else "description"
+        val contentBytes = content?.let(FullContentPolicy::byteSize) ?: 0
+        val descriptionBytes = desc?.let(FullContentPolicy::byteSize) ?: 0
         val rawSource = (content ?: desc) ?: ""
         val cleanRaw = com.mckimquyen.reader.infrastructure.newsletter.NewsletterSanitizer.cleanArticleHtml(rawSource)
         val cleanFull = content?.let { com.mckimquyen.reader.infrastructure.newsletter.NewsletterSanitizer.cleanArticleHtml(it) }
-        val acceptedFull = FullContentPolicy.accept(cleanFull).also { accepted ->
-            if (cleanFull != null && accepted == null) FullContentPolicy.logOversize("RSS", syndEntry.link.orEmpty(), cleanFull)
+        val acceptedFull = FullContentPolicy.accept(cleanFull)
+        Log.i(
+            "RLog",
+            "RSS article source=$chosenSource feed=${feed.name} entryUrl=${safeEntryUrl(syndEntry.link.orEmpty())} " +
+                "title=${syndEntry.title} descriptionBytes=$descriptionBytes contentBytes=$contentBytes " +
+                "fullContent=${if (acceptedFull == null && !content.isNullOrBlank()) "rejected" else "accepted"}\n",
+        )
+        if (cleanFull != null && acceptedFull == null) {
+            FullContentPolicy.logOversize("RSS", safeEntryUrl(syndEntry.link.orEmpty()), cleanFull)
         }
         val audio = AudioEnclosure.from(syndEntry)
         return Article(
@@ -188,6 +189,17 @@ class RssHelper @Inject constructor(
         // 3. Fallback to HTML description / content <img>
         return findImg(rawDescription)
     }
+
+    private fun safeEntryUrl(url: String): String = runCatching {
+        URI(url).let { uri ->
+            val safePath = uri.rawPath.orEmpty().take(MAX_LOG_URL_PATH_CHARS)
+            if (uri.userInfo != null || uri.rawQuery.isNullOrBlank()) {
+                "${uri.scheme}://${uri.host.orEmpty()}$safePath"
+            } else {
+                "${uri.scheme}://${uri.host.orEmpty()}$safePath?<redacted>"
+            }
+        }
+    }.getOrDefault("<redacted>")
 
     fun findImg(rawDescription: String): String? {
         // From: https://gitlab.com/spacecowboy/Feeder
@@ -261,6 +273,7 @@ class RssHelper @Inject constructor(
     }
 
     private companion object {
+        const val MAX_LOG_URL_PATH_CHARS = 256
         val HTML_MEDIA_TYPES = setOf("text/html", "application/xhtml+xml")
         val TRACKING_PATTERNS = listOf(
             "1x1",

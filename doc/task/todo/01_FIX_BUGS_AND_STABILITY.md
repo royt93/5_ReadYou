@@ -6,7 +6,7 @@
 
 ---
 
-## 📋 Danh sách Task (FIX-01 → FIX-18)
+## 📋 Danh sách Task (FIX-01 → FIX-19)
 
 | Task ID | Tên | Priority | Status | File |
 |---|---|:---:|:---:|---|
@@ -28,6 +28,7 @@
 | FIX-16 | Bản Dịch Đa Ngôn Ngữ Bị Mất Trong APK Do Sai Qualifier `resourceConfigurations` + 32 Locale Thiếu 100 Key | P1, localization | ✅ done | [`FIX-16_i18n-resource-qualifier-mismatch_DONE.md`](../done/FIX-16_i18n-resource-qualifier-mismatch_DONE.md) |
 | FIX-17 | Tránh CursorWindow overflow khi đọc danh sách bài dài | P1 | ✅ done | [`FIX-17_article-list-cursorwindow_DONE.md`](../done/FIX-17_article-list-cursorwindow_DONE.md) |
 | FIX-18 | Điều tra `fullContent` RSS vượt giới hạn | P1 | ✅ done | [`FIX-18_oversized-rss-full-content_DONE.md`](../done/FIX-18_oversized-rss-full-content_DONE.md) |
+| FIX-19 | Điều tra nguồn body RSS 15.9 MB và gỡ nội dung khỏi log | P1 | ✅ done | [`FIX-19_oversized-body-forensics_DONE.md`](../done/FIX-19_oversized-body-forensics_DONE.md) |
 
 `*` FIX-01 → FIX-04 đã có dấu hiệu **implement xong trong code hiện tại** theo audit ngày 2026-09-06 (khớp với `doc/task/done/01_FOUNDATION_STABILITY_DONE.md`) — mỗi file con tương ứng đã có ghi chú "Ghi chú audit" ở cuối, cần xác nhận lại đầy đủ Acceptance Criteria + test trước khi chính thức chuyển sang `doc/task/done/`. FIX-05 → FIX-15 xác nhận **còn tồn tại** trong code tính đến thời điểm audit; FIX-16 và FIX-17 được thêm sau đó.
 
