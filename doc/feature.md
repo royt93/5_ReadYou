@@ -2,7 +2,7 @@
 
 ## 📋 Picked
 
-- Chưa có mục nào được pick tiếp theo.
+- **FIX-18 — Điều tra `fullContent` RSS vượt giới hạn** (`doc/task/todo/FIX-18_oversized-rss-full-content.md`; design: `docs/superpowers/specs/2026-10-22-fix-18-oversized-rss-full-content-design.md`): backup emulator chứa một body 15,890,764 UTF-8 bytes; nguồn ghi cụ thể chưa được chứng minh. Mục tiêu là truy từng writer và enforce giới hạn 1 MiB, không xoá lịch sử DB.
 
 
 ## 🟡 In progress
