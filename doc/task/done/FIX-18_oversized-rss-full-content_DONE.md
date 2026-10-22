@@ -3,7 +3,7 @@
 - **Status:** Implemented and verified on local `dev`; not pushed.
 - **Completed:** 2026-10-22
 - **Audit:** 8/10. Every verified production `fullContent` writer enforces 1 MiB UTF-8 cap; tests cover exact/over boundary, metadata preservation, safe logging, providers, ReadLater and OfflinePrecache. The synthetic RSS oversized-content path passed on Pixel. The historical 15.9 MB row’s exact writer/source remains unknown; preserved DB was not modified.
-- **Commits:** spec/plan `9e4f315d`, implementation/report follow-up commit recorded in git history.
+- **Commits:** `9e4f315d` spec, `b41757f5` plan, `ee236873` implementation, `7eaa2d24` report/index, `1a1a0dce` completion report.
 
 ## Finding
 
