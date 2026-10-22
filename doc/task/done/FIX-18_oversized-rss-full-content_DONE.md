@@ -1,9 +1,9 @@
 # [FIX-18] Investigate oversized RSS `fullContent` persistence — Completion Report
 
-- **Status:** Implemented and verified on local `dev`; not pushed.
-- **Completed:** 2026-10-22
+- **Status:** Commit gốc đã push đến `origin/dev` (`ee236873`, `7eaa2d24`, `1a1a0dce`, `1acbd83f`); bản sửa rà soát (2026-10-22) chưa commit/push.
+- **Completed:** 2026-10-22 (bản sửa sau rà soát: 2026-10-22)
 - **Audit:** 8/10. Every verified production `fullContent` writer enforces 1 MiB UTF-8 cap; tests cover exact/over boundary, metadata preservation, safe logging, providers, ReadLater and OfflinePrecache. The synthetic RSS oversized-content path passed on Pixel. The historical 15.9 MB row’s exact writer/source remains unknown; preserved DB was not modified.
-- **Commits:** `9e4f315d` spec, `b41757f5` plan, `ee236873` implementation, `7eaa2d24` report/index, `1a1a0dce` completion report.
+- **Commits:** `9e4f315d` spec, `b41757f5` plan, `ee236873` implementation, `7eaa2d24` report/index, `1a1a0dce` completion report, `1acbd83f` correction; bản sửa sau rà soát chưa commit.
 
 ## Finding
 
@@ -17,12 +17,12 @@ Current `RssHelper.parseFullContent()` already bounded network HTML at 1 MiB. `R
 - `RssHelper.article()` sanitizes then rejects over-cap RSS content. `parseFullContent()` shares the same cap for declared length, bounded chunked read, and cleaned result. Known-length rejection logs byte count; chunked rejection logs `>cap`; neither logs body text.
 - Fever and Google Reader preserve the article and its metadata while setting over-cap `fullContent` to null.
 - ReadLaterWorker now uses metadata/body APIs, reuses an existing nonblank body, never updates a body-less Article entity, and writes only through `updateFullContent` after policy validation.
-- OfflinePrecache reuses stored fullContent; accepted new content is written only to that column. Oversize content is rejected without retry or body logging.
+- OfflinePrecache reuses stored fullContent; accepted new content is written only to that column. **Đính chính (rà soát 2026-10-22):** khi hoàn tất bản gốc, writer này chưa có gate policy trực tiếp và chưa có test over-cap; nó chỉ dựa cap của `parseFullContent()`. Gate trực tiếp được bổ sung ở mục "Sửa sau rà soát" bên dưới.
 - No Room schema changes, destructive history cleanup, content truncation or new dependency.
 
 ## Verification
 
-- Focused writer matrix: 45 tests pass across UTF-8 policy, Rome RSS parsing, network Readability, sanitizer, Fever, Google Reader, ReadLater and OfflinePrecache.
+- Focused writer matrix (báo cáo gốc; số 45 không khớp tổng các class liệt kê trong plan nên không dùng làm bằng chứng cho bản sửa sau rà soát): 45 tests pass across UTF-8 policy, Rome RSS parsing, network Readability, sanitizer, Fever, Google Reader, ReadLater and OfflinePrecache.
 - Native RSS boundary: content `<=1 MiB` retained, `cap+1` rejected; title/raw/summary/link remain available.
 - `parseFullContent` exact/near limit and known-length/chunked rejection tests pass. Logs contain source/byte count and no body sentinel.
 - Final `./gradlew testDevDebugUnitTest assembleDevDebug compileDevDebugAndroidTestKotlin --rerun-tasks`: **BUILD SUCCESSFUL**, 1245 tests, 0 failures/errors/skipped. The configured `testDevDebugUnitTest` JVM preloads ByteBuddy per `app/build.gradle` to avoid MockK self-attach failure.
@@ -31,7 +31,13 @@ Current `RssHelper.parseFullContent()` already bounded network HTML at 1 MiB. `R
 - Instrumentation build compiled successfully. Full instrumentation suite was not rerun on Pixel in this task.
 - `lintDevDebug` was not run; no lint pass is claimed.
 
-## Limits and follow-up
+## Bản sửa sau rà soát (2026-10-22)
+
+- Bổ sung gate `FullContentPolicy.accept()` cho nội dung tải mới trong `OfflinePrecacheService`; nếu vượt cap thì log oversize và không ghi DB, vẫn tiếp tục bài sau. Nội dung cache lịch sử nonblank tiếp tục được giữ nguyên, không gate lại/không xoá.
+- Bổ sung 3 test trong `OfflinePrecacheServiceTest`: từ chối over-cap tải mới + logcat không lộ sentinel, chấp nhận đúng cap, giữ nguyên cache lịch sử over-cap.
+- Đổi tên `RssHelperFullContentTest#acceptsResponseExactlyAtPolicyLimit` thành `acceptsReadableResponseNearPolicyLimit` vì fixture cách cap 5.003 byte; policy test riêng đã chứng minh exact cap.
+- Kết quả kiểm chứng đầy đủ: 1250 unit tests pass (buộc chạy mới với `--rerun`, 210 classes, 0 failures/errors/skipped, không dùng `JAVA_TOOL_OPTIONS`), `assembleDevDebug` và `compileDevDebugAndroidTestKotlin` thành công. Chưa commit/push bản sửa này.
+
 
 - The exact source/parser/writer for the preserved 15.9 MB article remains **unknown**. `RssHelper.article()` was the plausible bypass, now capped, but no claim is made that it created that historical row.
 - The historical emulator DB `/Users/loitran/podcast_bak_emulator/Reader` remains read-only and untouched. The Pixel DB used for verification was restored from backup.

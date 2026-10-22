@@ -113,23 +113,23 @@
 - Create: `doc/task/done/FIX-19_oversized-body-forensics_DONE.md`
 - Modify: `doc/task/todo/01_FIX_BUGS_AND_STABILITY.md`
 - Modify: `doc/feature.md`
-- Delete: `doc/task/todo/FIX-19_oversized-body-forensics.md`
+- Không có standalone todo FIX-19 để xoá (file chưa từng được tạo).
 
-- [ ] **Step 1: Record exact evidence**
+- [x] **Step 1: Record exact evidence**
   - Include preserved row metadata, byte counts, SHA-256, shape counters only; never body text.
   - Say `RssHelper.article()` is confirmed as a controlled synthetic route and plausible for the local UUID row, but not conclusively proven historical writer. Mention `ReadLaterWorker` preserves the ID and remains an alternative unless a source/call log proves otherwise.
   - Record log-redaction change and test outcome.
   - State historical database untouched; no auto cleanup.
 
-- [ ] **Step 2: Validation**
+- [x] **Step 2: Validation**
   - Run: `./gradlew testDevDebugUnitTest assembleDevDebug compileDevDebugAndroidTestKotlin`.
   - Sum fresh JUnit result XML and report actual counts. Use repository MockK agent configuration; do not claim lint passed unless it is run successfully.
 
-- [ ] **Step 3: Update indices**
+- [x] **Step 3: Update indices**
   - Move FIX-19 to Recently implemented only when its investigation and logging fix are complete; otherwise leave it In progress with uncertainty clearly stated.
   - Change FIX epic row and remove todo only after tests/build pass.
 
-- [ ] **Step 4: Commit** — `docs: finalize FIX-19 oversized body forensics report`. Do not push unless requested.
+- [x] **Step 4: Commit** — thực hiện bằng `cff1472f` (`docs: record FIX-19 verification and remaining source uncertainty`); đã push theo yêu cầu riêng. Bản sửa sau rà soát 2026-10-22 chưa commit.
 
 ## Device note
 
