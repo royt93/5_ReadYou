@@ -13,6 +13,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import com.mckimquyen.reader.domain.model.article.Article
 import com.mckimquyen.reader.domain.model.article.AudioEnclosure
+import com.mckimquyen.reader.domain.model.article.FullContentPolicy
 import com.mckimquyen.reader.domain.model.feed.Feed
 import com.mckimquyen.reader.domain.model.feed.FeedWithArticle
 import com.mckimquyen.reader.domain.repository.FeedDao
@@ -70,11 +71,17 @@ class RssHelper @Inject constructor(
             response(client, link).use { response ->
                 val body = response.body
                 val mediaType = body.contentType()
-                if (!response.isSuccessful || mediaType?.toString()?.substringBefore(';')?.lowercase() !in HTML_MEDIA_TYPES ||
-                    body.contentLength() > MAX_FULL_CONTENT_BYTES
-                ) return@use ""
+                if (!response.isSuccessful || mediaType?.toString()?.substringBefore(';')?.lowercase() !in HTML_MEDIA_TYPES) return@use ""
+                val declaredBytes = body.contentLength()
+                if (declaredBytes > FullContentPolicy.MAX_STORED_FULL_CONTENT_BYTES) {
+                    Log.w("RLog", "Reject oversized fullContent source=Readability url=$link bytes=$declaredBytes")
+                    return@use ""
+                }
                 val source = body.source()
-                if (source.request(MAX_FULL_CONTENT_BYTES + 1)) return@use ""
+                if (source.request(FullContentPolicy.MAX_STORED_FULL_CONTENT_BYTES + 1L)) {
+                    Log.w("RLog", "Reject oversized fullContent source=Readability url=$link bytes>${FullContentPolicy.MAX_STORED_FULL_CONTENT_BYTES}")
+                    return@use ""
+                }
                 val content = source.readString(mediaType?.charset(Charsets.UTF_8) ?: Charsets.UTF_8)
                 if ('\u0000' in content) return@use ""
                 val articleContent = Readability4JExtended(link, content).parse().articleContent ?: return@use ""
@@ -83,7 +90,7 @@ class RssHelper @Inject constructor(
                     h1Element.remove()
                 }
                 val cleaned = com.mckimquyen.reader.infrastructure.newsletter.NewsletterSanitizer.cleanArticleHtml(articleContent.toString())
-                cleaned.takeIf { it.toByteArray(Charsets.UTF_8).size <= MAX_FULL_CONTENT_BYTES }.orEmpty()
+                FullContentPolicy.accept(cleaned).orEmpty()
             }
         }
     }
@@ -131,6 +138,9 @@ class RssHelper @Inject constructor(
         val rawSource = (content ?: desc) ?: ""
         val cleanRaw = com.mckimquyen.reader.infrastructure.newsletter.NewsletterSanitizer.cleanArticleHtml(rawSource)
         val cleanFull = content?.let { com.mckimquyen.reader.infrastructure.newsletter.NewsletterSanitizer.cleanArticleHtml(it) }
+        val acceptedFull = FullContentPolicy.accept(cleanFull).also { accepted ->
+            if (cleanFull != null && accepted == null) FullContentPolicy.logOversize("RSS", syndEntry.link.orEmpty(), cleanFull)
+        }
         val audio = AudioEnclosure.from(syndEntry)
         return Article(
             id = accountId.spacerDollar(UUID.randomUUID().toString()),
@@ -146,7 +156,7 @@ class RssHelper @Inject constructor(
             author = syndEntry.author,
             rawDescription = cleanRaw,
             shortDescription = RssDescriptionParser.shortDescription(cleanRaw),
-            fullContent = cleanFull,
+            fullContent = acceptedFull,
             img = extractThumbnail(syndEntry, rawSource),
             link = syndEntry.link ?: "",
             updateAt = Date(),
@@ -251,7 +261,6 @@ class RssHelper @Inject constructor(
     }
 
     private companion object {
-        const val MAX_FULL_CONTENT_BYTES = 1_048_576L
         val HTML_MEDIA_TYPES = setOf("text/html", "application/xhtml+xml")
         val TRACKING_PATTERNS = listOf(
             "1x1",

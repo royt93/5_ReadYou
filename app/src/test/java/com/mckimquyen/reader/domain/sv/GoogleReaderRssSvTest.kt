@@ -35,6 +35,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
+import org.robolectric.shadows.ShadowLog
+import java.io.ByteArrayOutputStream
+import java.io.PrintStream
 import org.junit.Assert.assertThrows
 import org.junit.Assert.assertTrue
 import org.junit.Before
@@ -134,6 +138,8 @@ class GoogleReaderRssSvTest {
             )
         )
 
+        val normalSummary = "n".repeat(com.mckimquyen.reader.domain.model.article.FullContentPolicy.MAX_STORED_FULL_CONTENT_BYTES)
+        val oversizedSummary = normalSummary + "x"
         coEvery { api.getStreamContents(continuation = null) } returns GoogleReaderApiDto.ReadingList(
             items = listOf(
                 GoogleReaderApiDto.Item(
@@ -148,7 +154,7 @@ class GoogleReaderRssSvTest {
                     id = "item/2",
                     title = "Starred article",
                     published = 1_700_000_100L,
-                    summary = GoogleReaderApiDto.Summary(content = "<p>Other body</p>"),
+                    summary = GoogleReaderApiDto.Summary(content = oversizedSummary),
                     categories = listOf("user/-/state/com.google/read", "user/-/state/com.google/starred"), // read + starred
                     origin = listOf(GoogleReaderApiDto.OriginItem(streamId = "feed/1")),
                 ),
@@ -181,6 +187,13 @@ class GoogleReaderRssSvTest {
         assertEquals(1, feeds.captured.size) // feed/2 skipped (no url)
         assertEquals("Tech News", feeds.captured.single().name)
         assertEquals(2, articlesInserted.size) // item/1 + item/2; item without id and unmapped feed skipped
+        assertEquals("<p>Body text</p>", articlesInserted[0].fullContent)
+        assertNull(articlesInserted[1].fullContent)
+        assertTrue(
+            "Only safe metadata is logged for rejected content",
+            ShadowLog.getLogs().any { it.msg.contains("source=GoogleReader") && it.msg.contains("bytes=") && it.msg.contains("item/2") && !it.msg.contains(oversizedSummary.take(100)) },
+        )
+        assertTrue(articlesInserted[1].rawDescription.isNotBlank())
         assertEquals(true, articlesInserted[0].isUnread)
         assertEquals(false, articlesInserted[0].isStarred)
         assertEquals(false, articlesInserted[1].isUnread)

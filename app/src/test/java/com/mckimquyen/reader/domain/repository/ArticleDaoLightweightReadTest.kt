@@ -81,6 +81,13 @@ class ArticleDaoLightweightReadTest {
         assertEquals(null, db.articleDao().queryArticleBody(ACCOUNT, "missing"))
     }
 
+    @Test fun historicalOversizedBody_remainsIntactAfterLightweightListRead() = runBlocking {
+        val giant = "legacy".repeat(210_000)
+        db.articleDao().insert(article("legacy-large", "", at = 1).copy(fullContent = giant))
+        assertEquals(listOf("legacy-large"), db.articleDao().queryRecentArticleListWithFeed(ACCOUNT, LIST_LIMIT).map { it.article.id })
+        assertEquals(giant, db.articleDao().queryArticleBody(ACCOUNT, "legacy-large")?.fullContent)
+    }
+
     @Test fun updateFullContent_keepsRawAndOtherAccountUntouched() = runBlocking {
         db.articleDao().insert(article("a", "Original raw").copy(fullContent = null))
         db.articleDao().updateFullContent(OTHER_ACCOUNT, "a", "Wrong account")
@@ -94,7 +101,7 @@ class ArticleDaoLightweightReadTest {
         const val UNICODE_REPEATS = 500_000
         const val ACCOUNT = 7
         const val OTHER_ACCOUNT = 8
-        const val OVERSIZED_BODY_CHARS = 3 * 1024 * 1024
+        const val OVERSIZED_BODY_CHARS = 1_200 * 1024
         const val MEDIUM_BODY_CHARS = 140_000
         const val LIST_LIMIT = 20
         const val SMALL_LIMIT = 3

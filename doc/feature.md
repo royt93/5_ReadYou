@@ -2,7 +2,7 @@
 
 ## 📋 Picked
 
-- **FIX-18 — Điều tra `fullContent` RSS vượt giới hạn** (`doc/task/todo/FIX-18_oversized-rss-full-content.md`; design: `docs/superpowers/specs/2026-10-22-fix-18-oversized-rss-full-content-design.md`): backup emulator chứa một body 15,890,764 UTF-8 bytes; nguồn ghi cụ thể chưa được chứng minh. Mục tiêu là truy từng writer và enforce giới hạn 1 MiB, không xoá lịch sử DB.
+- **FIX-18 — Điều tra `fullContent` RSS vượt giới hạn** (`doc/task/todo/FIX-18_oversized-rss-full-content.md`; design: `docs/superpowers/specs/2026-10-22-fix-18-oversized-rss-full-content-design.md`): backup emulator chứa một body 15,890,764 UTF-8 bytes; nguồn ghi cụ thể chưa được chứng minh. Mục tiêu là truy từng writer và enforce giới hạn 1 MiB, không xoá lịch sử DB. Tasks 1–4 đã xong, 1245 unit tests pass; device smoke bị chặn vì Tecno `115333744A005844` chưa kết nối (không đổi target). Task vẫn in progress, chưa đóng.
 
 
 ## 🟡 In progress

@@ -48,7 +48,7 @@ FIX-18 investigates how oversized content entered persisted `article.fullContent
 ### Unit / parser / provider tests
 - UTF-8 boundaries: exactly cap, cap+1 using ASCII, multibyte character at boundary, emoji and combining sequence; assert accepted body is byte-identical and oversize body is not persisted.
 - `RssHelper.article()` test with RSS `<content:encoded>` above cap and under cap; verify `rawDescription`/`shortDescription` survive and `fullContent` is null only for oversized content.
-- `parseFullContent()` test for response-body cap and cleaned-content cap; ensure existing 1 MiB behavior still holds.
+- `parseFullContent()` test for response-body cap and cleaned-content cap; ensure existing 1 MiB behavior still holds. Known-length rejection logs exact bytes, chunked rejection logs `>cap`, and neither log contains body text.
 - Fever/Google Reader mapping tests with provider fullContent above/below cap.
 - ReadLaterWorker and OfflinePrecache tests proving update path enforces cap and cannot replace an article with oversized content.
 - No test logs or snapshots may contain the actual preserved article body.

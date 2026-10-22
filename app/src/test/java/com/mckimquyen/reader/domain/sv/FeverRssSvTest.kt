@@ -36,6 +36,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
 import org.junit.Assert.assertThrows
 import org.junit.Assert.assertTrue
 import org.junit.Before
@@ -159,7 +160,7 @@ class FeverRssSvTest {
             items = listOf(
                 item(id = null, feedId = 12),
                 item(id = "100", feedId = null),
-                item(id = "101", feedId = 12),
+                item(id = "101", feedId = 12, html = "x".repeat(com.mckimquyen.reader.domain.model.article.FullContentPolicy.MAX_STORED_FULL_CONTENT_BYTES + 1)),
             ),
         )
         coEvery { feverApi.getUnreadItems() } returns
@@ -186,6 +187,8 @@ class FeverRssSvTest {
         assertEquals(listOf("$resolvedAccountId\$1"), groups.captured.map { it.id })
         assertEquals(listOf("$resolvedAccountId\$12"), feeds.captured.map { it.id })
         assertEquals(listOf("$resolvedAccountId\$101"), articles.map { it.id })
+        assertNull(articles.single().fullContent)
+        assertTrue(articles.single().rawDescription.isNotBlank())
         assertEquals("$resolvedAccountId\$12", articles.single().feedId)
         assertEquals("$resolvedAccountId\$101", updatedAccount.captured.lastArticleId)
     }

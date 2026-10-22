@@ -8,6 +8,7 @@ import androidx.work.ListenableWorker
 import androidx.work.WorkManager
 import com.mckimquyen.reader.R
 import com.mckimquyen.reader.domain.model.account.sec.GoogleReaderSecurityKey
+import com.mckimquyen.reader.domain.model.article.FullContentPolicy
 import com.mckimquyen.reader.domain.model.article.Article
 import com.mckimquyen.reader.domain.model.feed.Feed
 import com.mckimquyen.reader.domain.model.group.Group
@@ -179,7 +180,9 @@ class GoogleReaderRssSv @Inject constructor(
                             shortDescription = Html.fromHtml(rawHtml, Html.FROM_HTML_MODE_LEGACY).toString()
                                 .take(SHORT_DESCRIPTION_LENGTH)
                                 .trim(),
-                            fullContent = rawHtml,
+                            fullContent = FullContentPolicy.accept(rawHtml).also { accepted ->
+                                if (accepted == null && rawHtml.isNotEmpty()) FullContentPolicy.logOversize("GoogleReader", remoteItemId, rawHtml)
+                            },
                             img = rssHelper.findImg(rawHtml),
                             link = item.summary?.canonical?.firstOrNull()?.href
                                 ?: item.summary?.alternate?.firstOrNull()?.href

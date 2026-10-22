@@ -37,7 +37,7 @@ interface ArticleDao {
     @Query("SELECT length(CAST(rawDescription AS BLOB)) AS rawBytes, length(CAST(fullContent AS BLOB)) AS fullBytes FROM article WHERE accountId = :accountId AND id = :articleId")
     suspend fun queryArticleBodyLengths(accountId: Int, articleId: String): ArticleBodyLengths?
 
-    @Query("SELECT substr(CAST(rawDescription AS BLOB), :offset, :size) AS raw, substr(CAST(fullContent AS BLOB), :offset, :size) AS `full` FROM article WHERE accountId = :accountId AND id = :articleId")
+    @Query("SELECT COALESCE(substr(CAST(rawDescription AS BLOB), :offset, :size), X'') AS raw, substr(CAST(fullContent AS BLOB), :offset, :size) AS `full` FROM article WHERE accountId = :accountId AND id = :articleId")
     suspend fun queryArticleBodyChunk(accountId: Int, articleId: String, offset: Int, size: Int): ArticleBodyChunk?
 
     /** Đọc dưới cùng transaction, mỗi cursor chỉ chứa hai đoạn byte hữu hạn. */

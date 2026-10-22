@@ -8,6 +8,7 @@ import androidx.work.ListenableWorker
 import androidx.work.WorkManager
 import com.mckimquyen.reader.R
 import com.mckimquyen.reader.domain.model.account.sec.FeverSecurityKey
+import com.mckimquyen.reader.domain.model.article.FullContentPolicy
 import com.mckimquyen.reader.domain.model.article.Article
 import com.mckimquyen.reader.domain.model.article.ArticleMeta
 import com.mckimquyen.reader.domain.model.feed.Feed
@@ -198,7 +199,9 @@ class FeverRssSv @Inject constructor(
                                 author = item.author,
                                 rawDescription = item.html ?: "",
                                 shortDescription = RssDescriptionParser.shortDescription(item.html),
-                                fullContent = item.html,
+                                fullContent = FullContentPolicy.accept(item.html).also { accepted ->
+                                    if (item.html != null && accepted == null) FullContentPolicy.logOversize("Fever", remoteItemId, item.html)
+                                },
                                 img = rssHelper.findImg(item.html ?: ""),
                                 link = item.url ?: "",
                                 feedId = accountId.spacerDollar(remoteFeedId),
