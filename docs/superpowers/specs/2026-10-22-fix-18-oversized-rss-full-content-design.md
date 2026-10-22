@@ -1,6 +1,6 @@
 # [FIX-18] Investigate oversized RSS fullContent persistence — Design Specification
 
-- **Status:** Written spec awaiting owner review
+- **Status:** Approved
 - **Date:** 2026-10-22
 - **Priority:** P1 (High)
 - **Epic:** 01. FIX — Sửa Lỗi, Ổn Định & Ad Unit
@@ -38,7 +38,7 @@ FIX-18 investigates how oversized content entered persisted `article.fullContent
 
 - Byte counts use `String.toByteArray(Charsets.UTF_8).size` at persistence boundary.
 - Boundary behavior is explicit: `size <= cap` persists byte-identical content; `size > cap` does not persist full content and logs only metadata.
-- Apply the same rule to every writer, including provider imports and precache; no path may bypass it.
+- Apply the same rule to every writer, including provider imports, ReadLaterWorker and OfflinePrecache; no path may bypass it. ReadLater/OfflinePrecache must use metadata + `queryArticleBody` and the narrow `updateFullContent`; never update an Article reconstructed without its other columns.
 - Article summary/raw description must remain available for reading/search if full content is rejected.
 - Cancellation, parser errors and IO failures keep existing behavior; over-size rejection is not treated as a network retry loop.
 - No Room schema change unless investigation proves a separate persisted flag is necessary; prefer no new column.
