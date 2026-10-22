@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import coil.ImageLoader
+import com.mckimquyen.reader.domain.model.article.FullContentPolicy
 import com.mckimquyen.reader.domain.model.article.ArticleBody
 import com.mckimquyen.reader.domain.model.article.toListItem
 import com.mckimquyen.reader.domain.model.article.Article
@@ -124,6 +125,52 @@ class OfflinePrecacheServiceTest {
         coVerify(exactly = 0) { rssHelper.parseFullContent(any(), any(), any()) }
         coVerify(exactly = 0) { articleDao.update(any()) }
         coVerify(exactly = 0) { articleDao.updateFullContent(any(), any(), any()) }
+    }
+
+    @Test
+    fun precache_rejectsOversizeAndContinuesWithFollowingArticle() = runBlocking {
+        every { service.isOnWifi() } returns true
+        val following = sampleArticle.copy(id = "following", link = "https://example.com/following")
+        val sentinel = "PRECACHE_PRIVATE_SENTINEL"
+        val oversized = sentinel + "x".repeat(FullContentPolicy.MAX_STORED_FULL_CONTENT_BYTES + 1 - sentinel.length)
+        coEvery { articleDao.queryUnreadArticleList(1, OfflinePrecacheService.DEFAULT_LIMIT) } returns
+            listOf(sampleArticle.toListItem(), following.toListItem())
+        coEvery { articleDao.queryArticleBody(1, any()) } returns null
+        coEvery { rssHelper.parseFullContent(sampleArticle.link, sampleArticle.title, any()) } returns oversized
+        coEvery { rssHelper.parseFullContent(following.link, following.title, any()) } returns "<p>Accepted</p>"
+        org.robolectric.shadows.ShadowLog.clear()
+        assertEquals(1, service.precacheLatestUnread(1))
+        coVerify(exactly = 0) { articleDao.updateFullContent(1, sampleArticle.id, any()) }
+        coVerify(exactly = 1) { articleDao.updateFullContent(1, following.id, "<p>Accepted</p>") }
+        coVerify(exactly = 0) { articleDao.update(any()) }
+        io.mockk.verify(exactly = 0) { rssHelper.extractImageUrls(oversized) }
+        val logs = org.robolectric.shadows.ShadowLog.getLogs().joinToString("\n") { it.msg }
+        assertTrue(logs.contains("source=OfflinePrecache"))
+        assertTrue(logs.contains("bytes=${FullContentPolicy.MAX_STORED_FULL_CONTENT_BYTES + 1}"))
+        org.junit.Assert.assertFalse(logs.contains(sentinel))
+    }
+
+    @Test
+    fun precache_acceptsExactCapFetchedContent() = runBlocking {
+        every { service.isOnWifi() } returns true
+        val content = "x".repeat(FullContentPolicy.MAX_STORED_FULL_CONTENT_BYTES)
+        coEvery { articleDao.queryUnreadArticleList(1, OfflinePrecacheService.DEFAULT_LIMIT) } returns listOf(sampleArticle.toListItem())
+        coEvery { articleDao.queryArticleBody(1, sampleArticle.id) } returns null
+        coEvery { rssHelper.parseFullContent(sampleArticle.link, sampleArticle.title, any()) } returns content
+        assertEquals(1, service.precacheLatestUnread(1))
+        coVerify(exactly = 1) { articleDao.updateFullContent(1, sampleArticle.id, content) }
+    }
+
+    @Test
+    fun precache_preservesOversizeHistoricalCache() = runBlocking {
+        every { service.isOnWifi() } returns true
+        val historical = "x".repeat(FullContentPolicy.MAX_STORED_FULL_CONTENT_BYTES + 1)
+        coEvery { articleDao.queryUnreadArticleList(1, OfflinePrecacheService.DEFAULT_LIMIT) } returns listOf(sampleArticle.toListItem())
+        coEvery { articleDao.queryArticleBody(1, sampleArticle.id) } returns ArticleBody(sampleArticle.id, "raw", historical)
+        assertEquals(1, service.precacheLatestUnread(1))
+        coVerify(exactly = 0) { rssHelper.parseFullContent(any(), any(), any()) }
+        coVerify(exactly = 0) { articleDao.updateFullContent(any(), any(), any()) }
+        coVerify(exactly = 0) { articleDao.update(any()) }
     }
 
     @Test

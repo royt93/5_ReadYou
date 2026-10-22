@@ -55,7 +55,7 @@ class RssHelper @Inject constructor(
             val list = syndFeed.entries.mapNotNull { entry ->
                 runCatching { article(feed, context.currentAccountId, entry) }
                     .onFailure { error ->
-                        Log.w("RLog", "Skip malformed RSS entry: ${entry.link}", error)
+                        Log.w("RLog", "Skip malformed RSS entry: ${safeEntryUrl(entry.link.orEmpty())} errorType=${error.javaClass.simpleName}")
                     }
                     .getOrNull()
             }
@@ -75,12 +75,12 @@ class RssHelper @Inject constructor(
                 if (!response.isSuccessful || mediaType?.toString()?.substringBefore(';')?.lowercase() !in HTML_MEDIA_TYPES) return@use ""
                 val declaredBytes = body.contentLength()
                 if (declaredBytes > FullContentPolicy.MAX_STORED_FULL_CONTENT_BYTES) {
-                    Log.w("RLog", "Reject oversized fullContent source=Readability url=$link bytes=$declaredBytes")
+                    Log.w("RLog", "Reject oversized fullContent source=Readability url=${safeEntryUrl(link)} bytes=$declaredBytes")
                     return@use ""
                 }
                 val source = body.source()
                 if (source.request(FullContentPolicy.MAX_STORED_FULL_CONTENT_BYTES + 1L)) {
-                    Log.w("RLog", "Reject oversized fullContent source=Readability url=$link bytes>${FullContentPolicy.MAX_STORED_FULL_CONTENT_BYTES}")
+                    Log.w("RLog", "Reject oversized fullContent source=Readability url=${safeEntryUrl(link)} bytes>${FullContentPolicy.MAX_STORED_FULL_CONTENT_BYTES}")
                     return@use ""
                 }
                 val content = source.readString(mediaType?.charset(Charsets.UTF_8) ?: Charsets.UTF_8)

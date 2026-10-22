@@ -93,6 +93,15 @@ class RssHelperAudioTest {
         assertTrue(!logs.contains(descriptionSentinel))
         assertTrue(!logs.contains(contentSentinel))
         assertTrue(!logs.contains("SECRET_TOKEN"))
+
+        directEntry.link = "https://PRIVATE_USER:PRIVATE_PASSWORD@example.test/feed/item?token=SECRET_TOKEN#PRIVATE_FRAGMENT"
+        ShadowLog.clear()
+        rssHelper.article(feed, 1, directEntry)
+        val userInfoLogs = ShadowLog.getLogs().joinToString("\n") { it.msg }
+        assertTrue(userInfoLogs.contains("entryUrl=https://example.test/feed/item"))
+        for (secret in listOf("PRIVATE_USER", "PRIVATE_PASSWORD", "SECRET_TOKEN", "PRIVATE_FRAGMENT", descriptionSentinel, contentSentinel)) {
+            assertTrue(!userInfoLogs.contains(secret))
+        }
     }
 
     @Test fun articleRejectsOverLimitEncodedBodyAndLogsNoPayload() {

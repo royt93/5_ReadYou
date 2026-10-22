@@ -7,6 +7,7 @@ import androidx.core.content.getSystemService
 import coil.ImageLoader
 import coil.request.CachePolicy
 import coil.request.ImageRequest
+import com.mckimquyen.reader.domain.model.article.FullContentPolicy
 import com.mckimquyen.reader.domain.repository.ArticleDao
 import com.mckimquyen.reader.infrastructure.di.IODispatcher
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -38,9 +39,16 @@ class OfflinePrecacheService @Inject constructor(
                 val storedContent = articleDao.queryArticleBody(accountId, article.id)?.fullContent
                 val fullContent = storedContent
                     ?.takeIf { it.isNotBlank() }
-                    ?: runCatching { rssHelper.parseFullContent(article.link, article.title, sourceType) }
-                        .getOrNull()
-                        .orEmpty()
+                    ?: run {
+                        val fetched = runCatching {
+                            rssHelper.parseFullContent(article.link, article.title, sourceType)
+                        }.getOrNull().orEmpty()
+                        val accepted = FullContentPolicy.accept(fetched)
+                        if (accepted == null) {
+                            FullContentPolicy.logOversize("OfflinePrecache", article.id, fetched)
+                        }
+                        accepted.orEmpty()
+                    }
 
                 if (fullContent.isNotBlank() && fullContent != storedContent) {
                     articleDao.updateFullContent(accountId, article.id, fullContent)

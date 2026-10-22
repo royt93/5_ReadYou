@@ -68,13 +68,38 @@ class RssHelperFullContentTest {
     }
 
     @Test
-    fun acceptsResponseExactlyAtPolicyLimit() = runBlocking {
+    fun oversizeLogsRedactUrlForKnownAndChunkedBodies() = runBlocking {
+        val payload = "x".repeat(MAX_BYTES + 1)
+        for (chunked in listOf(false, true)) {
+            val response = MockResponse().setHeader("Content-Type", "text/html")
+            if (chunked) response.setChunkedBody(payload, CHUNK_BYTES) else response.setBody(payload)
+            server.enqueue(response)
+            val link = server.url("/private-story").newBuilder()
+                .username("PRIVATE_USER").password("PRIVATE_PASSWORD")
+                .addQueryParameter("token", "PRIVATE_QUERY_TOKEN")
+                .fragment("PRIVATE_FRAGMENT").build().toString()
+            ShadowLog.clear()
+            assertEquals("", helper.parseFullContent(link, TITLE))
+            val entries = ShadowLog.getLogs().filter { it.msg.contains("source=Readability") }
+            assertTrue(entries.isNotEmpty())
+            val logs = entries.joinToString("\n") { it.msg }
+            assertTrue(logs.contains("/private-story"))
+            assertTrue(logs.contains(if (chunked) "bytes>$MAX_BYTES" else "bytes=${MAX_BYTES + 1}"))
+            for (secret in listOf("PRIVATE_USER", "PRIVATE_PASSWORD", "PRIVATE_QUERY_TOKEN", "PRIVATE_FRAGMENT")) {
+                assertFalse(logs.contains(secret))
+            }
+            entries.forEach { org.junit.Assert.assertNull(it.throwable) }
+        }
+    }
+
+    @Test
+    fun acceptsReadableResponseNearPolicyLimit() = runBlocking {
         val sentence = "This is a detailed article sentence containing enough useful words for the readability parser."
         val paragraph = "<p>${sentence.repeat(PARAGRAPHS_PER_BLOCK)}</p>"
         val blocks = (MAX_BYTES / paragraph.toByteArray(Charsets.UTF_8).size) - 2
         val body = "<html><body><article><h1>$TITLE</h1>" + paragraph.repeat(blocks) + "</article></body></html>"
         assertTrue(FullContentPolicy.byteSize(body) <= MAX_BYTES)
-        assertTrue(FullContentPolicy.byteSize(body) > MAX_BYTES - MIN_EXACT_LIMIT_MARGIN_BYTES)
+        assertTrue(FullContentPolicy.byteSize(body) > MAX_BYTES - NEAR_LIMIT_MARGIN_BYTES)
         server.enqueue(MockResponse().setHeader("Content-Type", "text/html; charset=utf-8").setBody(body))
         val result = helper.parseFullContent(server.url("/at-limit").toString(), TITLE)
         assertTrue(result.isNotBlank())
@@ -116,9 +141,10 @@ class RssHelperFullContentTest {
     }
 
     private companion object {
-        const val MAX_BYTES = 1_048_576
+        const val MAX_BYTES = FullContentPolicy.MAX_STORED_FULL_CONTENT_BYTES
+        const val CHUNK_BYTES = 8192
         const val PARAGRAPHS_PER_BLOCK = 20
-        const val MIN_EXACT_LIMIT_MARGIN_BYTES = 16_384
+        const val NEAR_LIMIT_MARGIN_BYTES = 16_384
         const val TITLE = "A report"
         const val TEXT = "A detailed report about public transport, local communities and new services."
         val HTML = "<html><body><article><h1>$TITLE</h1><p>${TEXT.repeat(10)}</p></article></body></html>"

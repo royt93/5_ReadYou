@@ -50,7 +50,7 @@ class RssHelperDescriptionTest {
             MockResponse().setHeader("Content-Type", "application/rss+xml").setBody(
                 """<rss version="2.0"><channel><title>Guardian</title><link>https://example.test</link><description>News</description>
                     <item><title>First</title><link>https://example.test/first</link><description>First summary</description></item>
-                    <item><title>Malformed</title><link>https://example.test/bad</link><description>Bad summary</description></item>
+                    <item><title>Malformed</title><link>https://PRIVATE_USER:PRIVATE_PASSWORD@example.test/bad?token=PRIVATE_QUERY_TOKEN#PRIVATE_FRAGMENT</link><description>Bad summary</description></item>
                     <item><title>Last</title><link>https://example.test/last</link><description>Last summary</description></item>
                     </channel></rss>""".trimIndent()
             )
@@ -59,11 +59,22 @@ class RssHelperDescriptionTest {
         every { RssDescriptionParser.shortDescription(any()) } answers {
             firstArg<String?>().orEmpty().take(RssDescriptionParser.MAX_SHORT_DESCRIPTION_LENGTH)
         }
-        every { RssDescriptionParser.shortDescription("Bad summary") } throws IllegalArgumentException("bad summary")
+        every { RssDescriptionParser.shortDescription("Bad summary") } throws
+            IllegalArgumentException("PRIVATE_EXCEPTION_SENTINEL https://example.test/?token=PRIVATE_QUERY_TOKEN")
 
+        org.robolectric.shadows.ShadowLog.clear()
         val result = rssHelper.searchFeed(server.url("/guardian.xml").toString())
 
         assertEquals(listOf("First", "Last"), result.articles.map { it.title })
+        val entries = org.robolectric.shadows.ShadowLog.getLogs()
+            .filter { it.msg.contains("Skip malformed RSS entry") }
+        assertTrue(entries.isNotEmpty())
+        assertTrue(entries.any { it.msg.contains("IllegalArgumentException") })
+        val logs = entries.joinToString("\n") { it.msg }
+        for (secret in listOf("PRIVATE_USER", "PRIVATE_PASSWORD", "PRIVATE_QUERY_TOKEN", "PRIVATE_FRAGMENT", "PRIVATE_EXCEPTION_SENTINEL")) {
+            org.junit.Assert.assertFalse(logs.contains(secret))
+        }
+        entries.forEach { org.junit.Assert.assertNull(it.throwable) }
     }
 
     @Test
