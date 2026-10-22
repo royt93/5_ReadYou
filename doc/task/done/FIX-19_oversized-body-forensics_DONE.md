@@ -3,7 +3,7 @@
 - **Status:** Implemented and verified on local `dev`; not pushed.
 - **Completed:** 2026-10-22
 - **Audit:** 8/10. Backup forensics ran read-only and output only metadata/hash/counters; controlled Rome `SyndEntry.contents` replay confirmed the current RSS writer rejects synthetic oversize content; RSS ingestion no longer logs description/content or sensitive query values. **Exact historical writer remains unknown.**
-- **Commits:** implementation/report commit hashes are in git history.
+- **Commits:** `b76d2234` plan; `d236f3a6` forensic script, Rome replay, RSS log redaction and report.
 
 ## Forensic evidence
 
@@ -28,7 +28,7 @@ The local UUID makes `RssHelper.article()` plausible. Fever/Google Reader use re
 
 - `python3 tools/fix19_forensic.py`: exit 0, metadata and stored hash matched expected backup record. Output did not contain body text or full title/identifier.
 - `RssHelperAudioTest`: 6/6 pass, including synthetic direct-Rome oversize rejection and log sentinel/query-token redaction.
-- Full `./gradlew testDevDebugUnitTest assembleDevDebug compileDevDebugAndroidTestKotlin --rerun-tasks` with the configured test JVM agent: **BUILD SUCCESSFUL**, 1246 unit tests, 0 failures/errors/skipped.
+- Full `./gradlew testDevDebugUnitTest assembleDevDebug compileDevDebugAndroidTestKotlin --rerun-tasks` with the configured test JVM agent: **BUILD SUCCESSFUL**, 1246 unit tests, 0 failures/errors/skipped. Instrumentation APK compile passed; no instrumentation suite was run (this change only affects log output and a synthetic unit path).
 - No device test was needed or run for log redaction; historical emulator backup remains unchanged/read-only. No lint pass claimed.
 
 ## Remaining uncertainty
