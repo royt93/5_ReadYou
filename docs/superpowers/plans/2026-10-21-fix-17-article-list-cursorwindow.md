@@ -188,21 +188,22 @@ Native characterization disproves the assumption that many 140 KB rows alone mus
 
 **Files:**
 - Modify: all caller tests from Tasks 1–4 as needed
-- Create: `app/src/androidTest/java/com/mckimquyen/reader/domain/repository/ArticleListCursorWindowInstrumentationTest.kt` only if the isolated instrumentation runner can construct Room without app/Hilt; otherwise the Robolectric Room regression is the required platform-level proof and do not add a redundant test
+- Create: `app/src/androidTest/java/com/mckimquyen/reader/domain/repository/ArticleListCursorWindowInstrumentationTest.kt`
 - Create: `doc/task/done/FIX-17_article-list-cursorwindow_DONE.md`
 - Modify: `doc/task/todo/01_FIX_BUGS_AND_STABILITY.md`
 - Modify: `doc/feature.md`
 - Delete: `doc/task/todo/FIX-17_article-list-cursorwindow.md`
 
-- [ ] **Step 1: Run targeted Room regression + all affected caller tests**; verify both methods return correct IDs and large full bodies are only fetched by bounded body lookup.
-- [ ] **Step 2: Full validation** — `./gradlew testDevDebugUnitTest assembleDevDebug compileDevDebugAndroidTestKotlin`; capture `BUILD SUCCESSFUL`, sum fresh JUnit XML (`tests`, `failures`, `errors`, `skipped`) and report all counts. Do not claim lint passed unless run successfully.
-- [ ] **Step 3: Device/emulator smoke** — first list devices and obey the session's device lock. On a clean/approved DB, open Home and Planet Money, Reels, run TTS and CommuteCast if configured; verify visible article lists and full text behavior, then capture logcat filtered for `SQLiteBlobTooBigException`. Do not delete/alter device data except via app UI; backup first if test feed changes are needed. Preserve the prior emulator DB backup `/Users/loitran/podcast_bak_emulator`.
-- [ ] **Step 4: Report** — record exact reproduction database shape, test counts, emulator/device serial and observed behavior; mention any unrelated remaining `CursorWindow` query honestly. Add FIX-17 to `doc/feature.md` as implemented, change epic row to ✅ done, `git rm doc/task/todo/FIX-17_article-list-cursorwindow.md`.
+- [x] **Step 1: Run targeted Room regression + all affected caller tests**; verify both methods return correct IDs and large full bodies are only fetched by bounded body lookup.
+- [x] **Step 2: Full validation** — `./gradlew testDevDebugUnitTest assembleDevDebug compileDevDebugAndroidTestKotlin`; capture `BUILD SUCCESSFUL`, sum fresh JUnit XML (`tests`, `failures`, `errors`, `skipped`) and report all counts. Do not claim lint passed unless run successfully.
+- [x] **Step 3: Device/emulator smoke** — first list devices and obey the session's device lock. On a clean/approved DB, open Home and Planet Money, Reels, run TTS and CommuteCast if configured; verify visible article lists and full text behavior, then capture logcat filtered for `SQLiteBlobTooBigException`. Do not delete/alter device data except via app UI; backup first if test feed changes are needed. Preserve the prior emulator DB backup `/Users/loitran/podcast_bak_emulator`.
+- [x] **Step 4: Report** — record exact reproduction database shape, test counts, emulator/device serial and observed behavior; mention any unrelated remaining `CursorWindow` query honestly. Add FIX-17 to `doc/feature.md` as implemented, change epic row to ✅ done, `git rm doc/task/todo/FIX-17_article-list-cursorwindow.md`.
 - [ ] **Step 5: Commit** — `test(db): prevent CursorWindow overflow in article list reads`, then `docs: finalize FIX-17 CursorWindow stability report`. Do not push unless the user asks.
 
 ## Verification log
 
-- 2026-10-21: Task 1 native Room baseline: two old SELECT * queries fail with SQLiteBlobTooBigException for one 3 MiB body; many 140 KB rows pass. New projections plus 64 KiB BLOB slices pass.
+- 2026-10-21: Task 1 native Room baseline: two old `SELECT *` queries fail with `SQLiteBlobTooBigException` for one 3 MiB body; many 140 KB rows pass. New projections plus 64 KiB BLOB slices pass.
 - Tasks 2–4: metadata-only Home/semantic/graph/Commute/DailyEdition, selective Reels/TTS/Digest/cache verified by focused tests. No stored text truncation.
-- Full host run with JAVA_TOOL_OPTIONS=-javaagent:<resolved ByteBuddy agent jar>: 1231 tests, zero failures/errors/skipped, assembleDevDebug and compileDevDebugAndroidTestKotlin pass. Default host test JVM intermittently cannot self-attach ByteBuddy; full runs failed before executing MockK assertions. No repo JVM setting changed.
-- Device verification pending: only Pixel appears in adb; session target remains Tecno 115333744A005844. Do not switch devices without user request.
+- `./gradlew testDevDebugUnitTest assembleDevDebug compileDevDebugAndroidTestKotlin`: 1231 tests, zero failures/errors/skipped after `app/build.gradle` preloaded the resolved ByteBuddy agent for the unit-test task. Without it, MockK 1.13.5 cannot dynamically self-attach on this JBR/macOS setup.
+- One agent-enabled full run had 22 assertion failures across four classes, including an account-ID mismatch and empty TTS/Reels fixtures. Two isolated reruns passed all four; baseline commit passed 1217/1217 in a clean worktree; two later full runs passed 1231/1231. Cause not established; investigate shared Robolectric/DataStore state separately.
+- Instrumentation and live smoke passed on Tecno `115333744A005844` on 2026-10-21; DB was restored and verified. Any new device verification requires the user-selected target; do not silently switch to Pixel.

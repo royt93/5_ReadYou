@@ -143,6 +143,17 @@ android {
     testOptions {
         unitTests.includeAndroidResources = true
     }
+    // MockK 1.13.5 uses ByteBuddy inline instrumentation. Load the already-resolved
+    // ByteBuddy agent in the test JVM at startup; dynamic self-attach is disabled/unreliable
+    // on some JBR/macOS setups and otherwise causes hundreds of unrelated test failures.
+    tasks.matching { it.name == "testDevDebugUnitTest" }.configureEach {
+        doFirst {
+            def runtime = configurations.getByName("devDebugUnitTestRuntimeClasspath")
+            def agent = runtime.files.find { it.name ==~ /byte-buddy-agent-.*\.jar/ }
+            if (agent == null) throw new GradleException("MockK ByteBuddy agent missing from unit-test runtime")
+            jvmArgs "-javaagent:${agent.absolutePath}"
+        }
+    }
     sourceSets.getByName("androidTest").assets.srcDir("$projectDir/schemas")
     buildFeatures {
         compose true
