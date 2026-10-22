@@ -16,25 +16,9 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6f28f826-4208-4800-b7bf-3c32f11fba88" name="Changes" comment="chore(ide): update workspace configuration and change list history&#10;&#10;- Update `ChangeListManager` and task history in `.idea/workspace.xml` to reflect recent file modifications">
-      <change afterPath="$PROJECT_DIR$/.superpowers/brainstorm/.last-port" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.superpowers/brainstorm/.last-token" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.superpowers/brainstorm/53309-1791968397/content/lineage-layout.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.superpowers/brainstorm/53309-1791968397/content/waiting-1.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.superpowers/brainstorm/53309-1791968397/state/server-instance-id" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.superpowers/brainstorm/53309-1791968397/state/server-stopped" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.superpowers/brainstorm/53309-1791968397/state/server.pid" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/androidTest/java/com/mckimquyen/reader/integration/RssDescriptionPersistenceIntegrationTest.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/androidTest/java/com/mckimquyen/reader/ui/page/home/flow/ArticleItemTest.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/infrastructure/rss/RssDescriptionParser.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/test/java/com/mckimquyen/reader/infrastructure/rss/RssDescriptionParserTest.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/test/java/com/mckimquyen/reader/infrastructure/rss/RssHelperDescriptionTest.kt" afterDir="false" />
+    <list default="true" id="6f28f826-4208-4800-b7bf-3c32f11fba88" name="Changes" comment="feat(rss): add RSS description parser and update Fever sync integration&#10;&#10;- Add `RssDescriptionParser` to cleanly extract and parse article descriptions from RSS feeds&#10;- Update `RssHelper` and `FeverRssSv` to integrate description parsing during feed and article syncing&#10;- Add new unit, integration, and UI tests: `RssDescriptionParserTest`, `RssHelperDescriptionTest`, `RssDescriptionPersistenceIntegrationTest`, and `ArticleItemTest`&#10;&#10;Co-Authored-By: Claude Code &lt;noreply@anthropic.com&gt;">
       <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetSelector.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deploymentTargetSelector.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/domain/sv/FeverRssSv.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/domain/sv/FeverRssSv.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/infrastructure/rss/RssHelper.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/infrastructure/rss/RssHelper.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/test/java/com/mckimquyen/reader/domain/sv/FeverRssSvTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/test/java/com/mckimquyen/reader/domain/sv/FeverRssSvTest.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,11 +60,28 @@
       <entry key="edit-panel" value="GPT-5 mini" />
     </selectedModels>
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[PhysicalDevice::serial=115333744A005844]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[PhysicalDevice::serial=2B051FDH3006MU]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
     </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="RSS_Cat_Hub" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
   </component>
   <component name="GenerateSignedApkSettings">
     <option name="KEY_STORE_PATH" value="$PROJECT_DIR$/app/keystores.jks" />
@@ -114,6 +115,7 @@
   &quot;keyToString&quot;: {
     &quot;Android App.app.executor&quot;: &quot;Run&quot;,
     &quot;BundleExportedModule&quot;: &quot;RSS_Cat_Hub.app&quot;,
+    &quot;CidrDebugProfileConversion&quot;: &quot;true&quot;,
     &quot;ExportBundle.BundlePathForRSS_Cat_Hub.app&quot;: &quot;/Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260606_ReadYou/_playStore&quot;,
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
     &quot;Notification.DisplayName-DoNotAsk-vcs.commit.finished&quot;: &quot;1 file committed&quot;,

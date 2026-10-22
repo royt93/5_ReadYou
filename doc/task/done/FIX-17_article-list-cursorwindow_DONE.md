@@ -2,14 +2,14 @@
 
 - **Status:** Implemented and verified on local `dev`; not pushed.
 - **Completed:** 2026-10-21
-- **Audit:** 8/10. The regression is reproduced and fixed at the DAO layer, affected callers are covered by unit tests, and 22 instrumentation tests pass on both Tecno and Pixel 7 Pro. Not proven: the exact reason the original ~101 KB emulator article overflowed; a 3 MiB native Room fixture independently reproduces the old query failure.
+- **Audit:** 8/10. The bulk-query failure is reproduced and fixed at the DAO layer; affected callers are covered by unit tests and 22 instrumentation tests pass on Tecno and Pixel 7 Pro. The preserved emulator backup reveals the actual outlier: a 15.9 MB `fullContent` BLOB. Why parser/storage admitted that payload is a separate unexplained defect.
 - **Commits:** `e8fffab1` spec, `8fbfd200` plan, `dd50557f` DAO primitives, `b7784d61` metadata consumers, `8a2aa979` Reels, `e4661212` unread consumers, `67239d45` progress notes, plus the final report commit.
 
 ## Root cause and what was reproduced
 
-`ArticleDao.queryRecentArticlesWithFeed` and `queryLatestUnread` used `SELECT * FROM article`, so every list read pulled `rawDescription` and `fullContent` into a CursorWindow. On `emulator-5554` this left the Planet Money list empty with `Row too big to fit into CursorWindow` while the NPR feed (largest `fullContent` 100,990 chars, largest article row about 101 KB) was in the same database; `CommuteWorker` hit the same exception from `queryLatestUnread`.
+`ArticleDao.queryRecentArticlesWithFeed` and `queryLatestUnread` used `SELECT * FROM article`, so every list read pulled `rawDescription` and `fullContent` into a CursorWindow. The preserved emulator database explains the empty Planet Money list: one NPR article has empty `rawDescription`, 12,324,490 `fullContent` characters and a 15,890,764-byte UTF-8 BLOB. Loading 15 result rows raised `SQLiteBlobTooBigException`; `CommuteWorker` hit the same exception from `queryLatestUnread`. The original “~101 KB largest row” estimate was wrong: another NPR row is ~101 KB, but not the largest. I inspected lengths and shape only; I did not print or retain article text.
 
-A native Room characterization test (Robolectric native SQLite) showed: **one 3 MiB body makes both old queries throw `SQLiteBlobTooBigException`; twenty 140 KB bodies do not.** So a single oversized body is proven to break the old queries, but I did **not** prove why the ~101 KB rows on the emulator overflowed. The fix removes bodies from list reads regardless of that cause.
+A native Room characterization test (Robolectric native SQLite) showed: **one 3 MiB body makes both old queries throw `SQLiteBlobTooBigException`; twenty 140 KB bodies do not.** The bulk-body projection is fixed. The source/content parsing defect that produced the 15.9 MB stored body is separate and remains unexplained; a selective body read can still fetch it in bounded slices, but later text-processing cost for that malformed body was not measured.
 
 ## Implementation
 
@@ -29,7 +29,7 @@ A native Room characterization test (Robolectric native SQLite) showed: **one 3 
 
 ## Limits and known issues
 
-- The Tecno database contains only BBC News (largest bodies are small), so the smoke run exercised the new code paths but not an oversized body in the live app; the oversized-body evidence comes from the Room and instrumentation tests.
+- The Tecno database contains only BBC News, so smoke exercised the new list path on that feed but not the oversized NPR outlier. Instrumentation proves multi-megabyte DAO body reconstruction; it does not exercise HTML parsing/summarization of the malformed 15.9 MB emulator body. Its source is unexplained and should be tracked separately if the owner wants content-ingestion investigation.
 - CommuteCast, Daily Digest, Daily Edition and offline precache were covered by unit tests and the instrumentation selection test, not exercised end to end on the device. Audible speech was not heard by a person.
 - Other `SELECT *` queries that were not in this call graph were left alone.
 - `lintDevDebug` was not run; no lint pass is claimed.

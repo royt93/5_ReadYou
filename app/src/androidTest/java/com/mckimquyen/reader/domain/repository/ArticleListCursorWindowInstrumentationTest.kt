@@ -8,6 +8,11 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.mckimquyen.reader.domain.model.account.Account
 import com.mckimquyen.reader.domain.model.account.AccountType
 import com.mckimquyen.reader.domain.model.article.Article
+import com.mckimquyen.reader.domain.model.article.FullContentPolicy
+import com.mckimquyen.reader.domain.model.feed.FeedWithArticle
+import com.mckimquyen.reader.infrastructure.rss.RssHelper
+import com.rometools.rome.io.SyndFeedInput
+import java.io.StringReader
 import com.mckimquyen.reader.domain.model.feed.Feed
 import com.mckimquyen.reader.domain.model.group.Group
 import com.mckimquyen.reader.domain.sv.ReadNewsController
@@ -54,6 +59,28 @@ class ArticleListCursorWindowInstrumentationTest {
             id = ARTICLE, title = "Huge article", date = Date(), rawDescription = raw, fullContent = full,
             shortDescription = "Summary", link = "https://example.com/article", feedId = FEED, accountId = ACCOUNT,
         ))
+    }
+
+    @Test fun rssOversizedContent_isRejectedAndMetadataSurvivesInRoom() = runBlocking {
+        val huge = "x".repeat(FullContentPolicy.MAX_STORED_FULL_CONTENT_BYTES + 1)
+        val xml = """<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+            <channel><title>Test</title><link>https://example.com</link><description>Test feed</description>
+            <item><title>Oversized fixture</title><link>https://example.com/large</link><description>Small safe summary</description><content:encoded><![CDATA[$huge]]></content:encoded></item>
+            </channel></rss>"""
+        val entry = SyndFeedInput().build(StringReader(xml)).entries.single()
+        val helper = RssHelper(context, Dispatchers.IO, okhttp3.OkHttpClient())
+        val feed = Feed(id = FEED, name = "Feed", url = "https://example.com/rss", groupId = GROUP, accountId = ACCOUNT)
+
+        val article = helper.article(feed, ACCOUNT, entry)
+        assertEquals(null, article.fullContent)
+        assertTrue(article.rawDescription.isNotBlank())
+        assertTrue(article.shortDescription.isNotBlank())
+        assertEquals("Oversized fixture", article.title)
+        db.articleDao().insert(article)
+        val listed = db.articleDao().queryRecentArticleListWithFeed(ACCOUNT, LIMIT).single().article
+        assertEquals(null, listed.audioUrl)
+        assertEquals("Oversized fixture", listed.title)
+        assertEquals(null, db.articleDao().queryArticleBody(ACCOUNT, article.id)?.fullContent)
     }
 
     @Test fun unsafeControlThrows_butLightweightListsStayReadable() = runBlocking {
