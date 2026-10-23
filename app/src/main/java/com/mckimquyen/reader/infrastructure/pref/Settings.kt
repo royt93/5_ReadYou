@@ -1,6 +1,5 @@
 package com.mckimquyen.reader.infrastructure.pref
 
-import android.util.Log
 import androidx.annotation.Keep
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -223,7 +222,6 @@ fun SettingsProvider(
     val context = LocalContext.current
     val settings = remember {
         context.dataStore.data.map {
-            Log.i("RLog", "AppTheme: ${it}")
             it.toSettings()
         }
     }.collectAsStateValue(initial = Settings())
