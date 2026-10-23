@@ -22,7 +22,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.produceState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -42,9 +42,8 @@ fun SmartCollectionDetailPage(
 ) {
     val collections by viewModel.collectionsWithCount.collectAsState()
     val collection = collections.firstOrNull { it.collection.id == collectionId }?.collection
-    val articles by produceState(initialValue = emptyList(), collectionId) {
-        viewModel.observeArticles(collectionId).collect { value = it }
-    }
+    val articlesFlow = remember(collectionId) { viewModel.observeArticles(collectionId) }
+    val articles by articlesFlow.collectAsState(initial = emptyList())
 
     val statusBarTop = WindowInsets.statusBars.asPaddingValues().calculateTopPadding()
     val navBarBottom = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()

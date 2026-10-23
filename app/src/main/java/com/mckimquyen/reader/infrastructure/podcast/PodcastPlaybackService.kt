@@ -8,6 +8,7 @@ import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import android.os.Bundle
 import android.os.SystemClock
 import android.os.IBinder
 import android.support.v4.media.MediaMetadataCompat
@@ -60,6 +61,7 @@ class PodcastPlaybackService : Service() {
         session = MediaSessionCompat(this, TAG).apply {
             setCallback(object : MediaSessionCompat.Callback() {
                 override fun onPlay() = podcast.play()
+                override fun onPlayFromSearch(query: String?, extras: Bundle?) = podcast.play()
                 override fun onPause() = podcast.pause()
                 override fun onStop() = podcast.stop()
                 override fun onFastForward() = podcast.skip(PodcastPlaybackController.SKIP_INTERVAL_SEC)
