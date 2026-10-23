@@ -1,7 +1,7 @@
 # FIX-20 — Không ghi DataStore settings chứa secret vào log
 
 - Ngày: 2026-10-23
-- Trạng thái: đã duyệt, thực thi Inline Execution và kiểm chứng (2026-10-23); chưa commit/push.
+- Trạng thái: đã duyệt, thực thi Inline Execution và kiểm chứng (2026-10-23); commit `379096e9` đã push.
 - Không tự commit/push. Không in, lưu hoặc copy giá trị key vào chat/báo cáo.
 
 ## Vấn đề đã xác minh

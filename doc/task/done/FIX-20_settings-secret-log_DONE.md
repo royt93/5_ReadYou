@@ -1,6 +1,6 @@
 # [FIX-20] Chặn secret lọt logcat từ SettingsProvider — Báo cáo hoàn thành
 
-- **Trạng thái:** Đã thực thi Inline Execution và kiểm chứng cục bộ trên nhánh `dev`; chưa commit, chưa push.
+- **Trạng thái:** Đã thực thi Inline Execution và kiểm chứng trên nhánh `dev`; commit `379096e9` đã được đẩy lên `origin/dev`.
 - **Ngày hoàn thành:** 2026-10-23
 - **Audit:** 9/10. Xoá dòng dump toàn bộ DataStore `Preferences` trong `SettingsProvider` (`Settings.kt:226`) và import `android.util.Log` thừa; ngăn các AI API key người dùng nhập (`customGeminiApiKey`, `customOpenAiApiKey`, `customDeepSeekApiKey`, `customGroqApiKey`) xuất hiện trong logcat. Regression test Compose/DataStore chứng minh sentinel AI key không lọt log trong khi settings theme vẫn được cập nhật bình thường.
 - **Không thuộc phạm vi:** Không xoá logcat lịch sử trên thiết bị, không đổi nơi lưu hay mã hoá key, không thu hồi/rotate key, không mở lại FIX-09 (vẫn deferred).
