@@ -1,8 +1,8 @@
 # [IDEA-05] Podcast & Audio RSS Player — Completion Report
 
-- **Status:** Implemented and verified on local `dev`; not pushed. **Not heard by a person**: sound output, Bluetooth and headset routing were never listened to (see Limits).
+- **Status:** Implemented and verified; pushed to `origin/dev`. Sound through the phone speaker was heard by the owner on 2026-10-23 (Pixel 7 Pro). **Not verified:** Bluetooth/headset routing and TalkBack (see Limits).
 - **Completed:** 2026-10-21
-- **Audit:** 8/10. Parsing, Room v18, controller, service, player bar, TTS exclusion, sleep timer and 38-locale strings are covered by unit, Compose and instrumentation tests and by a real run on the Tecno, the Pixel 7 Pro and an emulator. A code review found ten issues; the behavioural ones were reproduced with failing tests and fixed. Not covered: audible sound, Bluetooth/headset, TalkBack, a service killed by the OS mid-playback, and a feed whose enclosure redirects HTTPS→HTTP.
+- **Audit:** 8/10. Parsing, Room v18, controller, service, player bar, TTS exclusion, sleep timer and 38-locale strings are covered by unit, Compose and instrumentation tests and by a real run on the Tecno, the Pixel 7 Pro and an emulator. A code review found ten issues; the behavioural ones were reproduced with failing tests and fixed. Audible phone-speaker sound was confirmed by the owner on 2026-10-23. Not covered: Bluetooth/headset, TalkBack, a service killed by the OS mid-playback, and a feed whose enclosure redirects HTTPS→HTTP.
 - **Commits:**
   - `09d6a6c3` — design spec; `008ed162` — implementation plan
   - `7d0d728e` — `AudioDuration` / `AudioEnclosure` parsers (iTunes duration through Rome foreign markup, https only)
@@ -51,6 +51,14 @@ Tests added for the layout: the play button keeps its left edge and width when e
 - Also on the **Pixel 7 Pro** (`2B051FDH3006MU`, used with the owner's permission while the Tecno was not visible to adb): instrumentation 3/3, the same subscribe → play → skip → speed → sleep → lock-screen flow.
 - `lintDevDebug` was not run (known local SDK 37 metadata issue); no lint pass is claimed. `connectedDevDebugAndroidTest` was not run.
 
+## Additional audible smoke test — 2026-10-23
+
+- Pixel 7 Pro (`2B051FDH3006MU`), APK `2c995f76`, DB backed up before install. Through the app UI, temporarily subscribed to BBC Global News Podcast and NPR Planet Money; used Planet Money because a metadata-logged BBC enclosure returned `SocketException: Connection reset` when ExoPlayer attempted playback (HTTP/HTTPS stream was also unreachable from the host). A small NPR enclosure range request from the host returned HTTP 206/audio-mpeg; no body was saved.
+- Owner confirmed hearing the Planet Money episode **“We try to fix election polling (update)”** clearly through the phone speaker. ExoPlayer reached `PLAYING`; `dumpsys media_session` reported `speed=1.5` after selecting 1.5×.
+- Paused seeking verified **9:05 → 8:50 → 9:05** with the two ±15 s buttons. Expanded player showed speed, both skip buttons and sleep control.
+- Headset/Bluetooth was unavailable and not tested; TalkBack not tested. Full-screen ad did not appear during the smoke; only test banner ads appeared and were skipped.
+- Both temporary feeds unsubscribed through the UI. Final DB snapshot `/Users/loitran/podcast_smoke_pixel_clean_20261023_1128`: Room v18, `PRAGMA integrity_check=ok`, BBC News only, 211 articles, no audio entries. Snapshot included Reader/WAL/SHM as present and was read-only inspected; no DB restore/manual edit.
+
 ## Sleep timer expiry
 
 Verified twice. Tecno: started at 13:39:47 with a 15 minute timer (chip `14:59`); at 13:55 the media session was `PAUSED` (`speed=0.0`, position 2122 s), the chip was back to "Off" and the saved position was written. Emulator (`emulator-5554`): started at 21:17:53; at 21:35 the session was `PAUSED` (`speed=0.0`, position 1459 s), the chip showed "Off" and the bar showed `24:19` with a play button.
@@ -73,7 +81,7 @@ The unit suite grew from 1191 to 1217 tests with these fixes. On the emulator af
 
 ## Limits and known issues
 
-- **Sound was not heard by a person.** Evidence is the media session state, the advancing position, `dumpsys` and logcat. Bluetooth and headset routing were not tested.
+- **Phone-speaker sound was confirmed by the owner on 2026-10-23**, alongside advancing UI position and MediaSession evidence. Bluetooth and headset routing remain untested because no accessory was available; TalkBack was not run.
 - `ArticleDao.insert` uses `REPLACE`, so a Fever re-fetch can reset the new audio columns to NULL (same limit as `readAt`). Articles stored before the upgrade have no audio until their feed's items are inserted again; `insertListIfNotExist` skips items that already exist, so old episodes keep no player.
 - `DefaultHttpDataSource` does not follow an HTTPS→HTTP redirect, so an episode whose redirect chain drops to HTTP shows the error state. This matches the https-only rule. The BBC feed was dropped for verification because its enclosures are `http://` on a host that was unreachable.
 - Reinstalling the app stops the playback service and cancels a running sleep timer; the timer is not persisted across a process death.
