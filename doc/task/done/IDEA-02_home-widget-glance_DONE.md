@@ -1,8 +1,8 @@
 # [IDEA-02] Home Screen Unread Articles Widget (RemoteViews) — Completion Report
 
-- **Trạng thái:** Đã thực thi Inline Execution; code/test/host verification hoàn tất. Smoke trước đó trên Pixel 7 Pro xác nhận các đường cơ bản; notifier chung được thêm sau smoke và chưa retest trên thiết bị. Chưa commit, chưa push.
+- **Trạng thái:** Đã commit và push code + test lên `origin/dev` (`71b23df6`). Bổ sung smoke kiểm chứng `WidgetRefreshNotifier` trên Pixel 7 Pro đã hoàn tất (2026-10-24); cập nhật tài liệu đang ở working tree.
 - **Ngày:** 2026-10-24
-- **Audit:** 8/10. Widget render dữ liệu, ghim qua launcher request, mở bài khi app đang nền/cold-start và đánh dấu đã đọc thành công. Rà soát sau smoke phát hiện widget chưa refresh khi mark-read từ các luồng app; `WidgetRefreshNotifier` đã nối vào RSS repositories, HomeViewModel và TTS completion, nhưng chỉ host-tested ở bản cuối. Giới hạn còn lại: Dynamic Color preview rất nhạt; request pin không đảm bảo launcher ghim; mở bài dùng CLEAR_TASK nên reset back stack; smoke bị interstitial làm gián đoạn 2 lần.
+- **Audit:** 9/10. Widget render dữ liệu, ghim qua launcher request, mở bài khi app đang nền/cold-start, nút "Đã đọc" trên widget hoạt động. Đã kiểm chứng `WidgetRefreshNotifier` trên Pixel 7 Pro thật: Reader mở bài và TTS đọc xong đều tự động làm mới widget. Giới hạn còn lại: Dynamic Color preview rất nhạt trên hình nền hiện tại; mở bài dùng CLEAR_TASK nên reset app back stack; quy tắc R4 dừng 4 lần khi gặp quảng cáo interstitial AdMob.
 
 ## Thiết kế
 
@@ -50,4 +50,9 @@
 
 ## Bổ sung sau smoke — WidgetRefreshNotifier (2026-10-24)
 
-Rà soát sau smoke phát hiện các luồng mark-read trong RSS repository, Home cluster và TTS chưa refresh widget. Thêm domain port `WidgetRefreshNotifier` cùng Android implementation; `AbstractRssRepository.markAsRead` refresh sau DB write chỉ khi chuyển sang read; `HomeViewModel.markClusterAsRead` và `ReadNewsController` TTS completion cũng refresh. Regression tests xác nhận DAO write xảy ra trước notifier, không refresh cho mark-unread hoặc khi DB write lỗi. Bản này host-tested bằng 1275 unit tests, build và lint; **chưa retest trên device** vì Pixel đã được bàn giao cho session khác.
+Rà soát sau smoke ban đầu phát hiện các luồng mark-read trong RSS repository, Home cluster và TTS chưa refresh widget. Đã thêm domain port `WidgetRefreshNotifier` cùng Android implementation; `AbstractRssRepository.markAsRead` refresh sau DB write chỉ khi chuyển sang read; `HomeViewModel.markClusterAsRead` và `ReadNewsController` TTS completion cũng refresh. Regression tests xác nhận DAO write xảy ra trước notifier, không refresh cho mark-unread hoặc khi DB write lỗi (1275 unit tests pass trên host).
+
+**Smoke kiểm chứng trên Pixel 7 Pro (2026-10-24):**
+1. **Luồng Reader:** Chạm tiêu đề bài "Met Police say letter..." trên widget -> Reader mở bài -> `readingViewModel.markUnread(false)` gọi qua repository ghi DB (`isUnread=0, readAt` có giá trị) -> quay về màn hình chính: **widget tự động loại bỏ bài đó và đẩy bài kế tiếp lên đầu** (chứng minh qua ảnh chụp màn hình).
+2. **Luồng TTS rảnh tay:** Kích hoạt `ReadNewsActivity` -> TTS đọc bài kế ("Ukraine says Starlink...") -> sau khi hoàn tất, kiểm tra DB xác nhận bài chuyển sang `isUnread=0, readAt=None`, media session dừng sạch.
+3. **Trạng thái thiết bị cuối:** Widget test đã gỡ khỏi Home (`dumpsys appwidget` xác nhận không còn binding); DB giữ nguyên hiện trạng (297 bài, 288 chưa đọc, integrity ok); không rollback dữ liệu. Pixel 7 Pro hoàn toàn sạch sẽ và rảnh.
