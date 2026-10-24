@@ -937,4 +937,10 @@
     <string name="podcast_expand">Zabaldu erreproduzigailua</string>
     <string name="podcast_collapse">Tolestu erreproduzigailua</string>
     <string name="podcast_play_episode">Erreproduzitu: %1$s</string>
+    <string name="widget_article_name">Irakurri gabeko artikuluak</string>
+    <string name="widget_article_desc">Begirada azkarra irakurri gabeko azken artikuluei.</string>
+    <string name="widget_article_empty">Dena irakurrita! Ez dago irakurri gabeko artikulurik.</string>
+    <string name="widget_article_mark_read">Markatu irakurrita gisa</string>
+    <string name="widget_article_pin_requested">Add widget request sent to launcher</string>
+    <string name="widget_article_pin_unsupported">Your launcher does not support automatic widget pinning</string>
 </resources>

@@ -60,6 +60,9 @@ class SyncWorker @AssistedInject constructor(
                 runCatching {
                     semanticEmbeddingIndexer.indexRecent(accountId)
                 }.onFailure { Log.w("RLog", "Semantic embedding indexing failed", it) }
+                runCatching {
+                    com.mckimquyen.reader.ui.widget.ArticleWidgetUpdater.notifyDataChanged(context)
+                }
             }
             syncResult
         }

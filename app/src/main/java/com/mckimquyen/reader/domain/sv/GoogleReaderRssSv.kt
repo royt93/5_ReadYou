@@ -17,6 +17,7 @@ import com.mckimquyen.reader.domain.repository.ArticleDao
 import com.mckimquyen.reader.domain.repository.FeedDao
 import com.mckimquyen.reader.domain.repository.FeedHealthDao
 import com.mckimquyen.reader.domain.repository.GroupDao
+import com.mckimquyen.reader.domain.repository.WidgetRefreshNotifier
 import com.mckimquyen.reader.infrastructure.android.NotificationHelper
 import com.mckimquyen.reader.infrastructure.di.DefaultDispatcher
 import com.mckimquyen.reader.infrastructure.di.IODispatcher
@@ -61,10 +62,11 @@ class GoogleReaderRssSv @Inject constructor(
     watchdogManager: WatchdogManager,
     smartFilterManager: SmartFilterManager,
     smartCollectionMatcher: SmartCollectionMatcher,
+    widgetRefreshNotifier: WidgetRefreshNotifier,
 ) : AbstractRssRepository(
     context, accountDao, articleDao, groupDao,
     feedDao, workManager, rssHelper, notificationHelper, ioDispatcher, defaultDispatcher,
-    watchdogManager, feedHealthDao, smartFilterManager, smartCollectionMatcher,
+    watchdogManager, feedHealthDao, smartFilterManager, smartCollectionMatcher, widgetRefreshNotifier,
 ) {
 
     override val subscribe: Boolean = false

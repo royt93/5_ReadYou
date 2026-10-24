@@ -82,6 +82,7 @@ class FeverRssSvTest {
             feedHealthDao = mockk(relaxed = true),
             smartFilterManager = mockk(relaxed = true),
             smartCollectionMatcher = mockk(relaxed = true),
+            widgetRefreshNotifier = mockk(relaxed = true),
         )
     }
 

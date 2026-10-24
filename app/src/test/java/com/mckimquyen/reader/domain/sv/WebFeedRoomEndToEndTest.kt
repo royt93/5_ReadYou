@@ -60,6 +60,7 @@ class WebFeedRoomEndToEndTest {
             workManager = mockk(relaxed = true), watchdogManager = mockk(relaxed = true), smartFilterManager = filters,
             webFeedScraper = WebFeedScraper(httpClient, WebFeedParser()),
             smartCollectionMatcher = mockk(relaxed = true),
+            widgetRefreshNotifier = mockk(relaxed = true),
         )
         val sourceUrl = server.url("/news").toString().replace("localhost", HOST)
         feed = Feed(id = "web-feed", name = "Example", url = sourceUrl, groupId = "group", accountId = 1,

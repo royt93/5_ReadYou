@@ -933,4 +933,10 @@
     <string name="podcast_expand">展播器</string>
     <string name="podcast_collapse">收播器</string>
     <string name="podcast_play_episode">播放：%1$s</string>
+    <string name="widget_article_name">未讀之文</string>
+    <string name="widget_article_desc">速覽最新未讀之篇。</string>
+    <string name="widget_article_empty">皆已覽畢！無復未讀。</string>
+    <string name="widget_article_mark_read">識為已讀</string>
+    <string name="widget_article_pin_requested">已向桌面发送添加微件请求</string>
+    <string name="widget_article_pin_unsupported">您的桌面不支持自动添加微件</string>
 </resources>

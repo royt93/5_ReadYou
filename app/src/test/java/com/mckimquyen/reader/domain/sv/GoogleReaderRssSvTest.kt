@@ -16,6 +16,7 @@ import com.mckimquyen.reader.domain.repository.AccountDao
 import com.mckimquyen.reader.domain.repository.ArticleDao
 import com.mckimquyen.reader.domain.repository.FeedDao
 import com.mckimquyen.reader.domain.repository.FeedHealthDao
+import com.mckimquyen.reader.domain.repository.WidgetRefreshNotifier
 import com.mckimquyen.reader.domain.repository.GroupDao
 import com.mckimquyen.reader.infrastructure.android.NotificationHelper
 import com.mckimquyen.reader.infrastructure.filter.SmartFilterManager
@@ -86,6 +87,7 @@ class GoogleReaderRssSvTest {
                 every { applyRules(any()) } answers { firstArg() }
             },
             smartCollectionMatcher = mockk(relaxed = true),
+            widgetRefreshNotifier = mockk(relaxed = true),
         )
     }
 

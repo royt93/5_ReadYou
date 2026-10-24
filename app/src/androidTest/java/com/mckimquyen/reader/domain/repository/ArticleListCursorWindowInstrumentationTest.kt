@@ -114,7 +114,7 @@ class ArticleListCursorWindowInstrumentationTest {
             override fun speakNotice(text: String) = Unit
             override fun stop() = Unit
         }
-        val controller = ReadNewsController(context, db.articleDao(), speaker, Dispatchers.IO, Dispatchers.Default, scope)
+        val controller = ReadNewsController(context, db.articleDao(), speaker, Dispatchers.IO, Dispatchers.Default, scope, com.mckimquyen.reader.domain.repository.WidgetRefreshNotifier { })
         assertEquals(ReadNewsOutcome.STARTED, controller.start())
         val actual = requireNotNull(spoken)
         assertTrue(actual.endsWith("END_MARKER"))

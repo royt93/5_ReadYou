@@ -864,4 +864,10 @@
     <string name="podcast_expand">प्लेयर बड़ा करें</string>
     <string name="podcast_collapse">प्लेयर छोटा करें</string>
     <string name="podcast_play_episode">चलाएँ: %1$s</string>
+    <string name="widget_article_name">अपठित लेख</string>
+    <string name="widget_article_desc">अपने नवीनतम अपठित लेखों को तुरंत देखें।</string>
+    <string name="widget_article_empty">सब पढ़ लिया! कोई अपठित लेख नहीं।</string>
+    <string name="widget_article_mark_read">पढ़ा हुआ चिह्नित करें</string>
+    <string name="widget_article_pin_requested">Add widget request sent to launcher</string>
+    <string name="widget_article_pin_unsupported">Your launcher does not support automatic widget pinning</string>
 </resources>

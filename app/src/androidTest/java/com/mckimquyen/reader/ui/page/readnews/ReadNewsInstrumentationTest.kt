@@ -61,7 +61,7 @@ class ReadNewsInstrumentationTest {
     }
 
     private fun controller(speaker: FakeSpeaker) =
-        ReadNewsController(context, database.articleDao(), speaker, Dispatchers.IO, Dispatchers.Default, scope)
+        ReadNewsController(context, database.articleDao(), speaker, Dispatchers.IO, Dispatchers.Default, scope, com.mckimquyen.reader.domain.repository.WidgetRefreshNotifier { })
 
     private suspend fun seed(vararg ids: String) {
         // currentAccountId mặc định = 1 khi DataStore chưa có khoá.

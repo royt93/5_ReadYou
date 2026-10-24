@@ -831,4 +831,10 @@
     <string name="podcast_expand">Разгъни плейъра</string>
     <string name="podcast_collapse">Свий плейъра</string>
     <string name="podcast_play_episode">Пусни: %1$s</string>
+    <string name="widget_article_name">Непрочетени статии</string>
+    <string name="widget_article_desc">Бърз поглед към последните ви непрочетени статии.</string>
+    <string name="widget_article_empty">Всичко е прочетено! Няма непрочетени статии.</string>
+    <string name="widget_article_mark_read">Маркирай като прочетено</string>
+    <string name="widget_article_pin_requested">Add widget request sent to launcher</string>
+    <string name="widget_article_pin_unsupported">Your launcher does not support automatic widget pinning</string>
 </resources>

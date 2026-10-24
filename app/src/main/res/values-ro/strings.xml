@@ -874,4 +874,10 @@
     <string name="podcast_expand">Extinde playerul</string>
     <string name="podcast_collapse">Restrânge playerul</string>
     <string name="podcast_play_episode">Redă: %1$s</string>
+    <string name="widget_article_name">Articole necitite</string>
+    <string name="widget_article_desc">Privire rapidă asupra celor mai recente articole necitite.</string>
+    <string name="widget_article_empty">Totul este la zi! Niciun articol necitit.</string>
+    <string name="widget_article_mark_read">Marchează ca citit</string>
+    <string name="widget_article_pin_requested">Add widget request sent to launcher</string>
+    <string name="widget_article_pin_unsupported">Your launcher does not support automatic widget pinning</string>
 </resources>

@@ -61,12 +61,13 @@ class ReadNewsControllerTest {
     private fun TestScope.build(
         dao: ArticleDao,
         speaker: FakeSpeaker,
+        notifier: com.mckimquyen.reader.domain.repository.WidgetRefreshNotifier = mockk(relaxed = true),
     ): ReadNewsController {
         val dispatcher = StandardTestDispatcher(testScheduler)
         // backgroundScope của runTest không chạy cùng dispatcher này nên collector completions sẽ không bao giờ
         // nhận sự kiện khi test gọi advanceUntilIdle(); dùng scope riêng trên cùng StandardTestDispatcher.
         val scope = CoroutineScope(dispatcher + Job())
-        val controller = ReadNewsController(context, dao, speaker, dispatcher, dispatcher, scope)
+        val controller = ReadNewsController(context, dao, speaker, dispatcher, dispatcher, scope, notifier)
         testScheduler.runCurrent() // để collector trong init đăng ký trước khi test phát sự kiện
         return controller
     }
@@ -155,6 +156,23 @@ class ReadNewsControllerTest {
         build(dao, FakeSpeaker()).start()
 
         coVerify(exactly = 1) { dao.queryUnreadArticleList(1, ReadNewsController.READ_NEWS_QUEUE_LIMIT) }
+    }
+
+    @Test
+    fun completion_marksReadThenRefreshesWidget() = runTest {
+        val events = mutableListOf<String>()
+        val dao = daoWith(article("a1"))
+        coEvery { dao.markAsReadByArticleId(1, "a1", false) } answers { events += "database" }
+        val notifier = com.mckimquyen.reader.domain.repository.WidgetRefreshNotifier { events += "widget" }
+        val speaker = FakeSpeaker()
+        val controller = build(dao, speaker, notifier)
+        controller.start()
+        advanceUntilIdle()
+
+        speaker.completionsFlow.emit(Unit)
+        advanceUntilIdle()
+
+        assertEquals(listOf("database", "widget"), events)
     }
 
     @Test

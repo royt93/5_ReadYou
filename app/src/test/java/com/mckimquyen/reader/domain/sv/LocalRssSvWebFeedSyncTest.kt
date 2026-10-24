@@ -6,6 +6,7 @@ import com.mckimquyen.reader.domain.model.article.Article
 import com.mckimquyen.reader.domain.model.feed.Feed
 import com.mckimquyen.reader.domain.repository.ArticleDao
 import com.mckimquyen.reader.domain.repository.FeedHealthDao
+import com.mckimquyen.reader.domain.repository.WidgetRefreshNotifier
 import com.mckimquyen.reader.infrastructure.rss.RssHelper
 import com.mckimquyen.reader.infrastructure.rss.scraper.WebArticleCandidate
 import com.mckimquyen.reader.infrastructure.rss.scraper.WebFeedDiscoveryResult
@@ -40,10 +41,55 @@ class LocalRssSvWebFeedSyncTest {
         ioDispatcher = Dispatchers.IO, defaultDispatcher = Dispatchers.Default,
         workManager = mockk(relaxed = true), watchdogManager = mockk(relaxed = true),
         smartFilterManager = filters, webFeedScraper = scraper,
-        smartCollectionMatcher = mockk(relaxed = true),
+        smartCollectionMatcher = mockk(relaxed = true), widgetRefreshNotifier = mockk(relaxed = true),
     )
     private val feed = Feed(id = "web-feed", name = "News", url = SOURCE_URL, groupId = "group", accountId = 1,
         icon = "icon", sourceType = Feed.WEB_SOURCE_TYPE, sourceUrl = SOURCE_URL)
+
+    @Test
+    fun markArticleRead_refreshesWidgetAfterDatabaseWrite() = runBlocking {
+        val notifier = mockk<WidgetRefreshNotifier>(relaxed = true)
+        val service = serviceWithNotifier(notifier)
+        val events = mutableListOf<String>()
+        coEvery { articles.markAsReadByArticleId(1, "article-1", false) } answers { events += "database" }
+        io.mockk.every { notifier.refresh() } answers { events += "widget" }
+
+        service.markAsRead(null, null, "article-1", null, isUnread = false)
+
+        assertEquals(listOf("database", "widget"), events)
+        coVerify(exactly = 1) { notifier.refresh() }
+    }
+
+    @Test
+    fun markFeedRead_refreshesWidgetOnceAfterDatabaseWrite() = runBlocking {
+        val notifier = mockk<WidgetRefreshNotifier>(relaxed = true)
+        val service = serviceWithNotifier(notifier)
+        coEvery { articles.markAllAsReadByFeedId(1, "feed-1", false, any()) } returns Unit
+
+        service.markAsRead(null, "feed-1", null, null, isUnread = false)
+
+        io.mockk.verify(exactly = 1) { notifier.refresh() }
+    }
+
+    @Test
+    fun markUnread_doesNotRefreshUnreadWidget() = runBlocking {
+        val notifier = mockk<WidgetRefreshNotifier>(relaxed = true)
+        val service = serviceWithNotifier(notifier)
+
+        service.markAsRead(null, null, "article-1", null, isUnread = true)
+
+        io.mockk.verify(exactly = 0) { notifier.refresh() }
+    }
+
+    private fun serviceWithNotifier(notifier: WidgetRefreshNotifier) = LocalRssSv(
+        context = ApplicationProvider.getApplicationContext(), articleDao = articles,
+        feedDao = mockk(relaxed = true), rssHelper = rss, notificationHelper = mockk(relaxed = true),
+        accountDao = mockk(relaxed = true), groupDao = mockk(relaxed = true), feedHealthDao = health,
+        ioDispatcher = Dispatchers.IO, defaultDispatcher = Dispatchers.Default,
+        workManager = mockk(relaxed = true), watchdogManager = mockk(relaxed = true),
+        smartFilterManager = filters, webFeedScraper = scraper,
+        smartCollectionMatcher = mockk(relaxed = true), widgetRefreshNotifier = notifier,
+    )
 
     @Test
     fun webRefreshUsesSourceUrlAndKeepsStoredFeedIdentity() = runBlocking {

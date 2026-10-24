@@ -882,4 +882,10 @@
     <string name="podcast_expand">Развернуть плеер</string>
     <string name="podcast_collapse">Свернуть плеер</string>
     <string name="podcast_play_episode">Воспроизвести: %1$s</string>
+    <string name="widget_article_name">Непрочитанные статьи</string>
+    <string name="widget_article_desc">Быстрый просмотр последних непрочитанных статей.</string>
+    <string name="widget_article_empty">Всё прочитано! Нет новых статей.</string>
+    <string name="widget_article_mark_read">Прочитано</string>
+    <string name="widget_article_pin_requested">Add widget request sent to launcher</string>
+    <string name="widget_article_pin_unsupported">Your launcher does not support automatic widget pinning</string>
 </resources>

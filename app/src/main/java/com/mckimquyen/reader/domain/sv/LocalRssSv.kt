@@ -8,6 +8,7 @@ import com.mckimquyen.reader.domain.repository.AccountDao
 import com.mckimquyen.reader.domain.repository.ArticleDao
 import com.mckimquyen.reader.domain.repository.FeedDao
 import com.mckimquyen.reader.domain.repository.GroupDao
+import com.mckimquyen.reader.domain.repository.WidgetRefreshNotifier
 import com.mckimquyen.reader.infrastructure.di.DefaultDispatcher
 import com.mckimquyen.reader.infrastructure.di.IODispatcher
 import com.mckimquyen.reader.infrastructure.rss.RssHelper
@@ -42,6 +43,7 @@ class LocalRssSv @Inject constructor(
     smartFilterManager: com.mckimquyen.reader.infrastructure.filter.SmartFilterManager,
     private val webFeedScraper: WebFeedScraper,
     smartCollectionMatcher: SmartCollectionMatcher,
+    widgetRefreshNotifier: WidgetRefreshNotifier,
 ) : AbstractRssRepository(
     context,
     accountDao,
@@ -57,6 +59,7 @@ class LocalRssSv @Inject constructor(
     feedHealthDao,
     smartFilterManager,
     smartCollectionMatcher,
+    widgetRefreshNotifier,
 ) {
     override suspend fun queryFeedArticles(feed: Feed, latestLink: String?): List<Article> {
         if (feed.sourceType == Feed.READ_LATER_SOURCE_TYPE || feed.id == Feed.READ_LATER_FEED_ID) {

@@ -17,6 +17,7 @@ import com.mckimquyen.reader.domain.repository.ArticleDao
 import com.mckimquyen.reader.domain.repository.FeedDao
 import com.mckimquyen.reader.domain.repository.FeedHealthDao
 import com.mckimquyen.reader.domain.repository.GroupDao
+import com.mckimquyen.reader.domain.repository.WidgetRefreshNotifier
 import com.mckimquyen.reader.infrastructure.android.NotificationHelper
 import com.mckimquyen.reader.infrastructure.pref.KeepArchivedPreference
 import com.mckimquyen.reader.infrastructure.pref.SyncIntervalPref
@@ -52,6 +53,7 @@ abstract class AbstractRssRepository(
     private val feedHealthDao: FeedHealthDao,
     private val smartFilterManager: com.mckimquyen.reader.infrastructure.filter.SmartFilterManager,
     private val smartCollectionMatcher: SmartCollectionMatcher,
+    private val widgetRefreshNotifier: WidgetRefreshNotifier,
 ) {
 
     open val subscribe: Boolean = true
@@ -158,6 +160,7 @@ abstract class AbstractRssRepository(
                 articleDao.markAllAsRead(accountId, isUnread, before ?: Date(Long.MAX_VALUE))
             }
         }
+        if (!isUnread) widgetRefreshNotifier.refresh()
     }
 
     open suspend fun markAsStarred(articleId: String, isStarred: Boolean) {

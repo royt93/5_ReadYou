@@ -65,6 +65,9 @@ import com.mckimquyen.reader.ui.ext.openBrowserPolicy
 import com.mckimquyen.reader.ui.ext.openUrlInBrowser
 import com.mckimquyen.reader.ui.ext.rateApp
 import com.mckimquyen.reader.ui.ext.shareApp
+import com.mckimquyen.reader.ui.ext.showToast
+import com.mckimquyen.reader.ui.widget.ArticleWidgetPinHelper
+import com.mckimquyen.reader.ui.widget.WidgetPinRequestResult
 import com.mckimquyen.reader.ui.page.about.AboutActivity
 import androidx.compose.material.icons.outlined.CloudSync
 import androidx.compose.material.icons.outlined.FilterAlt
@@ -193,6 +196,21 @@ fun SettingsPage(
                     ) {
                         navController.navigate(RouteName.READING_STATISTICS) {
                             launchSingleTop = true
+                        }
+                    }
+                }
+                item {
+                    SelectableSettingGroupItem(
+                        title = stringResource(R.string.widget_article_name),
+                        desc = stringResource(R.string.widget_article_desc),
+                        icon = Icons.Outlined.AddCircle,
+                    ) {
+                        when (ArticleWidgetPinHelper.requestPinResult(context)) {
+                            WidgetPinRequestResult.REQUESTED ->
+                                context.showToast(context.getString(R.string.widget_article_pin_requested))
+                            WidgetPinRequestResult.UNSUPPORTED ->
+                                context.showToast(context.getString(R.string.widget_article_pin_unsupported))
+                            WidgetPinRequestResult.REJECTED -> Unit
                         }
                     }
                 }

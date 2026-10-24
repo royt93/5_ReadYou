@@ -860,4 +860,10 @@
     <string name="podcast_expand">プレーヤーを展開</string>
     <string name="podcast_collapse">プレーヤーを折りたたむ</string>
     <string name="podcast_play_episode">再生: %1$s</string>
+    <string name="widget_article_name">未読記事</string>
+    <string name="widget_article_desc">最新の未読記事を素早く確認。</string>
+    <string name="widget_article_empty">すべて既読です！未読記事はありません。</string>
+    <string name="widget_article_mark_read">既読にする</string>
+    <string name="widget_article_pin_requested">ホーム画面に追加リクエストを送信しました</string>
+    <string name="widget_article_pin_unsupported">お使いのホームアプリはウィジェットの自動追加に対応していません</string>
 </resources>

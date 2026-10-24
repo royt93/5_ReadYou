@@ -866,4 +866,10 @@
     <string name="podcast_expand">باز کردن پخش‌کننده</string>
     <string name="podcast_collapse">بستن پخش‌کننده</string>
     <string name="podcast_play_episode">پخش: %1$s</string>
+    <string name="widget_article_name">مقاله‌های خوانده‌نشده</string>
+    <string name="widget_article_desc">نگاهی سریع به آخرین مقاله‌های خوانده‌نشده شما.</string>
+    <string name="widget_article_empty">همه خوانده شدند! مقاله خوانده‌نشده‌ای نیست.</string>
+    <string name="widget_article_mark_read">علامت‌گذاری به عنوان خوانده‌شده</string>
+    <string name="widget_article_pin_requested">Add widget request sent to launcher</string>
+    <string name="widget_article_pin_unsupported">Your launcher does not support automatic widget pinning</string>
 </resources>

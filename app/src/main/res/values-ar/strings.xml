@@ -861,4 +861,10 @@
     <string name="podcast_expand">توسيع المشغّل</string>
     <string name="podcast_collapse">طي المشغّل</string>
     <string name="podcast_play_episode">تشغيل: %1$s</string>
+    <string name="widget_article_name">المقالات غير المقروءة</string>
+    <string name="widget_article_desc">إلقاء نظرة سريعة على أحدث المقالات غير المقروءة.</string>
+    <string name="widget_article_empty">تمت قراءة كل شيء! لا توجد مقالات غير مقروءة.</string>
+    <string name="widget_article_mark_read">تحديد كمقروء</string>
+    <string name="widget_article_pin_requested">Add widget request sent to launcher</string>
+    <string name="widget_article_pin_unsupported">Your launcher does not support automatic widget pinning</string>
 </resources>

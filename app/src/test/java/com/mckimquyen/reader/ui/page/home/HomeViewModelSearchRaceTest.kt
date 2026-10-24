@@ -5,10 +5,12 @@ import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import androidx.work.WorkManager
 import com.mckimquyen.reader.domain.model.article.Article
+import com.mckimquyen.reader.domain.model.cluster.StoryCluster
 import com.mckimquyen.reader.domain.model.article.toListItemWithFeed
 import com.mckimquyen.reader.domain.model.article.ArticleWithFeed
 import com.mckimquyen.reader.domain.model.feed.Feed
 import com.mckimquyen.reader.domain.repository.ArticleDao
+import com.mckimquyen.reader.domain.repository.WidgetRefreshNotifier
 import com.mckimquyen.reader.domain.sv.RssSv
 import com.mckimquyen.reader.infrastructure.ai.clustering.StoryClusteringEngine
 import com.mckimquyen.reader.infrastructure.ai.search.SemanticSearchEngine
@@ -110,6 +112,7 @@ class HomeViewModelSearchRaceTest {
         applicationScope = CoroutineScope(SupervisorJob()),
         workManager = workManager,
         ioDispatcher = testDispatcher,
+        widgetRefreshNotifier = mockk(relaxed = true),
     )
 
     @Test
@@ -175,6 +178,25 @@ class HomeViewModelSearchRaceTest {
         runCurrent()
 
         coVerify(exactly = 1) { articleDao.queryRecentArticleListWithFeed(any(), 150) }
+    }
+
+    @Test
+    fun markClusterAsRead_refreshesWidgetAfterAllArticleWrites() = runTest(testDispatcher) {
+        val events = mutableListOf<String>()
+        coEvery { articleDao.markAsReadByArticleId(any(), any(), false) } answers { events += "database" }
+        val notifier = object : WidgetRefreshNotifier {
+            override fun refresh() { events += "widget" }
+        }
+        val article = Article(id = "art-1", title = "title", rawDescription = "", shortDescription = "", link = "https://example.com", feedId = "feed_1", accountId = 1, date = Date())
+        val feed = Feed(id = "feed_1", name = "Feed", url = "https://example.com/feed", groupId = "group_1", accountId = 1)
+        val cluster = StoryCluster(id = "cluster-1", title = "title", leadArticle = ArticleWithFeed(article, feed), articles = listOf(ArticleWithFeed(article, feed)))
+        val viewModel = HomeViewModel(context, articleDao, clusteringEngine, semanticSearchEngine, rssService, watchdogManager, androidStringsHelper, CoroutineScope(SupervisorJob()), workManager, testDispatcher, notifier)
+
+        viewModel.markClusterAsRead(cluster)
+        advanceUntilIdle()
+
+        coVerify(exactly = 1) { articleDao.markAsReadByArticleId(1, "art-1", false) }
+        assertEquals(listOf("database", "widget"), events.take(2))
     }
 
     @Test

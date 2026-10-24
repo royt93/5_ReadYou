@@ -938,4 +938,10 @@
     <string name="podcast_expand">ಪ್ಲೇಯರ್ ವಿಸ್ತರಿಸಿ</string>
     <string name="podcast_collapse">ಪ್ಲೇಯರ್ ಕುಗ್ಗಿಸಿ</string>
     <string name="podcast_play_episode">ಪ್ಲೇ: %1$s</string>
+    <string name="widget_article_name">ಓದದಿರುವ ಲೇಖನಗಳು</string>
+    <string name="widget_article_desc">ನಿಮ್ಮ ಇತ್ತೀಚಿನ ಓದದಿರುವ ಲೇಖನಗಳನ್ನು ತ್ವರಿತವಾಗಿ ವೀಕ್ಷಿಸಿ.</string>
+    <string name="widget_article_empty">ಎಲ್ಲವನ್ನೂ ಓದಲಾಗಿದೆ! ಓದದಿರುವ ಲೇಖನಗಳಿಲ್ಲ.</string>
+    <string name="widget_article_mark_read">ಓದಿದ್ದಾಗಿ ಗುರುತಿಸಿ</string>
+    <string name="widget_article_pin_requested">Add widget request sent to launcher</string>
+    <string name="widget_article_pin_unsupported">Your launcher does not support automatic widget pinning</string>
 </resources>

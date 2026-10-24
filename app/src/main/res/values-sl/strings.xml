@@ -846,4 +846,10 @@
     <string name="podcast_expand">Razširi predvajalnik</string>
     <string name="podcast_collapse">Strni predvajalnik</string>
     <string name="podcast_play_episode">Predvajaj: %1$s</string>
+    <string name="widget_article_name">Neprebrani članki</string>
+    <string name="widget_article_desc">Hiter pregled vaših zadnjih neprebranih člankov.</string>
+    <string name="widget_article_empty">Vse prebrano! Ni neprebranih člankov.</string>
+    <string name="widget_article_mark_read">Označi kot prebrano</string>
+    <string name="widget_article_pin_requested">Add widget request sent to launcher</string>
+    <string name="widget_article_pin_unsupported">Your launcher does not support automatic widget pinning</string>
 </resources>

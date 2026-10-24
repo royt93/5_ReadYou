@@ -860,4 +860,10 @@
     <string name="podcast_expand">Perluas pemutar</string>
     <string name="podcast_collapse">Ciutkan pemutar</string>
     <string name="podcast_play_episode">Putar: %1$s</string>
+    <string name="widget_article_name">Artikel belum dibaca</string>
+    <string name="widget_article_desc">Lihat sekilas artikel belum dibaca terbaru Anda.</string>
+    <string name="widget_article_empty">Semua sudah dibaca! Tidak ada artikel belum dibaca.</string>
+    <string name="widget_article_mark_read">Tandai sudah dibaca</string>
+    <string name="widget_article_pin_requested">Add widget request sent to launcher</string>
+    <string name="widget_article_pin_unsupported">Your launcher does not support automatic widget pinning</string>
 </resources>

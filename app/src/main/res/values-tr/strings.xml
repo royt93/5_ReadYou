@@ -867,4 +867,10 @@
     <string name="podcast_expand">Oynatıcıyı genişlet</string>
     <string name="podcast_collapse">Oynatıcıyı daralt</string>
     <string name="podcast_play_episode">Oynat: %1$s</string>
+    <string name="widget_article_name">Okunmamış makaleler</string>
+    <string name="widget_article_desc">En son okunmamış makalelerinize hızlıca göz atın.</string>
+    <string name="widget_article_empty">Hepsi okundu! Okunmamış makale yok.</string>
+    <string name="widget_article_mark_read">Okundu olarak işaretle</string>
+    <string name="widget_article_pin_requested">Add widget request sent to launcher</string>
+    <string name="widget_article_pin_unsupported">Your launcher does not support automatic widget pinning</string>
 </resources>

@@ -871,4 +871,10 @@
     <string name="podcast_expand">Développer le lecteur</string>
     <string name="podcast_collapse">Réduire le lecteur</string>
     <string name="podcast_play_episode">Lire : %1$s</string>
+    <string name="widget_article_name">Articles non lus</string>
+    <string name="widget_article_desc">Consultez rapidement vos derniers articles non lus.</string>
+    <string name="widget_article_empty">Tout est lu ! Aucun article non lu.</string>
+    <string name="widget_article_mark_read">Marquer comme lu</string>
+    <string name="widget_article_pin_requested">Add widget request sent to launcher</string>
+    <string name="widget_article_pin_unsupported">Your launcher does not support automatic widget pinning</string>
 </resources>

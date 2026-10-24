@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.core.text.HtmlCompat
 import com.mckimquyen.reader.R
 import com.mckimquyen.reader.domain.repository.ArticleDao
+import com.mckimquyen.reader.domain.repository.WidgetRefreshNotifier
 import com.mckimquyen.reader.infrastructure.di.ApplicationScope
 import com.mckimquyen.reader.infrastructure.di.DefaultDispatcher
 import com.mckimquyen.reader.infrastructure.di.IODispatcher
@@ -36,6 +37,7 @@ class ReadNewsController @Inject constructor(
     @IODispatcher private val ioDispatcher: CoroutineDispatcher,
     @DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher,
     @ApplicationScope applicationScope: CoroutineScope,
+    private val widgetRefreshNotifier: WidgetRefreshNotifier,
 ) {
     private val lock = Mutex()
     private var queue: List<String> = emptyList()
@@ -116,6 +118,7 @@ class ReadNewsController @Inject constructor(
         try {
             val accountId = context.currentAccountId
             withContext(ioDispatcher) { articleDao.markAsReadByArticleId(accountId, id, false) }
+            widgetRefreshNotifier.refresh()
         } catch (e: CancellationException) {
             throw e
         } catch (e: Exception) {

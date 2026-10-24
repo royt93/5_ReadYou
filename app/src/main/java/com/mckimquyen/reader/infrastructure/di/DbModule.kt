@@ -19,6 +19,8 @@ import com.mckimquyen.reader.domain.model.rpg.BrainRpgLegacyPreferences
 import com.mckimquyen.reader.domain.repository.BrainRpgDao
 import com.mckimquyen.reader.domain.repository.BrainRpgLegacyImporter
 import com.mckimquyen.reader.domain.repository.SmartCollectionDao
+import com.mckimquyen.reader.domain.repository.WidgetRefreshNotifier
+import com.mckimquyen.reader.ui.widget.AndroidWidgetRefreshNotifier
 import com.mckimquyen.reader.domain.sv.SmartCollectionMatcher
 import com.mckimquyen.reader.infrastructure.ai.search.SemanticSearchEngine
 import com.mckimquyen.reader.infrastructure.db.AndroidDatabase
@@ -37,6 +39,11 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object DbModule {
+
+    @Provides
+    @Singleton
+    fun provideWidgetRefreshNotifier(implementation: AndroidWidgetRefreshNotifier): WidgetRefreshNotifier =
+        implementation
 
     @Provides
     @Singleton

@@ -866,4 +866,10 @@
     <string name="podcast_expand">Amplia el reproductor</string>
     <string name="podcast_collapse">Redueix el reproductor</string>
     <string name="podcast_play_episode">Reprodueix: %1$s</string>
+    <string name="widget_article_name">Articles no llegits</string>
+    <string name="widget_article_desc">Ullada ràpida als vostres últims articles no llegits.</string>
+    <string name="widget_article_empty">Tot al dia! No hi ha articles no llegits.</string>
+    <string name="widget_article_mark_read">Marca com a llegit</string>
+    <string name="widget_article_pin_requested">Add widget request sent to launcher</string>
+    <string name="widget_article_pin_unsupported">Your launcher does not support automatic widget pinning</string>
 </resources>

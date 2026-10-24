@@ -858,4 +858,10 @@
     <string name="podcast_expand">展開播放器</string>
     <string name="podcast_collapse">收合播放器</string>
     <string name="podcast_play_episode">播放：%1$s</string>
+    <string name="widget_article_name">未讀文章</string>
+    <string name="widget_article_desc">快速瀏覽最新未讀文章。</string>
+    <string name="widget_article_empty">已全部讀完！沒有未讀文章。</string>
+    <string name="widget_article_mark_read">標為已讀</string>
+    <string name="widget_article_pin_requested">已向桌面发送添加微件请求</string>
+    <string name="widget_article_pin_unsupported">您的桌面不支持自动添加微件</string>
 </resources>

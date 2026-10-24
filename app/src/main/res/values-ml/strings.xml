@@ -939,4 +939,10 @@
     <string name="podcast_expand">പ്ലേയർ വികസിപ്പിക്കുക</string>
     <string name="podcast_collapse">പ്ലേയർ ചുരുക്കുക</string>
     <string name="podcast_play_episode">പ്ലേ ചെയ്യുക: %1$s</string>
+    <string name="widget_article_name">വായിക്കാത്ത ലേഖനങ്ങൾ</string>
+    <string name="widget_article_desc">നിങ്ങളുടെ ഏറ്റവും പുതിയ വായിക്കാത്ത ലേഖനങ്ങൾ വേഗത്തിൽ കാണുക.</string>
+    <string name="widget_article_empty">എല്ലാം വായിച്ചു! വായിക്കാത്ത ലേഖനങ്ങളൊന്നുമില്ല.</string>
+    <string name="widget_article_mark_read">വായിച്ചതായി അടയാളപ്പെടുത്തുക</string>
+    <string name="widget_article_pin_requested">Add widget request sent to launcher</string>
+    <string name="widget_article_pin_unsupported">Your launcher does not support automatic widget pinning</string>
 </resources>

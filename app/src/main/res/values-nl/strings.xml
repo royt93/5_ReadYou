@@ -867,4 +867,10 @@
     <string name="podcast_expand">Speler uitvouwen</string>
     <string name="podcast_collapse">Speler samenvouwen</string>
     <string name="podcast_play_episode">Afspelen: %1$s</string>
+    <string name="widget_article_name">Ongelezen artikelen</string>
+    <string name="widget_article_desc">Bekijk snel uw nieuwste ongelezen artikelen.</string>
+    <string name="widget_article_empty">Alles bijgewerkt! Geen ongelezen artikelen.</string>
+    <string name="widget_article_mark_read">Markeer als gelezen</string>
+    <string name="widget_article_pin_requested">Add widget request sent to launcher</string>
+    <string name="widget_article_pin_unsupported">Your launcher does not support automatic widget pinning</string>
 </resources>

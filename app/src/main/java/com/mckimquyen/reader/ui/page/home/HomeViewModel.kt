@@ -35,6 +35,7 @@ import android.content.Context
 import com.mckimquyen.reader.domain.model.cluster.StoryCluster
 import com.mckimquyen.reader.domain.model.cluster.StoryClusterResult
 import com.mckimquyen.reader.domain.repository.ArticleDao
+import com.mckimquyen.reader.domain.repository.WidgetRefreshNotifier
 import com.mckimquyen.reader.infrastructure.ai.clustering.StoryClusteringEngine
 import com.mckimquyen.reader.infrastructure.ai.search.SemanticSearchEngine
 import com.mckimquyen.reader.infrastructure.ai.search.SemanticSearchResult
@@ -61,6 +62,7 @@ class HomeViewModel @Inject constructor(
     private val workManager: WorkManager,
     @IODispatcher
     private val ioDispatcher: CoroutineDispatcher,
+    private val widgetRefreshNotifier: WidgetRefreshNotifier,
 ) : ViewModel() {
 
     private val _semanticSearchResults = MutableStateFlow<List<SemanticSearchResult>>(emptyList())
@@ -93,6 +95,7 @@ class HomeViewModel @Inject constructor(
             cluster.articles.forEach {
                 articleDao.markAsReadByArticleId(accountId, it.article.id, isUnread = false)
             }
+            widgetRefreshNotifier.refresh()
             closeCluster()
             fetchArticles()
         }

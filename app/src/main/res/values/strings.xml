@@ -952,4 +952,10 @@
         <item>latest news</item>
         <item>unread news</item>
     </string-array>
+    <string name="widget_article_name">Unread articles</string>
+    <string name="widget_article_desc">Quickly glance at your latest unread articles.</string>
+    <string name="widget_article_empty">All caught up! No unread articles.</string>
+    <string name="widget_article_mark_read">Mark as read</string>
+    <string name="widget_article_pin_requested">Add widget request sent to launcher</string>
+    <string name="widget_article_pin_unsupported">Your launcher does not support automatic widget pinning</string>
 </resources>

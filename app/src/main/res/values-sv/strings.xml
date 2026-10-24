@@ -866,4 +866,10 @@
     <string name="podcast_expand">Expandera spelaren</string>
     <string name="podcast_collapse">Minimera spelaren</string>
     <string name="podcast_play_episode">Spela upp: %1$s</string>
+    <string name="widget_article_name">Olästa artiklar</string>
+    <string name="widget_article_desc">Snabb överblick över dina senaste olästa artiklar.</string>
+    <string name="widget_article_empty">Allt läst! Inga olästa artiklar.</string>
+    <string name="widget_article_mark_read">Markera som läst</string>
+    <string name="widget_article_pin_requested">Add widget request sent to launcher</string>
+    <string name="widget_article_pin_unsupported">Your launcher does not support automatic widget pinning</string>
 </resources>
