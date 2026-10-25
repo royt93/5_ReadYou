@@ -15,7 +15,7 @@
 | 1 | Hệ Thống XP & Cây Kỹ Năng Tri Thức | P1 | 5 SP | ✅ Đã triển khai (lệch spec, xem RPG-06/07/08) | [`RPG-01_xp-skill-tree-system.md`](RPG-01_xp-skill-tree-system.md) |
 | 2 | AI Micro-Quiz Engine | P1 | 8 SP | 🟡 Triển khai nhưng "AI" là giả — xem RPG-05 | [`RPG-02_ai-micro-quiz-engine.md`](RPG-02_ai-micro-quiz-engine.md) |
 | 3 | Cognitive Decay & Streak Shield | P1 | 5 SP | 🟡 Triển khai một phần, thiếu decay thật — xem RPG-06 | [`RPG-03_cognitive-decay-streak-shield.md`](RPG-03_cognitive-decay-streak-shield.md) |
-| 4 | Weekly "Brain Wrapped" 9:16 | P2 | 8 SP | 🟡 Chỉ MVP text-share — xem RPG-09 | [`RPG-04_weekly-brain-wrapped-card.md`](RPG-04_weekly-brain-wrapped-card.md) |
+| 4 | Weekly "Brain Wrapped" 9:16 | P2 | 8 SP | ✅ MVP Done (xem RPG-09 report; radar/QR/banner/Top X% deferred) | [`../done/RPG-09_wrapped-full-spec-mvp_DONE.md`](../done/RPG-09_wrapped-full-spec-mvp_DONE.md) |
 | 5 | **[MỚI]** Quiz "AI" thực chất là giả — distractor tĩnh, đáp án đoán được qua độ dài | **P1** | 5 SP | 📋 Todo | [`RPG-05_quiz-distractors-context-aware.md`](RPG-05_quiz-distractors-context-aware.md) |
 | 6 | **[MỚI]** Streak/decay logic không test được — inject Clock + test đa-ngày | **P1** | 3 SP | 📋 Todo | [`RPG-06_streak-decay-testable-clock.md`](RPG-06_streak-decay-testable-clock.md) |
 | 7 | **[MỚI]** Sai lệch tài liệu vs code: Room vs SharedPreferences, ngưỡng 80%+30s vs 75% | P2 | 5 SP | ✅ Done (Hướng A) | [`RPG-07_room-migration-or-doc-alignment_DONE.md`](../done/RPG-07_room-migration-or-doc-alignment_DONE.md) |

@@ -6,9 +6,11 @@
 
 ## 🟡 In progress
 
-- **RPG-09 — Brain Wrapped 9:16 (MVP)** (`doc/task/todo/RPG-09_wrapped-full-spec-mvp.md`): Đang triển khai inline trên nhánh `dev` duy nhất. Đã có Room v19/event log nguyên tử, thống kê tuần và renderer/share helper; đang nối UI và localization, chưa kiểm chứng device. XP theo tuần Thứ Hai–Chủ Nhật giờ địa phương, current streak, top category từ XP event, ảnh Neon celebratory 1080×1920; không backfill lịch sử.
+- Không có mục nào đang thực hiện.
 
 ## ✅ Recently implemented
+
+- **RPG-09 — Brain Wrapped 9:16 (MVP)** (`doc/task/done/RPG-09_wrapped-full-spec-mvp_DONE.md`): Room v19 XP events ghi nguyên tử khi award; XP/topic tuần Thứ Hai–Chủ Nhật theo giờ địa phương; current streak; PNG Neon celebratory 1080×1920 qua Canvas + FileProvider. Zero-XP share disabled; không backfill XP cũ. Full suite 1303 tests pass, build/lint 0 lỗi, Pixel 7 Pro smoke + migration/share instrumentation 4/4. MVP đã xong; radar chart, QR, banner Chủ Nhật, Top X% ngoài phạm vi. Commits local trên `dev`, chưa push.
 
 - **EXC-14 — Feed Zero Triage Mode** (`doc/task/done/EXC-14_feed-zero-triage-mode_DONE.md`): Chế độ vuốt thẻ Tinder-style (vuốt trái: đánh dấu đã đọc, vuốt phải: lưu/star, vuốt lên: mở đọc ngay) để xử lý dứt điểm unread articles; thanh tiến độ theo mẻ 50 bài FIFO; màn hình chúc mừng Inbox Zero kèm tổng kết phiên; thưởng 5 XP Brain RPG; 13 chuỗi đủ 38 locale. Dùng Compose pointerInput + Animatable, 0 dependency ngoài. Full suite 1283 unit tests pass; lint 0 errors.
 
