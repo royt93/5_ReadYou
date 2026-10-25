@@ -23,6 +23,13 @@ interface ArticleDao {
     @Query("SELECT " + ARTICLE_LIST_COLUMNS + " FROM article WHERE accountId = :accountId AND isUnread = 1 ORDER BY date DESC LIMIT :limit")
     suspend fun queryUnreadArticleList(accountId: Int, limit: Int = 5): List<ArticleListItem>
 
+    @Query("SELECT COUNT(*) FROM article WHERE accountId = :accountId AND isUnread = 1")
+    suspend fun queryTotalUnreadCount(accountId: Int): Int
+
+    @Transaction
+    @Query("SELECT " + ARTICLE_LIST_COLUMNS + " FROM article WHERE accountId = :accountId AND isUnread = 1 ORDER BY date ASC LIMIT :limit")
+    suspend fun queryOldestUnreadArticleListWithFeed(accountId: Int, limit: Int = 50): List<ArticleListItemWithFeed>
+
     @Transaction
     @Query("SELECT " + ARTICLE_LIST_COLUMNS + " FROM article WHERE accountId = :accountId ORDER BY date DESC LIMIT :limit")
     suspend fun queryRecentArticleListWithFeed(accountId: Int, limit: Int = 150): List<ArticleListItemWithFeed>
