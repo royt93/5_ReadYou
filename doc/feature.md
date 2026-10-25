@@ -2,7 +2,7 @@
 
 ## 📋 Picked
 
-- Không có mục nào đang được pick.
+- **EXC-14 — Feed Zero Triage Mode** (`doc/task/todo/EXC-14_feed-zero-triage-mode.md`): Chế độ vuốt thẻ Tinder-style (vuốt trái: đánh dấu đã đọc, vuốt phải: lưu/star, vuốt lên: mở đọc ngay) để xử lý nhanh unread articles, hiển thị tiến độ và chúc mừng Inbox Zero.
 
 
 ## 🟡 In progress
