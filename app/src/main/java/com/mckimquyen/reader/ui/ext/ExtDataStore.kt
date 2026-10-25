@@ -69,6 +69,15 @@ val Context.aiSummaryLength: Int
 val Context.commuteTimeBudgetMinutes: Int
     get() = this.dataStore.get(DataStoreKeys.CommuteTimeBudget) ?: CommuteContentSelector.DEFAULT_STANDARD_BUDGET_MINUTES
 
+val Context.dohProviderId: Int
+    get() = this.dataStore.get(DataStoreKeys.DohProvider) ?: 0
+
+val Context.urlTrackingCleanEnabled: Boolean
+    get() = this.dataStore.get(DataStoreKeys.UrlTrackingClean) ?: true
+
+val Context.htmlAntiTrackerEnabled: Boolean
+    get() = this.dataStore.get(DataStoreKeys.HtmlAntiTracker) ?: true
+
 suspend fun <T> DataStore<Preferences>.put(dataStoreKeys: DataStoreKeys<T>, value: T) {
     this.edit {
         withContext(Dispatchers.IO) {

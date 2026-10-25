@@ -18,6 +18,8 @@ import com.mckimquyen.reader.domain.repository.ArticleDao
 import com.mckimquyen.reader.domain.repository.FeedDao
 import com.mckimquyen.reader.domain.repository.GroupDao
 import com.mckimquyen.reader.domain.repository.WidgetRefreshNotifier
+import com.mckimquyen.reader.domain.security.AntiTrackerHtmlSanitizer
+import com.mckimquyen.reader.domain.security.UrlTrackingCleaner
 import com.mckimquyen.reader.infrastructure.android.NotificationHelper
 import com.mckimquyen.reader.infrastructure.di.DefaultDispatcher
 import com.mckimquyen.reader.infrastructure.di.IODispatcher
@@ -29,8 +31,10 @@ import com.mckimquyen.reader.infrastructure.rss.provider.fever.FeverDTO
 import com.mckimquyen.reader.infrastructure.watchdog.WatchdogManager
 import com.mckimquyen.reader.ui.ext.currentAccountId
 import com.mckimquyen.reader.ui.ext.dollarLast
+import com.mckimquyen.reader.ui.ext.htmlAntiTrackerEnabled
 import com.mckimquyen.reader.ui.ext.showToast
 import com.mckimquyen.reader.ui.ext.spacerDollar
+import com.mckimquyen.reader.ui.ext.urlTrackingCleanEnabled
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.supervisorScope
@@ -189,6 +193,12 @@ class FeverRssSv @Inject constructor(
                             Log.w(TAG, "Skip incomplete Fever item id=$remoteItemId feedId=$remoteFeedId")
                             null
                         } else {
+                            val rawHtml = item.html.orEmpty()
+                            val cleanHtml = if (context.htmlAntiTrackerEnabled) {
+                                AntiTrackerHtmlSanitizer.sanitize(rawHtml)
+                            } else {
+                                rawHtml
+                            }
                             Article(
                                 id = accountId.spacerDollar(remoteItemId),
                                 date = item.created_on_time?.run { Date(this * 1000) } ?: Date(),
@@ -199,13 +209,17 @@ class FeverRssSv @Inject constructor(
                                     Html.fromHtml(item.title ?: context.getString(R.string.empty)).toString()
                                 },
                                 author = item.author,
-                                rawDescription = item.html ?: "",
-                                shortDescription = RssDescriptionParser.shortDescription(item.html),
-                                fullContent = FullContentPolicy.accept(item.html).also { accepted ->
-                                    if (item.html != null && accepted == null) FullContentPolicy.logOversize("Fever", remoteItemId, item.html)
+                                rawDescription = cleanHtml,
+                                shortDescription = RssDescriptionParser.shortDescription(cleanHtml),
+                                fullContent = FullContentPolicy.accept(cleanHtml).also { accepted ->
+                                    if (item.html != null && accepted == null) FullContentPolicy.logOversize("Fever", remoteItemId, cleanHtml)
                                 },
-                                img = rssHelper.findImg(item.html ?: ""),
-                                link = item.url ?: "",
+                                img = rssHelper.findImg(cleanHtml),
+                                link = if (context.urlTrackingCleanEnabled) {
+                                    UrlTrackingCleaner.clean(item.url ?: "")
+                                } else {
+                                    item.url ?: ""
+                                },
                                 feedId = accountId.spacerDollar(remoteFeedId),
                                 accountId = accountId,
                                 isUnread = (item.is_read ?: 0) <= 0,

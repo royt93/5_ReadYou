@@ -8,6 +8,9 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import com.mckimquyen.reader.BuildConfig
+import com.mckimquyen.reader.infrastructure.net.AppDns
+import com.mckimquyen.reader.infrastructure.pref.DohProviderPref
+import com.mckimquyen.reader.ui.ext.dohProviderId
 import okhttp3.Cache
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -31,12 +34,22 @@ object OkHttpClientModule {
 
     @Provides
     @Singleton
+    fun provideAppDns(
+        @ApplicationContext context: Context,
+    ): AppDns = AppDns(
+        dohProviderSupplier = { DohProviderPref.fromId(context.dohProviderId) },
+    )
+
+    @Provides
+    @Singleton
     fun provideOkHttpClient(
         @ApplicationContext context: Context,
+        appDns: AppDns,
     ): OkHttpClient = cachingHttpClient(
         cacheDirectory = context.cacheDir.resolve(HTTP_CACHE_DIRECTORY),
         cacheSize = HTTP_CACHE_SIZE_BYTES,
     ).newBuilder()
+        .dns(appDns)
         // Force stale validation so OkHttp attaches cached ETag/Last-Modified validators.
         // A 304 response is merged with the cached body before callers see it.
         .addInterceptor(ConditionalCacheInterceptor)

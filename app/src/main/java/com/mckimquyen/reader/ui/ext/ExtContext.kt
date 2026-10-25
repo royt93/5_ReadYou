@@ -66,10 +66,13 @@ fun Context.showToastLong(message: String?) {
 }
 
 fun Context.share(content: String) {
+    val cleanContent = if (urlTrackingCleanEnabled) {
+        com.mckimquyen.reader.domain.security.UrlTrackingCleaner.clean(content)
+    } else content
     startActivity(Intent.createChooser(Intent(Intent.ACTION_SEND).apply {
         putExtra(
             Intent.EXTRA_TEXT,
-            content,
+            cleanContent,
         )
         type = "text/plain"
     }, getString(R.string.share)))
@@ -81,7 +84,10 @@ fun Context.openURL(
     specificBrowser: OpenLinkSpecificBrowserPref = OpenLinkSpecificBrowserPref.default,
 ) {
     if (!url.isNullOrBlank()) {
-        val uri = url.toUri()
+        val cleanUrl = if (urlTrackingCleanEnabled) {
+            com.mckimquyen.reader.domain.security.UrlTrackingCleaner.clean(url)
+        } else url
+        val uri = cleanUrl.toUri()
         val intent = Intent(Intent.ACTION_VIEW, uri)
         val customTabsIntent = CustomTabsIntent.Builder().setShowTitle(true).build()
         try {

@@ -76,6 +76,31 @@ class RssHelperSanitizerTest {
     }
 
     @Test
+    fun parseFullContent_cleansTrackingUrlAndPixels() = runBlocking {
+        val fullHtml = """
+            <!DOCTYPE html>
+            <html><body><article>
+                <h1>Article Title</h1>
+                <p>Real article text with enough content for readability extraction.</p>
+                <img src="https://stats.com/pixel.gif" width="1" height="1" />
+                <script>badScript();</script>
+            </article></body></html>
+        """.trimIndent()
+        server.enqueue(MockResponse().setHeader("Content-Type", "text/html").setBody(fullHtml))
+
+        val parsed = rssHelper.parseFullContent(
+            "${server.url("/article")}?utm_source=twitter&fbclid=abc",
+            "Article Title",
+        )
+        val request = server.takeRequest()
+
+        assertTrue(parsed.contains("Real article text"))
+        assertFalse(parsed.contains("badScript"))
+        assertFalse(parsed.contains("pixel.gif"))
+        assertTrue(request.path == "/article")
+    }
+
+    @Test
     fun parseFullContent_cleansEmailJunkAndTrackingFromFullArticle() = runBlocking {
         val fullHtml = """
             <!DOCTYPE html>

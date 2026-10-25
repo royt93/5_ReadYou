@@ -18,6 +18,8 @@ import com.mckimquyen.reader.domain.repository.FeedDao
 import com.mckimquyen.reader.domain.repository.FeedHealthDao
 import com.mckimquyen.reader.domain.repository.GroupDao
 import com.mckimquyen.reader.domain.repository.WidgetRefreshNotifier
+import com.mckimquyen.reader.domain.security.AntiTrackerHtmlSanitizer
+import com.mckimquyen.reader.domain.security.UrlTrackingCleaner
 import com.mckimquyen.reader.infrastructure.android.NotificationHelper
 import com.mckimquyen.reader.infrastructure.di.DefaultDispatcher
 import com.mckimquyen.reader.infrastructure.di.IODispatcher
@@ -29,8 +31,10 @@ import com.mckimquyen.reader.infrastructure.watchdog.WatchdogManager
 import com.mckimquyen.reader.ui.ext.currentAccountId
 import com.mckimquyen.reader.ui.ext.dollarLast
 import com.mckimquyen.reader.ui.ext.getDefaultGroupId
+import com.mckimquyen.reader.ui.ext.htmlAntiTrackerEnabled
 import com.mckimquyen.reader.ui.ext.showToast
 import com.mckimquyen.reader.ui.ext.spacerDollar
+import com.mckimquyen.reader.ui.ext.urlTrackingCleanEnabled
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.supervisorScope
@@ -173,22 +177,28 @@ class GoogleReaderRssSv @Inject constructor(
                     } else {
                         val categories = item.categories.orEmpty()
                         val rawHtml = item.summary?.content ?: ""
+                        val cleanHtml = if (context.htmlAntiTrackerEnabled) {
+                            AntiTrackerHtmlSanitizer.sanitize(rawHtml)
+                        } else {
+                            rawHtml
+                        }
+                        val rawLink = item.summary?.canonical?.firstOrNull()?.href
+                            ?: item.summary?.alternate?.firstOrNull()?.href
+                            ?: ""
                         Article(
                             id = accountId.spacerDollar(remoteItemId),
                             date = item.published?.let { Date(it * 1000) } ?: Date(),
                             title = item.title?.let { decodeHtmlEntities(it) } ?: context.getString(R.string.empty),
                             author = item.author,
-                            rawDescription = rawHtml,
-                            shortDescription = Html.fromHtml(rawHtml, Html.FROM_HTML_MODE_LEGACY).toString()
+                            rawDescription = cleanHtml,
+                            shortDescription = Html.fromHtml(cleanHtml, Html.FROM_HTML_MODE_LEGACY).toString()
                                 .take(SHORT_DESCRIPTION_LENGTH)
                                 .trim(),
-                            fullContent = FullContentPolicy.accept(rawHtml).also { accepted ->
-                                if (accepted == null && rawHtml.isNotEmpty()) FullContentPolicy.logOversize("GoogleReader", remoteItemId, rawHtml)
+                            fullContent = FullContentPolicy.accept(cleanHtml).also { accepted ->
+                                if (accepted == null && cleanHtml.isNotEmpty()) FullContentPolicy.logOversize("GoogleReader", remoteItemId, cleanHtml)
                             },
-                            img = rssHelper.findImg(rawHtml),
-                            link = item.summary?.canonical?.firstOrNull()?.href
-                                ?: item.summary?.alternate?.firstOrNull()?.href
-                                ?: "",
+                            img = rssHelper.findImg(cleanHtml),
+                            link = if (context.urlTrackingCleanEnabled) UrlTrackingCleaner.clean(rawLink) else rawLink,
                             feedId = localFeedId,
                             accountId = accountId,
                             isUnread = !categories.contains(GoogleReaderApi.TAG_READ),

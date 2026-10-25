@@ -17,9 +17,13 @@ import com.mckimquyen.reader.domain.model.article.FullContentPolicy
 import com.mckimquyen.reader.domain.model.feed.Feed
 import com.mckimquyen.reader.domain.model.feed.FeedWithArticle
 import com.mckimquyen.reader.domain.repository.FeedDao
+import com.mckimquyen.reader.domain.security.AntiTrackerHtmlSanitizer
+import com.mckimquyen.reader.domain.security.UrlTrackingCleaner
 import com.mckimquyen.reader.infrastructure.di.IODispatcher
 import com.mckimquyen.reader.ui.ext.currentAccountId
+import com.mckimquyen.reader.ui.ext.htmlAntiTrackerEnabled
 import com.mckimquyen.reader.ui.ext.spacerDollar
+import com.mckimquyen.reader.ui.ext.urlTrackingCleanEnabled
 import net.dankito.readability4j.extended.Readability4JExtended
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -69,7 +73,8 @@ class RssHelper @Inject constructor(
             val client = if (sourceType == Feed.WEB_SOURCE_TYPE) {
                 com.mckimquyen.reader.infrastructure.rss.scraper.WebFeedHttpClient().create(link)
             } else okHttpClient
-            response(client, link).use { response ->
+            val requestUrl = if (context.urlTrackingCleanEnabled) UrlTrackingCleaner.clean(link) else link
+            response(client, requestUrl).use { response ->
                 val body = response.body
                 val mediaType = body.contentType()
                 if (!response.isSuccessful || mediaType?.toString()?.substringBefore(';')?.lowercase() !in HTML_MEDIA_TYPES) return@use ""
@@ -90,7 +95,12 @@ class RssHelper @Inject constructor(
                 if (h1Element != null && h1Element.hasText() && h1Element.text() == title) {
                     h1Element.remove()
                 }
-                val cleaned = com.mckimquyen.reader.infrastructure.newsletter.NewsletterSanitizer.cleanArticleHtml(articleContent.toString())
+                val rawCleaned = com.mckimquyen.reader.infrastructure.newsletter.NewsletterSanitizer.cleanArticleHtml(articleContent.toString())
+                val cleaned = if (context.htmlAntiTrackerEnabled) {
+                    AntiTrackerHtmlSanitizer.sanitize(rawCleaned)
+                } else {
+                    rawCleaned
+                }
                 FullContentPolicy.accept(cleaned).orEmpty()
             }
         }
@@ -130,8 +140,16 @@ class RssHelper @Inject constructor(
         val contentBytes = content?.let(FullContentPolicy::byteSize) ?: 0
         val descriptionBytes = desc?.let(FullContentPolicy::byteSize) ?: 0
         val rawSource = (content ?: desc) ?: ""
-        val cleanRaw = com.mckimquyen.reader.infrastructure.newsletter.NewsletterSanitizer.cleanArticleHtml(rawSource)
-        val cleanFull = content?.let { com.mckimquyen.reader.infrastructure.newsletter.NewsletterSanitizer.cleanArticleHtml(it) }
+        val newsletterClean = com.mckimquyen.reader.infrastructure.newsletter.NewsletterSanitizer.cleanArticleHtml(rawSource)
+        val cleanRaw = if (context.htmlAntiTrackerEnabled) {
+            AntiTrackerHtmlSanitizer.sanitize(newsletterClean)
+        } else {
+            newsletterClean
+        }
+        val cleanFull = content?.let {
+            val nl = com.mckimquyen.reader.infrastructure.newsletter.NewsletterSanitizer.cleanArticleHtml(it)
+            if (context.htmlAntiTrackerEnabled) AntiTrackerHtmlSanitizer.sanitize(nl) else nl
+        }
         val acceptedFull = FullContentPolicy.accept(cleanFull)
         Log.i(
             "RLog",
@@ -159,7 +177,11 @@ class RssHelper @Inject constructor(
             shortDescription = RssDescriptionParser.shortDescription(cleanRaw),
             fullContent = acceptedFull,
             img = extractThumbnail(syndEntry, rawSource),
-            link = syndEntry.link ?: "",
+            link = if (context.urlTrackingCleanEnabled) {
+                UrlTrackingCleaner.clean(syndEntry.link ?: "")
+            } else {
+                syndEntry.link ?: ""
+            },
             updateAt = Date(),
             audioUrl = audio?.url,
             audioMime = audio?.mime,
