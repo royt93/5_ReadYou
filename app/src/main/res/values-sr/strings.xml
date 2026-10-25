@@ -895,4 +895,18 @@
     <string name="triage_summary_xp">+%1$d Brain RPG XP</string>
     <string name="triage_finish_button">Done</string>
     <string name="triage_empty_state">No unread articles to triage!</string>
+    <!-- Brain Wrapped tuần (RPG-09) -->
+    <string name="brain_wrapped_share_story">Подели у причи</string>
+    <string name="brain_wrapped_xp_label">Недељни XP</string>
+    <string name="brain_wrapped_streak_label">Тренутни низ</string>
+    <string name="brain_wrapped_topic_label">Тема недеље</string>
+    <string name="brain_wrapped_topic_empty">Тема се обликује</string>
+    <string name="brain_wrapped_tagline">Негујте радозналост.</string>
+    <string name="brain_wrapped_no_week_xp">Освојите XP ове недеље за преглед. Праћење почиње овим ажурирањем.</string>
+    <string name="brain_wrapped_sharing">Прављење слике…</string>
+    <string name="brain_wrapped_share_error">Није могуће направити или поделити преглед. Покушајте поново.</string>
+    <string name="brain_wrapped_share_title">Weekly Brain Wrapped</string>
+    <string name="brain_wrapped_header">Weekly Brain Wrapped</string>
+    <string name="brain_wrapped_week_header">%1$s</string>
+    <string name="brain_wrapped_current_streak">%1$d Day Streak</string>
 </resources>

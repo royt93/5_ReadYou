@@ -887,4 +887,18 @@
     <string name="triage_summary_xp">+%1$d Brain RPG XP</string>
     <string name="triage_finish_button">Done</string>
     <string name="triage_empty_state">No unread articles to triage!</string>
+    <!-- Brain Wrapped tuần (RPG-09) -->
+    <string name="brain_wrapped_share_story">Hikâyede paylaş</string>
+    <string name="brain_wrapped_xp_label">Haftalık XP</string>
+    <string name="brain_wrapped_streak_label">Mevcut okuma serisi</string>
+    <string name="brain_wrapped_topic_label">Haftanın konusu</string>
+    <string name="brain_wrapped_topic_empty">Konu şekilleniyor</string>
+    <string name="brain_wrapped_tagline">Merakını canlı tut.</string>
+    <string name="brain_wrapped_no_week_xp">Özet oluşturmak için bu hafta XP kazan. Kayıt bu güncellemeyle başlar.</string>
+    <string name="brain_wrapped_sharing">Görsel oluşturuluyor…</string>
+    <string name="brain_wrapped_share_error">Özet oluşturulamadı veya paylaşılamadı. Yeniden dene.</string>
+    <string name="brain_wrapped_share_title">Weekly Brain Wrapped</string>
+    <string name="brain_wrapped_header">Weekly Brain Wrapped</string>
+    <string name="brain_wrapped_week_header">%1$s</string>
+    <string name="brain_wrapped_current_streak">%1$d Day Streak</string>
 </resources>

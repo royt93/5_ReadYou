@@ -886,4 +886,18 @@
     <string name="triage_summary_xp">+%1$d Brain RPG XP</string>
     <string name="triage_finish_button">Done</string>
     <string name="triage_empty_state">No unread articles to triage!</string>
+    <!-- Brain Wrapped tuần (RPG-09) -->
+    <string name="brain_wrapped_share_story">اشتراک در استوری</string>
+    <string name="brain_wrapped_xp_label">امتیاز این هفته</string>
+    <string name="brain_wrapped_streak_label">زنجیره مطالعه فعلی</string>
+    <string name="brain_wrapped_topic_label">موضوع این هفته</string>
+    <string name="brain_wrapped_topic_empty">موضوع در حال شکل‌گیری</string>
+    <string name="brain_wrapped_tagline">کنجکاوی خود را زنده نگه دارید.</string>
+    <string name="brain_wrapped_no_week_xp">این هفته امتیاز کسب کنید تا خلاصه ساخته شود. ثبت از این به‌روزرسانی آغاز می‌شود.</string>
+    <string name="brain_wrapped_sharing">در حال ساخت تصویر…</string>
+    <string name="brain_wrapped_share_error">ساخت یا اشتراک خلاصه ممکن نشد. دوباره تلاش کنید.</string>
+    <string name="brain_wrapped_share_title">Weekly Brain Wrapped</string>
+    <string name="brain_wrapped_header">Weekly Brain Wrapped</string>
+    <string name="brain_wrapped_week_header">%1$s</string>
+    <string name="brain_wrapped_current_streak">%1$d Day Streak</string>
 </resources>

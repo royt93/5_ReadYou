@@ -1,22 +1,38 @@
 package com.mckimquyen.reader.ui.page.rpg
 
 import android.app.Activity
+import android.content.Intent
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mckimquyen.reader.domain.model.rpg.QuizQuestion
 import com.mckimquyen.reader.domain.model.rpg.UserProgress
+import com.mckimquyen.reader.domain.model.rpg.WeeklyBrainWrapped
 import com.mckimquyen.reader.domain.repository.BrainRpgRepository
 import com.mckimquyen.reader.domain.sv.QuizGeneratorService
+import com.mckimquyen.reader.infrastructure.di.DefaultDispatcher
+import com.mckimquyen.reader.infrastructure.di.IODispatcher
+import com.mckimquyen.reader.infrastructure.rpg.BrainWrappedRenderModel
+import com.mckimquyen.reader.infrastructure.rpg.BrainWrappedRenderer
+import com.mckimquyen.reader.infrastructure.rpg.BrainWrappedSharer
 import com.roy.sdkadbmob.AdManager
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
 class BrainRpgViewModel @Inject constructor(
     private val repository: BrainRpgRepository,
-    val quizGeneratorService: QuizGeneratorService
+    val quizGeneratorService: QuizGeneratorService,
+    private val wrappedSharer: BrainWrappedSharer,
+    @DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher,
+    @IODispatcher private val ioDispatcher: CoroutineDispatcher,
 ) : ViewModel() {
 
     val userProgress: StateFlow<UserProgress> = repository.userProgress
@@ -24,8 +40,59 @@ class BrainRpgViewModel @Inject constructor(
     /** Cached ids whose double-XP bonus was taken; Compose reads this instead of querying Room. */
     val doubleRewardedArticleIds: StateFlow<Set<String>> = repository.doubleRewardedArticleIds
 
+    private val _weeklyWrappedState = MutableStateFlow(WeeklyWrappedUiState())
+    val weeklyWrappedState: StateFlow<WeeklyWrappedUiState> = _weeklyWrappedState.asStateFlow()
+
     fun refresh() {
         viewModelScope.launch { repository.refresh() }
+        refreshWeeklyWrapped()
+    }
+
+    fun refreshWeeklyWrapped() {
+        viewModelScope.launch {
+            _weeklyWrappedState.update { it.copy(isLoading = true, error = null) }
+            try {
+                val summary = repository.getWeeklyBrainWrapped(
+                    now = java.time.Instant.now(),
+                    zone = java.time.ZoneId.systemDefault(),
+                )
+                _weeklyWrappedState.update { it.copy(isLoading = false, summary = summary, error = null) }
+            } catch (e: CancellationException) {
+                throw e
+            } catch (_: Exception) {
+                _weeklyWrappedState.update { it.copy(isLoading = false, error = WrappedShareError.SUMMARY_FAILED) }
+            }
+        }
+    }
+
+    fun shareWeeklyWrapped(
+        renderModel: BrainWrappedRenderModel,
+        chooserTitle: String,
+        onReady: (Intent) -> Unit,
+    ) {
+        val state = _weeklyWrappedState.value
+        val summary = state.summary ?: return
+        if (!state.canShare) return
+        _weeklyWrappedState.update { it.copy(isSharing = true, error = null) }
+        viewModelScope.launch {
+            try {
+                val bitmap = withContext(defaultDispatcher) {
+                    BrainWrappedRenderer.render(renderModel.copy(weeklyXp = summary.weeklyXp))
+                }
+                val file = try {
+                    wrappedSharer.writePng(bitmap)
+                } finally {
+                    bitmap.recycle()
+                }
+                onReady(wrappedSharer.buildShareIntent(file, chooserTitle))
+            } catch (e: CancellationException) {
+                throw e
+            } catch (_: Exception) {
+                _weeklyWrappedState.update { it.copy(error = WrappedShareError.WRITE_FAILED) }
+            } finally {
+                _weeklyWrappedState.update { it.copy(isSharing = false) }
+            }
+        }
     }
 
     /**
@@ -118,4 +185,18 @@ class BrainRpgViewModel @Inject constructor(
     private companion object {
         const val READING_XP = 50L
     }
+}
+
+data class WeeklyWrappedUiState(
+    val isLoading: Boolean = true,
+    val summary: WeeklyBrainWrapped? = null,
+    val isSharing: Boolean = false,
+    val error: WrappedShareError? = null,
+) {
+    val canShare: Boolean get() = !isLoading && !isSharing && (summary?.weeklyXp ?: 0L) > 0L
+}
+
+enum class WrappedShareError {
+    SUMMARY_FAILED,
+    WRITE_FAILED,
 }

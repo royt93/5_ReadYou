@@ -890,4 +890,18 @@
     <string name="triage_summary_xp">+%1$d Brain RPG XP</string>
     <string name="triage_finish_button">Concluído</string>
     <string name="triage_empty_state">Sem artigos não lidos para triar!</string>
+    <!-- Brain Wrapped tuần (RPG-09) -->
+    <string name="brain_wrapped_share_story">Partilhar na história</string>
+    <string name="brain_wrapped_xp_label">XP da semana</string>
+    <string name="brain_wrapped_streak_label">Sequência atual</string>
+    <string name="brain_wrapped_topic_label">Tema da semana</string>
+    <string name="brain_wrapped_topic_empty">Tema em formação</string>
+    <string name="brain_wrapped_tagline">Mantenha a curiosidade viva.</string>
+    <string name="brain_wrapped_no_week_xp">Ganhe XP esta semana para criar o resumo. O registo começa nesta atualização.</string>
+    <string name="brain_wrapped_sharing">A criar imagem…</string>
+    <string name="brain_wrapped_share_error">Não foi possível criar ou partilhar o resumo. Tente novamente.</string>
+    <string name="brain_wrapped_share_title">Weekly Brain Wrapped</string>
+    <string name="brain_wrapped_header">Weekly Brain Wrapped</string>
+    <string name="brain_wrapped_week_header">%1$s</string>
+    <string name="brain_wrapped_current_streak">%1$d Day Streak</string>
 </resources>

@@ -882,4 +882,18 @@
     <string name="triage_summary_xp">+%1$d Brain RPG XP</string>
     <string name="triage_finish_button">Done</string>
     <string name="triage_empty_state">No unread articles to triage!</string>
+    <!-- Brain Wrapped tuần (RPG-09) -->
+    <string name="brain_wrapped_share_story">Megosztás történetben</string>
+    <string name="brain_wrapped_xp_label">Heti XP</string>
+    <string name="brain_wrapped_streak_label">Jelenlegi sorozat</string>
+    <string name="brain_wrapped_topic_label">A hét témája</string>
+    <string name="brain_wrapped_topic_empty">A téma alakul</string>
+    <string name="brain_wrapped_tagline">Maradj kíváncsi.</string>
+    <string name="brain_wrapped_no_week_xp">Szerezz XP-t ezen a héten az összegzéshez. A követés ezzel a frissítéssel indul.</string>
+    <string name="brain_wrapped_sharing">Kép létrehozása…</string>
+    <string name="brain_wrapped_share_error">Nem sikerült létrehozni vagy megosztani az összegzést. Próbáld újra.</string>
+    <string name="brain_wrapped_share_title">Weekly Brain Wrapped</string>
+    <string name="brain_wrapped_header">Weekly Brain Wrapped</string>
+    <string name="brain_wrapped_week_header">%1$s</string>
+    <string name="brain_wrapped_current_streak">%1$d Day Streak</string>
 </resources>

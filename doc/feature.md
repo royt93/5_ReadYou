@@ -2,12 +2,11 @@
 
 ## 📋 Picked
 
-- **RPG-09 — Brain Wrapped 9:16 (MVP)** (`doc/task/todo/RPG-09_wrapped-full-spec-mvp.md`): Đã chọn MVP ảnh Story 1080×1920, XP theo tuần Thứ Hai–Chủ Nhật giờ địa phương, current streak, top category từ XP event, phong cách Neon celebratory, native Canvas + FileProvider. Sẽ ghi XP event nguyên tử trong Room; không backfill XP lịch sử.
-
+- Không có mục nào đang được pick.
 
 ## 🟡 In progress
 
-- Không có mục nào đang thực hiện.
+- **RPG-09 — Brain Wrapped 9:16 (MVP)** (`doc/task/todo/RPG-09_wrapped-full-spec-mvp.md`): Đang triển khai inline trên nhánh `dev` duy nhất. Đã có Room v19/event log nguyên tử, thống kê tuần và renderer/share helper; đang nối UI và localization, chưa kiểm chứng device. XP theo tuần Thứ Hai–Chủ Nhật giờ địa phương, current streak, top category từ XP event, ảnh Neon celebratory 1080×1920; không backfill lịch sử.
 
 ## ✅ Recently implemented
 

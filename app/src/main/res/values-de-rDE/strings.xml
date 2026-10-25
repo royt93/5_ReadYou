@@ -888,4 +888,18 @@
     <string name="triage_summary_xp">+%1$d Brain RPG XP</string>
     <string name="triage_finish_button">Fertig</string>
     <string name="triage_empty_state">Keine ungelesenen Artikel zum Sichten vorhanden!</string>
+    <!-- Brain Wrapped tuần (RPG-09) -->
+    <string name="brain_wrapped_share_story">In Story teilen</string>
+    <string name="brain_wrapped_xp_label">Wochen-XP</string>
+    <string name="brain_wrapped_streak_label">Aktuelle Leseserie</string>
+    <string name="brain_wrapped_topic_label">Thema dieser Woche</string>
+    <string name="brain_wrapped_topic_empty">Thema entsteht</string>
+    <string name="brain_wrapped_tagline">Bleib neugierig.</string>
+    <string name="brain_wrapped_no_week_xp">Verdiene diese Woche XP für deinen Rückblick. Die Erfassung beginnt mit diesem Update.</string>
+    <string name="brain_wrapped_sharing">Bild wird erstellt…</string>
+    <string name="brain_wrapped_share_error">Rückblick konnte nicht erstellt oder geteilt werden. Erneut versuchen.</string>
+    <string name="brain_wrapped_share_title">Weekly Brain Wrapped</string>
+    <string name="brain_wrapped_header">Weekly Brain Wrapped</string>
+    <string name="brain_wrapped_week_header">%1$s</string>
+    <string name="brain_wrapped_current_streak">%1$d Day Streak</string>
 </resources>

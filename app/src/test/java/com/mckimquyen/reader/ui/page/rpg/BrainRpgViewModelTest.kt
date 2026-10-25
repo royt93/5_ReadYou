@@ -54,7 +54,7 @@ class BrainRpgViewModelTest {
         val importer = BrainRpgLegacyImporter(database, context.getSharedPreferences(BrainRpgLegacyPreferences.PREFS_NAME, Context.MODE_PRIVATE), dao)
         repository = BrainRpgRepository(context, database, dao, importer, CoroutineScope(testDispatcher), testDispatcher)
         quizGenerator = QuizGeneratorService()
-        viewModel = BrainRpgViewModel(repository, quizGenerator)
+        viewModel = BrainRpgViewModel(repository, quizGenerator, io.mockk.mockk(relaxed = true), testDispatcher, testDispatcher)
     }
 
     @After fun tearDown() {
@@ -69,7 +69,7 @@ class BrainRpgViewModelTest {
         assertEquals(50L, viewModel.userProgress.value.totalXp)
         assertEquals(1, rewarded)
 
-        val recreated = BrainRpgViewModel(repository, quizGenerator)
+        val recreated = BrainRpgViewModel(repository, quizGenerator, io.mockk.mockk(relaxed = true), testDispatcher, testDispatcher)
         recreated.onArticleReadFinished("art_1", QuizGeneratorService.CATEGORY_TECH) { rewarded++ }
         advanceUntilIdle()
         recreated.onArticleReadFinished("art_2", QuizGeneratorService.CATEGORY_TECH) { rewarded++ }

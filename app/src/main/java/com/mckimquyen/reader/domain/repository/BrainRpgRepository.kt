@@ -24,6 +24,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import javax.inject.Inject
@@ -86,18 +87,21 @@ class BrainRpgRepository @Inject constructor(
     suspend fun getWeeklyBrainWrapped(
         now: Instant,
         zone: ZoneId,
-    ): WeeklyBrainWrapped {
+    ): WeeklyBrainWrapped = withContext(ioDispatcher) {
+        legacyImporter.ensureImported(now.toEpochMilli())
         val interval = BrainRpgWeek.interval(now, zone)
-        val weeklyXp = dao.queryWeeklyXpTotal(interval.startMillis, interval.endMillis)
-        val topCategoryId = dao.queryWeeklyCategoryXp(interval.startMillis, interval.endMillis).firstOrNull()?.categoryId
-        val streak = dao.getProfile()?.streakDays ?: 1
-        return WeeklyBrainWrapped(
-            weekStartMillis = interval.startMillis,
-            weekEndMillis = interval.endMillis,
-            weeklyXp = weeklyXp,
-            currentStreakDays = streak,
-            topCategoryId = topCategoryId,
-        )
+        database.withTransaction {
+            val weeklyXp = dao.queryWeeklyXpTotal(interval.startMillis, interval.endMillis)
+            val topCategoryId = dao.queryWeeklyCategoryXp(interval.startMillis, interval.endMillis)
+                .firstOrNull()?.categoryId?.takeIf(String::isNotBlank)
+            WeeklyBrainWrapped(
+                weekStartMillis = interval.startMillis,
+                weekEndMillis = interval.endMillis,
+                weeklyXp = weeklyXp,
+                currentStreakDays = dao.getProfile()?.streakDays ?: BrainRpgProfileEntity().streakDays,
+                topCategoryId = topCategoryId,
+            )
+        }
     }
 
     /** Award reading XP once; repeat qualifying reads still refresh practice time, but never award XP twice. */

@@ -902,4 +902,18 @@
     <string name="triage_summary_xp">+%1$d Brain RPG XP</string>
     <string name="triage_finish_button">Done</string>
     <string name="triage_empty_state">No unread articles to triage!</string>
+    <!-- Brain Wrapped tuần (RPG-09) -->
+    <string name="brain_wrapped_share_story">Поділитися в історії</string>
+    <string name="brain_wrapped_xp_label">XP за тиждень</string>
+    <string name="brain_wrapped_streak_label">Поточна серія</string>
+    <string name="brain_wrapped_topic_label">Тема тижня</string>
+    <string name="brain_wrapped_topic_empty">Тема формується</string>
+    <string name="brain_wrapped_tagline">Підтримуйте допитливість.</string>
+    <string name="brain_wrapped_no_week_xp">Отримайте XP цього тижня для підсумку. Облік починається з цього оновлення.</string>
+    <string name="brain_wrapped_sharing">Створення зображення…</string>
+    <string name="brain_wrapped_share_error">Не вдалося створити або поширити підсумок. Спробуйте знову.</string>
+    <string name="brain_wrapped_share_title">Weekly Brain Wrapped</string>
+    <string name="brain_wrapped_header">Weekly Brain Wrapped</string>
+    <string name="brain_wrapped_week_header">%1$s</string>
+    <string name="brain_wrapped_current_streak">%1$d Day Streak</string>
 </resources>

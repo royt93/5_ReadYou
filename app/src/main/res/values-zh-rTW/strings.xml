@@ -878,4 +878,18 @@
     <string name="triage_summary_xp">+%1$d 大腦RPG經驗值</string>
     <string name="triage_finish_button">完成</string>
     <string name="triage_empty_state">沒有未讀文章需要整理！</string>
+    <!-- Brain Wrapped tuần (RPG-09) -->
+    <string name="brain_wrapped_share_story">分享到限時動態</string>
+    <string name="brain_wrapped_xp_label">本週經驗值</string>
+    <string name="brain_wrapped_streak_label">目前連續閱讀</string>
+    <string name="brain_wrapped_topic_label">本週主題</string>
+    <string name="brain_wrapped_topic_empty">主題正在形成</string>
+    <string name="brain_wrapped_tagline">保持你的好奇心。</string>
+    <string name="brain_wrapped_no_week_xp">本週獲取經驗值即可產生週報。記錄從此次更新開始。</string>
+    <string name="brain_wrapped_sharing">正在產生圖片…</string>
+    <string name="brain_wrapped_share_error">無法產生或分享週報，請重試。</string>
+    <string name="brain_wrapped_share_title">Weekly Brain Wrapped</string>
+    <string name="brain_wrapped_header">Weekly Brain Wrapped</string>
+    <string name="brain_wrapped_week_header">%1$s</string>
+    <string name="brain_wrapped_current_streak">%1$d Day Streak</string>
 </resources>

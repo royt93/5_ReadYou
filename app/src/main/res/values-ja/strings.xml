@@ -880,4 +880,18 @@
     <string name="triage_summary_xp">+%1$d Brain RPG XP</string>
     <string name="triage_finish_button">完了</string>
     <string name="triage_empty_state">仕分ける未読記事はありません！</string>
+    <!-- Brain Wrapped tuần (RPG-09) -->
+    <string name="brain_wrapped_share_story">ストーリーに共有</string>
+    <string name="brain_wrapped_xp_label">今週のXP</string>
+    <string name="brain_wrapped_streak_label">現在の連続記録</string>
+    <string name="brain_wrapped_topic_label">今週のテーマ</string>
+    <string name="brain_wrapped_topic_empty">テーマを集計中</string>
+    <string name="brain_wrapped_tagline">好奇心を育て続けよう。</string>
+    <string name="brain_wrapped_no_week_xp">今週XPを獲得してまとめを作成しましょう。この更新から記録を開始します。</string>
+    <string name="brain_wrapped_sharing">画像を作成中…</string>
+    <string name="brain_wrapped_share_error">まとめを作成または共有できませんでした。再試行してください。</string>
+    <string name="brain_wrapped_share_title">Weekly Brain Wrapped</string>
+    <string name="brain_wrapped_header">Weekly Brain Wrapped</string>
+    <string name="brain_wrapped_week_header">%1$s</string>
+    <string name="brain_wrapped_current_streak">%1$d Day Streak</string>
 </resources>

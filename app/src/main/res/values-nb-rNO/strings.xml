@@ -887,4 +887,18 @@
     <string name="triage_summary_xp">+%1$d Brain RPG XP</string>
     <string name="triage_finish_button">Done</string>
     <string name="triage_empty_state">No unread articles to triage!</string>
+    <!-- Brain Wrapped tuần (RPG-09) -->
+    <string name="brain_wrapped_share_story">Del til historie</string>
+    <string name="brain_wrapped_xp_label">Ukens XP</string>
+    <string name="brain_wrapped_streak_label">Nåværende leserekke</string>
+    <string name="brain_wrapped_topic_label">Ukens tema</string>
+    <string name="brain_wrapped_topic_empty">Temaet tar form</string>
+    <string name="brain_wrapped_tagline">Hold nysgjerrigheten i live.</string>
+    <string name="brain_wrapped_no_week_xp">Tjen XP denne uken for å lage sammendraget. Registrering starter med denne oppdateringen.</string>
+    <string name="brain_wrapped_sharing">Lager bilde…</string>
+    <string name="brain_wrapped_share_error">Kunne ikke lage eller dele sammendraget. Prøv igjen.</string>
+    <string name="brain_wrapped_share_title">Weekly Brain Wrapped</string>
+    <string name="brain_wrapped_header">Weekly Brain Wrapped</string>
+    <string name="brain_wrapped_week_header">%1$s</string>
+    <string name="brain_wrapped_current_streak">%1$d Day Streak</string>
 </resources>

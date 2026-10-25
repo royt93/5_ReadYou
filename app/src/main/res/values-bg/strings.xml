@@ -851,4 +851,18 @@
     <string name="triage_summary_xp">+%1$d Brain RPG XP</string>
     <string name="triage_finish_button">Done</string>
     <string name="triage_empty_state">No unread articles to triage!</string>
+    <!-- Brain Wrapped tuần (RPG-09) -->
+    <string name="brain_wrapped_share_story">Споделяне в история</string>
+    <string name="brain_wrapped_xp_label">XP за седмицата</string>
+    <string name="brain_wrapped_streak_label">Текуща поредица</string>
+    <string name="brain_wrapped_topic_label">Тема на седмицата</string>
+    <string name="brain_wrapped_topic_empty">Темата се оформя</string>
+    <string name="brain_wrapped_tagline">Поддържайте любопитството си.</string>
+    <string name="brain_wrapped_no_week_xp">Спечелете XP тази седмица за обобщение. Проследяването започва с тази актуализация.</string>
+    <string name="brain_wrapped_sharing">Създаване на изображение…</string>
+    <string name="brain_wrapped_share_error">Обобщението не може да се създаде или сподели. Опитайте отново.</string>
+    <string name="brain_wrapped_share_title">Weekly Brain Wrapped</string>
+    <string name="brain_wrapped_header">Weekly Brain Wrapped</string>
+    <string name="brain_wrapped_week_header">%1$s</string>
+    <string name="brain_wrapped_current_streak">%1$d Day Streak</string>
 </resources>

@@ -1,7 +1,6 @@
 package com.mckimquyen.reader.ui.page.rpg
 
 import android.app.Activity
-import android.content.Intent
 import android.widget.Toast
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.BorderStroke
@@ -20,6 +19,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
+import com.mckimquyen.reader.infrastructure.rpg.BrainWrappedRenderModel
+import java.time.Instant
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -126,21 +131,35 @@ fun BrainRpgPage(
 
                 // 5. Weekly Brain Wrapped
                 item {
+                    val wrappedState by viewModel.weeklyWrappedState.collectAsState()
                     WeeklyWrappedCard(
                         progress = progress,
+                        weeklyState = wrappedState,
+                        onRetry = viewModel::refreshWeeklyWrapped,
                         onShare = {
-                            val shareText = "🧠 ReadYou Brain RPG\n" +
-                                    "👑 Level ${progress.level} (${progress.levelTitle})\n" +
-                                    "✨ XP: ${progress.totalXp} XP\n" +
-                                    "🔥 Streak: ${progress.streakDays} ngày đọc liên tiếp\n" +
-                                    "🎯 Quiz Accuracy: ${progress.quizAccuracyPercent}%\n" +
-                                    "Cùng đọc tin và phát triển bản thân với ReadYou!"
-                            val intent = Intent(Intent.ACTION_SEND).apply {
-                                type = "text/plain"
-                                putExtra(Intent.EXTRA_TEXT, shareText)
-                            }
-                            activity.startActivity(Intent.createChooser(intent, context.getString(R.string.share_app)))
-                        }
+                            val summary = wrappedState.summary ?: return@WeeklyWrappedCard
+                            val zone = ZoneId.systemDefault()
+                            val weekLabel = formatWrappedWeek(summary.weekStartMillis, summary.weekEndMillis, zone)
+                            val topic = summary.topCategoryId?.let { context.getString(brainCategoryLabel(it)) }
+                            val renderModel = BrainWrappedRenderModel(
+                                weekLabel = context.getString(R.string.brain_wrapped_week_header, weekLabel),
+                                header = context.getString(R.string.brain_wrapped_header),
+                                weeklyXpLabel = context.getString(R.string.brain_wrapped_xp_label),
+                                weeklyXp = summary.weeklyXp,
+                                streakLabel = context.getString(R.string.brain_wrapped_streak_label),
+                                streakValue = context.getString(R.string.brain_wrapped_current_streak, summary.currentStreakDays),
+                                topicLabel = context.getString(R.string.brain_wrapped_topic_label),
+                                topicValue = topic,
+                                topicEmptyLabel = context.getString(R.string.brain_wrapped_topic_empty),
+                                tagline = context.getString(R.string.brain_wrapped_tagline),
+                                watermark = com.mckimquyen.reader.infrastructure.quote.QuoteCardRenderer.WATERMARK,
+                            )
+                            viewModel.shareWeeklyWrapped(
+                                renderModel,
+                                context.getString(R.string.brain_wrapped_share_title),
+                                activity::startActivity,
+                            )
+                        },
                     )
                 }
 
@@ -499,7 +518,9 @@ private fun StatItem(title: String, value: String) {
 @Composable
 internal fun WeeklyWrappedCard(
     progress: UserProgress,
-    onShare: () -> Unit
+    onShare: () -> Unit,
+    weeklyState: WeeklyWrappedUiState = WeeklyWrappedUiState(),
+    onRetry: () -> Unit = {},
 ) {
     Card(
         modifier = Modifier.fillMaxWidth(),
@@ -533,21 +554,34 @@ internal fun WeeklyWrappedCard(
 
             Spacer(modifier = Modifier.height(8.dp))
 
+            val summary = weeklyState.summary
             Text(
-                text = stringResource(R.string.brain_rpg_wrapped_desc, progress.totalXp, progress.streakDays),
+                text = if ((summary?.weeklyXp ?: 0L) > 0L) {
+                    stringResource(R.string.brain_rpg_wrapped_desc, summary?.weeklyXp ?: 0L, summary?.currentStreakDays ?: progress.streakDays)
+                } else {
+                    stringResource(R.string.brain_wrapped_no_week_xp)
+                },
                 style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
+                color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f),
             )
+            if (weeklyState.isLoading || weeklyState.isSharing) {
+                LinearProgressIndicator(modifier = Modifier.fillMaxWidth().testTag(WRAPPED_PROGRESS_TAG))
+            }
+            if (weeklyState.error != null) {
+                Text(stringResource(R.string.brain_wrapped_share_error), color = MaterialTheme.colorScheme.error)
+                TextButton(onClick = onRetry) { Text(stringResource(R.string.retry)) }
+            }
 
             Spacer(modifier = Modifier.height(14.dp))
 
             Button(
                 onClick = onShare,
+                enabled = weeklyState.canShare,
                 shape = RoundedCornerShape(12.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.secondary
                 ),
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth().testTag(WRAPPED_SHARE_BUTTON_TAG)
             ) {
                 Icon(
                     imageVector = Icons.Outlined.Share,
@@ -556,10 +590,30 @@ internal fun WeeklyWrappedCard(
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
-                    text = stringResource(R.string.brain_rpg_wrapped_share),
+                    text = stringResource(if (weeklyState.isSharing) R.string.brain_wrapped_sharing else R.string.brain_wrapped_share_story),
                     fontWeight = FontWeight.Bold
                 )
             }
         }
     }
+}
+
+
+internal const val WRAPPED_SHARE_BUTTON_TAG = "wrapped_share_button"
+internal const val WRAPPED_PROGRESS_TAG = "wrapped_progress"
+
+private fun brainCategoryLabel(category: String): Int = when (category) {
+    QuizGeneratorService.CATEGORY_TECH -> R.string.brain_rpg_category_tech
+    QuizGeneratorService.CATEGORY_BUSINESS -> R.string.brain_rpg_category_business
+    QuizGeneratorService.CATEGORY_SCIENCE -> R.string.brain_rpg_category_science
+    QuizGeneratorService.CATEGORY_HEALTH -> R.string.brain_rpg_category_health
+    QuizGeneratorService.CATEGORY_PHILOSOPHY -> R.string.brain_rpg_category_philosophy
+    else -> R.string.brain_rpg_category_general
+}
+
+private fun formatWrappedWeek(startMillis: Long, endMillis: Long, zone: ZoneId): String {
+    val formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
+    val start = Instant.ofEpochMilli(startMillis).atZone(zone).toLocalDate()
+    val end = Instant.ofEpochMilli(endMillis).atZone(zone).toLocalDate().minusDays(1)
+    return "${formatter.format(start)} – ${formatter.format(end)}"
 }
