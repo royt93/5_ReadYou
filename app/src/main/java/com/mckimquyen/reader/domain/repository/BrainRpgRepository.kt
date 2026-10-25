@@ -102,6 +102,37 @@ class BrainRpgRepository @Inject constructor(
         }
     }
 
+    /** Award triage XP once per article; repeat triage calls on the same article return 0. */
+    suspend fun awardTriageXpOnce(
+        articleId: String,
+        amount: Long = 5L,
+        nowMillis: Long = System.currentTimeMillis()
+    ): Long {
+        if (articleId.isBlank()) return 0L
+        return mutationMutex.withLock {
+            legacyImporter.ensureImported(nowMillis)
+            val before = dao.getProfile() ?: BrainRpgProfileEntity().also { dao.upsertProfile(it) }
+            val (streakDays, shieldActive) = nextStreak(before.streakDays, before.lastReadEpochDay, before.streakShieldActive, epochDay(nowMillis))
+            val claimed = database.withTransaction {
+                dao.claimAndApplyReward(
+                    BrainRpgRewardEntity(
+                        articleId = articleId,
+                        rewardType = BrainRpgRewardType.TRIAGE,
+                        createdAtMillis = nowMillis,
+                    ),
+                    categoryId = "GENERAL",
+                    practiceAtMillis = nowMillis,
+                    baseXpDelta = amount,
+                    newStreakDays = streakDays,
+                    newLastReadEpochDay = epochDay(nowMillis),
+                    newStreakShieldActive = shieldActive,
+                )
+            }
+            refresh()
+            if (claimed) amount else 0L
+        }
+    }
+
     /** Wrong answers increment attempts only; correct answers practice the category and award once per article. */
     suspend fun submitQuizResultOnce(
         articleId: String,

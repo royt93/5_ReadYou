@@ -5,4 +5,5 @@ enum class BrainRpgRewardType {
     READ,
     QUIZ,
     DOUBLE,
+    TRIAGE,
 }
