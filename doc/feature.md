@@ -2,7 +2,7 @@
 
 ## 📋 Picked
 
-- **EXC-14 — Feed Zero Triage Mode** (`doc/task/todo/EXC-14_feed-zero-triage-mode.md`): Chế độ vuốt thẻ Tinder-style (vuốt trái: đánh dấu đã đọc, vuốt phải: lưu/star, vuốt lên: mở đọc ngay) để xử lý nhanh unread articles, hiển thị tiến độ và chúc mừng Inbox Zero.
+- Không có mục nào đang được pick.
 
 
 ## 🟡 In progress
@@ -10,6 +10,8 @@
 - Không có mục nào đang thực hiện.
 
 ## ✅ Recently implemented
+
+- **EXC-14 — Feed Zero Triage Mode** (`doc/task/done/EXC-14_feed-zero-triage-mode_DONE.md`): Chế độ vuốt thẻ Tinder-style (vuốt trái: đánh dấu đã đọc, vuốt phải: lưu/star, vuốt lên: mở đọc ngay) để xử lý dứt điểm unread articles; thanh tiến độ theo mẻ 50 bài FIFO; màn hình chúc mừng Inbox Zero kèm tổng kết phiên; thưởng 5 XP Brain RPG; 13 chuỗi đủ 38 locale. Dùng Compose pointerInput + Animatable, 0 dependency ngoài. Full suite 1283 unit tests pass; lint 0 errors.
 
 - **IDEA-02 — Home Screen Unread Articles Widget (RemoteViews)** (`doc/task/done/IDEA-02_home-widget-glance_DONE.md`): widget hiển thị 5 bài chưa đọc mới nhất theo account đang chọn; chạm bài mở `ReadingPage` qua trampoline (`FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_CLEAR_TASK`, owner duyệt reset back stack); mỗi hàng có nút "Đã đọc" chạy `@ApplicationScope + Dispatchers.IO`; `WidgetRefreshNotifier` cập nhật widget sau SyncWorker, mark-read trong RSS repositories, Home cluster và TTS completion; màu hệ thống API 31+ và fallback API 26–30; 6 chuỗi đủ 38 locale. Dùng RemoteViews, không Glance/dependency mới. Smoke Pixel 7 Pro (2026-10-25) xác nhận: ghim widget, hiển thị, mở bài background/cold-start, nút "Đã đọc" cập nhật DB; `WidgetRefreshNotifier` tự refresh widget sau mark-read từ Reader và TTS completion. DB giữ theo lựa chọn owner (303 bài, 293 unread, integrity ok; XP 750→850 trong smoke); widget test gỡ sạch khỏi Home. Full suite 1275 tests pass; build/androidTest compile pass; lint 0 errors. Code/test commit `71b23df6` đã push; báo cáo smoke bổ sung đang ở working tree.
 
