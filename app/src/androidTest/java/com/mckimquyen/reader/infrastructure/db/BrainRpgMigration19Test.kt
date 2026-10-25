@@ -1,6 +1,7 @@
 package com.mckimquyen.reader.infrastructure.db
 
 import android.content.Context
+import androidx.room.Room
 import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.sqlite.db.SupportSQLiteOpenHelper
 import androidx.sqlite.db.framework.FrameworkSQLiteOpenHelperFactory
@@ -42,10 +43,12 @@ class BrainRpgMigration19Test {
                         entities.forEach { entity ->
                             val tableName = entity.get("tableName").asString
                             val createSql = entity.get("createSql").asString
-                                .replace("`${'$'}{TABLE_NAME}`", "`$tableName`")
+                                .replace("\${TABLE_NAME}", tableName)
                             db.execSQL(createSql)
                             entity.getAsJsonArray("indices")?.forEach { index ->
-                                index.asJsonObject.get("createSql")?.asString?.let(db::execSQL)
+                                index.asJsonObject.get("createSql")?.asString
+                                    ?.replace("\${TABLE_NAME}", tableName)
+                                    ?.let(db::execSQL)
                             }
                             entity.getAsJsonArray("contentSyncTriggers")?.forEach { trigger -> db.execSQL(trigger.asString) }
                         }

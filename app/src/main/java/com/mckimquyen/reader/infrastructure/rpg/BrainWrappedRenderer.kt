@@ -49,7 +49,7 @@ object BrainWrappedRenderer {
     private const val WEEK_TEXT_SIZE = 32f
     private const val HEADER_TEXT_SIZE = 76f
     private const val XP_TEXT_SIZE = 176f
-    private const val METRIC_VALUE_TEXT_SIZE = 50f
+    private const val METRIC_VALUE_TEXT_SIZE = 40f
     private const val METRIC_LABEL_TEXT_SIZE = 26f
     private const val FOOTER_TEXT_SIZE = 30f
     private const val WATERMARK_TEXT_SIZE = 34f
