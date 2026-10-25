@@ -2,7 +2,7 @@
 
 ## 📋 Picked
 
-- Không có mục nào đang được pick.
+- **STRAT-03 — DoH Privacy Shield & Anti-Tracking** (`doc/task/todo/STRAT-03_doh-privacy-shield.md`): Tích hợp DNS-over-HTTPS (DoH Cloudflare/AdGuard qua OkHttp Dns), tự động gọt bỏ tham số theo dõi (utm_*, fbclid, gclid...) trên link bài viết, loại bỏ 1x1 tracking pixel và script theo dõi trong HTML bài đọc.
 
 ## 🟡 In progress
 
