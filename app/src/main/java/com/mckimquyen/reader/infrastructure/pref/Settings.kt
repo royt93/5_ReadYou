@@ -91,6 +91,11 @@ data class Settings(
 
     // Languages
     val languages: LanguagesPref = LanguagesPref.default,
+
+    // Privacy & Security
+    val dohProvider: DohProviderPref = DohProviderPref.default,
+    val urlTrackingClean: UrlTrackingCleanPref = UrlTrackingCleanPref.default,
+    val htmlAntiTracker: HtmlAntiTrackerPref = HtmlAntiTrackerPref.default,
 )
 
 // Version
@@ -215,6 +220,14 @@ val LocalCommuteTimeBudget = compositionLocalOf<CommuteTimeBudgetPref> { Commute
 val LocalLanguages =
     compositionLocalOf<LanguagesPref> { LanguagesPref.default }
 
+// Privacy & Security
+val LocalDohProvider =
+    compositionLocalOf<DohProviderPref> { DohProviderPref.default }
+val LocalUrlTrackingClean =
+    compositionLocalOf<UrlTrackingCleanPref> { UrlTrackingCleanPref.default }
+val LocalHtmlAntiTracker =
+    compositionLocalOf<HtmlAntiTrackerPref> { HtmlAntiTrackerPref.default }
+
 @Composable
 fun SettingsProvider(
     content: @Composable () -> Unit,
@@ -306,6 +319,11 @@ fun SettingsProvider(
 
         // Languages
         LocalLanguages provides settings.languages,
+
+        // Privacy & Security
+        LocalDohProvider provides settings.dohProvider,
+        LocalUrlTrackingClean provides settings.urlTrackingClean,
+        LocalHtmlAntiTracker provides settings.htmlAntiTracker,
     ) {
         content()
     }

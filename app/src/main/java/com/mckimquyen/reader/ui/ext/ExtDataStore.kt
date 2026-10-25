@@ -549,4 +549,19 @@ sealed class DataStoreKeys<T> {
         override val key: Preferences.Key<Int>
             get() = intPreferencesKey("commuteTimeBudget")
     }
+
+    object DohProvider : DataStoreKeys<Int>() {
+        override val key: Preferences.Key<Int>
+            get() = intPreferencesKey("doh_provider")
+    }
+
+    object UrlTrackingClean : DataStoreKeys<Boolean>() {
+        override val key: Preferences.Key<Boolean>
+            get() = booleanPreferencesKey("url_tracking_clean")
+    }
+
+    object HtmlAntiTracker : DataStoreKeys<Boolean>() {
+        override val key: Preferences.Key<Boolean>
+            get() = booleanPreferencesKey("html_anti_tracker")
+    }
 }

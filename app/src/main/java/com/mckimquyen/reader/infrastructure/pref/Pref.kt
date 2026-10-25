@@ -91,5 +91,10 @@ fun Preferences.toSettings(): Settings {
 
         // Languages
         languages = LanguagesPref.fromPreferences(this),
+
+        // Privacy & Security
+        dohProvider = DohProviderPref.fromPreferences(this),
+        urlTrackingClean = UrlTrackingCleanPref.fromPreferences(this),
+        htmlAntiTracker = HtmlAntiTrackerPref.fromPreferences(this),
     )
 }
