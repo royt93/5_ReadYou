@@ -26,6 +26,7 @@ import androidx.compose.material.icons.outlined.Language
 import androidx.compose.material.icons.outlined.Lightbulb
 import androidx.compose.material.icons.outlined.Palette
 import androidx.compose.material.icons.outlined.Policy
+import androidx.compose.material.icons.outlined.Security
 import androidx.compose.material.icons.outlined.Hub
 import androidx.compose.material.icons.outlined.Psychology
 import androidx.compose.material.icons.outlined.Share
@@ -164,6 +165,17 @@ fun SettingsPage(
                         desc = BuildConfig.VERSION_NAME,
                         icon = Icons.Outlined.Build,
                     ) {
+                    }
+                }
+                item {
+                    SelectableSettingGroupItem(
+                        title = stringResource(R.string.privacy_settings_title),
+                        desc = stringResource(R.string.privacy_settings_desc),
+                        icon = Icons.Outlined.Security,
+                    ) {
+                        navController.navigate(RouteName.PRIVACY_SETTINGS) {
+                            launchSingleTop = true
+                        }
                     }
                 }
                 item {

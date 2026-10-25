@@ -49,6 +49,7 @@ import com.mckimquyen.reader.ui.page.secondbrain.SecondBrainViewModel
 import com.mckimquyen.reader.ui.page.rpg.BrainRpgPage
 import com.mckimquyen.reader.ui.page.setting.SettingsPage
 import com.mckimquyen.reader.ui.page.setting.ai.AiSettingsPage
+import com.mckimquyen.reader.ui.page.setting.privacy.PrivacySettingsPage
 import com.mckimquyen.reader.ui.page.setting.zen.ZenSettingsPage
 import com.mckimquyen.reader.ui.page.setting.acc.AccountDetailsPage
 import com.mckimquyen.reader.ui.page.setting.acc.AccountsPage
@@ -261,6 +262,10 @@ fun HomeEntry(
             // AI Settings & BYOK
             animatedComposable(route = RouteName.AI_SETTINGS, eInk = eInk) {
                 AiSettingsPage(navController = navController, activity = activity)
+            }
+
+            animatedComposable(route = RouteName.PRIVACY_SETTINGS, eInk = eInk) {
+                PrivacySettingsPage(navController = navController)
             }
 
             // Zen Focus & Speed Reading
