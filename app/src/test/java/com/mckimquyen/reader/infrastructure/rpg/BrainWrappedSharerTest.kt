@@ -34,6 +34,30 @@ class BrainWrappedSharerTest {
         context = ApplicationProvider.getApplicationContext()
         File(context.cacheDir, BrainWrappedSharer.DIR_NAME).deleteRecursively()
         sharer = BrainWrappedSharer(context, Dispatchers.Unconfined)
+        runCatching {
+            androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().context
+                .resources.openRawResource(com.mckimquyen.reader.R.xml.file_paths).use { input ->
+                    val parser = android.util.Xml.newPullParser()
+                    parser.setInput(input, null)
+                    while (parser.eventType != org.xmlpull.v1.XmlPullParser.END_DOCUMENT) {
+                        if (parser.eventType == org.xmlpull.v1.XmlPullParser.START_TAG && parser.name == "cache-path") {
+                            val name = parser.getAttributeValue(null, "name")
+                            val path = parser.getAttributeValue(null, "path")
+                            val cacheField = androidx.core.content.FileProvider::class.java.getDeclaredField("sCache")
+                            cacheField.isAccessible = true
+                            val cache = cacheField.get(null) as MutableMap<String, Any>
+                            val strategyClass = Class.forName("androidx.core.content.FileProvider\$SimplePathStrategy")
+                            val strategy = strategyClass.getDeclaredConstructor(String::class.java).newInstance("${context.packageName}.fileprovider")
+                            val add = strategyClass.getDeclaredMethod("addRoot", String::class.java, java.io.File::class.java)
+                            add.isAccessible = true
+                            add.invoke(strategy, name, File(context.cacheDir, path))
+                            cache["${context.packageName}.fileprovider"] = strategy
+                            break
+                        }
+                        parser.next()
+                    }
+                }
+        }
     }
 
     @After

@@ -65,7 +65,7 @@ class BrainRpgWeeklySummaryTest {
         val interval = com.mckimquyen.reader.domain.model.rpg.BrainRpgWeek.interval(
             Instant.parse("2026-10-20T12:00:00Z"), zone,
         )
-        dao.upsertProfile(BrainRpgProfileEntity(id = 1, streakDays = 6))
+        dao.upsertProfile(BrainRpgProfileEntity(id = 1, streakDays = 6, legacyImportComplete = true))
         listOf(
             BrainRpgXpEventEntity(categoryId = "OutsideBefore", xpDelta = 999L, rewardType = BrainRpgRewardType.READ, createdAtMillis = interval.startMillis - 1),
             BrainRpgXpEventEntity(categoryId = "Science", xpDelta = 100L, rewardType = BrainRpgRewardType.READ, createdAtMillis = interval.startMillis),
@@ -102,7 +102,7 @@ class BrainRpgWeeklySummaryTest {
 
     @Test
     fun weeklySummary_emptyWeekReturnsZeroXpAndNullTopic() = runBlocking {
-        dao.upsertProfile(BrainRpgProfileEntity(id = 1, streakDays = 4))
+        dao.upsertProfile(BrainRpgProfileEntity(id = 1, streakDays = 4, legacyImportComplete = true))
 
         val summary = repository.getWeeklyBrainWrapped(
             now = Instant.parse("2026-10-20T12:00:00Z"),

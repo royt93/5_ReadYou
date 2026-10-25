@@ -98,7 +98,7 @@ class BrainRpgRepository @Inject constructor(
                 weekStartMillis = interval.startMillis,
                 weekEndMillis = interval.endMillis,
                 weeklyXp = weeklyXp,
-                currentStreakDays = dao.getProfile()?.streakDays ?: BrainRpgProfileEntity().streakDays,
+                currentStreakDays = dao.getProfile()?.streakDays ?: 1,
                 topCategoryId = topCategoryId,
             )
         }
