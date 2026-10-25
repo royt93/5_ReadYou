@@ -1,8 +1,8 @@
 # [IDEA-02] Home Screen Unread Articles Widget (RemoteViews) — Completion Report
 
-- **Trạng thái:** Đã commit và push code + test lên `origin/dev` (`71b23df6`). Bổ sung smoke kiểm chứng `WidgetRefreshNotifier` trên Pixel 7 Pro đã hoàn tất (2026-10-24); cập nhật tài liệu đang ở working tree.
-- **Ngày:** 2026-10-24
-- **Audit:** 9/10. Widget render dữ liệu, ghim qua launcher request, mở bài khi app đang nền/cold-start, nút "Đã đọc" trên widget hoạt động. Đã kiểm chứng `WidgetRefreshNotifier` trên Pixel 7 Pro thật: Reader mở bài và TTS đọc xong đều tự động làm mới widget. Giới hạn còn lại: Dynamic Color preview rất nhạt trên hình nền hiện tại; mở bài dùng CLEAR_TASK nên reset app back stack; quy tắc R4 dừng 4 lần khi gặp quảng cáo interstitial AdMob.
+- **Trạng thái:** Code/test IDEA-02 đã commit/push lên `origin/dev` (`71b23df6`). Bổ sung smoke `WidgetRefreshNotifier` trên Pixel 7 Pro đã hoàn tất (2026-10-25); tài liệu smoke bổ sung chưa commit/push.
+- **Ngày:** 2026-10-24 (bổ sung smoke notifier: 2026-10-25)
+- **Audit:** 9/10. Widget render dữ liệu, ghim qua launcher request, mở bài khi app đang nền/cold-start, nút "Đã đọc" trên widget hoạt động. Trên Pixel 7 Pro: Reader mở bài (APK notifier mới) → DB `isUnread=0`, `readAt` có giá trị → widget tự loại bài; TTS cold-start đọc bài chưa đọc → DB `isUnread=0`, `readAt=null` → sau khi ghim lại, bài TTS không còn trong widget. Do R4 dừng ở các interstitial, hai luồng được xác nhận riêng qua DB và widget, không phải một uninterrupted UI run. Giới hạn còn lại: Dynamic Color preview rất nhạt trên hình nền hiện tại; mở bài dùng CLEAR_TASK nên reset app back stack; interstitial AdMob xuất hiện nhiều lần.
 
 ## Thiết kế
 
@@ -37,22 +37,22 @@
 - Chạm một bài từ launcher khi RSS Cat Hub đang chạy nền mở đúng tiêu đề trong Reader. Sau `am kill com.mckimquyen.reader`, chạm bài khác cold-start cũng mở đúng tiêu đề. CLEAR_TASK chấp nhận reset back stack về Home/Flow.
 - Nút `Đã đọc`: snapshot DB trước click cho bài “Five Israelis wounded…” có `isUnread=1`, `readAt=null`; sau click snapshot cho thấy `isUnread=0`, `readAt=null`; widget cập nhật và bài biến mất khỏi list. Không mở Reader cho action này.
 - Quảng cáo: hai lần tương tác bị interstitial AdMob che UI; mỗi lần dừng ngay và đợi owner xác nhận `done`. Banner ads được bỏ qua. Không có thao tác khi quảng cáo toàn màn hình che UI.
-- Dọn: owner chọn giữ data, gỡ widget khỏi Home; không restore DB snapshot vì user actions đã phát sinh read state/XP. Snapshot sau dọn `/Users/loitran/idea02_pixel_postsmoke_20261023_220815`: Room v18, `integrity_check=ok`, 246 articles, 240 unread. So với backup trước test: 243 → 240 unread; `brain_rpg_profile.baseTotalXp` 750 → 850 và `General Knowledge.baseXp` 150 → 250 (3 bài mới được đọc/XP phát sinh trong smoke, gồm mở bài cold-start). Owner chọn giữ dữ liệu, không restore. Widget đã gỡ; không có RSS widget binding trong `dumpsys appwidget`. Pixel bàn giao lại cho phiên UI-032/SEARCH-012.
+- Dọn (2026-10-24): owner chọn giữ DB, gỡ hai widget instance; không restore DB. Snapshot `/Users/loitran/idea02_notifier_pixel_final_20261025_112451`: Room v18, `integrity_check=ok`, 303 bài, 293 unread; `dumpsys appwidget` xác nhận 0 RSS widget instance. DB có bài TTS mới được đọc (`isUnread` 1→0); không rollback hoặc xoá dữ liệu. Pixel đã trả về launcher và bàn giao cho phiên khác.
 
 ## Giới hạn/khuyến nghị
 
 - `ArticleWidgetActionActivity` cố ý reset back stack bằng CLEAR_TASK; không sửa `HomeEntry`/`MainActivity.onNewIntent`.
 - `ArticleWidgetPinHelper.requestPin` true chỉ nghĩa request được launcher chấp nhận, không có callback xác nhận người dùng ghim; smoke đã quan sát widget thực sự trên Home.
 - System dynamic colors được tham chiếu; smoke xác nhận widget đọc được nhưng không đổi wallpaper để chứng minh đổi màu động.
-- Một số live DataStore/RSS state sau smoke thay đổi (hai bài đánh dấu đã đọc, XP có thể tăng do Reader); theo yêu cầu owner giữ DB hiện trạng, không rollback.
-- Chưa commit/push thay đổi IDEA-02.
+- Trong smoke đã có 3 bài được đánh dấu đã đọc, tổng XP tăng 100 (baseTotalXp 750→850); owner chọn giữ dữ liệu, không rollback.
+- Code/test IDEA-02 đã có trong commit `71b23df6` trên `origin/dev`; phần báo cáo smoke bổ sung đang chờ commit.
 
 
 ## Bổ sung sau smoke — WidgetRefreshNotifier (2026-10-24)
 
 Rà soát sau smoke ban đầu phát hiện các luồng mark-read trong RSS repository, Home cluster và TTS chưa refresh widget. Đã thêm domain port `WidgetRefreshNotifier` cùng Android implementation; `AbstractRssRepository.markAsRead` refresh sau DB write chỉ khi chuyển sang read; `HomeViewModel.markClusterAsRead` và `ReadNewsController` TTS completion cũng refresh. Regression tests xác nhận DAO write xảy ra trước notifier, không refresh cho mark-unread hoặc khi DB write lỗi (1275 unit tests pass trên host).
 
-**Smoke kiểm chứng trên Pixel 7 Pro (2026-10-24):**
+**Smoke kiểm chứng trên Pixel 7 Pro (2026-10-25):**
 1. **Luồng Reader:** Chạm tiêu đề bài "Met Police say letter..." trên widget -> Reader mở bài -> `readingViewModel.markUnread(false)` gọi qua repository ghi DB (`isUnread=0, readAt` có giá trị) -> quay về màn hình chính: **widget tự động loại bỏ bài đó và đẩy bài kế tiếp lên đầu** (chứng minh qua ảnh chụp màn hình).
 2. **Luồng TTS rảnh tay:** Kích hoạt `ReadNewsActivity` -> TTS đọc bài kế ("Ukraine says Starlink...") -> sau khi hoàn tất, kiểm tra DB xác nhận bài chuyển sang `isUnread=0, readAt=None`, media session dừng sạch.
-3. **Trạng thái thiết bị cuối:** Widget test đã gỡ khỏi Home (`dumpsys appwidget` xác nhận không còn binding); DB giữ nguyên hiện trạng (297 bài, 288 chưa đọc, integrity ok); không rollback dữ liệu. Pixel 7 Pro hoàn toàn sạch sẽ và rảnh.
+3. **Trạng thái thiết bị cuối:** Widget test đã gỡ khỏi Home (`dumpsys appwidget` không còn `ArticleWidgetProvider` binding); DB Room v18 ở snapshot `/Users/loitran/idea02_notifier_pixel_final_20261025_112451`: 303 bài, 293 unread, integrity `ok`. Không rollback dữ liệu. Pixel đã trả về launcher và bàn giao cho phiên khác.
