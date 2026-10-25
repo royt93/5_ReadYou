@@ -873,4 +873,18 @@
     <string name="widget_article_mark_read">Segna come letto</string>
     <string name="widget_article_pin_requested">Add widget request sent to launcher</string>
     <string name="widget_article_pin_unsupported">Your launcher does not support automatic widget pinning</string>
+    <!-- Feed Zero Triage (EXC-14) -->
+    <string name="feed_zero_triage_title">Smistamento Feed Zero</string>
+    <string name="triage_swipe_left_skip">Salta</string>
+    <string name="triage_swipe_right_save">Salva</string>
+    <string name="triage_swipe_up_read">Leggi ora</string>
+    <string name="triage_progress_format">%1$d / %2$d</string>
+    <string name="triage_inbox_zero_title">🎉 Inbox Zero raggiunto!</string>
+    <string name="triage_inbox_zero_subtitle">Hai smistato tutti gli articoli non letti in questo lotto.</string>
+    <string name="triage_summary_processed">Elaborati: %1$d</string>
+    <string name="triage_summary_saved">Salvati per dopo: %1$d</string>
+    <string name="triage_summary_skipped">Segnati come letti: %1$d</string>
+    <string name="triage_summary_xp">+%1$d Brain RPG XP</string>
+    <string name="triage_finish_button">Fine</string>
+    <string name="triage_empty_state">Nessun articolo non letto da smistare!</string>
 </resources>

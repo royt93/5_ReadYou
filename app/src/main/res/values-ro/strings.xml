@@ -880,4 +880,18 @@
     <string name="widget_article_mark_read">Marchează ca citit</string>
     <string name="widget_article_pin_requested">Add widget request sent to launcher</string>
     <string name="widget_article_pin_unsupported">Your launcher does not support automatic widget pinning</string>
+    <!-- Feed Zero Triage (EXC-14) -->
+    <string name="feed_zero_triage_title">Feed Zero Triage</string>
+    <string name="triage_swipe_left_skip">Skip</string>
+    <string name="triage_swipe_right_save">Save</string>
+    <string name="triage_swipe_up_read">Read now</string>
+    <string name="triage_progress_format">%1$d / %2$d</string>
+    <string name="triage_inbox_zero_title">🎉 Inbox Zero Reached!</string>
+    <string name="triage_inbox_zero_subtitle">You have cleared all unread articles in this batch.</string>
+    <string name="triage_summary_processed">Processed: %1$d</string>
+    <string name="triage_summary_saved">Saved for later: %1$d</string>
+    <string name="triage_summary_skipped">Marked as read: %1$d</string>
+    <string name="triage_summary_xp">+%1$d Brain RPG XP</string>
+    <string name="triage_finish_button">Done</string>
+    <string name="triage_empty_state">No unread articles to triage!</string>
 </resources>

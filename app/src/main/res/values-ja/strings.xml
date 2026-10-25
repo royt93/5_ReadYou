@@ -866,4 +866,18 @@
     <string name="widget_article_mark_read">既読にする</string>
     <string name="widget_article_pin_requested">ホーム画面に追加リクエストを送信しました</string>
     <string name="widget_article_pin_unsupported">お使いのホームアプリはウィジェットの自動追加に対応していません</string>
+    <!-- Feed Zero Triage (EXC-14) -->
+    <string name="feed_zero_triage_title">フィードゼロ仕分け</string>
+    <string name="triage_swipe_left_skip">スキップ</string>
+    <string name="triage_swipe_right_save">保存</string>
+    <string name="triage_swipe_up_read">今すぐ読む</string>
+    <string name="triage_progress_format">%1$d / %2$d</string>
+    <string name="triage_inbox_zero_title">🎉 インボックスゼロ達成！</string>
+    <string name="triage_inbox_zero_subtitle">このバッチの未読記事をすべて処理しました。</string>
+    <string name="triage_summary_processed">処理済み：%1$d</string>
+    <string name="triage_summary_saved">後で読むに保存：%1$d</string>
+    <string name="triage_summary_skipped">既読に設定：%1$d</string>
+    <string name="triage_summary_xp">+%1$d Brain RPG XP</string>
+    <string name="triage_finish_button">完了</string>
+    <string name="triage_empty_state">仕分ける未読記事はありません！</string>
 </resources>

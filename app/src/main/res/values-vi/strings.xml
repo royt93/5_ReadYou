@@ -839,4 +839,18 @@
     <string name="widget_article_mark_read">Đã đọc</string>
     <string name="widget_article_pin_requested">Đã gửi yêu cầu thêm tiện ích tới launcher</string>
     <string name="widget_article_pin_unsupported">Trình khởi chạy của bạn không hỗ trợ ghim tiện ích tự động</string>
+    <!-- Feed Zero Triage (EXC-14) -->
+    <string name="feed_zero_triage_title">Feed Zero Triage</string>
+    <string name="triage_swipe_left_skip">Bỏ qua</string>
+    <string name="triage_swipe_right_save">Lưu lại</string>
+    <string name="triage_swipe_up_read">Đọc ngay</string>
+    <string name="triage_progress_format">%1$d / %2$d</string>
+    <string name="triage_inbox_zero_title">🎉 Đạt Inbox Zero!</string>
+    <string name="triage_inbox_zero_subtitle">Bạn đã dọn sạch toàn bộ bài chưa đọc trong đợt này.</string>
+    <string name="triage_summary_processed">Đã xử lý: %1$d</string>
+    <string name="triage_summary_saved">Đã lưu lại: %1$d</string>
+    <string name="triage_summary_skipped">Đã đánh dấu đọc: %1$d</string>
+    <string name="triage_summary_xp">+%1$d XP Brain RPG</string>
+    <string name="triage_finish_button">Hoàn tất</string>
+    <string name="triage_empty_state">Không có bài chưa đọc nào cần xử lý!</string>
 </resources>

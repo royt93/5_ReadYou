@@ -888,4 +888,18 @@
     <string name="widget_article_mark_read">Прочитано</string>
     <string name="widget_article_pin_requested">Add widget request sent to launcher</string>
     <string name="widget_article_pin_unsupported">Your launcher does not support automatic widget pinning</string>
+    <!-- Feed Zero Triage (EXC-14) -->
+    <string name="feed_zero_triage_title">Сортировка Inbox Zero</string>
+    <string name="triage_swipe_left_skip">Пропустить</string>
+    <string name="triage_swipe_right_save">Сохранить</string>
+    <string name="triage_swipe_up_read">Читать</string>
+    <string name="triage_progress_format">%1$d / %2$d</string>
+    <string name="triage_inbox_zero_title">🎉 Все прочитано!</string>
+    <string name="triage_inbox_zero_subtitle">Вы разобрали все непрочитанные статьи в этой партии.</string>
+    <string name="triage_summary_processed">Обработано: %1$d</string>
+    <string name="triage_summary_saved">Сохранено на потом: %1$d</string>
+    <string name="triage_summary_skipped">Отмечено прочитанным: %1$d</string>
+    <string name="triage_summary_xp">+%1$d Brain RPG XP</string>
+    <string name="triage_finish_button">Готово</string>
+    <string name="triage_empty_state">Нет непрочитанных статей для разбора!</string>
 </resources>

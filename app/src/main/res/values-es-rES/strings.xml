@@ -875,4 +875,18 @@
     <string name="widget_article_mark_read">Marcar como leído</string>
     <string name="widget_article_pin_requested">Add widget request sent to launcher</string>
     <string name="widget_article_pin_unsupported">Your launcher does not support automatic widget pinning</string>
+    <!-- Feed Zero Triage (EXC-14) -->
+    <string name="feed_zero_triage_title">Triaje Bandeja Cero</string>
+    <string name="triage_swipe_left_skip">Omitir</string>
+    <string name="triage_swipe_right_save">Guardar</string>
+    <string name="triage_swipe_up_read">Leer ahora</string>
+    <string name="triage_progress_format">%1$d / %2$d</string>
+    <string name="triage_inbox_zero_title">🎉 ¡Bandeja cero conseguida!</string>
+    <string name="triage_inbox_zero_subtitle">Has clasificado todos los artículos sin leer de este lote.</string>
+    <string name="triage_summary_processed">Procesados: %1$d</string>
+    <string name="triage_summary_saved">Guardados para luego: %1$d</string>
+    <string name="triage_summary_skipped">Marcados como leídos: %1$d</string>
+    <string name="triage_summary_xp">+%1$d EXP Brain RPG</string>
+    <string name="triage_finish_button">Listo</string>
+    <string name="triage_empty_state">¡No hay artículos sin leer para clasificar!</string>
 </resources>
