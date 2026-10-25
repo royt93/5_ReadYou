@@ -92,6 +92,11 @@ class BrainRpgRepositoryTest {
         assertEquals(50L, updated.categoryXp[QuizGeneratorService.CATEGORY_TECH])
         assertEquals(1, updated.level)
         assertEquals(NOW, dao.getCategory(QuizGeneratorService.CATEGORY_TECH)?.lastPracticedAtMillis)
+        val event = dao.allXpEvents().single()
+        assertEquals(QuizGeneratorService.CATEGORY_TECH, event.categoryId)
+        assertEquals(50L, event.xpDelta)
+        assertEquals(BrainRpgRewardType.READ, event.rewardType)
+        assertEquals(NOW, event.createdAtMillis)
     }
 
     @Test fun readingAward_crossingThreshold_updatesDerivedLevel() = runTest {
@@ -108,6 +113,8 @@ class BrainRpgRepositoryTest {
         assertEquals(0L, newRepository().awardReadingXpOnce("a1", QuizGeneratorService.CATEGORY_TECH, nowMillis = NOW + 1))
         assertEquals(50L, dao.getProfile()?.baseTotalXp)
         assertTrue(dao.hasReward("a1", BrainRpgRewardType.READ))
+        assertEquals(1, dao.allXpEvents().size)
+        assertEquals(1, dao.allXpEvents().size)
     }
 
     @Test fun categoryXpDecaysForDisplayButBaseXpAndTotalXpStayUnchanged() = runTest {

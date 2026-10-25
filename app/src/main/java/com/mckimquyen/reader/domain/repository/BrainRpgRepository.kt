@@ -120,7 +120,7 @@ class BrainRpgRepository @Inject constructor(
                         rewardType = BrainRpgRewardType.TRIAGE,
                         createdAtMillis = nowMillis,
                     ),
-                    categoryId = "GENERAL",
+                    categoryId = QuizGeneratorService.CATEGORY_GENERAL,
                     practiceAtMillis = nowMillis,
                     baseXpDelta = amount,
                     newStreakDays = streakDays,

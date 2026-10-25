@@ -10,6 +10,7 @@ import com.mckimquyen.reader.domain.model.rpg.BrainRpgCategoryEntity
 import com.mckimquyen.reader.domain.model.rpg.BrainRpgProfileEntity
 import com.mckimquyen.reader.domain.model.rpg.BrainRpgRewardEntity
 import com.mckimquyen.reader.domain.model.rpg.BrainRpgRewardType
+import com.mckimquyen.reader.domain.model.rpg.BrainRpgXpEventEntity
 
 @Dao
 abstract class BrainRpgDao {
@@ -48,6 +49,12 @@ abstract class BrainRpgDao {
 
     @Query("SELECT * FROM brain_rpg_reward ORDER BY articleId, rewardType")
     abstract suspend fun allRewards(): List<BrainRpgRewardEntity>
+
+    @Query("SELECT * FROM brain_rpg_xp_event ORDER BY id")
+    abstract suspend fun allXpEvents(): List<BrainRpgXpEventEntity>
+
+    @Insert
+    protected abstract suspend fun insertXpEvent(event: BrainRpgXpEventEntity)
 
     @Query("SELECT EXISTS(SELECT 1 FROM brain_rpg_reward WHERE articleId = :articleId AND rewardType = :rewardType)")
     abstract suspend fun hasReward(articleId: String, rewardType: BrainRpgRewardType): Boolean
@@ -100,6 +107,14 @@ abstract class BrainRpgDao {
         if (claimed) {
             val category = requireNotNull(getCategory(categoryId))
             updateCategoryBaseXp(categoryId, category.baseXp + baseXpDelta)
+            insertXpEvent(
+                BrainRpgXpEventEntity(
+                    categoryId = categoryId,
+                    xpDelta = baseXpDelta,
+                    rewardType = reward.rewardType,
+                    createdAtMillis = reward.createdAtMillis,
+                ),
+            )
         }
         return claimed
     }
@@ -117,6 +132,14 @@ abstract class BrainRpgDao {
         updateProfileAwards(BrainRpgProfileEntity.SINGLETON_ID, profile.baseTotalXp + bonusXp, profile.streakDays,
             profile.lastReadEpochDay, profile.streakShieldActive, profile.quizzesAttempted, profile.quizzesPassed)
         updateCategoryBaseXp(categoryId, category.baseXp + bonusXp)
+        insertXpEvent(
+            BrainRpgXpEventEntity(
+                categoryId = categoryId,
+                xpDelta = bonusXp,
+                rewardType = reward.rewardType,
+                createdAtMillis = reward.createdAtMillis,
+            ),
+        )
         return true
     }
 

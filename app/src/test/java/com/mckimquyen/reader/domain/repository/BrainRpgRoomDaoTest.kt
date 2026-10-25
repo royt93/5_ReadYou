@@ -7,6 +7,7 @@ import com.mckimquyen.reader.domain.model.rpg.BrainRpgCategoryEntity
 import com.mckimquyen.reader.domain.model.rpg.BrainRpgProfileEntity
 import com.mckimquyen.reader.domain.model.rpg.BrainRpgRewardEntity
 import com.mckimquyen.reader.domain.model.rpg.BrainRpgRewardType
+import com.mckimquyen.reader.domain.model.rpg.BrainRpgXpEventEntity
 import com.mckimquyen.reader.infrastructure.db.AndroidDatabase
 import kotlinx.coroutines.runBlocking
 import org.junit.After
@@ -75,6 +76,12 @@ class BrainRpgRoomDaoTest {
         assertEquals(300L, category.baseXp)
         assertEquals(200L, category.lastPracticedAtMillis)
         assertEquals(7L, category.lastDecayNotificationEpochDay)
+        val events = dao.allXpEvents()
+        assertEquals(1, events.size)
+        assertEquals("tech", events.single().categoryId)
+        assertEquals(50L, events.single().xpDelta)
+        assertEquals(BrainRpgRewardType.READ, events.single().rewardType)
+        assertEquals(100L, events.single().createdAtMillis)
     }
 
     @Test fun duplicateCorrectQuiz_refreshesPracticeButNotXpOrCounters() = runBlocking {
@@ -87,6 +94,8 @@ class BrainRpgRoomDaoTest {
         assertEquals(1, p.quizzesAttempted)
         assertEquals(1, p.quizzesPassed)
         assertEquals(20L, dao.getCategory("tech")?.lastPracticedAtMillis)
+        assertEquals(1, dao.allXpEvents().size)
+        assertEquals(150L, dao.allXpEvents().single().xpDelta)
     }
 
     @Test fun wrongQuizAttempt_incrementsAttemptOnly() = runBlocking {
@@ -96,6 +105,7 @@ class BrainRpgRoomDaoTest {
         assertEquals(1, p.quizzesAttempted)
         assertEquals(0, p.quizzesPassed)
         assertEquals(0L, p.baseTotalXp)
+        assertTrue(dao.allXpEvents().isEmpty())
         assertFalse(dao.hasReward("a-wrong", BrainRpgRewardType.QUIZ))
         assertEquals(null, dao.getCategory("tech"))
     }
@@ -106,6 +116,7 @@ class BrainRpgRoomDaoTest {
         assertFalse(dao.hasReward("a-r", BrainRpgRewardType.READ))
         assertEquals(0L, dao.getProfile()?.baseTotalXp)
         assertEquals(null, dao.getCategory("tech"))
+        assertTrue(dao.allXpEvents().isEmpty())
     }
 
     @Test fun independentDecayNotificationUpdate_preservesBaseXpAndPracticeTime() = runBlocking {
@@ -125,6 +136,8 @@ class BrainRpgRoomDaoTest {
         assertFalse(dao.claimDoubleRewardAndApplyXp(BrainRpgRewardEntity(articleId = "q1", rewardType = BrainRpgRewardType.DOUBLE, createdAtMillis = 3L), "tech", 150L))
         assertEquals(150L, dao.getProfile()?.baseTotalXp)
         assertEquals(150L, dao.getCategory("tech")?.baseXp)
+        assertEquals(1, dao.allXpEvents().size)
+        assertEquals(BrainRpgRewardType.DOUBLE, dao.allXpEvents().single().rewardType)
     }
 
     @Test fun doubleReward_requiresCorrectQuizLedger() = runBlocking {
@@ -132,6 +145,7 @@ class BrainRpgRoomDaoTest {
         dao.upsertCategory(BrainRpgCategoryEntity("tech"))
         assertFalse(dao.claimDoubleRewardAndApplyXp(BrainRpgRewardEntity(articleId = "q2", rewardType = BrainRpgRewardType.DOUBLE, createdAtMillis = 2L), "tech", 150L))
         assertEquals(0L, dao.getProfile()?.baseTotalXp)
+        assertTrue(dao.allXpEvents().isEmpty())
         assertFalse(dao.hasReward("q2", BrainRpgRewardType.DOUBLE))
     }
 }
