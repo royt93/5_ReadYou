@@ -9,6 +9,7 @@ import androidx.compose.material.icons.rounded.Article
 import androidx.compose.material.icons.rounded.AutoAwesome
 import androidx.compose.material.icons.rounded.DoneAll
 import androidx.compose.material.icons.outlined.PlayCircle
+import androidx.compose.material.icons.rounded.ElectricBolt
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
@@ -30,6 +31,7 @@ internal fun FlowActionsMenu(
     onWatchdog: () -> Unit = {},
     onSmartCollections: () -> Unit = {},
     onOnThisDay: () -> Unit = {},
+    onFeedZeroTriage: () -> Unit = {},
 ) {
     DropdownMenu(
         expanded = expanded,
@@ -42,6 +44,11 @@ internal fun FlowActionsMenu(
                 onClick = { onDismiss(); onMarkAllAsRead?.invoke() },
             )
         }
+        DropdownMenuItem(
+            text = { Text(stringResource(R.string.feed_zero_triage_title)) },
+            leadingIcon = { Icon(Icons.Rounded.ElectricBolt, contentDescription = null) },
+            onClick = { onDismiss(); onFeedZeroTriage() },
+        )
         DropdownMenuItem(
             text = { Text(stringResource(R.string.smart_collections_title)) },
             leadingIcon = { Icon(Icons.Rounded.AutoAwesome, contentDescription = null) },

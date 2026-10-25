@@ -38,6 +38,7 @@ import com.mckimquyen.reader.ui.page.collection.SmartCollectionDetailPage
 import com.mckimquyen.reader.ui.page.collection.SmartCollectionsPage
 import com.mckimquyen.reader.ui.page.onthisday.OnThisDayPage
 import com.mckimquyen.reader.ui.page.statistics.ReadingStatisticsPage
+import com.mckimquyen.reader.ui.page.triage.TriagePage
 import com.mckimquyen.reader.ui.page.home.read.ReadingPage
 import com.mckimquyen.reader.ui.page.digest.DigestPage
 import com.mckimquyen.reader.ui.page.digest.DigestViewModel
@@ -238,6 +239,14 @@ fun HomeEntry(
             // News Reels
             animatedComposable(route = RouteName.REELS, eInk = eInk) {
                 ReelsPage(navController = navController)
+            }
+
+            // Feed Zero Triage (EXC-14)
+            animatedComposable(route = RouteName.FEED_ZERO_TRIAGE, eInk = eInk) {
+                TriagePage(
+                    navController = navController,
+                    onBack = { navController.popBackStack() },
+                )
             }
             animatedComposable(route = "${RouteName.ADD_SOURCES_DETAIL}/{countryCode}", eInk = eInk) { backStackEntry ->
                 val countryCode = backStackEntry.arguments?.getString("countryCode") ?: "en"

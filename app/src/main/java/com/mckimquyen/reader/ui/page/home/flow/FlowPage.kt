@@ -187,6 +187,9 @@ fun FlowPage(
                     onOnThisDay = {
                         navController.navigate(RouteName.ON_THIS_DAY) { launchSingleTop = true }
                     },
+                    onFeedZeroTriage = {
+                        navController.navigate(RouteName.FEED_ZERO_TRIAGE) { launchSingleTop = true }
+                    },
                 )
                 FeedbackIconButton(
                     imageVector = Icons.Rounded.Search,

@@ -16,6 +16,9 @@ object RouteName {
     // News Reels
     const val REELS = "reels"
 
+    // Feed Zero Triage (EXC-14)
+    const val FEED_ZERO_TRIAGE = "feed_zero_triage"
+
     // Settings
     const val SETTINGS = "settings"
     const val AI_SETTINGS = "ai_settings"
