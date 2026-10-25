@@ -28,6 +28,7 @@ import com.mckimquyen.reader.domain.model.article.ArticleFts
 import com.mckimquyen.reader.domain.model.rpg.BrainRpgCategoryEntity
 import com.mckimquyen.reader.domain.model.rpg.BrainRpgProfileEntity
 import com.mckimquyen.reader.domain.model.rpg.BrainRpgRewardEntity
+import com.mckimquyen.reader.domain.model.rpg.BrainRpgXpEventEntity
 import com.mckimquyen.reader.domain.model.rpg.BrainRpgRewardTypeConverters
 import com.mckimquyen.reader.domain.model.feed.Feed
 import com.mckimquyen.reader.domain.model.feed.FeedErrorTypeConverters
@@ -72,8 +73,9 @@ import java.util.Date
         ArticleReadPosition::class,
         SmartCollection::class,
         SmartCollectionArticle::class,
+        BrainRpgXpEventEntity::class,
     ],
-    version = 18
+    version = 19
 )
 @TypeConverters(
     AndroidDatabase.DateConverters::class,
@@ -151,6 +153,7 @@ val allMigrations = arrayOf(
     MIGRATION_15_16,
     MIGRATION_16_17,
     MIGRATION_17_18,
+    MIGRATION_18_19,
 )
 
 @Suppress("ClassName")
@@ -376,6 +379,25 @@ object MIGRATION_17_18 : Migration(17, 18) {
         db.execSQL("ALTER TABLE article ADD COLUMN audioUrl TEXT DEFAULT NULL")
         db.execSQL("ALTER TABLE article ADD COLUMN audioMime TEXT DEFAULT NULL")
         db.execSQL("ALTER TABLE article ADD COLUMN audioDurationSec INTEGER DEFAULT NULL")
+    }
+}
+
+@Suppress("ClassName")
+object MIGRATION_18_19 : Migration(18, 19) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL(
+            """
+            CREATE TABLE IF NOT EXISTS `brain_rpg_xp_event` (
+                `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                `categoryId` TEXT NOT NULL,
+                `xpDelta` INTEGER NOT NULL,
+                `rewardType` TEXT NOT NULL,
+                `createdAtMillis` INTEGER NOT NULL
+            )
+            """.trimIndent()
+        )
+        db.execSQL("CREATE INDEX IF NOT EXISTS `index_brain_rpg_xp_event_createdAtMillis` ON `brain_rpg_xp_event` (`createdAtMillis`)")
+        db.execSQL("CREATE INDEX IF NOT EXISTS `index_brain_rpg_xp_event_categoryId_createdAtMillis` ON `brain_rpg_xp_event` (`categoryId`, `createdAtMillis`)")
     }
 }
 
