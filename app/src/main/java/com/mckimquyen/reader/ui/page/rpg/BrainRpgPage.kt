@@ -152,7 +152,7 @@ fun BrainRpgPage(
                                 topicValue = topic,
                                 topicEmptyLabel = context.getString(R.string.brain_wrapped_topic_empty),
                                 tagline = context.getString(R.string.brain_wrapped_tagline),
-                                watermark = com.mckimquyen.reader.infrastructure.quote.QuoteCardRenderer.WATERMARK,
+                                watermark = context.getString(R.string.read_you),
                             )
                             viewModel.shareWeeklyWrapped(
                                 renderModel,

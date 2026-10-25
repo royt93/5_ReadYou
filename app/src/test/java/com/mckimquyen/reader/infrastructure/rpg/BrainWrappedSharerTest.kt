@@ -7,6 +7,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import androidx.test.core.app.ApplicationProvider
+import androidx.core.content.FileProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import org.junit.After
@@ -34,30 +35,15 @@ class BrainWrappedSharerTest {
         context = ApplicationProvider.getApplicationContext()
         File(context.cacheDir, BrainWrappedSharer.DIR_NAME).deleteRecursively()
         sharer = BrainWrappedSharer(context, Dispatchers.Unconfined)
-        runCatching {
-            androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().context
-                .resources.openRawResource(com.mckimquyen.reader.R.xml.file_paths).use { input ->
-                    val parser = android.util.Xml.newPullParser()
-                    parser.setInput(input, null)
-                    while (parser.eventType != org.xmlpull.v1.XmlPullParser.END_DOCUMENT) {
-                        if (parser.eventType == org.xmlpull.v1.XmlPullParser.START_TAG && parser.name == "cache-path") {
-                            val name = parser.getAttributeValue(null, "name")
-                            val path = parser.getAttributeValue(null, "path")
-                            val cacheField = androidx.core.content.FileProvider::class.java.getDeclaredField("sCache")
-                            cacheField.isAccessible = true
-                            val cache = cacheField.get(null) as MutableMap<String, Any>
-                            val strategyClass = Class.forName("androidx.core.content.FileProvider\$SimplePathStrategy")
-                            val strategy = strategyClass.getDeclaredConstructor(String::class.java).newInstance("${context.packageName}.fileprovider")
-                            val add = strategyClass.getDeclaredMethod("addRoot", String::class.java, java.io.File::class.java)
-                            add.isAccessible = true
-                            add.invoke(strategy, name, File(context.cacheDir, path))
-                            cache["${context.packageName}.fileprovider"] = strategy
-                            break
-                        }
-                        parser.next()
-                    }
-                }
-        }
+        val strategyClass = Class.forName("androidx.core.content.FileProvider\$SimplePathStrategy")
+        val constructor = strategyClass.getDeclaredConstructor(String::class.java).apply { isAccessible = true }
+        val strategy = constructor.newInstance("${context.packageName}.fileprovider")
+        val addRoot = strategyClass.getDeclaredMethod("addRoot", String::class.java, File::class.java)
+        addRoot.isAccessible = true
+        addRoot.invoke(strategy, "cache", context.cacheDir)
+        val paths = FileProviderPathsForTest
+        paths.install(context.packageName + ".fileprovider", strategy)
+
     }
 
     @After
@@ -119,5 +105,15 @@ class BrainWrappedSharerTest {
 
     private companion object {
         val PNG_SIGNATURE = byteArrayOf(0x89.toByte(), 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A)
+    }
+}
+
+private object FileProviderPathsForTest {
+    fun install(authority: String, strategy: Any) {
+        val cacheField = androidx.core.content.FileProvider::class.java.getDeclaredField("sCache")
+        cacheField.isAccessible = true
+        @Suppress("UNCHECKED_CAST")
+        val cache = cacheField.get(null) as MutableMap<String, Any>
+        cache[authority] = strategy
     }
 }
