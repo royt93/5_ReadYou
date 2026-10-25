@@ -9,7 +9,11 @@ import com.mckimquyen.reader.domain.model.rpg.BrainRpgRewardEntity
 import com.mckimquyen.reader.domain.model.rpg.BrainRpgRewardType
 import com.mckimquyen.reader.domain.model.rpg.LevelCalculator
 import com.mckimquyen.reader.domain.model.rpg.UserProgress
+import com.mckimquyen.reader.domain.model.rpg.BrainRpgWeek
+import com.mckimquyen.reader.domain.model.rpg.WeeklyBrainWrapped
 import com.mckimquyen.reader.domain.sv.QuizGeneratorService
+import java.time.Instant
+import java.time.ZoneId
 import com.mckimquyen.reader.infrastructure.db.AndroidDatabase
 import com.mckimquyen.reader.infrastructure.di.ApplicationScope
 import com.mckimquyen.reader.infrastructure.di.IODispatcher
@@ -78,6 +82,23 @@ class BrainRpgRepository @Inject constructor(
     }
 
     suspend fun getProgress(): UserProgress = refresh()
+
+    suspend fun getWeeklyBrainWrapped(
+        now: Instant,
+        zone: ZoneId,
+    ): WeeklyBrainWrapped {
+        val interval = BrainRpgWeek.interval(now, zone)
+        val weeklyXp = dao.queryWeeklyXpTotal(interval.startMillis, interval.endMillis)
+        val topCategoryId = dao.queryWeeklyCategoryXp(interval.startMillis, interval.endMillis).firstOrNull()?.categoryId
+        val streak = dao.getProfile()?.streakDays ?: 1
+        return WeeklyBrainWrapped(
+            weekStartMillis = interval.startMillis,
+            weekEndMillis = interval.endMillis,
+            weeklyXp = weeklyXp,
+            currentStreakDays = streak,
+            topCategoryId = topCategoryId,
+        )
+    }
 
     /** Award reading XP once; repeat qualifying reads still refresh practice time, but never award XP twice. */
     suspend fun awardReadingXpOnce(articleId: String, category: String, amount: Long = READING_XP, nowMillis: Long = System.currentTimeMillis()): Long {

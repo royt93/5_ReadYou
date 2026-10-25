@@ -7,14 +7,6 @@ import java.time.temporal.TemporalAdjusters
 
 data class WeekInterval(val startMillis: Long, val endMillis: Long)
 
-data class WeeklyBrainWrapped(
-    val weekStartMillis: Long,
-    val weekEndMillis: Long,
-    val weeklyXp: Long,
-    val currentStreakDays: Int,
-    val topCategoryId: String?,
-)
-
 object BrainRpgWeek {
     fun interval(now: Instant, zone: ZoneId): WeekInterval {
         val date = now.atZone(zone).toLocalDate()

@@ -11,6 +11,7 @@ import com.mckimquyen.reader.domain.model.rpg.BrainRpgProfileEntity
 import com.mckimquyen.reader.domain.model.rpg.BrainRpgRewardEntity
 import com.mckimquyen.reader.domain.model.rpg.BrainRpgRewardType
 import com.mckimquyen.reader.domain.model.rpg.BrainRpgXpEventEntity
+import com.mckimquyen.reader.domain.model.rpg.CategoryXpTotal
 
 @Dao
 abstract class BrainRpgDao {
@@ -53,8 +54,14 @@ abstract class BrainRpgDao {
     @Query("SELECT * FROM brain_rpg_xp_event ORDER BY id")
     abstract suspend fun allXpEvents(): List<BrainRpgXpEventEntity>
 
+    @Query("SELECT COALESCE(SUM(xpDelta), 0) FROM brain_rpg_xp_event WHERE createdAtMillis >= :startMillis AND createdAtMillis < :endMillis")
+    abstract suspend fun queryWeeklyXpTotal(startMillis: Long, endMillis: Long): Long
+
+    @Query("SELECT categoryId, SUM(xpDelta) AS xp FROM brain_rpg_xp_event WHERE createdAtMillis >= :startMillis AND createdAtMillis < :endMillis GROUP BY categoryId ORDER BY xp DESC, categoryId ASC")
+    abstract suspend fun queryWeeklyCategoryXp(startMillis: Long, endMillis: Long): List<CategoryXpTotal>
+
     @Insert
-    protected abstract suspend fun insertXpEvent(event: BrainRpgXpEventEntity)
+    abstract suspend fun insertXpEvent(event: BrainRpgXpEventEntity)
 
     @Query("SELECT EXISTS(SELECT 1 FROM brain_rpg_reward WHERE articleId = :articleId AND rewardType = :rewardType)")
     abstract suspend fun hasReward(articleId: String, rewardType: BrainRpgRewardType): Boolean
