@@ -20,7 +20,9 @@ import com.mckimquyen.reader.domain.model.feed.Feed
 import com.mckimquyen.reader.infrastructure.rss.RssDescriptionParser
 import com.mckimquyen.reader.infrastructure.rss.scraper.WebFeedScraper
 import com.mckimquyen.reader.infrastructure.rss.scraper.WebFeedRefreshResult
+import com.mckimquyen.reader.domain.security.UrlTrackingCleaner
 import com.mckimquyen.reader.ui.ext.spacerDollar
+import com.mckimquyen.reader.ui.ext.urlTrackingCleanEnabled
 import java.util.Date
 import java.util.UUID
 
@@ -75,7 +77,11 @@ class LocalRssSv @Inject constructor(
                     title = candidate.title,
                     rawDescription = "",
                     shortDescription = candidate.title.take(RssDescriptionParser.MAX_SHORT_DESCRIPTION_LENGTH),
-                    link = candidate.url.toString(),
+                    link = if (context.urlTrackingCleanEnabled) {
+                        UrlTrackingCleaner.clean(candidate.url.toString())
+                    } else {
+                        candidate.url.toString()
+                    },
                     feedId = feed.id,
                     accountId = feed.accountId,
                 )
