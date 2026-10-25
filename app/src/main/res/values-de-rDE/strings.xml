@@ -902,4 +902,16 @@
     <string name="brain_wrapped_header">Weekly Brain Wrapped</string>
     <string name="brain_wrapped_week_header">%1$s</string>
     <string name="brain_wrapped_current_streak">%1$d Day Streak</string>
+    <!-- DoH Privacy Shield (STRAT-03) -->
+    <string name="privacy_settings_title">Privacy &amp; Security</string>
+    <string name="privacy_settings_desc">DNS-over-HTTPS, URL cleaner, and anti-tracker shield</string>
+    <string name="doh_title">DNS-over-HTTPS (DoH)</string>
+    <string name="doh_desc">Encrypts domain name resolution queries to prevent surveillance by network providers and public Wi-Fi.</string>
+    <string name="doh_mode_system">System DNS (Default)</string>
+    <string name="doh_mode_cloudflare">Cloudflare DoH (1.1.1.1 — Fast &amp; Private)</string>
+    <string name="doh_mode_adguard">AdGuard DoH (Blocks ads &amp; trackers at DNS level)</string>
+    <string name="url_tracking_title">Strip URL Tracking Parameters</string>
+    <string name="url_tracking_desc">Automatically removes tracking tags (utm_*, fbclid, gclid...) when fetching, opening, and sharing links.</string>
+    <string name="html_antitracker_title">Anti-Tracker Content Shield</string>
+    <string name="html_antitracker_desc">Filters out 1x1 tracking pixels, hidden beacons, and malicious scripts inside articles.</string>
 </resources>
