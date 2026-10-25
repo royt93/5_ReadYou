@@ -41,3 +41,23 @@
 - Toàn bộ test suite `./gradlew testDevDebugUnitTest --rerun`: **1283 tests pass, 0 failures**.
 - Build `./gradlew assembleDevDebug`: **BUILD SUCCESSFUL**.
 - Lint `./gradlew lintDevDebug`: **BUILD SUCCESSFUL, 0 errors**.
+
+## Smoke Test Thực Tế Trên Pixel 7 Pro (2026-10-25)
+
+- **Thiết bị:** Pixel 7 Pro (serial `2B051FDH3006MU`).
+- **Backup snapshot trước smoke:** `/Users/loitran/exc14_bak_pixel_20261025_130439` (Room v18, integrity `ok`, 303 bài, 293 chưa đọc).
+- **Quy trình kiểm chứng:**
+  1. Mở `FlowPage` -> mở menu 3 chấm -> hiển thị đúng mục "Feed Zero Triage" kèm icon `ElectricBolt`.
+  2. Màn hình `Feed Zero Triage` khởi động mượt mà, render thẻ bài đầu tiên ("BBC News app"), thẻ kế tiếp nằm ẩn bên dưới với tỉ lệ thu nhỏ nhẹ, thanh tiến độ hiển thị "0 / 293".
+  3. Bấm nút tròn đỏ "Bỏ qua" ở chân màn hình -> thẻ trượt đi, tiến độ cập nhật thành "1 / 293", bài kế tiếp ("Coming soon: Sir David...") xuất hiện.
+  4. Bấm nút tròn vàng "Lưu lại" -> tiến độ cập nhật thành "2 / 293", bài kế tiếp ("Sign up now") xuất hiện.
+  5. Vuốt cử chỉ sang trái trên thẻ bài -> thẻ trượt bay sang trái, tiến độ cập nhật thành "3 / 293".
+  6. Vuốt cử chỉ sang phải trên thẻ bài -> thẻ trượt bay sang phải, tiến độ cập nhật thành "4 / 293".
+  7. Bấm nút tròn xanh "Đọc ngay" ở giữa -> điều hướng mượt mà sang `ReadingPage` của đúng bài viết ("Brad Pitt stars as a tank commander..."); bấm Back quay lại thì tiến độ nhảy lên "5 / 293" và bài kế tiếp sẵn sàng.
+  8. Thoát về màn hình chính, kiểm tra tab "Yêu thích" (Starred): hiển thị chính xác 2 bài vừa lưu ("Unravel the secrets..." và "Coming soon: Sir David Attenborough...").
+  9. Kiểm tra cơ sở dữ liệu Room thật:
+     - Số bài chưa đọc giảm từ 293 xuống đúng 288 bài.
+     - Số bài đã gắn sao tăng từ 0 lên 2 bài.
+     - Bảng `brain_rpg_reward` ghi nhận đúng 5 lượt triage reward (`rewardType = 'TRIAGE'`).
+     - Tổng XP Brain RPG tăng thêm 175 XP (từ 850 lên 1025 XP).
+
