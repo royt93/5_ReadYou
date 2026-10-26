@@ -1,5 +1,6 @@
 package com.mckimquyen.reader.domain.sv
 
+import com.mckimquyen.reader.domain.model.rpg.QuizPeer
 import com.mckimquyen.reader.domain.model.rpg.QuizQuestion
 import java.util.Random
 import javax.inject.Inject
@@ -25,114 +26,133 @@ class QuizGeneratorService @Inject constructor() {
         }
     }
 
-    fun generateQuiz(articleId: String, title: String, content: String, author: String? = null): QuizQuestion {
-        val cleanTitle = title.trim().replace("\n", " ")
-        val cleanContent = content.replace(Regex("<[^>]*>"), " ").trim()
+    /**
+     * Pure and deterministic for the same [articleId] + text, so it is safe to call during composition.
+     *
+     * The correct option is the article's own headline. Distractors are, in order of preference: headlines of
+     * other articles ([peers]), then the article's own secondary statements. The answer is never cut; distractors are clipped
+     * to its length plus a seeded random slack so length alone does not reveal the answer.
+     */
+    fun generateQuiz(
+        articleId: String,
+        title: String,
+        content: String,
+        author: String? = null,
+        peers: List<QuizPeer> = emptyList(),
+    ): QuizQuestion {
+        val cleanTitle = cleanText(title)
+        val cleanContent = cleanText(content)
         val category = detectCategory(cleanTitle, cleanContent)
         val rng = Random(articleId.hashCode().toLong())
-
-        // Extract key sentence or clause from cleanContent
-        val sentences = cleanContent.split(Regex("[.!?]\\s+")).filter { it.length > 20 && it.length < 150 }
-        val keySentence = sentences.firstOrNull()?.trim()
-
         val isVietnamese = cleanTitle.containsAny("và", "các", "của", "trong", "được", "người", "những", "cho", "với", "không", "này")
 
-        val questionText: String
-        val correctOption: String
-        val distractors: List<String>
-        val explanation: String
+        val bodyStatements = extractStatements(cleanContent)
+        val allStatements = (listOf(normalize(cleanTitle)) + bodyStatements).filter(String::isNotBlank).distinct()
 
-        if (isVietnamese) {
-            val qType = rng.nextInt(3)
-            when (qType) {
-                0 -> {
-                    questionText = "Chủ đề cốt lõi được đề cập trong bài viết là gì?"
-                    correctOption = cleanTitle.take(65) + if (cleanTitle.length > 65) "..." else ""
-                    distractors = listOf(
-                        "Kế hoạch sáp nhập tài chính toàn cầu năm 2030",
-                        "Phân tích tác động của biến đổi khí hậu tại vùng cực",
-                        "Lịch sử phát triển các nền tảng thương mại truyền thống"
-                    )
-                    explanation = "Bài viết tập trung phân tích về: \"${cleanTitle.take(80)}\"."
-                }
-                1 -> {
-                    questionText = "Theo nội dung bài viết, thông điệp trọng tâm nào là chính xác?"
-                    correctOption = if (!keySentence.isNullOrBlank()) {
-                        keySentence.take(65) + if (keySentence.length > 65) "..." else ""
-                    } else {
-                        "Phát triển và cập nhật quan trọng liên quan đến: ${cleanTitle.take(40)}"
-                    }
-                    distractors = listOf(
-                        "Dự án đã bị hủy bỏ hoàn toàn do thiếu hụt ngân sách",
-                        "Chính sách bị tạm ngưng vô thời hạn bởi các cơ quan giám sát",
-                        "Không có sự thay đổi hay tác động nào được ghi nhận"
-                    )
-                    explanation = "Nội dung chính nhấn mạnh diễn biến: \"${cleanTitle.take(80)}\"."
-                }
-                else -> {
-                    questionText = "Mục tiêu hoặc xu hướng nào được bài viết làm nổi bật?"
-                    correctOption = "Xu hướng đổi mới và thúc đẩy trong lĩnh vực $category"
-                    distractors = listOf(
-                        "Cắt giảm toàn bộ chi phí nghiên cứu và phát triển",
-                        "Chuyển dịch 100% sang mô hình thủ công truyền thống",
-                        "Rút lui hoàn toàn khỏi thị trường quốc tế"
-                    )
-                    explanation = "Bài viết thuộc lĩnh vực $category với trọng tâm là sự đổi mới và tiến bộ liên tục."
-                }
-            }
-        } else {
-            val qType = rng.nextInt(3)
-            when (qType) {
-                0 -> {
-                    questionText = "What is the primary topic discussed in this article?"
-                    correctOption = cleanTitle.take(65) + if (cleanTitle.length > 65) "..." else ""
-                    distractors = listOf(
-                        "Global financial restructuring plans for 2030",
-                        "Long-term impact of extreme weather in Antarctica",
-                        "Historical evolution of 19th-century maritime commerce"
-                    )
-                    explanation = "The article primarily focuses on: \"${cleanTitle.take(80)}\"."
-                }
-                1 -> {
-                    questionText = "According to the article, which key insight is highlighted?"
-                    correctOption = if (!keySentence.isNullOrBlank()) {
-                        keySentence.take(65) + if (keySentence.length > 65) "..." else ""
-                    } else {
-                        "Significant development regarding ${cleanTitle.take(40)}"
-                    }
-                    distractors = listOf(
-                        "The initiative was canceled indefinitely due to budget cuts",
-                        "Regulators decided to halt all operations effective immediately",
-                        "No measurable impact or change was observed"
-                    )
-                    explanation = "Key development summarized in: \"${cleanTitle.take(80)}\"."
-                }
-                else -> {
-                    questionText = "Which direction or strategic focus is emphasized?"
-                    correctOption = "Advancements and transformations in $category"
-                    distractors = listOf(
-                        "Complete divestment from modern research and tools",
-                        "Transition back to manual, analog methodologies",
-                        "Immediate shutdown of international expansions"
-                    )
-                    explanation = "The article underscores ongoing advancements within the $category domain."
-                }
-            }
-        }
+        // The answer is the article's own headline, so it has the same form as the peer headlines used as distractors.
+        // A body sentence only stands in when the article has no usable title.
+        val headline = cleanTitle.takeIf { it.length >= MIN_HEADLINE_LENGTH }
+        val correct = headline ?: bodyStatements.firstOrNull() ?: allStatements.firstOrNull()
+            ?: normalize(articleId).ifBlank { category }
+        // Same-category headlines first; other categories only top up when the library has too few of them. Within each
+        // group, headlines whose length is closest to the answer come first (seeded jitter breaks ties), so length is
+        // not a tell. Distractors are chosen for length rather than cut to it, because cutting can only shorten.
+        val (sameCategory, otherCategory) = peers.partition { detectCategory(it.title, it.shortDescription) == category }
+        fun byLengthProximity(group: List<QuizPeer>) = group
+            .map { cleanText(it.title) }
+            .filter { it.length >= MIN_STATEMENT_LENGTH }
+            // Key computed once per title: a random value inside the comparator breaks sort's consistency contract.
+            .map { it to kotlin.math.abs(it.length - correct.length) + rng.nextInt(LENGTH_JITTER) }
+            .sortedBy { it.second }
+            .map { it.first }
+        val peerTitles = byLengthProximity(sameCategory) + byLengthProximity(otherCategory)
+        val secondary = if (headline != null) bodyStatements else bodyStatements.drop(1)
+        val distractors = buildDistractors(correct, secondary, allStatements, peerTitles, rng)
 
-        // Shuffle options and find index of correct option
-        val allOptions = (listOf(correctOption) + distractors.shuffled(rng)).shuffled(rng)
-        val correctIndex = allOptions.indexOf(correctOption)
+        val raw = (listOf(correct to true) + distractors.map { it to false }).shuffled(rng)
+        // The answer is never cut. A distractor longer than the answer by more than LENGTH_SLACK is clipped back to that
+        // ceiling, so "pick the longest" is not a strategy; shorter distractors are left alone, because padding would be
+        // invented text. If the library has nothing as long as the answer, the answer stays the longest (nothing to fix).
+        val ceiling = correct.length + LENGTH_SLACK
+        val options = uniquify(raw.map { (text, isCorrect) -> Option(if (isCorrect) text else clip(text, ceiling), isCorrect) })
 
         return QuizQuestion(
             articleId = articleId,
-            question = questionText,
-            options = allOptions,
-            correctAnswerIndex = correctIndex,
-            explanation = explanation,
-            category = category
+            question = if (isVietnamese) "Tiêu đề nào thuộc về bài viết này?" else "Which headline belongs to this article?",
+            options = options.map { it.text },
+            correctAnswerIndex = options.indexOfFirst { it.isCorrect },
+            explanation = if (isVietnamese) {
+                "Tiêu đề của bài viết là: \"${clip(correct, EXPLANATION_LIMIT)}\"."
+            } else {
+                "The article's headline is: \"${clip(correct, EXPLANATION_LIMIT)}\"."
+            },
+            category = category,
         )
     }
+
+    private fun buildDistractors(
+        correct: String,
+        secondaryStatements: List<String>,
+        allStatements: List<String>,
+        peerTitles: List<String>,
+        rng: Random,
+    ): List<String> {
+        // Other articles' headlines come first: they are real, on-topic, and cannot be told apart by wording.
+        val candidates = (peerTitles.distinct() + (secondaryStatements + allStatements).distinct().shuffled(rng))
+            .filter { it != correct }
+            .distinct()
+        val result = linkedSetOf<String>()
+        candidates.forEach { candidate ->
+            if (result.size < DISTRACTOR_COUNT && candidate != correct) result.add(candidate)
+        }
+        // Degenerate one-statement articles need three distinct non-answer choices. Keep these clearly marked
+        // as unsupported paraphrases of the article rather than inventing unrelated factual distractors.
+        var variant = 0
+        while (result.size < DISTRACTOR_COUNT) {
+            val candidate = unsupportedVariant(correct, variant++)
+            if (candidate != correct) result.add(candidate)
+        }
+        return result.toList()
+    }
+
+    private fun unsupportedVariant(statement: String, variant: Int): String {
+        val words = statement.split(WHITESPACE).filter(String::isNotBlank)
+        val rotated = if (words.size > 1) {
+            val offset = (variant + 1) % words.size
+            (words.drop(offset) + words.take(offset)).joinToString(" ")
+        } else {
+            "$statement ${variant + 1}"
+        }
+        return "Not supported: $rotated"
+    }
+
+    private fun extractStatements(content: String): List<String> =
+        content.split(SENTENCE_BOUNDARY)
+            .map(::normalize)
+            .filter { it.length >= MIN_STATEMENT_LENGTH }
+            .distinct()
+            .take(MAX_STATEMENTS)
+
+    /** Clips at a word boundary to [maxLength]; never pads, so a short statement stays short. */
+    private fun clip(value: String, maxLength: Int): String {
+        if (value.length <= maxLength) return value
+        val cut = value.take(maxLength)
+        return cut.substringBeforeLast(' ', cut).trimEnd(',', ';', ':', '-').ifBlank { cut }
+    }
+
+    private fun uniquify(options: List<Option>): List<Option> {
+        val seen = mutableSetOf<String>()
+        return options.map { option ->
+            var text = option.text
+            var n = 1
+            while (!seen.add(text)) text = "${option.text} (${++n})"
+            option.copy(text = text)
+        }
+    }
+
+    private fun cleanText(value: String): String = value.replace(HTML_TAG, " ").replace(WHITESPACE, " ").trim()
+
+    private fun normalize(value: String): String = value.replace(WHITESPACE, " ").trim().trimEnd('.', '!', '?', ';', ':')
 
     private fun String.matchesKeywords(vararg keywords: String): Boolean {
         val lower = this.lowercase()
@@ -148,11 +168,22 @@ class QuizGeneratorService @Inject constructor() {
         }
     }
 
-    private fun String.containsAny(vararg keywords: String): Boolean {
-        return keywords.any { this.contains(it, ignoreCase = true) }
-    }
+    private fun String.containsAny(vararg keywords: String): Boolean = keywords.any { contains(it, ignoreCase = true) }
+
+    private data class Option(val text: String, val isCorrect: Boolean)
 
     companion object {
+        private const val DISTRACTOR_COUNT = 3
+        private const val MIN_STATEMENT_LENGTH = 20
+        private const val MIN_HEADLINE_LENGTH = 8
+        private const val MAX_STATEMENTS = 24
+        private const val EXPLANATION_LIMIT = 90
+        private const val LENGTH_SLACK = 12
+        private const val LENGTH_JITTER = 14
+        private val SENTENCE_BOUNDARY = Regex("(?<=[.!?])\\s+|[;\\n]+")
+        private val WHITESPACE = Regex("\\s+")
+        private val HTML_TAG = Regex("<[^>]*>")
+
         const val CATEGORY_TECH = "Tech & AI"
         const val CATEGORY_BUSINESS = "Business & Finance"
         const val CATEGORY_SCIENCE = "Science & Nature"

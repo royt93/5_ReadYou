@@ -8,6 +8,7 @@ import com.mckimquyen.reader.domain.model.rpg.BrainRpgProfileEntity
 import com.mckimquyen.reader.domain.model.rpg.BrainRpgRewardEntity
 import com.mckimquyen.reader.domain.model.rpg.BrainRpgRewardType
 import com.mckimquyen.reader.domain.model.rpg.LevelCalculator
+import com.mckimquyen.reader.domain.model.rpg.QuizPeer
 import com.mckimquyen.reader.domain.model.rpg.UserProgress
 import com.mckimquyen.reader.domain.model.rpg.BrainRpgWeek
 import com.mckimquyen.reader.domain.model.rpg.WeeklyBrainWrapped
@@ -49,6 +50,10 @@ class BrainRpgRepository @Inject constructor(
     init {
         applicationScope.launch(ioDispatcher) { refresh() }
     }
+
+    /** Other articles' headlines for quiz distractors. Metadata only (no body column); runs on the IO dispatcher. */
+    suspend fun quizPeers(articleId: String, limit: Int = QUIZ_PEER_LIMIT): List<QuizPeer> =
+        withContext(ioDispatcher) { database.articleDao().queryQuizPeers(articleId, limit) }
 
     /** Room is the source of truth; every read awaits the retry-safe legacy import first. */
     suspend fun refresh(nowMillis: Long = System.currentTimeMillis()): UserProgress = refreshMutex.withLock {
@@ -270,6 +275,7 @@ class BrainRpgRepository @Inject constructor(
     private companion object {
         const val READING_XP = 50L
         const val QUIZ_XP = 150L
+        const val QUIZ_PEER_LIMIT = 60
         const val MILLIS_PER_DAY = 86_400_000L
     }
 }

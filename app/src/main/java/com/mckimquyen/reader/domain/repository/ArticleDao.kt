@@ -11,6 +11,7 @@ import com.mckimquyen.reader.domain.model.article.ArticleListItemWithFeed
 import com.mckimquyen.reader.domain.model.article.ArticleBody
 import com.mckimquyen.reader.domain.model.article.ArticleBodyLengths
 import com.mckimquyen.reader.domain.model.article.ArticleBodyChunk
+import com.mckimquyen.reader.domain.model.rpg.QuizPeer
 import java.io.ByteArrayOutputStream
 import com.mckimquyen.reader.domain.model.statistics.FeedReadCount
 import com.mckimquyen.reader.domain.model.statistics.ReadingDayCount
@@ -37,6 +38,22 @@ interface ArticleDao {
     @Transaction
     @Query("SELECT " + ARTICLE_LIST_COLUMNS + " FROM article WHERE accountId = :accountId AND id = :articleId")
     suspend fun queryArticleListWithFeedById(accountId: Int, articleId: String): ArticleListItemWithFeed?
+
+    /**
+     * Quiz distractor pool: other articles of the SAME account as [articleId], newest first. Title and short
+     * description only, so no body column is ever read (FIX-17).
+     */
+    @Query(
+        """
+        SELECT title, shortDescription FROM article
+        WHERE accountId = (SELECT accountId FROM article WHERE id = :articleId)
+          AND id != :articleId
+          AND shortDescription != ''
+        ORDER BY date DESC, id DESC
+        LIMIT :limit
+        """
+    )
+    suspend fun queryQuizPeers(articleId: String, limit: Int): List<QuizPeer>
 
     @Query("UPDATE article SET fullContent = :content WHERE accountId = :accountId AND id = :articleId")
     suspend fun updateFullContent(accountId: Int, articleId: String, content: String)

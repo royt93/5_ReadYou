@@ -43,6 +43,23 @@ class BrainRpgViewModel @Inject constructor(
     private val _weeklyWrappedState = MutableStateFlow(WeeklyWrappedUiState())
     val weeklyWrappedState: StateFlow<WeeklyWrappedUiState> = _weeklyWrappedState.asStateFlow()
 
+    /**
+     * Builds the quiz off the main thread: peer headlines come from Room (IO), generation runs on Default.
+     * A failed lookup degrades to an article-only quiz instead of hiding the card.
+     */
+    suspend fun buildQuiz(articleId: String, title: String, content: String, author: String?): QuizQuestion {
+        val peers = try {
+            repository.quizPeers(articleId)
+        } catch (e: CancellationException) {
+            throw e
+        } catch (_: Exception) {
+            emptyList()
+        }
+        return withContext(defaultDispatcher) {
+            quizGeneratorService.generateQuiz(articleId, title, content, author, peers)
+        }
+    }
+
     fun refresh() {
         viewModelScope.launch { repository.refresh() }
         refreshWeeklyWrapped()

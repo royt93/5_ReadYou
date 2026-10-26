@@ -24,6 +24,9 @@ import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
@@ -43,6 +46,7 @@ import com.mckimquyen.reader.ui.component.reader.BodyItemRange
 import com.mckimquyen.reader.ui.component.reader.ItemCountingScope
 import com.mckimquyen.reader.ui.component.reader.Reader
 import com.mckimquyen.reader.ui.component.reader.recordRange
+import com.mckimquyen.reader.domain.model.rpg.QuizQuestion
 import com.mckimquyen.reader.ui.component.rpg.BrainQuizCard
 import com.mckimquyen.reader.ui.ext.drawVerticalScrollbar
 import com.mckimquyen.reader.ui.ext.openURL
@@ -70,10 +74,14 @@ fun Content(
     val openLinkSpecificBrowser = LocalOpenLinkSpecificBrowser.current
     val eInkEnabled = LocalEInkMode.current.value
 
-    val quiz = remember(articleId, title, content) {
-        if (articleId.isNotBlank() && (title.isNotBlank() || content.isNotBlank()) && brainRpgViewModel != null) {
-            brainRpgViewModel.quizGeneratorService.generateQuiz(articleId, title, content, author)
-        } else null
+    // Built off the main thread (Room peer lookup on IO, generation on Default); null until ready, so the card appears
+    // a moment after the article instead of blocking composition. produceState is avoided on purpose: lint's
+    // ProduceStateDoesNotAssignValue rejects it here (same rule FIX-21 hit), and LaunchedEffect says the same thing.
+    var quiz by remember(articleId, title, content) { mutableStateOf<QuizQuestion?>(null) }
+    LaunchedEffect(articleId, title, content, brainRpgViewModel) {
+        if (brainRpgViewModel != null && articleId.isNotBlank() && (title.isNotBlank() || content.isNotBlank())) {
+            quiz = brainRpgViewModel.buildQuiz(articleId, title, content, author)
+        }
     }
 
     val doubleRewardedIds by (brainRpgViewModel?.doubleRewardedArticleIds ?: remember { kotlinx.coroutines.flow.MutableStateFlow(emptySet<String>()) })
@@ -173,7 +181,7 @@ fun Content(
                         }
                     )
                 }
-                if (quiz != null) {
+                quiz?.let { quiz ->
                     item {
                         BrainQuizCard(
                             quiz = quiz,

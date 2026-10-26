@@ -79,6 +79,46 @@ class BrainRpgViewModelTest {
         assertEquals(2, rewarded)
     }
 
+    @Test fun buildQuiz_usesHeadlinesOfOtherStoredArticlesAsDistractors() = runTest(testDispatcher) {
+        seedArticles(
+            "self" to "Lula wins but faces hostile Congress and divided country",
+            "p1" to "Venezuelan opposition leader returns after months in exile",
+            "p2" to "Two men killed by falling trees as Storm Boelo hits the UK",
+            "p3" to "Antonelli delivers the race of a champion in Italy",
+        )
+
+        val quiz = viewModel.buildQuiz(
+            "self", "Lula wins but faces hostile Congress and divided country",
+            "President Lula has pulled of a surprise win, but he will face a hostile Congress.", null,
+        )
+        advanceUntilIdle()
+
+        val distractors = quiz.options.filterIndexed { i, _ -> i != quiz.correctAnswerIndex }
+        assertEquals(3, distractors.size)
+        assertTrue("distractors must be other stored headlines: $distractors", distractors.none { it.startsWith("Not supported") })
+        assertTrue(distractors.all { d -> listOf("Venezuelan", "Two men", "Antonelli").any { d.startsWith(it) } })
+    }
+
+    @Test fun buildQuiz_degradesToArticleOnlyQuizWhenTheArticleIsNotStored() = runTest(testDispatcher) {
+        val quiz = viewModel.buildQuiz("ghost", "Some headline that is long enough", "A body statement that is long enough.", null)
+
+        assertEquals(4, quiz.options.toSet().size)
+    }
+
+    private suspend fun seedArticles(vararg rows: Pair<String, String>) {
+        database.accountDao().insert(com.mckimquyen.reader.domain.model.account.Account(id = 1, name = "A", type = com.mckimquyen.reader.domain.model.account.AccountType.Local))
+        database.groupDao().insert(com.mckimquyen.reader.domain.model.group.Group(id = "g", name = "G", accountId = 1))
+        database.feedDao().insert(com.mckimquyen.reader.domain.model.feed.Feed(id = "f", name = "F", url = "https://e.com/f", groupId = "g", accountId = 1))
+        rows.forEachIndexed { i, (id, title) ->
+            database.articleDao().insert(
+                com.mckimquyen.reader.domain.model.article.Article(
+                    id = id, date = java.util.Date(i * 86_400_000L), title = title, rawDescription = "",
+                    shortDescription = "Short description for $id", link = "https://e.com/$id", feedId = "f", accountId = 1,
+                )
+            )
+        }
+    }
+
     @Test fun submitQuizAnswer_correctUpdatesProgressAndDuplicateReturnsZero() = runTest(testDispatcher) {
         val awards = mutableListOf<Long>()
         viewModel.submitQuizAnswer("art_q", QuizGeneratorService.CATEGORY_TECH, true) { _, xp -> awards += xp }
