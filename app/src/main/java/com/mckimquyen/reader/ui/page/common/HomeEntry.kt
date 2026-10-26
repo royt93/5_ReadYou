@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -68,6 +69,10 @@ import com.mckimquyen.reader.ui.page.setting.interaction.InteractionPage
 import com.mckimquyen.reader.ui.page.setting.language.LanguagesPage
 import com.mckimquyen.reader.ui.page.setting.tip.TipsAndSupportPage
 import com.mckimquyen.reader.ui.page.setting.vip.VipManagementPage
+import com.mckimquyen.reader.ui.page.radar.ArticleDiffPage
+import com.mckimquyen.reader.ui.page.radar.LocalOpenRadarDiff
+import com.mckimquyen.reader.ui.page.radar.LocalRadarFlags
+import com.mckimquyen.reader.ui.page.radar.RadarFlagsViewModel
 import com.mckimquyen.reader.ui.page.startup.StartupPage
 import com.mckimquyen.reader.ui.theme.AppTheme
 import kotlinx.coroutines.delay
@@ -184,6 +189,14 @@ fun HomeEntry(
             onDismiss = { homeViewModel.closeCommuteCast() },
         )
 
+        val radarFlagsViewModel: RadarFlagsViewModel = hiltViewModel()
+        val radarFlags by radarFlagsViewModel.flags.collectAsState()
+        CompositionLocalProvider(
+            LocalRadarFlags provides radarFlags,
+            LocalOpenRadarDiff provides { articleId ->
+                navController.navigate("${RouteName.ARTICLE_DIFF_PREFIX}/$articleId") { launchSingleTop = true }
+            },
+        ) {
         NavHost(
             modifier = Modifier.background(MaterialTheme.colorScheme.surface),
             navController = navController,
@@ -392,6 +405,15 @@ fun HomeEntry(
             animatedComposable(route = RouteName.TIPS_AND_SUPPORT, eInk = eInk) {
                 TipsAndSupportPage(navController)
             }
+
+            // Retraction Radar diff (EXC-10)
+            animatedComposable(route = RouteName.ARTICLE_DIFF, eInk = eInk) { backStackEntry ->
+                ArticleDiffPage(
+                    navController = navController,
+                    articleId = backStackEntry.arguments?.getString("articleId").orEmpty(),
+                )
+            }
+        }
         }
     }
 }

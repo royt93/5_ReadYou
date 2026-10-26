@@ -879,4 +879,15 @@
     <string name="url_tracking_desc">Automatically removes tracking tags (utm_*, fbclid, gclid...) when fetching, opening, and sharing links.</string>
     <string name="html_antitracker_title">Anti-Tracker Content Shield</string>
     <string name="html_antitracker_desc">Filters out 1x1 tracking pixels, hidden beacons, and malicious scripts inside articles.</string>
+    <string name="retraction_radar_title">Radar bài bị sửa/gỡ</string>
+    <string name="retraction_radar_desc">Lưu bản chụp văn bản của bài viết và đánh dấu bài bị sửa tiêu đề/nội dung hoặc biến mất khỏi nguồn. Phát hiện sửa được với RSS cục bộ và Google Reader; máy chủ Fever không gửi lại bài cũ nên chỉ RSS cục bộ mới báo được bài bị gỡ.</string>
+    <string name="radar_badge_edited">✏️ Đã chỉnh sửa</string>
+    <string name="radar_badge_removed">🗑️ Đã gỡ bỏ</string>
+    <string name="radar_badge_open_diff">Xem bài này đã thay đổi gì</string>
+    <string name="radar_diff_title">Nội dung đã thay đổi</string>
+    <string name="radar_diff_desc">Chữ đỏ gạch ngang có trong bản lưu đầu tiên. Chữ xanh là nội dung mới.</string>
+    <string name="radar_diff_headline">Tiêu đề</string>
+    <string name="radar_diff_text">Nội dung</string>
+    <string name="radar_diff_no_history">Không có phiên bản cũ nào của bài này được lưu.</string>
+    <string name="radar_diff_removed_notice">Bài này không còn trong nguồn qua nhiều lần đồng bộ liên tiếp. Bản lưu cuối cùng hiển thị bên dưới.</string>
 </resources>

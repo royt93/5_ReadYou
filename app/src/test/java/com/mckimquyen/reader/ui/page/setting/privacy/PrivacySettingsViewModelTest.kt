@@ -8,6 +8,7 @@ import com.mckimquyen.reader.infrastructure.pref.DohProviderPref
 import com.mckimquyen.reader.infrastructure.pref.HtmlAntiTrackerPref
 import com.mckimquyen.reader.infrastructure.pref.UrlTrackingCleanPref
 import com.mckimquyen.reader.ui.ext.dataStore
+import com.mckimquyen.reader.ui.ext.retractionRadarEnabled
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
@@ -21,6 +22,7 @@ import kotlinx.coroutines.test.setMain
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -67,5 +69,19 @@ class PrivacySettingsViewModelTest {
         assertEquals(DohProviderPref.CLOUDFLARE, awaitReal { viewModel.dohProvider.first { it == DohProviderPref.CLOUDFLARE } })
         assertFalse(awaitReal { viewModel.urlTrackingClean.first { !it } })
         assertFalse(awaitReal { viewModel.htmlAntiTracker.first { !it } })
+    }
+
+    @Test
+    fun retractionRadar_defaultsOnAndPersistsWhenSwitchedOff() = runTest(dispatcher) {
+        context.dataStore.edit { it.clear() }
+        val viewModel = PrivacySettingsViewModel(context)
+        advanceUntilIdle()
+        assertTrue(viewModel.retractionRadar.value)
+
+        viewModel.setRetractionRadar(false)
+        advanceUntilIdle()
+
+        assertFalse(awaitReal { viewModel.retractionRadar.first { !it } })
+        assertFalse(context.retractionRadarEnabled)
     }
 }

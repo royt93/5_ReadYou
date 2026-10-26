@@ -1,5 +1,8 @@
 package com.mckimquyen.reader.ui.page.home.read
 
+import com.mckimquyen.reader.ui.component.radar.RadarBadge
+import com.mckimquyen.reader.ui.page.radar.LocalOpenRadarDiff
+import com.mckimquyen.reader.ui.page.radar.LocalRadarFlags
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -73,6 +76,7 @@ fun Content(
     val openLink = LocalOpenLink.current
     val openLinkSpecificBrowser = LocalOpenLinkSpecificBrowser.current
     val eInkEnabled = LocalEInkMode.current.value
+    val openRadarDiff = LocalOpenRadarDiff.current
 
     // Built off the main thread (Room peer lookup on IO, generation on Default); null until ready, so the card appears
     // a moment after the article instead of blocking composition. produceState is avoided on purpose: lint's
@@ -141,6 +145,13 @@ fun Content(
                         .padding(horizontal = 12.dp)
                 ) {
                     DisableSelection {
+                        LocalRadarFlags.current[articleId]?.let { flag ->
+                            RadarBadge(
+                                flag = flag,
+                                onClick = { openRadarDiff(articleId) },
+                                modifier = Modifier.padding(bottom = 8.dp),
+                            )
+                        }
                         Metadata(
                             feedName = feedName,
                             title = title,

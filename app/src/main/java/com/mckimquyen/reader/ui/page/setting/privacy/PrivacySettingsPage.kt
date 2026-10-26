@@ -39,6 +39,7 @@ fun PrivacySettingsPage(
     val dohProvider by viewModel.dohProvider.collectAsState()
     val urlTrackingClean by viewModel.urlTrackingClean.collectAsState()
     val htmlAntiTracker by viewModel.htmlAntiTracker.collectAsState()
+    val retractionRadar by viewModel.retractionRadar.collectAsState()
 
     BaseScaffold(
         containerColor = MaterialTheme.colorScheme.surface,
@@ -103,6 +104,18 @@ fun PrivacySettingsPage(
                         action = {
                             BaseSwitch(activated = htmlAntiTracker) {
                                 viewModel.setHtmlAntiTracker(!htmlAntiTracker)
+                            }
+                        },
+                    )
+                }
+                item {
+                    SettingItem(
+                        title = stringResource(R.string.retraction_radar_title),
+                        desc = stringResource(R.string.retraction_radar_desc),
+                        onClick = { viewModel.setRetractionRadar(!retractionRadar) },
+                        action = {
+                            BaseSwitch(activated = retractionRadar) {
+                                viewModel.setRetractionRadar(!retractionRadar)
                             }
                         },
                     )

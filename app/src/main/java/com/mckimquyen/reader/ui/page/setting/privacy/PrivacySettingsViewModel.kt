@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mckimquyen.reader.infrastructure.pref.DohProviderPref
 import com.mckimquyen.reader.infrastructure.pref.HtmlAntiTrackerPref
+import com.mckimquyen.reader.infrastructure.pref.RetractionRadarPref
 import com.mckimquyen.reader.infrastructure.pref.UrlTrackingCleanPref
 import com.mckimquyen.reader.ui.ext.DataStoreKeys
 import com.mckimquyen.reader.ui.ext.dataStore
@@ -29,12 +30,16 @@ class PrivacySettingsViewModel @Inject constructor(
     private val _htmlAntiTracker = MutableStateFlow(HtmlAntiTrackerPref.default.value)
     val htmlAntiTracker = _htmlAntiTracker.asStateFlow()
 
+    private val _retractionRadar = MutableStateFlow(RetractionRadarPref.default.value)
+    val retractionRadar = _retractionRadar.asStateFlow()
+
     init {
         viewModelScope.launch {
             context.dataStore.data.collect { preferences ->
                 _dohProvider.value = DohProviderPref.fromPreferences(preferences)
                 _urlTrackingClean.value = UrlTrackingCleanPref.fromPreferences(preferences).value
                 _htmlAntiTracker.value = HtmlAntiTrackerPref.fromPreferences(preferences).value
+                _retractionRadar.value = RetractionRadarPref.fromPreferences(preferences).value
             }
         }
     }
@@ -59,6 +64,14 @@ class PrivacySettingsViewModel @Inject constructor(
         viewModelScope.launch {
             context.dataStore.updateData { preferences ->
                 preferences.toMutablePreferences().apply { this[DataStoreKeys.HtmlAntiTracker.key] = enabled }
+            }
+        }
+    }
+
+    fun setRetractionRadar(enabled: Boolean) {
+        viewModelScope.launch {
+            context.dataStore.updateData { preferences ->
+                preferences.toMutablePreferences().apply { this[DataStoreKeys.RetractionRadar.key] = enabled }
             }
         }
     }

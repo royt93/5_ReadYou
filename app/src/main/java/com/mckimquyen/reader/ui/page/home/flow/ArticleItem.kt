@@ -54,7 +54,10 @@ import com.mckimquyen.reader.ui.component.FeedIcon
 import com.mckimquyen.reader.ui.component.base.BaseAsyncImage
 import com.mckimquyen.reader.ui.component.base.SIZE_1000
 import com.mckimquyen.reader.ui.component.watchdog.LocalWatchdogKeywords
+import com.mckimquyen.reader.ui.component.radar.RadarBadge
 import com.mckimquyen.reader.ui.component.watchdog.WatchdogBadge
+import com.mckimquyen.reader.ui.page.radar.LocalOpenRadarDiff
+import com.mckimquyen.reader.ui.page.radar.LocalRadarFlags
 import com.mckimquyen.reader.ui.theme.Shape20
 
 @Composable
@@ -80,6 +83,9 @@ fun ArticleItem(
             )
         }
     }
+
+    val radarFlag = LocalRadarFlags.current[articleWithFeed.article.id]
+    val openRadarDiff = LocalOpenRadarDiff.current
 
     Column(
         modifier = Modifier
@@ -159,6 +165,15 @@ fun ArticleItem(
                 if (matchedKeyword != null) {
                     WatchdogBadge(
                         keyword = matchedKeyword.keyword,
+                        modifier = Modifier.padding(bottom = 4.dp),
+                    )
+                }
+
+                // Retraction Radar badge (EXC-10)
+                if (radarFlag != null) {
+                    RadarBadge(
+                        flag = radarFlag,
+                        onClick = { openRadarDiff(articleWithFeed.article.id) },
                         modifier = Modifier.padding(bottom = 4.dp),
                     )
                 }

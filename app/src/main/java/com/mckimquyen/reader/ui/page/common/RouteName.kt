@@ -38,6 +38,10 @@ object RouteName {
     const val READING_STATISTICS = "reading_statistics"
     const val SMART_COLLECTION_DETAIL = "smart_collections/{collectionId}"
 
+    // Retraction Radar (EXC-10)
+    const val ARTICLE_DIFF_PREFIX = "article_diff"
+    const val ARTICLE_DIFF = "article_diff/{articleId}"
+
     // Notebook (Second Brain)
     const val NOTEBOOK = "notebook"
 
