@@ -28,7 +28,7 @@ class BrainRpgMigration19Test {
     }
 
     @Test
-    fun databaseOpen_withAllMigrations_upgradesVersion18To19() {
+    fun databaseOpen_withAllMigrations_upgradesVersion18ThroughLatest() {
         val context = ApplicationProvider.getApplicationContext<Context>()
         val dbFile = File(context.getDatabasePath(TEST_DB_NAME).absolutePath).also {
             it.parentFile?.mkdirs()
@@ -72,7 +72,7 @@ class BrainRpgMigration19Test {
                 val profile = runBlocking { database.brainRpgDao().getProfile() }
                 val rewards = runBlocking { database.brainRpgDao().allRewards() }
                 val events = runBlocking { database.brainRpgDao().allXpEvents() }
-                assertEquals(19, database.openHelper.writableDatabase.version)
+                assertEquals(LATEST_DB_VERSION, database.openHelper.writableDatabase.version)
                 assertEquals(1025L, profile?.baseTotalXp)
                 assertEquals(6, profile?.streakDays)
                 assertEquals(1, rewards.size)
@@ -88,5 +88,6 @@ class BrainRpgMigration19Test {
 
     private companion object {
         const val TEST_DB_NAME = "brain_rpg_migration_19_test.db"
+        const val LATEST_DB_VERSION = 20
     }
 }
