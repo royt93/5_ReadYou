@@ -2,7 +2,7 @@
 
 ## 📋 Picked
 
-- RPG-05 — Context-Aware Quiz Distractors (`doc/task/todo/RPG-05_quiz-distractors-context-aware.md`): Generate plausible, context-aware quiz answer distractors.
+- **RPG-05 — Context-Aware Quiz Distractors** (`doc/task/todo/RPG-05_quiz-distractors-context-aware.md`): Sinh distractor gắn ngữ cảnh bài/category, không còn đáp án đúng dễ đoán qua độ dài.
 
 ## 🟡 In progress
 
@@ -10,7 +10,7 @@
 
 ## ✅ Recently implemented
 
-- **STRAT-03 — DoH Privacy Shield & Anti-Tracking** (`doc/task/done/STRAT-03_doh-privacy-shield_DONE.md`): AppDns hỗ trợ System/Cloudflare/AdGuard DoH JSON, timeout 3s + System DNS fallback; DataStore settings cho DNS provider và 2 anti-tracking toggles; URL cleaner và HTML sanitizer nối vào OkHttp/RSS ingest/full-content/open/share; trang Privacy & Security, 11 string keys trên đủ 38 locales. Full suite 1.321 tests pass; lint 0 errors (2.445 warnings); Pixel 7 Pro refresh smoke thành công; database Room snapshot đã restore về 134 bài. DoH được chọn nhưng không có packet trace để chứng minh query cụ thể không dùng fallback. Commits local trên `dev`, chưa push.
+- **STRAT-03 — DoH Privacy Shield & Anti-Tracking** (`doc/task/done/STRAT-03_doh-privacy-shield_DONE.md`): `AppDns` hỗ trợ System/Cloudflare/AdGuard DoH JSON, timeout 3 giây và fallback System DNS; DataStore preferences cho DNS provider cùng 2 bộ lọc; URL cleaner và HTML sanitizer nối vào OkHttp, RSS ingestion/full-content, browser và share; có trang Privacy & Security và 11 resource keys đủ 38 locales. Full suite: **1.321 tests, 0 failures/errors**; lint: **0 errors** (2.445 warnings, 8 informational); `assembleDevDebug` pass. Pixel 7 Pro refresh smoke: 134→168 bài; read-only DB copy không có tracking-param URLs, script hoặc ảnh 1×1. Restore Room snapshot xác nhận 134 bài trở lại. Cloudflare được chọn, nhưng không có packet trace để chứng minh DNS query cụ thể tránh fallback. Commits local trên `dev`, chưa push.
 
 - **RPG-09 — Brain Wrapped 9:16 (MVP)** (`doc/task/done/RPG-09_wrapped-full-spec-mvp_DONE.md`): Room v19 XP events ghi nguyên tử khi award; XP/topic tuần Thứ Hai–Chủ Nhật theo giờ địa phương; current streak; PNG Neon celebratory 1080×1920 qua Canvas + FileProvider. Zero-XP share disabled; không backfill XP cũ. Full suite 1303 tests pass, build/lint 0 lỗi, Pixel 7 Pro smoke + migration/share instrumentation 4/4. MVP đã xong; radar chart, QR, banner Chủ Nhật, Top X% ngoài phạm vi. Commits local trên `dev`, chưa push.
 
