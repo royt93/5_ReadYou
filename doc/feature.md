@@ -2,13 +2,15 @@
 
 ## 📋 Picked
 
-- **STRAT-03 — DoH Privacy Shield & Anti-Tracking** (`doc/task/todo/STRAT-03_doh-privacy-shield.md`): Tích hợp DNS-over-HTTPS (DoH Cloudflare/AdGuard qua OkHttp Dns), tự động gọt bỏ tham số theo dõi (utm_*, fbclid, gclid...) trên link bài viết, loại bỏ 1x1 tracking pixel và script theo dõi trong HTML bài đọc.
+- RPG-05 — Context-Aware Quiz Distractors (`doc/task/todo/RPG-05_quiz-distractors-context-aware.md`): Generate plausible, context-aware quiz answer distractors.
 
 ## 🟡 In progress
 
 - Không có mục nào đang thực hiện.
 
 ## ✅ Recently implemented
+
+- **STRAT-03 — DoH Privacy Shield & Anti-Tracking** (`doc/task/done/STRAT-03_doh-privacy-shield_DONE.md`): AppDns hỗ trợ System/Cloudflare/AdGuard DoH JSON, timeout 3s + System DNS fallback; DataStore settings cho DNS provider và 2 anti-tracking toggles; URL cleaner và HTML sanitizer nối vào OkHttp/RSS ingest/full-content/open/share; trang Privacy & Security, 11 string keys trên đủ 38 locales. Full suite 1.321 tests pass; lint 0 errors (2.445 warnings); Pixel 7 Pro refresh smoke thành công; database Room snapshot đã restore về 134 bài. DoH được chọn nhưng không có packet trace để chứng minh query cụ thể không dùng fallback. Commits local trên `dev`, chưa push.
 
 - **RPG-09 — Brain Wrapped 9:16 (MVP)** (`doc/task/done/RPG-09_wrapped-full-spec-mvp_DONE.md`): Room v19 XP events ghi nguyên tử khi award; XP/topic tuần Thứ Hai–Chủ Nhật theo giờ địa phương; current streak; PNG Neon celebratory 1080×1920 qua Canvas + FileProvider. Zero-XP share disabled; không backfill XP cũ. Full suite 1303 tests pass, build/lint 0 lỗi, Pixel 7 Pro smoke + migration/share instrumentation 4/4. MVP đã xong; radar chart, QR, banner Chủ Nhật, Top X% ngoài phạm vi. Commits local trên `dev`, chưa push.
 

@@ -8,4 +8,4 @@ Các task con của epic này đã được tách thành từng file riêng theo
 |---|---|---|---|
 | [STRAT-01] Zero-Click Autonomous News Agent & Morning Podcast DJ | P1 (High) | 📋 Todo | [STRAT-01_zero-click-autonomous-podcast-dj.md](STRAT-01_zero-click-autonomous-podcast-dj.md) |
 | [STRAT-02] Chợ Nguồn Tin Khám Phá & Bộ Sưu Tập Cộng Đồng (Curated Feed Marketplace) | P2 (Medium) | 📋 Todo | [STRAT-02_curated-feed-marketplace.md](STRAT-02_curated-feed-marketplace.md) |
-| [STRAT-03] Lá Chắn Quyền Riêng Tư: DNS-over-HTTPS (DoH) & Chặn Tracker Ngầm | P2 (Medium) | 📋 Todo | [STRAT-03_doh-privacy-shield.md](STRAT-03_doh-privacy-shield.md) |
+| [STRAT-03] Lá Chắn Quyền Riêng Tư: DNS-over-HTTPS (DoH) & Chặn Tracker Ngầm | P2 (Medium) | ✅ Done | [STRAT-03_doh-privacy-shield_DONE.md](../done/STRAT-03_doh-privacy-shield_DONE.md) |
