@@ -25,6 +25,8 @@ import com.mckimquyen.reader.domain.model.collection.SmartCollection
 import com.mckimquyen.reader.domain.model.collection.SmartCollectionArticle
 import com.mckimquyen.reader.domain.model.digest.DailyDigest
 import com.mckimquyen.reader.domain.model.article.ArticleFts
+import com.mckimquyen.reader.domain.model.radar.ArticleRadarState
+import com.mckimquyen.reader.domain.model.radar.ArticleSnapshot
 import com.mckimquyen.reader.domain.model.rpg.BrainRpgCategoryEntity
 import com.mckimquyen.reader.domain.model.rpg.BrainRpgProfileEntity
 import com.mckimquyen.reader.domain.model.rpg.BrainRpgRewardEntity
@@ -36,6 +38,7 @@ import com.mckimquyen.reader.domain.model.feed.FeedHealthRecord
 import com.mckimquyen.reader.domain.model.group.Group
 import com.mckimquyen.reader.domain.model.notebook.ArticleHighlightNote
 import com.mckimquyen.reader.domain.repository.ArticleHighlightDao
+import com.mckimquyen.reader.domain.repository.ArticleRadarDao
 import com.mckimquyen.reader.domain.repository.ArticleReadPositionDao
 import com.mckimquyen.reader.domain.repository.AccountDao
 import com.mckimquyen.reader.domain.repository.AddedRssSourceDao
@@ -74,8 +77,10 @@ import java.util.Date
         SmartCollection::class,
         SmartCollectionArticle::class,
         BrainRpgXpEventEntity::class,
+        ArticleSnapshot::class,
+        ArticleRadarState::class,
     ],
-    version = 19
+    version = 20
 )
 @TypeConverters(
     AndroidDatabase.DateConverters::class,
@@ -103,6 +108,7 @@ abstract class AndroidDatabase : RoomDatabase() {
     abstract fun articleReadPositionDao(): ArticleReadPositionDao
     abstract fun brainRpgDao(): BrainRpgDao
     abstract fun smartCollectionDao(): SmartCollectionDao
+    abstract fun articleRadarDao(): ArticleRadarDao
 
     companion object {
 
@@ -154,6 +160,7 @@ val allMigrations = arrayOf(
     MIGRATION_16_17,
     MIGRATION_17_18,
     MIGRATION_18_19,
+    MIGRATION_19_20,
 )
 
 @Suppress("ClassName")
@@ -398,6 +405,40 @@ object MIGRATION_18_19 : Migration(18, 19) {
         )
         db.execSQL("CREATE INDEX IF NOT EXISTS `index_brain_rpg_xp_event_createdAtMillis` ON `brain_rpg_xp_event` (`createdAtMillis`)")
         db.execSQL("CREATE INDEX IF NOT EXISTS `index_brain_rpg_xp_event_categoryId_createdAtMillis` ON `brain_rpg_xp_event` (`categoryId`, `createdAtMillis`)")
+    }
+}
+
+@Suppress("ClassName")
+object MIGRATION_19_20 : Migration(19, 20) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL(
+            """
+            CREATE TABLE IF NOT EXISTS `article_snapshot` (
+                `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                `articleId` TEXT NOT NULL,
+                `capturedAt` INTEGER NOT NULL,
+                `titleHash` TEXT NOT NULL,
+                `contentHash` TEXT NOT NULL,
+                `title` TEXT NOT NULL,
+                `contentText` TEXT NOT NULL,
+                FOREIGN KEY(`articleId`) REFERENCES `article`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE
+            )
+            """.trimIndent()
+        )
+        db.execSQL("CREATE INDEX IF NOT EXISTS `index_article_snapshot_articleId_capturedAt` ON `article_snapshot` (`articleId`, `capturedAt`)")
+        db.execSQL(
+            """
+            CREATE TABLE IF NOT EXISTS `article_radar_state` (
+                `articleId` TEXT NOT NULL,
+                `editCount` INTEGER NOT NULL,
+                `lastEditedAt` INTEGER,
+                `missedSyncs` INTEGER NOT NULL,
+                `removedAt` INTEGER,
+                PRIMARY KEY(`articleId`),
+                FOREIGN KEY(`articleId`) REFERENCES `article`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE
+            )
+            """.trimIndent()
+        )
     }
 }
 
