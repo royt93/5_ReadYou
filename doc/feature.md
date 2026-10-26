@@ -2,13 +2,15 @@
 
 ## 📋 Picked
 
-- **RPG-05 — Context-Aware Quiz Distractors** (`doc/task/todo/RPG-05_quiz-distractors-context-aware.md`): Sinh distractor gắn ngữ cảnh bài/category, không còn đáp án đúng dễ đoán qua độ dài.
+- Không có mục nào đang chọn.
 
 ## 🟡 In progress
 
 - Không có mục nào đang thực hiện.
 
 ## ✅ Recently implemented
+
+- **RPG-05 — Quiz distractor theo ngữ cảnh** (`doc/task/done/RPG-05_quiz-distractors-context-aware_DONE.md`): đáp án đúng là tiêu đề nguyên vẹn của chính bài; distractor là tiêu đề các bài khác trong Room (cùng account, ưu tiên cùng category, chọn theo độ dài gần đáp án), không còn chuỗi tĩnh. `ArticleDao.queryQuizPeers` chỉ đọc `title` + `shortDescription` (không đọc body, giữ FIX-17); sinh quiz chuyển khỏi main thread (IO + Default, `LaunchedEffect`). 1.342 unit tests pass; lint 0 lỗi (2.445 warning); Pixel 7 Pro smoke 3 bài + bấm đáp án đúng (XP 850→1000, ledger QUIZ + xp_event) rồi restore Room (850 XP, 168 bài, integrity ok). **Giới hạn: category hầu như luôn là General Knowledge với tin BBC nên "cùng chủ đề" chưa thật sự lọc được; quiz kiểm nhận diện tiêu đề hơn là hiểu nội dung.** Commits local trên `dev`, chưa push.
 
 - **STRAT-03 — DoH Privacy Shield & Anti-Tracking** (`doc/task/done/STRAT-03_doh-privacy-shield_DONE.md`): `AppDns` hỗ trợ System/Cloudflare/AdGuard DoH JSON, timeout 3 giây và fallback System DNS; DataStore preferences cho DNS provider cùng 2 bộ lọc; URL cleaner và HTML sanitizer nối vào OkHttp, RSS ingestion/full-content, browser và share; có trang Privacy & Security và 11 resource keys đủ 38 locales. Full suite: **1.321 tests, 0 failures/errors**; lint: **0 errors** (2.445 warnings, 8 informational); `assembleDevDebug` pass. Pixel 7 Pro refresh smoke: 134→168 bài; read-only DB copy không có tracking-param URLs, script hoặc ảnh 1×1. Restore Room snapshot xác nhận 134 bài trở lại. Cloudflare được chọn, nhưng không có packet trace để chứng minh DNS query cụ thể tránh fallback. Commits local trên `dev`, chưa push.
 
