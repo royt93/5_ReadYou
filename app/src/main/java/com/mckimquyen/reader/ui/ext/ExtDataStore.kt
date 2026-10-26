@@ -78,6 +78,9 @@ val Context.urlTrackingCleanEnabled: Boolean
 val Context.htmlAntiTrackerEnabled: Boolean
     get() = this.dataStore.get(DataStoreKeys.HtmlAntiTracker) ?: true
 
+val Context.retractionRadarEnabled: Boolean
+    get() = this.dataStore.get(DataStoreKeys.RetractionRadar) ?: true
+
 suspend fun <T> DataStore<Preferences>.put(dataStoreKeys: DataStoreKeys<T>, value: T) {
     this.edit {
         withContext(Dispatchers.IO) {
@@ -572,5 +575,10 @@ sealed class DataStoreKeys<T> {
     object HtmlAntiTracker : DataStoreKeys<Boolean>() {
         override val key: Preferences.Key<Boolean>
             get() = booleanPreferencesKey("html_anti_tracker")
+    }
+
+    object RetractionRadar : DataStoreKeys<Boolean>() {
+        override val key: Preferences.Key<Boolean>
+            get() = booleanPreferencesKey("retraction_radar")
     }
 }

@@ -55,6 +55,9 @@ interface ArticleRadarDao {
     @Query("SELECT id FROM article WHERE link = :link AND feedId = :feedId AND accountId = :accountId LIMIT 1")
     suspend fun articleIdByLink(link: String, feedId: String, accountId: Int): String?
 
+    @Query("SELECT id FROM article WHERE id IN (:ids)")
+    suspend fun existingIds(ids: List<String>): List<String>
+
     /** Articles of a feed no older than [minDate], with their miss counters, for removal tracking. */
     @Query(
         """

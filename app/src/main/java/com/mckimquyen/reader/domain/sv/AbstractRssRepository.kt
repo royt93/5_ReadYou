@@ -19,6 +19,7 @@ import com.mckimquyen.reader.domain.repository.FeedHealthDao
 import com.mckimquyen.reader.domain.repository.GroupDao
 import com.mckimquyen.reader.domain.repository.WidgetRefreshNotifier
 import com.mckimquyen.reader.infrastructure.android.NotificationHelper
+import com.mckimquyen.reader.infrastructure.articlehistory.RetractionRadarService
 import com.mckimquyen.reader.infrastructure.pref.KeepArchivedPreference
 import com.mckimquyen.reader.infrastructure.pref.SyncIntervalPref
 import com.mckimquyen.reader.infrastructure.rss.RssHelper
@@ -54,6 +55,7 @@ abstract class AbstractRssRepository(
     private val smartFilterManager: com.mckimquyen.reader.infrastructure.filter.SmartFilterManager,
     private val smartCollectionMatcher: SmartCollectionMatcher,
     private val widgetRefreshNotifier: WidgetRefreshNotifier,
+    protected val retractionRadar: RetractionRadarService,
 ) {
 
     open val subscribe: Boolean = true
@@ -99,6 +101,7 @@ abstract class AbstractRssRepository(
                         .forEach {
                             val filteredArticles = smartFilterManager.applyRules(it.articles)
                             val insertedArticles = articleDao.insertListIfNotExist(filteredArticles)
+                            retractionRadar.recordBaselines(insertedArticles)
                             watchdogManager.checkAndNotify(insertedArticles, it.feed)
                             if (it.feed.isNotification && !shouldSilenceNotification()) {
                                 notificationHelper.notify(it.apply {
@@ -183,11 +186,14 @@ abstract class AbstractRssRepository(
     protected open suspend fun queryFeedArticles(feed: Feed, latestLink: String?): List<Article> =
         rssHelper.queryRssXml(feed, latestLink)
 
+    /** True for backends that re-read the whole feed each sync, so edits and removals can be detected. */
+    protected open val scansFullFeedForRadar: Boolean = false
+
     suspend fun syncSingleFeed(feed: Feed): FeedWithArticle? {
         val startTime = System.currentTimeMillis()
         return runCatching {
             val latest = articleDao.queryLatestByFeedId(context.currentAccountId, feed.id)
-            val articles = queryFeedArticles(feed, latest?.link)
+            val articles = fetchNewArticles(feed, latest?.link)
             if (feed.icon == null) {
                 try {
                     rssHelper.queryRssIcon(feedDao, feed)
@@ -224,16 +230,34 @@ abstract class AbstractRssRepository(
         }
     }
 
+    /**
+     * With the radar on, the whole feed is read once: stored articles are checked for edits/removal, and only the
+     * entries newer than [latestLink] are returned for insertion (the same set the incremental read returned, so
+     * archived-and-cleaned old entries are never re-inserted).
+     */
+    private suspend fun fetchNewArticles(feed: Feed, latestLink: String?): List<Article> {
+        if (latestLink == null || !scansFullFeedForRadar || !retractionRadar.isEnabled()) {
+            return queryFeedArticles(feed, latestLink)
+        }
+        val full = queryFeedArticles(feed, null)
+        retractionRadar.processFetched(feed, full)
+        // WEB feeds never used latestLink (the scraper returns every candidate and Room dedupes), so keep that.
+        if (feed.sourceType != Feed.RSS_SOURCE_TYPE) return full
+        val cut = full.indexOfFirst { it.link == latestLink }
+        return if (cut < 0) full else full.subList(0, cut)
+    }
+
     private suspend fun syncFeed(feed: Feed): FeedWithArticle? = syncSingleFeed(feed)
 
     suspend fun retryFeedSync(feed: Feed): Boolean {
         val result = syncSingleFeed(feed) ?: return false
         val filtered = smartFilterManager.applyRules(result.articles)
-        articleDao.insertListIfNotExist(filtered)
+        retractionRadar.recordBaselines(articleDao.insertListIfNotExist(filtered))
         return true
     }
 
     suspend fun clearKeepArchivedArticles() {
+        retractionRadar.purge()
         // Use ?. safe-call instead of !! to avoid NPE if account doesn't exist yet
         accountDao.queryById(context.currentAccountId)
             ?.takeIf { it.keepArchived != KeepArchivedPreference.Always }

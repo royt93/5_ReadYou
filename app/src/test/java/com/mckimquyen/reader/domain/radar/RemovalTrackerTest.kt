@@ -66,4 +66,26 @@ class RemovalTrackerTest {
     fun alreadyRemovedArticle_staysRemovedWithoutFurtherCounting() {
         assertTrue(run(listOf(stored("a", 200L, missed = 3, removed = true)), setOf("other")).isEmpty())
     }
+
+    @Test
+    fun feedReset_whenMostInWindowArticlesVanishTogether_countsNoMisses() {
+        val stored = (1..6).map { stored("a$it", 200L) }
+        // Only one of six survives: that looks like a replaced feed / changed URL, not six retractions.
+        assertTrue(run(stored, setOf("a1", "other")).isEmpty())
+    }
+
+    @Test
+    fun feedReset_stillClearsFlagsOfArticlesThatReappear() {
+        val stored = (1..6).map { stored("a$it", 200L, missed = 2) }
+        val u = run(stored, setOf("a1", "other"))
+        assertEquals(listOf("id-a1"), u.map { it.articleId })
+        assertEquals(0, u.single().missedSyncs)
+    }
+
+    @Test
+    fun singleVanishedArticleAmongManyPresent_isStillCounted() {
+        val stored = (1..6).map { stored("a$it", 200L) }
+        val u = run(stored, (2..6).map { "a$it" }.toSet())
+        assertEquals(listOf("id-a1"), u.map { it.articleId })
+    }
 }

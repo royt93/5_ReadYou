@@ -83,6 +83,7 @@ class FeverRssSvTest {
             smartFilterManager = mockk(relaxed = true),
             smartCollectionMatcher = mockk(relaxed = true),
             widgetRefreshNotifier = mockk(relaxed = true),
+            radar = mockk(relaxed = true),
         )
     }
 

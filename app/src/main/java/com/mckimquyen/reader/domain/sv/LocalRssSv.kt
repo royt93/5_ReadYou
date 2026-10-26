@@ -22,6 +22,7 @@ import com.mckimquyen.reader.infrastructure.rss.scraper.WebFeedScraper
 import com.mckimquyen.reader.infrastructure.rss.scraper.WebFeedRefreshResult
 import com.mckimquyen.reader.domain.security.UrlTrackingCleaner
 import com.mckimquyen.reader.ui.ext.spacerDollar
+import com.mckimquyen.reader.infrastructure.articlehistory.RetractionRadarService
 import com.mckimquyen.reader.ui.ext.urlTrackingCleanEnabled
 import java.util.Date
 import java.util.UUID
@@ -46,6 +47,7 @@ class LocalRssSv @Inject constructor(
     private val webFeedScraper: WebFeedScraper,
     smartCollectionMatcher: SmartCollectionMatcher,
     widgetRefreshNotifier: WidgetRefreshNotifier,
+    retractionRadar: RetractionRadarService,
 ) : AbstractRssRepository(
     context,
     accountDao,
@@ -62,7 +64,10 @@ class LocalRssSv @Inject constructor(
     smartFilterManager,
     smartCollectionMatcher,
     widgetRefreshNotifier,
+    retractionRadar,
 ) {
+    override val scansFullFeedForRadar: Boolean = true
+
     override suspend fun queryFeedArticles(feed: Feed, latestLink: String?): List<Article> {
         if (feed.sourceType == Feed.READ_LATER_SOURCE_TYPE || feed.id == Feed.READ_LATER_FEED_ID) {
             return emptyList()

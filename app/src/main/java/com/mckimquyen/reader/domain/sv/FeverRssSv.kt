@@ -63,10 +63,11 @@ class FeverRssSv @Inject constructor(
     smartFilterManager: com.mckimquyen.reader.infrastructure.filter.SmartFilterManager,
     smartCollectionMatcher: SmartCollectionMatcher,
     widgetRefreshNotifier: WidgetRefreshNotifier,
+    private val radar: com.mckimquyen.reader.infrastructure.articlehistory.RetractionRadarService,
 ) : AbstractRssRepository(
     context, accountDao, articleDao, groupDao,
     feedDao, workManager, rssHelper, notificationHelper, ioDispatcher, defaultDispatcher,
-    watchdogManager, feedHealthDao, smartFilterManager, smartCollectionMatcher, widgetRefreshNotifier
+    watchdogManager, feedHealthDao, smartFilterManager, smartCollectionMatcher, widgetRefreshNotifier, radar
 ) {
 
     override val subscribe: Boolean = false
@@ -231,7 +232,10 @@ class FeverRssSv @Inject constructor(
                         Log.w(TAG, "Skip malformed Fever item id=${item.id}", error)
                     }.getOrNull()
                 }
+                // REPLACE would erase the stored copy, so compare first; Fever normally sends each item once.
+                val alreadyStored = radar.recordEdits(articles)
                 articleDao.insert(*articles.toTypedArray())
+                radar.recordBaselines(articles.filter { it.id !in alreadyStored })
                 if (remoteItems.size >= FEVER_PAGE_SIZE) {
                     itemsBody = feverAPI.getItemsSince(sinceId)
                 } else {

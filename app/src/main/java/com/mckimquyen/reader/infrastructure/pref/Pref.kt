@@ -96,5 +96,6 @@ fun Preferences.toSettings(): Settings {
         dohProvider = DohProviderPref.fromPreferences(this),
         urlTrackingClean = UrlTrackingCleanPref.fromPreferences(this),
         htmlAntiTracker = HtmlAntiTrackerPref.fromPreferences(this),
+        retractionRadar = RetractionRadarPref.fromPreferences(this),
     )
 }

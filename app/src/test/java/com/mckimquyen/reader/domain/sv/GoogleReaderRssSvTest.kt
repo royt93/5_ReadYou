@@ -88,6 +88,7 @@ class GoogleReaderRssSvTest {
             },
             smartCollectionMatcher = mockk(relaxed = true),
             widgetRefreshNotifier = mockk(relaxed = true),
+            radar = mockk(relaxed = true),
         )
     }
 

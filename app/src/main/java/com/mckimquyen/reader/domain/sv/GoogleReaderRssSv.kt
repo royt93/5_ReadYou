@@ -22,6 +22,7 @@ import com.mckimquyen.reader.domain.security.AntiTrackerHtmlSanitizer
 import com.mckimquyen.reader.domain.security.UrlTrackingCleaner
 import com.mckimquyen.reader.infrastructure.android.NotificationHelper
 import com.mckimquyen.reader.infrastructure.di.DefaultDispatcher
+import com.mckimquyen.reader.infrastructure.articlehistory.RetractionRadarService
 import com.mckimquyen.reader.infrastructure.di.IODispatcher
 import com.mckimquyen.reader.infrastructure.di.MainDispatcher
 import com.mckimquyen.reader.infrastructure.filter.SmartFilterManager
@@ -67,10 +68,11 @@ class GoogleReaderRssSv @Inject constructor(
     smartFilterManager: SmartFilterManager,
     smartCollectionMatcher: SmartCollectionMatcher,
     widgetRefreshNotifier: WidgetRefreshNotifier,
+    private val radar: RetractionRadarService,
 ) : AbstractRssRepository(
     context, accountDao, articleDao, groupDao,
     feedDao, workManager, rssHelper, notificationHelper, ioDispatcher, defaultDispatcher,
-    watchdogManager, feedHealthDao, smartFilterManager, smartCollectionMatcher, widgetRefreshNotifier,
+    watchdogManager, feedHealthDao, smartFilterManager, smartCollectionMatcher, widgetRefreshNotifier, radar,
 ) {
 
     override val subscribe: Boolean = false
@@ -208,7 +210,10 @@ class GoogleReaderRssSv @Inject constructor(
                     }
                 }
                 if (articles.isNotEmpty()) {
+                    // Compare before the IGNORE insert so an edited copy is seen; new items get their baseline after.
+                    val alreadyStored = radar.recordEdits(articles)
                     articleDao.insertOnConflictIgnore(*articles.toTypedArray())
+                    radar.recordBaselines(articles.filter { it.id !in alreadyStored })
                 }
 
                 continuation = body.continuation

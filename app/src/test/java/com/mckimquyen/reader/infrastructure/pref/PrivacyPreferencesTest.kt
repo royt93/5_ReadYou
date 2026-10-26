@@ -39,4 +39,12 @@ class PrivacyPreferencesTest {
         val offPrefs = mutablePreferencesOf(booleanPreferencesKey("html_anti_tracker") to false)
         assertFalse(HtmlAntiTrackerPref.fromPreferences(offPrefs).value)
     }
+
+    @Test
+    fun retractionRadarPref_defaultsToTrue() {
+        assertTrue(RetractionRadarPref.fromPreferences(mutablePreferencesOf()).value)
+
+        val offPrefs = mutablePreferencesOf(booleanPreferencesKey("retraction_radar") to false)
+        assertFalse(RetractionRadarPref.fromPreferences(offPrefs).value)
+    }
 }
