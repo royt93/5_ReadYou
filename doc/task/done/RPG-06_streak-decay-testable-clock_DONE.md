@@ -18,17 +18,17 @@ triage tăng streak như đọc.
 - Mutation trên `nextStreak` (test phải đỏ): bỏ `+1` khi đọc hôm sau → 8 test đỏ; shield không bị tiêu → 5 đỏ; bỏ reset → 6 đỏ. Đã khôi phục.
 - Không đổi code production nên không chạy lại lint/smoke thiết bị.
 
-## Hành vi hiện tại mà test ghi nhận — CÓ THỂ LÀ LỖI, owner nên quyết định (chưa sửa)
-1. **Ngày tính theo UTC** (`nowMillis / 86_400_000`), trong khi Wrapped (RPG-09) dùng giờ địa phương. Người dùng ở UTC+7 sẽ thấy ngày
-   "đổi" lúc 07:00 sáng. Có test `streak_dayBoundaryIsUtcMidnight` ghi nhận điều này.
-2. **Shield bắc cầu mọi khoảng nghỉ**, không chỉ 1 ngày (`streak_shieldBridgesAGapOfAnyLength`: nghỉ 40 ngày vẫn giữ streak).
-3. **Đọc lại bài đã thưởng vào ngày sau vẫn tính là một ngày** (XP chỉ trao một lần nhưng streak thì không), nên có thể giữ streak bằng cách
-   mở lại một bài cũ. Có thể là chủ ý (khuyến khích quay lại) hoặc kẽ hở.
-4. **Quiz đúng không tăng streak**; chỉ đọc và triage mới tăng.
-5. `activateStreakShield()` luôn trả `true` và không kiểm tra điều kiện (VIP/đã dùng/…): bất kỳ ai gọi cũng bật shield. Không có test cho
-   điều kiện vì code không có.
-6. Đồng hồ lùi (đổi giờ máy) làm streak về 1.
-Nếu sửa bất kỳ điểm nào, cần quyết định dữ liệu `lastReadEpochDay` đã lưu (đang là UTC) cho người dùng hiện có.
+## Hành vi hiện tại mà test ghi nhận, và quyết định của owner (2026-10-27)
+| # | Hành vi | Quyết định |
+|---|---|---|
+| 1 | Ngày tính theo UTC (Wrapped dùng giờ địa phương) | **Giữ nguyên, chỉ ghi chú** |
+| 2 | Shield bắc cầu mọi khoảng nghỉ, không chỉ 1 ngày | Chưa hỏi; giữ nguyên (test ghi nhận) |
+| 3 | Đọc lại bài đã thưởng vào ngày sau vẫn giữ streak | **Giữ nguyên, chỉ ghi chú** |
+| 4 | Quiz đúng không tăng streak (chỉ đọc và triage) | **Giữ nguyên, chỉ ghi chú** |
+| 5 | `activateStreakShield()` ở repository không kiểm điều kiện | Chưa hỏi; ở UI nó chỉ được gọi **sau khi xem xong quảng cáo thưởng** (`BrainRpgViewModel.activateStreakShield`), nên cổng điều kiện nằm ở tầng UI/ad. Thuộc nhóm ad/IAP đang hoãn (xem `doc/feature.md`) |
+| 6 | Đồng hồ lùi (đổi giờ máy) đưa streak về 1 | **Giữ nguyên, chỉ ghi chú** |
+
+Nếu sau này sửa điểm nào, cần quyết định cách xử lý `lastReadEpochDay` đã lưu theo UTC cho người dùng hiện có.
 
 ## Giới hạn
 Không có test với múi giờ thiết bị khác nhau (vì code hiện không dùng múi giờ). Không kiểm giao diện hay thông báo streak.
