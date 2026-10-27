@@ -58,6 +58,7 @@ class FeverRssSvTest {
     private val accountDao = mockk<AccountDao>(relaxed = true)
     private val feverApi = mockk<FeverAPI>(relaxed = true)
     private val worker = mockk<CoroutineWorker>(relaxed = true)
+    private val radar = mockk<com.mckimquyen.reader.infrastructure.articlehistory.RetractionRadarService>(relaxed = true)
     private lateinit var feverRssSv: FeverRssSv
 
     @Before
@@ -83,7 +84,7 @@ class FeverRssSvTest {
             smartFilterManager = mockk(relaxed = true),
             smartCollectionMatcher = mockk(relaxed = true),
             widgetRefreshNotifier = mockk(relaxed = true),
-            radar = mockk(relaxed = true),
+            radar = radar,
         )
     }
 
@@ -193,6 +194,42 @@ class FeverRssSvTest {
         assertTrue(articles.single().rawDescription.isNotBlank())
         assertEquals("$resolvedAccountId\$12", articles.single().feedId)
         assertEquals("$resolvedAccountId\$101", updatedAccount.captured.lastArticleId)
+    }
+
+    @Test
+    fun sync_radarComparesBeforeTheReplaceInsertAndRecordsBaselinesAfterIt() {
+        coEvery { accountDao.queryById(any()) } answers {
+            feverAccount(FeverSecurityKey(serverUrl = "https://fever.test", username = "user", password = "pass")).copy(id = firstArg())
+        }
+        coEvery { feverApi.getGroups() } returns FeverDTO.Groups(
+            api_version = null, auth = 1, last_refreshed_on_time = null,
+            groups = listOf(FeverDTO.GroupItem(id = 1, title = "Tech")), feeds_groups = null,
+        )
+        coEvery { feverApi.getFeeds() } returns FeverDTO.Feeds(
+            api_version = null, auth = 1, last_refreshed_on_time = null,
+            feeds = listOf(feedItem(id = 12, url = "https://ok.test/rss")),
+            feeds_groups = listOf(FeverDTO.FeedsGroupsItem(group_id = 1, feed_ids = "12")),
+        )
+        coEvery { feverApi.getItemsSince(any()) } returns FeverDTO.Items(
+            api_version = null, auth = 1, last_refreshed_on_time = null, total_items = null,
+            items = listOf(item(id = "200", feedId = 12), item(id = "201", feedId = 12)),
+        )
+        coEvery { feverApi.getUnreadItems() } returns FeverDTO.ItemsByUnread(null, 1, null, unread_item_ids = "")
+        coEvery { feverApi.getSavedItems() } returns FeverDTO.ItemsByStarred(null, 1, null, saved_item_ids = "")
+        every { articleDao.queryArticleMetadataAll(any()) } returns emptyList()
+        val events = mutableListOf<String>()
+        coEvery { radar.recordEdits(any()) } answers {
+            events += "compare"
+            setOf(firstArg<List<Article>>().first().id)
+        }
+        coEvery { articleDao.insert(*anyVararg()) } answers { events += "insert" }
+        val baselines = slot<List<Article>>()
+        coEvery { radar.recordBaselines(capture(baselines)) } answers { events += "baseline" }
+
+        runBlocking { feverRssSv.sync(worker) }
+
+        assertEquals(listOf("compare", "insert", "baseline"), events)
+        assertEquals(1, baselines.captured.size)
     }
 
     @Test

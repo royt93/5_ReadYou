@@ -62,6 +62,7 @@ class GoogleReaderRssSvTest {
     private val accountDao = mockk<AccountDao>(relaxed = true)
     private val api = mockk<GoogleReaderApi>(relaxed = true)
     private val worker = mockk<CoroutineWorker>(relaxed = true)
+    private val radar = mockk<com.mckimquyen.reader.infrastructure.articlehistory.RetractionRadarService>(relaxed = true)
     private lateinit var googleReaderRssSv: GoogleReaderRssSv
 
     @Before
@@ -88,7 +89,7 @@ class GoogleReaderRssSvTest {
             },
             smartCollectionMatcher = mockk(relaxed = true),
             widgetRefreshNotifier = mockk(relaxed = true),
-            radar = mockk(relaxed = true),
+            radar = radar,
         )
     }
 
@@ -201,6 +202,38 @@ class GoogleReaderRssSvTest {
         assertEquals(false, articlesInserted[0].isStarred)
         assertEquals(false, articlesInserted[1].isUnread)
         assertEquals(true, articlesInserted[1].isStarred)
+    }
+
+    @Test
+    fun sync_radarComparesBeforeTheIgnoreInsertAndRecordsBaselinesAfterIt() {
+        coEvery { accountDao.queryById(any()) } answers {
+            account(GoogleReaderSecurityKey(serverUrl = "https://rss.test", username = "u", password = "p")).copy(id = firstArg())
+        }
+        coEvery { api.getSubscriptionList() } returns GoogleReaderApiDto.SubscriptionList(
+            subscriptions = listOf(GoogleReaderApiDto.SubscriptionItem(id = "feed/1", title = "T", url = "https://a.test/rss")),
+        )
+        coEvery { api.getStreamContents(continuation = null) } returns GoogleReaderApiDto.ReadingList(
+            items = listOf(
+                GoogleReaderApiDto.Item(id = "item/old", title = "Old", published = 1L, summary = GoogleReaderApiDto.Summary(content = "<p>a</p>"),
+                    origin = listOf(GoogleReaderApiDto.OriginItem(streamId = "feed/1"))),
+                GoogleReaderApiDto.Item(id = "item/new", title = "New", published = 2L, summary = GoogleReaderApiDto.Summary(content = "<p>b</p>"),
+                    origin = listOf(GoogleReaderApiDto.OriginItem(streamId = "feed/1"))),
+            ),
+            continuation = null,
+        )
+        val events = mutableListOf<String>()
+        coEvery { radar.recordEdits(any()) } answers {
+            events += "compare"
+            setOf(firstArg<List<Article>>().first { it.title == "Old" }.id)
+        }
+        coEvery { articleDao.insertOnConflictIgnore(*anyVararg()) } answers { events += "insert" }
+        val baselines = slot<List<Article>>()
+        coEvery { radar.recordBaselines(capture(baselines)) } answers { events += "baseline" }
+
+        runBlocking { googleReaderRssSv.sync(worker) }
+
+        assertEquals(listOf("compare", "insert", "baseline"), events)
+        assertEquals(listOf("New"), baselines.captured.map { it.title })
     }
 
     @Test
