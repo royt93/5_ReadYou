@@ -232,6 +232,49 @@ class FeverRssSvTest {
         assertEquals(1, baselines.captured.size)
     }
 
+    private fun stubEmptyFeverAccount() {
+        coEvery { accountDao.queryById(any()) } answers {
+            feverAccount(FeverSecurityKey(serverUrl = "https://fever.test", username = "user", password = "pass")).copy(id = firstArg())
+        }
+        coEvery { feverApi.getGroups() } returns FeverDTO.Groups(null, 1, null, emptyList(), null)
+        coEvery { feverApi.getFeeds() } returns FeverDTO.Feeds(null, 1, null, emptyList(), emptyList())
+        coEvery { feverApi.getItemsSince(any()) } returns FeverDTO.Items(null, 1, null, null, emptyList())
+        coEvery { feverApi.getUnreadItems() } returns FeverDTO.ItemsByUnread(null, 1, null, unread_item_ids = "")
+        coEvery { feverApi.getSavedItems() } returns FeverDTO.ItemsByStarred(null, 1, null, saved_item_ids = "")
+        every { articleDao.queryArticleMetadataAll(any()) } returns emptyList()
+    }
+
+    @Test
+    fun sync_recheckAsksTheServerForStoredIdsOnceAndMapsItsItems() {
+        stubEmptyFeverAccount()
+        coEvery { feverApi.getItemsWith(any()) } returns FeverDTO.Items(
+            null, 1, null, null, listOf(item(id = "300", feedId = 12), item(id = null, feedId = 12)),
+        )
+        val fetcher = slot<suspend (List<String>) -> List<Article>>()
+        coEvery { radar.recheckRecent(any(), any(), capture(fetcher)) } returns Unit
+
+        runBlocking { feverRssSv.sync(worker) }
+
+        coVerify(exactly = 1) { radar.recheckRecent(any(), 50, any()) }
+        val mapped = runBlocking { fetcher.captured(listOf("1\$300")) }
+        coVerify(exactly = 1) { feverApi.getItemsWith(listOf("1\$300")) }
+        assertEquals(1, mapped.size) // the item without an id is skipped, same as in the main loop
+        assertTrue(mapped.single().id.endsWith("\$300"))
+    }
+
+    @Test
+    fun sync_recheckFailureDoesNotFailTheSync() {
+        stubEmptyFeverAccount()
+        coEvery { feverApi.getItemsWith(any()) } throws java.io.IOException("offline")
+        coEvery { radar.recheckRecent(any(), any(), any()) } coAnswers {
+            runCatching { thirdArg<suspend (List<String>) -> List<Article>>()(listOf("x")) }
+        }
+
+        val result = runBlocking { feverRssSv.sync(worker) }
+
+        assertTrue(result is ListenableWorker.Result.Success)
+    }
+
     @Test
     fun sync_badFinalItemInFullPageAdvancesCursorPastThatItem() {
         coEvery { accountDao.queryById(any()) } answers {

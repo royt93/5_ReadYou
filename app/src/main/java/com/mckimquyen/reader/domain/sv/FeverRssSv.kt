@@ -185,53 +185,7 @@ class FeverRssSv @Inject constructor(
             while (itemsBody.items?.isNotEmpty() == true) {
                 val remoteItems = itemsBody.items.orEmpty()
                 remoteItems.lastOrNull()?.id?.let { sinceId = it }
-                val articles = remoteItems.mapNotNull { item ->
-                    runCatching {
-                        val remoteItemId = item.id
-                        val remoteFeedId = item.feed_id
-                        if (remoteItemId == null || remoteFeedId == null) {
-                            // Article and Feed ids are required by Room primary/foreign keys.
-                            Log.w(TAG, "Skip incomplete Fever item id=$remoteItemId feedId=$remoteFeedId")
-                            null
-                        } else {
-                            val rawHtml = item.html.orEmpty()
-                            val cleanHtml = if (context.htmlAntiTrackerEnabled) {
-                                AntiTrackerHtmlSanitizer.sanitize(rawHtml)
-                            } else {
-                                rawHtml
-                            }
-                            Article(
-                                id = accountId.spacerDollar(remoteItemId),
-                                date = item.created_on_time?.run { Date(this * 1000) } ?: Date(),
-                                title = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-                                    Html.fromHtml(item.title ?: context.getString(R.string.empty), Html.FROM_HTML_MODE_LEGACY).toString()
-                                } else {
-                                    @Suppress("DEPRECATION")
-                                    Html.fromHtml(item.title ?: context.getString(R.string.empty)).toString()
-                                },
-                                author = item.author,
-                                rawDescription = cleanHtml,
-                                shortDescription = RssDescriptionParser.shortDescription(cleanHtml),
-                                fullContent = FullContentPolicy.accept(cleanHtml).also { accepted ->
-                                    if (item.html != null && accepted == null) FullContentPolicy.logOversize("Fever", remoteItemId, cleanHtml)
-                                },
-                                img = rssHelper.findImg(cleanHtml),
-                                link = if (context.urlTrackingCleanEnabled) {
-                                    UrlTrackingCleaner.clean(item.url ?: "")
-                                } else {
-                                    item.url ?: ""
-                                },
-                                feedId = accountId.spacerDollar(remoteFeedId),
-                                accountId = accountId,
-                                isUnread = (item.is_read ?: 0) <= 0,
-                                isStarred = (item.is_saved ?: 0) > 0,
-                                updateAt = Date(),
-                            )
-                        }
-                    }.onFailure { error ->
-                        Log.w(TAG, "Skip malformed Fever item id=${item.id}", error)
-                    }.getOrNull()
-                }
+                val articles = remoteItems.mapNotNull { item -> toArticle(item, accountId) }
                 // REPLACE would erase the stored copy, so compare first; Fever normally sends each item once.
                 val alreadyStored = radar.recordEdits(articles)
                 articleDao.insert(*articles.toTypedArray())
@@ -241,6 +195,11 @@ class FeverRssSv @Inject constructor(
                 } else {
                     break
                 }
+            }
+
+            // 3b. Retraction Radar: Fever never resends old items, so ask for the newest stored ones by id.
+            radar.recheckRecent(accountId, RECHECK_LIMIT) { ids ->
+                feverAPI.getItemsWith(ids).items.orEmpty().mapNotNull { toArticle(it, accountId) }
             }
 
             // 4. Synchronize read/unread and starred/un-starred
@@ -332,10 +291,61 @@ class FeverRssSv @Inject constructor(
         )
     }
 
+    /** Maps one Fever item to an [Article]; null (and a log line) for an incomplete or malformed item. */
+    private fun toArticle(item: FeverDTO.Item, accountId: Int): Article? =
+        runCatching {
+            val remoteItemId = item.id
+            val remoteFeedId = item.feed_id
+            if (remoteItemId == null || remoteFeedId == null) {
+                // Article and Feed ids are required by Room primary/foreign keys.
+                Log.w(TAG, "Skip incomplete Fever item id=$remoteItemId feedId=$remoteFeedId")
+                null
+            } else {
+                val rawHtml = item.html.orEmpty()
+                val cleanHtml = if (context.htmlAntiTrackerEnabled) {
+                    AntiTrackerHtmlSanitizer.sanitize(rawHtml)
+                } else {
+                    rawHtml
+                }
+                Article(
+                    id = accountId.spacerDollar(remoteItemId),
+                    date = item.created_on_time?.run { Date(this * 1000) } ?: Date(),
+                    title = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                        Html.fromHtml(item.title ?: context.getString(R.string.empty), Html.FROM_HTML_MODE_LEGACY).toString()
+                    } else {
+                        @Suppress("DEPRECATION")
+                        Html.fromHtml(item.title ?: context.getString(R.string.empty)).toString()
+                    },
+                    author = item.author,
+                    rawDescription = cleanHtml,
+                    shortDescription = RssDescriptionParser.shortDescription(cleanHtml),
+                    fullContent = FullContentPolicy.accept(cleanHtml).also { accepted ->
+                        if (item.html != null && accepted == null) FullContentPolicy.logOversize("Fever", remoteItemId, cleanHtml)
+                    },
+                    img = rssHelper.findImg(cleanHtml),
+                    link = if (context.urlTrackingCleanEnabled) {
+                        UrlTrackingCleaner.clean(item.url ?: "")
+                    } else {
+                        item.url ?: ""
+                    },
+                    feedId = accountId.spacerDollar(remoteFeedId),
+                    accountId = accountId,
+                    isUnread = (item.is_read ?: 0) <= 0,
+                    isStarred = (item.is_saved ?: 0) > 0,
+                    updateAt = Date(),
+                )
+            }
+        }.onFailure { error ->
+            Log.w(TAG, "Skip malformed Fever item id=${item.id}", error)
+        }.getOrNull()
+
     private companion object {
         const val TAG = "RLog"
 
         // Fever returns at most 50 items per page; a full page means more items may follow.
         const val FEVER_PAGE_SIZE = 50
+
+        // with_ids accepts at most 50 ids per request (FeverAPI.getItemsWith).
+        const val RECHECK_LIMIT = 50
     }
 }

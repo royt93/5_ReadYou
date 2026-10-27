@@ -55,6 +55,18 @@ interface ArticleRadarDao {
     @Query("SELECT id FROM article WHERE link = :link AND feedId = :feedId AND accountId = :accountId LIMIT 1")
     suspend fun articleIdByLink(link: String, feedId: String, accountId: Int): String?
 
+    /** Newest stored articles of an account with their miss counters; no body columns (FIX-17). */
+    @Query(
+        """
+        SELECT a.id AS id, a.link AS link, a.date AS date,
+               COALESCE(s.missedSyncs, 0) AS missedSyncs, s.removedAt AS removedAt
+        FROM article a LEFT JOIN article_radar_state s ON s.articleId = a.id
+        WHERE a.accountId = :accountId
+        ORDER BY a.date DESC, a.id DESC LIMIT :limit
+        """
+    )
+    suspend fun newestTracked(accountId: Int, limit: Int): List<TrackedArticleRow>
+
     @Query("SELECT id FROM article WHERE id IN (:ids)")
     suspend fun existingIds(ids: List<String>): List<String>
 

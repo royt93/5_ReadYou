@@ -66,6 +66,33 @@ open class RetractionRadarService @Inject constructor(
         inserted.forEach { history.record(it.id, it.title, it.body()) }
     }
 
+    /**
+     * Fever: asks the server again for the [limit] newest stored items (one `with_ids` request) and treats the answer as
+     * a feed window. Edits are recorded; items the server stops returning go through [RemovalTracker].
+     * [fetch] gets the stored ids and returns the items as the server answered. A failed or empty answer, or one that
+     * returns none of the asked ids (a server ignoring `with_ids`), counts as nothing.
+     */
+    open suspend fun recheckRecent(accountId: Int, limit: Int, fetch: suspend (List<String>) -> List<Article>) =
+        safely("recheckRecent") {
+            if (!isEnabled()) return@safely
+            val tracked = dao.newestTracked(accountId, limit)
+            if (tracked.isEmpty()) return@safely
+            val returned = fetch(tracked.map { it.id })
+            val askedIds = tracked.mapTo(HashSet()) { it.id }
+            val answered = returned.filter { it.id in askedIds }
+            if (answered.isEmpty()) return@safely
+            answered.forEach { history.record(it.id, it.title, it.body()) }
+
+            val answeredIds = answered.mapTo(HashSet()) { it.id }
+            val updates = RemovalTracker.evaluate(
+                fetchValid = true,
+                presentLinks = answeredIds,
+                oldestFeedDate = tracked.minOf { it.date },
+                stored = tracked.map { StoredArticleState(it.id, it.id, it.date, it.missedSyncs, it.removedAt != null) },
+            )
+            history.applyRemoval(updates)
+        }
+
     open suspend fun purge() = safely("purge") { history.purge() }
 
     private fun Article.body(): String = fullContent ?: rawDescription
