@@ -65,3 +65,18 @@ Chỉ dừng loop khi hoàn tất TẤT CẢ bước sau, đúng thứ tự, KH�
 - **Manual smoke limitation:** Flow on Tecno had no naturally available cluster with >=3 distinct sources; opened article list showed BBC single-source items only. No synthetic cluster or feed data was inserted. Therefore tapping Source DNA on a real eligible cluster could not be manually smoke-tested; widget and Flow integration tests cover that flow. No full-screen ad appeared during instrumentation/device checks.
 
 **Audit:** 9/10. Heuristic and uncertainty handling are explicit; live device smoke could not exercise eligible-cluster entry because current device feed data lacked such a cluster.
+
+## Smoke thật trên Pixel 7 Pro (bổ sung 2026-10-27) — đóng điểm "chưa smoke" ở trên
+Thiết bị `2B051FDH3006MU`, 3 feed RSS giả (`DNA Source A/B/C`, cùng đề tài "hydrogen tram Lisbon", mốc đăng cách nhau vài giờ) phục vụ
+qua `adb reverse`. Đã quan sát:
+- Danh sách hiện cụm "🔥 3 nguồn tin cùng đưa tin" (89% khớp) với 3 bài; mở sheet có nút **🧬 Source DNA**.
+- Bấm Source DNA: tiêu đề "Source DNA", disclaimer tiếng Việt ("Phân tích suy luận từ thời gian đăng … không phải xác minh nguồn gốc hay
+  bằng chứng sao chép"), nút "Quay lại các góc nhìn".
+- Nguồn A (sớm nhất) gắn "Đăng sớm nhất trong cụm"; nguồn B "Rất giống với DNA Source A — Giống 100%"; nguồn C "Rất giống với
+  DNA Source A — Giống 89%". Mỗi node có "Thời gian feed báo" theo giờ địa phương, bố cục thụt theo quan hệ.
+- Cụm chỉ 2 nguồn (trước khi feed C có bài thứ hai) **không** hiện nút Source DNA, đúng ngưỡng ≥ 3 nguồn.
+- Sau smoke: restore Room về bản trước (176 bài, `integrity_check = ok`, 0 feed/bài test), tắt server, gỡ `adb reverse`.
+
+**Chưa kiểm:** bấm node mở bài; trạng thái "không rõ nguồn" (hòa timestamp) và cắt 20 bài trên máy thật (đã có unit test); TalkBack.
+Ghi chú thiết kế: node C hiện "giống A 89%" dù bài gần hơn là B, vì quy tắc là "nối với bài trước có similarity cao nhất"; ở đây A và B giống
+nhau 100% nên cả hai đều hợp lệ và A (sớm hơn) được chọn.
