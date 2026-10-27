@@ -913,15 +913,15 @@
     <string name="url_tracking_desc">Automatically removes tracking tags (utm_*, fbclid, gclid...) when fetching, opening, and sharing links.</string>
     <string name="html_antitracker_title">Anti-Tracker Content Shield</string>
     <string name="html_antitracker_desc">Filters out 1x1 tracking pixels, hidden beacons, and malicious scripts inside articles.</string>
-    <string name="retraction_radar_title">Retraction Radar</string>
-    <string name="retraction_radar_desc">Keeps text snapshots of articles and flags ones whose title or text was edited or that disappeared from their feed. Edits are detected for local RSS and Google Reader feeds; Fever servers never resend old items, so only local RSS can flag removals.</string>
-    <string name="radar_badge_edited">✏️ Edited</string>
-    <string name="radar_badge_removed">🗑️ Removed</string>
-    <string name="radar_badge_open_diff">Show what changed in this article</string>
-    <string name="radar_diff_title">What changed</string>
-    <string name="radar_diff_desc">Struck-through red text was in the first saved version. Green text is new.</string>
-    <string name="radar_diff_headline">Headline</string>
-    <string name="radar_diff_text">Text</string>
-    <string name="radar_diff_no_history">No earlier version of this article was saved.</string>
-    <string name="radar_diff_removed_notice">This article was no longer in its feed for several syncs in a row. The last saved version is shown below.</string>
+    <string name="retraction_radar_title">Correctieradar</string>
+    <string name="retraction_radar_desc">Bewaart tekstmomentopnamen van artikelen en markeert artikelen waarvan de kop of tekst is bewerkt of die uit hun feed zijn verdwenen. Bewerkingen worden gedetecteerd voor lokale RSS en Google Reader; Fever-servers sturen oude items nooit opnieuw, dus alleen lokale RSS kan verwijderingen melden.</string>
+    <string name="radar_badge_edited">✏️ Bewerkt</string>
+    <string name="radar_badge_removed">🗑️ Verwijderd</string>
+    <string name="radar_badge_open_diff">Toon wat er in dit artikel is gewijzigd</string>
+    <string name="radar_diff_title">Wat is er gewijzigd</string>
+    <string name="radar_diff_desc">Doorgehaalde rode tekst stond in de eerste opgeslagen versie. Groene tekst is nieuw.</string>
+    <string name="radar_diff_headline">Kop</string>
+    <string name="radar_diff_text">Tekst</string>
+    <string name="radar_diff_no_history">Er is geen eerdere versie van dit artikel opgeslagen.</string>
+    <string name="radar_diff_removed_notice">Dit artikel stond bij meerdere synchronisaties op rij niet meer in zijn feed. De laatst opgeslagen versie staat hieronder.</string>
 </resources>

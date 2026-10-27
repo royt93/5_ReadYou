@@ -912,15 +912,15 @@
     <string name="url_tracking_desc">Automatically removes tracking tags (utm_*, fbclid, gclid...) when fetching, opening, and sharing links.</string>
     <string name="html_antitracker_title">Anti-Tracker Content Shield</string>
     <string name="html_antitracker_desc">Filters out 1x1 tracking pixels, hidden beacons, and malicious scripts inside articles.</string>
-    <string name="retraction_radar_title">Retraction Radar</string>
-    <string name="retraction_radar_desc">Keeps text snapshots of articles and flags ones whose title or text was edited or that disappeared from their feed. Edits are detected for local RSS and Google Reader feeds; Fever servers never resend old items, so only local RSS can flag removals.</string>
-    <string name="radar_badge_edited">✏️ Edited</string>
-    <string name="radar_badge_removed">🗑️ Removed</string>
-    <string name="radar_badge_open_diff">Show what changed in this article</string>
-    <string name="radar_diff_title">What changed</string>
-    <string name="radar_diff_desc">Struck-through red text was in the first saved version. Green text is new.</string>
-    <string name="radar_diff_headline">Headline</string>
+    <string name="retraction_radar_title">Rättelseradar</string>
+    <string name="retraction_radar_desc">Sparar textögonblicksbilder av artiklar och markerar de vars rubrik eller text har redigerats eller som har försvunnit från flödet. Redigeringar upptäcks för lokal RSS och Google Reader; Fever-servrar skickar aldrig gamla objekt igen, så bara lokal RSS kan markera borttagningar.</string>
+    <string name="radar_badge_edited">✏️ Redigerad</string>
+    <string name="radar_badge_removed">🗑️ Borttagen</string>
+    <string name="radar_badge_open_diff">Visa vad som ändrats i den här artikeln</string>
+    <string name="radar_diff_title">Vad som ändrats</string>
+    <string name="radar_diff_desc">Genomstruken röd text fanns i den första sparade versionen. Grön text är ny.</string>
+    <string name="radar_diff_headline">Rubrik</string>
     <string name="radar_diff_text">Text</string>
-    <string name="radar_diff_no_history">No earlier version of this article was saved.</string>
-    <string name="radar_diff_removed_notice">This article was no longer in its feed for several syncs in a row. The last saved version is shown below.</string>
+    <string name="radar_diff_no_history">Ingen tidigare version av den här artikeln sparades.</string>
+    <string name="radar_diff_removed_notice">Den här artikeln fanns inte längre i flödet vid flera synkroniseringar i rad. Den senast sparade versionen visas nedan.</string>
 </resources>

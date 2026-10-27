@@ -912,15 +912,15 @@
     <string name="url_tracking_desc">Automatically removes tracking tags (utm_*, fbclid, gclid...) when fetching, opening, and sharing links.</string>
     <string name="html_antitracker_title">Anti-Tracker Content Shield</string>
     <string name="html_antitracker_desc">Filters out 1x1 tracking pixels, hidden beacons, and malicious scripts inside articles.</string>
-    <string name="retraction_radar_title">Retraction Radar</string>
-    <string name="retraction_radar_desc">Keeps text snapshots of articles and flags ones whose title or text was edited or that disappeared from their feed. Edits are detected for local RSS and Google Reader feeds; Fever servers never resend old items, so only local RSS can flag removals.</string>
-    <string name="radar_badge_edited">✏️ Edited</string>
-    <string name="radar_badge_removed">🗑️ Removed</string>
-    <string name="radar_badge_open_diff">Show what changed in this article</string>
-    <string name="radar_diff_title">What changed</string>
-    <string name="radar_diff_desc">Struck-through red text was in the first saved version. Green text is new.</string>
-    <string name="radar_diff_headline">Headline</string>
-    <string name="radar_diff_text">Text</string>
-    <string name="radar_diff_no_history">No earlier version of this article was saved.</string>
-    <string name="radar_diff_removed_notice">This article was no longer in its feed for several syncs in a row. The last saved version is shown below.</string>
+    <string name="retraction_radar_title">رادار ویرایش</string>
+    <string name="retraction_radar_desc">نسخه‌های متنی مقاله‌ها را ذخیره می‌کند و مقاله‌هایی را که عنوان یا متن آن‌ها ویرایش شده یا از منبع خود ناپدید شده‌اند نشان‌گذاری می‌کند. ویرایش‌ها در RSS محلی و Google Reader شناسایی می‌شوند؛ سرورهای Fever موارد قدیمی را دوباره نمی‌فرستند، بنابراین فقط RSS محلی می‌تواند حذف را تشخیص دهد.</string>
+    <string name="radar_badge_edited">✏️ ویرایش‌شده</string>
+    <string name="radar_badge_removed">🗑️ حذف‌شده</string>
+    <string name="radar_badge_open_diff">نمایش آنچه در این مقاله تغییر کرده است</string>
+    <string name="radar_diff_title">چه چیزی تغییر کرد</string>
+    <string name="radar_diff_desc">متن قرمز خط‌خورده در نخستین نسخه ذخیره‌شده بود. متن سبز جدید است.</string>
+    <string name="radar_diff_headline">عنوان</string>
+    <string name="radar_diff_text">متن</string>
+    <string name="radar_diff_no_history">هیچ نسخه قبلی از این مقاله ذخیره نشده است.</string>
+    <string name="radar_diff_removed_notice">این مقاله در چند همگام‌سازی پیاپی در منبع خود نبود. آخرین نسخه ذخیره‌شده در زیر نمایش داده می‌شود.</string>
 </resources>

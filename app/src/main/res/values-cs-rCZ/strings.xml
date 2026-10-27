@@ -997,15 +997,15 @@
     <string name="url_tracking_desc">Automatically removes tracking tags (utm_*, fbclid, gclid...) when fetching, opening, and sharing links.</string>
     <string name="html_antitracker_title">Anti-Tracker Content Shield</string>
     <string name="html_antitracker_desc">Filters out 1x1 tracking pixels, hidden beacons, and malicious scripts inside articles.</string>
-    <string name="retraction_radar_title">Retraction Radar</string>
-    <string name="retraction_radar_desc">Keeps text snapshots of articles and flags ones whose title or text was edited or that disappeared from their feed. Edits are detected for local RSS and Google Reader feeds; Fever servers never resend old items, so only local RSS can flag removals.</string>
-    <string name="radar_badge_edited">✏️ Edited</string>
-    <string name="radar_badge_removed">🗑️ Removed</string>
-    <string name="radar_badge_open_diff">Show what changed in this article</string>
-    <string name="radar_diff_title">What changed</string>
-    <string name="radar_diff_desc">Struck-through red text was in the first saved version. Green text is new.</string>
-    <string name="radar_diff_headline">Headline</string>
+    <string name="retraction_radar_title">Radar úprav</string>
+    <string name="retraction_radar_desc">Ukládá textové snímky článků a označuje ty, jejichž titulek nebo text byl upraven nebo které zmizely ze svého kanálu. Úpravy se zjišťují u lokálního RSS a Google Reader; servery Fever staré položky znovu neposílají, takže odstranění pozná jen lokální RSS.</string>
+    <string name="radar_badge_edited">✏️ Upraveno</string>
+    <string name="radar_badge_removed">🗑️ Odstraněno</string>
+    <string name="radar_badge_open_diff">Zobrazit, co se v tomto článku změnilo</string>
+    <string name="radar_diff_title">Co se změnilo</string>
+    <string name="radar_diff_desc">Přeškrtnutý červený text byl v první uložené verzi. Zelený text je nový.</string>
+    <string name="radar_diff_headline">Titulek</string>
     <string name="radar_diff_text">Text</string>
-    <string name="radar_diff_no_history">No earlier version of this article was saved.</string>
-    <string name="radar_diff_removed_notice">This article was no longer in its feed for several syncs in a row. The last saved version is shown below.</string>
+    <string name="radar_diff_no_history">Žádná dřívější verze tohoto článku nebyla uložena.</string>
+    <string name="radar_diff_removed_notice">Tento článek nebyl několik synchronizací po sobě ve svém kanálu. Níže je zobrazena poslední uložená verze.</string>
 </resources>

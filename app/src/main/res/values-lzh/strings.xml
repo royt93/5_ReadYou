@@ -979,15 +979,15 @@
     <string name="url_tracking_desc">Automatically removes tracking tags (utm_*, fbclid, gclid...) when fetching, opening, and sharing links.</string>
     <string name="html_antitracker_title">Anti-Tracker Content Shield</string>
     <string name="html_antitracker_desc">Filters out 1x1 tracking pixels, hidden beacons, and malicious scripts inside articles.</string>
-    <string name="retraction_radar_title">Retraction Radar</string>
-    <string name="retraction_radar_desc">Keeps text snapshots of articles and flags ones whose title or text was edited or that disappeared from their feed. Edits are detected for local RSS and Google Reader feeds; Fever servers never resend old items, so only local RSS can flag removals.</string>
-    <string name="radar_badge_edited">✏️ Edited</string>
-    <string name="radar_badge_removed">🗑️ Removed</string>
-    <string name="radar_badge_open_diff">Show what changed in this article</string>
-    <string name="radar_diff_title">What changed</string>
-    <string name="radar_diff_desc">Struck-through red text was in the first saved version. Green text is new.</string>
-    <string name="radar_diff_headline">Headline</string>
-    <string name="radar_diff_text">Text</string>
-    <string name="radar_diff_no_history">No earlier version of this article was saved.</string>
-    <string name="radar_diff_removed_notice">This article was no longer in its feed for several syncs in a row. The last saved version is shown below.</string>
+    <string name="retraction_radar_title">勘誤雷達</string>
+    <string name="retraction_radar_desc">存文章文字之影，標其題或文有所改、或自源中消失者。本地RSS與Google Reader可察改動；Fever伺服器不復送舊項，故唯本地RSS能察刪除。</string>
+    <string name="radar_badge_edited">✏️ 已改</string>
+    <string name="radar_badge_removed">🗑️ 已除</string>
+    <string name="radar_badge_open_diff">觀此文何所變</string>
+    <string name="radar_diff_title">何所變</string>
+    <string name="radar_diff_desc">赤而劃線者，乃初存之本所有；綠者為新增。</string>
+    <string name="radar_diff_headline">標題</string>
+    <string name="radar_diff_text">正文</string>
+    <string name="radar_diff_no_history">此文未存先前之本。</string>
+    <string name="radar_diff_removed_notice">此文連數次同步皆不在其源中。末次所存之本，列於下。</string>
 </resources>

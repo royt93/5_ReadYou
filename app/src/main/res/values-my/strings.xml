@@ -979,15 +979,15 @@
     <string name="url_tracking_desc">Automatically removes tracking tags (utm_*, fbclid, gclid...) when fetching, opening, and sharing links.</string>
     <string name="html_antitracker_title">Anti-Tracker Content Shield</string>
     <string name="html_antitracker_desc">Filters out 1x1 tracking pixels, hidden beacons, and malicious scripts inside articles.</string>
-    <string name="retraction_radar_title">Retraction Radar</string>
-    <string name="retraction_radar_desc">Keeps text snapshots of articles and flags ones whose title or text was edited or that disappeared from their feed. Edits are detected for local RSS and Google Reader feeds; Fever servers never resend old items, so only local RSS can flag removals.</string>
-    <string name="radar_badge_edited">✏️ Edited</string>
-    <string name="radar_badge_removed">🗑️ Removed</string>
-    <string name="radar_badge_open_diff">Show what changed in this article</string>
-    <string name="radar_diff_title">What changed</string>
-    <string name="radar_diff_desc">Struck-through red text was in the first saved version. Green text is new.</string>
-    <string name="radar_diff_headline">Headline</string>
-    <string name="radar_diff_text">Text</string>
-    <string name="radar_diff_no_history">No earlier version of this article was saved.</string>
-    <string name="radar_diff_removed_notice">This article was no longer in its feed for several syncs in a row. The last saved version is shown below.</string>
+    <string name="retraction_radar_title">ပြင်ဆင်မှု ရေဒါ</string>
+    <string name="retraction_radar_desc">ဆောင်းပါးများ၏ စာသား လျှပ်တစ်ပြက်များကို သိမ်းဆည်းပြီး ခေါင်းစဉ် သို့မဟုတ် စာသား ပြင်ဆင်ခံရသော သို့မဟုတ် ၎င်းတို့၏ feed မှ ပျောက်သွားသော ဆောင်းပါးများကို အမှတ်အသားပြုသည်။ ပြင်ဆင်မှုများကို local RSS နှင့် Google Reader တွင် ရှာဖွေတွေ့ရှိနိုင်သည်။ Fever ဆာဗာများသည် ဟောင်းသောအရာများကို ပြန်မပို့သဖြင့် local RSS သာလျှင် ဖယ်ရှားမှုကို အမှတ်အသားပြုနိုင်သည်။</string>
+    <string name="radar_badge_edited">✏️ ပြင်ဆင်ပြီး</string>
+    <string name="radar_badge_removed">🗑️ ဖယ်ရှားပြီး</string>
+    <string name="radar_badge_open_diff">ဤဆောင်းပါးတွင် ပြောင်းလဲသည့်အရာကို ပြပါ</string>
+    <string name="radar_diff_title">ပြောင်းလဲသည့်အရာ</string>
+    <string name="radar_diff_desc">မျဉ်းကြောင်းခြစ်ထားသော အနီစာသားသည် ပထမဆုံး သိမ်းဆည်းထားသော ဗားရှင်းတွင် ရှိခဲ့သည်။ အစိမ်းစာသားသည် အသစ်ဖြစ်သည်။</string>
+    <string name="radar_diff_headline">ခေါင်းစဉ်</string>
+    <string name="radar_diff_text">စာသား</string>
+    <string name="radar_diff_no_history">ဤဆောင်းပါး၏ ယခင်ဗားရှင်း မည်သည့်အရာမျှ သိမ်းဆည်းမထားပါ။</string>
+    <string name="radar_diff_removed_notice">ဤဆောင်းပါးသည် ဆက်တိုက် စင့်ခ်လုပ်ငန်း အကြိမ်များစွာတွင် ၎င်း၏ feed ထဲ မရှိတော့ပါ။ နောက်ဆုံး သိမ်းဆည်းထားသော ဗားရှင်းကို အောက်တွင် ပြထားသည်။</string>
 </resources>

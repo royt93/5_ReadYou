@@ -917,15 +917,15 @@
     <string name="url_tracking_desc">Automatically removes tracking tags (utm_*, fbclid, gclid...) when fetching, opening, and sharing links.</string>
     <string name="html_antitracker_title">Anti-Tracker Content Shield</string>
     <string name="html_antitracker_desc">Filters out 1x1 tracking pixels, hidden beacons, and malicious scripts inside articles.</string>
-    <string name="retraction_radar_title">Retraction Radar</string>
-    <string name="retraction_radar_desc">Keeps text snapshots of articles and flags ones whose title or text was edited or that disappeared from their feed. Edits are detected for local RSS and Google Reader feeds; Fever servers never resend old items, so only local RSS can flag removals.</string>
-    <string name="radar_badge_edited">✏️ Edited</string>
-    <string name="radar_badge_removed">🗑️ Removed</string>
-    <string name="radar_badge_open_diff">Show what changed in this article</string>
-    <string name="radar_diff_title">What changed</string>
-    <string name="radar_diff_desc">Struck-through red text was in the first saved version. Green text is new.</string>
-    <string name="radar_diff_headline">Headline</string>
-    <string name="radar_diff_text">Text</string>
-    <string name="radar_diff_no_history">No earlier version of this article was saved.</string>
-    <string name="radar_diff_removed_notice">This article was no longer in its feed for several syncs in a row. The last saved version is shown below.</string>
+    <string name="retraction_radar_title">Radar de corrections</string>
+    <string name="retraction_radar_desc">Conserve des instantanés texte des articles et signale ceux dont le titre ou le texte a été modifié, ou qui ont disparu de leur flux. Les modifications sont détectées pour le RSS local et Google Reader ; les serveurs Fever ne renvoient jamais les anciens éléments, donc seul le RSS local peut signaler des suppressions.</string>
+    <string name="radar_badge_edited">✏️ Modifié</string>
+    <string name="radar_badge_removed">🗑️ Supprimé</string>
+    <string name="radar_badge_open_diff">Afficher ce qui a changé dans cet article</string>
+    <string name="radar_diff_title">Ce qui a changé</string>
+    <string name="radar_diff_desc">Le texte rouge barré figurait dans la première version enregistrée. Le texte vert est nouveau.</string>
+    <string name="radar_diff_headline">Titre</string>
+    <string name="radar_diff_text">Texte</string>
+    <string name="radar_diff_no_history">Aucune version antérieure de cet article n’a été enregistrée.</string>
+    <string name="radar_diff_removed_notice">Cet article n’était plus dans son flux lors de plusieurs synchronisations de suite. La dernière version enregistrée est affichée ci-dessous.</string>
 </resources>

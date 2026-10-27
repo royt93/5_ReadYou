@@ -904,15 +904,15 @@
     <string name="url_tracking_desc">Automatically removes tracking tags (utm_*, fbclid, gclid...) when fetching, opening, and sharing links.</string>
     <string name="html_antitracker_title">Anti-Tracker Content Shield</string>
     <string name="html_antitracker_desc">Filters out 1x1 tracking pixels, hidden beacons, and malicious scripts inside articles.</string>
-    <string name="retraction_radar_title">Retraction Radar</string>
-    <string name="retraction_radar_desc">Keeps text snapshots of articles and flags ones whose title or text was edited or that disappeared from their feed. Edits are detected for local RSS and Google Reader feeds; Fever servers never resend old items, so only local RSS can flag removals.</string>
-    <string name="radar_badge_edited">✏️ Edited</string>
-    <string name="radar_badge_removed">🗑️ Removed</string>
-    <string name="radar_badge_open_diff">Show what changed in this article</string>
-    <string name="radar_diff_title">What changed</string>
-    <string name="radar_diff_desc">Struck-through red text was in the first saved version. Green text is new.</string>
-    <string name="radar_diff_headline">Headline</string>
-    <string name="radar_diff_text">Text</string>
-    <string name="radar_diff_no_history">No earlier version of this article was saved.</string>
-    <string name="radar_diff_removed_notice">This article was no longer in its feed for several syncs in a row. The last saved version is shown below.</string>
+    <string name="retraction_radar_title">更正雷達</string>
+    <string name="retraction_radar_desc">儲存文章的文字快照，並標記標題或內文被修改、或已從訂閱來源消失的文章。本機 RSS 與 Google Reader 可偵測修改；Fever 伺服器不會重新傳送舊項目，因此只有本機 RSS 能標記移除。</string>
+    <string name="radar_badge_edited">✏️ 已編輯</string>
+    <string name="radar_badge_removed">🗑️ 已移除</string>
+    <string name="radar_badge_open_diff">檢視這篇文章有哪些變更</string>
+    <string name="radar_diff_title">有哪些變更</string>
+    <string name="radar_diff_desc">帶刪除線的紅色文字出現在第一個儲存的版本中，綠色文字為新增內容。</string>
+    <string name="radar_diff_headline">標題</string>
+    <string name="radar_diff_text">內文</string>
+    <string name="radar_diff_no_history">未儲存這篇文章的較早版本。</string>
+    <string name="radar_diff_removed_notice">這篇文章在連續多次同步中都不在其訂閱來源裡。下方顯示最後儲存的版本。</string>
 </resources>

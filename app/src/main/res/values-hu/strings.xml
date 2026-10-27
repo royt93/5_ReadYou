@@ -908,15 +908,15 @@
     <string name="url_tracking_desc">Automatically removes tracking tags (utm_*, fbclid, gclid...) when fetching, opening, and sharing links.</string>
     <string name="html_antitracker_title">Anti-Tracker Content Shield</string>
     <string name="html_antitracker_desc">Filters out 1x1 tracking pixels, hidden beacons, and malicious scripts inside articles.</string>
-    <string name="retraction_radar_title">Retraction Radar</string>
-    <string name="retraction_radar_desc">Keeps text snapshots of articles and flags ones whose title or text was edited or that disappeared from their feed. Edits are detected for local RSS and Google Reader feeds; Fever servers never resend old items, so only local RSS can flag removals.</string>
-    <string name="radar_badge_edited">✏️ Edited</string>
-    <string name="radar_badge_removed">🗑️ Removed</string>
-    <string name="radar_badge_open_diff">Show what changed in this article</string>
-    <string name="radar_diff_title">What changed</string>
-    <string name="radar_diff_desc">Struck-through red text was in the first saved version. Green text is new.</string>
-    <string name="radar_diff_headline">Headline</string>
-    <string name="radar_diff_text">Text</string>
-    <string name="radar_diff_no_history">No earlier version of this article was saved.</string>
-    <string name="radar_diff_removed_notice">This article was no longer in its feed for several syncs in a row. The last saved version is shown below.</string>
+    <string name="retraction_radar_title">Helyesbítési radar</string>
+    <string name="retraction_radar_desc">Szöveges pillanatképeket ment a cikkekről, és megjelöli azokat, amelyek címét vagy szövegét szerkesztették, vagy amelyek eltűntek a csatornájukból. A szerkesztéseket helyi RSS és Google Reader esetén ismeri fel; a Fever szerverek soha nem küldik újra a régi elemeket, ezért eltávolítást csak a helyi RSS tud jelezni.</string>
+    <string name="radar_badge_edited">✏️ Szerkesztve</string>
+    <string name="radar_badge_removed">🗑️ Eltávolítva</string>
+    <string name="radar_badge_open_diff">Mutasd meg, mi változott ebben a cikkben</string>
+    <string name="radar_diff_title">Mi változott</string>
+    <string name="radar_diff_desc">Az áthúzott piros szöveg az első mentett változatban szerepelt. A zöld szöveg új.</string>
+    <string name="radar_diff_headline">Cím</string>
+    <string name="radar_diff_text">Szöveg</string>
+    <string name="radar_diff_no_history">A cikkről nem mentettünk korábbi változatot.</string>
+    <string name="radar_diff_removed_notice">Ez a cikk több egymást követő szinkronizálás során nem szerepelt a csatornájában. Lent az utoljára mentett változat látható.</string>
 </resources>

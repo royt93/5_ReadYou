@@ -912,15 +912,15 @@
     <string name="url_tracking_desc">Automatically removes tracking tags (utm_*, fbclid, gclid...) when fetching, opening, and sharing links.</string>
     <string name="html_antitracker_title">Anti-Tracker Content Shield</string>
     <string name="html_antitracker_desc">Filters out 1x1 tracking pixels, hidden beacons, and malicious scripts inside articles.</string>
-    <string name="retraction_radar_title">Retraction Radar</string>
-    <string name="retraction_radar_desc">Keeps text snapshots of articles and flags ones whose title or text was edited or that disappeared from their feed. Edits are detected for local RSS and Google Reader feeds; Fever servers never resend old items, so only local RSS can flag removals.</string>
-    <string name="radar_badge_edited">✏️ Edited</string>
-    <string name="radar_badge_removed">🗑️ Removed</string>
-    <string name="radar_badge_open_diff">Show what changed in this article</string>
-    <string name="radar_diff_title">What changed</string>
-    <string name="radar_diff_desc">Struck-through red text was in the first saved version. Green text is new.</string>
-    <string name="radar_diff_headline">Headline</string>
-    <string name="radar_diff_text">Text</string>
-    <string name="radar_diff_no_history">No earlier version of this article was saved.</string>
-    <string name="radar_diff_removed_notice">This article was no longer in its feed for several syncs in a row. The last saved version is shown below.</string>
+    <string name="retraction_radar_title">Rettelsesradar</string>
+    <string name="retraction_radar_desc">Gemmer tekstoptagelser af artikler og markerer dem, hvis overskrift eller tekst er redigeret, eller som er forsvundet fra deres feed. Redigeringer registreres for lokal RSS og Google Reader; Fever-servere sender aldrig gamle elementer igen, så kun lokal RSS kan registrere fjernelser.</string>
+    <string name="radar_badge_edited">✏️ Redigeret</string>
+    <string name="radar_badge_removed">🗑️ Fjernet</string>
+    <string name="radar_badge_open_diff">Vis, hvad der er ændret i denne artikel</string>
+    <string name="radar_diff_title">Hvad er ændret</string>
+    <string name="radar_diff_desc">Overstreget rød tekst stod i den første gemte version. Grøn tekst er ny.</string>
+    <string name="radar_diff_headline">Overskrift</string>
+    <string name="radar_diff_text">Tekst</string>
+    <string name="radar_diff_no_history">Der er ikke gemt nogen tidligere version af denne artikel.</string>
+    <string name="radar_diff_removed_notice">Denne artikel var ikke længere i sit feed ved flere synkroniseringer i træk. Den sidst gemte version vises nedenfor.</string>
 </resources>

@@ -912,15 +912,15 @@
     <string name="url_tracking_desc">Automatically removes tracking tags (utm_*, fbclid, gclid...) when fetching, opening, and sharing links.</string>
     <string name="html_antitracker_title">Anti-Tracker Content Shield</string>
     <string name="html_antitracker_desc">Filters out 1x1 tracking pixels, hidden beacons, and malicious scripts inside articles.</string>
-    <string name="retraction_radar_title">Retraction Radar</string>
-    <string name="retraction_radar_desc">Keeps text snapshots of articles and flags ones whose title or text was edited or that disappeared from their feed. Edits are detected for local RSS and Google Reader feeds; Fever servers never resend old items, so only local RSS can flag removals.</string>
-    <string name="radar_badge_edited">✏️ Edited</string>
-    <string name="radar_badge_removed">🗑️ Removed</string>
-    <string name="radar_badge_open_diff">Show what changed in this article</string>
-    <string name="radar_diff_title">What changed</string>
-    <string name="radar_diff_desc">Struck-through red text was in the first saved version. Green text is new.</string>
-    <string name="radar_diff_headline">Headline</string>
+    <string name="retraction_radar_title">Radar de rectificacions</string>
+    <string name="retraction_radar_desc">Desa instantànies de text dels articles i marca els que han canviat de títol o de text, o que han desaparegut del seu canal. Les edicions es detecten en canals RSS locals i Google Reader; els servidors Fever no tornen a enviar elements antics, així que només l’RSS local pot detectar eliminacions.</string>
+    <string name="radar_badge_edited">✏️ Editat</string>
+    <string name="radar_badge_removed">🗑️ Eliminat</string>
+    <string name="radar_badge_open_diff">Mostra què ha canviat en aquest article</string>
+    <string name="radar_diff_title">Què ha canviat</string>
+    <string name="radar_diff_desc">El text vermell ratllat era a la primera versió desada. El text verd és nou.</string>
+    <string name="radar_diff_headline">Titular</string>
     <string name="radar_diff_text">Text</string>
-    <string name="radar_diff_no_history">No earlier version of this article was saved.</string>
-    <string name="radar_diff_removed_notice">This article was no longer in its feed for several syncs in a row. The last saved version is shown below.</string>
+    <string name="radar_diff_no_history">No s’ha desat cap versió anterior d’aquest article.</string>
+    <string name="radar_diff_removed_notice">Aquest article ja no era al seu canal en diverses sincronitzacions seguides. A sota es mostra l’última versió desada.</string>
 </resources>

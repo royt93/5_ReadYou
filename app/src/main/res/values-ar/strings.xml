@@ -907,15 +907,15 @@
     <string name="url_tracking_desc">Automatically removes tracking tags (utm_*, fbclid, gclid...) when fetching, opening, and sharing links.</string>
     <string name="html_antitracker_title">Anti-Tracker Content Shield</string>
     <string name="html_antitracker_desc">Filters out 1x1 tracking pixels, hidden beacons, and malicious scripts inside articles.</string>
-    <string name="retraction_radar_title">Retraction Radar</string>
-    <string name="retraction_radar_desc">Keeps text snapshots of articles and flags ones whose title or text was edited or that disappeared from their feed. Edits are detected for local RSS and Google Reader feeds; Fever servers never resend old items, so only local RSS can flag removals.</string>
-    <string name="radar_badge_edited">✏️ Edited</string>
-    <string name="radar_badge_removed">🗑️ Removed</string>
-    <string name="radar_badge_open_diff">Show what changed in this article</string>
-    <string name="radar_diff_title">What changed</string>
-    <string name="radar_diff_desc">Struck-through red text was in the first saved version. Green text is new.</string>
-    <string name="radar_diff_headline">Headline</string>
-    <string name="radar_diff_text">Text</string>
-    <string name="radar_diff_no_history">No earlier version of this article was saved.</string>
-    <string name="radar_diff_removed_notice">This article was no longer in its feed for several syncs in a row. The last saved version is shown below.</string>
+    <string name="retraction_radar_title">رادار التعديلات</string>
+    <string name="retraction_radar_desc">يحفظ لقطات نصية للمقالات ويشير إلى ما تم تعديل عنوانه أو نصه أو اختفى من مصدره. يُكتشف التعديل في خلاصات RSS المحلية وGoogle Reader؛ خوادم Fever لا تعيد إرسال العناصر القديمة، لذا لا يمكن اكتشاف الحذف إلا في RSS المحلي.</string>
+    <string name="radar_badge_edited">✏️ تم التعديل</string>
+    <string name="radar_badge_removed">🗑️ تمت الإزالة</string>
+    <string name="radar_badge_open_diff">عرض ما تغيّر في هذا المقال</string>
+    <string name="radar_diff_title">ما الذي تغيّر</string>
+    <string name="radar_diff_desc">النص الأحمر المشطوب كان في النسخة الأولى المحفوظة. النص الأخضر جديد.</string>
+    <string name="radar_diff_headline">العنوان</string>
+    <string name="radar_diff_text">النص</string>
+    <string name="radar_diff_no_history">لم تُحفظ أي نسخة سابقة من هذا المقال.</string>
+    <string name="radar_diff_removed_notice">لم يعد هذا المقال موجودًا في مصدره عبر عدة عمليات مزامنة متتالية. تظهر أدناه آخر نسخة محفوظة.</string>
 </resources>

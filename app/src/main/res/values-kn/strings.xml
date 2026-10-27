@@ -984,15 +984,15 @@
     <string name="url_tracking_desc">Automatically removes tracking tags (utm_*, fbclid, gclid...) when fetching, opening, and sharing links.</string>
     <string name="html_antitracker_title">Anti-Tracker Content Shield</string>
     <string name="html_antitracker_desc">Filters out 1x1 tracking pixels, hidden beacons, and malicious scripts inside articles.</string>
-    <string name="retraction_radar_title">Retraction Radar</string>
-    <string name="retraction_radar_desc">Keeps text snapshots of articles and flags ones whose title or text was edited or that disappeared from their feed. Edits are detected for local RSS and Google Reader feeds; Fever servers never resend old items, so only local RSS can flag removals.</string>
-    <string name="radar_badge_edited">✏️ Edited</string>
-    <string name="radar_badge_removed">🗑️ Removed</string>
-    <string name="radar_badge_open_diff">Show what changed in this article</string>
-    <string name="radar_diff_title">What changed</string>
-    <string name="radar_diff_desc">Struck-through red text was in the first saved version. Green text is new.</string>
-    <string name="radar_diff_headline">Headline</string>
-    <string name="radar_diff_text">Text</string>
-    <string name="radar_diff_no_history">No earlier version of this article was saved.</string>
-    <string name="radar_diff_removed_notice">This article was no longer in its feed for several syncs in a row. The last saved version is shown below.</string>
+    <string name="retraction_radar_title">ತಿದ್ದುಪಡಿ ರಾಡಾರ್</string>
+    <string name="retraction_radar_desc">ಲೇಖನಗಳ ಪಠ್ಯ ಸ್ನ್ಯಾಪ್‌ಶಾಟ್‌ಗಳನ್ನು ಉಳಿಸುತ್ತದೆ ಮತ್ತು ಶೀರ್ಷಿಕೆ ಅಥವಾ ಪಠ್ಯ ತಿದ್ದಲ್ಪಟ್ಟ ಅಥವಾ ತಮ್ಮ ಫೀಡ್‌ನಿಂದ ಮಾಯವಾದ ಲೇಖನಗಳನ್ನು ಗುರುತಿಸುತ್ತದೆ. ಸ್ಥಳೀಯ RSS ಮತ್ತು Google Reader ನಲ್ಲಿ ತಿದ್ದುಪಡಿಗಳು ಪತ್ತೆಯಾಗುತ್ತವೆ; Fever ಸರ್ವರ್‌ಗಳು ಹಳೆಯ ಐಟಂಗಳನ್ನು ಮರುಕಳುಹಿಸುವುದಿಲ್ಲ, ಆದ್ದರಿಂದ ಸ್ಥಳೀಯ RSS ಮಾತ್ರ ತೆಗೆದುಹಾಕುವಿಕೆಯನ್ನು ಗುರುತಿಸಬಲ್ಲದು.</string>
+    <string name="radar_badge_edited">✏️ ತಿದ್ದಲಾಗಿದೆ</string>
+    <string name="radar_badge_removed">🗑️ ತೆಗೆದುಹಾಕಲಾಗಿದೆ</string>
+    <string name="radar_badge_open_diff">ಈ ಲೇಖನದಲ್ಲಿ ಏನು ಬದಲಾಗಿದೆ ಎಂದು ತೋರಿಸಿ</string>
+    <string name="radar_diff_title">ಏನು ಬದಲಾಯಿತು</string>
+    <string name="radar_diff_desc">ಗೆರೆ ಎಳೆದ ಕೆಂಪು ಪಠ್ಯ ಮೊದಲ ಉಳಿಸಿದ ಆವೃತ್ತಿಯಲ್ಲಿತ್ತು. ಹಸಿರು ಪಠ್ಯ ಹೊಸದು.</string>
+    <string name="radar_diff_headline">ಶೀರ್ಷಿಕೆ</string>
+    <string name="radar_diff_text">ಪಠ್ಯ</string>
+    <string name="radar_diff_no_history">ಈ ಲೇಖನದ ಹಿಂದಿನ ಯಾವ ಆವೃತ್ತಿಯನ್ನೂ ಉಳಿಸಲಾಗಿಲ್ಲ.</string>
+    <string name="radar_diff_removed_notice">ಈ ಲೇಖನ ಸತತ ಹಲವು ಸಿಂಕ್‌ಗಳಲ್ಲಿ ತನ್ನ ಫೀಡ್‌ನಲ್ಲಿ ಇರಲಿಲ್ಲ. ಕೊನೆಯ ಉಳಿಸಿದ ಆವೃತ್ತಿಯನ್ನು ಕೆಳಗೆ ತೋರಿಸಲಾಗಿದೆ.</string>
 </resources>
