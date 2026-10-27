@@ -17,10 +17,13 @@ Reader; bấm vào mở màn "Nội dung đã thay đổi" (chữ cũ đỏ gạ
 |---|---|---|---|
 | Local RSS | có | có | có |
 | Google Reader | có | có, chỉ với item còn nằm trong stream 10 trang | **không** (stream không liệt kê đầy đủ) |
-| Fever | có | **gần như không**: server không gửi lại item cũ | **không** |
+| Fever | có | có, chỉ với 50 bài gần nhất đã lưu (kiểm lại bằng `with_ids`) | có, cũng chỉ trong 50 bài đó |
 
-Code Fever có so sánh trước khi `REPLACE`, nhưng chỉ có tác dụng nếu server gửi lại item đã có. Đây là giới hạn của giao thức,
-không phải của bản cài đặt; chưa đổi chiến lược fetch của Fever.
+**Fever (cập nhật 2026-10-27, commit `d4c11afe`):** server không gửi lại item cũ ở luồng `since_id`, nên mỗi sync thêm đúng một
+request `with_ids` cho tối đa 50 bài mới nhất đã lưu. Item server trả về được so snapshot; item server thôi không trả về đi qua cùng
+`RemovalTracker` (3 lần liên tiếp). Câu trả lời rỗng, lỗi mạng, hoặc không chứa id nào đã hỏi (server bỏ qua `with_ids`) thì không
+tính là "vắng". **Chưa kiểm với server Fever thật** (không có); chỉ kiểm bằng mock và Room thật. Không rõ mọi triển khai Fever có
+trả đúng kết quả cho `with_ids` hay không.
 
 ## Thiết kế
 - **Room v19 → v20** (`MIGRATION_19_20`, chỉ `CREATE TABLE IF NOT EXISTS`, không đụng bảng cũ, không destructive fallback):
@@ -41,7 +44,7 @@ không phải của bản cài đặt; chưa đổi chiến lược fetch của 
 - Cờ cho danh sách được cấp một lần ở `HomeEntry` qua `LocalRadarFlags` (bảng cờ rất nhỏ), nên mỗi dòng không tốn truy vấn.
 
 ## Kiểm chứng (chạy lại ngày 2026-10-27)
-- `./gradlew testDevDebugUnitTest --rerun`: **1.418 test, 0 skip, 0 lỗi** (trước EXC-10: 1.342; thêm 76).
+- `./gradlew testDevDebugUnitTest --rerun`: **1.431 test, 0 skip, 0 lỗi** (trước EXC-10: 1.342; thêm 89; hai lần chạy lại liên tiếp xanh).
 - `./gradlew lintDevDebug --rerun-tasks`: **0 lỗi, 2.445 warning** (không đổi so với trước); không có cảnh báo nào ở file radar.
 - `assembleDevDebug` + compile androidTest: pass.
 - Test mới: `SnapshotNormalizerTest`, `TextDiffTest`, `RetractionDetectorTest`, `RemovalTrackerTest` (kể cả feed reset),
@@ -59,7 +62,7 @@ không phải của bản cài đặt; chưa đổi chiến lược fetch của 
 - Sync thật trên feed BBC (smoke ban đầu) bắt được 4 bài BBC bị sửa thật, ví dụ "…leaves thousands without power" → "…90,000" → "…22,000".
 
 ## Giới hạn đã biết (nói thẳng)
-- **Fever gần như không phát hiện sửa/gỡ; Google Reader không phát hiện gỡ** (bảng trên).
+- **Google Reader không phát hiện gỡ; Fever chỉ phủ 50 bài gần nhất và chưa kiểm với server thật** (bảng trên).
 - Với Local RSS, ba lần "vắng" phải là ba lần sync **có tải lại feed**. Máy chủ trả `304 Not Modified` thì lần đó không đếm, nên
   thực tế có thể phải sync nhiều hơn 3 lần trước khi có cờ gỡ.
 - Phát hiện gỡ dựa trên "bài biến mất khỏi feed", không phân biệt được "bị tòa soạn gỡ" với "feed tự cắt bài hoặc đổi cấu trúc".
@@ -68,9 +71,12 @@ không phải của bản cài đặt; chưa đổi chiến lược fetch của 
 - Màn diff so **bản đầu tiên** với **bản mới nhất**, không cho duyệt từng phiên bản trung gian.
 - Radar bật làm mỗi lần sync Local RSS tải và parse đủ feed thay vì dừng ở bài mới nhất.
 - Chưa chạy các androidTest UI/Compose khác trên máy; chưa kiểm TalkBack/accessibility trên máy thật.
-- Chuỗi mới ở 36 locale ngoài `en`/`vi` đang để tiếng Anh (cùng cách STRAT-03); chưa dịch.
+- Chuỗi mới đã dịch sang 36 locale (commit `54cb78ef`) bằng dịch máy, **chưa có người bản ngữ duyệt**; `en`/`vi` viết tay.
 - `BrainRpgMigration19Test` đã đổi để kiểm "phiên bản mới nhất" thay vì cố định 19, nên không còn khẳng định riêng v19.
 
 ## Commits (local, chưa push)
 `1d677bbb` domain thuần · `2530ebb6` Room v20/DAO/repository · `521567c5` sync + toggle · `5a15ab61` badge/diff/settings/strings ·
-`b272fc3f` androidTest migration (commit này do owner tạo; nội dung đã được xác minh khớp file tôi viết).
+`b272fc3f` androidTest migration (commit này do owner tạo; nội dung đã được xác minh khớp file tôi viết) · `54cb78ef` dịch 36 locale · `d4c11afe` Fever re-check.
+
+## Lưu ý về độ ổn định test
+Một lần chạy toàn bộ có `HomeViewModelSearchRaceTest` lỗi (`Dispatchers.Main is used concurrently with setting it`, tại `setUp`). Chạy riêng và hai lần chạy toàn bộ kế tiếp đều xanh; nguyên nhân chưa xác định (nghi tranh chấp `Dispatchers.setMain` giữa các test song song), không liên quan radar.
