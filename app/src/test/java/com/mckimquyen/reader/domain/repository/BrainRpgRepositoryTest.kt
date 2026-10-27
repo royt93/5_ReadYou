@@ -224,5 +224,131 @@ class BrainRpgRepositoryTest {
         assertEquals(0L, progress.totalXp)
     }
 
+    // ---- RPG-06: streak counting and shield, driven by an explicit clock (nowMillis) ----
+
+    private val day = 86_400_000L
+
+    /** Each read is a distinct article so the once-per-article rule never hides the streak logic. */
+    private suspend fun readAt(articleId: String, nowMillis: Long) =
+        repository.awardReadingXpOnce(articleId, QuizGeneratorService.CATEGORY_TECH, nowMillis = nowMillis)
+
+    private suspend fun streak() = dao.getProfile()!!.let { it.streakDays to it.streakShieldActive }
+
+    @Test fun streak_firstEverRead_startsAtOne() = runTest {
+        readAt("s1", NOW)
+        assertEquals(1 to false, streak())
+        assertEquals(NOW / day, dao.getProfile()!!.lastReadEpochDay)
+    }
+
+    @Test fun streak_readingOnConsecutiveDays_increasesByOnePerDay() = runTest {
+        readAt("s1", NOW)
+        readAt("s2", NOW + day)
+        readAt("s3", NOW + 2 * day)
+        assertEquals(3 to false, streak())
+    }
+
+    @Test fun streak_manyReadsOnTheSameDay_countOnce() = runTest {
+        readAt("s1", NOW)
+        readAt("s2", NOW + 1_000L)
+        readAt("s3", NOW + 2_000L)
+        assertEquals(1 to false, streak())
+    }
+
+    @Test fun streak_missingOneDay_withoutShield_resetsToOne() = runTest {
+        readAt("s1", NOW)
+        readAt("s2", NOW + day)
+        readAt("s3", NOW + 3 * day)
+        assertEquals(1 to false, streak())
+    }
+
+    @Test fun streak_missingManyDays_withoutShield_resetsToOne() = runTest {
+        readAt("s1", NOW)
+        readAt("s2", NOW + day)
+        readAt("s3", NOW + 30 * day)
+        assertEquals(1 to false, streak())
+    }
+
+    @Test fun streak_missingADay_withShield_continuesAndConsumesTheShield() = runTest {
+        readAt("s1", NOW)
+        readAt("s2", NOW + day)
+        assertTrue(repository.activateStreakShield())
+        assertEquals(2 to true, streak())
+
+        readAt("s3", NOW + 3 * day)
+
+        assertEquals(3 to false, streak())
+    }
+
+    @Test fun streak_afterShieldIsConsumed_nextGapResets() = runTest {
+        readAt("s1", NOW)
+        repository.activateStreakShield()
+        readAt("s2", NOW + 3 * day)
+        assertEquals(2 to false, streak())
+
+        readAt("s3", NOW + 6 * day)
+
+        assertEquals(1 to false, streak())
+    }
+
+    @Test fun streak_shieldStaysArmedWhileReadingEveryDay() = runTest {
+        readAt("s1", NOW)
+        repository.activateStreakShield()
+        readAt("s2", NOW + day)
+        readAt("s3", NOW + 2 * day)
+        assertEquals(3 to true, streak())
+    }
+
+    /**
+     * Documents current behaviour, not a requirement: a shield bridges a gap of ANY length, not just one day. Left as is on
+     * purpose (owner chose "tests only"); change this test together with `nextStreak` if the rule is ever tightened.
+     */
+    @Test fun streak_shieldBridgesAGapOfAnyLength() = runTest {
+        readAt("s1", NOW)
+        repository.activateStreakShield()
+        readAt("s2", NOW + 40 * day)
+        assertEquals(2 to false, streak())
+    }
+
+    /** Current behaviour: a read dated before the stored last-read day (clock moved back) resets the streak. */
+    @Test fun streak_clockMovedBackwards_resetsToOne() = runTest {
+        readAt("s1", NOW)
+        readAt("s2", NOW + day)
+        readAt("s3", NOW - 5 * day)
+        assertEquals(1 to false, streak())
+    }
+
+    /** Current behaviour: the day boundary is UTC midnight, independent of the device time zone. */
+    @Test fun streak_dayBoundaryIsUtcMidnight() = runTest {
+        val justBeforeMidnightUtc = (NOW / day) * day + day - 1
+        readAt("s1", justBeforeMidnightUtc)
+        readAt("s2", justBeforeMidnightUtc + 2)
+        assertEquals(2 to false, streak())
+    }
+
+    /** Current behaviour: only reading (and triage) touch the streak; a correct quiz answer does not. */
+    @Test fun streak_quizAnswerDoesNotAdvanceTheStreak() = runTest {
+        readAt("s1", NOW)
+        repository.submitQuizResultOnce("q1", QuizGeneratorService.CATEGORY_TECH, true, nowMillis = NOW + day)
+        assertEquals(1 to false, streak())
+        assertEquals(NOW / day, dao.getProfile()!!.lastReadEpochDay)
+    }
+
+    /**
+     * Current behaviour: the streak counts days on which a qualifying read happened, even when the article was already
+     * rewarded (XP is awarded once, the streak is not). So re-reading an old article on the next day keeps the streak alive.
+     */
+    @Test fun streak_rereadingAnAlreadyRewardedArticleOnALaterDay_stillCountsTheDay() = runTest {
+        assertEquals(50L, readAt("s1", NOW))
+        assertEquals(0L, readAt("s1", NOW + day))
+        assertEquals(2 to false, streak())
+        assertEquals(50L, dao.getProfile()!!.baseTotalXp)
+    }
+
+    @Test fun streak_triageAdvancesTheStreakLikeReading() = runTest {
+        readAt("s1", NOW)
+        repository.awardTriageXpOnce("t1", nowMillis = NOW + day)
+        assertEquals(2 to false, streak())
+    }
+
     private companion object { const val NOW = 1_800_000_000_000L }
 }
