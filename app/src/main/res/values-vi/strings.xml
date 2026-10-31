@@ -901,4 +901,8 @@
     <string name="headline_signals_tone_desc_unclear">Sắc thái từ ngữ tiêu đề: chưa rõ hoặc không đủ dấu hiệu.</string>
     <string name="headline_signals_tone_desc_negative">Sắc thái từ ngữ tiêu đề: có dấu hiệu tiêu cực.</string>
     <string name="headline_signals_disclaimer">Suy luận từ vựng cục bộ chỉ dựa trên tiêu đề; không phải bằng chứng về tính xác thực, thiên lệch chính trị hay nội dung bài viết.</string>
+    <string name="brain_rpg_skill_tree_details">Chi tiết kỹ năng</string>
+    <string name="brain_rpg_skill_tree_node_desc">%1$s, %2$d XP</string>
+    <string name="brain_rpg_skill_tree_node_decayed_desc">%1$s, giữ lại %2$d trên %3$d XP (%4$d%%)</string>
+    <string name="brain_rpg_skill_tree_decay_warning">Kỹ năng đã suy giảm theo thời gian. Hãy ôn tập để khôi phục.</string>
 </resources>

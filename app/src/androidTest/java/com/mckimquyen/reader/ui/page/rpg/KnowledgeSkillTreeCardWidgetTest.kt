@@ -38,49 +38,53 @@ class KnowledgeSkillTreeCardWidgetTest {
         assertFalse(texts.any { it.contains("base ·") })
     }
 
-    @OptIn(androidx.compose.ui.InternalComposeUiApi::class)
-    @Test fun decayedCategory_offersRecovery_andReportsWhichCategoryWasChosen() {
-        val chosen = mutableListOf<String>()
-        withCard(
-            UserProgress(
-                categoryXp = mapOf(TECH to 90L, SCIENCE to 50L),
-                categoryBaseXp = mapOf(TECH to 100L, SCIENCE to 50L),
-            ),
-            onRecover = { chosen += it },
-            act = { click ->
-                val labels = str(com.mckimquyen.reader.R.string.brain_rpg_recover_action)
-                assertTrue("recover button for decayed category", click(labels))
-            },
-        ) { texts ->
-            assertTrue(texts.count { it == str(com.mckimquyen.reader.R.string.brain_rpg_recover_action) } == 1)
-        }
-        assertEquals("only the decayed category can be chosen", listOf(TECH), chosen)
+    @Test fun decayedCategory_graphShowsEffectiveXpAndRetainedPercent_butNoInlineRecovery() = withCard(
+        UserProgress(
+            categoryXp = mapOf(TECH to 90L, SCIENCE to 50L),
+            categoryBaseXp = mapOf(TECH to 100L, SCIENCE to 50L),
+        ),
+        onRecover = { throw AssertionError("recovery only belongs in the selected node detail") },
+    ) { texts ->
+        assertTrue(texts.any { it == "90 XP" })
+        assertTrue(texts.any { it.contains("100 XP") && it.contains("90%") })
+        assertFalse(texts.any { it == str(com.mckimquyen.reader.R.string.brain_rpg_recover_action) })
     }
 
     @Test fun freshCategories_showNoRecoveryButton() = withCard(
         UserProgress(categoryXp = mapOf(TECH to 100L), categoryBaseXp = mapOf(TECH to 100L)),
         onRecover = {},
+        act = { click -> assertTrue(click(TECH)) },
     ) { texts ->
         assertFalse(texts.any { it == str(com.mckimquyen.reader.R.string.brain_rpg_recover_action) })
     }
 
-    @Test fun pendingRecovery_disablesEveryRecoveryButton_soNoSecondAdIsStarted() {
-        val chosen = mutableListOf<String>()
-        withCard(
-            UserProgress(
-                categoryXp = mapOf(TECH to 90L, SCIENCE to 40L),
-                categoryBaseXp = mapOf(TECH to 100L, SCIENCE to 50L),
-            ),
-            recoveringCategoryId = TECH,
-            onRecover = { chosen += it },
-            act = { click -> assertFalse("buttons locked while an ad is pending", click(str(com.mckimquyen.reader.R.string.brain_rpg_recover_action))) },
-        ) { texts ->
-            assertTrue(texts.any { it == str(com.mckimquyen.reader.R.string.brain_rpg_recover_pending) })
-        }
-        assertTrue(chosen.isEmpty())
+    @Test fun pendingRecovery_doesNotPlaceAdActionOnGraphNodes() = withCard(
+        UserProgress(
+            categoryXp = mapOf(TECH to 90L, SCIENCE to 40L),
+            categoryBaseXp = mapOf(TECH to 100L, SCIENCE to 50L),
+        ),
+        recoveringCategoryId = TECH,
+        onRecover = { throw AssertionError("graph render must not invoke recovery") },
+    ) { texts ->
+        assertFalse(texts.any { it == str(com.mckimquyen.reader.R.string.brain_rpg_recover_action) })
+        assertFalse(texts.any { it == str(com.mckimquyen.reader.R.string.brain_rpg_recover_pending) })
     }
 
     private fun str(id: Int): String = androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().targetContext.getString(id)
+
+    @Test fun constellationCard_showsAllSixNodesAndCanvas() = withCard(
+        UserProgress(categoryXp = mapOf(TECH to 90L), categoryBaseXp = mapOf(TECH to 100L)),
+    ) { texts ->
+        val nodeLabels = listOf(
+            com.mckimquyen.reader.R.string.brain_rpg_category_tech,
+            com.mckimquyen.reader.R.string.brain_rpg_category_business,
+            com.mckimquyen.reader.R.string.brain_rpg_category_science,
+            com.mckimquyen.reader.R.string.brain_rpg_category_health,
+            com.mckimquyen.reader.R.string.brain_rpg_category_philosophy,
+            com.mckimquyen.reader.R.string.brain_rpg_category_general,
+        ).map(::str)
+        assertTrue("all six node labels present: $texts", nodeLabels.all { it in texts })
+    }
 
     @OptIn(androidx.compose.ui.InternalComposeUiApi::class)
     private fun withCard(
@@ -92,7 +96,7 @@ class KnowledgeSkillTreeCardWidgetTest {
     ) {
         ActivityScenario.launch(ComponentActivity::class.java).use { scenario ->
             scenario.onActivity { activity ->
-                activity.setContentView(ComposeView(activity).apply { setContent { KnowledgeSkillTreeCard(progress, recoveringCategoryId, onRecover) } })
+                activity.setContentView(ComposeView(activity).apply { setContent { SkillTreeConstellationCard(progress, recoveringCategoryId, onRecover) } })
             }
             val texts = AtomicReference<List<String>>(emptyList())
             val deadline = System.currentTimeMillis() + 5_000
@@ -119,10 +123,15 @@ class KnowledgeSkillTreeCardWidgetTest {
         val clicked = AtomicReference(false)
         scenario.onActivity { activity ->
             val root = findComposeView(activity.window.decorView)?.semanticsOwner?.rootSemanticsNode ?: return@onActivity
-            fun find(node: SemanticsNode): SemanticsNode? {
+            fun find(node: SemanticsNode, ancestors: List<SemanticsNode> = emptyList()): SemanticsNode? {
+                val path = ancestors + node
                 val has = node.config.getOrNull(SemanticsProperties.Text)?.any { it.text == label } == true
-                if (has && node.config.getOrNull(androidx.compose.ui.semantics.SemanticsActions.OnClick) != null) return node
-                return node.children.firstNotNullOfOrNull(::find)
+                if (has) {
+                    return path.asReversed().firstOrNull {
+                        it.config.getOrNull(androidx.compose.ui.semantics.SemanticsActions.OnClick) != null
+                    }
+                }
+                return node.children.firstNotNullOfOrNull { find(it, path) }
             }
             val target = find(root) ?: return@onActivity
             if (target.config.getOrNull(SemanticsProperties.Disabled) == null) {

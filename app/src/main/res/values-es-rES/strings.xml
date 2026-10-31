@@ -937,4 +937,8 @@
     <string name="headline_signals_tone_desc_unclear">Tono léxico del titular: indicadores poco claros o insuficientes.</string>
     <string name="headline_signals_tone_desc_negative">Tono léxico del titular: se observan indicadores negativos.</string>
     <string name="headline_signals_disclaimer">Heurística léxica local basada únicamente en el titular; no es prueba de veracidad, sesgo político ni del contenido del artículo.</string>
+    <string name="brain_rpg_skill_tree_details">Skill details</string>
+    <string name="brain_rpg_skill_tree_node_desc">%1$s, %2$d XP</string>
+    <string name="brain_rpg_skill_tree_node_decayed_desc">%1$s, %2$d of %3$d XP retained (%4$d%%)</string>
+    <string name="brain_rpg_skill_tree_decay_warning">This skill has faded over time. Practice to restore it.</string>
 </resources>

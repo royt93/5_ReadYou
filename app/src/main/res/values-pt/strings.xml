@@ -938,4 +938,8 @@
     <string name="headline_signals_tone_desc_unclear">Lexical headline tone: unclear or insufficient indicators.</string>
     <string name="headline_signals_tone_desc_negative">Lexical headline tone: negative indicators present.</string>
     <string name="headline_signals_disclaimer">Local lexical heuristics based solely on headline wording; not evidence of factual accuracy, political bias, or article content.</string>
+    <string name="brain_rpg_skill_tree_details">Skill details</string>
+    <string name="brain_rpg_skill_tree_node_desc">%1$s, %2$d XP</string>
+    <string name="brain_rpg_skill_tree_node_decayed_desc">%1$s, %2$d of %3$d XP retained (%4$d%%)</string>
+    <string name="brain_rpg_skill_tree_decay_warning">This skill has faded over time. Practice to restore it.</string>
 </resources>
