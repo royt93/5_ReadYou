@@ -12,7 +12,7 @@
 
 | # | Task | Priority | Story Points | Trạng thái | File |
 |---|---|:---:|:---:|---|---|
-| 1 | Hệ Thống XP & Cây Kỹ Năng Tri Thức | P1 | 5 SP | ✅ Đã triển khai (lệch spec, xem RPG-06/07/08) | [`RPG-01_xp-skill-tree-system.md`](RPG-01_xp-skill-tree-system.md) |
+| 1 | Cây Kỹ Năng Tri Thức (Constellation Skill Tree) | P1 | 5 SP | ✅ Done (đồ thị chòm sao 6 node, không thêm luật mở khoá) | [`../done/RPG-01_xp-skill-tree-system_DONE.md`](../done/RPG-01_xp-skill-tree-system_DONE.md) |
 | 2 | AI Micro-Quiz Engine | P1 | 8 SP | 🟡 Triển khai; distractor đã theo ngữ cảnh ở RPG-05 (vẫn là heuristic, không dùng LLM) | [`RPG-02_ai-micro-quiz-engine.md`](RPG-02_ai-micro-quiz-engine.md) |
 | 3 | Cognitive Decay & Streak Shield | P1 | 5 SP | 🟡 Triển khai một phần, thiếu decay thật — xem RPG-06 | [`RPG-03_cognitive-decay-streak-shield.md`](RPG-03_cognitive-decay-streak-shield.md) |
 | 4 | Weekly "Brain Wrapped" 9:16 | P2 | 8 SP | ✅ MVP Done | [`../done/RPG-09_wrapped-full-spec-mvp_DONE.md`](../done/RPG-09_wrapped-full-spec-mvp_DONE.md) |
