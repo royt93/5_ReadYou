@@ -106,3 +106,4 @@ out/
 
 # Claude Code local settings (YOLO/bypassPermissions — không commit)
 .claude/settings.local.json
+.superpowers/
