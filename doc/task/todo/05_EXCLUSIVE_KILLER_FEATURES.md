@@ -11,7 +11,7 @@
 | EXC-01 | AI Daily Smart Digest — Bản Tin Sáng Tổng Hợp Đa Nguồn Bằng AI | P1 (High) | ✅ Done | [EXC-01_ai-daily-smart-digest.md](../done/EXC-01_ai-daily-smart-digest_DONE.md) |
 | EXC-02 | AI Podcast Studio — Biến Tin Tức Thành Cuộc Trò Chuyện Audio 2 Người | P2 (Medium) | 📋 Todo | [EXC-02_ai-podcast-studio.md](EXC-02_ai-podcast-studio.md) |
 | EXC-03 | Chế Độ Đọc Bionic Reading (Tăng Tốc Độ Đọc Cho Não Bộ) | P2 (Medium) | ✅ Done | [EXC-03_bionic-reading-mode.md](../done/EXC-03_bionic-reading-mode_DONE.md) |
-| EXC-04 | AI Clickbait Buster & Bộ Nhận Diện Thiên Lệch Tin Tức | P2 (Medium) | 📋 Todo | [EXC-04_ai-clickbait-bias-buster.md](EXC-04_ai-clickbait-bias-buster.md) |
+| EXC-04 | AI Clickbait Buster & Bộ Nhận Diện Thiên Lệch Tin Tức | P2 (Medium) | ✅ Done (local heuristic; không có tóm tắt “sự thật”) | [EXC-04_ai-clickbait-bias-buster_DONE.md](../done/EXC-04_ai-clickbait-bias-buster_DONE.md) |
 | EXC-05 | Đồng Bộ Thiết Bị P2P Nội Mạng Wi-Fi Không Cần Máy Chủ | P3 (Low) | 📋 Todo | [EXC-05_local-p2p-sync.md](EXC-05_local-p2p-sync.md) |
 | EXC-06 | "AI Deep Read" — Trò Chuyện & Hỏi Đáp Tương Tác Với Bài Báo | P2 (Medium) | ✅ Done | [../done/EXC-06_ai-deep-read-chat_DONE.md](../done/EXC-06_ai-deep-read-chat_DONE.md) |
 | EXC-07 | Chế Độ Đọc Song Ngữ & Dịch Đoạn Tức Thì (Bilingual Side-by-Side) | P2 (Medium) | ✅ Done | [EXC-07_bilingual-side-by-side-reader.md](../done/EXC-07_bilingual-side-by-side-reader_DONE.md) |
