@@ -1,6 +1,9 @@
 package com.mckimquyen.reader.ui.page.home.read
 
+import com.mckimquyen.reader.domain.headline.HeadlineAnalyzer
 import com.mckimquyen.reader.ui.component.radar.RadarBadge
+import com.mckimquyen.reader.ui.page.headline.HeadlineSignalBadges
+import com.mckimquyen.reader.ui.page.headline.LocalHeadlineSignalsEnabled
 import com.mckimquyen.reader.ui.page.radar.LocalOpenRadarDiff
 import com.mckimquyen.reader.ui.page.radar.LocalRadarFlags
 import androidx.compose.foundation.layout.Box
@@ -77,6 +80,10 @@ fun Content(
     val openLinkSpecificBrowser = LocalOpenLinkSpecificBrowser.current
     val eInkEnabled = LocalEInkMode.current.value
     val openRadarDiff = LocalOpenRadarDiff.current
+    val headlineSignalsEnabled = LocalHeadlineSignalsEnabled.current
+    val headlineSignal = remember(articleId, title, headlineSignalsEnabled) {
+        if (headlineSignalsEnabled) HeadlineAnalyzer.analyze(title) else null
+    }
 
     // Built off the main thread (Room peer lookup on IO, generation on Default); null until ready, so the card appears
     // a moment after the article instead of blocking composition. produceState is avoided on purpose: lint's
@@ -152,6 +159,11 @@ fun Content(
                                 modifier = Modifier.padding(bottom = 8.dp),
                             )
                         }
+                        HeadlineSignalBadges(
+                            signal = headlineSignal,
+                            modifier = Modifier.padding(bottom = 8.dp),
+                            showClickbait = false,
+                        )
                         Metadata(
                             feedName = feedName,
                             title = title,

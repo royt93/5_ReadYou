@@ -3,6 +3,16 @@ package com.mckimquyen.reader.ui.page.home.flow
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.assertCountEquals
+import androidx.compose.ui.test.onAllNodesWithTag
+import androidx.compose.runtime.CompositionLocalProvider
+import com.mckimquyen.reader.domain.headline.HeadlineTone
+import com.mckimquyen.reader.domain.headline.HeadlineSignal
+import com.mckimquyen.reader.domain.headline.HeadlineLanguage
+import com.mckimquyen.reader.ui.page.headline.LocalHeadlineSignalsEnabled
+import com.mckimquyen.reader.ui.page.headline.CLICKBAIT_BADGE_TAG
+import com.mckimquyen.reader.ui.page.headline.TONE_BADGE_TAG
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.mckimquyen.reader.domain.model.article.Article
 import com.mckimquyen.reader.domain.model.article.ArticleWithFeed
@@ -36,11 +46,47 @@ class ArticleItemTest {
         composeRule.onNodeWithText(blank).assertDoesNotExist()
     }
 
-    private fun articleWithSummary(summary: String) = ArticleWithFeed(
+    @Test
+    fun clickbaitHeadline_displaysBothSignals() {
+        composeRule.setContent {
+            CompositionLocalProvider(LocalHeadlineSignalsEnabled provides true) {
+                ArticleItem(articleWithSummary("Short summary", title = "SHOCKING: You won't believe what happened next!!!"))
+            }
+        }
+
+        composeRule.onNodeWithTag(CLICKBAIT_BADGE_TAG).assertIsDisplayed()
+        composeRule.onNodeWithTag(TONE_BADGE_TAG).assertIsDisplayed()
+    }
+
+    @Test
+    fun ordinaryHeadline_hasToneButNoClickbaitBadge() {
+        composeRule.setContent {
+            CompositionLocalProvider(LocalHeadlineSignalsEnabled provides true) {
+                ArticleItem(articleWithSummary("Short summary", title = "Chancellor to cut tariffs on some staple goods"))
+            }
+        }
+
+        composeRule.onAllNodesWithTag(CLICKBAIT_BADGE_TAG).assertCountEquals(0)
+        composeRule.onNodeWithTag(TONE_BADGE_TAG).assertIsDisplayed()
+    }
+
+    @Test
+    fun disablingHeadlineSignals_hidesBothBadges() {
+        composeRule.setContent {
+            CompositionLocalProvider(LocalHeadlineSignalsEnabled provides false) {
+                ArticleItem(articleWithSummary("Short summary", title = "SHOCKING: You won't believe what happened next!!!"))
+            }
+        }
+
+        composeRule.onAllNodesWithTag(CLICKBAIT_BADGE_TAG).assertCountEquals(0)
+        composeRule.onAllNodesWithTag(TONE_BADGE_TAG).assertCountEquals(0)
+    }
+
+    private fun articleWithSummary(summary: String, title: String = "Guardian report") = ArticleWithFeed(
         article = Article(
             id = "guardian-article",
             date = Date(1_000L),
-            title = "Guardian report",
+            title = title,
             rawDescription = summary,
             shortDescription = summary,
             link = "https://example.test/article",

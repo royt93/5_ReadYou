@@ -30,6 +30,7 @@ import com.mckimquyen.reader.ui.ext.findActivity
 import com.mckimquyen.reader.ui.ext.initialFilter
 import com.mckimquyen.reader.ui.ext.initialPage
 import com.mckimquyen.reader.ui.ext.isFirstLaunch
+import com.mckimquyen.reader.ui.ext.headlineSignalsEnabled
 import com.mckimquyen.reader.ui.page.home.HomeViewModel
 import com.mckimquyen.reader.ui.page.home.addsources.AddSourceDetailPage
 import com.mckimquyen.reader.ui.page.home.addsources.AddSourcesMainPage
@@ -72,6 +73,7 @@ import com.mckimquyen.reader.ui.page.setting.vip.VipManagementPage
 import com.mckimquyen.reader.ui.page.radar.ArticleDiffPage
 import com.mckimquyen.reader.ui.page.radar.LocalOpenRadarDiff
 import com.mckimquyen.reader.ui.page.radar.LocalRadarFlags
+import com.mckimquyen.reader.ui.page.headline.LocalHeadlineSignalsEnabled
 import com.mckimquyen.reader.ui.page.radar.RadarFlagsViewModel
 import com.mckimquyen.reader.ui.page.startup.StartupPage
 import com.mckimquyen.reader.ui.theme.AppTheme
@@ -193,6 +195,7 @@ fun HomeEntry(
         val radarFlags by radarFlagsViewModel.flags.collectAsState()
         CompositionLocalProvider(
             LocalRadarFlags provides radarFlags,
+            LocalHeadlineSignalsEnabled provides context.headlineSignalsEnabled,
             LocalOpenRadarDiff provides { articleId ->
                 navController.navigate("${RouteName.ARTICLE_DIFF_PREFIX}/$articleId") { launchSingleTop = true }
             },

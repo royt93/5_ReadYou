@@ -55,6 +55,7 @@ import com.mckimquyen.reader.ui.component.base.BaseAsyncImage
 import com.mckimquyen.reader.ui.component.base.SIZE_1000
 import com.mckimquyen.reader.ui.component.watchdog.LocalWatchdogKeywords
 import com.mckimquyen.reader.ui.component.radar.RadarBadge
+import com.mckimquyen.reader.ui.page.headline.HeadlineSignalBadges
 import com.mckimquyen.reader.ui.component.watchdog.WatchdogBadge
 import com.mckimquyen.reader.ui.page.radar.LocalOpenRadarDiff
 import com.mckimquyen.reader.ui.page.radar.LocalRadarFlags
@@ -86,6 +87,10 @@ fun ArticleItem(
 
     val radarFlag = LocalRadarFlags.current[articleWithFeed.article.id]
     val openRadarDiff = LocalOpenRadarDiff.current
+    val headlineSignalsEnabled = com.mckimquyen.reader.ui.page.headline.LocalHeadlineSignalsEnabled.current
+    val headlineSignal = remember(articleWithFeed.article.id, articleWithFeed.article.title, headlineSignalsEnabled) {
+        if (headlineSignalsEnabled) com.mckimquyen.reader.domain.headline.HeadlineAnalyzer.analyze(articleWithFeed.article.title) else null
+    }
 
     Column(
         modifier = Modifier
@@ -177,6 +182,11 @@ fun ArticleItem(
                         modifier = Modifier.padding(bottom = 4.dp),
                     )
                 }
+
+                HeadlineSignalBadges(
+                    signal = headlineSignal,
+                    modifier = Modifier.padding(bottom = 4.dp),
+                )
 
                 // Title
                 Text(
