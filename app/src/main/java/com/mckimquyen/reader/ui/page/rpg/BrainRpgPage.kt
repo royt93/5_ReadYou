@@ -106,7 +106,7 @@ fun BrainRpgPage(
 
                 // 3. Knowledge Tree (Categories)
                 item {
-                    KnowledgeSkillTreeCard(
+                    SkillTreeConstellationCard(
                         progress = progress,
                         recoveringCategoryId = recoveringCategoryId,
                         onRecover = { categoryId ->
