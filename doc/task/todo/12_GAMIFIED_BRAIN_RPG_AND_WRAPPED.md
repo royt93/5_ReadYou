@@ -15,12 +15,12 @@
 | 1 | Hệ Thống XP & Cây Kỹ Năng Tri Thức | P1 | 5 SP | ✅ Đã triển khai (lệch spec, xem RPG-06/07/08) | [`RPG-01_xp-skill-tree-system.md`](RPG-01_xp-skill-tree-system.md) |
 | 2 | AI Micro-Quiz Engine | P1 | 8 SP | 🟡 Triển khai; distractor đã theo ngữ cảnh ở RPG-05 (vẫn là heuristic, không dùng LLM) | [`RPG-02_ai-micro-quiz-engine.md`](RPG-02_ai-micro-quiz-engine.md) |
 | 3 | Cognitive Decay & Streak Shield | P1 | 5 SP | 🟡 Triển khai một phần, thiếu decay thật — xem RPG-06 | [`RPG-03_cognitive-decay-streak-shield.md`](RPG-03_cognitive-decay-streak-shield.md) |
-| 4 | Weekly "Brain Wrapped" 9:16 | P2 | 8 SP | ✅ MVP Done (xem RPG-09 report; radar/QR/banner/Top X% deferred) | [`../done/RPG-09_wrapped-full-spec-mvp_DONE.md`](../done/RPG-09_wrapped-full-spec-mvp_DONE.md) |
+| 4 | Weekly "Brain Wrapped" 9:16 | P2 | 8 SP | ✅ MVP Done | [`../done/RPG-09_wrapped-full-spec-mvp_DONE.md`](../done/RPG-09_wrapped-full-spec-mvp_DONE.md) |
 | 5 | Quiz distractor theo ngữ cảnh (đáp án là tiêu đề bài, distractor là tiêu đề bài khác trong Room) | **P1** | 5 SP | ✅ Done | [`RPG-05_quiz-distractors-context-aware_DONE.md`](../done/RPG-05_quiz-distractors-context-aware_DONE.md) |
 | 6 | Streak/decay logic — test đồng hồ giả lập (chỉ test, giữ nguyên hành vi) | **P1** | 3 SP | ✅ Done (có 6 điểm hành vi đáng ngờ chờ owner quyết) | [`RPG-06_streak-decay-testable-clock_DONE.md`](../done/RPG-06_streak-decay-testable-clock_DONE.md) |
 | 7 | **[MỚI]** Sai lệch tài liệu vs code: Room vs SharedPreferences, ngưỡng 80%+30s vs 75% | P2 | 5 SP | ✅ Done (Hướng A) | [`RPG-07_room-migration-or-doc-alignment_DONE.md`](../done/RPG-07_room-migration-or-doc-alignment_DONE.md) |
-| 8 | **[MỚI]** XP farm exploit sau khi app bị kill/recreate — persist idempotency | **P1** | 3 SP | 📋 Todo | [`RPG-08_persist-xp-awarded-articles.md`](RPG-08_persist-xp-awarded-articles.md) |
-| 9 | **[MỚI]** "Wrapped" chỉ là share text — bổ sung radar chart, ảnh 1080×1920, nhắc lịch Chủ Nhật | P2 | 8 SP | 📋 Todo | [`RPG-09_wrapped-full-spec-mvp.md`](RPG-09_wrapped-full-spec-mvp.md) |
+| 8 | **[MỚI]** XP farm exploit sau khi app bị kill/recreate — persist idempotency | **P1** | 3 SP | ✅ Done | [`RPG-08_persist-xp-awarded-articles.md`](../done/RPG-08_persist-xp-awarded-articles_DONE.md) |
+| 9 | **[MỚI]** "Wrapped" chỉ là share text — bổ sung radar chart, ảnh 1080×1920, nhắc lịch Chủ Nhật | P2 | 8 SP | ✅ MVP Done | [`RPG-09_wrapped-full-spec-mvp.md`](../done/RPG-09_wrapped-full-spec-mvp_DONE.md) |
 
 **Tổng Story Points:** 26 SP (gốc) + 24 SP (fix mới) = **50 SP**
 

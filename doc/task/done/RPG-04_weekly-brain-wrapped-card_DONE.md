@@ -54,3 +54,14 @@ Chỉ dừng loop khi hoàn tất TẤT CẢ bước sau, đúng thứ tự, KH�
 
 ---
 > **Ghi chú audit (2026-09-06):** Card `WeeklyWrappedCard` hiển thị đúng trong trang Brain RPG và nút share hoạt động, nhưng chỉ tạo một chuỗi text đơn giản qua `Intent.ACTION_SEND` — KHÔNG có: banner tự động sáng Chủ Nhật, radar chart đa giác, render bitmap 1080x1920, logo/QR code. Đây là task có gap lớn nhất so với đặc tả gốc trong toàn bộ Epic 12 — điểm audit thực tế cho riêng phần "Wrapped" chỉ ở mức MVP tối thiểu, không đạt được trải nghiệm "story-ready" như mô tả. Xem RPG-09 để hoàn thiện hoặc chốt phạm vi MVP chính thức.
+
+## Completion Report (đóng chính thức qua audit 2026-10-31)
+
+**Trạng thái:** đã triển khai; file này chỉ được chuyển từ `todo/` sang `done/`. **Không phải báo cáo hoàn tất gốc:** task đã xong trước đó
+nhưng không để lại báo cáo; điểm audit và smoke thiết bị gốc không còn dữ liệu để trích lại.
+
+- **Bằng chứng khi audit (đối chiếu code và test, không dựa vào báo cáo cũ):** không có commit riêng cho task này trong lịch sử (giải quyết qua các task con nêu dưới).
+- **Tóm tắt:** Được thay thế bởi `RPG-09_wrapped-full-spec-mvp_DONE.md` (ảnh 1080x1920, radar chart/QR/banner/Top X% ngoài phạm vi MVP).
+- **Code chính:** `infrastructure/rpg/{BrainWrappedRenderer,BrainWrappedSharer}.kt`
+- **Kiểm chứng ngày 2026-10-31:** `./gradlew testDevDebugUnitTest --rerun` = 1.445 test, 0 lỗi (số test liên quan nêu ở tóm tắt).
+- **Chưa kiểm lại trong lần audit này:** hành vi trên thiết bị thật, lint riêng cho task, đối chiếu từng Acceptance Criteria một.

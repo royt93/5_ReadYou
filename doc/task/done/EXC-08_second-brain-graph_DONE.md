@@ -49,3 +49,14 @@ Chỉ dừng loop khi hoàn tất TẤT CẢ bước sau, đúng thứ tự, KH�
    → `git add` các file liên quan → `git commit` với message rõ ràng, đúng Conventional Commits → **`git push`** lên remote nhánh hiện tại. Kết thúc loop, cập nhật trạng thái task (di chuyển file từ `doc/task/todo/` hoặc `inprogress/` sang `doc/task/done/`, đổi tên thêm hậu tố `_DONE` và viết Completion Report ngắn: điểm số, commit hash, danh sách test đã thêm).
 7. Nếu điểm **≤ 9/10** hoặc bất kỳ điều kiện bước 2-5 chưa đạt: quay lại bước 1 của vòng lặp Loop Prompt, KHÔNG commit/push.
 ```
+
+## Completion Report (đóng chính thức qua audit 2026-10-31)
+
+**Trạng thái:** đã triển khai; file này chỉ được chuyển từ `todo/` sang `done/`. **Không phải báo cáo hoàn tất gốc:** task đã xong trước đó
+nhưng không để lại báo cáo; điểm audit và smoke thiết bị gốc không còn dữ liệu để trích lại.
+
+- **Bằng chứng khi audit (đối chiếu code và test, không dựa vào báo cáo cũ):** commit `4a1d1c04`.
+- **Tóm tắt:** Đồ thị khái niệm cá nhân, thanh trượt thời gian, bài liên quan. 22 test SecondBrain (unit, integration, performance).
+- **Code chính:** `ui/page/secondbrain/{SecondBrainPage,SecondBrainViewModel,BrainGraphLayout}.kt`
+- **Kiểm chứng ngày 2026-10-31:** `./gradlew testDevDebugUnitTest --rerun` = 1.445 test, 0 lỗi (số test liên quan nêu ở tóm tắt).
+- **Chưa kiểm lại trong lần audit này:** hành vi trên thiết bị thật, lint riêng cho task, đối chiếu từng Acceptance Criteria một.

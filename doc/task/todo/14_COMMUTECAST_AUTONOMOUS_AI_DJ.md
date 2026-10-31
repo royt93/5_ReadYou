@@ -9,7 +9,7 @@
 | Task | Tiêu đề | Priority | Trạng thái | File |
 |---|---|---|---|---|
 | DJ-01 | Bộ Lập Lịch Tự Động Buổi Sáng & Kịch Bản 2 MC | P1 | ✅ Done | [`done/DJ-01_daily-scheduler-dual-mc-script_DONE.md`](../done/DJ-01_daily-scheduler-dual-mc-script_DONE.md) |
-| DJ-02 | Động Cơ Phát Âm 2 Giọng Kèm Nhạc Nền Lofi (Dual-Voice TTS & Audio Mixer) | P1 | 📋 Todo (chưa đạt AC — chỉ 1 giọng đổi pitch, không có lofi) | [`todo/DJ-02_dual-voice-tts-lofi-audio-mixer.md`](DJ-02_dual-voice-tts-lofi-audio-mixer.md) |
+| DJ-02 | Động Cơ Phát Âm 2 Giọng Kèm Nhạc Nền Lofi (Dual-Voice TTS & Audio Mixer) | P1 | ✅ Done (giải quyết qua DJ-06 + DJ-07) | [`todo/DJ-02_dual-voice-tts-lofi-audio-mixer.md`](../done/DJ-02_dual-voice-tts-lofi-audio-mixer_DONE.md) |
 | DJ-03 | Tích Hợp Android Auto & Lockscreen MediaSession | P1 | ✅ Done | [`done/DJ-03_android-auto-lockscreen-mediasession_DONE.md`](../done/DJ-03_android-auto-lockscreen-mediasession_DONE.md) |
 | DJ-04 | Tối Ưu Doanh Thu Buổi Sáng Với App Open & Rewarded Ads | P0 | ✅ Done (rewarded ad gating cho Deep Dive + notification deep-link hoạt động đúng) | [`done/DJ-04_app-open-rewarded-ads-monetization_DONE.md`](../done/DJ-04_app-open-rewarded-ads-monetization_DONE.md) |
 | DJ-05 | Episode Không Được Persist — Mất Nội Dung Khi Process Bị Kill | **P0** | ✅ Done | [`done/DJ-05_persist-episode-notification-ready-state_DONE.md`](../done/DJ-05_persist-episode-notification-ready-state_DONE.md) |
