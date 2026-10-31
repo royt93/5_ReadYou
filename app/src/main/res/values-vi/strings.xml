@@ -890,4 +890,15 @@
     <string name="radar_diff_text">Nội dung</string>
     <string name="radar_diff_no_history">Không có phiên bản cũ nào của bài này được lưu.</string>
     <string name="radar_diff_removed_notice">Bài này không còn trong nguồn qua nhiều lần đồng bộ liên tiếp. Bản lưu cuối cùng hiển thị bên dưới.</string>
+    <string name="headline_signals_title">Tín hiệu giật tít &amp; cảm xúc tiêu đề</string>
+    <string name="headline_signals_desc">Phân tích từ ngữ tiêu đề cục bộ để tìm dấu hiệu câu view và sắc thái cảm xúc (tích cực/chưa rõ/tiêu cực). Không gửi dữ liệu ra ngoài và không đọc thân bài. Tiếng Tây Ban Nha, Pháp, Đức mang tính thử nghiệm.</string>
+    <string name="headline_signals_clickbait_badge">🎯 Giật tít %1$d%%</string>
+    <string name="headline_signals_clickbait_desc">Chỉ báo văn phong giật tít: điểm %1$d trên 100.</string>
+    <string name="headline_signals_tone_positive">🟢 Tích cực</string>
+    <string name="headline_signals_tone_unclear">⚪ Chưa rõ</string>
+    <string name="headline_signals_tone_negative">🔴 Tiêu cực</string>
+    <string name="headline_signals_tone_desc_positive">Sắc thái từ ngữ tiêu đề: có dấu hiệu tích cực.</string>
+    <string name="headline_signals_tone_desc_unclear">Sắc thái từ ngữ tiêu đề: chưa rõ hoặc không đủ dấu hiệu.</string>
+    <string name="headline_signals_tone_desc_negative">Sắc thái từ ngữ tiêu đề: có dấu hiệu tiêu cực.</string>
+    <string name="headline_signals_disclaimer">Suy luận từ vựng cục bộ chỉ dựa trên tiêu đề; không phải bằng chứng về tính xác thực, thiên lệch chính trị hay nội dung bài viết.</string>
 </resources>

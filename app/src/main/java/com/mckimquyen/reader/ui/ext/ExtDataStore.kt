@@ -81,6 +81,9 @@ val Context.htmlAntiTrackerEnabled: Boolean
 val Context.retractionRadarEnabled: Boolean
     get() = this.dataStore.get(DataStoreKeys.RetractionRadar) ?: true
 
+val Context.headlineSignalsEnabled: Boolean
+    get() = this.dataStore.get(DataStoreKeys.HeadlineSignals) ?: true
+
 suspend fun <T> DataStore<Preferences>.put(dataStoreKeys: DataStoreKeys<T>, value: T) {
     this.edit {
         withContext(Dispatchers.IO) {
@@ -580,5 +583,10 @@ sealed class DataStoreKeys<T> {
     object RetractionRadar : DataStoreKeys<Boolean>() {
         override val key: Preferences.Key<Boolean>
             get() = booleanPreferencesKey("retraction_radar")
+    }
+
+    object HeadlineSignals : DataStoreKeys<Boolean>() {
+        override val key: Preferences.Key<Boolean>
+            get() = booleanPreferencesKey("headline_signals_enabled")
     }
 }

@@ -9,6 +9,7 @@ import com.mckimquyen.reader.infrastructure.pref.HtmlAntiTrackerPref
 import com.mckimquyen.reader.infrastructure.pref.UrlTrackingCleanPref
 import com.mckimquyen.reader.ui.ext.dataStore
 import com.mckimquyen.reader.ui.ext.retractionRadarEnabled
+import com.mckimquyen.reader.ui.ext.headlineSignalsEnabled
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
@@ -69,6 +70,25 @@ class PrivacySettingsViewModelTest {
         assertEquals(DohProviderPref.CLOUDFLARE, awaitReal { viewModel.dohProvider.first { it == DohProviderPref.CLOUDFLARE } })
         assertFalse(awaitReal { viewModel.urlTrackingClean.first { !it } })
         assertFalse(awaitReal { viewModel.htmlAntiTracker.first { !it } })
+    }
+
+    @Test
+    fun headlineSignals_defaultsOnAndPersistsBothDirections() = runTest(dispatcher) {
+        context.dataStore.edit { it.clear() }
+        val viewModel = PrivacySettingsViewModel(context)
+        advanceUntilIdle()
+        assertTrue(viewModel.headlineSignals.value)
+        assertTrue(context.headlineSignalsEnabled)
+
+        viewModel.setHeadlineSignals(false)
+        advanceUntilIdle()
+        assertFalse(awaitReal { viewModel.headlineSignals.first { !it } })
+        assertFalse(context.headlineSignalsEnabled)
+
+        viewModel.setHeadlineSignals(true)
+        advanceUntilIdle()
+        assertTrue(awaitReal { viewModel.headlineSignals.first { it } })
+        assertTrue(context.headlineSignalsEnabled)
     }
 
     @Test

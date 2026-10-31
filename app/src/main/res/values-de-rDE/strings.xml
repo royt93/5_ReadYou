@@ -925,4 +925,15 @@
     <string name="radar_diff_text">Text</string>
     <string name="radar_diff_no_history">Von diesem Artikel wurde keine frühere Version gespeichert.</string>
     <string name="radar_diff_removed_notice">Dieser Artikel war bei mehreren Synchronisierungen in Folge nicht mehr in seinem Feed. Die zuletzt gespeicherte Version wird unten angezeigt.</string>
+    <string name="headline_signals_title">Clickbait- und Tonsignale in Schlagzeilen</string>
+    <string name="headline_signals_desc">Analysiert den Wortlaut von Schlagzeilen lokal auf Reizwörter und Tonlage (positiv/unklar/negativ). Es werden keine Daten übertragen und kein Artikeltext gescannt. Spanisch, Französisch und Deutsch sind experimentell.</string>
+    <string name="headline_signals_clickbait_badge">🎯 Clickbait %1$d%%</string>
+    <string name="headline_signals_clickbait_desc">Clickbait-Sprachindikator: Wert %1$d von 100.</string>
+    <string name="headline_signals_tone_positive">🟢 Positiv</string>
+    <string name="headline_signals_tone_unclear">⚪ Unklar</string>
+    <string name="headline_signals_tone_negative">🔴 Negativ</string>
+    <string name="headline_signals_tone_desc_positive">Lexikalischer Ton: positive Signalwörter vorhanden.</string>
+    <string name="headline_signals_tone_desc_unclear">Lexikalischer Ton: unklare oder unzureichende Signalwörter.</string>
+    <string name="headline_signals_tone_desc_negative">Lexikalischer Ton: negative Signalwörter vorhanden.</string>
+    <string name="headline_signals_disclaimer">Lokale Heuristik rein anhand des Titels; kein Nachweis von Richtigkeit, politischer Einseitigkeit oder Artikelinhalt.</string>
 </resources>

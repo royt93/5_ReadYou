@@ -928,4 +928,15 @@
     <string name="radar_diff_text">Texte</string>
     <string name="radar_diff_no_history">Aucune version antérieure de cet article n’a été enregistrée.</string>
     <string name="radar_diff_removed_notice">Cet article n’était plus dans son flux lors de plusieurs synchronisations de suite. La dernière version enregistrée est affichée ci-dessous.</string>
+    <string name="headline_signals_title">Signaux de piège à clics et de ton du titre</string>
+    <string name="headline_signals_desc">Analyse localement le titre pour détecter les accroches racoleuses et le ton émotionnel (positif/incertain/négatif). Aucun texte ne quitte l\'appareil et aucun corps d\'article n\'est analysé. Espagnol, français et allemand sont expérimentaux.</string>
+    <string name="headline_signals_clickbait_badge">🎯 Piège à clics %1$d%%</string>
+    <string name="headline_signals_clickbait_desc">Indicateur de piège à clics: score de %1$d sur 100.</string>
+    <string name="headline_signals_tone_positive">🟢 Positif</string>
+    <string name="headline_signals_tone_unclear">⚪ Incertain</string>
+    <string name="headline_signals_tone_negative">🔴 Négatif</string>
+    <string name="headline_signals_tone_desc_positive">Ton lexical du titre: indicateurs positifs présents.</string>
+    <string name="headline_signals_tone_desc_unclear">Ton lexical du titre: indicateurs incertains ou insuffisants.</string>
+    <string name="headline_signals_tone_desc_negative">Ton lexical du titre: indicateurs négatifs présents.</string>
+    <string name="headline_signals_disclaimer">Heuristique lexicale locale reposant uniquement sur le titre; ne constitue pas une preuve d\'exactitude, de biais politique ou du contenu de l\'article.</string>
 </resources>

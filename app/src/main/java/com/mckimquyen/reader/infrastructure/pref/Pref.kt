@@ -97,5 +97,6 @@ fun Preferences.toSettings(): Settings {
         urlTrackingClean = UrlTrackingCleanPref.fromPreferences(this),
         htmlAntiTracker = HtmlAntiTrackerPref.fromPreferences(this),
         retractionRadar = RetractionRadarPref.fromPreferences(this),
+        headlineSignals = HeadlineSignalsPref.fromPreferences(this),
     )
 }

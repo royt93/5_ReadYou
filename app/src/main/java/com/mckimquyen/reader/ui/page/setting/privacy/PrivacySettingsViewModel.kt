@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mckimquyen.reader.infrastructure.pref.DohProviderPref
+import com.mckimquyen.reader.infrastructure.pref.HeadlineSignalsPref
 import com.mckimquyen.reader.infrastructure.pref.HtmlAntiTrackerPref
 import com.mckimquyen.reader.infrastructure.pref.RetractionRadarPref
 import com.mckimquyen.reader.infrastructure.pref.UrlTrackingCleanPref
@@ -33,6 +34,9 @@ class PrivacySettingsViewModel @Inject constructor(
     private val _retractionRadar = MutableStateFlow(RetractionRadarPref.default.value)
     val retractionRadar = _retractionRadar.asStateFlow()
 
+    private val _headlineSignals = MutableStateFlow(HeadlineSignalsPref.default.value)
+    val headlineSignals = _headlineSignals.asStateFlow()
+
     init {
         viewModelScope.launch {
             context.dataStore.data.collect { preferences ->
@@ -40,6 +44,7 @@ class PrivacySettingsViewModel @Inject constructor(
                 _urlTrackingClean.value = UrlTrackingCleanPref.fromPreferences(preferences).value
                 _htmlAntiTracker.value = HtmlAntiTrackerPref.fromPreferences(preferences).value
                 _retractionRadar.value = RetractionRadarPref.fromPreferences(preferences).value
+                _headlineSignals.value = HeadlineSignalsPref.fromPreferences(preferences).value
             }
         }
     }
@@ -64,6 +69,14 @@ class PrivacySettingsViewModel @Inject constructor(
         viewModelScope.launch {
             context.dataStore.updateData { preferences ->
                 preferences.toMutablePreferences().apply { this[DataStoreKeys.HtmlAntiTracker.key] = enabled }
+            }
+        }
+    }
+
+    fun setHeadlineSignals(enabled: Boolean) {
+        viewModelScope.launch {
+            context.dataStore.updateData { preferences ->
+                preferences.toMutablePreferences().apply { this[DataStoreKeys.HeadlineSignals.key] = enabled }
             }
         }
     }

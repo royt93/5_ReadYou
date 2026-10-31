@@ -40,6 +40,7 @@ fun PrivacySettingsPage(
     val urlTrackingClean by viewModel.urlTrackingClean.collectAsState()
     val htmlAntiTracker by viewModel.htmlAntiTracker.collectAsState()
     val retractionRadar by viewModel.retractionRadar.collectAsState()
+    val headlineSignals by viewModel.headlineSignals.collectAsState()
 
     BaseScaffold(
         containerColor = MaterialTheme.colorScheme.surface,
@@ -116,6 +117,18 @@ fun PrivacySettingsPage(
                         action = {
                             BaseSwitch(activated = retractionRadar) {
                                 viewModel.setRetractionRadar(!retractionRadar)
+                            }
+                        },
+                    )
+                }
+                item {
+                    SettingItem(
+                        title = stringResource(R.string.headline_signals_title),
+                        desc = stringResource(R.string.headline_signals_desc),
+                        onClick = { viewModel.setHeadlineSignals(!headlineSignals) },
+                        action = {
+                            BaseSwitch(activated = headlineSignals) {
+                                viewModel.setHeadlineSignals(!headlineSignals)
                             }
                         },
                     )

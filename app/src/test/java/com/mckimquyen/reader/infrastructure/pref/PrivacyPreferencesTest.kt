@@ -41,6 +41,14 @@ class PrivacyPreferencesTest {
     }
 
     @Test
+    fun headlineSignalsPref_defaultsToTrueAndParsesExplicitOff() {
+        assertTrue(HeadlineSignalsPref.fromPreferences(mutablePreferencesOf()).value)
+
+        val offPrefs = mutablePreferencesOf(booleanPreferencesKey("headline_signals_enabled") to false)
+        assertFalse(HeadlineSignalsPref.fromPreferences(offPrefs).value)
+    }
+
+    @Test
     fun retractionRadarPref_defaultsToTrue() {
         assertTrue(RetractionRadarPref.fromPreferences(mutablePreferencesOf()).value)
 

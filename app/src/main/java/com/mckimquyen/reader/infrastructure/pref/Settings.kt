@@ -97,6 +97,7 @@ data class Settings(
     val urlTrackingClean: UrlTrackingCleanPref = UrlTrackingCleanPref.default,
     val htmlAntiTracker: HtmlAntiTrackerPref = HtmlAntiTrackerPref.default,
     val retractionRadar: RetractionRadarPref = RetractionRadarPref.default,
+    val headlineSignals: HeadlineSignalsPref = HeadlineSignalsPref.default,
 )
 
 // Version
@@ -230,6 +231,8 @@ val LocalHtmlAntiTracker =
     compositionLocalOf<HtmlAntiTrackerPref> { HtmlAntiTrackerPref.default }
 val LocalRetractionRadar =
     compositionLocalOf<RetractionRadarPref> { RetractionRadarPref.default }
+val LocalHeadlineSignals =
+    compositionLocalOf<HeadlineSignalsPref> { HeadlineSignalsPref.default }
 
 @Composable
 fun SettingsProvider(
@@ -328,6 +331,7 @@ fun SettingsProvider(
         LocalUrlTrackingClean provides settings.urlTrackingClean,
         LocalHtmlAntiTracker provides settings.htmlAntiTracker,
         LocalRetractionRadar provides settings.retractionRadar,
+        LocalHeadlineSignals provides settings.headlineSignals,
     ) {
         content()
     }

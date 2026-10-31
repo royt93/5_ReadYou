@@ -926,4 +926,15 @@
     <string name="radar_diff_text">Texto</string>
     <string name="radar_diff_no_history">No se guardó ninguna versión anterior de este artículo.</string>
     <string name="radar_diff_removed_notice">Este artículo ya no estaba en su fuente durante varias sincronizaciones seguidas. Abajo se muestra la última versión guardada.</string>
+    <string name="headline_signals_title">Señales de clickbait y tono en titulares</string>
+    <string name="headline_signals_desc">Analiza localmente el texto del titular en busca de clickbait y tono emocional (positivo/poco claro/negativo). No envía datos fuera del dispositivo y no escanea el cuerpo del artículo. Español, francés y alemán son experimentales.</string>
+    <string name="headline_signals_clickbait_badge">🎯 Clickbait %1$d%%</string>
+    <string name="headline_signals_clickbait_desc">Indicador de clickbait: puntuación de %1$d sobre 100.</string>
+    <string name="headline_signals_tone_positive">🟢 Positivo</string>
+    <string name="headline_signals_tone_unclear">⚪ Poco claro</string>
+    <string name="headline_signals_tone_negative">🔴 Negativo</string>
+    <string name="headline_signals_tone_desc_positive">Tono léxico del titular: se observan indicadores positivos.</string>
+    <string name="headline_signals_tone_desc_unclear">Tono léxico del titular: indicadores poco claros o insuficientes.</string>
+    <string name="headline_signals_tone_desc_negative">Tono léxico del titular: se observan indicadores negativos.</string>
+    <string name="headline_signals_disclaimer">Heurística léxica local basada únicamente en el titular; no es prueba de veracidad, sesgo político ni del contenido del artículo.</string>
 </resources>

@@ -924,4 +924,15 @@
     <string name="radar_diff_text">Tekst</string>
     <string name="radar_diff_no_history">Er is geen eerdere versie van dit artikel opgeslagen.</string>
     <string name="radar_diff_removed_notice">Dit artikel stond bij meerdere synchronisaties op rij niet meer in zijn feed. De laatst opgeslagen versie staat hieronder.</string>
+    <string name="headline_signals_title">Headline Clickbait &amp; Tone Signals</string>
+    <string name="headline_signals_desc">Analyzes headline wording locally for clickbait cues and emotional tone (positive/unclear/negative). No text leaves the device and no article body is scanned. Spanish, French, and German are experimental.</string>
+    <string name="headline_signals_clickbait_badge">🎯 Clickbait %1$d%%</string>
+    <string name="headline_signals_clickbait_desc">Clickbait language indicator: score is %1$d out of 100.</string>
+    <string name="headline_signals_tone_positive">🟢 Positive</string>
+    <string name="headline_signals_tone_unclear">⚪ Unclear</string>
+    <string name="headline_signals_tone_negative">🔴 Negative</string>
+    <string name="headline_signals_tone_desc_positive">Lexical headline tone: positive indicators present.</string>
+    <string name="headline_signals_tone_desc_unclear">Lexical headline tone: unclear or insufficient indicators.</string>
+    <string name="headline_signals_tone_desc_negative">Lexical headline tone: negative indicators present.</string>
+    <string name="headline_signals_disclaimer">Local lexical heuristics based solely on headline wording; not evidence of factual accuracy, political bias, or article content.</string>
 </resources>

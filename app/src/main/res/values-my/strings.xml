@@ -990,4 +990,15 @@
     <string name="radar_diff_text">စာသား</string>
     <string name="radar_diff_no_history">ဤဆောင်းပါး၏ ယခင်ဗားရှင်း မည်သည့်အရာမျှ သိမ်းဆည်းမထားပါ။</string>
     <string name="radar_diff_removed_notice">ဤဆောင်းပါးသည် ဆက်တိုက် စင့်ခ်လုပ်ငန်း အကြိမ်များစွာတွင် ၎င်း၏ feed ထဲ မရှိတော့ပါ။ နောက်ဆုံး သိမ်းဆည်းထားသော ဗားရှင်းကို အောက်တွင် ပြထားသည်။</string>
+    <string name="headline_signals_title">Headline Clickbait &amp; Tone Signals</string>
+    <string name="headline_signals_desc">Analyzes headline wording locally for clickbait cues and emotional tone (positive/unclear/negative). No text leaves the device and no article body is scanned. Spanish, French, and German are experimental.</string>
+    <string name="headline_signals_clickbait_badge">🎯 Clickbait %1$d%%</string>
+    <string name="headline_signals_clickbait_desc">Clickbait language indicator: score is %1$d out of 100.</string>
+    <string name="headline_signals_tone_positive">🟢 Positive</string>
+    <string name="headline_signals_tone_unclear">⚪ Unclear</string>
+    <string name="headline_signals_tone_negative">🔴 Negative</string>
+    <string name="headline_signals_tone_desc_positive">Lexical headline tone: positive indicators present.</string>
+    <string name="headline_signals_tone_desc_unclear">Lexical headline tone: unclear or insufficient indicators.</string>
+    <string name="headline_signals_tone_desc_negative">Lexical headline tone: negative indicators present.</string>
+    <string name="headline_signals_disclaimer">Local lexical heuristics based solely on headline wording; not evidence of factual accuracy, political bias, or article content.</string>
 </resources>
