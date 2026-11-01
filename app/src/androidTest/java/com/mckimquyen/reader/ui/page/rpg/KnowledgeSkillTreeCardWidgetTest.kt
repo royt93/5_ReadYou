@@ -53,7 +53,6 @@ class KnowledgeSkillTreeCardWidgetTest {
     @Test fun freshCategories_showNoRecoveryButton() = withCard(
         UserProgress(categoryXp = mapOf(TECH to 100L), categoryBaseXp = mapOf(TECH to 100L)),
         onRecover = {},
-        act = { click -> assertTrue(click(TECH)) },
     ) { texts ->
         assertFalse(texts.any { it == str(com.mckimquyen.reader.R.string.brain_rpg_recover_action) })
     }

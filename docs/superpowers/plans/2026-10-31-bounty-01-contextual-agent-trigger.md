@@ -151,35 +151,14 @@ Note: the plan's radar action used `OutlinedButton`; the Failed state offers `Bu
 
 ### Task 6: Localization, full verification and hardware smoke
 
-**Files:** all 38 maintained `strings.xml`; add/extend `SelectionActionChipsTest` and instrumentation coverage; update task/feature docs and Epic 15 index.
+- [x] **Step 1: Add localized resources** (13 `bounty_*` keys x 38 locales; done in Task 3 because the chip needs them)
+- [x] **Step 2: Run parity/resource merge** (`StringResourceParityTest` 6/6)
+- [x] **Step 3: Run unit suite, lint and builds** (1,526 tests / 0 failures; lint 0 errors, 2,453 warnings; `assembleDevDebug` + `assembleDevDebugAndroidTest`)
+- [x] **Step 4: Gate and run device instrumentation/smoke** (owner changed the lock to Pixel 7 Pro `2B051FDH3006MU` because TECNO was not connected; 21/21 instrumentation; real smoke: chip -> radar -> results -> open article; Room backed up and restored, integrity ok, 176 articles)
+- [x] **Step 5: Update completion docs** (done report, `doc/feature.md`, Epic 15, todo file removed)
+- [x] **Step 6: Commit**
 
-- [ ] **Step 1: Add localized resources**
-
-Add all 10 `bounty_*` keys from the approved spec to every maintained `values*/strings.xml`. Use English in non-EN/VI locales as repository fallback convention. Keep format argument indices identical.
-
-- [ ] **Step 2: Run parity/resource merge**
-
-Run `./gradlew testDevDebugUnitTest --tests "*StringResourceParityTest" --rerun processDevDebugResources`.
-Expected: parity 6/6 and Android resource merge pass.
-
-- [ ] **Step 3: Run unit suite, lint and builds**
-
-Run `./gradlew testDevDebugUnitTest --rerun`, `./gradlew lintDevDebug`, `./gradlew assembleDevDebug assembleDevDebugAndroidTest`; report exact tests/warnings/errors.
-
-- [ ] **Step 4: Gate and run device instrumentation/smoke**
-
-First run `adb devices`; continue only if serial `118743744X002560` is listed and `getprop ro.product.model` confirms TECNO BG6. Do not use any other listed serial. Run instrumentation using `adb -s 118743744X002560 shell am instrument ...`, not connected Gradle task. For smoke, inspect foreground before every UI action. Open a local feed/article with existing selected text; verify both chips, trigger investigate, observe ~700 ms scan, results list, tap to navigate; verify Gemini action absent without BYOK and no default API request in logs. If full-screen ad appears, stop and wait for owner. Back up Room before any fixture; restore and integrity-check afterward; clear only test-created data, not existing user data.
-
-- [ ] **Step 5: Update completion docs**
-
-Only move `BOUNTY-01_contextual-agent-trigger.md` to done when unit/UI tests and actual TECNO smoke pass. Report limitations honestly (local archive scope; optional BYOK context grounded only on title/shortDescription; no default-key fallback). Update `doc/feature.md` and Epic 15 row. If TECNO unavailable or smoke blocked, keep task in progress and record blocker.
-
-- [ ] **Step 6: Commit**
-
-```bash
-git add app/src doc/feature.md doc/task
- git commit -m "feat(bounty-01): add contextual local investigation agent"
-```
+Evidence limits: the AI action was not pressed against Gemini on the device because it holds a real user key; BYOK-only behavior is proven by `GeminiSummaryServiceBountyTest` instead.
 
 ## Final Verification Checklist
 
