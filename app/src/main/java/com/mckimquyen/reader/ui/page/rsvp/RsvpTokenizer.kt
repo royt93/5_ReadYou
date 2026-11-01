@@ -77,17 +77,22 @@ object RsvpTokenizer {
         }.coerceIn(0, (len - 1).coerceAtLeast(0))
     }
 
-    fun calculateExtraDelayMs(word: String, isParagraphEnd: Boolean): Long {
-        var delay = 0L
+    /**
+     * [punctuationDelayScale] multiplies only the paragraph, sentence and clause pauses; the long-word delay is a
+     * property of the word, not of the punctuation, so it is never scaled. At 1f the result is the original value.
+     */
+    fun calculateExtraDelayMs(word: String, isParagraphEnd: Boolean, punctuationDelayScale: Float = 1f): Long {
+        var punctuationDelay = 0L
         val trimmed = word.trim()
         if (isParagraphEnd) {
-            delay += PARAGRAPH_END_DELAY_MS
+            punctuationDelay += PARAGRAPH_END_DELAY_MS
         }
         if (trimmed.endsWithAny(sentenceEndChars)) {
-            delay += SENTENCE_END_DELAY_MS
+            punctuationDelay += SENTENCE_END_DELAY_MS
         } else if (trimmed.endsWithAny(clauseEndChars)) {
-            delay += CLAUSE_END_DELAY_MS
+            punctuationDelay += CLAUSE_END_DELAY_MS
         }
+        var delay = (punctuationDelay * punctuationDelayScale).toLong()
         if (trimmed.length > LONG_WORD_THRESHOLD) {
             delay += LONG_WORD_DELAY_MS
         }
@@ -97,7 +102,7 @@ object RsvpTokenizer {
     private fun String.endsWithAny(chars: CharArray): Boolean =
         isNotEmpty() && chars.any { this[length - 1] == it }
 
-    fun tokenize(content: String): List<RsvpToken> {
+    fun tokenize(content: String, punctuationDelayScale: Float = 1f): List<RsvpToken> {
         // Paragraph boundaries must be resolved on the raw text, before whitespace is collapsed —
         // otherwise every paragraph separator is flattened to a single space and no token can ever
         // be marked as a paragraph break.
@@ -116,7 +121,7 @@ object RsvpTokenizer {
                 val prefix = if (orp > 0) rawWord.substring(0, orp) else ""
                 val orpChar = if (rawWord.isNotEmpty()) rawWord[orp] else ' '
                 val suffix = if (orp + 1 < rawWord.length) rawWord.substring(orp + 1) else ""
-                val delay = calculateExtraDelayMs(rawWord, isParagraphEnd)
+                val delay = calculateExtraDelayMs(rawWord, isParagraphEnd, punctuationDelayScale)
 
                 tokens.add(
                     RsvpToken(

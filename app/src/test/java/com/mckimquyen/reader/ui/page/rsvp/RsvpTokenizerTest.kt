@@ -141,4 +141,35 @@ class RsvpTokenizerTest {
         assertTrue(lastWordOfFirstPara.isParagraphBreak)
         assertTrue(lastWordOfFirstPara.extraDelayMs >= 250L) // paragraph end + sentence end
     }
+
+    @Test
+    fun calculateExtraDelayMs_scaleMultipliesPunctuationOnly_notTheLongWordDelay() {
+        assertEquals(200L, RsvpTokenizer.calculateExtraDelayMs("done.", false, 1.0f))
+        assertEquals(300L, RsvpTokenizer.calculateExtraDelayMs("done.", false, 1.5f))
+        assertEquals(100L, RsvpTokenizer.calculateExtraDelayMs("done.", false, 0.5f))
+        assertEquals(120L, RsvpTokenizer.calculateExtraDelayMs("so,", false, 1.5f)) // clause 80 * 1.5
+        assertEquals(675L, RsvpTokenizer.calculateExtraDelayMs("end.", true, 1.5f)) // (paragraph 250 + sentence 200) * 1.5
+        // long word (40 ms) is not scaled
+        assertEquals(40L, RsvpTokenizer.calculateExtraDelayMs("extraordinary", false, 1.0f))
+        assertEquals(40L, RsvpTokenizer.calculateExtraDelayMs("extraordinary", false, 2.0f))
+    }
+
+    @Test
+    fun tokenize_defaultScale_isIdenticalToExplicitOne() {
+        val text = "First sentence. Second, longer sentence here.\n\nNext paragraph ends."
+        assertEquals(
+            RsvpTokenizer.tokenize(text).map { it.extraDelayMs },
+            RsvpTokenizer.tokenize(text, 1.0f).map { it.extraDelayMs },
+        )
+    }
+
+    @Test
+    fun tokenize_scaleChangesPunctuationDelaysOnly() {
+        val base = RsvpTokenizer.tokenize("Stop. Go on, now", 1.0f)
+        val slower = RsvpTokenizer.tokenize("Stop. Go on, now", 2.0f)
+        assertEquals(base.map { it.fullWord }, slower.map { it.fullWord })
+        assertEquals(400L, slower[0].extraDelayMs) // "Stop." sentence end 200 * 2
+        assertEquals(160L, slower[2].extraDelayMs) // "on," clause end 80 * 2
+        assertEquals(0L, slower[3].extraDelayMs)
+    }
 }
