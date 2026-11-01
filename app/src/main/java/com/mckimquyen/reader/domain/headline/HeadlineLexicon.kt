@@ -126,4 +126,32 @@ internal object HeadlineLexicon {
 
     val DE_POSITIVE = setOf("sieg", "erfolg", "feiert", "triumph", "held", "hoffnung", "gerettet")
     val DE_NEGATIVE = setOf("tragödie", "krise", "katastrophe", "kollaps", "skandal", "tod", "trauer")
+
+    // ECHO-01 body hype: promotional/PR phrases (matched on normalized text; multi-word allowed).
+    val EN_HYPE_PHRASES = listOf(
+        "game-changing", "game changing", "revolutionary", "world-class", "world class", "groundbreaking",
+        "ground-breaking", "market leader", "market-leading", "unparalleled", "must-have", "must have",
+        "seamlessly", "exclusive offer", "cutting-edge", "state-of-the-art", "next-generation",
+        "industry-leading", "second to none", "once in a lifetime", "unbeatable", "life-changing",
+    )
+    val VI_HYPE_PHRASES = listOf(
+        "đột phá", "cách mạng", "hàng đầu thế giới", "số 1", "đỉnh cao", "chưa từng có", "vượt trội",
+        "thần kỳ", "độc quyền", "dẫn đầu thị trường", "không đối thủ", "đẳng cấp", "siêu phẩm",
+    )
+    val ES_HYPE_PHRASES = listOf("revolucionario", "innovador", "líder del mercado", "sin precedentes", "imprescindible", "inigualable")
+    val FR_HYPE_PHRASES = listOf("révolutionnaire", "leader du marché", "sans précédent", "incontournable", "inégalé", "avant-gardiste")
+    val DE_HYPE_PHRASES = listOf("revolutionär", "marktführer", "beispiellos", "unverzichtbar", "unübertroffen", "bahnbrechend")
+
+    // ECHO-01 body hype: absolute / guaranteed claims.
+    val EN_ABSOLUTE_CLAIMS = listOf(
+        "best ever", "guaranteed", "100% effective", "100 percent", "never fails", "always works", "no risk",
+        "risk-free", "the only solution", "perfect solution",
+    )
+    val VI_ABSOLUTE_CLAIMS = listOf(
+        "cam kết 100%", "đảm bảo 100%", "tốt nhất từ trước đến nay", "không rủi ro", "chắc chắn thành công",
+        
+    )
+    val ES_ABSOLUTE_CLAIMS = listOf("garantizado", "100% efectivo", "el mejor de la historia", "sin riesgo")
+    val FR_ABSOLUTE_CLAIMS = listOf("garanti", "100% efficace", "le meilleur de tous les temps", "sans risque")
+    val DE_ABSOLUTE_CLAIMS = listOf("garantiert", "100% wirksam", "der beste aller zeiten", "ohne risiko")
 }

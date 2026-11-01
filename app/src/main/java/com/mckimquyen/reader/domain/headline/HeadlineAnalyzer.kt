@@ -40,13 +40,34 @@ object HeadlineAnalyzer {
         val tokens = tokens(normalized)
         val lexicon = language.lexicon()
         val clickbait = clickbaitScore(bounded, normalized, tokens, lexicon)
+        val tone = toneFrom(normalized, tokens, lexicon)
+        return HeadlineSignal(language, clickbait, tone)
+    }
+
+    /** ECHO-01: language detection for arbitrary text (article bodies); same rules as titles. */
+    internal fun detectBodyLanguage(text: String): HeadlineLanguage? = detectLanguage(text)
+
+    /** ECHO-01: lexical tone for arbitrary text with the same thresholds and UNCLEAR semantics as titles. */
+    internal fun toneOf(text: String, language: HeadlineLanguage): HeadlineTone {
+        if (language == HeadlineLanguage.UNSUPPORTED) return HeadlineTone.UNCLEAR
+        val normalized = normalize(text)
+        return toneFrom(normalized, tokens(normalized), language.lexicon())
+    }
+
+    /** ECHO-01: shared helpers so body analysis does not fork normalization or the lexicons. */
+    internal fun normalizeText(text: String): String = normalize(text)
+
+    internal fun tokenize(normalized: String): List<String> = tokens(normalized)
+
+    internal fun bodyIntensifiers(language: HeadlineLanguage): Set<String> = language.lexicon().intensifiers
+
+    private fun toneFrom(normalized: String, tokens: List<String>, lexicon: LanguageLexicon): HeadlineTone {
         val (positive, negative) = toneEvidence(normalized, tokens, lexicon)
-        val tone = when {
+        return when {
             positive >= MIN_TONE_EVIDENCE && positive - negative >= TONE_MARGIN -> HeadlineTone.POSITIVE
             negative >= MIN_TONE_EVIDENCE && negative - positive >= TONE_MARGIN -> HeadlineTone.NEGATIVE
             else -> HeadlineTone.UNCLEAR
         }
-        return HeadlineSignal(language, clickbait, tone)
     }
 
     fun shouldShowClickbait(score: Int): Boolean = score > CLICKBAIT_THRESHOLD

@@ -127,4 +127,29 @@ class HeadlineAnalyzerTest {
         assertEquals(analyze(title), analyze(title))
         assertNotEquals(HeadlineLanguage.UNSUPPORTED, analyze(title).language)
     }
+
+    @Test
+    fun toneOf_agreesWithAnalyzeForTitles() {
+        val titles = listOf(
+            "Fans celebrate as local team wins historic final",
+            "Deadly crash and disaster leave grief and fears",
+            "Council approves new tram route",
+        )
+        titles.forEach { title ->
+            val signal = analyze(title)
+            assertEquals(title, signal.tone, HeadlineAnalyzer.toneOf(title, signal.language))
+        }
+    }
+
+    @Test
+    fun toneOf_unsupportedLanguageIsUnclear_notAnError() {
+        assertEquals(HeadlineTone.UNCLEAR, HeadlineAnalyzer.toneOf("anything", HeadlineLanguage.UNSUPPORTED))
+    }
+
+    @Test
+    fun detectBodyLanguage_matchesTitleDetection() {
+        assertEquals(HeadlineLanguage.ENGLISH, HeadlineAnalyzer.detectBodyLanguage("The council approved the route after a vote"))
+        assertEquals(HeadlineLanguage.VIETNAMESE, HeadlineAnalyzer.detectBodyLanguage("Hội đồng thành phố phê duyệt tuyến xe điện"))
+        assertNull(HeadlineAnalyzer.detectBodyLanguage("東京の鉄道ニュース"))
+    }
 }

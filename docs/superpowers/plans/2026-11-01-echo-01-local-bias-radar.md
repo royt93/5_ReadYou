@@ -106,7 +106,7 @@ fun EchoSignalDetailsSheet(
 
 **Files:** Modify `HeadlineLexicon.kt`; create `ArticleSignal.kt`, `ArticleSignalAnalyzer.kt`, and `ArticleSignalAnalyzerTest.kt`.
 
-- [ ] **Step 1: Write failing analyzer tests**
+- [x] **Step 1: Write failing analyzer tests**
 
 Create `app/src/test/java/com/mckimquyen/reader/domain/headline/ArticleSignalAnalyzerTest.kt` covering:
 - Promotional PR body scores >= 70 and has `hasHypeWarning == true`.
@@ -118,12 +118,12 @@ Create `app/src/test/java/com/mckimquyen/reader/domain/headline/ArticleSignalAna
 - Unsupported language or plain text < 30 chars returns `null`.
 - Input > 12,000 chars is capped safely.
 
-- [ ] **Step 2: Run targeted test red**
+- [x] **Step 2: Run targeted test red**
 
 Run: `./gradlew testDevDebugUnitTest --tests "*ArticleSignalAnalyzerTest"`
 Expected: compilation failure for missing `ArticleSignalAnalyzer` and related types.
 
-- [ ] **Step 3a: Expose a minimal internal API on `HeadlineAnalyzer` (private members are NOT reusable today)**
+- [x] **Step 3a: Expose a minimal internal API on `HeadlineAnalyzer` (private members are NOT reusable today)**
 
 `detectLanguage`, `toneEvidence`, `normalize`, `tokens` and `LanguageLexicon` are all `private` in `HeadlineAnalyzer.kt` (lines 54-124), so `ArticleSignalAnalyzer` cannot call them. Add these `internal` members and keep every existing behavior byte-identical:
 
@@ -144,14 +144,14 @@ internal fun toneOf(text: String, language: HeadlineLanguage): HeadlineTone {
 
 Refactor `analyze()` to call `toneOf` so there is one source of truth. Add `HeadlineAnalyzerTest` cases proving `analyze()` output is unchanged and `toneOf` agrees with it. The existing 17 `HeadlineAnalyzerTest` cases and the performance test must stay green.
 
-- [ ] **Step 3b: Add Hype phrases to HeadlineLexicon**
+- [x] **Step 3b: Add Hype phrases to HeadlineLexicon**
 
 Add curated promotional/hype phrases and absolute-claim words for EN and VI, plus experimental sets for ES/FR/DE:
 - EN: "game-changing", "revolutionary", "world-class", "breakthrough", "best ever", "market leader", "guaranteed", "unparalleled", "must-have", "seamlessly", "exclusive", "groundbreaking", "disrupting".
 - VI: "đột phá", "cách mạng", "hàng đầu thế giới", "số 1", "đỉnh cao", "cam kết 100%", "chưa từng có", "hoàn hảo", "vượt trội", "thần kỳ", "độc quyền".
 - ES/FR/DE: compact experimental phrase lists mirroring the above.
 
-- [ ] **Step 4: Implement ArticleSignalAnalyzer**
+- [x] **Step 4: Implement ArticleSignalAnalyzer**
 
 1. Convert HTML using `SnapshotNormalizer.toPlainText(html)`.
 2. Take at most 12,000 characters; if last char is high surrogate, drop it.
@@ -163,17 +163,23 @@ Add curated promotional/hype phrases and absolute-claim words for EN and VI, plu
 8. Retain paragraphs with paragraph score >= 35, up to 8, sorted by score desc, trimmed at 240 chars.
 9. Return `ArticleSignalResult(language, hypeScore, tone, flaggedPassages)`.
 
-- [ ] **Step 5: Run analyzer tests green**
+- [x] **Step 5: Run analyzer tests green**
 
 Run: `./gradlew testDevDebugUnitTest --tests "*ArticleSignalAnalyzerTest" --rerun`
 Expected: all analyzer tests pass.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add app/src/main/java/com/mckimquyen/reader/domain/headline app/src/test/java/com/mckimquyen/reader/domain/headline
 git commit -m "feat(echo-01): analyze body hype and tone signals locally"
 ```
+
+Findings recorded during execution:
+- `SnapshotNormalizer.toPlainText` collapses all whitespace, so paragraph breaks vanish; paragraphs are now marked (U+0001 at block tags / line breaks) before normalizing. `toPlainText` itself is unchanged because radar hashing depends on it.
+- Substring matching produced false positives on real BBC items ("disrupt UK democracy", "number one" in tennis, "Islamic Revolutionary Guard"). Fixes: whole-word phrase matching, removed over-generic cues ("disrupt", "number one", "proven to", "hoàn hảo", "duy nhất", "tuyệt đối"), a 40-word density floor, and a corroboration rule (a lone cue can never reach the noteworthy threshold).
+- Real-data check on the 176 BBC articles in the Pixel backup: analyzed 175, max Hype 39, 0 warnings, tones {UNCLEAR 173, POSITIVE 2}. This shows a low false-positive rate on ordinary news; it does NOT measure recall on genuinely promotional copy (no such corpus exists locally), so recall is only covered by synthetic fixtures.
+
 
 ### Task 2: State and ViewModel asynchronous analysis
 
