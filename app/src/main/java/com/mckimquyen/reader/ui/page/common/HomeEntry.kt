@@ -48,7 +48,12 @@ import com.mckimquyen.reader.ui.page.notebook.NotebookPage
 import com.mckimquyen.reader.ui.page.reels.ReelsPage
 import com.mckimquyen.reader.ui.page.secondbrain.SecondBrainPage
 import com.mckimquyen.reader.ui.page.secondbrain.SecondBrainViewModel
+import androidx.compose.ui.res.stringResource
+import com.mckimquyen.reader.R
+import com.mckimquyen.reader.ui.component.rpg.StreakRescueDialog
 import com.mckimquyen.reader.ui.page.rpg.BrainRpgPage
+import com.mckimquyen.reader.ui.page.rpg.StreakRescueUiState
+import com.mckimquyen.reader.ui.page.rpg.StreakRescueViewModel
 import com.mckimquyen.reader.ui.page.setting.SettingsPage
 import com.mckimquyen.reader.ui.page.setting.ai.AiSettingsPage
 import com.mckimquyen.reader.ui.page.setting.privacy.PrivacySettingsPage
@@ -191,6 +196,22 @@ fun HomeEntry(
             visible = showCommuteCast,
             onDismiss = { homeViewModel.closeCommuteCast() },
         )
+
+        // RPG-03: offer to save or restart a broken streak, at most once per UTC day (see StreakRescuePolicy).
+        val streakRescueViewModel: StreakRescueViewModel = hiltViewModel()
+        val streakRescueState by streakRescueViewModel.state.collectAsState()
+        LaunchedEffect(Unit) { streakRescueViewModel.checkOnStartup() }
+        (streakRescueState as? StreakRescueUiState.Prompt)?.let { rescue ->
+            val adFailedMessage = if (rescue.adFailed) stringResource(R.string.streak_rescue_ad_failed) else null
+            StreakRescueDialog(
+                offer = rescue.offer,
+                isLoadingAd = rescue.isLoadingAd,
+                errorMessage = adFailedMessage,
+                onRescueWithAd = { streakRescueViewModel.onRescueWithAd(activity) },
+                onRestartFromScratch = { streakRescueViewModel.onRestartFromScratch() },
+                onDismissLater = { streakRescueViewModel.onDismissLater() },
+            )
+        }
 
         val radarFlagsViewModel: RadarFlagsViewModel = hiltViewModel()
         val radarFlags by radarFlagsViewModel.flags.collectAsState()
