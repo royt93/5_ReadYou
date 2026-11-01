@@ -37,6 +37,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.mckimquyen.reader.domain.model.article.AudioInfo
+import com.mckimquyen.reader.domain.readposition.ReadingPositionMapper
+import com.mckimquyen.reader.ui.component.reader.BodyItemRange
 import com.mckimquyen.reader.ui.page.home.read.podcast.PodcastPlayerBar
 import com.mckimquyen.reader.ui.page.home.read.podcast.PodcastPlayerViewModel
 import com.mckimquyen.reader.ui.page.home.read.quote.QuoteCardViewModel
@@ -92,6 +94,17 @@ fun ReadingPage(
     var showZenAudioSheet by remember { mutableStateOf(false) }
     var showRsvpDialog by remember { mutableStateOf(false) }
     val rsvpViewModel: RsvpViewModel = hiltViewModel()
+    val bodyRange = remember { BodyItemRange() }
+    var rsvpStartFraction by remember { mutableStateOf(0f) }
+
+    // Body fraction already read; a position near either end counts as "not started" so RSVP/TTS begin at the top.
+    fun currentBodyFraction(): Float = ReadingPositionMapper.bodyFractionFromList(
+        listState.firstVisibleItemIndex, bodyRange.start, bodyRange.count,
+    ).let { fraction ->
+        val atEdge = fraction < ReadingPositionMapper.RESTART_BELOW_FRACTION ||
+            fraction >= ReadingPositionMapper.TREAT_AS_FINISHED_FRACTION
+        if (atEdge) 0f else fraction
+    }
     val isZenAudioPlaying by readingViewModel.zenAudioManager.isPlaying.collectAsState()
 
     val isShowToolBar = if (LocalReadingAutoHideToolbar.current.value) {
@@ -346,12 +359,13 @@ fun ReadingPage(
                     isPlayingAudio = readingUiState.ttsState == TtsState.PLAYING,
                     isZenAudioPlaying = isZenAudioPlaying,
                     onPlayAudio = {
-                        readingViewModel.togglePlayAudio()
+                        readingViewModel.togglePlayAudio(currentBodyFraction())
                     },
                     onZenAudio = {
                         showZenAudioSheet = true
                     },
                     onRsvpReading = {
+                        rsvpStartFraction = currentBodyFraction()
                         showRsvpDialog = true
                     },
                     showSummary = true,
@@ -420,6 +434,7 @@ fun ReadingPage(
                                 contrastingCoverageState = contrastingCoverage,
                                 onSelectContrastPhrase = { readingViewModel.selectContrastPhrase(it) },
                                 onOpenContrastArticle = { targetId -> navController.navigate("${RouteName.READING}/$targetId") },
+                                bodyRange = bodyRange,
                             )
                         }
                     }
@@ -522,7 +537,27 @@ fun ReadingPage(
         RsvpReaderDialog(
             content = articleContent,
             viewModel = rsvpViewModel,
-            onDismiss = { showRsvpDialog = false }
+            startFraction = rsvpStartFraction,
+            onDismiss = {
+                val state = rsvpViewModel.uiState.value
+                val startIndex = ReadingPositionMapper.tokenIndexFromFraction(rsvpStartFraction, state.tokens.size)
+                val articleId = readingUiState.articleWithFeed?.article?.id
+                if (articleId != null && bodyRange.count > 0 &&
+                    ReadingPositionMapper.shouldHandoffFromRsvp(startIndex, state.currentIndex)
+                ) {
+                    val fraction = ReadingPositionMapper.fractionFromTokenIndex(state.currentIndex, state.tokens.size)
+                    val target = ReadingPositionMapper.listIndexFromBodyFraction(fraction, bodyRange.start, bodyRange.count)
+                    val total = listState.layoutInfo.totalItemsCount
+                    pageTurnScope.launch { listState.scrollToItem(target) }
+                    if (readPositionSyncEnabled) {
+                        readingViewModel.saveReadPosition(
+                            articleId,
+                            ReadingPositionMapper.listFractionFromBodyFraction(fraction, bodyRange.start, bodyRange.count, total),
+                        )
+                    }
+                }
+                showRsvpDialog = false
+            },
         )
     }
 

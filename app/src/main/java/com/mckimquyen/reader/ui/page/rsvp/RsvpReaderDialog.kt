@@ -70,13 +70,14 @@ fun RsvpReaderDialog(
     content: String,
     viewModel: RsvpViewModel,
     onDismiss: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    startFraction: Float = 0f,
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
     LaunchedEffect(content) {
         if (content.isNotBlank()) {
-            viewModel.loadContent(content)
+            viewModel.loadContent(content, startFraction)
         }
     }
 

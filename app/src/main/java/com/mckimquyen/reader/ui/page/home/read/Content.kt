@@ -84,6 +84,7 @@ fun Content(
     contrastingCoverageState: ContrastingCoverageState = ContrastingCoverageState.Idle,
     onSelectContrastPhrase: (String) -> Unit = {},
     onOpenContrastArticle: (String) -> Unit = {},
+    bodyRange: BodyItemRange = remember { BodyItemRange() },
 ) {
     val context = LocalContext.current
     val subheadUpperCase = LocalReadingSubheadUpperCase.current
@@ -115,7 +116,6 @@ fun Content(
 
     val pageTurnScope = rememberCoroutineScope()
 
-    val bodyRange = remember { BodyItemRange() }
     if (brainRpgViewModel != null) {
         ReadingCompletionTracker(listState, articleId, bodyRange, clock = completionClock, onCompleted = {
             brainRpgViewModel.onArticleReadFinished(articleId, articleCategory) {
