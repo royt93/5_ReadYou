@@ -75,13 +75,22 @@ sealed interface StreakRescueUiState {
     ) : StreakRescueUiState
 }
 
-class StreakRescueViewModel @Inject constructor(
-    private val repository: BrainRpgRepository,
-    @ApplicationContext private val context: Context,
-    @DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher,
-    @IODispatcher private val ioDispatcher: CoroutineDispatcher,
-    private val clock: () -> Long = System::currentTimeMillis,
+class StreakRescueViewModel internal constructor(
+    repository: BrainRpgRepository,
+    context: Context,
+    defaultDispatcher: CoroutineDispatcher,
+    ioDispatcher: CoroutineDispatcher,
+    clock: () -> Long,
+    adLauncher: (Activity, (Boolean) -> Unit) -> Unit,
 ) : ViewModel() {
+    // Hilt entry point: no function-typed parameters, which Hilt cannot provide.
+    @Inject constructor(
+        repository: BrainRpgRepository,
+        @ApplicationContext context: Context,
+        @DefaultDispatcher defaultDispatcher: CoroutineDispatcher,
+        @IODispatcher ioDispatcher: CoroutineDispatcher,
+    ) : this(repository, context, defaultDispatcher, ioDispatcher, System::currentTimeMillis, ::showRewardedAd)
+
     val state: StateFlow<StreakRescueUiState>
     fun checkOnStartup()
     fun onRescueWithAd(activity: Activity)
@@ -480,6 +489,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.resetMain
@@ -487,6 +498,7 @@ import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import org.junit.After
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Before
@@ -679,15 +691,27 @@ sealed interface StreakRescueUiState {
     ) : StreakRescueUiState
 }
 
+private fun showRewardedAd(activity: Activity, onResult: (Boolean) -> Unit) {
+    AdManager.showRewarded(activity) { earned -> onResult(earned) }
+}
+
 @HiltViewModel
-class StreakRescueViewModel @Inject constructor(
+class StreakRescueViewModel internal constructor(
     private val repository: BrainRpgRepository,
-    @ApplicationContext private val context: Context,
-    @DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher,
-    @IODispatcher private val ioDispatcher: CoroutineDispatcher,
-    private val clock: () -> Long = System::currentTimeMillis,
-    private val adLauncher: (Activity, (Boolean) -> Unit) -> Unit = { act, cb -> AdManager.showRewarded(act) { cb(it) } },
+    private val context: Context,
+    @Suppress("unused") private val defaultDispatcher: CoroutineDispatcher,
+    private val ioDispatcher: CoroutineDispatcher,
+    private val clock: () -> Long,
+    private val adLauncher: (Activity, (Boolean) -> Unit) -> Unit,
 ) : ViewModel() {
+
+    /** Hilt entry point: Hilt cannot provide function-typed parameters, so the clock and ad launcher default here. */
+    @Inject constructor(
+        repository: BrainRpgRepository,
+        @ApplicationContext context: Context,
+        @DefaultDispatcher defaultDispatcher: CoroutineDispatcher,
+        @IODispatcher ioDispatcher: CoroutineDispatcher,
+    ) : this(repository, context, defaultDispatcher, ioDispatcher, System::currentTimeMillis, ::showRewardedAd)
 
     private val _state = MutableStateFlow<StreakRescueUiState>(StreakRescueUiState.Idle)
     val state: StateFlow<StreakRescueUiState> = _state.asStateFlow()
@@ -873,8 +897,10 @@ class StreakRescueDialogTest {
 ```kotlin
 package com.mckimquyen.reader.ui.component.rpg
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
@@ -924,22 +950,29 @@ fun StreakRescueDialog(
                 }
             }
         },
+        // Material 3 1.0.1 AlertDialog has only confirm/dismiss slots, so all three actions live in one column.
         confirmButton = {
-            Button(
-                onClick = onRescueWithAd,
-                enabled = !isLoadingAd,
-                modifier = Modifier.testTag(STREAK_RESCUE_AD_TAG),
-            ) {
-                Text("🎬 $actionAd")
-            }
-        },
-        dismissButton = {
-            OutlinedButton(
-                onClick = onRestartFromScratch,
-                enabled = !isLoadingAd,
-                modifier = Modifier.testTag(STREAK_RESCUE_RESTART_TAG),
-            ) {
-                Text(actionRestart)
+            Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                Button(
+                    onClick = onRescueWithAd,
+                    enabled = !isLoadingAd,
+                    modifier = Modifier.fillMaxWidth().testTag(STREAK_RESCUE_AD_TAG),
+                ) {
+                    Text("🎬 $actionAd")
+                }
+                OutlinedButton(
+                    onClick = onRestartFromScratch,
+                    enabled = !isLoadingAd,
+                    modifier = Modifier.fillMaxWidth().testTag(STREAK_RESCUE_RESTART_TAG),
+                ) {
+                    Text(actionRestart)
+                }
+                TextButton(
+                    onClick = onDismissLater,
+                    modifier = Modifier.fillMaxWidth().testTag(STREAK_RESCUE_LATER_TAG),
+                ) {
+                    Text(actionLater)
+                }
             }
         },
     )
