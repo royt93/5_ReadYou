@@ -25,7 +25,7 @@ Todo gốc yêu cầu thẻ "đối kháng" với nửa dưới là **luận đi
 4. Overload mới `writePng(bitmap, String, ...)` làm các stub MockK `any()` trong `QuoteCardViewModelTest` bị mơ hồ; chỉ rõ `any<QuoteCardTemplate>()`.
 
 ## Kiểm chứng
-- **Unit:** 1.832 test, 0 lỗi, 0 skip (nền trước task 1.799). Chạy toàn bộ ba lần liên tiếp (một lần đầy đủ cùng lint và build, hai lần lặp) đều sạch, không flaky. Thêm: `DualPerspectiveTruncatorTest` 6, `DualCardRendererTest` 10, `DualCardViewModelTest` 9, `DualCardSheetContentTest` 5, `ReadingViewModelDualCardTest` 3, `ContrastingCoverageCardTest` +2, `QuoteCardSharerTest` +1 nhánh, `DualCardWordingTest` 1. `StringResourceParityTest` 6/6.
+- **Unit:** 1.836 test, 0 lỗi, 0 skip (nền trước task 1.799), đo sau cả hai bản sửa bố cục. Chạy toàn bộ ba lần liên tiếp đều sạch, không flaky. Thêm: `DualPerspectiveTruncatorTest` 6, `DualCardRendererTest` 10 (gồm 3 test hình học), `DualCardViewModelTest` 9, `DualCardSheetContentTest` 5, `ReadingViewModelDualCardTest` 3, `ContrastingCoverageCardTest` +2, `QuoteCardSharerTest` +1, `DualCardWordingTest` 1. `StringResourceParityTest` 6/6.
 - **Lint:** 0 lỗi, 0 fatal, 2.463 cảnh báo (không đổi). **Build:** `assembleDevDebug` và `assembleDevDebugAndroidTest` pass.
 - **Instrumentation trên Pixel 7 Pro `2B051FDH3006MU`:** `DualCardDeviceTest` 1/1 (`am instrument`, không dùng `connectedDevDebugAndroidTest`).
 - **Smoke thật trên Pixel** (kho gieo feed "Science Wire" trên BẢN SAO DB): mở bài BBC "Musk says SpaceX restricted Ukraine's Starlink connection…", cuộn tới thẻ "Góc nhìn khác" thấy nút "Xuất thẻ" ở hàng Science Wire. Chạm: sheet "Chia sẻ hai tiêu đề" hiện ảnh hai nửa (đen–neon trên, trắng–đỏ dưới), không chồng chữ sau khi sửa. Chạm "Chia sẻ": chooser "Chia sẻ hình ảnh" mở với ảnh thu nhỏ và nội dung `#RSSCatHub #Debate`; thoát bằng Back, không gửi đi đâu. Tắt "Tín hiệu giật tít & cảm xúc tiêu đề" rồi mở lại bài: không còn thẻ, không còn nút xuất (0 nút, 0 tiêu đề thẻ); thẻ quiz vẫn có.
@@ -52,4 +52,4 @@ Trước smoke đã sao lưu cả Room (`Reader`, `Reader-shm`, `Reader-wal`) v�
 - `9d051618` feat(echo-03): nút xuất trên thẻ ECHO-02 và nối vào Reader
 - `73c1e02d` fix(echo-03): chống chồng chữ ở nửa dưới
 - `0d8e5e37` fix(echo-03): cắt tiêu đề nửa dưới ở 90 ký tự
-- commit hoàn tất (tài liệu và test instrumentation) nằm ngay sau các commit trên
+- `29a3f985` feat(echo-03): hoàn tất thẻ hai tiêu đề từ kho cục bộ
