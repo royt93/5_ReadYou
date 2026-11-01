@@ -1,5 +1,7 @@
 package com.mckimquyen.reader.ui.component.quote
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -20,11 +22,12 @@ import androidx.compose.ui.window.PopupPositionProvider
 import com.mckimquyen.reader.R
 
 const val QUOTE_SHARE_CHIP_TAG = "quote_share_chip"
+const val QUOTE_INVESTIGATE_CHIP_TAG = "quote_investigate_chip"
 
 private val CHIP_GAP = 8.dp
 
 /**
- * Chip "Chia sẻ trích dẫn" hiện cạnh menu chọn chữ khi đang có đoạn chọn.
+ * Hàng chip "Chia sẻ trích dẫn" + "Điều tra" (BOUNTY-01) hiện cạnh menu chọn chữ khi đang có đoạn chọn.
  * Vị trí lấy từ [QuoteTextToolbar.anchorRect] (toạ độ trong cửa sổ): đặt ngay dưới vùng chọn,
  * nếu không đủ chỗ thì đặt phía trên; luôn kẹp trong cửa sổ.
  */
@@ -53,16 +56,27 @@ fun QuoteShareChip(toolbar: QuoteTextToolbar, modifier: Modifier = Modifier) {
         )
     }
     Popup(popupPositionProvider = provider) {
-        AssistChip(
-            onClick = {
-                toolbar.triggerShare()
-                toolbar.hide()
-            },
-            label = { Text(stringResource(R.string.quote_card_title)) },
-            modifier = modifier
-                .padding(CHIP_GAP)
-                .testTag(QUOTE_SHARE_CHIP_TAG),
-        )
+        Row(
+            modifier = modifier.padding(CHIP_GAP),
+            horizontalArrangement = Arrangement.spacedBy(CHIP_GAP),
+        ) {
+            AssistChip(
+                onClick = {
+                    toolbar.triggerShare()
+                    toolbar.hide()
+                },
+                label = { Text(stringResource(R.string.quote_card_title)) },
+                modifier = Modifier.testTag(QUOTE_SHARE_CHIP_TAG),
+            )
+            AssistChip(
+                onClick = {
+                    toolbar.triggerInvestigate()
+                    toolbar.hide()
+                },
+                label = { Text("🕵️ " + stringResource(R.string.bounty_action_investigate)) },
+                modifier = Modifier.testTag(QUOTE_INVESTIGATE_CHIP_TAG),
+            )
+        }
     }
 }
 

@@ -24,6 +24,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import com.mckimquyen.reader.ui.component.quote.QuoteTextToolbar
 import com.mckimquyen.reader.ui.component.quote.QuoteShareChip
+import com.mckimquyen.reader.domain.model.bounty.BountyQuerySanitizer
 import com.mckimquyen.reader.domain.model.quote.QuoteSelection
 import androidx.compose.ui.platform.LocalTextToolbar
 import androidx.compose.ui.platform.LocalClipboardManager
@@ -73,6 +74,7 @@ fun Content(
     brainRpgViewModel: BrainRpgViewModel? = null,
     completionClock: () -> Long = SystemClock::elapsedRealtime,
     onShareQuote: (String) -> Unit = {},
+    onInvestigate: (String) -> Unit = {},
 ) {
     val context = LocalContext.current
     val subheadUpperCase = LocalReadingSubheadUpperCase.current
@@ -113,18 +115,30 @@ fun Content(
         })
     }
 
-    // Toolbar bọc: giữ menu chọn chữ gốc, thêm chip "Chia sẻ trích dẫn". Khi chia sẻ, đoạn chọn được copy
-    // vào clipboard để đọc lại, rồi clipboard của người dùng được khôi phục ngay trước khi mở sheet.
+    // Toolbar bọc: giữ menu chọn chữ gốc, thêm chip "Chia sẻ trích dẫn" và "Điều tra" (BOUNTY-01). Khi bấm, đoạn chọn
+    // được copy vào clipboard để đọc lại, rồi clipboard của người dùng được khôi phục ngay trước khi mở sheet;
+    // đoạn chọn không được lưu ở đâu khác.
     val platformToolbar = LocalTextToolbar.current
     val clipboard = LocalClipboardManager.current
     val latestOnShareQuote by rememberUpdatedState(onShareQuote)
+    val latestOnInvestigate by rememberUpdatedState(onInvestigate)
     val quoteToolbar = remember(platformToolbar, clipboard) {
-        QuoteTextToolbar(platformToolbar) {
+        // Đọc đoạn vừa copy rồi trả clipboard về nguyên trạng, dùng chung cho cả hai hành động.
+        fun readSelectionAndRestoreClipboard(): String? {
             val previous = clipboard.getClip()
-            val selected = QuoteSelection.sanitize(clipboard.getText()?.text)
+            val raw = clipboard.getText()?.text
             previous?.let { clipboard.setClip(it) }
-            if (selected != null) latestOnShareQuote(selected)
+            return raw
         }
+        QuoteTextToolbar(
+            delegate = platformToolbar,
+            onInvestigate = {
+                BountyQuerySanitizer.sanitize(readSelectionAndRestoreClipboard())?.let { latestOnInvestigate(it) }
+            },
+            onShareQuote = {
+                QuoteSelection.sanitize(readSelectionAndRestoreClipboard())?.let { latestOnShareQuote(it) }
+            },
+        )
     }
 
     Box {

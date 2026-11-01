@@ -114,36 +114,16 @@ Deviation recorded: the plan said callers pre-escape; the repository now owns es
 
 ### Task 3: Preserve quote chip and add investigation selection action
 
-**Files:** Modify `QuoteTextToolbar.kt`, `QuoteShareChip.kt` (or create `SelectionActionChips.kt`), `Content.kt`; extend toolbar/popup tests and Android UI tests.
+**Files:** Modify `QuoteTextToolbar.kt`, `QuoteShareChip.kt`, `Content.kt`; extend toolbar tests; add `SelectionActionChipsTest`; add the 13 `bounty_*` strings to all 38 locales (moved here because the chip needs `bounty_action_investigate`).
 
-- [ ] **Step 1: Write failing toolbar tests**
+- [x] **Step 1: Write failing toolbar tests** (5 new cases in `QuoteTextToolbarTest`)
+- [x] **Step 2: Run toolbar test red** (`onInvestigate` / `triggerInvestigate` unresolved)
+- [x] **Step 3: Generalize toolbar and chip composition** (primary ctor `(delegate, onInvestigate, onShareQuote)` + secondary `(delegate, onShareQuote)` for source compatibility; chip row with `QUOTE_INVESTIGATE_CHIP_TAG`)
+- [x] **Step 4: Read and restore clipboard on investigation action** (`Content.kt`: shared `readSelectionAndRestoreClipboard()`, `BountyQuerySanitizer` applied only to the investigate path, `onInvestigate: (String) -> Unit = {}` parameter)
+- [x] **Step 5: Run unit/popup tests green** (`QuoteTextToolbarTest` 11/11, `SelectionActionChipsTest` 4/4, `QuoteChipPlacementTest` 4/4, `StringResourceParityTest` 6/6; `compileDevDebugKotlin` passes)
+- [x] **Step 6: Commit**
 
-Extend `QuoteTextToolbarTest`: standard platform callbacks still forward; `triggerShare()` still invokes copy then share only; `triggerInvestigate()` invokes copy then investigate only; both are no-op without a current selection; `hide()` clears both actions and anchor.
-
-- [ ] **Step 2: Run toolbar test red**
-
-Run: `./gradlew testDevDebugUnitTest --tests "*QuoteTextToolbarTest"`
-Expected: missing investigation action API/test failures.
-
-- [ ] **Step 3: Generalize toolbar and chip composition**
-
-Add `onInvestigate: () -> Unit` callback to `QuoteTextToolbar` while retaining the existing constructor behavior with a default no-op for source compatibility. `triggerInvestigate()` calls the saved platform `onCopyRequested`, then the investigation callback. Replace the single `QuoteShareChip` with `SelectionActionChips` that shows the existing quote AssistChip plus a BOUNTY AssistChip side-by-side in a bounded `Popup`; reuse `QuoteChipPlacement` and clamp total row width to window width. Do not modify Android's native selection menu.
-
-- [ ] **Step 4: Read and restore clipboard on investigation action**
-
-In `Content`, preserve the prior clipboard clip, invoke the saved selection copy, read selected text, restore the prior clip immediately, sanitize using `BountyQuerySanitizer`, then invoke `onInvestigate(cleanQuery)`. Keep `QuoteShareChip` share flow unchanged and never persist the selected text elsewhere.
-
-- [ ] **Step 5: Run unit/popup tests green**
-
-Run: `./gradlew testDevDebugUnitTest --tests "*QuoteTextToolbarTest" --tests "*QuoteChipPlacementTest" --rerun`
-Expected: all old and new quote behavior passes.
-
-- [ ] **Step 6: Commit**
-
-```bash
-git add app/src/main/java/com/mckimquyen/reader/ui/component/quote app/src/main/java/com/mckimquyen/reader/ui/page/home/read/Content.kt app/src/test/java/com/mckimquyen/reader/ui/component/quote
-git commit -m "feat(bounty-01): add investigation action beside quote chip"
-```
+Findings: (1) a single constructor with a defaulted `onInvestigate` before `onShareQuote` makes a trailing lambda bind to the wrong parameter, hence the secondary constructor. (2) Investigation still invokes the platform copy even with no `onInvestigate` callback, matching share's contract. (3) `ReadingPage` does not pass `onInvestigate` yet, so the chip is inert in the real UI until Task 4/5 wire the ViewModel and sheet.
 
 ### Task 4: Investigation state, local lookup and BYOK-only Gemini action
 

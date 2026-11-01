@@ -1023,4 +1023,17 @@
     <string name="brain_rpg_skill_tree_node_desc">%1$s, %2$d XP</string>
     <string name="brain_rpg_skill_tree_node_decayed_desc">%1$s, %2$d of %3$d XP retained (%4$d%%)</string>
     <string name="brain_rpg_skill_tree_decay_warning">This skill has faded over time. Practice to restore it.</string>
+    <string name="bounty_action_investigate">Investigate</string>
+    <string name="bounty_sheet_title">Entity Investigation Agent</string>
+    <string name="bounty_scanning_status">Scanning your news archive for: %1$s…</string>
+    <string name="bounty_stats_summary">%1$d related articles • %2$d sources</string>
+    <string name="bounty_empty_results">No other articles in your archive mention this entity.</string>
+    <string name="bounty_ai_context_action">AI context summary</string>
+    <string name="bounty_ai_context_title">Entity context (Gemini)</string>
+    <string name="bounty_ai_context_no_key">Add your own Gemini API key in AI settings to use this.</string>
+    <string name="bounty_time_range">Timeline: %1$s – %2$s</string>
+    <string name="bounty_invalid_query">Selected text is too short to investigate.</string>
+    <string name="bounty_radar_description">Radar scanning your archive</string>
+    <string name="bounty_error">Could not search your archive. Try again.</string>
+    <string name="bounty_ai_context_loading">Summarizing context…</string>
 </resources>

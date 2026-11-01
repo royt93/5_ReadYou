@@ -14,8 +14,16 @@ import androidx.compose.ui.platform.TextToolbarStatus
  */
 class QuoteTextToolbar(
     private val delegate: TextToolbar,
+    private val onInvestigate: () -> Unit,
     private val onShareQuote: () -> Unit,
 ) : TextToolbar {
+
+    /** Tương thích ngược: chỗ gọi cũ chỉ truyền delegate + onShareQuote. */
+    constructor(delegate: TextToolbar, onShareQuote: () -> Unit) : this(
+        delegate = delegate,
+        onInvestigate = {},
+        onShareQuote = onShareQuote,
+    )
 
     private var copyRequested: (() -> Unit)? = null
 
@@ -54,5 +62,12 @@ class QuoteTextToolbar(
         val copy = copyRequested ?: return
         copy()
         onShareQuote()
+    }
+
+    /** Như [triggerShare] nhưng gọi [onInvestigate]; no-op khi chưa có đoạn chọn. */
+    fun triggerInvestigate() {
+        val copy = copyRequested ?: return
+        copy()
+        onInvestigate()
     }
 }

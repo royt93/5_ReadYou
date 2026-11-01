@@ -113,6 +113,63 @@ class QuoteTextToolbarTest {
     }
 
     @Test
+    fun triggerInvestigate_invokesCopyThenInvestigate_inOrder_andNotShare() {
+        val calls = mutableListOf<String>()
+        val toolbar = QuoteTextToolbar(FakeToolbar(), onInvestigate = { calls += "investigate" }) { calls += "share" }
+        toolbar.showMenu(area, { calls += "copy" }, null, null, null)
+
+        toolbar.triggerInvestigate()
+
+        assertEquals(listOf("copy", "investigate"), calls)
+    }
+
+    @Test
+    fun triggerShare_doesNotInvokeInvestigate() {
+        val calls = mutableListOf<String>()
+        val toolbar = QuoteTextToolbar(FakeToolbar(), onInvestigate = { calls += "investigate" }) { calls += "share" }
+        toolbar.showMenu(area, { calls += "copy" }, null, null, null)
+
+        toolbar.triggerShare()
+
+        assertEquals(listOf("copy", "share"), calls)
+    }
+
+    @Test
+    fun triggerInvestigate_isNoOpWithoutCopy() {
+        val calls = mutableListOf<String>()
+        val toolbar = QuoteTextToolbar(FakeToolbar(), onInvestigate = { calls += "investigate" }) {}
+        toolbar.showMenu(area, null, {}, null, {})
+
+        toolbar.triggerInvestigate()
+
+        assertTrue(calls.isEmpty())
+    }
+
+    @Test
+    fun hide_clearsInvestigateAction() {
+        val calls = mutableListOf<String>()
+        val toolbar = QuoteTextToolbar(FakeToolbar(), onInvestigate = { calls += "investigate" }) {}
+        toolbar.showMenu(area, { calls += "copy" }, null, null, null)
+
+        toolbar.hide()
+        toolbar.triggerInvestigate()
+
+        assertTrue("sau hide không được điều tra nữa", calls.isEmpty())
+    }
+
+    @Test
+    fun constructorWithoutInvestigate_staysSourceCompatible() {
+        val calls = mutableListOf<String>()
+        val toolbar = QuoteTextToolbar(FakeToolbar()) { calls += "share" }
+        toolbar.showMenu(area, { calls += "copy" }, null, null, null)
+
+        toolbar.triggerInvestigate()
+
+        // copy vẫn chạy (đoạn chọn vào clipboard) nhưng onInvestigate là no-op và không rò sang share.
+        assertEquals(listOf("copy"), calls)
+    }
+
+    @Test
     fun status_reflectsDelegate() {
         val delegate = FakeToolbar()
         val toolbar = QuoteTextToolbar(delegate) {}
