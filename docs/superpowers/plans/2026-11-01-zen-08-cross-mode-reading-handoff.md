@@ -54,6 +54,7 @@ object ReadingPositionMapper {
     fun tokenIndexFromFraction(fraction: Float, tokenCount: Int): Int
     fun fractionFromTokenIndex(index: Int, tokenCount: Int): Float
     fun paragraphStartOffset(plainText: String, fraction: Float): Int
+    fun shouldHandoffFromRsvp(startIndex: Int, currentIndex: Int): Boolean
 }
 ```
 
@@ -74,7 +75,7 @@ class ReadingPositionMapperTest {
         assertEquals(4, ReadingPositionMapper.listIndexFromBodyFraction(0.5f, 2, 6))
     }
     @Test fun maps_body_fraction_back_to_global_list_fraction() {
-        assertEquals(0.4f, ReadingPositionMapper.listFractionFromBodyFraction(0.5f, 2, 6, 10), 0.0001f)
+        assertEquals(4f / 9f, ReadingPositionMapper.listFractionFromBodyFraction(0.5f, 2, 6, 10), 0.0001f)
     }
     @Test fun maps_fraction_to_token_and_back() {
         assertEquals(4, ReadingPositionMapper.tokenIndexFromFraction(0.5f, 9))
@@ -98,15 +99,15 @@ class ReadingPositionMapperTest {
         assertEquals(0, ReadingPositionMapper.paragraphStartOffset("One line only", 0.8f))
         assertEquals(0, ReadingPositionMapper.paragraphStartOffset("", 0.5f))
         assertEquals(0, ReadingPositionMapper.paragraphStartOffset("A\n\nB", 0f))
-        assertEquals("A\n\nB".length, ReadingPositionMapper.paragraphStartOffset("A\n\nB", 1f))
+        assertEquals("A\n\n".length, ReadingPositionMapper.paragraphStartOffset("A\n\nB", 1f))
     }
 }
 ```
 
-Use imports `org.junit.Assert.assertEquals`, `org.junit.Test`, `org.junit.runner.RunWith`, `org.junit.runners.JUnit4`.
+Use imports `org.junit.Assert.assertEquals`, `org.junit.Assert.assertFalse`, `org.junit.Assert.assertTrue`, `org.junit.Test`, `org.junit.runner.RunWith`, `org.junit.runners.JUnit4`.
 
 - [ ] **Step 2: Verify red.** Run `./gradlew testDevDebugUnitTest --tests "*ReadingPositionMapperTest"`; unresolved `ReadingPositionMapper` expected.
-- [ ] **Step 3: Implement minimal pure mapper.** Define constants above. Treat body item indices as `[bodyStart, bodyStart + bodyCount - 1]`; count ≤1 maps to start. Fractions clamp to `[0f, 1f]`; token indices use rounded `(count - 1) * fraction`, count≤0→0; inverse uses `index / (count - 1)`, count≤1→0. Global list fraction maps target list index divided by `(totalItems - 1)`, total≤1→0. Paragraph offset chooses nearest preceding blank-line boundary at/under `plainText.length * clampedFraction`, with 0/length at fraction endpoints. No Android dependencies.
+- [ ] **Step 3: Implement minimal pure mapper.** Define the constants above. Fractions clamp to `[0f, 1f]`. `bodyFractionFromList` = `(first - start) / (count - 1)` clamped, count≤1→0. `listIndexFromBodyFraction` = `start + (fraction * (count - 1)).toInt()` (truncation, same as the existing restore code), count≤1→`start` coerced ≥0. `tokenIndexFromFraction` = `(fraction * (count - 1)).roundToInt()`, count≤0→0. `fractionFromTokenIndex` = `index / (count - 1)` clamped, count≤1→0. `listFractionFromBodyFraction` = `listIndexFromBodyFraction / (totalItems - 1)`, total≤1→0. `paragraphStartOffset`: paragraph starts are 0 and the index after every `"\n\n"`; return the largest start ≤ `(plainText.length * fraction).toInt()`; empty text→0. `shouldHandoffFromRsvp` = `currentIndex - startIndex >= MIN_RSVP_WORDS_TO_SCROLL`. No Android dependencies.
 - [ ] **Step 4: Verify green.** Run mapper test; expected all 7 pass.
 - [ ] **Step 5: Commit.** `git add app/src/main/java/com/mckimquyen/reader/domain/readposition app/src/test/java/com/mckimquyen/reader/domain/readposition && git commit -m "feat(zen-08): add pure cross-mode reading position mapper"` (include required Co-Authored-By trailer).
 
@@ -138,7 +139,36 @@ Use imports `org.junit.Assert.assertEquals`, `org.junit.Test`, `org.junit.runner
 
 **Files:** `ReadingViewModel.kt`, new `ReadingViewModelPositionHandoffTest.kt`.
 
-- [ ] **Step 1: Add failing Robolectric tests.** Create fixture following `ReadingViewModelHtmlWorkerThreadTest`: `@RunWith(RobolectricTestRunner::class)`, `@Config(sdk=[34], application=Application::class)`, mock `RssSv`, `RssHelper`, `TtsManager`, `GeminiSummaryService`, `ZenAudioManager`; set Main to `StandardTestDispatcher`, inject same test scheduler as `defaultDispatcher`, provide `ttsManager.ttsState = MutableStateFlow(TtsState.IDLE)`, static-mock `HtmlCompat.fromHtml` to strip HTML, and always `resetMain`/`unmockkStatic` in `@After`. Test default fraction plays full text; fraction 0.5 plays from second paragraph for fixture `"<p>First paragraph.</p><p>Second paragraph.</p><p>Third paragraph.</p>"` after HtmlCompat returns `"First paragraph.\n\nSecond paragraph.\n\nThird paragraph."`; fraction 0.99 plays from beginning.
+- [ ] **Step 1: Add failing Robolectric tests.** Copy the fixture of `ReadingViewModelHtmlWorkerThreadTest` (imports, `@RunWith(RobolectricTestRunner::class) @Config(sdk = [34], application = Application::class)`, mocks, `Dispatchers.setMain(mainDispatcher)`, Log and `HtmlCompat` static mocks, `@After` with `resetMain` + `unmockkStatic`), but use article id `art_handoff_1`, `fullContent = "First paragraph.\n\nSecond paragraph.\n\nThird paragraph."`, and make the `HtmlCompat.fromHtml` mock return the HTML unchanged (`spanned.toString() returns html`). Build the VM with `defaultDispatcher = workerDispatcher` and add:
+
+```kotlin
+private fun newVm() = ReadingViewModel(
+    rssService = rssService, rssHelper = rssHelper, ttsManager = ttsManager,
+    summaryService = summaryService, zenAudioManager = zenAudioManager,
+    defaultDispatcher = workerDispatcher,
+)
+
+@Test fun togglePlayAudio_defaultFraction_playsFullText() = runTest(mainDispatcher) {
+    val vm = newVm(); vm.initData("art_handoff_1", autoTtsEnabled = false); advanceUntilIdle()
+    vm.togglePlayAudio(); advanceUntilIdle()
+    verify(exactly = 1) { ttsManager.play(FULL_TEXT, any(), any()) }
+}
+
+@Test fun togglePlayAudio_midFraction_playsFromNearestParagraph() = runTest(mainDispatcher) {
+    val vm = newVm(); vm.initData("art_handoff_1", autoTtsEnabled = false); advanceUntilIdle()
+    vm.togglePlayAudio(0.5f); advanceUntilIdle()
+    verify(exactly = 1) { ttsManager.play("Second paragraph.\n\nThird paragraph.", any(), any()) }
+}
+
+@Test fun togglePlayAudio_nearEndOrStart_restartsFromBeginning() = runTest(mainDispatcher) {
+    val vm = newVm(); vm.initData("art_handoff_1", autoTtsEnabled = false); advanceUntilIdle()
+    vm.togglePlayAudio(0.99f); advanceUntilIdle()
+    vm.togglePlayAudio(0.01f); advanceUntilIdle()
+    verify(exactly = 2) { ttsManager.play(FULL_TEXT, any(), any()) }
+}
+```
+
+with `private companion object { const val FULL_TEXT = "First paragraph.\n\nSecond paragraph.\n\nThird paragraph." }`. The third test calls `togglePlayAudio` twice; `ttsManager.ttsState` stays `IDLE`, so the second call plays again instead of stopping.
 - [ ] **Step 2: Red.** Run `./gradlew testDevDebugUnitTest --tests "*ReadingViewModelPositionHandoffTest"`; expected missing parameter/method behavior.
 - [ ] **Step 3: Implement.** Change `togglePlayAudio(startFraction: Float = 0f)` and `playCurrentContent(startFraction: Float = 0f)`; when stopped, stop TTS unchanged. After existing `HtmlCompat` work on `defaultDispatcher`, apply the 2% / 98% rule; otherwise `plainText.substring(ReadingPositionMapper.paragraphStartOffset(plainText, startFraction))`. Then call existing `ttsManager.play(...)` unchanged. TTS does not write progress.
 - [ ] **Step 4: Green.** Run new test and existing `ReadingViewModelHtmlWorkerThreadTest`; verify text parsing still occurs on worker dispatcher.
@@ -158,10 +188,48 @@ Use imports `org.junit.Assert.assertEquals`, `org.junit.Test`, `org.junit.runner
 ```
 
 - [ ] **Step 2: Red.** Run mapper test; expected unresolved helper.
-- [ ] **Step 3: Add `shouldHandoffFromRsvp(startIndex, currentIndex)` using `MIN_RSVP_WORDS_TO_SCROLL`; add the specified helper test.**
-- [ ] **Step 4: Wire `BodyItemRange`.** `ReadingPage` remembers one `BodyItemRange`; pass it to `Content`. Add trailing `bodyRange: BodyItemRange = remember { BodyItemRange() }` in `Content`, remove its private `remember { BodyItemRange() }`, and retain current `bodyRange.clear()`/`recordRange()`/`ReadingCompletionTracker` use. `onRsvpReading` calculates body fraction from `listState.firstVisibleItemIndex`, `bodyRange.start`, `bodyRange.count`; if `<0.02` or `>=0.98`, pass 0, else pass that fraction to RSVP. Because `RsvpReaderDialog` currently calls `loadContent(content)` in `LaunchedEffect(content)`, add trailing `startFraction: Float = 0f` and call `loadContent(content, startFraction)`.
-- [ ] **Step 5: Wire dismissal callback.** Keep RSVP start index in `remember(showRsvpDialog, articleId)` state, or compute `startIndex = tokenIndexFromFraction(startFraction, state.tokens.size)` before opening. On dialog dismiss, read `rsvpViewModel.uiState.value.currentIndex`; if `shouldHandoffFromRsvp(startIndex, currentIndex)`, calculate fraction with `fractionFromTokenIndex`, map to target body list index, `listState.scrollToItem(targetIndex)` in remembered coroutine scope, then call `readingViewModel.saveReadPosition(articleId, listFractionFromBodyFraction(fraction,...))`. Preserve `onDismiss` and do not save if body range is empty. Ensure manual dismiss and system/back dismiss use same callback and `showRsvpDialog` becomes false exactly once.
-- [ ] **Step 6: Wire TTS.** On `TopBar.onPlayAudio`, calculate current body fraction from list/body range and call `readingViewModel.togglePlayAudio(fraction)`. Existing auto-TTS callers keep default start fraction 0; TTS never writes back progress.
+- [ ] **Step 3: Confirm `shouldHandoffFromRsvp` (declared in Task 1 Interfaces and implemented in Task 1 Step 3) makes the mapper test green.**
+- [ ] **Step 4: Wire `BodyItemRange`.** In `Content.kt` add trailing `bodyRange: BodyItemRange = remember { BodyItemRange() }` and delete its private `val bodyRange = remember { BodyItemRange() }`; keep `bodyRange.clear()`, `recordRange(bodyRange)` and the `ReadingCompletionTracker` call. In `ReadingPage.kt` add:
+
+```kotlin
+val bodyRange = remember { BodyItemRange() }
+var rsvpStartFraction by remember { mutableStateOf(0f) }
+
+fun currentBodyFraction(): Float = ReadingPositionMapper.bodyFractionFromList(
+    listState.firstVisibleItemIndex, bodyRange.start, bodyRange.count,
+).let { f ->
+    if (f < ReadingPositionMapper.RESTART_BELOW_FRACTION || f >= ReadingPositionMapper.TREAT_AS_FINISHED_FRACTION) 0f else f
+}
+```
+
+Pass `bodyRange = bodyRange` to `Content(...)`. In `onRsvpReading` set `rsvpStartFraction = currentBodyFraction()` before `showRsvpDialog = true`. `RsvpReaderDialog` gets trailing `startFraction: Float = 0f` and its effect becomes `LaunchedEffect(content) { if (content.isNotBlank()) viewModel.loadContent(content, startFraction) }`; pass `startFraction = rsvpStartFraction` at the call site.
+- [ ] **Step 5: Wire dismissal.** Replace `onDismiss = { showRsvpDialog = false }` at the `RsvpReaderDialog` call with:
+
+```kotlin
+onDismiss = {
+    val state = rsvpViewModel.uiState.value
+    val startIndex = ReadingPositionMapper.tokenIndexFromFraction(rsvpStartFraction, state.tokens.size)
+    val articleId = readingUiState.articleWithFeed?.article?.id
+    if (articleId != null && bodyRange.count > 0 &&
+        ReadingPositionMapper.shouldHandoffFromRsvp(startIndex, state.currentIndex)
+    ) {
+        val fraction = ReadingPositionMapper.fractionFromTokenIndex(state.currentIndex, state.tokens.size)
+        val target = ReadingPositionMapper.listIndexFromBodyFraction(fraction, bodyRange.start, bodyRange.count)
+        val total = listState.layoutInfo.totalItemsCount
+        pageTurnScope.launch { listState.scrollToItem(target) }
+        if (readPositionSyncEnabled) {
+            readingViewModel.saveReadPosition(
+                articleId,
+                ReadingPositionMapper.listFractionFromBodyFraction(fraction, bodyRange.start, bodyRange.count, total),
+            )
+        }
+    }
+    showRsvpDialog = false
+},
+```
+
+`pageTurnScope` already exists in `ReadingPage` (`rememberCoroutineScope()`); the close button and back/outside-tap both go through this one `onDismiss`. The scroll also lets the existing `snapshotFlow` save loop persist progress, so the explicit save is only the immediate write.
+- [ ] **Step 6: Wire TTS.** Change `onPlayAudio = { readingViewModel.togglePlayAudio() }` (`ReadingPage.kt:348`) to `onPlayAudio = { readingViewModel.togglePlayAudio(currentBodyFraction()) }`. Auto-TTS callers keep the default `0f`; TTS never writes back progress.
 - [ ] **Step 7: Run existing UI and VM tests.** `./gradlew testDevDebugUnitTest --tests "*Content*" --tests "*ReadingViewModel*" --tests "*Rsvp*" --rerun`; fix compilation and read failures from XML. Ensure every ReadingViewModel unit test injects a test `defaultDispatcher` where its init observer may run, preventing Main access after `resetMain()`.
 - [ ] **Step 8: Run compile.** `./gradlew compileDevDebugKotlin`; expected BUILD SUCCESSFUL.
 - [ ] **Step 9: Commit.** Stage `Content.kt`, `ReadingPage.kt`, `RsvpReaderDialog.kt`, mapper and relevant tests; `git commit -m "feat(zen-08): connect reader, RSVP and TTS positions"` (trailer required).
@@ -170,9 +238,89 @@ Use imports `org.junit.Assert.assertEquals`, `org.junit.Test`, `org.junit.runner
 
 **Files:** `ReadingPositionHandoffTest.kt` (new Robolectric Compose) and `ReadingPositionHandoffDeviceTest.kt` (new androidTest).
 
-- [ ] **Step 1: Add instrumentation test first.** Test mapper on renderer boundary with 9 RSVP words: `loadContent(..., startFraction=0.5f)`, assert `currentIndex == 4`; after `seekTo(6)`, map token fraction to body index; assert index is in `[bodyStart, bodyStart + bodyCount - 1]`. No Room/DB or external network.
-- [ ] **Step 2: Add Robolectric Compose test first.** Use `@Config(sdk=[34], application=Application::class) @GraphicsMode(GraphicsMode.Mode.NATIVE)` and `createAndroidComposeRule<ComponentActivity>()`; test `Content` receives shared `BodyItemRange`, body range is populated after composition, and mapping fraction targets only body items. One `setContent` per test; for any no-card/no-node assertion use `onAllNodesWithTag(...).assertCountEquals(0)`; scroll a lazy child into view before clicking.
-- [ ] **Step 3: Run tests red then implement only test scaffolding required.** Robolectric: `./gradlew testDevDebugUnitTest --tests "*ReadingPositionHandoffTest"`; device test compiles as part of `assembleDevDebugAndroidTest`.
+- [ ] **Step 1: Write the Robolectric test (red until Task 4 is in).** Create `app/src/test/java/com/mckimquyen/reader/ui/page/home/read/ReadingPositionHandoffTest.kt`:
+
+```kotlin
+package com.mckimquyen.reader.ui.page.home.read
+
+import android.app.Application
+import androidx.activity.ComponentActivity
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import com.mckimquyen.reader.domain.readposition.ReadingPositionMapper
+import com.mckimquyen.reader.ui.component.reader.BodyItemRange
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
+import org.junit.Rule
+import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
+import org.robolectric.annotation.Config
+import org.robolectric.annotation.GraphicsMode
+
+@RunWith(RobolectricTestRunner::class)
+@Config(sdk = [34], application = Application::class)
+@GraphicsMode(GraphicsMode.Mode.NATIVE)
+class ReadingPositionHandoffTest {
+    @get:Rule
+    val compose = createAndroidComposeRule<ComponentActivity>()
+
+    @Test
+    fun sharedBodyRange_isPopulated_andTargetsOnlyBodyItems() {
+        val range = BodyItemRange()
+        compose.setContent {
+            Content(
+                content = (1..12).joinToString("") { "<p>Paragraph $it</p>" },
+                feedName = "Feed", title = "Title", author = null, link = "https://e.com/a",
+                publishedDate = java.util.Date(0L), listState = rememberLazyListState(),
+                isLoading = false, articleId = "a1", bodyRange = range,
+            )
+        }
+        compose.waitForIdle()
+
+        assertTrue(range.start > 0)
+        assertEquals(12, range.count)
+        val target = ReadingPositionMapper.listIndexFromBodyFraction(0.5f, range.start, range.count)
+        assertTrue(target in range.start until range.start + range.count)
+    }
+}
+```
+
+If `Content` needs more required parameters than shown, copy the minimal call from an existing Content test (`grep -rn "Content(" app/src/test`) rather than guessing. One `setContent` per test.
+
+- [ ] **Step 2: Write the instrumentation test.** Create `app/src/androidTest/java/com/mckimquyen/reader/ui/page/home/read/ReadingPositionHandoffDeviceTest.kt`:
+
+```kotlin
+package com.mckimquyen.reader.ui.page.home.read
+
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.mckimquyen.reader.domain.readposition.ReadingPositionMapper
+import com.mckimquyen.reader.ui.page.rsvp.RsvpViewModel
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
+import org.junit.Test
+import org.junit.runner.RunWith
+
+@RunWith(AndroidJUnit4::class)
+class ReadingPositionHandoffDeviceTest {
+    @Test
+    fun rsvpStartsMidArticle_andReturnsAnIndexInsideTheBody() {
+        val vm = RsvpViewModel()
+        vm.loadContent((1..9).joinToString(" ") { "word$it" }, startFraction = 0.5f)
+        assertEquals(4, vm.uiState.value.currentIndex)
+
+        vm.seekTo(6)
+        val fraction = ReadingPositionMapper.fractionFromTokenIndex(6, vm.uiState.value.tokens.size)
+        val target = ReadingPositionMapper.listIndexFromBodyFraction(fraction, bodyStart = 3, bodyCount = 10)
+        assertTrue(target in 3 until 13)
+        assertFalse(ReadingPositionMapper.shouldHandoffFromRsvp(startIndex = 4, currentIndex = 6))
+    }
+}
+```
+
+`RsvpViewModel()` needs no Hilt because the calibration store is optional (the existing `RsvpViewModelTest` does the same).
+- [ ] **Step 3: Run.** `./gradlew testDevDebugUnitTest --tests "*ReadingPositionHandoffTest"`; the device test compiles as part of `assembleDevDebugAndroidTest` in Task 6.
 - [ ] **Step 4: Run focused tests.** `./gradlew testDevDebugUnitTest --tests "*ReadingPositionHandoffTest" --tests "*ReadingPositionMapperTest" --tests "*RsvpViewModelTest" --tests "*ReadingViewModelPositionHandoffTest"`.
 - [ ] **Step 5: Commit.** `git add app/src/test/java/com/mckimquyen/reader/ui/page/home/read app/src/androidTest/java/com/mckimquyen/reader/ui/page/home/read && git commit -m "test(zen-08): cover cross-mode reading handoff"` (trailer required).
 
