@@ -17,7 +17,7 @@
 | ZEN-05 | Lịch Zen Daily Edition sai giờ đã chọn | P1 (High) | ✅ Implemented | [`done/ZEN-05_daily-edition-schedule-time-fix_DONE.md`](../done/ZEN-05_daily-edition-schedule-time-fix_DONE.md) |
 | ZEN-06 | Zen Audio không đồng bộ trạng thái thật | P2 (Medium) | ✅ Implemented | [`done/ZEN-06_zen-audio-state-sync-fix_DONE.md`](../done/ZEN-06_zen-audio-state-sync-fix_DONE.md) |
 | ZEN-07 | Adaptive RSVP Trainer | P2 (Medium) | ✅ Done (gợi ý tốc độ từ 3 vòng, không phải đo mức hiểu) | [`ZEN-07_adaptive-rsvp-trainer_DONE.md`](../done/ZEN-07_adaptive-rsvp-trainer_DONE.md) |
-| ZEN-08 | Cross-mode Reading Handoff | P2 (Medium) | 💭 Idea mới | [`ZEN-08_cross-mode-reading-handoff.md`](ZEN-08_cross-mode-reading-handoff.md) |
+| ZEN-08 | Cross-mode Reading Handoff | P2 (Medium) | ✅ Done (vị trí gần đúng; TTS không ghi ngược tiến độ) | [`ZEN-08_cross-mode-reading-handoff_DONE.md`](../done/ZEN-08_cross-mode-reading-handoff_DONE.md) |
 
 ## Tham chiếu
 - Completion report gốc (đã bổ sung audit): [`doc/task/done/08_ZEN_FOCUS_AND_SPEED_READING_DONE.md`](../done/08_ZEN_FOCUS_AND_SPEED_READING_DONE.md)
