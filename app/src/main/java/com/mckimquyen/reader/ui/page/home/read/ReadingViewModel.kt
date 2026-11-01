@@ -26,6 +26,7 @@ import com.mckimquyen.reader.domain.model.article.ReadPositionConflictResolver
 import com.mckimquyen.reader.domain.model.quote.QuoteCardSpec
 import com.mckimquyen.reader.domain.model.quote.QuoteSelection
 import com.mckimquyen.reader.domain.repository.ArticleDao
+import com.mckimquyen.reader.domain.readposition.ReadingPositionMapper
 import com.mckimquyen.reader.domain.repository.ArticleReadPositionDao
 import com.mckimquyen.reader.infrastructure.di.DefaultDispatcher
 import com.mckimquyen.reader.infrastructure.di.IODispatcher
@@ -288,7 +289,8 @@ class ReadingViewModel @Inject constructor(
         hideLoading()
     }
 
-    private fun playCurrentContent() {
+    /** [startFraction] is the body fraction already read; speech starts at the nearest paragraph at or before it. */
+    private fun playCurrentContent(startFraction: Float = 0f) {
         val content = _readingUiState.value.content
         val title = _readingUiState.value.articleWithFeed?.article?.title.orEmpty()
         val feedName = _readingUiState.value.articleWithFeed?.feed?.name.orEmpty()
@@ -303,8 +305,15 @@ class ReadingViewModel @Inject constructor(
                     content, androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY
                 ).toString()
             }
+            val resumeFrom = if (startFraction < ReadingPositionMapper.RESTART_BELOW_FRACTION ||
+                startFraction >= ReadingPositionMapper.TREAT_AS_FINISHED_FRACTION
+            ) {
+                0
+            } else {
+                ReadingPositionMapper.paragraphStartOffset(plainText, startFraction)
+            }
             Log.d("roy93~", "ReadingViewModel starting TTS play")
-            ttsManager.play(plainText, title, feedName)
+            ttsManager.play(plainText.substring(resumeFrom), title, feedName)
         }
     }
 
@@ -312,13 +321,13 @@ class ReadingViewModel @Inject constructor(
 
     fun setTtsSpeechRate(rate: Float): Boolean = ttsManager.setSpeechRate(rate)
 
-    fun togglePlayAudio() {
+    fun togglePlayAudio(startFraction: Float = 0f) {
         Log.d("roy93~", "ReadingViewModel togglePlayAudio called. Current state: ${_readingUiState.value.ttsState}")
         if (_readingUiState.value.ttsState == TtsState.PLAYING) {
             Log.d("roy93~", "ReadingViewModel stopping TTS")
             ttsManager.stop()
         } else {
-            playCurrentContent()
+            playCurrentContent(startFraction)
         }
     }
 
