@@ -188,7 +188,7 @@ class QuoteCardViewModelTest {
         val vm = viewModel()
         vm.start(spec)
         advanceUntilIdle()
-        coEvery { sharer.writePng(any(), any(), any()) } throws IOException("disk full")
+        coEvery { sharer.writePng(any(), any<QuoteCardTemplate>(), any()) } throws IOException("disk full")
 
         val result = vm.prepareShareIntent("title")
 
@@ -203,6 +203,6 @@ class QuoteCardViewModelTest {
         val result = vm.prepareShareIntent("title")
 
         assertNull(result)
-        coVerify(exactly = 0) { sharer.writePng(any(), any(), any()) }
+        coVerify(exactly = 0) { sharer.writePng(any(), any<QuoteCardTemplate>(), any()) }
     }
 }

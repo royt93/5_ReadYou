@@ -87,11 +87,17 @@ class QuoteCardSharerTest {
         val file = sharer.writePng(bitmap(), QuoteCardTemplate.GRADIENT_MATERIAL, nowMillis = NOW)
 
         val chooser = sharer.buildShareIntent(file, "Share quote card")
+        // Cùng một test gọi hai lần: FileProvider giữ strategy của test chạy trước nên test thứ hai gọi nó sẽ lỗi.
+        val chooserWithText = sharer.buildShareIntent(file, "Share card", SHARE_TEXT)
 
         assertEquals(Intent.ACTION_CHOOSER, chooser.action)
         @Suppress("DEPRECATION")
+        val sendWithText = chooserWithText.getParcelableExtra<Intent>(Intent.EXTRA_INTENT)!!
+        assertEquals(SHARE_TEXT, sendWithText.getStringExtra(Intent.EXTRA_TEXT))
+        @Suppress("DEPRECATION")
         val send = chooser.getParcelableExtra<Intent>(Intent.EXTRA_INTENT)
         assertNotNull(send)
+        assertEquals(null, send!!.getStringExtra(Intent.EXTRA_TEXT))
         assertEquals(Intent.ACTION_SEND, send!!.action)
         assertEquals(QuoteCardSharer.MIME_PNG, send.type)
         @Suppress("DEPRECATION")
@@ -103,7 +109,15 @@ class QuoteCardSharerTest {
         assertNotNull(send.clipData)
     }
 
+    @Test
+    fun writePng_withCustomPrefix_usesThatPrefixInTheFileName() = runBlocking {
+        val file = sharer.writePng(bitmap(), "dual", nowMillis = NOW)
+        assertTrue(file.name.startsWith("dual_"))
+        assertEquals(File(context.cacheDir, QuoteCardSharer.DIR_NAME), file.parentFile)
+    }
+
     private companion object {
+        const val SHARE_TEXT = "#RSSCatHub #Debate"
         // Mốc thời gian thật: mtime file do hệ thống đặt theo giờ thật nên mốc giả ở tương lai sẽ làm prune xoá nhầm.
         val NOW = System.currentTimeMillis()
         val PNG_SIGNATURE = byteArrayOf(0x89.toByte(), 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A)

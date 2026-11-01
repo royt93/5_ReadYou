@@ -26,25 +26,31 @@ class QuoteCardSharer @Inject constructor(
         bitmap: Bitmap,
         template: QuoteCardTemplate,
         nowMillis: Long = System.currentTimeMillis(),
+    ): File = writePng(bitmap, "quote_${template.storageName}", nowMillis)
+
+    suspend fun writePng(
+        bitmap: Bitmap,
+        filePrefix: String,
+        nowMillis: Long = System.currentTimeMillis(),
     ): File = withContext(ioDispatcher) {
         val dir = File(context.cacheDir, DIR_NAME).apply { mkdirs() }
         dir.listFiles()?.forEach { if (it.lastModified() < nowMillis - RETENTION_MS) it.delete() }
-        val file = File(dir, "quote_${template.storageName}_${nowMillis}_${Random.nextInt(0, NAME_RANDOM_BOUND)}.png")
+        val file = File(dir, "${filePrefix}_${nowMillis}_${Random.nextInt(0, NAME_RANDOM_BOUND)}.png")
         FileOutputStream(file).use { out ->
             check(bitmap.compress(Bitmap.CompressFormat.PNG, PNG_QUALITY, out)) { "PNG compress failed" }
         }
         file
     }
 
-    fun buildShareIntent(file: File, chooserTitle: String): Intent {
+    fun buildShareIntent(file: File, chooserTitle: String, shareText: String? = null): Intent {
         val uri = FileProvider.getUriForFile(context, context.getFileProvider(), file)
         val send = Intent(Intent.ACTION_SEND).apply {
             type = MIME_PNG
             putExtra(Intent.EXTRA_STREAM, uri)
+            if (shareText != null) putExtra(Intent.EXTRA_TEXT, shareText)
             clipData = ClipData.newRawUri("", uri)
             addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         }
-        // Chooser được mở bằng application context nên cần NEW_TASK.
         return Intent.createChooser(send, chooserTitle).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
     }
 
