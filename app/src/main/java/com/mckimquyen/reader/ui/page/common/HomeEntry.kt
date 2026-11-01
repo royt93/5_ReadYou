@@ -9,6 +9,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -30,7 +31,6 @@ import com.mckimquyen.reader.ui.ext.findActivity
 import com.mckimquyen.reader.ui.ext.initialFilter
 import com.mckimquyen.reader.ui.ext.initialPage
 import com.mckimquyen.reader.ui.ext.isFirstLaunch
-import com.mckimquyen.reader.ui.ext.headlineSignalsEnabled
 import com.mckimquyen.reader.ui.page.home.HomeViewModel
 import com.mckimquyen.reader.ui.page.home.addsources.AddSourceDetailPage
 import com.mckimquyen.reader.ui.page.home.addsources.AddSourcesMainPage
@@ -84,6 +84,7 @@ import kotlinx.coroutines.withContext
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import com.mckimquyen.reader.ui.ext.dataStore
+import com.mckimquyen.reader.ui.ext.headlineSignalsFlow
 import com.mckimquyen.reader.ui.ext.DataStoreKeys
 
 @Composable
@@ -193,9 +194,13 @@ fun HomeEntry(
 
         val radarFlagsViewModel: RadarFlagsViewModel = hiltViewModel()
         val radarFlags by radarFlagsViewModel.flags.collectAsState()
+        // DataStore flow phản ứng tức thời khi người dùng bật/tắt trong Cài đặt; không đọc một lần qua get().
+        val headlineSignalsReactive by remember(context) {
+            context.dataStore.headlineSignalsFlow()
+        }.collectAsState(initial = true)
         CompositionLocalProvider(
             LocalRadarFlags provides radarFlags,
-            LocalHeadlineSignalsEnabled provides context.headlineSignalsEnabled,
+            LocalHeadlineSignalsEnabled provides headlineSignalsReactive,
             LocalOpenRadarDiff provides { articleId ->
                 navController.navigate("${RouteName.ARTICLE_DIFF_PREFIX}/$articleId") { launchSingleTop = true }
             },

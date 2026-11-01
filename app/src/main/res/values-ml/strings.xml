@@ -997,7 +997,7 @@
     <string name="radar_diff_no_history">ഈ ലേഖനത്തിന്റെ മുൻ പതിപ്പുകളൊന്നും സേവ് ചെയ്തിട്ടില്ല.</string>
     <string name="radar_diff_removed_notice">തുടർച്ചയായ നിരവധി സമന്വയങ്ങളിൽ ഈ ലേഖനം അതിന്റെ ഫീഡിൽ ഉണ്ടായിരുന്നില്ല. അവസാനം സേവ് ചെയ്ത പതിപ്പ് താഴെ കാണിക്കുന്നു.</string>
     <string name="headline_signals_title">Headline Clickbait &amp; Tone Signals</string>
-    <string name="headline_signals_desc">Analyzes headline wording locally for clickbait cues and emotional tone (positive/unclear/negative). No text leaves the device and no article body is scanned. Spanish, French, and German are experimental.</string>
+    <string name="headline_signals_desc">Analyzes headline and article wording on this device for clickbait cues, promotional/hype wording, and emotional tone (positive/unclear/negative). Nothing is sent anywhere and no AI or network is used. These are wording signals only, not fact-checks or political-bias judgments. Spanish, French, and German are experimental.</string>
     <string name="headline_signals_clickbait_badge">🎯 Clickbait %1$d%%</string>
     <string name="headline_signals_clickbait_desc">Clickbait language indicator: score is %1$d out of 100.</string>
     <string name="headline_signals_tone_positive">🟢 Positive</string>

@@ -16,7 +16,9 @@ import com.mckimquyen.reader.domain.sv.CommuteContentSelector
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import java.io.IOException
@@ -80,6 +82,15 @@ val Context.htmlAntiTrackerEnabled: Boolean
 
 val Context.retractionRadarEnabled: Boolean
     get() = this.dataStore.get(DataStoreKeys.RetractionRadar) ?: true
+
+/**
+ * Reactive flow for the shared `Headline signals` toggle. Emits immediately on collection and on every setting change,
+ * dropping duplicates so HomeEntry's CompositionLocal does not re-compose for unrelated preference writes.
+ */
+fun DataStore<Preferences>.headlineSignalsFlow(): Flow<Boolean> =
+    this.data
+        .map { prefs -> prefs[DataStoreKeys.HeadlineSignals.key] ?: true }
+        .distinctUntilChanged()
 
 val Context.headlineSignalsEnabled: Boolean
     get() = this.dataStore.get(DataStoreKeys.HeadlineSignals) ?: true

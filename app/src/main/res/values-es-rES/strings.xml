@@ -927,7 +927,7 @@
     <string name="radar_diff_no_history">No se guardó ninguna versión anterior de este artículo.</string>
     <string name="radar_diff_removed_notice">Este artículo ya no estaba en su fuente durante varias sincronizaciones seguidas. Abajo se muestra la última versión guardada.</string>
     <string name="headline_signals_title">Señales de clickbait y tono en titulares</string>
-    <string name="headline_signals_desc">Analiza localmente el texto del titular en busca de clickbait y tono emocional (positivo/poco claro/negativo). No envía datos fuera del dispositivo y no escanea el cuerpo del artículo. Español, francés y alemán son experimentales.</string>
+    <string name="headline_signals_desc">Analiza en el dispositivo el texto del titular y del artículo en busca de clickbait, lenguaje promocional/exagerado y tono emocional (positivo/poco claro/negativo). No se envía nada ni se usa IA ni red. Son solo señales de redacción, no verificaciones de hechos ni juicios de sesgo político. Español, francés y alemán son experimentales.</string>
     <string name="headline_signals_clickbait_badge">🎯 Clickbait %1$d%%</string>
     <string name="headline_signals_clickbait_desc">Indicador de clickbait: puntuación de %1$d sobre 100.</string>
     <string name="headline_signals_tone_positive">🟢 Positivo</string>

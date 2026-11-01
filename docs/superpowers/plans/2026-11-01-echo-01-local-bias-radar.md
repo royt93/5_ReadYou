@@ -386,14 +386,14 @@ Findings: the section entry point `EchoSignalSection` was added to `EchoSignalGa
 
 **Files:** `app/src/androidTest`, `doc/task/done/ECHO-01_bias-radar-sentiment-gauge_DONE.md`, `doc/task/todo/16_ECHOCHAMBER_AND_BIAS_COMPASS.md`, `doc/feature.md`, remove `ECHO-01_bias-radar-sentiment-gauge.md`.
 
-- [ ] **Step 1: Write instrumentation device test**
+- [x] **Step 1: Write instrumentation device test**
 
 Create `app/src/androidTest/java/com/mckimquyen/reader/ui/page/headline/EchoSignalDeviceTest.kt` with `createAndroidComposeRule<ComponentActivity>`:
 - Noteworthy result renders gauges with tags on real Pixel display.
 - Clicking gauge opens sheet with disclaimer and passages.
 - Ordinary result renders no gauge.
 
-- [ ] **Step 2: Run full unit suite and lint**
+- [x] **Step 2: Run full unit suite and lint**
 
 Run:
 ```bash
@@ -403,7 +403,7 @@ Run:
 ```
 Record test counts, 0 errors, warning counts.
 
-- [ ] **Step 3: Run instrumentation on Pixel 7 Pro**
+- [x] **Step 3: Run instrumentation on Pixel 7 Pro**
 
 Verify device: `adb devices` shows `2B051FDH3006MU`.
 Install latest debug APK + test APK.
@@ -413,7 +413,7 @@ adb -s 2B051FDH3006MU shell am instrument -w -e class com.mckimquyen.reader.ui.p
 ```
 Expected: OK.
 
-- [ ] **Step 4: Manual smoke test on Pixel 7 Pro**
+- [x] **Step 4: Manual smoke test on Pixel 7 Pro**
 
 1. Back up Room DB before smoke.
 2. Check `topResumedActivity` before every touch. Stop if `AdActivity` appears (R4).
@@ -423,7 +423,7 @@ Expected: OK.
 6. Toggle `Headline signals` OFF in Privacy Settings: verify both EXC-04 and ECHO-01 disappear.
 7. Restore Room backup; verify integrity and counts.
 
-- [ ] **Step 5: Completion report and documentation**
+- [x] **Step 5: Completion report and documentation**
 
 Create `doc/task/done/ECHO-01_bias-radar-sentiment-gauge_DONE.md` with:
 - Scope: Hype/PR + tone only, offline heuristic, no political bias claims.
@@ -432,12 +432,14 @@ Create `doc/task/done/ECHO-01_bias-radar-sentiment-gauge_DONE.md` with:
 - Update `16_ECHOCHAMBER_AND_BIAS_COMPASS.md` and `doc/feature.md`.
 - Remove `doc/task/todo/ECHO-01_bias-radar-sentiment-gauge.md`.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add app/src doc/ docs/superpowers/plans/2026-11-01-echo-01-local-bias-radar.md
 git commit -m "feat(echo-01): complete local hype and sentiment signals"
 ```
+
+Findings: smoke trên Pixel 7 Pro phát hiện một bug có sẵn từ EXC-04: `HomeEntry` đọc preference một lần lúc khởi động, nên công tắc tắt không có tác dụng ngay; sửa bằng `DataStore.headlineSignalsFlow()` reactive. Smoke thật: bài PR đạt 100% (cam + cảnh báo), bài thường không hiện thanh nào, tắt công tắc thì cả badge lẫn thanh đều biến mất. Sự cố: lúc khôi phục công tắc, người làm đã xoá nhầm DataStore khiến cài đặt của owner trên Pixel bị mất (Room nguyên vẹn); quy tắc mới ghi vào memory: sao lưu DataStore cùng Room, không bao giờ `rm`. Tự đóng quảng cáo thành công. 20 instrumentation tests.
 
 ## Final Verification Checklist
 

@@ -929,7 +929,7 @@
     <string name="radar_diff_no_history">Aucune version antérieure de cet article n’a été enregistrée.</string>
     <string name="radar_diff_removed_notice">Cet article n’était plus dans son flux lors de plusieurs synchronisations de suite. La dernière version enregistrée est affichée ci-dessous.</string>
     <string name="headline_signals_title">Signaux de piège à clics et de ton du titre</string>
-    <string name="headline_signals_desc">Analyse localement le titre pour détecter les accroches racoleuses et le ton émotionnel (positif/incertain/négatif). Aucun texte ne quitte l\'appareil et aucun corps d\'article n\'est analysé. Espagnol, français et allemand sont expérimentaux.</string>
+    <string name="headline_signals_desc">Analyse sur l\'appareil le texte du titre et de l\'article pour détecter les accroches racoleuses, le langage promotionnel/exagéré et le ton émotionnel (positif/incertain/négatif). Rien n\'est envoyé et aucune IA ni réseau n\'est utilisé. Ce sont uniquement des signaux de formulation, pas des vérifications de faits ni des jugements de biais politique. Espagnol, français et allemand sont expérimentaux.</string>
     <string name="headline_signals_clickbait_badge">🎯 Piège à clics %1$d%%</string>
     <string name="headline_signals_clickbait_desc">Indicateur de piège à clics: score de %1$d sur 100.</string>
     <string name="headline_signals_tone_positive">🟢 Positif</string>

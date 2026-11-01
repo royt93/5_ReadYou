@@ -9,7 +9,7 @@
 
 | Task | Tiêu đề | Priority | Story Points | Status | Link |
 |---|---|---|---|---|---|
-| ECHO-01 | La Bàn Thiên Kiến & Đồng Hồ Cảm Xúc (Bias Radar & Sentiment Gauge) | P1 (High) | 5 SP | Todo | [ECHO-01_bias-radar-sentiment-gauge.md](ECHO-01_bias-radar-sentiment-gauge.md) |
+| ECHO-01 | Tín Hiệu Thổi Phồng & Cảm Xúc Thân Bài (Hype & Sentiment Gauge) | P1 (High) | 5 SP | ✅ Done (heuristic cục bộ; không đo thiên kiến chính trị) | [ECHO-01_bias-radar-sentiment-gauge_DONE.md](../done/ECHO-01_bias-radar-sentiment-gauge_DONE.md) |
 | ECHO-02 | Khung Luận Điểm Phản Biện Thép (Steelman Rebuttal Box) | P1 (High) | 8 SP | Todo | [ECHO-02_steelman-rebuttal-box.md](ECHO-02_steelman-rebuttal-box.md) |
 | ECHO-03 | Thẻ So Sánh Đối Kháng Viral (Dual-Perspective Quote Card 9:16) | P2 (Medium) | 5 SP | Todo | [ECHO-03_dual-perspective-quote-card.md](ECHO-03_dual-perspective-quote-card.md) |
 | ECHO-04 | Sàn Đấu Tranh Luận Giọng Nói (Voice AI Debate Arena) & Rewarded Ads | P1 (High) | 8 SP | Todo | [ECHO-04_voice-ai-debate-arena.md](ECHO-04_voice-ai-debate-arena.md) |
