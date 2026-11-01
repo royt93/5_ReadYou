@@ -25,6 +25,9 @@
 
 ---
 
+## Amendment (2026-11-01, after Task 4)
+`htmlFormattedText` merges consecutive paragraphs into ONE LazyColumn item, so a text article has `bodyRange.count == 1`. Per the owner, the mapper adds the in-item scroll offset: `bodyFractionFromList(firstVisibleIndex, firstVisibleOffsetPx, firstVisibleSizePx, bodyStart, bodyCount)` and `scrollTargetFromBodyFraction(fraction, bodyStart, bodyCount): BodyScrollTarget(listIndex, withinItem)` replace `bodyFractionFromList(first, start, count)` and `listIndexFromBodyFraction`. `ReadingPage` scrolls to `listIndex`, then `scrollBy(withinItem * measured item size)`. Tasks 1, 4 and 5 below describe the original signatures; the amendment commit supersedes them.
+
 ## File map
 
 - Create `app/src/main/java/com/mckimquyen/reader/domain/readposition/ReadingPositionMapper.kt`: pure conversions and named thresholds.

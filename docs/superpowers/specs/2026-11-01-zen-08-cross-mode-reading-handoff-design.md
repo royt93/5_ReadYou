@@ -55,3 +55,9 @@ Hàm thuần, không phụ thuộc Android:
 
 ## Ngoài phạm vi
 Ghi ngược tiến độ TTS, chính xác tới câu, cột vị trí theo ký tự và migration Room, đồng bộ vị trí RSVP qua WebDAV, chuỗi giao diện mới.
+
+## Điều chỉnh sau khi thực thi (2026-11-01)
+Phát hiện khi chạy test tích hợp Task 5: `htmlFormattedText` gộp mọi đoạn văn liền nhau vào **một** item `LazyColumn` (chỉ ảnh, code, danh sách, bảng mới cắt item). Bài toàn chữ nên có `bodyRange.count == 1`, và quy đổi theo chỉ số item không phân biệt được 5% với 90% của bài. Owner chọn thêm độ lệch cuộn trong item:
+- Vị trí = `(chỉ số item đầu thấy được - bodyStart + firstVisibleItemScrollOffset / kích thước item) / bodyCount`, kẹp 0..1. Đọc kích thước item từ `layoutInfo.visibleItemsInfo` (item đầu thấy được luôn đã được đo).
+- Chiều ngược lại: `scrollTargetFromBodyFraction` trả về `(listIndex, withinItem)`; cuộn tới `listIndex` rồi cuộn thêm `withinItem * kích thước item` (kích thước đọc sau khi item đã được đo).
+- Mỗi item vẫn được coi là cùng trọng số; sai số còn khi các item (ảnh, code) khác nhau nhiều về độ dài. Giá trị `ArticleReadPosition.progress` được lưu vẫn theo chỉ số item toàn danh sách (không đổi hợp đồng WebDAV), nên bản ghi lưu bền thô hơn vị trí trong phiên.
