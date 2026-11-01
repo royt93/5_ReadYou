@@ -34,6 +34,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import com.mckimquyen.reader.ui.page.rsvp.RsvpCalibrationViewModel
+import com.mckimquyen.reader.ui.page.rsvp.RsvpCalibrationDialog
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
@@ -56,6 +61,7 @@ fun ZenSettingsPage(
     viewModel: ZenSettingsViewModel = hiltViewModel()
 ) {
     val zenDailyEditionManager = viewModel.zenDailyEditionManager
+    var showCalibration by remember { mutableStateOf(false) }
     val isDailyEnabled by zenDailyEditionManager.isEnabled.collectAsState()
     val isBatchSilence by zenDailyEditionManager.isBatchSilence.collectAsState()
     val morningTime by zenDailyEditionManager.morningTime.collectAsState()
@@ -224,6 +230,46 @@ fun ZenSettingsPage(
                     }
                 }
 
+                // Speed calibration entry (ZEN-07)
+                item {
+                    Spacer(modifier = Modifier.height(12.dp))
+                    Card(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable { showCalibration = true },
+                        shape = RoundedCornerShape(16.dp),
+                        colors = CardDefaults.cardColors(
+                            containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
+                        )
+                    ) {
+                        Row(
+                            modifier = Modifier.padding(16.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Icon(
+                                imageVector = Icons.Outlined.ElectricBolt,
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.primary,
+                                modifier = Modifier.size(28.dp)
+                            )
+                            Spacer(modifier = Modifier.width(16.dp))
+                            Column {
+                                Text(
+                                    text = stringResource(R.string.zen_calibration_title),
+                                    style = MaterialTheme.typography.titleSmall,
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.colorScheme.onSurface
+                                )
+                                Text(
+                                    text = stringResource(R.string.zen_calibration_settings_desc),
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            }
+                        }
+                    }
+                }
+
                 item {
                     Spacer(modifier = Modifier.height(24.dp))
                     Text(
@@ -279,6 +325,15 @@ fun ZenSettingsPage(
             }
         }
     )
+
+    if (showCalibration) {
+        val calibrationViewModel: RsvpCalibrationViewModel = hiltViewModel()
+        RsvpCalibrationDialog(
+            viewModel = calibrationViewModel,
+            onApplied = { showCalibration = false },
+            onDismiss = { showCalibration = false },
+        )
+    }
 }
 
 private const val TIME_PARTS = 2

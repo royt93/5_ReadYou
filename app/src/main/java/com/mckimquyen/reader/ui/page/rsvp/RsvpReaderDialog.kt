@@ -40,13 +40,17 @@ import androidx.compose.material3.Slider
 import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -56,6 +60,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.mckimquyen.reader.R
 import com.mckimquyen.reader.ui.ext.DialogEdgeToEdge
 
@@ -97,6 +102,8 @@ fun RsvpReaderContent(
     onDismiss: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    var showCalibration by remember { mutableStateOf(false) }
+
     Surface(
         modifier = modifier
             .fillMaxSize()
@@ -352,12 +359,27 @@ fun RsvpReaderContent(
                         .padding(16.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Text(
-                        text = stringResource(R.string.zen_wpm_label, uiState.wpm),
-                        style = MaterialTheme.typography.bodyMedium,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onSurface
-                    )
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = stringResource(R.string.zen_wpm_label, uiState.wpm),
+                            style = MaterialTheme.typography.bodyMedium,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
+                        TextButton(
+                            onClick = {
+                                viewModel.pause()
+                                showCalibration = true
+                            },
+                            modifier = Modifier.testTag(ZEN_CALIBRATION_TRAIN_BUTTON_TAG)
+                        ) {
+                            Text(text = stringResource(R.string.zen_calibration_train_action))
+                        }
+                    }
 
                     Slider(
                         value = uiState.wpm.toFloat().coerceIn(200f, 900f),
@@ -384,5 +406,17 @@ fun RsvpReaderContent(
 
             Spacer(modifier = Modifier.height(8.dp))
         }
+    }
+
+    if (showCalibration) {
+        val calibrationViewModel: RsvpCalibrationViewModel = hiltViewModel()
+        RsvpCalibrationDialog(
+            viewModel = calibrationViewModel,
+            onApplied = { suggestion ->
+                viewModel.setWpm(suggestion.wpm)
+                showCalibration = false
+            },
+            onDismiss = { showCalibration = false },
+        )
     }
 }
