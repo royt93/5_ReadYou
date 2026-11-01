@@ -251,6 +251,7 @@ import android.content.Context
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import com.mckimquyen.reader.domain.model.rpg.BrainRpgProfileEntity
+import com.mckimquyen.reader.domain.model.rpg.BrainRpgLegacyPreferences
 import com.mckimquyen.reader.domain.model.rpg.StreakRescuePolicy
 import com.mckimquyen.reader.domain.sv.QuizGeneratorService
 import com.mckimquyen.reader.infrastructure.db.AndroidDatabase
@@ -299,7 +300,7 @@ class BrainRpgRepositoryStreakRescueTest {
 
     private suspend fun seedBrokenStreak(streak: Int = 5, daysAgo: Long = 3) {
         val lastRead = (now / day) - daysAgo
-        dao.upsertProfile(BrainRpgProfileEntity(id = 1, streakDays = streak, lastReadEpochDay = lastRead, streakShieldActive = false))
+        dao.upsertProfile(BrainRpgProfileEntity(id = 1, streakDays = streak, lastReadEpochDay = lastRead, streakShieldActive = false, legacyImportComplete = true))
         repository.refresh(now)
     }
 
@@ -317,14 +318,14 @@ class BrainRpgRepositoryStreakRescueTest {
     @Test fun resetBrokenStreak_rejectsWhenStreakIsAliveOrShieldArmed() = runTest {
         // Read yesterday: alive, not broken
         val yesterday = (now / day) - 1
-        dao.upsertProfile(BrainRpgProfileEntity(id = 1, streakDays = 5, lastReadEpochDay = yesterday, streakShieldActive = false))
+        dao.upsertProfile(BrainRpgProfileEntity(id = 1, streakDays = 5, lastReadEpochDay = yesterday, streakShieldActive = false, legacyImportComplete = true))
         repository.refresh(now)
 
         assertFalse(repository.resetBrokenStreak(now))
         assertEquals(5, repository.getProgress().streakDays)
 
         // Shield already active: not broken
-        dao.upsertProfile(BrainRpgProfileEntity(id = 1, streakDays = 5, lastReadEpochDay = (now / day) - 4, streakShieldActive = true))
+        dao.upsertProfile(BrainRpgProfileEntity(id = 1, streakDays = 5, lastReadEpochDay = (now / day) - 4, streakShieldActive = true, legacyImportComplete = true))
         repository.refresh(now)
 
         assertFalse(repository.resetBrokenStreak(now))
@@ -352,7 +353,7 @@ class BrainRpgRepositoryStreakRescueTest {
 
     @Test fun rescueBrokenStreak_rejectsWhenStreakIsStillAlive() = runTest {
         val yesterday = (now / day) - 1
-        dao.upsertProfile(BrainRpgProfileEntity(id = 1, streakDays = 5, lastReadEpochDay = yesterday, streakShieldActive = false))
+        dao.upsertProfile(BrainRpgProfileEntity(id = 1, streakDays = 5, lastReadEpochDay = yesterday, streakShieldActive = false, legacyImportComplete = true))
         repository.refresh(now)
 
         assertFalse(repository.rescueBrokenStreak(now))
@@ -463,11 +464,11 @@ import android.content.Context
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import com.mckimquyen.reader.domain.model.rpg.BrainRpgProfileEntity
+import com.mckimquyen.reader.domain.model.rpg.BrainRpgLegacyPreferences
 import com.mckimquyen.reader.domain.model.rpg.StreakRescueOffer
 import com.mckimquyen.reader.domain.model.rpg.StreakRescuePolicy
 import com.mckimquyen.reader.domain.repository.BrainRpgDao
 import com.mckimquyen.reader.domain.repository.BrainRpgLegacyImporter
-import com.mckimquyen.reader.domain.repository.BrainRpgLegacyPreferences
 import com.mckimquyen.reader.domain.repository.BrainRpgRepository
 import com.mckimquyen.reader.infrastructure.db.AndroidDatabase
 import com.mckimquyen.reader.ui.ext.DataStoreKeys
@@ -537,7 +538,7 @@ class StreakRescueViewModelTest {
 
     private suspend fun seedBrokenStreak(streak: Int = 5, daysAgo: Long = 3) {
         val lastRead = (now / day) - daysAgo
-        dao.upsertProfile(BrainRpgProfileEntity(id = 1, streakDays = streak, lastReadEpochDay = lastRead, streakShieldActive = false))
+        dao.upsertProfile(BrainRpgProfileEntity(id = 1, streakDays = streak, lastReadEpochDay = lastRead, streakShieldActive = false, legacyImportComplete = true))
         repository.refresh(now)
     }
 
@@ -559,7 +560,7 @@ class StreakRescueViewModelTest {
 
     @Test fun checkOnStartup_staysIdleWhenStreakIsAlive() = runTest(testDispatcher) {
         val yesterday = (now / day) - 1
-        dao.upsertProfile(BrainRpgProfileEntity(id = 1, streakDays = 5, lastReadEpochDay = yesterday, streakShieldActive = false))
+        dao.upsertProfile(BrainRpgProfileEntity(id = 1, streakDays = 5, lastReadEpochDay = yesterday, streakShieldActive = false, legacyImportComplete = true))
         repository.refresh(now)
 
         val vm = createViewModel()
