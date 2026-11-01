@@ -80,3 +80,4 @@ Bổ sung nút 1-chạm **"🕵️ Điều tra"** (`SelectionActionChips`) xuấ
 - `7160f07f`: `feat(bounty-01): add investigation action beside quote chip`
 - `df6daefd`: `feat(bounty-01): add local investigation state and BYOK context`
 - `1bad29b6`: `feat(bounty-01): show radar results in reader drawer`
+- `9a6c9b0a`: `feat(bounty-01): complete contextual local investigation agent`
