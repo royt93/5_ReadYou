@@ -468,7 +468,7 @@ Delete the old single `writePng` body (it moves into the prefix overload). The e
 
 **Files:** `app/src/main/res/values*/strings.xml`.
 
-- [ ] **Step 1: Add the 7 strings.** Save as `/tmp/echo03_strings.py`, run `python3 /tmp/echo03_strings.py` from the repo root (safe to re-run).
+- [ ] **Step 1: Add the 8 strings.** Save as `/tmp/echo03_strings.py`, run `python3 /tmp/echo03_strings.py` from the repo root (safe to re-run).
 
 ```python
 # -*- coding: utf-8 -*-
