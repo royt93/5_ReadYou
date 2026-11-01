@@ -1068,4 +1068,10 @@
     <string name="dossier_sources_note">Headlines are grouped by source; no conclusion is drawn.</string>
     <string name="dossier_article_count">%1$d articles</string>
     <string name="dossier_share_error">Could not prepare dossier for sharing.</string>
+
+    <!-- BOUNTY-03 graph viewport -->
+    <string name="second_brain_select_hint">Tap a topic to see the articles that mention it</string>
+    <string name="second_brain_reset_view">Reset view</string>
+    <string name="second_brain_zoom_hint">Pinch to zoom, drag to pan, double-tap to reset</string>
+    <string name="second_brain_zoom_level">Zoom %1$d%%</string>
 </resources>

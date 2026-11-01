@@ -950,4 +950,10 @@
     <string name="dossier_sources_note">Tiêu đề được gom theo từng nguồn; không rút ra kết luận.</string>
     <string name="dossier_article_count">%1$d bài</string>
     <string name="dossier_share_error">Không thể chuẩn bị hồ sơ để chia sẻ.</string>
+
+    <!-- BOUNTY-03 graph viewport -->
+    <string name="second_brain_select_hint">Chạm vào một chủ đề để xem các bài nhắc đến nó</string>
+    <string name="second_brain_reset_view">Đặt lại khung nhìn</string>
+    <string name="second_brain_zoom_hint">Chụm để phóng to, kéo để di chuyển, chạm đúp để đặt lại</string>
+    <string name="second_brain_zoom_level">Phóng to %1$d%%</string>
 </resources>
