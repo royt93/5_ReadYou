@@ -918,4 +918,18 @@
     <string name="bounty_radar_description">Radar đang quét kho tin của bạn</string>
     <string name="bounty_error">Không tìm được trong kho tin. Hãy thử lại.</string>
     <string name="bounty_ai_context_loading">Đang tóm tắt bối cảnh…</string>
+    <string name="echo_hype_label">Độ thổi phồng: %1$d%%</string>
+    <string name="echo_hype_warning">Phát hiện nhiều từ ngữ quảng cáo hoặc cường điệu</string>
+    <string name="echo_tone_label">Sắc thái: %1$s</string>
+    <string name="echo_tone_positive">🟢 Tích cực</string>
+    <string name="echo_tone_unclear">⚪ Chưa rõ</string>
+    <string name="echo_tone_negative">🔴 Tiêu cực</string>
+    <string name="echo_details_title">Tín hiệu ngôn từ trong bài</string>
+    <string name="echo_disclaimer">Chỉ là tín hiệu từ ngữ cục bộ; không phải kiểm chứng sự thật, đánh giá độ tin cậy, phân tích thiên kiến chính trị hay kết luận về ý định tác giả. “Chưa rõ” nghĩa là chưa đủ dấu hiệu từ vựng, không phải trung lập.</string>
+    <string name="echo_flagged_passages_title">Đoạn được đánh dấu (%1$d)</string>
+    <string name="echo_cue_promotional">Cụm từ quảng bá</string>
+    <string name="echo_cue_intensifier">Từ ngữ cường điệu</string>
+    <string name="echo_cue_absolute">Tuyên bố tuyệt đối</string>
+    <string name="echo_cue_exclamation">Dấu câu hoặc nhấn mạnh bằng chữ hoa</string>
+    <string name="echo_no_passages">Không có đoạn riêng lẻ nào vượt ngưỡng thổi phồng.</string>
 </resources>

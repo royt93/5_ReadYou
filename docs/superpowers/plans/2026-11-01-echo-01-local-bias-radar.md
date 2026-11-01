@@ -232,7 +232,7 @@ Deviation recorded: instead of calling the analyzer from `internalRenderFullCont
 
 **Files:** All 38 `app/src/main/res/values*/strings.xml`.
 
-- [ ] **Step 1: Define strings in values and values-vi**
+- [x] **Step 1: Define strings in values and values-vi**
 
 Keys to add:
 1. `echo_hype_label`: "Hype: %1$d%%" / "Độ thổi phồng: %1$d%%"
@@ -250,21 +250,23 @@ Keys to add:
 13. `echo_cue_exclamation`: "Punctuation/case" / "Dấu câu/chữ hoa"
 14. `echo_no_passages`: "No specific paragraph crossed the hype threshold." / "Không có đoạn văn riêng lẻ nào vượt ngưỡng thổi phồng."
 
-- [ ] **Step 2: Propagate to all 38 locales with EN fallback**
+- [x] **Step 2: Propagate to all 38 locales with EN fallback**
 
 Write a Python script to insert the block into every maintained `strings.xml`.
 
-- [ ] **Step 3: Run parity test green**
+- [x] **Step 3: Run parity test green**
 
 Run: `./gradlew testDevDebugUnitTest --tests "*StringResourceParityTest" --rerun processDevDebugResources`
 Expected: 6/6 parity tests pass.
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add app/src/main/res
 git commit -m "feat(echo-01): add echo signal strings across 38 locales"
 ```
+
+Result: 14 `echo_*` keys in all 38 `strings.xml` (EN and VI hand-written, others English fallback); `StringResourceParityTest` 6/6.
 
 ### Task 4: Inline gauges and detail sheet Composables
 

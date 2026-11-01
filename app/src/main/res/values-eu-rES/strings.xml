@@ -1022,4 +1022,18 @@
     <string name="bounty_radar_description">Radar scanning your archive</string>
     <string name="bounty_error">Could not search your archive. Try again.</string>
     <string name="bounty_ai_context_loading">Summarizing context…</string>
+    <string name="echo_hype_label">Hype: %1$d%%</string>
+    <string name="echo_hype_warning">Strong promotional or exaggerated wording detected</string>
+    <string name="echo_tone_label">Tone: %1$s</string>
+    <string name="echo_tone_positive">🟢 Positive</string>
+    <string name="echo_tone_unclear">⚪ Unclear</string>
+    <string name="echo_tone_negative">🔴 Negative</string>
+    <string name="echo_details_title">Body Language Signals</string>
+    <string name="echo_disclaimer">Local wording signals only; not a fact-check, credibility score, political-bias analysis, or author-intent claim. “Unclear” means insufficient lexical evidence, not neutral.</string>
+    <string name="echo_flagged_passages_title">Flagged passages (%1$d)</string>
+    <string name="echo_cue_promotional">Promotional phrase</string>
+    <string name="echo_cue_intensifier">Exaggeration</string>
+    <string name="echo_cue_absolute">Absolute claim</string>
+    <string name="echo_cue_exclamation">Punctuation or uppercase emphasis</string>
+    <string name="echo_no_passages">No individual paragraph crossed the Hype threshold.</string>
 </resources>
