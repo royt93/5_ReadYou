@@ -49,6 +49,8 @@ class ReadingViewModelPositionTest {
             ttsManager = ttsManager,
             summaryService = summaryService,
             zenAudioManager = zenAudioManager,
+            // Without this the init observers hop to Dispatchers.Default and resume on Main after resetMain().
+            defaultDispatcher = dispatcher,
             articleReadPositionDao = readPositionDao,
         )
     }
