@@ -140,34 +140,14 @@ Findings: (1) a single constructor with a defaulted `onInvestigate` before `onSh
 
 **Files:** Create `BountyInvestigationSheetContent.kt`; modify `ReadingPage.kt`; add Compose tests.
 
-- [ ] **Step 1: Write failing Compose tests**
+- [x] **Step 1: Write failing Compose tests** (10 cases in `BountyInvestigationSheetContentTest`)
+- [x] **Step 2: Run targeted UI tests red** (unresolved `BountyInvestigationSheetContent`)
+- [x] **Step 3: Implement radar and result content** (Canvas rings + `rememberInfiniteTransition` sweep, stats, date range, highlighted related rows, empty/error states, BYOK-gated AI action)
+- [x] **Step 4: Wire into `ReadingPage` existing drawer** (`isAnySheetOpen`, `BackHandler` precedence, outside-dismiss, `BottomDrawer` branch, row navigation via `${RouteName.READING}/$id`, `Content(onInvestigate = ...)`)
+- [x] **Step 5: Run Compose tests green** (10/10; combined Bounty/Quote/ReadingViewModel/Gemini/Parity suite 144/144)
+- [x] **Step 6: Commit**
 
-Test scanning text and radar Canvas tag; results header/query/stats/date range; empty state; related article title/feed/date row; BYOK button hidden when unavailable and shown when available; AI summary/error display; close callback; selecting related row calls article ID callback once.
-
-- [ ] **Step 2: Run targeted UI tests red**
-
-Run: `./gradlew testDevDebugUnitTest --tests "*BountyInvestigationSheetContentTest"`
-Expected: unresolved composable/tag/state.
-
-- [ ] **Step 3: Implement radar and result content**
-
-Create `BountyInvestigationSheetContent(state, canUseAiContext, onRequestAiContext, onOpenArticle, onClose)`. For SCANNING, draw three faded concentric rings and a rotating sweep with `Canvas` + `rememberInfiniteTransition`; expose localized content description and stable test tag. For RESULTS, show entity chip, result counts/unique sources/date range, `LazyColumn` rows from `ArticleListItemWithFeed`, highlight query in title with `AnnotatedString`/`SpanStyle`, and localized empty state. Show AI action only when `canUseAiContext`. Use named constants for scan delay and max results, not magic business numbers.
-
-- [ ] **Step 4: Wire into `ReadingPage` existing drawer**
-
-Extend `isAnySheetOpen` with bounty visibility; add BOUNTY branch in `BottomDrawer.sheetContent` before quote/summary branches; add `openBountyInvestigation` and `dismissBountyInvestigation` handlers; pass related article callback that dismisses sheet and runs `navController.navigate("${RouteName.READING}/$articleId")`. Preserve current quote, deep-read, mind-map and summary drawer branches and BackHandler precedence.
-
-- [ ] **Step 5: Run Compose tests green**
-
-Run: `./gradlew testDevDebugUnitTest --tests "*BountyInvestigationSheetContentTest" --rerun`
-Expected: all sheet state/render/navigation callback tests pass.
-
-- [ ] **Step 6: Commit**
-
-```bash
-git add app/src/main/java/com/mckimquyen/reader/ui/page/home/read app/src/test/java/com/mckimquyen/reader/ui/page/home/read
- git commit -m "feat(bounty-01): show radar results in reader drawer"
-```
+Note: the plan's radar action used `OutlinedButton`; the Failed state offers `Button` retry. Detail-sheet host remains the app's `BottomDrawer` (Material `ModalBottomSheetLayout`).
 
 ### Task 6: Localization, full verification and hardware smoke
 
