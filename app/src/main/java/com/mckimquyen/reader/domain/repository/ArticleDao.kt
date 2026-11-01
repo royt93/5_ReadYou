@@ -55,6 +55,32 @@ interface ArticleDao {
     )
     suspend fun queryQuizPeers(articleId: String, limit: Int): List<QuizPeer>
 
+    /**
+     * Local BOUNTY search across same-account article metadata only (FIX-17).
+     * [escapedKeyword] must escape LIKE metacharacters with a backslash; this query then treats them literally.
+     * The SQL below sits in a Kotlin raw string, so ESCAPE '\' is a single backslash character as SQLite requires.
+     */
+    @Transaction
+    @Query(
+        """
+        SELECT $ARTICLE_LIST_COLUMNS FROM article
+        WHERE accountId = :accountId
+          AND id != :currentArticleId
+          AND (
+            title LIKE '%' || :escapedKeyword || '%' ESCAPE '\'
+            OR shortDescription LIKE '%' || :escapedKeyword || '%' ESCAPE '\'
+          )
+        ORDER BY date DESC, id DESC
+        LIMIT :limit
+        """
+    )
+    suspend fun queryRelatedArticleListWithFeed(
+        accountId: Int,
+        currentArticleId: String,
+        escapedKeyword: String,
+        limit: Int = 20,
+    ): List<ArticleListItemWithFeed>
+
     @Query("UPDATE article SET fullContent = :content WHERE accountId = :accountId AND id = :articleId")
     suspend fun updateFullContent(accountId: Int, articleId: String, content: String)
 

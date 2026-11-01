@@ -93,78 +93,24 @@ data class BountyInvestigationState(
 
 **Files:** Create `BountyQuerySanitizer.kt` and `BountyQuerySanitizerTest.kt`.
 
-- [ ] **Step 1: Write failing unit tests**
-
-```kotlin
-@Test fun sanitizeCollapsesWhitespaceAndTrimsEdgePunctuation() {
-    assertEquals("DeepSeek-R1", BountyQuerySanitizer.sanitize("  \"DeepSeek-R1!\"  "))
-}
-@Test fun sanitizeUsesFirstSentenceAndCapsAt100Characters() {
-    assertEquals("Company Alpha", BountyQuerySanitizer.sanitize("Company Alpha. Second sentence"))
-    assertEquals(100, requireNotNull(BountyQuerySanitizer.sanitize("A".repeat(130))).length)
-}
-@Test fun sanitizeRejectsBlankOrOneCharacterSelection() {
-    assertNull(BountyQuerySanitizer.sanitize("  \n "))
-    assertNull(BountyQuerySanitizer.sanitize("x"))
-}
-@Test fun escapeLikeLiteralTreatsPercentUnderscoreAndBackslashAsText() {
-    assertEquals("A\\%B\\_C\\\\D", BountyQuerySanitizer.escapeLikeLiteral("A%B_C\\D"))
-}
-```
-
-- [ ] **Step 2: Run targeted test and verify red**
-
-Run: `./gradlew testDevDebugUnitTest --tests "*BountyQuerySanitizerTest"`
-Expected: compilation fails because `BountyQuerySanitizer` is absent.
-
-- [ ] **Step 3: Implement sanitizer**
-
-Use `QuoteSelection.sanitize(raw)` to collapse Unicode whitespace. Select first non-empty sentence split at `.`, `;`, or line break; trim surrounding quote/bracket/punctuation characters; cap to 100 Unicode code points without breaking surrogate pairs. Return null for final length under 2. `escapeLikeLiteral()` escapes `\` first, then `%` and `_` with `\` prefix.
-
-- [ ] **Step 4: Run unit tests green**
-
-Run: `./gradlew testDevDebugUnitTest --tests "*BountyQuerySanitizerTest" --rerun`
-Expected: all sanitizer tests pass.
-
-- [ ] **Step 5: Commit**
-
-```bash
-git add app/src/main/java/com/mckimquyen/reader/domain/model/bounty/BountyQuerySanitizer.kt app/src/test/java/com/mckimquyen/reader/domain/model/bounty/BountyQuerySanitizerTest.kt
-git commit -m "feat(bounty-01): sanitize selected investigation queries"
-```
+- [x] **Step 1: Write failing unit tests**
+- [x] **Step 2: Run targeted test and verify red** (missing `BountyQuerySanitizer` unresolved references)
+- [x] **Step 3: Implement sanitizer** (split on sentence, trim boundary punctuation, safe 100-char cap respecting surrogates, escape `\`, `%`, `_`)
+- [x] **Step 4: Run unit tests green** (7/7 tests passed)
+- [x] **Step 5: Commit** (`4b04b9cf`)
 
 ### Task 2: Same-account Room search and investigation stats
 
 **Files:** Modify `ArticleDao.kt`; create `BountyInvestigationResult.kt`, `BountyInvestigationRepository.kt`, and Robolectric tests.
 
-- [ ] **Step 1: Add failing in-memory Room tests**
+- [x] **Step 1: Add failing in-memory Room tests** (8 cases in `BountyInvestigationRepositoryTest`)
+- [x] **Step 2: Run targeted test red** (unresolved `BountyInvestigationRepository`)
+- [x] **Step 3: Add bounded metadata DAO query** (`queryRelatedArticleListWithFeed`, `ARTICLE_LIST_COLUMNS`, `ESCAPE '\'`)
+- [x] **Step 4: Implement repository and stats** (repository escapes LIKE metacharacters itself; callers pass the sanitized raw query)
+- [x] **Step 5: Run targeted Room tests green** (8/8; DAO/ArticleHistory/Bounty regression 52/52)
+- [x] **Step 6: Commit**
 
-In `app/src/test/java/com/mckimquyen/reader/domain/repository/BountyInvestigationRepositoryTest.kt`, create an in-memory `AndroidDatabase`, insert feeds/articles from two accounts, and assert: matches in title and shortDescription; excludes current article and other accounts; `%`, `_`, and `\` are literal; result limit is 20 newest; source count deduplicates feed IDs; earliest/latest dates correct; empty result has null dates and zero sources.
-
-- [ ] **Step 2: Run targeted test red**
-
-Run: `./gradlew testDevDebugUnitTest --tests "*BountyInvestigationRepositoryTest"`
-Expected: unresolved repository/query or missing result behavior.
-
-- [ ] **Step 3: Add bounded metadata DAO query**
-
-Add `@Transaction @Query` selecting exactly `ARTICLE_LIST_COLUMNS` from `article`, joined through Room `@Relation` to `Feed`, with predicates `accountId = :accountId AND id != :currentArticleId AND (title LIKE '%' || :escapedKeyword || '%' ESCAPE '\\' OR shortDescription LIKE '%' || :escapedKeyword || '%' ESCAPE '\\')`, order by date descending and limit 20. Return `List<ArticleListItemWithFeed>`. No entity/body projection.
-
-- [ ] **Step 4: Implement repository and stats**
-
-Sanitize/escape is handled before repository call. Repository calls the DAO, calculates distinct `feedId` count, min/max `article.date`, and returns `BountyInvestigationResult`. For empty lists, both dates null.
-
-- [ ] **Step 5: Run targeted Room tests green**
-
-Run: `./gradlew testDevDebugUnitTest --tests "*BountyInvestigationRepositoryTest" --rerun`
-Expected: all Room search and aggregation cases pass.
-
-- [ ] **Step 6: Commit**
-
-```bash
-git add app/src/main/java/com/mckimquyen/reader/domain/repository/ArticleDao.kt app/src/main/java/com/mckimquyen/reader/domain/model/bounty app/src/main/java/com/mckimquyen/reader/domain/repository/BountyInvestigationRepository.kt app/src/test/java/com/mckimquyen/reader/domain/repository/BountyInvestigationRepositoryTest.kt
-git commit -m "feat(bounty-01): search related article metadata locally"
-```
+Deviation recorded: the plan said callers pre-escape; the repository now owns escaping so no caller can forget it. First run failed with `ESCAPE expression must be a single character` because the Room query lives in a Kotlin raw string, where `'\\'` is two characters; a single `'\'` is correct.
 
 ### Task 3: Preserve quote chip and add investigation selection action
 
