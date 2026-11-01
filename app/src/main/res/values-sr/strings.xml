@@ -1032,4 +1032,14 @@
     <string name="echo_contrast_open_article_desc">Open article %1$s from %2$s</string>
     <string name="echo_contrast_empty_wording">No contrasting articles found</string>
     <string name="echo_contrast_switch_phrase_desc">Switch to topic %1$s</string>
+
+    <!-- ECHO-03 two-headline card -->
+    <string name="echo_dual_export">Export card</string>
+    <string name="echo_dual_export_desc">Export a two-headline card with %1$s</string>
+    <string name="echo_dual_title">Share two headlines</string>
+    <string name="echo_dual_share">Share</string>
+    <string name="echo_dual_cut_note">A headline was shortened</string>
+    <string name="echo_dual_error">Could not create the card. Tap to retry.</string>
+    <string name="echo_dual_chooser_title">Share two-headline card</string>
+    <string name="echo_dual_share_text">#RSSCatHub #Debate</string>
 </resources>
