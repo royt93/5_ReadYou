@@ -52,6 +52,17 @@ class TopicPhraseExtractorTest {
     }
 
     @Test
+    fun possessiveEndsARun_soTwoNamesAreNeverMergedIntoOnePhrase() {
+        val phrases = TopicPhraseExtractor.extract(
+            "Musk says SpaceX restricted Ukraine's Starlink connection as service restored",
+            "BBC News",
+        )
+        assertTrue(phrases.contains("Starlink"))
+        assertTrue(phrases.contains("Ukraine"))
+        assertFalse(phrases.contains("Ukraine Starlink"))
+    }
+
+    @Test
     fun deduplicatesCaseInsensitively() {
         val phrases = TopicPhraseExtractor.extract("Starlink and STARLINK clash over Starlink", "Feed")
         assertEquals(phrases.map { it.lowercase() }.distinct(), phrases.map { it.lowercase() })

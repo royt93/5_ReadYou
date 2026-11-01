@@ -22,7 +22,8 @@ object TopicPhraseExtractor {
 
     fun extract(title: String, feedName: String): List<String> {
         if (title.isBlank()) return emptyList()
-        val tokens = title.trim().split(WORD_SPLIT).map(::cleanToken)
+        val rawTokens = title.trim().split(WORD_SPLIT)
+        val tokens = rawTokens.map(::cleanToken)
         val candidates = linkedSetOf<String>()
 
         var index = 0
@@ -32,7 +33,11 @@ object TopicPhraseExtractor {
                 continue
             }
             var end = index
-            while (end < tokens.size && isCapitalized(tokens[end])) end++
+            // A possessive ("Ukraine's") closes the name, so the next capitalized word starts a new phrase.
+            while (end < tokens.size && isCapitalized(tokens[end])) {
+                end++
+                if (isPossessive(rawTokens[end - 1])) break
+            }
             collectWindows(tokens.subList(index, end), clauseStart = index == 0, out = candidates)
             index = end
         }
@@ -59,6 +64,8 @@ object TopicPhraseExtractor {
             }
         }
     }
+
+    private fun isPossessive(raw: String): Boolean = POSSESSIVE_SUFFIXES.any { raw.trimEnd { !it.isLetterOrDigit() && it != '\'' && it != '’' }.endsWith(it) }
 
     private fun cleanToken(raw: String): String {
         var token = raw
