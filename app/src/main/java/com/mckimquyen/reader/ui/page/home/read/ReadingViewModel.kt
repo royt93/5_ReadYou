@@ -40,6 +40,9 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import com.mckimquyen.reader.domain.headline.ArticleSignalAnalyzer
 import com.mckimquyen.reader.domain.model.bounty.BountyQuerySanitizer
+import com.mckimquyen.reader.domain.steelman.ContrastingCoverageFinder
+import com.mckimquyen.reader.domain.steelman.ContrastingCoverageState
+import com.mckimquyen.reader.domain.steelman.TopicPhraseExtractor
 import com.mckimquyen.reader.domain.model.bounty.Dossier
 import com.mckimquyen.reader.domain.model.bounty.DossierBuilder
 import com.mckimquyen.reader.domain.model.bounty.DossierMarkdownBuilder
@@ -54,6 +57,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -97,6 +101,16 @@ class ReadingViewModel @Inject constructor(
 
     private var echoJob: Job? = null
 
+    private var contrastJob: Job? = null
+    private var contrastPhrases: List<String> = emptyList()
+
+    private val _contrastingCoverage = MutableStateFlow<ContrastingCoverageState>(ContrastingCoverageState.Idle)
+    /**
+     * ECHO-02: other-source articles in the user's own archive that cover the same topic with contrarian headline
+     * wording. Lexical and archive-only; it never says an article actually rebuts anything.
+     */
+    val contrastingCoverage: StateFlow<ContrastingCoverageState> = _contrastingCoverage.asStateFlow()
+
     private val _echoSignalState = MutableStateFlow<EchoSignalState>(EchoSignalState.Idle)
     /**
      * ECHO-01: local hype/tone signals for the body Reader is showing. Toggle-agnostic on purpose: the shared
@@ -121,6 +135,14 @@ class ReadingViewModel @Inject constructor(
                 .map { it.articleWithFeed?.article?.id to it.content }
                 .distinctUntilChanged()
                 .collect { (articleId, content) -> analyzeEchoSignals(articleId, content) }
+        }
+        // ECHO-02: search the local archive for other angles whenever a different article is shown. Keyed on the id
+        // only, so a change of body text (description -> full content) does not repeat the search.
+        viewModelScope.launch {
+            _readingUiState
+                .map { it.articleWithFeed }
+                .distinctUntilChangedBy { it?.article?.id }
+                .collect { loadContrastingCoverage(it) }
         }
         // Collect TTS state once per ViewModel lifetime.
         // Previously this was inside initData(), which created a new collector
@@ -153,6 +175,9 @@ class ReadingViewModel @Inject constructor(
             summaryJob?.cancel()
             mindMapJob?.cancel()
             deepReadJob?.cancel()
+            // A stale card must never linger while the next article loads.
+            contrastJob?.cancel()
+            _contrastingCoverage.value = ContrastingCoverageState.Idle
             // Bounty results and the dossier belong to the previous article's context.
             dismissBountyInvestigation()
             _readingUiState.update {
@@ -459,6 +484,67 @@ class ReadingViewModel @Inject constructor(
         } catch (e: Exception) {
             Log.w("roy93~Bounty", "[VM.prepareDossierShare] failed: $e")
             null
+        }
+    }
+
+    private fun loadContrastingCoverage(articleWithFeed: ArticleWithFeed?) {
+        contrastJob?.cancel()
+        contrastPhrases = emptyList()
+        _contrastingCoverage.value = ContrastingCoverageState.Idle
+        val item = articleWithFeed ?: return
+        contrastJob = viewModelScope.launch {
+            _contrastingCoverage.value = ContrastingCoverageState.Searching
+            val phrases = withContext(defaultDispatcher) {
+                TopicPhraseExtractor.extract(item.article.title, item.feed.name)
+            }
+            if (phrases.isEmpty()) {
+                _contrastingCoverage.value = ContrastingCoverageState.None
+                return@launch
+            }
+            contrastPhrases = phrases
+            searchContrast(item, phrases.first(), phrases)
+        }
+    }
+
+    /** Re-runs the archive search for one of the phrases extracted from the current headline. */
+    fun selectContrastPhrase(phrase: String) {
+        val item = _readingUiState.value.articleWithFeed ?: return
+        if (phrase !in contrastPhrases) return
+        val phrases = contrastPhrases
+        contrastJob?.cancel()
+        contrastJob = viewModelScope.launch {
+            _contrastingCoverage.value = ContrastingCoverageState.Searching
+            searchContrast(item, phrase, phrases)
+        }
+    }
+
+    private suspend fun searchContrast(item: ArticleWithFeed, phrase: String, allPhrases: List<String>) {
+        val dao = articleDao
+        if (dao == null) {
+            _contrastingCoverage.value = ContrastingCoverageState.None
+            return
+        }
+        try {
+            val candidates = withContext(ioDispatcher) {
+                dao.queryRelatedArticleListWithFeed(
+                    accountId = item.article.accountId,
+                    currentArticleId = item.article.id,
+                    escapedKeyword = BountyQuerySanitizer.escapeLikeLiteral(phrase),
+                    limit = ContrastingCoverageFinder.CANDIDATE_LIMIT,
+                )
+            }
+            val contrasting = withContext(defaultDispatcher) {
+                ContrastingCoverageFinder.find(item.article.id, item.feed.id, phrase, candidates)
+            }
+            _contrastingCoverage.value =
+                if (contrasting.isEmpty()) ContrastingCoverageState.None
+                else ContrastingCoverageState.Ready(allPhrases, phrase, contrasting)
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            // A failed lookup must never break the reader; the card simply does not appear.
+            Log.w("roy93~Contrast", "[VM.searchContrast] failed: $e")
+            _contrastingCoverage.value = ContrastingCoverageState.None
         }
     }
 
