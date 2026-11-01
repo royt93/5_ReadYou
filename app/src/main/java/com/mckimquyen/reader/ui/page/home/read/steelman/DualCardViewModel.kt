@@ -41,7 +41,7 @@ class DualCardViewModel @Inject constructor(
             try {
                 val bitmap = withContext(defaultDispatcher) { renderer.render(spec) }
                 val wasCut = DualPerspectiveTruncator.truncate(spec.topTitle).wasCut ||
-                    DualPerspectiveTruncator.truncate(spec.bottomTitle).wasCut
+                    DualPerspectiveTruncator.truncate(spec.bottomTitle, DualPerspectiveTruncator.MAX_LOWER_HEADLINE_CHARS).wasCut
                 publish(DualCardUiState.Ready(bitmap, wasCut))
             } catch (e: CancellationException) {
                 throw e

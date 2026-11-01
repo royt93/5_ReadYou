@@ -71,21 +71,21 @@ object DualCardRenderer {
     private fun draw(spec: DualPerspectiveSpec, bounds: MutableList<RectF>?): Bitmap {
         val bitmap = Bitmap.createBitmap(CARD_WIDTH, CARD_HEIGHT, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(bitmap)
-        drawHalf(canvas, 0f, TOP, LABEL_TOP, spec.topTitle, "${spec.topSource} · ${spec.topDate}", null, MAX_HEADLINE_LINES, bounds)
+        drawHalf(canvas, 0f, TOP, LABEL_TOP, spec.topTitle, "${spec.topSource} · ${spec.topDate}", null, MAX_HEADLINE_LINES, DualPerspectiveTruncator.MAX_HEADLINE_CHARS, bounds)
         drawHalf(
             canvas, HALF_HEIGHT.toFloat(), BOTTOM, LABEL_BOTTOM, spec.bottomTitle,
-            "${spec.bottomSource} · ${spec.bottomDate}", spec.cue.takeIf { it.isNotBlank() }, MAX_LOWER_HEADLINE_LINES, bounds,
+            "${spec.bottomSource} · ${spec.bottomDate}", spec.cue.takeIf { it.isNotBlank() }, MAX_LOWER_HEADLINE_LINES, DualPerspectiveTruncator.MAX_LOWER_HEADLINE_CHARS, bounds,
         )
         drawFooter(canvas, bounds)
         return bitmap
     }
 
-    private fun drawHalf(canvas: Canvas, top: Float, p: Palette, label: String, title: String, meta: String, cue: String?, maxLines: Int, bounds: MutableList<RectF>?) {
+    private fun drawHalf(canvas: Canvas, top: Float, p: Palette, label: String, title: String, meta: String, cue: String?, maxLines: Int, maxChars: Int, bounds: MutableList<RectF>?) {
         val fill = Paint().apply { color = p.bg }
         canvas.drawRect(0f, top, CARD_WIDTH.toFloat(), top + HALF_HEIGHT, fill)
         drawLine(canvas, label, p.accent, LABEL_SIZE, true, top + LABEL_TOP_OFFSET, bounds)
 
-        val text = DualPerspectiveTruncator.truncate(title).text
+        val text = DualPerspectiveTruncator.truncate(title, maxChars).text
         val paint = TextPaint(Paint.ANTI_ALIAS_FLAG).apply {
             color = p.text
             textSize = HEADLINE_SIZE

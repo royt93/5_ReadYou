@@ -37,4 +37,12 @@ class DualPerspectiveTruncatorTest {
         assertTrue(r.wasCut)
         assertEquals(DualPerspectiveTruncator.MAX_HEADLINE_CHARS + 1, r.text.length)
     }
+
+    @Test fun lowerHeadline_usesTheShorterLimitThatFitsFourLines() {
+        val text = "a".repeat(DualPerspectiveTruncator.MAX_LOWER_HEADLINE_CHARS + 1)
+        val r = DualPerspectiveTruncator.truncate(text, DualPerspectiveTruncator.MAX_LOWER_HEADLINE_CHARS)
+        assertTrue(r.wasCut)
+        assertTrue(DualPerspectiveTruncator.MAX_LOWER_HEADLINE_CHARS < DualPerspectiveTruncator.MAX_HEADLINE_CHARS)
+        assertFalse(DualPerspectiveTruncator.truncate("a".repeat(DualPerspectiveTruncator.MAX_LOWER_HEADLINE_CHARS), DualPerspectiveTruncator.MAX_LOWER_HEADLINE_CHARS).wasCut)
+    }
 }
