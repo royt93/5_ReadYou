@@ -932,4 +932,22 @@
     <string name="echo_cue_absolute">Tuyên bố tuyệt đối</string>
     <string name="echo_cue_exclamation">Dấu câu hoặc nhấn mạnh bằng chữ hoa</string>
     <string name="echo_no_passages">Không có đoạn riêng lẻ nào vượt ngưỡng thổi phồng.</string>
+
+    <!-- BOUNTY-02 dossier -->
+    <string name="dossier_create_action">Lập hồ sơ</string>
+    <string name="dossier_sheet_title">Hồ sơ thông tin cục bộ</string>
+    <string name="dossier_tab_summary">Tóm tắt</string>
+    <string name="dossier_tab_timeline">Dòng thời gian</string>
+    <string name="dossier_tab_names">Tên gọi</string>
+    <string name="dossier_tab_sources">Nguồn tin</string>
+    <string name="dossier_share_action">Chia sẻ Markdown</string>
+    <string name="dossier_chooser_title">Chia sẻ hồ sơ</string>
+    <string name="dossier_limitation">Chỉ tổng hợp từ các bài đã lưu trong máy. Có thể bỏ sót góc nhìn khác và không phải kiểm chứng sự thật.</string>
+    <string name="dossier_summary_empty">Không có câu nào trong các bài đã lưu chứa cụm từ này.</string>
+    <string name="dossier_names_note">Cụm từ viết hoa xuất hiện lặp lại, không phải nhận dạng thực thể có tên.</string>
+    <string name="dossier_names_empty">Không có cụm từ nào xuất hiện lặp lại ở ít nhất 2 bài.</string>
+    <string name="dossier_sources_single">Kho lưu trữ của bạn chỉ có một nguồn viết về chủ đề này.</string>
+    <string name="dossier_sources_note">Tiêu đề được gom theo từng nguồn; không rút ra kết luận.</string>
+    <string name="dossier_article_count">%1$d bài</string>
+    <string name="dossier_share_error">Không thể chuẩn bị hồ sơ để chia sẻ.</string>
 </resources>

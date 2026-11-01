@@ -958,4 +958,22 @@
     <string name="echo_cue_absolute">Absolute claim</string>
     <string name="echo_cue_exclamation">Punctuation or uppercase emphasis</string>
     <string name="echo_no_passages">No individual paragraph crossed the Hype threshold.</string>
+
+    <!-- BOUNTY-02 dossier -->
+    <string name="dossier_create_action">Create dossier</string>
+    <string name="dossier_sheet_title">Local intelligence dossier</string>
+    <string name="dossier_tab_summary">Summary</string>
+    <string name="dossier_tab_timeline">Timeline</string>
+    <string name="dossier_tab_names">Names</string>
+    <string name="dossier_tab_sources">Sources</string>
+    <string name="dossier_share_action">Share Markdown</string>
+    <string name="dossier_chooser_title">Share dossier</string>
+    <string name="dossier_limitation">Built only from articles saved in this app. It may omit viewpoints and is not a fact-check.</string>
+    <string name="dossier_summary_empty">No sentence in your saved articles contains this phrase.</string>
+    <string name="dossier_names_note">Recurring capitalized phrases, not named-entity recognition.</string>
+    <string name="dossier_names_empty">No phrase recurs in at least 2 articles.</string>
+    <string name="dossier_sources_single">Your archive has only one source on this topic.</string>
+    <string name="dossier_sources_note">Headlines are grouped by source; no conclusion is drawn.</string>
+    <string name="dossier_article_count">%1$d articles</string>
+    <string name="dossier_share_error">Could not prepare dossier for sharing.</string>
 </resources>

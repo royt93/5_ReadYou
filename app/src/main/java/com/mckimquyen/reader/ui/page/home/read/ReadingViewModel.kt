@@ -1,5 +1,6 @@
 package com.mckimquyen.reader.ui.page.home.read
 
+import android.content.Intent
 import android.util.Log
 import androidx.annotation.Keep
 import androidx.annotation.StringRes
@@ -39,6 +40,10 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import com.mckimquyen.reader.domain.headline.ArticleSignalAnalyzer
 import com.mckimquyen.reader.domain.model.bounty.BountyQuerySanitizer
+import com.mckimquyen.reader.domain.model.bounty.Dossier
+import com.mckimquyen.reader.domain.model.bounty.DossierBuilder
+import com.mckimquyen.reader.domain.model.bounty.DossierMarkdownBuilder
+import com.mckimquyen.reader.infrastructure.bounty.DossierSharer
 import com.mckimquyen.reader.ui.page.headline.EchoSignalState
 import com.mckimquyen.reader.domain.repository.BountyInvestigationRepository
 import com.mckimquyen.reader.ui.page.home.read.bounty.BountyAiFailure
@@ -67,6 +72,7 @@ class ReadingViewModel @Inject constructor(
     private val articleReadPositionDao: ArticleReadPositionDao? = null,
     private val articleDao: ArticleDao? = null,
     @IODispatcher private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
+    private val dossierSharer: DossierSharer? = null,
 ) : ViewModel() {
 
     private val _readingUiState = MutableStateFlow(ReadingUiState())
@@ -97,6 +103,12 @@ class ReadingViewModel @Inject constructor(
      * `Headline signals` switch is a CompositionLocal, so it is enforced at render time in the UI.
      */
     val echoSignalState: StateFlow<EchoSignalState> = _echoSignalState.asStateFlow()
+
+    private var dossierJob: Job? = null
+
+    private val _dossier = MutableStateFlow<Dossier?>(null)
+    /** BOUNTY-02: in-memory digest of the current bounty results; never persisted. */
+    val dossier: StateFlow<Dossier?> = _dossier.asStateFlow()
 
     private val _bountyInvestigationState = MutableStateFlow(BountyInvestigationState())
     val bountyInvestigationState: StateFlow<BountyInvestigationState> = _bountyInvestigationState.asStateFlow()
@@ -141,6 +153,8 @@ class ReadingViewModel @Inject constructor(
             summaryJob?.cancel()
             mindMapJob?.cancel()
             deepReadJob?.cancel()
+            // Bounty results and the dossier belong to the previous article's context.
+            dismissBountyInvestigation()
             _readingUiState.update {
                 it.copy(
                     summaryState = SummaryState.Idle,
@@ -411,7 +425,45 @@ class ReadingViewModel @Inject constructor(
         _readingUiState.update { it.copy(showEchoSheet = false) }
     }
 
+    /** Builds the dossier from the loaded bounty results; no-op unless RESULTS has at least 2 articles. */
+    fun openDossier() {
+        val state = _bountyInvestigationState.value
+        val result = state.result
+        if (state.phase != BountyInvestigationPhase.RESULTS || result == null) return
+        if (result.articles.size < DossierBuilder.MIN_ARTICLES) return
+        dossierJob?.cancel()
+        dossierJob = viewModelScope.launch {
+            val built = withContext(defaultDispatcher) { DossierBuilder.build(result) } ?: return@launch
+            _dossier.value = built
+            _readingUiState.update { it.copy(showDossierSheet = true) }
+        }
+    }
+
+    fun dismissDossier() {
+        dossierJob?.cancel()
+        dossierJob = null
+        _dossier.value = null
+        _readingUiState.update { it.copy(showDossierSheet = false) }
+    }
+
+    /** Writes the Markdown export and returns a chooser intent, or null (no dossier, no sharer, or I/O failure). */
+    suspend fun prepareDossierShare(chooserTitle: String): Intent? {
+        val current = _dossier.value ?: return null
+        val sharer = dossierSharer ?: return null
+        return try {
+            val markdown = withContext(defaultDispatcher) { DossierMarkdownBuilder.build(current) }
+            val file = sharer.write(markdown, current.query)
+            sharer.buildShareIntent(file, chooserTitle)
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            Log.w("roy93~Bounty", "[VM.prepareDossierShare] failed: $e")
+            null
+        }
+    }
+
     fun dismissBountyInvestigation() {
+        dismissDossier()
         bountyJob?.cancel()
         bountyAiJob?.cancel()
         bountyJob = null
@@ -836,6 +888,7 @@ data class ReadingUiState(
     val quoteSpec: QuoteCardSpec? = null,
     val showBountySheet: Boolean = false,
     val showEchoSheet: Boolean = false,
+    val showDossierSheet: Boolean = false,
 )
 
 /** Trạng thái của luồng hỏi đáp tương tác AI Deep Read. */
