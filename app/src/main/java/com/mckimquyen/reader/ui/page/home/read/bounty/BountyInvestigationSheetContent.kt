@@ -51,6 +51,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import com.mckimquyen.reader.R
 import com.mckimquyen.reader.domain.model.article.ArticleListItemWithFeed
+import com.mckimquyen.reader.domain.model.bounty.DossierBuilder
 import java.text.DateFormat
 import java.util.Date
 
@@ -59,12 +60,14 @@ const val BOUNTY_RESULT_LIST_TAG = "bounty_result_list"
 const val BOUNTY_ARTICLE_TAG_PREFIX = "bounty_article_"
 const val BOUNTY_AI_BUTTON_TAG = "bounty_ai_button"
 const val BOUNTY_CLOSE_TAG = "bounty_close"
+const val BOUNTY_CREATE_DOSSIER_TAG = "bounty_create_dossier"
 
 private const val RADAR_SWEEP_MILLIS = 1800
 private const val RADAR_RING_COUNT = 3
 private const val RADAR_ROTATION_DEGREES = 360f
 private const val RADAR_MAX_RESULT_HEIGHT_DP = 360
 private const val RADAR_SIZE_DP = 160
+private const val DOSSIER_BUTTON_MIN_HEIGHT_DP = 48
 
 /**
  * Nội dung sheet "Agent điều tra" (BOUNTY-01): radar khi đang quét kho, rồi danh sách bài liên quan trong kho Room.
@@ -77,6 +80,7 @@ fun BountyInvestigationSheetContent(
     onRequestAiContext: () -> Unit,
     onClose: () -> Unit,
     modifier: Modifier = Modifier,
+    onCreateDossier: () -> Unit = {},
 ) {
     Column(
         modifier = modifier
@@ -107,7 +111,7 @@ fun BountyInvestigationSheetContent(
                 color = MaterialTheme.colorScheme.error,
                 style = MaterialTheme.typography.bodyMedium,
             )
-            BountyInvestigationPhase.RESULTS -> ResultsContent(state, onOpenArticle, onRequestAiContext)
+            BountyInvestigationPhase.RESULTS -> ResultsContent(state, onOpenArticle, onRequestAiContext, onCreateDossier)
         }
     }
 }
@@ -192,6 +196,7 @@ private fun ResultsContent(
     state: BountyInvestigationState,
     onOpenArticle: (String) -> Unit,
     onRequestAiContext: () -> Unit,
+    onCreateDossier: () -> Unit,
 ) {
     val result = state.result ?: return
 
@@ -242,6 +247,17 @@ private fun ResultsContent(
                 RelatedArticleRow(item, state.query, onOpenArticle)
             }
         }
+    }
+
+    if (result.articles.size >= DossierBuilder.MIN_ARTICLES) {
+        Spacer(Modifier.height(12.dp))
+        OutlinedButton(
+            onClick = onCreateDossier,
+            modifier = Modifier
+                .fillMaxWidth()
+                .heightIn(min = DOSSIER_BUTTON_MIN_HEIGHT_DP.dp)
+                .testTag(BOUNTY_CREATE_DOSSIER_TAG),
+        ) { Text("📁 " + stringResource(R.string.dossier_create_action)) }
     }
 
     if (state.canUseAiContext) {

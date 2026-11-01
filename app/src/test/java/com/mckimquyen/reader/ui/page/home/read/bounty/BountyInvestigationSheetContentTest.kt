@@ -58,12 +58,14 @@ class BountyInvestigationSheetContentTest {
         onOpenArticle: (String) -> Unit = {},
         onRequestAi: () -> Unit = {},
         onClose: () -> Unit = {},
+        onCreateDossier: () -> Unit = {},
     ) = compose.setContent {
         BountyInvestigationSheetContent(
             state = state,
             onOpenArticle = onOpenArticle,
             onRequestAiContext = onRequestAi,
             onClose = onClose,
+            onCreateDossier = onCreateDossier,
         )
     }
 
@@ -152,5 +154,23 @@ class BountyInvestigationSheetContentTest {
 
         assertEquals(1, closed)
         compose.onAllNodesWithText("zzz").assertCountEquals(0)
+    }
+
+    @Test
+    fun createDossierButton_absentWithFewerThanTwoArticles() {
+        show(results(item("1", "DeepSeek only")))
+
+        compose.onAllNodesWithTag(BOUNTY_CREATE_DOSSIER_TAG).assertCountEquals(0)
+    }
+
+    @Test
+    fun createDossierButton_presentAndFiresWithTwoArticles() {
+        var created = 0
+        show(results(item("1", "DeepSeek one"), item("2", "DeepSeek two")), onCreateDossier = { created++ })
+
+        compose.onNodeWithTag(BOUNTY_CREATE_DOSSIER_TAG).assertIsDisplayed()
+        compose.onNodeWithTag(BOUNTY_CREATE_DOSSIER_TAG).performClick()
+
+        assertEquals(1, created)
     }
 }
