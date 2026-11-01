@@ -1006,4 +1006,20 @@
     <string name="streak_rescue_action_restart">Start from scratch</string>
     <string name="streak_rescue_action_later">Later</string>
     <string name="streak_rescue_ad_failed">Could not load video. Please try again.</string>
+
+    <!-- ZEN-07 RSVP calibration -->
+    <string name="zen_calibration_title">Reading Speed Calibration</string>
+    <string name="zen_calibration_train_action">Calibrate Speed</string>
+    <string name="zen_calibration_intro_title">Find Your Optimal Speed</string>
+    <string name="zen_calibration_intro_desc">Read 3 short passages at increasing speeds (300, 450, 600 WPM), then answer 2 questions per passage. Takes about 2 minutes.</string>
+    <string name="zen_calibration_start">Start Calibration</string>
+    <string name="zen_calibration_round_header">Round %1$d of 3 (%2$d WPM)</string>
+    <string name="zen_calibration_questions_header">Comprehension Check</string>
+    <string name="zen_calibration_result_title">Calibration Results</string>
+    <string name="zen_calibration_suggested_wpm">Suggested speed: ~%1$d WPM</string>
+    <string name="zen_calibration_limitation">This is a rough estimate from 6 questions, not a measure of deep comprehension. You can always adjust speed manually.</string>
+    <string name="zen_calibration_low_confidence_note">Your answers varied across speeds; try reading at your own pace and recalibrate later.</string>
+    <string name="zen_calibration_apply">Apply</string>
+    <string name="zen_calibration_skip">Skip</string>
+    <string name="zen_calibration_settings_desc">Calibrate your reading speed across 3 short rounds</string>
 </resources>

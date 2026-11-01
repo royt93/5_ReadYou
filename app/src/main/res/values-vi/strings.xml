@@ -964,4 +964,20 @@
     <string name="streak_rescue_action_restart">Bắt đầu lại từ đầu</string>
     <string name="streak_rescue_action_later">Để sau</string>
     <string name="streak_rescue_ad_failed">Không thể tải video. Vui lòng thử lại.</string>
+
+    <!-- ZEN-07 RSVP calibration -->
+    <string name="zen_calibration_title">Hiệu chỉnh tốc độ đọc</string>
+    <string name="zen_calibration_train_action">Hiệu chỉnh tốc độ</string>
+    <string name="zen_calibration_intro_title">Tìm tốc độ đọc tối ưu</string>
+    <string name="zen_calibration_intro_desc">Đọc 3 đoạn văn ngắn ở các tốc độ tăng dần (300, 450, 600 WPM), sau đó trả lời 2 câu hỏi mỗi đoạn. Mất khoảng 2 phút.</string>
+    <string name="zen_calibration_start">Bắt đầu hiệu chỉnh</string>
+    <string name="zen_calibration_round_header">Vòng %1$d / 3 (%2$d WPM)</string>
+    <string name="zen_calibration_questions_header">Kiểm tra mức độ hiểu</string>
+    <string name="zen_calibration_result_title">Kết quả hiệu chỉnh</string>
+    <string name="zen_calibration_suggested_wpm">Tốc độ đề xuất: ~%1$d WPM</string>
+    <string name="zen_calibration_limitation">Đây là ước lượng thô từ 6 câu hỏi, không phải thước đo hiểu bài sâu. Bạn luôn có thể chỉnh tốc độ thủ công.</string>
+    <string name="zen_calibration_low_confidence_note">Câu trả lời chưa ổn định ở các tốc độ; hãy đọc theo nhịp tự nhiên và hiệu chỉnh lại sau.</string>
+    <string name="zen_calibration_apply">Áp dụng</string>
+    <string name="zen_calibration_skip">Bỏ qua</string>
+    <string name="zen_calibration_settings_desc">Hiệu chỉnh tốc độ đọc qua 3 vòng ngắn</string>
 </resources>

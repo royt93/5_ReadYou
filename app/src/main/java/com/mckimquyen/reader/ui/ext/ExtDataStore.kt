@@ -8,6 +8,7 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.doublePreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
+import androidx.datastore.preferences.core.floatPreferencesKey
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
@@ -606,5 +607,16 @@ sealed class DataStoreKeys<T> {
     object StreakRescueLastPromptDay : DataStoreKeys<Long>() {
         override val key: Preferences.Key<Long>
             get() = longPreferencesKey("streak_rescue_last_prompt_day")
+    }
+
+    /** Speed the user accepted from the RSVP calibration (ZEN-07). Unset means never calibrated. */
+    object RsvpSuggestedWpm : DataStoreKeys<Int>() {
+        override val key: Preferences.Key<Int>
+            get() = intPreferencesKey("rsvp_suggested_wpm")
+    }
+
+    object RsvpPunctuationDelayScale : DataStoreKeys<Float>() {
+        override val key: Preferences.Key<Float>
+            get() = floatPreferencesKey("rsvp_punctuation_delay_scale")
     }
 }
