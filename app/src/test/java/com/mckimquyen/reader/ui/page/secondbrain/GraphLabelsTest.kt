@@ -111,4 +111,24 @@ class GraphLabelsTest {
         assertTrue(select(emptyList(), emptyMap()).isEmpty())
         assertTrue(select(listOf(node("x", 1)), emptyMap()).isEmpty())
     }
+
+    @Test
+    fun label_clearsTheNodeCircle_whenAGapIsGiven() {
+        val nodes = listOf(node("mid", 1))
+        val centre = Offset(500f, 400f)
+        val gap = 30f // stands in for the node radius plus padding
+        val box = GraphLabels.select(nodes, mapOf("mid" to centre), null, emptySet(), 1f, 1000f, 800f, measure) { gap }.single()
+
+        assertTrue("label must end above the circle", box.top + box.height <= centre.y - gap)
+    }
+
+    @Test
+    fun label_flipsBelowTheCircle_whenThereIsNoRoomAbove() {
+        val nodes = listOf(node("top", 1))
+        val centre = Offset(500f, 20f)
+        val gap = 30f
+        val box = GraphLabels.select(nodes, mapOf("top" to centre), null, emptySet(), 1f, 1000f, 800f, measure) { gap }.single()
+
+        assertTrue("label must start below the circle", box.top >= centre.y + gap)
+    }
 }

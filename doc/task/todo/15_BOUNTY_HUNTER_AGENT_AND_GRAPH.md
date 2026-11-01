@@ -9,7 +9,7 @@
 |---|---|---|---|---|---|
 | BOUNTY-01 | Kích Hoạt Agent Điều Tra 1-Chạm Trên Màn Hình Đọc (Contextual Agent Trigger) | P1 (High) | 5 SP | ✅ Done (quét kho Room cục bộ; AI chỉ khi có key riêng) | [BOUNTY-01_contextual-agent-trigger_DONE.md](../done/BOUNTY-01_contextual-agent-trigger_DONE.md) |
 | BOUNTY-02 | Trình Tạo Hồ Sơ Báo Cáo Phân Tích (Executive Intelligence Dossier) | P1 (High) | 8 SP | ✅ Done (tổng hợp cơ học từ kho cục bộ, xuất Markdown; không AI/Reddit/PDF) | [BOUNTY-02_executive-intelligence-dossier_DONE.md](../done/BOUNTY-02_executive-intelligence-dossier_DONE.md) |
-| BOUNTY-03 | Biểu Đồ Mạng Nhện Tri Thức Kiểu Obsidian (Interactive 2D Knowledge Graph) | P2 (Medium) | 8 SP | todo | [BOUNTY-03_interactive-knowledge-graph.md](BOUNTY-03_interactive-knowledge-graph.md) |
+| BOUNTY-03 | Biểu Đồ Mạng Nhện Tri Thức Kiểu Obsidian (Interactive 2D Knowledge Graph) | P2 (Medium) | 8 SP | ✅ Done (nâng cấp đồ thị Second Brain có sẵn: zoom/pan, node kề sáng, nhãn; không phải đồ thị thực thể mới) | [BOUNTY-03_interactive-knowledge-graph_DONE.md](../done/BOUNTY-03_interactive-knowledge-graph_DONE.md) |
 | BOUNTY-04 | Mô Hình Monetization Token-Sink Bằng Rewarded Ads | P0 (Critical Monetization) | 5 SP | todo | [BOUNTY-04_rewarded-ad-token-sink.md](BOUNTY-04_rewarded-ad-token-sink.md) |
 
 ## 📊 Tổng Kết Epic 15

@@ -84,9 +84,12 @@ object GraphLabels {
         canvasWidth: Float,
         canvasHeight: Float,
         measure: (String) -> Pair<Float, Float>,
+        gapFor: (String) -> Float = { DEFAULT_GAP },
     ): List<LabelBox>
 }
 ```
+
+`gapFor(nodeId)` is the clearance from the node centre to its label (the canvas passes the drawn node radius plus padding), added after the first device smoke showed labels drawn on top of node circles.
 
 Task 5 produces tags `SECOND_BRAIN_GRAPH_TAG = "second_brain_graph"`, `SECOND_BRAIN_RESET_TAG = "second_brain_reset"`, `SECOND_BRAIN_LIST_TAG = "second_brain_list"`, `SECOND_BRAIN_HINT_TAG = "second_brain_hint"`.
 

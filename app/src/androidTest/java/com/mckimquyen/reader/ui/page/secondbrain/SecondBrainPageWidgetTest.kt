@@ -1,9 +1,18 @@
 package com.mckimquyen.reader.ui.page.secondbrain
 
 import androidx.activity.ComponentActivity
+import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.semantics.getOrNull
+import androidx.compose.ui.test.SemanticsMatcher
+import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.assertIsEnabled
+import androidx.compose.ui.test.assertIsNotEnabled
+import androidx.compose.ui.test.doubleClick
+import androidx.compose.ui.test.pinch
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
+import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTouchInput
@@ -21,6 +30,10 @@ import org.junit.Rule
 import org.junit.Test
 
 class SecondBrainPageWidgetTest {
+    private companion object {
+        const val DOUBLE_TAP_WAIT_MILLIS = 500L
+    }
+
     @get:Rule
     val composeRule = createAndroidComposeRule<ComponentActivity>()
 
@@ -97,6 +110,8 @@ class SecondBrainPageWidgetTest {
         // Top-left corner of the canvas is far from every node (layout keeps nodes near the centre).
         composeRule.onNodeWithContentDescription(str(R.string.second_brain_graph_desc, 2, 1))
             .performTouchInput { click(Offset(2f, 2f)) }
+        // onTap waits out the double-tap window before firing
+        composeRule.mainClock.advanceTimeBy(DOUBLE_TAP_WAIT_MILLIS)
 
         composeRule.runOnIdle { assertNull(selected) }
     }
@@ -110,6 +125,7 @@ class SecondBrainPageWidgetTest {
 
         composeRule.onNodeWithContentDescription(str(R.string.second_brain_graph_desc, 2, 1))
             .performTouchInput { click(Offset(heaviest.x * width, heaviest.y * height)) }
+        composeRule.mainClock.advanceTimeBy(DOUBLE_TAP_WAIT_MILLIS)
 
         composeRule.runOnIdle { assertEquals("ai", selected) }
     }
@@ -135,5 +151,29 @@ class SecondBrainPageWidgetTest {
 
         composeRule.onNodeWithText(str(R.string.second_brain_empty_window)).assertIsDisplayed()
         composeRule.onNodeWithText(str(R.string.second_brain_range_label)).assertIsDisplayed()
+    }
+
+    private fun zoomIs(percent: Int) = SemanticsMatcher("zoom is $percent%") {
+        it.config.getOrNull(SemanticsProperties.StateDescription) == str(R.string.second_brain_zoom_level, percent)
+    }
+
+    @Test
+    fun realPinch_zoomsIn_andDoubleTapRestoresHundredPercent() {
+        show(SecondBrainUiState.Ready(graph, null, 1_000L, 2_000L))
+        val graphNode = composeRule.onNodeWithTag(SECOND_BRAIN_GRAPH_TAG)
+        graphNode.assert(zoomIs(100))
+        composeRule.onNodeWithTag(SECOND_BRAIN_RESET_TAG).assertIsNotEnabled()
+
+        graphNode.performTouchInput {
+            pinch(
+                start0 = center + Offset(-40f, 0f), end0 = center + Offset(-200f, 0f),
+                start1 = center + Offset(40f, 0f), end1 = center + Offset(200f, 0f),
+            )
+        }
+        composeRule.onNodeWithTag(SECOND_BRAIN_RESET_TAG).assertIsEnabled()
+
+        graphNode.performTouchInput { doubleClick(Offset(2f, 2f)) }
+        graphNode.assert(zoomIs(100))
+        composeRule.onNodeWithTag(SECOND_BRAIN_RESET_TAG).assertIsNotEnabled()
     }
 }

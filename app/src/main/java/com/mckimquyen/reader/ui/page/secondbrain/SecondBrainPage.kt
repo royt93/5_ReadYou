@@ -68,6 +68,7 @@ private const val LABEL_TEXT_SP = 11
 private const val DIMMED_ALPHA = 0.25f
 private const val ZOOM_PERCENT = 100
 private const val MAX_RADIUS_GROWTH = 2f
+private const val LABEL_PADDING_PX = 6f
 
 @Composable
 fun SecondBrainPage(
@@ -186,6 +187,7 @@ private fun BrainGraphCanvas(
     val zoomHint = stringResource(R.string.second_brain_zoom_hint)
     val hitRadiusPx = with(LocalDensity.current) { HIT_RADIUS_DP.dp.toPx() }
     val hasSelection = selectedNodeId != null
+    val weightById = remember(graph) { graph.nodes.associate { it.id to it.weight } }
 
     Column(modifier) {
         Box(
@@ -226,10 +228,13 @@ private fun BrainGraphCanvas(
                     )
                 }
                 val growth = sqrt(viewport.scale).coerceAtMost(MAX_RADIUS_GROWTH)
+                fun radiusOf(weight: Int): Float {
+                    val fraction = weight.toFloat() / maxWeight
+                    return (NODE_MIN_RADIUS + (NODE_MAX_RADIUS - NODE_MIN_RADIUS) * fraction) * size.minDimension * growth
+                }
                 graph.nodes.forEach { node ->
                     val p = positions[node.id] ?: return@forEach
-                    val fraction = node.weight.toFloat() / maxWeight
-                    val radius = (NODE_MIN_RADIUS + (NODE_MAX_RADIUS - NODE_MIN_RADIUS) * fraction) * size.minDimension * growth
+                    val radius = radiusOf(node.weight)
                     val center = viewport.toScreen(p)
                     val bright = !hasSelection || node.id == selectedNodeId || node.id in neighbours
                     val color = if (node.id == selectedNodeId) highlight else primary
@@ -248,6 +253,7 @@ private fun BrainGraphCanvas(
                     canvasWidth = size.width,
                     canvasHeight = size.height,
                     measure = { text -> textMeasurer.measure(text, labelStyle).size.let { it.width.toFloat() to it.height.toFloat() } },
+                    gapFor = { id -> radiusOf(weightById[id] ?: 0) + LABEL_PADDING_PX },
                 ).forEach { box ->
                     drawText(textMeasurer, box.text, Offset(box.left, box.top), style = labelStyle)
                 }

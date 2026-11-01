@@ -20,7 +20,8 @@ data class LabelBox(
 object GraphLabels {
     const val MAX_BASE_LABELS = 8
     const val MAX_ZOOMED_LABELS = 24
-    private const val GAP = 6f
+    /** Default clearance between a node centre and its label when the caller does not pass the node radius. */
+    private const val DEFAULT_GAP = 6f
 
     fun budget(scale: Float): Int {
         val span = GraphViewport.MAX_SCALE - GraphViewport.MIN_SCALE
@@ -37,6 +38,7 @@ object GraphLabels {
         canvasWidth: Float,
         canvasHeight: Float,
         measure: (String) -> Pair<Float, Float>,
+        gapFor: (String) -> Float = { DEFAULT_GAP },
     ): List<LabelBox> {
         val byId = nodes.associateBy { it.id }
         val ordinary = nodes
@@ -58,8 +60,9 @@ object GraphLabels {
             if (center.x < 0f || center.y < 0f || center.x > canvasWidth || center.y > canvasHeight) return false
             val (w, h) = measure(node.label)
             val left = (center.x - w / 2f).coerceIn(0f, (canvasWidth - w).coerceAtLeast(0f))
-            val above = center.y - GAP - h
-            val top = (if (above >= 0f) above else center.y + GAP).coerceIn(0f, (canvasHeight - h).coerceAtLeast(0f))
+            val gap = gapFor(node.id)
+            val above = center.y - gap - h
+            val top = (if (above >= 0f) above else center.y + gap).coerceIn(0f, (canvasHeight - h).coerceAtLeast(0f))
             val box = LabelBox(node.id, node.label, left, top, w, h)
             if (placed.any { it.overlaps(box) }) return false
             placed += box
