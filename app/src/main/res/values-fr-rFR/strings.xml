@@ -994,4 +994,12 @@
     <string name="second_brain_reset_view">Reset view</string>
     <string name="second_brain_zoom_hint">Pinch to zoom, drag to pan, double-tap to reset</string>
     <string name="second_brain_zoom_level">Zoom %1$d%%</string>
+
+    <!-- RPG-03 streak rescue -->
+    <string name="streak_rescue_title">Reading streak at risk!</string>
+    <string name="streak_rescue_message">You missed %1$d days of reading. Your %2$d-day streak will be reset on your next read.</string>
+    <string name="streak_rescue_action_ad">Watch video to save streak</string>
+    <string name="streak_rescue_action_restart">Start from scratch</string>
+    <string name="streak_rescue_action_later">Later</string>
+    <string name="streak_rescue_ad_failed">Could not load video. Please try again.</string>
 </resources>

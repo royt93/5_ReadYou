@@ -9,6 +9,7 @@ import androidx.datastore.preferences.core.doublePreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.intPreferencesKey
+import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.mckimquyen.reader.domain.model.account.AccountType
@@ -599,5 +600,11 @@ sealed class DataStoreKeys<T> {
     object HeadlineSignals : DataStoreKeys<Boolean>() {
         override val key: Preferences.Key<Boolean>
             get() = booleanPreferencesKey("headline_signals_enabled")
+    }
+
+    /** UTC epoch day on which the broken-streak dialog was last shown, so it appears at most once per day. */
+    object StreakRescueLastPromptDay : DataStoreKeys<Long>() {
+        override val key: Preferences.Key<Long>
+            get() = longPreferencesKey("streak_rescue_last_prompt_day")
     }
 }

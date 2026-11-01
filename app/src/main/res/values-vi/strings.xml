@@ -956,4 +956,12 @@
     <string name="second_brain_reset_view">Đặt lại khung nhìn</string>
     <string name="second_brain_zoom_hint">Chụm để phóng to, kéo để di chuyển, chạm đúp để đặt lại</string>
     <string name="second_brain_zoom_level">Phóng to %1$d%%</string>
+
+    <!-- RPG-03 streak rescue -->
+    <string name="streak_rescue_title">Chuỗi đọc đang gặp nguy hiểm!</string>
+    <string name="streak_rescue_message">Bạn đã lỡ %1$d ngày không đọc bài. Chuỗi %2$d ngày sẽ bị huỷ trong lần đọc tới.</string>
+    <string name="streak_rescue_action_ad">Xem video để giữ chuỗi</string>
+    <string name="streak_rescue_action_restart">Bắt đầu lại từ đầu</string>
+    <string name="streak_rescue_action_later">Để sau</string>
+    <string name="streak_rescue_ad_failed">Không thể tải video. Vui lòng thử lại.</string>
 </resources>
