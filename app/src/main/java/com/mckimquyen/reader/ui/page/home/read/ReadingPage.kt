@@ -192,6 +192,7 @@ fun ReadingPage(
     val bountyState by readingViewModel.bountyInvestigationState.collectAsState()
     val dossier by readingViewModel.dossier.collectAsState()
     val echoState by readingViewModel.echoSignalState.collectAsState()
+    val contrastingCoverage by readingViewModel.contrastingCoverage.collectAsState()
     val dossierChooserTitle = stringResource(R.string.dossier_chooser_title)
     val isAnySheetOpen = readingUiState.showSummarySheet || readingUiState.showMindMapSheet ||
         readingUiState.showDeepReadSheet || readingUiState.showQuoteSheet || readingUiState.showBountySheet ||
@@ -416,6 +417,9 @@ fun ReadingPage(
                                 onInvestigate = { readingViewModel.openBountyInvestigation(it) },
                                 echoSignalState = echoState,
                                 onOpenEchoSheet = { readingViewModel.openEchoSheet() },
+                                contrastingCoverageState = contrastingCoverage,
+                                onSelectContrastPhrase = { readingViewModel.selectContrastPhrase(it) },
+                                onOpenContrastArticle = { targetId -> navController.navigate("${RouteName.READING}/$targetId") },
                             )
                         }
                     }

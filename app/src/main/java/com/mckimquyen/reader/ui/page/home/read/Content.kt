@@ -56,7 +56,9 @@ import com.mckimquyen.reader.ui.component.reader.ItemCountingScope
 import com.mckimquyen.reader.ui.component.reader.Reader
 import com.mckimquyen.reader.ui.component.reader.recordRange
 import com.mckimquyen.reader.domain.model.rpg.QuizQuestion
+import com.mckimquyen.reader.domain.steelman.ContrastingCoverageState
 import com.mckimquyen.reader.ui.component.rpg.BrainQuizCard
+import com.mckimquyen.reader.ui.page.home.read.steelman.ContrastingCoverageSection
 import com.mckimquyen.reader.ui.ext.drawVerticalScrollbar
 import com.mckimquyen.reader.ui.ext.openURL
 import com.mckimquyen.reader.ui.page.rpg.BrainRpgViewModel
@@ -79,6 +81,9 @@ fun Content(
     onInvestigate: (String) -> Unit = {},
     echoSignalState: EchoSignalState = EchoSignalState.Idle,
     onOpenEchoSheet: () -> Unit = {},
+    contrastingCoverageState: ContrastingCoverageState = ContrastingCoverageState.Idle,
+    onSelectContrastPhrase: (String) -> Unit = {},
+    onOpenContrastArticle: (String) -> Unit = {},
 ) {
     val context = LocalContext.current
     val subheadUpperCase = LocalReadingSubheadUpperCase.current
@@ -225,6 +230,15 @@ fun Content(
                         onLinkClick = {
                             context.openURL(it, openLink, openLinkSpecificBrowser)
                         }
+                    )
+                }
+                item {
+                    ContrastingCoverageSection(
+                        state = contrastingCoverageState,
+                        enabled = headlineSignalsEnabled,
+                        onSelectPhrase = onSelectContrastPhrase,
+                        onOpenArticle = onOpenContrastArticle,
+                        modifier = Modifier.padding(horizontal = 24.dp, vertical = 8.dp),
                     )
                 }
                 quiz?.let { quiz ->
