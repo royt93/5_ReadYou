@@ -980,4 +980,14 @@
     <string name="zen_calibration_apply">Áp dụng</string>
     <string name="zen_calibration_skip">Bỏ qua</string>
     <string name="zen_calibration_settings_desc">Hiệu chỉnh tốc độ đọc qua 3 vòng ngắn</string>
+
+    <!-- ECHO-02 contrasting coverage -->
+    <string name="echo_contrast_title">Góc nhìn khác trong kho của bạn</string>
+    <string name="echo_contrast_phrases_label">Chủ đề:</string>
+    <string name="echo_contrast_cue_prefix">Từ đối lập: %1$s</string>
+    <string name="echo_contrast_limitation">Các bài đã lưu từ nguồn khác có từ ngữ trái chiều ở tiêu đề. Không phải kiểm chứng sự thật.</string>
+    <string name="echo_contrast_card_desc">Thẻ góc nhìn khác với %1$d bài viết</string>
+    <string name="echo_contrast_open_article_desc">Mở bài viết %1$s từ %2$s</string>
+    <string name="echo_contrast_empty_wording">Không tìm thấy bài viết đối lập nào</string>
+    <string name="echo_contrast_switch_phrase_desc">Chuyển sang chủ đề %1$s</string>
 </resources>

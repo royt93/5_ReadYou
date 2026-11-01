@@ -1017,4 +1017,14 @@
     <string name="zen_calibration_apply">Apply</string>
     <string name="zen_calibration_skip">Skip</string>
     <string name="zen_calibration_settings_desc">Calibrate your reading speed across 3 short rounds</string>
+
+    <!-- ECHO-02 contrasting coverage -->
+    <string name="echo_contrast_title">Other angles in your archive</string>
+    <string name="echo_contrast_phrases_label">Topic:</string>
+    <string name="echo_contrast_cue_prefix">Contrast: %1$s</string>
+    <string name="echo_contrast_limitation">Articles from other saved feeds with contrarian headline wording. Not a fact-check.</string>
+    <string name="echo_contrast_card_desc">Contrasting coverage card with %1$d articles</string>
+    <string name="echo_contrast_open_article_desc">Open article %1$s from %2$s</string>
+    <string name="echo_contrast_empty_wording">No contrasting articles found</string>
+    <string name="echo_contrast_switch_phrase_desc">Switch to topic %1$s</string>
 </resources>
