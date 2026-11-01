@@ -43,7 +43,7 @@ Input: `List<RoundResult(wpm: Int, correct: Int)>` (one per round that was playe
 - An empty or partial list is valid input (the user may quit early); it never throws.
 
 ### 3.3 Content (`RsvpCalibrationContent`)
-Two bundled sets (`en`, `vi`), each with three passages of about 70-90 words on neutral everyday topics and two multiple-choice questions per passage (four options, exactly one correct). `forLanguage(languageTag)` returns the Vietnamese set for `vi*` and the English set otherwise. Content lives in Kotlin (not in the 38-locale string files) because a question is tied to one specific passage; the UI chrome around it is localized.
+Two bundled sets (`en`, `vi`), each with three passages of about 85-110 words (Vietnamese runs longer because most words are one syllable) on neutral everyday topics and two multiple-choice questions per passage (four options, exactly one correct). `forLanguage(languageTag)` returns the Vietnamese set for `vi*` and the English set otherwise. Content lives in Kotlin (not in the 38-locale string files) because a question is tied to one specific passage; the UI chrome around it is localized.
 
 ### 3.4 Timing helper (`RsvpTiming`)
 `RsvpViewModel` currently computes the per-token delay inline (`60_000 / wpm.coerceIn(200, 900) + extraDelayMs`). Extract that exact formula to a pure `RsvpTiming.tokenDelayMs(wpm, token)` and use it from both the reader and the calibration, so both play at the same real speed. Behaviour of the reader does not change; existing tests must stay green.
@@ -75,7 +75,7 @@ About 14 `zen_calibration_*` keys in all 38 `values*/strings.xml` (intro, round 
 
 ## 8. Tests
 
-- **JVM:** `RsvpCalibrationScorerTest` (every score combination per round, no round passed, only the fastest round passed -> non-monotonic -> `LOW`, all perfect -> `MEDIUM` and scale 0.85, partial/empty input, clamping, `confidence` never above `MEDIUM`); `RsvpCalibrationContentTest` (3 passages and 2 questions each, four options each, correct index in range, word counts 60-100, `vi` and fallback selection, no duplicate options in a question); `RsvpTimingTest` (formula matches the old inline one); `RsvpTokenizerTest` additions (scale only touches punctuation delays, `1f` identical to current).
+- **JVM:** `RsvpCalibrationScorerTest` (every score combination per round, no round passed, only the fastest round passed -> non-monotonic -> `LOW`, all perfect -> `MEDIUM` and scale 0.85, partial/empty input, clamping, `confidence` never above `MEDIUM`); `RsvpCalibrationContentTest` (3 passages and 2 questions each, four options each, correct index in range, word counts 60-120, `vi` and fallback selection, no duplicate options in a question); `RsvpTimingTest` (formula matches the old inline one); `RsvpTokenizerTest` additions (scale only touches punctuation delays, `1f` identical to current).
 - **Robolectric:** `RsvpCalibrationViewModelTest` (fake clock and store; round progression, quitting early saves nothing, apply saves exactly the scorer's output); `RsvpViewModelTest` additions (saved settings applied once on load, manual `setWpm` wins, no store means defaults) with every existing test unchanged.
 - **Compose:** dialog states (intro, question selection, result with and without the low-confidence note, apply/skip callbacks, option touch targets).
 - **Instrumentation (Pixel only, `am instrument`):** dialog renders and answers on the real renderer.
