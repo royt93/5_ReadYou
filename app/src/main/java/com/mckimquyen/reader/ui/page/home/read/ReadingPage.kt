@@ -50,6 +50,8 @@ import com.mckimquyen.reader.ui.page.headline.readyResult
 import com.mckimquyen.reader.ui.page.home.read.bounty.BountyInvestigationSheetContent
 import com.mckimquyen.reader.ui.page.home.read.bounty.DossierSheetContent
 import com.mckimquyen.reader.ui.page.home.read.quote.QuoteCardSheetContent
+import com.mckimquyen.reader.ui.page.home.read.steelman.DualCardSheetContent
+import com.mckimquyen.reader.ui.page.home.read.steelman.DualCardViewModel
 import androidx.navigation.NavHostController
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.mckimquyen.reader.infrastructure.audio.TtsState
@@ -209,6 +211,10 @@ fun ReadingPage(
     val quoteTemplate by quoteViewModel.selectedTemplate.collectAsState()
     val quoteScope = rememberCoroutineScope()
     val quoteChooserTitle = stringResource(R.string.quote_card_chooser_title)
+    val dualCardViewModel: DualCardViewModel = hiltViewModel()
+    val dualCardState by dualCardViewModel.state.collectAsState()
+    val dualChooserTitle = stringResource(R.string.echo_dual_chooser_title)
+    val dualShareText = stringResource(R.string.echo_dual_share_text)
     val bountyState by readingViewModel.bountyInvestigationState.collectAsState()
     val dossier by readingViewModel.dossier.collectAsState()
     val echoState by readingViewModel.echoSignalState.collectAsState()
@@ -216,7 +222,7 @@ fun ReadingPage(
     val dossierChooserTitle = stringResource(R.string.dossier_chooser_title)
     val isAnySheetOpen = readingUiState.showSummarySheet || readingUiState.showMindMapSheet ||
         readingUiState.showDeepReadSheet || readingUiState.showQuoteSheet || readingUiState.showBountySheet ||
-        readingUiState.showEchoSheet || readingUiState.showDossierSheet
+        readingUiState.showEchoSheet || readingUiState.showDossierSheet || readingUiState.showDualCardSheet
 
     // Render lại thẻ mỗi khi mở sheet với đoạn trích mới; giải phóng bitmap khi đóng.
     LaunchedEffect(readingUiState.quoteSpec) {
@@ -239,10 +245,18 @@ fun ReadingPage(
             readingViewModel.dismissDossier()
             readingViewModel.dismissBountyInvestigation()
             readingViewModel.dismissEchoSheet()
+            readingViewModel.dismissDualCard()
         }
     }
+    LaunchedEffect(readingUiState.dualCardSpec) {
+        val spec = readingUiState.dualCardSpec
+        if (spec != null) dualCardViewModel.start(spec) else dualCardViewModel.dismiss()
+    }
+
     BackHandler(isAnySheetOpen) {
-        if (readingUiState.showEchoSheet) {
+        if (readingUiState.showDualCardSheet) {
+            readingViewModel.dismissDualCard()
+        } else if (readingUiState.showEchoSheet) {
             readingViewModel.dismissEchoSheet()
         } else if (readingUiState.showDossierSheet) {
             readingViewModel.dismissDossier()
@@ -264,7 +278,18 @@ fun ReadingPage(
         sheetContent = {
             val echoResult = echoState.readyResult()
             val currentDossier = dossier
-            if (readingUiState.showEchoSheet && echoResult != null) {
+            if (readingUiState.showDualCardSheet) {
+                DualCardSheetContent(
+                    state = dualCardState,
+                    onShare = {
+                        quoteScope.launch {
+                            dualCardViewModel.prepareShareIntent(dualChooserTitle, dualShareText)
+                                ?.let { context.startActivity(it) }
+                        }
+                    },
+                    onRetry = { readingUiState.dualCardSpec?.let { dualCardViewModel.start(it) } },
+                )
+            } else if (readingUiState.showEchoSheet && echoResult != null) {
                 EchoSignalDetailsSheet(
                     result = echoResult,
                     onClose = { readingViewModel.dismissEchoSheet() },
@@ -442,6 +467,7 @@ fun ReadingPage(
                                 onSelectContrastPhrase = { readingViewModel.selectContrastPhrase(it) },
                                 onOpenContrastArticle = { targetId -> navController.navigate("${RouteName.READING}/$targetId") },
                                 bodyRange = bodyRange,
+                                onExportContrastArticle = { readingViewModel.openDualCard(it) },
                             )
                         }
                     }

@@ -18,6 +18,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -39,6 +40,7 @@ import java.text.DateFormat
 const val ECHO_CONTRAST_CARD_TAG = "echo_contrast_card"
 const val ECHO_CONTRAST_CHIP_PREFIX = "echo_contrast_chip_"
 const val ECHO_CONTRAST_ROW_PREFIX = "echo_contrast_row_"
+const val ECHO_CONTRAST_EXPORT_PREFIX = "echo_contrast_export_"
 
 private const val MIN_TOUCH_TARGET_DP = 48
 
@@ -49,6 +51,7 @@ fun ContrastingCoverageSection(
     onSelectPhrase: (String) -> Unit,
     onOpenArticle: (String) -> Unit,
     modifier: Modifier = Modifier,
+    onExportArticle: ((ContrastingArticle) -> Unit)? = null,
 ) {
     if (!enabled) return
     val ready = state as? ContrastingCoverageState.Ready ?: return
@@ -57,6 +60,7 @@ fun ContrastingCoverageSection(
         onSelectPhrase = onSelectPhrase,
         onOpenArticle = onOpenArticle,
         modifier = modifier,
+        onExportArticle = onExportArticle,
     )
 }
 
@@ -67,6 +71,7 @@ fun ContrastingCoverageCard(
     onSelectPhrase: (String) -> Unit,
     onOpenArticle: (String) -> Unit,
     modifier: Modifier = Modifier,
+    onExportArticle: ((ContrastingArticle) -> Unit)? = null,
 ) {
     val cardDesc = stringResource(R.string.echo_contrast_card_desc, state.items.size)
     val context = LocalContext.current
@@ -122,6 +127,7 @@ fun ContrastingCoverageCard(
                     item = item,
                     dateFormat = dateFormat,
                     onOpenArticle = onOpenArticle,
+                    onExportArticle = onExportArticle,
                 )
             }
         }
@@ -133,8 +139,10 @@ private fun ContrastingArticleRow(
     item: ContrastingArticle,
     dateFormat: DateFormat,
     onOpenArticle: (String) -> Unit,
+    onExportArticle: ((ContrastingArticle) -> Unit)?,
 ) {
     val openDesc = stringResource(R.string.echo_contrast_open_article_desc, item.title, item.feedName)
+    Column {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -174,5 +182,15 @@ private fun ContrastingArticleRow(
                 )
             }
         }
+    }
+    if (onExportArticle != null) {
+        val exportDesc = stringResource(R.string.echo_dual_export_desc, item.feedName)
+        TextButton(
+            onClick = { onExportArticle(item) },
+            modifier = Modifier
+                .semantics { contentDescription = exportDesc }
+                .testTag("$ECHO_CONTRAST_EXPORT_PREFIX${item.articleId}"),
+        ) { Text(stringResource(R.string.echo_dual_export)) }
+    }
     }
 }

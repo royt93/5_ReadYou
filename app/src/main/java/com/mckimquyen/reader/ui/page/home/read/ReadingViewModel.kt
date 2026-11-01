@@ -41,8 +41,10 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import com.mckimquyen.reader.domain.headline.ArticleSignalAnalyzer
 import com.mckimquyen.reader.domain.model.bounty.BountyQuerySanitizer
+import com.mckimquyen.reader.domain.steelman.ContrastingArticle
 import com.mckimquyen.reader.domain.steelman.ContrastingCoverageFinder
 import com.mckimquyen.reader.domain.steelman.ContrastingCoverageState
+import com.mckimquyen.reader.domain.steelman.DualPerspectiveSpec
 import com.mckimquyen.reader.domain.steelman.TopicPhraseExtractor
 import com.mckimquyen.reader.domain.model.bounty.Dossier
 import com.mckimquyen.reader.domain.model.bounty.DossierBuilder
@@ -361,6 +363,30 @@ class ReadingViewModel @Inject constructor(
 
     fun dismissQuoteSheet() {
         _readingUiState.update { it.copy(showQuoteSheet = false, quoteSpec = null) }
+    }
+
+    /** ECHO-03: opens the two-headline card sheet for the article being read and one ECHO-02 result. */
+    fun openDualCard(other: ContrastingArticle) {
+        val current = _readingUiState.value.articleWithFeed ?: return
+        val formatter = java.text.DateFormat.getDateInstance(java.text.DateFormat.MEDIUM)
+        _readingUiState.update {
+            it.copy(
+                showDualCardSheet = true,
+                dualCardSpec = DualPerspectiveSpec(
+                    topTitle = current.article.title,
+                    topSource = current.feed.name,
+                    topDate = formatter.format(current.article.date),
+                    bottomTitle = other.title,
+                    bottomSource = other.feedName,
+                    bottomDate = formatter.format(other.date),
+                    cue = other.cue,
+                ),
+            )
+        }
+    }
+
+    fun dismissDualCard() {
+        _readingUiState.update { it.copy(showDualCardSheet = false, dualCardSpec = null) }
     }
 
     /**
@@ -980,6 +1006,8 @@ data class ReadingUiState(
     val showDeepReadSheet: Boolean = false,
     val deepReadState: DeepReadState = DeepReadState.Idle,
     val showQuoteSheet: Boolean = false,
+    val showDualCardSheet: Boolean = false,
+    val dualCardSpec: DualPerspectiveSpec? = null,
     val quoteSpec: QuoteCardSpec? = null,
     val showBountySheet: Boolean = false,
     val showEchoSheet: Boolean = false,

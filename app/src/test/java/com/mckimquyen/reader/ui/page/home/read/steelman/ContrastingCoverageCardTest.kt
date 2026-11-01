@@ -107,4 +107,28 @@ class ContrastingCoverageCardTest {
         }
         compose.onAllNodesWithTag(ECHO_CONTRAST_CARD_TAG).assertCountEquals(0)
     }
+
+    @Test
+    fun clickingExportButton_firesExportCallbackWithThatArticle() {
+        var exported = ""
+        compose.setContent {
+            ContrastingCoverageCard(
+                state = readyState,
+                onSelectPhrase = {},
+                onOpenArticle = {},
+                onExportArticle = { exported = it.articleId },
+            )
+        }
+
+        compose.onNodeWithTag("${ECHO_CONTRAST_EXPORT_PREFIX}a2").performClick()
+        assertEquals("a2", exported)
+    }
+
+    @Test
+    fun noExportCallback_hidesExportButtons() {
+        compose.setContent {
+            ContrastingCoverageCard(state = readyState, onSelectPhrase = {}, onOpenArticle = {})
+        }
+        compose.onAllNodesWithTag("${ECHO_CONTRAST_EXPORT_PREFIX}a1").assertCountEquals(0)
+    }
 }

@@ -56,6 +56,7 @@ import com.mckimquyen.reader.ui.component.reader.ItemCountingScope
 import com.mckimquyen.reader.ui.component.reader.Reader
 import com.mckimquyen.reader.ui.component.reader.recordRange
 import com.mckimquyen.reader.domain.model.rpg.QuizQuestion
+import com.mckimquyen.reader.domain.steelman.ContrastingArticle
 import com.mckimquyen.reader.domain.steelman.ContrastingCoverageState
 import com.mckimquyen.reader.ui.component.rpg.BrainQuizCard
 import com.mckimquyen.reader.ui.page.home.read.steelman.ContrastingCoverageSection
@@ -85,6 +86,7 @@ fun Content(
     onSelectContrastPhrase: (String) -> Unit = {},
     onOpenContrastArticle: (String) -> Unit = {},
     bodyRange: BodyItemRange = remember { BodyItemRange() },
+    onExportContrastArticle: ((ContrastingArticle) -> Unit)? = null,
 ) {
     val context = LocalContext.current
     val subheadUpperCase = LocalReadingSubheadUpperCase.current
@@ -239,6 +241,7 @@ fun Content(
                         onSelectPhrase = onSelectContrastPhrase,
                         onOpenArticle = onOpenContrastArticle,
                         modifier = Modifier.padding(horizontal = 24.dp, vertical = 8.dp),
+                        onExportArticle = onExportContrastArticle,
                     )
                 }
                 quiz?.let { quiz ->
