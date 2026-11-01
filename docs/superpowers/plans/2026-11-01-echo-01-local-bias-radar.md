@@ -185,7 +185,7 @@ Findings recorded during execution:
 
 **Files:** Create `EchoSignalsState.kt`; modify `ReadingViewModel.kt`; create `ReadingViewModelEchoTest.kt`.
 
-- [ ] **Step 1: Write failing ViewModel tests**
+- [x] **Step 1: Write failing ViewModel tests**
 
 Create `app/src/test/java/com/mckimquyen/reader/ui/page/home/read/ReadingViewModelEchoTest.kt` verifying:
 - When article loaded and content rendered, `echoSignalState` transitions from Analyzing to Ready.
@@ -195,12 +195,12 @@ Create `app/src/test/java/com/mckimquyen/reader/ui/page/home/read/ReadingViewMod
 - `openEchoSheet()` sets `showEchoSheet = true`; `dismissEchoSheet()` resets it to `false`.
 - Analysis always runs for supported text; the shared toggle is NOT visible to the ViewModel (it is a CompositionLocal provided at `HomeEntry.kt:198`), so gating happens in the UI in Task 5.
 
-- [ ] **Step 2: Run targeted test red**
+- [x] **Step 2: Run targeted test red**
 
 Run: `./gradlew testDevDebugUnitTest --tests "*ReadingViewModelEchoTest"`
 Expected: compilation failure for missing `echoSignalState` on ViewModel.
 
-- [ ] **Step 3: Implement EchoSignalState and ViewModel wiring**
+- [x] **Step 3: Implement EchoSignalState and ViewModel wiring**
 
 Add:
 - `echoSignalState: StateFlow<EchoSignalState>` on `ReadingViewModel`.
@@ -213,17 +213,20 @@ Add:
 - Add `showEchoSheet: Boolean = false` to `ReadingUiState`.
 - Add `openEchoSheet()` and `dismissEchoSheet()`.
 
-- [ ] **Step 4: Run ViewModel tests green**
+- [x] **Step 4: Run ViewModel tests green**
 
 Run: `./gradlew testDevDebugUnitTest --tests "*ReadingViewModelEchoTest" --tests "*ReadingViewModel*" --rerun`
 Expected: all echo and existing ReadingViewModel tests pass.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add app/src/main/java/com/mckimquyen/reader/ui/page/headline/EchoSignalsState.kt app/src/main/java/com/mckimquyen/reader/ui/page/home/read/ReadingViewModel.kt app/src/test/java/com/mckimquyen/reader/ui/page/home/read
 git commit -m "feat(echo-01): manage echo signal state in ReadingViewModel"
 ```
+
+Deviation recorded: instead of calling the analyzer from `internalRenderFullContent` and `renderDescriptionContent` separately, a single observer in `init` watches `(articleId, content)` with `distinctUntilChanged`. It covers every render path (description, full content, article switch, errors that replace content) and cancels stale work. An article switch immediately resets to `Idle` and closes the echo sheet, so one article's signals cannot leak onto the next. `openEchoSheet()` only opens when the state is `Ready`.
+
 
 ### Task 3: Localization (14 keys x 38 locales)
 

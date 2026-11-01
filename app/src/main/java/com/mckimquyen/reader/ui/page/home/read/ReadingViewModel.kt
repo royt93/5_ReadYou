@@ -37,7 +37,9 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
+import com.mckimquyen.reader.domain.headline.ArticleSignalAnalyzer
 import com.mckimquyen.reader.domain.model.bounty.BountyQuerySanitizer
+import com.mckimquyen.reader.ui.page.headline.EchoSignalState
 import com.mckimquyen.reader.domain.repository.BountyInvestigationRepository
 import com.mckimquyen.reader.ui.page.home.read.bounty.BountyAiFailure
 import com.mckimquyen.reader.ui.page.home.read.bounty.BountyAiState
@@ -46,6 +48,8 @@ import com.mckimquyen.reader.ui.page.home.read.bounty.BountyInvestigationState
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -85,10 +89,27 @@ class ReadingViewModel @Inject constructor(
         articleDao?.let { BountyInvestigationRepository(it) }
     }
 
+    private var echoJob: Job? = null
+
+    private val _echoSignalState = MutableStateFlow<EchoSignalState>(EchoSignalState.Idle)
+    /**
+     * ECHO-01: local hype/tone signals for the body Reader is showing. Toggle-agnostic on purpose: the shared
+     * `Headline signals` switch is a CompositionLocal, so it is enforced at render time in the UI.
+     */
+    val echoSignalState: StateFlow<EchoSignalState> = _echoSignalState.asStateFlow()
+
     private val _bountyInvestigationState = MutableStateFlow(BountyInvestigationState())
     val bountyInvestigationState: StateFlow<BountyInvestigationState> = _bountyInvestigationState.asStateFlow()
 
     init {
+        // ECHO-01: re-analyze whenever the displayed body changes (description, full content, or another article).
+        // One observer keeps every render path covered; mapLatest-style cancellation drops stale work.
+        viewModelScope.launch {
+            _readingUiState
+                .map { it.articleWithFeed?.article?.id to it.content }
+                .distinctUntilChanged()
+                .collect { (articleId, content) -> analyzeEchoSignals(articleId, content) }
+        }
         // Collect TTS state once per ViewModel lifetime.
         // Previously this was inside initData(), which created a new collector
         // on every article open — causing duplicate event processing over time.
@@ -363,6 +384,31 @@ class ReadingViewModel @Inject constructor(
             }
             _bountyInvestigationState.update { it.copy(ai = ai) }
         }
+    }
+
+    private fun analyzeEchoSignals(articleId: String?, content: String?) {
+        echoJob?.cancel()
+        // A different article/body must never keep showing the previous article's signals.
+        _echoSignalState.value = EchoSignalState.Idle
+        _readingUiState.update { if (it.showEchoSheet) it.copy(showEchoSheet = false) else it }
+        if (articleId == null || content.isNullOrBlank()) return
+
+        _echoSignalState.value = EchoSignalState.Analyzing
+        echoJob = viewModelScope.launch {
+            val result = withContext(defaultDispatcher) { ArticleSignalAnalyzer.analyze(content) }
+            _echoSignalState.value =
+                if (result != null && result.isNoteworthy) EchoSignalState.Ready(result) else EchoSignalState.None
+        }
+    }
+
+    /** Opens the details sheet only when there is a noteworthy result to show. */
+    fun openEchoSheet() {
+        if (_echoSignalState.value !is EchoSignalState.Ready) return
+        _readingUiState.update { it.copy(showEchoSheet = true) }
+    }
+
+    fun dismissEchoSheet() {
+        _readingUiState.update { it.copy(showEchoSheet = false) }
     }
 
     fun dismissBountyInvestigation() {
@@ -789,6 +835,7 @@ data class ReadingUiState(
     val showQuoteSheet: Boolean = false,
     val quoteSpec: QuoteCardSpec? = null,
     val showBountySheet: Boolean = false,
+    val showEchoSheet: Boolean = false,
 )
 
 /** Trạng thái của luồng hỏi đáp tương tác AI Deep Read. */
