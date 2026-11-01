@@ -53,5 +53,11 @@ Spec gốc yêu cầu Gemini chấm 3 trục: Hype/PR, cảm xúc, **thiên ki�
 Ngoài ra quảng cáo toàn màn hình xuất hiện vài lần trong smoke; theo chỉ thị mới của owner, tôi tự đóng và tiếp tục.
 
 ## Commits trên nhánh `dev`
-- `40410f65` docs: design · `80def9c8` docs: plan
-- `acb8bd54` analyzer · `90c8c742` ViewModel state · `096dc80c` strings · `7e58b885` gauges + sheet · `eafa2cc9` wiring
+- `40410f65` docs: design ECHO-01 local hype and sentiment signals
+- `80def9c8` docs: plan ECHO-01 local hype and sentiment signals
+- `acb8bd54` feat(echo-01): analyze body hype and tone signals locally
+- `90c8c742` feat(echo-01): manage echo signal state in ReadingViewModel
+- `096dc80c` feat(echo-01): add echo signal strings across 38 locales
+- `7e58b885` feat(echo-01): build inline gauges and detail sheet composables
+- `eafa2cc9` feat(echo-01): wire echo signals into reader content and drawer
+- `7bd14225` fix(echo-01): make Headline signals toggle reactive and describe body signals (cũng chứa các file tài liệu hoàn tất của task này)
