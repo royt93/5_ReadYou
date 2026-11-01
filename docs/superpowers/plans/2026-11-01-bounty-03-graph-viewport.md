@@ -613,6 +613,7 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTouchInput
 import androidx.compose.ui.test.pinch
 import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.semantics.getOrNull
 import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.assert
 import com.mckimquyen.reader.R
@@ -633,6 +634,10 @@ import org.robolectric.annotation.GraphicsMode
 @Config(sdk = [34], application = Application::class)
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
 class SecondBrainViewportUiTest {
+    private companion object {
+        const val DOUBLE_TAP_WAIT_MILLIS = 500L
+    }
+
     @get:Rule
     val compose = createAndroidComposeRule<ComponentActivity>()
 
@@ -725,6 +730,7 @@ class SecondBrainViewportUiTest {
         show(onSelect = { selected = it })
         val centre = BrainGraphLayout.compute(graph).getValue("ai")
         compose.onNodeWithTag(SECOND_BRAIN_GRAPH_TAG).performTouchInput { click(Offset(centre.x * width, centre.y * height)) }
+        compose.mainClock.advanceTimeBy(DOUBLE_TAP_WAIT_MILLIS) // onTap waits out the double-tap window
         compose.runOnIdle { assertEquals("ai", selected) }
     }
 
@@ -733,6 +739,7 @@ class SecondBrainViewportUiTest {
         var selected: String? = "sentinel"
         show(selected = "ai", onSelect = { selected = it })
         compose.onNodeWithTag(SECOND_BRAIN_GRAPH_TAG).performTouchInput { click(Offset(2f, 2f)) }
+        compose.mainClock.advanceTimeBy(DOUBLE_TAP_WAIT_MILLIS) // onTap waits out the double-tap window
         compose.runOnIdle { assertNull(selected) }
     }
 }
@@ -852,7 +859,7 @@ private fun BrainGraphCanvas(
                         onDoubleTap = { viewport = viewport.reset() },
                         onTap = { tap ->
                             val unit = viewport.toUnit(tap.x, tap.y)
-                            val radiusUnit = hitRadiusPx / (size.minDimension * viewport.scale)
+                            val radiusUnit = hitRadiusPx / (minOf(size.width, size.height) * viewport.scale)
                             onSelectNode(BrainGraphLayout.hitTest(positions, unit.x, unit.y, radiusUnit))
                         },
                     )
