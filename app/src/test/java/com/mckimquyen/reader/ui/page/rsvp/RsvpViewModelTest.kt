@@ -43,6 +43,21 @@ class RsvpViewModelTest {
     }
 
     @Test
+    fun loadContent_startsAtRequestedFraction() {
+        viewModel.loadContent((1..9).joinToString(" ") { "word$it" }, startFraction = 0.5f)
+        assertEquals(4, viewModel.uiState.value.currentIndex)
+    }
+
+    @Test
+    fun loadContent_clampsStartFraction_andDefaultsToStart() {
+        viewModel.loadContent("One Two Three", startFraction = 3f)
+        assertEquals(2, viewModel.uiState.value.currentIndex)
+
+        viewModel.loadContent("One Two Three")
+        assertEquals(0, viewModel.uiState.value.currentIndex)
+    }
+
+    @Test
     fun seekTo_clampsWithinBounds() {
         viewModel.loadContent("Alpha Beta Gamma")
 

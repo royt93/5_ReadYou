@@ -2,6 +2,7 @@ package com.mckimquyen.reader.ui.page.rsvp
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mckimquyen.reader.domain.readposition.ReadingPositionMapper
 import com.mckimquyen.reader.domain.rsvp.RsvpCalibrationPlan
 import com.mckimquyen.reader.domain.rsvp.RsvpTiming
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -66,13 +67,14 @@ class RsvpViewModel @Inject constructor() : ViewModel() {
 
     private var playbackJob: Job? = null
 
-    fun loadContent(content: String) {
+    /** [startFraction] (0..1, clamped) is where in the article RSVP begins; 0 starts from the first word. */
+    fun loadContent(content: String, startFraction: Float = 0f) {
         pause()
         val tokens = RsvpTokenizer.tokenize(content, punctuationDelayScale)
         _uiState.update {
             it.copy(
                 tokens = tokens,
-                currentIndex = 0,
+                currentIndex = ReadingPositionMapper.tokenIndexFromFraction(startFraction, tokens.size),
                 isPlaying = false,
                 isCompleted = false
             )
