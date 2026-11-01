@@ -20,23 +20,44 @@ object ReadingPositionMapper {
     private const val PARAGRAPH_BREAK = "\n\n"
     private const val SINGLE_ITEM = 1
 
-    /** Fraction of the body that sits above [firstVisibleIndex]; before the body is 0, after it is 1. */
-    fun bodyFractionFromList(firstVisibleIndex: Int, bodyStart: Int, bodyCount: Int): Float {
-        if (bodyCount <= SINGLE_ITEM) return 0f
-        return ((firstVisibleIndex - bodyStart).toFloat() / (bodyCount - 1)).coerceIn(0f, 1f)
+    /** Where to scroll for a body fraction: a list item plus how far into it (0..1) to go. */
+    data class BodyScrollTarget(val listIndex: Int, val withinItem: Float)
+
+    /**
+     * Fraction of the body above the first visible item's top edge. Consecutive paragraphs share one list item, so a
+     * text-only article has a single body item and the scroll offset inside that item is what tells 5% from 90%.
+     * Before the body is 0, after it is 1; an unmeasured item (size 0) counts as not scrolled.
+     */
+    fun bodyFractionFromList(
+        firstVisibleIndex: Int,
+        firstVisibleOffsetPx: Int,
+        firstVisibleSizePx: Int,
+        bodyStart: Int,
+        bodyCount: Int,
+    ): Float {
+        if (bodyCount <= 0 || firstVisibleIndex < bodyStart) return 0f
+        if (firstVisibleIndex >= bodyStart + bodyCount) return 1f
+        val inside = if (firstVisibleSizePx > 0) {
+            (firstVisibleOffsetPx.toFloat() / firstVisibleSizePx).coerceIn(0f, 1f)
+        } else {
+            0f
+        }
+        return (((firstVisibleIndex - bodyStart) + inside) / bodyCount).coerceIn(0f, 1f)
     }
 
-    /** List index of the body item at [fraction]; truncates like the existing scroll restore. */
-    fun listIndexFromBodyFraction(fraction: Float, bodyStart: Int, bodyCount: Int): Int {
+    /** Inverse of [bodyFractionFromList]: every body item counts the same share of the body. */
+    fun scrollTargetFromBodyFraction(fraction: Float, bodyStart: Int, bodyCount: Int): BodyScrollTarget {
         val start = bodyStart.coerceAtLeast(0)
-        if (bodyCount <= SINGLE_ITEM) return start
-        return start + (fraction.coerceIn(0f, 1f) * (bodyCount - 1)).toInt()
+        if (bodyCount <= 0) return BodyScrollTarget(start, 0f)
+        val position = fraction.coerceIn(0f, 1f) * bodyCount
+        val item = position.toInt().coerceAtMost(bodyCount - 1)
+        return BodyScrollTarget(start + item, (position - item).coerceIn(0f, 1f))
     }
 
     /** Whole-list fraction (the format persisted in `ArticleReadPosition.progress`) for a body fraction. */
     fun listFractionFromBodyFraction(fraction: Float, bodyStart: Int, bodyCount: Int, totalItems: Int): Float {
         if (totalItems <= SINGLE_ITEM) return 0f
-        val index = listIndexFromBodyFraction(fraction, bodyStart, bodyCount)
+        val index = scrollTargetFromBodyFraction(fraction, bodyStart, bodyCount).listIndex
         return (index.toFloat() / (totalItems - 1)).coerceIn(0f, 1f)
     }
 

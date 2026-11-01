@@ -16,6 +16,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.gestures.scrollBy
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetValue
@@ -99,7 +101,12 @@ fun ReadingPage(
 
     // Body fraction already read; a position near either end counts as "not started" so RSVP/TTS begin at the top.
     fun currentBodyFraction(): Float = ReadingPositionMapper.bodyFractionFromList(
-        listState.firstVisibleItemIndex, bodyRange.start, bodyRange.count,
+        firstVisibleIndex = listState.firstVisibleItemIndex,
+        firstVisibleOffsetPx = listState.firstVisibleItemScrollOffset,
+        firstVisibleSizePx = listState.layoutInfo.visibleItemsInfo
+            .firstOrNull { it.index == listState.firstVisibleItemIndex }?.size ?: 0,
+        bodyStart = bodyRange.start,
+        bodyCount = bodyRange.count,
     ).let { fraction ->
         val atEdge = fraction < ReadingPositionMapper.RESTART_BELOW_FRACTION ||
             fraction >= ReadingPositionMapper.TREAT_AS_FINISHED_FRACTION
@@ -546,9 +553,9 @@ fun ReadingPage(
                     ReadingPositionMapper.shouldHandoffFromRsvp(startIndex, state.currentIndex)
                 ) {
                     val fraction = ReadingPositionMapper.fractionFromTokenIndex(state.currentIndex, state.tokens.size)
-                    val target = ReadingPositionMapper.listIndexFromBodyFraction(fraction, bodyRange.start, bodyRange.count)
+                    val target = ReadingPositionMapper.scrollTargetFromBodyFraction(fraction, bodyRange.start, bodyRange.count)
                     val total = listState.layoutInfo.totalItemsCount
-                    pageTurnScope.launch { listState.scrollToItem(target) }
+                    pageTurnScope.launch { listState.scrollToBodyTarget(target) }
                     if (readPositionSyncEnabled) {
                         readingViewModel.saveReadPosition(
                             articleId,
@@ -589,4 +596,11 @@ fun ReadingPage(
             }
         )
     }
+}
+
+/** Scrolls to the target item, then [BodyScrollTarget.withinItem] of the way into it once the item has been measured. */
+private suspend fun LazyListState.scrollToBodyTarget(target: ReadingPositionMapper.BodyScrollTarget) {
+    scrollToItem(target.listIndex)
+    val size = layoutInfo.visibleItemsInfo.firstOrNull { it.index == target.listIndex }?.size ?: return
+    if (target.withinItem > 0f) scrollBy(size * target.withinItem)
 }
