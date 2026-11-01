@@ -31,7 +31,7 @@ This is a **mechanical digest of the local archive**. It does not create informa
 ### 4.1 Executive Summary (verbatim quotes)
 - Split each article's `title` and `shortDescription` into sentences.
 - Keep sentences that contain the query (case-insensitive, whole-phrase boundary, same matcher rules as BOUNTY-01).
-- Prefer newer articles; drop near-duplicates (Jaccard similarity of lowercase word sets above a named threshold).
+- Prefer newer articles; drop near-duplicates when Jaccard similarity of lowercase word sets is `>= SUMMARY_DEDUPE_JACCARD_THRESHOLD` (`0.8`). This is a named constant and a heuristic, not a semantic-similarity claim.
 - Return at most **3** `QuotedSentence(text, feedName, date, articleId)`. Each sentence is capped at 240 characters, surrogate-safe. If none qualify, the section shows an honest empty state.
 
 ### 4.2 Timeline
