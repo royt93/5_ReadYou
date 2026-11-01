@@ -2,7 +2,10 @@ package com.mckimquyen.reader.ui.page.rsvp
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mckimquyen.reader.domain.rsvp.RsvpCalibrationPlan
+import com.mckimquyen.reader.domain.rsvp.RsvpTiming
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -42,6 +45,22 @@ data class RsvpUiState(
 @HiltViewModel
 class RsvpViewModel @Inject constructor() : ViewModel() {
 
+    /** Hilt field injection preserves the public no-argument constructor used by existing tests and previews. */
+    @Inject lateinit var injectedCalibrationStore: RsvpCalibrationStore
+
+    /** Test-only override; ordinary `RsvpViewModel()` remains source-compatible. */
+    private var calibrationStoreOverride: RsvpCalibrationStore? = null
+
+    internal constructor(store: RsvpCalibrationStore?) : this() {
+        calibrationStoreOverride = store
+    }
+
+    private val calibrationStore: RsvpCalibrationStore?
+        get() = calibrationStoreOverride ?: if (::injectedCalibrationStore.isInitialized) injectedCalibrationStore else null
+
+    private var punctuationDelayScale = RsvpCalibrationPlan.DEFAULT_DELAY_SCALE
+    private var wpmChosenByUser = false
+
     private val _uiState = MutableStateFlow(RsvpUiState())
     val uiState: StateFlow<RsvpUiState> = _uiState.asStateFlow()
 
@@ -49,7 +68,7 @@ class RsvpViewModel @Inject constructor() : ViewModel() {
 
     fun loadContent(content: String) {
         pause()
-        val tokens = RsvpTokenizer.tokenize(content)
+        val tokens = RsvpTokenizer.tokenize(content, punctuationDelayScale)
         _uiState.update {
             it.copy(
                 tokens = tokens,
@@ -57,6 +76,31 @@ class RsvpViewModel @Inject constructor() : ViewModel() {
                 isPlaying = false,
                 isCompleted = false
             )
+        }
+        applySavedSettings(content)
+    }
+
+    /**
+     * Applies the calibrated speed and punctuation scale once per load. A speed the user already picked this session
+     * wins over the saved one, and a failed read leaves the defaults untouched.
+     */
+    private fun applySavedSettings(content: String) {
+        val store = calibrationStore ?: return
+        viewModelScope.launch {
+            val saved = try {
+                store.read()
+            } catch (e: CancellationException) {
+                throw e
+            } catch (_: Exception) {
+                null
+            } ?: return@launch
+            punctuationDelayScale = saved.punctuationDelayScale
+            _uiState.update { state ->
+                state.copy(
+                    tokens = RsvpTokenizer.tokenize(content, punctuationDelayScale),
+                    wpm = if (wpmChosenByUser) state.wpm else saved.wpm.coerceIn(RsvpCalibrationPlan.MIN_WPM, RsvpCalibrationPlan.MAX_WPM),
+                )
+            }
         }
     }
 
@@ -84,8 +128,7 @@ class RsvpViewModel @Inject constructor() : ViewModel() {
         playbackJob = viewModelScope.launch {
             while (_uiState.value.isPlaying && _uiState.value.currentIndex < _uiState.value.tokens.size) {
                 val currentToken = _uiState.value.tokens[_uiState.value.currentIndex]
-                val baseDelay = (60_000L / _uiState.value.wpm.coerceIn(200, 900))
-                val totalDelay = baseDelay + currentToken.extraDelayMs
+                val totalDelay = RsvpTiming.tokenDelayMs(_uiState.value.wpm, currentToken.extraDelayMs)
 
                 delay(totalDelay)
 
@@ -120,7 +163,8 @@ class RsvpViewModel @Inject constructor() : ViewModel() {
     }
 
     fun setWpm(wpm: Int) {
-        _uiState.update { it.copy(wpm = wpm.coerceIn(200, 900)) }
+        wpmChosenByUser = true
+        _uiState.update { it.copy(wpm = wpm.coerceIn(RsvpCalibrationPlan.MIN_WPM, RsvpCalibrationPlan.MAX_WPM)) }
     }
 
     override fun onCleared() {

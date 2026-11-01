@@ -3,6 +3,8 @@ package com.mckimquyen.reader.ui.page.rsvp
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
+import kotlinx.coroutines.test.advanceUntilIdle
+import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.setMain
 import org.junit.After
@@ -104,5 +106,60 @@ class RsvpViewModelTest {
 
         viewModel.togglePlayPause()
         assertFalse(viewModel.uiState.value.isPlaying)
+    }
+
+    private class FakeStore(private val saved: SavedRsvpSettings?) : RsvpCalibrationStore {
+        override suspend fun read(): SavedRsvpSettings? = saved
+        override suspend fun write(wpm: Int, punctuationDelayScale: Float) = Unit
+    }
+
+    private fun vmWith(saved: SavedRsvpSettings?) = RsvpViewModel(FakeStore(saved) as RsvpCalibrationStore?)
+
+    @Test
+    fun withoutStore_keepsTheDefaultSpeed() {
+        val vm = RsvpViewModel()
+        vm.loadContent("One two three")
+        assertEquals(350, vm.uiState.value.wpm)
+    }
+
+    @Test
+    fun uncalibratedStore_keepsTheDefaultSpeed() = runTest(testDispatcher) {
+        val vm = vmWith(null)
+        vm.loadContent("One two three")
+        advanceUntilIdle()
+        assertEquals(350, vm.uiState.value.wpm)
+    }
+
+    @Test
+    fun savedSpeed_isAppliedOnLoad() = runTest(testDispatcher) {
+        val vm = vmWith(SavedRsvpSettings(wpm = 500, punctuationDelayScale = 1.0f))
+        vm.loadContent("One two three")
+        advanceUntilIdle()
+        assertEquals(500, vm.uiState.value.wpm)
+    }
+
+    @Test
+    fun savedScale_changesPunctuationDelaysOfTheLoadedTokens() = runTest(testDispatcher) {
+        val vm = vmWith(SavedRsvpSettings(wpm = 400, punctuationDelayScale = 2.0f))
+        vm.loadContent("Stop. Go")
+        advanceUntilIdle()
+        assertEquals(400L, vm.uiState.value.tokens.first().extraDelayMs) // sentence end 200 * 2
+    }
+
+    @Test
+    fun manualSpeedChosenBeforeTheStoreAnswers_wins() = runTest(testDispatcher) {
+        val vm = vmWith(SavedRsvpSettings(wpm = 500, punctuationDelayScale = 1.0f))
+        vm.loadContent("One two three")
+        vm.setWpm(420) // user moves the slider before the saved value arrives
+        advanceUntilIdle()
+        assertEquals(420, vm.uiState.value.wpm)
+    }
+
+    @Test
+    fun savedSpeed_isClampedToTheSupportedRange() = runTest(testDispatcher) {
+        val vm = vmWith(SavedRsvpSettings(wpm = 5000, punctuationDelayScale = 1.0f))
+        vm.loadContent("One two three")
+        advanceUntilIdle()
+        assertEquals(900, vm.uiState.value.wpm)
     }
 }
