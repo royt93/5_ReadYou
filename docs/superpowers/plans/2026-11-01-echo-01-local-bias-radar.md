@@ -317,19 +317,19 @@ Findings: `stringResource` is @Composable and cannot run inside `joinToString`; 
 
 **Files:** Modify `Content.kt` and `ReadingPage.kt`; add integration tests.
 
-- [ ] **Step 1: Add Content and ReadingPage integration tests**
+- [x] **Step 1: Add Content and ReadingPage integration tests**
 
 Create `app/src/test/java/com/mckimquyen/reader/ui/page/home/read/ContentEchoIntegrationTest.kt` verifying:
 - `EchoSignalGauges` is composed inside `Content` below `Metadata`; with `LocalHeadlineSignalsEnabled provides false` no gauge node exists even when `echoResult` is noteworthy (this is where the toggle is enforced).
 - Clicking gauges invokes `onOpenEchoSheet`.
 - In `ReadingPage`, `showEchoSheet = true` opens the sheet in `BottomDrawer`; dismissal resets state.
 
-- [ ] **Step 2: Run integration tests red**
+- [x] **Step 2: Run integration tests red**
 
 Run: `./gradlew testDevDebugUnitTest --tests "*ContentEchoIntegrationTest"`
 Expected: missing parameter / sheet branch.
 
-- [ ] **Step 3: Wire Content.kt**
+- [x] **Step 3: Wire Content.kt**
 
 - Add parameter `echoResult: ArticleSignalResult? = null` and `onOpenEchoSheet: () -> Unit = {}` to `Content`.
 - In `item` containing `Metadata`, right after `HeadlineSignalBadges`, render:
@@ -343,7 +343,7 @@ Expected: missing parameter / sheet branch.
   }
   ```
 
-- [ ] **Step 4: Wire ReadingPage.kt**
+- [x] **Step 4: Wire ReadingPage.kt**
 
 - Read `val echoState by readingViewModel.echoSignalState.collectAsState()`.
 - Add `readingUiState.showEchoSheet` to `isAnySheetOpen`.
@@ -368,17 +368,19 @@ Expected: missing parameter / sheet branch.
   onOpenEchoSheet = { readingViewModel.openEchoSheet() },
   ```
 
-- [ ] **Step 5: Run integration tests green**
+- [x] **Step 5: Run integration tests green**
 
 Run: `./gradlew testDevDebugUnitTest --tests "*ContentEchoIntegrationTest" --rerun`
 Expected: all integration tests pass.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add app/src/main/java/com/mckimquyen/reader/ui/page/home/read app/src/test/java/com/mckimquyen/reader/ui/page/home/read
 git commit -m "feat(echo-01): wire echo signals into reader content and drawer"
 ```
+
+Findings: the section entry point `EchoSignalSection` was added to `EchoSignalGauges.kt` to enforce the shared `LocalHeadlineSignalsEnabled` at render time (the ViewModel cannot see it). Tests separately prove: (a) noteworthy + enabled shows gauges, (b) noteworthy + toggle-off hides gauges (this is where the toggle is enforced), (c) each non-ready state shows nothing (tested one `setContent` per test to avoid Compose's rule re-composition restriction), (d) ready-but-ordinary shows nothing, (e) click invokes callback once. 7 integration tests; 218 across the combined group.
 
 ### Task 6: Full verification, hardware smoke on Pixel 7 Pro, and documentation
 

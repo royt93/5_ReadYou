@@ -40,6 +40,9 @@ import com.mckimquyen.reader.domain.model.article.AudioInfo
 import com.mckimquyen.reader.ui.page.home.read.podcast.PodcastPlayerBar
 import com.mckimquyen.reader.ui.page.home.read.podcast.PodcastPlayerViewModel
 import com.mckimquyen.reader.ui.page.home.read.quote.QuoteCardViewModel
+import com.mckimquyen.reader.ui.page.headline.EchoSignalDetailsSheet
+import com.mckimquyen.reader.ui.page.headline.EchoSignalState
+import com.mckimquyen.reader.ui.page.headline.readyResult
 import com.mckimquyen.reader.ui.page.home.read.bounty.BountyInvestigationSheetContent
 import com.mckimquyen.reader.ui.page.home.read.quote.QuoteCardSheetContent
 import androidx.navigation.NavHostController
@@ -186,8 +189,9 @@ fun ReadingPage(
     val quoteScope = rememberCoroutineScope()
     val quoteChooserTitle = stringResource(R.string.quote_card_chooser_title)
     val bountyState by readingViewModel.bountyInvestigationState.collectAsState()
+    val echoState by readingViewModel.echoSignalState.collectAsState()
     val isAnySheetOpen = readingUiState.showSummarySheet || readingUiState.showMindMapSheet ||
-        readingUiState.showDeepReadSheet || readingUiState.showQuoteSheet || readingUiState.showBountySheet
+        readingUiState.showDeepReadSheet || readingUiState.showQuoteSheet || readingUiState.showBountySheet || readingUiState.showEchoSheet
 
     // Render lại thẻ mỗi khi mở sheet với đoạn trích mới; giải phóng bitmap khi đóng.
     LaunchedEffect(readingUiState.quoteSpec) {
@@ -208,10 +212,13 @@ fun ReadingPage(
             readingViewModel.dismissDeepRead()
             readingViewModel.dismissQuoteSheet()
             readingViewModel.dismissBountyInvestigation()
+            readingViewModel.dismissEchoSheet()
         }
     }
     BackHandler(isAnySheetOpen) {
-        if (readingUiState.showBountySheet) {
+        if (readingUiState.showEchoSheet) {
+            readingViewModel.dismissEchoSheet()
+        } else if (readingUiState.showBountySheet) {
             readingViewModel.dismissBountyInvestigation()
         } else if (readingUiState.showQuoteSheet) {
             readingViewModel.dismissQuoteSheet()
@@ -227,7 +234,13 @@ fun ReadingPage(
     BottomDrawer(
         drawerState = summaryDrawerState,
         sheetContent = {
-            if (readingUiState.showBountySheet) {
+            val echoResult = echoState.readyResult()
+            if (readingUiState.showEchoSheet && echoResult != null) {
+                EchoSignalDetailsSheet(
+                    result = echoResult,
+                    onClose = { readingViewModel.dismissEchoSheet() },
+                )
+            } else if (readingUiState.showBountySheet) {
                 BountyInvestigationSheetContent(
                     state = bountyState,
                     onOpenArticle = { targetId ->
@@ -375,6 +388,8 @@ fun ReadingPage(
                                 brainRpgViewModel = androidx.hilt.navigation.compose.hiltViewModel(),
                                 onShareQuote = { readingViewModel.openQuoteSheet(it) },
                                 onInvestigate = { readingViewModel.openBountyInvestigation(it) },
+                                echoSignalState = echoState,
+                                onOpenEchoSheet = { readingViewModel.openEchoSheet() },
                             )
                         }
                     }

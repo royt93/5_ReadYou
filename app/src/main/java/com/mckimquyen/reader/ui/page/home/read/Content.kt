@@ -2,6 +2,8 @@ package com.mckimquyen.reader.ui.page.home.read
 
 import com.mckimquyen.reader.domain.headline.HeadlineAnalyzer
 import com.mckimquyen.reader.ui.component.radar.RadarBadge
+import com.mckimquyen.reader.ui.page.headline.EchoSignalSection
+import com.mckimquyen.reader.ui.page.headline.EchoSignalState
 import com.mckimquyen.reader.ui.page.headline.HeadlineSignalBadges
 import com.mckimquyen.reader.ui.page.headline.LocalHeadlineSignalsEnabled
 import com.mckimquyen.reader.ui.page.radar.LocalOpenRadarDiff
@@ -75,6 +77,8 @@ fun Content(
     completionClock: () -> Long = SystemClock::elapsedRealtime,
     onShareQuote: (String) -> Unit = {},
     onInvestigate: (String) -> Unit = {},
+    echoSignalState: EchoSignalState = EchoSignalState.Idle,
+    onOpenEchoSheet: () -> Unit = {},
 ) {
     val context = LocalContext.current
     val subheadUpperCase = LocalReadingSubheadUpperCase.current
@@ -177,6 +181,11 @@ fun Content(
                             signal = headlineSignal,
                             modifier = Modifier.padding(bottom = 8.dp),
                             showClickbait = false,
+                        )
+                        EchoSignalSection(
+                            state = echoSignalState,
+                            onOpen = onOpenEchoSheet,
+                            modifier = Modifier.padding(bottom = 8.dp),
                         )
                         Metadata(
                             feedName = feedName,

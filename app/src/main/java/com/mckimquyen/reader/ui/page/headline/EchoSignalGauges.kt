@@ -47,6 +47,20 @@ private const val MIN_TOUCH_TARGET_DP = 48
 private val WarningOrange = Color(0xFFE65100)
 
 /**
+ * Reader-facing entry point. The shared `Headline signals` switch is a CompositionLocal supplied at the home entry, so
+ * it is enforced here, at render time, rather than in the ViewModel (which cannot see it).
+ */
+@Composable
+fun EchoSignalSection(
+    state: EchoSignalState,
+    onOpen: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    if (!LocalHeadlineSignalsEnabled.current) return
+    EchoSignalGauges(result = state.readyResult(), onClick = onOpen, modifier = modifier)
+}
+
+/**
  * Two slim lexical-signal bars under the article metadata. Renders nothing unless the result is noteworthy, so an
  * ordinary article carries no extra block. The whole block is one tap target that opens the details sheet.
  */
