@@ -11,7 +11,7 @@
 |---|---|---|---|---|---|
 | ECHO-01 | Tín Hiệu Thổi Phồng & Cảm Xúc Thân Bài (Hype & Sentiment Gauge) | P1 (High) | 5 SP | ✅ Done (heuristic cục bộ; không đo thiên kiến chính trị) | [ECHO-01_bias-radar-sentiment-gauge_DONE.md](../done/ECHO-01_bias-radar-sentiment-gauge_DONE.md) |
 | ECHO-02 | Góc Nhìn Khác Trong Kho Của Bạn (Contrasting Coverage, thay cho Steelman Rebuttal Box) | P1 (High) | 8 SP | ✅ Done (từ vựng, chỉ kho cục bộ, không AI; kho một nguồn không hiện thẻ) | [ECHO-02_steelman-rebuttal-box_DONE.md](../done/ECHO-02_steelman-rebuttal-box_DONE.md) |
-| ECHO-03 | Thẻ So Sánh Đối Kháng Viral (Dual-Perspective Quote Card 9:16) | P2 (Medium) | 5 SP | Todo | [ECHO-03_dual-perspective-quote-card.md](ECHO-03_dual-perspective-quote-card.md) |
+| ECHO-03 | Thẻ Hai Góc Nhìn 9:16 (Two-Headline Card, thay cho Dual-Perspective Quote Card) | P2 (Medium) | 5 SP | ✅ Done (hai tiêu đề từ kho cục bộ, không AI, không phải phản biện) | [ECHO-03_dual-perspective-quote-card_DONE.md](../done/ECHO-03_dual-perspective-quote-card_DONE.md) |
 | ECHO-04 | Sàn Đấu Tranh Luận Giọng Nói (Voice AI Debate Arena) & Rewarded Ads | P1 (High) | 8 SP | Todo | [ECHO-04_voice-ai-debate-arena.md](ECHO-04_voice-ai-debate-arena.md) |
 
 ## 📊 Tổng Kết Epic 16
