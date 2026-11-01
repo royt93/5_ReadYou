@@ -44,6 +44,7 @@ import com.mckimquyen.reader.ui.page.headline.EchoSignalDetailsSheet
 import com.mckimquyen.reader.ui.page.headline.EchoSignalState
 import com.mckimquyen.reader.ui.page.headline.readyResult
 import com.mckimquyen.reader.ui.page.home.read.bounty.BountyInvestigationSheetContent
+import com.mckimquyen.reader.ui.page.home.read.bounty.DossierSheetContent
 import com.mckimquyen.reader.ui.page.home.read.quote.QuoteCardSheetContent
 import androidx.navigation.NavHostController
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -189,9 +190,12 @@ fun ReadingPage(
     val quoteScope = rememberCoroutineScope()
     val quoteChooserTitle = stringResource(R.string.quote_card_chooser_title)
     val bountyState by readingViewModel.bountyInvestigationState.collectAsState()
+    val dossier by readingViewModel.dossier.collectAsState()
     val echoState by readingViewModel.echoSignalState.collectAsState()
+    val dossierChooserTitle = stringResource(R.string.dossier_chooser_title)
     val isAnySheetOpen = readingUiState.showSummarySheet || readingUiState.showMindMapSheet ||
-        readingUiState.showDeepReadSheet || readingUiState.showQuoteSheet || readingUiState.showBountySheet || readingUiState.showEchoSheet
+        readingUiState.showDeepReadSheet || readingUiState.showQuoteSheet || readingUiState.showBountySheet ||
+        readingUiState.showEchoSheet || readingUiState.showDossierSheet
 
     // Render lại thẻ mỗi khi mở sheet với đoạn trích mới; giải phóng bitmap khi đóng.
     LaunchedEffect(readingUiState.quoteSpec) {
@@ -211,6 +215,7 @@ fun ReadingPage(
             readingViewModel.dismissMindMap()
             readingViewModel.dismissDeepRead()
             readingViewModel.dismissQuoteSheet()
+            readingViewModel.dismissDossier()
             readingViewModel.dismissBountyInvestigation()
             readingViewModel.dismissEchoSheet()
         }
@@ -218,6 +223,8 @@ fun ReadingPage(
     BackHandler(isAnySheetOpen) {
         if (readingUiState.showEchoSheet) {
             readingViewModel.dismissEchoSheet()
+        } else if (readingUiState.showDossierSheet) {
+            readingViewModel.dismissDossier()
         } else if (readingUiState.showBountySheet) {
             readingViewModel.dismissBountyInvestigation()
         } else if (readingUiState.showQuoteSheet) {
@@ -235,10 +242,28 @@ fun ReadingPage(
         drawerState = summaryDrawerState,
         sheetContent = {
             val echoResult = echoState.readyResult()
+            val currentDossier = dossier
             if (readingUiState.showEchoSheet && echoResult != null) {
                 EchoSignalDetailsSheet(
                     result = echoResult,
                     onClose = { readingViewModel.dismissEchoSheet() },
+                )
+            } else if (readingUiState.showDossierSheet && currentDossier != null) {
+                DossierSheetContent(
+                    dossier = currentDossier,
+                    onOpenArticle = { targetId ->
+                        readingViewModel.dismissDossier()
+                        readingViewModel.dismissBountyInvestigation()
+                        navController.navigate("${RouteName.READING}/$targetId")
+                    },
+                    onShare = {
+                        quoteScope.launch {
+                            val intent = readingViewModel.prepareDossierShare(dossierChooserTitle)
+                            if (intent != null) context.startActivity(intent)
+                            else Toast.makeText(context, R.string.dossier_share_error, Toast.LENGTH_SHORT).show()
+                        }
+                    },
+                    onClose = { readingViewModel.dismissDossier() },
                 )
             } else if (readingUiState.showBountySheet) {
                 BountyInvestigationSheetContent(
@@ -249,6 +274,7 @@ fun ReadingPage(
                     },
                     onRequestAiContext = { readingViewModel.requestBountyAiContext() },
                     onClose = { readingViewModel.dismissBountyInvestigation() },
+                    onCreateDossier = { readingViewModel.openDossier() },
                 )
             } else if (readingUiState.showQuoteSheet) {
                 QuoteCardSheetContent(
