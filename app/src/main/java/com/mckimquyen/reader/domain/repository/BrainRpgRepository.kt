@@ -5,6 +5,7 @@ import androidx.room.withTransaction
 import com.mckimquyen.reader.domain.model.rpg.BrainRpgCategoryEntity
 import com.mckimquyen.reader.domain.model.rpg.CategoryDecay
 import com.mckimquyen.reader.domain.model.rpg.BrainRpgProfileEntity
+import com.mckimquyen.reader.domain.model.rpg.StreakRescuePolicy
 import com.mckimquyen.reader.domain.model.rpg.BrainRpgRewardEntity
 import com.mckimquyen.reader.domain.model.rpg.BrainRpgRewardType
 import com.mckimquyen.reader.domain.model.rpg.LevelCalculator
@@ -244,6 +245,7 @@ class BrainRpgRepository @Inject constructor(
 
     private fun isStreakBroken(profile: BrainRpgProfileEntity, nowMillis: Long): Boolean =
         !profile.streakShieldActive &&
+            profile.streakDays >= StreakRescuePolicy.MIN_STREAK_TO_OFFER &&
             profile.lastReadEpochDay > 0L &&
             epochDay(nowMillis) - profile.lastReadEpochDay >= MIN_MISSED_DAYS_FOR_BREAK
 

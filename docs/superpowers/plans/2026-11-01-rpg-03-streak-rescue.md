@@ -29,6 +29,7 @@
 - Modify `app/src/main/java/com/mckimquyen/reader/ui/ext/ExtDataStore.kt`: add `DataStoreKeys.StreakRescueLastPromptDay`.
 - Modify `app/src/main/java/com/mckimquyen/reader/domain/repository/BrainRpgRepository.kt`: add `resetBrokenStreak()` and `rescueBrokenStreak()`.
 - Create `app/src/main/java/com/mckimquyen/reader/ui/page/rpg/StreakRescueViewModel.kt`: state machine, prompt gate, ad call.
+- Create `app/src/main/java/com/mckimquyen/reader/ui/page/rpg/StreakRescuePromptDayStore.kt` and `app/src/main/java/com/mckimquyen/reader/infrastructure/di/StreakRescueModule.kt`: DataStore-backed prompt store + Hilt binding; tests inject a fake store.
 - Create `app/src/main/java/com/mckimquyen/reader/ui/component/rpg/StreakRescueDialog.kt`: `AlertDialog` composable.
 - Modify `app/src/main/java/com/mckimquyen/reader/ui/page/common/HomeEntry.kt`: host `StreakRescueDialog`.
 - Modify the 38 `app/src/main/res/values*/strings.xml`.
@@ -66,6 +67,11 @@ suspend fun rescueBrokenStreak(nowMillis: Long = System.currentTimeMillis()): Bo
 Task 4 produces (`com.mckimquyen.reader.ui.page.rpg`):
 
 ```kotlin
+interface StreakRescuePromptDayStore {
+    suspend fun readLastPromptDay(): Long
+    suspend fun writeLastPromptDay(epochDay: Long)
+}
+
 sealed interface StreakRescueUiState {
     object Idle : StreakRescueUiState
     data class Prompt(
@@ -290,9 +296,16 @@ class BrainRpgRepositoryStreakRescueTest {
     private lateinit var database: AndroidDatabase
     private lateinit var dao: BrainRpgDao
     private lateinit var repository: BrainRpgRepository
+    private val promptDayStore = FakeStreakRescuePromptDayStore()
     private val scopes = mutableListOf<CoroutineScope>()
 
     private fun newScope() = CoroutineScope(SupervisorJob() + Dispatchers.Unconfined).also { scopes += it }
+
+    private class FakeStreakRescuePromptDayStore : StreakRescuePromptDayStore {
+        var day: Long = -1L
+        override suspend fun readLastPromptDay() = day
+        override suspend fun writeLastPromptDay(epochDay: Long) { day = epochDay }
+    }
 
     @Before fun setUp() {
         context = ApplicationProvider.getApplicationContext()
@@ -518,9 +531,16 @@ class StreakRescueViewModelTest {
     private lateinit var database: AndroidDatabase
     private lateinit var dao: BrainRpgDao
     private lateinit var repository: BrainRpgRepository
+    private val promptDayStore = FakeStreakRescuePromptDayStore()
     private val scopes = mutableListOf<CoroutineScope>()
 
     private fun newScope() = CoroutineScope(SupervisorJob() + Dispatchers.Unconfined).also { scopes += it }
+
+    private class FakeStreakRescuePromptDayStore : StreakRescuePromptDayStore {
+        var day: Long = -1L
+        override suspend fun readLastPromptDay() = day
+        override suspend fun writeLastPromptDay(epochDay: Long) { day = epochDay }
+    }
 
     @Before fun setUp() {
         Dispatchers.setMain(testDispatcher)
@@ -566,7 +586,7 @@ class StreakRescueViewModelTest {
         assertNull(prompt.error)
 
         // Prompt day recorded in DataStore
-        val recordedDay = context.dataStore.data.map { it[DataStoreKeys.StreakRescueLastPromptDay.key] }.first()
+        val recordedDay = promptDayStore.readLastPromptDay()
         assertEquals(now / day, recordedDay)
     }
 
@@ -584,7 +604,7 @@ class StreakRescueViewModelTest {
 
     @Test fun checkOnStartup_staysIdleWhenAlreadyPromptedToday() = runTest(testDispatcher) {
         seedBrokenStreak(streak = 5, daysAgo = 3)
-        context.dataStore.put(DataStoreKeys.StreakRescueLastPromptDay, now / day)
+        promptDayStore.writeLastPromptDay(now / day)
 
         val vm = createViewModel()
         vm.checkOnStartup()

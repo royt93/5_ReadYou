@@ -123,4 +123,20 @@ class BrainRpgRepositoryStreakRescueTest {
         assertFalse(repository.resetBrokenStreak(now))
         assertFalse(repository.rescueBrokenStreak(now))
     }
+
+    @Test fun bothMutations_rejectWhenSavedStreakIsBelowTheOfferMinimum() = runTest {
+        // A late ad callback must not arm a shield (or wipe a streak) the policy would never have offered.
+        seed(streak = StreakRescuePolicy.MIN_STREAK_TO_OFFER - 1, lastReadDaysAgo = 5)
+
+        assertFalse(repository.rescueBrokenStreak(now))
+        assertFalse(repository.getProgress().streakShieldActive)
+        assertFalse(repository.resetBrokenStreak(now))
+        assertEquals(StreakRescuePolicy.MIN_STREAK_TO_OFFER - 1, repository.getProgress().streakDays)
+    }
+
+    @Test fun bothMutations_acceptAStreakExactlyAtTheOfferMinimum() = runTest {
+        seed(streak = StreakRescuePolicy.MIN_STREAK_TO_OFFER, lastReadDaysAgo = 2)
+
+        assertTrue(repository.rescueBrokenStreak(now))
+    }
 }
