@@ -219,6 +219,34 @@ class BrainRpgRepository @Inject constructor(
         true
     }
 
+    /** Sets the saved streak to 0 when it is genuinely broken; the next qualifying read then starts again at 1. */
+    suspend fun resetBrokenStreak(nowMillis: Long = System.currentTimeMillis()): Boolean = mutationMutex.withLock {
+        legacyImporter.ensureImported(nowMillis)
+        val profile = dao.getProfile() ?: return@withLock false
+        if (!isStreakBroken(profile, nowMillis)) return@withLock false
+        database.withTransaction { dao.updateProfile(profile.copy(streakDays = 0)) }
+        refresh(nowMillis)
+        true
+    }
+
+    /**
+     * Arms the shield for a genuinely broken streak. Eligibility is re-checked under the mutex because the rewarded-ad
+     * callback is asynchronous and may arrive late or twice; returns true only when state actually changed.
+     */
+    suspend fun rescueBrokenStreak(nowMillis: Long = System.currentTimeMillis()): Boolean = mutationMutex.withLock {
+        legacyImporter.ensureImported(nowMillis)
+        val profile = dao.getProfile() ?: return@withLock false
+        if (!isStreakBroken(profile, nowMillis)) return@withLock false
+        database.withTransaction { dao.updateProfile(profile.copy(streakShieldActive = true)) }
+        refresh(nowMillis)
+        true
+    }
+
+    private fun isStreakBroken(profile: BrainRpgProfileEntity, nowMillis: Long): Boolean =
+        !profile.streakShieldActive &&
+            profile.lastReadEpochDay > 0L &&
+            epochDay(nowMillis) - profile.lastReadEpochDay >= MIN_MISSED_DAYS_FOR_BREAK
+
     /**
      * Called after a rewarded ad was earned. Eligibility is re-validated here (not just before the ad was shown),
      * because the callback is asynchronous and may arrive late or twice. Returns true only when state changed.
@@ -277,5 +305,6 @@ class BrainRpgRepository @Inject constructor(
         const val QUIZ_XP = 150L
         const val QUIZ_PEER_LIMIT = 60
         const val MILLIS_PER_DAY = 86_400_000L
+        const val MIN_MISSED_DAYS_FOR_BREAK = 2L
     }
 }
