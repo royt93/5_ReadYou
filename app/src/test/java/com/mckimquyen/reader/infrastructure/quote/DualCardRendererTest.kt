@@ -1,8 +1,10 @@
 package com.mckimquyen.reader.infrastructure.quote
 
 import android.graphics.Bitmap
+import android.graphics.RectF
 import com.mckimquyen.reader.domain.steelman.DualPerspectiveSpec
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -72,4 +74,23 @@ class DualCardRendererTest {
             for (x in 0 until 40) assertEquals("lề trái bị vẽ tràn tại ($x,$y)", edge, bitmap.getPixel(x, y))
         }
     }
+
+
+    private fun assertNoOverlapAndInsideCard(s: DualPerspectiveSpec) {
+        val (_, blocks) = DualCardRenderer.renderWithBounds(s)
+        for (i in blocks.indices) {
+            val b = blocks[i]
+            assertTrue("khối $i ra ngoài ảnh: $b", b.left >= 0f && b.top >= 0f && b.right <= DualCardRenderer.CARD_WIDTH && b.bottom <= DualCardRenderer.CARD_HEIGHT)
+            for (j in i + 1 until blocks.size) {
+                assertFalse("khối $i chồng khối $j: $b vs ${blocks[j]}", RectF.intersects(b, blocks[j]))
+            }
+        }
+    }
+
+    @Test fun textBlocks_neverOverlap_forShortHeadlinesWithCue() = assertNoOverlapAndInsideCard(spec)
+
+    @Test fun textBlocks_neverOverlap_whenBothHeadlinesAreAsLongAsAllowed() =
+        assertNoOverlapAndInsideCard(spec.copy(topTitle = "word ".repeat(300), bottomTitle = "word ".repeat(300)))
+
+    @Test fun textBlocks_neverOverlap_withoutCue() = assertNoOverlapAndInsideCard(spec.copy(cue = ""))
 }
