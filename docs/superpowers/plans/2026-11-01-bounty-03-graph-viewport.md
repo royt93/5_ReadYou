@@ -416,7 +416,8 @@ class GraphLabelsTest {
         val (nodes, positions) = spread(40)
         val labels = select(nodes, positions, selected = "n40", neighbours = setOf("n39", "n38"))
         val ids = labels.map { it.nodeId }
-        assertEquals(listOf("n40", "n39", "n38"), ids.take(3))
+        // weights are 100 - index, so n38 (62) is heavier than n39 (61) and is placed before it
+        assertEquals(listOf("n40", "n38", "n39"), ids.take(3))
         assertEquals(3 + GraphLabels.MAX_BASE_LABELS, labels.size)
     }
 
