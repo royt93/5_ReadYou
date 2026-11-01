@@ -272,7 +272,7 @@ Result: 14 `echo_*` keys in all 38 `strings.xml` (EN and VI hand-written, others
 
 **Files:** Create `EchoSignalGauges.kt`, `EchoSignalDetailsSheet.kt`, and `EchoSignalUiTest.kt`.
 
-- [ ] **Step 1: Write failing Compose UI tests**
+- [x] **Step 1: Write failing Compose UI tests**
 
 Create `app/src/test/java/com/mckimquyen/reader/ui/page/headline/EchoSignalUiTest.kt`:
 - Gauges hidden when result is null or not noteworthy (`isNoteworthy == false`).
@@ -283,33 +283,35 @@ Create `app/src/test/java/com/mckimquyen/reader/ui/page/headline/EchoSignalUiTes
 - Sheet close button invokes `onClose`.
 - Tag constants: `ECHO_GAUGES_TAG`, `ECHO_HYPE_BAR_TAG`, `ECHO_TONE_BAR_TAG`, `ECHO_SHEET_TAG`, `ECHO_CLOSE_TAG`, `ECHO_PASSAGE_PREFIX`.
 
-- [ ] **Step 2: Run UI test red**
+- [x] **Step 2: Run UI test red**
 
 Run: `./gradlew testDevDebugUnitTest --tests "*EchoSignalUiTest"`
 Expected: compilation failure for missing composables.
 
-- [ ] **Step 3: Implement EchoSignalGauges**
+- [x] **Step 3: Implement EchoSignalGauges**
 
 - Layout: Column with Hype row + Tone row.
 - Hype row: icon, localized label + percent, slim `LinearProgressIndicator` (height 6dp, rounded), warning icon + label if >= 70.
 - Tone row: icon, localized label, slim indicator, semantic chip.
 - Wrap in accessible semantic `Surface` with `role = Role.Button`, `contentDescription`, and `clickable { onClick() }`.
 
-- [ ] **Step 4: Implement EchoSignalDetailsSheet**
+- [x] **Step 4: Implement EchoSignalDetailsSheet**
 
 - Column with header (title + close TextButton), disclaimer banner (`Surface` with low alpha outline), Hype + Tone summary cards, LazyColumn of `FlaggedPassage` cards (truncated text, score badge, cue tags).
 
-- [ ] **Step 5: Run UI tests green**
+- [x] **Step 5: Run UI tests green**
 
 Run: `./gradlew testDevDebugUnitTest --tests "*EchoSignalUiTest" --rerun`
 Expected: all gauge and sheet tests pass.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add app/src/main/java/com/mckimquyen/reader/ui/page/headline app/src/test/java/com/mckimquyen/reader/ui/page/headline
 git commit -m "feat(echo-01): build inline gauges and detail sheet composables"
 ```
+
+Findings: `stringResource` is @Composable and cannot run inside `joinToString`; labels are resolved into a `val` first. The gauge block is a single merged TalkBack button, so its child nodes (warning copy) exist only in the unmerged semantics tree; tests use `useUnmergedTree = true` for those and separately assert the merged description, `Role.Button` and the 48dp minimum touch target. 13 Compose tests.
 
 ### Task 5: Wire into Content.kt and ReadingPage.kt
 
