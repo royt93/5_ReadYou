@@ -47,9 +47,9 @@ Immutable value: `scale: Float`, `offsetX: Float`, `offsetY: Float` in canvas pi
 
 ### 3.3 `GraphLabels`
 `GraphLabels.select(nodes, positionsOnScreen, selectedId, neighbourIds, scale, canvasSize, measure)` returns the labels to draw:
-- Always: the selected node and its neighbours.
-- Others: up to `MAX_BASE_LABELS` at scale 1, growing with zoom (`labelBudget(scale)`), ordered by weight then id.
-- A label is dropped when its rectangle overlaps one already placed or leaves the canvas. `measure` is injected so the function stays pure and testable.
+- Priority, not exemption: the selected node is placed first, then its neighbours (weight desc, id), then the rest. Priority labels are not counted against the budget.
+- Others: up to `MAX_BASE_LABELS` (8) at scale 1, growing linearly to `MAX_ZOOMED_LABELS` (24) at `MAX_SCALE`, ordered by weight then id.
+- A node whose centre is outside the canvas gets no label. Otherwise the label box is clamped inside the canvas (and flips below the node when there is no room above). A label is dropped when its box overlaps one already placed, so even a neighbour can be dropped, but the selected node (placed first) never is while visible. `measure` is injected so the function stays pure and testable.
 
 ### 3.4 `SecondBrainPage` changes
 - Column: graph box `weight(GRAPH_WEIGHT)` (about 55%), slider, list box `weight(LIST_WEIGHT)`.
@@ -57,14 +57,14 @@ Immutable value: `scale: Float`, `offsetX: Float`, `offsetY: Float` in canvas pi
 - Tap uses `viewport.toUnit` then the existing `BrainGraphLayout.hitTest`. The hit radius is defined in screen pixels (converted), so it stays finger-sized at any zoom.
 - Viewport lives in Compose state (`rememberSaveable`-style saver for scale/offset), not in `SecondBrainViewModel`. Selection stays in the ViewModel as today.
 - Changing the time window or graph resets the viewport.
-- Reset-view button with content description; the graph keeps its existing content description (extended with zoom hint).
+- Reset-view button (disabled while the viewport is the identity) beside a one-line visible caption describing the gestures. The graph keeps its existing content description unchanged (existing tests rely on it) and exposes the zoom level through `stateDescription`.
 - Empty-selection hint above the list; list shows related articles newest first as today.
 
 ### 3.5 Unchanged
 `BrainGraphBuilder`, `SecondBrainSv`, `BrainGraphLayout.compute`, `SecondBrainStateReducer`, route and Settings entry.
 
 ## 4. Localization
-About 4 new `second_brain_*` keys (select-node hint, reset-view action, zoom hint appended to the graph description, zoom level description) in all 38 `values*/strings.xml`: English and Vietnamese hand-written, others English fallback. Added in the task that first uses them; `StringResourceParityTest` must stay 6/6.
+Exactly 4 new `second_brain_*` keys: `second_brain_select_hint`, `second_brain_reset_view`, `second_brain_zoom_hint` (visible gesture caption), `second_brain_zoom_level` (`Zoom %1$d%%`, used as `stateDescription`) in all 38 `values*/strings.xml`: English and Vietnamese hand-written, others English fallback. Added in the task that first uses them; `StringResourceParityTest` must stay 6/6.
 
 ## 5. Tests
 
