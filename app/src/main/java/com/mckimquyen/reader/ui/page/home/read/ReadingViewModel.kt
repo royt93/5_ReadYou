@@ -37,6 +37,14 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
+import com.mckimquyen.reader.domain.model.bounty.BountyQuerySanitizer
+import com.mckimquyen.reader.domain.repository.BountyInvestigationRepository
+import com.mckimquyen.reader.ui.page.home.read.bounty.BountyAiFailure
+import com.mckimquyen.reader.ui.page.home.read.bounty.BountyAiState
+import com.mckimquyen.reader.ui.page.home.read.bounty.BountyInvestigationPhase
+import com.mckimquyen.reader.ui.page.home.read.bounty.BountyInvestigationState
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -70,6 +78,15 @@ class ReadingViewModel @Inject constructor(
     private var summaryJob: Job? = null
     private var mindMapJob: Job? = null
     private var deepReadJob: Job? = null
+    private var bountyJob: Job? = null
+    private var bountyAiJob: Job? = null
+
+    private val bountyRepository: BountyInvestigationRepository? by lazy {
+        articleDao?.let { BountyInvestigationRepository(it) }
+    }
+
+    private val _bountyInvestigationState = MutableStateFlow(BountyInvestigationState())
+    val bountyInvestigationState: StateFlow<BountyInvestigationState> = _bountyInvestigationState.asStateFlow()
 
     init {
         // Collect TTS state once per ViewModel lifetime.
@@ -275,6 +292,86 @@ class ReadingViewModel @Inject constructor(
 
     fun dismissQuoteSheet() {
         _readingUiState.update { it.copy(showQuoteSheet = false, quoteSpec = null) }
+    }
+
+    /**
+     * BOUNTY-01: mở sheet điều tra cho đoạn đang chọn. Chỉ tìm trong kho Room của CHÍNH tài khoản đang đọc và bỏ qua
+     * bài hiện tại; phạm vi tài khoản lấy từ bài đã tải chứ không từ UI. Giữ radar tối thiểu [BOUNTY_MIN_SCAN_MILLIS]
+     * để hoạt ảnh không chớp tắt khi kho nhỏ.
+     */
+    fun openBountyInvestigation(rawSelection: String) {
+        val query = BountyQuerySanitizer.sanitize(rawSelection) ?: return
+        val current = _readingUiState.value.articleWithFeed?.article ?: return
+        val repository = bountyRepository ?: return
+
+        bountyJob?.cancel()
+        bountyAiJob?.cancel()
+        _bountyInvestigationState.value = BountyInvestigationState(phase = BountyInvestigationPhase.SCANNING, query = query)
+        _readingUiState.update { it.copy(showBountySheet = true) }
+
+        bountyJob = viewModelScope.launch {
+            val canUseAi = withContext(defaultDispatcher) { summaryService.hasCustomApiKey() }
+            try {
+                coroutineScope {
+                    val minimumScan = launch { delay(BOUNTY_MIN_SCAN_MILLIS) }
+                    val result = repository.investigate(current.accountId, current.id, query)
+                    minimumScan.join()
+                    _bountyInvestigationState.update {
+                        it.copy(phase = BountyInvestigationPhase.RESULTS, result = result, canUseAiContext = canUseAi)
+                    }
+                }
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                Log.w("roy93~Bounty", "[VM.openBountyInvestigation] lookup failed: $e")
+                _bountyInvestigationState.update { it.copy(phase = BountyInvestigationPhase.ERROR) }
+            }
+        }
+    }
+
+    /** Hỏi Gemini bằng KEY RIÊNG của người dùng, dựa trên đúng các bài cục bộ đã tìm thấy; không có key thì không gọi. */
+    fun requestBountyAiContext() {
+        val state = _bountyInvestigationState.value
+        val result = state.result ?: return
+        if (!state.canUseAiContext) {
+            _bountyInvestigationState.update { it.copy(ai = BountyAiState.Failed(BountyAiFailure.NO_KEY)) }
+            return
+        }
+        if (state.ai is BountyAiState.Loading) return
+
+        bountyAiJob?.cancel()
+        _bountyInvestigationState.update { it.copy(ai = BountyAiState.Loading) }
+        bountyAiJob = viewModelScope.launch {
+            val ai = try {
+                BountyAiState.Ready(summaryService.summarizeBountyContext(result.query, result.articles))
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: GeminiSummaryService.SummaryException) {
+                BountyAiState.Failed(
+                    when (e) {
+                        GeminiSummaryService.SummaryException.MissingApiKey -> BountyAiFailure.NO_KEY
+                        GeminiSummaryService.SummaryException.RateLimited -> BountyAiFailure.RATE_LIMITED
+                        GeminiSummaryService.SummaryException.InvalidApiKey -> BountyAiFailure.INVALID_KEY
+                        GeminiSummaryService.SummaryException.Network -> BountyAiFailure.NETWORK
+                        GeminiSummaryService.SummaryException.EmptyResponse,
+                        GeminiSummaryService.SummaryException.EmptyContent -> BountyAiFailure.EMPTY
+                        else -> BountyAiFailure.UNKNOWN
+                    }
+                )
+            } catch (e: Exception) {
+                BountyAiState.Failed(BountyAiFailure.UNKNOWN)
+            }
+            _bountyInvestigationState.update { it.copy(ai = ai) }
+        }
+    }
+
+    fun dismissBountyInvestigation() {
+        bountyJob?.cancel()
+        bountyAiJob?.cancel()
+        bountyJob = null
+        bountyAiJob = null
+        _bountyInvestigationState.value = BountyInvestigationState()
+        _readingUiState.update { it.copy(showBountySheet = false) }
     }
 
     fun dismissSummary() {
@@ -637,6 +734,7 @@ class ReadingViewModel @Inject constructor(
     private companion object {
         const val MIN_SAVED_PROGRESS = 0.05f
         const val MAX_SAVED_PROGRESS = 0.95f
+        const val BOUNTY_MIN_SCAN_MILLIS = 700L
     }
 
     fun recorderNextArticle(pagingItems: ItemSnapshotList<ArticleFlowItem>) {
@@ -690,6 +788,7 @@ data class ReadingUiState(
     val deepReadState: DeepReadState = DeepReadState.Idle,
     val showQuoteSheet: Boolean = false,
     val quoteSpec: QuoteCardSpec? = null,
+    val showBountySheet: Boolean = false,
 )
 
 /** Trạng thái của luồng hỏi đáp tương tác AI Deep Read. */

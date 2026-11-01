@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import com.mckimquyen.reader.domain.model.article.ArticleHighlights
 import com.mckimquyen.reader.domain.model.article.ArticleMindMap
+import com.mckimquyen.reader.domain.model.article.ArticleListItemWithFeed
 import com.mckimquyen.reader.domain.model.article.DeepReadMessage
 import com.mckimquyen.reader.domain.model.article.DeepReadSender
 import com.mckimquyen.reader.ui.ext.aiSummaryLength
@@ -35,6 +36,18 @@ class GeminiSummaryService @Inject constructor(
     private val okHttpClient: OkHttpClient,
     private val gateway: AiRequestGateway,
 ) {
+
+    /** Cho phép mock đọc key riêng trong unit test mà không phải mock DataStore. */
+    internal var customKeyReader: (Context) -> String = { it.customGeminiApiKey }
+
+    internal constructor(
+        context: Context,
+        okHttpClient: OkHttpClient,
+        gateway: AiRequestGateway,
+        customKeyReader: (Context) -> String,
+    ) : this(context, okHttpClient, gateway) {
+        this.customKeyReader = customKeyReader
+    }
     /**
      * Exception phân loại theo TYPE (không chứa chuỗi hiển thị cho người dùng) để lớp UI tự
      * map sang string resource đa ngôn ngữ.
@@ -195,6 +208,56 @@ class GeminiSummaryService @Inject constructor(
             Log.w(TAG, "[askArticleQuestion] Không gọi được Gemini ($e), kích hoạt fallback ngoại tuyến")
             ArticleDeepReadEngine.generateOfflineAnswer(title, cleaned, question, languageTag)
         }
+    }
+
+    /**
+     * BOUNTY-01: true khi người dùng đã nhập key Gemini riêng. Chỉ dùng để quyết định có hiện nút AI hay không;
+     * tuyệt đối không dùng key mặc định của hệ thống cho tính năng này (FIX-09).
+     */
+    fun hasCustomApiKey(): Boolean = customKeyReader(context).trim().isNotBlank()
+
+    /**
+     * BOUNTY-01: tóm tắt bối cảnh của [entity] dựa trên tiêu đề + mô tả ngắn của các bài liên quan trong kho.
+     *
+     * CHỈ dùng key Gemini riêng của người dùng (BYOK). Cố ý KHÔNG gọi [resolveApiKeys] vì hàm đó nối thêm các key
+     * mặc định của hệ thống; không có key riêng thì ném [SummaryException.MissingApiKey] và không gọi mạng, và khi lỗi
+     * cũng không thử lại bằng key mặc định (FIX-09).
+     */
+    suspend fun summarizeBountyContext(entity: String, related: List<ArticleListItemWithFeed>): String {
+        val customKey = customKeyReader(context).trim()
+        if (customKey.isBlank()) throw SummaryException.MissingApiKey
+
+        val requestBody = buildBountyRequestBody(entity, related, currentLanguageTag())
+        val answer = try {
+            gateway.execute(useCase = "bounty_context", requestBody = requestBody, keys = listOf(customKey))
+        } catch (e: CancellationException) {
+            throw e
+        }
+        return answer.trim().ifBlank { throw SummaryException.EmptyResponse }
+    }
+
+    private fun buildBountyRequestBody(entity: String, related: List<ArticleListItemWithFeed>, languageTag: String): String {
+        val prompt = buildString {
+            append("You are a news research assistant. Using ONLY the article headlines and short descriptions below, ")
+            append("explain in 3-5 short bullet points (each starting with \"- \") the context of the entity or topic ")
+            append("\"$entity\": what it is, how coverage evolved, and which angles differ. ")
+            append("Do not invent facts that are not supported by the items. ")
+            append("Write the answer in the language with BCP-47 tag \"$languageTag\".\n\n")
+            related.take(BOUNTY_MAX_ITEMS).forEachIndexed { index, item ->
+                val a = item.article
+                append("${index + 1}. [${item.feed.name}] ${a.title}")
+                if (a.shortDescription.isNotBlank()) append(" — ${a.shortDescription.take(BOUNTY_MAX_SHORT_CHARS)}")
+                append('\n')
+            }
+        }
+        return JSONObject().apply {
+            put("contents", org.json.JSONArray().put(
+                JSONObject().put("parts", org.json.JSONArray().put(
+                    JSONObject().put("text", prompt)
+                ))
+            ))
+            put("generationConfig", JSONObject().put("temperature", 0.3))
+        }.toString()
     }
 
     /**
@@ -373,6 +436,8 @@ class GeminiSummaryService @Inject constructor(
     companion object {
         private const val TAG = "roy93~AI"
         private const val MAX_INPUT_CHARS = 12_000
+        private const val BOUNTY_MAX_ITEMS = 20
+        private const val BOUNTY_MAX_SHORT_CHARS = 280
     }
 }
 

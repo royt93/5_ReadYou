@@ -127,35 +127,14 @@ Findings: (1) a single constructor with a defaulted `onInvestigate` before `onSh
 
 ### Task 4: Investigation state, local lookup and BYOK-only Gemini action
 
-**Files:** Create BOUNTY state type; modify `ReadingViewModel.kt`; modify `GeminiSummaryService.kt`; add ViewModel/service tests.
+**Files:** Create `BountyInvestigationState.kt`; modify `ReadingViewModel.kt`; modify `GeminiSummaryService.kt`; add `GeminiSummaryServiceBountyTest` and `ReadingViewModelBountyTest`.
 
-- [ ] **Step 1: Write failing ViewModel tests**
-
-Extend existing `ReadingViewModel` unit tests or add `ReadingViewModelBountyTest`: opened query enters SCANNING then RESULTS after DAO completes; results stay scoped to loaded article's `accountId` and exclude current article; dismiss cancels/reset state; invalid query does not issue DAO call; lookup exceptions become ERROR state and do not crash reader; no key means `canUseAiContext=false` and no gateway call.
-
-- [ ] **Step 2: Add failing explicit-BYOK request tests**
-
-Add `GeminiSummaryServiceBountyTest` with a fake `AiRequestGateway`: blank custom key returns `MissingApiKey` without gateway call; nonblank custom key calls gateway with exactly `listOf(customKey)`; failure does not retry/fallback to `GeminiConfig.API_KEYS`.
-
-- [ ] **Step 3: Implement BOUNTY state and local investigation**
-
-Add `bountyInvestigationState: StateFlow<BountyInvestigationState>` and `openBountyInvestigation(query)` / `dismissBountyInvestigation()` on `ReadingViewModel`. Use `articleWithFeed.article.accountId` and `.id`; use `viewModelScope` with existing injected IO dispatcher for Room work. Store/propagate `CancellationException`; convert other exceptions to error state. Compute results immediately, retain `SCANNING` at least 700 ms with coroutine delay, then publish RESULTS. No blocking main-thread work.
-
-- [ ] **Step 4: Implement BYOK-only AI API**
-
-Add a dedicated `GeminiSummaryService.summarizeBountyContext(query, relatedArticles)` path. It reads `context.customGeminiApiKey.trim()` and throws `SummaryException.MissingApiKey` if blank. Build prompt only from bounded related article titles and short descriptions returned by the same-account query; call `AiRequestGateway.execute(useCase = "bounty_context", requestBody = ..., keys = listOf(customKey))`. Do not call `resolveApiKeys()` and do not retry with default keys. Add response-empty/error classification using existing `SummaryException` types.
-
-- [ ] **Step 5: Run ViewModel/service tests green**
-
-Run: `./gradlew testDevDebugUnitTest --tests "*ReadingViewModelBountyTest" --tests "*GeminiSummaryServiceBountyTest" --rerun`
-Expected: all state, scoping, cancellation, and BYOK-only tests pass.
-
-- [ ] **Step 6: Commit**
-
-```bash
-git add app/src/main/java/com/mckimquyen/reader/ui/page/home/read/ReadingViewModel.kt app/src/main/java/com/mckimquyen/reader/ui/page/home/read/bounty app/src/main/java/com/mckimquyen/reader/infrastructure/ai/GeminiSummaryService.kt app/src/test
-git commit -m "feat(bounty-01): add local investigation state and BYOK context"
-```
+- [x] **Step 1: Write failing ViewModel tests** (6 cases in `ReadingViewModelBountyTest`)
+- [x] **Step 2: Add failing explicit-BYOK request tests** (5 cases in `GeminiSummaryServiceBountyTest`)
+- [x] **Step 3: Implement BOUNTY state and local investigation** (`ReadingViewModel`: `openBountyInvestigation`, `dismissBountyInvestigation`, `bountyInvestigationState`, 700ms minimum scan delay, scoped to loaded article's account ID and excluding the current article)
+- [x] **Step 4: Implement BYOK-only AI API** (`GeminiSummaryService.summarizeBountyContext`, `hasCustomApiKey()`; reads custom key directly via `customKeyReader`; never calls `resolveApiKeys()` and never falls back to `GeminiConfig.API_KEYS`)
+- [x] **Step 5: Run ViewModel/service tests green** (51/51 across `ReadingViewModel*` and `GeminiSummaryService*`)
+- [x] **Step 6: Commit**
 
 ### Task 5: Radar/result sheet and ReadingPage navigation
 
