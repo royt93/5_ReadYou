@@ -24,6 +24,14 @@ import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import com.mckimquyen.reader.ui.page.home.read.mirror.SecondScreenViewModel
+import com.mckimquyen.reader.ui.page.home.read.mirror.SecondScreenSheetContent
+import androidx.lifecycle.ProcessLifecycleOwner
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.Lifecycle
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -65,6 +73,7 @@ import com.mckimquyen.reader.ui.component.base.BottomDrawer
 import com.mckimquyen.reader.ui.component.ambient.ZenSoundSheet
 import com.mckimquyen.reader.ui.page.rsvp.RsvpReaderDialog
 import com.mckimquyen.reader.ui.page.rsvp.RsvpViewModel
+import android.content.Intent
 import android.widget.Toast
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -215,6 +224,32 @@ fun ReadingPage(
     val dualCardState by dualCardViewModel.state.collectAsState()
     val dualChooserTitle = stringResource(R.string.echo_dual_chooser_title)
     val dualShareText = stringResource(R.string.echo_dual_share_text)
+    val secondScreenViewModel: SecondScreenViewModel = hiltViewModel()
+    val secondScreenState by secondScreenViewModel.state.collectAsState()
+    val clipboard = LocalClipboardManager.current
+    val secondScreenCopiedText = stringResource(R.string.second_screen_copied)
+    val secondScreenChooserTitle = stringResource(R.string.second_screen_share_chooser)
+
+    // EXC-13: the browser follows whichever article (and body, once full content loads) is on screen.
+    LaunchedEffect(readingUiState.articleWithFeed?.article?.id, readingUiState.content) {
+        val current = readingUiState.articleWithFeed ?: return@LaunchedEffect
+        secondScreenViewModel.updateArticle(
+            title = current.article.title,
+            source = current.feed.name,
+            dateMillis = current.article.date.time,
+            html = readingUiState.content,
+        )
+    }
+    // Leaving this page ends the session; so does the whole app going to the background.
+    DisposableEffect(Unit) { onDispose { secondScreenViewModel.stop() } }
+    DisposableEffect(Unit) {
+        val processLifecycle = ProcessLifecycleOwner.get().lifecycle
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_STOP) secondScreenViewModel.onAppBackgrounded()
+        }
+        processLifecycle.addObserver(observer)
+        onDispose { processLifecycle.removeObserver(observer) }
+    }
     val bountyState by readingViewModel.bountyInvestigationState.collectAsState()
     val dossier by readingViewModel.dossier.collectAsState()
     val echoState by readingViewModel.echoSignalState.collectAsState()
@@ -222,7 +257,8 @@ fun ReadingPage(
     val dossierChooserTitle = stringResource(R.string.dossier_chooser_title)
     val isAnySheetOpen = readingUiState.showSummarySheet || readingUiState.showMindMapSheet ||
         readingUiState.showDeepReadSheet || readingUiState.showQuoteSheet || readingUiState.showBountySheet ||
-        readingUiState.showEchoSheet || readingUiState.showDossierSheet || readingUiState.showDualCardSheet
+        readingUiState.showEchoSheet || readingUiState.showDossierSheet || readingUiState.showDualCardSheet ||
+        readingUiState.showSecondScreenSheet
 
     // Render lại thẻ mỗi khi mở sheet với đoạn trích mới; giải phóng bitmap khi đóng.
     LaunchedEffect(readingUiState.quoteSpec) {
@@ -246,6 +282,7 @@ fun ReadingPage(
             readingViewModel.dismissBountyInvestigation()
             readingViewModel.dismissEchoSheet()
             readingViewModel.dismissDualCard()
+            readingViewModel.dismissSecondScreen()
         }
     }
     LaunchedEffect(readingUiState.dualCardSpec) {
@@ -254,7 +291,9 @@ fun ReadingPage(
     }
 
     BackHandler(isAnySheetOpen) {
-        if (readingUiState.showDualCardSheet) {
+        if (readingUiState.showSecondScreenSheet) {
+            readingViewModel.dismissSecondScreen()
+        } else if (readingUiState.showDualCardSheet) {
             readingViewModel.dismissDualCard()
         } else if (readingUiState.showEchoSheet) {
             readingViewModel.dismissEchoSheet()
@@ -278,7 +317,23 @@ fun ReadingPage(
         sheetContent = {
             val echoResult = echoState.readyResult()
             val currentDossier = dossier
-            if (readingUiState.showDualCardSheet) {
+            if (readingUiState.showSecondScreenSheet) {
+                SecondScreenSheetContent(
+                    state = secondScreenState,
+                    onToggle = { on -> if (on) secondScreenViewModel.start() else secondScreenViewModel.stop() },
+                    onCopy = { url ->
+                        clipboard.setText(AnnotatedString(url))
+                        Toast.makeText(context, secondScreenCopiedText, Toast.LENGTH_SHORT).show()
+                    },
+                    onShare = { url ->
+                        val send = Intent(Intent.ACTION_SEND).apply {
+                            type = "text/plain"
+                            putExtra(Intent.EXTRA_TEXT, url)
+                        }
+                        context.startActivity(Intent.createChooser(send, secondScreenChooserTitle))
+                    },
+                )
+            } else if (readingUiState.showDualCardSheet) {
                 DualCardSheetContent(
                     state = dualCardState,
                     onShare = {
@@ -409,6 +464,9 @@ fun ReadingPage(
                     },
                     onDeepRead = {
                         readingViewModel.openDeepRead()
+                    },
+                    onSecondScreen = {
+                        readingViewModel.openSecondScreen()
                     },
                     onHighlight = {
                         showHighlightDialog = true

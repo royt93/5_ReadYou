@@ -389,6 +389,17 @@ class ReadingViewModel @Inject constructor(
         _readingUiState.update { it.copy(showDualCardSheet = false, dualCardSpec = null) }
     }
 
+    /** EXC-13: opens the Second Screen sheet. Only meaningful for a loaded article, so it is a no-op before that. */
+    fun openSecondScreen() {
+        if (_readingUiState.value.articleWithFeed == null) return
+        _readingUiState.update { it.copy(showSecondScreenSheet = true) }
+    }
+
+    /** Closing the sheet does not stop the session: the user keeps reading while the browser follows along. */
+    fun dismissSecondScreen() {
+        _readingUiState.update { it.copy(showSecondScreenSheet = false) }
+    }
+
     /**
      * BOUNTY-01: mở sheet điều tra cho đoạn đang chọn. Chỉ tìm trong kho Room của CHÍNH tài khoản đang đọc và bỏ qua
      * bài hiện tại; phạm vi tài khoản lấy từ bài đã tải chứ không từ UI. Giữ radar tối thiểu [BOUNTY_MIN_SCAN_MILLIS]
@@ -1042,6 +1053,7 @@ data class ReadingUiState(
     val showBountySheet: Boolean = false,
     val showEchoSheet: Boolean = false,
     val showDossierSheet: Boolean = false,
+    val showSecondScreenSheet: Boolean = false,
 )
 
 /** Trạng thái của luồng hỏi đáp tương tác AI Deep Read. */

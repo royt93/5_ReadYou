@@ -14,6 +14,7 @@ import androidx.compose.material.icons.outlined.Share
 import androidx.compose.material.icons.rounded.AccountTree
 import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.ElectricBolt
+import androidx.compose.material.icons.rounded.Cast
 import androidx.compose.material.icons.rounded.Forum
 import androidx.compose.material.icons.rounded.GraphicEq
 import androidx.compose.material.icons.rounded.MoreVert
@@ -61,6 +62,7 @@ fun TopBar(
     onSummary: () -> Unit = {},
     onMindMap: () -> Unit = {},
     onDeepRead: () -> Unit = {},
+    onSecondScreen: () -> Unit = {},
     onHighlight: () -> Unit = {},
     onNotebook: () -> Unit = {},
     onClose: () -> Unit = {},
@@ -201,6 +203,19 @@ fun TopBar(
                                 onClick = {
                                     menuExpanded = false
                                     onDeepRead()
+                                }
+                            )
+                            DropdownMenuItem(
+                                text = { Text(stringResource(R.string.second_screen_title)) },
+                                leadingIcon = {
+                                    Icon(
+                                        imageVector = Icons.Rounded.Cast,
+                                        contentDescription = null
+                                    )
+                                },
+                                onClick = {
+                                    menuExpanded = false
+                                    onSecondScreen()
                                 }
                             )
                             DropdownMenuItem(
