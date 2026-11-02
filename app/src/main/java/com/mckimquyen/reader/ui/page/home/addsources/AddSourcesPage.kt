@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ChevronRight
@@ -78,35 +79,65 @@ fun CountriesList(
         CountryItem("🇧🇷", stringResource(R.string.portuguese_sources), "pt"),
         CountryItem("🇸🇦", stringResource(R.string.arabic_sources), "ar")
     )
+    AddSourcesList(
+        state = state,
+        countries = countries,
+        language = Locale.getDefault().language,
+        onSubscribe = viewModel::subscribeBundle,
+        onDismissResult = viewModel::dismissBundleResult,
+        onCountryClick = { country ->
+            navController.navigate("${RouteName.ADD_SOURCES_DETAIL}/${country.code}") {
+                launchSingleTop = true
+            }
+        },
+    )
+}
 
+/**
+ * The list itself, free of Hilt/navigation so it can be tested. The bundles load a moment after the page opens; the
+ * first item is therefore keyed and, when it appears, the list is scrolled back to the top. Without this the first
+ * visible item stays the first country card (the bundles item was empty, so Lazy skipped it) and the bundles end up
+ * above the viewport where nobody sees them.
+ */
+@Composable
+fun AddSourcesList(
+    state: AddSourcesUiState,
+    countries: List<CountryItem>,
+    language: String,
+    onSubscribe: (com.mckimquyen.reader.domain.curated.CuratedBundle) -> Unit,
+    onDismissResult: () -> Unit,
+    onCountryClick: (CountryItem) -> Unit,
+) {
+    val listState = rememberLazyListState()
+    val hasBundles = state.bundles.isNotEmpty()
+    LaunchedEffect(hasBundles) {
+        if (hasBundles) listState.scrollToItem(0)
+    }
     LazyColumn(
+        state = listState,
         modifier = Modifier.padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 0.dp)
     ) {
-        item {
+        item(key = BUNDLES_ITEM_KEY) {
             CuratedBundlesSection(
                 state = state,
-                language = Locale.getDefault().language,
-                onSubscribe = viewModel::subscribeBundle,
-                onDismissResult = viewModel::dismissBundleResult,
+                language = language,
+                onSubscribe = onSubscribe,
+                onDismissResult = onDismissResult,
                 modifier = Modifier.padding(bottom = 16.dp),
             )
         }
-        items(countries) { country ->
-            CountryCard(
-                country = country,
-                onClick = {
-                    navController.navigate("${RouteName.ADD_SOURCES_DETAIL}/${country.code}") {
-                        launchSingleTop = true
-                    }
-                }
-            )
+        items(countries, key = { it.code }) { country ->
+            CountryCard(country = country, onClick = { onCountryClick(country) })
         }
-        item {
+        item(key = BOTTOM_SPACER_KEY) {
             Spacer(modifier = Modifier.height(128.dp))
             Spacer(modifier = Modifier.windowInsetsBottomHeight(WindowInsets.navigationBars))
         }
     }
 }
+
+private const val BUNDLES_ITEM_KEY = "curated_bundles"
+private const val BOTTOM_SPACER_KEY = "bottom_spacer"
 
 @Composable
 private fun CountryCard(
