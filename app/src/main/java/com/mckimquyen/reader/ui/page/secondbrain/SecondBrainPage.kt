@@ -14,9 +14,15 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawingPadding
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
+import androidx.compose.foundation.layout.only
+import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.CircularProgressIndicator
@@ -51,6 +57,8 @@ import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mckimquyen.reader.R
+import com.mckimquyen.reader.ui.component.base.BaseScaffold
+import com.mckimquyen.reader.ui.component.base.FeedbackIconButton
 import com.mckimquyen.reader.domain.model.secondbrain.BrainGraph
 import com.mckimquyen.reader.ui.page.secondbrain.galaxy.GALAXY_TOGGLE_CONCEPTS_TAG
 import com.mckimquyen.reader.ui.page.secondbrain.galaxy.GALAXY_TOGGLE_STARS_TAG
@@ -92,41 +100,63 @@ fun SecondBrainPage(
     onSelectStar: (String?) -> Unit = {},
     onGalaxyRangeChange: (Long, Long) -> Unit = { _, _ -> },
     onGalaxyRetry: () -> Unit = {},
+    /** Back arrow in the top bar; null (e.g. embedded or in a test) shows no navigation icon. */
+    onBack: (() -> Unit)? = null,
 ) {
     var galaxyMode by rememberSaveable { mutableStateOf(false) }
-    // The app is edge-to-edge: without safeDrawingPadding the title sits under the status bar and the
-    // last row under the gesture bar.
-    Column(modifier.fillMaxSize().safeDrawingPadding().padding(16.dp)) {
-        Text(
-            stringResource(R.string.second_brain_title),
-            style = MaterialTheme.typography.headlineMedium,
-            modifier = Modifier.testTag(SECOND_BRAIN_TITLE_TAG),
-        )
-        Spacer(Modifier.height(12.dp))
-        if (galaxyState != null) {
-            ModeToggle(galaxyMode = galaxyMode, onChange = { galaxyMode = it })
-            Spacer(Modifier.height(12.dp))
-        }
-        if (galaxyState != null && galaxyMode) {
-            GalaxyPanel(
-                state = galaxyState,
-                onSelectStar = onSelectStar,
-                onRangeChange = onGalaxyRangeChange,
-                onOpenArticle = onOpenArticle,
-                onRetry = onGalaxyRetry,
-                modifier = Modifier.weight(1f),
-            )
-            return@Column
-        }
-        when (state) {
-            SecondBrainUiState.Loading -> CircularProgressIndicator()
-            SecondBrainUiState.Empty -> Text(stringResource(R.string.second_brain_empty))
-            SecondBrainUiState.Error -> {
-                Text(stringResource(R.string.second_brain_error))
-                Button(onClick = onRetry) { Text(stringResource(R.string.second_brain_retry)) }
+    // With a top bar the scaffold already clears the status bar; without one this column must.
+    val sides = if (onBack != null) WindowInsetsSides.Horizontal + WindowInsetsSides.Bottom
+    else WindowInsetsSides.Horizontal + WindowInsetsSides.Vertical
+    BaseScaffold(
+        navigationIcon = if (onBack != null) {
+            {
+                FeedbackIconButton(
+                    imageVector = Icons.Rounded.ArrowBack,
+                    contentDescription = stringResource(R.string.back),
+                    tint = MaterialTheme.colorScheme.onSurface,
+                    onClick = onBack,
+                )
             }
-            is SecondBrainUiState.Ready -> Box(Modifier.weight(1f)) {
-                ReadyContent(state, onSelectNode, onRangeChange, onOpenArticle)
+        } else null,
+    ) {
+        // Edge-to-edge: the top bar owns the status bar; this column keeps content clear of the gesture bar,
+        // display cutouts and side bars.
+        Column(
+            modifier.fillMaxSize()
+                .windowInsetsPadding(WindowInsets.safeDrawing.only(sides))
+                .padding(horizontal = 16.dp),
+        ) {
+            Text(
+                stringResource(R.string.second_brain_title),
+                style = MaterialTheme.typography.headlineMedium,
+                modifier = Modifier.testTag(SECOND_BRAIN_TITLE_TAG),
+            )
+            Spacer(Modifier.height(12.dp))
+            if (galaxyState != null) {
+                ModeToggle(galaxyMode = galaxyMode, onChange = { galaxyMode = it })
+                Spacer(Modifier.height(12.dp))
+            }
+            if (galaxyState != null && galaxyMode) {
+                GalaxyPanel(
+                    state = galaxyState,
+                    onSelectStar = onSelectStar,
+                    onRangeChange = onGalaxyRangeChange,
+                    onOpenArticle = onOpenArticle,
+                    onRetry = onGalaxyRetry,
+                    modifier = Modifier.weight(1f),
+                )
+                return@Column
+            }
+            when (state) {
+                SecondBrainUiState.Loading -> CircularProgressIndicator()
+                SecondBrainUiState.Empty -> Text(stringResource(R.string.second_brain_empty))
+                SecondBrainUiState.Error -> {
+                    Text(stringResource(R.string.second_brain_error))
+                    Button(onClick = onRetry) { Text(stringResource(R.string.second_brain_retry)) }
+                }
+                is SecondBrainUiState.Ready -> Box(Modifier.weight(1f)) {
+                    ReadyContent(state, onSelectNode, onRangeChange, onOpenArticle)
+                }
             }
         }
     }

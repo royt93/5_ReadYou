@@ -10,7 +10,9 @@ import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.click
 import androidx.compose.ui.test.doubleClick
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.onAllNodesWithContentDescription
 import androidx.compose.ui.test.onAllNodesWithTag
+import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
@@ -65,6 +67,7 @@ class GalaxyPageTest {
         onSelectStar: (String?) -> Unit = {},
         onOpen: (String) -> Unit = {},
         onRetry: () -> Unit = {},
+        onBack: (() -> Unit)? = null,
     ) = compose.setContent {
         SecondBrainPage(
             state = SecondBrainUiState.Loading,
@@ -75,6 +78,7 @@ class GalaxyPageTest {
             galaxyState = galaxy,
             onSelectStar = onSelectStar,
             onGalaxyRetry = onRetry,
+            onBack = onBack,
         )
     }
 
@@ -201,5 +205,19 @@ class GalaxyPageTest {
         compose.onNodeWithTag(GALAXY_RESET_TAG).assertIsEnabled()
         compose.onNodeWithTag(GALAXY_CANVAS_TAG).performTouchInput { doubleClick(Offset(2f, 2f)) }
         compose.onNodeWithTag(GALAXY_RESET_TAG).assertIsNotEnabled()
+    }
+
+    @Test
+    fun withOnBack_theTopBarShowsABackArrowThatCallsIt() {
+        var backs = 0
+        show(ready(), onBack = { backs++ })
+        compose.onNodeWithContentDescription(str(R.string.back)).assertIsDisplayed().performClick()
+        compose.runOnIdle { assertEquals(1, backs) }
+    }
+
+    @Test
+    fun withoutOnBack_noBackArrowIsShown() {
+        show(ready())
+        compose.onAllNodesWithContentDescription(str(R.string.back)).assertCountEquals(0)
     }
 }

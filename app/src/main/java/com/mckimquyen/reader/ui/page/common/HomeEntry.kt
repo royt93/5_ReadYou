@@ -374,6 +374,7 @@ fun HomeEntry(
                     onSelectStar = galaxyViewModel::selectStar,
                     onGalaxyRangeChange = galaxyViewModel::setRange,
                     onGalaxyRetry = galaxyViewModel::refresh,
+                    onBack = { navController.popBackStack() },
                 )
             }
 
