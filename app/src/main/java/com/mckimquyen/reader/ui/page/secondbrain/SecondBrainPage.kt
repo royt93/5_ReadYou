@@ -4,6 +4,7 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.gestures.detectTransformGestures
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -17,6 +18,7 @@ import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -28,6 +30,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -39,6 +42,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.TextStyle
@@ -48,6 +52,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mckimquyen.reader.R
 import com.mckimquyen.reader.domain.model.secondbrain.BrainGraph
+import com.mckimquyen.reader.ui.page.secondbrain.galaxy.GALAXY_TOGGLE_CONCEPTS_TAG
+import com.mckimquyen.reader.ui.page.secondbrain.galaxy.GALAXY_TOGGLE_STARS_TAG
+import com.mckimquyen.reader.ui.page.secondbrain.galaxy.GalaxyPanel
+import com.mckimquyen.reader.ui.page.secondbrain.galaxy.GalaxyUiState
 import java.text.DateFormat
 import java.util.Date
 import kotlin.math.roundToInt
@@ -69,6 +77,7 @@ private const val DIMMED_ALPHA = 0.25f
 private const val ZOOM_PERCENT = 100
 private const val MAX_RADIUS_GROWTH = 2f
 private const val LABEL_PADDING_PX = 6f
+private const val MODE_BUTTON_MIN_HEIGHT_DP = 48
 
 @Composable
 fun SecondBrainPage(
@@ -78,7 +87,13 @@ fun SecondBrainPage(
     onOpenArticle: (String) -> Unit,
     onRetry: () -> Unit,
     modifier: Modifier = Modifier,
+    /** FRONT-03: null keeps the page exactly as before (no mode toggle). */
+    galaxyState: GalaxyUiState? = null,
+    onSelectStar: (String?) -> Unit = {},
+    onGalaxyRangeChange: (Long, Long) -> Unit = { _, _ -> },
+    onGalaxyRetry: () -> Unit = {},
 ) {
+    var galaxyMode by rememberSaveable { mutableStateOf(false) }
     // The app is edge-to-edge: without safeDrawingPadding the title sits under the status bar and the
     // last row under the gesture bar.
     Column(modifier.fillMaxSize().safeDrawingPadding().padding(16.dp)) {
@@ -88,6 +103,21 @@ fun SecondBrainPage(
             modifier = Modifier.testTag(SECOND_BRAIN_TITLE_TAG),
         )
         Spacer(Modifier.height(12.dp))
+        if (galaxyState != null) {
+            ModeToggle(galaxyMode = galaxyMode, onChange = { galaxyMode = it })
+            Spacer(Modifier.height(12.dp))
+        }
+        if (galaxyState != null && galaxyMode) {
+            GalaxyPanel(
+                state = galaxyState,
+                onSelectStar = onSelectStar,
+                onRangeChange = onGalaxyRangeChange,
+                onOpenArticle = onOpenArticle,
+                onRetry = onGalaxyRetry,
+                modifier = Modifier.weight(1f),
+            )
+            return@Column
+        }
         when (state) {
             SecondBrainUiState.Loading -> CircularProgressIndicator()
             SecondBrainUiState.Empty -> Text(stringResource(R.string.second_brain_empty))
@@ -268,4 +298,21 @@ private fun BrainGraphCanvas(
             ) { Text(resetLabel) }
         }
     }
+}
+
+/** "Concepts | Galaxy": the active mode is the filled button, the other an outlined one. */
+@Composable
+private fun ModeToggle(galaxyMode: Boolean, onChange: (Boolean) -> Unit) {
+    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+        ModeButton(stringResource(R.string.galaxy_mode_concepts), selected = !galaxyMode, tag = GALAXY_TOGGLE_CONCEPTS_TAG) { onChange(false) }
+        ModeButton(stringResource(R.string.galaxy_mode_stars), selected = galaxyMode, tag = GALAXY_TOGGLE_STARS_TAG) { onChange(true) }
+    }
+}
+
+@Composable
+private fun ModeButton(label: String, selected: Boolean, tag: String, onClick: () -> Unit) {
+    val modifier = Modifier.heightIn(min = MODE_BUTTON_MIN_HEIGHT_DP.dp).testTag(tag)
+        .semantics { this.selected = selected }
+    if (selected) Button(onClick = onClick, modifier = modifier) { Text(label) }
+    else OutlinedButton(onClick = onClick, modifier = modifier) { Text(label) }
 }

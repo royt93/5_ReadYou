@@ -48,6 +48,7 @@ import com.mckimquyen.reader.ui.page.notebook.NotebookPage
 import com.mckimquyen.reader.ui.page.reels.ReelsPage
 import com.mckimquyen.reader.ui.page.secondbrain.SecondBrainPage
 import com.mckimquyen.reader.ui.page.secondbrain.SecondBrainViewModel
+import com.mckimquyen.reader.ui.page.secondbrain.galaxy.GalaxyViewModel
 import androidx.compose.ui.res.stringResource
 import com.mckimquyen.reader.R
 import com.mckimquyen.reader.ui.component.rpg.StreakRescueDialog
@@ -361,12 +362,18 @@ fun HomeEntry(
             animatedComposable(route = RouteName.SECOND_BRAIN, eInk = eInk) {
                 val secondBrainViewModel: SecondBrainViewModel = hiltViewModel()
                 val state by secondBrainViewModel.state.collectAsState()
+                val galaxyViewModel: GalaxyViewModel = hiltViewModel()
+                val galaxyState by galaxyViewModel.state.collectAsState()
                 SecondBrainPage(
                     state = state,
                     onSelectNode = secondBrainViewModel::selectNode,
                     onRangeChange = secondBrainViewModel::setRange,
                     onOpenArticle = { id -> navController.navigate("${RouteName.READING}/$id") { launchSingleTop = true } },
                     onRetry = secondBrainViewModel::refresh,
+                    galaxyState = galaxyState,
+                    onSelectStar = galaxyViewModel::selectStar,
+                    onGalaxyRangeChange = galaxyViewModel::setRange,
+                    onGalaxyRetry = galaxyViewModel::refresh,
                 )
             }
 
