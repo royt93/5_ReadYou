@@ -62,7 +62,8 @@ class GalaxyViewModelTest {
         val ready = vm.state.value as GalaxyUiState.Ready
         assertSame(graph, ready.graph)
         assertNull(ready.selectedStarId)
-        assertEquals(Long.MIN_VALUE to Long.MAX_VALUE, ready.from to ready.to)
+        assertEquals("slider spans the full data", 100L to 200L, ready.minTime to ready.maxTime)
+        assertEquals(100L to 200L, ready.from to ready.to)
     }
 
     @Test
@@ -111,22 +112,23 @@ class GalaxyViewModelTest {
     }
 
     @Test
-    fun setRange_reloadsWithTheWindow_andDropsASelectionThatLeftIt() = runTest(dispatcher) {
+    fun setRange_reloadsWithTheWindow_keepsTheSliderBounds_andDropsASelectionThatLeftIt() = runTest(dispatcher) {
         val narrowed = GalaxyGraph(listOf(graph.stars[1]), emptyList())
         coEvery { sv.load(any(), Long.MIN_VALUE, Long.MAX_VALUE) } returns graph
-        coEvery { sv.load(any(), 150L, 250L) } returns narrowed
+        coEvery { sv.load(any(), 150L, 200L) } returns narrowed
         val vm = vm()
         advanceUntilIdle()
         vm.selectStar("a1")
 
-        vm.setRange(150L, 250L)
+        vm.setRange(150L, 200L)
         advanceUntilIdle()
 
         val ready = vm.state.value as GalaxyUiState.Ready
-        assertEquals(150L to 250L, ready.from to ready.to)
+        assertEquals(150L to 200L, ready.from to ready.to)
+        assertEquals("bounds stay those of the full data", 100L to 200L, ready.minTime to ready.maxTime)
         assertEquals(listOf("a2"), ready.graph.stars.map { it.id })
         assertNull("a1 is outside the window", ready.selectedStarId)
-        coVerify { sv.load(any(), 150L, 250L) }
+        coVerify { sv.load(any(), 150L, 200L) }
     }
 
     @Test
@@ -143,27 +145,46 @@ class GalaxyViewModelTest {
     }
 
     @Test
-    fun setRange_whenTheWindowHasNoStars_showsEmptyInsteadOfAnError() = runTest(dispatcher) {
+    fun setRange_whenTheWindowHasNoStars_staysReadySoTheSliderCanWidenAgain() = runTest(dispatcher) {
         coEvery { sv.load(any(), Long.MIN_VALUE, Long.MAX_VALUE) } returns graph
-        coEvery { sv.load(any(), 1L, 2L) } returns GalaxyGraph.EMPTY
+        coEvery { sv.load(any(), 120L, 130L) } returns GalaxyGraph.EMPTY
         val vm = vm()
         advanceUntilIdle()
 
-        vm.setRange(1L, 2L)
+        vm.setRange(120L, 130L)
         advanceUntilIdle()
 
-        assertEquals(GalaxyUiState.Empty, vm.state.value)
+        val ready = vm.state.value as GalaxyUiState.Ready
+        assertTrue(ready.graph.stars.isEmpty())
+        assertEquals(100L to 200L, ready.minTime to ready.maxTime)
+        assertEquals(120L to 130L, ready.from to ready.to)
+    }
+
+    @Test
+    fun refresh_forgetsTheWindowAndTheBounds() = runTest(dispatcher) {
+        coEvery { sv.load(any(), any(), any()) } returns graph
+        val vm = vm()
+        advanceUntilIdle()
+        vm.setRange(150L, 200L)
+        advanceUntilIdle()
+
+        vm.refresh()
+        advanceUntilIdle()
+
+        coVerify(atLeast = 2) { sv.load(any(), Long.MIN_VALUE, Long.MAX_VALUE) }
+        val ready = vm.state.value as GalaxyUiState.Ready
+        assertEquals(100L to 200L, ready.from to ready.to)
     }
 
     @Test
     fun aNewerLoad_cancelsTheOlderOne_soStaleDataNeverWins() = runTest(dispatcher) {
         val slow = CompletableDeferred<GalaxyGraph>()
         coEvery { sv.load(any(), Long.MIN_VALUE, Long.MAX_VALUE) } coAnswers { slow.await() }
-        coEvery { sv.load(any(), 150L, 250L) } returns GalaxyGraph(listOf(graph.stars[1]), emptyList())
+        coEvery { sv.load(any(), 150L, 200L) } returns GalaxyGraph(listOf(graph.stars[1]), emptyList())
         val vm = vm()
         advanceUntilIdle() // first load is parked on `slow`
 
-        vm.setRange(150L, 250L)
+        vm.setRange(150L, 200L)
         advanceUntilIdle()
         slow.complete(graph)
         advanceUntilIdle()

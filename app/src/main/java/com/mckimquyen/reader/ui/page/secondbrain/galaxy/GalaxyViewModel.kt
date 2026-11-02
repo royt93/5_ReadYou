@@ -31,6 +31,8 @@ class GalaxyViewModel @Inject constructor(
     private var loadJob: Job? = null
     private var from = Long.MIN_VALUE
     private var to = Long.MAX_VALUE
+    private var minBound: Long? = null
+    private var maxBound: Long? = null
 
     init {
         reload()
@@ -39,6 +41,8 @@ class GalaxyViewModel @Inject constructor(
     fun refresh() {
         from = Long.MIN_VALUE
         to = Long.MAX_VALUE
+        minBound = null
+        maxBound = null
         reload()
     }
 
@@ -65,14 +69,25 @@ class GalaxyViewModel @Inject constructor(
                 // currentAccountId reads DataStore synchronously, so keep it off the main thread.
                 val accountId = withContext(ioDispatcher) { context.currentAccountId }
                 val graph = galaxySv.load(accountId, windowFrom, windowTo)
-                _state.value = if (graph.stars.isEmpty()) {
+                if (minBound == null || maxBound == null) {
+                    // First (unwindowed) load fixes the slider span for every later window.
+                    minBound = graph.stars.minOfOrNull { it.date }
+                    maxBound = graph.stars.maxOfOrNull { it.date }
+                }
+                val lo = minBound
+                val hi = maxBound
+                // An empty window is not "nothing read": while the history spans a range, stay Ready so the
+                // slider can widen it, instead of stranding the user on a dead-end message.
+                _state.value = if (lo == null || hi == null || (graph.stars.isEmpty() && hi <= lo)) {
                     GalaxyUiState.Empty
                 } else {
                     GalaxyUiState.Ready(
                         graph = graph,
                         selectedStarId = selected?.takeIf { id -> graph.stars.any { it.id == id } },
-                        from = windowFrom,
-                        to = windowTo,
+                        from = minOf(windowFrom, windowTo).coerceIn(lo, hi),
+                        to = maxOf(windowFrom, windowTo).coerceIn(lo, hi),
+                        minTime = lo,
+                        maxTime = hi,
                     )
                 }
             } catch (e: CancellationException) {

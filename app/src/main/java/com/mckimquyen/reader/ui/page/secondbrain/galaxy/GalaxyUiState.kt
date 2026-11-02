@@ -11,7 +11,11 @@ sealed interface GalaxyUiState {
     data class Ready(
         val graph: GalaxyGraph,
         val selectedStarId: String?,
+        /** Current slider window, always inside [minTime]..[maxTime] with from <= to. */
         val from: Long,
         val to: Long,
+        /** Date span of ALL read articles, ignoring the window, so the slider can always be widened again. */
+        val minTime: Long,
+        val maxTime: Long,
     ) : GalaxyUiState
 }
