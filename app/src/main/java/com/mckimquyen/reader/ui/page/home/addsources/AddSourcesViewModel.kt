@@ -2,6 +2,9 @@ package com.mckimquyen.reader.ui.page.home.addsources
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mckimquyen.reader.domain.curated.BundleSubscribeResult
+import com.mckimquyen.reader.domain.curated.CuratedBundle
+import com.mckimquyen.reader.domain.curated.CuratedBundleService
 import com.mckimquyen.reader.domain.model.RssSource
 import com.mckimquyen.reader.domain.model.addedsource.AddedRssSource
 import com.mckimquyen.reader.domain.model.feed.Feed
@@ -11,6 +14,7 @@ import com.mckimquyen.reader.domain.sv.AccountSv
 import com.mckimquyen.reader.domain.sv.RssSv
 import com.mckimquyen.reader.infrastructure.rss.RssHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -19,6 +23,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import java.util.Locale
 import java.util.UUID
 import javax.inject.Inject
 
@@ -29,8 +34,12 @@ class AddSourcesViewModel @Inject constructor(
     private val addedRssSourceDao: AddedRssSourceDao,
     private val rssService: RssSv,
     private val rssHelper: RssHelper,
-    private val accountService: AccountSv
+    private val accountService: AccountSv,
+    private val curatedBundleService: CuratedBundleService,
 ) : ViewModel() {
+
+    /** UI language used to pick the bundle/group title; a property (not a constructor argument) so Hilt keeps one constructor. */
+    internal var languageProvider: () -> String = { Locale.getDefault().language }
 
     private val _uiState = MutableStateFlow(AddSourcesUiState())
     val uiState: StateFlow<AddSourcesUiState> = _uiState.asStateFlow()
@@ -47,6 +56,58 @@ class AddSourcesViewModel @Inject constructor(
                     filterSources(query)
                 }
         }
+    }
+
+    fun loadBundles() {
+        viewModelScope.launch {
+            _uiState.value = _uiState.value.copy(loadingBundles = true, bundleError = null)
+            try {
+                val bundles = curatedBundleService.load()
+                val canSubscribe = curatedBundleService.canSubscribe()
+                _uiState.value = _uiState.value.copy(
+                    loadingBundles = false,
+                    bundles = bundles,
+                    canSubscribeBundles = canSubscribe,
+                )
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                _uiState.value = _uiState.value.copy(
+                    loadingBundles = false,
+                    bundleError = e.message ?: e.javaClass.simpleName,
+                )
+            }
+        }
+    }
+
+    /** Subscribes every usable source of [bundle] into a new group named after the bundle in the UI language. */
+    fun subscribeBundle(bundle: CuratedBundle) {
+        if (_uiState.value.subscribingBundleId != null) return
+        _uiState.value = _uiState.value.copy(
+            subscribingBundleId = bundle.id,
+            bundleProgress = null,
+            bundleResult = null,
+            bundleResultId = null,
+            bundleError = null,
+        )
+        viewModelScope.launch {
+            try {
+                val result = curatedBundleService.subscribe(bundle, bundle.localizedTitle(languageProvider())) { done, total ->
+                    _uiState.value = _uiState.value.copy(bundleProgress = done to total)
+                }
+                _uiState.value = _uiState.value.copy(bundleResult = result, bundleResultId = bundle.id)
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                _uiState.value = _uiState.value.copy(bundleError = e.message ?: e.javaClass.simpleName)
+            } finally {
+                _uiState.value = _uiState.value.copy(subscribingBundleId = null, bundleProgress = null)
+            }
+        }
+    }
+
+    fun dismissBundleResult() {
+        _uiState.value = _uiState.value.copy(bundleResult = null, bundleResultId = null, bundleError = null)
     }
 
     fun updateSearchQuery(query: String) {
@@ -184,5 +245,13 @@ data class AddSourcesUiState(
     val rssSources: List<RssSource> = emptyList(),
     val filteredSources: List<RssSource> = emptyList(),
     val addedSources: List<String> = emptyList(),
-    val error: String? = null
+    val error: String? = null,
+    val bundles: List<CuratedBundle> = emptyList(),
+    val loadingBundles: Boolean = false,
+    val canSubscribeBundles: Boolean = false,
+    val subscribingBundleId: String? = null,
+    val bundleProgress: Pair<Int, Int>? = null,
+    val bundleResult: BundleSubscribeResult? = null,
+    val bundleResultId: String? = null,
+    val bundleError: String? = null,
 )
