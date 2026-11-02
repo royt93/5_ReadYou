@@ -1017,7 +1017,7 @@
     <!-- STRAT-02 curated bundles -->
     <string name="curated_bundles_title">Curated bundles</string>
     <string name="curated_bundle_verified_on">Checked %1$s</string>
-    <string name="curated_bundle_source_count">%1$d sources</string>
+    <string name="curated_bundle_source_count">Sources: %1$d</string>
     <string name="curated_bundle_subscribe_all">Subscribe to all</string>
     <string name="curated_bundle_subscribing">Subscribing…</string>
     <string name="curated_bundle_progress">Subscribing %1$d of %2$d</string>

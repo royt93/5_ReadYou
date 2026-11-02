@@ -56,7 +56,7 @@ class CuratedBundlesSectionTest {
 
         compose.onNodeWithText("Technology & AI").assertIsDisplayed()
         compose.onNodeWithText("Design & Creativity").assertIsDisplayed()
-        compose.onNodeWithText("2 sources", substring = true).assertIsDisplayed()
+        compose.onNodeWithText("Sources: 2", substring = true).assertIsDisplayed()
         compose.onAllNodesWithTag(CURATED_BUNDLE_VERIFIED_TAG_PREFIX + "tech_ai", useUnmergedTree = true).assertCountEquals(1)
         compose.onAllNodesWithText("2026-11-02", substring = true, useUnmergedTree = true).assertCountEquals(2)
     }
