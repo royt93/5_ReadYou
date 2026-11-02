@@ -1024,4 +1024,21 @@
     <string name="galaxy_star_open">Mở bài</string>
     <string name="galaxy_canvas_desc">Ngân hà tri thức. Sao: %1$d, đường nối: %2$d</string>
     <string name="galaxy_hint">Kéo để xoay, chụm để thu phóng, chạm một sao, chạm đúp để đặt lại</string>
+
+    <!-- EXC-13 second screen -->
+    <string name="second_screen_title">Màn hình thứ hai</string>
+    <string name="second_screen_switch">Hiện bài này trên máy tính</string>
+    <string name="second_screen_url_label">Mở địa chỉ này trên trình duyệt cùng Wi-Fi</string>
+    <string name="second_screen_copy">Sao chép liên kết</string>
+    <string name="second_screen_copied">Đã sao chép liên kết</string>
+    <string name="second_screen_share">Chia sẻ liên kết</string>
+    <string name="second_screen_share_chooser">Chia sẻ liên kết Màn hình thứ hai</string>
+    <string name="second_screen_viewers">Đang xem: %1$d</string>
+    <string name="second_screen_expires">Hết hạn lúc %1$s</string>
+    <string name="second_screen_warning">Không mã hoá. Ai cùng Wi-Fi thấy liên kết đều đọc được bài. Chỉ dùng trên mạng bạn tin cậy.</string>
+    <string name="second_screen_starting">Đang khởi động…</string>
+    <string name="second_screen_no_network">Không có Wi-Fi hoặc mạng dây với địa chỉ nội bộ. Hãy kết nối Wi-Fi rồi thử lại.</string>
+    <string name="second_screen_expired">Phiên đã kết thúc. Bật lại để nhận liên kết mới.</string>
+    <string name="second_screen_error">Không khởi động được máy chủ. Hãy thử lại.</string>
+    <string name="second_screen_retry">Thử lại</string>
 </resources>
