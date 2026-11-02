@@ -30,6 +30,9 @@ Todo gốc yêu cầu thẻ "đối kháng" với nửa dưới là **luận đi
 - **Instrumentation trên Pixel 7 Pro `2B051FDH3006MU`:** `DualCardDeviceTest` 1/1 (`am instrument`, không dùng `connectedDevDebugAndroidTest`).
 - **Smoke thật trên Pixel** (kho gieo feed "Science Wire" trên BẢN SAO DB): mở bài BBC "Musk says SpaceX restricted Ukraine's Starlink connection…", cuộn tới thẻ "Góc nhìn khác" thấy nút "Xuất thẻ" ở hàng Science Wire. Chạm: sheet "Chia sẻ hai tiêu đề" hiện ảnh hai nửa (đen–neon trên, trắng–đỏ dưới), không chồng chữ sau khi sửa. Chạm "Chia sẻ": chooser "Chia sẻ hình ảnh" mở với ảnh thu nhỏ và nội dung `#RSSCatHub #Debate`; thoát bằng Back, không gửi đi đâu. Tắt "Tín hiệu giật tít & cảm xúc tiêu đề" rồi mở lại bài: không còn thẻ, không còn nút xuất (0 nút, 0 tiêu đề thẻ); thẻ quiz vẫn có.
 
+## Cập nhật 2026-11-02: kiểm lại trên Tecno với hai nguồn thật
+Smoke trước dùng feed gieo trên bản sao DB. Sau STRAT-02, trên Tecno `115333744A005844` có 9 feed thật: ở bài BBC "Why does Elon Musk want to merge Tesla and SpaceX?" thẻ ECHO-02 hiện bài OpenAI News và nút "Export card". Chạm nút: sheet "Share two headlines" hiện ảnh hai nửa (trên: bài BBC, 21 thg 10 2026; dưới: "The court rejects Elon's latest attempt to slow OpenAI down", OpenAI News, 14 thg 3 2025, `wording: rejects`) với dòng "Two headlines from my reading archive. Not a fact-check." Không mở chooser chia sẻ trên lần kiểm này (đã kiểm ở lần trước trên Pixel). Dữ liệu máy đã khôi phục.
+
 ## Giới hạn đã biết
 1. **Hai tiêu đề cạnh nhau vẫn có thể bị đọc như "nguồn này phản bác nguồn kia".** Dòng "Not a fact-check" trên ảnh giảm nhưng không loại bỏ điều đó. Dòng chú thích hiện chỉ có tiếng Anh vì được vẽ bằng `android.graphics` (không đi qua tài nguyên chuỗi).
 2. Chỉ xuất được khi kho có từ hai nguồn trở lên và có bài chứa từ khoá trái chiều; kho Pixel thật chỉ có một feed nên **người dùng này sẽ không thấy nút** nếu chưa thêm nguồn thứ hai. Smoke dựa vào feed gieo trên bản sao.
