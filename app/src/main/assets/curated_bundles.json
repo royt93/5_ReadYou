@@ -1,0 +1,74 @@
+[
+  {
+    "id": "tech_ai",
+    "titleEn": "Technology & AI",
+    "titleVi": "Công nghệ & AI",
+    "verifiedOn": "2026-11-02",
+    "sources": [
+      {"name": "TechCrunch", "url": "https://techcrunch.com/feed/"},
+      {"name": "The Verge", "url": "https://www.theverge.com/rss/index.xml"},
+      {"name": "Ars Technica", "url": "https://feeds.arstechnica.com/arstechnica/index"},
+      {"name": "Wired", "url": "https://www.wired.com/feed/rss"},
+      {"name": "MIT Technology Review", "url": "https://www.technologyreview.com/feed/"},
+      {"name": "IEEE Spectrum", "url": "https://spectrum.ieee.org/rss/fulltext"},
+      {"name": "Hacker News", "url": "https://hnrss.org/frontpage"},
+      {"name": "OpenAI News", "url": "https://openai.com/news/rss.xml"}
+    ]
+  },
+  {
+    "id": "finance",
+    "titleEn": "Economy & Investing",
+    "titleVi": "Kinh tế & Đầu tư",
+    "verifiedOn": "2026-11-02",
+    "sources": [
+      {"name": "Bloomberg Markets", "url": "https://feeds.bloomberg.com/markets/news.rss"},
+      {"name": "Wall Street Journal", "url": "https://feeds.a.dj.com/rss/RSSWorldNews.xml"},
+      {"name": "The Economist", "url": "https://www.economist.com/the-world-this-week/rss.xml"},
+      {"name": "VnEconomy", "url": "https://vneconomy.vn/rss/home.rss"},
+      {"name": "Báo Đầu tư", "url": "https://baodautu.vn/rss/home.rss"}
+    ]
+  },
+  {
+    "id": "vn_news",
+    "titleEn": "Vietnam News",
+    "titleVi": "Thời sự Việt Nam",
+    "verifiedOn": "2026-11-02",
+    "sources": [
+      {"name": "VnExpress", "url": "https://vnexpress.net/rss/tin-moi-nhat.rss"},
+      {"name": "Tuổi Trẻ", "url": "https://tuoitre.vn/rss/tin-moi-nhat.rss"}
+    ]
+  },
+  {
+    "id": "design",
+    "titleEn": "Design & Creativity",
+    "titleVi": "Thiết kế & Sáng tạo",
+    "verifiedOn": "2026-11-02",
+    "sources": [
+      {"name": "Smashing Magazine", "url": "https://www.smashingmagazine.com/feed/"},
+      {"name": "A List Apart", "url": "https://alistapart.com/main/feed/"},
+      {"name": "CSS-Tricks", "url": "https://css-tricks.com/feed/"},
+      {"name": "Awwwards", "url": "https://www.awwwards.com/blog/feed/"},
+      {"name": "Behance", "url": "https://www.behance.net/feeds/projects"},
+      {"name": "Designboom", "url": "https://www.designboom.com/feed/"},
+      {"name": "Fast Company", "url": "https://www.fastcompany.com/latest/rss"},
+      {"name": "Muzli", "url": "https://medium.muz.li/feed"}
+    ]
+  },
+  {
+    "id": "dev",
+    "titleEn": "Programming & Developer Tools",
+    "titleVi": "Lập trình & Công cụ phát triển",
+    "verifiedOn": "2026-11-02",
+    "sources": [
+      {"name": "Dev.to", "url": "https://dev.to/feed"},
+      {"name": "GitHub Blog", "url": "https://github.blog/feed/"},
+      {"name": "Stack Overflow Blog", "url": "https://stackoverflow.blog/feed/"},
+      {"name": "freeCodeCamp", "url": "https://www.freecodecamp.org/news/rss/"},
+      {"name": "Hacker Noon", "url": "https://hackernoon.com/feed"},
+      {"name": "Android Developers Blog", "url": "https://android-developers.googleblog.com/feeds/posts/default"},
+      {"name": "Viblo", "url": "https://viblo.asia/rss"},
+      {"name": "TopDev", "url": "https://topdev.vn/blog/feed/"},
+      {"name": "Hugging Face Blog", "url": "https://huggingface.co/blog/feed.xml"}
+    ]
+  }
+]
