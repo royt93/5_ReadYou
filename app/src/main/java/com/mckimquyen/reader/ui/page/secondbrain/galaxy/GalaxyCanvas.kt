@@ -111,7 +111,10 @@ fun GalaxyCanvas(
             }
         }
         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-            Text(stats, style = MaterialTheme.typography.bodySmall, modifier = Modifier.weight(1f))
+            Column(Modifier.weight(1f)) {
+                Text(stats, style = MaterialTheme.typography.bodySmall)
+                Text(stringResource(R.string.galaxy_hint), style = MaterialTheme.typography.bodySmall)
+            }
             TextButton(
                 onClick = { camera = GalaxyCamera.DEFAULT },
                 enabled = !camera.isDefault,

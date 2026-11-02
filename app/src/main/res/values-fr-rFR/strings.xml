@@ -1060,6 +1060,6 @@
     <string name="galaxy_reset_view">Reset view</string>
     <string name="galaxy_stats">Stars: %1$d · Links: %2$d</string>
     <string name="galaxy_star_open">Open article</string>
-    <string name="galaxy_canvas_desc">Knowledge galaxy with %1$d stars and %2$d links</string>
+    <string name="galaxy_canvas_desc">Knowledge galaxy. Stars: %1$d, links: %2$d</string>
     <string name="galaxy_hint">Drag to rotate, pinch to zoom, tap a star, double-tap to reset</string>
 </resources>

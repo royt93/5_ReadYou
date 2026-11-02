@@ -1022,6 +1022,6 @@
     <string name="galaxy_reset_view">Đặt lại góc nhìn</string>
     <string name="galaxy_stats">Sao: %1$d · Đường nối: %2$d</string>
     <string name="galaxy_star_open">Mở bài</string>
-    <string name="galaxy_canvas_desc">Ngân hà tri thức với %1$d sao và %2$d đường nối</string>
+    <string name="galaxy_canvas_desc">Ngân hà tri thức. Sao: %1$d, đường nối: %2$d</string>
     <string name="galaxy_hint">Kéo để xoay, chụm để thu phóng, chạm một sao, chạm đúp để đặt lại</string>
 </resources>
