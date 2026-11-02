@@ -26,6 +26,10 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import java.util.Locale
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -35,6 +39,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.mckimquyen.reader.R
 import com.mckimquyen.reader.ui.page.common.RouteName
@@ -53,7 +58,12 @@ fun AddSourcesMainPage(navController: NavHostController) {
 }
 
 @Composable
-fun CountriesList(navController: NavHostController) {
+fun CountriesList(
+    navController: NavHostController,
+    viewModel: AddSourcesViewModel = hiltViewModel(),
+) {
+    val state by viewModel.uiState.collectAsState()
+    LaunchedEffect(Unit) { viewModel.loadBundles() }
     val countries = listOf(
         CountryItem("🇺🇸", stringResource(R.string.english_sources), "en"),
         CountryItem("🇻🇳", stringResource(R.string.vietnamese_sources), "vi"),
@@ -72,6 +82,15 @@ fun CountriesList(navController: NavHostController) {
     LazyColumn(
         modifier = Modifier.padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 0.dp)
     ) {
+        item {
+            CuratedBundlesSection(
+                state = state,
+                language = Locale.getDefault().language,
+                onSubscribe = viewModel::subscribeBundle,
+                onDismissResult = viewModel::dismissBundleResult,
+                modifier = Modifier.padding(bottom = 16.dp),
+            )
+        }
         items(countries) { country ->
             CountryCard(
                 country = country,

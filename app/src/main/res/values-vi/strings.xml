@@ -1000,4 +1000,16 @@
     <string name="echo_dual_error">Không tạo được thẻ. Chạm để thử lại.</string>
     <string name="echo_dual_chooser_title">Chia sẻ thẻ hai tiêu đề</string>
     <string name="echo_dual_share_text">#RSSCatHub #Debate</string>
+
+    <!-- STRAT-02 curated bundles -->
+    <string name="curated_bundles_title">Bộ sưu tập tuyển chọn</string>
+    <string name="curated_bundle_verified_on">Kiểm tra ngày %1$s</string>
+    <string name="curated_bundle_source_count">%1$d nguồn</string>
+    <string name="curated_bundle_subscribe_all">Đăng ký cả bộ</string>
+    <string name="curated_bundle_subscribing">Đang đăng ký…</string>
+    <string name="curated_bundle_progress">Đang đăng ký %1$d/%2$d</string>
+    <string name="curated_bundle_result">Đã thêm %1$d · đã có %2$d · lỗi %3$d</string>
+    <string name="curated_bundle_error">Không đăng ký được: %1$s</string>
+    <string name="curated_bundle_no_sources_added">Không thêm được nguồn nào nên không tạo nhóm.</string>
+    <string name="curated_bundle_account_local_only">Đăng ký cả bộ chỉ dùng được với tài khoản cục bộ.</string>
 </resources>
