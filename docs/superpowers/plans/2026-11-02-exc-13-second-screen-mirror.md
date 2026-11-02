@@ -1229,6 +1229,7 @@ class SecondScreenSheetTest {
     @Test fun starting_showsTheStatusAndNoUrl() {
         show(MirrorUiState.Starting)
         compose.onNodeWithText(str(R.string.second_screen_starting)).assertIsDisplayed()
+        compose.onNodeWithTag(SECOND_SCREEN_WARNING_TAG).assertIsDisplayed()
         compose.onAllNodesWithTag(SECOND_SCREEN_URL_TAG).assertCountEquals(0)
         compose.onNodeWithTag(SECOND_SCREEN_SWITCH_TAG).assertIsOn()
     }
@@ -1237,6 +1238,7 @@ class SecondScreenSheetTest {
         var toggled: Boolean? = null
         show(MirrorUiState.NoNetwork, onToggle = { toggled = it })
         compose.onNodeWithText(str(R.string.second_screen_no_network)).assertIsDisplayed()
+        compose.onNodeWithTag(SECOND_SCREEN_WARNING_TAG).assertIsDisplayed()
         compose.onAllNodesWithTag(SECOND_SCREEN_URL_TAG).assertCountEquals(0)
         compose.onNodeWithTag(SECOND_SCREEN_RETRY_TAG).performClick()
         compose.runOnIdle { assertEquals(true, toggled) }
