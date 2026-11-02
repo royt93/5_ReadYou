@@ -1116,4 +1116,16 @@
     <string name="curated_bundle_error">Could not subscribe: %1$s</string>
     <string name="curated_bundle_no_sources_added">No source could be added, so no group was created.</string>
     <string name="curated_bundle_account_local_only">Subscribing to a whole bundle is available for the local account only.</string>
+
+    <!-- FRONT-03 knowledge galaxy -->
+    <string name="galaxy_mode_concepts">Concepts</string>
+    <string name="galaxy_mode_stars">Galaxy</string>
+    <string name="galaxy_empty">Mark a few articles as read and they will shine here as stars. Try widening the time range.</string>
+    <string name="galaxy_error">Could not build the galaxy. Try again.</string>
+    <string name="galaxy_retry">Retry</string>
+    <string name="galaxy_reset_view">Reset view</string>
+    <string name="galaxy_stats">Stars: %1$d · Links: %2$d</string>
+    <string name="galaxy_star_open">Open article</string>
+    <string name="galaxy_canvas_desc">Knowledge galaxy with %1$d stars and %2$d links</string>
+    <string name="galaxy_hint">Drag to rotate, pinch to zoom, tap a star, double-tap to reset</string>
 </resources>

@@ -1012,4 +1012,16 @@
     <string name="curated_bundle_error">Không đăng ký được: %1$s</string>
     <string name="curated_bundle_no_sources_added">Không thêm được nguồn nào nên không tạo nhóm.</string>
     <string name="curated_bundle_account_local_only">Đăng ký cả bộ chỉ dùng được với tài khoản cục bộ.</string>
+
+    <!-- FRONT-03 knowledge galaxy -->
+    <string name="galaxy_mode_concepts">Khái niệm</string>
+    <string name="galaxy_mode_stars">Ngân Hà</string>
+    <string name="galaxy_empty">Đánh dấu vài bài đã đọc và chúng sẽ hiện thành sao ở đây. Thử nới rộng khoảng thời gian.</string>
+    <string name="galaxy_error">Không dựng được ngân hà. Hãy thử lại.</string>
+    <string name="galaxy_retry">Thử lại</string>
+    <string name="galaxy_reset_view">Đặt lại góc nhìn</string>
+    <string name="galaxy_stats">Sao: %1$d · Đường nối: %2$d</string>
+    <string name="galaxy_star_open">Mở bài</string>
+    <string name="galaxy_canvas_desc">Ngân hà tri thức với %1$d sao và %2$d đường nối</string>
+    <string name="galaxy_hint">Kéo để xoay, chụm để thu phóng, chạm một sao, chạm đúp để đặt lại</string>
 </resources>
