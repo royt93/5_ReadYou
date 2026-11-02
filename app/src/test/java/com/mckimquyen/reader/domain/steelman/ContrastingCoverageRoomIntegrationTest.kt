@@ -70,6 +70,46 @@ class ContrastingCoverageRoomIntegrationTest {
     }
 
     @Test
+    fun queryPagesOtherFeedsAndAppliesTheContrarianFilterBeforeTakingFiveResults() = runBlocking {
+        insert("cur", "OpenAI outlines new research plans", "f_bbc", date = 10_000L)
+        // First page is deliberately full of same-topic articles without a cue. Old SQL LIMIT 40 prevents the
+        // relevant old article from ever reaching the Kotlin cue filter.
+        (1..45).forEach { i ->
+            insert("no_cue_$i", "OpenAI publishes research update $i", "f_wired", date = 9_000L - i)
+        }
+        insert("older_relevant", "Critics warn OpenAI safety review is incomplete", "f_wired", date = 1_000L)
+
+        val firstPage = db.articleDao().queryRelatedContrastingArticlePage(
+            accountId = 1,
+            currentArticleId = "cur",
+            currentFeedId = "f_bbc",
+            escapedKeyword = BountyQuerySanitizer.escapeLikeLiteral("OpenAI"),
+            beforeDate = null,
+            beforeId = null,
+            limit = ContrastingCoverageFinder.CANDIDATE_LIMIT,
+        )
+        val firstFiltered = firstPage.filter { ContrarianCueLexicon.find(it.article.title) != null }
+        val nextPage = db.articleDao().queryRelatedContrastingArticlePage(
+            accountId = 1,
+            currentArticleId = "cur",
+            currentFeedId = "f_bbc",
+            escapedKeyword = BountyQuerySanitizer.escapeLikeLiteral("OpenAI"),
+            beforeDate = firstPage.last().article.date.time,
+            beforeId = firstPage.last().article.id,
+            limit = ContrastingCoverageFinder.CANDIDATE_LIMIT,
+        )
+        val matching = firstFiltered + nextPage.filter { ContrarianCueLexicon.find(it.article.title) != null }
+        val contrasting = ContrastingCoverageFinder.find("cur", "f_bbc", "OpenAI", matching)
+
+        assertEquals(40, firstPage.size)
+        assertTrue(firstFiltered.isEmpty())
+        assertEquals(6, nextPage.size) // 5 no-cue rows plus the older contradictory headline.
+        assertEquals(listOf("older_relevant"), contrasting.map { it.articleId })
+        // The lexicon returns the first cue in its own list order ("critics" precedes "warn").
+        assertEquals("critics", contrasting.single().cue)
+    }
+
+    @Test
     fun queryAndFinder_safelyHandleWildcardCharactersInPhrase() = runBlocking {
         insert("cur", "Company promises 100%_growth this quarter", "f_bbc")
         insert("opp_wired", "Economists warn 100%_growth claim is unrealistic", "f_wired")

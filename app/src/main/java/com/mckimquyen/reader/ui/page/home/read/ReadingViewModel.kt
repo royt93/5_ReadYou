@@ -553,6 +553,45 @@ class ReadingViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Pages through other-feed articles that mention [phrase], newest first, and keeps those whose headline has a
+     * contrarian cue. Same-topic articles without a cue (a very active feed can post hundreds) therefore cannot hide an
+     * older one that has it; stops at [ContrastingCoverageFinder.MAX_RESULTS] hits, a short page, or the page cap.
+     */
+    private suspend fun collectContrastingArticles(
+        dao: ArticleDao,
+        item: ArticleWithFeed,
+        phrase: String,
+        escapedPhrase: String,
+    ): List<com.mckimquyen.reader.domain.steelman.ContrastingArticle> {
+        val found = mutableListOf<com.mckimquyen.reader.domain.steelman.ContrastingArticle>()
+        var beforeDate: Long? = null
+        var beforeId: String? = null
+        repeat(ContrastingCoverageFinder.MAX_CANDIDATE_PAGES) {
+            val page = withContext(ioDispatcher) {
+                dao.queryRelatedContrastingArticlePage(
+                    accountId = item.article.accountId,
+                    currentArticleId = item.article.id,
+                    currentFeedId = item.feed.id,
+                    escapedKeyword = escapedPhrase,
+                    beforeDate = beforeDate,
+                    beforeId = beforeId,
+                    limit = ContrastingCoverageFinder.CANDIDATE_LIMIT,
+                )
+            }
+            if (page.isEmpty()) return found.take(ContrastingCoverageFinder.MAX_RESULTS)
+            found += withContext(defaultDispatcher) {
+                ContrastingCoverageFinder.find(item.article.id, item.feed.id, phrase, page)
+            }
+            if (found.size >= ContrastingCoverageFinder.MAX_RESULTS || page.size < ContrastingCoverageFinder.CANDIDATE_LIMIT) {
+                return found.sortedByDescending { it.date.time }.take(ContrastingCoverageFinder.MAX_RESULTS)
+            }
+            beforeDate = page.last().article.date.time
+            beforeId = page.last().article.id
+        }
+        return found.sortedByDescending { it.date.time }.take(ContrastingCoverageFinder.MAX_RESULTS)
+    }
+
     private suspend fun searchContrast(item: ArticleWithFeed, phrase: String, allPhrases: List<String>) {
         val dao = articleDao
         if (dao == null) {
@@ -560,17 +599,8 @@ class ReadingViewModel @Inject constructor(
             return
         }
         try {
-            val candidates = withContext(ioDispatcher) {
-                dao.queryRelatedArticleListWithFeed(
-                    accountId = item.article.accountId,
-                    currentArticleId = item.article.id,
-                    escapedKeyword = BountyQuerySanitizer.escapeLikeLiteral(phrase),
-                    limit = ContrastingCoverageFinder.CANDIDATE_LIMIT,
-                )
-            }
-            val contrasting = withContext(defaultDispatcher) {
-                ContrastingCoverageFinder.find(item.article.id, item.feed.id, phrase, candidates)
-            }
+            val escaped = BountyQuerySanitizer.escapeLikeLiteral(phrase)
+            val contrasting = collectContrastingArticles(dao, item, phrase, escaped)
             _contrastingCoverage.value =
                 if (contrasting.isEmpty()) ContrastingCoverageState.None
                 else ContrastingCoverageState.Ready(allPhrases, phrase, contrasting)

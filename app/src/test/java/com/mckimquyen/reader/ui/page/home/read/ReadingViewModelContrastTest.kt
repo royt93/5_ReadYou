@@ -4,6 +4,7 @@ import com.mckimquyen.reader.domain.model.article.ArticleListItem
 import com.mckimquyen.reader.domain.model.article.ArticleListItemWithFeed
 import com.mckimquyen.reader.domain.model.feed.Feed
 import com.mckimquyen.reader.domain.repository.ArticleDao
+import com.mckimquyen.reader.domain.steelman.ContrastingCoverageFinder
 import com.mckimquyen.reader.domain.steelman.ContrastingCoverageState
 import com.mckimquyen.reader.domain.sv.AbstractRssRepository
 import com.mckimquyen.reader.domain.sv.RssSv
@@ -86,7 +87,7 @@ class ReadingViewModelContrastTest {
     fun loadArticle_withContrastingCandidates_setsReadyState() = runTest(dispatcher) {
         val current = item("cur", "SpaceX expands Starlink coverage rapidly", feedId = "f1", feedName = "TechFeed")
         coEvery { repo.findArticleById("cur") } returns current.toArticleWithFeed()
-        coEvery { articleDao.queryRelatedArticleListWithFeed(7, "cur", any(), 40) } returns listOf(
+        coEvery { articleDao.queryRelatedContrastingArticlePage(7, "cur", any(), any(), null, null, 40) } returns listOf(
             item("opp1", "Astronomers warn Starlink brightness disrupts observations", feedId = "f2", feedName = "ScienceFeed"),
         )
 
@@ -105,7 +106,7 @@ class ReadingViewModelContrastTest {
     fun loadArticle_withoutContrastingCandidates_setsNoneState() = runTest(dispatcher) {
         val current = item("cur", "SpaceX expands Starlink coverage rapidly", feedId = "f1", feedName = "TechFeed")
         coEvery { repo.findArticleById("cur") } returns current.toArticleWithFeed()
-        coEvery { articleDao.queryRelatedArticleListWithFeed(any(), any(), any(), any()) } returns emptyList()
+        coEvery { articleDao.queryRelatedContrastingArticlePage(any(), any(), any(), any(), any(), any(), any()) } returns emptyList()
 
         val vm = createViewModel()
         vm.initData("cur")
@@ -131,7 +132,7 @@ class ReadingViewModelContrastTest {
         val current = item("cur", "Elon Musk announces new Starlink deployment plan", feedId = "f1", feedName = "TechFeed")
         coEvery { repo.findArticleById("cur") } returns current.toArticleWithFeed()
         // Extracted phrases, longest first: "Elon Musk", "Starlink", "Musk". The candidate contains all of them.
-        coEvery { articleDao.queryRelatedArticleListWithFeed(7, "cur", any(), 40) } returns listOf(
+        coEvery { articleDao.queryRelatedContrastingArticlePage(7, "cur", any(), any(), null, null, 40) } returns listOf(
             item("opp1", "Critics warn Elon Musk Starlink plan poses risks", feedId = "f2", feedName = "OtherFeed"),
         )
 
@@ -157,7 +158,7 @@ class ReadingViewModelContrastTest {
         val cur2 = item("c2", "nothing here", feedId = "f1", feedName = "F1")
         coEvery { repo.findArticleById("c1") } returns cur1.toArticleWithFeed()
         coEvery { repo.findArticleById("c2") } returns cur2.toArticleWithFeed()
-        coEvery { articleDao.queryRelatedArticleListWithFeed(any(), any(), any(), any()) } returns emptyList()
+        coEvery { articleDao.queryRelatedContrastingArticlePage(any(), any(), any(), any(), any(), any(), any()) } returns emptyList()
 
         val vm = createViewModel()
         vm.initData("c1")
@@ -167,5 +168,65 @@ class ReadingViewModelContrastTest {
         // Stale state from c1 is cleared
         advanceUntilIdle()
         assertEquals(ContrastingCoverageState.None, vm.contrastingCoverage.value)
+    }
+
+    @Test
+    fun search_pagesPastCandidatesWithoutAContrarianCue_untilFiveContrastingArticlesOrEndOfData() = runTest(dispatcher) {
+        val current = item("cur", "OpenAI outlines new research plans", feedId = "f1", feedName = "TechFeed")
+        coEvery { repo.findArticleById("cur") } returns current.toArticleWithFeed()
+        val noCue = (1..40).map { item("n$it", "OpenAI update $it", feedId = "f2", feedName = "Wired") }
+        coEvery {
+            articleDao.queryRelatedContrastingArticlePage(7, "cur", "f1", any(), null, null, 40)
+        } returns noCue
+        coEvery {
+            articleDao.queryRelatedContrastingArticlePage(7, "cur", "f1", any(), 1_000L, "n40", 40)
+        } returns listOf(item("hit", "Critics warn OpenAI review is incomplete", feedId = "f2", feedName = "Wired"))
+
+        val vm = createViewModel()
+        vm.initData("cur")
+        advanceUntilIdle()
+
+        val state = vm.contrastingCoverage.value as ContrastingCoverageState.Ready
+        assertEquals(listOf("hit"), state.items.map { it.articleId })
+        io.mockk.coVerify(exactly = 1) {
+            articleDao.queryRelatedContrastingArticlePage(7, "cur", "f1", any(), null, null, 40)
+        }
+    }
+
+    @Test
+    fun search_stopsPagingWhenAPageIsShorterThanTheLimit() = runTest(dispatcher) {
+        val current = item("cur", "OpenAI outlines new research plans", feedId = "f1", feedName = "TechFeed")
+        coEvery { repo.findArticleById("cur") } returns current.toArticleWithFeed()
+        coEvery {
+            articleDao.queryRelatedContrastingArticlePage(7, "cur", "f1", any(), null, null, 40)
+        } returns listOf(item("n1", "OpenAI update", feedId = "f2", feedName = "Wired"))
+
+        val vm = createViewModel()
+        vm.initData("cur")
+        advanceUntilIdle()
+
+        assertEquals(ContrastingCoverageState.None, vm.contrastingCoverage.value)
+        io.mockk.coVerify(exactly = 1) {
+            articleDao.queryRelatedContrastingArticlePage(any(), any(), any(), any(), any(), any(), any())
+        }
+    }
+
+    @Test
+    fun search_neverReadsMoreThanMaxPagesForOneTopic() = runTest(dispatcher) {
+        val current = item("cur", "OpenAI outlines new research plans", feedId = "f1", feedName = "TechFeed")
+        coEvery { repo.findArticleById("cur") } returns current.toArticleWithFeed()
+        val full = (1..40).map { item("n$it", "OpenAI update $it", feedId = "f2", feedName = "Wired") }
+        coEvery {
+            articleDao.queryRelatedContrastingArticlePage(any(), any(), any(), any(), any(), any(), any())
+        } returns full
+
+        val vm = createViewModel()
+        vm.initData("cur")
+        advanceUntilIdle()
+
+        assertEquals(ContrastingCoverageState.None, vm.contrastingCoverage.value)
+        io.mockk.coVerify(exactly = ContrastingCoverageFinder.MAX_CANDIDATE_PAGES) {
+            articleDao.queryRelatedContrastingArticlePage(any(), any(), any(), any(), any(), any(), any())
+        }
     }
 }

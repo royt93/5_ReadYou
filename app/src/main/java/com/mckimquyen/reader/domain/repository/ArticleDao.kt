@@ -81,6 +81,37 @@ interface ArticleDao {
         limit: Int = 20,
     ): List<ArticleListItemWithFeed>
 
+    /** ECHO-02 page: exclude current/same-feed rows in SQL before paging; cue matching stays in the shared Kotlin lexicon. */
+    @Transaction
+    @Query(
+        """
+        SELECT $ARTICLE_LIST_COLUMNS FROM article
+        WHERE accountId = :accountId
+          AND id != :currentArticleId
+          AND feedId != :currentFeedId
+          AND (
+            title LIKE '%' || :escapedKeyword || '%' ESCAPE '\'
+            OR shortDescription LIKE '%' || :escapedKeyword || '%' ESCAPE '\'
+          )
+          AND (
+            :beforeDate IS NULL
+            OR date < :beforeDate
+            OR (date = :beforeDate AND id < :beforeId)
+          )
+        ORDER BY date DESC, id DESC
+        LIMIT :limit
+        """
+    )
+    suspend fun queryRelatedContrastingArticlePage(
+        accountId: Int,
+        currentArticleId: String,
+        currentFeedId: String,
+        escapedKeyword: String,
+        beforeDate: Long?,
+        beforeId: String?,
+        limit: Int,
+    ): List<ArticleListItemWithFeed>
+
     @Query("UPDATE article SET fullContent = :content WHERE accountId = :accountId AND id = :articleId")
     suspend fun updateFullContent(accountId: Int, articleId: String, content: String)
 

@@ -6,6 +6,9 @@ object ContrastingCoverageFinder {
     const val MAX_RESULTS = 5
     const val CANDIDATE_LIMIT = 40
 
+    /** Hard stop on paging so a very common topic cannot make one article open scan the whole archive. */
+    const val MAX_CANDIDATE_PAGES = 10
+
     fun find(
         currentArticleId: String,
         currentFeedId: String,
