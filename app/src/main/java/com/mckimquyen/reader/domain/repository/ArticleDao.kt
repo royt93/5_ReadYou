@@ -35,6 +35,11 @@ interface ArticleDao {
     @Query("SELECT " + ARTICLE_LIST_COLUMNS + " FROM article WHERE accountId = :accountId ORDER BY date DESC LIMIT :limit")
     suspend fun queryRecentArticleListWithFeed(accountId: Int, limit: Int = 150): List<ArticleListItemWithFeed>
 
+    /** FRONT-03 galaxy: articles the user already read, newest first, metadata columns only (FIX-17). */
+    @Transaction
+    @Query("SELECT " + ARTICLE_LIST_COLUMNS + " FROM article WHERE accountId = :accountId AND isUnread = 0 ORDER BY date DESC, id DESC LIMIT :limit")
+    suspend fun queryReadArticleListWithFeed(accountId: Int, limit: Int): List<ArticleListItemWithFeed>
+
     @Transaction
     @Query("SELECT " + ARTICLE_LIST_COLUMNS + " FROM article WHERE accountId = :accountId AND id = :articleId")
     suspend fun queryArticleListWithFeedById(accountId: Int, articleId: String): ArticleListItemWithFeed?
