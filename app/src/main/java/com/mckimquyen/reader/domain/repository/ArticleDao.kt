@@ -16,6 +16,7 @@ import java.io.ByteArrayOutputStream
 import com.mckimquyen.reader.domain.model.statistics.FeedReadCount
 import com.mckimquyen.reader.domain.model.statistics.ReadingDayCount
 import com.mckimquyen.reader.domain.model.feed.ImportantNum
+import com.mckimquyen.reader.domain.p2psync.SyncArticleSnapshot
 import java.util.*
 
 @Dao
@@ -783,6 +784,22 @@ interface ArticleDao {
         """
     )
     suspend fun queryTopFeeds(accountId: Int, limit: Int = 5): List<FeedReadCount>
+
+    /** EXC-05a: only the columns sync needs; no title, summary, audio or body ever leaves the cursor (FIX-17). */
+    @Query(
+        """
+        SELECT a.id AS id, a.accountId AS accountId, f.url AS feedUrl, a.link AS link,
+               a.isUnread AS isUnread, a.isStarred AS isStarred, a.readAt AS readAt
+        FROM article AS a JOIN feed AS f ON f.id = a.feedId
+        WHERE a.accountId = :accountId
+        ORDER BY a.id
+        """
+    )
+    suspend fun querySyncSnapshots(accountId: Int): List<SyncArticleSnapshot>
+
+    /** EXC-05a: the only article write sync performs; touches exactly three columns. */
+    @Query("UPDATE article SET isUnread = :isUnread, isStarred = :isStarred, readAt = :readAt WHERE id = :articleId AND accountId = :accountId")
+    suspend fun updateSyncState(accountId: Int, articleId: String, isUnread: Boolean, isStarred: Boolean, readAt: Long?): Int
 
     @Update
     suspend fun update(vararg article: Article)

@@ -16,6 +16,14 @@ data class SyncArticleSnapshot(
 
 data class SyncFeedToAdd(val id: String, val name: String, val url: String, val groupId: String)
 data class SyncArticleUpdate(val receiverArticleId: String, val isUnread: Boolean, val isStarred: Boolean, val readAt: Long?)
+data class LocalSyncApplyResult(
+    val feedsAdded: Int,
+    val duplicateFeeds: Int,
+    val matchedArticles: Int,
+    val unmatchedArticles: Int,
+    val updatesApplied: Int,
+)
+
 data class LocalSyncPlan(
     val feedsToAdd: List<SyncFeedToAdd>,
     val duplicateFeeds: Int,
