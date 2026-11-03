@@ -62,4 +62,15 @@ class TitleWordsTest {
     @Test fun isCaseInsensitiveAndDeduplicated() {
         assertEquals(setOf("burnham"), TitleWords.extract("BURNHAM burnham Burnham"))
     }
+
+    @Test fun dropsQuestionAndAuxiliaryWordsThatLinkUnrelatedHeadlines() {
+        // Found in the real archive on a device: "Why does Prince Harry want..." and "Why does Elon Musk want..."
+        // were joined by nothing but these two words.
+        val words = TitleWords.extract("Why does Prince Harry want to work it out, and who wants this")
+        assertFalse("does" in words)
+        assertFalse("want" in words)
+        assertFalse("wants" in words)
+        assertTrue("prince" in words)
+        assertTrue("harry" in words)
+    }
 }

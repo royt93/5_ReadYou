@@ -16,8 +16,10 @@ import com.mckimquyen.reader.domain.model.galaxy.GalaxyCamera
 import com.mckimquyen.reader.domain.model.galaxy.GalaxyGraph
 import com.mckimquyen.reader.domain.model.galaxy.GalaxyLayout
 import com.mckimquyen.reader.domain.model.galaxy.GalaxyLine
+import com.mckimquyen.reader.domain.model.galaxy.GalaxyLineKind
 import com.mckimquyen.reader.domain.model.galaxy.GalaxyStar
 import com.mckimquyen.reader.ui.page.secondbrain.galaxy.GALAXY_CANVAS_TAG
+import com.mckimquyen.reader.ui.page.secondbrain.galaxy.GALAXY_NEIGHBOUR_ROW_TAG_PREFIX
 import com.mckimquyen.reader.ui.page.secondbrain.galaxy.GALAXY_OPEN_TAG
 import com.mckimquyen.reader.ui.page.secondbrain.galaxy.GALAXY_RESET_TAG
 import com.mckimquyen.reader.ui.page.secondbrain.galaxy.GALAXY_SHEET_TAG
@@ -95,5 +97,29 @@ class KnowledgeGalaxyDeviceTest {
         composeRule.onNodeWithText("Election night").assertIsDisplayed()
         composeRule.onNodeWithTag(GALAXY_OPEN_TAG).performClick()
         composeRule.runOnIdle { assertEquals("s3", opened) }
+    }
+
+    @Test
+    fun selectedStarListsARelatedStarAndTappingItSelectsIt() {
+        var selected: String? = "s1"
+        composeRule.setContent {
+            val graph = GalaxyGraph(
+                stars,
+                listOf(GalaxyLine("s1", "s2", 0, GalaxyLineKind.TITLE_WORDS, listOf("alpha", "bravo"))),
+            )
+            SecondBrainPage(
+                state = SecondBrainUiState.Loading,
+                onSelectNode = {},
+                onRangeChange = { _, _ -> },
+                onOpenArticle = {},
+                onRetry = {},
+                galaxyState = GalaxyUiState.Ready(graph, selected, 1_000L, 3_000L, 1_000L, 3_000L),
+                onSelectStar = { selected = it },
+            )
+        }
+        composeRule.onNodeWithTag(GALAXY_TOGGLE_STARS_TAG).performClick()
+        composeRule.onNodeWithTag(GALAXY_NEIGHBOUR_ROW_TAG_PREFIX + "s2").assertIsDisplayed()
+        composeRule.onNodeWithTag(GALAXY_NEIGHBOUR_ROW_TAG_PREFIX + "s2").performClick()
+        composeRule.runOnIdle { assertEquals("s2", selected) }
     }
 }

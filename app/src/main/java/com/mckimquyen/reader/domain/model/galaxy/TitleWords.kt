@@ -13,6 +13,9 @@ object TitleWords {
         "about", "after", "also", "been", "before", "from", "have", "into", "just", "like", "more", "most", "over",
         "says", "said", "than", "that", "their", "them", "then", "there", "these", "they", "this", "those", "through",
         "what", "when", "where", "which", "while", "will", "with", "would", "your",
+        // Function words and generic headline verbs found joining unrelated stories in a real archive.
+        "does", "want", "wants", "against", "inside", "third", "leave", "weekend", "could", "should", "being",
+        "because", "between", "during", "before", "still", "first", "years", "year", "back",
         "watch", "video", "live", "news", "update", "updates",
         "như", "những", "được", "trong", "người", "cũng", "nhưng", "khi", "theo", "với", "cho", "này", "các",
     )
