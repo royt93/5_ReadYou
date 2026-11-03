@@ -61,6 +61,23 @@ internal object MirrorHttp {
         out.flush()
     }
 
+    fun reply(
+        out: OutputStream,
+        status: Int,
+        contentType: String,
+        body: ByteArray,
+        extraHeaders: Map<String, String> = emptyMap(),
+    ) {
+        val head = StringBuilder("HTTP/1.1 $status ${reason(status)}\r\n")
+        head.append("Content-Type: $contentType\r\nContent-Length: ${body.size}\r\n")
+        appendCommon(head)
+        extraHeaders.forEach { (key, value) -> head.append("$key: $value\r\n") }
+        head.append("\r\n")
+        out.write(head.toString().toByteArray(Charsets.ISO_8859_1))
+        out.write(body)
+        out.flush()
+    }
+
     fun openEventStream(out: OutputStream) {
         val head = StringBuilder("HTTP/1.1 200 OK\r\nContent-Type: text/event-stream; charset=utf-8\r\n")
         appendCommon(head)

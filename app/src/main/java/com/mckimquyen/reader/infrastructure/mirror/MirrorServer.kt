@@ -10,6 +10,11 @@ import com.mckimquyen.reader.domain.mirror.MirrorRouter
 import com.mckimquyen.reader.domain.mirror.MirrorSnapshot
 import com.mckimquyen.reader.domain.mirror.MirrorStartResult
 import com.mckimquyen.reader.domain.mirror.MirrorToken
+import com.mckimquyen.reader.domain.mirror.SyncSessionResponse
+import com.mckimquyen.reader.domain.mirror.SyncSessionRouter
+import com.mckimquyen.reader.domain.p2psync.SyncEnvelopeCrypto
+import com.mckimquyen.reader.domain.p2psync.SyncLimits
+import java.security.SecureRandom
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -42,6 +47,32 @@ class MirrorServer(
     /** Address the socket is bound to, exposed so tests can prove it is never the wildcard address. */
     val boundAddress: InetAddress? get() = synchronized(lock) { session?.server?.inetAddress }
 
+    fun startSync(
+        bindAddress: InetAddress,
+        ciphertext: ByteArray,
+        random: SecureRandom = SecureRandom(),
+    ): MirrorStartResult = synchronized(lock) {
+        if (session != null) return MirrorStartResult.Failed(MirrorFailure.ALREADY_RUNNING)
+        require(ciphertext.size in SyncEnvelopeCrypto.OVERHEAD_BYTES..SyncLimits.MAX_ENVELOPE_BYTES)
+        val server = try {
+            ServerSocket().apply {
+                reuseAddress = true
+                bind(InetSocketAddress(bindAddress, 0), ACCEPT_BACKLOG)
+            }
+        } catch (e: IOException) {
+            return MirrorStartResult.Failed(MirrorFailure.BIND)
+        } catch (e: SecurityException) {
+            return MirrorStartResult.Failed(MirrorFailure.BIND)
+        }
+        val tokenBytes = ByteArray(MirrorLimits.TOKEN_BYTES).also(random::nextBytes)
+        val token = MirrorToken(tokenBytes.toLowerHex(), clock() + SyncLimits.SESSION_TTL_MILLIS)
+        tokenBytes.fill(0)
+        val created = Session(server, token, ciphertext.copyOf())
+        session = created
+        created.begin()
+        MirrorStartResult.Started(server.localPort, token)
+    }
+
     override fun start(bindAddress: InetAddress): MirrorStartResult = synchronized(lock) {
         if (session != null) return MirrorStartResult.Failed(MirrorFailure.ALREADY_RUNNING)
         val server = try {
@@ -72,10 +103,17 @@ class MirrorServer(
         current.publish(snapshot)
     }
 
-    private inner class Session(val server: ServerSocket, val token: MirrorToken) {
+    private inner class Session(
+        val server: ServerSocket,
+        val token: MirrorToken,
+        syncCiphertext: ByteArray? = null,
+    ) {
         private val closed = AtomicBoolean(false)
         private val limiter = MirrorRateLimiter(clock)
+        private val syncOnly = syncCiphertext != null
+        @Volatile private var ciphertext: ByteArray? = syncCiphertext
         private val router = MirrorRouter({ token }, { latest })
+        private val syncRouter = SyncSessionRouter({ token }, { ciphertext?.copyOf() })
         private val pool: ExecutorService = Executors.newFixedThreadPool(MirrorLimits.WORKER_THREADS) { runnable ->
             Thread(runnable, "mirror-worker").apply { isDaemon = true }
         }
@@ -134,6 +172,14 @@ class MirrorServer(
                 is MirrorParseResult.Ok -> parsed.request
                 is MirrorParseResult.Rejected -> return plain(out, parsed.status)
             }
+            if (syncOnly) {
+                when (val response = syncRouter.route(request, clock())) {
+                    SyncSessionResponse.NotFound -> plain(out, 404)
+                    is SyncSessionResponse.Ciphertext ->
+                        MirrorHttp.reply(out, 200, "application/octet-stream", response.bytes)
+                }
+                return
+            }
             when (val response = router.route(request, clock())) {
                 MirrorResponse.NotFound -> plain(out, 404)
                 is MirrorResponse.Page -> MirrorHttp.reply(out, 200, "text/html; charset=utf-8", response.html, isPage = true)
@@ -183,6 +229,8 @@ class MirrorServer(
             synchronized(streams) { streams.forEach { it.kill() }; streams.clear() }
             synchronized(open) { open.toList().forEach(MirrorHttp::closeQuietly); open.clear() }
             pool.shutdownNow()
+            ciphertext?.fill(0)
+            ciphertext = null
         }
 
         private fun track(socket: Socket) {
@@ -233,5 +281,15 @@ class MirrorServer(
 
     private companion object {
         const val ACCEPT_BACKLOG = 50
+        private const val HEX_DIGITS = "0123456789abcdef"
+
+        fun ByteArray.toLowerHex(): String {
+            val out = StringBuilder(size * 2)
+            for (byte in this) {
+                val value = byte.toInt() and 0xff
+                out.append(HEX_DIGITS[value ushr 4]).append(HEX_DIGITS[value and 0x0f])
+            }
+            return out.toString()
+        }
     }
 }

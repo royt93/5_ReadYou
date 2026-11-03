@@ -13,4 +13,5 @@ object SyncLimits {
     const val GCM_TAG_BITS = 128
     const val PBKDF2_ITERATIONS = 310_000
     const val KEY_BITS = 256
+    const val SESSION_TTL_MILLIS = 5L * 60_000
 }
