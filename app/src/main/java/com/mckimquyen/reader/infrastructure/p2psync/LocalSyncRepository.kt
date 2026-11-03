@@ -9,6 +9,7 @@ import com.mckimquyen.reader.domain.p2psync.LocalSyncApplyResult
 import com.mckimquyen.reader.domain.p2psync.LocalSyncPlan
 import com.mckimquyen.reader.domain.p2psync.LocalSyncPlanner
 import com.mckimquyen.reader.domain.p2psync.SyncArticleSnapshot
+import com.mckimquyen.reader.domain.p2psync.SyncLimits
 import com.mckimquyen.reader.domain.p2psync.SyncArticleState
 import com.mckimquyen.reader.domain.p2psync.SyncFeed
 import com.mckimquyen.reader.domain.p2psync.SyncPackage
@@ -16,6 +17,7 @@ import com.mckimquyen.reader.domain.p2psync.SyncPackageCodec
 import com.mckimquyen.reader.domain.p2psync.SyncPackageResult
 import com.mckimquyen.reader.infrastructure.db.AndroidDatabase
 import com.mckimquyen.reader.ui.ext.getDefaultGroupId
+import java.net.URI
 import java.util.UUID
 
 class LocalSyncRepository @Inject constructor(private val db: AndroidDatabase) {
@@ -25,27 +27,65 @@ class LocalSyncRepository @Inject constructor(private val db: AndroidDatabase) {
         this.newId = newId
     }
 
-
+    /**
+     * Builds the outgoing package from allowlisted columns only. Dirty local rows are repaired or dropped here, so one odd
+     * feed name or link can never make Send fail. Articles without state (unread, unstarred, no readAt) are not sent:
+     * the monotonic merge can never change anything from them.
+     */
     suspend fun snapshot(localAccountId: Int): SyncPackage {
-        val account = db.accountDao().queryById(localAccountId)
-        require(account?.type?.id == AccountType.Local.id)
+        requireLocal(localAccountId)
+        val groups = db.groupDao().queryAll(localAccountId).associate { it.id to it.name }
         val feeds = db.feedDao().queryAll(localAccountId)
-        val groups = db.groupDao().queryAll(localAccountId).associateBy { it.id }
-        val packageFeeds = feeds.mapNotNull { feed ->
-            FeedUrlNormalizer.normalize(feed.url)?.let { url ->
-                SyncFeed(url, feed.name, groups[feed.groupId]?.name.orEmpty().ifEmpty { "Default" })
+            .sortedBy { it.id }
+            .mapNotNull { feed ->
+                val url = FeedUrlNormalizer.normalize(feed.url) ?: return@mapNotNull null
+                SyncFeed(
+                    url,
+                    cleanLabel(feed.name, fallback = url),
+                    cleanLabel(groups[feed.groupId].orEmpty(), fallback = DEFAULT_GROUP_LABEL),
+                )
             }
-        }
-        val feedById = feeds.associateBy { it.id }
-        val packageArticles = db.articleDao().querySyncSnapshots(localAccountId).mapNotNull { article ->
-            val feedUrl = feedById.values.firstOrNull { FeedUrlNormalizer.normalize(it.url) == FeedUrlNormalizer.normalize(article.feedUrl) }
-                ?.let { FeedUrlNormalizer.normalize(it.url) } ?: FeedUrlNormalizer.normalize(article.feedUrl)
-            feedUrl?.let { SyncArticleState(it, article.link, article.isUnread, article.isStarred, article.readAt) }
-        }
-        val proposed = SyncPackage(1, "0".repeat(32), System.currentTimeMillis(), packageFeeds, packageArticles)
-        val encoded = SyncPackageCodec.encode(proposed)
-        return (SyncPackageCodec.decodeAndValidate(encoded) as SyncPackageResult.Valid).data
+            .distinctBy { it.url }
+            .take(SyncLimits.MAX_FEEDS)
+        val feedUrls = feeds.mapTo(HashSet()) { it.url }
+        val articles = db.articleDao().querySyncSnapshots(localAccountId)
+            .asSequence()
+            .filter { !(it.isUnread && !it.isStarred && it.readAt == null) }
+            .mapNotNull { article ->
+                val feedUrl = FeedUrlNormalizer.normalize(article.feedUrl)?.takeIf { it in feedUrls } ?: return@mapNotNull null
+                if (!isSendableLink(article.link)) return@mapNotNull null
+                SyncArticleState(feedUrl, article.link, article.isUnread, article.isStarred, article.readAt?.takeIf { it >= 0 })
+            }
+            .groupBy { it.feedUrl to it.link }
+            .values
+            .map { group ->
+                group.reduce { left, right ->
+                    left.copy(
+                        isUnread = left.isUnread && right.isUnread,
+                        isStarred = left.isStarred || right.isStarred,
+                        readAt = listOfNotNull(left.readAt, right.readAt).minOrNull(),
+                    )
+                }
+            }
+            .sortedWith(compareBy(SyncArticleState::feedUrl, SyncArticleState::link))
+            .take(SyncLimits.MAX_ARTICLE_STATES)
+        val proposed = SyncPackage(1, newSourceId(), System.currentTimeMillis(), feeds, articles)
+        return (SyncPackageCodec.decodeAndValidate(SyncPackageCodec.encode(proposed)) as SyncPackageResult.Valid).data
     }
+
+    private fun cleanLabel(raw: String, fallback: String): String {
+        val cleaned = raw.map { if (it.isISOControl()) ' ' else it }.joinToString("").trim().take(SyncLimits.MAX_NAME_CHARS).trim()
+        return cleaned.ifEmpty { fallback.take(SyncLimits.MAX_NAME_CHARS) }
+    }
+
+    private fun isSendableLink(link: String): Boolean = link.length <= SyncLimits.MAX_ARTICLE_LINK_CHARS &&
+        link.none { it.isWhitespace() || it.isISOControl() } &&
+        runCatching { URI(link) }.getOrNull()?.let {
+            (it.scheme.equals("http", ignoreCase = true) || it.scheme.equals("https", ignoreCase = true)) &&
+                !it.host.isNullOrEmpty() && it.rawUserInfo == null
+        } == true
+
+    private fun newSourceId(): String = UUID.randomUUID().toString().replace("-", "")
 
     suspend fun preview(localAccountId: Int, incoming: SyncPackage): LocalSyncPlan {
         requireLocal(localAccountId)
@@ -102,4 +142,8 @@ class LocalSyncRepository @Inject constructor(private val db: AndroidDatabase) {
         defaultGroupId = accountId.getDefaultGroupId(),
         newId = newId,
     )
+
+    private companion object {
+        const val DEFAULT_GROUP_LABEL = "Default"
+    }
 }

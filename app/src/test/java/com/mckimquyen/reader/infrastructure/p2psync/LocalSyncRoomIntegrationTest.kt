@@ -12,6 +12,8 @@ import com.mckimquyen.reader.domain.p2psync.FeedUrlNormalizer
 import com.mckimquyen.reader.domain.p2psync.SyncArticleState
 import com.mckimquyen.reader.domain.p2psync.SyncFeed
 import com.mckimquyen.reader.domain.p2psync.SyncPackage
+import com.mckimquyen.reader.domain.p2psync.SyncPackageCodec
+import com.mckimquyen.reader.domain.p2psync.SyncPackageResult
 import com.mckimquyen.reader.infrastructure.db.AndroidDatabase
 import com.mckimquyen.reader.ui.ext.getDefaultGroupId
 import kotlinx.coroutines.runBlocking
@@ -151,6 +153,65 @@ class LocalSyncRoomIntegrationTest {
         assertTrue(article.isUnread)
         assertFalse(article.isStarred)
         assertEquals(100L, article.readAt)
+    }
+
+    @Test fun snapshotCarriesOnlyAllowlistedStateOfTheLocalAccount() = runBlocking {
+        val snapshot = repository.snapshot(1)
+        assertEquals(listOf(SyncFeed("https://example.org/rss", "Receiver Name", "My group")), snapshot.feeds)
+        assertEquals(
+            listOf(SyncArticleState("https://example.org/rss", "https://example.org/a", true, false, 100L)),
+            snapshot.articles,
+        )
+        val raw = String(SyncPackageCodec.encode(snapshot))
+        listOf("Keep title", "KEEP SUMMARY", "KEEP AUDIO", "RAW BODY", "local-feed", "z-local-uuid", "Other account copy", "fever").forEach {
+            assertFalse("leaked $it", raw.contains(it))
+        }
+    }
+
+    @Test fun snapshotSkipsArticlesThatCarryNoStateAndKeepsReadOrStarredOnes() = runBlocking {
+        db.articleDao().insert(
+            article("blank", "local-feed", 1, "https://example.org/blank", unread = true, starred = false, readAt = null),
+            article("read", "local-feed", 1, "https://example.org/read", unread = false, starred = false, readAt = null),
+            article("star", "local-feed", 1, "https://example.org/star", unread = true, starred = true, readAt = null),
+        )
+        val links = repository.snapshot(1).articles.map { it.link }.toSet()
+        assertEquals(setOf("https://example.org/a", "https://example.org/read", "https://example.org/star"), links)
+    }
+
+    @Test fun snapshotRejectsNonLocalAccount() = runBlocking {
+        assertTrue(runCatching { repository.snapshot(3) }.isFailure)
+    }
+
+    @Test fun snapshotToleratesMessyRealWorldRows() = runBlocking {
+        db.feedDao().insert(
+            Feed("dup-feed", "Same URL again", url = "https://example.org/rss/", groupId = "mygroup", accountId = 1),
+            Feed("blank-name", "", url = "https://blank.org/rss", groupId = "mygroup", accountId = 1),
+            Feed("ctrl-name", "Line\nbreak", url = "https://ctrl.org/rss", groupId = "mygroup", accountId = 1),
+        )
+        db.articleDao().insert(
+            article("dup-article", "dup-feed", 1, "https://example.org/a", unread = false, starred = true, readAt = 40L),
+            article("bad-link", "local-feed", 1, "not a url", unread = false, starred = false, readAt = 1L),
+        )
+        val snapshot = repository.snapshot(1)
+        assertEquals(1, snapshot.feeds.count { it.url == "https://example.org/rss" })
+        assertTrue(snapshot.feeds.all { it.name.isNotEmpty() && it.name.none(Char::isISOControl) })
+        val merged = snapshot.articles.single { it.link == "https://example.org/a" }
+        assertFalse(merged.isUnread)
+        assertTrue(merged.isStarred)
+        assertEquals(40L, merged.readAt)
+        assertTrue(snapshot.articles.none { it.link == "not a url" })
+        assertTrue(SyncPackageCodec.decodeAndValidate(SyncPackageCodec.encode(snapshot)) is SyncPackageResult.Valid)
+    }
+
+    @Test fun snapshotFromOneLocalAccountAppliesToAnotherLocalAccount() = runBlocking {
+        db.articleDao().updateSyncState(1, "z-local-uuid", isUnread = false, isStarred = true, readAt = 100L)
+        val snapshot = repository.snapshot(1)
+        repository.apply(2, snapshot)
+        val receiver = db.articleDao().queryById("other-local-uuid")!!.article
+        assertFalse(receiver.isUnread)
+        assertTrue(receiver.isStarred)
+        assertEquals(100L, receiver.readAt)
+        assertEquals("Other account copy", db.feedDao().queryAll(2).single { it.id == "other-feed" }.name)
     }
 
     @Test fun stateApplyDoesNotTouchReadPosition() = runBlocking {

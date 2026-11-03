@@ -11,7 +11,11 @@ object SyncPackageCodec {
     private val sourcePattern = Regex("^[0-9a-f]{32}$")
 
     fun encode(data: SyncPackage): ByteArray {
-        val normalized = normalizeAndValidate(data)
+        val normalized = try {
+            normalizeAndValidate(data)
+        } catch (e: PackageRejected) {
+            throw IllegalArgumentException("Invalid sync package: ${e.reason}")
+        }
         val root = JSONObject()
             .put("version", normalized.version)
             .put("sourceId", normalized.sourceId)
