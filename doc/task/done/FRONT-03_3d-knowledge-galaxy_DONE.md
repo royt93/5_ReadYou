@@ -40,7 +40,7 @@ Máy dùng: Tecno KJ7 (Android 14) rồi Samsung A50s SM-A507FN (Android 11) sau
 
 ## Giới hạn đã biết
 1. Phối cảnh trên Canvas 2D, không phải 3D GPU; giới hạn 600 sao và 400 đường để giữ chi phí vẽ có trần, nhưng **A50s vẫn giật khi kéo** như số đo ở trên.
-2. Quan hệ giữa các bài chỉ dựa trên bộ khái niệm của `SemanticSearchEngine`. Ở smoke chỉ có **5 đường nối trên 152 sao**, nên ngân hà trông là một đám sao rời; kho chủ đề lạ sẽ còn thưa hơn.
+2. Quan hệ giữa các bài chỉ dựa trên bộ khái niệm của `SemanticSearchEngine` (đã bổ sung đường nối từ chung trong tiêu đề ở `FRONT-03b_galaxy-title-word-links_DONE.md`: 5 đường lên 43 trên cùng 152 bài, vẫn còn nhiều sao rời). Ở smoke chỉ có **5 đường nối trên 152 sao**, nên ngân hà trông là một đám sao rời; kho chủ đề lạ sẽ còn thưa hơn.
 3. Chỉ tính bài đã đánh dấu đọc. DB thật của Tecno chỉ có 9 bài đã đọc nên phải smoke trên bản sao có đánh dấu 152 bài; **chưa quan sát ngân hà trên dữ liệu đọc thật của một người dùng**.
 4. Chưa kiểm: thu phóng hai ngón trên máy thật (đã có test Robolectric), thanh thời gian trong chế độ Ngân Hà trên máy thật, tiêu điểm TalkBack, chế độ ngang, và trường hợp 600 sao đầy (mới thử 152).
 5. Trên A50s dump giao diện không hiện thẻ chi tiết khi chạm hai lần đầu vì toạ độ chạm trượt khỏi sao (phải dựa vào ảnh để chọn toạ độ); lần thứ ba chọn đúng. Không phải lỗi mã nhưng cho thấy vùng chạm 24dp khá nhỏ khi sao dày đặc.
