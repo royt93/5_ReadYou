@@ -59,7 +59,7 @@ data class SyncArticleUpdate(val receiverArticleId:String,val isUnread:Boolean,v
 data class LocalSyncPlan(val feedsToAdd:List<SyncFeedToAdd>,val duplicateFeeds:Int,val matchedArticles:Int,
   val unmatchedArticles:Int,val updates:List<SyncArticleUpdate>)
 data class SyncFeedToAdd(val id:String,val name:String,val url:String,val groupId:String)  // planner output; Task 5 maps it to Feed
-data class SyncArticleSnapshot(val id:String,val feedUrl:String,val link:String,val isUnread:Boolean,val isStarred:Boolean,val readAt:Long?)
+data class SyncArticleSnapshot(val id:String,val accountId:Int,val feedUrl:String,val link:String,val isUnread:Boolean,val isStarred:Boolean,val readAt:Long?)
 object LocalSyncPlanner { fun plan(incoming:SyncPackage, receiverFeeds:List<Feed>, receiverArticles:List<SyncArticleSnapshot>,
   receiverAccountId:Int, defaultGroupId:String, newId:()->String = { UUID.randomUUID().toString() }):LocalSyncPlan }
 data class LocalSyncApplyResult(val feedsAdded:Int,val duplicateFeeds:Int,val matchedArticles:Int,val unmatchedArticles:Int,val updatesApplied:Int)
@@ -196,7 +196,7 @@ class SyncPackageCodecTest {
 
 **Files:** Create `domain/p2psync/LocalSyncPlanner.kt`; test `LocalSyncPlannerTest.kt`.
 
-**Interfaces:** consumes validated `SyncPackage`, receiver `Feed`, `SyncArticleSnapshot` (id/feedUrl/link/state only), Local account ID/default group ID; produces `LocalSyncPlan`.
+**Interfaces:** consumes validated `SyncPackage`, receiver `Feed`, `SyncArticleSnapshot` (id/accountId/feedUrl/link/state only), Local account ID/default group ID; produces `LocalSyncPlan`.
 
 - [ ] **Step 1: Tests đỏ.** Use helpers per plan types.
 
@@ -209,7 +209,7 @@ import org.junit.Test
 class LocalSyncPlannerTest {
  private var nextId = 0
  private fun feed(id:String,url:String,name:String=id,group:String="default")=Feed(id,name,url=url,groupId=group,accountId=1)
- private fun article(id:String,f:Feed,link:String,unread:Boolean,starred:Boolean,readAt:Long?=null)=SyncArticleSnapshot(id,f.url,link,unread,starred,readAt)
+ private fun article(id:String,f:Feed,link:String,unread:Boolean,starred:Boolean,readAt:Long?=null)=SyncArticleSnapshot(id,1,f.url,link,unread,starred,readAt)
  private fun pkg(feeds:List<SyncFeed>, articles:List<SyncArticleState>)=SyncPackage(1,"a".repeat(32),1,feeds,articles)
  private val source=SyncFeed("https://EXAMPLE.org:443/rss/#fragment","Sender name","Sender group")
 
@@ -280,7 +280,7 @@ Test supplier `newId={"id-${nextId++}"}` and API callback are both `() -> String
 
 - [ ] **Step 2:** `/tmp/exc05a-run.sh '--tests *LocalSyncPlannerTest' t4red`; unresolved expected.
 - [ ] **Step 3: Implement.** Require positive receiver account ID and nonblank default group; Local account *type* is checked by `LocalSyncRepository`, which reads `AccountDao.queryById` and requires `account.type.id == AccountType.Local.id`. Build URL-normalized receiver feeds in stable `id` order; preserve receiver metadata. Incoming duplicate normalized URL/article key rejects. Missing feeds get injected `newId()` (prod UUID); collision names suffix `(2)`, `(3)` comparing case-insensitive within receiver groups and newly planned feeds. Build article index from only receiver `accountId`, keyed normalized feed URL + exact `link`, stable first ID. Every incoming article with no receiver pair increments unmatched; never creates Article. For match calculate unread AND, star OR, earliest non-null readAt; only emit update if any field differs; sorted deterministic result.
-- [ ] **Step 4:** 10 tests green. Mutation unread OR -> monotonic test red; star AND -> monotonic test red; match by article UUID -> random-ID test red; feed metadata overwritten -> metadata test red; add placeholder article -> unmatched test red.
+- [ ] **Step 4:** 15 tests green. Mutations unread OR, star AND, match by sender UUID, remove receiver account filter, reverse readAt choice, remove input feed/article duplicate checks, skip name suffixing, or emit no-op updates; each is caught by named test. New feed-only output plus unchanged receiver feed assertions cover receiver metadata preservation; unmatched article test forbids placeholder rows.
 - [ ] **Step 5: Commit** `feat(exc-05a): plan local sync merges without database writes` (+ trailer).
 
 ---
@@ -423,7 +423,7 @@ class LocalSyncRoomIntegrationTest {
 
 ```kotlin
     /** EXC-05a: only the columns sync needs; no title, summary, audio or body ever leaves the cursor (FIX-17). */
-    @Query("SELECT a.id AS id, f.url AS feedUrl, a.link AS link, a.isUnread AS isUnread, a.isStarred AS isStarred, a.readAt AS readAt FROM article AS a JOIN feed AS f ON f.id = a.feedId WHERE a.accountId = :accountId ORDER BY a.id")
+    @Query("SELECT a.id AS id, a.accountId AS accountId, f.url AS feedUrl, a.link AS link, a.isUnread AS isUnread, a.isStarred AS isStarred, a.readAt AS readAt FROM article AS a JOIN feed AS f ON f.id = a.feedId WHERE a.accountId = :accountId ORDER BY a.id")
     suspend fun querySyncSnapshots(accountId: Int): List<SyncArticleSnapshot>
 
     /** EXC-05a: the only article write sync performs; touches exactly three columns. */
