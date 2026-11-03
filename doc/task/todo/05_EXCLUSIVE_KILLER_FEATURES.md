@@ -20,7 +20,7 @@
 | EXC-10 | Retraction Radar — Phát Hiện Bài Báo Bị Sửa Âm Thầm Hoặc Bị Gỡ Bỏ | P1 (High) | ✅ Done | [EXC-10_retraction-radar_DONE.md](../done/EXC-10_retraction-radar_DONE.md) |
 | EXC-11 | Temporal "Ask My Archive" — Hỏi Đáp Kho Lưu Trữ RSS Theo Mốc Thời Gian | P2 (Medium) | 📋 Todo | [EXC-11_temporal-ask-my-archive.md](EXC-11_temporal-ask-my-archive.md) |
 | EXC-12 | AI Feed Autopilot — Tự Học Hành Vi Đọc & Gợi Ý Unsubscribe Feed Gây Nhiễu | P2 (Medium) | 📋 Todo | [EXC-12_ai-feed-autopilot.md](EXC-12_ai-feed-autopilot.md) |
-| EXC-13 | Second Screen Mirror — Quét QR Mirror Bài Đang Đọc Sang Máy Tính Qua LAN | P3 (Low) | 📋 Todo | [EXC-13_second-screen-mirror.md](EXC-13_second-screen-mirror.md) |
+| EXC-13 | Second Screen Mirror — Quét QR Mirror Bài Đang Đọc Sang Máy Tính Qua LAN | P3 (Low) | ✅ Done (một chiều, văn bản thuần, không QR, không đồng bộ cuộn, không mã hoá) | [EXC-13_second-screen-mirror_DONE.md](../done/EXC-13_second-screen-mirror_DONE.md) |
 | EXC-14 | Feed Zero Triage Mode — Chế Độ Vuốt Kiểu Tinder Xử Lý Toàn Bộ Bài Chưa Đọc | P2 (Medium) | ✅ Done | [../done/EXC-14_feed-zero-triage-mode_DONE.md](../done/EXC-14_feed-zero-triage-mode_DONE.md) |
 
 **Ghi chú:** EXC-06 đã được audit và xác nhận triển khai đầy đủ trong code (commit `d64bfee`, có unit/widget/integration test) nên đã chuyển sang `doc/task/done/` thay vì giữ ở `todo/`. EXC-08 đến EXC-14 là 7 tính năng độc quyền mới, ưu tiên tái sử dụng hạ tầng AI on-device đã có (`infrastructure/ai/clustering/StoryClusteringEngine.kt`, `infrastructure/ai/search/SemanticSearchEngine.kt`, `infrastructure/ai/ArticleMindMapExtractor.kt`, `infrastructure/ai/ArticleDeepReadEngine.kt`) thay vì xây dựng lại từ đầu.
