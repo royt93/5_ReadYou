@@ -20,6 +20,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.mckimquyen.reader.R
+import com.mckimquyen.reader.domain.model.galaxy.GalaxyNeighbours
 
 const val GALAXY_EMPTY_TAG = "galaxy_empty"
 const val GALAXY_TOGGLE_CONCEPTS_TAG = "galaxy_toggle_concepts"
@@ -72,7 +73,13 @@ fun GalaxyPanel(
                 )
             }
             state.graph.stars.firstOrNull { it.id == state.selectedStarId }?.let { star ->
-                GalaxyStarSheet(star = star, onOpen = onOpenArticle)
+                val neighbours = remember(state.graph, star.id) { GalaxyNeighbours.of(state.graph, star.id) }
+                GalaxyStarSheet(
+                    star = star,
+                    onOpen = onOpenArticle,
+                    neighbours = neighbours,
+                    onSelectNeighbour = onSelectStar,
+                )
             }
         }
     }
