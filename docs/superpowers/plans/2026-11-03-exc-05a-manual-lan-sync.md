@@ -186,7 +186,7 @@ class SyncPackageCodecTest {
 
 - [ ] **Step 2:** `/tmp/exc05a-run.sh '--tests *SyncPackageValidatorTest --tests *SyncPackageCodecTest' t3red`; unresolved expected.
 - [ ] **Step 3: Implement.** JSON root/feed/article require exact keys; no unknowns, missing/null/wrong types. Check input byte cap before `JSONObject`; check array length before mapping. Normalize feed URLs before duplicate check; exact article link duplicate within same normalized feed reject. `sourceId` exactly 32 lower-hex, version exactly 1, timestamps nonnegative, booleans exact, names/URLs caps and control-free; feed URL/user-info via normalizer, article link only HTTP(S), host, no user-info/control, cap (do not normalize path/query). `encode` uses deterministic key insertion order, allowlist only, re-run validator on generated package; deterministic feed/article ordering sorted by `(url)` and `(feedUrl,link)`.
-- [ ] **Step 4:** 9 validator + 2 codec green. Mutation: allow unknown key -> `rejectsExtra...` red; omit duplicate check -> duplicate tests red; move byte/array cap after mapping -> caps test red; serialize forbidden `accountId` -> allowlist test red.
+- [ ] **Step 4:** 11 validator + 2 codec green. Mutation: allow unknown key -> `rejectsExtra...` red; omit duplicate check -> duplicate tests red; move byte/array cap after mapping -> caps test red; serialize forbidden `accountId` -> allowlist test red.
 - [ ] **Step 5: Commit** `feat(exc-05a): validate a strict allowlisted sync package` (+ trailer).
 
 ---
