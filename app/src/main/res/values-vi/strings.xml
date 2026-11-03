@@ -1041,4 +1041,8 @@
     <string name="second_screen_expired">Phiên đã kết thúc. Bật lại để nhận liên kết mới.</string>
     <string name="second_screen_error">Không khởi động được máy chủ. Hãy thử lại.</string>
     <string name="second_screen_retry">Thử lại</string>
+
+    <!-- FRONT-03b galaxy title links -->
+    <string name="galaxy_related_title">Bài liên quan</string>
+    <string name="galaxy_shared_terms">Chung từ: %1$s</string>
 </resources>

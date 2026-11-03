@@ -1066,4 +1066,8 @@
     <string name="second_screen_expired">The session ended. Turn it on again to get a new link.</string>
     <string name="second_screen_error">Could not start the server. Try again.</string>
     <string name="second_screen_retry">Try again</string>
+
+    <!-- FRONT-03b galaxy title links -->
+    <string name="galaxy_related_title">Related articles</string>
+    <string name="galaxy_shared_terms">Shared words: %1$s</string>
 </resources>
