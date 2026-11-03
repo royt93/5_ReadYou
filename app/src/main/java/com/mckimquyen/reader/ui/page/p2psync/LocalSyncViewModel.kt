@@ -195,12 +195,15 @@ class LocalSyncViewModel @Inject constructor(
         }
     }
 
-    fun shareServerUrl() {
-        (_state.value as? LocalSyncUiState.Sending)?.let { _shareUrl.tryEmit(it.url) }
+    fun shareServerUrl(url: String) {
+        if (_state.value is LocalSyncUiState.Sending && (_state.value as LocalSyncUiState.Sending).url == url) {
+            _shareUrl.tryEmit(url)
+        }
     }
 
-    fun sharePairingSecret() {
-        (_state.value as? LocalSyncUiState.Sending)?.let { _shareSecret.tryEmit(it.secretHex) }
+    fun sharePairingSecret(secret: String) {
+        val sending = _state.value as? LocalSyncUiState.Sending ?: return
+        if (sending.secretHex == secret) _shareSecret.tryEmit(secret)
     }
 
     private fun watchSession(address: InetAddress, expiresAtMillis: Long) {

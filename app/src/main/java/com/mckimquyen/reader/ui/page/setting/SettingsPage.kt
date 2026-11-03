@@ -180,6 +180,15 @@ fun SettingsPage(
                 }
                 item {
                     SelectableSettingGroupItem(
+                        title = stringResource(R.string.local_sync_title),
+                        desc = stringResource(R.string.local_sync_send_instructions),
+                        icon = Icons.Outlined.CloudSync,
+                    ) {
+                        navController.navigate(RouteName.LOCAL_SYNC) { launchSingleTop = true }
+                    }
+                }
+                item {
+                    SelectableSettingGroupItem(
                         title = stringResource(R.string.ai_settings_title),
                         desc = stringResource(R.string.ai_settings_desc),
                         icon = Icons.Outlined.AutoAwesome,

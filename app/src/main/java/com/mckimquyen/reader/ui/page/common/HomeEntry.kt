@@ -82,6 +82,16 @@ import com.mckimquyen.reader.ui.page.radar.LocalRadarFlags
 import com.mckimquyen.reader.ui.page.headline.LocalHeadlineSignalsEnabled
 import com.mckimquyen.reader.ui.page.radar.RadarFlagsViewModel
 import com.mckimquyen.reader.ui.page.startup.StartupPage
+import com.mckimquyen.reader.ui.page.p2psync.LocalSyncPage
+import com.mckimquyen.reader.ui.page.p2psync.copySyncText
+import com.mckimquyen.reader.ui.page.p2psync.LocalSyncViewModel
+import com.mckimquyen.reader.ui.ext.currentAccountId
+import com.mckimquyen.reader.ui.ext.share
+import com.mckimquyen.reader.ui.ext.currentAccountType
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.ProcessLifecycleOwner
+import androidx.compose.runtime.DisposableEffect
 import com.mckimquyen.reader.ui.theme.AppTheme
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
@@ -338,6 +348,40 @@ fun HomeEntry(
                     navController = navController,
                     activity = activity
                 )
+            }
+            animatedComposable(route = RouteName.LOCAL_SYNC, eInk = eInk) {
+                val syncViewModel: LocalSyncViewModel = hiltViewModel()
+                val syncState by syncViewModel.state.collectAsState()
+                val processLifecycle = ProcessLifecycleOwner.get().lifecycle
+                DisposableEffect(syncViewModel) {
+                    val observer = LifecycleEventObserver { _, event ->
+                        if (event == Lifecycle.Event.ON_STOP) syncViewModel.onScreenStopped()
+                    }
+                    processLifecycle.addObserver(observer)
+                    onDispose {
+                        processLifecycle.removeObserver(observer)
+                        syncViewModel.onScreenStopped()
+                    }
+                }
+                LocalSyncPage(
+                    state = syncState,
+                    isLocal = context.currentAccountType == com.mckimquyen.reader.domain.model.account.AccountType.Local.id,
+                    onBack = { navController.popBackStack() },
+                    onStartSend = { syncViewModel.startSend(context.currentAccountId) },
+                    onLoadPreview = { url, secret -> syncViewModel.loadPreview(context.currentAccountId, url, secret) },
+                    onCancel = syncViewModel::cancelPreview,
+                    onApply = { syncViewModel.applyPreview(context.currentAccountId) },
+                    onCopyUrl = { context.copySyncText(it) },
+                    onCopySecret = { context.copySyncText(it) },
+                    onShareUrl = syncViewModel::shareServerUrl,
+                    onShareSecret = syncViewModel::sharePairingSecret,
+                )
+                LaunchedEffect(syncViewModel) {
+                    syncViewModel.shareUrl.collect { context.share(it) }
+                }
+                LaunchedEffect(syncViewModel) {
+                    syncViewModel.shareSecret.collect { context.share(it) }
+                }
             }
 
             // Watchdog Alert Inbox (REEL-06)

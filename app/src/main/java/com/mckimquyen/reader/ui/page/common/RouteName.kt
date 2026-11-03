@@ -28,6 +28,7 @@ object RouteName {
     const val SMART_FILTER = "smart_filter"
     const val OPML_BACKUP = "opml_backup"
     const val WATCHDOG_INBOX = "watchdog_inbox"
+    const val LOCAL_SYNC = "local_sync"
 
     // Brain RPG
     const val BRAIN_RPG = "brain_rpg"
