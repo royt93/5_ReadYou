@@ -36,7 +36,7 @@ import java.util.concurrent.atomic.AtomicBoolean
 class MirrorServer(
     private val clock: () -> Long = System::currentTimeMillis,
     private val socketTimeoutMillis: Int = MirrorLimits.SOCKET_TIMEOUT_MILLIS,
-) : MirrorEngine {
+) : MirrorEngine, SyncSessionEngine {
     private val lock = Any()
     private var session: Session? = null
     private val _clients = MutableStateFlow(0)
@@ -47,10 +47,13 @@ class MirrorServer(
     /** Address the socket is bound to, exposed so tests can prove it is never the wildcard address. */
     val boundAddress: InetAddress? get() = synchronized(lock) { session?.server?.inetAddress }
 
-    fun startSync(
+    override fun startSync(bindAddress: InetAddress, ciphertext: ByteArray): MirrorStartResult =
+        startSync(bindAddress, ciphertext, SecureRandom())
+
+    internal fun startSync(
         bindAddress: InetAddress,
         ciphertext: ByteArray,
-        random: SecureRandom = SecureRandom(),
+        random: SecureRandom,
     ): MirrorStartResult = synchronized(lock) {
         if (session != null) return MirrorStartResult.Failed(MirrorFailure.ALREADY_RUNNING)
         require(ciphertext.size in SyncEnvelopeCrypto.OVERHEAD_BYTES..SyncLimits.MAX_ENVELOPE_BYTES)
