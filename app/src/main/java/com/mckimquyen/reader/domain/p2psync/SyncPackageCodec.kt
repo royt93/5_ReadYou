@@ -114,8 +114,16 @@ object SyncPackageCodec {
 
     private fun String.validatedUrl(maxLength: Int): String {
         if (length > maxLength || any { it.isWhitespace() || it.isISOControl() }) reject(SyncPackageError.INVALID_VALUE)
-        val normalized = FeedUrlNormalizer.normalize(this) ?: reject(SyncPackageError.INVALID_VALUE)
-        return this.also { if (normalized.isEmpty()) reject(SyncPackageError.INVALID_VALUE) }
+        val uri = try {
+            java.net.URI(this)
+        } catch (_: java.net.URISyntaxException) {
+            reject(SyncPackageError.INVALID_VALUE)
+        }
+        val scheme = uri.scheme?.lowercase(java.util.Locale.ROOT)
+        if ((scheme != "http" && scheme != "https") || uri.host.isNullOrEmpty() || uri.rawUserInfo != null) {
+            reject(SyncPackageError.INVALID_VALUE)
+        }
+        return this
     }
 
     private fun requireKeys(obj: JSONObject, keys: Set<String>) {

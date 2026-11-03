@@ -56,6 +56,19 @@ class SyncPackageValidatorTest {
         assertInvalid(json.toByteArray())
     }
 
+    @Test fun articleLinkUsesItsOwnLargerCapAndKeepsFragmentAndQueryExactly() {
+        fun withLink(link: String) = String(valid()).replace("https://a.test/story", link)
+            .replace("https://a.test/rss", "https://a.test/rss#feed-fragment").toByteArray()
+        val linkPrefix = "https://a.test/"
+        val longButAllowed = linkPrefix + "a".repeat(SyncLimits.MAX_ARTICLE_LINK_CHARS - linkPrefix.length)
+        val ok = SyncPackageCodec.decodeAndValidate(withLink(longButAllowed)) as SyncPackageResult.Valid
+        assertEquals(longButAllowed, ok.data.articles.single().link)
+        assertInvalid(withLink(longButAllowed + "b"))
+        val exact = "https://a.test/Story/?id=1#part"
+        val kept = SyncPackageCodec.decodeAndValidate(withLink(exact)) as SyncPackageResult.Valid
+        assertEquals(exact, kept.data.articles.single().link)
+    }
+
     @Test fun rejectsArticleWhoseFeedIsNotInPackage() {
         val json = String(valid()).replace("https://a.test/rss\",\"link", "https://other.test/rss\",\"link")
         assertInvalid(json.toByteArray())
