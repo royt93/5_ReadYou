@@ -59,7 +59,8 @@ data class SyncArticleUpdate(val receiverArticleId:String,val isUnread:Boolean,v
 data class LocalSyncPlan(val feedsToAdd:List<SyncFeedToAdd>,val duplicateFeeds:Int,val matchedArticles:Int,
   val unmatchedArticles:Int,val updates:List<SyncArticleUpdate>)
 data class SyncFeedToAdd(val id:String,val name:String,val url:String,val groupId:String)  // planner output; Task 5 maps it to Feed
-object LocalSyncPlanner { fun plan(incoming:SyncPackage, receiverFeeds:List<Feed>, receiverArticles:List<ArticleListItemWithFeed>,
+data class SyncArticleSnapshot(val id:String,val feedUrl:String,val link:String,val isUnread:Boolean,val isStarred:Boolean,val readAt:Long?)
+object LocalSyncPlanner { fun plan(incoming:SyncPackage, receiverFeeds:List<Feed>, receiverArticles:List<SyncArticleSnapshot>,
   receiverAccountId:Int, defaultGroupId:String, newId:()->String = { UUID.randomUUID().toString() }):LocalSyncPlan }
 data class LocalSyncApplyResult(val feedsAdded:Int,val duplicateFeeds:Int,val matchedArticles:Int,val unmatchedArticles:Int,val updatesApplied:Int)
 class LocalSyncRepository(db:AndroidDatabase, newId:()->String) { suspend fun snapshot(localAccountId:Int):SyncPackage
@@ -110,7 +111,7 @@ class SyncEnvelopeCryptoTest {
 
 - [ ] **Step 3: Red.** `/tmp/exc05a-run.sh '--tests *PairingSecretTest --tests *SyncEnvelopeCryptoTest' t1red`; expect unresolved refs.
 - [ ] **Step 4: Implement.** `PairingSecret.generate` = 16 random bytes, lower-hex. `fromHex` requires exactly 32 lowercase hex. Envelope: magic `RCS1`, version byte 1, salt16, nonce12, ciphertext+GCM tag16. Key: `PBEKeySpec(secret.hex.toCharArray(),salt,310_000,256)`, `SecretKeyFactory PBKDF2WithHmacSHA256`; clear password finally. AES/GCM/NoPadding, 128-bit GCM tag, `updateAAD(magic+version)`. Encrypt rejects plaintext > `MAX_ENVELOPE_BYTES-OVERHEAD`; decrypt checks encoded length before copying/deriving, magic/version before KDF, authentication before returning bytes. Never log inputs, secret or output. Inject `SecureRandom` for deterministic secret tests; crypto test checks uniqueness rather than brittle provider-specific ciphertext bytes.
-- [ ] **Step 5: Green** (4 secret + 7 envelope tests). Add one instrumentation timing test later on Tecno, report actual PBKDF2 duration; do not lower rounds silently.
+- [ ] **Step 5: Green** (4 secret + 8 envelope tests). `oversizeEnvelopeIsRejectedBeforeAnyKeyDerivation` compares oversize rejection time against one valid KDF in the same test; this ensures cap runs before expensive PBKDF2 without fixed timing assumptions. Add one instrumentation timing test later on Tecno, report actual PBKDF2 duration; do not lower rounds silently.
 - [ ] **Step 6: Mutate**: fixed salt/nonce -> freshness test red; skip GCM AAD / wrong magic -> header/tamper test red; skip size check -> oversize test red. Restore and rerun.
 - [ ] **Step 7: Commit** `feat(exc-05a): add pairing secrets and AES-GCM envelopes` (+ trailer).
 
@@ -195,23 +196,20 @@ class SyncPackageCodecTest {
 
 **Files:** Create `domain/p2psync/LocalSyncPlanner.kt`; test `LocalSyncPlannerTest.kt`.
 
-**Interfaces:** consumes validated `SyncPackage`, receiver `Feed`, `ArticleListItemWithFeed`, Local account ID/default group ID; produces `LocalSyncPlan`.
+**Interfaces:** consumes validated `SyncPackage`, receiver `Feed`, `SyncArticleSnapshot` (id/feedUrl/link/state only), Local account ID/default group ID; produces `LocalSyncPlan`.
 
 - [ ] **Step 1: Tests đỏ.** Use helpers per plan types.
 
 ```kotlin
 package com.mckimquyen.reader.domain.p2psync
-import com.mckimquyen.reader.domain.model.article.*
 import com.mckimquyen.reader.domain.model.feed.Feed
 import org.junit.Assert.*
 import org.junit.Test
-import java.util.Date
 
 class LocalSyncPlannerTest {
  private var nextId = 0
  private fun feed(id:String,url:String,name:String=id,group:String="default")=Feed(id,name,url=url,groupId=group,accountId=1)
- private fun article(id:String,f:Feed,link:String,unread:Boolean,starred:Boolean,readAt:Long?=null)=ArticleListItemWithFeed(
-  ArticleListItem(id,Date(1),"local-title",null,"local-short",null,link,f.id,1,unread,starred,false,null,null,readAt,null,null,null),f)
+ private fun article(id:String,f:Feed,link:String,unread:Boolean,starred:Boolean,readAt:Long?=null)=SyncArticleSnapshot(id,f.url,link,unread,starred,readAt)
  private fun pkg(feeds:List<SyncFeed>, articles:List<SyncArticleState>)=SyncPackage(1,"a".repeat(32),1,feeds,articles)
  private val source=SyncFeed("https://EXAMPLE.org:443/rss/#fragment","Sender name","Sender group")
 
@@ -237,7 +235,7 @@ class LocalSyncPlannerTest {
  @Test fun pairsByNormalizedFeedUrlAndExactLinkNotSenderUuid() {
   val f=feed("receiver-random-id","https://example.org/rss")
   val a=article("receiver-article-uuid",f,"https://example.org/story?id=1",true,false)
-  val incoming=SyncArticleState("https://example.org/rss",a.article.link,false,true,50)
+  val incoming=SyncArticleState("https://example.org/rss",a.link,false,true,50)
   val p=LocalSyncPlanner.plan(pkg(listOf(source),listOf(incoming)),listOf(f),listOf(a),1,"default")
   assertEquals("receiver-article-uuid",p.updates.single().receiverArticleId);assertEquals(1,p.matchedArticles);assertEquals(0,p.unmatchedArticles)
  }
@@ -250,7 +248,7 @@ class LocalSyncPlannerTest {
 
  @Test fun unreadUsesAndAndStarredUsesOr() {
   val f=feed("f",source.url);val a=article("a",f,"https://e.test/a",false,true,100)
-  val p=LocalSyncPlanner.plan(pkg(listOf(source),listOf(SyncArticleState(f.url,a.article.link,true,false,200))),listOf(f),listOf(a),1,"default")
+  val p=LocalSyncPlanner.plan(pkg(listOf(source),listOf(SyncArticleState(f.url,a.link,true,false,200))),listOf(f),listOf(a),1,"default")
   val u=p.updates.single();assertFalse(u.isUnread);assertTrue(u.isStarred);assertEquals(100,u.readAt)
  }
 
@@ -424,10 +422,9 @@ class LocalSyncRoomIntegrationTest {
 - [ ] **Step 3: DAO operations (verified: no such queries exist yet).** Add to `ArticleDao`:
 
 ```kotlin
-    /** EXC-05a: every article of the account, metadata columns only (FIX-17), for the pure planner. */
-    @Transaction
-    @Query("SELECT " + ARTICLE_LIST_COLUMNS + " FROM article WHERE accountId = :accountId ORDER BY id")
-    suspend fun queryAllArticleListWithFeed(accountId: Int): List<ArticleListItemWithFeed>
+    /** EXC-05a: only the columns sync needs; no title, summary, audio or body ever leaves the cursor (FIX-17). */
+    @Query("SELECT a.id AS id, f.url AS feedUrl, a.link AS link, a.isUnread AS isUnread, a.isStarred AS isStarred, a.readAt AS readAt FROM article AS a JOIN feed AS f ON f.id = a.feedId WHERE a.accountId = :accountId ORDER BY a.id")
+    suspend fun querySyncSnapshots(accountId: Int): List<SyncArticleSnapshot>
 
     /** EXC-05a: the only article write sync performs; touches exactly three columns. */
     @Query("UPDATE article SET isUnread = :isUnread, isStarred = :isStarred, readAt = :readAt WHERE id = :articleId AND accountId = :accountId")
@@ -435,7 +432,7 @@ class LocalSyncRoomIntegrationTest {
 ```
 
 `FeedDao.queryAll(accountId)` and `GroupDao.insert` already exist; `FeedDao.queryByLink` compares the stored URL exactly, so the planner (not SQL) matches by normalized URL. Use existing `AccountDao.queryById(id): Account?` and reject missing accounts; no DAO addition needed. Room `@Transaction` cannot reach other DAOs, so `LocalSyncRepository.apply` uses `androidx.room.withTransaction`: inside it read feeds/articles, call `LocalSyncPlanner.plan`, `feedDao.insert(*newFeeds)`, then `articleDao.updateSyncState` per update; assert each returns `1` or throw to roll back. Never call `AbstractRssRepository`.
-- [ ] **Step 4: Repository.** `class LocalSyncRepository @Inject constructor(private val db: AndroidDatabase)` plus an internal secondary constructor taking `newId: () -> String` for tests (one `@Inject` constructor only; production id = `UUID.randomUUID().toString()`). Methods: `snapshot(localAccountId)`, `preview(localAccountId, incoming): LocalSyncPlan`, `apply(localAccountId, incoming): LocalSyncApplyResult`. Each first loads the account and throws unless `type.id == AccountType.Local.id`; default group id is `localAccountId.getDefaultGroupId()`. `snapshot` maps feeds to `SyncFeed(normalizedUrl, name, groupName)` (skip feeds whose URL fails normalization) and articles to `SyncArticleState` using only `link/isUnread/isStarred/readAt`, then runs `SyncPackageCodec` validation. `apply` re-plans inside the transaction (authoritative); `preview` is informational.
+- [ ] **Step 4: Repository.** `class LocalSyncRepository @Inject constructor(private val db: AndroidDatabase)` plus an internal secondary constructor taking `newId: () -> String` for tests (one `@Inject` constructor only; production id = `UUID.randomUUID().toString()`). Methods: `snapshot(localAccountId)`, `preview(localAccountId, incoming): LocalSyncPlan`, `apply(localAccountId, incoming): LocalSyncApplyResult`. Each first loads the account and throws unless `type.id == AccountType.Local.id`; default group id is `localAccountId.getDefaultGroupId()`. `SyncArticleSnapshot` is a plain data class in `domain/p2psync` (Room maps the aliased columns by name). `snapshot` maps feeds to `SyncFeed(normalizedUrl, name, groupName)` (skip feeds whose URL fails normalization) and articles to `SyncArticleState` using only `link/isUnread/isStarred/readAt`, then runs `SyncPackageCodec` validation. `apply` re-plans inside the transaction (authoritative); `preview` is informational.
 - [ ] **Step 5:** Run 7 integration tests; verify schema stays 20 and `git diff -- app/schemas` empty. Mutation: replace `withTransaction` with sequential DAO calls -> trigger rollback test red; remove `accountId` filter -> Fever untouched test red; update title too -> preservation test red.
 - [ ] **Step 6: Commit.** `feat(exc-05a): apply sync plans in one Room transaction` (+ trailer).
 

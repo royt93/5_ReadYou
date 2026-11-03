@@ -48,6 +48,21 @@ class SyncEnvelopeCryptoTest {
         }
     }
 
+    @Test fun oversizeEnvelopeIsRejectedBeforeAnyKeyDerivation() {
+        // A valid-looking header on an oversize body: only the size check can reject it quickly (PBKDF2 alone costs far more).
+        val valid = SyncEnvelopeCrypto.encrypt(plain, secret)
+        val header = valid.copyOf(SyncEnvelopeCrypto.CIPHERTEXT_OFFSET)
+        val oversize = header + ByteArray(SyncLimits.MAX_ENVELOPE_BYTES + 1 - header.size)
+        val kdfStartNanos = System.nanoTime()
+        SyncEnvelopeCrypto.decrypt(valid, secret)
+        val kdfMillis = maxOf(1L, (System.nanoTime() - kdfStartNanos) / 1_000_000)
+        val startNanos = System.nanoTime()
+        val failure = runCatching { SyncEnvelopeCrypto.decrypt(oversize, secret) }.exceptionOrNull()
+        val elapsedMillis = (System.nanoTime() - startNanos) / 1_000_000
+        assertTrue(failure is IllegalArgumentException)
+        assertTrue("oversize rejected in ${elapsedMillis}ms; one KDF took ${kdfMillis}ms", elapsedMillis < kdfMillis)
+    }
+
     @Test fun plaintextMarkerIsNotPresentInTheEnvelope() {
         val marker = "RssCatHubPrivateMarker-7f90".toByteArray()
         val envelope = SyncEnvelopeCrypto.encrypt(marker, secret)
