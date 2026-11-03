@@ -138,6 +138,21 @@ class LocalSyncRoomIntegrationTest {
         assertNull(db.feedDao().queryByLink(3, "https://new.org/rss").firstOrNull())
     }
 
+    @Test fun updateSyncStateRequiresMatchingArticleAccountId() = runBlocking {
+        val updated = db.articleDao().updateSyncState(
+            accountId = 2,
+            articleId = "z-local-uuid",
+            isUnread = false,
+            isStarred = true,
+            readAt = 10L,
+        )
+        assertEquals(0, updated)
+        val article = db.articleDao().queryById("z-local-uuid")!!.article
+        assertTrue(article.isUnread)
+        assertFalse(article.isStarred)
+        assertEquals(100L, article.readAt)
+    }
+
     @Test fun stateApplyDoesNotTouchReadPosition() = runBlocking {
         db.articleReadPositionDao().upsertPosition(
             ArticleReadPosition("z-local-uuid", 1, "https://example.org/rss", "https://example.org/a", 0.4f, 77L, false),
