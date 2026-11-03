@@ -76,7 +76,7 @@ class SemanticSearchEngine @Inject constructor(
             )
         )
 
-        private val STOP_WORDS = setOf(
+        internal val STOP_WORDS = setOf(
             "và", "của", "là", "có", "được", "trong", "một", "cho", "các", "này", "những",
             "về", "để", "với", "tại", "người", "đã", "theo", "ra", "lại", "khi", "từ",
             "the", "and", "or", "to", "of", "in", "for", "with", "on", "at", "from", "by",
