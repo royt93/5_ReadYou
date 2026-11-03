@@ -9,7 +9,17 @@ data class GalaxyStar(
     val concepts: Set<String>,
 )
 
-data class GalaxyLine(val a: String, val b: String, val sharedConcepts: Int)
+/** Why two stars are connected: a shared concept, or rare words their headlines have in common. */
+enum class GalaxyLineKind { CONCEPT, TITLE_WORDS }
+
+/** [sharedTerms] names the headline words two stars have in common (sorted); it may be set on a CONCEPT line too. */
+data class GalaxyLine(
+    val a: String,
+    val b: String,
+    val sharedConcepts: Int,
+    val kind: GalaxyLineKind = GalaxyLineKind.CONCEPT,
+    val sharedTerms: List<String> = emptyList(),
+)
 
 data class GalaxyGraph(val stars: List<GalaxyStar>, val lines: List<GalaxyLine>) {
     companion object {
