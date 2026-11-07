@@ -370,6 +370,7 @@ fun HomeEntry(
                     onStartSend = { syncViewModel.startSend(context.currentAccountId) },
                     onLoadPreview = { url, secret -> syncViewModel.loadPreview(context.currentAccountId, url, secret) },
                     onCancel = syncViewModel::cancelPreview,
+                    onStopSend = syncViewModel::stopSend,
                     onApply = { syncViewModel.applyPreview(context.currentAccountId) },
                     onCopyUrl = { context.copySyncText(it) },
                     onCopySecret = { context.copySyncText(it) },

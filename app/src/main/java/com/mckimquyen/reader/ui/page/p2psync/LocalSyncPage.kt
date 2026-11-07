@@ -60,6 +60,8 @@ const val SYNC_LOAD_PREVIEW_TAG = "sync_load_preview"
 const val SYNC_APPLY_TAG = "sync_apply"
 const val SYNC_CONFIRM_APPLY_TAG = "sync_confirm_apply"
 const val SYNC_CANCEL_TAG = "sync_cancel"
+const val SYNC_STOP_SEND_TAG = "sync_stop_send"
+const val SYNC_CANCEL_START_TAG = "sync_cancel_start"
 const val SYNC_HTTP_WARNING_TAG = "sync_http_warning"
 const val SYNC_SECRET_WARNING_TAG = "sync_secret_warning"
 
@@ -71,6 +73,7 @@ fun LocalSyncPage(
     onStartSend: () -> Unit,
     onLoadPreview: (String, String) -> Unit,
     onCancel: () -> Unit,
+    onStopSend: () -> Unit,
     onApply: () -> Unit,
     onCopyUrl: (String) -> Unit,
     onCopySecret: (String) -> Unit,
@@ -121,7 +124,7 @@ fun LocalSyncPage(
                     )
                 }
                 when {
-                    sending != null -> SendSession(sending, onCopyUrl, onCopySecret, onShareUrl, onShareSecret, onCancel)
+                    sending != null -> SendSession(sending, onCopyUrl, onCopySecret, onShareUrl, onShareSecret, onStopSend)
                     preview != null -> SyncPreview(
                         plan = preview.plan,
                         isLocal = isLocal,
@@ -131,7 +134,7 @@ fun LocalSyncPage(
                         onConfirmApply = { confirmApply = false; onApply() },
                         onDismissConfirmation = { confirmApply = false },
                     )
-                    tab == SEND_TAB -> SendIdle(state, isLocal, busy, onStartSend, onCancel)
+                    tab == SEND_TAB -> SendIdle(state, isLocal, busy, onStartSend, onStopSend)
                     else -> ReceiveEntry(
                         state, isLocal, canReceive, url, { url = it }, secret, { secret = it },
                         onLoadPreview = { onLoadPreview(url, secret) },
@@ -168,7 +171,7 @@ private fun SendIdle(
             modifier = Modifier.fillMaxWidth().height(MIN_TOUCH_TARGET).testTag(SYNC_SEND_START_TAG),
         ) { Text(stringResource(R.string.local_sync_start)) }
         if (state is LocalSyncUiState.Starting) {
-            OutlinedButton(onClick = onStop, modifier = Modifier.fillMaxWidth().height(MIN_TOUCH_TARGET)) {
+            OutlinedButton(onClick = onStop, modifier = Modifier.fillMaxWidth().height(MIN_TOUCH_TARGET).testTag(SYNC_CANCEL_START_TAG)) {
                 Text(stringResource(R.string.local_sync_cancel))
             }
         }
@@ -206,7 +209,7 @@ private fun SendSession(
                 Text(stringResource(R.string.local_sync_share_secret))
             }
         }
-        Button(onClick = onStop, modifier = Modifier.fillMaxWidth().height(MIN_TOUCH_TARGET)) {
+        Button(onClick = onStop, modifier = Modifier.fillMaxWidth().height(MIN_TOUCH_TARGET).testTag(SYNC_STOP_SEND_TAG)) {
             Text(stringResource(R.string.local_sync_stop))
         }
     }

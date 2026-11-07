@@ -35,6 +35,7 @@ class LocalSyncPageTest {
     private var starts = 0
     private var loads = 0
     private var cancels = 0
+    private var stops = 0
     private var applies = 0
     private val copiedUrls = mutableListOf<String>()
     private val copiedSecrets = mutableListOf<String>()
@@ -54,6 +55,7 @@ class LocalSyncPageTest {
             onStartSend = { starts++ },
             onLoadPreview = { _, _ -> loads++ },
             onCancel = { cancels++ },
+            onStopSend = { stops++ },
             onApply = { applies++ },
             onCopyUrl = { copiedUrls += it },
             onCopySecret = { copiedSecrets += it },
@@ -90,6 +92,21 @@ class LocalSyncPageTest {
             assertEquals(listOf(url), sharedUrls)
             assertEquals(listOf(secret), sharedSecrets)
         }
+    }
+
+    @Test fun stopSessionClosesTheSendSessionAndIsNotACancelOfAPreview() {
+        show(LocalSyncUiState.Sending("http://192.168.1.2:5000/s/${"c".repeat(32)}", "0".repeat(32), 1_000L))
+        compose.onNodeWithTag(SYNC_STOP_SEND_TAG).performScrollTo().performClick()
+        compose.runOnIdle {
+            assertEquals("Stop session must reach the callback that closes the server", 1, stops)
+            assertEquals("Stop session must not be routed to the preview-cancel callback", 0, cancels)
+        }
+    }
+
+    @Test fun cancelWhileStartingStopsTheSendSessionToo() {
+        show(LocalSyncUiState.Starting)
+        compose.onNodeWithTag(SYNC_CANCEL_START_TAG).performScrollTo().performClick()
+        compose.runOnIdle { assertEquals(1, stops); assertEquals(0, cancels) }
     }
 
     @Test fun startCallsCallbackOnlyWhenEnabled() {
