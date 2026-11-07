@@ -143,7 +143,7 @@ class FeedUrlNormalizerTest {
 
 - [ ] **Step 2:** `/tmp/exc05a-run.sh '--tests *FeedUrlNormalizerTest' t2red`, expect unresolved.
 - [ ] **Step 3: Implement** with `java.net.URI`; trim outer whitespace only; reject internal space/control, user-info, scheme outside http/https, missing host, URL over 2,048 chars; lowercase scheme/host; strip fragment; strip :80 for HTTP and :443 for HTTPS; empty path -> `/`, remove one trailing `/` except root; keep query exactly. Catch `URISyntaxException` -> null.
-- [ ] **Step 4:** 8 tests green. Mutation preserve fragment -> fragment test red; accept user-info -> credentials test red.
+- [ ] **Step 4:** 11 tests green. Include percent-encoded paths/queries and idempotence; the `URI` multi-part constructor can re-quote `%`, so assemble from `rawPath`/`rawQuery`, then `toASCIIString()` once. Mutation preserve fragment -> fragment test red; accept user-info -> credentials test red; use the multi-part constructor -> percent/idempotence tests red.
 - [ ] **Step 5: Commit** `feat(exc-05a): normalize feed URLs for sync identity` (+ trailer).
 
 ---

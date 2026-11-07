@@ -21,10 +21,14 @@ object FeedUrlNormalizer {
                 scheme == "https" && uri.port == 443 -> -1
                 else -> uri.port
             }
+            // Built as text from the raw (already encoded) parts: the multi-argument URI constructor would quote '%' again.
             val path = uri.rawPath.orEmpty().ifEmpty { "/" }.let {
                 if (it.length > 1 && it.endsWith('/')) it.dropLast(1) else it
             }
-            URI(scheme, null, host, port, path, uri.rawQuery, null).toASCIIString()
+            val authority = if (port == -1) host else "$host:$port"
+            val query = uri.rawQuery?.let { "?$it" }.orEmpty()
+            // toASCIIString encodes non-ASCII once and leaves existing %XX untouched.
+            URI("$scheme://$authority$path$query").toASCIIString()
                 .takeIf { it.length <= SyncLimits.MAX_FEED_URL_CHARS }
         } catch (_: URISyntaxException) {
             null
