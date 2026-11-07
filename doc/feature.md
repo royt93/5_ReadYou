@@ -6,6 +6,7 @@
 
 ## 🟡 In progress
 
+- **EXC-11 — Temporal Ask My Archive** — implementation started inline per owner-approved spec and plan. On-device semantic search over title/description, bounded verbatim body evidence, cautious opposing-cue timeline; Room stays v20. Current: Task 1 (date range/query input domain). No device smoke yet.
 - **EXC-05a (partial; EXC-05 remains in progress)** — Đồng bộ thủ công một chiều, mã hóa đầu-cuối qua LAN; preview rồi xác nhận Apply, chỉ Local, giữ Room v20. BG6 instrumentation 4/4 pass; Mac chỉ kiểm truyền ciphertext (không có AES-GCM trên Mac, không giải mã/apply); Stop server đã smoke thật. **Chưa đạt EXC-05 gốc:** chưa NSD, hai Android, tự động/2 chiều; smoke expiry trên thiết bị thật không kết luận được do HiOS freezer. Báo cáo: [`EXC-05a_manual-lan-sync_DONE.md`](doc/task/done/EXC-05a_manual-lan-sync_DONE.md). Todo gốc vẫn mở: [`EXC-05_local-p2p-sync.md`](doc/task/todo/EXC-05_local-p2p-sync.md).
 
 ## ✅ Recently implemented
