@@ -2,7 +2,7 @@
 
 - **Ngày:** 2026-11-07.
 - **Nhánh:** `dev`.
-- **Trạng thái:** đã chốt các quyết định brainstorming bên dưới; bản spec chờ owner duyệt trước khi lập implementation plan.
+- **Trạng thái:** owner duyệt spec và yêu cầu lập implementation plan ngày 2026-11-07; chưa bắt đầu implementation.
 - **Thiết bị duy nhất:** Tecno BG6 `118743744X002560`.
 - **Task gốc:** `doc/task/todo/EXC-11_temporal-ask-my-archive.md`.
 
