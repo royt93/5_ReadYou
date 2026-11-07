@@ -31,3 +31,21 @@ sealed interface RangeValidation {
     data object FutureEnd : RangeValidation
     data object TooWide : RangeValidation
 }
+
+/** An article that passed semantic ranking for the user's query. */
+data class RankedArchiveArticle(
+    val articleId: String,
+    val date: Instant,
+    val title: String,
+    val feedName: String,
+    val score: Float,
+    val shortDescription: String,
+)
+
+/** One calendar month bucket of ranked articles. */
+data class ArchiveMonth(
+    val year: Int,
+    val month: Int,
+    val articleCount: Int,
+    val topCandidates: List<RankedArchiveArticle>,
+)
