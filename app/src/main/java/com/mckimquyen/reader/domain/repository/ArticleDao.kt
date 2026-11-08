@@ -3,6 +3,7 @@ package com.mckimquyen.reader.domain.repository
 import androidx.paging.PagingSource
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
+import com.mckimquyen.reader.domain.autopilot.FeedEngagementStat
 import com.mckimquyen.reader.domain.model.article.Article
 import com.mckimquyen.reader.domain.model.article.ArticleMeta
 import com.mckimquyen.reader.domain.model.article.ArticleWithFeed
@@ -61,6 +62,32 @@ interface ArticleDao {
         beforeId: String?,
         limit: Int,
     ): List<ArticleListItemWithFeed>
+
+    /**
+     * EXC-12: per-feed reading engagement for one account, aggregates only (no body column is selected, FIX-17).
+     * windowTotal / windowEngaged count articles whose updateAt (the time they were synced onto the device) is at or
+     * after [sinceMillis]; an article is engaged when it was opened in Reader (readAt), starred or saved for later.
+     * oldestUpdateAtMillis spans every stored article of the feed so feed age is not capped by the window.
+     */
+    @Query(
+        """
+        SELECT
+            feedId AS feedId,
+            SUM(CASE WHEN updateAt >= :sinceMillis THEN 1 ELSE 0 END) AS windowTotal,
+            SUM(CASE WHEN updateAt >= :sinceMillis
+                      AND (readAt IS NOT NULL OR isStarred = 1 OR isReadLater = 1)
+                     THEN 1 ELSE 0 END) AS windowEngaged,
+            MIN(updateAt) AS oldestUpdateAtMillis
+        FROM article
+        WHERE accountId = :accountId
+        GROUP BY feedId
+        """
+    )
+    suspend fun queryFeedEngagementStats(accountId: Int, sinceMillis: Long): List<FeedEngagementStat>
+
+    /** EXC-12: how many starred articles a feed holds, shown before the user confirms an unsubscribe. */
+    @Query("SELECT COUNT(*) FROM article WHERE accountId = :accountId AND feedId = :feedId AND isStarred = 1")
+    suspend fun queryStarredCountByFeedId(accountId: Int, feedId: String): Int
 
     /** FRONT-03 galaxy: articles the user already read, newest first, metadata columns only (FIX-17). */
     @Transaction
