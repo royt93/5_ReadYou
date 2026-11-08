@@ -218,6 +218,25 @@ class ArchiveQueryRepositoryTest {
         assertTrue(search().shifts.isEmpty())
     }
 
+    @Test fun shortConceptKeywordInsideAnotherWord_doesNotMakeAnArticleRelevant() = runBlocking {
+        // Measured on the KJ7 archive: "ai" is inside "Ukraine", so the engine's substring concept match scored
+        // 66 unrelated headlines (e.g. "Wayfair ...") at 0.57 for the query "Ukraine".
+        insert("on-topic", at(2026, 5, 5), title = "Ukraine strikes data centre in third attack", body = "<p>Ukraine said the attack was third this week.</p>")
+        insert("unrelated-1", at(2026, 5, 6), title = "Wayfair among firms fined millions for misleading sales tactics", body = "<p>Retailers were fined.</p>")
+        insert("unrelated-2", at(2026, 5, 7), title = "Champions League sets new goals record", body = "<p>Goals were scored.</p>")
+        val may = search(topic = "Ukraine").months.single { it.month.month == 5 }
+        assertEquals(1, may.month.articleCount)
+        assertEquals(listOf("on-topic"), may.month.topCandidates.map { it.articleId })
+    }
+
+    @Test fun strictConceptMatch_stillKeepsAnArticleWithoutTheExactWord() = runBlocking {
+        // Same whole-word concept ("inflation") in query and article, but no shared token: still relevant.
+        insert("concept", at(2026, 5, 5), title = "Central bank warns of persistent price pressure", body = "<p>Prices keep climbing.</p>")
+        insert("unrelated", at(2026, 5, 6), title = "Zebra migration photography guide", body = "<p>Zebras.</p>")
+        val may = search(topic = "central bank").months.single { it.month.month == 5 }
+        assertEquals(listOf("concept"), may.month.topCandidates.map { it.articleId })
+    }
+
     @Test fun blankTopic_returnsNoRelevantArticles() = runBlocking {
         insert("a", at(2026, 5, 5))
         assertEquals(0, search(topic = "   ").totalRelevantArticles)

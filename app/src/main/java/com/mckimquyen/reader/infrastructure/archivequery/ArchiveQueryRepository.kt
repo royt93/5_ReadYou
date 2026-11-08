@@ -97,7 +97,19 @@ class ArchiveQueryRepository @Inject constructor(
             )
             if (page.isEmpty()) return
             // limit = page.size so the engine's default top-50 cut never hides an article before month counting.
-            val ranked = searchEngine.rank(topic, page.map { it.toArticleWithFeed() }, limit = page.size)
+            val candidates = page.map { it.toArticleWithFeed() }
+            val queryTokens = searchEngine.tokenize(topic)
+            val queryConcepts = searchEngine.detectConceptsStrict(topic)
+            val ranked = searchEngine.rank(topic, candidates, limit = page.size)
+                .filter { result ->
+                    val article = result.articleWithFeed.article
+                    val text = "${article.title} ${article.shortDescription}"
+                    val sharesTopicToken = queryTokens.any { token -> token in searchEngine.tokenize(text) }
+                    val sharesWholeWordConcept = queryConcepts.any { concept ->
+                        concept in searchEngine.detectConceptsStrict(text)
+                    }
+                    sharesTopicToken || sharesWholeWordConcept
+                }
             for (result in ranked) {
                 val article = result.articleWithFeed.article
                 val date = article.date.toInstant()
