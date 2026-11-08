@@ -109,6 +109,14 @@ fun DataStore<Preferences>.feedAutopilotPendingCountFlow(): Flow<Int> =
 val Context.feedAutopilotPendingCount: Int
     get() = this.dataStore.get(DataStoreKeys.FeedAutopilotPendingCount) ?: 0
 
+/** EXC-02: null until the user answers the Gemini consent dialog; then true (send to Gemini) or false (offline script). */
+val Context.podcastStudioGeminiConsent: Boolean?
+    get() = this.dataStore.get(DataStoreKeys.PodcastStudioGeminiConsent)
+
+suspend fun Context.setPodcastStudioGeminiConsent(agreed: Boolean) {
+    this.dataStore.put(DataStoreKeys.PodcastStudioGeminiConsent, agreed)
+}
+
 suspend fun <T> DataStore<Preferences>.put(dataStoreKeys: DataStoreKeys<T>, value: T) {
     this.edit {
         withContext(Dispatchers.IO) {
@@ -648,5 +656,11 @@ sealed class DataStoreKeys<T> {
     object FeedAutopilotPendingCount : DataStoreKeys<Int>() {
         override val key: Preferences.Key<Int>
             get() = intPreferencesKey("feed_autopilot_pending_count")
+    }
+
+    /** EXC-02: answer to the one-time "send title and short preview to Gemini?" dialog. Absent means not asked yet. */
+    object PodcastStudioGeminiConsent : DataStoreKeys<Boolean>() {
+        override val key: Preferences.Key<Boolean>
+            get() = booleanPreferencesKey("podcast_studio_gemini_consent")
     }
 }
