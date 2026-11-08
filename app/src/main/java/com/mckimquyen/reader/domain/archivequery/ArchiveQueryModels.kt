@@ -49,3 +49,16 @@ data class ArchiveMonth(
     val articleCount: Int,
     val topCandidates: List<RankedArchiveArticle>,
 )
+
+/** Final domain result for a temporal archive search. */
+data class ArchiveQueryResult(
+    val range: ArchiveQueryRange,
+    /** Months in chronological order (oldest first) covering every month in the range. */
+    val months: List<ArchiveMonthWithEvidence>,
+    /** Possible shifts detected between consecutive non-empty months. */
+    val shifts: List<ArchivePerspectiveShift>,
+    /** Total unique relevant articles found across the entire range. */
+    val totalRelevantArticles: Int,
+    /** Selected articles whose stored body exceeded the size cap and was therefore not read. */
+    val oversizedArticleIds: List<String> = emptyList(),
+)
