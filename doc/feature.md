@@ -6,6 +6,7 @@
 
 ## 🟡 In progress
 
+- **EXC-02 — AI Podcast Studio (một bài)** — đang thực thi inline theo spec và plan đã duyệt (commits `de025b1b`, `d40c275f`). Mở từ menu ⋮ trang đọc: Gemini viết đối thoại Alex/Sam từ tiêu đề + tóm tắt ≤ 250 ký tự (hỏi đồng ý một lần, từ chối/offline thì dùng kịch bản cục bộ), phát bằng `CommuteAudioPlayer` dùng chung, không lưu `CommuteEpisodeStore`; waveform Canvas mô phỏng theo trạng thái phát (không đo âm thanh thật). Room giữ v20. Hiện tại: Task 1. Chưa smoke trên thiết bị.
 - **EXC-05a (partial; EXC-05 remains in progress)** — Đồng bộ thủ công một chiều, mã hóa đầu-cuối qua LAN; preview rồi xác nhận Apply, chỉ Local, giữ Room v20. BG6 instrumentation 4/4 pass; Mac chỉ kiểm truyền ciphertext (không có AES-GCM trên Mac, không giải mã/apply); Stop server đã smoke thật. **Chưa đạt EXC-05 gốc:** chưa NSD, hai Android, tự động/2 chiều; smoke expiry trên thiết bị thật không kết luận được do HiOS freezer. Báo cáo: [`EXC-05a_manual-lan-sync_DONE.md`](doc/task/done/EXC-05a_manual-lan-sync_DONE.md). Todo gốc vẫn mở: [`EXC-05_local-p2p-sync.md`](doc/task/todo/EXC-05_local-p2p-sync.md).
 
 ## ✅ Recently implemented
