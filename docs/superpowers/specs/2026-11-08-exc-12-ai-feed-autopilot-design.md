@@ -272,7 +272,7 @@ Câu chữ tránh danh từ đi kèm số đếm để giảm nguy cơ cảnh b�
 ### 10.2 Room integration tests (Robolectric SQLite Mode Native)
 
 - `ArticleDaoFeedEngagementTest`:
-  - `queryFeedEngagementStats` tính đúng `totalArticles`, `engagedArticles` (gồm cả readAt, starred, readLater) và `MIN(updateAt)` theo từng `feedId`.
+  - `queryFeedEngagementStats` tính đúng `windowTotal`, `windowEngaged` (gồm cả readAt, starred, readLater) và `oldestUpdateAtMillis` (`MIN(updateAt)` trên mọi bài còn lưu, không lọc cửa sổ) theo từng `feedId`.
   - Cô lập theo `accountId`, không lẫn dữ liệu giữa các tài khoản.
   - Bỏ qua các bài có `updateAt < sinceMillis`.
   - `queryStarredCountByFeedId` đếm chính xác số bài gắn sao của một feed cụ thể.
