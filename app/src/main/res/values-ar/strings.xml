@@ -1173,4 +1173,12 @@
     <string name="podcast_studio_conflict_message">Playing this article as a podcast will stop the audio that is playing now.</string>
     <string name="podcast_studio_badge_source_gemini">Script written by AI</string>
     <string name="podcast_studio_badge_source_heuristic">Offline script, no AI</string>
+    <string name="podcast_studio_play">Play</string>
+    <string name="podcast_studio_pause">Pause</string>
+    <string name="podcast_studio_next">Next line</string>
+    <string name="podcast_studio_previous">Previous line</string>
+    <string name="podcast_studio_host_alex">Alex</string>
+    <string name="podcast_studio_host_sam">Sam</string>
+    <string name="podcast_studio_waveform_playing">Visualizer: playing, speaking: %1$s</string>
+    <string name="podcast_studio_waveform_paused">Visualizer: paused</string>
 </resources>

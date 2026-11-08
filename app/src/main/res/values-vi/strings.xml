@@ -1145,4 +1145,12 @@
     <string name="podcast_studio_conflict_message">Bắt đầu phát podcast bài này sẽ dừng âm thanh bạn đang nghe.</string>
     <string name="podcast_studio_badge_source_gemini">Kịch bản AI</string>
     <string name="podcast_studio_badge_source_heuristic">Kịch bản ngoại tuyến</string>
+    <string name="podcast_studio_play">Phát</string>
+    <string name="podcast_studio_pause">Tạm dừng</string>
+    <string name="podcast_studio_next">Đoạn kế tiếp</string>
+    <string name="podcast_studio_previous">Đoạn trước</string>
+    <string name="podcast_studio_host_alex">Alex</string>
+    <string name="podcast_studio_host_sam">Sam</string>
+    <string name="podcast_studio_waveform_playing">Sóng âm: đang phát, người nói: %1$s</string>
+    <string name="podcast_studio_waveform_paused">Sóng âm: tạm dừng</string>
 </resources>
