@@ -12,4 +12,16 @@ class HomeEntryNavigationTest {
         assertEquals(RouteName.FLOW, resolveInitialRoute(null, initialPage = 1))
         assertEquals(null, resolveInitialRoute(null, initialPage = 0))
     }
+
+    @Test fun archiveQueryRouteIsDistinctFromEveryOtherRoute() {
+        val routes = RouteName::class.java.declaredFields
+            .filter { it.type == String::class.java && java.lang.reflect.Modifier.isStatic(it.modifiers) }
+            .map { it.apply { isAccessible = true }.get(null) as String }
+        assertEquals("archive_query", RouteName.ARCHIVE_QUERY)
+        assertEquals(1, routes.count { it == RouteName.ARCHIVE_QUERY })
+    }
+
+    @Test fun readingRouteOpensTheExactArticleId() {
+        assertEquals("${RouteName.READING}/art-7", readingRoute("art-7"))
+    }
 }

@@ -218,6 +218,12 @@ class ArchiveQueryPageTest {
         compose.runOnIdle { assertEquals(listOf("art-7"), opened) }
     }
 
+    @Test fun sourceButtonHasAnAccessibleLabelNamingTheArticle() {
+        show(ready(listOf(month(2, 1, listOf(evidence("art-9", "Rates rise."))))))
+        compose.onNodeWithContentDescription(str(R.string.archive_query_open_article, "Title art-9")).performScrollTo().performClick()
+        compose.runOnIdle { assertEquals(listOf("art-9"), opened) }
+    }
+
     @Test fun truncatedQuoteAndFallbackQuoteAreLabelledHonestly() {
         show(ready(listOf(month(2, 1, listOf(evidence("a", "Opening line of the article", truncated = true, topicMatched = false))))))
         compose.onNodeWithText(str(R.string.archive_query_quote_truncated)).performScrollTo().assertIsDisplayed()

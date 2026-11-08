@@ -1105,7 +1105,6 @@
     <string name="archive_query_problem_reversed">Ngày bắt đầu nằm sau ngày kết thúc.</string>
     <string name="archive_query_problem_future">Ngày kết thúc nằm trong tương lai.</string>
     <string name="archive_query_problem_too_wide">Khoảng thời gian dài hơn 12 tháng. Hãy chọn khoảng ngắn hơn.</string>
-    <string name="archive_query_month_title">%1$s</string>
     <string name="archive_query_article_count">Số bài liên quan: %1$d</string>
     <string name="archive_query_month_empty">Không đủ dữ liệu lưu trữ cho giai đoạn này.</string>
     <string name="archive_query_no_quote">Không có trích dẫn từ nội dung đã lưu.</string>

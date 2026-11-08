@@ -33,6 +33,8 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.input.ImeAction
@@ -222,9 +224,13 @@ private fun EvidenceCard(evidence: ArchiveEvidence, onOpenArticle: (String) -> U
 
 @Composable
 private fun TextButtonForSource(evidence: ArchiveEvidence, onOpenArticle: (String) -> Unit) {
+    val openLabel = stringResource(R.string.archive_query_open_article, evidence.title)
     OutlinedButton(
         onClick = { onOpenArticle(evidence.articleId) },
-        modifier = Modifier.fillMaxWidth().testTag("$ARCHIVE_OPEN_TAG_PREFIX${evidence.articleId}"),
+        modifier = Modifier
+            .fillMaxWidth()
+            .semantics { contentDescription = openLabel }
+            .testTag("$ARCHIVE_OPEN_TAG_PREFIX${evidence.articleId}"),
     ) {
         Text(
             "${evidence.title}\n${evidence.feedName} · ${evidence.publishedAt.atZone(ZoneId.systemDefault()).toLocalDate()}",

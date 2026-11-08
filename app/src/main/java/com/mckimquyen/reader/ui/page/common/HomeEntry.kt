@@ -82,6 +82,8 @@ import com.mckimquyen.reader.ui.page.radar.LocalRadarFlags
 import com.mckimquyen.reader.ui.page.headline.LocalHeadlineSignalsEnabled
 import com.mckimquyen.reader.ui.page.radar.RadarFlagsViewModel
 import com.mckimquyen.reader.ui.page.startup.StartupPage
+import com.mckimquyen.reader.ui.page.archivequery.ArchiveQueryPage
+import com.mckimquyen.reader.ui.page.archivequery.ArchiveQueryViewModel
 import com.mckimquyen.reader.ui.page.p2psync.LocalSyncPage
 import com.mckimquyen.reader.ui.page.p2psync.copySyncText
 import com.mckimquyen.reader.ui.page.p2psync.LocalSyncViewModel
@@ -349,6 +351,17 @@ fun HomeEntry(
                     activity = activity
                 )
             }
+            animatedComposable(route = RouteName.ARCHIVE_QUERY, eInk = eInk) {
+                val archiveViewModel: ArchiveQueryViewModel = hiltViewModel()
+                val archiveState by archiveViewModel.state.collectAsState()
+                ArchiveQueryPage(
+                    state = archiveState,
+                    onBack = { navController.popBackStack() },
+                    onSubmit = archiveViewModel::submit,
+                    onRetry = archiveViewModel::retry,
+                    onOpenArticle = { id -> navController.navigate(readingRoute(id)) { launchSingleTop = true } },
+                )
+            }
             animatedComposable(route = RouteName.LOCAL_SYNC, eInk = eInk) {
                 val syncViewModel: LocalSyncViewModel = hiltViewModel()
                 val syncState by syncViewModel.state.collectAsState()
@@ -499,3 +512,6 @@ fun HomeEntry(
         }
     }
 }
+
+/** Reader route for one article id; shared so tests pin the exact destination. */
+internal fun readingRoute(articleId: String): String = "${RouteName.READING}/$articleId"

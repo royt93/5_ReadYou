@@ -18,6 +18,7 @@ import androidx.compose.material.icons.outlined.AddCircle
 import androidx.compose.material.icons.outlined.AutoAwesome
 import androidx.compose.material.icons.outlined.AutoStories
 import androidx.compose.material.icons.outlined.BarChart
+import androidx.compose.material.icons.outlined.History
 import androidx.compose.material.icons.outlined.Build
 import androidx.compose.material.icons.outlined.Code
 import androidx.compose.material.icons.outlined.Download
@@ -185,6 +186,15 @@ fun SettingsPage(
                         icon = Icons.Outlined.CloudSync,
                     ) {
                         navController.navigate(RouteName.LOCAL_SYNC) { launchSingleTop = true }
+                    }
+                }
+                item {
+                    SelectableSettingGroupItem(
+                        title = stringResource(R.string.archive_query_title),
+                        desc = stringResource(R.string.archive_query_desc),
+                        icon = Icons.Outlined.History,
+                    ) {
+                        navController.navigate(RouteName.ARCHIVE_QUERY) { launchSingleTop = true }
                     }
                 }
                 item {

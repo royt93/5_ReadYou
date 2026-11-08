@@ -29,6 +29,7 @@ object RouteName {
     const val OPML_BACKUP = "opml_backup"
     const val WATCHDOG_INBOX = "watchdog_inbox"
     const val LOCAL_SYNC = "local_sync"
+    const val ARCHIVE_QUERY = "archive_query"
 
     // Brain RPG
     const val BRAIN_RPG = "brain_rpg"

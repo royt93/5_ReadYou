@@ -1209,7 +1209,6 @@
     <string name="archive_query_problem_reversed">The start date is after the end date.</string>
     <string name="archive_query_problem_future">The end date is in the future.</string>
     <string name="archive_query_problem_too_wide">The range is longer than 12 months. Pick a shorter range.</string>
-    <string name="archive_query_month_title">%1$s</string>
     <string name="archive_query_article_count">Related articles: %1$d</string>
     <string name="archive_query_month_empty">Not enough archived data for this period.</string>
     <string name="archive_query_no_quote">No quote available from the saved text.</string>
