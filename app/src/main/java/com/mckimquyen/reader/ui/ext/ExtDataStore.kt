@@ -97,6 +97,12 @@ fun DataStore<Preferences>.headlineSignalsFlow(): Flow<Boolean> =
 val Context.headlineSignalsEnabled: Boolean
     get() = this.dataStore.get(DataStoreKeys.HeadlineSignals) ?: true
 
+val Context.feedAutopilotEnabled: Boolean
+    get() = this.dataStore.get(DataStoreKeys.FeedAutopilotEnabled) ?: true
+
+val Context.feedAutopilotPendingCount: Int
+    get() = this.dataStore.get(DataStoreKeys.FeedAutopilotPendingCount) ?: 0
+
 suspend fun <T> DataStore<Preferences>.put(dataStoreKeys: DataStoreKeys<T>, value: T) {
     this.edit {
         withContext(Dispatchers.IO) {
@@ -618,5 +624,23 @@ sealed class DataStoreKeys<T> {
     object RsvpPunctuationDelayScale : DataStoreKeys<Float>() {
         override val key: Preferences.Key<Float>
             get() = floatPreferencesKey("rsvp_punctuation_delay_scale")
+    }
+
+    /** EXC-12: master switch of Feed Autopilot (weekly analysis and the Settings hint). Default on. */
+    object FeedAutopilotEnabled : DataStoreKeys<Boolean>() {
+        override val key: Preferences.Key<Boolean>
+            get() = booleanPreferencesKey("feed_autopilot_enabled")
+    }
+
+    /** EXC-12: JSON map feedId -> user decision (snooze or keep forever). See FeedAutopilotDecisionsCodec. */
+    object FeedAutopilotDecisions : DataStoreKeys<String>() {
+        override val key: Preferences.Key<String>
+            get() = stringPreferencesKey("feed_autopilot_decisions")
+    }
+
+    /** EXC-12: number of rarely read feeds found by the last analysis, shown as text in the Settings row. */
+    object FeedAutopilotPendingCount : DataStoreKeys<Int>() {
+        override val key: Preferences.Key<Int>
+            get() = intPreferencesKey("feed_autopilot_pending_count")
     }
 }
