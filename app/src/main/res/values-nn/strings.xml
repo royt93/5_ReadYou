@@ -1241,4 +1241,14 @@
     <string name="feed_autopilot_disabled_message">Feed Autopilot is turned off. Turn it on to receive feed clean-up suggestions.</string>
     <string name="feed_autopilot_settings_pending">To review: %1$d</string>
     <string name="feed_autopilot_error">Could not complete that. Please try again.</string>
+    <string name="podcast_studio_title">Podcast Studio</string>
+    <string name="podcast_studio_menu">Podcast Studio</string>
+    <string name="podcast_studio_consent_title">Write the script with AI?</string>
+    <string name="podcast_studio_consent_message">Only this article\'s title and a short preview (under 250 characters) are sent to Google Gemini to write a two-host script. The article text, links and your reading history are never sent.</string>
+    <string name="podcast_studio_consent_agree">Use AI</string>
+    <string name="podcast_studio_consent_decline">Use offline script</string>
+    <string name="podcast_studio_conflict_title">Stop what is playing?</string>
+    <string name="podcast_studio_conflict_message">Playing this article as a podcast will stop the audio that is playing now.</string>
+    <string name="podcast_studio_badge_source_gemini">Script written by AI</string>
+    <string name="podcast_studio_badge_source_heuristic">Offline script, no AI</string>
 </resources>

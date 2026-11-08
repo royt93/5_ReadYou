@@ -1135,4 +1135,14 @@
     <string name="feed_autopilot_disabled_message">Feed Autopilot đang tắt. Hãy bật để nhận gợi ý dọn dẹp nguồn tin.</string>
     <string name="feed_autopilot_settings_pending">Cần xem: %1$d</string>
     <string name="feed_autopilot_error">Không thể hoàn tất thao tác. Hãy thử lại.</string>
+    <string name="podcast_studio_title">Podcast Studio</string>
+    <string name="podcast_studio_menu">Podcast Studio</string>
+    <string name="podcast_studio_consent_title">Biên soạn kịch bản bằng AI?</string>
+    <string name="podcast_studio_consent_message">Chỉ tiêu đề và phần tóm tắt ngắn dưới 250 ký tự của bài này được gửi tới Google Gemini để biên soạn cuộc trò chuyện 2 người. Toàn văn bài báo, liên kết và lịch sử đọc không bao giờ được gửi.</string>
+    <string name="podcast_studio_consent_agree">Đồng ý dùng AI</string>
+    <string name="podcast_studio_consent_decline">Dùng kịch bản ngoại tuyến</string>
+    <string name="podcast_studio_conflict_title">Dừng âm thanh đang phát?</string>
+    <string name="podcast_studio_conflict_message">Bắt đầu phát podcast bài này sẽ dừng âm thanh bạn đang nghe.</string>
+    <string name="podcast_studio_badge_source_gemini">Kịch bản AI</string>
+    <string name="podcast_studio_badge_source_heuristic">Kịch bản ngoại tuyến</string>
 </resources>
