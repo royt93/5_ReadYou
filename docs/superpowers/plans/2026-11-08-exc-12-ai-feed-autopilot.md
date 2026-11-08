@@ -4,7 +4,7 @@
 
 **Goal:** Build a 100% on-device, privacy-preserving feed clean-up assistant that identifies noisy, unread feeds, explains the reason with real numbers, and presents three user-confirmed choices (unsubscribe, snooze for 30 days, keep forever) without ever automatically deleting a feed.
 
-**Architecture:** Pure Kotlin domain scorer calculates noise score based on article engagement ratio (`readAt IS NOT NULL`, `isStarred = 1`, or `isReadLater = 1`) over a safe window bounded by the account's `keepArchived` retention period. User decisions are persisted as a JSON map in DataStore (Room stays at v20). A weekly WorkManager periodic worker updates a silent badge count for the Settings row, and the dedicated Compose page recomputes fresh stats on open, presenting clean confirmation dialogs with starred-article deletion warnings before calling `AbstractRssRepository.deleteFeed` on Local accounts.
+**Architecture:** Pure Kotlin domain scorer calculates noise score based on article engagement ratio (`readAt IS NOT NULL`, `isStarred = 1`, or `isReadLater = 1`) over a safe window bounded by the account's `keepArchived` retention period. User decisions are persisted as a JSON map in DataStore (Room stays at v20). A weekly WorkManager periodic worker updates a silent badge count for the Settings row, and the dedicated Compose page recomputes fresh stats on open, presenting clean confirmation dialogs with starred-article deletion warnings before calling `RssSv.get().deleteFeed(feed)` (the same path `FeedOptionViewModel` uses) on Local accounts.
 
 **Tech Stack:** Kotlin, Room v20 (no schema change), DataStore (Preferences), WorkManager, Jetpack Compose / Material You, Hilt DI, JUnit4 / MockK / Robolectric, AndroidX test runner on Tecno KJ7.
 
@@ -25,7 +25,7 @@
 ## File Map
 
 ### New Domain Files (`app/src/main/java/com/mckimquyen/reader/domain/autopilot/`)
-- `FeedAutopilotModels.kt` — Data classes: `FeedNoiseDecision` (enum `SNOOZE_30_DAYS`, `KEEP_FOREVER`), `FeedDecisionRecord`, `FeedNoiseScore`, `FeedAutopilotSuggestion`, `FeedAutopilotState`.
+- `FeedAutopilotModels.kt` — `FeedDecisionType`, `FeedDecisionRecord`, `FeedEngagementStat`, `FeedAutopilotSuggestion`, `FeedAutopilotEvaluation`.
 - `FeedAutopilotScorer.kt` — Pure Kotlin scoring engine: calculates engagement ratio, checks feed age and article count, filters snoozed/kept feeds, formats objective explanation strings.
 - `FeedAutopilotDecisionsCodec.kt` — JSON serializer/deserializer for user decisions map stored in DataStore string pref, with automatic expired-snooze pruning and orphan feed cleanup.
 
@@ -40,7 +40,7 @@
 - `ui/page/common/HomeEntry.kt` — Add destination route for `FEED_AUTOPILOT`.
 - `ui/page/setting/SettingsPage.kt` — Add a "Feed Autopilot" `SelectableSettingGroupItem` under `ARCHIVE_QUERY`. That composable has NO badge parameter (only `title`, `desc`, `icon`, `onClick`, `enable`, `selected`), so the pending count is shown by appending it to `desc` instead of adding a new UI component.
 - `RApp.kt` — Enqueue `FeedAutopilotWorker.enqueueWeeklyWork(workManager)` in `workerInit()`.
-- `app/src/main/res/values/strings.xml` and 37 `values-*/strings.xml` — Add 16 localized resource keys.
+- `app/src/main/res/values/strings.xml` and 37 `values-*/strings.xml` — Add 17 localized resource keys.
 
 ### New UI Files (`app/src/main/java/com/mckimquyen/reader/ui/page/autopilot/`)
 - `FeedAutopilotUiState.kt` — Sealed UI state: `Loading`, `Clean`, `HasSuggestions`, `NotLocalAccount`, `RetentionTooShort`, `Disabled`.
@@ -69,7 +69,9 @@
 - `enum class FeedDecisionType { SNOOZE_30_DAYS, KEEP_FOREVER }`
 - `data class FeedDecisionRecord(val type: FeedDecisionType, val decidedAtMillis: Long)`
 - `data class FeedAutopilotSuggestion(val feedId: String, val feedName: String, val windowTotal: Int, val windowEngaged: Int, val engagementRatio: Float, val windowDays: Int)`
-- `FeedAutopilotScorer.evaluate(...)`: pure function taking stats, decisions, feed metadata, current timestamp, and retention settings.
+- `data class FeedEngagementStat(val feedId: String, val windowTotal: Int, val windowEngaged: Int, val oldestUpdateAtMillis: Long?)` — defined HERE (package `domain.autopilot`) so Task 1 does not depend on Task 3; the DAO in Task 3 imports it.
+- `sealed interface FeedAutopilotEvaluation { object Disabled; object NotLocalAccount; object RetentionTooShort; data class Ready(val suggestions: List<FeedAutopilotSuggestion>, val windowDays: Int) }`
+- `FeedAutopilotScorer.evaluate(stats: List<FeedEngagementStat>, feeds: List<Feed>, decisions: Map<String, FeedDecisionRecord>, keepArchived: KeepArchivedPreference, nowMillis: Long): FeedAutopilotEvaluation` — never returns `Disabled` or `NotLocalAccount`; the processor decides those before calling it.
 
 - [ ] **Step 1: Write failing unit tests for FeedAutopilotScorer.**
   - Feed with < 20 articles in window: not flagged as noisy.
@@ -81,7 +83,9 @@
   - Feed with expired `SNOOZE_30_DAYS` decision (≥ 30 days old): evaluated normally.
   - Feed with `KEEP_FOREVER` decision: always excluded.
   - Retention mapping: `KeepArchivedPreference.Always` (value `0L`) is treated as 30 days, NOT as 0 (otherwise it would be rejected as too short); `For1Day`/`For2Days`/`For3Days`/`For1Week` (< 14 days) return `RetentionTooShort`; `For2Weeks` (14 days) and `For1Month` are accepted, with window = min(30 days, retention).
-  - Articles with `updateAt < READ_AT_INTRODUCED` (2026-10-18T00:00Z) are excluded from window evaluation.
+  - Articles with `updateAt < READ_AT_INTRODUCED` (2026-10-18T00:00Z) are excluded from window evaluation (the window start is `max(now - windowLength, READ_AT_INTRODUCED)`).
+  - Ordering: engagement ratio ascending, then larger `windowTotal` first, then `feedName` for a stable result.
+  - Boundary pair from the spec: 20 articles with 1 engaged (exactly 5%) is not flagged; 21 articles with 1 engaged (4.76%) is flagged.
 
 - [ ] **Step 2: Run test and verify it fails.**
   ```bash
@@ -158,7 +162,7 @@
 - Test: `app/src/test/java/com/mckimquyen/reader/domain/repository/ArticleDaoFeedEngagementTest.kt`
 
 **Interfaces:**
-- `data class FeedEngagementStat(val feedId: String, val windowTotal: Int, val windowEngaged: Int, val oldestUpdateAtMillis: Long?)`
+- Consumes `FeedEngagementStat` from Task 1 (`com.mckimquyen.reader.domain.autopilot.FeedEngagementStat`); Room maps the selected column aliases (`feedId`, `windowTotal`, `windowEngaged`, `oldestUpdateAtMillis`) onto its constructor, so the aliases must match exactly.
 - `ArticleDao.queryFeedEngagementStats(accountId: Int, sinceMillis: Long): List<FeedEngagementStat>`
 - `ArticleDao.queryStarredCountByFeedId(accountId: Int, feedId: String): Int`
 
@@ -252,8 +256,8 @@
 - Modify: all 37 `app/src/main/res/values-*/strings.xml`
 - Test: `app/src/test/java/com/mckimquyen/reader/infrastructure/pref/StringResourceParityTest.java`
 
-**Keys (16 keys from spec section 9):**
-- `feed_autopilot_title`, `feed_autopilot_desc`, `feed_autopilot_enabled`, `feed_autopilot_summary_noisy`, `feed_autopilot_summary_clean`, `feed_autopilot_reason_opened`, `feed_autopilot_reason_zero`, `feed_autopilot_action_unsubscribe`, `feed_autopilot_action_snooze`, `feed_autopilot_action_keep`, `feed_autopilot_confirm_title`, `feed_autopilot_confirm_message`, `feed_autopilot_confirm_starred_warning`, `feed_autopilot_not_local_account`, `feed_autopilot_retention_too_short`, `feed_autopilot_disabled_message`.
+**Keys (the 16 keys from spec section 9, plus `feed_autopilot_settings_pending` added by this plan):**
+- `feed_autopilot_title`, `feed_autopilot_desc`, `feed_autopilot_enabled`, `feed_autopilot_summary_noisy`, `feed_autopilot_summary_clean`, `feed_autopilot_reason_opened`, `feed_autopilot_reason_zero`, `feed_autopilot_action_unsubscribe`, `feed_autopilot_action_snooze`, `feed_autopilot_action_keep`, `feed_autopilot_confirm_title`, `feed_autopilot_confirm_message`, `feed_autopilot_confirm_starred_warning`, `feed_autopilot_not_local_account`, `feed_autopilot_retention_too_short`, `feed_autopilot_disabled_message`, `feed_autopilot_settings_pending` (EN `To review: %1$d`, VI `Cần xem: %1$d`; shown in the Settings row description when the pending count is above 0, so no number is hard-coded).
 
 - [ ] **Step 1: Add EN and VI strings into values/strings.xml and values-vi/strings.xml.**
   - Avoid nouns directly following number formats to prevent `PluralsCandidate` warnings.
@@ -300,6 +304,8 @@
   - `confirmUnsubscribe` calls `deleteFeed(feed)`, updates UI state, and removes item.
   - Non-Local account emits `NotLocalAccount`.
   - Short retention period emits `RetentionTooShort`.
+  - Every `refresh()` writes the real number of remaining suggestions to `FeedAutopilotPendingCount` (spec 7.2: opening the screen resets the badge to the actual count), and snooze, keep and unsubscribe each decrease it.
+  - Cancelling the unsubscribe dialog never calls `deleteFeed`.
 
 - [ ] **Step 2: Run test and verify it fails.**
   ```bash
@@ -308,7 +314,7 @@
   Expected: FAIL with compilation error.
 
 - [ ] **Step 3: Implement ViewModel and State.**
-  - Inject `@ApplicationContext Context`, `FeedAutopilotProcessor`, `AbstractRssRepository`, `ArticleDao`, and `@IODispatcher CoroutineDispatcher`.
+  - Inject `@ApplicationContext Context`, `FeedAutopilotProcessor`, `RssSv` (not `AbstractRssRepository`, which is abstract and not injectable), `ArticleDao`, and `@IODispatcher CoroutineDispatcher`.
   - Mark stored context with `@ApplicationContext` to avoid lint `StaticFieldLeak`.
   - Use Kotlin Coroutines `viewModelScope.launch(ioDispatcher)`.
 
@@ -379,6 +385,8 @@
 - Modify: `app/src/main/java/com/mckimquyen/reader/ui/page/setting/SettingsPage.kt`
 - Test: `app/src/test/java/com/mckimquyen/reader/ui/page/common/HomeEntryNavigationTest.kt`
 
+> **Deviation from the approved spec, to be confirmed by the owner:** spec 8.1 asks for a dot badge on the Settings row. `SelectableSettingGroupItem` has no badge parameter, so this plan shows the count as text in the row description (`feed_autopilot_settings_pending`) instead of building a new badge component.
+
 - [ ] **Step 1: Write failing navigation unit tests.**
   - Verify `RouteName.FEED_AUTOPILOT == "feed_autopilot"` and is unique among all routes.
   - Verify route integration in `HomeEntryNavigationTest`.
@@ -425,9 +433,9 @@
   ```
   Expected: 0 errors, exactly 2,463 warnings (no new warnings introduced, 0 EXC-12 issues).
 
-- [ ] **Step 3: Build debug APK and androidTest APK.**
+- [ ] **Step 3: Build the debug APK.**
   ```bash
-  ./gradlew assembleDevDebug assembleDevDebugAndroidTest
+  ./gradlew assembleDevDebug
   ```
   Expected: BUILD SUCCESSFUL.
 
@@ -446,7 +454,7 @@
 - [ ] **Step 1: Create on-device integration test.**
   - Create `app/src/androidTest/java/com/mckimquyen/reader/infrastructure/autopilot/FeedAutopilotDeviceTest.kt`.
   - Test in-memory Room database on live Android SQLite runtime evaluating noisy feeds and retention limits.
-  - Compile and run via `adb -s 115333744A005844 shell am instrument -w -r -e class com.mckimquyen.reader.infrastructure.autopilot.FeedAutopilotDeviceTest com.mckimquyen.reader.test/androidx.test.runner.AndroidJUnitRunner`.
+  - Commit the test, then `./gradlew assembleDevDebugAndroidTest`, install `app/build/outputs/apk/androidTest/dev/debug/app-dev-debug-androidTest.apk` with `adb -s 115333744A005844 install -r`, and run via `adb -s 115333744A005844 shell am instrument -w -r -e class com.mckimquyen.reader.infrastructure.autopilot.FeedAutopilotDeviceTest com.mckimquyen.reader.test/androidx.test.runner.AndroidJUnitRunner`.
   - Expected: `OK (1 test)`.
 
 - [ ] **Step 2: Backup Room and DataStore on KJ7.**
@@ -459,7 +467,7 @@
   - Launch with `adb -s 115333744A005844 shell am start --user 0 -n com.mckimquyen.reader/.infrastructure.android.SplashActivity` (the real launcher is `infrastructure.android.SplashActivity`; `ui.page.common.MainActivity` does not exist). If full-screen ad appears, dump UI, verify foreground `AdActivity`, and close via labelled button.
   - Navigate: Settings → "Feed Autopilot".
   - Verify screen displays correct state with real 152-article archive.
-  - Test action buttons (snooze, keep, unsubscribe dialog warning).
+  - Do not assume what the real archive shows; record what appears. The KJ7 archive has a single feed (BBC News, 152 articles), so pressing the final confirm in the unsubscribe dialog would delete the only feed. Press Cancel on the dialog to prove the starred warning appears, and prove actual deletion only in the Room integration test. Snooze and keep write DataStore, which the restore step below puts back.
   - Verify Back button returns cleanly to Settings.
 
 - [ ] **Step 4: Restore Room and DataStore on KJ7.**
