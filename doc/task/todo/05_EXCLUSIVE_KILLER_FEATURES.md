@@ -18,7 +18,7 @@
 | EXC-08 | Second Brain Graph — Đồ Thị Tri Thức Cá Nhân Hợp Nhất | P1 (High) | ✅ Done | [EXC-08_second-brain-graph.md](../done/EXC-08_second-brain-graph_DONE.md) |
 | EXC-09 | Original Source DNA — Cây tương đồng nguồn tin (heuristic) | P1 (High) | ✅ Done | [EXC-09_original-source-dna_DONE.md](../done/EXC-09_original-source-dna_DONE.md) |
 | EXC-10 | Retraction Radar — Phát Hiện Bài Báo Bị Sửa Âm Thầm Hoặc Bị Gỡ Bỏ | P1 (High) | ✅ Done | [EXC-10_retraction-radar_DONE.md](../done/EXC-10_retraction-radar_DONE.md) |
-| EXC-11 | Temporal "Ask My Archive" — Hỏi Đáp Kho Lưu Trữ RSS Theo Mốc Thời Gian | P2 (Medium) | 📋 Todo | [EXC-11_temporal-ask-my-archive.md](EXC-11_temporal-ask-my-archive.md) |
+| EXC-11 | Temporal "Ask My Archive" — Hỏi Đáp Kho Lưu Trữ RSS Theo Mốc Thời Gian | P2 (Medium) | ✅ Done | [EXC-11_temporal-ask-my-archive_DONE.md](../done/EXC-11_temporal-ask-my-archive_DONE.md) |
 | EXC-12 | AI Feed Autopilot — Tự Học Hành Vi Đọc & Gợi Ý Unsubscribe Feed Gây Nhiễu | P2 (Medium) | 📋 Todo | [EXC-12_ai-feed-autopilot.md](EXC-12_ai-feed-autopilot.md) |
 | EXC-13 | Second Screen Mirror — Quét QR Mirror Bài Đang Đọc Sang Máy Tính Qua LAN | P3 (Low) | ✅ Done (một chiều, văn bản thuần, không QR, không đồng bộ cuộn, không mã hoá) | [EXC-13_second-screen-mirror_DONE.md](../done/EXC-13_second-screen-mirror_DONE.md) |
 | EXC-14 | Feed Zero Triage Mode — Chế Độ Vuốt Kiểu Tinder Xử Lý Toàn Bộ Bài Chưa Đọc | P2 (Medium) | ✅ Done | [../done/EXC-14_feed-zero-triage-mode_DONE.md](../done/EXC-14_feed-zero-triage-mode_DONE.md) |
