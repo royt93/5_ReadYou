@@ -1134,4 +1134,5 @@
     <string name="feed_autopilot_retention_too_short">Thời hạn lưu bài của tài khoản đang dưới 14 ngày. Hãy tăng thời hạn trong Cài đặt tài khoản để Autopilot có đủ dữ liệu đánh giá an toàn.</string>
     <string name="feed_autopilot_disabled_message">Feed Autopilot đang tắt. Hãy bật để nhận gợi ý dọn dẹp nguồn tin.</string>
     <string name="feed_autopilot_settings_pending">Cần xem: %1$d</string>
+    <string name="feed_autopilot_error">Không thể hoàn tất thao tác. Hãy thử lại.</string>
 </resources>

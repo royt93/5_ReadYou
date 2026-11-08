@@ -1147,4 +1147,5 @@
     <string name="feed_autopilot_retention_too_short">Your account article retention period is under 14 days. Increase it in Account Settings so Autopilot has enough history to analyze safely.</string>
     <string name="feed_autopilot_disabled_message">Feed Autopilot is turned off. Turn it on to receive feed clean-up suggestions.</string>
     <string name="feed_autopilot_settings_pending">To review: %1$d</string>
+    <string name="feed_autopilot_error">Could not complete that. Please try again.</string>
 </resources>
