@@ -1120,10 +1120,10 @@
     <string name="feed_autopilot_title">Feed Autopilot</string>
     <string name="feed_autopilot_desc">Nhận diện và gợi ý hủy theo dõi các nguồn tin ít đọc</string>
     <string name="feed_autopilot_enabled">Bật Feed Autopilot</string>
-    <string name="feed_autopilot_summary_noisy">Nguồn tin ít đọc: %1$d (%2$d ngày qua)</string>
+    <string name="feed_autopilot_summary_noisy">Nguồn tin ít đọc: %1$d (cửa sổ %2$d ngày)</string>
     <string name="feed_autopilot_summary_clean">Nguồn tin gọn gàng. Không có nguồn gây nhiễu.</string>
-    <string name="feed_autopilot_reason_opened">Đã mở %1$d trên %2$d bài nhận được (%3$d ngày qua, tương tác %4$d%%)</string>
-    <string name="feed_autopilot_reason_zero">Chưa mở bài nào trong %1$d bài nhận được (%2$d ngày qua)</string>
+    <string name="feed_autopilot_reason_opened">Đã mở %1$d/%2$d bài trong cửa sổ %3$d ngày (tương tác %4$d%%)</string>
+    <string name="feed_autopilot_reason_zero">Chưa mở bài nào trong %1$d bài, cửa sổ %2$d ngày</string>
     <string name="feed_autopilot_action_unsubscribe">Hủy theo dõi</string>
     <string name="feed_autopilot_action_snooze">Bỏ qua 30 ngày</string>
     <string name="feed_autopilot_action_keep">Giữ lại và không hỏi nữa</string>

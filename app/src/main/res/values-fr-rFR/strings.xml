@@ -1158,10 +1158,10 @@
     <string name="feed_autopilot_title">Feed Autopilot</string>
     <string name="feed_autopilot_desc">Identify and clean up noisy feeds you rarely read</string>
     <string name="feed_autopilot_enabled">Enable Feed Autopilot</string>
-    <string name="feed_autopilot_summary_noisy">Rarely read feeds found: %1$d (last %2$d days)</string>
+    <string name="feed_autopilot_summary_noisy">Rarely read feeds found: %1$d (last %2$d-day window)</string>
     <string name="feed_autopilot_summary_clean">Your feeds look tidy. No noisy feeds detected.</string>
-    <string name="feed_autopilot_reason_opened">Opened %1$d of %2$d received (last %3$d days, %4$d%% engagement)</string>
-    <string name="feed_autopilot_reason_zero">Opened none of %1$d received (last %2$d days)</string>
+    <string name="feed_autopilot_reason_opened">Opened %1$d of %2$d (last %3$d-day window; %4$d%% engagement)</string>
+    <string name="feed_autopilot_reason_zero">No articles opened out of %1$d in the last %2$d-day window</string>
     <string name="feed_autopilot_action_unsubscribe">Unsubscribe</string>
     <string name="feed_autopilot_action_snooze">Snooze for 30 days</string>
     <string name="feed_autopilot_action_keep">Keep and stop suggesting</string>
