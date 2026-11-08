@@ -36,6 +36,32 @@ interface ArticleDao {
     @Query("SELECT " + ARTICLE_LIST_COLUMNS + " FROM article WHERE accountId = :accountId ORDER BY date DESC LIMIT :limit")
     suspend fun queryRecentArticleListWithFeed(accountId: Int, limit: Int = 150): List<ArticleListItemWithFeed>
 
+    /** EXC-11: metadata cùng account trong khoảng [sinceMillis, untilMillis), phân trang bằng (date, id). */
+    @Transaction
+    @Query(
+        """
+        SELECT $ARTICLE_LIST_COLUMNS FROM article
+        WHERE accountId = :accountId
+          AND date >= :sinceMillis
+          AND date < :untilMillis
+          AND (
+            :beforeDate IS NULL
+            OR date < :beforeDate
+            OR (date = :beforeDate AND id < :beforeId)
+          )
+        ORDER BY date DESC, id DESC
+        LIMIT :limit
+        """
+    )
+    suspend fun queryArticleMetadataPage(
+        accountId: Int,
+        sinceMillis: Long,
+        untilMillis: Long,
+        beforeDate: Long?,
+        beforeId: String?,
+        limit: Int,
+    ): List<ArticleListItemWithFeed>
+
     /** FRONT-03 galaxy: articles the user already read, newest first, metadata columns only (FIX-17). */
     @Transaction
     @Query("SELECT " + ARTICLE_LIST_COLUMNS + " FROM article WHERE accountId = :accountId AND isUnread = 0 ORDER BY date DESC, id DESC LIMIT :limit")
