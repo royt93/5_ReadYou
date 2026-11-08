@@ -6,6 +6,7 @@
 
 ## 🟡 In progress
 
+- **EXC-12 — AI Feed Autopilot** — implementation started inline per owner-approved spec and plan (commits `8ce8e107`, `29d16126`). Gợi ý hủy theo dõi feed ít đọc, on-device; điểm nhiễu từ tỷ lệ tương tác `readAt`/gắn sao/đọc sau trong cửa sổ min(30 ngày, `keepArchived`); quyết định lưu DataStore JSON; chỉ Local hủy một chạm; Room giữ v20. Hiện tại: Task 1 (mô hình + scorer). Chưa smoke trên thiết bị.
 - **EXC-05a (partial; EXC-05 remains in progress)** — Đồng bộ thủ công một chiều, mã hóa đầu-cuối qua LAN; preview rồi xác nhận Apply, chỉ Local, giữ Room v20. BG6 instrumentation 4/4 pass; Mac chỉ kiểm truyền ciphertext (không có AES-GCM trên Mac, không giải mã/apply); Stop server đã smoke thật. **Chưa đạt EXC-05 gốc:** chưa NSD, hai Android, tự động/2 chiều; smoke expiry trên thiết bị thật không kết luận được do HiOS freezer. Báo cáo: [`EXC-05a_manual-lan-sync_DONE.md`](doc/task/done/EXC-05a_manual-lan-sync_DONE.md). Todo gốc vẫn mở: [`EXC-05_local-p2p-sync.md`](doc/task/todo/EXC-05_local-p2p-sync.md).
 
 ## ✅ Recently implemented
