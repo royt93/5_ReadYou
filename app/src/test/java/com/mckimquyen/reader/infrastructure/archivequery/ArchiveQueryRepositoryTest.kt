@@ -138,6 +138,22 @@ class ArchiveQueryRepositoryTest {
         assertEquals(listOf("old"), result.months.single { it.month.month == 1 }.month.topCandidates.map { it.articleId })
     }
 
+    @Test fun overOneThousandRows_oldestRelevantArticleStillFoundAcrossSixPages() = runBlocking {
+        // 1,001 newer irrelevant rows = 6 pages of 200, so the January article sits on the last page.
+        db.runInTransaction {
+            runBlocking {
+                repeat(1_001) { i ->
+                    insert("noise$i", Date.from(Instant.parse("2026-06-01T00:00:00Z").plusSeconds(i.toLong())),
+                        title = "Zebra migration $i", body = "<p>Zebras.</p>")
+                }
+            }
+        }
+        insert("old", at(2026, 1, 3))
+        val result = search()
+        assertEquals(1, result.totalRelevantArticles)
+        assertEquals(listOf("old"), result.months.single { it.month.month == 1 }.month.topCandidates.map { it.articleId })
+    }
+
     @Test fun moreThanFiftyRelevantArticles_areAllCounted() = runBlocking {
         repeat(80) { i -> insert("r$i", Date.from(Instant.parse("2026-04-01T00:00:00Z").plusSeconds(i.toLong()))) }
         val april = search().months.single { it.month.month == 4 }

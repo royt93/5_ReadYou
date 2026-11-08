@@ -162,5 +162,17 @@ class EvidenceExtractorTest {
         assertNotNull(result)
         assertTrue("Quote must be substring of normalised text",
             plainText.contains(result!!.quote))
+        // Whole chosen sentence, not a prefix of it: inline markup must not shorten or reorder the quote.
+        assertEquals("The Federal Reserve raised interest rates.", result.quote)
+    }
+
+    @Test
+    fun `truncated quote is a prefix of the chosen sentence ending at a word boundary`() {
+        val sentence = (1..80).joinToString(" ") { "word$it" } + "."
+        val result = requireNotNull(EvidenceExtractor.extract(article(), sentence, setOf("word1")))
+        assertTrue(result.quoteTruncated)
+        assertTrue(sentence.startsWith(result.quote))
+        assertTrue(result.quote.length <= EvidenceExtractor.MAX_QUOTE_CHARS)
+        assertTrue("must end on a whole word", sentence[result.quote.length] == ' ')
     }
 }

@@ -140,6 +140,25 @@ class ArchiveQueryInputParserTest {
     }
 
     @Test
+    fun `uppercase Vietnamese date clause is still recognised`() {
+        val result = ArchiveQueryInputParser.parse("lãi suất TỪ THÁNG 1 ĐẾN GIỜ", nov2026, utc)
+        val parsed = (result as ArchiveQueryInputResult.Valid).value
+        assertEquals("lãi suất", parsed.topic.trim())
+        assertEquals(Instant.parse("2026-01-01T00:00:00Z"), parsed.explicitRange?.startInclusive)
+    }
+
+    @Test
+    fun `year-only and relative-year phrases request clarification instead of defaulting silently`() {
+        for (phrase in listOf("since 2025", "from last year", "this year", "từ năm 2025", "năm ngoái", "năm nay")) {
+            val result = ArchiveQueryInputParser.parse("AI $phrase", nov2026, utc)
+            val parsed = (result as ArchiveQueryInputResult.Valid).value
+            assertTrue(phrase, parsed.needsDateClarification)
+            assertEquals(phrase, "AI", parsed.topic.trim())
+            assertNull(phrase, parsed.explicitRange)
+        }
+    }
+
+    @Test
     fun `unsupported Vietnamese temporal phrase requests clarification`() {
         val result = ArchiveQueryInputParser.parse("lãi suất trong 3 tháng qua", nov2026, utc)
         assertTrue(result is ArchiveQueryInputResult.Valid)

@@ -11,8 +11,13 @@ object ArchiveQueryInputParser {
 
     private const val MAX_QUERY_CHARS = 500
 
+    // RegexOption.IGNORE_CASE also enables Unicode case folding on the JVM; an inline (?i) alone folds ASCII only,
+    // so "TỪ THÁNG" would not match "từ tháng".
+    private val CASE_INSENSITIVE = setOf(RegexOption.IGNORE_CASE)
+
     private val VI_MONTH_PATTERN = Regex(
-        """(?i)\btừ\s+tháng\s+(\d{1,2})(?:\s+năm\s+(\d{4}))?\s+đến\s+(?:giờ|nay)\b"""
+        """\btừ\s+tháng\s+(\d{1,2})(?:\s+năm\s+(\d{4}))?\s+đến\s+(?:giờ|nay)\b""",
+        CASE_INSENSITIVE,
     )
 
     private val EN_MONTH_NAME_TO_INT: Map<String, Int> = mapOf(
@@ -35,19 +40,26 @@ object ArchiveQueryInputParser {
         .joinToString("|")
 
     private val EN_SINCE_PATTERN = Regex(
-        """(?i)\bsince\s+($EN_MONTH_NAMES_OR)(?:\s+(\d{4}))?\b"""
+        """\bsince\s+($EN_MONTH_NAMES_OR)(?:\s+(\d{4}))?\b""",
+        CASE_INSENSITIVE,
     )
 
     private val EN_FROM_PATTERN = Regex(
-        """(?i)\bfrom\s+($EN_MONTH_NAMES_OR)(?:\s+(\d{4}))?\s+to\s+now\b"""
+        """\bfrom\s+($EN_MONTH_NAMES_OR)(?:\s+(\d{4}))?\s+to\s+now\b""",
+        CASE_INSENSITIVE,
     )
 
+    // Clearly time-related wording we do not support: ask the user to pick dates instead of defaulting silently.
     private val TEMPORAL_LOOKALIKE_PATTERNS = listOf(
-        Regex("""(?i)\b(?:in\s+the\s+)?last\s+\d+\s+(?:days?|weeks?|months?|years?)\b"""),
-        Regex("""(?i)\bpast\s+\d+\s+(?:days?|weeks?|months?|years?)\b"""),
-        Regex("""(?i)\btrong\s+\d+\s+(?:ngày|tuần|tháng|năm)\s+(?:qua|gần\s+đây)\b"""),
-        Regex("""(?i)\b\d+\s+(?:tháng|tuần|ngày)\s+(?:qua|gần\s+đây)\b"""),
-    )
+        """\b(?:in\s+the\s+)?last\s+\d+\s+(?:days?|weeks?|months?|years?)\b""",
+        """\bpast\s+\d+\s+(?:days?|weeks?|months?|years?)\b""",
+        """\b(?:since|from)\s+(?:last\s+year|\d{4})\b""",
+        """\b(?:last|this)\s+(?:year|month|week)\b""",
+        """\btrong\s+\d+\s+(?:ngày|tuần|tháng|năm)\s+(?:qua|gần\s+đây)\b""",
+        """\b\d+\s+(?:tháng|tuần|ngày)\s+(?:qua|gần\s+đây)\b""",
+        """\btừ\s+năm\s+\d{4}\b""",
+        """\b(?:năm|tháng|tuần)\s+(?:ngoái|nay|trước|này)\b""",
+    ).map { Regex(it, CASE_INSENSITIVE) }
 
     fun parse(text: String, now: Instant, zone: ZoneId): ArchiveQueryInputResult {
         if (text.isBlank()) return ArchiveQueryInputResult.Invalid(InputError.Blank)
