@@ -30,6 +30,7 @@ object RouteName {
     const val WATCHDOG_INBOX = "watchdog_inbox"
     const val LOCAL_SYNC = "local_sync"
     const val ARCHIVE_QUERY = "archive_query"
+    const val FEED_AUTOPILOT = "feed_autopilot"
 
     // Brain RPG
     const val BRAIN_RPG = "brain_rpg"

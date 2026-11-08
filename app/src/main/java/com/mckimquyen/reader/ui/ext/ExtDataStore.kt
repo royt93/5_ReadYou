@@ -100,6 +100,12 @@ val Context.headlineSignalsEnabled: Boolean
 val Context.feedAutopilotEnabled: Boolean
     get() = this.dataStore.get(DataStoreKeys.FeedAutopilotEnabled) ?: true
 
+/** Settings row re-composes when the weekly worker or the Autopilot screen changes the count. */
+fun DataStore<Preferences>.feedAutopilotPendingCountFlow(): Flow<Int> =
+    this.data
+        .map { prefs -> prefs[DataStoreKeys.FeedAutopilotPendingCount.key] ?: 0 }
+        .distinctUntilChanged()
+
 val Context.feedAutopilotPendingCount: Int
     get() = this.dataStore.get(DataStoreKeys.FeedAutopilotPendingCount) ?: 0
 

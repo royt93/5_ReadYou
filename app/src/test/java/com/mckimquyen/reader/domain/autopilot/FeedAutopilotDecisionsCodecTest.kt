@@ -1,5 +1,13 @@
 package com.mckimquyen.reader.domain.autopilot
 
+import android.content.Context
+import androidx.test.core.app.ApplicationProvider
+import com.mckimquyen.reader.ui.ext.DataStoreKeys
+import com.mckimquyen.reader.ui.ext.dataStore
+import com.mckimquyen.reader.ui.ext.feedAutopilotPendingCountFlow
+import com.mckimquyen.reader.ui.ext.put
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -103,5 +111,11 @@ class FeedAutopilotDecisionsCodecTest {
         val json = FeedAutopilotDecisionsCodec.encode(decisions)
         val restored = FeedAutopilotDecisionsCodec.decode(json, now, validFeedIds = null)
         assertEquals(setOf("any_feed"), restored.keys)
+    }
+
+    @Test fun pendingCountFlowEmitsTheStoredValue() = runBlocking {
+        val context: Context = ApplicationProvider.getApplicationContext()
+        context.dataStore.put(DataStoreKeys.FeedAutopilotPendingCount, 7)
+        assertEquals(7, context.dataStore.feedAutopilotPendingCountFlow().first())
     }
 }

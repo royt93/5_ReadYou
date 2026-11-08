@@ -41,6 +41,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -61,6 +62,8 @@ import com.mckimquyen.reader.ui.component.base.Banner
 import com.mckimquyen.reader.ui.component.base.BaseScaffold
 import com.mckimquyen.reader.ui.component.base.DisplayText
 import com.mckimquyen.reader.ui.component.base.FeedbackIconButton
+import com.mckimquyen.reader.ui.ext.dataStore
+import com.mckimquyen.reader.ui.ext.feedAutopilotPendingCountFlow
 import com.mckimquyen.reader.ui.ext.getCurrentVersion
 import com.mckimquyen.reader.ui.ext.moreApp
 import com.mckimquyen.reader.ui.ext.openBrowserPolicy
@@ -195,6 +198,18 @@ fun SettingsPage(
                         icon = Icons.Outlined.History,
                     ) {
                         navController.navigate(RouteName.ARCHIVE_QUERY) { launchSingleTop = true }
+                    }
+                }
+                item {
+                    val pending by remember(context) { context.dataStore.feedAutopilotPendingCountFlow() }
+                        .collectAsState(initial = 0)
+                    val baseDesc = stringResource(R.string.feed_autopilot_desc)
+                    SelectableSettingGroupItem(
+                        title = stringResource(R.string.feed_autopilot_title),
+                        desc = if (pending > 0) "$baseDesc\n${stringResource(R.string.feed_autopilot_settings_pending, pending)}" else baseDesc,
+                        icon = Icons.Outlined.FilterAlt,
+                    ) {
+                        navController.navigate(RouteName.FEED_AUTOPILOT) { launchSingleTop = true }
                     }
                 }
                 item {

@@ -21,6 +21,14 @@ class HomeEntryNavigationTest {
         assertEquals(1, routes.count { it == RouteName.ARCHIVE_QUERY })
     }
 
+    @Test fun feedAutopilotRouteIsDistinctFromEveryOtherRoute() {
+        val routes = RouteName::class.java.declaredFields
+            .filter { it.type == String::class.java && java.lang.reflect.Modifier.isStatic(it.modifiers) }
+            .map { it.apply { isAccessible = true }.get(null) as String }
+        assertEquals("feed_autopilot", RouteName.FEED_AUTOPILOT)
+        assertEquals(1, routes.count { it == RouteName.FEED_AUTOPILOT })
+    }
+
     @Test fun readingRouteOpensTheExactArticleId() {
         assertEquals("${RouteName.READING}/art-7", readingRoute("art-7"))
     }

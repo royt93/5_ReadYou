@@ -267,6 +267,17 @@ class FeedAutopilotViewModelTest {
         assertEquals(true, context.feedAutopilotEnabled)
     }
 
+    @Test fun enabledFlowStartsFromStoredValueAndFollowsToggle() {
+        context.dataStore.putBlocking(DataStoreKeys.FeedAutopilotEnabled, false)
+        coEvery { processor.computeSuggestions(any()) } returns FeedAutopilotEvaluation.Disabled
+        val vm = viewModel()
+        assertEquals(false, vm.enabled.value)
+        ready(feedA)
+        vm.toggleEnabled(true)
+        assertEquals(true, vm.enabled.value)
+        awaitState(vm) { it is FeedAutopilotUiState.HasSuggestions }
+    }
+
     private companion object {
         const val ACCOUNT = 1
         const val WINDOW_DAYS = 30

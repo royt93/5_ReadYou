@@ -15,6 +15,7 @@ import com.mckimquyen.reader.infrastructure.di.IODispatcher
 import com.mckimquyen.reader.ui.ext.DataStoreKeys
 import com.mckimquyen.reader.ui.ext.currentAccountId
 import com.mckimquyen.reader.ui.ext.dataStore
+import com.mckimquyen.reader.ui.ext.feedAutopilotEnabled
 import com.mckimquyen.reader.ui.ext.get
 import com.mckimquyen.reader.ui.ext.put
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -48,6 +49,9 @@ class FeedAutopilotViewModel @Inject constructor(
     private val _pendingUnsubscribe = MutableStateFlow<PendingUnsubscribe?>(null)
     val pendingUnsubscribe: StateFlow<PendingUnsubscribe?> = _pendingUnsubscribe.asStateFlow()
 
+    private val _enabled = MutableStateFlow(context.feedAutopilotEnabled)
+    val enabled: StateFlow<Boolean> = _enabled.asStateFlow()
+
     private var refreshJob: Job? = null
 
     init {
@@ -56,9 +60,10 @@ class FeedAutopilotViewModel @Inject constructor(
 
     fun refresh() = launchAnalysis()
 
-    fun toggleEnabled(enabled: Boolean) = launchAnalysis(beforeAnalysis = {
-        context.dataStore.put(DataStoreKeys.FeedAutopilotEnabled, enabled)
-    })
+    fun toggleEnabled(enabled: Boolean) {
+        _enabled.value = enabled
+        launchAnalysis(beforeAnalysis = { context.dataStore.put(DataStoreKeys.FeedAutopilotEnabled, enabled) })
+    }
 
     /** One analysis at a time: a newer request cancels the older one so a late result cannot overwrite a newer state. */
     private fun launchAnalysis(beforeAnalysis: suspend () -> Unit = {}) {

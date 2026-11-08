@@ -362,6 +362,25 @@ fun HomeEntry(
                     onOpenArticle = { id -> navController.navigate(readingRoute(id)) { launchSingleTop = true } },
                 )
             }
+            animatedComposable(route = RouteName.FEED_AUTOPILOT, eInk = eInk) {
+                val autopilotViewModel: com.mckimquyen.reader.ui.page.autopilot.FeedAutopilotViewModel = hiltViewModel()
+                val autopilotState by autopilotViewModel.state.collectAsState()
+                val pendingUnsubscribe by autopilotViewModel.pendingUnsubscribe.collectAsState()
+                val autopilotEnabled by autopilotViewModel.enabled.collectAsState()
+                com.mckimquyen.reader.ui.page.autopilot.FeedAutopilotPage(
+                    state = autopilotState,
+                    enabled = autopilotEnabled,
+                    pendingUnsubscribe = pendingUnsubscribe,
+                    onBack = { navController.popBackStack() },
+                    onToggleEnabled = autopilotViewModel::toggleEnabled,
+                    onRequestUnsubscribe = autopilotViewModel::requestUnsubscribe,
+                    onSnooze = autopilotViewModel::snoozeFeed,
+                    onKeep = autopilotViewModel::keepFeed,
+                    onConfirmUnsubscribe = autopilotViewModel::confirmUnsubscribe,
+                    onCancelUnsubscribe = autopilotViewModel::cancelUnsubscribe,
+                    onRetry = autopilotViewModel::refresh,
+                )
+            }
             animatedComposable(route = RouteName.LOCAL_SYNC, eInk = eInk) {
                 val syncViewModel: LocalSyncViewModel = hiltViewModel()
                 val syncState by syncViewModel.state.collectAsState()
