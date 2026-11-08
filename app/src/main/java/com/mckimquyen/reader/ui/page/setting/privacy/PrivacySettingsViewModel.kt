@@ -37,6 +37,10 @@ class PrivacySettingsViewModel @Inject constructor(
     private val _headlineSignals = MutableStateFlow(HeadlineSignalsPref.default.value)
     val headlineSignals = _headlineSignals.asStateFlow()
 
+    // EXC-02: true only when the user explicitly agreed; "never asked" and "declined" both read as off.
+    private val _podcastStudioGeminiConsent = MutableStateFlow(false)
+    val podcastStudioGeminiConsent = _podcastStudioGeminiConsent.asStateFlow()
+
     init {
         viewModelScope.launch {
             context.dataStore.data.collect { preferences ->
@@ -45,6 +49,7 @@ class PrivacySettingsViewModel @Inject constructor(
                 _htmlAntiTracker.value = HtmlAntiTrackerPref.fromPreferences(preferences).value
                 _retractionRadar.value = RetractionRadarPref.fromPreferences(preferences).value
                 _headlineSignals.value = HeadlineSignalsPref.fromPreferences(preferences).value
+                _podcastStudioGeminiConsent.value = preferences[DataStoreKeys.PodcastStudioGeminiConsent.key] == true
             }
         }
     }
@@ -85,6 +90,14 @@ class PrivacySettingsViewModel @Inject constructor(
         viewModelScope.launch {
             context.dataStore.updateData { preferences ->
                 preferences.toMutablePreferences().apply { this[DataStoreKeys.RetractionRadar.key] = enabled }
+            }
+        }
+    }
+
+    fun setPodcastStudioGeminiConsent(agreed: Boolean) {
+        viewModelScope.launch {
+            context.dataStore.updateData { preferences ->
+                preferences.toMutablePreferences().apply { this[DataStoreKeys.PodcastStudioGeminiConsent.key] = agreed }
             }
         }
     }

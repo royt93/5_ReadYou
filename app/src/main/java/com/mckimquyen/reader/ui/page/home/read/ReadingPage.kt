@@ -50,6 +50,8 @@ import com.mckimquyen.reader.domain.model.article.AudioInfo
 import com.mckimquyen.reader.domain.readposition.ReadingPositionMapper
 import com.mckimquyen.reader.ui.component.reader.BodyItemRange
 import com.mckimquyen.reader.ui.page.home.read.podcast.PodcastPlayerBar
+import com.mckimquyen.reader.ui.page.home.read.podcaststudio.PodcastStudioSheet
+import com.mckimquyen.reader.ui.page.home.read.podcaststudio.PodcastStudioViewModel
 import com.mckimquyen.reader.ui.page.home.read.podcast.PodcastPlayerViewModel
 import com.mckimquyen.reader.ui.page.home.read.quote.QuoteCardViewModel
 import com.mckimquyen.reader.ui.page.headline.EchoSignalDetailsSheet
@@ -224,6 +226,8 @@ fun ReadingPage(
     val dualCardState by dualCardViewModel.state.collectAsState()
     val dualChooserTitle = stringResource(R.string.echo_dual_chooser_title)
     val dualShareText = stringResource(R.string.echo_dual_share_text)
+    val podcastStudioViewModel: PodcastStudioViewModel = hiltViewModel()
+    val podcastStudioState by podcastStudioViewModel.state.collectAsState()
     val secondScreenViewModel: SecondScreenViewModel = hiltViewModel()
     val secondScreenState by secondScreenViewModel.state.collectAsState()
     val clipboard = LocalClipboardManager.current
@@ -468,6 +472,9 @@ fun ReadingPage(
                     onSecondScreen = {
                         readingViewModel.openSecondScreen()
                     },
+                    onPodcastStudio = {
+                        readingUiState.articleWithFeed?.article?.let(podcastStudioViewModel::initiate)
+                    },
                     onHighlight = {
                         showHighlightDialog = true
                     },
@@ -612,6 +619,19 @@ fun ReadingPage(
         }
     )
     }
+
+    PodcastStudioSheet(
+        state = podcastStudioState,
+        onDismiss = podcastStudioViewModel::dismissSheet,
+        onConsent = podcastStudioViewModel::onConsent,
+        onConfirmConflict = podcastStudioViewModel::onConfirmConflict,
+        onDismissConflict = podcastStudioViewModel::onDismissConflict,
+        onToggle = podcastStudioViewModel::togglePlayPause,
+        onSkipNext = podcastStudioViewModel::skipNext,
+        onSkipPrevious = podcastStudioViewModel::skipPrevious,
+        onSeek = podcastStudioViewModel::seekTo,
+        onRetry = { readingUiState.articleWithFeed?.article?.let(podcastStudioViewModel::initiate) },
+    )
 
     if (showZenAudioSheet) {
         ZenSoundSheet(

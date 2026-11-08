@@ -18,6 +18,7 @@ import androidx.compose.material.icons.rounded.Cast
 import androidx.compose.material.icons.rounded.Forum
 import androidx.compose.material.icons.rounded.GraphicEq
 import androidx.compose.material.icons.rounded.MoreVert
+import androidx.compose.material.icons.rounded.Podcasts
 import androidx.compose.material.icons.rounded.PlayArrow
 import androidx.compose.material.icons.rounded.Stop
 import androidx.compose.material3.DropdownMenu
@@ -63,6 +64,7 @@ fun TopBar(
     onMindMap: () -> Unit = {},
     onDeepRead: () -> Unit = {},
     onSecondScreen: () -> Unit = {},
+    onPodcastStudio: () -> Unit = {},
     onHighlight: () -> Unit = {},
     onNotebook: () -> Unit = {},
     onClose: () -> Unit = {},
@@ -203,6 +205,19 @@ fun TopBar(
                                 onClick = {
                                     menuExpanded = false
                                     onDeepRead()
+                                }
+                            )
+                            DropdownMenuItem(
+                                text = { Text(stringResource(R.string.podcast_studio_menu)) },
+                                leadingIcon = {
+                                    Icon(
+                                        imageVector = Icons.Rounded.Podcasts,
+                                        contentDescription = null
+                                    )
+                                },
+                                onClick = {
+                                    menuExpanded = false
+                                    onPodcastStudio()
                                 }
                             )
                             DropdownMenuItem(

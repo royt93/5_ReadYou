@@ -41,6 +41,7 @@ fun PrivacySettingsPage(
     val htmlAntiTracker by viewModel.htmlAntiTracker.collectAsState()
     val retractionRadar by viewModel.retractionRadar.collectAsState()
     val headlineSignals by viewModel.headlineSignals.collectAsState()
+    val podcastStudioGeminiConsent by viewModel.podcastStudioGeminiConsent.collectAsState()
 
     BaseScaffold(
         containerColor = MaterialTheme.colorScheme.surface,
@@ -129,6 +130,18 @@ fun PrivacySettingsPage(
                         action = {
                             BaseSwitch(activated = headlineSignals) {
                                 viewModel.setHeadlineSignals(!headlineSignals)
+                            }
+                        },
+                    )
+                }
+                item {
+                    SettingItem(
+                        title = stringResource(R.string.podcast_studio_title),
+                        desc = stringResource(R.string.podcast_studio_consent_message),
+                        onClick = { viewModel.setPodcastStudioGeminiConsent(!podcastStudioGeminiConsent) },
+                        action = {
+                            BaseSwitch(activated = podcastStudioGeminiConsent) {
+                                viewModel.setPodcastStudioGeminiConsent(!podcastStudioGeminiConsent)
                             }
                         },
                     )

@@ -10,6 +10,7 @@ import com.mckimquyen.reader.infrastructure.pref.UrlTrackingCleanPref
 import com.mckimquyen.reader.ui.ext.dataStore
 import com.mckimquyen.reader.ui.ext.retractionRadarEnabled
 import com.mckimquyen.reader.ui.ext.headlineSignalsEnabled
+import com.mckimquyen.reader.ui.ext.podcastStudioGeminiConsent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
@@ -103,5 +104,25 @@ class PrivacySettingsViewModelTest {
 
         assertFalse(awaitReal { viewModel.retractionRadar.first { !it } })
         assertFalse(context.retractionRadarEnabled)
+    }
+
+    @Test
+    fun podcastStudioGeminiConsent_isOffUntilTheUserAgreesAndPersistsBothWays() = runTest(dispatcher) {
+        context.dataStore.edit { it.clear() }
+        val viewModel = PrivacySettingsViewModel(context)
+        advanceUntilIdle()
+        // Never asked: the switch must read "off" and the stored answer must stay undecided (null), not false.
+        assertFalse(viewModel.podcastStudioGeminiConsent.value)
+        assertEquals(null, context.podcastStudioGeminiConsent)
+
+        viewModel.setPodcastStudioGeminiConsent(true)
+        advanceUntilIdle()
+        assertTrue(awaitReal { viewModel.podcastStudioGeminiConsent.first { it } })
+        assertEquals(true, context.podcastStudioGeminiConsent)
+
+        viewModel.setPodcastStudioGeminiConsent(false)
+        advanceUntilIdle()
+        assertFalse(awaitReal { viewModel.podcastStudioGeminiConsent.first { !it } })
+        assertEquals(false, context.podcastStudioGeminiConsent)
     }
 }
