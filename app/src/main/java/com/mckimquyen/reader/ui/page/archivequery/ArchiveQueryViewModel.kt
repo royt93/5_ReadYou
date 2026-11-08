@@ -30,7 +30,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ArchiveQueryViewModel(
-    private val context: Context,
+    @ApplicationContext private val context: Context,
     private val repository: ArchiveQueryRepository,
     private val ioDispatcher: CoroutineDispatcher,
     /** Fixed in tests; the zone of this clock is the zone used for months and date ranges. */
