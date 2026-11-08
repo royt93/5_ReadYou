@@ -1116,4 +1116,22 @@
     <string name="archive_query_shift_cues">Câu trước dùng \"%1$s\", câu sau dùng \"%2$s\".</string>
     <string name="archive_query_shift_disclaimer">Chỉ dựa trên việc khớp từ trong các câu trích. App không hiểu nghĩa nên có thể sai.</string>
     <string name="archive_query_limits">Giới hạn: chủ đề được khớp trên tiêu đề và mô tả ngắn, mỗi tháng chỉ trích tối đa 3 bài, và chỉ phát hiện thay đổi với từ tiếng Anh và tiếng Việt.</string>
+    <!-- EXC-12 AI Feed Autopilot -->
+    <string name="feed_autopilot_title">Feed Autopilot</string>
+    <string name="feed_autopilot_desc">Nhận diện và gợi ý hủy theo dõi các nguồn tin ít đọc</string>
+    <string name="feed_autopilot_enabled">Bật Feed Autopilot</string>
+    <string name="feed_autopilot_summary_noisy">Nguồn tin ít đọc: %1$d (%2$d ngày qua)</string>
+    <string name="feed_autopilot_summary_clean">Nguồn tin gọn gàng. Không có nguồn gây nhiễu.</string>
+    <string name="feed_autopilot_reason_opened">Đã mở %1$d trên %2$d bài nhận được (%3$d ngày qua, tương tác %4$d%%)</string>
+    <string name="feed_autopilot_reason_zero">Chưa mở bài nào trong %1$d bài nhận được (%2$d ngày qua)</string>
+    <string name="feed_autopilot_action_unsubscribe">Hủy theo dõi</string>
+    <string name="feed_autopilot_action_snooze">Bỏ qua 30 ngày</string>
+    <string name="feed_autopilot_action_keep">Giữ lại và không hỏi nữa</string>
+    <string name="feed_autopilot_confirm_title">Hủy theo dõi %1$s?</string>
+    <string name="feed_autopilot_confirm_message">Thao tác này sẽ xóa vĩnh viễn toàn bộ bài viết của nguồn này khỏi máy và không thể hoàn tác.</string>
+    <string name="feed_autopilot_confirm_starred_warning">Bài đã gắn sao cũng sẽ bị xóa vĩnh viễn: %1$d</string>
+    <string name="feed_autopilot_not_local_account">Feed Autopilot chỉ hỗ trợ tài khoản cục bộ (Local). Tài khoản từ xa (Fever, Google Reader) quản lý nguồn tin trên máy chủ riêng.</string>
+    <string name="feed_autopilot_retention_too_short">Thời hạn lưu bài của tài khoản đang dưới 14 ngày. Hãy tăng thời hạn trong Cài đặt tài khoản để Autopilot có đủ dữ liệu đánh giá an toàn.</string>
+    <string name="feed_autopilot_disabled_message">Feed Autopilot đang tắt. Hãy bật để nhận gợi ý dọn dẹp nguồn tin.</string>
+    <string name="feed_autopilot_settings_pending">Cần xem: %1$d</string>
 </resources>
