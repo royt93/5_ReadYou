@@ -171,6 +171,17 @@ class ArchiveQueryPageTest {
         compose.onNodeWithTag(ARCHIVE_SEARCH_TAG).assertIsNotEnabled()
     }
 
+    @Test fun searchedRangeShowsTheLastIncludedDayNotTheExclusiveEnd() {
+        // User asked for 2026-06-01..2026-06-30; the range ends exclusively at the start of 2026-07-01.
+        val zone = java.time.ZoneId.systemDefault()
+        val june = ArchiveQueryRange(
+            LocalDate.of(2026, 6, 1).atStartOfDay(zone).toInstant(),
+            LocalDate.of(2026, 7, 1).atStartOfDay(zone).toInstant(),
+        )
+        show(ArchiveQueryUiState.NoResults("interest rates", june))
+        compose.onNodeWithText(str(R.string.archive_query_range_used, "2026-06-01", "2026-06-30")).performScrollTo().assertIsDisplayed()
+    }
+
     @Test fun invalidInputShowsTheMatchingMessage() {
         val cases = mapOf(
             ArchiveQueryProblem.Blank to R.string.archive_query_problem_blank,

@@ -290,7 +290,8 @@ private fun parseDate(text: String): LocalDate? = runCatching {
 @Composable
 private fun formatRange(range: ArchiveQueryRange, zone: ZoneId): String {
     val start = range.startInclusive.atZone(zone).toLocalDate()
-    val end = range.endExclusive.atZone(zone).toLocalDate()
+    // endExclusive is the first instant NOT searched, so the last searched day is the one just before it.
+    val end = range.endExclusive.minusMillis(1).atZone(zone).toLocalDate()
     return stringResource(R.string.archive_query_range_used, start.toString(), end.toString())
 }
 
