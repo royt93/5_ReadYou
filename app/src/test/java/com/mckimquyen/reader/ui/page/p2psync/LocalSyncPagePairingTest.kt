@@ -41,7 +41,8 @@ class LocalSyncPagePairingTest {
     ) {
         compose.setContent {
             LocalSyncPage(
-                state = state, isLocal = true, onBack = {}, onStartSend = {}, onLoadPreview = { _, _ -> },
+                state = state, isLocal = true, onBack = {}, onStartSend = {}, onLoadPreview = { u, sec -> calls += "load:$u:$sec" },
+                onLoadPreviewAndPair = { u, sec, label -> calls += "loadpair:$u:$sec:$label" },
                 onCancel = {}, onStopSend = {}, onApply = {}, onCopyUrl = {}, onCopySecret = {},
                 onShareUrl = {}, onShareSecret = {},
                 pairedPeers = peers,
@@ -55,6 +56,34 @@ class LocalSyncPagePairingTest {
             )
         }
         if (tabReceive) compose.onNodeWithTag(SYNC_RECEIVE_TAB_TAG).performClick()
+    }
+
+    private val url = "http://192.168.1.2:5000/s/${"c".repeat(32)}"
+    private val secretHex = "0123456789abcdef".repeat(2)
+
+    private fun fillReceive(label: String?) {
+        compose.onNodeWithTag(SYNC_URL_FIELD_TAG).performScrollTo().performTextInput(url)
+        compose.onNodeWithTag(SYNC_SECRET_FIELD_TAG).performScrollTo().performTextInput(secretHex)
+        label?.let { compose.onNodeWithTag(SYNC_RECEIVE_LABEL_TAG).performScrollTo().performTextInput(it) }
+        compose.onNodeWithTag(SYNC_LOAD_PREVIEW_TAG).performScrollTo().performClick()
+    }
+
+    @Test fun receiveWithoutALabelUsesThePlainPreviewCallback() {
+        show(tabReceive = true)
+        fillReceive(null)
+        compose.runOnIdle { assertEquals(listOf("load:$url:$secretHex"), calls) }
+    }
+
+    @Test fun receiveWithALabelAsksToRememberTheDevice() {
+        show(tabReceive = true)
+        fillReceive("Tablet")
+        compose.runOnIdle { assertEquals(listOf("loadpair:$url:$secretHex:Tablet"), calls) }
+    }
+
+    @Test fun aBlankReceiveLabelIsTreatedAsNoLabel() {
+        show(tabReceive = true)
+        fillReceive("   ")
+        compose.runOnIdle { assertEquals(listOf("load:$url:$secretHex"), calls) }
     }
 
     @Test fun pairNewSendsTheTypedLabel() {

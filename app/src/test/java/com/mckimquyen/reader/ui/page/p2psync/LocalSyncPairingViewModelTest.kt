@@ -306,6 +306,64 @@ class LocalSyncPairingViewModelTest {
         coVerify(exactly = 0) { repository.apply(any(), any()) }
     }
 
+    // ---- first pairing on the receiving phone ----
+
+    private val manualUrl = "http://192.168.1.30:4321/s/${"c".repeat(32)}"
+    private val manualSecret = PairingSecret.fromHex("00112233445566778899aabbccddeeff")
+
+    @Test fun aManualReceiveWithALabelStoresAConfirmedEntryOnceTheEnvelopeOpens() = runTest(dispatcher) {
+        every { transport.fetch(manualUrl) } returns SyncEnvelopeCrypto.encrypt(SyncPackageCodec.encode(outgoing), manualSecret)
+        val vm = vm()
+        vm.loadPreview(ACCOUNT, manualUrl, manualSecret.hex, "Tablet"); runCurrent()
+        assertTrue(vm.state.value is LocalSyncUiState.Preview)
+        val peer = store.list().single()
+        assertEquals("Tablet", peer.label)
+        assertEquals(PairingStatus.CONFIRMED, peer.status)
+        assertEquals(manualSecret.hex, store.secretOf(peer.peerId)?.hex)
+        assertEquals(listOf(peer), vm.pairedPeers.value)
+    }
+
+    @Test fun aManualReceiveWithoutALabelStoresNothing() = runTest(dispatcher) {
+        every { transport.fetch(manualUrl) } returns SyncEnvelopeCrypto.encrypt(SyncPackageCodec.encode(outgoing), manualSecret)
+        val vm = vm()
+        vm.loadPreview(ACCOUNT, manualUrl, manualSecret.hex); runCurrent()
+        assertTrue(vm.state.value is LocalSyncUiState.Preview)
+        assertEquals(emptyList<Any>(), store.list())
+    }
+
+    @Test fun aBlankLabelCountsAsNoLabel() = runTest(dispatcher) {
+        every { transport.fetch(manualUrl) } returns SyncEnvelopeCrypto.encrypt(SyncPackageCodec.encode(outgoing), manualSecret)
+        val vm = vm()
+        vm.loadPreview(ACCOUNT, manualUrl, manualSecret.hex, "   "); runCurrent()
+        assertTrue(vm.state.value is LocalSyncUiState.Preview)
+        assertEquals(emptyList<Any>(), store.list())
+    }
+
+    @Test fun aWrongSecretWithALabelStoresNothing() = runTest(dispatcher) {
+        every { transport.fetch(manualUrl) } returns SyncEnvelopeCrypto.encrypt(SyncPackageCodec.encode(outgoing), PairingSecret.fromHex("f".repeat(32)))
+        val vm = vm()
+        vm.loadPreview(ACCOUNT, manualUrl, manualSecret.hex, "Tablet"); runCurrent()
+        assertEquals(LocalSyncError.PACKAGE, error(vm))
+        assertEquals(emptyList<Any>(), store.list())
+    }
+
+    @Test fun anInvalidLabelIsRejectedBeforeAnythingIsFetched() = runTest(dispatcher) {
+        val vm = vm()
+        vm.loadPreview(ACCOUNT, manualUrl, manualSecret.hex, "x".repeat(61)); runCurrent()
+        assertEquals(LocalSyncError.PAIRING_LABEL, error(vm))
+        verify(exactly = 0) { transport.fetch(any()) }
+        assertEquals(emptyList<Any>(), store.list())
+    }
+
+    @Test fun aFullStoreReportsTheLimitAndNeverShowsAPreview() = runTest(dispatcher) {
+        repeat(PairingStore.MAX_PEERS) { store.add("P$it", PairingSecret.generate(), PairingStatus.CONFIRMED) }
+        every { transport.fetch(manualUrl) } returns SyncEnvelopeCrypto.encrypt(SyncPackageCodec.encode(outgoing), manualSecret)
+        val vm = vm()
+        vm.loadPreview(ACCOUNT, manualUrl, manualSecret.hex, "One too many"); runCurrent()
+        assertEquals(LocalSyncError.PAIRING_LIMIT, error(vm))
+        assertEquals(PairingStore.MAX_PEERS, store.list().size)
+    }
+
     @Test fun aBrokenPairingEntryShowsPairingBrokenAndOpensNoConnection() = runTest(dispatcher) {
         val peer = store.add("Phone", PairingSecret.fromHex("00112233445566778899aabbccddeeff"), PairingStatus.CONFIRMED)
         wrapper.keyPresent = false

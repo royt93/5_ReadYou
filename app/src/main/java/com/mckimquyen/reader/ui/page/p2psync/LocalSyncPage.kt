@@ -68,6 +68,7 @@ const val SYNC_CANCEL_START_TAG = "sync_cancel_start"
 const val SYNC_HTTP_WARNING_TAG = "sync_http_warning"
 const val SYNC_SECRET_WARNING_TAG = "sync_secret_warning"
 const val SYNC_PAIR_LABEL_TAG = "sync_pair_label"
+const val SYNC_RECEIVE_LABEL_TAG = "sync_receive_label"
 const val SYNC_PAIR_NEW_TAG = "sync_pair_new"
 const val SYNC_PEER_ROW_TAG = "sync_peer_row_"
 const val SYNC_PEER_FORGET_TAG = "sync_peer_forget_"
@@ -98,12 +99,14 @@ fun LocalSyncPage(
     onConfirmPeer: (String) -> Unit = {},
     onOpenSettings: () -> Unit = {},
     onRequestLanPermission: () -> Unit = {},
+    onLoadPreviewAndPair: (String, String, String) -> Unit = { _, _, _ -> },
 ) {
     var tab by remember { mutableIntStateOf(SEND_TAB) }
     var url by remember { mutableStateOf("") }
     var secret by remember { mutableStateOf("") }
     var confirmApply by remember { mutableStateOf(false) }
     var pairLabel by remember { mutableStateOf("") }
+    var receiveLabel by remember { mutableStateOf("") }
     val sending = state as? LocalSyncUiState.Sending
     val preview = state as? LocalSyncUiState.Preview
     val busy = state == LocalSyncUiState.Starting || state == LocalSyncUiState.Receiving || state == LocalSyncUiState.Applying
@@ -157,7 +160,12 @@ fun LocalSyncPage(
                     tab == SEND_TAB -> SendIdle(state, isLocal, busy, onStartSend, onStopSend, pairLabel, { pairLabel = it }, onPairNew)
                     else -> ReceiveEntry(
                         state, isLocal, canReceive, url, { url = it }, secret, { secret = it },
-                        onLoadPreview = { onLoadPreview(url, secret) },
+                        receiveLabel = receiveLabel,
+                        onReceiveLabelChange = { receiveLabel = it },
+                        onLoadPreview = {
+                            val label = receiveLabel.trim()
+                            if (label.isEmpty()) onLoadPreview(url, secret) else onLoadPreviewAndPair(url, secret, label)
+                        },
                         pairedPeers = pairedPeers,
                         nearby = nearby,
                         onReceiveFromPeer = onReceiveFromPeer,
@@ -278,6 +286,8 @@ private fun ReceiveEntry(
     onUrlChange: (String) -> Unit,
     secret: String,
     onSecretChange: (String) -> Unit,
+    receiveLabel: String,
+    onReceiveLabelChange: (String) -> Unit,
     onLoadPreview: () -> Unit,
     pairedPeers: List<PairedPeer>,
     nearby: List<DiscoveredPeer>,
@@ -314,6 +324,14 @@ private fun ReceiveEntry(
             visualTransformation = PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Ascii),
             modifier = Modifier.fillMaxWidth().testTag(SYNC_SECRET_FIELD_TAG),
+        )
+        OutlinedTextField(
+            value = receiveLabel,
+            onValueChange = onReceiveLabelChange,
+            enabled = isLocal && state !is LocalSyncUiState.Receiving,
+            label = { Text(stringResource(R.string.local_sync_remember_label_hint)) },
+            singleLine = true,
+            modifier = Modifier.fillMaxWidth().testTag(SYNC_RECEIVE_LABEL_TAG),
         )
         Button(
             onClick = onLoadPreview,

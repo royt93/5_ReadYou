@@ -416,6 +416,7 @@ fun HomeEntry(
                     onBack = { navController.popBackStack() },
                     onStartSend = { syncViewModel.startSend(context.currentAccountId) },
                     onLoadPreview = { url, secret -> syncViewModel.loadPreview(context.currentAccountId, url, secret) },
+                    onLoadPreviewAndPair = { url, secret, label -> syncViewModel.loadPreview(context.currentAccountId, url, secret, label) },
                     onCancel = syncViewModel::cancelPreview,
                     onStopSend = syncViewModel::stopSend,
                     onApply = { syncViewModel.applyPreview(context.currentAccountId) },

@@ -118,11 +118,17 @@ class LocalSyncViewModel @Inject constructor(
         shutdown(LocalSyncUiState.Idle)
     }
 
-    fun loadPreview(localAccountId: Int, url: String, secretHex: String) {
+    /** A non-blank [label] also remembers this device as a CONFIRMED pairing once the envelope has authenticated. */
+    fun loadPreview(localAccountId: Int, url: String, secretHex: String, label: String? = null) {
         if (_state.value !is LocalSyncUiState.Idle && _state.value !is LocalSyncUiState.Error &&
             _state.value !is LocalSyncUiState.Done) return
         if (!lanGate.granted()) {
             _state.value = LocalSyncUiState.Error(LocalSyncError.LAN_PERMISSION)
+            return
+        }
+        val pairLabel = label?.trim()?.takeIf { it.isNotEmpty() }
+        if (pairLabel != null && !PairingStore.isValidLabel(pairLabel)) {
+            _state.value = LocalSyncUiState.Error(LocalSyncError.PAIRING_LABEL)
             return
         }
         receiveJob?.cancel()
@@ -140,7 +146,7 @@ class LocalSyncViewModel @Inject constructor(
                 _state.value = LocalSyncUiState.Error(LocalSyncError.URL)
                 return@launch
             }
-            fetchAndPreview(localAccountId, normalizedUrl, secret, confirmPeerId = null)
+            fetchAndPreview(localAccountId, normalizedUrl, secret, confirmPeerId = null, newPeerLabel = pairLabel)
         }
     }
 
@@ -148,7 +154,13 @@ class LocalSyncViewModel @Inject constructor(
      * Shared tail of both receive paths: fetch the ciphertext, authenticate and decode it, then build the preview.
      * [confirmPeerId], when set, is marked CONFIRMED only after the GCM tag has verified, never before.
      */
-    private suspend fun fetchAndPreview(localAccountId: Int, normalizedUrl: String, secret: PairingSecret, confirmPeerId: String?) {
+    private suspend fun fetchAndPreview(
+        localAccountId: Int,
+        normalizedUrl: String,
+        secret: PairingSecret,
+        confirmPeerId: String?,
+        newPeerLabel: String? = null,
+    ) {
         val encrypted = try {
             withContext(ioDispatcher) { transport.fetch(normalizedUrl) }
         } catch (e: CancellationException) {
@@ -169,6 +181,22 @@ class LocalSyncViewModel @Inject constructor(
         }
         // The GCM tag has verified: this is the first moment the other side is known to hold the same secret.
         confirmPeerId?.let { withContext(ioDispatcher) { pairingStore.markConfirmed(it) }; refreshPeers() }
+        if (newPeerLabel != null) {
+            try {
+                withContext(ioDispatcher) { pairingStore.add(newPeerLabel, secret, PairingStatus.CONFIRMED) }
+            } catch (e: CancellationException) {
+                throw e
+            } catch (_: IllegalArgumentException) {
+                _state.value = LocalSyncUiState.Error(LocalSyncError.PAIRING_LIMIT)
+                plain.fill(0)
+                return
+            } catch (_: Exception) {
+                _state.value = LocalSyncUiState.Error(LocalSyncError.PAIRING_BROKEN)
+                plain.fill(0)
+                return
+            }
+            refreshPeers()
+        }
         val incoming = try {
             when (val decoded = withContext(defaultDispatcher) { SyncPackageCodec.decodeAndValidate(plain) }) {
                 is SyncPackageResult.Valid -> decoded.data
