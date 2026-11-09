@@ -1,13 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?><!--
-   Sample backup rules file; uncomment and customize as necessary.
-   See https://developer.android.com/guide/topics/data/autobackup
-   for details.
-   Note: This file is ignored for devices older that API 23 even if they
-   are using the full-backup attribute.
--->
+<?xml version="1.0" encoding="utf-8"?>
 <full-backup-content>
-    <!-- TODO: Use <include> and <exclude> to control what is backed up.
-        <include domain=["file" | "database" | "sharedpref" | "external" | "root"] path="string" />
-        <exclude domain=["file" | "database" | "sharedpref" | "external" | "root"] path="string" />
-    -->
+    <!-- EXC-05b: pairing secrets are wrapped by a device-bound Keystore key; a restored copy would be undecryptable
+         ciphertext that still left the device, so it is never backed up. -->
+    <exclude domain="sharedpref" path="pairing_store.xml" />
 </full-backup-content>
