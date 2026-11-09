@@ -5,6 +5,7 @@ import com.mckimquyen.reader.domain.mirror.MirrorSnapshot
 import com.mckimquyen.reader.domain.mirror.MirrorStartResult
 import com.mckimquyen.reader.domain.mirror.MirrorToken
 import com.mckimquyen.reader.infrastructure.mirror.LanAddressSource
+import com.mckimquyen.reader.domain.p2psync.LanGate
 import com.mckimquyen.reader.infrastructure.mirror.MirrorEngine
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -63,11 +64,12 @@ class SecondScreenViewModelTest {
     private val dispatcher = StandardTestDispatcher()
     private val engine = FakeEngine()
     private val lan = FakeLan()
+    private var lanGranted = true
 
     @Before fun setUp() = Dispatchers.setMain(dispatcher)
     @After fun tearDown() = Dispatchers.resetMain()
 
-    private fun vm() = SecondScreenViewModel(engine, lan, dispatcher).also { it.clock = { 1_000L } }
+    private fun vm() = SecondScreenViewModel(engine, lan, dispatcher, LanGate { lanGranted }).also { it.clock = { 1_000L } }
 
     @Test fun startsOff() = runTest(dispatcher) {
         assertEquals(MirrorUiState.Off, vm().state.value)
@@ -84,6 +86,25 @@ class SecondScreenViewModelTest {
         assertEquals(LONG_LIVED, running.expiresAtMillis)
         assertEquals(0, running.clients)
         assertEquals(1, engine.startCalls)
+    }
+
+    @Test fun withoutTheLanPermissionNothingIsOpenedAndTheStateSaysWhy() = runTest(dispatcher) {
+        lanGranted = false
+        val vm = vm()
+        vm.start()
+        runCurrent()
+        assertEquals(MirrorUiState.NoPermission, vm.state.value)
+        assertEquals(0, engine.startCalls)
+    }
+
+    @Test fun startAgainAfterTheLanPermissionIsGrantedWorks() = runTest(dispatcher) {
+        lanGranted = false
+        val vm = vm()
+        vm.start()
+        lanGranted = true
+        vm.start()
+        runCurrent()
+        assertTrue(vm.state.value is MirrorUiState.Running)
     }
 
     @Test fun noLanAddressMeansNoNetworkAndTheServerIsNeverOpened() = runTest(dispatcher) {

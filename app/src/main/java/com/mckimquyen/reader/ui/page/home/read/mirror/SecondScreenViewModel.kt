@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.mckimquyen.reader.domain.mirror.MirrorSnapshot
 import com.mckimquyen.reader.domain.mirror.MirrorSnapshotBuilder
 import com.mckimquyen.reader.domain.mirror.MirrorStartResult
+import com.mckimquyen.reader.domain.p2psync.LanGate
 import com.mckimquyen.reader.infrastructure.di.DefaultDispatcher
 import com.mckimquyen.reader.infrastructure.mirror.LanAddressSource
 import com.mckimquyen.reader.infrastructure.mirror.MirrorEngine
@@ -32,6 +33,7 @@ class SecondScreenViewModel @Inject constructor(
     private val engine: MirrorEngine,
     private val lan: LanAddressSource,
     @DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher,
+    private val lanGate: LanGate,
 ) : ViewModel() {
 
     /** Replaced in tests; production reads the wall clock (the same clock the token's expiry is measured against). */
@@ -50,8 +52,12 @@ class SecondScreenViewModel @Inject constructor(
 
     fun start() {
         when (_state.value) {
-            MirrorUiState.Off, MirrorUiState.NoNetwork, MirrorUiState.Expired, is MirrorUiState.Error -> Unit
+            MirrorUiState.Off, MirrorUiState.NoNetwork, MirrorUiState.NoPermission, MirrorUiState.Expired, is MirrorUiState.Error -> Unit
             MirrorUiState.Starting, is MirrorUiState.Running -> return
+        }
+        if (!lanGate.granted()) {
+            _state.value = MirrorUiState.NoPermission
+            return
         }
         _state.value = MirrorUiState.Starting
         startJob?.cancel()

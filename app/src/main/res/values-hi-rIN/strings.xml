@@ -1069,6 +1069,7 @@
     <string name="second_screen_warning">Not encrypted. Anyone on this Wi-Fi who sees the link can read the article. Use only on a network you trust.</string>
     <string name="second_screen_starting">Starting…</string>
     <string name="second_screen_no_network">No Wi-Fi or Ethernet network with a private address. Connect to Wi-Fi and try again.</string>
+    <string name="second_screen_lan_permission_denied">Local network access is turned off. Allow it in Settings to show articles on a second screen.</string>
     <string name="second_screen_expired">The session ended. Turn it on again to get a new link.</string>
     <string name="second_screen_error">Could not start the server. Try again.</string>
     <string name="second_screen_retry">Try again</string>

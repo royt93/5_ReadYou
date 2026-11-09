@@ -99,6 +99,10 @@ fun SecondScreenSheetContent(
                 Status(stringResource(R.string.second_screen_no_network))
                 RetryButton(onToggle)
             }
+            MirrorUiState.NoPermission -> {
+                Status(stringResource(R.string.second_screen_lan_permission_denied))
+                RetryButton(onToggle)
+            }
             MirrorUiState.Expired -> {
                 Status(stringResource(R.string.second_screen_expired))
                 RetryButton(onToggle)

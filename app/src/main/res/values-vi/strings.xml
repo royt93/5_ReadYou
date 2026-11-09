@@ -1038,6 +1038,7 @@
     <string name="second_screen_warning">Không mã hoá. Ai cùng Wi-Fi thấy liên kết đều đọc được bài. Chỉ dùng trên mạng bạn tin cậy.</string>
     <string name="second_screen_starting">Đang khởi động…</string>
     <string name="second_screen_no_network">Không có Wi-Fi hoặc mạng dây với địa chỉ nội bộ. Hãy kết nối Wi-Fi rồi thử lại.</string>
+    <string name="second_screen_lan_permission_denied">Quyền truy cập mạng cục bộ đang tắt. Hãy cho phép trong Cài đặt để hiển thị bài viết trên màn hình thứ hai.</string>
     <string name="second_screen_expired">Phiên đã kết thúc. Bật lại để nhận liên kết mới.</string>
     <string name="second_screen_error">Không khởi động được máy chủ. Hãy thử lại.</string>
     <string name="second_screen_retry">Thử lại</string>
