@@ -229,6 +229,9 @@ fun ReadingPage(
     val podcastStudioViewModel: PodcastStudioViewModel = hiltViewModel()
     val podcastStudioState by podcastStudioViewModel.state.collectAsState()
     val secondScreenViewModel: SecondScreenViewModel = hiltViewModel()
+    val lanPermissionLauncher = androidx.activity.compose.rememberLauncherForActivityResult(
+        androidx.activity.result.contract.ActivityResultContracts.RequestPermission(),
+    ) { secondScreenViewModel.start() }
     val secondScreenState by secondScreenViewModel.state.collectAsState()
     val clipboard = LocalClipboardManager.current
     val secondScreenCopiedText = stringResource(R.string.second_screen_copied)
@@ -324,7 +327,19 @@ fun ReadingPage(
             if (readingUiState.showSecondScreenSheet) {
                 SecondScreenSheetContent(
                     state = secondScreenState,
-                    onToggle = { on -> if (on) secondScreenViewModel.start() else secondScreenViewModel.stop() },
+                    onToggle = { on ->
+                        if (!on) {
+                            secondScreenViewModel.stop()
+                        } else if (com.mckimquyen.reader.domain.p2psync.LanAccess.required(android.os.Build.VERSION.SDK_INT) &&
+                            androidx.core.content.ContextCompat.checkSelfPermission(
+                                context, com.mckimquyen.reader.domain.p2psync.LanAccess.PERMISSION,
+                            ) != android.content.pm.PackageManager.PERMISSION_GRANTED
+                        ) {
+                            lanPermissionLauncher.launch(com.mckimquyen.reader.domain.p2psync.LanAccess.PERMISSION)
+                        } else {
+                            secondScreenViewModel.start()
+                        }
+                    },
                     onCopy = { url ->
                         clipboard.setText(AnnotatedString(url))
                         Toast.makeText(context, secondScreenCopiedText, Toast.LENGTH_SHORT).show()

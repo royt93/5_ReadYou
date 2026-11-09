@@ -1,6 +1,12 @@
 package com.mckimquyen.reader.ui.page.common
 
 import android.app.Activity
+import android.content.Intent
+import android.net.Uri
+import android.provider.Settings
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import com.mckimquyen.reader.domain.p2psync.LanAccess
 import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.material3.MaterialTheme
@@ -384,6 +390,15 @@ fun HomeEntry(
             animatedComposable(route = RouteName.LOCAL_SYNC, eInk = eInk) {
                 val syncViewModel: LocalSyncViewModel = hiltViewModel()
                 val syncState by syncViewModel.state.collectAsState()
+                val pairedPeers by syncViewModel.pairedPeers.collectAsState()
+                val nearbyPeers by syncViewModel.discovered.collectAsState()
+                val lanPermissionLauncher = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
+                    if (granted) syncViewModel.startFindingPeers()
+                }
+                LaunchedEffect(syncViewModel) {
+                    syncViewModel.refreshPeers()
+                    syncViewModel.startFindingPeers()
+                }
                 val processLifecycle = ProcessLifecycleOwner.get().lifecycle
                 DisposableEffect(syncViewModel) {
                     val observer = LifecycleEventObserver { _, event ->
@@ -408,6 +423,21 @@ fun HomeEntry(
                     onCopySecret = { context.copySyncText(it) },
                     onShareUrl = syncViewModel::shareServerUrl,
                     onShareSecret = syncViewModel::sharePairingSecret,
+                    pairedPeers = pairedPeers,
+                    nearby = nearbyPeers,
+                    onPairNew = { label -> syncViewModel.startPairedSend(context.currentAccountId, label) },
+                    onReceiveFromPeer = { peerId, peer ->
+                        syncViewModel.receiveFromPaired(context.currentAccountId, peerId, peer.host, peer.port, peer.nonce)
+                    },
+                    onForgetPeer = syncViewModel::forgetPeer,
+                    onConfirmPeer = syncViewModel::confirmPeer,
+                    onOpenSettings = {
+                        context.startActivity(
+                            Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.fromParts("package", context.packageName, null))
+                                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
+                        )
+                    },
+                    onRequestLanPermission = { lanPermissionLauncher.launch(LanAccess.PERMISSION) },
                 )
                 LaunchedEffect(syncViewModel) {
                     syncViewModel.shareUrl.collect { context.share(it) }

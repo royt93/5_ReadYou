@@ -43,6 +43,9 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import com.mckimquyen.reader.R
 import com.mckimquyen.reader.domain.p2psync.LocalSyncPlan
+import com.mckimquyen.reader.domain.p2psync.PairedPeer
+import com.mckimquyen.reader.domain.p2psync.PairingStatus
+import com.mckimquyen.reader.infrastructure.p2psync.DiscoveredPeer
 import com.mckimquyen.reader.ui.component.base.BaseScaffold
 import com.mckimquyen.reader.ui.component.base.FeedbackIconButton
 
@@ -64,6 +67,14 @@ const val SYNC_STOP_SEND_TAG = "sync_stop_send"
 const val SYNC_CANCEL_START_TAG = "sync_cancel_start"
 const val SYNC_HTTP_WARNING_TAG = "sync_http_warning"
 const val SYNC_SECRET_WARNING_TAG = "sync_secret_warning"
+const val SYNC_PAIR_LABEL_TAG = "sync_pair_label"
+const val SYNC_PAIR_NEW_TAG = "sync_pair_new"
+const val SYNC_PEER_ROW_TAG = "sync_peer_row_"
+const val SYNC_PEER_FORGET_TAG = "sync_peer_forget_"
+const val SYNC_PEER_CONFIRM_TAG = "sync_peer_confirm_"
+const val SYNC_PEER_RECEIVE_TAG = "sync_peer_receive_"
+const val SYNC_ALLOW_LAN_TAG = "sync_allow_lan"
+const val SYNC_OPEN_SETTINGS_TAG = "sync_open_settings"
 
 @Composable
 fun LocalSyncPage(
@@ -79,11 +90,20 @@ fun LocalSyncPage(
     onCopySecret: (String) -> Unit,
     onShareUrl: (String) -> Unit,
     onShareSecret: (String) -> Unit,
+    pairedPeers: List<PairedPeer> = emptyList(),
+    nearby: List<DiscoveredPeer> = emptyList(),
+    onPairNew: (String) -> Unit = {},
+    onReceiveFromPeer: (String, DiscoveredPeer) -> Unit = { _, _ -> },
+    onForgetPeer: (String) -> Unit = {},
+    onConfirmPeer: (String) -> Unit = {},
+    onOpenSettings: () -> Unit = {},
+    onRequestLanPermission: () -> Unit = {},
 ) {
     var tab by remember { mutableIntStateOf(SEND_TAB) }
     var url by remember { mutableStateOf("") }
     var secret by remember { mutableStateOf("") }
     var confirmApply by remember { mutableStateOf(false) }
+    var pairLabel by remember { mutableStateOf("") }
     val sending = state as? LocalSyncUiState.Sending
     val preview = state as? LocalSyncUiState.Preview
     val busy = state == LocalSyncUiState.Starting || state == LocalSyncUiState.Receiving || state == LocalSyncUiState.Applying
@@ -134,10 +154,15 @@ fun LocalSyncPage(
                         onConfirmApply = { confirmApply = false; onApply() },
                         onDismissConfirmation = { confirmApply = false },
                     )
-                    tab == SEND_TAB -> SendIdle(state, isLocal, busy, onStartSend, onStopSend)
+                    tab == SEND_TAB -> SendIdle(state, isLocal, busy, onStartSend, onStopSend, pairLabel, { pairLabel = it }, onPairNew)
                     else -> ReceiveEntry(
                         state, isLocal, canReceive, url, { url = it }, secret, { secret = it },
                         onLoadPreview = { onLoadPreview(url, secret) },
+                        pairedPeers = pairedPeers,
+                        nearby = nearby,
+                        onReceiveFromPeer = onReceiveFromPeer,
+                        onForgetPeer = onForgetPeer,
+                        onConfirmPeer = onConfirmPeer,
                     )
                 }
                 if (state == LocalSyncUiState.Receiving || state == LocalSyncUiState.Starting || state == LocalSyncUiState.Applying) {
@@ -145,6 +170,16 @@ fun LocalSyncPage(
                 }
                 (state as? LocalSyncUiState.Error)?.let { error ->
                     Text(stringResource(error.kind.messageRes()), color = MaterialTheme.colorScheme.error, style = MaterialTheme.typography.bodyMedium)
+                    if (error.kind == LocalSyncError.LAN_PERMISSION) {
+                        Button(
+                            onClick = onRequestLanPermission,
+                            modifier = Modifier.fillMaxWidth().height(MIN_TOUCH_TARGET).testTag(SYNC_ALLOW_LAN_TAG),
+                        ) { Text(stringResource(R.string.local_sync_allow_lan)) }
+                        OutlinedButton(
+                            onClick = onOpenSettings,
+                            modifier = Modifier.fillMaxWidth().height(MIN_TOUCH_TARGET).testTag(SYNC_OPEN_SETTINGS_TAG),
+                        ) { Text(stringResource(R.string.local_sync_open_settings)) }
+                    }
                 }
                 if (state is LocalSyncUiState.Done) {
                     Text(stringResource(R.string.local_sync_done), color = MaterialTheme.colorScheme.primary)
@@ -154,6 +189,7 @@ fun LocalSyncPage(
     )
 }
 
+@OptIn(androidx.compose.material3.ExperimentalMaterial3Api::class)
 @Composable
 private fun SendIdle(
     state: LocalSyncUiState,
@@ -161,6 +197,9 @@ private fun SendIdle(
     busy: Boolean,
     onStart: () -> Unit,
     onStop: () -> Unit,
+    pairLabel: String,
+    onPairLabelChange: (String) -> Unit,
+    onPairNew: (String) -> Unit,
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
         Text(stringResource(R.string.local_sync_send_instructions), style = MaterialTheme.typography.bodyLarge)
@@ -170,6 +209,20 @@ private fun SendIdle(
             enabled = isLocal && !busy,
             modifier = Modifier.fillMaxWidth().height(MIN_TOUCH_TARGET).testTag(SYNC_SEND_START_TAG),
         ) { Text(stringResource(R.string.local_sync_start)) }
+        OutlinedTextField(
+            value = pairLabel,
+            onValueChange = onPairLabelChange,
+            enabled = isLocal && !busy,
+            label = { Text(stringResource(R.string.local_sync_pair_label_hint)) },
+            singleLine = true,
+            modifier = Modifier.fillMaxWidth().testTag(SYNC_PAIR_LABEL_TAG),
+        )
+        OutlinedButton(
+            onClick = { onPairNew(pairLabel.trim()) },
+            enabled = isLocal && !busy && pairLabel.isNotBlank(),
+            modifier = Modifier.fillMaxWidth().height(MIN_TOUCH_TARGET).testTag(SYNC_PAIR_NEW_TAG),
+        ) { Text(stringResource(R.string.local_sync_pair_new)) }
+        Text(stringResource(R.string.local_sync_pairing_limits), style = MaterialTheme.typography.bodySmall)
         if (state is LocalSyncUiState.Starting) {
             OutlinedButton(onClick = onStop, modifier = Modifier.fillMaxWidth().height(MIN_TOUCH_TARGET).testTag(SYNC_CANCEL_START_TAG)) {
                 Text(stringResource(R.string.local_sync_cancel))
@@ -226,9 +279,24 @@ private fun ReceiveEntry(
     secret: String,
     onSecretChange: (String) -> Unit,
     onLoadPreview: () -> Unit,
+    pairedPeers: List<PairedPeer>,
+    nearby: List<DiscoveredPeer>,
+    onReceiveFromPeer: (String, DiscoveredPeer) -> Unit,
+    onForgetPeer: (String) -> Unit,
+    onConfirmPeer: (String) -> Unit,
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
         if (!isLocal) Text(stringResource(R.string.local_sync_not_local), color = MaterialTheme.colorScheme.error)
+        if (pairedPeers.isNotEmpty()) {
+            Text(stringResource(R.string.local_sync_paired_title), style = MaterialTheme.typography.titleMedium)
+            Text(
+                stringResource(if (nearby.isEmpty()) R.string.local_sync_no_peer_found else R.string.local_sync_nearby_title),
+                style = MaterialTheme.typography.bodySmall,
+            )
+            pairedPeers.forEach { peer ->
+                PeerRow(peer, canReceive && nearby.isNotEmpty() && !peer.needsRepair, { nearby.firstOrNull()?.let { onReceiveFromPeer(peer.peerId, it) } }, onForgetPeer, onConfirmPeer)
+            }
+        }
         OutlinedTextField(
             value = url,
             onValueChange = onUrlChange,
@@ -252,6 +320,44 @@ private fun ReceiveEntry(
             enabled = canReceive,
             modifier = Modifier.fillMaxWidth().height(MIN_TOUCH_TARGET).testTag(SYNC_LOAD_PREVIEW_TAG),
         ) { Text(stringResource(R.string.local_sync_load_preview)) }
+    }
+}
+
+@Composable
+private fun PeerRow(
+    peer: PairedPeer,
+    canReceive: Boolean,
+    onReceive: () -> Unit,
+    onForget: (String) -> Unit,
+    onConfirm: (String) -> Unit,
+) {
+    val status = when {
+        peer.needsRepair -> R.string.local_sync_peer_needs_repair
+        peer.status == PairingStatus.CONFIRMED -> R.string.local_sync_peer_confirmed
+        else -> R.string.local_sync_peer_unconfirmed
+    }
+    Card(modifier = Modifier.fillMaxWidth().testTag(SYNC_PEER_ROW_TAG + peer.peerId), colors = CardDefaults.cardColors()) {
+        Column(modifier = Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            Text(peer.label, style = MaterialTheme.typography.titleSmall)
+            Text(stringResource(status), style = MaterialTheme.typography.bodySmall)
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                Button(
+                    onClick = onReceive,
+                    enabled = canReceive,
+                    modifier = Modifier.weight(1f).height(MIN_TOUCH_TARGET).testTag(SYNC_PEER_RECEIVE_TAG + peer.peerId),
+                ) { Text(stringResource(R.string.local_sync_receive)) }
+                if (peer.status == PairingStatus.UNCONFIRMED && !peer.needsRepair) {
+                    OutlinedButton(
+                        onClick = { onConfirm(peer.peerId) },
+                        modifier = Modifier.weight(1f).height(MIN_TOUCH_TARGET).testTag(SYNC_PEER_CONFIRM_TAG + peer.peerId),
+                    ) { Text(stringResource(R.string.local_sync_confirm_peer)) }
+                }
+                OutlinedButton(
+                    onClick = { onForget(peer.peerId) },
+                    modifier = Modifier.weight(1f).height(MIN_TOUCH_TARGET).testTag(SYNC_PEER_FORGET_TAG + peer.peerId),
+                ) { Text(stringResource(R.string.local_sync_forget_peer)) }
+            }
+        }
     }
 }
 
