@@ -19,15 +19,20 @@ class PeerDiscovery(private val platform: NsdPlatform) {
     private val _peers = MutableStateFlow<List<DiscoveredPeer>>(emptyList())
     val peers: StateFlow<List<DiscoveredPeer>> = _peers.asStateFlow()
     private var advertising = false
+    private var advertiseSession = 0
     private var discovering = false
 
     /** The service name is random per session so it cannot be used to follow a device from one session to the next. */
     fun advertise(port: Int, nonce: ByteArray): Boolean = synchronized(lock) {
         if (advertising) return@synchronized false
-        var accepted = false
-        platform.register(randomServiceName(), port, NsdTxtCodec.encode(nonce)) { accepted = it }
-        advertising = accepted
-        accepted
+        val session = ++advertiseSession
+        // NsdManager reports the outcome later on its own thread, so the session counts as advertising from the
+        // request on; a failure that arrives for the current session clears it, one from an older session is ignored.
+        advertising = true
+        platform.register(randomServiceName(), port, NsdTxtCodec.encode(nonce)) { ok ->
+            synchronized(lock) { if (!ok && session == advertiseSession) advertising = false }
+        }
+        advertising
     }
 
     fun startDiscovery() = synchronized(lock) {
@@ -41,6 +46,7 @@ class PeerDiscovery(private val platform: NsdPlatform) {
     }
 
     fun stop() = synchronized(lock) {
+        advertiseSession++
         if (advertising) { platform.unregister(); advertising = false }
         if (discovering) { platform.stopDiscovery(); discovering = false }
         _peers.value = emptyList()

@@ -10,6 +10,9 @@ import org.junit.Test
 private class FakeNsd : NsdPlatform {
     var registered: Triple<String, Int, Map<String, ByteArray>>? = null
     var registerResult = true
+    /** When true the result is delivered later through [deliverRegisterResult], like the real NsdManager does. */
+    var deferRegisterResult = false
+    private val pendingResults = mutableListOf<(Boolean) -> Unit>()
     var unregisterCalls = 0
     var discoverCalls = 0
     var stopDiscoveryCalls = 0
@@ -18,7 +21,7 @@ private class FakeNsd : NsdPlatform {
 
     override fun register(serviceName: String, port: Int, attributes: Map<String, ByteArray>, onResult: (Boolean) -> Unit) {
         registered = Triple(serviceName, port, attributes)
-        onResult(registerResult)
+        if (deferRegisterResult) pendingResults += onResult else onResult(registerResult)
     }
 
     override fun unregister() { unregisterCalls++; registered = null }
@@ -35,6 +38,7 @@ private class FakeNsd : NsdPlatform {
 
     fun found(name: String, host: String?, port: Int, attrs: Map<String, ByteArray?>) = onFound?.invoke(name, host, port, attrs)
     fun lost(name: String) = onLost?.invoke(name)
+    fun deliverRegisterResult(index: Int, ok: Boolean) = pendingResults[index](ok)
 }
 
 class PeerDiscoveryTest {
@@ -59,6 +63,35 @@ class PeerDiscoveryTest {
             assertTrue(name, name.startsWith("rsscathub-"))
             assertFalse(name, name.lowercase().let { "token" in it || "secret" in it || "phone" in it || "pixel" in it || "samsung" in it })
         }
+    }
+
+    @Test fun advertiseDoesNotWaitForTheAsynchronousRegistrationResult() {
+        nsd.deferRegisterResult = true
+        assertTrue(discovery.advertise(1, nonce))
+    }
+
+    @Test fun stopUnregistersAServiceWhoseResultHasNotArrivedYet() {
+        nsd.deferRegisterResult = true
+        discovery.advertise(1, nonce)
+        discovery.stop()
+        assertEquals(1, nsd.unregisterCalls)
+    }
+
+    @Test fun aLateRegistrationFailureAllowsAdvertisingAgain() {
+        nsd.deferRegisterResult = true
+        discovery.advertise(1, nonce)
+        nsd.deliverRegisterResult(0, false)
+        assertTrue(discovery.advertise(2, nonce))
+        assertEquals(2, nsd.registered!!.second)
+    }
+
+    @Test fun aLateFailureFromAnOldSessionDoesNotAffectTheNewOne() {
+        nsd.deferRegisterResult = true
+        discovery.advertise(1, nonce)
+        discovery.stop()
+        discovery.advertise(2, nonce)
+        nsd.deliverRegisterResult(0, false)
+        assertFalse(discovery.advertise(3, nonce))
     }
 
     @Test fun advertiseReportsFailureWhenThePlatformRefuses() {

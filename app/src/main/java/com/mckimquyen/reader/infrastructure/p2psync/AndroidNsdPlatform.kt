@@ -49,7 +49,11 @@ class AndroidNsdPlatform @Inject constructor(
                     synchronized(lock) { if (registration === this) registration = null }
                     onResult(false)
                 }
-                override fun onServiceRegistered(serviceInfo: NsdServiceInfo) = onResult(true)
+                override fun onServiceRegistered(serviceInfo: NsdServiceInfo) {
+                    // unregister() may have run before the registration finished; do not leave that service published.
+                    val stale = synchronized(lock) { registration !== this }
+                    if (stale) runCatching { nsd.unregisterService(this) } else onResult(true)
+                }
                 override fun onServiceUnregistered(serviceInfo: NsdServiceInfo) {
                     synchronized(lock) { if (registration === this) registration = null }
                 }
