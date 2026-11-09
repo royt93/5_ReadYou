@@ -69,6 +69,8 @@ class ReadNewsManifestTest {
             setOf(
                 "android.permission.INTERNET",
                 "android.permission.ACCESS_NETWORK_STATE",
+                // EXC-05b: Android 17 needs this for LAN sync and Second Screen; owner approved in the EXC-05b spec.
+                "android.permission.ACCESS_LOCAL_NETWORK",
                 "android.permission.POST_NOTIFICATIONS",
                 "android.permission.WAKE_LOCK",
                 "android.permission.FOREGROUND_SERVICE",
