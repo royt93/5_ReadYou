@@ -48,7 +48,11 @@ class PairingNsdDeviceTest {
         discovery.startDiscovery()
         assertTrue("advertise must report success", discovery.advertise(socket.localPort, nonce))
         val found = waitFor(DISCOVER_TIMEOUT_MILLIS) { discovery.peers.value.any { it.port == socket.localPort } }
-        assertTrue("service was not discovered; peers=${discovery.peers.value.map { it.serviceName }}", found)
+        assertTrue(
+            "service was not discovered; expected port=${socket.localPort}; " +
+                "peers=${discovery.peers.value.map { "${it.serviceName}@${it.host}:${it.port}" }}",
+            found,
+        )
         val peer = discovery.peers.value.first { it.port == socket.localPort }
         assertArrayEquals(nonce, peer.nonce)
         assertTrue("host ${peer.host} must be private IPv4", LanAddress.isPrivateIpv4(peer.host))

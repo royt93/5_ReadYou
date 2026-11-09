@@ -178,6 +178,9 @@ class AndroidNsdPlatform @Inject constructor(
     }
 
     private fun stopResolving(nsd: NsdManager, name: String) {
+        // NsdManager.ServiceInfoCallback does not exist below API 34; merely touching it there throws
+        // ClassNotFoundException and takes the process down (seen on an Android 11 device).
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.UPSIDE_DOWN_CAKE) return
         val callback = synchronized(lock) { infoCallbacks.remove(name) }
         callback?.let { runCatching { nsd.unregisterServiceInfoCallback(it) } }
     }
@@ -192,7 +195,9 @@ class AndroidNsdPlatform @Inject constructor(
             }
         }
         taken.first?.let { runCatching { nsd.stopServiceDiscovery(it) } }
-        taken.second.forEach { runCatching { nsd.unregisterServiceInfoCallback(it) } }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            taken.second.forEach { runCatching { nsd.unregisterServiceInfoCallback(it) } }
+        }
         @Suppress("DEPRECATION")
         taken.third.forEach { runCatching { nsd.stopServiceResolution(it) } }
     }
