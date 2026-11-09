@@ -173,7 +173,7 @@ class LocalSyncPairingViewModelTest {
         assertEquals(setOf("v", "n"), attrs.keys)
         val sending = vm.state.value as LocalSyncUiState.Sending
         val text = attrs.values.joinToString("") { String(it, Charsets.ISO_8859_1) }
-        assertFalse(text.contains(sending.secretHex))
+        assertFalse(text.contains(requireNotNull(sending.secretHex)))
         assertFalse(text.contains(engine.lastToken!!))
     }
 
@@ -304,6 +304,102 @@ class LocalSyncPairingViewModelTest {
         assertEquals(LocalSyncError.PACKAGE, error(vm))
         assertEquals(PairingStatus.UNCONFIRMED, store.list().single().status)
         coVerify(exactly = 0) { repository.apply(any(), any()) }
+    }
+
+    // ---- serving again to an already paired device ----
+
+    private val pairedSecret = PairingSecret.fromHex("00112233445566778899aabbccddeeff")
+
+    @Test fun servingAPairedDeviceReusesItsStoredSecretAndAddsNoEntry() = runTest(dispatcher) {
+        val peer = store.add("Tablet", pairedSecret, PairingStatus.CONFIRMED)
+        val vm = vm()
+        vm.servePaired(ACCOUNT, peer.peerId); runCurrent()
+        assertTrue(vm.state.value is LocalSyncUiState.Sending)
+        assertEquals(listOf(peer), store.list())
+        val nonce = NsdTxtCodec.decode(nsd.registered!!.third.mapValues { it.value })!!
+        assertEquals(SessionTokenDerivation.derive(pairedSecret, nonce), engine.lastToken)
+        assertEquals(1, engine.tokenCalls)
+    }
+
+    @Test fun theServedEnvelopeOpensWithTheStoredSecretOfTheChosenDevice() = runTest(dispatcher) {
+        val peer = store.add("Tablet", pairedSecret, PairingStatus.CONFIRMED)
+        store.add("Other", PairingSecret.generate(), PairingStatus.CONFIRMED)
+        val vm = vm()
+        vm.servePaired(ACCOUNT, peer.peerId); runCurrent()
+        val plain = SyncEnvelopeCrypto.decrypt(engine.lastCiphertext!!, pairedSecret)
+        assertTrue(plain.isNotEmpty())
+    }
+
+    @Test fun servingAgainNeverShowsTheSecretOnScreen() = runTest(dispatcher) {
+        val peer = store.add("Tablet", pairedSecret, PairingStatus.CONFIRMED)
+        val vm = vm()
+        vm.servePaired(ACCOUNT, peer.peerId); runCurrent()
+        val sending = vm.state.value as LocalSyncUiState.Sending
+        assertNull(sending.secretHex)
+        assertEquals(peer.peerId, sending.pairedPeerId)
+    }
+
+    @Test fun servingDoesNotChangeTheStatusOfTheEntry() = runTest(dispatcher) {
+        val unconfirmed = store.add("A", pairedSecret, PairingStatus.UNCONFIRMED)
+        val vm = vm()
+        vm.servePaired(ACCOUNT, unconfirmed.peerId); runCurrent()
+        assertEquals(PairingStatus.UNCONFIRMED, store.list().single().status)
+    }
+
+    @Test fun everySessionAdvertisesAFreshNonce() = runTest(dispatcher) {
+        val peer = store.add("Tablet", pairedSecret, PairingStatus.CONFIRMED)
+        val vm = vm()
+        vm.servePaired(ACCOUNT, peer.peerId); runCurrent()
+        val first = NsdTxtCodec.decode(nsd.registered!!.third.mapValues { it.value })!!
+        vm.stopSend(); runCurrent()
+        vm.servePaired(ACCOUNT, peer.peerId); runCurrent()
+        val second = NsdTxtCodec.decode(nsd.registered!!.third.mapValues { it.value })!!
+        assertFalse(first.contentEquals(second))
+    }
+
+    @Test fun anUnknownDeviceShowsPairingBrokenAndStartsNothing() = runTest(dispatcher) {
+        val vm = vm()
+        vm.servePaired(ACCOUNT, "0".repeat(32)); runCurrent()
+        assertEquals(LocalSyncError.PAIRING_BROKEN, error(vm))
+        assertEquals(0, engine.tokenCalls)
+        assertNull(nsd.registered)
+    }
+
+    @Test fun aDeviceWhoseKeyIsLostShowsPairingBrokenAndStartsNothing() = runTest(dispatcher) {
+        val peer = store.add("Tablet", pairedSecret, PairingStatus.CONFIRMED)
+        wrapper.keyPresent = false
+        val vm = vm()
+        vm.servePaired(ACCOUNT, peer.peerId); runCurrent()
+        assertEquals(LocalSyncError.PAIRING_BROKEN, error(vm))
+        assertEquals(0, engine.tokenCalls)
+    }
+
+    @Test fun servingNeedsTheLanPermission() = runTest(dispatcher) {
+        val peer = store.add("Tablet", pairedSecret, PairingStatus.CONFIRMED)
+        lanGranted = false
+        val vm = vm()
+        vm.servePaired(ACCOUNT, peer.peerId); runCurrent()
+        assertEquals(LocalSyncError.LAN_PERMISSION, error(vm))
+        assertEquals(0, engine.tokenCalls)
+        assertNull(nsd.registered)
+    }
+
+    @Test fun forgettingTheDeviceBeingServedStopsTheSession() = runTest(dispatcher) {
+        val peer = store.add("Tablet", pairedSecret, PairingStatus.CONFIRMED)
+        val vm = vm()
+        vm.servePaired(ACCOUNT, peer.peerId); runCurrent()
+        vm.forgetPeer(peer.peerId)
+        assertEquals(LocalSyncUiState.Idle, vm.state.value)
+        assertTrue(engine.stops >= 1)
+        assertEquals(emptyList<Any>(), store.list())
+    }
+
+    @Test fun stoppingAServedSessionStopsAdvertisingToo() = runTest(dispatcher) {
+        val peer = store.add("Tablet", pairedSecret, PairingStatus.CONFIRMED)
+        val vm = vm()
+        vm.servePaired(ACCOUNT, peer.peerId); runCurrent()
+        vm.stopSend()
+        assertEquals(1, nsd.unregisters)
     }
 
     // ---- first pairing on the receiving phone ----

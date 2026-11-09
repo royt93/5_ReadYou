@@ -232,16 +232,53 @@ class LocalSyncViewModel @Inject constructor(
 
     /** Pair a new device: store its secret as UNCONFIRMED, serve a package under a token derived from it, advertise. */
     fun startPairedSend(localAccountId: Int, label: String) {
-        if (_state.value !is LocalSyncUiState.Idle && _state.value !is LocalSyncUiState.Error &&
-            _state.value !is LocalSyncUiState.Done) return
-        if (!lanGate.granted()) {
-            _state.value = LocalSyncUiState.Error(LocalSyncError.LAN_PERMISSION)
-            return
-        }
+        if (!canStartSession()) return
         if (!PairingStore.isValidLabel(label)) {
             _state.value = LocalSyncUiState.Error(LocalSyncError.PAIRING_LABEL)
             return
         }
+        startPairedSession(localAccountId, showSecret = true) {
+            val secret = PairingSecret.generate()
+            try {
+                withContext(ioDispatcher) { pairingStore.add(label, secret, PairingStatus.UNCONFIRMED) }.peerId to secret
+            } catch (e: CancellationException) {
+                throw e
+            } catch (_: IllegalArgumentException) {
+                _state.value = LocalSyncUiState.Error(LocalSyncError.PAIRING_LIMIT)
+                null
+            } catch (_: Exception) {
+                _state.value = LocalSyncUiState.Error(LocalSyncError.PAIRING_BROKEN)
+                null
+            }
+        }
+    }
+
+    /** Serve to a device that is already paired: reuse its stored secret, show no secret, change no entry. */
+    fun servePaired(localAccountId: Int, peerId: String) {
+        if (!canStartSession()) return
+        startPairedSession(localAccountId, showSecret = false) {
+            val secret = withContext(ioDispatcher) { pairingStore.secretOf(peerId) }
+            if (secret == null) {
+                _state.value = LocalSyncUiState.Error(LocalSyncError.PAIRING_BROKEN)
+                null
+            } else {
+                peerId to secret
+            }
+        }
+    }
+
+    private fun canStartSession(): Boolean {
+        if (_state.value !is LocalSyncUiState.Idle && _state.value !is LocalSyncUiState.Error &&
+            _state.value !is LocalSyncUiState.Done) return false
+        if (!lanGate.granted()) {
+            _state.value = LocalSyncUiState.Error(LocalSyncError.LAN_PERMISSION)
+            return false
+        }
+        return true
+    }
+
+    /** [resolve] yields the peer id and secret to serve under, or sets an error state itself and returns null. */
+    private fun startPairedSession(localAccountId: Int, showSecret: Boolean, resolve: suspend () -> Pair<String, PairingSecret>?) {
         sendJob?.cancel()
         activeAccountId = localAccountId
         _state.value = LocalSyncUiState.Starting
@@ -259,18 +296,7 @@ class LocalSyncViewModel @Inject constructor(
                 _state.value = LocalSyncUiState.Error(LocalSyncError.NO_NETWORK)
                 return@launch
             }
-            val secret = PairingSecret.generate()
-            val peer = try {
-                withContext(ioDispatcher) { pairingStore.add(label, secret, PairingStatus.UNCONFIRMED) }
-            } catch (e: CancellationException) {
-                throw e
-            } catch (_: IllegalArgumentException) {
-                _state.value = LocalSyncUiState.Error(LocalSyncError.PAIRING_LIMIT)
-                return@launch
-            } catch (_: Exception) {
-                _state.value = LocalSyncUiState.Error(LocalSyncError.PAIRING_BROKEN)
-                return@launch
-            }
+            val (peerId, secret) = resolve() ?: return@launch
             refreshPeers()
             val nonce = SessionTokenDerivation.newNonce()
             val token = SessionTokenDerivation.derive(secret, nonce)
@@ -283,10 +309,12 @@ class LocalSyncViewModel @Inject constructor(
                     _state.value = LocalSyncUiState.Error(LocalSyncError.SERVER)
                 }
                 is MirrorStartResult.Started -> {
-                    activePeerId = peer.peerId
+                    activePeerId = peerId
                     withContext(ioDispatcher) { discovery.advertise(started.port, nonce) }
                     val url = "http://${address.hostAddress}:${started.port}/s/${started.token.value}"
-                    _state.value = LocalSyncUiState.Sending(url, secret.hex, started.token.expiresAtMillis, peer.peerId)
+                    _state.value = LocalSyncUiState.Sending(
+                        url, if (showSecret) secret.hex else null, started.token.expiresAtMillis, peerId,
+                    )
                     watchSession(address, started.token.expiresAtMillis)
                 }
             }
@@ -386,7 +414,7 @@ class LocalSyncViewModel @Inject constructor(
 
     fun sharePairingSecret(secret: String) {
         val sending = _state.value as? LocalSyncUiState.Sending ?: return
-        if (sending.secretHex == secret) _shareSecret.tryEmit(secret)
+        if (sending.secretHex != null && sending.secretHex == secret) _shareSecret.tryEmit(secret)
     }
 
     private fun watchSession(address: InetAddress, expiresAtMillis: Long) {

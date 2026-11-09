@@ -50,6 +50,7 @@ class LocalSyncPagePairingTest {
                 onPairNew = { calls += "pair:$it" },
                 onReceiveFromPeer = { id, peer -> calls += "receive:$id:${peer.host}" },
                 onForgetPeer = { calls += "forget:$it" },
+                onServePeer = { calls += "serve:$it" },
                 onConfirmPeer = { calls += "confirm:$it" },
                 onOpenSettings = { calls += "settings" },
                 onRequestLanPermission = { calls += "allow" },
@@ -84,6 +85,34 @@ class LocalSyncPagePairingTest {
         show(tabReceive = true)
         fillReceive("   ")
         compose.runOnIdle { assertEquals(listOf("load:$url:$secretHex"), calls) }
+    }
+
+    private val servedUrl = "http://192.168.1.2:5000/s/${"d".repeat(32)}"
+
+    @Test fun aServedPairedDeviceShowsNoSecretBlockAndNoSecretButtons() {
+        show(state = LocalSyncUiState.Sending(servedUrl, null, 1_000L, confirmed.peerId))
+        compose.onNodeWithTag(SYNC_STOP_SEND_TAG).performScrollTo().assertIsDisplayed()
+        compose.onAllNodesWithTag(SYNC_SECRET_VALUE_TAG).assertCountEquals(0)
+        compose.onAllNodesWithTag(SYNC_COPY_SECRET_TAG).assertCountEquals(0)
+        compose.onAllNodesWithTag(SYNC_SHARE_SECRET_TAG).assertCountEquals(0)
+        compose.onAllNodesWithTag(SYNC_SECRET_WARNING_TAG).assertCountEquals(0)
+    }
+
+    @Test fun aNewPairingStillShowsTheSecretBlock() {
+        show(state = LocalSyncUiState.Sending(servedUrl, "0123456789abcdef".repeat(2), 1_000L, unconfirmed.peerId))
+        compose.onNodeWithTag(SYNC_SECRET_VALUE_TAG).performScrollTo().assertIsDisplayed()
+    }
+
+    @Test fun sendTabOffersServeForEachUsablePairedDevice() {
+        show(peers = listOf(confirmed, broken))
+        compose.onNodeWithTag(SYNC_PEER_SERVE_TAG + confirmed.peerId).performScrollTo().performClick()
+        compose.onNodeWithTag(SYNC_PEER_SERVE_TAG + broken.peerId).performScrollTo().assertIsNotEnabled()
+        compose.runOnIdle { assertEquals(listOf("serve:${confirmed.peerId}"), calls) }
+    }
+
+    @Test fun sendTabWithoutPairedDevicesHasNoServeButtons() {
+        show()
+        compose.onAllNodesWithTag(SYNC_PEER_SERVE_TAG + confirmed.peerId).assertCountEquals(0)
     }
 
     @Test fun pairNewSendsTheTypedLabel() {

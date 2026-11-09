@@ -9,7 +9,8 @@ sealed interface LocalSyncUiState {
     data object Starting : LocalSyncUiState
     data class Sending(
         val url: String,
-        val secretHex: String,
+        /** null when serving an already paired device: its secret stays in the store and is never shown. */
+        val secretHex: String?,
         val expiresAtMillis: Long,
         val pairedPeerId: String? = null,
     ) : LocalSyncUiState {

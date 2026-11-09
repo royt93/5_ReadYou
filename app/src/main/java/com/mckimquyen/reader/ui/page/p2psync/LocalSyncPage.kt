@@ -74,6 +74,7 @@ const val SYNC_PEER_ROW_TAG = "sync_peer_row_"
 const val SYNC_PEER_FORGET_TAG = "sync_peer_forget_"
 const val SYNC_PEER_CONFIRM_TAG = "sync_peer_confirm_"
 const val SYNC_PEER_RECEIVE_TAG = "sync_peer_receive_"
+const val SYNC_PEER_SERVE_TAG = "sync_peer_serve_"
 const val SYNC_ALLOW_LAN_TAG = "sync_allow_lan"
 const val SYNC_OPEN_SETTINGS_TAG = "sync_open_settings"
 
@@ -100,6 +101,7 @@ fun LocalSyncPage(
     onOpenSettings: () -> Unit = {},
     onRequestLanPermission: () -> Unit = {},
     onLoadPreviewAndPair: (String, String, String) -> Unit = { _, _, _ -> },
+    onServePeer: (String) -> Unit = {},
 ) {
     var tab by remember { mutableIntStateOf(SEND_TAB) }
     var url by remember { mutableStateOf("") }
@@ -157,7 +159,7 @@ fun LocalSyncPage(
                         onConfirmApply = { confirmApply = false; onApply() },
                         onDismissConfirmation = { confirmApply = false },
                     )
-                    tab == SEND_TAB -> SendIdle(state, isLocal, busy, onStartSend, onStopSend, pairLabel, { pairLabel = it }, onPairNew)
+                    tab == SEND_TAB -> SendIdle(state, isLocal, busy, onStartSend, onStopSend, pairLabel, { pairLabel = it }, onPairNew, pairedPeers, onServePeer)
                     else -> ReceiveEntry(
                         state, isLocal, canReceive, url, { url = it }, secret, { secret = it },
                         receiveLabel = receiveLabel,
@@ -208,6 +210,8 @@ private fun SendIdle(
     pairLabel: String,
     onPairLabelChange: (String) -> Unit,
     onPairNew: (String) -> Unit,
+    pairedPeers: List<PairedPeer>,
+    onServePeer: (String) -> Unit,
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
         Text(stringResource(R.string.local_sync_send_instructions), style = MaterialTheme.typography.bodyLarge)
@@ -217,6 +221,13 @@ private fun SendIdle(
             enabled = isLocal && !busy,
             modifier = Modifier.fillMaxWidth().height(MIN_TOUCH_TARGET).testTag(SYNC_SEND_START_TAG),
         ) { Text(stringResource(R.string.local_sync_start)) }
+        pairedPeers.forEach { peer ->
+            OutlinedButton(
+                onClick = { onServePeer(peer.peerId) },
+                enabled = isLocal && !busy && !peer.needsRepair,
+                modifier = Modifier.fillMaxWidth().height(MIN_TOUCH_TARGET).testTag(SYNC_PEER_SERVE_TAG + peer.peerId),
+            ) { Text(stringResource(R.string.local_sync_serve_peer, peer.label)) }
+        }
         OutlinedTextField(
             value = pairLabel,
             onValueChange = onPairLabelChange,
@@ -259,15 +270,18 @@ private fun SendSession(
                 Text(stringResource(R.string.local_sync_share_url))
             }
         }
-        Text(stringResource(R.string.local_sync_pairing_secret), style = MaterialTheme.typography.titleMedium)
-        Text(state.secretHex, modifier = Modifier.testTag(SYNC_SECRET_VALUE_TAG), style = MaterialTheme.typography.bodyLarge)
-        Text(stringResource(R.string.local_sync_secret_warning), modifier = Modifier.testTag(SYNC_SECRET_WARNING_TAG), color = MaterialTheme.colorScheme.error)
-        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            OutlinedButton(onClick = { onCopySecret(state.secretHex) }, modifier = Modifier.weight(1f).height(MIN_TOUCH_TARGET).testTag(SYNC_COPY_SECRET_TAG)) {
-                Text(stringResource(R.string.local_sync_copy_secret))
-            }
-            OutlinedButton(onClick = { onShareSecret(state.secretHex) }, modifier = Modifier.weight(1f).height(MIN_TOUCH_TARGET).testTag(SYNC_SHARE_SECRET_TAG)) {
-                Text(stringResource(R.string.local_sync_share_secret))
+        val secretHex = state.secretHex
+        if (secretHex != null) {
+            Text(stringResource(R.string.local_sync_pairing_secret), style = MaterialTheme.typography.titleMedium)
+            Text(secretHex, modifier = Modifier.testTag(SYNC_SECRET_VALUE_TAG), style = MaterialTheme.typography.bodyLarge)
+            Text(stringResource(R.string.local_sync_secret_warning), modifier = Modifier.testTag(SYNC_SECRET_WARNING_TAG), color = MaterialTheme.colorScheme.error)
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                OutlinedButton(onClick = { onCopySecret(secretHex) }, modifier = Modifier.weight(1f).height(MIN_TOUCH_TARGET).testTag(SYNC_COPY_SECRET_TAG)) {
+                    Text(stringResource(R.string.local_sync_copy_secret))
+                }
+                OutlinedButton(onClick = { onShareSecret(secretHex) }, modifier = Modifier.weight(1f).height(MIN_TOUCH_TARGET).testTag(SYNC_SHARE_SECRET_TAG)) {
+                    Text(stringResource(R.string.local_sync_share_secret))
+                }
             }
         }
         Button(onClick = onStop, modifier = Modifier.fillMaxWidth().height(MIN_TOUCH_TARGET).testTag(SYNC_STOP_SEND_TAG)) {

@@ -136,9 +136,10 @@ class LocalSyncViewModelTest {
         assertEquals(0, engine.startCalls)
         runCurrent()
         val sending = vm.state.value as LocalSyncUiState.Sending
+        val secretHex = requireNotNull(sending.secretHex) { "manual send always shows its secret" }
         assertEquals("http://192.168.1.20:8080/s/" + "a".repeat(32), sending.url)
-        assertEquals(32, sending.secretHex.length)
-        assertFalse(sending.url.contains(sending.secretHex))
+        assertEquals(32, secretHex.length)
+        assertFalse(sending.url.contains(secretHex))
         assertEquals(LONG_LIVED, sending.expiresAtMillis)
     }
 
@@ -146,9 +147,10 @@ class LocalSyncViewModelTest {
         val vm = vm()
         vm.startSend(LOCAL_ACCOUNT); runCurrent()
         val sending = vm.state.value as LocalSyncUiState.Sending
+        val secretHex = requireNotNull(sending.secretHex) { "manual send always shows its secret" }
         val served = engine.lastCiphertext!!
         assertFalse(String(served, Charsets.ISO_8859_1).contains("a.test"))
-        val plain = SyncEnvelopeCrypto.decrypt(served, PairingSecret.fromHex(sending.secretHex))
+        val plain = SyncEnvelopeCrypto.decrypt(served, PairingSecret.fromHex(secretHex))
         assertEquals(outgoing, (SyncPackageCodec.decodeAndValidate(plain) as SyncPackageResult.Valid).data)
         assertTrue(runCatching { SyncEnvelopeCrypto.decrypt(served, secret) }.isFailure)
     }
@@ -157,7 +159,7 @@ class LocalSyncViewModelTest {
         val vm = vm()
         vm.startSend(LOCAL_ACCOUNT); runCurrent()
         val sending = vm.state.value as LocalSyncUiState.Sending
-        assertFalse(sending.toString().contains(sending.secretHex))
+        assertFalse(sending.toString().contains(requireNotNull(sending.secretHex)))
     }
 
     @Test fun noLanAddressMeansNoNetworkAndNothingIsOpened() = runTest(dispatcher) {

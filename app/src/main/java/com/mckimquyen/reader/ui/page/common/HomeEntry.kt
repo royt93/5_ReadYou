@@ -431,6 +431,7 @@ fun HomeEntry(
                         syncViewModel.receiveFromPaired(context.currentAccountId, peerId, peer.host, peer.port, peer.nonce)
                     },
                     onForgetPeer = syncViewModel::forgetPeer,
+                    onServePeer = { peerId -> syncViewModel.servePaired(context.currentAccountId, peerId) },
                     onConfirmPeer = syncViewModel::confirmPeer,
                     onOpenSettings = {
                         context.startActivity(

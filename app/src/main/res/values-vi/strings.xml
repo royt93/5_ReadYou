@@ -1089,6 +1089,7 @@
     <string name="local_sync_pair_new">Ghép đôi thiết bị mới</string>
     <string name="local_sync_pair_label_hint">Tên cho thiết bị mới</string>
     <string name="local_sync_remember_label_hint">Tên để nhớ thiết bị này (không bắt buộc)</string>
+    <string name="local_sync_serve_peer">Gửi tới %1$s</string>
     <string name="local_sync_peer_unconfirmed">Chờ thiết bị kia nhận một lần</string>
     <string name="local_sync_peer_confirmed">Đã ghép đôi</string>
     <string name="local_sync_peer_needs_repair">Không dùng được trên máy này. Hãy xóa và ghép đôi lại.</string>
