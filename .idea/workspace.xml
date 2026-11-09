@@ -16,9 +16,12 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6f28f826-4208-4800-b7bf-3c32f11fba88" name="Changes" comment="feat(rss): add RSS description parser and update Fever sync integration&#10;&#10;- Add `RssDescriptionParser` to cleanly extract and parse article descriptions from RSS feeds&#10;- Update `RssHelper` and `FeverRssSv` to integrate description parsing during feed and article syncing&#10;- Add new unit, integration, and UI tests: `RssDescriptionParserTest`, `RssHelperDescriptionTest`, `RssDescriptionPersistenceIntegrationTest`, and `ArticleItemTest`&#10;&#10;Co-Authored-By: Claude Code &lt;noreply@anthropic.com&gt;">
+    <list default="true" id="6f28f826-4208-4800-b7bf-3c32f11fba88" name="Changes" comment="feat(database): update migration tests for version 20 and improve assertions">
       <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetSelector.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deploymentTargetSelector.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/androidTest/java/com/mckimquyen/reader/infrastructure/p2psync/PairingNsdDeviceTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/androidTest/java/com/mckimquyen/reader/infrastructure/p2psync/PairingNsdDeviceTest.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,6 +54,7 @@
       <entry key="_/Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260103ReadYou" value="33KUbG1RmLnWOWhazByAOFjBEnu" />
       <entry key="_/Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260403_ReadYou" value="3EihObFi4WAUWyXfxiJGUu8wzG6" />
       <entry key="_/Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260606_ReadYou" value="3FQvAAhbbSTxhcnXApAYaZDa5tp" />
+      <entry key="_/Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou" value="3LRWs1pk5nVXQnQFKBQP0aL13Yt" />
     </persistenceIdMap>
   </component>
   <component name="CopilotUserSelectedModel">
@@ -60,7 +64,7 @@
       <entry key="edit-panel" value="GPT-5 mini" />
     </selectedModels>
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[PhysicalDevice::serial=2B051FDH3006MU]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[PhysicalDevice::serial=R58MA6WYRPE]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -104,6 +108,23 @@
   <component name="ProjectId" id="33KUbG1RmLnWOWhazByAOFjBEnu" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectSessionTemplates">
+    <option name="panelTemplate">
+      <template>
+        <option name="ensembleEnabled" value="false" />
+        <option name="modeId" value="Ask" />
+        <option name="model">
+          <model>
+            <option name="modelType" value="builtin_id" />
+            <option name="modelValue" value="auto" />
+          </model>
+        </option>
+        <option name="targetType" value="BACKGROUND" />
+        <option name="worktreeMode" value="WORKSPACE" />
+      </template>
+    </option>
+    <option name="version" value="1" />
   </component>
   <component name="ProjectViewState">
     <option name="abbreviatePackageNames" value="true" />
@@ -829,8 +850,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
-    <MESSAGE value="Refactor: Disable default WorkManager initialization and update IDE device configurations&#10;&#10;This commit modifies the application's startup behavior by removing the default WorkManager initializer and updates the local development environment with new device streaming profiles.&#10;&#10;- **`AndroidManifest.xml`**:&#10;    - Explicitly removed `androidx.work.WorkManagerInitializer` from the `androidx.startup.InitializationProvider`. This allows for manual or custom initialization of `WorkManager`, preventing it from starting automatically on app launch.&#10;&#10;- **`.idea/caches/deviceStreaming.xml`**:&#10;    - Added persistent selection data for several new physical devices to the IDE cache, including:&#10;        - Samsung Galaxy A53 5G (API 36)&#10;        - Motorola moto e20 (API 30)&#10;        - HONOR Magic V5 (API 36)&#10;&#10;- **`.idea/workspace.xml`**:&#10;    - Updated internal IDE state, including task history, change list tracking, and component properties to reflect the removal of lifecycle-related experimental code and the current project configuration." />
-    <MESSAGE value="Build: Bump version to 2026.06.05 and update project configuration&#10;&#10;This commit increments the application version and updates internal IDE configuration files, including module definitions and run configuration settings.&#10;&#10;- **`app/build.gradle`**:&#10;    - Updated `versionCode` to `20260605` and `versionName` to `2026.06.05`.&#10;&#10;- **`.idea/modules.xml`**:&#10;    - Added a new module entry for `260403_ReadYou.iml`.&#10;&#10;- **`.idea/workspace.xml`**:&#10;    - Updated the `ExportBundle` path to reflect the current project directory structure.&#10;    - Cleaned up Android App run configurations by removing unused or deprecated properties, including `SELECTED_CLOUD_MATRIX_CONFIGURATION_ID`, `SELECTED_CLOUD_MATRIX_PROJECT_ID`, and `DEBUG_SANDBOX_SDK`.&#10;    - Updated internal IDE state, including task history and change list tracking." />
     <MESSAGE value="Docs: Add CLAUDE.md project guide for AI assistance and onboarding&#10;&#10;This commit introduces a comprehensive `CLAUDE.md` file to provide technical context and development guidelines for AI assistants and new contributors. The document outlines the project's architecture, build system, and core implementation patterns.&#10;&#10;- **`CLAUDE.md`**:&#10;    - Added detailed project overview and build instructions, including flavor dimensions (`dev`/`prod`), toolchain requirements (Java 17, AGP 8.6.1, KAPT), and Gradle commands.&#10;    - Defined the three-tier architecture (domain, infrastructure, UI) and the purpose of each layer.&#10;    - Documented critical implementation patterns, such as:&#10;        - **RSS Backend Abstraction**: Using `RssSv` as a dispatcher and `AbstractRssRepository` for backend implementation.&#10;        - **Application Startup**: Manual WorkManager initialization and Hilt worker factory setup in `RApp`.&#10;        - **Locale Handling**: The specific synchronization pattern between DataStore and SharedPreferences required for context attachment.&#10;        - **Settings Management**: DataStore-backed preferences exposed via Compose `CompositionLocal`.&#10;        - **Ad Integration**: Configuration of the `AdmobWrapper` SDK and its relationship to the &quot;True Black&quot; theme unlocking logic." />
     <MESSAGE value="Refactor: Implement obfuscated Gemini key rotation and remove user-managed keys&#10;&#10;This commit transitions the AI summary feature from user-provided API keys to a centralized, obfuscated rotation system. It also improves DataStore safety and updates the reading UI with localized resources.&#10;&#10;- **`GeminiSummaryService.kt` &amp; `GeminiConfig.kt`**:&#10;    - Introduced `GeminiConfig` to store multiple API keys obfuscated with XOR and Base64 to prevent plain-text extraction from the APK.&#10;    - Updated `GeminiSummaryService` to implement a failover mechanism that automatically rotates through the list of embedded keys if one encounters rate limits (429) or server errors.&#10;    - Updated the summary model to `gemini-2.5-flash`.&#10;    - Integrated logic to fetch the current app locale to ensure Gemini responses match the user's selected language.&#10;&#10;- **API Key Management Cleanup**:&#10;    - **`ReadingViewModel.kt`**: Removed `SummaryState.NeedApiKey` and the logic for saving user-provided keys.&#10;    - **`GeminiApiKeyPref.kt` &amp; `ExtDataStore.kt`**: Deleted the `GeminiApiKey` preference and corresponding DataStore logic as user-managed keys are no longer supported.&#10;    - **`app/build.gradle`**: Removed the `GEMINI_API_KEY` field from `BuildConfig`.&#10;&#10;- **UI &amp; UX Improvements**:&#10;    - **`ReadingPage.kt` &amp; `TopBar.kt`**: The AI summary action (✨) is now conditionally visible based on whether keys are configured in `GeminiConfig`.&#10;    - **`SummarySheet.kt`**: Removed the API key input UI and &quot;Retry&quot; button in the success state to streamline the experience. Added a close button to the header.&#10;    - **`strings.xml`**: Added and localized the `read_aloud` string across multiple languages (German, Chinese, Japanese, Vietnamese, French).&#10;&#10;- **Infrastructure**:&#10;    - **`ExtDataStore.kt`**: Updated `currentAccountId` and `currentAccountType` to provide safe default values (Local account, ID 1) instead of using force-unwrapping, preventing potential crashes during initial launches.&#10;    - **`.claude/settings.local.json`**: Updated local IDE environment settings with new allowed bash commands." />
     <MESSAGE value="Docs: Add prompt template for `_AdmobWrapper` migration&#10;&#10;This commit introduces a comprehensive prompt template designed to guide AI assistants through the migration of an Android application's advertisement system to the `_AdmobWrapper` library. The template ensures consistency across projects by defining strict implementation rules, UI standards, and lifecycle management.&#10;&#10;- **`doc/AD_PROMPT_AOS.MD`**:&#10;    - Created a structured 12-step migration guide covering environment setup, API auditing, and implementation planning.&#10;    - Defined mandatory requirements for a VIP management system, including UI specifications (Material 3), memory leak prevention rules, and Base64-based key obfuscation.&#10;    - Established technical standards for ad placement (App Open, Banner, Interstitial, Rewarded) and Consent (UMP) integration.&#10;    - Included specific logic for a &quot;first-install grace period&quot; and detailed progress bar calculations for VIP status tracking.&#10;    - Provided standardized string resources and navigation entry point patterns for consistent UX across different applications." />
@@ -854,7 +873,9 @@
     <MESSAGE value="docs: condense developer guidelines and architecture notes in CLAUDE.md&#10;&#10;- Simplify the project description, architecture layout, and toolchain constraint explanations for better readability&#10;- Condense the &quot;Build and test&quot; section by grouping essential Gradle commands and variant details&#10;- Consolidate RSS backend abstraction, locale handling, and ad configuration notes into a shorter format&#10;- Add .idea/modules.xml to restore IntelliJ/Android Studio project module configuration&#10;- Update .idea/workspace.xml with recent local task history and IDE state" />
     <MESSAGE value="chore(ide): update workspace and device streaming configurations&#10;&#10;- Remove obsolete `.idea/modules.xml` project configuration&#10;- Add device streaming profiles for OnePlus Nord CE 2 Lite, moto g24, and HONOR Magic V5&#10;- Update API levels and remove obsolete entries in device streaming cache&#10;- Refresh deployment target selector and workspace task history" />
     <MESSAGE value="chore(ide): update workspace configuration and change list history&#10;&#10;- Update `ChangeListManager` and task history in `.idea/workspace.xml` to reflect recent file modifications" />
-    <option name="LAST_COMMIT_MESSAGE" value="chore(ide): update workspace configuration and change list history&#10;&#10;- Update `ChangeListManager` and task history in `.idea/workspace.xml` to reflect recent file modifications" />
+    <MESSAGE value="feat(ui): add device manager configuration and new layout options" />
+    <MESSAGE value="feat(database): update migration tests for version 20 and improve assertions" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(database): update migration tests for version 20 and improve assertions" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>
