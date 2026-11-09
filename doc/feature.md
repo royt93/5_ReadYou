@@ -6,6 +6,7 @@
 
 ## 🟡 In progress
 
+- **EXC-05b — Ghép đôi một lần + NSD (lát của EXC-05)** — đang thực thi inline theo spec và plan đã duyệt (commits `a8474071`, `11c47b5a`). Ghép đôi bằng secret 128-bit nhập một lần, khoá bọc Android Keystore ở tệp riêng loại khỏi backup, token phiên dẫn xuất HMAC-SHA256, quảng bá/tìm máy qua NSD `_rsscathub._tcp`, và sửa quyền `ACCESS_LOCAL_NETWORK` (Android 17 đang chặn LAN của app target SDK 37). Task 1 phải đo xác nhận giả thuyết quyền LAN trên Pixel trước. **Không** hoàn tất EXC-05 gốc: chưa tự động, chưa hai chiều, chưa hai Android thật. Hiện tại: Task 1.
 - **EXC-05a (partial; EXC-05 remains in progress)** — Đồng bộ thủ công một chiều, mã hóa đầu-cuối qua LAN; preview rồi xác nhận Apply, chỉ Local, giữ Room v20. BG6 instrumentation 4/4 pass; Mac chỉ kiểm truyền ciphertext (không có AES-GCM trên Mac, không giải mã/apply); Stop server đã smoke thật. **Chưa đạt EXC-05 gốc:** chưa NSD, hai Android, tự động/2 chiều; smoke expiry trên thiết bị thật không kết luận được do HiOS freezer. Báo cáo: [`EXC-05a_manual-lan-sync_DONE.md`](doc/task/done/EXC-05a_manual-lan-sync_DONE.md). Todo gốc vẫn mở: [`EXC-05_local-p2p-sync.md`](doc/task/todo/EXC-05_local-p2p-sync.md).
 
 ## ✅ Recently implemented
