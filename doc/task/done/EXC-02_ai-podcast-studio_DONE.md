@@ -1,6 +1,6 @@
 # EXC-02 — AI Podcast Studio, bản một bài (DONE)
 
-**Audit score: 8/10.** Podcast Studio chạy trên Pixel 7 Pro thật với kịch bản **ngoại tuyến**. Đường Gemini mới được kiểm bằng unit test với gateway giả, **chưa chạy thật trên máy**. Phạm vi thu hẹp so với todo gốc (xem Giới hạn).
+**Audit score: 7/10.** Podcast Studio chạy trên Pixel 7 Pro thật với kịch bản **ngoại tuyến**. Đường Gemini đã được chạy thật **một lần** và lần đó **thất bại**: Gemini trả lời nhưng JSON hỏng nên app tự rơi về kịch bản ngoại tuyến. Bản sửa (JSON mode) đã có test và đã commit nhưng **chưa được xác nhận lại trên thiết bị**. Phạm vi cũng thu hẹp so với todo gốc (xem Giới hạn).
 
 ## Hành vi
 
@@ -32,11 +32,18 @@
 - Smoke trên Pixel 7 Pro (kho BBC 214 bài): mở bài › ⋮ › Podcast Studio › hộp thoại consent (tiếng Việt) › chọn "Dùng kịch bản ngoại tuyến" › sheet hiện đúng bốn lượt thoại, nhãn "Hai giọng riêng của thiết bị • Kịch bản ngoại tuyến", sóng âm, điều khiển; media session `PLAYING`. Nhấn tạm dừng: media session `PAUSED`, hai ảnh chụp cách nhau một giây **giống hệt**. Đóng sheet: vẫn `PAUSED`.
 - Room và DataStore của Pixel được sao lưu trước, khôi phục sau và `cmp` khớp 100% cả 4 file; `PRAGMA integrity_check` là `ok`, 214 bài còn nguyên. Smoke đã đổi DataStore từ 20 lên 127 byte (lưu lựa chọn consent) và đã được khôi phục.
 
+## Smoke Gemini thật và lỗi phát hiện
+
+- Trên Pixel 7 Pro, chọn "Đồng ý dùng AI" cho bài BBC "Hospital admits full responsibility…". Gemini **có trả lời** (kịch bản tiếng Việt 6 lượt), nhưng một dòng thoại chứa dấu nháy kép không được escape, nên `JSONArray` ném `Unterminated object at character 80`. App bắt lỗi, rơi về kịch bản ngoại tuyến và sheet ghi "Kịch bản ngoại tuyến": đúng thiết kế (không sập, nhãn trung thực) nhưng người dùng đã đồng ý dùng AI lại không được dùng AI.
+- Nguyên nhân gốc: request không yêu cầu đầu ra JSON. Test đỏ trước (`requestAsksGeminiForJsonOutput…`: `No value for responseMimeType`), rồi thêm `responseMimeType: application/json` vào `generationConfig`; 14/14 test của service xanh. Commit `c28240c8`.
+- **Bản sửa chưa được chạy lại trên máy.** Sau khi cài bản mới, quảng cáo toàn màn hình (Flood-It!, quảng cáo thử nghiệm) liên tục chuyển hướng sang Lens Launcher và chặn luồng. Tôi dừng thay vì tiếp tục chạm. Lần chạy thật duy nhất vẫn là lần thất bại ở trên.
+- Lựa chọn consent đã lưu `true` trong DataStore Pixel trong lúc smoke, và đã được khôi phục về bản sao lưu (khớp 100%).
+
 ## Việc chưa làm / chưa kiểm chứng
 
-- **Chưa chạy đường Gemini thật** (smoke chọn kịch bản ngoại tuyến, và không có nội dung mô phỏng gửi đi). Phần này chỉ có unit test với gateway giả.
+- **Bản sửa JSON mode chưa được xác nhận trên thiết bị**: chưa biết Gemini có trả kịch bản dùng được sau sửa hay không (JSON mode giảm nhưng không loại trừ hoàn toàn đầu ra hỏng, và khi đó app vẫn rơi về kịch bản ngoại tuyến).
 - **Chưa nghe âm thanh**: kiểm bằng media session và giao diện, không có ai nghe. Chưa kiểm hành vi âm thanh RSS podcast khi hai bên phát cùng lúc (chỉ ghi nhận `CommuteAudioPlayer` xin audio focus kiểu có thể hạ âm).
-- Chưa thử nhánh hộp thoại xác nhận xung đột và nhánh "Đồng ý dùng AI" trên máy; chỉ có unit/Compose test.
+- Chưa thử nhánh hộp thoại xác nhận xung đột trên máy; chỉ có unit/Compose test.
 - Trên S24 Ultra chỉ cài và chạy instrumentation. Máy bị rút giữa chừng nên **app dev và test APK vẫn còn trên user 0 của S24U**, cần gỡ khi cắm lại. Bản sao lưu ban đầu ở `/tmp/exc02-s24-backup` (DB mới cài, không có dữ liệu người dùng).
 
 ## Giới hạn
@@ -59,5 +66,6 @@
 - `ce25a487` sheet, hộp thoại, chuỗi hỗ trợ truy cập
 - `968d3c9e` menu, nối ReadingPage và công tắc consent trong Privacy settings
 - `59f422aa` test thiết bị TTS
+- `c28240c8` yêu cầu Gemini trả JSON (sửa lỗi phát hiện khi smoke thật)
 
 Tất cả nằm local trên `dev`, chưa push.

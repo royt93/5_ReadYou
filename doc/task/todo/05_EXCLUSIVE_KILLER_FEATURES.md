@@ -9,7 +9,7 @@
 | Task | Tên | Priority | Status | Link |
 |---|---|---|---|---|
 | EXC-01 | AI Daily Smart Digest — Bản Tin Sáng Tổng Hợp Đa Nguồn Bằng AI | P1 (High) | ✅ Done | [EXC-01_ai-daily-smart-digest.md](../done/EXC-01_ai-daily-smart-digest_DONE.md) |
-| EXC-02 | AI Podcast Studio — Biến Tin Tức Thành Cuộc Trò Chuyện Audio 2 Người | P2 (Medium) | ✅ Done (một bài, không chọn nhiều bài; Gemini thật chưa smoke) | [EXC-02_ai-podcast-studio_DONE.md](../done/EXC-02_ai-podcast-studio_DONE.md) |
+| EXC-02 | AI Podcast Studio — Biến Tin Tức Thành Cuộc Trò Chuyện Audio 2 Người | P2 (Medium) | ✅ Done (một bài, không chọn nhiều bài; sửa JSON mode cho Gemini chưa xác nhận lại trên máy) | [EXC-02_ai-podcast-studio_DONE.md](../done/EXC-02_ai-podcast-studio_DONE.md) |
 | EXC-03 | Chế Độ Đọc Bionic Reading (Tăng Tốc Độ Đọc Cho Não Bộ) | P2 (Medium) | ✅ Done | [EXC-03_bionic-reading-mode.md](../done/EXC-03_bionic-reading-mode_DONE.md) |
 | EXC-04 | AI Clickbait Buster & Bộ Nhận Diện Thiên Lệch Tin Tức | P2 (Medium) | ✅ Done (local heuristic; không có tóm tắt “sự thật”) | [EXC-04_ai-clickbait-bias-buster_DONE.md](../done/EXC-04_ai-clickbait-bias-buster_DONE.md) |
 | EXC-05 | Đồng Bộ Thiết Bị P2P Nội Mạng Wi-Fi Không Cần Máy Chủ | P3 (Low) | 🟡 In progress (EXC-05a: thủ công, một chiều, mã hóa; NSD/hai Android/tự động còn thiếu) | [EXC-05_local-p2p-sync.md](EXC-05_local-p2p-sync.md) · [EXC-05a partial](../done/EXC-05a_manual-lan-sync_DONE.md) |
