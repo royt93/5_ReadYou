@@ -72,7 +72,8 @@ class PodcastStudioScriptService @Inject constructor(
             "contents",
             JSONArray().put(JSONObject().put("parts", JSONArray().put(JSONObject().put("text", prompt)))),
         )
-        put("generationConfig", JSONObject().put("temperature", TEMPERATURE))
+        // JSON mode makes Gemini escape quotes inside a line; without it a quoted headline broke the array.
+        put("generationConfig", JSONObject().put("temperature", TEMPERATURE).put("responseMimeType", JSON_MIME_TYPE))
     }.toString()
 
     private fun heuristic(article: Article, title: String, snippet: String, languageTag: String): PodcastStudioEpisode {
@@ -116,6 +117,7 @@ class PodcastStudioScriptService @Inject constructor(
         const val USE_CASE = "podcast_studio"
         const val MAX_SNIPPET_CHARS = 250
         const val TEMPERATURE = 0.7
+        const val JSON_MIME_TYPE = "application/json"
         const val DEFAULT_EPISODE_TITLE = "Podcast Studio"
     }
 }

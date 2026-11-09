@@ -172,4 +172,16 @@ class PodcastStudioScriptServiceTest {
         assertTrue(result.episode.dialogues.size >= 2)
         coVerify(exactly = 0) { gateway.execute(any(), any(), any()) }
     }
+
+    @Test fun requestAsksGeminiForJsonOutputSoUnescapedQuotesCannotBreakTheScript() = runBlocking {
+        // Real device finding (Pixel 7 Pro): Gemini put an unescaped quote inside a line, JSONArray threw
+        // "Unterminated object" and the user silently got the offline script instead of the AI one.
+        val bodySlot = slot<String>()
+        coEvery { gateway.execute(any(), capture(bodySlot), any()) } returns goodJson
+
+        service.generate(article(), useGemini = true, languageTag = "en-US")
+
+        val config = org.json.JSONObject(bodySlot.captured).getJSONObject("generationConfig")
+        assertEquals("application/json", config.getString("responseMimeType"))
+    }
 }
