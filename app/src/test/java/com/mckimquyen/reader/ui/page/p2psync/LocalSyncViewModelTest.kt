@@ -113,7 +113,7 @@ class LocalSyncViewModelTest {
 
     @After fun tearDown() = Dispatchers.resetMain()
 
-    private fun vm() = LocalSyncViewModel(repository, transport, engine, lan, dispatcher, dispatcher).also {
+    private fun vm() = LocalSyncViewModel(repository, transport, engine, lan, dispatcher, dispatcher, mockk(relaxed = true), mockk(relaxed = true)) { true }.also {
         it.clock = { 1_000L }
     }
 

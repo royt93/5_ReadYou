@@ -5,6 +5,7 @@ import android.util.Base64
 import com.mckimquyen.reader.domain.p2psync.PairedPeer
 import com.mckimquyen.reader.domain.p2psync.PairingSecret
 import com.mckimquyen.reader.domain.p2psync.PairingStatus
+import dagger.hilt.android.qualifiers.ApplicationContext
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
@@ -18,7 +19,7 @@ import javax.inject.Singleton
  */
 @Singleton
 class PairingStore @Inject constructor(
-    private val context: Context,
+    @ApplicationContext private val context: Context,
     private val wrapper: SecretWrapper,
 ) {
     internal constructor(context: Context, wrapper: SecretWrapper, clock: () -> Long) : this(context, wrapper) {
@@ -137,11 +138,8 @@ class PairingStore @Inject constructor(
     }
 
     private fun validateLabel(raw: String): String {
-        val cleaned = raw.trim()
-        require(cleaned.isNotEmpty() && cleaned.length <= MAX_LABEL_CHARS && cleaned.none { it.isISOControl() }) {
-            "Invalid paired-device label"
-        }
-        return cleaned
+        require(isValidLabel(raw)) { "Invalid paired-device label" }
+        return raw.trim()
     }
 
     private fun newPeerId(entries: JSONArray): String {
@@ -161,6 +159,12 @@ class PairingStore @Inject constructor(
     }
 
     companion object {
+        /** Same rule [add] enforces, so a caller can reject a label before doing any work. */
+        fun isValidLabel(raw: String): Boolean {
+            val cleaned = raw.trim()
+            return cleaned.isNotEmpty() && cleaned.length <= MAX_LABEL_CHARS && cleaned.none { it.isISOControl() }
+        }
+
         const val FILE_NAME = "pairing_store"
         const val MAX_LABEL_CHARS = 60
         const val MAX_PEERS = 20

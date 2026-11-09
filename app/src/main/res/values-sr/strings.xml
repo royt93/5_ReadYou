@@ -1120,6 +1120,10 @@
     <string name="local_sync_error_package">Package could not be authenticated or validated. No data changed.</string>
     <string name="local_sync_error_database">Database update failed. No changes were committed; try again.</string>
     <string name="local_sync_error_expired">Session expired. Start a new send session.</string>
+    <string name="local_sync_lan_permission_denied">Local network access is turned off. Allow it in Settings to sync with a device on this Wi-Fi.</string>
+    <string name="local_sync_error_pairing_broken">This paired device can no longer be used on this phone. Forget it and pair again.</string>
+    <string name="local_sync_error_pairing_label">Enter a name of 1 to 60 characters without line breaks.</string>
+    <string name="local_sync_error_pairing_limit">Too many paired devices. Forget one before pairing another.</string>
     <string name="local_sync_error_server">Could not start local sync session.</string>
     <string name="local_sync_error_url">Session URL is invalid.</string>
     <string name="local_sync_error_secret">Pairing secret must be 32 lowercase hex characters.</string>

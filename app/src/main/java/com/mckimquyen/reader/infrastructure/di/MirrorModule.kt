@@ -1,6 +1,13 @@
 package com.mckimquyen.reader.infrastructure.di
 
+import com.mckimquyen.reader.domain.p2psync.LanGate
 import com.mckimquyen.reader.infrastructure.mirror.LanAddressProvider
+import com.mckimquyen.reader.infrastructure.p2psync.AndroidLanGate
+import com.mckimquyen.reader.infrastructure.p2psync.AndroidNsdPlatform
+import com.mckimquyen.reader.infrastructure.p2psync.KeystoreSecretWrapper
+import com.mckimquyen.reader.infrastructure.p2psync.NsdPlatform
+import com.mckimquyen.reader.infrastructure.p2psync.PeerDiscovery
+import com.mckimquyen.reader.infrastructure.p2psync.SecretWrapper
 import com.mckimquyen.reader.infrastructure.mirror.LanAddressSource
 import com.mckimquyen.reader.infrastructure.mirror.MirrorEngine
 import com.mckimquyen.reader.domain.p2psync.SyncSessionTransport
@@ -19,6 +26,15 @@ import dagger.hilt.components.SingletonComponent
 abstract class MirrorAddressModule {
     @Binds
     abstract fun bindLanAddressSource(provider: LanAddressProvider): LanAddressSource
+
+    @Binds
+    abstract fun bindLanGate(gate: AndroidLanGate): LanGate
+
+    @Binds
+    abstract fun bindNsdPlatform(platform: AndroidNsdPlatform): NsdPlatform
+
+    @Binds
+    abstract fun bindSecretWrapper(wrapper: KeystoreSecretWrapper): SecretWrapper
 }
 
 /** One server per ViewModel: leaving the reading page clears the ViewModel, which stops that server. */
@@ -40,4 +56,9 @@ object SyncSessionModule {
 
     @Provides
     fun provideSyncSessionTransport(): SyncSessionTransport = SyncSessionTransport()
+
+    /** Per sync screen, so clearing the ViewModel also withdraws the advertisement and stops discovery. */
+    @Provides
+    @ViewModelScoped
+    fun providePeerDiscovery(platform: NsdPlatform): PeerDiscovery = PeerDiscovery(platform)
 }

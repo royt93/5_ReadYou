@@ -312,6 +312,10 @@ private fun LocalSyncError.messageRes(): Int = when (this) {
     LocalSyncError.NOT_LOCAL -> R.string.local_sync_not_local
     LocalSyncError.DATABASE -> R.string.local_sync_error_database
     LocalSyncError.EXPIRED -> R.string.local_sync_error_expired
+    LocalSyncError.LAN_PERMISSION -> R.string.local_sync_lan_permission_denied
+    LocalSyncError.PAIRING_BROKEN -> R.string.local_sync_error_pairing_broken
+    LocalSyncError.PAIRING_LABEL -> R.string.local_sync_error_pairing_label
+    LocalSyncError.PAIRING_LIMIT -> R.string.local_sync_error_pairing_limit
 }
 
 private const val SEND_TAB = 0

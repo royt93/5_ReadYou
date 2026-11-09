@@ -1078,6 +1078,10 @@
     <string name="local_sync_error_package">Không xác thực hoặc kiểm tra được gói. Dữ liệu chưa thay đổi.</string>
     <string name="local_sync_error_database">Cập nhật cơ sở dữ liệu thất bại. Không có thay đổi nào được ghi; hãy thử lại.</string>
     <string name="local_sync_error_expired">Phiên đã hết hạn. Hãy bắt đầu phiên gửi mới.</string>
+    <string name="local_sync_lan_permission_denied">Quyền truy cập mạng cục bộ đang tắt. Hãy cho phép trong Cài đặt để đồng bộ với thiết bị cùng Wi-Fi.</string>
+    <string name="local_sync_error_pairing_broken">Thiết bị đã ghép đôi này không dùng được nữa trên máy này. Hãy xóa và ghép đôi lại.</string>
+    <string name="local_sync_error_pairing_label">Nhập tên từ 1 đến 60 ký tự, không xuống dòng.</string>
+    <string name="local_sync_error_pairing_limit">Đã ghép đôi quá nhiều thiết bị. Hãy xóa một thiết bị trước khi ghép thêm.</string>
     <string name="local_sync_error_server">Không thể khởi động phiên đồng bộ nội bộ.</string>
     <string name="local_sync_error_url">URL phiên không hợp lệ.</string>
     <string name="local_sync_error_secret">Mã ghép nối phải gồm 32 ký tự hex viết thường.</string>

@@ -7,7 +7,12 @@ import com.mckimquyen.reader.domain.p2psync.SyncPackage
 sealed interface LocalSyncUiState {
     data object Idle : LocalSyncUiState
     data object Starting : LocalSyncUiState
-    data class Sending(val url: String, val secretHex: String, val expiresAtMillis: Long) : LocalSyncUiState {
+    data class Sending(
+        val url: String,
+        val secretHex: String,
+        val expiresAtMillis: Long,
+        val pairedPeerId: String? = null,
+    ) : LocalSyncUiState {
         override fun toString() = "Sending(url=<redacted>, expiresAtMillis=$expiresAtMillis)"
     }
     data object Receiving : LocalSyncUiState
@@ -19,4 +24,7 @@ sealed interface LocalSyncUiState {
     data class Error(val kind: LocalSyncError) : LocalSyncUiState
 }
 
-enum class LocalSyncError { NO_NETWORK, SERVER, URL, SECRET, NETWORK, PACKAGE, NOT_LOCAL, DATABASE, EXPIRED }
+enum class LocalSyncError {
+    NO_NETWORK, SERVER, URL, SECRET, NETWORK, PACKAGE, NOT_LOCAL, DATABASE, EXPIRED,
+    LAN_PERMISSION, PAIRING_BROKEN, PAIRING_LABEL, PAIRING_LIMIT,
+}
