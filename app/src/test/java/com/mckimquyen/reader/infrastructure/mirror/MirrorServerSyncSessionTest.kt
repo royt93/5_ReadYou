@@ -131,4 +131,62 @@ class MirrorServerSyncSessionTest {
         val text = String(reply.body, Charsets.ISO_8859_1)
         assertFalse(text.contains(started.token.value))
     }
+
+    // ── EXC-05b: the token can come from outside (derived from the paired secret) ──
+
+    private val derivedToken = "ab".repeat(16)
+
+    private fun startWithToken(token: String = derivedToken, bytes: ByteArray = ciphertext) =
+        server.startSyncWithToken(loopback, bytes, token)
+
+    @Test fun suppliedTokenIsTheOneThatServesTheCiphertext() {
+        val started = startWithToken() as MirrorStartResult.Started
+        val reply = get(started.port, "/s/$derivedToken")
+        assertEquals(200, reply.status)
+        assertArrayEquals(ciphertext, reply.body)
+        assertEquals(404, get(started.port, "/s/${"cd".repeat(16)}").status)
+    }
+
+    @Test fun suppliedTokenKeepsTheFiveMinuteSessionExpiry() {
+        val started = startWithToken() as MirrorStartResult.Started
+        assertEquals(derivedToken, started.token.value)
+        assertEquals(1_000L + SyncLimits.SESSION_TTL_MILLIS, started.token.expiresAtMillis)
+        now = 1_000L + SyncLimits.SESSION_TTL_MILLIS
+        assertEquals(404, get(started.port, "/s/$derivedToken").status)
+    }
+
+    @Test fun malformedSuppliedTokenIsRefusedBeforeAnySocketIsOpened() {
+        listOf("", "ab".repeat(15), "ab".repeat(17), "AB".repeat(16), "zz".repeat(16), "ab".repeat(15) + "a/").forEach { bad ->
+            val result = runCatching { startWithToken(bad) }
+            assertTrue(bad, result.exceptionOrNull() is IllegalArgumentException)
+            assertFalse(bad, server.isRunning)
+        }
+    }
+
+    @Test fun startingTwiceWithASuppliedTokenIsRejected() {
+        startWithToken()
+        assertEquals(MirrorStartResult.Failed(MirrorFailure.ALREADY_RUNNING), startWithToken())
+    }
+
+    @Test fun suppliedTokenSessionStillRefusesTheOversizedEnvelopeBeforeBinding() {
+        val result = runCatching { startWithToken(bytes = ByteArray(SyncLimits.MAX_ENVELOPE_BYTES + 1)) }
+        assertTrue(result.isFailure)
+        assertFalse(server.isRunning)
+    }
+
+    @Test fun suppliedTokenIsNeverEchoedInAnErrorReply() {
+        val started = startWithToken() as MirrorStartResult.Started
+        val text = String(get(started.port, "/s/$derivedToken/x").body, Charsets.ISO_8859_1)
+        assertFalse(text.contains(derivedToken))
+    }
+
+    @Test fun legacyStartSyncStillIssuesItsOwnRandomTokenEachTime() {
+        val first = startOk()
+        server.stop()
+        val second = startOk()
+        assertEquals(32, first.token.value.length)
+        assertEquals(32, second.token.value.length)
+        assertTrue(first.token.value != second.token.value)
+        assertTrue(first.token.value != derivedToken)
+    }
 }

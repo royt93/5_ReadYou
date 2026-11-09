@@ -54,6 +54,25 @@ class MirrorServer(
         bindAddress: InetAddress,
         ciphertext: ByteArray,
         random: SecureRandom,
+    ): MirrorStartResult = startSyncSession(bindAddress, ciphertext) {
+        val tokenBytes = ByteArray(MirrorLimits.TOKEN_BYTES).also(random::nextBytes)
+        try {
+            tokenBytes.toLowerHex()
+        } finally {
+            tokenBytes.fill(0)
+        }
+    }
+
+    override fun startSyncWithToken(bindAddress: InetAddress, ciphertext: ByteArray, tokenValue: String): MirrorStartResult {
+        // Checked before anything is bound so a bad value can never leave a half-open server behind.
+        require(tokenValue.length == SESSION_TOKEN_CHARS && tokenValue.all { it in HEX_DIGITS }) { "Invalid session token" }
+        return startSyncSession(bindAddress, ciphertext) { tokenValue }
+    }
+
+    private fun startSyncSession(
+        bindAddress: InetAddress,
+        ciphertext: ByteArray,
+        newTokenValue: () -> String,
     ): MirrorStartResult = synchronized(lock) {
         if (session != null) return MirrorStartResult.Failed(MirrorFailure.ALREADY_RUNNING)
         require(ciphertext.size in SyncEnvelopeCrypto.OVERHEAD_BYTES..SyncLimits.MAX_ENVELOPE_BYTES)
@@ -67,9 +86,7 @@ class MirrorServer(
         } catch (e: SecurityException) {
             return MirrorStartResult.Failed(MirrorFailure.BIND)
         }
-        val tokenBytes = ByteArray(MirrorLimits.TOKEN_BYTES).also(random::nextBytes)
-        val token = MirrorToken(tokenBytes.toLowerHex(), clock() + SyncLimits.SESSION_TTL_MILLIS)
-        tokenBytes.fill(0)
+        val token = MirrorToken(newTokenValue(), clock() + SyncLimits.SESSION_TTL_MILLIS)
         val created = Session(server, token, ciphertext.copyOf())
         session = created
         created.begin()
@@ -284,6 +301,7 @@ class MirrorServer(
 
     private companion object {
         const val ACCEPT_BACKLOG = 50
+        const val SESSION_TOKEN_CHARS = 32
         private const val HEX_DIGITS = "0123456789abcdef"
 
         fun ByteArray.toLowerHex(): String {

@@ -62,6 +62,16 @@ private class FakeSyncEngine : SyncSessionEngine {
         return result
     }
 
+    var startWithTokenCalls = 0
+    var lastToken: String? = null
+    override fun startSyncWithToken(bindAddress: InetAddress, ciphertext: ByteArray, tokenValue: String): MirrorStartResult {
+        startWithTokenCalls++
+        lastToken = tokenValue
+        lastCiphertext = ciphertext.copyOf()
+        if (result is MirrorStartResult.Started) isRunning = true
+        return result
+    }
+
     override fun stop() {
         stopCalls++
         isRunning = false
