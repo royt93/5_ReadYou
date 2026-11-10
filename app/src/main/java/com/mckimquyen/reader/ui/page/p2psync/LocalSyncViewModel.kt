@@ -186,9 +186,10 @@ class LocalSyncViewModel @Inject constructor(
         }
         // The GCM tag has verified: this is the first moment the other side is known to hold the same secret.
         confirmPeerId?.let { withContext(ioDispatcher) { pairingStore.markConfirmed(it) }; refreshPeers() }
+        var storedPeerId: String? = null
         if (newPeerLabel != null) {
             try {
-                withContext(ioDispatcher) { pairingStore.add(newPeerLabel, secret, PairingStatus.CONFIRMED) }
+                storedPeerId = withContext(ioDispatcher) { pairingStore.add(newPeerLabel, secret, PairingStatus.CONFIRMED) }.peerId
             } catch (e: CancellationException) {
                 throw e
             } catch (_: IllegalArgumentException) {
@@ -223,7 +224,7 @@ class LocalSyncViewModel @Inject constructor(
             activePackageId = packageId(incoming)
             _state.value = LocalSyncUiState.Preview(incoming, plan)
             // Only a paired receive whose envelope authenticated and whose preview was built can be answered.
-            confirmPeerId?.let { _replyPeer.value = ReplyPeer(localAccountId, it) }
+            (confirmPeerId ?: storedPeerId)?.let { _replyPeer.value = ReplyPeer(localAccountId, it) }
         } catch (e: CancellationException) {
             throw e
         } catch (_: Exception) {

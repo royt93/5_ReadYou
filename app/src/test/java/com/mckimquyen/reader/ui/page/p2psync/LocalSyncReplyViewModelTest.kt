@@ -184,6 +184,31 @@ class LocalSyncReplyViewModelTest {
         assertNull(vm.replyPeer.value)
     }
 
+    @Test fun aLabelledManualReceiveRemembersTheJustStoredPeerSoItCanBeAnsweredAtOnce() = runTest(dispatcher) {
+        val url = "http://$PEER_HOST:$PEER_PORT/s/${"c".repeat(32)}"
+        every { transport.fetch(url) } returns SyncEnvelopeCrypto.encrypt(SyncPackageCodec.encode(outgoing), peerSecret)
+        val vm = vm()
+        vm.loadPreview(REPLY_ACCOUNT, url, peerSecret.hex, "Tablet"); runCurrent()
+        assertTrue(vm.state.value is LocalSyncUiState.Preview)
+        val stored = store.list().single()
+        assertEquals(ReplyPeer(REPLY_ACCOUNT, stored.peerId), vm.replyPeer.value)
+        vm.cancelPreview()
+        vm.replyToPeer(REPLY_ACCOUNT); runCurrent()
+        val sending = vm.state.value as LocalSyncUiState.Sending
+        assertEquals(stored.peerId, sending.pairedPeerId)
+        assertNull(sending.secretHex)
+    }
+
+    @Test fun aLabelledManualReceiveThatFailsToAuthenticateRemembersNothing() = runTest(dispatcher) {
+        val url = "http://$PEER_HOST:$PEER_PORT/s/${"c".repeat(32)}"
+        every { transport.fetch(url) } returns
+            SyncEnvelopeCrypto.encrypt(SyncPackageCodec.encode(outgoing), PairingSecret.fromHex("f".repeat(32)))
+        val vm = vm()
+        vm.loadPreview(REPLY_ACCOUNT, url, peerSecret.hex, "Tablet"); runCurrent()
+        assertEquals(LocalSyncError.PACKAGE, error(vm))
+        assertNull(vm.replyPeer.value)
+    }
+
     @Test fun aManualReceiveNeverCreatesAReplyPeer() = runTest(dispatcher) {
         val url = "http://$PEER_HOST:$PEER_PORT/s/${"c".repeat(32)}"
         every { transport.fetch(url) } returns SyncEnvelopeCrypto.encrypt(SyncPackageCodec.encode(outgoing), peerSecret)
