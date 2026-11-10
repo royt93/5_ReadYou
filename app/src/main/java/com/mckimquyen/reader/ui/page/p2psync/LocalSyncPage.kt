@@ -77,6 +77,12 @@ const val SYNC_PEER_RECEIVE_TAG = "sync_peer_receive_"
 const val SYNC_PEER_SERVE_TAG = "sync_peer_serve_"
 const val SYNC_ALLOW_LAN_TAG = "sync_allow_lan"
 const val SYNC_OPEN_SETTINGS_TAG = "sync_open_settings"
+const val SYNC_WAIT_REPLY_TAG = "sync_wait_reply"
+const val SYNC_ROLE_HINT_TAG = "sync_role_hint"
+const val SYNC_REPLY_TAG = "sync_reply"
+const val SYNC_REPLY_NOTE_TAG = "sync_reply_note"
+const val SYNC_REPLY_INSTRUCTION_TAG = "sync_reply_instruction"
+const val SYNC_MERGE_LIMIT_TAG = "sync_merge_limit"
 
 @Composable
 fun LocalSyncPage(
@@ -102,6 +108,10 @@ fun LocalSyncPage(
     onRequestLanPermission: () -> Unit = {},
     onLoadPreviewAndPair: (String, String, String) -> Unit = { _, _, _ -> },
     onServePeer: (String) -> Unit = {},
+    /** Label of the paired phone the last verified receive came from; null when there is nothing to send back to. */
+    replyPeerLabel: String? = null,
+    onWaitForReply: () -> Unit = {},
+    onReplyToPeer: () -> Unit = {},
 ) {
     var tab by remember { mutableIntStateOf(SEND_TAB) }
     var url by remember { mutableStateOf("") }
@@ -149,7 +159,10 @@ fun LocalSyncPage(
                     )
                 }
                 when {
-                    sending != null -> SendSession(sending, onCopyUrl, onCopySecret, onShareUrl, onShareSecret, onStopSend)
+                    sending != null -> SendSession(
+                        sending, onCopyUrl, onCopySecret, onShareUrl, onShareSecret, onStopSend,
+                        onWaitForReply = { onWaitForReply(); tab = RECEIVE_TAB },
+                    )
                     preview != null -> SyncPreview(
                         plan = preview.plan,
                         isLocal = isLocal,
@@ -193,6 +206,21 @@ fun LocalSyncPage(
                 }
                 if (state is LocalSyncUiState.Done) {
                     Text(stringResource(R.string.local_sync_done), color = MaterialTheme.colorScheme.primary)
+                }
+                if (replyPeerLabel != null && (state is LocalSyncUiState.Done || state is LocalSyncUiState.Idle)) {
+                    ReplyBlock(
+                        label = replyPeerLabel,
+                        applied = state is LocalSyncUiState.Done,
+                        enabled = isLocal && !busy,
+                        onReply = onReplyToPeer,
+                    )
+                }
+                if (sending == null && preview == null) {
+                    Text(
+                        stringResource(R.string.local_sync_merge_limit),
+                        modifier = Modifier.fillMaxWidth().testTag(SYNC_MERGE_LIMIT_TAG),
+                        style = MaterialTheme.typography.bodySmall,
+                    )
                 }
             }
         },
@@ -258,6 +286,7 @@ private fun SendSession(
     onShareUrl: (String) -> Unit,
     onShareSecret: (String) -> Unit,
     onStop: () -> Unit,
+    onWaitForReply: () -> Unit,
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
         Text(stringResource(R.string.local_sync_server_url), style = MaterialTheme.typography.titleMedium)
@@ -283,6 +312,17 @@ private fun SendSession(
                     Text(stringResource(R.string.local_sync_share_secret))
                 }
             }
+        }
+        if (state.pairedPeerId != null) {
+            Text(
+                stringResource(R.string.local_sync_role_hint),
+                modifier = Modifier.fillMaxWidth().testTag(SYNC_ROLE_HINT_TAG),
+                style = MaterialTheme.typography.bodyMedium,
+            )
+            OutlinedButton(
+                onClick = onWaitForReply,
+                modifier = Modifier.fillMaxWidth().height(MIN_TOUCH_TARGET).testTag(SYNC_WAIT_REPLY_TAG),
+            ) { Text(stringResource(R.string.local_sync_wait_reply)) }
         }
         Button(onClick = onStop, modifier = Modifier.fillMaxWidth().height(MIN_TOUCH_TARGET).testTag(SYNC_STOP_SEND_TAG)) {
             Text(stringResource(R.string.local_sync_stop))
@@ -352,6 +392,27 @@ private fun ReceiveEntry(
             enabled = canReceive,
             modifier = Modifier.fillMaxWidth().height(MIN_TOUCH_TARGET).testTag(SYNC_LOAD_PREVIEW_TAG),
         ) { Text(stringResource(R.string.local_sync_load_preview)) }
+    }
+}
+
+@Composable
+private fun ReplyBlock(label: String, applied: Boolean, enabled: Boolean, onReply: () -> Unit) {
+    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        Text(
+            stringResource(if (applied) R.string.local_sync_reply_note_applied else R.string.local_sync_reply_note_cancelled),
+            modifier = Modifier.fillMaxWidth().testTag(SYNC_REPLY_NOTE_TAG),
+            style = MaterialTheme.typography.bodyMedium,
+        )
+        Text(
+            stringResource(R.string.local_sync_reply_instruction),
+            modifier = Modifier.fillMaxWidth().testTag(SYNC_REPLY_INSTRUCTION_TAG),
+            style = MaterialTheme.typography.bodySmall,
+        )
+        Button(
+            onClick = onReply,
+            enabled = enabled,
+            modifier = Modifier.fillMaxWidth().height(MIN_TOUCH_TARGET).testTag(SYNC_REPLY_TAG),
+        ) { Text(stringResource(R.string.local_sync_reply_to, label)) }
     }
 }
 

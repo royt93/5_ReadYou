@@ -1090,6 +1090,13 @@
     <string name="local_sync_pair_label_hint">Tên cho thiết bị mới</string>
     <string name="local_sync_remember_label_hint">Tên để nhớ thiết bị này (không bắt buộc)</string>
     <string name="local_sync_serve_peer">Gửi tới %1$s</string>
+    <string name="local_sync_wait_reply">Dừng và chờ nhận lại</string>
+    <string name="local_sync_role_hint">Sau khi máy kia đã nhận, hãy dừng ở đây và chuyển sang Nhận. Máy kia sau đó có thể gửi thay đổi của nó lại.</string>
+    <string name="local_sync_reply_to">Gửi lại cho %1$s</string>
+    <string name="local_sync_reply_note_applied">Thay đổi chỉ được áp dụng trên máy này. Máy kia có bản xem trước và xác nhận riêng.</string>
+    <string name="local_sync_reply_note_cancelled">Thay đổi vừa nhận chưa được áp dụng. Bạn vẫn có thể gửi dữ liệu của máy này lại.</string>
+    <string name="local_sync_reply_instruction">Hãy nhờ máy kia dừng gửi và mở mục Nhận trước.</string>
+    <string name="local_sync_merge_limit">Việc gộp chỉ giữ dấu đã đọc và đã gắn sao; đánh dấu chưa đọc hoặc bỏ sao trên một máy có thể quay lại sau khi đồng bộ.</string>
     <string name="local_sync_peer_unconfirmed">Chờ thiết bị kia nhận một lần</string>
     <string name="local_sync_peer_confirmed">Đã ghép đôi</string>
     <string name="local_sync_peer_needs_repair">Không dùng được trên máy này. Hãy xóa và ghép đôi lại.</string>

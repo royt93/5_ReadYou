@@ -392,6 +392,11 @@ fun HomeEntry(
                 val syncState by syncViewModel.state.collectAsState()
                 val pairedPeers by syncViewModel.pairedPeers.collectAsState()
                 val nearbyPeers by syncViewModel.discovered.collectAsState()
+                val replyPeer by syncViewModel.replyPeer.collectAsState()
+                // Usable only while the stored pairing still opens; otherwise the page shows no send-back action.
+                val replyLabel = replyPeer?.let { reply ->
+                    pairedPeers.firstOrNull { it.peerId == reply.peerId && !it.needsRepair }?.label
+                }
                 val lanPermissionLauncher = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
                     if (granted) syncViewModel.startFindingPeers()
                 }
@@ -432,6 +437,9 @@ fun HomeEntry(
                     },
                     onForgetPeer = syncViewModel::forgetPeer,
                     onServePeer = { peerId -> syncViewModel.servePaired(context.currentAccountId, peerId) },
+                    replyPeerLabel = replyLabel,
+                    onWaitForReply = syncViewModel::waitForReply,
+                    onReplyToPeer = { syncViewModel.replyToPeer(context.currentAccountId) },
                     onConfirmPeer = syncViewModel::confirmPeer,
                     onOpenSettings = {
                         context.startActivity(

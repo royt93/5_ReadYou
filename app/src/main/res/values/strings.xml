@@ -1209,6 +1209,13 @@
     <string name="local_sync_pair_label_hint">Name for the new device</string>
     <string name="local_sync_remember_label_hint">Name to remember this device (optional)</string>
     <string name="local_sync_serve_peer">Send to %1$s</string>
+    <string name="local_sync_wait_reply">Stop and wait to receive back</string>
+    <string name="local_sync_role_hint">After the other phone has received, stop here and switch to Receive. It can then send its changes back.</string>
+    <string name="local_sync_reply_to">Send back to %1$s</string>
+    <string name="local_sync_reply_note_applied">Changes were applied on this phone only. The other phone has its own preview and confirmation.</string>
+    <string name="local_sync_reply_note_cancelled">The received changes were not applied. You can still send this phone\'s data back.</string>
+    <string name="local_sync_reply_instruction">Ask the other phone to stop sending and open Receive first.</string>
+    <string name="local_sync_merge_limit">Merging only keeps read and starred marks; marking unread or removing a star on one phone can come back after syncing.</string>
     <string name="local_sync_peer_unconfirmed">Waiting for the other device to receive once</string>
     <string name="local_sync_peer_confirmed">Paired</string>
     <string name="local_sync_peer_needs_repair">Cannot be used on this phone. Forget it and pair again.</string>
