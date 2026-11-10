@@ -12,6 +12,7 @@ import com.mckimquyen.reader.domain.model.article.ArticleListItemWithFeed
 import com.mckimquyen.reader.domain.model.article.ArticleBody
 import com.mckimquyen.reader.domain.model.article.ArticleBodyLengths
 import com.mckimquyen.reader.domain.model.article.ArticleBodyChunk
+import com.mckimquyen.reader.domain.model.podcast.PodcastBrowseItem
 import com.mckimquyen.reader.domain.model.rpg.QuizPeer
 import java.io.ByteArrayOutputStream
 import com.mckimquyen.reader.domain.model.statistics.FeedReadCount
@@ -113,6 +114,22 @@ interface ArticleDao {
         """
     )
     suspend fun queryQuizPeers(articleId: String, limit: Int): List<QuizPeer>
+
+    /**
+     * Android Auto "latest podcasts" list: unread articles of [accountId] that carry audio, newest first.
+     * Selects only small columns; the audio URL and every body column stay unread here (FIX-17). The URL is
+     * fetched at play time through [queryById].
+     */
+    @Query(
+        """
+        SELECT a.id AS id, a.title AS title, f.name AS feedName, a.audioDurationSec AS durationSec
+        FROM article a JOIN feed f ON f.id = a.feedId
+        WHERE a.accountId = :accountId AND a.isUnread = 1 AND a.audioUrl IS NOT NULL AND a.audioUrl != ''
+        ORDER BY a.date DESC, a.id DESC
+        LIMIT :limit
+        """
+    )
+    suspend fun queryLatestUnreadPodcastEpisodes(accountId: Int, limit: Int): List<PodcastBrowseItem>
 
     /**
      * Local BOUNTY search across same-account article metadata only (FIX-17).
