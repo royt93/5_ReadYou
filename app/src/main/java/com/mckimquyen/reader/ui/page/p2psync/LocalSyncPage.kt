@@ -433,23 +433,22 @@ private fun PeerRow(
         Column(modifier = Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Text(peer.label, style = MaterialTheme.typography.titleSmall)
             Text(stringResource(status), style = MaterialTheme.typography.bodySmall)
-            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                Button(
-                    onClick = onReceive,
-                    enabled = canReceive,
-                    modifier = Modifier.weight(1f).height(MIN_TOUCH_TARGET).testTag(SYNC_PEER_RECEIVE_TAG + peer.peerId),
-                ) { Text(stringResource(R.string.local_sync_receive)) }
-                if (peer.status == PairingStatus.UNCONFIRMED && !peer.needsRepair) {
-                    OutlinedButton(
-                        onClick = { onConfirm(peer.peerId) },
-                        modifier = Modifier.weight(1f).height(MIN_TOUCH_TARGET).testTag(SYNC_PEER_CONFIRM_TAG + peer.peerId),
-                    ) { Text(stringResource(R.string.local_sync_confirm_peer)) }
-                }
+            // Stacked, not side by side: on a 360 dp phone three buttons shared one row at ~96 dp each and their labels wrapped.
+            Button(
+                onClick = onReceive,
+                enabled = canReceive,
+                modifier = Modifier.fillMaxWidth().height(MIN_TOUCH_TARGET).testTag(SYNC_PEER_RECEIVE_TAG + peer.peerId),
+            ) { Text(stringResource(R.string.local_sync_receive)) }
+            if (peer.status == PairingStatus.UNCONFIRMED && !peer.needsRepair) {
                 OutlinedButton(
-                    onClick = { onForget(peer.peerId) },
-                    modifier = Modifier.weight(1f).height(MIN_TOUCH_TARGET).testTag(SYNC_PEER_FORGET_TAG + peer.peerId),
-                ) { Text(stringResource(R.string.local_sync_forget_peer)) }
+                    onClick = { onConfirm(peer.peerId) },
+                    modifier = Modifier.fillMaxWidth().height(MIN_TOUCH_TARGET).testTag(SYNC_PEER_CONFIRM_TAG + peer.peerId),
+                ) { Text(stringResource(R.string.local_sync_confirm_peer)) }
             }
+            OutlinedButton(
+                onClick = { onForget(peer.peerId) },
+                modifier = Modifier.fillMaxWidth().height(MIN_TOUCH_TARGET).testTag(SYNC_PEER_FORGET_TAG + peer.peerId),
+            ) { Text(stringResource(R.string.local_sync_forget_peer)) }
         }
     }
 }
