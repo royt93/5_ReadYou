@@ -274,6 +274,34 @@ class LocalSyncViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Close the current paired send session and start listening, so the other phone can send its state back.
+     * Does nothing for a manual send or when nothing is being served.
+     */
+    fun waitForReply() {
+        val sending = _state.value as? LocalSyncUiState.Sending ?: return
+        if (sending.pairedPeerId == null) return
+        shutdown(LocalSyncUiState.Idle)
+        startFindingPeers()
+    }
+
+    /** Send this phone's current state back to the peer the last verified receive came from, under its stored secret. */
+    fun replyToPeer(localAccountId: Int) {
+        if (!isIdleLike()) return
+        val reply = _replyPeer.value ?: return
+        if (reply.accountId != localAccountId) return
+        val peer = pairingStore.list().firstOrNull { it.peerId == reply.peerId }
+        if (peer == null || peer.needsRepair) {
+            _replyPeer.value = null
+            _state.value = LocalSyncUiState.Error(LocalSyncError.PAIRING_BROKEN)
+            return
+        }
+        servePaired(localAccountId, peer.peerId)
+    }
+
+    private fun isIdleLike(): Boolean = _state.value is LocalSyncUiState.Idle ||
+        _state.value is LocalSyncUiState.Error || _state.value is LocalSyncUiState.Done
+
     private fun canStartSession(): Boolean {
         if (_state.value !is LocalSyncUiState.Idle && _state.value !is LocalSyncUiState.Error &&
             _state.value !is LocalSyncUiState.Done) return false

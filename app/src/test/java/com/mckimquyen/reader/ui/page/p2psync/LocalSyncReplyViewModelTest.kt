@@ -38,6 +38,7 @@ import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import org.junit.After
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Before
@@ -275,5 +276,133 @@ class LocalSyncReplyViewModelTest {
         vm.receiveFromPeerNow(peer.peerId); runCurrent()
         vm.callOnCleared()
         assertNull(vm.replyPeer.value)
+    }
+
+    // ---- Stop and wait to receive back ----
+
+    @Test fun waitingForAReplyClosesTheSessionAndStartsFindingPeers() = runTest(dispatcher) {
+        val peer = store.add("Tablet", peerSecret, PairingStatus.CONFIRMED)
+        val vm = vm()
+        vm.servePaired(REPLY_ACCOUNT, peer.peerId); runCurrent()
+        assertTrue(vm.state.value is LocalSyncUiState.Sending)
+        vm.waitForReply()
+        assertEquals(LocalSyncUiState.Idle, vm.state.value)
+        assertFalse(engine.isRunning)
+        assertEquals(1, nsd.unregisters)
+        assertEquals(1, nsd.discoveries)
+        assertEquals(1, engine.tokenCalls)
+        assertEquals(listOf(peer.peerId), store.list().map { it.peerId })
+    }
+
+    @Test fun waitingForAReplyDoesNothingWithoutAPairedSession() = runTest(dispatcher) {
+        val vm = vm()
+        vm.waitForReply()
+        assertEquals(LocalSyncUiState.Idle, vm.state.value)
+        assertEquals(0, nsd.discoveries)
+        vm.startSend(REPLY_ACCOUNT); runCurrent()
+        assertTrue(vm.state.value is LocalSyncUiState.Sending)
+        vm.waitForReply()
+        assertTrue(vm.state.value is LocalSyncUiState.Sending)
+        assertTrue(engine.isRunning)
+    }
+
+    @Test fun waitingForAReplyWithoutTheLanPermissionClosesThenReportsIt() = runTest(dispatcher) {
+        val peer = store.add("Tablet", peerSecret, PairingStatus.CONFIRMED)
+        val vm = vm()
+        vm.servePaired(REPLY_ACCOUNT, peer.peerId); runCurrent()
+        lanGranted = false
+        vm.waitForReply()
+        assertFalse(engine.isRunning)
+        assertEquals(LocalSyncError.LAN_PERMISSION, error(vm))
+        assertEquals(0, nsd.discoveries)
+    }
+
+    // ---- Send back ----
+
+    @Test fun replyingServesAFreshSnapshotUnderTheStoredSecretAndShowsNoSecret() = runTest(dispatcher) {
+        val peer = store.add("Tablet", peerSecret, PairingStatus.CONFIRMED)
+        val vm = vm()
+        vm.receiveFromPeerNow(peer.peerId); runCurrent()
+        vm.applyPreview(REPLY_ACCOUNT); runCurrent()
+        coVerify(exactly = 0) { repository.snapshot(any()) }
+        vm.replyToPeer(REPLY_ACCOUNT); runCurrent()
+        val sending = vm.state.value as LocalSyncUiState.Sending
+        assertNull(sending.secretHex)
+        assertEquals(peer.peerId, sending.pairedPeerId)
+        coVerify(exactly = 1) { repository.snapshot(REPLY_ACCOUNT) }
+        coVerify(exactly = 1) { repository.apply(any(), any()) }
+        assertEquals(listOf(peer.peerId), store.list().map { it.peerId })
+        assertTrue(SyncEnvelopeCrypto.decrypt(requireNotNull(engine.lastCiphertext), peerSecret).isNotEmpty())
+        assertNull(vm.replyPeer.value)
+    }
+
+    @Test fun replyingAfterUserCancelAppliesNothingAndStillServes() = runTest(dispatcher) {
+        val peer = store.add("Tablet", peerSecret, PairingStatus.CONFIRMED)
+        val vm = vm()
+        vm.receiveFromPeerNow(peer.peerId); runCurrent()
+        vm.cancelPreview()
+        vm.replyToPeer(REPLY_ACCOUNT); runCurrent()
+        assertTrue(vm.state.value is LocalSyncUiState.Sending)
+        coVerify(exactly = 0) { repository.apply(any(), any()) }
+        coVerify(exactly = 1) { repository.snapshot(REPLY_ACCOUNT) }
+    }
+
+    @Test fun replyingIsRefusedWhenThePeerNeedsRepair() = runTest(dispatcher) {
+        val peer = store.add("Tablet", peerSecret, PairingStatus.CONFIRMED)
+        val vm = vm()
+        vm.receiveFromPeerNow(peer.peerId); runCurrent()
+        vm.cancelPreview()
+        wrapper.keyPresent = false
+        vm.refreshPeers()
+        vm.replyToPeer(REPLY_ACCOUNT); runCurrent()
+        assertEquals(LocalSyncError.PAIRING_BROKEN, error(vm))
+        assertNull(vm.replyPeer.value)
+        assertEquals(0, engine.tokenCalls)
+        // A peer that cannot be opened is refused up front: the database is not even snapshotted for it.
+        coVerify(exactly = 0) { repository.snapshot(any()) }
+    }
+
+    @Test fun replyingForAnotherAccountOrWithoutAReplyPeerDoesNothing() = runTest(dispatcher) {
+        val vm = vm()
+        vm.replyToPeer(REPLY_ACCOUNT); runCurrent()
+        assertEquals(LocalSyncUiState.Idle, vm.state.value)
+        val peer = store.add("Tablet", peerSecret, PairingStatus.CONFIRMED)
+        vm.receiveFromPeerNow(peer.peerId); runCurrent()
+        vm.cancelPreview()
+        vm.replyToPeer(REPLY_ACCOUNT + 1); runCurrent()
+        assertEquals(LocalSyncUiState.Idle, vm.state.value)
+        assertEquals(0, engine.tokenCalls)
+        assertEquals(ReplyPeer(REPLY_ACCOUNT, peer.peerId), vm.replyPeer.value)
+    }
+
+    @Test fun replyingWhileBusyStartsNothingAndKeepsThePreview() = runTest(dispatcher) {
+        val peer = store.add("Tablet", peerSecret, PairingStatus.CONFIRMED)
+        val vm = vm()
+        vm.receiveFromPeerNow(peer.peerId); runCurrent()
+        vm.replyToPeer(REPLY_ACCOUNT); runCurrent()
+        assertTrue(vm.state.value is LocalSyncUiState.Preview)
+        assertEquals(0, engine.tokenCalls)
+        assertEquals(ReplyPeer(REPLY_ACCOUNT, peer.peerId), vm.replyPeer.value)
+    }
+
+    @Test fun replyingWhileBusyWithABrokenPeerDoesNotOverwriteThePreviewWithAnError() = runTest(dispatcher) {
+        val peer = store.add("Tablet", peerSecret, PairingStatus.CONFIRMED)
+        val vm = vm()
+        vm.receiveFromPeerNow(peer.peerId); runCurrent()
+        wrapper.keyPresent = false
+        vm.refreshPeers()
+        vm.replyToPeer(REPLY_ACCOUNT); runCurrent()
+        assertTrue(vm.state.value is LocalSyncUiState.Preview)
+    }
+
+    @Test fun replyingWithoutTheLanPermissionReportsItAndOpensNothing() = runTest(dispatcher) {
+        val peer = store.add("Tablet", peerSecret, PairingStatus.CONFIRMED)
+        val vm = vm()
+        vm.receiveFromPeerNow(peer.peerId); runCurrent()
+        vm.cancelPreview()
+        lanGranted = false
+        vm.replyToPeer(REPLY_ACCOUNT); runCurrent()
+        assertEquals(LocalSyncError.LAN_PERMISSION, error(vm))
+        assertEquals(0, engine.tokenCalls)
     }
 }
