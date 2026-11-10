@@ -1,7 +1,7 @@
 # FRONT-04 (lát Android Auto) — Cây nội dung hai nhánh và điều khiển chung
 
 **Ngày:** 2026-11-10  
-**Trạng thái:** Các phần thiết kế đã được owner duyệt qua AskUserQuestion; bản spec này chờ owner duyệt trước implementation plan.  
+**Trạng thái:** Các phần thiết kế đã được owner duyệt qua AskUserQuestion; owner đã duyệt spec (2026-11-10); đang lập implementation plan.  
 **Nhánh:** `dev`, không worktree, không push. Không sửa hoặc commit `.idea`.  
 **Phạm vi:** chỉ **Android Auto**. **Wear OS tách khỏi lát này** và giữ nguyên trong `doc/task/todo/FRONT-04_android-auto-and-wear-os.md` (task gốc vẫn mở).
 
@@ -16,7 +16,7 @@ Màn hình Android Auto liệt kê hai danh sách có thể phát: **Bản tin s
 - `PodcastPlaybackService` là `Service` thường, có `MediaSessionCompat` riêng cho thông báo, **không nằm trong cây**; engine là ExoPlayer qua `PodcastPlaybackController`.
 - Không có truy vấn liệt kê tập có audio. Cột `audioUrl`, `audioMime`, `audioDurationSec` có trong `Article`.
 - Hai service dùng chung `NOTIFICATION_ID = 9183` (`CommuteMediaSessionService` dòng 379 và `PodcastPlaybackService` dòng 203): thông báo của chúng ghi đè nhau.
-- Chiều **podcast → CommuteCast** đã nhường: `PodcastPlaybackController.play()` dừng TTS đang nói, và `setOnPlayRequested { pause() }` làm podcast tạm dừng khi TTS yêu cầu phát. Chiều **CommuteCast → podcast** chưa được nối ở đường `CommuteAudioPlayer.playEpisode`. `CommuteAudioPlayer` tự yêu cầu audio focus và xử lý mất focus. `ExoPodcastEngine` gọi `setAudioAttributes(..., handleAudioFocus = true)` nên ExoPlayer cũng tự quản lý audio focus (`USAGE_MEDIA`, `CONTENT_TYPE_SPEECH`). Vì vậy hai đường **đều** đã có audio focus riêng; thứ chưa có là sự phối hợp giữa chúng với nhau. Spec không thêm cơ chế audio focus mới.
+- `TtsGate` chỉ bọc `TtsManager` (đọc bài thành tiếng), **không** bọc `CommuteAudioPlayer` (có `TextToSpeech` riêng). Vì vậy `PodcastPlaybackController.play()` và `setOnPlayRequested { pause() }` chỉ nhường với đọc bài; **chưa chiều nào giữa podcast và CommuteCast được nối** (đã sửa 2026-11-10 khi lập plan, sau khi đọc lại `PodcastModule`). `CommuteAudioPlayer` tự yêu cầu audio focus và xử lý mất focus. `ExoPodcastEngine` gọi `setAudioAttributes(..., handleAudioFocus = true)` nên ExoPlayer cũng tự quản lý audio focus (`USAGE_MEDIA`, `CONTENT_TYPE_SPEECH`). Vì vậy hai đường **đều** đã có audio focus riêng; thứ chưa có là sự phối hợp giữa chúng với nhau. Spec không thêm cơ chế audio focus mới.
 - `CommuteAutoPackageValidator` chỉ so tên package với danh sách tin cậy; không kiểm chữ ký (đã ghi chú `ponytail` trong mã).
 - Môi trường kiểm chứng: Desktop Head Unit 2.0 (arm64) có trong Android SDK trên Mac, Pixel 7 Pro có Android Auto 18.0.664264. Chưa có Android Auto trên Tecno KJ7. Xe thật hoặc head unit thật: không có.
 
@@ -48,7 +48,7 @@ Gốc `commutecast_root` (giữ nguyên hằng số) có hai con duyệt đượ
 - `onPlayFromMediaId(id)`:
   - `commutecast_latest_episode` → hành vi hiện có (`resumeOrPlayLatestEpisode`).
   - `podcast:<articleId>` → kiểm tra id **vẫn nằm trong kết quả truy vấn hiện tại**, lấy `title`, tên feed và `AudioInfo` của đúng bài đó rồi gọi `PodcastPlaybackController.playEpisode(...)`. Không có hoặc không phát được → bỏ qua, ghi log, không ném lỗi.
-- Trước khi một bên phát: bên kia tạm dừng. Podcast đã có `if (tts.isSpeaking) tts.stop()` (dừng TTS khi podcast phát). Phần **cần nối** là hướng ngược lại: **CommuteCast bắt đầu phát phải tạm dừng podcast đang phát**, cho mọi đường vào (Auto, màn hình điện thoại, lệnh giọng nói) chứ không chỉ Auto. Không đổi logic phát bên trong hai engine.
+- Trước khi một bên phát: bên kia tạm dừng. `TtsGate` chỉ bọc `TtsManager`, không bọc `CommuteAudioPlayer`, nên **cả hai chiều cần nối**: podcast bắt đầu phát phải tạm dừng CommuteCast đang phát, và **CommuteCast bắt đầu phát phải tạm dừng podcast đang phát**, cho mọi đường vào (Auto, màn hình điện thoại, lệnh giọng nói) chứ không chỉ Auto. Không đổi logic phát bên trong hai engine.
 - Session Auto phản ánh bên **đang hoạt động gần nhất**: metadata (tiêu đề, nguồn, thời lượng) và `PlaybackStateCompat` (đang phát/tạm dừng/đệm/lỗi, vị trí, tốc độ) lấy từ `PodcastPlaybackState` khi podcast hoạt động, từ `CommutePlayerState` khi CommuteCast hoạt động. Hành động hợp lệ phụ thuộc bên đó: tua theo giây cho podcast (`onFastForward`/`onRewind`/`onSeekTo` → `controller.skip/seekTo`); với CommuteCast giữ hành vi hiện có (tua = chuyển câu, `onSeekTo` không làm gì).
 - `onPlay`/`onPause`/`onStop`/`onSkipToNext`/`onSkipToPrevious` được chuyển cho bên đang hoạt động. Khi **không** bên nào hoạt động, `onPlay` và `onPlayFromSearch` giữ hành vi hiện có (phát tập CommuteCast mới nhất); không tự quyết định phát podcast khi nghe lệnh giọng nói mơ hồ.
 - `PodcastPlaybackService` giữ session riêng cho thông báo hiện tại. `PodcastPlaybackService.NOTIFICATION_ID` đổi sang giá trị khác `CommuteMediaSessionService.NOTIFICATION_ID`; kiểm bằng test hằng số khác nhau.
@@ -69,7 +69,7 @@ Gốc `commutecast_root` (giữ nguyên hằng số) có hai con duyệt đượ
 - `ArticleDao`: một truy vấn `queryLatestUnreadPodcastEpisodes(accountId: Int, limit: Int): List<PodcastBrowseItem>` chỉ chọn cột nhỏ.
 - `infrastructure/audio/`: phần thuần (không Android) tách ra để test JVM: tạo cây, phân tách/kiểm id, chọn bên hoạt động, ánh xạ trạng thái sang `PlaybackStateCompat`. `CommuteMediaSessionService` mỏng lại, chỉ nối.
 - `PodcastPlaybackService`: đổi `NOTIFICATION_ID`.
-- `CommuteAudioPlayer`/service: tạm dừng podcast khi CommuteCast bắt đầu phát, qua một interface nhỏ giống `TtsGate`, không cho `CommuteAudioPlayer` phụ thuộc trực tiếp `PodcastPlaybackController`.
+- `CommuteAudioPlayer`/service: tạm dừng podcast khi CommuteCast bắt đầu phát, qua hai interface nhỏ giống `TtsGate` (`PodcastGate`: CommuteCast nhờ tạm dừng podcast; `CommuteGate`: podcast nhờ tạm dừng CommuteCast), không cho hai bên phụ thuộc trực tiếp nhau.
 - Chuỗi mới (tiêu đề hai nhánh) trong **cả 38 locale**, EN và VI viết riêng, parity test.
 - Không đổi Room (v20), không migration, không dependency mới. `automotive_app_desc.xml` và manifest không đổi trừ khi test chứng minh cần.
 
@@ -92,7 +92,7 @@ Sau FRONT-04 (Android Auto): RPG-02 (câu hỏi AI thật), rồi FRONT-01 (AI D
 
 ## 10. Tự soát spec
 
-- Không thêm audio focus mới, không đổi engine; nhường nhau dùng đường đã có cho chiều podcast→TTS và một interface nhỏ cho chiều ngược lại. Mô tả hiện trạng audio focus đã được đối chiếu lại với mã sau khi viết bản đầu.
+- Không thêm audio focus mới, không đổi engine; nhường nhau dùng hai interface nhỏ, mỗi chiều một (sửa 2026-11-10: `TtsGate` chỉ bọc `TtsManager`, không phải CommuteCast). Mô tả hiện trạng audio focus đã được đối chiếu lại với mã sau khi viết bản đầu.
 - Id từ client được coi là không tin cậy; cây không chứa URL audio.
 - Danh sách "chưa nghe" dựa trên cờ chưa đọc, đã nêu là gần đúng.
 - Hai MediaSession cùng tồn tại vẫn như hiện nay; chỉ sửa xung đột `NOTIFICATION_ID` và làm session Auto nhất quán. Không hứa hợp nhất.
