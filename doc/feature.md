@@ -4,7 +4,7 @@
 
 Thứ tự owner chọn ngày 2026-11-09; mỗi mục duyệt thiết kế/spec riêng trước implementation:
 1. **EXC-05c — hai lượt thủ công + đổi vai (lát của EXC-05):** JVM đạt trên code cuối (full suite 2,673 test 0 lỗi, lint 0 lỗi/2,463 cảnh báo, build APK) và đã kiểm trên hai máy thật (Pixel + Tecno KJ7), xem `doc/task/done/EXC-05c_manual-round-trip_DONE.md`. Giới hạn chính: thủ công, không ACK giữa hai máy, chưa tự sync khi mở app, chưa kiểm một máy Apply còn máy kia huỷ trên thiết bị. EXC-05 gốc vẫn mở.
-2. **FRONT-04 — Android Auto trước:** chờ mục 1; Wear OS tách phạm vi.
+2. **FRONT-04 — Android Auto trước:** đang brainstorm. Hiện trạng: manifest đã có `automotive_app_desc` (media) và `CommuteMediaSessionService` (MediaBrowserService, cây một cấp chỉ có CommuteCast), `PodcastPlaybackService`/`ReadNewsController` chưa nằm trong cây. Mac có DHU 2.0, Pixel có Android Auto 18.0. Owner chốt kiểm chứng bằng DHU + Pixel, không hứa xe thật. Wear OS tách phạm vi, không làm trong lát này. Chưa duyệt cây nội dung/thiết kế.
 3. **RPG-02 — trắc nghiệm AI thật:** chờ mục 2; không làm lại distractor đã sửa ở RPG-05, không gồm ad/IAP.
 4. **FRONT-01 — AI Deep Dive:** chờ mục 3; cần tránh trùng BOUNTY-01/02.
 
