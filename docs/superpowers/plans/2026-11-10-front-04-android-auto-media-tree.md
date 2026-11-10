@@ -492,7 +492,7 @@ Co-Authored-By: Claude Code <noreply@anthropic.com>"
   - `data class AutoSnapshot(val state: Int, val positionMs: Long, val speed: Float, val actions: Long, val title: String, val subtitle: String, val durationMs: Long)`
   - `object AutoSessionMapper { fun podcast(s: PodcastPlaybackState): AutoSnapshot; fun commute(s: CommutePlayerState, artist: String): AutoSnapshot; const val UNKNOWN_DURATION_MS = -1L }`
 
-Quy tắc bên hoạt động: bên **vừa chuyển sang đang phát** (podcast `PLAYING`/`PREPARING`; CommuteCast `isPlaying` hoặc `isAwaitingPlayback`) thắng; khi không bên nào đang phát, giữ bên cuối còn nội dung (podcast `articleId != null && status != IDLE`; CommuteCast `episode != null`), hết nội dung thì `NONE`. Nếu cả hai cùng đang phát (không nên xảy ra sau Task 5) giữ bên đã thắng trước đó.
+Quy tắc bên hoạt động: bên **vừa chuyển sang đang phát** (podcast `PLAYING`/`PREPARING`; CommuteCast `isPlaying` hoặc `isAwaitingPlayback`) thắng; khi không bên nào đang phát, giữ bên cuối còn nội dung (podcast `articleId != null && status != IDLE`; CommuteCast `episode != null`), hết nội dung thì `NONE`. Nếu cả hai cùng báo đang phát (chỉ thoáng qua sau Task 5, vì bên cũ sắp tạm dừng) thì bên vừa bắt đầu sau cùng thắng và giữ nguyên cho tới khi có lần bắt đầu mới.
 
 - [ ] **Step 1: Viết test đỏ**
 
@@ -559,10 +559,11 @@ class AutoSessionTest {
     }
 
     @Test
-    fun bothPlaying_keepsTheEarlierWinner() {
+    fun whenBothReportPlaying_theOneThatStartedMostRecentlyWins() {
         val t = AutoSideTracker()
         t.update(podcast(PodcastStatus.PLAYING), idleCommute)
-        assertEquals(AutoSide.PODCAST, t.update(podcast(PodcastStatus.PLAYING), commute(playing = true)))
+        assertEquals(AutoSide.COMMUTE, t.update(podcast(PodcastStatus.PLAYING), commute(playing = true)))
+        assertEquals("no new start: the winner stays", AutoSide.COMMUTE, t.update(podcast(PodcastStatus.PLAYING), commute(playing = true)))
     }
 
     @Test
@@ -752,6 +753,7 @@ Expected: `exit=0`, XML `tests="14" skipped="0" failures="0" errors="0"`. Nếu 
 
 - [ ] **Step 5: Mutation (sao lưu, `cmp` khôi phục)**
 
+- M0 bỏ nhánh `commuteStarted && !podcastStarted`: `commutePlayingOrWaitingWins` và `whenBothReportPlaying...` đỏ.
 - M1 `podcastStarted && !commuteStarted` → bỏ nhánh podcast (xoá dòng): `podcastPlayingWins`/`pausedSideKeepsControl...` đỏ.
 - M2 bỏ dòng `if (last == AutoSide.PODCAST && !hasPodcast)`: `lastSideWithoutContentFallsBackToNone` đỏ.
 - M3 `speed = if (s.status == PLAYING) s.speed else 0f` → `speed = s.speed`: `podcastSpeedIsZeroUnlessPlaying` đỏ.
