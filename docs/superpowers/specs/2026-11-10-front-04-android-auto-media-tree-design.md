@@ -48,7 +48,7 @@ Gốc `commutecast_root` (giữ nguyên hằng số) có hai con duyệt đượ
 - `onPlayFromMediaId(id)`:
   - `commutecast_latest_episode` → hành vi hiện có (`resumeOrPlayLatestEpisode`).
   - `podcast:<articleId>` → kiểm tra id **vẫn nằm trong kết quả truy vấn hiện tại**, lấy `title`, tên feed và `AudioInfo` của đúng bài đó rồi gọi `PodcastPlaybackController.playEpisode(...)`. Không có hoặc không phát được → bỏ qua, ghi log, không ném lỗi.
-- Trước khi một bên phát: bên kia tạm dừng. `TtsGate` chỉ bọc `TtsManager`, không bọc `CommuteAudioPlayer`, nên **cả hai chiều cần nối**: podcast bắt đầu phát phải tạm dừng CommuteCast đang phát, và **CommuteCast bắt đầu phát phải tạm dừng podcast đang phát**, cho mọi đường vào (Auto, màn hình điện thoại, lệnh giọng nói) chứ không chỉ Auto. Không đổi logic phát bên trong hai engine.
+- Trước khi một bên phát: bên kia tạm dừng. `TtsGate` chỉ bọc `TtsManager`, không bọc `CommuteAudioPlayer`, nên **cả hai chiều cần nối** (cùng một `CommuteGate`): podcast bắt đầu phát phải tạm dừng CommuteCast đang phát, và **CommuteCast bắt đầu phát phải tạm dừng podcast đang phát**, cho mọi đường vào (Auto, màn hình điện thoại, lệnh giọng nói) chứ không chỉ Auto. Không đổi logic phát bên trong hai engine.
 - Session Auto phản ánh bên **đang hoạt động gần nhất**: metadata (tiêu đề, nguồn, thời lượng) và `PlaybackStateCompat` (đang phát/tạm dừng/đệm/lỗi, vị trí, tốc độ) lấy từ `PodcastPlaybackState` khi podcast hoạt động, từ `CommutePlayerState` khi CommuteCast hoạt động. Hành động hợp lệ phụ thuộc bên đó: tua theo giây cho podcast (`onFastForward`/`onRewind`/`onSeekTo` → `controller.skip/seekTo`); với CommuteCast giữ hành vi hiện có (tua = chuyển câu, `onSeekTo` không làm gì).
 - `onPlay`/`onPause`/`onStop`/`onSkipToNext`/`onSkipToPrevious` được chuyển cho bên đang hoạt động. Khi **không** bên nào hoạt động, `onPlay` và `onPlayFromSearch` giữ hành vi hiện có (phát tập CommuteCast mới nhất); không tự quyết định phát podcast khi nghe lệnh giọng nói mơ hồ.
 - `PodcastPlaybackService` giữ session riêng cho thông báo hiện tại. `PodcastPlaybackService.NOTIFICATION_ID` đổi sang giá trị khác `CommuteMediaSessionService.NOTIFICATION_ID`; kiểm bằng test hằng số khác nhau.
@@ -69,7 +69,7 @@ Gốc `commutecast_root` (giữ nguyên hằng số) có hai con duyệt đượ
 - `ArticleDao`: một truy vấn `queryLatestUnreadPodcastEpisodes(accountId: Int, limit: Int): List<PodcastBrowseItem>` chỉ chọn cột nhỏ.
 - `infrastructure/audio/`: phần thuần (không Android) tách ra để test JVM: tạo cây, phân tách/kiểm id, chọn bên hoạt động, ánh xạ trạng thái sang `PlaybackStateCompat`. `CommuteMediaSessionService` mỏng lại, chỉ nối.
 - `PodcastPlaybackService`: đổi `NOTIFICATION_ID`.
-- `CommuteAudioPlayer`/service: tạm dừng podcast khi CommuteCast bắt đầu phát, qua hai interface nhỏ giống `TtsGate` (`PodcastGate`: CommuteCast nhờ tạm dừng podcast; `CommuteGate`: podcast nhờ tạm dừng CommuteCast), không cho hai bên phụ thuộc trực tiếp nhau.
+- `CommuteAudioPlayer`/service: tạm dừng podcast khi CommuteCast bắt đầu phát, qua **một** interface nhỏ `CommuteGate` đặt cạnh `TtsGate` (`isPlaying`, `pause()`, `setOnPlayRequested`): `PodcastPlaybackController` nhận `CommuteGate` giống cách nhận `TtsGate`, đăng ký callback để tạm dừng khi CommuteCast xin phát và tự gọi `pause()` khi podcast bắt đầu phát; `CommuteAudioPlayer` không phụ thuộc controller (tránh vòng phụ thuộc Hilt).
 - Chuỗi mới (tiêu đề hai nhánh) trong **cả 38 locale**, EN và VI viết riêng, parity test.
 - Không đổi Room (v20), không migration, không dependency mới. `automotive_app_desc.xml` và manifest không đổi trừ khi test chứng minh cần.
 
@@ -92,7 +92,7 @@ Sau FRONT-04 (Android Auto): RPG-02 (câu hỏi AI thật), rồi FRONT-01 (AI D
 
 ## 10. Tự soát spec
 
-- Không thêm audio focus mới, không đổi engine; nhường nhau dùng hai interface nhỏ, mỗi chiều một (sửa 2026-11-10: `TtsGate` chỉ bọc `TtsManager`, không phải CommuteCast). Mô tả hiện trạng audio focus đã được đối chiếu lại với mã sau khi viết bản đầu.
+- Không thêm audio focus mới, không đổi engine; nhường nhau dùng một interface nhỏ `CommuteGate` cho cả hai chiều (sửa 2026-11-10: `TtsGate` chỉ bọc `TtsManager`, không phải CommuteCast). Mô tả hiện trạng audio focus đã được đối chiếu lại với mã sau khi viết bản đầu.
 - Id từ client được coi là không tin cậy; cây không chứa URL audio.
 - Danh sách "chưa nghe" dựa trên cờ chưa đọc, đã nêu là gần đúng.
 - Hai MediaSession cùng tồn tại vẫn như hiện nay; chỉ sửa xung đột `NOTIFICATION_ID` và làm session Auto nhất quán. Không hứa hợp nhất.
