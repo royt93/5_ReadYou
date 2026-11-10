@@ -16,7 +16,7 @@ Màn hình Android Auto liệt kê hai danh sách có thể phát: **Bản tin s
 - `PodcastPlaybackService` là `Service` thường, có `MediaSessionCompat` riêng cho thông báo, **không nằm trong cây**; engine là ExoPlayer qua `PodcastPlaybackController`.
 - Không có truy vấn liệt kê tập có audio. Cột `audioUrl`, `audioMime`, `audioDurationSec` có trong `Article`.
 - Hai service dùng chung `NOTIFICATION_ID = 9183` (`CommuteMediaSessionService` dòng 379 và `PodcastPlaybackService` dòng 203): thông báo của chúng ghi đè nhau.
-- Chiều **podcast → CommuteCast** đã nhường: `PodcastPlaybackController.play()` dừng TTS đang nói, và `setOnPlayRequested { pause() }` làm podcast tạm dừng khi TTS yêu cầu phát. Chiều **CommuteCast → podcast** chưa được nối ở đường `CommuteAudioPlayer.playEpisode`. `CommuteAudioPlayer` tự yêu cầu audio focus và xử lý mất focus; `ExoPodcastEngine` chỉ đặt `AudioAttributes`. Spec không thêm cơ chế audio focus mới cho chúng.
+- Chiều **podcast → CommuteCast** đã nhường: `PodcastPlaybackController.play()` dừng TTS đang nói, và `setOnPlayRequested { pause() }` làm podcast tạm dừng khi TTS yêu cầu phát. Chiều **CommuteCast → podcast** chưa được nối ở đường `CommuteAudioPlayer.playEpisode`. `CommuteAudioPlayer` tự yêu cầu audio focus và xử lý mất focus. `ExoPodcastEngine` gọi `setAudioAttributes(..., handleAudioFocus = true)` nên ExoPlayer cũng tự quản lý audio focus (`USAGE_MEDIA`, `CONTENT_TYPE_SPEECH`). Vì vậy hai đường **đều** đã có audio focus riêng; thứ chưa có là sự phối hợp giữa chúng với nhau. Spec không thêm cơ chế audio focus mới.
 - `CommuteAutoPackageValidator` chỉ so tên package với danh sách tin cậy; không kiểm chữ ký (đã ghi chú `ponytail` trong mã).
 - Môi trường kiểm chứng: Desktop Head Unit 2.0 (arm64) có trong Android SDK trên Mac, Pixel 7 Pro có Android Auto 18.0.664264. Chưa có Android Auto trên Tecno KJ7. Xe thật hoặc head unit thật: không có.
 
@@ -61,7 +61,7 @@ Gốc `commutecast_root` (giữ nguyên hằng số) có hai con duyệt đượ
 - Id là dữ liệu do client không tin cậy gửi: phải khớp tiền tố và nằm trong kết quả truy vấn vừa tính; không dùng id để ghép đường dẫn, truy vấn thô hay URL.
 - Lỗi phát podcast: controller đã có trạng thái `ERROR`; session Auto báo `STATE_ERROR` thay vì giữ trạng thái cũ.
 - Truy vấn cây chạy ngoài luồng chính (`result.detach()` rồi `scope.launch`), không giữ `Context`/bitmap mới ngoài `cachedArtwork`, mọi coroutine thuộc `scope` huỷ ở `onDestroy`.
-- Không thêm cơ chế audio focus mới. `CommuteAudioPlayer` giữ cách xin và nhả focus hiện có; podcast giữ cấu hình ExoPlayer hiện có. Maps, cuộc gọi hoặc nhạc khác vẫn có thể chồng tiếng với podcast; chưa kiểm trên DHU vì không có Maps thật. Ghi vào giới hạn.
+- Không thêm cơ chế audio focus mới. `CommuteAudioPlayer` giữ cách xin và nhả focus hiện có; ExoPlayer giữ `handleAudioFocus = true` hiện có. Hành vi khi Maps, cuộc gọi hoặc nhạc khác chiếm focus do hai cơ chế đó quyết định và **chưa được kiểm** trên DHU (không có Maps thật). Có thể xảy ra việc hai cơ chế focus của hai bên xin/nhả chồng nhau khi đổi bên; test JVM không phát hiện được, chỉ kiểm bằng DHU và Pixel. Ghi vào giới hạn.
 
 ## 6. Thay đổi dự kiến
 
