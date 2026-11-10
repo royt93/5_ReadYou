@@ -4,6 +4,9 @@ import com.mckimquyen.reader.domain.p2psync.LocalSyncApplyResult
 import com.mckimquyen.reader.domain.p2psync.LocalSyncPlan
 import com.mckimquyen.reader.domain.p2psync.SyncPackage
 
+/** The already paired device a verified receive came from, so the user can send this phone's state back. Never holds a secret. */
+data class ReplyPeer(val accountId: Int, val peerId: String)
+
 sealed interface LocalSyncUiState {
     data object Idle : LocalSyncUiState
     data object Starting : LocalSyncUiState

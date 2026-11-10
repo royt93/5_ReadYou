@@ -57,6 +57,8 @@ class LocalSyncViewModel @Inject constructor(
     val pairedPeers: StateFlow<List<PairedPeer>> = _pairedPeers.asStateFlow()
     val discovered: StateFlow<List<DiscoveredPeer>> = discovery.peers
     private var activePeerId: String? = null
+    private val _replyPeer = MutableStateFlow<ReplyPeer?>(null)
+    val replyPeer: StateFlow<ReplyPeer?> = _replyPeer.asStateFlow()
 
     private val _state = MutableStateFlow<LocalSyncUiState>(LocalSyncUiState.Idle)
     val state: StateFlow<LocalSyncUiState> = _state.asStateFlow()
@@ -79,6 +81,7 @@ class LocalSyncViewModel @Inject constructor(
             _state.value = LocalSyncUiState.Error(LocalSyncError.LAN_PERMISSION)
             return
         }
+        _replyPeer.value = null
         sendJob?.cancel()
         activeAccountId = localAccountId
         _state.value = LocalSyncUiState.Starting
@@ -131,6 +134,7 @@ class LocalSyncViewModel @Inject constructor(
             _state.value = LocalSyncUiState.Error(LocalSyncError.PAIRING_LABEL)
             return
         }
+        _replyPeer.value = null
         receiveJob?.cancel()
         activeAccountId = localAccountId
         _state.value = LocalSyncUiState.Receiving
@@ -161,6 +165,7 @@ class LocalSyncViewModel @Inject constructor(
         confirmPeerId: String?,
         newPeerLabel: String? = null,
     ) {
+        _replyPeer.value = null
         val encrypted = try {
             withContext(ioDispatcher) { transport.fetch(normalizedUrl) }
         } catch (e: CancellationException) {
@@ -217,6 +222,8 @@ class LocalSyncViewModel @Inject constructor(
             val plan = withContext(ioDispatcher) { repository.preview(localAccountId, incoming) }
             activePackageId = packageId(incoming)
             _state.value = LocalSyncUiState.Preview(incoming, plan)
+            // Only a paired receive whose envelope authenticated and whose preview was built can be answered.
+            confirmPeerId?.let { _replyPeer.value = ReplyPeer(localAccountId, it) }
         } catch (e: CancellationException) {
             throw e
         } catch (_: Exception) {
@@ -279,6 +286,7 @@ class LocalSyncViewModel @Inject constructor(
 
     /** [resolve] yields the peer id and secret to serve under, or sets an error state itself and returns null. */
     private fun startPairedSession(localAccountId: Int, showSecret: Boolean, resolve: suspend () -> Pair<String, PairingSecret>?) {
+        _replyPeer.value = null
         sendJob?.cancel()
         activeAccountId = localAccountId
         _state.value = LocalSyncUiState.Starting
@@ -339,6 +347,7 @@ class LocalSyncViewModel @Inject constructor(
             _state.value = LocalSyncUiState.Error(LocalSyncError.LAN_PERMISSION)
             return
         }
+        _replyPeer.value = null
         receiveJob?.cancel()
         activeAccountId = localAccountId
         _state.value = LocalSyncUiState.Receiving
@@ -367,6 +376,7 @@ class LocalSyncViewModel @Inject constructor(
     }
 
     fun forgetPeer(peerId: String) {
+        if (_replyPeer.value?.peerId == peerId) _replyPeer.value = null
         if (activePeerId == peerId) shutdown(LocalSyncUiState.Idle)
         pairingStore.forget(peerId)
         refreshPeers()
@@ -381,6 +391,7 @@ class LocalSyncViewModel @Inject constructor(
 
     fun applyPreview(localAccountId: Int) {
         val preview = _state.value as? LocalSyncUiState.Preview ?: return
+        if (_replyPeer.value?.accountId != localAccountId) _replyPeer.value = null
         if (activePackageId != packageId(preview.incoming) || activeAccountId != localAccountId) return
         _state.value = LocalSyncUiState.Applying
         viewModelScope.launch {
@@ -392,6 +403,7 @@ class LocalSyncViewModel @Inject constructor(
                 throw e
             } catch (_: Exception) {
                 activePackageId = null
+                _replyPeer.value = null
                 _state.value = LocalSyncUiState.Error(LocalSyncError.DATABASE)
             }
         }
@@ -403,6 +415,7 @@ class LocalSyncViewModel @Inject constructor(
             is LocalSyncUiState.Preview, LocalSyncUiState.Receiving -> cancelPreview()
             else -> Unit
         }
+        _replyPeer.value = null
         discovery.stop()
     }
 
@@ -447,6 +460,7 @@ class LocalSyncViewModel @Inject constructor(
         activePackageId = null
         activeAccountId = null
         activePeerId = null
+        _replyPeer.value = null
         engine.stop()
         discovery.stop()
         _state.value = finalState
@@ -458,6 +472,7 @@ class LocalSyncViewModel @Inject constructor(
     internal fun callOnCleared() = onCleared()
 
     override fun onCleared() {
+        _replyPeer.value = null
         engine.stop()
         discovery.stop()
         super.onCleared()
