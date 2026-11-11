@@ -39,6 +39,7 @@ class BrainRpgViewModel @Inject constructor(
     private val repository: BrainRpgRepository,
     val quizGeneratorService: QuizGeneratorService,
     private val aiQuizService: AiQuizService,
+    private val quizCache: QuizCache,
     private val wrappedSharer: BrainWrappedSharer,
     @DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher,
     @IODispatcher private val ioDispatcher: CoroutineDispatcher,
@@ -52,7 +53,6 @@ class BrainRpgViewModel @Inject constructor(
     private val _weeklyWrappedState = MutableStateFlow(WeeklyWrappedUiState())
     val weeklyWrappedState: StateFlow<WeeklyWrappedUiState> = _weeklyWrappedState.asStateFlow()
 
-    private val quizCache = QuizCache()
     private val _quizState = MutableStateFlow<QuizUiState>(QuizUiState.Hidden)
     val quizState: StateFlow<QuizUiState> = _quizState.asStateFlow()
     private var quizJob: Job? = null

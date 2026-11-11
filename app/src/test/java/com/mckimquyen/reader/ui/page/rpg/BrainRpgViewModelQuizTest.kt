@@ -53,6 +53,8 @@ class BrainRpgViewModelQuizTest {
     private lateinit var database: AndroidDatabase
     private lateinit var ai: AiQuizService
     private lateinit var viewModel: BrainRpgViewModel
+    private lateinit var repository: BrainRpgRepository
+    private val sharedCache = QuizCache()
 
     private val ready = QuizQuestion("art-1", "Which?", listOf("a one", "b two", "c three", "d four"), 1, "Because.", "General Knowledge")
 
@@ -65,11 +67,16 @@ class BrainRpgViewModelQuizTest {
             .allowMainThreadQueries().setQueryExecutor { it.run() }.setTransactionExecutor { it.run() }.build()
         val dao = database.brainRpgDao()
         val importer = BrainRpgLegacyImporter(database, context.getSharedPreferences(BrainRpgLegacyPreferences.PREFS_NAME, Context.MODE_PRIVATE), dao)
-        val repository = BrainRpgRepository(context, database, dao, importer, CoroutineScope(Dispatchers.Unconfined), Dispatchers.Unconfined)
+        repository = BrainRpgRepository(context, database, dao, importer, CoroutineScope(Dispatchers.Unconfined), Dispatchers.Unconfined)
         ai = mockk()
         coEvery { ai.generate(any(), any(), any(), any(), any()) } returns AiQuizResult.Ready(ready)
-        viewModel = BrainRpgViewModel(context, repository, QuizGeneratorService(), ai, mockk(relaxed = true), Dispatchers.Unconfined, Dispatchers.Unconfined)
+        viewModel = newViewModel()
     }
+
+    /** Reading a screen creates a new view model every time (hiltViewModel in the reader), so tests can make several. */
+    private fun newViewModel() = BrainRpgViewModel(
+        context, repository, QuizGeneratorService(), ai, sharedCache, mockk(relaxed = true), Dispatchers.Unconfined, Dispatchers.Unconfined,
+    )
 
     @After fun tearDown() {
         database.close()
@@ -174,6 +181,19 @@ class BrainRpgViewModelQuizTest {
         awaitState("the quiz") { it == QuizUiState.Ready(ready) }
         show()
         awaitState("the cached quiz") { it == QuizUiState.Ready(ready) }
+
+        coVerify(exactly = 1) { ai.generate(any(), any(), any(), any(), any()) }
+    }
+
+    @Test fun aNewViewModelForTheSameArticle_usesTheCachedQuiz_withoutANewRequest() {
+        seedConsent(true)
+        show()
+        awaitState("the quiz") { it == QuizUiState.Ready(ready) }
+
+        // The reader builds a fresh view model each time an article is opened: the cache must outlive it.
+        viewModel = newViewModel()
+        show()
+        awaitState("the cached quiz in the new view model") { it == QuizUiState.Ready(ready) }
 
         coVerify(exactly = 1) { ai.generate(any(), any(), any(), any(), any()) }
     }

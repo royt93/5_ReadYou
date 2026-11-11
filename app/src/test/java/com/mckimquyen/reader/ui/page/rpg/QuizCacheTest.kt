@@ -4,6 +4,7 @@ import com.mckimquyen.reader.domain.model.rpg.QuizQuestion
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class QuizCacheTest {
@@ -63,5 +64,13 @@ class QuizCacheTest {
 
         assertEquals(1, cache.size)
         assertNotNull(cache.get("b"))
+    }
+
+    @Test
+    fun theCacheIsAHiltSingleton_soItOutlivesTheViewModelsTheReaderKeepsCreating() {
+        assertTrue(
+            "without @Singleton each view model gets its own empty cache and the same article calls Gemini again",
+            QuizCache::class.java.isAnnotationPresent(javax.inject.Singleton::class.java),
+        )
     }
 }
