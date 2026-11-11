@@ -6,6 +6,8 @@
 - **Epic:** [12. BRAIN RPG — Game Hóa Đọc Bài, Trắc Nghiệm AI & Wrapped](12_GAMIFIED_BRAIN_RPG_AND_WRAPPED.md)
 - **Location:** [`domain/model/rpg/QuizQuestion.kt`](../../../app/src/main/java/com/mckimquyen/reader/domain/model/rpg/QuizQuestion.kt), [`domain/sv/QuizGeneratorService.kt`](../../../app/src/main/java/com/mckimquyen/reader/domain/sv/QuizGeneratorService.kt), [`ui/component/rpg/BrainQuizCard.kt`](../../../app/src/main/java/com/mckimquyen/reader/ui/component/rpg/BrainQuizCard.kt)
 
+> **Cập nhật 2026-11-11:** quiz AI thật (Gemini, chỉ tiêu đề + mô tả ngắn) đã làm, xem [`RPG-02_ai-micro-quiz-engine_DONE.md`](../done/RPG-02_ai-micro-quiz-engine_DONE.md); quiz tiêu đề của RPG-05 đã bị gỡ.
+>
 > **Trạng thái:** ✅ Đã triển khai (xem [`doc/task/done/12_GAMIFIED_BRAIN_RPG_AND_WRAPPED_DONE.md`](../../done/12_GAMIFIED_BRAIN_RPG_AND_WRAPPED_DONE.md)), nhưng audit lại phát hiện quiz KHÔNG thực sự dùng AI để sinh câu hỏi — xem task fix nối tiếp bắt buộc: [`RPG-05`](RPG-05_quiz-distractors-context-aware.md).
 
 ## Vấn đề thực tế / Mô tả
