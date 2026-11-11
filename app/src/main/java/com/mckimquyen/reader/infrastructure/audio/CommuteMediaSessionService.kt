@@ -9,6 +9,8 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Build
+import android.os.Bundle
+import android.os.SystemClock
 import android.support.v4.media.MediaBrowserCompat.MediaItem
 import android.support.v4.media.MediaDescriptionCompat
 import android.support.v4.media.MediaMetadataCompat
@@ -19,14 +21,23 @@ import androidx.core.app.NotificationCompat
 import androidx.media.MediaBrowserServiceCompat
 import androidx.media.app.NotificationCompat.MediaStyle
 import com.mckimquyen.reader.R
-import com.mckimquyen.reader.domain.model.commute.CommuteEpisode
+import com.mckimquyen.reader.domain.model.article.AudioInfo
+import com.mckimquyen.reader.domain.model.podcast.PodcastBrowseItem
+import com.mckimquyen.reader.domain.model.podcast.PodcastPlaybackState
+import com.mckimquyen.reader.domain.model.podcast.SessionSyncPolicy
+import com.mckimquyen.reader.domain.repository.ArticleDao
+import com.mckimquyen.reader.domain.sv.PodcastPlaybackController
 import com.mckimquyen.reader.infrastructure.android.MainActivity
+import com.mckimquyen.reader.ui.ext.currentAccountId
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 /**
@@ -48,13 +59,36 @@ class CommuteMediaSessionService : MediaBrowserServiceCompat() {
     @Inject
     lateinit var episodeStore: CommuteEpisodeStore
 
+    @Inject
+    lateinit var podcast: PodcastPlaybackController
+
+    @Inject
+    lateinit var articleDao: ArticleDao
+
     private var mediaSession: MediaSessionCompat? = null
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
+
+    private val sideTracker = AutoSideTracker()
+    private val podcastSync = SessionSyncPolicy()
+    private var activeSide = AutoSide.NONE
+    private var renderedSide = AutoSide.NONE
+    private var lastMetadataKey: Triple<AutoSide, String, String>? = null
+    private val tree by lazy {
+        AutoMediaTree(getString(R.string.auto_branch_commute), getString(R.string.auto_branch_podcasts))
+    }
+    private val podcastLauncher by lazy {
+        AutoPodcastLauncher(
+            tree = tree,
+            loadShown = ::loadPodcastItems,
+            loadAudio = ::loadPodcastAudio,
+            start = podcast::playEpisode,
+        )
+    }
 
     /**
      * Decoded once and reused: car head units and the lock screen both want the same artwork.
      * `@Volatile` because it is written from the background decode in [onCreate] and read from the
-     * main thread in [buildNotification]/[publishMetadata]/[toBrowsableMediaItem].
+     * main thread in [buildNotification]/[publishMetadata]/[toMediaItem].
      */
     @Volatile
     private var cachedArtwork: Bitmap? = null
@@ -69,56 +103,38 @@ class CommuteMediaSessionService : MediaBrowserServiceCompat() {
         // (there is always at least one more per dialogue line) fills it in.
         scope.launch(Dispatchers.Default) { decodeArtwork() }
         mediaSession = MediaSessionCompat(this, TAG).apply {
-            setCallback(object : PlayFromSearchCallback(playSingleItem = ::resumeOrPlayLatestEpisode) {
-
-                override fun onPlayFromSearch(query: String?, extras: android.os.Bundle?) {
-                    resumeOrPlayLatestEpisode()
-                }
-
-                override fun onPause() {
-                    audioPlayer.pause()
-                }
-
-                override fun onSkipToNext() {
-                    audioPlayer.skipNext()
-                }
-
-                override fun onSkipToPrevious() {
-                    audioPlayer.skipPrevious()
-                }
-
-                override fun onStop() {
-                    audioPlayer.stopAndReset()
-                    stopServiceGracefully()
-                }
-
-                override fun onPlayFromMediaId(mediaId: String?, extras: android.os.Bundle?) {
-                    if (mediaId != MEDIA_ID_LATEST_EPISODE) {
-                        Log.w(TAG, "onPlayFromMediaId: unknown mediaId=$mediaId")
-                        return
-                    }
-                    resumeOrPlayLatestEpisode()
-                }
-
-                // The engine speaks one dialogue line at a time; there is no real audio timeline to
-                // scrub within a line. "Tua" (seek) is honoured as skip-to-adjacent-line instead of
-                // a fabricated time-based seek, matching the honesty precedent from DJ-06's voice
-                // labelling (no promising something the TTS API cannot actually do).
-                override fun onFastForward() {
-                    audioPlayer.skipNext()
-                }
-
-                override fun onRewind() {
-                    audioPlayer.skipPrevious()
-                }
-
-                override fun onSeekTo(pos: Long) {
-                    // No-op, deliberately: there is no millisecond-addressable position to seek to.
-                }
-            })
+            setCallback(
+                AutoSessionCallback(
+                    router = AutoControlRouter(
+                        side = { activeSide },
+                        commute = CommuteAutoTransport(
+                            playLatest = ::resumeOrPlayLatestEpisode,
+                            pauseAction = audioPlayer::pause,
+                            stopAction = audioPlayer::stopAndReset,
+                            skipNext = audioPlayer::skipNext,
+                            skipPrevious = audioPlayer::skipPrevious,
+                        ),
+                        podcast = PodcastAutoTransport(
+                            playAction = podcast::play,
+                            pauseAction = podcast::pause,
+                            stopAction = podcast::stop,
+                            skipSec = podcast::skip,
+                            seekToSec = podcast::seekTo,
+                            skipIntervalSec = PodcastPlaybackController.SKIP_INTERVAL_SEC,
+                        ),
+                        playWhenIdle = ::resumeOrPlayLatestEpisode,
+                    ),
+                    playLatestCommute = ::resumeOrPlayLatestEpisode,
+                    playMediaId = ::playFromMediaId,
+                    onServiceStop = ::stopServiceGracefully,
+                )
+            )
             isActive = true
         }
         sessionToken = mediaSession?.sessionToken
+        scope.launch {
+            combine(podcast.state, audioPlayer.playerState) { p, c -> p to c }.collect { (p, c) -> renderSession(p, c) }
+        }
     }
 
     private fun resumeOrPlayLatestEpisode() {
@@ -148,32 +164,107 @@ class CommuteMediaSessionService : MediaBrowserServiceCompat() {
             Log.w(TAG, "Rejected MediaBrowser connection from untrusted package: $clientPackageName")
             return null
         }
-        return BrowserRoot(MEDIA_ROOT_ID, null)
+        return BrowserRoot(AutoMediaIds.ROOT, null)
     }
 
     override fun onLoadChildren(parentId: String, result: Result<List<MediaItem>>) {
-        if (parentId != MEDIA_ROOT_ID) {
-            result.sendResult(null)
-            return
-        }
-
         result.detach()
         scope.launch {
-            val episode = audioPlayer.playerState.value.episode ?: episodeStore.load()
-            val children = if (episode != null) listOf(episode.toBrowsableMediaItem()) else emptyList()
+            val children = try {
+                val podcasts = if (parentId == AutoMediaIds.PODCAST_BRANCH) loadPodcastItems() else emptyList()
+                val commute = if (parentId == AutoMediaIds.COMMUTE_BRANCH) {
+                    (audioPlayer.playerState.value.episode ?: episodeStore.load())
+                        ?.let { CommuteEntry(it.title, it.dialogues.firstOrNull()?.text.orEmpty()) }
+                } else {
+                    null
+                }
+                tree.children(parentId, commute, podcasts)?.map { it.toMediaItem() }
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                Log.w(TAG, "Could not load children of $parentId", e)
+                emptyList()
+            }
             result.sendResult(children)
         }
     }
 
-    private fun CommuteEpisode.toBrowsableMediaItem(): MediaItem {
-        val subtitle = dialogues.firstOrNull()?.text.orEmpty()
+    private fun AutoNode.toMediaItem(): MediaItem {
+        val extras = durationSec?.let {
+            Bundle().apply { putLong(MediaMetadataCompat.METADATA_KEY_DURATION, it * MILLIS_PER_SECOND) }
+        }
         val description = MediaDescriptionCompat.Builder()
-            .setMediaId(MEDIA_ID_LATEST_EPISODE)
+            .setMediaId(mediaId)
             .setTitle(title)
             .setSubtitle(subtitle)
             .setIconBitmap(getOrDecodeArtwork())
+            .setExtras(extras)
             .build()
-        return MediaItem(description, MediaItem.FLAG_PLAYABLE)
+        return MediaItem(description, if (browsable) MediaItem.FLAG_BROWSABLE else MediaItem.FLAG_PLAYABLE)
+    }
+
+    private fun playFromMediaId(mediaId: String?) {
+        if (mediaId == AutoMediaIds.COMMUTE_EPISODE) {
+            resumeOrPlayLatestEpisode()
+            return
+        }
+        scope.launch {
+            val started = try {
+                podcastLauncher.play(mediaId)
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                Log.w(TAG, "Could not start the requested podcast", e)
+                false
+            }
+            if (!started) Log.w(TAG, "onPlayFromMediaId: ignored mediaId=$mediaId")
+        }
+    }
+
+    private suspend fun loadPodcastItems(): List<PodcastBrowseItem> = withContext(Dispatchers.IO) {
+        articleDao.queryLatestUnreadPodcastEpisodes(applicationContext.currentAccountId, AutoMediaIds.MAX_PODCAST_ITEMS)
+    }
+
+    private suspend fun loadPodcastAudio(articleId: String): AudioInfo? = withContext(Dispatchers.IO) {
+        val article = articleDao.queryById(articleId)?.article ?: return@withContext null
+        val url = article.audioUrl?.takeIf { it.isNotBlank() } ?: return@withContext null
+        AudioInfo(url, article.audioMime, article.audioDurationSec)
+    }
+
+    /** Mirrors whichever engine is active into the car session; the podcast tick is throttled like its own service. */
+    private fun renderSession(p: PodcastPlaybackState, c: CommutePlayerState) {
+        val side = sideTracker.update(p, c)
+        activeSide = side
+        val snapshot = when (side) {
+            AutoSide.PODCAST -> AutoSessionMapper.podcast(p)
+            AutoSide.COMMUTE -> AutoSessionMapper.commute(c, getString(R.string.commute_media_artist))
+            AutoSide.NONE -> return
+        }
+        val sideChanged = side != renderedSide
+        renderedSide = side
+        val needsState = sideChanged || side == AutoSide.COMMUTE ||
+            podcastSync.needsUpdate(p.status, p.speed, p.positionSec, SystemClock.elapsedRealtime())
+        if (needsState) {
+            val builder = PlaybackStateCompat.Builder()
+                .setActions(snapshot.actions)
+                .setState(snapshot.state, snapshot.positionMs, snapshot.speed)
+            if (snapshot.state == PlaybackStateCompat.STATE_ERROR) {
+                builder.setErrorMessage(PlaybackStateCompat.ERROR_CODE_APP_ERROR, getString(R.string.podcast_error))
+            }
+            mediaSession?.setPlaybackState(builder.build())
+        }
+        val key = Triple(side, snapshot.title, snapshot.subtitle)
+        if (key != lastMetadataKey) {
+            lastMetadataKey = key
+            mediaSession?.setMetadata(
+                MediaMetadataCompat.Builder()
+                    .putString(MediaMetadataCompat.METADATA_KEY_TITLE, snapshot.title)
+                    .putString(MediaMetadataCompat.METADATA_KEY_ARTIST, snapshot.subtitle)
+                    .putLong(MediaMetadataCompat.METADATA_KEY_DURATION, snapshot.durationMs)
+                    .putBitmap(MediaMetadataCompat.METADATA_KEY_ALBUM_ART, getOrDecodeArtwork())
+                    .build()
+            )
+        }
     }
 
     private fun decodeArtwork() {
@@ -216,12 +307,10 @@ class CommuteMediaSessionService : MediaBrowserServiceCompat() {
         when (action) {
             ACTION_PLAY -> {
                 publishMetadata(title, subtitle)
-                updatePlaybackState(PlaybackStateCompat.STATE_PLAYING)
                 val notification = buildNotification(title, subtitle, isPlaying = true)
                 startForeground(NOTIFICATION_ID, notification)
             }
             ACTION_PAUSE -> {
-                updatePlaybackState(PlaybackStateCompat.STATE_PAUSED)
                 val notification = buildNotification(title, subtitle, isPlaying = false)
                 val manager = getSystemService(NotificationManager::class.java)
                 manager.notify(NOTIFICATION_ID, notification)
@@ -379,10 +468,10 @@ class CommuteMediaSessionService : MediaBrowserServiceCompat() {
         const val NOTIFICATION_ID = 9183
 
         /** Root id Android Auto/Automotive OS ask for children of; the whole tree is one level deep. */
-        const val MEDIA_ROOT_ID = "commutecast_root"
+        const val MEDIA_ROOT_ID = AutoMediaIds.ROOT
 
         /** The only playable item CommuteCast currently exposes: its single latest episode. */
-        const val MEDIA_ID_LATEST_EPISODE = "commutecast_latest_episode"
+        const val MEDIA_ID_LATEST_EPISODE = AutoMediaIds.COMMUTE_EPISODE
 
         const val ACTION_PLAY = "com.mckimquyen.reader.commute.ACTION_PLAY"
         const val ACTION_PAUSE = "com.mckimquyen.reader.commute.ACTION_PAUSE"
@@ -392,6 +481,8 @@ class CommuteMediaSessionService : MediaBrowserServiceCompat() {
 
         const val EXTRA_TITLE = "extra_title"
         const val EXTRA_SUBTITLE = "extra_subtitle"
+
+        private const val MILLIS_PER_SECOND = 1_000L
 
         fun start(context: Context, title: String, subtitle: String) {
             val intent = Intent(context, CommuteMediaSessionService::class.java).apply {
