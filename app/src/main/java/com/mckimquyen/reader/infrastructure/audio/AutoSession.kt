@@ -136,3 +136,44 @@ class AutoControlRouter(
     fun rewind() { target()?.rewind() }
     fun seekToMs(positionMs: Long) { target()?.seekToMs(positionMs) }
 }
+
+/** CommuteCast has no timeline: "tua" moves one dialogue line and an absolute seek does nothing. */
+class CommuteAutoTransport(
+    private val playLatest: () -> Unit,
+    private val pauseAction: () -> Unit,
+    private val stopAction: () -> Unit,
+    private val skipNext: () -> Unit,
+    private val skipPrevious: () -> Unit,
+) : AutoTransport {
+    override fun play() = playLatest()
+    override fun pause() = pauseAction()
+    override fun stop() = stopAction()
+    override fun next() = skipNext()
+    override fun previous() = skipPrevious()
+    override fun fastForward() = skipNext()
+    override fun rewind() = skipPrevious()
+    override fun seekToMs(positionMs: Long) = Unit
+}
+
+/** A podcast has a real timeline, so next/previous and tua move by [skipIntervalSec] and seek is honoured. */
+class PodcastAutoTransport(
+    private val playAction: () -> Unit,
+    private val pauseAction: () -> Unit,
+    private val stopAction: () -> Unit,
+    private val skipSec: (Int) -> Unit,
+    private val seekToSec: (Int) -> Unit,
+    private val skipIntervalSec: Int,
+) : AutoTransport {
+    override fun play() = playAction()
+    override fun pause() = pauseAction()
+    override fun stop() = stopAction()
+    override fun next() = skipSec(skipIntervalSec)
+    override fun previous() = skipSec(-skipIntervalSec)
+    override fun fastForward() = skipSec(skipIntervalSec)
+    override fun rewind() = skipSec(-skipIntervalSec)
+    override fun seekToMs(positionMs: Long) = seekToSec((positionMs / MS_PER_SEC).toInt())
+
+    private companion object {
+        const val MS_PER_SEC = 1_000L
+    }
+}
