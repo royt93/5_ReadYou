@@ -459,6 +459,16 @@
     <string name="brain_rpg_retry_quiz">Làm lại thử thách (Xem quảng cáo)</string>
     <string name="quiz_ai_title">Câu hỏi trắc nghiệm do AI soạn</string>
     <string name="quiz_ai_consent_message">Chỉ tiêu đề và phần xem trước ngắn (dưới 250 ký tự) của bài được gửi tới Google Gemini để soạn một câu hỏi trắc nghiệm. Nội dung bài, đường dẫn và lịch sử đọc của bạn không bao giờ được gửi.</string>
+    <string name="quiz_ai_label">Do AI soạn từ tiêu đề và phần xem trước; có thể sai</string>
+    <string name="quiz_ai_loading">AI đang soạn câu hỏi…</string>
+    <string name="quiz_ai_failed">Chưa có câu hỏi AI</string>
+    <string name="quiz_ai_no_key">Không có khoá Gemini nào, nên AI chưa soạn được câu hỏi.</string>
+    <string name="quiz_ai_nothing_to_ask">Bài này không có tiêu đề hay phần xem trước để ra câu hỏi.</string>
+    <string name="quiz_ai_retry">Thử lại</string>
+    <string name="quiz_ai_consent_agree">Đồng ý</string>
+    <string name="quiz_ai_consent_later">Để sau</string>
+    <string name="quiz_ai_declined_message">Câu hỏi AI đang tắt. Bật trong Cài đặt, Quyền riêng tư để có câu hỏi ở đây.</string>
+    <string name="quiz_ai_open_privacy">Mở cài đặt Quyền riêng tư</string>
     <string name="brain_rpg_streak_shield">Khiên Bảo Vệ Streak</string>
     <string name="brain_rpg_streak_shield_active">Khiên đang kích hoạt (Được bảo vệ)</string>
     <string name="brain_rpg_streak_shield_activate">Kích hoạt Khiên (Xem quảng cáo)</string>

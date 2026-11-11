@@ -25,6 +25,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mckimquyen.reader.R
@@ -36,6 +37,8 @@ fun BrainQuizCard(
     quiz: QuizQuestion,
     /** The bonus was already taken for this article (persisted), so the button must not come back after a restart. */
     doubleAlreadyClaimed: Boolean = false,
+    /** The question was written by the AI: say so, because it can be wrong. */
+    aiLabel: Boolean = false,
     onAnswerSubmitted: (isCorrect: Boolean) -> Unit,
     onDoubleXpRequested: (activity: Activity, onDone: (Boolean) -> Unit) -> Unit,
     onRetryQuizRequested: (activity: Activity, onDone: (Boolean) -> Unit) -> Unit,
@@ -117,6 +120,16 @@ fun BrainQuizCard(
                         modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp)
                     )
                 }
+            }
+
+            if (aiLabel) {
+                Spacer(modifier = Modifier.height(6.dp))
+                Text(
+                    text = stringResource(R.string.quiz_ai_label),
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.testTag(BrainQuizTags.AI_LABEL),
+                )
             }
 
             Spacer(modifier = Modifier.height(14.dp))
