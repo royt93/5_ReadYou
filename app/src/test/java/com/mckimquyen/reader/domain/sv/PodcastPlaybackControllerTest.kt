@@ -43,7 +43,16 @@ class PodcastPlaybackControllerTest {
         override fun setOnPlayRequested(callback: (() -> Unit)?) { this.callback = callback }
     }
 
+    private class FakeCommute : CommuteGate {
+        override var isPlaying = false
+        var pauses = 0
+        var callback: (() -> Unit)? = null
+        override fun pause() { pauses++; isPlaying = false }
+        override fun setOnPlayRequested(callback: (() -> Unit)?) { this.callback = callback }
+    }
+
     private lateinit var positions: PodcastPositionStore
+    private lateinit var commute: FakeCommute
     private lateinit var tts: FakeTts
     private var starts = 0
     private var now = 0L
@@ -56,9 +65,10 @@ class PodcastPlaybackControllerTest {
         context.getSharedPreferences(PodcastPositionStore.PREFS_NAME, Context.MODE_PRIVATE).edit().clear().commit()
         positions = PodcastPositionStore(context)
         tts = FakeTts()
+        commute = FakeCommute()
         starts = 0
         now = 0L
-        controller = PodcastPlaybackController(positions, tts, { starts++ }, SleepTimer { now })
+        controller = PodcastPlaybackController(positions, tts, commute, { starts++ }, SleepTimer { now })
     }
 
     private fun attached(): FakeEngine = FakeEngine().also { controller.attachEngine(it) }
@@ -316,5 +326,45 @@ class PodcastPlaybackControllerTest {
 
     private companion object {
         const val URL = "https://x/1.mp3"
+    }
+
+    @Test fun play_whileCommuteCastPlaying_pausesCommuteCastFirst() {
+        attached()
+        commute.isPlaying = true
+        controller.open("a1", "T", "F", audio)
+
+        controller.play()
+
+        assertEquals(1, commute.pauses)
+    }
+
+    @Test fun play_whenCommuteCastIsNotPlaying_leavesItAlone() {
+        attached()
+        controller.open("a1", "T", "F", audio)
+
+        controller.play()
+
+        assertEquals(0, commute.pauses)
+    }
+
+    @Test fun commuteCastStarting_pausesAPlayingPodcast() {
+        val engine = attached()
+        controller.playEpisode("a1", "T", "F", audio)
+        // First start prepares the engine, so the controller reports PREPARING until the first tick; still active.
+        assertEquals(PodcastStatus.PREPARING, controller.state.value.status)
+
+        commute.callback?.invoke()
+
+        assertEquals(PodcastStatus.PAUSED, controller.state.value.status)
+        assertTrue(engine.calls.contains("pause"))
+    }
+
+    @Test fun commuteCastStarting_whilePodcastIsIdle_changesNothing() {
+        controller.open("a1", "T", "F", audio)
+
+        commute.callback?.invoke()
+
+        assertEquals(PodcastStatus.PAUSED, controller.state.value.status)
+        assertEquals(0, starts)
     }
 }

@@ -116,6 +116,9 @@ class CommuteAudioPlayer @Inject constructor(
     private val _playerState = MutableStateFlow(CommutePlayerState())
     val playerState: StateFlow<CommutePlayerState> = _playerState.asStateFlow()
 
+    /** Called whenever CommuteCast is about to speak, so other audio (podcast) pauses first. */
+    var onPlayRequested: (() -> Unit)? = null
+
     init {
         tts = TextToSpeech(context, this)
     }
@@ -314,6 +317,8 @@ class CommuteAudioPlayer @Inject constructor(
 
     private fun speakCurrentDialogue() {
         val currentDialogue = _playerState.value.currentDialogue ?: return
+
+        onPlayRequested?.invoke()
 
         if (!isInitialized) {
             _playerState.update { it.copy(isAwaitingPlayback = true, isPlaying = false) }

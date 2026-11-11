@@ -190,4 +190,40 @@ class CommuteAudioPlayerTest {
         assertFalse(player.playerState.value.isPlaying)
         assertFalse(player.ambientLoop.isPlaying)
     }
+
+    @Test
+    fun playEpisode_asksOtherSourcesToYield() {
+        var asked = 0
+        player.onPlayRequested = { asked++ }
+
+        player.playEpisode(sampleEpisode, startFromIndex = 0)
+
+        assertEquals(1, asked)
+    }
+
+    @Test
+    fun resumeWithAnEpisode_asksOtherSourcesToYield_butResumeWithoutOneDoesNot() {
+        var asked = 0
+        player.onPlayRequested = { asked++ }
+
+        player.resume()
+        player.pause()
+        assertEquals("nothing loaded, nothing to speak", 0, asked)
+
+        player.prepareEpisode(sampleEpisode)
+        player.resume()
+        assertEquals(1, asked)
+    }
+
+    @Test
+    fun yieldRequestIsMadeEvenWhileTheEngineIsStillStarting() {
+        var asked = 0
+        player.onPlayRequested = { asked++ }
+
+        // Robolectric's TTS never finishes onInit: the request is queued, yet other audio must already stop.
+        player.playEpisode(sampleEpisode, startFromIndex = 0)
+
+        assertTrue(player.playerState.value.isAwaitingPlayback)
+        assertEquals(1, asked)
+    }
 }

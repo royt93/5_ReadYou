@@ -1,8 +1,11 @@
 package com.mckimquyen.reader.infrastructure.di
 
 import com.mckimquyen.reader.domain.model.podcast.SleepTimer
+import com.mckimquyen.reader.domain.sv.CommuteGate
 import com.mckimquyen.reader.domain.sv.PodcastServiceStarter
 import com.mckimquyen.reader.domain.sv.TtsGate
+import com.mckimquyen.reader.infrastructure.audio.CommuteAudioPlayer
+import com.mckimquyen.reader.infrastructure.audio.CommuteAudioPlayerGate
 import com.mckimquyen.reader.infrastructure.audio.TtsManager
 import com.mckimquyen.reader.infrastructure.audio.TtsState
 import android.content.Context
@@ -27,6 +30,10 @@ object PodcastModule {
             ttsManager.onPlayRequested = callback
         }
     }
+
+    @Provides
+    @Singleton
+    fun provideCommuteGate(player: CommuteAudioPlayer): CommuteGate = CommuteAudioPlayerGate(player)
 
     @Provides
     fun provideSleepTimer(): SleepTimer = SleepTimer()

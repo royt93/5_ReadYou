@@ -16,6 +16,7 @@ import javax.inject.Singleton
 class PodcastPlaybackController @Inject constructor(
     private val positions: PodcastPositionStore,
     private val tts: TtsGate,
+    private val commute: CommuteGate,
     private val starter: PodcastServiceStarter,
     private val sleepTimer: SleepTimer,
 ) {
@@ -31,6 +32,7 @@ class PodcastPlaybackController @Inject constructor(
 
     init {
         tts.setOnPlayRequested { pause() }
+        commute.setOnPlayRequested { pause() }
     }
 
     /** Selects an episode and restores its saved position. Never autoplays. */
@@ -83,6 +85,7 @@ class PodcastPlaybackController @Inject constructor(
     fun play() {
         if (audio == null || _state.value.articleId == null) return
         if (tts.isSpeaking) tts.stop()
+        if (commute.isPlaying) commute.pause()
         pendingSleepMinutes?.let {
             sleepTimer.start(it)
             pendingSleepMinutes = null
