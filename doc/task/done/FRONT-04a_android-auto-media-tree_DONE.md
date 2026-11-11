@@ -33,6 +33,15 @@ Before touching it: `adb devices`, `dumpsys activity` (no active instrumentation
 - **Car session mirrors the active engine:** while the podcast played, the `CommuteMediaSession` showed `PLAYING` with the podcast metadata and the podcast action set including seek (`actions=1919`), while `PodcastPlaybackService` kept its own session for its notification.
 - **Restore:** at the end Room, `-shm`, `-wal`, DataStore and `pairing_store.xml` compared **byte-identical** to the backup. The temporary local-network permission was revoked, the audio server stopped, the test APK uninstalled and the app force-stopped. `commute_cast_prefs.xml` (changed by the smoke) was put back from its own backup key and `podcast_positions.xml` was removed; I wrote that file back byte for byte but, unlike the database, I did not have a byte-exact backup of it, so it is restored from the app's own backup copy, not from a pre-smoke snapshot. The app now on the phone is the dev debug build of this code.
 
+## Second Pixel run: podcast started while CommuteCast was speaking (2026-11-11)
+
+Same gates and a fresh byte-exact backup (this time also `commute_cast_prefs.xml`, which the first run had not backed up). A longer 24 s podcast sample and an 8-line CommuteCast bulletin were used. Started the bulletin through the car session id, let the speech engine speak, then `playFromMediaId(podcast:...)`, and sampled `dumpsys media_session` and `dumpsys audio` at fixed points:
+
+- While CommuteCast spoke: its session was `PLAYING`, metadata `Front04 Reverse Probe`; the Google TTS player was started.
+- Just after the podcast started: the audio dump shows the Google TTS player `stopped` and released, the CommuteCast player `paused`, **CommuteAudioPlayer abandoned its audio focus**, and ExoPlayer then requested focus (about 170 ms later) and a new `AudioTrack` for the podcast started. The car session switched to `Front04 Episode 1` with `PLAYING`; the podcast service session was `PLAYING` too.
+- So the reverse direction (podcast starts -> CommuteCast stops) holds on a real phone with real audio output, in this one run on one device. I did not listen to the speaker, so "audible" rests on the audio dump (player events and focus calls), not on hearing it.
+- Restore afterwards: Room, `-shm`, `-wal`, `commute_cast_prefs.xml`, `pairing_store.xml` and DataStore all byte-identical to this run's backup; permission revoked, server stopped, test APK uninstalled, app stopped. Note that this restore is to the state at the **start of the second run**, which is the state left by the first run's repair of `commute_cast_prefs.xml` (see above), not to the original pre-FRONT-04 state of that one file.
+
 ## Found on the phone (not by the JVM tests)
 
 1. My first smoke showed the podcast stuck in `BUFFERING` and no request reached the Mac. Cause: on Android 17 the app did not hold `ACCESS_LOCAL_NETWORK`, and the fixture audio lived on the LAN. After granting it temporarily the podcast reached `PLAYING`. This is an artifact of using a LAN fixture; real episodes are on the internet. Not a product change.
@@ -42,8 +51,8 @@ Before touching it: `adb devices`, `dumpsys activity` (no active instrumentation
 ## Not verified / limits
 
 - **No Desktop Head Unit, no real car.** Nothing here shows how the two branches look or behave on the car screen, how long titles are cut, or how the steering-wheel controls behave. The DHU steps in the plan were not run because the owner chose the adb path.
-- **Reverse yield not shown on the device.** Podcast starts -> CommuteCast pauses is proven in the JVM (`CommuteAudioPlayerGate`, controller tests and their mutations). On the phone I showed only the CommuteCast -> podcast direction at the session level. At the moment I sampled, the CommuteCast session itself was `PAUSED` (speed 0): the smoke bulletin has two very short lines and probably finished before the sample, but I did not prove that, so I do not claim it was audibly playing at that moment.
-- **Audio focus not observed.** The two focus mechanisms (the player's request and ExoPlayer's `handleAudioFocus`) can overlap when sides change; I did not capture it. Navigation, phone calls and other media taking focus were not tried.
+- **CommuteCast speaking, then a podcast started, was measured in a second Pixel run (below).** In the first run the CommuteCast bulletin had two very short lines and was already `PAUSED` when I sampled, so that run proved only the CommuteCast -> podcast direction at the session level; I did not claim more.
+- **Audio focus: only the podcast-after-CommuteCast switch was observed** (abandon, then ExoPlayer request, no overlap seen in that run). The reverse switch, navigation, phone calls and other media taking focus were not tried, and one clean switch does not show that overlap cannot happen.
 - **Voice search** ("play ...") was not exercised on the phone; only its unit behaviour (always the latest CommuteCast episode).
 - "Unread" means the article's unread flag, not a saved listening position (an episode half-listened but still unread stays in the list).
 - The client check is still by package name only (no signature check), as before.
