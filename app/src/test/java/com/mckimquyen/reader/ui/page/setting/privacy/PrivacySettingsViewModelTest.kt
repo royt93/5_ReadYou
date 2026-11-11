@@ -9,6 +9,7 @@ import com.mckimquyen.reader.infrastructure.pref.HtmlAntiTrackerPref
 import com.mckimquyen.reader.infrastructure.pref.UrlTrackingCleanPref
 import com.mckimquyen.reader.ui.ext.dataStore
 import com.mckimquyen.reader.ui.ext.retractionRadarEnabled
+import com.mckimquyen.reader.ui.ext.deepDiveGeminiConsent
 import com.mckimquyen.reader.ui.ext.headlineSignalsEnabled
 import com.mckimquyen.reader.ui.ext.podcastStudioGeminiConsent
 import com.mckimquyen.reader.ui.ext.quizGeminiConsent
@@ -155,6 +156,38 @@ class PrivacySettingsViewModelTest {
         viewModel.setPodcastStudioGeminiConsent(true)
         advanceUntilIdle()
         assertTrue(awaitReal { viewModel.podcastStudioGeminiConsent.first { it } })
+        assertFalse("the quiz switch must stay off", viewModel.quizGeminiConsent.value)
+        assertEquals(null, context.quizGeminiConsent)
+    }
+
+    @Test
+    fun deepDiveGeminiConsent_isOffUntilTheUserAgreesAndPersistsBothWays() = runTest(dispatcher) {
+        context.dataStore.edit { it.clear() }
+        val viewModel = PrivacySettingsViewModel(context)
+        advanceUntilIdle()
+        assertFalse(viewModel.deepDiveGeminiConsent.value)
+        assertEquals(null, context.deepDiveGeminiConsent)
+
+        viewModel.setDeepDiveGeminiConsent(true)
+        advanceUntilIdle()
+        assertTrue(awaitReal { viewModel.deepDiveGeminiConsent.first { it } })
+        assertEquals(true, context.deepDiveGeminiConsent)
+
+        viewModel.setDeepDiveGeminiConsent(false)
+        advanceUntilIdle()
+        assertFalse(awaitReal { viewModel.deepDiveGeminiConsent.first { !it } })
+        assertEquals(false, context.deepDiveGeminiConsent)
+    }
+
+    @Test
+    fun deepDiveSwitchDoesNotTouchTheQuizSwitch() = runTest(dispatcher) {
+        context.dataStore.edit { it.clear() }
+        val viewModel = PrivacySettingsViewModel(context)
+        advanceUntilIdle()
+
+        viewModel.setDeepDiveGeminiConsent(true)
+        advanceUntilIdle()
+        assertTrue(awaitReal { viewModel.deepDiveGeminiConsent.first { it } })
         assertFalse("the quiz switch must stay off", viewModel.quizGeminiConsent.value)
         assertEquals(null, context.quizGeminiConsent)
     }

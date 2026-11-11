@@ -125,6 +125,14 @@ suspend fun Context.setQuizGeminiConsent(agreed: Boolean) {
     this.dataStore.put(DataStoreKeys.QuizGeminiConsent, agreed)
 }
 
+/** FRONT-01: null until the user answers the Deep Dive sheet's Gemini question; then true (allowed) or false (declined). */
+val Context.deepDiveGeminiConsent: Boolean?
+    get() = this.dataStore.get(DataStoreKeys.DeepDiveGeminiConsent)
+
+suspend fun Context.setDeepDiveGeminiConsent(agreed: Boolean) {
+    this.dataStore.put(DataStoreKeys.DeepDiveGeminiConsent, agreed)
+}
+
 suspend fun <T> DataStore<Preferences>.put(dataStoreKeys: DataStoreKeys<T>, value: T) {
     this.edit {
         withContext(Dispatchers.IO) {
@@ -676,5 +684,11 @@ sealed class DataStoreKeys<T> {
     object QuizGeminiConsent : DataStoreKeys<Boolean>() {
         override val key: Preferences.Key<Boolean>
             get() = booleanPreferencesKey("quiz_gemini_consent")
+    }
+
+    /** FRONT-01: answer to "send the title and up to 6000 characters of the article to Gemini for a Deep Dive?". Absent means not asked yet. */
+    object DeepDiveGeminiConsent : DataStoreKeys<Boolean>() {
+        override val key: Preferences.Key<Boolean>
+            get() = booleanPreferencesKey("deep_dive_gemini_consent")
     }
 }

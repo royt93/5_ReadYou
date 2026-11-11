@@ -45,6 +45,10 @@ class PrivacySettingsViewModel @Inject constructor(
     private val _quizGeminiConsent = MutableStateFlow(false)
     val quizGeminiConsent = _quizGeminiConsent.asStateFlow()
 
+    // FRONT-01: true only when the user explicitly agreed; "never asked" and "declined" both read as off.
+    private val _deepDiveGeminiConsent = MutableStateFlow(false)
+    val deepDiveGeminiConsent = _deepDiveGeminiConsent.asStateFlow()
+
     init {
         viewModelScope.launch {
             context.dataStore.data.collect { preferences ->
@@ -55,6 +59,7 @@ class PrivacySettingsViewModel @Inject constructor(
                 _headlineSignals.value = HeadlineSignalsPref.fromPreferences(preferences).value
                 _podcastStudioGeminiConsent.value = preferences[DataStoreKeys.PodcastStudioGeminiConsent.key] == true
                 _quizGeminiConsent.value = preferences[DataStoreKeys.QuizGeminiConsent.key] == true
+                _deepDiveGeminiConsent.value = preferences[DataStoreKeys.DeepDiveGeminiConsent.key] == true
             }
         }
     }
@@ -111,6 +116,14 @@ class PrivacySettingsViewModel @Inject constructor(
         viewModelScope.launch {
             context.dataStore.updateData { preferences ->
                 preferences.toMutablePreferences().apply { this[DataStoreKeys.QuizGeminiConsent.key] = agreed }
+            }
+        }
+    }
+
+    fun setDeepDiveGeminiConsent(agreed: Boolean) {
+        viewModelScope.launch {
+            context.dataStore.updateData { preferences ->
+                preferences.toMutablePreferences().apply { this[DataStoreKeys.DeepDiveGeminiConsent.key] = agreed }
             }
         }
     }
