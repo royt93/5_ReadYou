@@ -200,7 +200,7 @@ class PodcastPlaybackService : Service() {
     companion object {
         const val TAG = "PodcastPlaybackService"
         const val CHANNEL_ID = "podcast_playback_channel"
-        const val NOTIFICATION_ID = 9183
+        const val NOTIFICATION_ID = 9184
         const val ACTION_PLAY = "com.mckimquyen.reader.podcast.ACTION_PLAY"
         const val ACTION_PAUSE = "com.mckimquyen.reader.podcast.ACTION_PAUSE"
         const val ACTION_REWIND = "com.mckimquyen.reader.podcast.ACTION_REWIND"
