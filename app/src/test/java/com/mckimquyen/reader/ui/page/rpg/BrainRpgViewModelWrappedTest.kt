@@ -74,7 +74,7 @@ class BrainRpgViewModelWrappedTest {
             dao,
         )
         repository = BrainRpgRepository(context, database, dao, importer, scope, dispatcher)
-        viewModel = BrainRpgViewModel(repository, QuizGeneratorService(), sharer, dispatcher, dispatcher)
+        viewModel = BrainRpgViewModel(context, repository, QuizGeneratorService(), io.mockk.mockk(relaxed = true), sharer, dispatcher, dispatcher)
     }
 
     @After

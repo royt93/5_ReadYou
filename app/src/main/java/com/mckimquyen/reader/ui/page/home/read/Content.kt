@@ -102,10 +102,13 @@ fun Content(
     // Built off the main thread (Room peer lookup on IO, generation on Default); null until ready, so the card appears
     // a moment after the article instead of blocking composition. produceState is avoided on purpose: lint's
     // ProduceStateDoesNotAssignValue rejects it here (same rule FIX-21 hit), and LaunchedEffect says the same thing.
-    var quiz by remember(articleId, title, content) { mutableStateOf<QuizQuestion?>(null) }
-    LaunchedEffect(articleId, title, content, brainRpgViewModel) {
-        if (brainRpgViewModel != null && articleId.isNotBlank() && (title.isNotBlank() || content.isNotBlank())) {
-            quiz = brainRpgViewModel.buildQuiz(articleId, title, content, author)
+    // Task 6 bridge (replaced by BrainQuizHost in Task 8): only a ready AI quiz is drawn with the existing card.
+    val bridgeQuizState by (brainRpgViewModel?.quizState ?: remember { kotlinx.coroutines.flow.MutableStateFlow<com.mckimquyen.reader.ui.page.rpg.QuizUiState>(com.mckimquyen.reader.ui.page.rpg.QuizUiState.Hidden) })
+        .collectAsState()
+    val quiz: QuizQuestion? = (bridgeQuizState as? com.mckimquyen.reader.ui.page.rpg.QuizUiState.Ready)?.quiz
+    LaunchedEffect(articleId, title, brainRpgViewModel) {
+        if (brainRpgViewModel != null && articleId.isNotBlank() && title.isNotBlank()) {
+            brainRpgViewModel.onQuizCardShown(articleId, title, "", content)
         }
     }
 

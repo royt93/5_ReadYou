@@ -1,35 +1,44 @@
 package com.mckimquyen.reader.ui.page.rpg
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mckimquyen.reader.domain.model.rpg.QuizQuestion
 import com.mckimquyen.reader.domain.model.rpg.UserProgress
 import com.mckimquyen.reader.domain.model.rpg.WeeklyBrainWrapped
 import com.mckimquyen.reader.domain.repository.BrainRpgRepository
+import com.mckimquyen.reader.domain.sv.AiQuizResult
+import com.mckimquyen.reader.domain.sv.AiQuizService
 import com.mckimquyen.reader.domain.sv.QuizGeneratorService
 import com.mckimquyen.reader.infrastructure.di.DefaultDispatcher
 import com.mckimquyen.reader.infrastructure.di.IODispatcher
 import com.mckimquyen.reader.infrastructure.rpg.BrainWrappedRenderModel
 import com.mckimquyen.reader.infrastructure.rpg.BrainWrappedRenderer
 import com.mckimquyen.reader.infrastructure.rpg.BrainWrappedSharer
+import com.mckimquyen.reader.ui.ext.quizGeminiConsent
+import com.mckimquyen.reader.ui.ext.setQuizGeminiConsent
 import com.roy.sdkadbmob.AdManager
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.Locale
 import javax.inject.Inject
 
 @HiltViewModel
 class BrainRpgViewModel @Inject constructor(
+    @ApplicationContext private val context: Context,
     private val repository: BrainRpgRepository,
     val quizGeneratorService: QuizGeneratorService,
+    private val aiQuizService: AiQuizService,
     private val wrappedSharer: BrainWrappedSharer,
     @DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher,
     @IODispatcher private val ioDispatcher: CoroutineDispatcher,
@@ -43,20 +52,79 @@ class BrainRpgViewModel @Inject constructor(
     private val _weeklyWrappedState = MutableStateFlow(WeeklyWrappedUiState())
     val weeklyWrappedState: StateFlow<WeeklyWrappedUiState> = _weeklyWrappedState.asStateFlow()
 
+    private val quizCache = QuizCache()
+    private val _quizState = MutableStateFlow<QuizUiState>(QuizUiState.Hidden)
+    val quizState: StateFlow<QuizUiState> = _quizState.asStateFlow()
+    private var quizJob: Job? = null
+    private var pendingQuiz: PendingQuiz? = null
+
+    /** What is needed to write a quiz for the article on screen: never the body, only title and short description. */
+    private data class PendingQuiz(val articleId: String, val title: String, val shortDescription: String, val category: String)
+
     /**
-     * Builds the quiz off the main thread: peer headlines come from Room (IO), generation runs on Default.
-     * A failed lookup degrades to an article-only quiz instead of hiding the card.
+     * The end-of-article card appeared. Decides what it shows: a cached quiz, the consent question, the guidance for a
+     * declined consent, or a single Gemini request (only when the stored consent is exactly `true`).
+     * [content] is used only to pick the XP category on this device; it is never sent anywhere.
      */
-    suspend fun buildQuiz(articleId: String, title: String, content: String, author: String?): QuizQuestion {
-        val peers = try {
-            repository.quizPeers(articleId)
-        } catch (e: CancellationException) {
-            throw e
-        } catch (_: Exception) {
-            emptyList()
+    fun onQuizCardShown(articleId: String, title: String, shortDescription: String, content: String) {
+        val current = pendingQuiz
+        if (current?.articleId == articleId && _quizState.value is QuizUiState.Loading) return
+        quizJob?.cancel()
+        val request = PendingQuiz(articleId, title, shortDescription, quizGeneratorService.detectCategory(title, content))
+        pendingQuiz = request
+        quizCache.get(articleId)?.let {
+            _quizState.value = QuizUiState.Ready(it)
+            return
         }
-        return withContext(defaultDispatcher) {
-            quizGeneratorService.generateQuiz(articleId, title, content, author, peers)
+        quizJob = viewModelScope.launch {
+            when (withContext(ioDispatcher) { context.quizGeminiConsent }) {
+                null -> _quizState.value = QuizUiState.AwaitingConsent
+                false -> _quizState.value = QuizUiState.ConsentDeclined
+                true -> generateQuiz(request)
+            }
+        }
+    }
+
+    /** The user answered the in-card question. Agreeing continues with the article that is waiting. */
+    fun onQuizConsent(agreed: Boolean) {
+        val waiting = pendingQuiz
+        quizJob?.cancel()
+        quizJob = viewModelScope.launch {
+            withContext(ioDispatcher) { context.setQuizGeminiConsent(agreed) }
+            if (!agreed) {
+                _quizState.value = QuizUiState.ConsentDeclined
+            } else if (waiting != null) {
+                generateQuiz(waiting)
+            }
+        }
+    }
+
+    /** "Not now": nothing is stored and the question stays, so it is asked again on another article. */
+    fun onQuizConsentLater() {
+        _quizState.value = QuizUiState.AwaitingConsent
+    }
+
+    /** Asks for a new question after a failure. Only the user's tap gets here; nothing retries by itself. */
+    fun retryQuizGeneration() {
+        val waiting = pendingQuiz ?: return
+        if (_quizState.value !is QuizUiState.Failed) return
+        quizJob?.cancel()
+        quizJob = viewModelScope.launch { generateQuiz(waiting) }
+    }
+
+    private suspend fun generateQuiz(request: PendingQuiz) {
+        _quizState.value = QuizUiState.Loading
+        val result = withContext(ioDispatcher) {
+            aiQuizService.generate(request.articleId, request.title, request.shortDescription, request.category, Locale.getDefault().toLanguageTag())
+        }
+        // No stale-answer check is needed: a newer article cancels [quizJob] first, so withContext above throws
+        // CancellationException instead of returning an old answer here.
+        _quizState.value = when (result) {
+            is AiQuizResult.Ready -> {
+                quizCache.put(request.articleId, result.quiz)
+                QuizUiState.Ready(result.quiz)
+            }
+            is AiQuizResult.Failed -> QuizUiState.Failed(result.reason)
         }
     }
 
