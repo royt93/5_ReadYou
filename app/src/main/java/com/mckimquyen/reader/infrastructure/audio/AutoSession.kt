@@ -97,3 +97,42 @@ object AutoSessionMapper {
         )
     }
 }
+
+/** The transport commands a car can send, as one engine understands them. */
+interface AutoTransport {
+    fun play()
+    fun pause()
+    fun stop()
+    fun next()
+    fun previous()
+    fun fastForward()
+    fun rewind()
+    fun seekToMs(positionMs: Long)
+}
+
+/** Sends each car command to the side [side] reports at that moment; with nothing loaded only Play does anything. */
+class AutoControlRouter(
+    private val side: () -> AutoSide,
+    private val commute: AutoTransport,
+    private val podcast: AutoTransport,
+    private val playWhenIdle: () -> Unit,
+) {
+    private fun target(): AutoTransport? = when (side()) {
+        AutoSide.COMMUTE -> commute
+        AutoSide.PODCAST -> podcast
+        AutoSide.NONE -> null
+    }
+
+    fun play() {
+        val t = target()
+        if (t == null) playWhenIdle() else t.play()
+    }
+
+    fun pause() { target()?.pause() }
+    fun stop() { target()?.stop() }
+    fun next() { target()?.next() }
+    fun previous() { target()?.previous() }
+    fun fastForward() { target()?.fastForward() }
+    fun rewind() { target()?.rewind() }
+    fun seekToMs(positionMs: Long) { target()?.seekToMs(positionMs) }
+}
