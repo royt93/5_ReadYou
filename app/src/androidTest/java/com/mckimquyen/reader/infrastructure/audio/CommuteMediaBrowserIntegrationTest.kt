@@ -2,6 +2,7 @@ package com.mckimquyen.reader.infrastructure.audio
 
 import android.content.ComponentName
 import android.content.Context
+import android.os.Bundle
 import android.support.v4.media.MediaBrowserCompat
 import android.support.v4.media.session.MediaControllerCompat
 import android.support.v4.media.session.PlaybackStateCompat
@@ -10,7 +11,9 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import org.junit.After
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
@@ -89,7 +92,7 @@ class CommuteMediaBrowserIntegrationTest {
                 override fun onConnected() {
                     connectedLatch.countDown()
                     mediaBrowser?.subscribe(
-                        CommuteMediaSessionService.MEDIA_ROOT_ID,
+                        AutoMediaIds.COMMUTE_BRANCH,
                         object : MediaBrowserCompat.SubscriptionCallback() {
                             override fun onChildrenLoaded(
                                 parentId: String,
@@ -154,5 +157,120 @@ class CommuteMediaBrowserIntegrationTest {
         )
 
         InstrumentationRegistry.getInstrumentation().waitForIdleSync()
+    }
+
+    private class ChildrenResult(val items: List<MediaBrowserCompat.MediaItem>?, val errored: Boolean)
+
+    /** Connects, subscribes to [parentId] and waits up to 5 s for either children or an error. */
+    private fun loadChildren(parentId: String): ChildrenResult {
+        val connected = CountDownLatch(1)
+        val done = CountDownLatch(1)
+        var items: List<MediaBrowserCompat.MediaItem>? = null
+        var errored = false
+        InstrumentationRegistry.getInstrumentation().runOnMainSync {
+            val componentName = ComponentName(context, CommuteMediaSessionService::class.java)
+            val callback = object : MediaBrowserCompat.ConnectionCallback() {
+                override fun onConnected() {
+                    connected.countDown()
+                    mediaBrowser?.subscribe(
+                        parentId,
+                        object : MediaBrowserCompat.SubscriptionCallback() {
+                            override fun onChildrenLoaded(parentId: String, children: MutableList<MediaBrowserCompat.MediaItem>) {
+                                items = children
+                                done.countDown()
+                            }
+
+                            override fun onError(parentId: String) {
+                                errored = true
+                                done.countDown()
+                            }
+                        },
+                    )
+                }
+            }
+            mediaBrowser = MediaBrowserCompat(context, componentName, callback, null).apply { connect() }
+        }
+        assertTrue("MediaBrowser must connect within 5s", connected.await(5, TimeUnit.SECONDS))
+        assertTrue("Children of $parentId must arrive within 5s", done.await(5, TimeUnit.SECONDS))
+        return ChildrenResult(items, errored)
+    }
+
+    @Test
+    fun root_listsTheTwoBrowsableBranchesInOrder() {
+        val result = loadChildren(CommuteMediaSessionService.MEDIA_ROOT_ID)
+
+        val items = requireNotNull(result.items) { "root must deliver children" }
+        assertEquals(listOf(AutoMediaIds.COMMUTE_BRANCH, AutoMediaIds.PODCAST_BRANCH), items.map { it.mediaId })
+        assertTrue("both branches must be browsable", items.all { it.isBrowsable })
+        assertTrue("branches are not playable themselves", items.none { it.isPlayable })
+        assertTrue("titles must not be blank", items.all { !it.description.title.isNullOrBlank() })
+    }
+
+    @Test
+    fun commuteBranch_hasAtMostOnePlayableLatestEpisode() {
+        val items = requireNotNull(loadChildren(AutoMediaIds.COMMUTE_BRANCH).items)
+
+        assertTrue("at most one item", items.size <= 1)
+        items.forEach {
+            assertTrue(it.isPlayable)
+            assertEquals(AutoMediaIds.COMMUTE_EPISODE, it.mediaId)
+        }
+    }
+
+    @Test
+    fun podcastBranch_hasAtMostFivePlayableItemsAndNeverExposesAnAudioUrl() {
+        val items = requireNotNull(loadChildren(AutoMediaIds.PODCAST_BRANCH).items)
+
+        assertTrue("at most ${AutoMediaIds.MAX_PODCAST_ITEMS} items, got ${items.size}", items.size <= AutoMediaIds.MAX_PODCAST_ITEMS)
+        items.forEach {
+            assertTrue("playable leaf", it.isPlayable)
+            assertTrue("id must carry the podcast prefix: ${it.mediaId}", it.mediaId.orEmpty().startsWith(AutoMediaIds.PODCAST_PREFIX))
+            assertNull("the tree must not carry an audio URI", it.description.mediaUri)
+            val extras: Bundle? = it.description.extras
+            extras?.keySet().orEmpty().forEach { key ->
+                assertFalse("extra $key must not hold a URL", extras?.get(key).toString().contains("://"))
+            }
+        }
+    }
+
+    @Test
+    fun unknownParent_isAnErrorNotAnEmptyList() {
+        val result = loadChildren("not_a_real_parent")
+
+        assertTrue("unknown parents must report onError, as before", result.errored)
+        assertNull(result.items)
+    }
+
+    @Test
+    fun playFromMediaId_withUnknownOrHostilePodcastIds_startsNothing() {
+        val connected = CountDownLatch(1)
+        var controller: MediaControllerCompat? = null
+        InstrumentationRegistry.getInstrumentation().runOnMainSync {
+            val componentName = ComponentName(context, CommuteMediaSessionService::class.java)
+            val callback = object : MediaBrowserCompat.ConnectionCallback() {
+                override fun onConnected() {
+                    mediaBrowser?.sessionToken?.let { controller = MediaControllerCompat(context, it) }
+                    connected.countDown()
+                }
+            }
+            mediaBrowser = MediaBrowserCompat(context, componentName, callback, null).apply { connect() }
+        }
+        assertTrue(connected.await(5, TimeUnit.SECONDS))
+        val transport = requireNotNull(controller).transportControls
+
+        listOf("podcast:front04-does-not-exist", "podcast:", "podcast:../../x' OR 1=1 --", "something-else").forEach {
+            transport.playFromMediaId(it, null)
+        }
+        Thread.sleep(SETTLE_MS)
+
+        val state = requireNotNull(controller).playbackState?.state
+        assertTrue(
+            "nothing may be playing or buffering after unknown ids, was $state",
+            state == null || (state != PlaybackStateCompat.STATE_PLAYING && state != PlaybackStateCompat.STATE_BUFFERING),
+        )
+    }
+
+    private companion object {
+        const val SETTLE_MS = 1_500L
     }
 }
