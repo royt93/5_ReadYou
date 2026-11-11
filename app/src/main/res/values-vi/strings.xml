@@ -457,6 +457,8 @@
     <string name="brain_rpg_reading_reward">+50 XP Hoàn thành đọc bài!</string>
     <string name="brain_rpg_double_xp">Nhân đôi 300 XP (Xem quảng cáo)</string>
     <string name="brain_rpg_retry_quiz">Làm lại thử thách (Xem quảng cáo)</string>
+    <string name="quiz_ai_title">Câu hỏi trắc nghiệm do AI soạn</string>
+    <string name="quiz_ai_consent_message">Chỉ tiêu đề và phần xem trước ngắn (dưới 250 ký tự) của bài được gửi tới Google Gemini để soạn một câu hỏi trắc nghiệm. Nội dung bài, đường dẫn và lịch sử đọc của bạn không bao giờ được gửi.</string>
     <string name="brain_rpg_streak_shield">Khiên Bảo Vệ Streak</string>
     <string name="brain_rpg_streak_shield_active">Khiên đang kích hoạt (Được bảo vệ)</string>
     <string name="brain_rpg_streak_shield_activate">Kích hoạt Khiên (Xem quảng cáo)</string>

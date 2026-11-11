@@ -11,6 +11,7 @@ import com.mckimquyen.reader.ui.ext.dataStore
 import com.mckimquyen.reader.ui.ext.retractionRadarEnabled
 import com.mckimquyen.reader.ui.ext.headlineSignalsEnabled
 import com.mckimquyen.reader.ui.ext.podcastStudioGeminiConsent
+import com.mckimquyen.reader.ui.ext.quizGeminiConsent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
@@ -124,5 +125,37 @@ class PrivacySettingsViewModelTest {
         advanceUntilIdle()
         assertFalse(awaitReal { viewModel.podcastStudioGeminiConsent.first { !it } })
         assertEquals(false, context.podcastStudioGeminiConsent)
+    }
+
+    @Test
+    fun quizGeminiConsent_isOffUntilTheUserAgreesAndPersistsBothWays() = runTest(dispatcher) {
+        context.dataStore.edit { it.clear() }
+        val viewModel = PrivacySettingsViewModel(context)
+        advanceUntilIdle()
+        assertFalse(viewModel.quizGeminiConsent.value)
+        assertEquals(null, context.quizGeminiConsent)
+
+        viewModel.setQuizGeminiConsent(true)
+        advanceUntilIdle()
+        assertTrue(awaitReal { viewModel.quizGeminiConsent.first { it } })
+        assertEquals(true, context.quizGeminiConsent)
+
+        viewModel.setQuizGeminiConsent(false)
+        advanceUntilIdle()
+        assertFalse(awaitReal { viewModel.quizGeminiConsent.first { !it } })
+        assertEquals(false, context.quizGeminiConsent)
+    }
+
+    @Test
+    fun quizAndPodcastStudioSwitchesDoNotAffectEachOther() = runTest(dispatcher) {
+        context.dataStore.edit { it.clear() }
+        val viewModel = PrivacySettingsViewModel(context)
+        advanceUntilIdle()
+
+        viewModel.setPodcastStudioGeminiConsent(true)
+        advanceUntilIdle()
+        assertTrue(awaitReal { viewModel.podcastStudioGeminiConsent.first { it } })
+        assertFalse("the quiz switch must stay off", viewModel.quizGeminiConsent.value)
+        assertEquals(null, context.quizGeminiConsent)
     }
 }

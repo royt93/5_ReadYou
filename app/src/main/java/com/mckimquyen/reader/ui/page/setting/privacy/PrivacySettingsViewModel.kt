@@ -41,6 +41,10 @@ class PrivacySettingsViewModel @Inject constructor(
     private val _podcastStudioGeminiConsent = MutableStateFlow(false)
     val podcastStudioGeminiConsent = _podcastStudioGeminiConsent.asStateFlow()
 
+    // RPG-02: true only when the user explicitly agreed; "never asked" and "declined" both read as off.
+    private val _quizGeminiConsent = MutableStateFlow(false)
+    val quizGeminiConsent = _quizGeminiConsent.asStateFlow()
+
     init {
         viewModelScope.launch {
             context.dataStore.data.collect { preferences ->
@@ -50,6 +54,7 @@ class PrivacySettingsViewModel @Inject constructor(
                 _retractionRadar.value = RetractionRadarPref.fromPreferences(preferences).value
                 _headlineSignals.value = HeadlineSignalsPref.fromPreferences(preferences).value
                 _podcastStudioGeminiConsent.value = preferences[DataStoreKeys.PodcastStudioGeminiConsent.key] == true
+                _quizGeminiConsent.value = preferences[DataStoreKeys.QuizGeminiConsent.key] == true
             }
         }
     }
@@ -98,6 +103,14 @@ class PrivacySettingsViewModel @Inject constructor(
         viewModelScope.launch {
             context.dataStore.updateData { preferences ->
                 preferences.toMutablePreferences().apply { this[DataStoreKeys.PodcastStudioGeminiConsent.key] = agreed }
+            }
+        }
+    }
+
+    fun setQuizGeminiConsent(agreed: Boolean) {
+        viewModelScope.launch {
+            context.dataStore.updateData { preferences ->
+                preferences.toMutablePreferences().apply { this[DataStoreKeys.QuizGeminiConsent.key] = agreed }
             }
         }
     }

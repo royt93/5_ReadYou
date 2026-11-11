@@ -42,6 +42,7 @@ fun PrivacySettingsPage(
     val retractionRadar by viewModel.retractionRadar.collectAsState()
     val headlineSignals by viewModel.headlineSignals.collectAsState()
     val podcastStudioGeminiConsent by viewModel.podcastStudioGeminiConsent.collectAsState()
+    val quizGeminiConsent by viewModel.quizGeminiConsent.collectAsState()
 
     BaseScaffold(
         containerColor = MaterialTheme.colorScheme.surface,
@@ -142,6 +143,18 @@ fun PrivacySettingsPage(
                         action = {
                             BaseSwitch(activated = podcastStudioGeminiConsent) {
                                 viewModel.setPodcastStudioGeminiConsent(!podcastStudioGeminiConsent)
+                            }
+                        },
+                    )
+                }
+                item {
+                    SettingItem(
+                        title = stringResource(R.string.quiz_ai_title),
+                        desc = stringResource(R.string.quiz_ai_consent_message),
+                        onClick = { viewModel.setQuizGeminiConsent(!quizGeminiConsent) },
+                        action = {
+                            BaseSwitch(activated = quizGeminiConsent) {
+                                viewModel.setQuizGeminiConsent(!quizGeminiConsent)
                             }
                         },
                     )

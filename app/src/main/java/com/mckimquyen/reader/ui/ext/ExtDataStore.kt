@@ -117,6 +117,14 @@ suspend fun Context.setPodcastStudioGeminiConsent(agreed: Boolean) {
     this.dataStore.put(DataStoreKeys.PodcastStudioGeminiConsent, agreed)
 }
 
+/** RPG-02: null until the user answers the quiz card's Gemini question; then true (AI quiz) or false (no AI quiz). */
+val Context.quizGeminiConsent: Boolean?
+    get() = this.dataStore.get(DataStoreKeys.QuizGeminiConsent)
+
+suspend fun Context.setQuizGeminiConsent(agreed: Boolean) {
+    this.dataStore.put(DataStoreKeys.QuizGeminiConsent, agreed)
+}
+
 suspend fun <T> DataStore<Preferences>.put(dataStoreKeys: DataStoreKeys<T>, value: T) {
     this.edit {
         withContext(Dispatchers.IO) {
@@ -662,5 +670,11 @@ sealed class DataStoreKeys<T> {
     object PodcastStudioGeminiConsent : DataStoreKeys<Boolean>() {
         override val key: Preferences.Key<Boolean>
             get() = booleanPreferencesKey("podcast_studio_gemini_consent")
+    }
+
+    /** RPG-02: answer to "send title and short preview to Gemini to write a quiz?". Absent means not asked yet. */
+    object QuizGeminiConsent : DataStoreKeys<Boolean>() {
+        override val key: Preferences.Key<Boolean>
+            get() = booleanPreferencesKey("quiz_gemini_consent")
     }
 }
