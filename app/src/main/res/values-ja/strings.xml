@@ -761,6 +761,8 @@
     <string name="commute_media_action_stop">停止</string>
     <string name="commute_media_artist">Alex &amp; Sam · RSS Cat Hub</string>
     <string name="commute_media_album">CommuteCast AI ラジオ</string>
+    <string name="auto_branch_commute">Morning briefing</string>
+    <string name="auto_branch_podcasts">Latest podcasts</string>
     <string name="commute_notification_title">☕ %1$s</string>
     <string name="commute_notification_body">%1$d分間のCommuteCastモーニングラジオの準備ができました！（%2$d件のニュース）</string>
     <string name="commute_budget_3m">3分</string>

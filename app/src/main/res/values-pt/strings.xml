@@ -667,6 +667,8 @@
     <string name="commute_media_action_prev">Diálogo anterior</string>
     <string name="commute_media_action_stop">Parar</string>
     <string name="commute_media_album">Rádio CommuteCast AI</string>
+    <string name="auto_branch_commute">Morning briefing</string>
+    <string name="auto_branch_podcasts">Latest podcasts</string>
     <string name="commute_media_artist">Alex &amp; Sam · RSS Cat Hub</string>
     <string name="commute_media_channel_desc">Controlos multimédia e ecrã de bloqueio para a rádio AI CommuteCast</string>
     <string name="commute_media_channel_name">Reprodução da rádio CommuteCast</string>

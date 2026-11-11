@@ -735,6 +735,8 @@
     <string name="commute_media_action_prev">前段對話</string>
     <string name="commute_media_action_stop">止</string>
     <string name="commute_media_album">CommuteCast 智播電臺</string>
+    <string name="auto_branch_commute">Morning briefing</string>
+    <string name="auto_branch_podcasts">Latest podcasts</string>
     <string name="commute_media_artist">Alex &amp; Sam · RSS Cat Hub</string>
     <string name="commute_media_channel_desc">CommuteCast 智播電臺之鎖屏及媒體控制</string>
     <string name="commute_media_channel_name">CommuteCast 電臺播放</string>

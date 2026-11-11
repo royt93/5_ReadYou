@@ -734,6 +734,8 @@
     <string name="commute_media_action_prev">Aurreko elkarrizketa</string>
     <string name="commute_media_action_stop">Gelditu</string>
     <string name="commute_media_album">CommuteCast AI Irratia</string>
+    <string name="auto_branch_commute">Morning briefing</string>
+    <string name="auto_branch_podcasts">Latest podcasts</string>
     <string name="commute_media_artist">Alex &amp; Sam · RSS Cat Hub</string>
     <string name="commute_media_channel_desc">Pantaila blokeatuko eta multimedia kontrolak CommuteCast AI irratirako</string>
     <string name="commute_media_channel_name">CommuteCast Irratiaren Erreprodukzioa</string>

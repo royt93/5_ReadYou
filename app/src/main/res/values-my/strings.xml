@@ -735,6 +735,8 @@
     <string name="commute_media_action_prev">ယခင်စကားပြောချက်</string>
     <string name="commute_media_action_stop">ရပ်ရန်</string>
     <string name="commute_media_album">CommuteCast AI ရေဒီယို</string>
+    <string name="auto_branch_commute">Morning briefing</string>
+    <string name="auto_branch_podcasts">Latest podcasts</string>
     <string name="commute_media_artist">Alex &amp; Sam · RSS Cat Hub</string>
     <string name="commute_media_channel_desc">CommuteCast AI ရေဒီယိုအတွက် လော့ခ်စကရင်နှင့် မီဒီယာ ထိန်းချုပ်မှုများ</string>
     <string name="commute_media_channel_name">CommuteCast ရေဒီယို ဖွင့်ခြင်း</string>

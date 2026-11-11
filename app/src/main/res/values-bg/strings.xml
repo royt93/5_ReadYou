@@ -700,6 +700,8 @@
     <string name="commute_media_action_stop">Спри</string>
     <string name="commute_media_artist">Alex &amp; Sam · RSS Cat Hub</string>
     <string name="commute_media_album">CommuteCast AI Radio</string>
+    <string name="auto_branch_commute">Morning briefing</string>
+    <string name="auto_branch_podcasts">Latest podcasts</string>
     <string name="commute_notification_title">☕ %1$s</string>
     <string name="commute_notification_body">Вашият %1$d-минутен сутрешен CommuteCast е готов! (%2$d новини подготвени)</string>
     <string name="commute_budget_3m">3 мин</string>

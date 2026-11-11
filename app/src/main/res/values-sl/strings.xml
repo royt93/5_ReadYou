@@ -633,6 +633,8 @@
     <string name="commute_media_action_prev">Prejšnji dialog</string>
     <string name="commute_media_action_stop">Ustavi</string>
     <string name="commute_media_album">CommuteCast AI Radio</string>
+    <string name="auto_branch_commute">Morning briefing</string>
+    <string name="auto_branch_podcasts">Latest podcasts</string>
     <string name="commute_media_artist">Alex in Sam · RSS Cat Hub</string>
     <string name="commute_media_channel_desc">Kontrolniki na zaklenjenem zaslonu in za predvajanje CommuteCast AI radia</string>
     <string name="commute_media_channel_name">Predvajanje CommuteCast Radio</string>

@@ -664,6 +664,8 @@
     <string name="commute_media_action_prev">Önceki diyalog</string>
     <string name="commute_media_action_stop">Durdur</string>
     <string name="commute_media_album">CommuteCast Yapay Zeka Radyosu</string>
+    <string name="auto_branch_commute">Morning briefing</string>
+    <string name="auto_branch_podcasts">Latest podcasts</string>
     <string name="commute_media_artist">Alex &amp; Sam · RSS Cat Hub</string>
     <string name="commute_media_channel_desc">CommuteCast yapay zeka radyosu için kilit ekranı ve medya kontrolleri</string>
     <string name="commute_media_channel_name">CommuteCast Radyo Yayını</string>

@@ -663,6 +663,8 @@
     <string name="commute_media_action_prev">گفت‌وگوی قبلی</string>
     <string name="commute_media_action_stop">توقف</string>
     <string name="commute_media_album">رادیوی هوش مصنوعی CommuteCast</string>
+    <string name="auto_branch_commute">Morning briefing</string>
+    <string name="auto_branch_podcasts">Latest podcasts</string>
     <string name="commute_media_artist">الکس &amp; سام · RSS Cat Hub</string>
     <string name="commute_media_channel_desc">کنترل‌های صفحه قفل و رسانه برای رادیوی هوش مصنوعی CommuteCast</string>
     <string name="commute_media_channel_name">پخش رادیوی CommuteCast</string>

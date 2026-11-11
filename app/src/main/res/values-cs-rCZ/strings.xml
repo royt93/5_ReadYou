@@ -738,6 +738,8 @@
     <string name="commute_media_action_prev">Předchozí dialog</string>
     <string name="commute_media_action_stop">Zastavit</string>
     <string name="commute_media_album">CommuteCast AI Radio</string>
+    <string name="auto_branch_commute">Morning briefing</string>
+    <string name="auto_branch_podcasts">Latest podcasts</string>
     <string name="commute_media_artist">Alex &amp; Sam · RSS Cat Hub</string>
     <string name="commute_media_channel_desc">Ovládání na zamykací obrazovce a v médiích pro rádio CommuteCast AI</string>
     <string name="commute_media_channel_name">Přehrávání CommuteCast Radio</string>

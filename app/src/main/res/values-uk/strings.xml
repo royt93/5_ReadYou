@@ -669,6 +669,8 @@
     <string name="commute_media_action_prev">Попередній діалог</string>
     <string name="commute_media_action_stop">Зупинити</string>
     <string name="commute_media_album">CommuteCast AI Radio</string>
+    <string name="auto_branch_commute">Morning briefing</string>
+    <string name="auto_branch_podcasts">Latest podcasts</string>
     <string name="commute_media_artist">Алекс і Сем · RSS Cat Hub</string>
     <string name="commute_media_channel_desc">Керування на екрані блокування та в медіа для AI-радіо CommuteCast</string>
     <string name="commute_media_channel_name">Відтворення CommuteCast Radio</string>

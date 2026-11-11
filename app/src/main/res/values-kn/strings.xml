@@ -735,6 +735,8 @@
     <string name="commute_media_action_prev">ಹಿಂದಿನ ಸಂಭಾಷಣೆ</string>
     <string name="commute_media_action_stop">ನಿಲ್ಲಿಸಿ</string>
     <string name="commute_media_album">CommuteCast AI ರೇಡಿಯೋ</string>
+    <string name="auto_branch_commute">Morning briefing</string>
+    <string name="auto_branch_podcasts">Latest podcasts</string>
     <string name="commute_media_artist">Alex &amp; Sam · RSS Cat Hub</string>
     <string name="commute_media_channel_desc">CommuteCast AI ರೇಡಿಯೋಗಾಗಿ ಲಾಕ್-ಸ್ಕ್ರೀನ್ ಮತ್ತು ಮೀಡಿಯಾ ನಿಯಂತ್ರಣಗಳು</string>
     <string name="commute_media_channel_name">CommuteCast ರೇಡಿಯೋ ಪ್ಲೇಬ್ಯಾಕ್</string>

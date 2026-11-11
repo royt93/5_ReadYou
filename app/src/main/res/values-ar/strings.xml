@@ -638,6 +638,8 @@
     <string name="commute_media_action_prev">الحوار السابق</string>
     <string name="commute_media_action_stop">إيقاف</string>
     <string name="commute_media_album">راديو CommuteCast الذكي</string>
+    <string name="auto_branch_commute">Morning briefing</string>
+    <string name="auto_branch_podcasts">Latest podcasts</string>
     <string name="commute_media_artist">Alex &amp; Sam · RSS Cat Hub</string>
     <string name="commute_media_channel_desc">أدوات التحكم على شاشة القفل والوسائط لراديو CommuteCast الذكي</string>
     <string name="commute_media_channel_name">تشغيل راديو CommuteCast</string>

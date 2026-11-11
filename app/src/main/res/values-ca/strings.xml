@@ -663,6 +663,8 @@
     <string name="commute_media_action_prev">Diàleg anterior</string>
     <string name="commute_media_action_stop">Atura</string>
     <string name="commute_media_album">CommuteCast Ràdio IA</string>
+    <string name="auto_branch_commute">Morning briefing</string>
+    <string name="auto_branch_podcasts">Latest podcasts</string>
     <string name="commute_media_artist">Alex &amp; Sam · RSS Cat Hub</string>
     <string name="commute_media_channel_desc">Controls de pantalla de bloqueig i multimèdia per a la ràdio IA CommuteCast</string>
     <string name="commute_media_channel_name">Reproducció de CommuteCast Radio</string>

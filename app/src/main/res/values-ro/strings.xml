@@ -666,6 +666,8 @@
     <string name="commute_media_action_prev">Dialogul anterior</string>
     <string name="commute_media_action_stop">Oprește</string>
     <string name="commute_media_album">CommuteCast AI Radio</string>
+    <string name="auto_branch_commute">Morning briefing</string>
+    <string name="auto_branch_podcasts">Latest podcasts</string>
     <string name="commute_media_artist">Alex &amp; Sam · RSS Cat Hub</string>
     <string name="commute_media_channel_desc">Comenzi media pe ecranul de blocare pentru radioul AI CommuteCast</string>
     <string name="commute_media_channel_name">Redare radio CommuteCast</string>

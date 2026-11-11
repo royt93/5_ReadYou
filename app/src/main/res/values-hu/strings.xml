@@ -659,6 +659,8 @@
     <string name="commute_media_action_prev">Előző párbeszéd</string>
     <string name="commute_media_action_stop">Leállítás</string>
     <string name="commute_media_album">CommuteCast AI rádió</string>
+    <string name="auto_branch_commute">Morning briefing</string>
+    <string name="auto_branch_podcasts">Latest podcasts</string>
     <string name="commute_media_artist">Alex &amp; Sam · RSS Cat Hub</string>
     <string name="commute_media_channel_desc">Zárolt képernyős és médiavezérlők a CommuteCast AI rádióhoz</string>
     <string name="commute_media_channel_name">CommuteCast rádió lejátszása</string>

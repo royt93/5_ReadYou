@@ -735,6 +735,8 @@
     <string name="commute_media_action_prev">മുൻ സംഭാഷണം</string>
     <string name="commute_media_action_stop">നിർത്തുക</string>
     <string name="commute_media_album">CommuteCast AI റേഡിയോ</string>
+    <string name="auto_branch_commute">Morning briefing</string>
+    <string name="auto_branch_podcasts">Latest podcasts</string>
     <string name="commute_media_artist">അലക്സ് &amp; സാം · RSS Cat Hub</string>
     <string name="commute_media_channel_desc">CommuteCast AI റേഡിയോയ്ക്കുള്ള ലോക്ക്-സ്ക്രീൻ, മീഡിയ കൺട്രോളുകൾ</string>
     <string name="commute_media_channel_name">CommuteCast റേഡിയോ പ്ലേബാക്ക്</string>
