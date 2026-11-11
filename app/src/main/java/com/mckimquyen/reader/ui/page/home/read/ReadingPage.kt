@@ -538,6 +538,7 @@ fun ReadingPage(
                                 isLoading = readingUiState.isLoading,
                                 listState = listState,
                                 articleId = readingUiState.articleWithFeed.article.id,
+                                shortDescription = readingUiState.articleWithFeed.article.shortDescription,
                                 brainRpgViewModel = androidx.hilt.navigation.compose.hiltViewModel(),
                                 onShareQuote = { readingViewModel.openQuoteSheet(it) },
                                 onInvestigate = { readingViewModel.openBountyInvestigation(it) },

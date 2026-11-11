@@ -84,6 +84,7 @@ import com.mckimquyen.reader.ui.page.setting.tip.TipsAndSupportPage
 import com.mckimquyen.reader.ui.page.setting.vip.VipManagementPage
 import com.mckimquyen.reader.ui.page.radar.ArticleDiffPage
 import com.mckimquyen.reader.ui.page.radar.LocalOpenRadarDiff
+import com.mckimquyen.reader.ui.page.rpg.LocalOpenPrivacySettings
 import com.mckimquyen.reader.ui.page.radar.LocalRadarFlags
 import com.mckimquyen.reader.ui.page.headline.LocalHeadlineSignalsEnabled
 import com.mckimquyen.reader.ui.page.radar.RadarFlagsViewModel
@@ -243,6 +244,9 @@ fun HomeEntry(
             LocalHeadlineSignalsEnabled provides headlineSignalsReactive,
             LocalOpenRadarDiff provides { articleId ->
                 navController.navigate("${RouteName.ARTICLE_DIFF_PREFIX}/$articleId") { launchSingleTop = true }
+            },
+            LocalOpenPrivacySettings provides {
+                navController.navigate(RouteName.PRIVACY_SETTINGS) { launchSingleTop = true }
             },
         ) {
         NavHost(

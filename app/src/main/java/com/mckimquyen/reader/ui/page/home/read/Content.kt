@@ -55,10 +55,11 @@ import com.mckimquyen.reader.ui.component.reader.BodyItemRange
 import com.mckimquyen.reader.ui.component.reader.ItemCountingScope
 import com.mckimquyen.reader.ui.component.reader.Reader
 import com.mckimquyen.reader.ui.component.reader.recordRange
-import com.mckimquyen.reader.domain.model.rpg.QuizQuestion
 import com.mckimquyen.reader.domain.steelman.ContrastingArticle
 import com.mckimquyen.reader.domain.steelman.ContrastingCoverageState
-import com.mckimquyen.reader.ui.component.rpg.BrainQuizCard
+import com.mckimquyen.reader.ui.component.rpg.BrainQuizHost
+import com.mckimquyen.reader.ui.page.rpg.LocalOpenPrivacySettings
+import com.mckimquyen.reader.ui.page.rpg.QuizUiState
 import com.mckimquyen.reader.ui.page.home.read.steelman.ContrastingCoverageSection
 import com.mckimquyen.reader.ui.ext.drawVerticalScrollbar
 import com.mckimquyen.reader.ui.ext.openURL
@@ -76,6 +77,8 @@ fun Content(
     listState: LazyListState,
     isLoading: Boolean,
     articleId: String = "",
+    /** The article's short description: the only text besides the title that the AI quiz may use (never the body). */
+    shortDescription: String = "",
     brainRpgViewModel: BrainRpgViewModel? = null,
     completionClock: () -> Long = SystemClock::elapsedRealtime,
     onShareQuote: (String) -> Unit = {},
@@ -99,18 +102,9 @@ fun Content(
         if (headlineSignalsEnabled) HeadlineAnalyzer.analyze(title) else null
     }
 
-    // Built off the main thread (Room peer lookup on IO, generation on Default); null until ready, so the card appears
-    // a moment after the article instead of blocking composition. produceState is avoided on purpose: lint's
-    // ProduceStateDoesNotAssignValue rejects it here (same rule FIX-21 hit), and LaunchedEffect says the same thing.
-    // Task 6 bridge (replaced by BrainQuizHost in Task 8): only a ready AI quiz is drawn with the existing card.
-    val bridgeQuizState by (brainRpgViewModel?.quizState ?: remember { kotlinx.coroutines.flow.MutableStateFlow<com.mckimquyen.reader.ui.page.rpg.QuizUiState>(com.mckimquyen.reader.ui.page.rpg.QuizUiState.Hidden) })
+    val quizState by (brainRpgViewModel?.quizState ?: remember { kotlinx.coroutines.flow.MutableStateFlow<QuizUiState>(QuizUiState.Hidden) })
         .collectAsState()
-    val quiz: QuizQuestion? = (bridgeQuizState as? com.mckimquyen.reader.ui.page.rpg.QuizUiState.Ready)?.quiz
-    LaunchedEffect(articleId, title, brainRpgViewModel) {
-        if (brainRpgViewModel != null && articleId.isNotBlank() && title.isNotBlank()) {
-            brainRpgViewModel.onQuizCardShown(articleId, title, "", content)
-        }
-    }
+    val openPrivacySettings = LocalOpenPrivacySettings.current
 
     val doubleRewardedIds by (brainRpgViewModel?.doubleRewardedArticleIds ?: remember { kotlinx.coroutines.flow.MutableStateFlow(emptySet<String>()) })
         .collectAsState()
@@ -247,24 +241,30 @@ fun Content(
                         onExportArticle = onExportContrastArticle,
                     )
                 }
-                quiz?.let { quiz ->
+                if (brainRpgViewModel != null && articleId.isNotBlank() && (title.isNotBlank() || shortDescription.isNotBlank())) {
                     item {
-                        BrainQuizCard(
-                            quiz = quiz,
-                            doubleAlreadyClaimed = quiz.articleId in doubleRewardedIds,
-                            onAnswerSubmitted = { isCorrect ->
-                                brainRpgViewModel?.submitQuizAnswer(quiz.articleId, quiz.category, isCorrect) { _, awarded ->
+                        // Inside the lazy item on purpose: this only runs when the card is actually composed at the end.
+                        LaunchedEffect(articleId) {
+                            brainRpgViewModel.onQuizCardShown(articleId, title, shortDescription, content)
+                        }
+                        BrainQuizHost(
+                            state = quizState,
+                            doubleRewardedIds = doubleRewardedIds,
+                            onConsent = brainRpgViewModel::onQuizConsent,
+                            onConsentLater = brainRpgViewModel::onQuizConsentLater,
+                            onRetryGeneration = brainRpgViewModel::retryQuizGeneration,
+                            onOpenPrivacySettings = openPrivacySettings,
+                            onAnswerSubmitted = { quiz, isCorrect ->
+                                brainRpgViewModel.submitQuizAnswer(quiz.articleId, quiz.category, isCorrect) { _, awarded ->
                                     if (isCorrect && awarded > 0) {
                                         Toast.makeText(context, "+$awarded XP! 🎉", Toast.LENGTH_SHORT).show()
                                     }
                                 }
                             },
-                            onDoubleXpRequested = { act, onDone ->
-                                brainRpgViewModel?.doubleQuizReward(act, quiz.articleId, quiz.category, 150L, onDone)
+                            onDoubleXpRequested = { act, quiz, onDone ->
+                                brainRpgViewModel.doubleQuizReward(act, quiz.articleId, quiz.category, 150L, onDone)
                             },
-                            onRetryQuizRequested = { act, onDone ->
-                                brainRpgViewModel?.retryQuiz(act, onDone)
-                            }
+                            onRetryQuizRequested = { act, onDone -> brainRpgViewModel.retryQuiz(act, onDone) },
                         )
                     }
                 }
