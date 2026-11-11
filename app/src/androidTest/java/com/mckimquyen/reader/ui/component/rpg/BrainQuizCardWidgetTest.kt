@@ -14,6 +14,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.mckimquyen.reader.R
 import com.mckimquyen.reader.domain.model.rpg.QuizQuestion
+import com.mckimquyen.reader.domain.sv.AiQuizFailure
+import com.mckimquyen.reader.ui.page.rpg.QuizUiState
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -163,5 +165,91 @@ class BrainQuizCardWidgetTest {
 
         assertTrue(screen.await { screen.has(str(R.string.brain_rpg_wrong)) })
         assertFalse(screen.has(str(R.string.brain_rpg_double_xp)))
+    }
+
+    private fun <T> withHost(
+        state: QuizUiState,
+        calls: MutableList<String>,
+        awaitText: String,
+        block: (Screen) -> T,
+    ): T = ActivityScenario.launch(ComponentActivity::class.java).use { scenario ->
+        scenario.onActivity { activity ->
+            activity.setContentView(
+                ComposeView(activity).apply {
+                    setContent {
+                        BrainQuizHost(
+                            state = state,
+                            doubleRewardedIds = emptySet(),
+                            onConsent = { calls += "consent:$it" },
+                            onConsentLater = { calls += "later" },
+                            onRetryGeneration = { calls += "retry" },
+                            onOpenPrivacySettings = { calls += "privacy" },
+                            onAnswerSubmitted = { _, ok -> calls += "answer:$ok" },
+                            onDoubleXpRequested = { _, _, _ -> },
+                            onRetryQuizRequested = { _, _ -> },
+                        )
+                    }
+                }
+            )
+        }
+        val screen = Screen(scenario)
+        assertTrue("the host never rendered '$awaitText'", screen.await { screen.has(awaitText) })
+        block(screen)
+    }
+
+    @Test
+    fun awaitingConsent_showsTheQuestionAndBothButtons_andAgreeIsReported() {
+        val calls = mutableListOf<String>()
+        withHost(QuizUiState.AwaitingConsent, calls, str(R.string.quiz_ai_consent_message)) { screen ->
+            assertTrue(screen.has(str(R.string.quiz_ai_consent_agree)))
+            assertTrue(screen.has(str(R.string.quiz_ai_consent_later)))
+            assertTrue(screen.click(str(R.string.quiz_ai_consent_agree)))
+            assertTrue(screen.await { calls == listOf("consent:true") })
+        }
+    }
+
+    @Test
+    fun notNow_isReportedAndNothingElse() {
+        val calls = mutableListOf<String>()
+        withHost(QuizUiState.AwaitingConsent, calls, str(R.string.quiz_ai_consent_later)) { screen ->
+            assertTrue(screen.click(str(R.string.quiz_ai_consent_later)))
+            assertTrue(screen.await { calls == listOf("later") })
+        }
+    }
+
+    @Test
+    fun declined_pointsToPrivacySettings() {
+        val calls = mutableListOf<String>()
+        withHost(QuizUiState.ConsentDeclined, calls, str(R.string.quiz_ai_declined_message)) { screen ->
+            assertTrue(screen.click(str(R.string.quiz_ai_open_privacy)))
+            assertTrue(screen.await { calls == listOf("privacy") })
+        }
+    }
+
+    @Test
+    fun failed_saysThereIsNoAiQuestion_andRetryIsReported() {
+        val calls = mutableListOf<String>()
+        withHost(QuizUiState.Failed(AiQuizFailure.NETWORK), calls, str(R.string.quiz_ai_failed)) { screen ->
+            assertTrue(screen.click(str(R.string.quiz_ai_retry)))
+            assertTrue(screen.await { calls == listOf("retry") })
+        }
+    }
+
+    @Test
+    fun loading_saysTheAiIsWriting() {
+        withHost(QuizUiState.Loading, mutableListOf(), str(R.string.quiz_ai_loading)) { screen ->
+            assertTrue(screen.has(str(R.string.quiz_ai_loading)))
+        }
+    }
+
+    @Test
+    fun ready_showsTheAiLabel_andACorrectAnswerStillOffersTheDoubleXpButton() {
+        val calls = mutableListOf<String>()
+        withHost(QuizUiState.Ready(quiz), calls, "Right option") { screen ->
+            assertTrue("the source label must be visible", screen.has(str(R.string.quiz_ai_label)))
+            assertTrue(screen.click("Right option"))
+            assertTrue(screen.await { calls == listOf("answer:true") })
+            assertTrue(screen.await { screen.has(str(R.string.brain_rpg_double_xp)) })
+        }
     }
 }
