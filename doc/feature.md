@@ -4,8 +4,8 @@
 
 Thứ tự owner chọn ngày 2026-11-09; mỗi mục duyệt thiết kế/spec riêng trước implementation:
 1. **EXC-05c — hai lượt thủ công + đổi vai (lát của EXC-05):** JVM đạt trên code cuối (full suite 2,673 test 0 lỗi, lint 0 lỗi/2,463 cảnh báo, build APK) và đã kiểm trên hai máy thật (Pixel + Tecno KJ7), xem `doc/task/done/EXC-05c_manual-round-trip_DONE.md`. Giới hạn chính: thủ công, không ACK giữa hai máy, chưa tự sync khi mở app, chưa kiểm một máy Apply còn máy kia huỷ trên thiết bị. EXC-05 gốc vẫn mở.
-2. **FRONT-04 — Android Auto trước:** lát Android Auto đã làm xong (xem mục ✅ bên dưới, `doc/task/done/FRONT-04a_android-auto-media-tree_DONE.md`); FRONT-04 gốc (Wear OS, DHU/xe thật) vẫn mở.
-3. **RPG-02 — trắc nghiệm AI thật:** chờ mục 2; không làm lại distractor đã sửa ở RPG-05, không gồm ad/IAP.
+2. **FRONT-04 — Android Auto trước:** lát Android Auto đã chốt (`doc/task/done/FRONT-04a_android-auto-media-tree_DONE.md`); DHU chưa kiểm được (Android Auto trên Tecno KJ7 từ chối phiên: `CAR.AUTH: Call from UID 10095 is not allowed`), giao diện xe chưa thấy; FRONT-04 gốc (Wear OS, DHU/xe thật) vẫn mở.
+3. **RPG-02 — trắc nghiệm AI thật:** đang brainstorm (2026-11-11). Không làm lại distractor đã sửa ở RPG-05 (quiz hiện là "tiêu đề nào thuộc bài này" xác định, không gọi AI), không gồm ad/IAP (card hiện có nút Rewarded Ad thử lại, giữ nguyên).
 4. **FRONT-01 — AI Deep Dive:** chờ mục 3; cần tránh trùng BOUNTY-01/02.
 
 ## 🟡 In progress
