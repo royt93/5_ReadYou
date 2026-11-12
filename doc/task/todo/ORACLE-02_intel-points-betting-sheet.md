@@ -1,5 +1,7 @@
 # [ORACLE-02] Giao Diện Đặt Cược Intel Points & Sàn Giao Dịch Tin Tức (Compose Prediction Sheet)
 
+> **Cập nhật 2026-11-12:** đã làm phần ví và đặt cược ở mức code và máy thật, xem [`ORACLE-02_intel-points-betting-sheet_DONE.md`](../done/ORACLE-02_intel-points-betting-sheet_DONE.md). Ví cục bộ (`user_wallet`, Room v22; 1.000 điểm khởi đầu, +100 mỗi ngày UTC, trần 2.000, **không quảng cáo/mua**), cược 50/100/500 vào Có/Không (`oracle_bet`, **không khóa ngoại**), người dùng **tự báo** kết quả sau hạn (Không rõ hoàn cược, quá 30 ngày tự hoàn). **Giữ trong `todo/` vì hai yêu cầu của Gherkin gốc không làm:** "% đồng thuận của cộng đồng" (không có backend, sẽ là số giả) và "âm thanh chip" (chưa có asset). Kèo trong lúc kiểm vẫn là kèo mẫu (ORACLE-01 chưa thấy AI trả kèo thật).
+
 - **Type:** New Feature
 - **Priority:** `P1 (High)`
 - **Estimation:** `8 Story Points`

@@ -55,6 +55,12 @@ Trên thẻ kèo của ORACLE-01, người dùng đặt cược điểm ảo **I
 - Máy thật chỉ **Tecno KJ7 `115333744A005844`**: cổng thiết bị chỉ đọc, sao lưu byte-exact Room/`-shm`/`-wal`/DataStore/`shared_prefs`. Ca: nâng cấp DB v21→v22 giữ dữ liệu; chèn kèo mẫu bằng một instrumentation nhỏ (không đưa vào repo); đặt cược và kiểm số dư/dòng cược trong DB; ép `expiresAt` về quá khứ để thử chốt và hoàn; khôi phục byte-identical. Quảng cáo toàn màn hình: chỉ Back, không bấm "Continue to app".
 - **Không kiểm được:** kèo thật do AI sinh (không có key riêng, FIX-09); báo cáo DONE ghi rõ.
 
+## Điều chỉnh khi lập plan và thực thi
+- Thẻ có **khe `footer`** (`OracleClaimSheet` nhận `footer: @Composable (OracleClaimCard) -> Unit`), phần cược là `OracleBettingSection` nằm trong khe đó; thân thẻ của ORACLE-01 không đổi.
+- Nhãn AI `oracle_sheet_ai_label` **đổi ở cả 38 locale** (bỏ câu "chưa cược được") vì không còn đúng.
+- Thẻ có sáu pha (thêm `CLOSED_NO_BET`: đã quá hạn mà chưa từng cược); khi chốt, số hiển thị "thắng N điểm" là **lãi ròng bằng mức cược** (người dùng nhận lại gấp đôi).
+- Kiểm trên **Pixel** thay vì Tecno KJ7 (KJ7 rơi khỏi adb; owner chọn Pixel). Bảo vệ `AND status = 'OPEN'` ở câu lệnh đóng cược là lớp phòng thủ thứ hai chưa có test cô lập.
+
 ## Giới hạn đã biết
 - Điểm ảo, một người chơi, tự báo kết quả; không cạnh tranh thật.
 - Đồng hồ máy bị chỉnh có thể đổi mốc hết hạn và thưởng ngày; luật chỉ chặn lùi thưởng ngày, không chặn chỉnh đồng hồ tiến.
