@@ -44,6 +44,7 @@ fun PrivacySettingsPage(
     val podcastStudioGeminiConsent by viewModel.podcastStudioGeminiConsent.collectAsState()
     val quizGeminiConsent by viewModel.quizGeminiConsent.collectAsState()
     val deepDiveGeminiConsent by viewModel.deepDiveGeminiConsent.collectAsState()
+    val oracleClaimsGeminiConsent by viewModel.oracleClaimsGeminiConsent.collectAsState()
 
     BaseScaffold(
         containerColor = MaterialTheme.colorScheme.surface,
@@ -168,6 +169,18 @@ fun PrivacySettingsPage(
                         action = {
                             BaseSwitch(activated = deepDiveGeminiConsent) {
                                 viewModel.setDeepDiveGeminiConsent(!deepDiveGeminiConsent)
+                            }
+                        },
+                    )
+                }
+                item {
+                    SettingItem(
+                        title = stringResource(R.string.oracle_consent_title),
+                        desc = stringResource(R.string.oracle_consent_message),
+                        onClick = { viewModel.setOracleClaimsGeminiConsent(!oracleClaimsGeminiConsent) },
+                        action = {
+                            BaseSwitch(activated = oracleClaimsGeminiConsent) {
+                                viewModel.setOracleClaimsGeminiConsent(!oracleClaimsGeminiConsent)
                             }
                         },
                     )

@@ -1324,4 +1324,13 @@
     <string name="deep_dive_export_error">Could not create the PDF</string>
     <string name="deep_dive_pdf_truncated">Trimmed to fit one page. See the full report in the app.</string>
     <string name="deep_dive_close">Close</string>
+    <string name="oracle_badge_label">Prediction</string>
+    <string name="oracle_badge_open">Open the prediction</string>
+    <string name="oracle_sheet_title">Prediction found in this article</string>
+    <string name="oracle_sheet_expires">Expected by %1$s</string>
+    <string name="oracle_sheet_criteria_heading">How to check the answer</string>
+    <string name="oracle_sheet_ai_label">Written by AI from the title and description; it can be wrong. You cannot bet on it yet.</string>
+    <string name="oracle_sheet_close">Close</string>
+    <string name="oracle_consent_title">Find predictions in new articles</string>
+    <string name="oracle_consent_message">After each sync, the title and a short description (up to 500 characters in total) of up to 5 new articles are sent to Google Gemini to look for a prediction. Article text, links, the feed name and your reading history are never sent. Off by default.</string>
 </resources>

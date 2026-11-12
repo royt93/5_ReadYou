@@ -1218,4 +1218,13 @@
     <string name="deep_dive_export_error">Không tạo được PDF</string>
     <string name="deep_dive_pdf_truncated">Đã rút gọn cho vừa một trang. Xem đầy đủ trong ứng dụng.</string>
     <string name="deep_dive_close">Đóng</string>
+    <string name="oracle_badge_label">Kèo Dự Đoán</string>
+    <string name="oracle_badge_open">Mở kèo dự đoán</string>
+    <string name="oracle_sheet_title">Dự báo trong bài này</string>
+    <string name="oracle_sheet_expires">Dự kiến trước %1$s</string>
+    <string name="oracle_sheet_criteria_heading">Cách kiểm chứng kết quả</string>
+    <string name="oracle_sheet_ai_label">Do AI soạn từ tiêu đề và mô tả; có thể sai. Chưa tham gia cược được.</string>
+    <string name="oracle_sheet_close">Đóng</string>
+    <string name="oracle_consent_title">Tìm dự báo trong bài mới</string>
+    <string name="oracle_consent_message">Sau mỗi lần đồng bộ, tiêu đề và mô tả ngắn (tối đa 500 ký tự gộp lại) của tối đa 5 bài mới được gửi tới Google Gemini để tìm dự báo. Nội dung bài, đường dẫn, tên nguồn và lịch sử đọc không bao giờ được gửi. Mặc định tắt.</string>
 </resources>
