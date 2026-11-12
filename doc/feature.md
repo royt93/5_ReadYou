@@ -8,6 +8,11 @@ Thứ tự owner chọn ngày 2026-11-09; mỗi mục duyệt thiết kế/spec 
 3. **RPG-02 — trắc nghiệm AI thật:** xong, xem mục ✅ bên dưới (`doc/task/done/RPG-02_ai-micro-quiz-engine_DONE.md`); còn nợ kiểm trên máy thật (trả lời đúng/XP, tắt công tắc, máy bay, cache sau sửa) và một lỗi chưa giải thích (2/~25 câu trả lời bị từ chối "không phải JSON").
 4. **FRONT-01 — AI Deep Dive:** ✅ bản thu hẹp, 2026-11-12, báo cáo [`FRONT-01_ai-multi-agent-deep-dive_DONE.md`](doc/task/done/FRONT-01_ai-multi-agent-deep-dive_DONE.md); task gốc giữ trong `todo/`. Một request Gemini ba vai (không phải chuỗi agent thật, không tra cứu web) từ tiêu đề + tối đa 6.000 ký tự thân bài, consent riêng; sheet Bối cảnh / Góc nhìn đối lập / Ma trận tác động; PDF A4 một trang; cache singleton LRU 10. JVM 2,901 test 0 lỗi, lint 0 lỗi, androidTest 7/7 trên Tecno KJ7, smoke: consent đúng, "Để sau" không ghi, "Đồng ý" gọi đúng 1 request. **Chưa kiểm:** báo cáo thật từ Gemini (key chung hỏng, FIX-09), cache khi mở lại bài trên máy, PDF từ báo cáo thật.
 
+**Quyết định owner 2026-11-12:**
+- Mọi phiên chỉ dùng **Tecno KJ7** `115333744A005844`; không chạm Pixel. Vì vậy mục kiểm cần hai máy (EXC-05 gốc, tiêu chí 3 giây) hoặc Pixel (DHU) **không làm được**, và báo cáo phải nói vậy thay vì dùng máy khác.
+- **Mục 4 (FRONT-04 DHU) gác lại.** Lần DHU trên KJ7 bị Android Auto từ chối phiên (`CAR.AUTH`), chưa có hướng khác được chọn.
+- **Không có key Gemini riêng, dừng kiểm Gemini thật.** Nợ máy thật còn nguyên cho RPG-02 (trả lời đúng/XP, tắt công tắc, máy bay + Thử lại, cache khi mở lại bài) và FRONT-01 (báo cáo Ready thật, cache khi mở lại bài, PDF từ báo cáo thật). Key mặc định vẫn hỏng (FIX-09 hoãn, nhắc lại khoảng 2026-11-13).
+
 ## 🟡 In progress
 
 - **EXC-05a (partial; EXC-05 remains in progress)** — Đồng bộ thủ công một chiều, mã hóa đầu-cuối qua LAN; preview rồi xác nhận Apply, chỉ Local, giữ Room v20. BG6 instrumentation 4/4 pass; Mac chỉ kiểm truyền ciphertext (không có AES-GCM trên Mac, không giải mã/apply); Stop server đã smoke thật. **Chưa đạt EXC-05 gốc:** chưa NSD, hai Android, tự động/2 chiều; smoke expiry trên thiết bị thật không kết luận được do HiOS freezer. Báo cáo: [`EXC-05a_manual-lan-sync_DONE.md`](doc/task/done/EXC-05a_manual-lan-sync_DONE.md). Todo gốc vẫn mở: [`EXC-05_local-p2p-sync.md`](doc/task/todo/EXC-05_local-p2p-sync.md).
