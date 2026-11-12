@@ -6,6 +6,9 @@ import com.mckimquyen.reader.ui.page.headline.EchoSignalSection
 import com.mckimquyen.reader.ui.page.headline.EchoSignalState
 import com.mckimquyen.reader.ui.page.headline.HeadlineSignalBadges
 import com.mckimquyen.reader.ui.page.headline.LocalHeadlineSignalsEnabled
+import com.mckimquyen.reader.ui.component.oracle.OracleBadge
+import com.mckimquyen.reader.ui.page.oracle.LocalOpenOracleClaim
+import com.mckimquyen.reader.ui.page.oracle.LocalOracleClaims
 import com.mckimquyen.reader.ui.page.radar.LocalOpenRadarDiff
 import com.mckimquyen.reader.ui.page.radar.LocalRadarFlags
 import androidx.compose.foundation.layout.Box
@@ -97,6 +100,7 @@ fun Content(
     val openLinkSpecificBrowser = LocalOpenLinkSpecificBrowser.current
     val eInkEnabled = LocalEInkMode.current.value
     val openRadarDiff = LocalOpenRadarDiff.current
+    val openOracleClaim = LocalOpenOracleClaim.current
     val headlineSignalsEnabled = LocalHeadlineSignalsEnabled.current
     val headlineSignal = remember(articleId, title, headlineSignalsEnabled) {
         if (headlineSignalsEnabled) HeadlineAnalyzer.analyze(title) else null
@@ -178,6 +182,12 @@ fun Content(
                             RadarBadge(
                                 flag = flag,
                                 onClick = { openRadarDiff(articleId) },
+                                modifier = Modifier.padding(bottom = 8.dp),
+                            )
+                        }
+                        if (LocalOracleClaims.current[articleId] != null) {
+                            OracleBadge(
+                                onClick = { openOracleClaim(articleId) },
                                 modifier = Modifier.padding(bottom = 8.dp),
                             )
                         }

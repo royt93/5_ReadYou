@@ -54,9 +54,12 @@ import com.mckimquyen.reader.ui.component.FeedIcon
 import com.mckimquyen.reader.ui.component.base.BaseAsyncImage
 import com.mckimquyen.reader.ui.component.base.SIZE_1000
 import com.mckimquyen.reader.ui.component.watchdog.LocalWatchdogKeywords
+import com.mckimquyen.reader.ui.component.oracle.OracleBadge
 import com.mckimquyen.reader.ui.component.radar.RadarBadge
 import com.mckimquyen.reader.ui.page.headline.HeadlineSignalBadges
 import com.mckimquyen.reader.ui.component.watchdog.WatchdogBadge
+import com.mckimquyen.reader.ui.page.oracle.LocalOpenOracleClaim
+import com.mckimquyen.reader.ui.page.oracle.LocalOracleClaims
 import com.mckimquyen.reader.ui.page.radar.LocalOpenRadarDiff
 import com.mckimquyen.reader.ui.page.radar.LocalRadarFlags
 import com.mckimquyen.reader.ui.theme.Shape20
@@ -87,6 +90,8 @@ fun ArticleItem(
 
     val radarFlag = LocalRadarFlags.current[articleWithFeed.article.id]
     val openRadarDiff = LocalOpenRadarDiff.current
+    val oracleCard = LocalOracleClaims.current[articleWithFeed.article.id]
+    val openOracleClaim = LocalOpenOracleClaim.current
     val headlineSignalsEnabled = com.mckimquyen.reader.ui.page.headline.LocalHeadlineSignalsEnabled.current
     val headlineSignal = remember(articleWithFeed.article.id, articleWithFeed.article.title, headlineSignalsEnabled) {
         if (headlineSignalsEnabled) com.mckimquyen.reader.domain.headline.HeadlineAnalyzer.analyze(articleWithFeed.article.title) else null
@@ -179,6 +184,14 @@ fun ArticleItem(
                     RadarBadge(
                         flag = radarFlag,
                         onClick = { openRadarDiff(articleWithFeed.article.id) },
+                        modifier = Modifier.padding(bottom = 4.dp),
+                    )
+                }
+
+                // Prediction badge (ORACLE-01)
+                if (oracleCard != null) {
+                    OracleBadge(
+                        onClick = { openOracleClaim(articleWithFeed.article.id) },
                         modifier = Modifier.padding(bottom = 4.dp),
                     )
                 }

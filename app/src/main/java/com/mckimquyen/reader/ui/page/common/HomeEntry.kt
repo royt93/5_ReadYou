@@ -83,6 +83,10 @@ import com.mckimquyen.reader.ui.page.setting.language.LanguagesPage
 import com.mckimquyen.reader.ui.page.setting.tip.TipsAndSupportPage
 import com.mckimquyen.reader.ui.page.setting.vip.VipManagementPage
 import com.mckimquyen.reader.ui.page.radar.ArticleDiffPage
+import com.mckimquyen.reader.ui.component.oracle.OracleClaimSheet
+import com.mckimquyen.reader.ui.page.oracle.LocalOpenOracleClaim
+import com.mckimquyen.reader.ui.page.oracle.LocalOracleClaims
+import com.mckimquyen.reader.ui.page.oracle.OracleClaimsViewModel
 import com.mckimquyen.reader.ui.page.radar.LocalOpenRadarDiff
 import com.mckimquyen.reader.ui.page.rpg.LocalOpenPrivacySettings
 import com.mckimquyen.reader.ui.page.radar.LocalRadarFlags
@@ -235,12 +239,17 @@ fun HomeEntry(
 
         val radarFlagsViewModel: RadarFlagsViewModel = hiltViewModel()
         val radarFlags by radarFlagsViewModel.flags.collectAsState()
+        val oracleClaimsViewModel: OracleClaimsViewModel = hiltViewModel()
+        val oracleClaims by oracleClaimsViewModel.claims.collectAsState()
+        var openOracleArticleId by remember { mutableStateOf<String?>(null) }
         // DataStore flow phản ứng tức thời khi người dùng bật/tắt trong Cài đặt; không đọc một lần qua get().
         val headlineSignalsReactive by remember(context) {
             context.dataStore.headlineSignalsFlow()
         }.collectAsState(initial = true)
         CompositionLocalProvider(
             LocalRadarFlags provides radarFlags,
+            LocalOracleClaims provides oracleClaims,
+            LocalOpenOracleClaim provides { articleId -> openOracleArticleId = articleId },
             LocalHeadlineSignalsEnabled provides headlineSignalsReactive,
             LocalOpenRadarDiff provides { articleId ->
                 navController.navigate("${RouteName.ARTICLE_DIFF_PREFIX}/$articleId") { launchSingleTop = true }
@@ -249,6 +258,10 @@ fun HomeEntry(
                 navController.navigate(RouteName.PRIVACY_SETTINGS) { launchSingleTop = true }
             },
         ) {
+            OracleClaimSheet(
+                card = openOracleArticleId?.let { oracleClaims[it] },
+                onDismiss = { openOracleArticleId = null },
+            )
         NavHost(
             modifier = Modifier.background(MaterialTheme.colorScheme.surface),
             navController = navController,
