@@ -11,6 +11,7 @@ import com.mckimquyen.reader.domain.repository.AddedRssSourceDao
 import com.mckimquyen.reader.domain.repository.ArticleDao
 import com.mckimquyen.reader.domain.repository.ArticleRadarDao
 import com.mckimquyen.reader.domain.repository.OracleMarketDao
+import com.mckimquyen.reader.domain.repository.OracleWalletDao
 import com.mckimquyen.reader.domain.repository.ArticleReadPositionDao
 import com.mckimquyen.reader.domain.repository.ArticleEmbeddingDao
 import com.mckimquyen.reader.domain.repository.DailyDigestDao
@@ -66,6 +67,11 @@ object DbModule {
     @Singleton
     fun provideOracleMarketDao(androidDatabase: AndroidDatabase): OracleMarketDao =
         androidDatabase.oracleMarketDao()
+
+    @Provides
+    @Singleton
+    fun provideOracleWalletDao(androidDatabase: AndroidDatabase): OracleWalletDao =
+        androidDatabase.oracleWalletDao()
 
     @Provides
     @Singleton

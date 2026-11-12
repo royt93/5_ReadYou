@@ -25,8 +25,11 @@ import com.mckimquyen.reader.domain.model.collection.SmartCollection
 import com.mckimquyen.reader.domain.model.collection.SmartCollectionArticle
 import com.mckimquyen.reader.domain.model.digest.DailyDigest
 import com.mckimquyen.reader.domain.model.article.ArticleFts
+import com.mckimquyen.reader.domain.model.oracle.OracleBet
+import com.mckimquyen.reader.domain.model.oracle.OracleBetConverters
 import com.mckimquyen.reader.domain.model.oracle.OracleMarket
 import com.mckimquyen.reader.domain.model.oracle.OracleMarketStatusConverters
+import com.mckimquyen.reader.domain.model.oracle.UserWallet
 import com.mckimquyen.reader.domain.model.radar.ArticleRadarState
 import com.mckimquyen.reader.domain.model.radar.ArticleSnapshot
 import com.mckimquyen.reader.domain.model.rpg.BrainRpgCategoryEntity
@@ -42,6 +45,7 @@ import com.mckimquyen.reader.domain.model.notebook.ArticleHighlightNote
 import com.mckimquyen.reader.domain.repository.ArticleHighlightDao
 import com.mckimquyen.reader.domain.repository.ArticleRadarDao
 import com.mckimquyen.reader.domain.repository.OracleMarketDao
+import com.mckimquyen.reader.domain.repository.OracleWalletDao
 import com.mckimquyen.reader.domain.repository.ArticleReadPositionDao
 import com.mckimquyen.reader.domain.repository.AccountDao
 import com.mckimquyen.reader.domain.repository.AddedRssSourceDao
@@ -83,8 +87,10 @@ import java.util.Date
         ArticleSnapshot::class,
         ArticleRadarState::class,
         OracleMarket::class,
+        UserWallet::class,
+        OracleBet::class,
     ],
-    version = 21
+    version = 22
 )
 @TypeConverters(
     AndroidDatabase.DateConverters::class,
@@ -98,6 +104,7 @@ import java.util.Date
     FeedErrorTypeConverters::class,
     BrainRpgRewardTypeConverters::class,
     OracleMarketStatusConverters::class,
+    OracleBetConverters::class,
 )
 abstract class AndroidDatabase : RoomDatabase() {
 
@@ -115,6 +122,7 @@ abstract class AndroidDatabase : RoomDatabase() {
     abstract fun smartCollectionDao(): SmartCollectionDao
     abstract fun articleRadarDao(): ArticleRadarDao
     abstract fun oracleMarketDao(): OracleMarketDao
+    abstract fun oracleWalletDao(): OracleWalletDao
 
     companion object {
 
@@ -168,6 +176,7 @@ val allMigrations = arrayOf(
     MIGRATION_18_19,
     MIGRATION_19_20,
     MIGRATION_20_21,
+    MIGRATION_21_22,
 )
 
 @Suppress("ClassName")
@@ -582,5 +591,37 @@ object MIGRATION_20_21 : Migration(20, 21) {
             """.trimIndent()
         )
         db.execSQL("CREATE UNIQUE INDEX IF NOT EXISTS `index_oracle_market_articleId` ON `oracle_market` (`articleId`)")
+    }
+}
+
+@Suppress("ClassName")
+object MIGRATION_21_22 : Migration(21, 22) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL(
+            """
+            CREATE TABLE IF NOT EXISTS `user_wallet` (
+                `id` INTEGER NOT NULL,
+                `balance` INTEGER NOT NULL,
+                `lastGrantEpochDay` INTEGER NOT NULL,
+                PRIMARY KEY(`id`)
+            )
+            """.trimIndent()
+        )
+        db.execSQL(
+            """
+            CREATE TABLE IF NOT EXISTS `oracle_bet` (
+                `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                `articleId` TEXT NOT NULL,
+                `question` TEXT NOT NULL,
+                `expiresAt` INTEGER NOT NULL,
+                `side` TEXT NOT NULL,
+                `stake` INTEGER NOT NULL,
+                `status` TEXT NOT NULL,
+                `placedAt` INTEGER NOT NULL,
+                `settledAt` INTEGER
+            )
+            """.trimIndent()
+        )
+        db.execSQL("CREATE UNIQUE INDEX IF NOT EXISTS `index_oracle_bet_articleId` ON `oracle_bet` (`articleId`)")
     }
 }
