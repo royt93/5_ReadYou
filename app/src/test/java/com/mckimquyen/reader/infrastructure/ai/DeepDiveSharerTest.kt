@@ -24,8 +24,24 @@ class DeepDiveSharerTest {
     private val sharer = DeepDiveSharer(app, Dispatchers.Unconfined)
     private val dir get() = File(app.cacheDir, DeepDiveSharer.DIR_NAME)
 
-    @Before fun clean() { dir.deleteRecursively() }
-    @After fun cleanAfter() { dir.deleteRecursively() }
+    // androidx FileProvider keeps a static map authority -> PathStrategy. The strategy remembers the cache directory of
+    // the Robolectric sandbox that created it, so a later test class (DossierSharerTest) that builds a URI for the same
+    // authority in a new sandbox would be refused ("Failed to find configured root"). Clear it before and after.
+    private fun forgetFileProviderStrategies() {
+        val field = androidx.core.content.FileProvider::class.java.getDeclaredField("sCache")
+        field.isAccessible = true
+        (field.get(null) as MutableMap<*, *>).clear()
+    }
+
+    @Before fun clean() {
+        forgetFileProviderStrategies()
+        dir.deleteRecursively()
+    }
+
+    @After fun cleanAfter() {
+        dir.deleteRecursively()
+        forgetFileProviderStrategies()
+    }
 
     private val pdf = "%PDF-1.4 fake".toByteArray()
 
