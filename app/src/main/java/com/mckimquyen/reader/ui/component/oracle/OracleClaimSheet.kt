@@ -51,9 +51,13 @@ private val MIN_TOUCH_TARGET = 48.dp
 private const val SCRIM_ALPHA = 0.5f
 private const val UTC = "UTC"
 
-/** Read-only claim card (ORACLE-01). Draws nothing for a null [card]. Betting arrives with ORACLE-02. */
+/** The claim card (ORACLE-01). Draws nothing for a null [card]; [footer] is where the betting part (ORACLE-02) goes. */
 @Composable
-fun OracleClaimSheet(card: OracleClaimCard?, onDismiss: () -> Unit) {
+fun OracleClaimSheet(
+    card: OracleClaimCard?,
+    onDismiss: () -> Unit,
+    footer: @Composable (OracleClaimCard) -> Unit = {},
+) {
     if (card == null) return
     Dialog(
         onDismissRequest = onDismiss,
@@ -74,14 +78,18 @@ fun OracleClaimSheet(card: OracleClaimCard?, onDismiss: () -> Unit) {
                 shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp),
                 color = MaterialTheme.colorScheme.surface,
                 tonalElevation = 6.dp,
-            ) { OracleClaimSheetContent(card, onDismiss) }
+            ) { OracleClaimSheetContent(card, onDismiss, footer) }
         }
     }
 }
 
 /** The card body without the Dialog window, so a plain ComposeView (or a test) can compose it. */
 @Composable
-fun OracleClaimSheetContent(card: OracleClaimCard, onDismiss: () -> Unit) {
+fun OracleClaimSheetContent(
+    card: OracleClaimCard,
+    onDismiss: () -> Unit,
+    footer: @Composable (OracleClaimCard) -> Unit = {},
+) {
     val locale = LocalConfiguration.current.locales[0] ?: Locale.getDefault()
     val date = remember(card.expiresAt, locale) { formatUtcDay(card.expiresAt, locale) }
     Column(
@@ -113,6 +121,7 @@ fun OracleClaimSheetContent(card: OracleClaimCard, onDismiss: () -> Unit) {
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.testTag(ORACLE_AI_LABEL_TAG),
         )
+        footer(card)
     }
 }
 

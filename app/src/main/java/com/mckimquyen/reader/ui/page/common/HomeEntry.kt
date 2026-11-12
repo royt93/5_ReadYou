@@ -83,8 +83,10 @@ import com.mckimquyen.reader.ui.page.setting.language.LanguagesPage
 import com.mckimquyen.reader.ui.page.setting.tip.TipsAndSupportPage
 import com.mckimquyen.reader.ui.page.setting.vip.VipManagementPage
 import com.mckimquyen.reader.ui.page.radar.ArticleDiffPage
+import com.mckimquyen.reader.ui.component.oracle.OracleBettingSection
 import com.mckimquyen.reader.ui.component.oracle.OracleClaimSheet
 import com.mckimquyen.reader.ui.page.oracle.LocalOpenOracleClaim
+import com.mckimquyen.reader.ui.page.oracle.OracleBettingViewModel
 import com.mckimquyen.reader.ui.page.oracle.LocalOracleClaims
 import com.mckimquyen.reader.ui.page.oracle.OracleClaimsViewModel
 import com.mckimquyen.reader.ui.page.radar.LocalOpenRadarDiff
@@ -242,6 +244,9 @@ fun HomeEntry(
         val oracleClaimsViewModel: OracleClaimsViewModel = hiltViewModel()
         val oracleClaims by oracleClaimsViewModel.claims.collectAsState()
         var openOracleArticleId by remember { mutableStateOf<String?>(null) }
+        val oracleBettingViewModel: OracleBettingViewModel = hiltViewModel()
+        val oracleBetState by oracleBettingViewModel.state.collectAsState()
+        val oracleBetFailed by oracleBettingViewModel.failed.collectAsState()
         // DataStore flow phản ứng tức thời khi người dùng bật/tắt trong Cài đặt; không đọc một lần qua get().
         val headlineSignalsReactive by remember(context) {
             context.dataStore.headlineSignalsFlow()
@@ -249,7 +254,10 @@ fun HomeEntry(
         CompositionLocalProvider(
             LocalRadarFlags provides radarFlags,
             LocalOracleClaims provides oracleClaims,
-            LocalOpenOracleClaim provides { articleId -> openOracleArticleId = articleId },
+            LocalOpenOracleClaim provides { articleId ->
+                openOracleArticleId = articleId
+                oracleClaims[articleId]?.let(oracleBettingViewModel::open)
+            },
             LocalHeadlineSignalsEnabled provides headlineSignalsReactive,
             LocalOpenRadarDiff provides { articleId ->
                 navController.navigate("${RouteName.ARTICLE_DIFF_PREFIX}/$articleId") { launchSingleTop = true }
@@ -260,7 +268,20 @@ fun HomeEntry(
         ) {
             OracleClaimSheet(
                 card = openOracleArticleId?.let { oracleClaims[it] },
-                onDismiss = { openOracleArticleId = null },
+                onDismiss = {
+                    openOracleArticleId = null
+                    oracleBettingViewModel.close()
+                },
+                footer = {
+                    oracleBetState?.let { betState ->
+                        OracleBettingSection(
+                            state = betState,
+                            failed = oracleBetFailed,
+                            onPlaceBet = oracleBettingViewModel::placeBet,
+                            onSettle = oracleBettingViewModel::settle,
+                        )
+                    }
+                },
             )
         NavHost(
             modifier = Modifier.background(MaterialTheme.colorScheme.surface),
