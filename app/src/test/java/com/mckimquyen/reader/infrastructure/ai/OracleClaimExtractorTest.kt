@@ -68,7 +68,7 @@ class OracleClaimExtractorTest {
         db.feedDao().insert(Feed(id = "f", name = "F", url = "https://e.com/f", groupId = "g", accountId = 1))
         every { summaryService.resolveApiKeys() } returns listOf("key-a")
         coEvery { gateway.execute(any(), any(), any()) } returns claimJson()
-        extractor = object : OracleClaimExtractor(context, db.oracleMarketDao(), gateway, summaryService) {
+        extractor = object : OracleClaimExtractor(context, db.oracleMarketDao(), db.oracleWalletDao(), gateway, summaryService) {
             override fun isConsented() = consented
             override fun nowMillis() = now
         }
@@ -99,7 +99,7 @@ class OracleClaimExtractorTest {
 
     @Test
     fun realConsentReader_neverAskedAndDeclinedMeanOff_agreedMeansOn() {
-        val real = object : OracleClaimExtractor(context, db.oracleMarketDao(), gateway, summaryService) {
+        val real = object : OracleClaimExtractor(context, db.oracleMarketDao(), db.oracleWalletDao(), gateway, summaryService) {
             override fun nowMillis() = now
         }
         put(article("a"))
@@ -268,6 +268,73 @@ class OracleClaimExtractorTest {
         run()
         assertNull(row("old"))
         assertEquals(OracleMarketStatus.NO_CLAIM, row("fresh")?.status)
+    }
+
+
+    private fun bet(article: String, expiresAt: Long, stake: Int = 100) = runBlocking {
+        db.oracleWalletDao().placeBet(
+            article, "Q?", expiresAt, com.mckimquyen.reader.domain.model.oracle.OracleBetSide.YES, stake, expiresAt - day,
+        )
+    }
+
+    private fun wallet() = runBlocking { db.oracleWalletDao().wallet()?.balance }
+
+    @Test
+    fun staleOpenBets_areRefundedWhenConsentIsOff() {
+        bet("a", expiresAt = now - 31 * day)
+        assertEquals(900L, wallet())
+        consented = false
+        run()
+        assertEquals(1000L, wallet())
+        assertEquals(
+            com.mckimquyen.reader.domain.model.oracle.OracleBetStatus.REFUNDED,
+            runBlocking { db.oracleWalletDao().betFor("a") }!!.status,
+        )
+    }
+
+    @Test
+    fun recentlyExpiredBets_areNotRefunded() {
+        bet("a", expiresAt = now - 29 * day)
+        run()
+        assertEquals(
+            com.mckimquyen.reader.domain.model.oracle.OracleBetStatus.OPEN,
+            runBlocking { db.oracleWalletDao().betFor("a") }!!.status,
+        )
+        assertEquals(900L, wallet())
+    }
+
+    @Test
+    fun refundAndClaimCleanupBothRunInOneCall() {
+        put(article("a"))
+        runBlocking {
+            db.oracleMarketDao().upsert(
+                OracleMarket(
+                    articleId = "a", status = OracleMarketStatus.HAS_CLAIM, question = "Q?", expiresAt = now - 31 * day,
+                    resolutionCriteria = "c", createdAt = now - 40 * day,
+                )
+            )
+        }
+        bet("a", expiresAt = now - 31 * day)
+        consented = false // only the local cleanup is under test, not a fresh Gemini request for article "a"
+        run()
+        assertNull(row("a"))
+        assertEquals(1000L, wallet())
+    }
+
+    @Test
+    fun aFailingRefund_doesNotStopTheClaimCleanup() {
+        val failingWallet = mockk<com.mckimquyen.reader.domain.repository.OracleWalletDao>()
+        coEvery { failingWallet.autoRefundStale(any()) } throws IllegalStateException("boom")
+        val e = object : OracleClaimExtractor(context, db.oracleMarketDao(), failingWallet, gateway, summaryService) {
+            override fun isConsented() = false
+            override fun nowMillis() = now
+        }
+        put(article("old"))
+        runBlocking {
+            db.oracleMarketDao().upsert(OracleMarket(articleId = "old", status = OracleMarketStatus.NO_CLAIM, createdAt = now - 31 * day))
+        }
+        runBlocking { e.extractRecent(1) }
+        assertNull(row("old"))
     }
 
     private companion object {

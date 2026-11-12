@@ -8,6 +8,7 @@ import com.mckimquyen.reader.domain.model.oracle.OracleMarket
 import com.mckimquyen.reader.domain.model.oracle.OracleMarketStatus
 import com.mckimquyen.reader.domain.repository.OracleCandidateRow
 import com.mckimquyen.reader.domain.repository.OracleMarketDao
+import com.mckimquyen.reader.domain.repository.OracleWalletDao
 import com.mckimquyen.reader.ui.ext.oracleClaimsGeminiConsent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CancellationException
@@ -27,6 +28,7 @@ data class OracleRunResult(val requests: Int, val claims: Int, val stopped: Bool
 open class OracleClaimExtractor @Inject constructor(
     @ApplicationContext private val context: Context,
     private val dao: OracleMarketDao,
+    private val walletDao: OracleWalletDao,
     private val gateway: AiRequestGateway,
     private val summaryService: GeminiSummaryService,
 ) {
@@ -99,6 +101,14 @@ open class OracleClaimExtractor @Inject constructor(
     }
 
     private suspend fun cleanUp(now: Long) {
+        // Stakes first: a bet is independent of its prediction row, but nothing may be dropped while points are still out.
+        try {
+            walletDao.autoRefundStale(now)
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            Log.w(TAG, "Bet refund failed: ${e.javaClass.simpleName}")
+        }
         try {
             dao.deleteStale(now - TimeUnit.DAYS.toMillis(OracleClaimPolicy.RETENTION_DAYS.toLong()))
         } catch (e: CancellationException) {
