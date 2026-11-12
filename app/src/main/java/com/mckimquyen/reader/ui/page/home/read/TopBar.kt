@@ -16,6 +16,7 @@ import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.ElectricBolt
 import androidx.compose.material.icons.rounded.Cast
 import androidx.compose.material.icons.rounded.Forum
+import androidx.compose.material.icons.rounded.Insights
 import androidx.compose.material.icons.rounded.GraphicEq
 import androidx.compose.material.icons.rounded.MoreVert
 import androidx.compose.material.icons.rounded.Podcasts
@@ -65,6 +66,7 @@ fun TopBar(
     onDeepRead: () -> Unit = {},
     onSecondScreen: () -> Unit = {},
     onPodcastStudio: () -> Unit = {},
+    onDeepDive: () -> Unit = {},
     onHighlight: () -> Unit = {},
     onNotebook: () -> Unit = {},
     onClose: () -> Unit = {},
@@ -205,6 +207,19 @@ fun TopBar(
                                 onClick = {
                                     menuExpanded = false
                                     onDeepRead()
+                                }
+                            )
+                            DropdownMenuItem(
+                                text = { Text(stringResource(R.string.deep_dive_menu)) },
+                                leadingIcon = {
+                                    Icon(
+                                        imageVector = Icons.Rounded.Insights,
+                                        contentDescription = null
+                                    )
+                                },
+                                onClick = {
+                                    menuExpanded = false
+                                    onDeepDive()
                                 }
                             )
                             DropdownMenuItem(

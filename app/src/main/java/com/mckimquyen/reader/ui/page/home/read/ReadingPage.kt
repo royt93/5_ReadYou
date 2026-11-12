@@ -50,6 +50,9 @@ import com.mckimquyen.reader.domain.model.article.AudioInfo
 import com.mckimquyen.reader.domain.readposition.ReadingPositionMapper
 import com.mckimquyen.reader.ui.component.reader.BodyItemRange
 import com.mckimquyen.reader.ui.page.home.read.podcast.PodcastPlayerBar
+import com.mckimquyen.reader.domain.ai.agents.DeepDivePdfTexts
+import com.mckimquyen.reader.ui.page.home.read.deepdive.DeepDiveSheet
+import com.mckimquyen.reader.ui.page.home.read.deepdive.DeepDiveViewModel
 import com.mckimquyen.reader.ui.page.home.read.podcaststudio.PodcastStudioSheet
 import com.mckimquyen.reader.ui.page.home.read.podcaststudio.PodcastStudioViewModel
 import com.mckimquyen.reader.ui.page.home.read.podcast.PodcastPlayerViewModel
@@ -227,6 +230,23 @@ fun ReadingPage(
     val dualChooserTitle = stringResource(R.string.echo_dual_chooser_title)
     val dualShareText = stringResource(R.string.echo_dual_share_text)
     val podcastStudioViewModel: PodcastStudioViewModel = hiltViewModel()
+    val deepDiveViewModel: DeepDiveViewModel = hiltViewModel()
+    val deepDiveState by deepDiveViewModel.state.collectAsState()
+    val deepDiveChooserTitle = stringResource(R.string.deep_dive_chooser_title)
+    val deepDiveExportError = stringResource(R.string.deep_dive_export_error)
+    val deepDiveTexts = DeepDivePdfTexts(
+        aiLabel = stringResource(R.string.deep_dive_label),
+        headingContext = stringResource(R.string.deep_dive_section_context),
+        headingCritical = stringResource(R.string.deep_dive_section_critical),
+        headingImpact = stringResource(R.string.deep_dive_section_impact),
+        colArea = stringResource(R.string.deep_dive_col_area),
+        colShort = stringResource(R.string.deep_dive_col_short),
+        colLong = stringResource(R.string.deep_dive_col_long),
+        truncatedNote = stringResource(R.string.deep_dive_pdf_truncated),
+        dateText = remember { java.text.DateFormat.getDateInstance().format(java.util.Date()) },
+    )
+    // A report belongs to the article it was written for: leaving or switching articles closes the sheet.
+    LaunchedEffect(readingUiState.articleWithFeed?.article?.id) { deepDiveViewModel.dismiss() }
     val podcastStudioState by podcastStudioViewModel.state.collectAsState()
     val secondScreenViewModel: SecondScreenViewModel = hiltViewModel()
     val lanPermissionLauncher = androidx.activity.compose.rememberLauncherForActivityResult(
@@ -490,6 +510,11 @@ fun ReadingPage(
                     onPodcastStudio = {
                         readingUiState.articleWithFeed?.article?.let(podcastStudioViewModel::initiate)
                     },
+                    onDeepDive = {
+                        readingUiState.articleWithFeed?.article?.let { article ->
+                            deepDiveViewModel.open(article.id, article.title, readingUiState.content ?: article.fullContent ?: article.rawDescription)
+                        }
+                    },
                     onHighlight = {
                         showHighlightDialog = true
                     },
@@ -635,6 +660,22 @@ fun ReadingPage(
         }
     )
     }
+
+    DeepDiveSheet(
+        state = deepDiveState,
+        title = readingUiState.articleWithFeed?.article?.title.orEmpty(),
+        onDismiss = deepDiveViewModel::dismiss,
+        onConsent = deepDiveViewModel::onConsent,
+        onConsentLater = deepDiveViewModel::onConsentLater,
+        onRetry = deepDiveViewModel::retry,
+        onExportPdf = {
+            quoteScope.launch {
+                val intent = deepDiveViewModel.prepareShare(deepDiveTexts, deepDiveChooserTitle)
+                if (intent != null) context.startActivity(intent)
+                else Toast.makeText(context, deepDiveExportError, Toast.LENGTH_SHORT).show()
+            }
+        },
+    )
 
     PodcastStudioSheet(
         state = podcastStudioState,
