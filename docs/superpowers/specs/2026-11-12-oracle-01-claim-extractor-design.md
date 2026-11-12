@@ -58,6 +58,11 @@ Bảng `oracle_market` (chỉ `CREATE TABLE IF NOT EXISTS`, không sửa bảng 
 - Máy thật chỉ **Tecno KJ7 `115333744A005844`**: cổng thiết bị chỉ đọc, sao lưu byte-exact Room/`-shm`/`-wal`/DataStore/`shared_prefs`. Ca: nâng cấp DB v20→v21 giữ nguyên dữ liệu; consent tắt = 0 request trong log; bật + key hỏng = dừng sớm; badge và thẻ với dòng mẫu chèn vào DB đã sao lưu; khôi phục byte-identical. Quảng cáo toàn màn hình: chỉ Back.
 - **Không kiểm được:** kèo thật từ Gemini (không có key riêng), tỷ lệ JSON hợp lệ, chất lượng câu hỏi/ngày; báo cáo DONE sẽ ghi rõ.
 
+## Điều chỉnh khi lập plan và thực thi
+- Chỉ xét bài trong **3 ngày gần nhất** (`RECENT_WINDOW_DAYS = 3`), để lần bật consent đầu tiên không quét tồn đọng cũ và đốt quota.
+- **Mọi lỗi gọi AI** (không chỉ quota/khóa: cả mạng và lỗi bất ngờ) dừng cả lượt và không ghi gì cho bài đó; chỉ JSON hỏng hoặc bị từ chối mới tăng `attempts`.
+- Ngày đáo hạn xét và hiển thị theo **ngày UTC** (lưu là cuối ngày UTC), để thẻ không lệch ngày theo múi giờ máy.
+
 ## Giới hạn đã biết
 - Mô tả ngắn nên bỏ sót dự báo nằm sâu trong thân bài.
 - Ngày đáo hạn do AI suy ra có thể sai; chỉ kiểm định dạng và phạm vi, không kiểm sự thật.

@@ -1,5 +1,7 @@
 # [ORACLE-01] Bộ Trích Xuất Kèo Dự Báo Từ Tin Tức (AI Predictive Claim Extractor)
 
+> **Cập nhật 2026-11-12:** đã làm xong luồng ở mức code và máy thật, xem [`ORACLE-01_ai-predictive-claim-extractor_DONE.md`](../done/ORACLE-01_ai-predictive-claim-extractor_DONE.md). AI chạy nền sau mỗi sync (tiêu đề + mô tả ≤ 500 ký tự, tối đa 5 bài, consent riêng mặc định tắt), lưu bảng `oracle_market` (Room v21), huy hiệu "Kèo Dự Đoán" ở danh sách và màn đọc, bấm mở thẻ **chỉ xem** (không cược, không điểm). **Giữ trong `todo/` vì chưa thấy AI trả một kèo hợp lệ trên bài thật** (12/12 bài BBC ra `NO_CLAIM`, sau đó key chung hỏng, FIX-09); kèo trên máy là dữ liệu mẫu.
+
 - **Type:** New Feature
 - **Priority:** `P1 (High)`
 - **Estimation:** `5 Story Points`
