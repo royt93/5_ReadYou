@@ -1,5 +1,7 @@
 # [FRONT-01] AI Multi-Agent Deep Dive — Báo Cáo Nghiên Cứu Đa Chiều Chuẩn McKinsey
 
+> **Cập nhật 2026-11-12:** đã làm **bản thu hẹp**, xem [`FRONT-01_ai-multi-agent-deep-dive_DONE.md`](../done/FRONT-01_ai-multi-agent-deep-dive_DONE.md). Menu ⋮ có `🔬 AI Deep Dive` → báo cáo một trang (Bối cảnh, Góc nhìn đối lập, Ma trận tác động) + PDF A4 một trang, bằng **một** request Gemini ba vai (không phải chuỗi 3 agent thật, không tra cứu web). Còn mở: báo cáo thật từ Gemini chưa kiểm trên máy (key chung hỏng, FIX-09), và chuỗi 3 agent thật nếu owner muốn. Task giữ trong `todo/` theo quyết định của owner.
+
 - **Type:** Frontier AI / Agentic Intelligence
 - **Priority:** `P1 (High)`
 - **Estimation:** `8 Story Points`
