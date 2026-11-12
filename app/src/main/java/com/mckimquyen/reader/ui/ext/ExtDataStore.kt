@@ -141,6 +141,14 @@ suspend fun Context.setOracleClaimsGeminiConsent(agreed: Boolean) {
     this.dataStore.put(DataStoreKeys.OracleClaimsGeminiConsent, agreed)
 }
 
+/** ORACLE-03: the bets the user was already reminded about, newest last; absent until the first reminder. */
+val Context.oracleRemindedBets: String?
+    get() = this.dataStore.get(DataStoreKeys.OracleRemindedBets)
+
+suspend fun Context.setOracleRemindedBets(encoded: String) {
+    this.dataStore.put(DataStoreKeys.OracleRemindedBets, encoded)
+}
+
 suspend fun <T> DataStore<Preferences>.put(dataStoreKeys: DataStoreKeys<T>, value: T) {
     this.edit {
         withContext(Dispatchers.IO) {
@@ -704,5 +712,11 @@ sealed class DataStoreKeys<T> {
     object OracleClaimsGeminiConsent : DataStoreKeys<Boolean>() {
         override val key: Preferences.Key<Boolean>
             get() = booleanPreferencesKey("oracle_claims_gemini_consent")
+    }
+
+    /** ORACLE-03: ids of the bets already announced as due (see OracleRemindedCodec). */
+    object OracleRemindedBets : DataStoreKeys<String>() {
+        override val key: Preferences.Key<String>
+            get() = stringPreferencesKey("oracle_reminded_bets")
     }
 }
