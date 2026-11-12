@@ -25,6 +25,8 @@ import com.mckimquyen.reader.domain.model.collection.SmartCollection
 import com.mckimquyen.reader.domain.model.collection.SmartCollectionArticle
 import com.mckimquyen.reader.domain.model.digest.DailyDigest
 import com.mckimquyen.reader.domain.model.article.ArticleFts
+import com.mckimquyen.reader.domain.model.oracle.OracleMarket
+import com.mckimquyen.reader.domain.model.oracle.OracleMarketStatusConverters
 import com.mckimquyen.reader.domain.model.radar.ArticleRadarState
 import com.mckimquyen.reader.domain.model.radar.ArticleSnapshot
 import com.mckimquyen.reader.domain.model.rpg.BrainRpgCategoryEntity
@@ -39,6 +41,7 @@ import com.mckimquyen.reader.domain.model.group.Group
 import com.mckimquyen.reader.domain.model.notebook.ArticleHighlightNote
 import com.mckimquyen.reader.domain.repository.ArticleHighlightDao
 import com.mckimquyen.reader.domain.repository.ArticleRadarDao
+import com.mckimquyen.reader.domain.repository.OracleMarketDao
 import com.mckimquyen.reader.domain.repository.ArticleReadPositionDao
 import com.mckimquyen.reader.domain.repository.AccountDao
 import com.mckimquyen.reader.domain.repository.AddedRssSourceDao
@@ -79,8 +82,9 @@ import java.util.Date
         BrainRpgXpEventEntity::class,
         ArticleSnapshot::class,
         ArticleRadarState::class,
+        OracleMarket::class,
     ],
-    version = 20
+    version = 21
 )
 @TypeConverters(
     AndroidDatabase.DateConverters::class,
@@ -93,6 +97,7 @@ import java.util.Date
     SyncBlockListConverters::class,
     FeedErrorTypeConverters::class,
     BrainRpgRewardTypeConverters::class,
+    OracleMarketStatusConverters::class,
 )
 abstract class AndroidDatabase : RoomDatabase() {
 
@@ -109,6 +114,7 @@ abstract class AndroidDatabase : RoomDatabase() {
     abstract fun brainRpgDao(): BrainRpgDao
     abstract fun smartCollectionDao(): SmartCollectionDao
     abstract fun articleRadarDao(): ArticleRadarDao
+    abstract fun oracleMarketDao(): OracleMarketDao
 
     companion object {
 
@@ -161,6 +167,7 @@ val allMigrations = arrayOf(
     MIGRATION_17_18,
     MIGRATION_18_19,
     MIGRATION_19_20,
+    MIGRATION_20_21,
 )
 
 @Suppress("ClassName")
@@ -553,5 +560,27 @@ object MIGRATION_12_13 : Migration(12, 13) {
             """.trimIndent()
         )
         db.execSQL("CREATE UNIQUE INDEX IF NOT EXISTS index_brain_rpg_reward_articleId_rewardType ON brain_rpg_reward(articleId, rewardType)")
+    }
+}
+
+@Suppress("ClassName")
+object MIGRATION_20_21 : Migration(20, 21) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL(
+            """
+            CREATE TABLE IF NOT EXISTS `oracle_market` (
+                `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                `articleId` TEXT NOT NULL,
+                `status` TEXT NOT NULL,
+                `attempts` INTEGER NOT NULL,
+                `question` TEXT,
+                `expiresAt` INTEGER,
+                `resolutionCriteria` TEXT,
+                `createdAt` INTEGER NOT NULL,
+                FOREIGN KEY(`articleId`) REFERENCES `article`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE
+            )
+            """.trimIndent()
+        )
+        db.execSQL("CREATE UNIQUE INDEX IF NOT EXISTS `index_oracle_market_articleId` ON `oracle_market` (`articleId`)")
     }
 }
