@@ -13,6 +13,7 @@ import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.WorkerParameters
 import androidx.work.workDataOf
+import com.mckimquyen.reader.infrastructure.ai.OracleClaimExtractor
 import com.mckimquyen.reader.infrastructure.ai.search.SemanticEmbeddingIndexer
 import com.mckimquyen.reader.infrastructure.sync.WebDavReadPositionSyncer
 import com.mckimquyen.reader.ui.ext.DataStoreKeys
@@ -38,6 +39,7 @@ class SyncWorker @AssistedInject constructor(
     private val offlinePrecacheService: com.mckimquyen.reader.infrastructure.rss.OfflinePrecacheService,
     private val semanticEmbeddingIndexer: SemanticEmbeddingIndexer,
     private val webDavReadPositionSyncer: WebDavReadPositionSyncer,
+    private val oracleClaimExtractor: OracleClaimExtractor,
 ) : CoroutineWorker(context, workerParams) {
 
     override suspend fun doWork(): Result =
@@ -60,6 +62,10 @@ class SyncWorker @AssistedInject constructor(
                 runCatching {
                     semanticEmbeddingIndexer.indexRecent(accountId)
                 }.onFailure { Log.w("RLog", "Semantic embedding indexing failed", it) }
+                // Background prediction finding (ORACLE-01); a no-op unless the user agreed to it separately.
+                runCatching {
+                    oracleClaimExtractor.extractRecent(accountId)
+                }.onFailure { Log.w("RLog", "Prediction finding failed", it) }
                 runCatching {
                     com.mckimquyen.reader.ui.widget.ArticleWidgetUpdater.notifyDataChanged(context)
                 }
