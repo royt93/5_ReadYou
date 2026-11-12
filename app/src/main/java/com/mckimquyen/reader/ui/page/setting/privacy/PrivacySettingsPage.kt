@@ -43,6 +43,7 @@ fun PrivacySettingsPage(
     val headlineSignals by viewModel.headlineSignals.collectAsState()
     val podcastStudioGeminiConsent by viewModel.podcastStudioGeminiConsent.collectAsState()
     val quizGeminiConsent by viewModel.quizGeminiConsent.collectAsState()
+    val deepDiveGeminiConsent by viewModel.deepDiveGeminiConsent.collectAsState()
 
     BaseScaffold(
         containerColor = MaterialTheme.colorScheme.surface,
@@ -155,6 +156,18 @@ fun PrivacySettingsPage(
                         action = {
                             BaseSwitch(activated = quizGeminiConsent) {
                                 viewModel.setQuizGeminiConsent(!quizGeminiConsent)
+                            }
+                        },
+                    )
+                }
+                item {
+                    SettingItem(
+                        title = stringResource(R.string.deep_dive_title),
+                        desc = stringResource(R.string.deep_dive_consent_message),
+                        onClick = { viewModel.setDeepDiveGeminiConsent(!deepDiveGeminiConsent) },
+                        action = {
+                            BaseSwitch(activated = deepDiveGeminiConsent) {
+                                viewModel.setDeepDiveGeminiConsent(!deepDiveGeminiConsent)
                             }
                         },
                     )
