@@ -11,6 +11,7 @@ import com.mckimquyen.reader.ui.ext.dataStore
 import com.mckimquyen.reader.ui.ext.retractionRadarEnabled
 import com.mckimquyen.reader.ui.ext.deepDiveGeminiConsent
 import com.mckimquyen.reader.ui.ext.headlineSignalsEnabled
+import com.mckimquyen.reader.ui.ext.oracleClaimsGeminiConsent
 import com.mckimquyen.reader.ui.ext.podcastStudioGeminiConsent
 import com.mckimquyen.reader.ui.ext.quizGeminiConsent
 import kotlinx.coroutines.Dispatchers
@@ -190,5 +191,37 @@ class PrivacySettingsViewModelTest {
         assertTrue(awaitReal { viewModel.deepDiveGeminiConsent.first { it } })
         assertFalse("the quiz switch must stay off", viewModel.quizGeminiConsent.value)
         assertEquals(null, context.quizGeminiConsent)
+    }
+
+    @Test
+    fun oracleClaimsConsent_isOffUntilTheUserAgreesAndPersistsBothWays() = runTest(dispatcher) {
+        context.dataStore.edit { it.clear() }
+        val viewModel = PrivacySettingsViewModel(context)
+        advanceUntilIdle()
+        assertFalse(viewModel.oracleClaimsGeminiConsent.value)
+        assertEquals(null, context.oracleClaimsGeminiConsent)
+
+        viewModel.setOracleClaimsGeminiConsent(true)
+        advanceUntilIdle()
+        assertTrue(awaitReal { viewModel.oracleClaimsGeminiConsent.first { it } })
+        assertEquals(true, context.oracleClaimsGeminiConsent)
+
+        viewModel.setOracleClaimsGeminiConsent(false)
+        advanceUntilIdle()
+        assertFalse(awaitReal { viewModel.oracleClaimsGeminiConsent.first { !it } })
+        assertEquals(false, context.oracleClaimsGeminiConsent)
+    }
+
+    @Test
+    fun oracleSwitchDoesNotTouchTheDeepDiveSwitch() = runTest(dispatcher) {
+        context.dataStore.edit { it.clear() }
+        val viewModel = PrivacySettingsViewModel(context)
+        advanceUntilIdle()
+
+        viewModel.setOracleClaimsGeminiConsent(true)
+        advanceUntilIdle()
+        assertTrue(awaitReal { viewModel.oracleClaimsGeminiConsent.first { it } })
+        assertFalse("the Deep Dive switch must stay off", viewModel.deepDiveGeminiConsent.value)
+        assertEquals(null, context.deepDiveGeminiConsent)
     }
 }

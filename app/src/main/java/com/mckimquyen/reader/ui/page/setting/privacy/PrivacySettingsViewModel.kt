@@ -49,6 +49,10 @@ class PrivacySettingsViewModel @Inject constructor(
     private val _deepDiveGeminiConsent = MutableStateFlow(false)
     val deepDiveGeminiConsent = _deepDiveGeminiConsent.asStateFlow()
 
+    // ORACLE-01: true only when the user explicitly agreed; "never asked" and "declined" both read as off.
+    private val _oracleClaimsGeminiConsent = MutableStateFlow(false)
+    val oracleClaimsGeminiConsent = _oracleClaimsGeminiConsent.asStateFlow()
+
     init {
         viewModelScope.launch {
             context.dataStore.data.collect { preferences ->
@@ -60,6 +64,7 @@ class PrivacySettingsViewModel @Inject constructor(
                 _podcastStudioGeminiConsent.value = preferences[DataStoreKeys.PodcastStudioGeminiConsent.key] == true
                 _quizGeminiConsent.value = preferences[DataStoreKeys.QuizGeminiConsent.key] == true
                 _deepDiveGeminiConsent.value = preferences[DataStoreKeys.DeepDiveGeminiConsent.key] == true
+                _oracleClaimsGeminiConsent.value = preferences[DataStoreKeys.OracleClaimsGeminiConsent.key] == true
             }
         }
     }
@@ -124,6 +129,14 @@ class PrivacySettingsViewModel @Inject constructor(
         viewModelScope.launch {
             context.dataStore.updateData { preferences ->
                 preferences.toMutablePreferences().apply { this[DataStoreKeys.DeepDiveGeminiConsent.key] = agreed }
+            }
+        }
+    }
+
+    fun setOracleClaimsGeminiConsent(agreed: Boolean) {
+        viewModelScope.launch {
+            context.dataStore.updateData { preferences ->
+                preferences.toMutablePreferences().apply { this[DataStoreKeys.OracleClaimsGeminiConsent.key] = agreed }
             }
         }
     }

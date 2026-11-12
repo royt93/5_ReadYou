@@ -133,6 +133,14 @@ suspend fun Context.setDeepDiveGeminiConsent(agreed: Boolean) {
     this.dataStore.put(DataStoreKeys.DeepDiveGeminiConsent, agreed)
 }
 
+/** ORACLE-01: null until the user decides about background prediction finding; true only when explicitly agreed. */
+val Context.oracleClaimsGeminiConsent: Boolean?
+    get() = this.dataStore.get(DataStoreKeys.OracleClaimsGeminiConsent)
+
+suspend fun Context.setOracleClaimsGeminiConsent(agreed: Boolean) {
+    this.dataStore.put(DataStoreKeys.OracleClaimsGeminiConsent, agreed)
+}
+
 suspend fun <T> DataStore<Preferences>.put(dataStoreKeys: DataStoreKeys<T>, value: T) {
     this.edit {
         withContext(Dispatchers.IO) {
@@ -690,5 +698,11 @@ sealed class DataStoreKeys<T> {
     object DeepDiveGeminiConsent : DataStoreKeys<Boolean>() {
         override val key: Preferences.Key<Boolean>
             get() = booleanPreferencesKey("deep_dive_gemini_consent")
+    }
+
+    /** ORACLE-01: answer to "send the title and a short description of up to 5 new articles per sync to Gemini to find predictions?". Absent means not asked yet; off by default. */
+    object OracleClaimsGeminiConsent : DataStoreKeys<Boolean>() {
+        override val key: Preferences.Key<Boolean>
+            get() = booleanPreferencesKey("oracle_claims_gemini_consent")
     }
 }
