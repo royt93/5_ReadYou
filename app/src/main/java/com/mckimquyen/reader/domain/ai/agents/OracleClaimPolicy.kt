@@ -1,7 +1,23 @@
 package com.mckimquyen.reader.domain.ai.agents
 
 import org.json.JSONArray
+import org.json.JSONException
 import org.json.JSONObject
+import java.time.Instant
+import java.time.LocalDate
+import java.time.ZoneOffset
+import java.time.format.DateTimeParseException
+
+enum class OracleRejection {
+    NOT_JSON, MISSING_FIELD, QUESTION_NOT_YES_NO, QUESTION_TOO_LONG, CRITERIA_EMPTY, CRITERIA_TOO_LONG,
+    BAD_DATE, DATE_IN_PAST, DATE_TOO_FAR,
+}
+
+sealed interface OracleParse {
+    data class Claim(val question: String, val expiresAt: Long, val resolutionCriteria: String) : OracleParse
+    data object NoClaim : OracleParse
+    data class Rejected(val reason: OracleRejection) : OracleParse
+}
 
 /**
  * Pure rules for the background prediction finder (ORACLE-01): what may leave the device, how the request looks and which
@@ -22,6 +38,8 @@ object OracleClaimPolicy {
     private const val JSON_MIME_TYPE = "application/json"
     private val HTML_TAG = Regex("<[^>]*>")
     private val WHITESPACE = Regex("\\s+")
+    private val FENCE = Regex("^```[a-zA-Z]*\\s*|\\s*```$")
+    private val QUESTION_MARKS = charArrayOf('?', '？')
 
     fun sanitizeInput(title: String, description: String): String {
         val parts = listOf(title, description)
@@ -56,4 +74,38 @@ object OracleClaimPolicy {
         put("contents", JSONArray().put(JSONObject().put("parts", JSONArray().put(JSONObject().put("text", prompt)))))
         put("generationConfig", JSONObject().put("temperature", TEMPERATURE).put("responseMimeType", JSON_MIME_TYPE))
     }.toString()
+
+    /** Structure and dates only: nothing here can tell whether the claim is true. */
+    fun parseAndValidate(raw: String, nowMillis: Long): OracleParse {
+        fun reject(r: OracleRejection): OracleParse = OracleParse.Rejected(r)
+        val obj = try {
+            JSONObject(raw.trim().replace(FENCE, "").trim())
+        } catch (_: JSONException) {
+            return reject(OracleRejection.NOT_JSON)
+        }
+        val hasClaim = obj.opt("hasClaim") as? Boolean ?: return reject(OracleRejection.MISSING_FIELD)
+        if (!hasClaim) return OracleParse.NoClaim
+
+        val question = (obj.opt("question") as? String)?.let(::tidy) ?: return reject(OracleRejection.MISSING_FIELD)
+        val onText = obj.opt("expiresOn") as? String ?: return reject(OracleRejection.MISSING_FIELD)
+        val criteria = (obj.opt("resolutionCriteria") as? String)?.let(::tidy) ?: return reject(OracleRejection.MISSING_FIELD)
+
+        if (question.isEmpty() || question.last() !in QUESTION_MARKS) return reject(OracleRejection.QUESTION_NOT_YES_NO)
+        if (question.length > MAX_QUESTION_CHARS) return reject(OracleRejection.QUESTION_TOO_LONG)
+        if (criteria.isEmpty()) return reject(OracleRejection.CRITERIA_EMPTY)
+        if (criteria.length > MAX_CRITERIA_CHARS) return reject(OracleRejection.CRITERIA_TOO_LONG)
+
+        val date = try {
+            LocalDate.parse(onText.trim())
+        } catch (_: DateTimeParseException) {
+            return reject(OracleRejection.BAD_DATE)
+        }
+        val today = Instant.ofEpochMilli(nowMillis).atZone(ZoneOffset.UTC).toLocalDate()
+        if (date.isBefore(today)) return reject(OracleRejection.DATE_IN_PAST)
+        if (date.isAfter(today.plusYears(MAX_HORIZON_YEARS.toLong()))) return reject(OracleRejection.DATE_TOO_FAR)
+        val endOfDay = date.plusDays(1).atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli() - 1
+        return OracleParse.Claim(question, endOfDay, criteria)
+    }
+
+    private fun tidy(value: String): String = value.replace(WHITESPACE, " ").trim()
 }
