@@ -13,6 +13,8 @@ Thứ tự owner chọn ngày 2026-11-09; mỗi mục duyệt thiết kế/spec 
 - **Mục 4 (FRONT-04 DHU) gác lại.** Lần DHU trên KJ7 bị Android Auto từ chối phiên (`CAR.AUTH`), chưa có hướng khác được chọn.
 - **Không có key Gemini riêng, dừng kiểm Gemini thật.** Nợ máy thật còn nguyên cho RPG-02 (trả lời đúng/XP, tắt công tắc, máy bay + Thử lại, cache khi mở lại bài) và FRONT-01 (báo cáo Ready thật, cache khi mở lại bài, PDF từ báo cáo thật). Key mặc định vẫn hỏng (FIX-09 hoãn, nhắc lại khoảng 2026-11-13).
 
+**ORACLE-01 (đang brainstorm → spec, 2026-11-12):** owner chốt AI chạy nền khi sync; bảng Room mới `oracle_market` với Room v21 + migration (owner cho phép riêng task này); consent riêng mặc định TẮT, chỉ tiêu đề + mô tả ≤500 ký tự, tối đa 5 bài mỗi lần sync; huy hiệu ở danh sách + màn đọc, bấm mở thẻ chỉ xem (không cược/điểm/quảng cáo). Spec: `docs/superpowers/specs/2026-11-12-oracle-01-claim-extractor-design.md`. Kèo thật từ Gemini sẽ không kiểm được (không có key riêng).
+
 ## 🟡 In progress
 
 - **EXC-05a (partial; EXC-05 remains in progress)** — Đồng bộ thủ công một chiều, mã hóa đầu-cuối qua LAN; preview rồi xác nhận Apply, chỉ Local, giữ Room v20. BG6 instrumentation 4/4 pass; Mac chỉ kiểm truyền ciphertext (không có AES-GCM trên Mac, không giải mã/apply); Stop server đã smoke thật. **Chưa đạt EXC-05 gốc:** chưa NSD, hai Android, tự động/2 chiều; smoke expiry trên thiết bị thật không kết luận được do HiOS freezer. Báo cáo: [`EXC-05a_manual-lan-sync_DONE.md`](doc/task/done/EXC-05a_manual-lan-sync_DONE.md). Todo gốc vẫn mở: [`EXC-05_local-p2p-sync.md`](doc/task/todo/EXC-05_local-p2p-sync.md).
