@@ -1,5 +1,7 @@
 # [ORACLE-03] Agent Tự Động Thẩm Định & Chốt Kèo (Automated Arbiter Agent)
 
+> **Cập nhật 2026-11-13:** đã làm một phiên bản **thu hẹp** ở mức code và máy thật (Tecno KJ7), xem [`ORACLE-03_automated-arbiter-agent_DONE.md`](../done/ORACLE-03_automated-arbiter-agent_DONE.md): sau mỗi sync thành công, app nhắc **một lần** bằng một thông báo gộp (kênh riêng, không ghi số điểm) khi cược đến hạn, và thẻ kèo hiện tối đa 3 bài liên quan từ tin đã lưu để người dùng **tự** bấm Có / Không / Không rõ. Room giữ v22. **Giữ trong `todo/` vì ba yêu cầu của Gherkin gốc không làm:** agent AI tự thẩm định và chốt (AI không tra web, chốt sai làm mất điểm không hoàn tác), chia thưởng cho mọi người chọn đúng (một người dùng, không backend) và push "+850 Intel Points" (không có số điểm trong thông báo).
+
 - **Type:** New Feature
 - **Priority:** `P2 (Medium)`
 - **Estimation:** `8 Story Points`

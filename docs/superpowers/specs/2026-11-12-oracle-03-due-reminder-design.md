@@ -51,3 +51,9 @@ Khi một cược đã đến hạn mà người dùng chưa báo kết quả, a
 - Tập "đã nhắc" chỉ giữ 200 cược gần nhất.
 - 36 locale dùng chuỗi tiếng Anh.
 - Không có lược đồ mới nên không có rủi ro migration.
+
+## Điều chỉnh khi thực thi (2026-11-13)
+- Kênh đặt tên `oracle_due_channel` (id thông báo 9955), không phải `oracle_due`; thông báo mở `MainActivity`, không điều hướng riêng.
+- Máy thật: **Tecno KJ7** thay cho Pixel (owner: "chỉ dùng tecno cho mọi phiên"; Pixel đang mở app của owner). Quyền thông báo của app trên KJ7 vốn tắt, owner cho cấp tạm bằng `pm grant` rồi thu hồi.
+- `OracleBettingViewModel` nhận `finder` và `accountId`; test ORACLE-02 `sourceMentionsNoAdsLinksOrAccounts` được nới đúng chữ `accountId` (tìm bằng chứng giới hạn trong tài khoản hiện tại, test ở `OracleEvidenceViewModelTest`).
+- Test máy `OracleEvidenceWidgetTest` có 5 ca (thêm ca thứ tự "bằng chứng trên ba nút"); test máy không giữ `testTag` hàng bài (test JVM giữ).
