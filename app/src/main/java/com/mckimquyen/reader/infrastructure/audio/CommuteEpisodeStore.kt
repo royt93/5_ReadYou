@@ -87,7 +87,16 @@ class CommuteEpisodeStore @Inject constructor(
     }
 
     suspend fun clear(): Unit = withContext(ioDispatcher) {
-        prefs.edit().remove(KEY_EPISODE).remove(KEY_EPISODE_BACKUP).commit()
+        prefs.edit().remove(KEY_EPISODE).remove(KEY_EPISODE_BACKUP).remove(KEY_PLAYED_ID).commit()
+    }
+
+    /** Remembers that the user heard [episodeId]; only the latest one is kept (STRAT-01). */
+    suspend fun markPlayed(episodeId: String): Unit = withContext(ioDispatcher) {
+        prefs.edit().putString(KEY_PLAYED_ID, episodeId).commit()
+    }
+
+    suspend fun isPlayed(episodeId: String): Boolean = withContext(ioDispatcher) {
+        prefs.getString(KEY_PLAYED_ID, null) == episodeId
     }
 
     private fun parse(json: String?): CommuteEpisode? {
@@ -137,5 +146,6 @@ class CommuteEpisodeStore @Inject constructor(
         const val PREFS_NAME = "commute_cast_prefs"
         const val KEY_EPISODE = "latest_episode"
         const val KEY_EPISODE_BACKUP = "latest_episode_backup"
+        const val KEY_PLAYED_ID = "played_episode_id"
     }
 }

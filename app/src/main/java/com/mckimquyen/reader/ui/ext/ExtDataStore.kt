@@ -14,6 +14,7 @@ import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.mckimquyen.reader.domain.model.account.AccountType
+import com.mckimquyen.reader.domain.commute.CommuteSchedulePolicy
 import com.mckimquyen.reader.domain.sv.CommuteContentSelector
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
@@ -147,6 +148,35 @@ val Context.oracleRemindedBets: String?
 
 suspend fun Context.setOracleRemindedBets(encoded: String) {
     this.dataStore.put(DataStoreKeys.OracleRemindedBets, encoded)
+}
+
+/** STRAT-01: true only when the user agreed that the morning episode may be written with Gemini; null = never asked. */
+val Context.commuteScriptGeminiConsent: Boolean?
+    get() = this.dataStore.get(DataStoreKeys.CommuteScriptGeminiConsent)
+
+suspend fun Context.setCommuteScriptGeminiConsent(agreed: Boolean) {
+    this.dataStore.put(DataStoreKeys.CommuteScriptGeminiConsent, agreed)
+}
+
+val Context.commuteListenMinuteOfDay: Int
+    get() = CommuteSchedulePolicy.clampListenMinute(this.dataStore.get(DataStoreKeys.CommuteListenMinuteOfDay))
+
+suspend fun Context.setCommuteListenMinuteOfDay(minute: Int) {
+    this.dataStore.put(DataStoreKeys.CommuteListenMinuteOfDay, minute)
+}
+
+val Context.commuteAutoPlayOnHeadset: Boolean
+    get() = this.dataStore.get(DataStoreKeys.CommuteAutoPlayOnHeadset) ?: false
+
+suspend fun Context.setCommuteAutoPlayOnHeadset(on: Boolean) {
+    this.dataStore.put(DataStoreKeys.CommuteAutoPlayOnHeadset, on)
+}
+
+val Context.commuteLastAutoPlayEpochDay: Long?
+    get() = this.dataStore.get(DataStoreKeys.CommuteLastAutoPlayEpochDay)
+
+suspend fun Context.setCommuteLastAutoPlayEpochDay(day: Long) {
+    this.dataStore.put(DataStoreKeys.CommuteLastAutoPlayEpochDay, day)
 }
 
 suspend fun <T> DataStore<Preferences>.put(dataStoreKeys: DataStoreKeys<T>, value: T) {
@@ -718,5 +748,26 @@ sealed class DataStoreKeys<T> {
     object OracleRemindedBets : DataStoreKeys<String>() {
         override val key: Preferences.Key<String>
             get() = stringPreferencesKey("oracle_reminded_bets")
+    }
+
+    /** STRAT-01: separate from every other AI consent; absent means the user was never asked. */
+    object CommuteScriptGeminiConsent : DataStoreKeys<Boolean>() {
+        override val key: Preferences.Key<Boolean>
+            get() = booleanPreferencesKey("commute_script_gemini_consent")
+    }
+
+    object CommuteListenMinuteOfDay : DataStoreKeys<Int>() {
+        override val key: Preferences.Key<Int>
+            get() = intPreferencesKey("commute_listen_minute_of_day")
+    }
+
+    object CommuteAutoPlayOnHeadset : DataStoreKeys<Boolean>() {
+        override val key: Preferences.Key<Boolean>
+            get() = booleanPreferencesKey("commute_auto_play_on_headset")
+    }
+
+    object CommuteLastAutoPlayEpochDay : DataStoreKeys<Long>() {
+        override val key: Preferences.Key<Long>
+            get() = longPreferencesKey("commute_last_auto_play_epoch_day")
     }
 }
