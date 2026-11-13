@@ -43,6 +43,13 @@ class BluetoothAudioReceiverSourceTest {
         assertTrue(receiver.contains("cancel()"))
     }
 
+    @Test fun theBluetoothClassIsReadOnlyAfterAPermissionCheck_andAGuardAgainstARevokedPermission() {
+        val body = receiver.substringAfter("private fun isAudioDevice(").substringBefore("private fun hasPermission(")
+        assertTrue("the permission is checked at the read itself", body.indexOf("hasPermission(context)") in 0 until body.indexOf("bluetoothClass"))
+        assertTrue("a permission revoked between the check and the read must not crash the app", body.contains("catch (e: SecurityException)"))
+        assertTrue("lint's MissingPermission is handled in code, not silenced", !receiver.contains("MissingPermission"))
+    }
+
     @Test fun theReceiverNeverBlocksTheMainThread() {
         assertFalse(receiver.contains("runBlocking"))
         assertTrue(receiver.contains("Dispatchers.IO"))

@@ -38,10 +38,7 @@ class BluetoothAudioReceiver : BroadcastReceiver() {
         } else {
             @Suppress("DEPRECATION") intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE)
         }
-        val permitted = hasPermission(context)
-        val isAudio = permitted && device?.bluetoothClass?.let {
-            it.majorDeviceClass == BluetoothClass.Device.Major.AUDIO_VIDEO || it.hasService(BluetoothClass.Service.AUDIO)
-        } == true
+        val isAudio = isAudioDevice(context, device)
 
         val pending = goAsync()
         val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
@@ -52,6 +49,21 @@ class BluetoothAudioReceiver : BroadcastReceiver() {
                 pending.finish()
                 scope.cancel()
             }
+        }
+    }
+
+    /**
+     * Reading the class of a Bluetooth device needs BLUETOOTH_CONNECT on Android 12+. The permission is checked here, at
+     * the read itself, and a revocation between the check and the read must not crash the app, so it counts as "not audio".
+     */
+    private fun isAudioDevice(context: Context, device: BluetoothDevice?): Boolean {
+        if (!hasPermission(context)) return false
+        return try {
+            device?.bluetoothClass?.let {
+                it.majorDeviceClass == BluetoothClass.Device.Major.AUDIO_VIDEO || it.hasService(BluetoothClass.Service.AUDIO)
+            } == true
+        } catch (e: SecurityException) {
+            false
         }
     }
 

@@ -75,6 +75,9 @@ class ReadNewsManifestTest {
                 "android.permission.WAKE_LOCK",
                 "android.permission.FOREGROUND_SERVICE",
                 "android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK",
+                // STRAT-01: Android 12+ needs this to read the class of a connecting Bluetooth headset; owner approved
+                // it in the STRAT-01 spec and the app asks for it only when the user turns on headset auto-play.
+                "android.permission.BLUETOOTH_CONNECT",
                 "com.google.android.gms.permission.AD_ID",
             ),
             names,
