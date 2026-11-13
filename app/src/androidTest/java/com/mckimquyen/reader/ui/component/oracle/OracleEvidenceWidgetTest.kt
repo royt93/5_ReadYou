@@ -162,6 +162,18 @@ class OracleEvidenceWidgetTest {
         assertEquals(listOf("e2"), opened)
     }
 
+    @Test fun theEvidenceComesAboveTheOutcomeButtons() {
+        withSection(awaiting, OracleEvidenceUiState.Ready(listOf(item("e1"))), mutableListOf(), mutableListOf(), awaitingTitle) { screen ->
+            // The semantics tree is walked in layout order, so the first index is the higher one on screen.
+            val texts = screen.texts()
+            val evidenceAt = texts.indexOfFirst { it.contains(str(R.string.oracle_due_evidence_title)) }
+            val yesAt = texts.indexOfFirst { it == str(R.string.oracle_bet_yes) }
+            assertTrue("evidence title missing", evidenceAt >= 0)
+            assertTrue("outcome button missing", yesAt >= 0)
+            assertTrue("the evidence must come before the buttons", evidenceAt < yesAt)
+        }
+    }
+
     @Test fun awaitingResult_withNothingFound_saysSo_andKeepsTheHint() {
         withSection(awaiting, OracleEvidenceUiState.Ready(emptyList()), mutableListOf(), mutableListOf(), awaitingTitle) { screen ->
             assertTrue(screen.has(str(R.string.oracle_due_evidence_none)))
