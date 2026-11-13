@@ -5,6 +5,7 @@ import android.app.*
 import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
+import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -12,6 +13,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import com.mckimquyen.reader.R
 import com.mckimquyen.reader.domain.model.article.Article
 import com.mckimquyen.reader.domain.model.feed.FeedWithArticle
+import com.mckimquyen.reader.infrastructure.audio.CommuteMediaSessionService
 import com.mckimquyen.reader.ui.page.common.ExtraName
 import com.mckimquyen.reader.ui.page.common.RouteName
 import com.mckimquyen.reader.ui.page.common.NotificationGroupName
@@ -196,6 +198,37 @@ class NotificationHelper @Inject constructor(
         post(COMMUTE_NOTIFICATION_ID, notification)
     }
 
+    /** STRAT-01: the morning episode is ready and headphones just connected; one tap on Play listens to it. */
+    fun notifyCommuteReadyToPlay() {
+        val open = Intent(context, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            putExtra(EXTRA_START_COMMUTE, true)
+        }
+        val openPending = PendingIntent.getActivity(
+            context, COMMUTE_READY_NOTIFICATION_ID, open, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
+        )
+        val play = Intent(context, CommuteMediaSessionService::class.java).apply { action = CommuteMediaSessionService.ACTION_PLAY_LATEST }
+        val playPending = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            PendingIntent.getForegroundService(
+                context, COMMUTE_READY_NOTIFICATION_ID, play, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
+            )
+        } else {
+            PendingIntent.getService(
+                context, COMMUTE_READY_NOTIFICATION_ID, play, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
+            )
+        }
+        val notification = NotificationCompat.Builder(context, COMMUTE_CHANNEL_ID)
+            .setSmallIcon(R.drawable.ic_notification)
+            .setContentTitle(context.getString(R.string.commute_ready_to_play_title))
+            .setContentText(context.getString(R.string.commute_ready_to_play_body))
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setAutoCancel(true)
+            .setContentIntent(openPending)
+            .addAction(0, context.getString(R.string.commute_play_action), playPending)
+            .build()
+        post(COMMUTE_READY_NOTIFICATION_ID, notification)
+    }
+
     fun notifyDailyEdition(title: String, body: String, unreadCount: Int) {
         val intent = Intent(context, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -304,6 +337,7 @@ class NotificationHelper @Inject constructor(
         const val WATCHDOG_CHANNEL_ID = "watchdog_keyword_alert_channel"
         const val COMMUTE_CHANNEL_ID = "commute_cast_channel"
         const val COMMUTE_NOTIFICATION_ID = 9988
+        const val COMMUTE_READY_NOTIFICATION_ID = 9944
         const val EXTRA_START_COMMUTE = "extra_start_commute"
         const val ZEN_DAILY_EDITION_CHANNEL_ID = "zen_daily_edition_channel"
         const val ZEN_DAILY_EDITION_NOTIFICATION_ID = 9977

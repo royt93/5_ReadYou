@@ -141,6 +141,7 @@ class CommuteMediaSessionService : MediaBrowserServiceCompat() {
         val existing = audioPlayer.playerState.value.episode
         if (existing != null) {
             audioPlayer.resume()
+            scope.launch { episodeStore.markPlayed(existing.id) }
             return
         }
         scope.launch {
@@ -150,6 +151,7 @@ class CommuteMediaSessionService : MediaBrowserServiceCompat() {
                 return@launch
             }
             audioPlayer.playEpisode(stored)
+            episodeStore.markPlayed(stored.id)
         }
     }
 
@@ -309,6 +311,11 @@ class CommuteMediaSessionService : MediaBrowserServiceCompat() {
                 publishMetadata(title, subtitle)
                 val notification = buildNotification(title, subtitle, isPlaying = true)
                 startForeground(NOTIFICATION_ID, notification)
+            }
+            ACTION_PLAY_LATEST -> {
+                // Go foreground first: a service started this way has only a few seconds to do so.
+                startForeground(NOTIFICATION_ID, buildNotification(title, subtitle, isPlaying = true))
+                resumeOrPlayLatestEpisode()
             }
             ACTION_PAUSE -> {
                 val notification = buildNotification(title, subtitle, isPlaying = false)
@@ -474,6 +481,7 @@ class CommuteMediaSessionService : MediaBrowserServiceCompat() {
         const val MEDIA_ID_LATEST_EPISODE = AutoMediaIds.COMMUTE_EPISODE
 
         const val ACTION_PLAY = "com.mckimquyen.reader.commute.ACTION_PLAY"
+        const val ACTION_PLAY_LATEST = "com.mckimquyen.reader.commute.ACTION_PLAY_LATEST"
         const val ACTION_PAUSE = "com.mckimquyen.reader.commute.ACTION_PAUSE"
         const val ACTION_SKIP_NEXT = "com.mckimquyen.reader.commute.ACTION_SKIP_NEXT"
         const val ACTION_SKIP_PREV = "com.mckimquyen.reader.commute.ACTION_SKIP_PREV"
@@ -494,6 +502,19 @@ class CommuteMediaSessionService : MediaBrowserServiceCompat() {
                 context.startForegroundService(intent)
             } else {
                 context.startService(intent)
+            }
+        }
+
+        /** Starts the latest stored episode; used by the notification's Play button and by headset auto-play (STRAT-01). */
+        fun playLatest(context: Context): Boolean {
+            val intent = Intent(context, CommuteMediaSessionService::class.java).apply { action = ACTION_PLAY_LATEST }
+            return try {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) context.startForegroundService(intent) else context.startService(intent)
+                true
+            } catch (e: Exception) {
+                // Android may refuse to start a service from the background (ForegroundServiceStartNotAllowedException).
+                Log.w(TAG, "Could not start playback: ${e.javaClass.simpleName}")
+                false
             }
         }
 
