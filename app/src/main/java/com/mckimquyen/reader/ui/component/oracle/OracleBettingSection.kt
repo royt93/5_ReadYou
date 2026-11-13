@@ -5,12 +5,15 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -30,8 +33,12 @@ import com.mckimquyen.reader.domain.model.oracle.OracleBetStatus
 import com.mckimquyen.reader.domain.model.oracle.OracleOutcome
 import com.mckimquyen.reader.domain.oracle.OracleBetPhase
 import com.mckimquyen.reader.domain.oracle.OracleBettingPolicy
+import com.mckimquyen.reader.domain.oracle.OracleEvidencePolicy
 import com.mckimquyen.reader.ui.page.oracle.OracleBetUiState
+import com.mckimquyen.reader.ui.page.oracle.OracleEvidenceUiState
+import java.text.DateFormat
 import java.text.NumberFormat
+import java.util.Date
 import java.util.Locale
 
 const val ORACLE_BET_SECTION_TAG = "oracle_bet_section"
@@ -50,6 +57,12 @@ const val ORACLE_BET_CLOSED_TAG = "oracle_bet_closed"
 const val ORACLE_BET_ERROR_TAG = "oracle_bet_error"
 const val ORACLE_BET_NOTE_TAG = "oracle_bet_note"
 
+const val ORACLE_EVIDENCE_SECTION_TAG = "oracle_evidence_section"
+const val ORACLE_EVIDENCE_ITEM_TAG_PREFIX = "oracle_evidence_item_"
+const val ORACLE_EVIDENCE_NONE_TAG = "oracle_evidence_none"
+const val ORACLE_EVIDENCE_LOADING_TAG = "oracle_evidence_loading"
+const val ORACLE_EVIDENCE_HINT_TAG = "oracle_evidence_hint"
+
 private val MIN_TOUCH_TARGET = 48.dp
 
 /** The betting part of the prediction card (ORACLE-02). Virtual points only; there is no control that leaves the app. */
@@ -59,6 +72,8 @@ fun OracleBettingSection(
     failed: Boolean,
     onPlaceBet: (OracleBetSide, Int) -> Unit,
     onSettle: (OracleOutcome) -> Unit,
+    evidence: OracleEvidenceUiState = OracleEvidenceUiState.Idle,
+    onOpenArticle: (String) -> Unit = {},
 ) {
     val locale = LocalConfiguration.current.locales[0] ?: Locale.getDefault()
     val number = remember(locale) { NumberFormat.getIntegerInstance(locale) }
@@ -90,6 +105,7 @@ fun OracleBettingSection(
                     style = MaterialTheme.typography.bodySmall,
                     modifier = Modifier.testTag(ORACLE_BET_OPEN_TAG),
                 )
+                EvidenceSection(evidence, locale, onOpenArticle)
                 ResultButtons(onSettle)
             }
             OracleBetPhase.SETTLED -> state.bet?.let { bet ->
@@ -199,5 +215,40 @@ private fun ResultButtons(onSettle: (OracleOutcome) -> Unit) {
             onClick = { onSettle(OracleOutcome.UNCLEAR) },
             modifier = Modifier.heightIn(min = MIN_TOUCH_TARGET).testTag(ORACLE_BET_RESULT_UNCLEAR_TAG),
         ) { Text(stringResource(R.string.oracle_bet_outcome_unclear)) }
+    }
+}
+
+/** Hints from the user's own saved news; they can be wrong, so the user still decides (ORACLE-03). */
+@Composable
+private fun EvidenceSection(evidence: OracleEvidenceUiState, locale: Locale, onOpenArticle: (String) -> Unit) {
+    if (evidence == OracleEvidenceUiState.Idle) return
+    val dateFormat = remember(locale) { DateFormat.getDateInstance(DateFormat.MEDIUM, locale) }
+    Column(Modifier.fillMaxWidth().testTag(ORACLE_EVIDENCE_SECTION_TAG), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+        Text(stringResource(R.string.oracle_due_evidence_title), style = MaterialTheme.typography.titleSmall)
+        when (evidence) {
+            OracleEvidenceUiState.Loading -> CircularProgressIndicator(Modifier.size(20.dp).testTag(ORACLE_EVIDENCE_LOADING_TAG))
+            is OracleEvidenceUiState.Ready -> if (evidence.items.isEmpty()) {
+                Text(stringResource(R.string.oracle_due_evidence_none), modifier = Modifier.testTag(ORACLE_EVIDENCE_NONE_TAG))
+            } else {
+                evidence.items.take(OracleEvidencePolicy.MAX_EVIDENCE).forEach { item ->
+                    val line = "${item.title}\n${item.feedName} · ${dateFormat.format(Date(item.dateMillis))}"
+                    TextButton(
+                        onClick = { onOpenArticle(item.articleId) },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(min = MIN_TOUCH_TARGET)
+                            .semantics { contentDescription = item.title }
+                            .testTag(ORACLE_EVIDENCE_ITEM_TAG_PREFIX + item.articleId),
+                    ) { Text(line, modifier = Modifier.fillMaxWidth(), style = MaterialTheme.typography.bodySmall) }
+                }
+            }
+            OracleEvidenceUiState.Idle -> Unit
+        }
+        Text(
+            stringResource(R.string.oracle_due_evidence_hint),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.testTag(ORACLE_EVIDENCE_HINT_TAG),
+        )
     }
 }

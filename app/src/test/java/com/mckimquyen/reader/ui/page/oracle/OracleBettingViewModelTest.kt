@@ -8,6 +8,7 @@ import com.mckimquyen.reader.domain.model.oracle.OracleBetStatus
 import com.mckimquyen.reader.domain.model.oracle.OracleOutcome
 import com.mckimquyen.reader.domain.oracle.OracleBetPhase
 import com.mckimquyen.reader.domain.repository.OracleWalletDao
+import com.mckimquyen.reader.infrastructure.ai.OracleEvidenceFinder
 import com.mckimquyen.reader.infrastructure.db.AndroidDatabase
 import io.mockk.coEvery
 import io.mockk.every
@@ -39,6 +40,8 @@ import org.robolectric.annotation.Config
 class OracleBettingViewModelTest {
 
     private lateinit var db: AndroidDatabase
+    // The evidence part has its own tests; these ones are about the wallet and the bet.
+    private val NoEvidenceFinder: OracleEvidenceFinder = mockk { coEvery { find(any(), any()) } returns emptyList() }
     private val day = 86_400_000L
     private var nowMs = 100 * day + 3_600_000L
     private val expires get() = nowMs + 5 * day
@@ -50,7 +53,7 @@ class OracleBettingViewModelTest {
         Dispatchers.setMain(UnconfinedTestDispatcher())
         db = Room.inMemoryDatabaseBuilder(ApplicationProvider.getApplicationContext(), AndroidDatabase::class.java)
             .allowMainThreadQueries().build()
-        vm = OracleBettingViewModel(db.oracleWalletDao(), Dispatchers.Unconfined) { nowMs }
+        vm = OracleBettingViewModel(db.oracleWalletDao(), NoEvidenceFinder, Dispatchers.Unconfined, accountId = { 1 }, clock = { nowMs })
     }
 
     @After
@@ -177,7 +180,7 @@ class OracleBettingViewModelTest {
         // A coroutine that throws has no caller to crash: the error would reach the thread's handler and go unnoticed.
         Thread.setDefaultUncaughtExceptionHandler { _, e -> if (e.message == WALLET_OPEN_BOOM) uncaught += e }
         try {
-            val v = OracleBettingViewModel(broken, Dispatchers.Unconfined) { nowMs }
+            val v = OracleBettingViewModel(broken, NoEvidenceFinder, Dispatchers.Unconfined, accountId = { 1 }, clock = { nowMs })
             v.open(card)
             assertFalse("opening a card is not a failed bet", v.failed.value)
         } finally {
@@ -199,7 +202,7 @@ class OracleBettingViewModelTest {
         every { cancelling.observeBet(any()) } returns emptyFlow()
         coEvery { cancelling.ensureWalletAndGrant(any()) } returns com.mckimquyen.reader.domain.model.oracle.UserWallet(balance = 1000, lastGrantEpochDay = 1)
         coEvery { cancelling.placeBet(any(), any(), any(), any(), any(), any()) } throws kotlinx.coroutines.CancellationException("cancelled")
-        val v = OracleBettingViewModel(cancelling, Dispatchers.Unconfined) { nowMs }
+        val v = OracleBettingViewModel(cancelling, NoEvidenceFinder, Dispatchers.Unconfined, accountId = { 1 }, clock = { nowMs })
         v.open(card)
         v.placeBet(OracleBetSide.YES, 100)
         assertFalse("cancellation is not an error the user should see", v.failed.value)
@@ -211,7 +214,7 @@ class OracleBettingViewModelTest {
         every { broken.observeBet(any()) } returns emptyFlow()
         coEvery { broken.ensureWalletAndGrant(any()) } returns com.mckimquyen.reader.domain.model.oracle.UserWallet(balance = 1000, lastGrantEpochDay = 1)
         coEvery { broken.placeBet(any(), any(), any(), any(), any(), any()) } throws IllegalStateException("boom")
-        val v = OracleBettingViewModel(broken, Dispatchers.Unconfined) { nowMs }
+        val v = OracleBettingViewModel(broken, NoEvidenceFinder, Dispatchers.Unconfined, accountId = { 1 }, clock = { nowMs })
         v.open(card)
         v.placeBet(OracleBetSide.YES, 100)
         assertTrue(awaitReal { v.failed.first { it } })

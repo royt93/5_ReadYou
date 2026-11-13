@@ -1,5 +1,6 @@
 package com.mckimquyen.reader.ui.page.oracle
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mckimquyen.reader.domain.model.oracle.OracleBet
@@ -8,10 +9,14 @@ import com.mckimquyen.reader.domain.model.oracle.OracleOutcome
 import com.mckimquyen.reader.domain.model.oracle.UserWallet
 import com.mckimquyen.reader.domain.oracle.OracleBetPhase
 import com.mckimquyen.reader.domain.oracle.OracleBettingPolicy
+import com.mckimquyen.reader.domain.oracle.OracleEvidence
 import com.mckimquyen.reader.domain.repository.OracleWalletDao
 import com.mckimquyen.reader.domain.repository.PlaceBetResult
 import com.mckimquyen.reader.domain.repository.SettleResult
+import com.mckimquyen.reader.infrastructure.ai.OracleEvidenceFinder
 import com.mckimquyen.reader.infrastructure.di.IODispatcher
+import com.mckimquyen.reader.ui.ext.currentAccountId
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineDispatcher
@@ -21,11 +26,21 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
+sealed interface OracleEvidenceUiState {
+    data object Idle : OracleEvidenceUiState
+    data object Loading : OracleEvidenceUiState
+    data class Ready(val items: List<OracleEvidence>) : OracleEvidenceUiState
+}
 
 data class OracleBetUiState(val phase: OracleBetPhase, val balance: Long, val bet: OracleBet?)
 
@@ -43,12 +58,19 @@ fun buildOracleBetUiState(card: OracleClaimCard, wallet: UserWallet?, bet: Oracl
 @HiltViewModel
 class OracleBettingViewModel internal constructor(
     private val dao: OracleWalletDao,
+    private val finder: OracleEvidenceFinder,
     private val io: CoroutineDispatcher,
+    private val accountId: () -> Int,
     private val clock: () -> Long,
 ) : ViewModel() {
 
     @Inject
-    constructor(dao: OracleWalletDao, @IODispatcher io: CoroutineDispatcher) : this(dao, io, System::currentTimeMillis)
+    constructor(
+        dao: OracleWalletDao,
+        finder: OracleEvidenceFinder,
+        @ApplicationContext context: Context,
+        @IODispatcher io: CoroutineDispatcher,
+    ) : this(dao, finder, io, { context.currentAccountId }, System::currentTimeMillis)
 
     private val openCard = MutableStateFlow<OracleClaimCard?>(null)
     private val _failed = MutableStateFlow(false)
@@ -63,6 +85,23 @@ class OracleBettingViewModel internal constructor(
             }
         }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(STOP_TIMEOUT_MS), null)
+
+    /**
+     * Hints for a bet that reached its date: loaded once per (card, phase), only while the bet awaits its result, and only
+     * from the on-device finder. Any failure degrades to "nothing found".
+     */
+    @OptIn(ExperimentalCoroutinesApi::class)
+    val evidence: StateFlow<OracleEvidenceUiState> = state
+        .map { ui -> ui?.takeIf { it.phase == OracleBetPhase.AWAITING_RESULT }?.bet }
+        .distinctUntilChanged { old, new -> old?.articleId == new?.articleId }
+        .flatMapLatest { bet ->
+            if (bet == null) flowOf(OracleEvidenceUiState.Idle)
+            else flow {
+                emit(OracleEvidenceUiState.Loading)
+                emit(OracleEvidenceUiState.Ready(guarded { finder.find(accountId(), bet) }.orEmpty()))
+            }.flowOn(io)
+        }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(STOP_TIMEOUT_MS), OracleEvidenceUiState.Idle)
 
     fun open(card: OracleClaimCard) {
         _failed.value = false

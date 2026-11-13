@@ -247,6 +247,7 @@ fun HomeEntry(
         val oracleBettingViewModel: OracleBettingViewModel = hiltViewModel()
         val oracleBetState by oracleBettingViewModel.state.collectAsState()
         val oracleBetFailed by oracleBettingViewModel.failed.collectAsState()
+        val oracleEvidence by oracleBettingViewModel.evidence.collectAsState()
         // DataStore flow phản ứng tức thời khi người dùng bật/tắt trong Cài đặt; không đọc một lần qua get().
         val headlineSignalsReactive by remember(context) {
             context.dataStore.headlineSignalsFlow()
@@ -279,6 +280,12 @@ fun HomeEntry(
                             failed = oracleBetFailed,
                             onPlaceBet = oracleBettingViewModel::placeBet,
                             onSettle = oracleBettingViewModel::settle,
+                            evidence = oracleEvidence,
+                            onOpenArticle = { id ->
+                                openOracleArticleId = null
+                                oracleBettingViewModel.close()
+                                navController.navigate("${RouteName.READING}/$id") { launchSingleTop = true }
+                            },
                         )
                     }
                 },

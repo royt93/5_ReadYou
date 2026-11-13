@@ -67,7 +67,8 @@ class OracleBetUiStateTest {
         .joinToString("\n")
 
     @Test fun sourceMentionsNoAdsLinksOrAccounts() {
-        listOf("AdManager", "showRewarded", "Rewarded", "Admob", "link", "feedId", "accountId").forEach {
+        // "accountId" is allowed since ORACLE-03: the evidence search is scoped to the current account (tested in OracleEvidenceViewModelTest).
+        listOf("AdManager", "showRewarded", "Rewarded", "Admob", "link", "feedId").forEach {
             assertFalse("OracleBetting.kt must not mention '$it'", source.contains(it, ignoreCase = true))
         }
     }
