@@ -11,6 +11,7 @@ import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.WorkerParameters
+import com.mckimquyen.reader.domain.commute.CommuteSchedulePolicy
 import com.mckimquyen.reader.domain.repository.ArticleDao
 import com.mckimquyen.reader.ui.ext.commuteTimeBudgetMinutes
 import com.mckimquyen.reader.ui.ext.currentAccountId
@@ -18,7 +19,7 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.util.Calendar
+import java.time.ZoneId
 import java.util.concurrent.TimeUnit
 
 /**
@@ -37,35 +38,33 @@ class CommuteWorker @AssistedInject constructor(
         private const val TAG = "CommuteWorker"
         const val WORK_NAME = "CommuteCastDailyWork"
 
-        fun enqueueDailyWork(workManager: WorkManager) {
+        private const val REPEAT_INTERVAL_HOURS = 24L
+
+        /**
+         * The user picks the time they want to LISTEN; the episode is prepared a fixed lead earlier (STRAT-01).
+         * Startup uses KEEP so launching the app never resets the schedule; changing the time passes REPLACE.
+         */
+        fun enqueueDailyWork(
+            workManager: WorkManager,
+            listenMinuteOfDay: Int = CommuteSchedulePolicy.DEFAULT_LISTEN_MINUTE_OF_DAY,
+            policy: ExistingPeriodicWorkPolicy = ExistingPeriodicWorkPolicy.KEEP,
+            nowMillis: Long = System.currentTimeMillis(),
+            zone: ZoneId = ZoneId.systemDefault(),
+        ) {
             val constraints = Constraints.Builder()
                 .setRequiredNetworkType(NetworkType.CONNECTED)
                 .build()
 
-            // Tính toán độ trễ (delay) để công việc kích hoạt vào 6:00 AM sáng hôm sau
-            val currentTime = Calendar.getInstance()
-            val targetTime = Calendar.getInstance().apply {
-                set(Calendar.HOUR_OF_DAY, 6)
-                set(Calendar.MINUTE, 0)
-                set(Calendar.SECOND, 0)
-            }
-            if (targetTime.before(currentTime)) {
-                targetTime.add(Calendar.DAY_OF_YEAR, 1)
-            }
-            val initialDelay = targetTime.timeInMillis - currentTime.timeInMillis
+            val initialDelay = CommuteSchedulePolicy.initialDelayMillis(nowMillis, listenMinuteOfDay, zone)
 
-            val periodicRequest = PeriodicWorkRequestBuilder<CommuteWorker>(24, TimeUnit.HOURS)
+            val periodicRequest = PeriodicWorkRequestBuilder<CommuteWorker>(REPEAT_INTERVAL_HOURS, TimeUnit.HOURS)
                 .setInitialDelay(initialDelay, TimeUnit.MILLISECONDS)
                 .setConstraints(constraints)
                 .addTag(WORK_NAME)
                 .build()
 
-            workManager.enqueueUniquePeriodicWork(
-                WORK_NAME,
-                ExistingPeriodicWorkPolicy.KEEP,
-                periodicRequest
-            )
-            Log.d(TAG, "CommuteCast Daily 6 AM work scheduled with initial delay: ${initialDelay / 1000}s")
+            workManager.enqueueUniquePeriodicWork(WORK_NAME, policy, periodicRequest)
+            Log.d(TAG, "CommuteCast daily work scheduled, listen minute $listenMinuteOfDay, initial delay: ${initialDelay / 1000}s")
         }
 
         fun enqueueOneTimeWork(workManager: WorkManager) {

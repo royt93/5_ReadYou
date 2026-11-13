@@ -33,6 +33,7 @@ import com.roy.sdkadbmob.AdSdkConfig
 import com.roy.sdkadbmob.AdSafetyLimits
 import com.roy.sdkadbmob.SdkVersion
 import com.mckimquyen.reader.ui.page.setting.vip.AdKeys
+import com.mckimquyen.reader.ui.ext.commuteListenMinuteOfDay
 import com.mckimquyen.reader.ui.ext.del
 import com.mckimquyen.reader.ui.ext.getLatestApk
 import com.mckimquyen.reader.ui.ext.isFdroid
@@ -207,7 +208,7 @@ class RApp : Application(), WorkConfiguration.Provider, ImageLoaderFactory {
 
     private suspend fun workerInit() {
         rssSv.get().doSync(isOnStart = true)
-        CommuteWorker.enqueueDailyWork(workManager)
+        CommuteWorker.enqueueDailyWork(workManager, listenMinuteOfDay = applicationContext.commuteListenMinuteOfDay)
         BrainRpgDecayWorker.enqueueDailyWork(workManager)
         FeedAutopilotWorker.enqueueWeeklyWork(workManager)
     }
