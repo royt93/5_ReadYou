@@ -1,5 +1,16 @@
 package com.mckimquyen.reader.ui.page.setting.privacy
 
+import android.Manifest
+import android.app.Activity
+import android.content.pm.PackageManager
+import android.os.Build
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalContext
+import androidx.core.content.ContextCompat
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
@@ -45,6 +56,30 @@ fun PrivacySettingsPage(
     val quizGeminiConsent by viewModel.quizGeminiConsent.collectAsState()
     val deepDiveGeminiConsent by viewModel.deepDiveGeminiConsent.collectAsState()
     val oracleClaimsGeminiConsent by viewModel.oracleClaimsGeminiConsent.collectAsState()
+    val commuteScriptGeminiConsent by viewModel.commuteScriptGeminiConsent.collectAsState()
+    val commuteListenMinuteOfDay by viewModel.commuteListenMinuteOfDay.collectAsState()
+    val commuteAutoPlayOnHeadset by viewModel.commuteAutoPlayOnHeadset.collectAsState()
+
+    val context = LocalContext.current
+    var permissionDenied by remember { mutableStateOf(false) }
+    val permissionLauncher = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
+        permissionDenied = !granted
+        if (granted) viewModel.setCommuteAutoPlayOnHeadset(true)
+    }
+    val onToggleAutoPlay: (Boolean) -> Unit = { turnOn ->
+        if (!turnOn) {
+            permissionDenied = false
+            viewModel.setCommuteAutoPlayOnHeadset(false)
+        } else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S ||
+            ContextCompat.checkSelfPermission(context, Manifest.permission.BLUETOOTH_CONNECT) == PackageManager.PERMISSION_GRANTED
+        ) {
+            permissionDenied = false
+            viewModel.setCommuteAutoPlayOnHeadset(true)
+        } else {
+            // Asked only now, when the user turns the feature on; denying keeps the switch off.
+            permissionLauncher.launch(Manifest.permission.BLUETOOTH_CONNECT)
+        }
+    }
 
     BaseScaffold(
         containerColor = MaterialTheme.colorScheme.surface,
@@ -184,6 +219,20 @@ fun PrivacySettingsPage(
                             }
                         },
                     )
+                }
+                item {
+                    (context as? Activity)?.let { activity ->
+                        CommuteMorningSettingsRows(
+                            consent = commuteScriptGeminiConsent,
+                            listenMinuteOfDay = commuteListenMinuteOfDay,
+                            autoPlay = commuteAutoPlayOnHeadset,
+                            permissionDenied = permissionDenied,
+                            activity = activity,
+                            onConsent = viewModel::setCommuteScriptGeminiConsent,
+                            onPickTime = { hour, minute -> viewModel.setCommuteListenMinuteOfDay(hour * 60 + minute) },
+                            onAutoPlay = onToggleAutoPlay,
+                        )
+                    }
                 }
                 item {
                     Spacer(Modifier.height(24.dp))
