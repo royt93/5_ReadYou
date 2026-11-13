@@ -1289,4 +1289,12 @@
     <string name="oracle_bet_closed_no_bet">Betting on this prediction is closed.</string>
     <string name="oracle_bet_virtual_note">Virtual points with no value. You report the result yourself.</string>
     <string name="oracle_bet_error">Could not place the bet. Try again.</string>
+    <string name="oracle_due_channel_name">Prediction reminders</string>
+    <string name="oracle_due_channel_desc">Tells you when a prediction you bet on has reached its date</string>
+    <string name="oracle_due_notification_title">A prediction has reached its date</string>
+    <string name="oracle_due_notification_title_many">Predictions have reached their date</string>
+    <string name="oracle_due_notification_body_many">%1$s predictions are waiting for your result.</string>
+    <string name="oracle_due_evidence_title">Related articles in your news</string>
+    <string name="oracle_due_evidence_none">No related article found yet.</string>
+    <string name="oracle_due_evidence_hint">Hints from your saved news; they may be wrong. You decide.</string>
 </resources>

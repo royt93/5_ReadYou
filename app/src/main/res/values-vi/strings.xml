@@ -1247,4 +1247,12 @@
     <string name="oracle_bet_closed_no_bet">Đã đóng cược cho dự đoán này.</string>
     <string name="oracle_bet_virtual_note">Điểm ảo, không có giá trị. Bạn tự báo kết quả.</string>
     <string name="oracle_bet_error">Không đặt được cược. Hãy thử lại.</string>
+    <string name="oracle_due_channel_name">Nhắc kèo dự đoán</string>
+    <string name="oracle_due_channel_desc">Báo khi một kèo dự đoán bạn đã cược đến ngày đáo hạn</string>
+    <string name="oracle_due_notification_title">Một kèo dự đoán đã đến hạn</string>
+    <string name="oracle_due_notification_title_many">Các kèo dự đoán đã đến hạn</string>
+    <string name="oracle_due_notification_body_many">Có %1$s kèo đang chờ bạn báo kết quả.</string>
+    <string name="oracle_due_evidence_title">Bài liên quan trong tin của bạn</string>
+    <string name="oracle_due_evidence_none">Chưa thấy bài nào liên quan.</string>
+    <string name="oracle_due_evidence_hint">Gợi ý từ tin đã lưu, chưa chắc đúng. Bạn tự quyết định.</string>
 </resources>
