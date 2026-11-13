@@ -14,6 +14,7 @@ import androidx.work.WorkManager
 import androidx.work.WorkerParameters
 import androidx.work.workDataOf
 import com.mckimquyen.reader.infrastructure.ai.OracleClaimExtractor
+import com.mckimquyen.reader.infrastructure.ai.OracleDueReminder
 import com.mckimquyen.reader.infrastructure.ai.search.SemanticEmbeddingIndexer
 import com.mckimquyen.reader.infrastructure.sync.WebDavReadPositionSyncer
 import com.mckimquyen.reader.ui.ext.DataStoreKeys
@@ -40,6 +41,7 @@ class SyncWorker @AssistedInject constructor(
     private val semanticEmbeddingIndexer: SemanticEmbeddingIndexer,
     private val webDavReadPositionSyncer: WebDavReadPositionSyncer,
     private val oracleClaimExtractor: OracleClaimExtractor,
+    private val oracleDueReminder: OracleDueReminder,
 ) : CoroutineWorker(context, workerParams) {
 
     override suspend fun doWork(): Result =
@@ -66,6 +68,10 @@ class SyncWorker @AssistedInject constructor(
                 runCatching {
                     oracleClaimExtractor.extractRecent(accountId)
                 }.onFailure { Log.w("RLog", "Prediction finding failed", it) }
+                // Local only: reminds about bets that reached their date, whether or not the AI finder is on (ORACLE-03).
+                runCatching {
+                    oracleDueReminder.remindDue()
+                }.onFailure { Log.w("RLog", "Due reminder failed", it) }
                 runCatching {
                     com.mckimquyen.reader.ui.widget.ArticleWidgetUpdater.notifyDataChanged(context)
                 }

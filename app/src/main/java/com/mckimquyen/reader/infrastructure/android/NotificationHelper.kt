@@ -69,6 +69,15 @@ class NotificationHelper @Inject constructor(
                     enableVibration(true)
                 }
             )
+            createNotificationChannel(
+                NotificationChannel(
+                    ORACLE_DUE_CHANNEL_ID,
+                    context.getString(R.string.oracle_due_channel_name),
+                    NotificationManager.IMPORTANCE_DEFAULT,
+                ).apply {
+                    description = context.getString(R.string.oracle_due_channel_desc)
+                }
+            )
         }
 
     /**
@@ -233,6 +242,28 @@ class NotificationHelper @Inject constructor(
         post(RPG_DECAY_NOTIFICATION_ID, notification)
     }
 
+    fun notifyOracleDue(title: String, body: String) {
+        val intent = Intent(context, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+        val pendingIntent = PendingIntent.getActivity(
+            context,
+            ORACLE_DUE_NOTIFICATION_ID,
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
+        )
+        val notification = NotificationCompat.Builder(context, ORACLE_DUE_CHANNEL_ID)
+            .setSmallIcon(R.drawable.ic_notification)
+            .setContentTitle(title)
+            .setContentText(body)
+            .setStyle(NotificationCompat.BigTextStyle().bigText(body))
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setAutoCancel(true)
+            .setContentIntent(pendingIntent)
+            .build()
+        post(ORACLE_DUE_NOTIFICATION_ID, notification)
+    }
+
     fun cancelRpgDecay() {
         notificationManager.cancel(RPG_DECAY_NOTIFICATION_ID)
     }
@@ -276,6 +307,8 @@ class NotificationHelper @Inject constructor(
         const val EXTRA_START_COMMUTE = "extra_start_commute"
         const val ZEN_DAILY_EDITION_CHANNEL_ID = "zen_daily_edition_channel"
         const val ZEN_DAILY_EDITION_NOTIFICATION_ID = 9977
+        const val ORACLE_DUE_CHANNEL_ID = "oracle_due_channel"
+        const val ORACLE_DUE_NOTIFICATION_ID = 9955
         private const val TAG = "NotificationHelper"
         private const val FEED_SUMMARY_ID_PREFIX = "feed_summary:"
         private const val WATCHDOG_ID_PREFIX = "watchdog:"
