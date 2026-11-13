@@ -44,6 +44,10 @@ abstract class OracleWalletDao {
     @Query("SELECT * FROM oracle_bet WHERE articleId = :articleId")
     abstract suspend fun betFor(articleId: String): OracleBet?
 
+    /** Open bets whose deadline has passed, oldest deadline first. Read-only; used to remind the user (ORACLE-03). */
+    @Query("SELECT * FROM oracle_bet WHERE status = 'OPEN' AND expiresAt <= :nowMillis ORDER BY expiresAt ASC, id ASC")
+    abstract suspend fun dueOpenBets(nowMillis: Long): List<OracleBet>
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     protected abstract suspend fun insertWalletIfAbsent(wallet: UserWallet): Long
 
