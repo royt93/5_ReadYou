@@ -11,6 +11,7 @@ import com.mckimquyen.reader.infrastructure.audio.CommuteAudioPlayer
 import com.mckimquyen.reader.infrastructure.audio.CommuteEpisodeStore
 import com.mckimquyen.reader.infrastructure.audio.CommutePlayerState
 import com.mckimquyen.reader.infrastructure.pref.CommuteTimeBudgetPref
+import com.mckimquyen.reader.ui.ext.commuteScriptGeminiConsent
 import com.mckimquyen.reader.ui.ext.commuteTimeBudgetMinutes
 import com.mckimquyen.reader.ui.ext.currentAccountId
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -109,8 +110,9 @@ class CommuteCastViewModel @Inject constructor(
                     )
                 }
 
+                val allowGemini = withContext(Dispatchers.IO) { context.commuteScriptGeminiConsent == true }
                 val episode = withContext(Dispatchers.Default) {
-                    scriptService.generateScript(articles, isDeepDive = isDeepDive)
+                    scriptService.generateScript(articles, isDeepDive = isDeepDive, allowGemini = allowGemini)
                 }
 
                 if (isDeepDive) {

@@ -1,10 +1,13 @@
 package com.mckimquyen.reader.domain.sv
 
+import android.content.Context
 import android.util.Log
 import com.mckimquyen.reader.domain.model.article.Article
 import com.mckimquyen.reader.infrastructure.android.NotificationHelper
 import com.mckimquyen.reader.infrastructure.audio.CommuteAudioPlayer
 import com.mckimquyen.reader.infrastructure.audio.CommuteEpisodeStore
+import com.mckimquyen.reader.ui.ext.commuteScriptGeminiConsent
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -18,6 +21,7 @@ import javax.inject.Singleton
  */
 @Singleton
 class CommuteEpisodePreparer @Inject constructor(
+    @ApplicationContext private val context: Context,
     private val scriptService: CommuteScriptService,
     private val episodeStore: CommuteEpisodeStore,
     private val audioPlayer: CommuteAudioPlayer,
@@ -39,7 +43,11 @@ class CommuteEpisodePreparer @Inject constructor(
         isDeepDive: Boolean,
         durationMinutes: Int = if (isDeepDive) 15 else 4,
     ): Outcome {
-        val episode = scriptService.generateScript(articles, isDeepDive = isDeepDive)
+        val episode = scriptService.generateScript(
+            articles,
+            isDeepDive = isDeepDive,
+            allowGemini = context.commuteScriptGeminiConsent == true,
+        )
 
         if (episode.dialogues.isEmpty()) {
             // Nothing to say: announcing it would promise audio that is silence.

@@ -19,6 +19,10 @@ import io.mockk.just
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
+import androidx.datastore.preferences.core.edit
+import com.mckimquyen.reader.ui.ext.dataStore
+import com.mckimquyen.reader.ui.ext.setCommuteScriptGeminiConsent
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -71,6 +75,8 @@ class CommuteCastViewModelTest {
     @Before
     fun setUp() {
         Dispatchers.setMain(testDispatcher)
+        // The consent lives in DataStore, which Robolectric keeps for the whole class; start every test from "never asked".
+        runBlocking { application.dataStore.edit { it.clear() } }
         every { audioPlayer.playerState } returns playerStateFlow
         coEvery { episodeStore.load() } returns null
         coEvery { episodeStore.save(any()) } just Runs
@@ -107,7 +113,7 @@ class CommuteCastViewModelTest {
         advanceUntilIdle()
 
         verify { audioPlayer.prepareEpisode(storedEpisode) }
-        coVerify(exactly = 0) { scriptService.generateScript(any(), any(), any()) }
+        coVerify(exactly = 0) { scriptService.generateScript(any(), any(), any(), any()) }
         assertFalse(viewModel.uiState.value.isLoading)
     }
 
@@ -153,7 +159,7 @@ class CommuteCastViewModelTest {
         val generated = storedEpisode.copy(id = "ep_generated")
         coEvery { articleDao.queryUnreadArticleList(any(), any()) } returns listOf(sampleArticle.toListItem())
         every { contentSelector.selectArticles(any(), any(), any(), any()) } returns listOf(sampleArticle)
-        coEvery { scriptService.generateScript(any(), any(), any()) } returns generated
+        coEvery { scriptService.generateScript(any(), any(), any(), any()) } returns generated
 
         viewModel.prepareOrPlay(forceRegenerate = true)
         advanceUntilIdle()
@@ -172,13 +178,42 @@ class CommuteCastViewModelTest {
         verify(timeout = VERIFY_TIMEOUT_MS) { audioPlayer.playEpisode(generated, startFromIndex = 0) }
     }
 
+    private fun givenOneArticleToGenerateFrom(generated: CommuteEpisode) {
+        val sampleArticle = Article(id = "a", date = Date(), title = "Title", rawDescription = "Body", shortDescription = "Summary", link = "https://x/a", feedId = "f", accountId = 1)
+        coEvery { articleDao.queryUnreadArticleList(any(), any()) } returns listOf(sampleArticle.toListItem())
+        every { contentSelector.selectArticles(any(), any(), any(), any()) } returns listOf(sampleArticle)
+        coEvery { scriptService.generateScript(any(), any(), any(), any()) } returns generated
+    }
+
+    @Test
+    fun generating_withoutTheUsersAgreement_writesTheScriptOnTheDevice() = runTest(testDispatcher) {
+        givenOneArticleToGenerateFrom(storedEpisode.copy(id = "ep_local"))
+
+        viewModel.prepareOrPlay(forceRegenerate = true)
+        advanceUntilIdle()
+
+        coVerify(timeout = VERIFY_TIMEOUT_MS, exactly = 1) { scriptService.generateScript(any(), any(), any(), false) }
+        coVerify(exactly = 0) { scriptService.generateScript(any(), any(), any(), true) }
+    }
+
+    @Test
+    fun generating_afterTheUserAgrees_mayUseGemini() = runTest(testDispatcher) {
+        application.setCommuteScriptGeminiConsent(true)
+        givenOneArticleToGenerateFrom(storedEpisode.copy(id = "ep_ai"))
+
+        viewModel.prepareOrPlay(forceRegenerate = true)
+        advanceUntilIdle()
+
+        coVerify(timeout = VERIFY_TIMEOUT_MS, exactly = 1) { scriptService.generateScript(any(), any(), any(), true) }
+    }
+
     @Test
     fun selectTimeBudget_updatesStateAndTriggersRegeneration() = runTest(testDispatcher) {
         val sampleArticle = Article(id = "a", date = Date(), title = "Title", rawDescription = "Body", shortDescription = "Summary", link = "https://x/a", feedId = "f", accountId = 1)
         val generated = storedEpisode.copy(id = "ep_8min")
         coEvery { articleDao.queryUnreadArticleList(any(), any()) } returns listOf(sampleArticle.toListItem())
         every { contentSelector.selectArticles(any(), targetMinutes = 8, any(), any()) } returns listOf(sampleArticle)
-        coEvery { scriptService.generateScript(any(), any(), any()) } returns generated
+        coEvery { scriptService.generateScript(any(), any(), any(), any()) } returns generated
 
         viewModel.selectTimeBudget(8)
         advanceUntilIdle()

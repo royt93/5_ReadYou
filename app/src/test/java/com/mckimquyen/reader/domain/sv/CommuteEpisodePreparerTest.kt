@@ -1,5 +1,9 @@
 package com.mckimquyen.reader.domain.sv
 
+import android.app.Application
+import android.content.Context
+import androidx.datastore.preferences.core.edit
+import androidx.test.core.app.ApplicationProvider
 import com.mckimquyen.reader.domain.model.article.Article
 import com.mckimquyen.reader.domain.model.commute.CommuteDialogue
 import com.mckimquyen.reader.domain.model.commute.CommuteEpisode
@@ -14,6 +18,9 @@ import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
 import io.mockk.verify
+import com.mckimquyen.reader.ui.ext.dataStore
+import com.mckimquyen.reader.ui.ext.setCommuteScriptGeminiConsent
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -26,9 +33,10 @@ import java.util.Date
 // Robolectric, because the preparer logs through android.util.Log, which a bare JVM test cannot
 // resolve — the same reason the other CommuteCast unit tests in this module run under it.
 @RunWith(RobolectricTestRunner::class)
-@Config(manifest = Config.NONE)
+@Config(sdk = [34], application = Application::class)
 class CommuteEpisodePreparerTest {
 
+    private val context: Context = ApplicationProvider.getApplicationContext()
     private lateinit var scriptService: CommuteScriptService
     private lateinit var episodeStore: CommuteEpisodeStore
     private lateinit var audioPlayer: CommuteAudioPlayer
@@ -57,12 +65,13 @@ class CommuteEpisodePreparerTest {
         every { audioPlayer.prepareEpisode(any()) } just Runs
         every { notificationHelper.notifyCommuteCast(any(), any()) } just Runs
 
-        preparer = CommuteEpisodePreparer(scriptService, episodeStore, audioPlayer, notificationHelper)
+        runBlocking { context.dataStore.edit { it.clear() } }
+        preparer = CommuteEpisodePreparer(context, scriptService, episodeStore, audioPlayer, notificationHelper)
     }
 
     @Test
     fun `persists before notifying when the engine is ready`() = runTest {
-        coEvery { scriptService.generateScript(articles, any(), any()) } returns goodEpisode
+        coEvery { scriptService.generateScript(articles, any(), any(), any()) } returns goodEpisode
         coEvery { audioPlayer.awaitReady(any()) } returns true
 
         val outcome = preparer.prepareAndNotify(articles, isDeepDive = false)
@@ -75,7 +84,7 @@ class CommuteEpisodePreparerTest {
 
     @Test
     fun `an episode with no dialogue is neither stored nor announced`() = runTest {
-        coEvery { scriptService.generateScript(articles, any(), any()) } returns emptyEpisode
+        coEvery { scriptService.generateScript(articles, any(), any(), any()) } returns emptyEpisode
 
         val outcome = preparer.prepareAndNotify(articles, isDeepDive = false)
 
@@ -87,7 +96,7 @@ class CommuteEpisodePreparerTest {
 
     @Test
     fun `stores the episode but stays silent when the engine never becomes ready`() = runTest {
-        coEvery { scriptService.generateScript(articles, any(), any()) } returns goodEpisode
+        coEvery { scriptService.generateScript(articles, any(), any(), any()) } returns goodEpisode
         coEvery { audioPlayer.awaitReady(any()) } returns false
 
         val outcome = preparer.prepareAndNotify(articles, isDeepDive = false)
@@ -100,11 +109,44 @@ class CommuteEpisodePreparerTest {
 
     @Test
     fun `passes the deep dive flag through to script generation`() = runTest {
-        coEvery { scriptService.generateScript(articles, true, any()) } returns goodEpisode
+        coEvery { scriptService.generateScript(articles, true, any(), any()) } returns goodEpisode
         coEvery { audioPlayer.awaitReady(any()) } returns true
 
         preparer.prepareAndNotify(articles, isDeepDive = true)
 
-        coVerify(exactly = 1) { scriptService.generateScript(articles, true, any()) }
+        coVerify(exactly = 1) { scriptService.generateScript(articles, true, any(), any()) }
+    }
+
+    @Test
+    fun `without the user's agreement the script is written on the device`() = runTest {
+        coEvery { scriptService.generateScript(any(), any(), any(), any()) } returns goodEpisode
+        coEvery { audioPlayer.awaitReady(any()) } returns true
+
+        preparer.prepareAndNotify(articles, isDeepDive = false)
+
+        coVerify(exactly = 1) { scriptService.generateScript(articles, false, any(), false) }
+    }
+
+    @Test
+    fun `after the user agrees the script may use Gemini`() = runTest {
+        context.setCommuteScriptGeminiConsent(true)
+        coEvery { scriptService.generateScript(any(), any(), any(), any()) } returns goodEpisode
+        coEvery { audioPlayer.awaitReady(any()) } returns true
+
+        preparer.prepareAndNotify(articles, isDeepDive = false)
+
+        coVerify(exactly = 1) { scriptService.generateScript(articles, false, any(), true) }
+    }
+
+    @Test
+    fun `declining after agreeing turns it off again`() = runTest {
+        context.setCommuteScriptGeminiConsent(true)
+        context.setCommuteScriptGeminiConsent(false)
+        coEvery { scriptService.generateScript(any(), any(), any(), any()) } returns goodEpisode
+        coEvery { audioPlayer.awaitReady(any()) } returns true
+
+        preparer.prepareAndNotify(articles, isDeepDive = false)
+
+        coVerify(exactly = 1) { scriptService.generateScript(articles, false, any(), false) }
     }
 }

@@ -38,7 +38,9 @@ class CommuteScriptService @Inject constructor(
     suspend fun generateScript(
         articles: List<Article>,
         isDeepDive: Boolean = false,
-        languageTag: String = Locale.getDefault().toLanguageTag()
+        languageTag: String = Locale.getDefault().toLanguageTag(),
+        // STRAT-01: sending article titles and descriptions to Gemini needs the user's own agreement; the safe default is no.
+        allowGemini: Boolean = false,
     ): CommuteEpisode = withContext(Dispatchers.Default) {
         if (articles.isEmpty()) {
             return@withContext createFallbackEmptyEpisode()
@@ -46,16 +48,16 @@ class CommuteScriptService @Inject constructor(
 
         val topArticles = if (isDeepDive) articles.take(10) else articles.take(5)
         
-        // Thử sinh kịch bản bằng Gemini AI trước
-        val aiEpisode = runCatching {
-            generateScriptWithGemini(topArticles, isDeepDive, languageTag)
-        }.getOrNull()
-
-        if (aiEpisode != null && aiEpisode.dialogues.isNotEmpty()) {
-            return@withContext aiEpisode
+        if (allowGemini) {
+            val aiEpisode = runCatching {
+                generateScriptWithGemini(topArticles, isDeepDive, languageTag)
+            }.getOrNull()
+            if (aiEpisode != null && aiEpisode.dialogues.isNotEmpty()) {
+                return@withContext aiEpisode
+            }
         }
 
-        // Nếu offline hoặc hết quota AI, dùng bộ sinh kịch bản đối đáp heuristic cục bộ
+        // Chưa đồng ý, offline hoặc hết quota AI: bộ sinh kịch bản đối đáp cục bộ luôn chạy được
         return@withContext generateHeuristicScript(topArticles, isDeepDive, languageTag)
     }
 
