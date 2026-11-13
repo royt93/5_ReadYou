@@ -1747,7 +1747,6 @@ class BluetoothAudioReceiver : BroadcastReceiver() {
     @Inject lateinit var notificationHelper: NotificationHelper
 
     override fun onReceive(context: Context, intent: Intent) {
-        super.onReceive(context, intent)
         if (intent.action != BluetoothDevice.ACTION_ACL_CONNECTED) return
         val device = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE, BluetoothDevice::class.java)
@@ -1792,7 +1791,7 @@ class BluetoothAudioReceiver : BroadcastReceiver() {
 ```
 
 **Lưu ý đúng sai (đọc trước khi chép):**
-- `@AndroidEntryPoint` trên `BroadcastReceiver` **bắt buộc** gọi `super.onReceive(context, intent)` **trước** khi dùng trường `@Inject` (mã trên đã làm đúng); comment `lateinit` nêu lý do chắc chắn không null (R5).
+- `@AndroidEntryPoint` trên `BroadcastReceiver`: lớp cha do Hilt sinh ra tiêm các trường `@Inject` **trước** khi `onReceive` của ta chạy; **không** gọi `super.onReceive` (nó là hàm trừu tượng, gọi sẽ lỗi biên dịch `Abstract member cannot be accessed directly`, đã gặp khi thực thi). Comment `lateinit` nêu lý do chắc chắn không null (R5).
 - `notifyCommuteReadyToPlay("")`: nếu Task 7 đã bỏ tham số `episodeTitle` (YAGNI) thì gọi `notifyCommuteReadyToPlay()`.
 - `goAsync()` cho receiver có thời hạn khoảng 10 giây: đọc DataStore và kho episode đều nhanh; nếu quá hạn Android sẽ kết thúc process receiver, và cách xử lý là chấp nhận (không có gì mất dữ liệu: ngày chỉ ghi sau khi phát thành công).
 
