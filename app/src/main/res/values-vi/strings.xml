@@ -1255,4 +1255,14 @@
     <string name="oracle_due_evidence_title">Bài liên quan trong tin của bạn</string>
     <string name="oracle_due_evidence_none">Chưa thấy bài nào liên quan.</string>
     <string name="oracle_due_evidence_hint">Gợi ý từ tin đã lưu, chưa chắc đúng. Bạn tự quyết định.</string>
+    <string name="commute_consent_title">Soạn bản tin sáng bằng Gemini</string>
+    <string name="commute_consent_message">Khi bạn đồng ý, tiêu đề và mô tả ngắn (tối đa 250 ký tự mỗi bài) của tối đa 10 bài được gửi tới Google Gemini để soạn bản tin sáng. Lịch sử đọc và nội dung bài không bao giờ được gửi. Nếu bạn không đồng ý, bản tin được soạn ngay trên máy và không có gì rời khỏi máy.</string>
+    <string name="commute_listen_time_title">Giờ nghe bản tin sáng</string>
+    <string name="commute_listen_time_desc">Bản tin được soạn trước 30 phút. Android có thể trễ vài phút.</string>
+    <string name="commute_autoplay_title">Tự phát khi cắm tai nghe Bluetooth</string>
+    <string name="commute_autoplay_desc">Thử phát bản tin sáng mỗi ngày một lần, trong 2 giờ sau khi bản tin sẵn sàng. Nếu Android chặn, bạn nhận thông báo có nút Phát.</string>
+    <string name="commute_autoplay_permission_denied">Không có quyền Thiết bị ở gần thì app không thấy tai nghe của bạn, nên công tắc này giữ tắt.</string>
+    <string name="commute_play_action">Phát</string>
+    <string name="commute_ready_to_play_title">Bản tin sáng đã sẵn sàng</string>
+    <string name="commute_ready_to_play_body">Tai nghe đã kết nối. Chạm Phát để nghe.</string>
 </resources>

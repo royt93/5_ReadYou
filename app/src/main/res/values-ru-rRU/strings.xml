@@ -1304,4 +1304,14 @@
     <string name="oracle_due_evidence_title">Related articles in your news</string>
     <string name="oracle_due_evidence_none">No related article found yet.</string>
     <string name="oracle_due_evidence_hint">Hints from your saved news; they may be wrong. You decide.</string>
+    <string name="commute_consent_title">Write the morning episode with Gemini</string>
+    <string name="commute_consent_message">When you agree, the title and a short description (up to 250 characters each) of up to 10 articles are sent to Google Gemini to write the morning episode. Your reading history and the article text are never sent. If you do not agree, the episode is written on your device and nothing leaves it.</string>
+    <string name="commute_listen_time_title">Morning episode listen time</string>
+    <string name="commute_listen_time_desc">The episode is prepared 30 minutes earlier. Android may delay it by a few minutes.</string>
+    <string name="commute_autoplay_title">Play when Bluetooth headphones connect</string>
+    <string name="commute_autoplay_desc">Tries to start the morning episode once a day, within 2 hours of it being ready. If Android blocks it, you get a notification with a Play button.</string>
+    <string name="commute_autoplay_permission_denied">Without the Nearby devices permission the app cannot see your headphones, so this stays off.</string>
+    <string name="commute_play_action">Play</string>
+    <string name="commute_ready_to_play_title">Your morning episode is ready</string>
+    <string name="commute_ready_to_play_body">Your headphones are connected. Tap Play to listen.</string>
 </resources>
