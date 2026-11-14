@@ -17,6 +17,7 @@ import com.mckimquyen.reader.infrastructure.rss.RssDescriptionParser
 import com.mckimquyen.reader.infrastructure.rss.RssHelper
 import com.mckimquyen.reader.infrastructure.rss.scraper.WebFeedDiscoveryResult
 import com.mckimquyen.reader.infrastructure.rss.scraper.WebFeedScraper
+import com.mckimquyen.reader.infrastructure.social.SocialFeedUrlResolver
 import com.mckimquyen.reader.ui.ext.currentAccountId
 import com.mckimquyen.reader.ui.ext.currentAccountType
 import com.mckimquyen.reader.ui.ext.formatUrl
@@ -120,7 +121,10 @@ class SubscribeViewModel @Inject constructor(
                         errorMessage = "",
                     )
                 }
-                _subscribeUiState.value.linkContent.formatUrl().let { str ->
+                // Must run before formatUrl(): it would turn "@bsky.app" into "https://@bsky.app".
+                val typed = _subscribeUiState.value.linkContent
+                val socialUrl = SocialFeedUrlResolver.resolve(typed)
+                (socialUrl ?: typed.formatUrl()).let { str ->
                     if (str != _subscribeUiState.value.linkContent) {
                         _subscribeUiState.update {
                             it.copy(
@@ -145,8 +149,14 @@ class SubscribeViewModel @Inject constructor(
                     }
                     return@launch
                 }
-                val link = _subscribeUiState.value.linkContent
+                var link = _subscribeUiState.value.linkContent
                 var feedWithArticle = runCatching { rssHelper.searchFeed(link) }.getOrNull()
+                if (feedWithArticle == null && socialUrl != null) {
+                    // The guessed RSS address is unreadable: run the old flow on what the user typed.
+                    link = typed.formatUrl()
+                    _subscribeUiState.update { it.copy(linkContent = link) }
+                    feedWithArticle = runCatching { rssHelper.searchFeed(link) }.getOrNull()
+                }
                 if (feedWithArticle == null) {
                     val resolvedUrl = runCatching { newsletterUrlResolver.resolveToRssUrl(link) }.getOrNull()
                     if (!resolvedUrl.isNullOrBlank() && resolvedUrl != link) {
