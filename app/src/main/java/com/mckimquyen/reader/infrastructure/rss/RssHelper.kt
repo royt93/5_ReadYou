@@ -118,7 +118,12 @@ class RssHelper @Inject constructor(
                     .entries
                     .asSequence()
                     .takeWhile { latestLink == null || latestLink != it.link }
-                    .map { article(feed, accountId, it) }
+                    .mapNotNull { entry ->
+                        // One malformed entry must not empty the whole feed; only its type is logged, never its content.
+                        runCatching { article(feed, accountId, entry) }
+                            .onFailure { Log.w("RLog", "Skip malformed RSS entry errorType=${it.javaClass.simpleName}") }
+                            .getOrNull()
+                    }
                     .toList()
             }
         } catch (e: Exception) {
@@ -151,10 +156,14 @@ class RssHelper @Inject constructor(
             if (context.htmlAntiTrackerEnabled) AntiTrackerHtmlSanitizer.sanitize(nl) else nl
         }
         val acceptedFull = FullContentPolicy.accept(cleanFull)
+        val feedTitle = syndEntry.title?.takeIf { it.isNotBlank() }
+        // Mastodon and Bluesky posts have no title at all; the first words of the body stand in for it.
+        val title = feedTitle ?: RssDescriptionParser.titleFromBody(cleanRaw).takeIf { it.isNotEmpty() }
+            ?: throw IllegalArgumentException("RSS entry has neither a title nor a body")
         Log.i(
             "RLog",
             "RSS article source=$chosenSource feed=${feed.name} entryUrl=${safeEntryUrl(syndEntry.link.orEmpty())} " +
-                "title=${syndEntry.title} descriptionBytes=$descriptionBytes contentBytes=$contentBytes " +
+                "titleSource=${if (feedTitle != null) "feed" else "body"} descriptionBytes=$descriptionBytes contentBytes=$contentBytes " +
                 "fullContent=${if (acceptedFull == null && !content.isNullOrBlank()) "rejected" else "accepted"}\n",
         )
         if (cleanFull != null && acceptedFull == null) {
@@ -166,11 +175,13 @@ class RssHelper @Inject constructor(
             accountId = accountId,
             feedId = feed.id,
             date = syndEntry.publishedDate ?: syndEntry.updatedDate ?: Date(),
-            title = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-                Html.fromHtml(syndEntry.title.toString(), Html.FROM_HTML_MODE_LEGACY).toString()
+            title = if (feedTitle == null) {
+                title // already plain text, made from the body
+            } else if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                Html.fromHtml(feedTitle, Html.FROM_HTML_MODE_LEGACY).toString()
             } else {
                 @Suppress("DEPRECATION")
-                Html.fromHtml(syndEntry.title.toString()).toString()
+                Html.fromHtml(feedTitle).toString()
             },
             author = syndEntry.author,
             rawDescription = cleanRaw,
