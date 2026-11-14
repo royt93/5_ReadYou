@@ -130,8 +130,11 @@ class OracleEvidenceViewModelTest {
         evidenceWhere { it is OracleEvidenceUiState.Ready }
         // The state flow re-emits (new balance) for the very same bet; that must not restart the search.
         // A raw SQL write would not notify Room's flows, so go through the DAO: the next UTC day grants 100 points.
-        runBlocking { db.oracleWalletDao().ensureWalletAndGrant(nowMs + day) }
+        // open() (in the setup) already granted today's 100 asynchronously, so wait for THAT to settle first: otherwise the
+        // two grants race and the balance can jump straight past the intermediate value this test would be waiting for.
         stateWhere { it.balance == 1000L }
+        runBlocking { db.oracleWalletDao().ensureWalletAndGrant(nowMs + day) }
+        stateWhere { it.balance == 1100L }
         awaitReal { kotlinx.coroutines.delay(300) }
         evidenceWhere { it is OracleEvidenceUiState.Ready }
         coVerify(exactly = 1) { finder.find(any(), any()) }
