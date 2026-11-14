@@ -216,8 +216,11 @@ class MirrorServer(
         private fun stream(socket: Socket, out: java.io.OutputStream) {
             if (!limiter.tryOpenStream()) return plain(out, 503)
             val stream = Stream(out)
-            synchronized(streams) { streams += stream }
-            _clients.value = streams.size
+            // The count is read and published under the same lock as the change: two workers must not publish stale sizes.
+            synchronized(streams) {
+                streams += stream
+                _clients.value = streams.size
+            }
             try {
                 socket.soTimeout = 0
                 MirrorHttp.openEventStream(out)
@@ -231,9 +234,11 @@ class MirrorServer(
                     if (stream.alive && !closed.get()) stream.flush()
                 }
             } finally {
-                synchronized(streams) { streams -= stream }
+                synchronized(streams) {
+                    streams -= stream
+                    _clients.value = streams.size
+                }
                 limiter.closeStream()
-                _clients.value = synchronized(streams) { streams.size }
             }
         }
 
