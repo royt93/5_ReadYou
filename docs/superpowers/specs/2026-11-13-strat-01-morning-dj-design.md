@@ -60,3 +60,11 @@ Bản tin sáng đã có (soạn lúc 06:00, đọc bằng giọng máy, thông 
 - Người dùng cũ chưa đồng ý sẽ nghe bản tin soạn trong máy (đơn giản hơn) cho tới khi bật consent.
 - Lịch có thể trễ vài phút; đổi giờ chỉ có hiệu lực từ lần soạn kế tiếp.
 - 36 locale dùng chuỗi tiếng Anh.
+
+## Điều chỉnh khi thực thi (2026-11-14)
+- Máy thật: **Tecno KJ7** (owner: chỉ dùng Tecno). Quyền thông báo và Bluetooth cấp tạm rồi thu hồi.
+- Nút Phát dùng action mới `ACTION_PLAY_LATEST` (dịch vụ vào chế độ nền trước rồi mới phát) vì `ACTION_PLAY` có sẵn chỉ hiện thông báo, không bật âm thanh; cả hai đường phát đánh dấu "đã nghe".
+- `BluetoothAudioReceiver` kiểm quyền ngay chỗ đọc lớp thiết bị và chặn `SecurityException` thay vì tắt cảnh báo lint; `ReadNewsManifestTest` ghi lý do cho quyền `BLUETOOTH_CONNECT` mới.
+- Dòng giờ nghe và các ghi chú dùng cùng lề 24 dp với các dòng cài đặt khác.
+- Các ca "tự phát với thiết bị âm thanh thật" chỉ kiểm bằng test JVM (không có tai nghe).
+
