@@ -48,6 +48,7 @@ class LocalRssSv @Inject constructor(
     smartCollectionMatcher: SmartCollectionMatcher,
     widgetRefreshNotifier: WidgetRefreshNotifier,
     retractionRadar: RetractionRadarService,
+    private val nostrRelayClient: com.mckimquyen.reader.infrastructure.social.nostr.NostrRelayClient,
 ) : AbstractRssRepository(
     context,
     accountDao,
@@ -72,6 +73,7 @@ class LocalRssSv @Inject constructor(
         if (feed.sourceType == Feed.READ_LATER_SOURCE_TYPE || feed.id == Feed.READ_LATER_FEED_ID) {
             return emptyList()
         }
+        if (feed.sourceType == Feed.NOSTR_SOURCE_TYPE) return queryNostrArticles(feed)
         if (feed.sourceType != Feed.WEB_SOURCE_TYPE) return super.queryFeedArticles(feed, latestLink)
         return when (val result = webFeedScraper.refresh(feed.sourceUrl ?: feed.url)) {
             is WebFeedRefreshResult.Success -> result.articles.mapNotNull { candidate ->
@@ -99,5 +101,20 @@ class LocalRssSv @Inject constructor(
                 else -> throw java.io.IOException("Web feed refresh failed: ${result.reason}")
             }
         }
+    }
+    private suspend fun queryNostrArticles(feed: Feed): List<Article> {
+        val npub = (feed.sourceUrl ?: feed.url).removePrefix(
+            com.mckimquyen.reader.infrastructure.social.nostr.NostrFeedMapper.FEED_URL_PREFIX,
+        )
+        val authorHex = com.mckimquyen.reader.infrastructure.social.nostr.NostrKeys.npubToHex(npub)
+            ?: throw java.io.IOException("Nostr feed address is not a public key")
+        val events = nostrRelayClient.fetch(authorHex)
+        if (events.isEmpty()) throw java.io.IOException("Nostr relays returned no notes")
+        return com.mckimquyen.reader.infrastructure.social.nostr.NostrFeedMapper.toArticles(
+            events = events,
+            feedId = feed.id,
+            accountId = feed.accountId,
+            nowMillis = System.currentTimeMillis(),
+        )
     }
 }

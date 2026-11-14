@@ -36,6 +36,7 @@ class OfflinePrecacheService @Inject constructor(
             for (article in articles) {
                 val sourceType = feedDao.queryById(article.feedId)?.sourceType
                     ?: com.mckimquyen.reader.domain.model.feed.Feed.RSS_SOURCE_TYPE
+                if (sourceType == com.mckimquyen.reader.domain.model.feed.Feed.NOSTR_SOURCE_TYPE) continue
                 val storedContent = articleDao.queryArticleBody(accountId, article.id)?.fullContent
                 val fullContent = storedContent
                     ?.takeIf { it.isNotBlank() }

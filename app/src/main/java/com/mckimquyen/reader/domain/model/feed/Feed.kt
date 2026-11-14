@@ -45,6 +45,7 @@ data class Feed(
     companion object {
         const val RSS_SOURCE_TYPE = "RSS"
         const val WEB_SOURCE_TYPE = "WEB"
+        const val NOSTR_SOURCE_TYPE = "NOSTR"
         const val READ_LATER_SOURCE_TYPE = "READ_LATER"
         const val READ_LATER_FEED_ID = "system_feed_read_later"
         const val READ_LATER_URL = "https://local.rsscathub/read-later"

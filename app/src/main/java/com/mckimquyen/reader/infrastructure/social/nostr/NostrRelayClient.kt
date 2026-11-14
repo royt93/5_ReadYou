@@ -5,17 +5,21 @@ import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeout
+import com.mckimquyen.reader.infrastructure.di.IODispatcher
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
 import okhttp3.WebSocket
 import okhttp3.WebSocketListener
 import org.json.JSONArray
+import javax.inject.Inject
+import javax.inject.Singleton
 
 /**
  * Reads one author's latest text notes from public Nostr relays. Read-only: it sends a single REQ and a CLOSE.
  * Nothing here logs: a relay sees the npub being read, so the app must not also write it down.
  */
+@Singleton
 class NostrRelayClient internal constructor(
     private val client: OkHttpClient,
     private val ioDispatcher: CoroutineDispatcher,
@@ -23,7 +27,7 @@ class NostrRelayClient internal constructor(
     private val requireSecure: Boolean,
     private val timeoutMs: Long,
 ) {
-    constructor(client: OkHttpClient, ioDispatcher: CoroutineDispatcher) :
+    @Inject constructor(client: OkHttpClient, @IODispatcher ioDispatcher: CoroutineDispatcher) :
         this(client, ioDispatcher, RELAYS, requireSecure = true, timeoutMs = RELAY_TIMEOUT_MS)
 
     suspend fun fetch(authorHex: String): List<NostrEvent> = withContext(ioDispatcher) {

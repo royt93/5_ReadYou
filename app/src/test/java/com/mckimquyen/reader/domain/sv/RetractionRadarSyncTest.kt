@@ -81,6 +81,7 @@ class RetractionRadarSyncTest {
             workManager = mockk(relaxed = true), watchdogManager = mockk(relaxed = true), smartFilterManager = filters,
             webFeedScraper = mockk(relaxed = true), smartCollectionMatcher = mockk(relaxed = true),
             widgetRefreshNotifier = mockk(relaxed = true), retractionRadar = radar,
+            nostrRelayClient = mockk(relaxed = true),
         )
     }
 
@@ -227,6 +228,7 @@ class RetractionRadarSyncTest {
             smartFilterManager = mockk { every { applyRules(any()) } answers { firstArg() } },
             webFeedScraper = mockk(relaxed = true), smartCollectionMatcher = mockk(relaxed = true),
             widgetRefreshNotifier = mockk(relaxed = true), retractionRadar = radar,
+            nostrRelayClient = mockk(relaxed = true),
         )
         remote = listOf(entry(2), entry(1))
         syncOnce()

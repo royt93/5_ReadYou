@@ -42,6 +42,7 @@ class LocalRssSvWebFeedSyncTest {
         workManager = mockk(relaxed = true), watchdogManager = mockk(relaxed = true),
         smartFilterManager = filters, webFeedScraper = scraper,
         smartCollectionMatcher = mockk(relaxed = true), widgetRefreshNotifier = mockk(relaxed = true), retractionRadar = mockk(relaxed = true),
+        nostrRelayClient = mockk(relaxed = true),
     )
     private val feed = Feed(id = "web-feed", name = "News", url = SOURCE_URL, groupId = "group", accountId = 1,
         icon = "icon", sourceType = Feed.WEB_SOURCE_TYPE, sourceUrl = SOURCE_URL)
@@ -89,6 +90,7 @@ class LocalRssSvWebFeedSyncTest {
         workManager = mockk(relaxed = true), watchdogManager = mockk(relaxed = true),
         smartFilterManager = filters, webFeedScraper = scraper,
         smartCollectionMatcher = mockk(relaxed = true), widgetRefreshNotifier = notifier, retractionRadar = mockk(relaxed = true),
+        nostrRelayClient = mockk(relaxed = true),
     )
 
     @Test

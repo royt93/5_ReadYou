@@ -62,6 +62,7 @@ class WebFeedRoomEndToEndTest {
             smartCollectionMatcher = mockk(relaxed = true),
             widgetRefreshNotifier = mockk(relaxed = true),
             retractionRadar = mockk(relaxed = true),
+            nostrRelayClient = mockk(relaxed = true),
         )
         val sourceUrl = server.url("/news").toString().replace("localhost", HOST)
         feed = Feed(id = "web-feed", name = "Example", url = sourceUrl, groupId = "group", accountId = 1,
