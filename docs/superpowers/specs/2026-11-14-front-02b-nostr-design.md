@@ -74,3 +74,15 @@ Tất cả trong `infrastructure/social/nostr/`, thuần Kotlin trừ `NostrRela
 - Tiêu đề thay thế chỉ là cắt dòng đầu, có thể cắt giữa câu.
 - Kiểm chữ ký tự viết bằng `BigInteger` chậm hơn thư viện native; chỉ đủ cho vài chục ghi chú mỗi lần.
 - Link `njump.me` là trang bên thứ ba; app chỉ mở khi người dùng bấm.
+
+## Điều chỉnh khi thực thi
+- NIP-01 băm ký tự điều khiển **thô** (chỉ bảy ký tự được thoát: `"` `\\` `\n` `\r` `\t` `\b` `\f`); bản nháp ghi thoát `\u00XX` là sai và đã sửa kèm fixture ký độc lập.
+- Đóng kết nối: gửi `CLOSE` rồi `close()` khi relay đã trả lời (không `cancel()` ngay sau `send()` vì làm rơi khung CLOSE); hết giờ hoặc bị hủy thì `cancel()`.
+- Khung quá lớn vẫn tính vào giới hạn 50 khung (nếu không một relay có thể gửi vô hạn khung lớn); giới hạn đo theo byte UTF-8, không theo ký tự.
+- Xem trước dùng luồng RSS sẵn có (`feed` + `articles`, `isSearchPage = false`), **không** dùng nhánh `webPreview`, vì chuỗi `web_feed_preview_notice` nói về "trang web".
+- Lỗi `nsec` và lỗi relay tái dùng chuỗi có sẵn (`web_feed_invalid_url`, `web_feed_fetch_failed`) để không phải thêm chuỗi; thông điệp `nsec` không chính xác tuyệt đối.
+- Đồng bộ LAN (P2P) bỏ qua nguồn `nostr:…` (chuẩn hóa URL chỉ nhận `http/https`).
+- `s >= n` trong `Bip340` không thể phân biệt bằng test (xác suất ~2^-127); giữ cho đúng chuẩn.
+- Probe relay thật dùng bản **sao chép** cấu hình `OkHttpClientModule` (androidTest không có Hilt app) nên đi qua DoH và interceptor của app, nhưng không phải đối tượng Hilt thật.
+- Full suite lần đầu có 1 lỗi `MirrorServerTest` ở mã không đụng; chạy riêng 3 lần và full lần hai đều xanh (3.548/0). Nguyên nhân chưa xác định.
+
