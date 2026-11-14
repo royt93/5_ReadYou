@@ -76,7 +76,7 @@ Tất cả trong `infrastructure/social/nostr/`, thuần Kotlin trừ `NostrRela
 - Link `njump.me` là trang bên thứ ba; app chỉ mở khi người dùng bấm.
 
 ## Điều chỉnh khi thực thi
-- NIP-01 băm ký tự điều khiển **thô** (chỉ bảy ký tự được thoát: `"` `\\` `\n` `\r` `\t` `\b` `\f`); bản nháp ghi thoát `\u00XX` là sai và đã sửa kèm fixture ký độc lập.
+- NIP-01 băm ký tự điều khiển **thô** (chỉ bảy ký tự được thoát: `"` `\` `\n` `\r` `\t` `\b` `\f`); bản nháp ghi thoát `\u00XX` là sai và đã sửa kèm fixture ký độc lập.
 - Đóng kết nối: gửi `CLOSE` rồi `close()` khi relay đã trả lời (không `cancel()` ngay sau `send()` vì làm rơi khung CLOSE); hết giờ hoặc bị hủy thì `cancel()`.
 - Khung quá lớn vẫn tính vào giới hạn 50 khung (nếu không một relay có thể gửi vô hạn khung lớn); giới hạn đo theo byte UTF-8, không theo ký tự.
 - Xem trước dùng luồng RSS sẵn có (`feed` + `articles`, `isSearchPage = false`), **không** dùng nhánh `webPreview`, vì chuỗi `web_feed_preview_notice` nói về "trang web".
