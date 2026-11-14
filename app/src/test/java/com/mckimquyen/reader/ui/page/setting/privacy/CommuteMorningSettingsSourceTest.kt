@@ -38,6 +38,15 @@ class CommuteMorningSettingsSourceTest {
         assertTrue(call.contains("permissionDenied = permissionDenied"))
     }
 
+    @Test fun theTimeRowAndTheDeniedNoteKeepTheSameSideMarginAsTheOtherRows() {
+        assertTrue(rows.contains("private val SIDE_MARGIN = 24.dp"))
+        assertTrue("the column that holds the time row is padded by the shared margin", rows.contains("Column(Modifier.padding(horizontal = SIDE_MARGIN)) {"))
+        val timeBlock = rows.substringAfter("Column(Modifier.padding(horizontal = SIDE_MARGIN))").substringBefore("SettingItem(\n            title = stringResource(R.string.commute_autoplay_title)")
+        assertTrue("the time row sits inside the padded column", timeBlock.contains("EditionTimeRow("))
+        assertTrue("so does its explanation", timeBlock.contains("R.string.commute_listen_time_desc"))
+        assertTrue("the denial note is padded too", rows.substringAfter("commute_autoplay_permission_denied").take(250).contains("padding(horizontal = SIDE_MARGIN)"))
+    }
+
     @Test fun theListenTimeRowReusesTheZenTimePicker() {
         assertTrue(rows.contains("EditionTimeRow("))
     }
