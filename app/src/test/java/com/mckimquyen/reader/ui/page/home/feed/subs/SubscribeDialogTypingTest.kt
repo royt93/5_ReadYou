@@ -3,6 +3,7 @@ package com.mckimquyen.reader.ui.page.home.feed.subs
 import android.app.Application
 import android.content.Context
 import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
@@ -91,7 +92,10 @@ class SubscribeDialogTypingTest {
     private fun openDialog() {
         composeRule.setContent { SubscribeDialog(viewModel) }
         composeRule.runOnIdle { viewModel.showDrawer() }
-        composeRule.waitForIdle()
+        // The state is collected on another dispatcher, so the field appears a moment later; wait for it instead of assuming.
+        composeRule.waitUntil(WAIT_MILLIS) {
+            composeRule.onAllNodes(hasText("Feed or Site URL")).fetchSemanticsNodes().isNotEmpty()
+        }
     }
 
     private fun typeAndSearch(text: String) {
