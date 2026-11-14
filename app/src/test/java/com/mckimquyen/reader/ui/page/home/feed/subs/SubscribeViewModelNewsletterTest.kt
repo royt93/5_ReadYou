@@ -75,6 +75,7 @@ class SubscribeViewModelNewsletterTest {
             androidStringsHelper = strings,
             webFeedScraper = scraper,
             newsletterUrlResolver = resolver,
+            nostrRelayClient = mockk(relaxed = true),
         )
         viewModel.init()
     }

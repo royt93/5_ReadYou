@@ -47,6 +47,7 @@ class SubscribeViewModel @Inject constructor(
     private val androidStringsHelper: AndroidStringsHelper,
     private val webFeedScraper: WebFeedScraper,
     private val newsletterUrlResolver: com.mckimquyen.reader.infrastructure.newsletter.NewsletterUrlResolver,
+    private val nostrRelayClient: com.mckimquyen.reader.infrastructure.social.nostr.NostrRelayClient,
 ) : ViewModel() {
 
     private val _subscribeUiState = MutableStateFlow(SubscribeUiState())
@@ -123,6 +124,78 @@ class SubscribeViewModel @Inject constructor(
                 }
                 // Must run before formatUrl(): it would turn "@bsky.app" into "https://@bsky.app".
                 val typed = _subscribeUiState.value.linkContent
+                if (com.mckimquyen.reader.infrastructure.social.nostr.NostrKeys.isSecretKey(typed)) {
+                    _subscribeUiState.update {
+                        it.copy(
+                            linkContent = "",
+                            errorMessage = androidStringsHelper.getString(R.string.web_feed_invalid_url),
+                            lockLinkInput = false,
+                            title = androidStringsHelper.getString(R.string.subscribe),
+                        )
+                    }
+                    return@launch
+                }
+                if (context.currentAccountType == AccountType.Local.id) {
+                    val authorHex = com.mckimquyen.reader.infrastructure.social.nostr.NostrKeys.npubToHex(typed)
+                    if (authorHex != null) {
+                        val npub = typed.trim().lowercase(java.util.Locale.ROOT)
+                        val feedUrl = com.mckimquyen.reader.infrastructure.social.nostr.NostrFeedMapper.feedUrl(npub)
+                        if (rssService.get().isFeedExist(feedUrl)) {
+                            _subscribeUiState.update {
+                                it.copy(
+                                    title = androidStringsHelper.getString(R.string.subscribe),
+                                    errorMessage = androidStringsHelper.getString(R.string.already_subscribed),
+                                    lockLinkInput = false,
+                                )
+                            }
+                            return@launch
+                        }
+                        val articles = runCatching { nostrRelayClient.fetch(authorHex) }
+                            .getOrNull()
+                            ?.let {
+                                com.mckimquyen.reader.infrastructure.social.nostr.NostrFeedMapper.toArticles(
+                                    events = it,
+                                    feedId = context.currentAccountId.spacerDollar(UUID.randomUUID().toString()),
+                                    accountId = context.currentAccountId,
+                                    nowMillis = System.currentTimeMillis(),
+                                )
+                            }
+                            .orEmpty()
+                        if (articles.isEmpty()) {
+                            _subscribeUiState.update {
+                                it.copy(
+                                    linkContent = feedUrl,
+                                    title = androidStringsHelper.getString(R.string.subscribe),
+                                    errorMessage = androidStringsHelper.getString(R.string.web_feed_fetch_failed),
+                                    lockLinkInput = false,
+                                )
+                            }
+                            return@launch
+                        }
+                        val feed = com.mckimquyen.reader.domain.model.feed.Feed(
+                            id = articles.first().feedId,
+                            name = com.mckimquyen.reader.infrastructure.social.nostr.NostrFeedMapper.feedName(npub),
+                            url = feedUrl,
+                            sourceUrl = feedUrl,
+                            groupId = "",
+                            accountId = context.currentAccountId,
+                            sourceType = com.mckimquyen.reader.domain.model.feed.Feed.NOSTR_SOURCE_TYPE,
+                        )
+                        _subscribeUiState.update {
+                            it.copy(
+                                linkContent = feedUrl,
+                                feed = feed,
+                                articles = articles,
+                                title = feed.name,
+                                errorMessage = "",
+                                lockLinkInput = true,
+                                webPreview = false,
+                                isSearchPage = false,
+                            )
+                        }
+                        return@launch
+                    }
+                }
                 val socialUrl = SocialFeedUrlResolver.resolve(typed)
                 (socialUrl ?: typed.formatUrl()).let { str ->
                     if (str != _subscribeUiState.value.linkContent) {
@@ -314,7 +387,9 @@ class SubscribeViewModel @Inject constructor(
                 feed.copy(
                     groupId = _subscribeUiState.value.selectedGroupId,
                     isNotification = _subscribeUiState.value.allowNotificationPreset,
-                    isFullContent = _subscribeUiState.value.parseFullContentPreset,
+                    // A Nostr note has no web page to read in full (parseFullContent returns nothing for it).
+                    isFullContent = _subscribeUiState.value.parseFullContentPreset &&
+                        feed.sourceType != com.mckimquyen.reader.domain.model.feed.Feed.NOSTR_SOURCE_TYPE,
                 ), articles
             )
             hideDrawer()
