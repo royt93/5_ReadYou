@@ -1,5 +1,7 @@
 # [FRONT-02] Tích Hợp Mạng Xã Hội Phi Tập Trung Web3 (Nostr, Bluesky AT Protocol & Mastodon)
 
+> **Cập nhật 2026-11-14:** đã làm một phiên bản **thu hẹp** ở mức code và máy thật (Tecno KJ7), xem [`FRONT-02_decentralized-web3-social_DONE.md`](../done/FRONT-02_decentralized-web3-social_DONE.md): dán tài khoản **Mastodon** hoặc **Bluesky** vào ô Thêm nguồn, app đổi thành RSS công khai (chỉ đọc, không đăng nhập), kèm sửa lỗi bài không có tiêu đề bị bỏ ở mọi nguồn RSS. Room giữ v22. **Giữ trong `todo/` vì Nostr chưa làm** (cần WebSocket tới relay và giải mã `npub`). Chưa thử gõ thật vào ô Thêm nguồn trên màn hình.
+
 - **Type:** Decentralized Web / Web3
 - **Priority:** `P2 (Medium)`
 - **Estimation:** `8 Story Points`

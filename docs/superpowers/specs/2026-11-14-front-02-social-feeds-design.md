@@ -57,3 +57,11 @@ Người dùng dán một tài khoản Mastodon hoặc Bluesky vào ô **Thêm n
 - Bluesky chỉ vài bài gần nhất và chỉ chữ; không có luồng, trả lời hay ảnh.
 - Tiêu đề thay thế chỉ là cắt dòng đầu, có thể cắt giữa câu.
 - Các nguồn đang bị mất bài vì thiếu tiêu đề sẽ bỗng có bài (thường là điều tốt).
+
+## Điều chỉnh khi thực thi
+- Nhánh quay về trong `search()` còn **cập nhật ô nhập** về `formatUrl(chữ gốc)` (không chỉ đổi biến cục bộ), để luồng cũ thấy đúng địa chỉ như trước.
+- `titleFromBody`: hai chỗ chặn đầu vào thừa (đột biến tương đương) đã gỡ; hành vi giữ nguyên.
+- Test log của đường đồng bộ thu hẹp vào nội dung bài và dòng "Skip malformed RSS entry errorType=": log sẵn có đã in đường dẫn đã che nên test theo đường dẫn tài khoản không đứng vững.
+- Probe mạng thật dùng `OkHttpClient` thường (`followRedirects(true)`), không qua Hilt, nên không có DoH `AppDns`.
+- Full suite lần đầu có 1 lỗi timeout ở `OracleEvidenceViewModelTest` (tệp không đổi); chạy riêng và full lần hai xanh (3.440/0). Nguyên nhân chưa xác định.
+
