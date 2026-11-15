@@ -20,6 +20,16 @@ class NostrEvent(
 
     fun isValid(expectedPubkeyHex: String): Boolean {
         if (kind != TEXT_NOTE_KIND) return false
+        return hasValidSignature(expectedPubkeyHex)
+    }
+
+    /** A profile (kind 0): same id, signature and author checks as a note, only the kind differs. Never accepted as a note. */
+    fun isValidProfile(expectedPubkeyHex: String): Boolean {
+        if (kind != PROFILE_KIND) return false
+        return hasValidSignature(expectedPubkeyHex)
+    }
+
+    private fun hasValidSignature(expectedPubkeyHex: String): Boolean {
         if (!isLowerHex(id, ID_HEX_LENGTH) || !isLowerHex(pubkey, ID_HEX_LENGTH) || !isLowerHex(sig, SIG_HEX_LENGTH)) return false
         if (pubkey != expectedPubkeyHex) return false
         if (computeId() != id) return false
@@ -42,6 +52,7 @@ class NostrEvent(
 
     companion object {
         const val TEXT_NOTE_KIND = 1
+        const val PROFILE_KIND = 0
         private const val REPLY_TAG = "e"
         private const val ID_HEX_LENGTH = 64
         private const val SIG_HEX_LENGTH = 128
