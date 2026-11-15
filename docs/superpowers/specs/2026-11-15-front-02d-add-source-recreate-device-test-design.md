@@ -62,3 +62,11 @@ Phần dọn dẹp bắt buộc: `UiAutomation.setRotation(ROTATION_UNFREEZE)` h
 - Không chứng minh bản xem trước Nostr hay tên hồ sơ còn nguyên sau xoay.
 - Không chứng minh hành vi khi app xuống nền hoặc process bị giết.
 - Chỉ một máy (Pixel 7 Pro, Android 17); không so sánh được với A50s hay KJ7.
+
+## Điều chỉnh khi thực thi
+- **Đồng hồ Compose:** `FeedsPage.kt:127` tạo `rememberInfiniteTransition()` vô điều kiện nên `ComposeTestRule` mặc định luôn "bận" (đỏ 3/3). Test đặt `mainClock.autoAdvance = false` và tự tiến một khung hình mỗi lần chờ (hướng A do owner chọn).
+- **Hằng số xoay:** `UiAutomation.ROTATION_FREEZE_90/0` và `ROTATION_UNFREEZE`; test giữ cài đặt tự xoay của owner (đọc `ACCELEROMETER_ROTATION` trước, trả lại sau).
+- **Chọn nút và ô:** nút `+` bằng `hasContentDescription(...) and hasClickAction()` (đúng 1 node); ô nhập bằng `hasSetTextAction() and hasText(PROBE_TEXT)` (chữ đã gõ làm mất placeholder, và `readOnly` bỏ hành động set-text nên điều này kiểm luôn ô không bị khóa). Chuỗi lấy từ `compose.activity`, không từ `targetContext`.
+- **Đột biến thay `hideDrawer`:** dùng `showDrawer` đặt `visible = false` (hộp thoại không mở); thêm đột biến bỏ `configChanges` khỏi manifest để khóa sự thật về xoay.
+- **Chập chờn bước gõ:** chữ đôi khi chưa vào ô (2 đến 9% lượt, nguyên nhân chưa biết). Bản cuối gõ lại tối đa 3 lần chỉ khi chữ chưa từng xuất hiện trong ô; nếu chữ vào rồi biến mất thì đỏ ngay.
+- **Cổng thiết bị:** launcher của Pixel là `com.google.android.apps.nexuslauncher`; bỏ kiểm `pidof` của gói test (tiến trình test còn đóng băng sau mỗi lượt) và giữ kiểm instrumentation bằng `dumpsys activity processes`. `am instrument` cần `--user 0` và tên runner đầy đủ.
