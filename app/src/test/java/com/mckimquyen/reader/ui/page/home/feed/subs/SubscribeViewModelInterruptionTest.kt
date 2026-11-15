@@ -40,7 +40,6 @@ import kotlinx.coroutines.test.setMain
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
-import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Before
@@ -51,8 +50,9 @@ import org.robolectric.annotation.Config
 
 /**
  * What happens to the Add Source flow when something interrupts it: a second Search while one is running, the dialog
- * closing mid-search, the relay answering late, the network coming back. The view model survives a screen rotation, so
- * its state is what the user sees again afterwards.
+ * closing mid-search, the relay answering late, the network coming back. These run on the JVM with fake services.
+ * NOT covered here: a real screen rotation or recreate of the Activity, the app going to the background, and the process
+ * being killed (this view model keeps nothing across process death; the typed text and preview are lost then).
  */
 @OptIn(ExperimentalCoroutinesApi::class)
 @RunWith(RobolectricTestRunner::class)
@@ -162,18 +162,5 @@ class SubscribeViewModelInterruptionTest {
         assertEquals("nostr:$npub", state.feed?.url)
         assertEquals("", state.errorMessage)
         coVerify(exactly = 2) { relay.fetch(NostrTestEvents.AUTHOR) }
-    }
-
-    @Test fun theStateTheUserSeesAfterARotation_isTheSamePreview() = runTest(dispatcher) {
-        coEvery { relay.fetch(NostrTestEvents.AUTHOR) } returns notes(NostrTestEvents.PLAIN, NostrTestEvents.OLDER)
-        startSearch(npub)
-        advanceUntilIdle()
-        val before = state
-        // A rotation recreates the screen but keeps this view model; the screen re-reads the same state flow.
-        val after = viewModel.subscribeUiState.value
-        assertNotNull(after.feed)
-        assertEquals(before.articles.map { it.title }, after.articles.map { it.title })
-        assertEquals(before.feed?.url, after.feed?.url)
-        assertFalse(after.isSearchPage)
     }
 }
