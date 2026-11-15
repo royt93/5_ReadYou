@@ -44,3 +44,12 @@ Nguồn Nostr hiện tên `Nostr · npub1mlc…7a0a`, khó nhận ra. Nếu tài
 - Tên là tự khai, có thể giả; không xác minh `nip05`.
 - Hai relay có thể có hồ sơ cũ hoặc không có.
 - Một khóa không có hồ sơ vẫn hiện `Nostr · npub1…`.
+
+## Điều chỉnh khi thực thi
+- **Chọn tên trong một relay:** "hồ sơ mới nhất **có tên dùng được**", không chỉ "mới nhất": một hồ sơ mới nhất mà `display_name` và `name` đều trống thì rơi về hồ sơ cũ hơn có tên (đã đo bằng một sự kiện ký thật).
+- **Giữa hai relay:** nếu relay đầu có ghi chú thì dừng; nếu không, nhớ tên của nó và thử relay kế; tên cuối là `tên của relay có ghi chú` hoặc, nếu relay đó không có tên, tên của relay đầu.
+- **Làm sạch tên:** dùng `Character.getType == CONTROL` và `Character.isSpaceChar`; `isWhitespace` đã gỡ vì mọi ký tự nó bắt (không phải điều khiển) đều đã nằm trong `isSpaceChar`; `U+2007` và `U+202F` chỉ `isSpaceChar` bắt.
+- **Một ranh giới an ninh:** `NostrEvent.isValid` (ghi chú) không bị nới; kind 0 đi qua `isValidProfile`. Một đột biến cho `isValid` nhận cả kind 0 làm 2 test đỏ.
+- **Bằng chứng relay:** hôm 2026-11-15 `nos.lol` lỗi bắt tay từ máy Mac với mọi dạng yêu cầu; `relay.primal.net` xác nhận hai bộ lọc trong một `REQ` trả cả kind 0 và kind 1 dưới một EOSE.
+- **Máy kiểm thật:** Pixel 7 Pro thay A50s (A50s không còn trên adb lúc kiểm; owner cho phép Pixel).
+
