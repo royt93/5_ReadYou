@@ -138,7 +138,7 @@ class SubscribeViewModel @Inject constructor(
                 if (context.currentAccountType == AccountType.Local.id) {
                     val authorHex = com.mckimquyen.reader.infrastructure.social.nostr.NostrKeys.npubToHex(typed)
                     if (authorHex != null) {
-                        val npub = typed.trim().lowercase(java.util.Locale.ROOT)
+                        val npub = requireNotNull(com.mckimquyen.reader.infrastructure.social.nostr.NostrKeys.hexToNpub(authorHex))
                         val feedUrl = com.mckimquyen.reader.infrastructure.social.nostr.NostrFeedMapper.feedUrl(npub)
                         if (rssService.get().isFeedExist(feedUrl)) {
                             _subscribeUiState.update {
@@ -150,7 +150,13 @@ class SubscribeViewModel @Inject constructor(
                             }
                             return@launch
                         }
+                        // Same indicator as the RSS flow, so the user sees progress and cannot start a second search on the box.
+                        _subscribeUiState.update {
+                            it.copy(title = androidStringsHelper.getString(R.string.searching), lockLinkInput = true)
+                        }
                         val articles = runCatching { nostrRelayClient.fetch(authorHex) }
+                            // A cancelled search (dialog closed, newer search) must stop here, not be reported as a failure.
+                            .onFailure { if (it is kotlinx.coroutines.CancellationException) throw it }
                             .getOrNull()
                             ?.let {
                                 com.mckimquyen.reader.infrastructure.social.nostr.NostrFeedMapper.toArticles(
@@ -301,6 +307,9 @@ class SubscribeViewModel @Inject constructor(
                         }
                     }
                 }
+            } catch (e: kotlinx.coroutines.CancellationException) {
+                // Closing the dialog or starting a newer search cancels this one: not a failure, and nothing may be written.
+                throw e
             } catch (e: Exception) {
                 e.printStackTrace()
                 webPreviewFeed = null
