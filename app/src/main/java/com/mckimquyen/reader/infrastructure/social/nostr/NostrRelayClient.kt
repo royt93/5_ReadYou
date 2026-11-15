@@ -79,7 +79,9 @@ class NostrRelayClient internal constructor(
                     finished.complete(Unit)
                 }
 
-                override fun onClosed(webSocket: WebSocket, code: Int, reason: String) {
+                override fun onClosing(webSocket: WebSocket, code: Int, reason: String) {
+                    // The relay says it will send no more: do not wait for the timeout. (onClosed needs no handling: it only follows
+                    // onClosing or our own close, by when the wait is already over.)
                     finished.complete(Unit)
                 }
             },
