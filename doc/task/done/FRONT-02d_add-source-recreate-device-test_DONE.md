@@ -36,6 +36,7 @@ Sau `autoAdvance = false`, bước **gõ chữ** (trước khi gây gián đoạ
 - Mọi lượt đỏ nằm ở bước gõ; chưa lần nào đỏ ở bước kiểm sau `recreate()` hay xoay khi không có đột biến.
 - **Nguyên nhân gốc chưa biết.** Bản cuối thử gõ lại tối đa 3 lần **chỉ khi** chữ chưa từng xuất hiện trong ô (peak = 0); nếu chữ đã vào rồi biến mất thì đỏ ngay, nên vẫn bắt được lỗi app mất chữ. Bản này che sự chập chờn của bước gõ (hạ tầng), không giải thích nó. 40/40 xanh không chứng minh hết chập chờn (tỉ lệ đỏ trước đó 2 đến 9%).
 - Kiểm tra trước khi gõ lại: ô phải trống, nếu không thì dừng (không nối chữ).
+- **Điều tra sau khi commit (2026-11-15), giả thuyết sai:** `BaseTextField.kt:55-58` tự `requestFocus()` sau `delay(100)` trên đồng hồ ảo, nên nghi test gõ trước khi focus đến. Phép thử một biến: chờ ô `isFocused()` rồi mới gõ, **bỏ** cơ chế gõ lại, 80 lượt trên Pixel: **79 xanh, 1 đỏ** với đúng triệu chứng cũ (`focusedEditable=1`, `editableTextLengths=[0]`, `peakEditableTextLength=0`). Lượt đỏ đã focus xong trước khi gõ mà chữ vẫn không vào, nên **focus muộn không phải nguyên nhân (hoặc không phải nguyên nhân duy nhất)**. Tỉ lệ 1/80 không phân biệt được với 2 đến 9% trước đó bằng mẫu này, nên **không kết luận** chờ focus có giúp hay không. Bản thử đã hoàn lại, test commit vẫn là bản gõ lại có điều kiện. **Chưa kiểm:** (c) `AnimatedContent` dựng lại ô nhập, (d) `LaunchedEffect(visible)` chạy `init()`/`reset()` muộn (xem `SubscribeDialog.kt:62`), và việc `performTextInput` đến trước khi ô nhận input connection.
 
 ## Kiểm chứng
 
