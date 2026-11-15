@@ -30,27 +30,30 @@ class NostrRelayClient internal constructor(
     @Inject constructor(client: OkHttpClient, @IODispatcher ioDispatcher: CoroutineDispatcher) :
         this(client, ioDispatcher, RELAYS, requireSecure = true, timeoutMs = RELAY_TIMEOUT_MS)
 
-    suspend fun fetch(authorHex: String): List<NostrEvent> = withContext(ioDispatcher) {
-        if (!AUTHOR_REGEX.matches(authorHex)) return@withContext emptyList()
+    suspend fun fetch(authorHex: String): NostrFetchResult = withContext(ioDispatcher) {
+        if (!AUTHOR_REGEX.matches(authorHex)) return@withContext NostrFetchResult.EMPTY
+        var firstProfile: String? = null
         for (relay in relays) {
             if (requireSecure && !relay.startsWith(SECURE_SCHEME)) continue
-            val notes = readRelay(relay, authorHex)
-            if (notes.isNotEmpty()) return@withContext notes
+            val result = readRelay(relay, authorHex)
+            if (result.notes.isNotEmpty()) return@withContext result.copy(profileName = result.profileName ?: firstProfile)
+            firstProfile = firstProfile ?: result.profileName
         }
-        emptyList()
+        NostrFetchResult(emptyList(), firstProfile)
     }
 
-    private suspend fun readRelay(url: String, authorHex: String): List<NostrEvent> {
+    private suspend fun readRelay(url: String, authorHex: String): NostrFetchResult {
         val found = LinkedHashMap<String, NostrEvent>()
+        val profiles = ArrayList<NostrEvent>()
         val finished = CompletableDeferred<Unit>()
         var frames = 0
-        val request = runCatching { Request.Builder().url(url).build() }.getOrNull() ?: return emptyList()
+        val request = runCatching { Request.Builder().url(url).build() }.getOrNull() ?: return NostrFetchResult.EMPTY
         val socket = client.newWebSocket(
             request,
             object : WebSocketListener() {
                 override fun onOpen(webSocket: WebSocket, response: Response) {
                     webSocket.send(
-                        "[\"REQ\",\"$SUBSCRIPTION_ID\",{\"kinds\":[${NostrEvent.TEXT_NOTE_KIND}],\"authors\":[\"$authorHex\"],\"limit\":$MAX_EVENTS_READ}]",
+                        "[\"REQ\",\"$SUBSCRIPTION_ID\",{\"kinds\":[${NostrEvent.TEXT_NOTE_KIND}],\"authors\":[\"$authorHex\"],\"limit\":$MAX_EVENTS_READ},{\"kinds\":[${NostrEvent.PROFILE_KIND}],\"authors\":[\"$authorHex\"],\"limit\":$PROFILE_LIMIT}]",
                     )
                 }
 
@@ -70,6 +73,7 @@ class NostrRelayClient internal constructor(
                             val raw = runCatching { message.getJSONObject(2).toString() }.getOrNull()
                             val event = raw?.let { NostrEvent.parse(it) }
                             if (event != null && event.isValid(authorHex)) found[event.id] = event
+                            else if (event != null && event.isValidProfile(authorHex)) profiles += event
                             if (frames >= MAX_EVENTS_READ) finished.complete(Unit)
                         }
                     }
@@ -103,7 +107,10 @@ class NostrRelayClient internal constructor(
                 socket.cancel()
             }
         }
-        return found.values.sortedByDescending { it.createdAt }.take(MAX_NOTES_KEPT)
+        return NostrFetchResult(
+            notes = found.values.sortedByDescending { it.createdAt }.take(MAX_NOTES_KEPT),
+            profileName = profiles.sortedByDescending { it.createdAt }.firstNotNullOfOrNull { NostrProfileName.fromContent(it.content) },
+        )
     }
 
     companion object {
@@ -112,6 +119,7 @@ class NostrRelayClient internal constructor(
         const val MAX_MESSAGE_BYTES = 64 * 1024
         const val MAX_EVENTS_READ = 50
         const val MAX_NOTES_KEPT = 20
+        private const val PROFILE_LIMIT = 1
         private const val SUBSCRIPTION_ID = "f2"
         private const val SECURE_SCHEME = "wss://"
         private const val NORMAL_CLOSE = 1000

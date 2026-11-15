@@ -8,6 +8,7 @@ import com.mckimquyen.reader.domain.repository.FeedHealthDao
 import com.mckimquyen.reader.infrastructure.rss.RssHelper
 import com.mckimquyen.reader.infrastructure.rss.scraper.WebFeedScraper
 import com.mckimquyen.reader.infrastructure.social.nostr.NostrEvent
+import com.mckimquyen.reader.infrastructure.social.nostr.NostrFetchResult
 import com.mckimquyen.reader.infrastructure.social.nostr.NostrKeys
 import com.mckimquyen.reader.infrastructure.social.nostr.NostrRelayClient
 import com.mckimquyen.reader.infrastructure.social.nostr.NostrTestEvents
@@ -53,7 +54,7 @@ class LocalRssSvNostrSyncTest {
     @Test fun theSourceTypeConstant_isNostr() = assertEquals("NOSTR", Feed.NOSTR_SOURCE_TYPE)
 
     @Test fun queryFeedArticles_readsTheNotesOfTheNpub_throughTheRelayClient() = runBlocking {
-        coEvery { relay.fetch(NostrTestEvents.AUTHOR) } returns notes(NostrTestEvents.PLAIN, NostrTestEvents.OLDER)
+        coEvery { relay.fetch(NostrTestEvents.AUTHOR) } returns NostrFetchResult(notes(NostrTestEvents.PLAIN, NostrTestEvents.OLDER), null)
         val articles = service.syncSingleFeed(feed)?.articles.orEmpty()
         assertEquals(listOf("Hello nostr, first note", "Older note"), articles.map { it.title })
         assertTrue(articles.all { it.feedId == "nostr-feed" && it.link.startsWith("https://njump.me/note1") })
@@ -61,7 +62,7 @@ class LocalRssSvNostrSyncTest {
     }
 
     @Test fun aNoteDatedInTheFuture_isClampedToTheTimeOfTheSync() = runBlocking {
-        coEvery { relay.fetch(NostrTestEvents.AUTHOR) } returns notes(NostrTestEvents.FUTURE)
+        coEvery { relay.fetch(NostrTestEvents.AUTHOR) } returns NostrFetchResult(notes(NostrTestEvents.FUTURE), null)
         val before = System.currentTimeMillis()
         val article = service.syncSingleFeed(feed)?.articles.orEmpty().single()
         val after = System.currentTimeMillis()
@@ -69,14 +70,14 @@ class LocalRssSvNostrSyncTest {
     }
 
     @Test fun queryFeedArticles_neverCallsTheRssHelperOrTheWebScraper() = runBlocking {
-        coEvery { relay.fetch(any()) } returns notes(NostrTestEvents.PLAIN)
+        coEvery { relay.fetch(any()) } returns NostrFetchResult(notes(NostrTestEvents.PLAIN), null)
         service.syncSingleFeed(feed)
         coVerify(exactly = 0) { rss.queryRssXml(any(), any()) }
         coVerify(exactly = 0) { rss.queryRssIcon(any(), any()) }
     }
 
     @Test fun anEmptyRelayAnswer_isASyncFailure_notAnEmptyFeed() = runBlocking {
-        coEvery { relay.fetch(any()) } returns emptyList()
+        coEvery { relay.fetch(any()) } returns NostrFetchResult.EMPTY
         assertEquals(null, service.syncSingleFeed(feed))
     }
 

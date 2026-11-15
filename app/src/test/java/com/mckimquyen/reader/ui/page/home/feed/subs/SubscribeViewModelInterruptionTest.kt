@@ -13,6 +13,7 @@ import com.mckimquyen.reader.infrastructure.newsletter.NewsletterUrlResolver
 import com.mckimquyen.reader.infrastructure.rss.RssHelper
 import com.mckimquyen.reader.infrastructure.rss.scraper.WebFeedScraper
 import com.mckimquyen.reader.infrastructure.social.nostr.NostrEvent
+import com.mckimquyen.reader.infrastructure.social.nostr.NostrFetchResult
 import com.mckimquyen.reader.infrastructure.social.nostr.NostrKeys
 import com.mckimquyen.reader.infrastructure.social.nostr.NostrRelayClient
 import com.mckimquyen.reader.infrastructure.social.nostr.NostrTestEvents
@@ -108,7 +109,7 @@ class SubscribeViewModelInterruptionTest {
 
     @Test fun closingTheDialogWhileTheRelayIsStillAnswering_showsNoErrorAndNoStalePreviewLater() = runTest(dispatcher) {
         val gate = CompletableDeferred<List<NostrEvent>>()
-        coEvery { relay.fetch(NostrTestEvents.AUTHOR) } coAnswers { gate.await() }
+        coEvery { relay.fetch(NostrTestEvents.AUTHOR) } coAnswers { NostrFetchResult(gate.await(), null) }
         startSearch(npub)
         assertTrue("the search is waiting on the relay", state.lockLinkInput)
 
@@ -129,8 +130,8 @@ class SubscribeViewModelInterruptionTest {
         val slowGate = CompletableDeferred<List<NostrEvent>>()
         val otherHex = NostrTestEvents.STRANGER
         val otherNpub = requireNotNull(NostrKeys.hexToNpub(otherHex))
-        coEvery { relay.fetch(NostrTestEvents.AUTHOR) } coAnswers { slowGate.await() }
-        coEvery { relay.fetch(otherHex) } returns notes(NostrTestEvents.FOREIGN)
+        coEvery { relay.fetch(NostrTestEvents.AUTHOR) } coAnswers { NostrFetchResult(slowGate.await(), null) }
+        coEvery { relay.fetch(otherHex) } returns NostrFetchResult(notes(NostrTestEvents.FOREIGN), null)
 
         startSearch(npub)
         viewModel.inputLink(otherNpub)
@@ -144,7 +145,7 @@ class SubscribeViewModelInterruptionTest {
     }
 
     @Test fun aCancelledSearch_isNotReportedAsAnError() = runTest(dispatcher) {
-        coEvery { relay.fetch(NostrTestEvents.AUTHOR) } coAnswers { delay(60_000); emptyList() }
+        coEvery { relay.fetch(NostrTestEvents.AUTHOR) } coAnswers { delay(60_000); NostrFetchResult.EMPTY }
         startSearch(npub)
         viewModel.reset()
         advanceUntilIdle()
@@ -152,13 +153,13 @@ class SubscribeViewModelInterruptionTest {
     }
 
     @Test fun afterTheNetworkFails_searchingAgainWorks_andShowsThePreview() = runTest(dispatcher) {
-        coEvery { relay.fetch(NostrTestEvents.AUTHOR) } returns emptyList()
+        coEvery { relay.fetch(NostrTestEvents.AUTHOR) } returns NostrFetchResult.EMPTY
         startSearch(npub)
         advanceUntilIdle()
         assertNull(state.feed)
         assertFalse("the box must be editable again after a failure", state.lockLinkInput)
 
-        coEvery { relay.fetch(NostrTestEvents.AUTHOR) } returns notes(NostrTestEvents.PLAIN)
+        coEvery { relay.fetch(NostrTestEvents.AUTHOR) } returns NostrFetchResult(notes(NostrTestEvents.PLAIN), null)
         viewModel.search()
         advanceUntilIdle()
 

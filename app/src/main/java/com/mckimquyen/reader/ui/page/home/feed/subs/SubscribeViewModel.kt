@@ -160,7 +160,7 @@ class SubscribeViewModel @Inject constructor(
                             .getOrNull()
                             ?.let {
                                 com.mckimquyen.reader.infrastructure.social.nostr.NostrFeedMapper.toArticles(
-                                    events = it,
+                                    events = it.notes,
                                     feedId = context.currentAccountId.spacerDollar(UUID.randomUUID().toString()),
                                     accountId = context.currentAccountId,
                                     nowMillis = System.currentTimeMillis(),

@@ -22,6 +22,7 @@ import com.mckimquyen.reader.infrastructure.newsletter.NewsletterUrlResolver
 import com.mckimquyen.reader.infrastructure.rss.RssHelper
 import com.mckimquyen.reader.infrastructure.rss.scraper.WebFeedScraper
 import com.mckimquyen.reader.infrastructure.social.nostr.NostrEvent
+import com.mckimquyen.reader.infrastructure.social.nostr.NostrFetchResult
 import com.mckimquyen.reader.infrastructure.social.nostr.NostrKeys
 import com.mckimquyen.reader.infrastructure.social.nostr.NostrRelayClient
 import com.mckimquyen.reader.infrastructure.social.nostr.NostrTestEvents
@@ -105,7 +106,7 @@ class SubscribeDialogTypingTest {
     }
 
     @Test fun typingAnNpubAndPressingSearch_showsTheNostrPreviewAndASubscribeButton() {
-        coEvery { relay.fetch(NostrTestEvents.AUTHOR) } returns notes(NostrTestEvents.PLAIN, NostrTestEvents.OLDER)
+        coEvery { relay.fetch(NostrTestEvents.AUTHOR) } returns NostrFetchResult(notes(NostrTestEvents.PLAIN, NostrTestEvents.OLDER), null)
         openDialog()
         typeAndSearch(npub)
         composeRule.onNodeWithText("Nostr · " + npub.take(8) + "…" + npub.takeLast(4)).assertIsDisplayed()
@@ -116,7 +117,7 @@ class SubscribeDialogTypingTest {
     }
 
     @Test fun pressingSubscribeAfterTheNostrPreview_savesANostrFeed() {
-        coEvery { relay.fetch(NostrTestEvents.AUTHOR) } returns notes(NostrTestEvents.PLAIN)
+        coEvery { relay.fetch(NostrTestEvents.AUTHOR) } returns NostrFetchResult(notes(NostrTestEvents.PLAIN), null)
         openDialog()
         typeAndSearch(npub)
         composeRule.onNodeWithText("Subscribe").performClick()

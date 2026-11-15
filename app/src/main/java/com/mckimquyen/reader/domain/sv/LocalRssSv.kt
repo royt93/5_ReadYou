@@ -108,7 +108,8 @@ class LocalRssSv @Inject constructor(
         )
         val authorHex = com.mckimquyen.reader.infrastructure.social.nostr.NostrKeys.npubToHex(npub)
             ?: throw java.io.IOException("Nostr feed address is not a public key")
-        val events = nostrRelayClient.fetch(authorHex)
+        // The profile name is NOT used here: a background sync must never rename a source the user may have renamed.
+        val events = nostrRelayClient.fetch(authorHex).notes
         if (events.isEmpty()) throw java.io.IOException("Nostr relays returned no notes")
         return com.mckimquyen.reader.infrastructure.social.nostr.NostrFeedMapper.toArticles(
             events = events,

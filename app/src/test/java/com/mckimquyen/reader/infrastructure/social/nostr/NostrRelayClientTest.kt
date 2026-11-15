@@ -72,24 +72,28 @@ class NostrRelayClientTest {
 
     @Test fun fetch_sendsOneReqForKind1AndTheAuthor_thenClosesTheSubscription() = runBlocking {
         server.enqueue(relay(NostrTestEvents.PLAIN))
-        val notes = client(wsUrl()).fetch(NostrTestEvents.AUTHOR)
+        val notes = client(wsUrl()).fetch(NostrTestEvents.AUTHOR).notes
         assertEquals(listOf(NostrTestEvents.PLAIN_ID), ids(notes))
         assertTrue("socket closed", closed.await(3, TimeUnit.SECONDS))
         val req = received.first()
-        assertEquals("[\"REQ\",\"f2\",{\"kinds\":[1],\"authors\":[\"${NostrTestEvents.AUTHOR}\"],\"limit\":50}]", req)
+        assertEquals(
+            "[\"REQ\",\"f2\",{\"kinds\":[1],\"authors\":[\"${NostrTestEvents.AUTHOR}\"],\"limit\":50}," +
+                "{\"kinds\":[0],\"authors\":[\"${NostrTestEvents.AUTHOR}\"],\"limit\":1}]",
+            req,
+        )
         assertTrue("received=" + received.map { it.take(12) }, received.any { it == "[\"CLOSE\",\"f2\"]" })
     }
 
     @Test fun fetch_dropsNotesByOthersWrongKindsAndBadSignatures() = runBlocking {
         server.enqueue(relay(NostrTestEvents.PLAIN, NostrTestEvents.FOREIGN, NostrTestEvents.KIND7))
-        assertEquals(listOf(NostrTestEvents.PLAIN_ID), ids(client(wsUrl()).fetch(NostrTestEvents.AUTHOR)))
+        assertEquals(listOf(NostrTestEvents.PLAIN_ID), ids(client(wsUrl()).fetch(NostrTestEvents.AUTHOR).notes))
     }
 
     @Test fun fetch_dropsANoteWhoseSignatureWasForged() = runBlocking {
         val forged = NostrTestEvents.PLAIN.replace("first note", "forged note")
         server.enqueue(relay(forged))
         server.enqueue(MockResponse().setResponseCode(503))
-        assertTrue(client(wsUrl(), wsUrl()).fetch(NostrTestEvents.AUTHOR).isEmpty())
+        assertTrue(client(wsUrl(), wsUrl()).fetch(NostrTestEvents.AUTHOR).notes.isEmpty())
     }
 
     @Test fun fetch_ignoresEventsOfAnotherSubscription() = runBlocking {
@@ -103,12 +107,12 @@ class NostrRelayClientTest {
             }),
         )
         server.enqueue(MockResponse().setResponseCode(503))
-        assertTrue(client(wsUrl(), wsUrl()).fetch(NostrTestEvents.AUTHOR).isEmpty())
+        assertTrue(client(wsUrl(), wsUrl()).fetch(NostrTestEvents.AUTHOR).notes.isEmpty())
     }
 
     @Test fun fetch_keepsTheTwentyNewest_newestFirst() = runBlocking {
         server.enqueue(relay(*NostrTestEvents.MANY.toTypedArray()))
-        val notes = client(wsUrl()).fetch(NostrTestEvents.AUTHOR)
+        val notes = client(wsUrl()).fetch(NostrTestEvents.AUTHOR).notes
         assertEquals(NostrRelayClient.MAX_NOTES_KEPT, notes.size)
         assertEquals(notes.sortedByDescending { it.createdAt }.map { it.id }, ids(notes))
         assertEquals(1_700_001_029L, notes.first().createdAt)
@@ -117,33 +121,33 @@ class NostrRelayClientTest {
 
     @Test fun fetch_mergesTheSameNoteSentTwice() = runBlocking {
         server.enqueue(relay(NostrTestEvents.PLAIN, NostrTestEvents.PLAIN))
-        assertEquals(1, client(wsUrl()).fetch(NostrTestEvents.AUTHOR).size)
+        assertEquals(1, client(wsUrl()).fetch(NostrTestEvents.AUTHOR).notes.size)
     }
 
     // ---- failures and limits
     @Test fun fetch_triesTheSecondRelay_whenTheFirstRefusesTheUpgrade() = runBlocking {
         server.enqueue(MockResponse().setResponseCode(503))
         server.enqueue(relay(NostrTestEvents.PLAIN))
-        assertEquals(listOf(NostrTestEvents.PLAIN_ID), ids(client(wsUrl(), wsUrl()).fetch(NostrTestEvents.AUTHOR)))
+        assertEquals(listOf(NostrTestEvents.PLAIN_ID), ids(client(wsUrl(), wsUrl()).fetch(NostrTestEvents.AUTHOR).notes))
     }
 
     @Test fun fetch_triesTheSecondRelay_whenTheFirstHasNoValidNotes() = runBlocking {
         server.enqueue(relay(NostrTestEvents.FOREIGN))
         server.enqueue(relay(NostrTestEvents.PLAIN))
-        assertEquals(listOf(NostrTestEvents.PLAIN_ID), ids(client(wsUrl(), wsUrl()).fetch(NostrTestEvents.AUTHOR)))
+        assertEquals(listOf(NostrTestEvents.PLAIN_ID), ids(client(wsUrl(), wsUrl()).fetch(NostrTestEvents.AUTHOR).notes))
     }
 
     @Test fun fetch_returnsEmpty_whenBothRelaysFail() = runBlocking {
         server.enqueue(MockResponse().setResponseCode(503))
         server.enqueue(MockResponse().setResponseCode(503))
-        assertTrue(client(wsUrl(), wsUrl()).fetch(NostrTestEvents.AUTHOR).isEmpty())
+        assertTrue(client(wsUrl(), wsUrl()).fetch(NostrTestEvents.AUTHOR).notes.isEmpty())
     }
 
     @Test fun fetch_timesOut_whenARelayNeverSendsEose_andThenTriesTheNextOne() = runBlocking {
         server.enqueue(relay(sendEose = false))
         server.enqueue(relay(NostrTestEvents.PLAIN))
         val started = System.currentTimeMillis()
-        val notes = client(wsUrl(), wsUrl(), timeoutMs = 400L).fetch(NostrTestEvents.AUTHOR)
+        val notes = client(wsUrl(), wsUrl(), timeoutMs = 400L).fetch(NostrTestEvents.AUTHOR).notes
         assertEquals(listOf(NostrTestEvents.PLAIN_ID), ids(notes))
         assertTrue("took ${System.currentTimeMillis() - started} ms", System.currentTimeMillis() - started < 4_000L)
     }
@@ -152,7 +156,7 @@ class NostrRelayClientTest {
     @Test fun fetch_skipsAnOversizedFrame_evenWhenTheNoteInsideIsValid() = runBlocking {
         val padded = NostrTestEvents.PLAIN.dropLast(1) + ",\"pad\":\"" + "x".repeat(NostrRelayClient.MAX_MESSAGE_BYTES) + "\"}"
         server.enqueue(relay(padded, NostrTestEvents.OLDER))
-        assertEquals(listOf("35194b7e72cd5edc18100d8782c35785b1b466ab8413953e789d2f95cc1eb4d4"), ids(client(wsUrl()).fetch(NostrTestEvents.AUTHOR)))
+        assertEquals(listOf("35194b7e72cd5edc18100d8782c35785b1b466ab8413953e789d2f95cc1eb4d4"), ids(client(wsUrl()).fetch(NostrTestEvents.AUTHOR).notes))
     }
 
     // Under the limit in characters but over it in UTF-8 bytes (each CJK character is 3 bytes).
@@ -160,14 +164,14 @@ class NostrRelayClientTest {
         val chars = NostrRelayClient.MAX_MESSAGE_BYTES / 2
         val padded = NostrTestEvents.PLAIN.dropLast(1) + ",\"pad\":\"" + "\u4e2d".repeat(chars) + "\"}"
         server.enqueue(relay(padded, NostrTestEvents.OLDER))
-        assertEquals(listOf("35194b7e72cd5edc18100d8782c35785b1b466ab8413953e789d2f95cc1eb4d4"), ids(client(wsUrl()).fetch(NostrTestEvents.AUTHOR)))
+        assertEquals(listOf("35194b7e72cd5edc18100d8782c35785b1b466ab8413953e789d2f95cc1eb4d4"), ids(client(wsUrl()).fetch(NostrTestEvents.AUTHOR).notes))
     }
 
     @Test fun fetch_countsAnOversizedFrameAmongTheFiftyItMayRead() = runBlocking {
         val padded = NostrTestEvents.PLAIN.dropLast(1) + ",\"pad\":\"" + "x".repeat(NostrRelayClient.MAX_MESSAGE_BYTES) + "\"}"
         server.enqueue(relay(*Array(NostrRelayClient.MAX_EVENTS_READ) { padded }, NostrTestEvents.OLDER))
         server.enqueue(MockResponse().setResponseCode(503))
-        assertTrue(client(wsUrl(), wsUrl()).fetch(NostrTestEvents.AUTHOR).isEmpty())
+        assertTrue(client(wsUrl(), wsUrl()).fetch(NostrTestEvents.AUTHOR).notes.isEmpty())
     }
 
     // A relay that answers EOSE for ANOTHER subscription must not end ours: our own note arrives after it.
@@ -183,25 +187,25 @@ class NostrRelayClientTest {
                 override fun onClosing(webSocket: WebSocket, code: Int, reason: String) = webSocket.close(code, reason).let { }
             }),
         )
-        assertEquals(listOf(NostrTestEvents.PLAIN_ID), ids(client(wsUrl()).fetch(NostrTestEvents.AUTHOR)))
+        assertEquals(listOf(NostrTestEvents.PLAIN_ID), ids(client(wsUrl()).fetch(NostrTestEvents.AUTHOR).notes))
     }
 
     @Test fun fetch_stopsReadingAfterFiftyFrames() = runBlocking {
         val junk = List(NostrRelayClient.MAX_EVENTS_READ) { "{\"n\":$it}" }
         server.enqueue(relay(*junk.toTypedArray(), NostrTestEvents.PLAIN))
         server.enqueue(MockResponse().setResponseCode(503))
-        assertTrue("the 51st frame must not be read", client(wsUrl(), wsUrl()).fetch(NostrTestEvents.AUTHOR).isEmpty())
+        assertTrue("the 51st frame must not be read", client(wsUrl(), wsUrl()).fetch(NostrTestEvents.AUTHOR).notes.isEmpty())
     }
 
     @Test fun fetch_doesNotOpenAConnection_forAnInvalidAuthor() = runBlocking {
         for (bad in listOf("", "abc", NostrTestEvents.AUTHOR.uppercase(), NostrTestEvents.AUTHOR.dropLast(1), "\"],\"x\":[\"")) {
-            assertTrue(bad, client(wsUrl()).fetch(bad).isEmpty())
+            assertTrue(bad, client(wsUrl()).fetch(bad).notes.isEmpty())
         }
         assertEquals(0, server.requestCount)
     }
 
     @Test fun fetch_refusesARelayThatIsNotWss_whenSecurityIsRequired() = runBlocking {
-        assertTrue(client(wsUrl(), secure = true).fetch(NostrTestEvents.AUTHOR).isEmpty())
+        assertTrue(client(wsUrl(), secure = true).fetch(NostrTestEvents.AUTHOR).notes.isEmpty())
         assertEquals(0, server.requestCount)
     }
 

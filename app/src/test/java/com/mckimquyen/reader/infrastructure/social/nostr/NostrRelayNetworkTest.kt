@@ -63,7 +63,7 @@ class NostrRelayNetworkTest {
     @Test fun aRelayThatStallsTheConnection_isGivenUpOn_withinTheTimeout_andTheNextOneIsUsed() {
         server.enqueue(MockResponse().apply { socketPolicy = SocketPolicy.STALL_SOCKET_AT_START })
         server.enqueue(goodRelay(NostrTestEvents.PLAIN))
-        val (notes, ms) = timed { runBlocking { client(url(), url()).fetch(NostrTestEvents.AUTHOR) } }
+        val (notes, ms) = timed { runBlocking { client(url(), url()).fetch(NostrTestEvents.AUTHOR).notes } }
         assertEquals(listOf(NostrTestEvents.PLAIN_ID), notes.map { it.id })
         assertTrue("took $ms ms for one stalled relay with a 600 ms timeout", ms < 5_000)
     }
@@ -71,7 +71,7 @@ class NostrRelayNetworkTest {
     @Test fun aRelayThatDropsTheConnectionAtOnce_isSkipped() {
         server.enqueue(MockResponse().apply { socketPolicy = SocketPolicy.DISCONNECT_AT_START })
         server.enqueue(goodRelay(NostrTestEvents.PLAIN))
-        val (notes, ms) = timed { runBlocking { client(url(), url()).fetch(NostrTestEvents.AUTHOR) } }
+        val (notes, ms) = timed { runBlocking { client(url(), url()).fetch(NostrTestEvents.AUTHOR).notes } }
         assertEquals(listOf(NostrTestEvents.PLAIN_ID), notes.map { it.id })
         assertTrue("took $ms ms", ms < 5_000)
     }
@@ -85,7 +85,7 @@ class NostrRelayNetworkTest {
             }),
         )
         server.enqueue(goodRelay(NostrTestEvents.PLAIN))
-        val (notes, ms) = timed { runBlocking { client(url(), url(), timeoutMs = 4_000L).fetch(NostrTestEvents.AUTHOR) } }
+        val (notes, ms) = timed { runBlocking { client(url(), url(), timeoutMs = 4_000L).fetch(NostrTestEvents.AUTHOR).notes } }
         assertEquals(listOf(NostrTestEvents.PLAIN_ID), notes.map { it.id })
         assertTrue("fallback after the socket failure must be fast; took $ms ms", ms < 3_000)
     }
@@ -99,7 +99,7 @@ class NostrRelayNetworkTest {
             }),
         )
         server.enqueue(goodRelay(NostrTestEvents.PLAIN))
-        val (notes, ms) = timed { runBlocking { client(url(), url(), timeoutMs = 4_000L).fetch(NostrTestEvents.AUTHOR) } }
+        val (notes, ms) = timed { runBlocking { client(url(), url(), timeoutMs = 4_000L).fetch(NostrTestEvents.AUTHOR).notes } }
         assertEquals(listOf(NostrTestEvents.PLAIN_ID), notes.map { it.id })
         assertTrue("fallback after close must be fast; took $ms ms", ms < 3_000)
     }
@@ -108,7 +108,7 @@ class NostrRelayNetworkTest {
     @Test fun aConnectionThatBreaks_fallsBackAtOnce_notAtTheEndOfAFourSecondTimeout() {
         server.enqueue(MockResponse().apply { socketPolicy = SocketPolicy.DISCONNECT_AT_START })
         server.enqueue(goodRelay(NostrTestEvents.PLAIN))
-        val (notes, ms) = timed { runBlocking { client(url(), url(), timeoutMs = 4_000L).fetch(NostrTestEvents.AUTHOR) } }
+        val (notes, ms) = timed { runBlocking { client(url(), url(), timeoutMs = 4_000L).fetch(NostrTestEvents.AUTHOR).notes } }
         assertEquals(listOf(NostrTestEvents.PLAIN_ID), notes.map { it.id })
         assertTrue("a broken connection must not cost the whole timeout; took $ms ms", ms < 3_000)
     }
@@ -116,13 +116,13 @@ class NostrRelayNetworkTest {
     @Test fun aRelayThatCutsTheHandshake_isSkipped() {
         server.enqueue(MockResponse().apply { socketPolicy = SocketPolicy.FAIL_HANDSHAKE })
         server.enqueue(goodRelay(NostrTestEvents.PLAIN))
-        assertEquals(listOf(NostrTestEvents.PLAIN_ID), runBlocking { client(url(), url()).fetch(NostrTestEvents.AUTHOR) }.map { it.id })
+        assertEquals(listOf(NostrTestEvents.PLAIN_ID), runBlocking { client(url(), url()).fetch(NostrTestEvents.AUTHOR).notes }.map { it.id })
     }
 
     @Test fun aRelayThatAnswersTooLate_costsExactlyTheTimeout_thenTheNextRelayIsUsed() {
         server.enqueue(goodRelay(NostrTestEvents.OLDER, beforeAnswerMillis = 3_000L))
         server.enqueue(goodRelay(NostrTestEvents.PLAIN))
-        val (notes, ms) = timed { runBlocking { client(url(), url(), timeoutMs = 400L).fetch(NostrTestEvents.AUTHOR) } }
+        val (notes, ms) = timed { runBlocking { client(url(), url(), timeoutMs = 400L).fetch(NostrTestEvents.AUTHOR).notes } }
         assertEquals("only the fast second relay should be returned", listOf(NostrTestEvents.PLAIN_ID), notes.map { it.id })
         // It waited for two relays, so total time must exceed one 400 ms timeout. Cap loosely to reject hanging but avoid
         // a test that flakes due to a busy JVM/OS scheduler.
@@ -131,7 +131,7 @@ class NostrRelayNetworkTest {
 
     @Test fun aSlowButInTimeRelay_stillDeliversItsNotes() {
         server.enqueue(goodRelay(NostrTestEvents.PLAIN, beforeAnswerMillis = 300L))
-        val (notes, ms) = timed { runBlocking { client(url(), timeoutMs = 3_000L).fetch(NostrTestEvents.AUTHOR) } }
+        val (notes, ms) = timed { runBlocking { client(url(), timeoutMs = 3_000L).fetch(NostrTestEvents.AUTHOR).notes } }
         assertEquals(listOf(NostrTestEvents.PLAIN_ID), notes.map { it.id })
         assertTrue("took $ms ms", ms >= 300)
     }
@@ -146,7 +146,7 @@ class NostrRelayNetworkTest {
                 }
             }),
         )
-        assertEquals(listOf(NostrTestEvents.PLAIN_ID), runBlocking { client(url()).fetch(NostrTestEvents.AUTHOR) }.map { it.id })
+        assertEquals(listOf(NostrTestEvents.PLAIN_ID), runBlocking { client(url()).fetch(NostrTestEvents.AUTHOR).notes }.map { it.id })
     }
 
     @Test fun aRelayThatTimesOutAfterSendingSomeNotes_keepsWhatItSent() {
@@ -158,21 +158,21 @@ class NostrRelayNetworkTest {
                 override fun onClosing(webSocket: WebSocket, code: Int, reason: String) { webSocket.close(code, reason) }
             }),
         )
-        assertEquals(listOf(NostrTestEvents.PLAIN_ID), runBlocking { client(url(), timeoutMs = 500L).fetch(NostrTestEvents.AUTHOR) }.map { it.id })
+        assertEquals(listOf(NostrTestEvents.PLAIN_ID), runBlocking { client(url(), timeoutMs = 500L).fetch(NostrTestEvents.AUTHOR).notes }.map { it.id })
     }
 
     @Test fun whenEveryRelayIsDown_theAnswerIsEmptyAndBounded() {
         val dead = MockWebServer().apply { start() }
         val deadUrl = dead.url("/").toString()
         dead.shutdown()
-        val (notes, ms) = timed { runBlocking { client(deadUrl, deadUrl).fetch(NostrTestEvents.AUTHOR) } }
+        val (notes, ms) = timed { runBlocking { client(deadUrl, deadUrl).fetch(NostrTestEvents.AUTHOR).notes } }
         assertTrue(notes.isEmpty())
         assertTrue("took $ms ms", ms < 5_000)
     }
 
     @Test fun aRelayThatNeverAnswersTheUpgrade_cannotHoldTheCallerLongerThanItsTimeoutPerRelay() {
         repeat(2) { server.enqueue(MockResponse().apply { socketPolicy = SocketPolicy.NO_RESPONSE }) }
-        val (notes, ms) = timed { runBlocking { client(url(), url(), timeoutMs = 400L).fetch(NostrTestEvents.AUTHOR) } }
+        val (notes, ms) = timed { runBlocking { client(url(), url(), timeoutMs = 400L).fetch(NostrTestEvents.AUTHOR).notes } }
         assertTrue(notes.isEmpty())
         assertTrue("took $ms ms for two silent relays with a 400 ms timeout each", ms < 4_000)
     }

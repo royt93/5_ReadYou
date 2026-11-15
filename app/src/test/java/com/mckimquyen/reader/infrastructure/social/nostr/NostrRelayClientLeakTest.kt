@@ -66,7 +66,7 @@ class NostrRelayClientLeakTest {
         val client = NostrRelayClient(http, Dispatchers.IO, listOf(url()), requireSecure = false, timeoutMs = 3_000L)
         repeat(FETCHES) { server.enqueue(relay(NostrTestEvents.PLAIN)) }
         repeat(FETCHES) {
-            val notes = runBlocking { client.fetch(NostrTestEvents.AUTHOR) }
+            val notes = runBlocking { client.fetch(NostrTestEvents.AUTHOR).notes }
             assertEquals(1, notes.size)
         }
         return listOf(WeakReference(client))
@@ -88,10 +88,10 @@ class NostrRelayClientLeakTest {
         val http = OkHttpClient()
         val client = NostrRelayClient(http, Dispatchers.IO, listOf(url()), requireSecure = false, timeoutMs = 3_000L)
         repeat(WARMUP_FETCHES + FETCHES) { server.enqueue(relay(NostrTestEvents.PLAIN)) }
-        repeat(WARMUP_FETCHES) { runBlocking { client.fetch(NostrTestEvents.AUTHOR) } }
+        repeat(WARMUP_FETCHES) { runBlocking { client.fetch(NostrTestEvents.AUTHOR).notes } }
         waitFor(3) { closedByServer.get() >= WARMUP_FETCHES }
         val afterWarmup = Thread.getAllStackTraces().keys.count { it.isAlive }
-        repeat(FETCHES) { runBlocking { client.fetch(NostrTestEvents.AUTHOR) } }
+        repeat(FETCHES) { runBlocking { client.fetch(NostrTestEvents.AUTHOR).notes } }
         waitFor(5) { closedByServer.get() >= WARMUP_FETCHES + FETCHES }
         val afterMany = Thread.getAllStackTraces().keys.count { it.isAlive }
         assertTrue("threads grew from $afterWarmup to $afterMany over $FETCHES fetches", afterMany - afterWarmup <= THREAD_SLACK)
@@ -102,7 +102,7 @@ class NostrRelayClientLeakTest {
         val http = OkHttpClient()
         val client = NostrRelayClient(http, Dispatchers.IO, listOf(url()), requireSecure = false, timeoutMs = 200L)
         repeat(TIMEOUT_FETCHES) { server.enqueue(relay(sendEose = false)) }
-        repeat(TIMEOUT_FETCHES) { assertTrue(runBlocking { client.fetch(NostrTestEvents.AUTHOR) }.isEmpty()) }
+        repeat(TIMEOUT_FETCHES) { assertTrue(runBlocking { client.fetch(NostrTestEvents.AUTHOR).notes }.isEmpty()) }
         assertTrue("every timed-out socket was dropped (opened=${opened.get()}, closed=${closedByServer.get()})", waitFor(5) { closedByServer.get() >= TIMEOUT_FETCHES })
         assertTrue("no open connection stays in the pool", waitFor(5) { http.connectionPool.connectionCount() == 0 })
         http.dispatcher.executorService.shutdown()

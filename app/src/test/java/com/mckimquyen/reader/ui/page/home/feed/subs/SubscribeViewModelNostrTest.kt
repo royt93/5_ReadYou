@@ -14,6 +14,7 @@ import com.mckimquyen.reader.infrastructure.newsletter.NewsletterUrlResolver
 import com.mckimquyen.reader.infrastructure.rss.RssHelper
 import com.mckimquyen.reader.infrastructure.rss.scraper.WebFeedScraper
 import com.mckimquyen.reader.infrastructure.social.nostr.NostrEvent
+import com.mckimquyen.reader.infrastructure.social.nostr.NostrFetchResult
 import com.mckimquyen.reader.infrastructure.social.nostr.NostrKeys
 import com.mckimquyen.reader.infrastructure.social.nostr.NostrRelayClient
 import com.mckimquyen.reader.infrastructure.social.nostr.NostrTestEvents
@@ -73,7 +74,7 @@ class SubscribeViewModelNostrTest {
         every { rssService.get(AccountType.Local.id) } returns localService
         coEvery { localService.pullGroups() } returns flowOf(mutableListOf(group))
         coEvery { localService.isFeedExist(any()) } returns false
-        coEvery { relay.fetch(NostrTestEvents.AUTHOR) } returns notes(NostrTestEvents.PLAIN, NostrTestEvents.OLDER)
+        coEvery { relay.fetch(NostrTestEvents.AUTHOR) } returns NostrFetchResult(notes(NostrTestEvents.PLAIN, NostrTestEvents.OLDER), null)
         viewModel = SubscribeViewModel(
             context = context, opmlService = mockk<OpmlSv>(relaxed = true), rssService = rssService, rssHelper = rssHelper,
             androidStringsHelper = strings, webFeedScraper = scraper, newsletterUrlResolver = resolver, nostrRelayClient = relay,
@@ -152,7 +153,7 @@ class SubscribeViewModelNostrTest {
     }
 
     @Test fun whenTheRelaysAnswerNothing_itIsAnError_andNothingFallsBackToTheWeb() = runTest(dispatcher) {
-        coEvery { relay.fetch(any()) } returns emptyList()
+        coEvery { relay.fetch(any()) } returns NostrFetchResult.EMPTY
         search(npub)
         assertEquals(strings.getString(com.mckimquyen.reader.R.string.web_feed_fetch_failed), state.errorMessage)
         assertEquals(null, state.feed)
