@@ -154,10 +154,11 @@ class SubscribeViewModel @Inject constructor(
                         _subscribeUiState.update {
                             it.copy(title = androidStringsHelper.getString(R.string.searching), lockLinkInput = true)
                         }
-                        val articles = runCatching { nostrRelayClient.fetch(authorHex) }
+                        val fetched = runCatching { nostrRelayClient.fetch(authorHex) }
                             // A cancelled search (dialog closed, newer search) must stop here, not be reported as a failure.
                             .onFailure { if (it is kotlinx.coroutines.CancellationException) throw it }
                             .getOrNull()
+                        val articles = fetched
                             ?.let {
                                 com.mckimquyen.reader.infrastructure.social.nostr.NostrFeedMapper.toArticles(
                                     events = it.notes,
@@ -180,7 +181,7 @@ class SubscribeViewModel @Inject constructor(
                         }
                         val feed = com.mckimquyen.reader.domain.model.feed.Feed(
                             id = articles.first().feedId,
-                            name = com.mckimquyen.reader.infrastructure.social.nostr.NostrFeedMapper.feedName(npub),
+                            name = com.mckimquyen.reader.infrastructure.social.nostr.NostrFeedMapper.feedName(npub, fetched?.profileName),
                             url = feedUrl,
                             sourceUrl = feedUrl,
                             groupId = "",

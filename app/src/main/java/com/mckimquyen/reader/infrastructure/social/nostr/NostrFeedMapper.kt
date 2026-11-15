@@ -20,6 +20,13 @@ object NostrFeedMapper {
     fun feedName(npub: String): String =
         FEED_NAME_PREFIX + npub.take(NAME_HEAD_CHARS) + ELLIPSIS + npub.takeLast(NAME_TAIL_CHARS)
 
+    /**
+     * The profile name the author gave themselves, behind the same prefix; without one, the short npub name. A blank name
+     * never reaches here: [NostrProfileName.fromContent] returns null instead of an empty string.
+     */
+    fun feedName(npub: String, profileName: String?): String =
+        if (profileName == null) feedName(npub) else FEED_NAME_PREFIX + profileName
+
     fun feedUrl(npub: String): String = FEED_URL_PREFIX + npub.trim().lowercase(Locale.ROOT)
 
     fun toArticles(

@@ -99,4 +99,12 @@ class NostrFeedMapperTest {
         assertEquals("nostr:$npub", NostrFeedMapper.feedUrl(npub))
         assertEquals("nostr:$npub", NostrFeedMapper.feedUrl(npub.uppercase()))
     }
+
+    @Test fun feedName_withAProfileName_usesThePrefixAndThatName() =
+        assertEquals("Nostr · Alice Liddell", NostrFeedMapper.feedName(npub, "Alice Liddell"))
+
+    @Test fun feedName_withoutAProfileName_isTheOldNpubName() {
+        assertEquals(NostrFeedMapper.feedName(npub), NostrFeedMapper.feedName(npub, null))
+        assertEquals("Nostr · npub1mlc…7a0a", NostrFeedMapper.feedName(npub, null))
+    }
 }

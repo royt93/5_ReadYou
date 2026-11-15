@@ -93,4 +93,10 @@ class LocalRssSvNostrSyncTest {
         coVerify(exactly = 1) { rss.queryRssXml(any(), any()) }
         coVerify(exactly = 0) { relay.fetch(any()) }
     }
+
+    @Test fun aSync_neverRenamesTheStoredFeed_evenWhenTheRelayReturnsAProfileName() = runBlocking {
+        coEvery { relay.fetch(NostrTestEvents.AUTHOR) } returns NostrFetchResult(notes(NostrTestEvents.PLAIN), "Someone New")
+        val result = service.syncSingleFeed(feed)
+        assertEquals("Nostr", result?.feed?.name)
+    }
 }
