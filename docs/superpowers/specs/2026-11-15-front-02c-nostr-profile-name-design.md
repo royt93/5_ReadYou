@@ -1,8 +1,8 @@
-# FRONT-02c — Tên hồ sơ cho nguồn Nostr (thiết kế, CHƯA ĐƯỢC DUYỆT)
+# FRONT-02c — Tên hồ sơ cho nguồn Nostr (thiết kế, đã chốt quyết định, chờ duyệt spec)
 
 **Ngày:** 2026-11-15 · **Nhánh:** `dev` · **Nền:** FRONT-02b (`docs/superpowers/specs/2026-11-14-front-02b-nostr-design.md`), `NostrRelayClient`, `NostrFeedMapper.feedName`, `SubscribeViewModel.search()`
 
-> Trạng thái: **bản nháp để owner duyệt.** Chưa có plan, chưa có mã. Owner đã chọn hướng "tên hồ sơ Nostr" ở lượt chọn việc tiếp theo, nhưng **chưa duyệt các quyết định mở ở cuối tài liệu**.
+> Trạng thái: **owner đã chốt bốn quyết định ngày 2026-11-15** (xem "Quyết định của owner"). Spec còn chờ owner duyệt trước khi lập plan. Chưa có plan, chưa có mã.
 
 ## Mục tiêu
 Nguồn Nostr hiện tên `Nostr · npub1mlc…7a0a`, khó nhận ra. Nếu tài khoản có hồ sơ công khai (loại 0), dùng tên trong hồ sơ làm tên nguồn, ví dụ `Nostr · Alice`. Không có hồ sơ thì giữ tên cũ.
@@ -26,13 +26,13 @@ Nguồn Nostr hiện tên `Nostr · npub1mlc…7a0a`, khó nhận ra. Nếu tài
 5. **Kết quả:** `fetch` trả `NostrFetchResult(notes: List<NostrEvent>, profileName: String?)` (thay cho `List<NostrEvent>`). `SubscribeViewModel` và `LocalRssSv` dùng `profileName ?: feedName(npub)` cho bản xem trước.
 6. **Chỉ đặt tên lúc tìm và xem trước.** Đồng bộ nền **không** đổi tên nguồn (người dùng có thể đã đổi tên tay). Hồ sơ đổi sau đó không cập nhật tên; ghi vào giới hạn.
 
-## Quyết định mở (cần owner)
-1. **Có chấp nhận hỏi relay thêm hồ sơ không?** Relay không biết thêm `npub` nào (đã biết), nhưng nhận thêm một bộ lọc. Đề xuất: **có**, vì cùng kết nối.
-2. **Giữ tiền tố `Nostr ·`?** Đề xuất: **giữ** (`Nostr · Alice`) để nhận ra là tên tự khai trên Nostr, và vì dễ phân biệt với nguồn RSS cùng tên.
-3. **Tên giả người khác:** chấp nhận hiển thị tên tự khai, kèm tiền tố, không xác minh? Đề xuất: **chấp nhận** và ghi rõ trong báo cáo.
-4. **Giới hạn 40 ký tự** có hợp lý không? Đề xuất 40.
+## Quyết định của owner (2026-11-15)
+1. **Hỏi hồ sơ cùng một kết nối:** có. Một `REQ` mang hai bộ lọc (ghi chú và hồ sơ); không thêm kết nối, không thêm lần chờ.
+2. **Tiền tố:** giữ `Nostr · ` trước tên (ví dụ `Nostr · Alice`).
+3. **Tên tự khai:** hiển thị như người đó khai, **không xác minh** (không kiểm `nip05`). Báo cáo phải nói thẳng app không xác minh danh tính.
+4. **Độ dài:** tối đa **40 ký tự**, cắt theo điểm mã Unicode (không cắt giữa emoji).
 
-## Kiểm chứng (khi được duyệt)
+## Kiểm chứng
 - JVM TDD đỏ→xanh, mutation có backup và `cmp`: đọc `name`/`display_name`, ưu tiên `display_name`, trống, quá dài, emoji ở biên 40, ký tự điều khiển, JSON hỏng, trường sai kiểu, hồ sơ sai chữ ký bị bỏ, hồ sơ của `pubkey` khác bị bỏ, nhiều hồ sơ chỉ lấy mới nhất (`created_at`), không có hồ sơ thì tên cũ.
 - `NostrRelayClientTest` cập nhật: `REQ` gửi **hai** bộ lọc đúng nội dung; relay chỉ trả hồ sơ; chỉ trả ghi chú; cả hai.
 - Mạng xấu và rò rỉ: các test hiện có phải còn xanh với `REQ` mới.
