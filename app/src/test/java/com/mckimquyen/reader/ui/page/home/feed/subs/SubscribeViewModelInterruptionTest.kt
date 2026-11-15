@@ -53,6 +53,9 @@ import org.robolectric.annotation.Config
  * closing mid-search, the relay answering late, the network coming back. These run on the JVM with fake services.
  * NOT covered here: a real screen rotation or recreate of the Activity, the app going to the background, and the process
  * being killed (this view model keeps nothing across process death; the typed text and preview are lost then).
+ * A rotation test on a phone was tried on the Samsung A50s (2026-11-15) and dropped: MockK cannot fake the interfaces
+ * this view model needs on Android 11 (IncompatibleClassChangeError), and opening the real dialog needs a tap on the "+"
+ * button, which the no-tap rule forbids. A future test needs a debug-only entry point that opens the dialog.
  */
 @OptIn(ExperimentalCoroutinesApi::class)
 @RunWith(RobolectricTestRunner::class)
