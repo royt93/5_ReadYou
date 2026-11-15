@@ -60,6 +60,24 @@ class NostrKeysTest {
 
     @Test fun npubToHex_trimsSurroundingSpaces() = assertEquals(hex, NostrKeys.npubToHex("  $npub \n"))
 
+    // The Add Source box shows "nostr:<npub>" after a failed search, and the user presses Search again on that text.
+    @Test fun npubToHex_acceptsTheNostrUriForm() {
+        assertEquals(hex, NostrKeys.npubToHex("nostr:$npub"))
+        assertEquals(hex, NostrKeys.npubToHex("  NOSTR:${npub.uppercase()} "))
+    }
+
+    @Test fun npubToHex_rejectsTheNostrUriFormOfAnythingElse() {
+        assertNull(NostrKeys.npubToHex("nostr:$nsec"))
+        assertNull(NostrKeys.npubToHex("nostr:"))
+        assertNull(NostrKeys.npubToHex("nostr:nostr:$npub"))
+        assertNull(NostrKeys.npubToHex("nostr://$npub"))
+    }
+
+    @Test fun isSecretKey_alsoSeesASecretKeyInTheNostrUriForm() {
+        assertTrue(NostrKeys.isSecretKey("nostr:$nsec"))
+        assertTrue(NostrKeys.isSecretKey("  NOSTR:" + nsec.uppercase()))
+    }
+
     @Test fun npubToHex_acceptsAllUppercase() = assertEquals(hex, NostrKeys.npubToHex(npub.uppercase()))
 
     @Test fun npubToHex_rejectsOtherPrefixes() {
