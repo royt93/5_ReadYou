@@ -205,6 +205,79 @@ class SubscribeViewModel @Inject constructor(
                     }
                 }
                 val socialUrl = SocialFeedUrlResolver.resolve(typed)
+                val blueskyActor = if (context.currentAccountType == AccountType.Local.id) {
+                    com.mckimquyen.reader.infrastructure.social.bluesky.BlueskyFeedMapper.actorFromRssUrl(socialUrl)
+                } else {
+                    null
+                }
+                if (blueskyActor != null) {
+                    val feedUrl = com.mckimquyen.reader.infrastructure.social.bluesky.BlueskyFeedMapper.feedUrl(blueskyActor)
+                    if (rssService.get().isFeedExist(feedUrl)) {
+                        _subscribeUiState.update {
+                            it.copy(
+                                title = androidStringsHelper.getString(R.string.subscribe),
+                                errorMessage = androidStringsHelper.getString(R.string.already_subscribed),
+                                lockLinkInput = false,
+                            )
+                        }
+                        return@launch
+                    }
+                    _subscribeUiState.update {
+                        it.copy(title = androidStringsHelper.getString(R.string.searching), lockLinkInput = true)
+                    }
+                    val outcome = runCatching { blueskyApiClient.fetch(blueskyActor) }
+                        // A cancelled search (dialog closed, newer search) must stop here, not be reported as a failure.
+                        .onFailure { if (it is kotlinx.coroutines.CancellationException) throw it }
+                        .getOrNull()
+                    // Not an exhaustive `when`: anything that is neither Found nor NotFound simply falls back to the RSS flow below.
+                    if (outcome == com.mckimquyen.reader.infrastructure.social.bluesky.BlueskyOutcome.NotFound) {
+                        _subscribeUiState.update {
+                            it.copy(
+                                title = androidStringsHelper.getString(R.string.subscribe),
+                                errorMessage = androidStringsHelper.getString(R.string.web_feed_fetch_failed),
+                                lockLinkInput = false,
+                            )
+                        }
+                        return@launch
+                    }
+                    if (outcome is com.mckimquyen.reader.infrastructure.social.bluesky.BlueskyOutcome.Found) {
+                        val found = outcome.result
+                        val feedId = context.currentAccountId.spacerDollar(UUID.randomUUID().toString())
+                        val articles = com.mckimquyen.reader.infrastructure.social.bluesky.BlueskyFeedMapper.toArticles(
+                            profileDid = found.did,
+                            items = found.items,
+                            feedId = feedId,
+                            accountId = context.currentAccountId,
+                            nowMillis = System.currentTimeMillis(),
+                        )
+                        if (articles.isNotEmpty()) {
+                            val feed = Feed(
+                                id = feedId,
+                                name = com.mckimquyen.reader.infrastructure.social.bluesky.BlueskyFeedMapper.feedName(blueskyActor, found.displayName),
+                                url = feedUrl,
+                                sourceUrl = feedUrl,
+                                groupId = "",
+                                accountId = context.currentAccountId,
+                                sourceType = Feed.BLUESKY_SOURCE_TYPE,
+                                icon = found.avatarUrl,
+                            )
+                            _subscribeUiState.update {
+                                it.copy(
+                                    linkContent = feedUrl,
+                                    feed = feed,
+                                    articles = articles,
+                                    title = feed.name,
+                                    errorMessage = "",
+                                    lockLinkInput = true,
+                                    webPreview = false,
+                                    isSearchPage = false,
+                                )
+                            }
+                            return@launch
+                        }
+                    }
+                    // API failed, threw, or had nothing usable: the box was never rewritten, so the old RSS flow runs on what was typed.
+                }
                 (socialUrl ?: typed.formatUrl()).let { str ->
                     if (str != _subscribeUiState.value.linkContent) {
                         _subscribeUiState.update {

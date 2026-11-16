@@ -158,4 +158,20 @@ class BlueskyFeedMapperTest {
 
     @Test fun aPostWithOnlyAnEmbed_andNoText_isLeftOut() =
         assertEquals(emptyList<String>(), map(post("o1", "", embed = BlueskyTestPayloads.EMBED_IMAGES)).map { it.title })
+
+    // ---- the address the resolver already produced
+    @Test fun actorFromRssUrl_readsAHandleAndADid() {
+        assertEquals("alice.bsky.social", BlueskyFeedMapper.actorFromRssUrl("https://bsky.app/profile/alice.bsky.social/rss"))
+        assertEquals("did:plc:AbC123", BlueskyFeedMapper.actorFromRssUrl("https://bsky.app/profile/did:plc:AbC123/rss"))
+    }
+
+    @Test fun actorFromRssUrl_refusesEverythingElse() {
+        listOf(
+            null, "", "https://mastodon.social/@x.rss", "http://bsky.app/profile/a.b/rss", "https://bsky.app/profile/a.b",
+            "https://bsky.app/profile//rss", "https://bsky.app/profile/a b/rss", "https://bsky.app/profile/a.b/rss/extra",
+            "https://evil.example/profile/a.b/rss", "https://bsky.app.evil.example/profile/a.b/rss", "https://bsky.app/profile/a/b/rss", "https://bsky.app/profile/../rss", "https://bsky.app/profile/.x/rss",
+            // no address prefix at all: only the part after "/profile/" may be taken, never a bare "name/rss"
+            "alice.bsky.social/rss", "profile/alice.bsky.social/rss", "bsky.app/profile/alice.bsky.social/rss",
+        ).forEach { assertNull(it, BlueskyFeedMapper.actorFromRssUrl(it)) }
+    }
 }
