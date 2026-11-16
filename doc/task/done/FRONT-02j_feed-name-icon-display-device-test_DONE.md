@@ -28,7 +28,7 @@ Trên **Pixel 7 Pro (`2B051FDH3006MU`, Android 17)**, trong một `ComponentActi
 - Công cụ riêng cho Pixel (`px_*`) nằm ngoài kho; công cụ Tecno cũ **không** được chạy.
 
 ## Những gì CHƯA kiểm (nói thẳng)
-- **Không phải `FeedItem` nguyên bản hay danh sách nguồn thật** (thiếu `hiltViewModel`); chỉ hai composable thật và `Text` cùng kiểu. Bố cục dòng, huy hiệu, bấm giữ, kéo chưa kiểm.
+- ~~Không phải `FeedItem` nguyên bản~~ **Đã kiểm `FeedItem` nguyên bản ở FRONT-02l (2026-11-16)** (tên, cắt tên, icon, chữ cái đầu, huy hiệu, bấm, ẩn dòng; không Hilt, không đổi mã production). **Vẫn chưa:** danh sách nguồn thật, bấm giữ và ngăn kéo, kéo.
 - Dark mode, chế độ e-ink, chữ lớn, nhiều ngôn ngữ chưa kiểm.
 - Icon từ máy chủ **http** giả: **không** chứng minh quy tắc "chỉ https của máy chủ ảnh Bluesky" trên máy (quy tắc đó chỉ có test JVM).
 - Không mạng thật; không kiểm icon lỗi tải (404 hay hết giờ), hình ảnh hỏng chưa được xem.
