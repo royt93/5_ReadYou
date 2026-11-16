@@ -63,3 +63,11 @@ Hiện nay dán `@handle` hay link `bsky.app/profile/…` được đổi thành
 - Tên hiển thị và ảnh đại diện tự khai, không xác minh.
 - Nguồn đã đăng ký bằng RSS không tự chuyển sang API.
 - Tên chỉ đặt lúc xem trước; sync nền không đổi tên hay icon.
+
+## Điều chỉnh khi thực thi
+- **`call.execute()` chặn luồng** không hủy được khi hết thời gian hay hủy; dùng `enqueue` + `suspendCancellableCoroutine`, và hủy gọi `call.cancel()` thật.
+- **Quy tắc "handle hay DID"** nằm ở một nơi (`BlueskyFeedMapper.isActor`): ký tự đầu phải là chữ hoặc số (loại `..`, `.x`), tối đa 253 ký tự; client và `actorFromRssUrl` cùng dùng. DID của hồ sơ trả về cũng phải qua `isActor`, vì nó đi vào yêu cầu thứ hai.
+- **Hai guard thừa đã gỡ:** `response.isRedirect` (đã có `followRedirects(false)`) và `contentLength` (đã có `readLimited`).
+- **Nhánh `search()` không dùng `when` toàn diện** trên `BlueskyOutcome`: mock `relaxed` trả đối tượng giả; cái gì không phải `Found`/`NotFound` thì rơi về RSS.
+- **Nhánh "không tìm thấy"** không viết lại ô nhập (khác lỗi kiểu FRONT-02b), giữ nguyên chữ đã gõ.
+- **Máy thật:** Tecno KJ7; helper tạm gọi API thật qua `OkHttpClient` của app, không `MainActivity`.
