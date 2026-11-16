@@ -212,7 +212,9 @@ class SubscribeViewModel @Inject constructor(
                 }
                 if (blueskyActor != null) {
                     val feedUrl = com.mckimquyen.reader.infrastructure.social.bluesky.BlueskyFeedMapper.feedUrl(blueskyActor)
-                    if (rssService.get().isFeedExist(feedUrl)) {
+                    val oldRssUrl = com.mckimquyen.reader.infrastructure.social.bluesky.BlueskyFeedMapper.rssUrl(blueskyActor)
+                    // One account can already be subscribed in its old RSS form or its API form; either blocks a second source.
+                    if (rssService.get().isFeedExist(feedUrl) || rssService.get().isFeedExist(oldRssUrl)) {
                         _subscribeUiState.update {
                             it.copy(
                                 title = androidStringsHelper.getString(R.string.subscribe),

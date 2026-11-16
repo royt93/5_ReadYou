@@ -187,4 +187,37 @@ class BlueskyFeedMapperTest {
             assertFalse(it, BlueskyFeedMapper.isActor(it))
         }
     }
+
+    // ---- the RSS address of an account, built the same way the resolver builds it
+    @Test fun rssUrl_lowercasesAHandle_butKeepsADidExactly() {
+        assertEquals("https://bsky.app/profile/alice.bsky.social/rss", BlueskyFeedMapper.rssUrl("Alice.Bsky.Social"))
+        assertEquals("https://bsky.app/profile/did:plc:AbC123/rss", BlueskyFeedMapper.rssUrl("did:plc:AbC123"))
+    }
+
+    @Test fun rssUrl_trimsSpaces_likeFeedUrlDoes() {
+        assertEquals("https://bsky.app/profile/alice.bsky.social/rss", BlueskyFeedMapper.rssUrl("  alice.bsky.social "))
+    }
+
+    // The two addresses of one account must name the same actor, whatever the person pasted.
+    @Test fun theApiAddressAndTheRssAddress_ofOneAccount_nameTheSameActor() {
+        listOf("alice.bsky.social", "Alice.Bsky.Social", "did:plc:AbC123", "did:web:Example.Com").forEach { actor ->
+            val fromApi = BlueskyFeedMapper.feedUrl(actor).removePrefix(BlueskyFeedMapper.FEED_URL_PREFIX)
+            val fromRss = BlueskyFeedMapper.actorFromRssUrl(BlueskyFeedMapper.rssUrl(actor))
+            assertEquals(actor, fromApi, fromRss)
+        }
+    }
+
+    // Everything the resolver can build for Bluesky must come back out of rssUrl unchanged: this is what lets the app
+    // look for the old RSS source without keeping the resolver's output around.
+    @Test fun rssUrl_ofTheActorInsideAResolverAddress_isThatSameAddress() {
+        listOf(
+            "@alice.bsky.social", "@Alice.Bsky.Social", "https://bsky.app/profile/alice.bsky.social",
+            "https://bsky.app/profile/Alice.Bsky.Social/rss", "https://bsky.app/profile/did:plc:AbC123",
+            "https://bsky.app/profile/did:plc:AbC123/rss", "https://bsky.app/profile/did:web:Example.Com",
+        ).forEach { typed ->
+            val resolved = requireNotNull(com.mckimquyen.reader.infrastructure.social.SocialFeedUrlResolver.resolve(typed)) { typed }
+            val actor = requireNotNull(BlueskyFeedMapper.actorFromRssUrl(resolved)) { typed }
+            assertEquals(typed, resolved, BlueskyFeedMapper.rssUrl(actor))
+        }
+    }
 }

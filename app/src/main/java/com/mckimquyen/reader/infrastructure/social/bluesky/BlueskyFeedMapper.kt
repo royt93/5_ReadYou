@@ -46,6 +46,13 @@ object BlueskyFeedMapper {
         return actor.takeIf { isActor(it) }
     }
 
+    /** The RSS address of an account, spelled exactly as the resolver spells it (handle lower-cased, DID kept as given). */
+    fun rssUrl(actor: String): String {
+        val trimmed = actor.trim()
+        val name = if (trimmed.startsWith(DID_PREFIX)) trimmed else trimmed.lowercase(Locale.ROOT)
+        return RSS_PROFILE_PREFIX + name + RSS_SUFFIX
+    }
+
     /** A handle is case-insensitive, a DID is not, so only a handle is lower-cased. */
     fun feedUrl(actor: String): String {
         val trimmed = actor.trim()

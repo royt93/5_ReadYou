@@ -244,4 +244,92 @@ class SubscribeViewModelBlueskyTest {
             )
         }
     }
+
+    // ---- the same account, already subscribed in the other form
+
+    private fun assertReportedAsAlreadySubscribed() {
+        assertEquals(strings.getString(R.string.already_subscribed), state.errorMessage)
+        assertFalse("the box must be editable again", state.lockLinkInput)
+        assertNull(state.feed)
+    }
+
+    @Test fun anAccountAlreadySubscribedAsRss_isReported_withoutAnyNetworkCall() = runTest(dispatcher) {
+        coEvery { localService.isFeedExist(rssUrl) } returns true
+        search("@alice.bsky.social")
+        assertReportedAsAlreadySubscribed()
+        coVerify(exactly = 0) { api.fetch(any()) }
+        coVerify(exactly = 0) { rssHelper.searchFeed(any()) }
+    }
+
+    @Test fun anAccountAlreadySubscribedAsApi_isReported_evenWhenTheApiWouldFailNow() = runTest(dispatcher) {
+        coEvery { localService.isFeedExist("bsky:alice.bsky.social") } returns true
+        coEvery { api.fetch(any()) } returns BlueskyOutcome.Failed
+        search("@alice.bsky.social")
+        assertReportedAsAlreadySubscribed()
+        coVerify(exactly = 0) { api.fetch(any()) }
+        coVerify(exactly = 0) { rssHelper.searchFeed(any()) }
+    }
+
+    @Test fun aHandleTypedInMixedCase_matchesTheLowerCaseSourceStoredInEitherForm() = runTest(dispatcher) {
+        coEvery { localService.isFeedExist(rssUrl) } returns true
+        search("@Alice.Bsky.Social")
+        assertReportedAsAlreadySubscribed()
+        coVerify(exactly = 0) { api.fetch(any()) }
+
+        viewModel.reset(); viewModel.init()
+        coEvery { localService.isFeedExist(rssUrl) } returns false
+        coEvery { localService.isFeedExist("bsky:alice.bsky.social") } returns true
+        search("https://bsky.app/profile/Alice.Bsky.Social")
+        assertReportedAsAlreadySubscribed()
+        coVerify(exactly = 0) { api.fetch(any()) }
+    }
+
+    @Test fun aDidKeepsItsCase_soADifferentCaseIsAnotherAccountAndIsNotBlocked() = runTest(dispatcher) {
+        coEvery { localService.isFeedExist("https://bsky.app/profile/did:plc:AbC123/rss") } returns true
+        coEvery { localService.isFeedExist("bsky:did:plc:AbC123") } returns false
+        coEvery { api.fetch("did:plc:abc123") } returns found(BlueskyTestPayloads.post("3k1", "hello"))
+        // Without this answer the second search would fail in the API and fall back to the RSS check, which would hide a missing guard.
+        coEvery { api.fetch("did:plc:AbC123") } returns found(BlueskyTestPayloads.post("3k1", "hello"))
+        search("https://bsky.app/profile/did:plc:abc123")
+        assertEquals("", state.errorMessage)
+        assertEquals("bsky:did:plc:abc123", state.feed?.url)
+
+        viewModel.reset(); viewModel.init()
+        search("https://bsky.app/profile/did:plc:AbC123")
+        assertReportedAsAlreadySubscribed()
+    }
+
+    @Test fun aDifferentHandle_isNotBlockedByAnotherAccountsSource() = runTest(dispatcher) {
+        coEvery { localService.isFeedExist(rssUrl) } returns true
+        coEvery { localService.isFeedExist("bsky:alice.bsky.social") } returns true
+        coEvery { api.fetch("bob.bsky.social") } returns found(BlueskyTestPayloads.post("3k1", "hello"))
+        search("@bob.bsky.social")
+        assertEquals("", state.errorMessage)
+        assertEquals("bsky:bob.bsky.social", state.feed?.url)
+        coVerify(exactly = 1) { api.fetch("bob.bsky.social") }
+    }
+
+    @Test fun bothAddressesAreAskedAbout_exactlyOnceEach_andNothingElseIsAsked() = runTest(dispatcher) {
+        coEvery { api.fetch("alice.bsky.social") } returns found(BlueskyTestPayloads.post("3k1", "hello"))
+        search("@alice.bsky.social")
+        coVerify(exactly = 1) { localService.isFeedExist("bsky:alice.bsky.social") }
+        coVerify(exactly = 1) { localService.isFeedExist(rssUrl) }
+    }
+
+    @Test fun aNonLocalAccount_doesNotAskAboutTheBlueskyAddresses() = runTest(dispatcher) {
+        context.dataStore.putBlocking(DataStoreKeys.CurrentAccountType, AccountType.Fever.id)
+        coEvery { rssHelper.searchFeed(rssUrl) } returns feedAt(rssUrl)
+        search("@alice.bsky.social")
+        coVerify(exactly = 0) { localService.isFeedExist("bsky:alice.bsky.social") }
+        coVerify(exactly = 0) { api.fetch(any()) }
+    }
+
+    @Test fun aMastodonHandle_isStillCheckedOnlyAgainstItsOwnRssAddress() = runTest(dispatcher) {
+        val rss = "https://mastodon.social/@Mastodon.rss"
+        coEvery { localService.isFeedExist(rss) } returns true
+        search("@Mastodon@mastodon.social")
+        assertEquals(strings.getString(R.string.already_subscribed), state.errorMessage)
+        coVerify(exactly = 1) { localService.isFeedExist(rss) }
+        coVerify(exactly = 0) { localService.isFeedExist(match { it.startsWith("bsky:") || it.startsWith("https://bsky.app") }) }
+    }
 }
