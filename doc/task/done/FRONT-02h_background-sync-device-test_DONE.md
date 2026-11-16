@@ -53,7 +53,7 @@ Trên **Tecno KJ7 (`115333744A005844`, Android 14)**, với **Room thật** và 
 
 - Hai nguồn thử chỉ đại diện; một vòng đồng bộ thật có hàng chục nguồn chạy song song theo nhóm 6.
 - Máy chủ giả luôn trả dữ liệu hợp lệ trừ ba ca lỗi đã nêu; không thử phản hồi cực lớn, chậm, cắt giữa chừng (đã có ở test JVM `BlueskyApiClientTest`).
-- Không có test cho "relay Nostr không trả lời" (spec (d) nhắc; chưa làm vì `NostrFakeRelay.holdAnswerUntil` chặn luồng).
+- ~~Không có test cho "relay Nostr không trả lời"~~ **Đã làm ở FRONT-02k (2026-11-16):** relay nhận REQ rồi im lặng, trên Pixel; xem `FRONT-02k_silent-relay-device-test_DONE.md`. **Vẫn chưa:** relay treo lúc bắt tay, hai relay, trả một nửa, con số 8 giây (chỉ có test JVM).
 
 ## Commits trên `dev`
 
