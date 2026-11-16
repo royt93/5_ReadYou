@@ -152,10 +152,10 @@ class BackgroundSyncRig : AutoCloseable {
 
     private fun json(body: String) = MockResponse().setHeader("Content-Type", "application/json").setBody(body)
 
-    private companion object {
+    companion object {
         /** A stored Nostr source is "nostr:<npub>" (bech32), never the hex key; the sync reads it back with NostrKeys.npubToHex. */
-        val AUTHOR_NPUB: String = requireNotNull(NostrKeys.hexToNpub(NostrDeviceFixtures.AUTHOR_HEX))
+        private val AUTHOR_NPUB: String = requireNotNull(NostrKeys.hexToNpub(NostrDeviceFixtures.AUTHOR_HEX))
         const val SOCIAL_TIMEOUT_MS = 5_000L
-        const val SOCIAL_MAX_BODY_BYTES = 512 * 1024L
+        private const val SOCIAL_MAX_BODY_BYTES = 512 * 1024L
     }
 }

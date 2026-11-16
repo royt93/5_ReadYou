@@ -2,6 +2,7 @@ package com.mckimquyen.reader.domain.sv
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.mckimquyen.reader.domain.model.feed.Feed
+import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.runBlocking
 import mockwebserver3.MockResponse
 import org.junit.After
@@ -10,17 +11,26 @@ import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.Timeout
 import org.junit.runner.RunWith
+import java.util.concurrent.TimeUnit
+
+private const val CLASS_TIMEOUT_SECONDS = 60L
 
 /**
  * One Bluesky source and one Nostr source go through the three steps of a background sync round (read the source,
  * apply the filter rules, insert what is new) against the phone's real Room, with fake servers on 127.0.0.1.
  * Deliberately NOT run: AbstractRssRepository.sync and SyncWorker.doWork, which walk every source the phone has over the real network.
  * NOT covered: precache, the semantic index, due reminders, notifications, WorkManager scheduling, a real network.
+ * A Nostr relay that stalls the handshake, a second relay and a relay that answers half way have JVM tests only.
  */
 @RunWith(AndroidJUnit4::class)
 class BackgroundSyncDeviceTest {
+    /** One hung sync must not hang the whole instrumentation run on a phone other sessions share. */
+    @get:Rule val classTimeout: Timeout = Timeout.seconds(CLASS_TIMEOUT_SECONDS)
+
     private lateinit var rig: BackgroundSyncRig
     private var groupRowsBefore: Long = -1L
 
@@ -88,6 +98,46 @@ class BackgroundSyncDeviceTest {
         val stored = storedFeed(rig.nostrFeed.id)
         assertEquals("Nostr · Probe", stored.name)
         assertEquals("https://example.invalid/probe.png", stored.icon)
+    }
+
+    @Test
+    fun nostrRelayThatReceivesTheRequestButStaysSilent_isASyncFailure_inBoundedTime() {
+        val gate = CompletableDeferred<Unit>()
+        rig.nostrRelay.holdAnswerUntil(gate)
+        try {
+            val startedNs = System.nanoTime()
+            val result = runBlocking { rig.syncOnce(rig.nostrFeed) }
+            val elapsedMs = TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startedNs)
+            assertEquals("the relay must have received the request (silence, not a connection error)", 1, rig.nostrRelay.requestsReceived())
+            assertNull(result.outcome)
+            assertTrue(result.inserted.isEmpty())
+            assertEquals(0, rig.articleCountOf(rig.nostrFeed.id))
+            assertEquals("Nostr · Probe", storedFeed(rig.nostrFeed.id).name)
+            assertTrue("gave up after only $elapsedMs ms", elapsedMs >= BackgroundSyncRig.SOCIAL_TIMEOUT_MS / 2)
+            assertTrue("took $elapsedMs ms", elapsedMs < BackgroundSyncRig.SOCIAL_TIMEOUT_MS * 3)
+        } finally {
+            gate.complete(Unit)
+        }
+    }
+
+    @Test
+    fun aSilentNostrRelay_doesNotBlockTheNextSync_whenItAnswersAgain() {
+        val gate = CompletableDeferred<Unit>()
+        rig.nostrRelay.holdAnswerUntil(gate)
+        try {
+            assertNull(runBlocking { rig.syncOnce(rig.nostrFeed) }.outcome)
+            assertEquals(0, rig.articleCountOf(rig.nostrFeed.id))
+            gate.complete(Unit)
+            rig.nostrRelay.serveAnotherConnection()
+            val second = runBlocking { rig.syncOnce(rig.nostrFeed) }
+            assertNotNull(second.outcome)
+            assertEquals(1, second.inserted.size)
+            assertTrue(second.inserted.single().link.startsWith("https://njump.me/note1"))
+            assertEquals(1, rig.articleCountOf(rig.nostrFeed.id))
+            assertEquals("Nostr · Probe", storedFeed(rig.nostrFeed.id).name)
+        } finally {
+            gate.complete(Unit)
+        }
     }
 
     @Test
