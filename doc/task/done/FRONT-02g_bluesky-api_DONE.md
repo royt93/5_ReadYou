@@ -12,7 +12,7 @@
 - **Chỉ bài chính chủ** (không đăng lại, không trả lời). Đo trên API thật: bỏ đăng lại làm số bài ít hơn nhiều so với 50 mục trả về (tài khoản mẫu ra 12 bài chính chủ trong 50 mục).
 - **Không tải gì trong bài.** Ảnh, video, trích dẫn, link ngoài chỉ thành **một dòng chữ**; không tải ảnh, không mở link, không đọc `fullsize/thumb/playlist`. Toàn văn không được tải (`parseFullContent` trả rỗng).
 - **Đồng bộ nền không đổi tên hay icon** của nguồn đã lưu (người dùng có thể đã đổi tên tay). Tên chỉ đặt lúc xem trước.
-- **Nguồn RSS cũ không tự chuyển sang API.** Muốn đổi phải bỏ và đăng ký lại. Nguồn cũ (RSS) và nguồn mới (API) của cùng tài khoản có địa chỉ khác nhau nên có thể đăng ký trùng; chấp nhận.
+- **Nguồn RSS cũ không tự chuyển sang API.** Muốn đổi phải bỏ và đăng ký lại. Nguồn cũ (RSS) và nguồn mới (API) của cùng tài khoản có địa chỉ khác nhau nên từng có thể đăng ký trùng; **từ FRONT-02i (`fe8135a8`) đã chặn một phần** (xem `FRONT-02i_bluesky-duplicate-guard_DONE.md`).
 - **Chỉ tài khoản Local**, như Nostr. Tài khoản khác đi luồng cũ.
 - **"Không tìm thấy tài khoản" (HTTP 400, thông điệp `Profile not found`) là một lỗi**, không quay về RSS và không viết lại ô; mọi mã lỗi khác (429, 500, mạng, quá hạn, JSON hỏng) là lỗi mạng và quay về RSS.
 - Bluesky có thể giới hạn tốc độ hoặc đổi `public.api.bsky.app`; khi đó nguồn mới quay về RSS (còn hoạt động). Mỗi lần xem trước tốn **hai** yêu cầu mạng (RSS cũ: một).
@@ -47,7 +47,7 @@ Helper `androidTest` tạm (đã xóa, **không commit**) gọi **API thật** q
 - Giới hạn tốc độ của Bluesky khi đồng bộ nhiều nguồn; API đổi hình dạng sau này.
 - Đồng bộ nền thật của một nguồn `BLUESKY` trên máy (chỉ có test JVM với dịch vụ giả).
 - Hiển thị bài có `embed` lạ; TalkBack; ngôn ngữ ngoài EN/VI.
-- Hai nguồn trùng (RSS cũ + API mới) không được cảnh báo.
+- Hai nguồn trùng (RSS cũ + API mới): **từ FRONT-02i đã được chặn khi cùng dạng tên** (handle với handle, DID với DID). **Còn trùng:** handle so với DID của cùng người, nguồn RSS qua OPML hoặc địa chỉ dạng khác, cặp trùng đã có sẵn trong máy.
 
 ## Giới hạn
 

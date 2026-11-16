@@ -25,7 +25,7 @@ Hiện nay dán `@handle` hay link `bsky.app/profile/…` được đổi thành
 **1. Nhận dạng và đường đi.**
 - `SocialFeedUrlResolver` giữ cho Mastodon. Với Bluesky (`@tên.miền`, `https://bsky.app/profile/<handle|did>[/rss]`), `SubscribeViewModel.search()` đi nhánh API trước; nếu API **lỗi mạng hay trả không có bài** thì **quay về RSS cũ** (khác Nostr, vì Bluesky có RSS dự phòng). Tài khoản không tồn tại (HTTP 400) thì báo lỗi như hiện nay, không thử RSS.
 - Địa chỉ nguồn lưu là `bsky:<handle|did>` (chữ thường cho handle, giữ nguyên DID), `sourceType = Feed.BLUESKY_SOURCE_TYPE = "BLUESKY"`; không đụng cột Room.
-- `isFeedExist("bsky:<h>")` chặn đăng ký trùng. Nguồn Bluesky đã đăng ký bằng RSS **không** tự chuyển sang API (muốn đổi phải bỏ và đăng ký lại; ghi vào giới hạn).
+- `isFeedExist("bsky:<h>")` chặn đăng ký trùng. Nguồn Bluesky đã đăng ký bằng RSS **không** tự chuyển sang API (muốn đổi phải bỏ và đăng ký lại; ghi vào giới hạn). FRONT-02i kiểm thêm địa chỉ RSS cũ.
 
 **2. Lấy dữ liệu** (`infrastructure/social/bluesky/BlueskyApiClient`, Hilt `@Singleton`, dùng `OkHttpClient` chung của app):
 - Hai GET tuần tự: `getProfile` rồi `getAuthorFeed` (`limit=50`, `filter=posts_no_replies`). Chỉ HTTPS tới `public.api.bsky.app`; `actor` chỉ chứa chữ, số, `.`, `-`, `:` (kiểm trước khi gửi); không chuyển hướng ra ngoài host.
@@ -56,7 +56,7 @@ Hiện nay dán `@handle` hay link `bsky.app/profile/…` được đổi thành
 - Mỗi lần xem trước tốn hai yêu cầu mạng (RSS cũ: một).
 - Phản hồi 140 KB cho 30 mục; giới hạn kích thước phải đủ rộng để không cắt bài hợp lệ nhưng đủ nhỏ để chặn phản hồi độc.
 - `Feed.icon` là địa chỉ ảnh do người lạ đặt: chỉ nhận HTTPS tới tên miền Bluesky đã liệt kê; vẫn là nội dung tự khai.
-- Nguồn RSS cũ và nguồn API mới của cùng tài khoản có địa chỉ khác nhau nên có thể đăng ký trùng (một RSS, một API); chấp nhận, ghi vào giới hạn.
+- Nguồn RSS cũ và nguồn API mới của cùng tài khoản có địa chỉ khác nhau nên có thể đăng ký trùng (một RSS, một API); chấp nhận, ghi vào giới hạn. **Cập nhật: FRONT-02i đã chặn một phần (cùng dạng tên).**
 
 ## Giới hạn đã biết
 - Không tải ảnh/video trong bài, không xem luồng trả lời, không hashtag hay danh sách.
