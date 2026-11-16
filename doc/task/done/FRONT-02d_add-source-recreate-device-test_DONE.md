@@ -55,6 +55,25 @@ Sau `autoAdvance = false`, bước **gõ chữ** (trước khi gây gián đoạ
 - An toàn máy: cổng chỉ đọc trước mỗi lượt (launcher ở trên cùng, đã mở khóa, không instrumentation; có một lần cổng dừng đúng vì app khác `lenslauncher` đang ở trên cùng, owner thoát về màn hình chính). Sao lưu và khôi phục byte-exact **6 tệp** mỗi vòng, băm DataStore `ed9f6887…` luôn trùng, đã gỡ `com.mckimquyen.reader.test`. Một phiên khác dùng cùng Pixel đã được báo dừng và báo trả máy.
 - Cổng đã sửa hai lần của tôi: `grep` sai tên launcher (Pixel dùng `com.google.android.apps.nexuslauncher`), và dòng `pidof` báo nhầm vì tiến trình test còn đóng băng sau mỗi lượt (đã bỏ, vẫn giữ kiểm `dumpsys activity processes`).
 
+## Chạy lại trên Tecno KJ7 (2026-11-16): quảng cáo toàn màn hình làm test đỏ, không phải lỗi app
+
+Sau lệnh của owner "chỉ dùng tecno, cấm đụng pixel", tôi chạy lại test này trên **Tecno KJ7 (Android 14)** để có bằng chứng đúng máy. Kết quả **không ổn định** và nguyên nhân **không phải ViewModel mất chữ**:
+
+| Bản test | Lượt | Lượt đỏ |
+|---|---|---|
+| bản đã commit (`a52dbdee`) | 6 | 2 |
+| thêm chẩn đoán | 24 | 5 |
+| chẩn đoán trên luồng chính | 24 | 11 |
+| thêm đóng quảng cáo bằng Back | 24 | 9 |
+
+- Mọi lượt đỏ dừng ở `Never saw: the + button` với `No compose hierarchies found`.
+- Chẩn đoán từ lifecycle monitor, đọc lúc đỏ: `AdActivity` ở trạng thái **RESUMED**, `MainActivity` **PAUSED**, khoảng **18 giây** sau khi test bắt đầu. Đó là quảng cáo toàn màn hình (interstitial) che `MainActivity`, nên Compose không còn gì để truy vấn.
+- Tôi thử gửi phím Back khi `AdActivity` ở trên cùng (đúng quy tắc owner: chỉ Back). Bước này chạy 7 lần trong mỗi lượt đỏ mà quảng cáo **vẫn còn**. **Chưa biết vì sao**: có thể quảng cáo chặn Back, hoặc phím không tới đúng cửa sổ; chưa kiểm. Số lượt đỏ không giảm (9/24), mẫu quá nhỏ để nói Back làm tệ hơn hay không.
+- Tôi **không** thử bấm nút đóng quảng cáo (cần tọa độ, bị cấm).
+- Thay đổi test (chẩn đoán + bước Back) **đã hoàn lại, không commit**. Test đã commit giữ nguyên.
+- **Hệ quả cho kết luận FRONT-02d:** bằng chứng "chữ và hộp thoại sống sót qua `recreate()`/xoay trên `MainActivity` thật" đến từ **Pixel** (190 lượt, mutation 4/4); trên Tecno test chỉ ổn định khi quảng cáo chưa chèn vào. Test này có thể đỏ ngẫu nhiên trên máy có quảng cáo xen kẽ. **FRONT-02e không bị ảnh hưởng** vì nó dùng Activity test, không khởi động `MainActivity` hay quảng cáo (40/40 xanh trên Tecno).
+- Pixel đang lệch `user_rotation=1` do test (nguyên nhân chưa rõ, giả thuyết sửa `@After` đã bị bác); không chạm Pixel nữa theo lệnh owner.
+
 ## Giới hạn
 
 - Một máy (Pixel 7 Pro, Android 17); không so với Tecno KJ7 hay A50s.
