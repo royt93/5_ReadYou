@@ -10,10 +10,11 @@ class TypingFlakeClassifierTest {
         windowFocused: Boolean = true,
         fieldFocused: Boolean = true,
         fieldEnabled: Boolean = true,
+        windowFocusedAfter: Boolean = true,
         vararg samples: TypingSample,
-    ) = TypingTrace(windowFocused, fieldFocused, fieldEnabled, PROBE_LENGTH, samples.toList())
+    ) = TypingTrace(windowFocused, fieldFocused, fieldEnabled, PROBE_LENGTH, samples.toList(), windowFocusedAfter)
 
-    private fun s(viewModel: Int, screen: Int) = TypingSample(viewModel, screen)
+    private fun s(viewModel: Int, screen: Int, focused: Boolean = false) = TypingSample(viewModel, screen, focused)
 
     @Test
     fun aTraceWhereTheScreenReachesTheExpectedLength_isGreen() {
@@ -60,6 +61,26 @@ class TypingFlakeClassifierTest {
         assertEquals(TypingOutcome.DISABLED_AT_TYPING, outcome)
         val bothFlags = trace(fieldFocused = false, fieldEnabled = false, samples = arrayOf(s(0, 0)))
         assertEquals("a disabled field explains more than a missing focus", TypingOutcome.DISABLED_AT_TYPING, TypingFlakeClassifier.classify(bothFlags))
+    }
+
+    @Test
+    fun aFocusThatArrivesAfterTyping_withNothingDelivered_isFocusLate_notUnfocused() {
+        val outcome = TypingFlakeClassifier.classify(trace(fieldFocused = false, samples = arrayOf(s(0, 0), s(0, 0, focused = true), s(0, 0, focused = true))))
+        assertEquals(TypingOutcome.NEVER_DELIVERED_FOCUS_LATE, outcome)
+    }
+
+    @Test
+    fun aFieldAlreadyFocusedBeforeTyping_withNothingDelivered_isNeverDelivered_evenIfFocusStaysOn() {
+        val outcome = TypingFlakeClassifier.classify(trace(fieldFocused = true, samples = arrayOf(s(0, 0, focused = true), s(0, 0, focused = true))))
+        assertEquals(TypingOutcome.NEVER_DELIVERED, outcome)
+    }
+
+    @Test
+    fun aWindowThatLostFocusWhileSampling_isInvalid_evenWhenNothingWasDelivered() {
+        val outcome = TypingFlakeClassifier.classify(trace(windowFocusedAfter = false, samples = arrayOf(s(0, 0), s(0, 0))))
+        assertEquals("another app took the screen: not a typing failure", TypingOutcome.INVALID, outcome)
+        val deliveredButLost = trace(windowFocusedAfter = false, samples = arrayOf(s(PROBE_LENGTH, PROBE_LENGTH)))
+        assertEquals(TypingOutcome.INVALID, TypingFlakeClassifier.classify(deliveredButLost))
     }
 
     @Test
