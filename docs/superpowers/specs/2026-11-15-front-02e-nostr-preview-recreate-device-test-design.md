@@ -59,3 +59,12 @@ Như FRONT-02d: cổng chỉ đọc trước mỗi lượt (`/tmp/f28_gate.sh`: 
 - Không chứng minh `hiltViewModel()` scope trên `MainActivity` thật cho xem trước Nostr.
 - Một relay giả, không chứng minh hành vi hai relay hay mạng thật.
 - Chỉ một máy (Pixel 7 Pro, Android 17).
+
+## Điều chỉnh khi thực thi
+- **Không dùng `@EntryPoint`:** `RApp` đã có field `@Inject` công khai (`opmlService`, `rssSv`, `rssHelper`, `androidStringsHelper`, `okHttpClient`); `WebFeedScraper(WebFeedHttpClient(), WebFeedParser())` và `NewsletterUrlResolver()` được dựng tay vì đường Nostr không dùng chúng. Không cần `kaptAndroidTest`.
+- **`SettingsProvider` không cần** cho `SubscribeDialog`; **`mainClock.autoAdvance = false` không cần** (Activity test không có `FeedsPage` và animation vô hạn).
+- **Dialog dựng lại sau `recreate()`:** `ComponentActivity` thuần không tự gọi `setContent` lại, nên test gọi `setContent { SubscribeDialog(viewModel) }` trên Activity mới với **cùng ViewModel lấy từ ViewModelStore** rồi kiểm tiêu đề.
+- **Đột biến test-only `m06`** thay cho "ViewModel dựng tay": đổi `viewModelOf(...)` thành factory trực tiếp; mong đợi `assertSame` đỏ.
+- **`NostrFakeRelay.close()` mở cổng trước khi tắt server** để một test đỏ lúc relay đang bị giữ không để lại luồng chặn (`IOException: Gave up waiting for queue to shut down`).
+- **Máy:** bắt đầu trên Pixel 7 Pro; sau lệnh của owner ("chỉ dùng tecno, cấm đụng pixel") phần còn lại chạy trên Tecno KJ7. Phiên Claude khác (lens-launcher) từng chạm Pixel đúng lúc một lượt mutation, lượt đó bị loại. `user_rotation` của Pixel bị lệch =1 chưa rõ nguyên nhân; giả thuyết `@After` bị bác.
+

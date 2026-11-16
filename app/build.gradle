@@ -268,6 +268,8 @@ dependencies {
     testImplementation "androidx.compose.ui:ui-test-junit4:1.7.8"
 
     androidTestImplementation "androidx.test.ext:junit:1.2.1"
+    // Fake Nostr relay for device tests; same version as testImplementation above to avoid an okhttp clash.
+    androidTestImplementation "com.squareup.okhttp3:mockwebserver3-junit4:5.0.0-alpha.11"
     androidTestImplementation "androidx.work:work-testing:2.8.0-alpha02"
     // 3.6.1 crashes on API 37 (InputManager.getInstance removed), which breaks every composeRule-based test.
     androidTestImplementation "androidx.test.espresso:espresso-core:3.7.0"
