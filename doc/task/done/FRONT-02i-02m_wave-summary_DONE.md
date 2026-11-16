@@ -29,7 +29,7 @@ Chỉ **02i**, tổng **hai tệp, 10 dòng thêm, 1 dòng đổi** (`SubscribeV
 
 ## Điều cần owner biết
 1. **Pixel đang mở app `loyalty.skyjoy.vn.dev`** của bạn; vòng đo 02m dừng vì thế (cổng báo dừng, tôi không chạm máy).
-2. **Hai tệp probe chưa commit** trong cây làm việc: `app/src/androidTest/.../subs/TypingFlakeProbeTest.kt` và `TypingFlakeClassifier.kt` (bản sao dùng ở androidTest). Có thể commit hoặc xóa; báo cáo 02m ghi cách mở lại.
+2. **Hai tệp probe đã commit** (owner chọn giữ): `TypingFlakeProbeTest.kt` và bản sao `TypingFlakeClassifier.kt` ở androidTest (phải trùng bản ở `src/test`). Mặc định 5 lượt nên chạy tình cờ không tốn thời gian. Bản sửa mới **chưa chạy trên máy**; báo cáo 02m ghi cách mở lại.
 3. **Pixel `user_rotation`** hiện là 0 (FRONT-02e từng để 1); không do tôi sửa.
 
 ## Việc tiếp có thể làm (không ưu tiên, theo thứ tự rủi ro tăng dần)
