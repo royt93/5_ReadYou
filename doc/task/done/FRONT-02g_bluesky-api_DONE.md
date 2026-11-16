@@ -43,7 +43,7 @@ Helper `androidTest` tạm (đã xóa, **không commit**) gọi **API thật** q
 
 ## Chưa kiểm (nói thẳng)
 
-- **Hiển thị thật** của tên và icon trong hộp thoại và danh sách trên màn hình; tải ảnh đại diện thật (chỉ lưu địa chỉ).
+- **Hiển thị thật** của tên và icon trong hộp thoại và danh sách trên màn hình; tải ảnh đại diện thật (chỉ lưu địa chỉ). **Cập nhật FRONT-02j (2026-11-16):** `FeedIcon` thật và một `Text` cùng kiểu `FeedItem` đã được kiểm trên Pixel (tên đúng, cắt tên dài, icon tải từ máy chủ giả, chữ cái đầu); **vẫn chưa** kiểm `FeedItem` nguyên bản, danh sách nguồn, hộp thoại, dark mode, e-ink, chữ lớn, icon https của Bluesky trên máy.
 - Giới hạn tốc độ của Bluesky khi đồng bộ nhiều nguồn; API đổi hình dạng sau này.
 - Đồng bộ nền thật của một nguồn `BLUESKY` trên máy (chỉ có test JVM với dịch vụ giả).
 - Hiển thị bài có `embed` lạ; TalkBack; ngôn ngữ ngoài EN/VI.

@@ -45,7 +45,7 @@ Trên **Tecno KJ7 (`115333744A005844`, Android 14)**, với **Room thật** và 
 
 ## Chưa kiểm (nói thẳng)
 
-- `AbstractRssRepository.sync` và `SyncWorker.doWork` thật; mạng thật trong đường đồng bộ; thông báo; hiển thị tên và icon trên màn hình.
+- `AbstractRssRepository.sync` và `SyncWorker.doWork` thật; mạng thật trong đường đồng bộ; thông báo; hiển thị tên và icon trên màn hình (**một phần đã kiểm ở FRONT-02j** bằng hai composable thật trong Activity test; chưa kiểm `FeedItem` nguyên bản hay danh sách).
 - Nhánh quét toàn bộ của Radar có đúng khi bật hay không (xem trên); bảng `article_snapshot`/`article_radar_state` không được đếm riêng (chúng có khóa ngoại CASCADE tới `article`, nên nhóm tạm xóa sẽ dọn).
 - Chập chờn của test thiết bị: 20/20 xanh, chưa có lượt đỏ nào sau khi sửa rig, nhưng **không chứng minh** hết chập chờn (FRONT-02d từng đỏ 2 đến 9% với gốc chưa rõ).
 
