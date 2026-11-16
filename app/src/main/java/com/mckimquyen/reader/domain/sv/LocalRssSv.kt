@@ -49,6 +49,7 @@ class LocalRssSv @Inject constructor(
     widgetRefreshNotifier: WidgetRefreshNotifier,
     retractionRadar: RetractionRadarService,
     private val nostrRelayClient: com.mckimquyen.reader.infrastructure.social.nostr.NostrRelayClient,
+    private val blueskyApiClient: com.mckimquyen.reader.infrastructure.social.bluesky.BlueskyApiClient,
 ) : AbstractRssRepository(
     context,
     accountDao,
@@ -74,6 +75,7 @@ class LocalRssSv @Inject constructor(
             return emptyList()
         }
         if (feed.sourceType == Feed.NOSTR_SOURCE_TYPE) return queryNostrArticles(feed)
+        if (feed.sourceType == Feed.BLUESKY_SOURCE_TYPE) return queryBlueskyArticles(feed)
         if (feed.sourceType != Feed.WEB_SOURCE_TYPE) return super.queryFeedArticles(feed, latestLink)
         return when (val result = webFeedScraper.refresh(feed.sourceUrl ?: feed.url)) {
             is WebFeedRefreshResult.Success -> result.articles.mapNotNull { candidate ->
@@ -117,5 +119,24 @@ class LocalRssSv @Inject constructor(
             accountId = feed.accountId,
             nowMillis = System.currentTimeMillis(),
         )
+    }
+
+    private suspend fun queryBlueskyArticles(feed: Feed): List<Article> {
+        val actor = (feed.sourceUrl ?: feed.url).removePrefix(
+            com.mckimquyen.reader.infrastructure.social.bluesky.BlueskyFeedMapper.FEED_URL_PREFIX,
+        )
+        // Neither the display name nor the avatar is used here: a background sync must never rename a source the user may have renamed.
+        val found = blueskyApiClient.fetch(actor)
+            as? com.mckimquyen.reader.infrastructure.social.bluesky.BlueskyOutcome.Found
+            ?: throw java.io.IOException("Bluesky API returned no account")
+        val articles = com.mckimquyen.reader.infrastructure.social.bluesky.BlueskyFeedMapper.toArticles(
+            profileDid = found.result.did,
+            items = found.result.items,
+            feedId = feed.id,
+            accountId = feed.accountId,
+            nowMillis = System.currentTimeMillis(),
+        )
+        if (articles.isEmpty()) throw java.io.IOException("Bluesky API returned no posts")
+        return articles
     }
 }

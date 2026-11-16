@@ -69,8 +69,8 @@ class RssHelper @Inject constructor(
 
     @Throws(Exception::class)
     suspend fun parseFullContent(link: String, title: String, sourceType: String = Feed.RSS_SOURCE_TYPE): String {
-        // A Nostr note has no web page of its own to read: never open its njump.me link on the app's behalf.
-        if (sourceType == Feed.NOSTR_SOURCE_TYPE) return ""
+        // A Nostr note or a Bluesky post has no web page of its own to read on the app's behalf: never open its link.
+        if (sourceType == Feed.NOSTR_SOURCE_TYPE || sourceType == Feed.BLUESKY_SOURCE_TYPE) return ""
         return withContext(ioDispatcher) {
             val client = if (sourceType == Feed.WEB_SOURCE_TYPE) {
                 com.mckimquyen.reader.infrastructure.rss.scraper.WebFeedHttpClient().create(link)
@@ -327,7 +327,7 @@ class RssHelper @Inject constructor(
         feedDao: FeedDao,
         feed: Feed,
     ) {
-        if (feed.sourceType == Feed.NOSTR_SOURCE_TYPE) return
+        if (feed.sourceType == Feed.NOSTR_SOURCE_TYPE || feed.sourceType == Feed.BLUESKY_SOURCE_TYPE) return
         withContext(ioDispatcher) {
             val host = runCatching { Uri.parse(feed.url).host }.getOrNull()
             if (!host.isNullOrBlank()) {

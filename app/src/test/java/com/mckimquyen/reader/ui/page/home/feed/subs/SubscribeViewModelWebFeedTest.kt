@@ -82,7 +82,7 @@ class SubscribeViewModelWebFeedTest {
         coEvery { localService.isFeedExist(any()) } returns false
         val newsletterUrlResolver = mockk<com.mckimquyen.reader.infrastructure.newsletter.NewsletterUrlResolver>()
         coEvery { newsletterUrlResolver.resolveToRssUrl(any()) } returns null
-        viewModel = SubscribeViewModel(context, mockk<OpmlSv>(relaxed = true), rssService, rssHelper, strings, scraper, newsletterUrlResolver, mockk(relaxed = true))
+        viewModel = SubscribeViewModel(context, mockk<OpmlSv>(relaxed = true), rssService, rssHelper, strings, scraper, newsletterUrlResolver, mockk(relaxed = true), mockk(relaxed = true))
         viewModel.init()
     }
 

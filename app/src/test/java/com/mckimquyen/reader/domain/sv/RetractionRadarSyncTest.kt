@@ -82,6 +82,7 @@ class RetractionRadarSyncTest {
             webFeedScraper = mockk(relaxed = true), smartCollectionMatcher = mockk(relaxed = true),
             widgetRefreshNotifier = mockk(relaxed = true), retractionRadar = radar,
             nostrRelayClient = mockk(relaxed = true),
+            blueskyApiClient = mockk(relaxed = true),
         )
     }
 
@@ -229,6 +230,7 @@ class RetractionRadarSyncTest {
             webFeedScraper = mockk(relaxed = true), smartCollectionMatcher = mockk(relaxed = true),
             widgetRefreshNotifier = mockk(relaxed = true), retractionRadar = radar,
             nostrRelayClient = mockk(relaxed = true),
+            blueskyApiClient = mockk(relaxed = true),
         )
         remote = listOf(entry(2), entry(1))
         syncOnce()

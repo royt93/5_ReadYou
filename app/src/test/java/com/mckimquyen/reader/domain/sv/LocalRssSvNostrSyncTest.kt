@@ -43,6 +43,7 @@ class LocalRssSvNostrSyncTest {
         smartFilterManager = filters, webFeedScraper = scraper,
         smartCollectionMatcher = mockk(relaxed = true), widgetRefreshNotifier = mockk(relaxed = true),
         retractionRadar = mockk(relaxed = true), nostrRelayClient = relay,
+        blueskyApiClient = mockk(relaxed = true),
     )
     private val feed = Feed(
         id = "nostr-feed", name = "Nostr", url = "nostr:$npub", groupId = "group", accountId = 1,

@@ -9,6 +9,7 @@ import com.mckimquyen.reader.infrastructure.newsletter.NewsletterUrlResolver
 import com.mckimquyen.reader.infrastructure.rss.scraper.WebFeedHttpClient
 import com.mckimquyen.reader.infrastructure.rss.scraper.WebFeedParser
 import com.mckimquyen.reader.infrastructure.rss.scraper.WebFeedScraper
+import com.mckimquyen.reader.infrastructure.social.bluesky.BlueskyApiClient
 import com.mckimquyen.reader.infrastructure.social.nostr.NostrRelayClient
 import kotlinx.coroutines.Dispatchers
 
@@ -32,6 +33,7 @@ fun subscribeViewModelFactory(relayUrl: String): ViewModelProvider.Factory = obj
             webFeedScraper = WebFeedScraper(WebFeedHttpClient(), WebFeedParser()),
             newsletterUrlResolver = NewsletterUrlResolver(),
             nostrRelayClient = NostrRelayClient(app.okHttpClient, Dispatchers.IO, listOf(relayUrl), false, FAKE_RELAY_TIMEOUT_MS),
+            blueskyApiClient = BlueskyApiClient(app.okHttpClient, Dispatchers.IO),
         ) as T
     }
 }

@@ -80,6 +80,7 @@ class SubscribeDialogTypingTest {
             context = context, opmlService = mockk<OpmlSv>(relaxed = true), rssService = rssService, rssHelper = rssHelper,
             androidStringsHelper = AndroidStringsHelper(context), webFeedScraper = scraper, newsletterUrlResolver = resolver,
             nostrRelayClient = relay,
+            blueskyApiClient = mockk(relaxed = true),
         )
     }
 

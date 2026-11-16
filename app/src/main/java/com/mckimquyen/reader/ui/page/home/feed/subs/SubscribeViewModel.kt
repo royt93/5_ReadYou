@@ -48,6 +48,7 @@ class SubscribeViewModel @Inject constructor(
     private val webFeedScraper: WebFeedScraper,
     private val newsletterUrlResolver: com.mckimquyen.reader.infrastructure.newsletter.NewsletterUrlResolver,
     private val nostrRelayClient: com.mckimquyen.reader.infrastructure.social.nostr.NostrRelayClient,
+    private val blueskyApiClient: com.mckimquyen.reader.infrastructure.social.bluesky.BlueskyApiClient,
 ) : ViewModel() {
 
     private val _subscribeUiState = MutableStateFlow(SubscribeUiState())
@@ -399,7 +400,8 @@ class SubscribeViewModel @Inject constructor(
                     isNotification = _subscribeUiState.value.allowNotificationPreset,
                     // A Nostr note has no web page to read in full (parseFullContent returns nothing for it).
                     isFullContent = _subscribeUiState.value.parseFullContentPreset &&
-                        feed.sourceType != com.mckimquyen.reader.domain.model.feed.Feed.NOSTR_SOURCE_TYPE,
+                        feed.sourceType != com.mckimquyen.reader.domain.model.feed.Feed.NOSTR_SOURCE_TYPE &&
+                        feed.sourceType != com.mckimquyen.reader.domain.model.feed.Feed.BLUESKY_SOURCE_TYPE,
                 ), articles
             )
             hideDrawer()

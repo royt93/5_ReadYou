@@ -78,6 +78,7 @@ class SubscribeViewModelNostrTest {
         viewModel = SubscribeViewModel(
             context = context, opmlService = mockk<OpmlSv>(relaxed = true), rssService = rssService, rssHelper = rssHelper,
             androidStringsHelper = strings, webFeedScraper = scraper, newsletterUrlResolver = resolver, nostrRelayClient = relay,
+            blueskyApiClient = mockk(relaxed = true),
         )
         viewModel.init()
     }

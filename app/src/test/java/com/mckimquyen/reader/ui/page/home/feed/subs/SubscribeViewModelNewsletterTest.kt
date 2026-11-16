@@ -76,6 +76,7 @@ class SubscribeViewModelNewsletterTest {
             webFeedScraper = scraper,
             newsletterUrlResolver = resolver,
             nostrRelayClient = mockk(relaxed = true),
+            blueskyApiClient = mockk(relaxed = true),
         )
         viewModel.init()
     }
