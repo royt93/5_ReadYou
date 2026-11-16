@@ -58,3 +58,11 @@ Các test dự kiến (6):
 ## Giới hạn đã biết
 - Không chứng minh `SyncWorker.doWork`, `sync()`, `WorkManager` thật, mạng thật trong đường đồng bộ, thông báo, hay hiển thị trên màn hình.
 - Một máy (Tecno KJ7, Android 14), không so được với Pixel hay A50s.
+
+## Điều chỉnh khi thực thi
+- **Ba phụ thuộc "chưa biết" đều lấy được** từ `RApp` hoặc `@Inject constructor` nông; `WidgetRefreshNotifier` là `fun interface`, dựng bằng lambda `WidgetRefreshNotifier { }`.
+- **Địa chỉ Nostr** của feed thử phải là `nostr:<npub>` (bech32) qua `NostrFeedMapper.feedUrl`, **không** `nostr:<hex>`: lượt chạy đầu đỏ 2/8 vì lỗi này của rig.
+- **`NostrFakeRelay.serveAnotherConnection()`** thêm vào (mỗi kết nối chỉ phục vụ một lần fetch); test 02e không đổi.
+- **Không so số dòng toàn bảng trước/sau:** tài khoản Tecno có `syncInterval = 30` nên một `SyncWorker` thật có thể thêm dòng của nguồn khác trong lúc test; chỉ so `group` và dòng `front02h_probe_%`.
+- **Đột biến `m04`** ghi thật vào Room (`feedDao.update(feed.copy(name = ...))`), vì chỉ đổi đối tượng trong bộ nhớ sẽ không bị test (so tên trong Room) bắt.
+- **Chưa làm:** test "relay Nostr không trả lời".

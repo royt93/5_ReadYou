@@ -25,6 +25,11 @@ class NostrFakeRelay : AutoCloseable {
         server.enqueue(socketResponse())
     }
 
+    /** Lets the relay answer one more connection; each fetch of a client opens its own. */
+    fun serveAnotherConnection() {
+        server.enqueue(socketResponse())
+    }
+
     private fun socketResponse() = MockResponse().withWebSocketUpgrade(object : WebSocketListener() {
         override fun onMessage(webSocket: WebSocket, text: String) {
             if (!text.startsWith("[\"REQ\"")) return
