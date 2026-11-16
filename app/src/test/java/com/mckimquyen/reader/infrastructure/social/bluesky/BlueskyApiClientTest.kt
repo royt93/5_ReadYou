@@ -217,6 +217,15 @@ class BlueskyApiClientTest {
         assertEquals(BlueskyOutcome.Failed, client().fetch(HANDLE))
     }
 
+    // The DID of the profile goes into the second request, so a hostile profile must not be able to add a parameter or a path.
+    @Test fun aProfileWhoseDidStartsRightButCarriesQueryCharacters_isFailed_andTheFeedIsNeverAsked() = runBlocking {
+        listOf("did:plc:x&actor=evil", "did:plc:x/../y", "did:plc:x y", "did:plc:x#frag", "did:plc:" + "a".repeat(300)).forEach { did ->
+            server.enqueue(json("""{"did":"$did","handle":"$HANDLE"}"""))
+            assertEquals(did, BlueskyOutcome.Failed, client().fetch(HANDLE))
+        }
+        assertEquals("only the profile call may be made", 5, server.requestCount)
+    }
+
     @Test fun theDisplayName_isCleaned_andANonTextOneIsIgnored() = runBlocking {
         server.enqueue(json("""{"did":"$DID","handle":"$HANDLE","displayName":"  Alice\n\u0007 A  "}"""))
         server.enqueue(json(feed()))

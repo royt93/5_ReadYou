@@ -40,7 +40,7 @@ class BlueskyApiClient internal constructor(
     private val strict: OkHttpClient = client.newBuilder().followRedirects(false).followSslRedirects(false).build()
 
     suspend fun fetch(actor: String): BlueskyOutcome = withContext(ioDispatcher) {
-        if (!ACTOR_REGEX.matches(actor)) return@withContext BlueskyOutcome.Failed
+        if (!BlueskyFeedMapper.isActor(actor)) return@withContext BlueskyOutcome.Failed
         try {
             withTimeout(timeoutMs) { read(actor) }
         } catch (_: TimeoutCancellationException) {
@@ -55,7 +55,7 @@ class BlueskyApiClient internal constructor(
             Answer.Failed -> return BlueskyOutcome.Failed
         }
         val profile = parseObject(profileCall.text) ?: return BlueskyOutcome.Failed
-        val did = profile.optString("did").takeIf { it.startsWith("did:") && ACTOR_REGEX.matches(it) } ?: return BlueskyOutcome.Failed
+        val did = profile.optString("did").takeIf { it.startsWith("did:") && BlueskyFeedMapper.isActor(it) } ?: return BlueskyOutcome.Failed
         val feed = when (val answer = get(
             "/xrpc/app.bsky.feed.getAuthorFeed", "actor" to did, "limit" to POST_LIMIT.toString(), "filter" to FEED_FILTER,
         )) {
@@ -143,6 +143,5 @@ class BlueskyApiClient internal constructor(
         private const val PROFILE_NOT_FOUND = "Profile not found"
         private const val NOT_FOUND_PEEK_BYTES = 2_048L
         private const val READ_CHUNK_BYTES = 8_192L
-        private val ACTOR_REGEX = Regex("^[A-Za-z0-9][A-Za-z0-9:._-]{0,252}$")
     }
 }

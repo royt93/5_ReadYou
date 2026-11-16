@@ -174,4 +174,17 @@ class BlueskyFeedMapperTest {
             "alice.bsky.social/rss", "profile/alice.bsky.social/rss", "bsky.app/profile/alice.bsky.social/rss",
         ).forEach { assertNull(it, BlueskyFeedMapper.actorFromRssUrl(it)) }
     }
+
+    // ---- the one rule for "a handle or a DID"
+    @Test fun isActor_acceptsAHandleAndADid() {
+        listOf("alice.bsky.social", "Alice.Bsky.Social", "did:plc:z72i7hdynmk6r22z27h6tvur", "a", "a".repeat(253)).forEach {
+            assertTrue(it, BlueskyFeedMapper.isActor(it))
+        }
+    }
+
+    @Test fun isActor_refusesAnythingThatCouldChangeTheQuery() {
+        listOf("", " ", "a b", "a/b", "a?x=1", "a&b", "a#b", "a%20b", "..", ".x", "-x", "\uff41.bsky.social", "x\u0000y", "a".repeat(254)).forEach {
+            assertFalse(it, BlueskyFeedMapper.isActor(it))
+        }
+    }
 }

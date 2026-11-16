@@ -33,14 +33,17 @@ object BlueskyFeedMapper {
     private const val EMBED_EXTERNAL = "app.bsky.embed.external#view"
     private const val RSS_PROFILE_PREFIX = "https://bsky.app/profile/"
     private const val RSS_SUFFIX = "/rss"
-    // Same shape the API client accepts: a handle or a DID starts with a letter or a digit, so ".." and ".x" are neither.
+    // A handle or a DID starts with a letter or a digit, so ".." and ".x" are neither. The one place that decides it.
     private val ACTOR = Regex("^[A-Za-z0-9][A-Za-z0-9:._-]{0,252}$")
+
+    /** True for a handle or a DID as the API takes it: safe to put in a query, nothing else. */
+    fun isActor(text: String): Boolean = ACTOR.matches(text)
 
     /** The handle or DID inside the RSS address the resolver builds for a Bluesky account; null for any other address. */
     fun actorFromRssUrl(rssUrl: String?): String? {
         if (rssUrl == null || !rssUrl.startsWith(RSS_PROFILE_PREFIX) || !rssUrl.endsWith(RSS_SUFFIX)) return null
         val actor = rssUrl.removePrefix(RSS_PROFILE_PREFIX).removeSuffix(RSS_SUFFIX)
-        return actor.takeIf { ACTOR.matches(it) }
+        return actor.takeIf { isActor(it) }
     }
 
     /** A handle is case-insensitive, a DID is not, so only a handle is lower-cased. */
