@@ -114,7 +114,8 @@ class SubscribeViewModelBlueskyTest {
         search("@alice.bsky.social")
         assertEquals("Bluesky · Alice A", state.feed?.name)
         assertEquals("bsky:alice.bsky.social", state.feed?.url)
-        assertEquals("bsky:alice.bsky.social", state.feed?.sourceUrl)
+        // FRONT-02o: the address the sync reads is the DID (it survives a handle change); url stays the typed name.
+        assertEquals("bsky:${BlueskyTestPayloads.DID}", state.feed?.sourceUrl)
         assertEquals(Feed.BLUESKY_SOURCE_TYPE, state.feed?.sourceType)
         assertEquals("https://cdn.bsky.app/img/avatar/a@jpeg", state.feed?.icon)
         assertEquals(listOf("hello"), state.articles.map { it.title })
@@ -428,5 +429,71 @@ class SubscribeViewModelBlueskyTest {
         search("@bob.bsky.social")
         assertEquals("", state.errorMessage)
         assertEquals("bsky:bob.bsky.social", state.feed?.url)
+    }
+
+    // FRONT-02o: a new source remembers the DID in sourceUrl, so a renamed handle is still the same account.
+    private fun aliceOf(did: String = BlueskyTestPayloads.DID) =
+        foundAs(did, BlueskyTestPayloads.HANDLE, BlueskyTestPayloads.post("3k1", "hello", did = did))
+
+    @Test fun aNewBlueskySource_storesTheDidAsItsSyncAddress_andKeepsTheHandleAsItsUrl() = runTest(dispatcher) {
+        coEvery { api.fetch("alice.bsky.social") } returns aliceOf()
+        search("@alice.bsky.social")
+        assertEquals("bsky:alice.bsky.social", state.feed?.url)
+        assertEquals(didApi, state.feed?.sourceUrl)
+    }
+
+    @Test fun aRenamedHandle_isStillCaughtThroughTheStoredDid() = runTest(dispatcher) {
+        coEvery { localService.isFeedSourceExist(didApi) } returns true
+        coEvery { api.fetch("alice-new.bsky.social") } returns foundAs(
+            BlueskyTestPayloads.DID, "alice-new.bsky.social", BlueskyTestPayloads.post("3k1", "hello"),
+        )
+        search("@alice-new.bsky.social")
+        assertReportedAsAlreadySubscribed()
+        assertNoPreviewWasBuilt()
+    }
+
+    @Test fun aDidTypedAfterASourceStoredThatDid_isCaught() = runTest(dispatcher) {
+        coEvery { localService.isFeedSourceExist(didApi) } returns true
+        coEvery { api.fetch(BlueskyTestPayloads.DID) } returns aliceOf()
+        search("https://bsky.app/profile/${BlueskyTestPayloads.DID}")
+        assertReportedAsAlreadySubscribed()
+    }
+
+    @Test fun anOldSourceWithTheHandleInBothColumns_isNotCaughtAfterARename_aKnownLimit() = runTest(dispatcher) {
+        coEvery { localService.isFeedExist("bsky:old-handle") } returns true
+        coEvery { api.fetch("alice-new.bsky.social") } returns foundAs(
+            BlueskyTestPayloads.DID, "alice-new.bsky.social", BlueskyTestPayloads.post("3k1", "hello"),
+        )
+        search("@alice-new.bsky.social")
+        assertEquals("", state.errorMessage)
+        assertEquals("bsky:alice-new.bsky.social", state.feed?.url)
+    }
+
+    @Test fun aDifferentDid_isNotBlockedByAnotherAccountsStoredDid() = runTest(dispatcher) {
+        coEvery { localService.isFeedSourceExist(didApi) } returns true
+        coEvery { api.fetch("bob.bsky.social") } returns foundAs(
+            BlueskyTestPayloads.OTHER_DID, "bob.bsky.social", BlueskyTestPayloads.post("3k1", "hello", did = BlueskyTestPayloads.OTHER_DID),
+        )
+        search("@bob.bsky.social")
+        assertEquals("", state.errorMessage)
+        assertEquals("bsky:${BlueskyTestPayloads.OTHER_DID}", state.feed?.sourceUrl)
+    }
+
+    @Test fun theDidSourceIsAskedOnce_afterTheApiAnswered() = runTest(dispatcher) {
+        coEvery { api.fetch("alice.bsky.social") } returns aliceOf()
+        search("@alice.bsky.social")
+        coVerify(exactly = 1) { localService.isFeedSourceExist(didApi) }
+    }
+
+    @Test fun whenTheApiFailsOrTheLinkIsNotBluesky_theDidSourceIsNeverAsked() = runTest(dispatcher) {
+        coEvery { api.fetch(any()) } returns BlueskyOutcome.Failed
+        coEvery { rssHelper.searchFeed(rssUrl) } returns feedAt(rssUrl)
+        search("@alice.bsky.social")
+        coVerify(exactly = 0) { localService.isFeedSourceExist(any()) }
+        val mastodon = "https://mastodon.social/@Mastodon.rss"
+        coEvery { rssHelper.searchFeed(mastodon) } returns feedAt(mastodon)
+        viewModel.reset(); viewModel.init()
+        search("@Mastodon@mastodon.social")
+        coVerify(exactly = 0) { localService.isFeedSourceExist(any()) }
     }
 }

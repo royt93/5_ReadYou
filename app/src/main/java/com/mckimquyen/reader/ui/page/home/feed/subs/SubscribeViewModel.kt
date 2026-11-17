@@ -247,7 +247,11 @@ class SubscribeViewModel @Inject constructor(
                         // The API named the account's other name: a source stored under it (as API or as the old RSS form) is the same account.
                         val otherNames = com.mckimquyen.reader.infrastructure.social.bluesky.BlueskyFeedMapper
                             .otherNameAddresses(blueskyActor, found.did, found.handle)
-                        if (otherNames.any { rssService.get().isFeedExist(it) }) {
+                        if (otherNames.any { rssService.get().isFeedExist(it) } ||
+                            rssService.get().isFeedSourceExist(
+                                com.mckimquyen.reader.infrastructure.social.bluesky.BlueskyFeedMapper.feedUrl(found.did),
+                            )
+                        ) {
                             _subscribeUiState.update {
                                 it.copy(
                                     title = androidStringsHelper.getString(R.string.subscribe),
@@ -270,7 +274,8 @@ class SubscribeViewModel @Inject constructor(
                                 id = feedId,
                                 name = com.mckimquyen.reader.infrastructure.social.bluesky.BlueskyFeedMapper.feedName(blueskyActor, found.displayName),
                                 url = feedUrl,
-                                sourceUrl = feedUrl,
+                                // The DID outlives a handle change; url stays the typed name.
+                                sourceUrl = com.mckimquyen.reader.infrastructure.social.bluesky.BlueskyFeedMapper.feedUrl(found.did),
                                 groupId = "",
                                 accountId = context.currentAccountId,
                                 sourceType = Feed.BLUESKY_SOURCE_TYPE,
