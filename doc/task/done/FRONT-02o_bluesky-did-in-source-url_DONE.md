@@ -27,7 +27,7 @@ Khi đăng ký, sau khi API trả `Found`, ngoài kiểm của 02n app hỏi th�
 - **Full suite `--rerun-tasks`:** **3.767** test, 0 lỗi, 0 bỏ qua (3.751 + 16: 6 DAO + 3 repo + 7 ViewModel; cộng từ mọi tệp XML như 02g đến 02n). Lint **0 lỗi, 2.465 cảnh báo** (không đổi). `assembleDevDebug` thành công.
 
 ## Những gì CHƯA chặn (nói thẳng)
-- **Nguồn đã đăng ký trước 02o không được nâng cấp:** chúng vẫn có `sourceUrl = url = handle cũ`. Nếu chủ tài khoản của nguồn **cũ** đã đổi handle thì vẫn trùng được. Giới hạn của 02n chỉ **thu hẹp dần theo thời gian** khi nguồn mới được thêm, không biến mất ngay. Có test ghi lại.
+- **Nguồn đã đăng ký trước 02o:** ban đầu không được nâng cấp (`sourceUrl = url = handle cũ`); **từ FRONT-02q (2026-11-17) được nâng cấp khi còn đồng bộ thành công** (xem `FRONT-02q_upgrade-old-bluesky-sources-to-did_DONE.md`); nguồn đã đổi handle trước đó thì vẫn không. Nội dung ban đầu: Nếu chủ tài khoản của nguồn **cũ** đã đổi handle thì vẫn trùng được. Giới hạn của 02n chỉ **thu hẹp dần theo thời gian** khi nguồn mới được thêm, không biến mất ngay. Có test ghi lại.
 - **API lỗi hoặc `Found` rỗng** (rơi về RSS): vẫn không chặn.
 - **OPML** và địa chỉ dạng khác: nguồn nhập từ OPML không có DID ở `sourceUrl`. Cặp trùng có sẵn: không xử lý.
 - ~~**Menu "sửa địa chỉ nguồn" (`changeFeedUrl`) chỉ đổi `url`, không đổi `sourceUrl`.**~~ **Đã sửa ở FRONT-02p (2026-11-17), xem `FRONT-02p_edit-feed-address_DONE.md`.** Nội dung ban đầu: Vì đồng bộ ưu tiên `sourceUrl`, sửa địa chỉ trong menu **không đổi nguồn đang được đồng bộ** của một nguồn Bluesky. Tật có sẵn (trước đây hai cột cùng giá trị nên không lộ rõ); nay `url` là handle và `sourceUrl` là DID nên dễ thấy hơn. **Không sửa ở đây** (ngoài phạm vi); nên cân nhắc sửa riêng.
