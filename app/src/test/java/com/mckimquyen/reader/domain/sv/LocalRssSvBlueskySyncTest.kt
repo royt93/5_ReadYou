@@ -61,6 +61,14 @@ class LocalRssSvBlueskySyncTest {
         coVerify(exactly = 1) { api.fetch("alice.bsky.social") }
     }
 
+    // FRONT-02p: the address menu now writes the typed address to both columns, and the sync follows it.
+    @Test fun aSourceWhoseTwoAddressesWereEdited_isSyncedFromTheNewOne() = runBlocking {
+        coEvery { api.fetch("bob.bsky.social") } returns found(BlueskyTestPayloads.post("3k1", "one"))
+        service.syncSingleFeed(feed.copy(url = "bsky:bob.bsky.social", sourceUrl = "bsky:bob.bsky.social"))
+        coVerify(exactly = 1) { api.fetch("bob.bsky.social") }
+        coVerify(exactly = 0) { api.fetch("alice.bsky.social") }
+    }
+
     @Test fun aSync_neverCallsTheRssHelper_orFavicons() = runBlocking {
         coEvery { api.fetch(any()) } returns found(BlueskyTestPayloads.post("3k1", "one"))
         service.syncSingleFeed(feed)

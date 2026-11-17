@@ -216,7 +216,9 @@ class FeedOptionViewModel @Inject constructor(
     fun changeFeedUrl() {
         _feedOptionUiState.value.feed?.let {
             viewModelScope.launch {
-                rssService.get().updateFeed(it.copy(url = _feedOptionUiState.value.newUrl))
+                val address = _feedOptionUiState.value.newUrl
+                // The sync of a web, Nostr or Bluesky source reads sourceUrl before url, so an address typed here must reach both.
+                rssService.get().updateFeed(it.copy(url = address, sourceUrl = if (it.sourceUrl != null) address else null))
                 _feedOptionUiState.update { it.copy(changeUrlDialogVisible = false) }
             }
         }
