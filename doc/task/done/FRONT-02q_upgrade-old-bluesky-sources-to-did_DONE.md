@@ -7,7 +7,7 @@
 **Spec / plan:** `docs/superpowers/specs/2026-11-17-front-02q-upgrade-old-bluesky-sources-to-did-design.md`, `docs/superpowers/plans/2026-11-17-front-02q-upgrade-old-bluesky-sources-to-did.md`.
 
 ## Cập nhật 2026-11-17 (cuối ngày): full suite JVM ĐÃ SẠCH sau khi sửa test của 02p
-Sau điều tra (mục "Điều tra full suite đỏ" cuối báo cáo), full suite JVM chạy **3 lần thật, không cache** (`--no-build-cache`, `cleanTest`): **3.797 test, 0 lỗi, 0 bỏ qua, 485 lớp**, mỗi lần 2 đến 3 phút (3.797 = 3.776 của 02p + 21 test của 02q). **Gốc của `AppNotIdleException` là test `FeedOptionViewModelTest` của chính 02p** (xem cuối báo cáo). Hai đoạn "KHÔNG sạch" bên dưới giữ nguyên làm lịch sử của lúc viết, **không còn đúng cho trạng thái hiện tại**.
+Sau điều tra (mục "Điều tra full suite đỏ" cuối báo cáo), full suite JVM chạy **3 lần thật, không cache** (`--no-build-cache`, `cleanTest`): **3.797 test, 0 lỗi, 0 bỏ qua, 485 lớp**, mỗi lần 2 đến 3 phút (3.797 = 3.776 của 02p + 21 test của 02q). Sau cả hai bản sửa test: `lintDevDebug` (không cache) **0 lỗi, 2.465 cảnh báo, 10 thông tin** (cảnh báo không đổi so với trước đợt; lint không quét `androidTest` và chỉ quét mã sản phẩm, nên không chạm vào hai bản sửa test); `assembleDevDebug` thành công. **Gốc của `AppNotIdleException` là test `FeedOptionViewModelTest` của chính 02p** (xem cuối báo cáo). Hai đoạn "KHÔNG sạch" bên dưới giữ nguyên làm lịch sử của lúc viết, **không còn đúng cho trạng thái hiện tại**.
 
 ## ⚠ (Lịch sử, lúc viết báo cáo này) full suite JVM KHÔNG sạch
 Báo cáo các việc trước (02i đến 02p) đều ghi một con số "full suite, 0 lỗi". **Báo cáo này không có con số đó**, và lý do được ghi rõ ở mục "Full suite" bên dưới. Phần đã đo được là **11 lớp test liên quan, 165 test, 0 lỗi** khi chạy riêng.
