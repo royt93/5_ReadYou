@@ -32,9 +32,10 @@ class LocalRssSvBlueskySyncTest {
     private val filters = mockk<com.mckimquyen.reader.infrastructure.filter.SmartFilterManager> {
         io.mockk.every { applyRules(any()) } answers { firstArg() }
     }
+    private val feedDao = mockk<com.mckimquyen.reader.domain.repository.FeedDao>(relaxed = true)
     private val service = LocalRssSv(
         context = ApplicationProvider.getApplicationContext(), articleDao = mockk<ArticleDao>(relaxed = true),
-        feedDao = mockk(relaxed = true), rssHelper = rss, notificationHelper = mockk(relaxed = true),
+        feedDao = feedDao, rssHelper = rss, notificationHelper = mockk(relaxed = true),
         accountDao = mockk(relaxed = true), groupDao = mockk(relaxed = true), feedHealthDao = mockk<FeedHealthDao>(relaxed = true),
         ioDispatcher = Dispatchers.IO, defaultDispatcher = Dispatchers.Default,
         workManager = mockk(relaxed = true), watchdogManager = mockk(relaxed = true),
@@ -114,5 +115,69 @@ class LocalRssSvBlueskySyncTest {
         service.syncSingleFeed(feed.copy(sourceType = Feed.RSS_SOURCE_TYPE, url = "https://bsky.app/profile/x/rss", sourceUrl = null))
         coVerify(exactly = 1) { rss.queryRssXml(any(), any()) }
         coVerify(exactly = 0) { api.fetch(any()) }
+    }
+
+    // FRONT-02q: a source stored under a handle is remembered by its DID once it syncs well, by one conditional write of one column.
+    private val didAddress = "bsky:${BlueskyTestPayloads.DID}"
+
+    @Test fun anOldSource_isUpgradedToTheDid_onceItSyncsWell() = runBlocking {
+        coEvery { api.fetch("alice.bsky.social") } returns found(BlueskyTestPayloads.post("3k1", "one"))
+        service.syncSingleFeed(feed)
+        coVerify(exactly = 1) { feedDao.updateSourceUrlIfUnchanged(feed.id, "bsky:alice.bsky.social", didAddress) }
+    }
+
+    @Test fun aSourceWithNoSourceUrl_isUpgradedWithANullExpectation() = runBlocking {
+        coEvery { api.fetch("alice.bsky.social") } returns found(BlueskyTestPayloads.post("3k1", "one"))
+        service.syncSingleFeed(feed.copy(sourceUrl = null))
+        coVerify(exactly = 1) { feedDao.updateSourceUrlIfUnchanged(feed.id, null, didAddress) }
+    }
+
+    @Test fun aSourceAlreadyStoredByDid_isNotWrittenAgain() = runBlocking {
+        coEvery { api.fetch(BlueskyTestPayloads.DID) } returns found(BlueskyTestPayloads.post("3k1", "one"))
+        service.syncSingleFeed(feed.copy(url = "bsky:alice.bsky.social", sourceUrl = didAddress))
+        coVerify(exactly = 0) { feedDao.updateSourceUrlIfUnchanged(any(), any(), any()) }
+    }
+
+    @Test fun aFailedSync_writesNothing() = runBlocking {
+        coEvery { api.fetch(any()) } returns BlueskyOutcome.Failed
+        service.syncSingleFeed(feed)
+        coEvery { api.fetch(any()) } returns BlueskyOutcome.NotFound
+        service.syncSingleFeed(feed)
+        coEvery { api.fetch(any()) } returns found(BlueskyTestPayloads.repost("r1"))
+        service.syncSingleFeed(feed)
+        coVerify(exactly = 0) { feedDao.updateSourceUrlIfUnchanged(any(), any(), any()) }
+    }
+
+    @Test fun aWriteThatThrows_doesNotLoseThePosts() = runBlocking {
+        coEvery { api.fetch(any()) } returns found(BlueskyTestPayloads.post("3k1", "one"))
+        coEvery { feedDao.updateSourceUrlIfUnchanged(any(), any(), any()) } throws RuntimeException("disk full")
+        assertEquals(1, service.syncSingleFeed(feed)?.articles?.size)
+    }
+
+    // queryFeedArticles is protected and LocalRssSv is final, so the rethrow of a cancellation cannot be reached from here; syncSingleFeed
+    // itself turns every Throwable into a failed sync (a behaviour that predates FRONT-02q). What can be pinned: the upgrade is not what ends the sync.
+    @Test fun aCancellationDuringTheWrite_endsTheSyncLikeAnyOtherFailure_notTheProcess() = runBlocking {
+        coEvery { api.fetch(any()) } returns found(BlueskyTestPayloads.post("3k1", "one"))
+        coEvery { feedDao.updateSourceUrlIfUnchanged(any(), any(), any()) } throws kotlinx.coroutines.CancellationException("stop")
+        assertNull(service.syncSingleFeed(feed))
+    }
+
+    @Test fun aNonBlueskyFeed_neverTouchesTheDao() = runBlocking {
+        coEvery { rss.queryRssXml(any(), any()) } returns emptyList()
+        service.syncSingleFeed(feed.copy(sourceType = Feed.RSS_SOURCE_TYPE, url = "https://bsky.app/profile/x/rss", sourceUrl = null))
+        coVerify(exactly = 0) { feedDao.updateSourceUrlIfUnchanged(any(), any(), any()) }
+    }
+
+    @Test fun theSyncResultKeepsTheNameTheIconAndTheArticles() = runBlocking {
+        coEvery { api.fetch(any()) } returns found(BlueskyTestPayloads.post("3k1", "one"), displayName = "Totally New Name")
+        val result = service.syncSingleFeed(feed)
+        assertEquals("Bluesky · Alice", result?.feed?.name)
+        assertEquals("https://cdn.bsky.app/img/avatar/a@jpeg", result?.feed?.icon)
+        assertEquals(listOf("one"), result?.articles?.map { it.title })
+    }
+
+    @Test fun theUpgradeNeverChangesTheShownAddress() = runBlocking {
+        coEvery { api.fetch(any()) } returns found(BlueskyTestPayloads.post("3k1", "one"))
+        assertEquals("bsky:alice.bsky.social", service.syncSingleFeed(feed)?.feed?.url)
     }
 }

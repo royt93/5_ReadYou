@@ -137,6 +137,13 @@ class LocalRssSv @Inject constructor(
             nowMillis = System.currentTimeMillis(),
         )
         if (articles.isEmpty()) throw java.io.IOException("Bluesky API returned no posts")
+        // A source stored under a handle is remembered by its DID from now on, so a renamed handle is still recognised (FRONT-02o).
+        // One column, only if nobody changed it meanwhile; a failure here must never cost the posts just read.
+        val didAddress = com.mckimquyen.reader.infrastructure.social.bluesky.BlueskyFeedMapper.feedUrl(found.result.did)
+        if ((feed.sourceUrl ?: feed.url) != didAddress) {
+            runCatching { feedDao.updateSourceUrlIfUnchanged(feed.id, feed.sourceUrl, didAddress) }
+                .onFailure { if (it is kotlinx.coroutines.CancellationException) throw it }
+        }
         return articles
     }
 }
