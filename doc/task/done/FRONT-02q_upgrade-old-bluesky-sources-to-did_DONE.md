@@ -43,3 +43,27 @@ Sau khi ghi DID vào `sourceUrl`, đồng bộ đọc theo DID (trước đây t
 - **Chưa kiểm trên máy** (chỉ JVM, đúng phạm vi); **chưa kiểm hai đồng bộ song song** của cùng nguồn trên máy thật (đã lập luận là vô hại và điều kiện `IS` chặn ghi lần hai).
 - **Test hủy chỉ ghim một phần:** `queryFeedArticles` là `protected` và `LocalRssSv` là lớp `final`, nên test không gọi trực tiếp để kiểm "ném lại `CancellationException`". `syncSingleFeed` vốn biến mọi `Throwable` thành đồng bộ thất bại (có từ trước 02q). Mutant "nuốt `CancellationException`" vẫn bị bắt, nhưng bằng cơ chế: bản gốc ném ra rồi `syncSingleFeed` trả `null`, còn mutant nuốt nên đồng bộ vẫn thành công và `assertNull` đỏ; **không** phải test chứng minh hủy lan ra ngoài.
 - **Full suite JVM chưa sạch** (xem trên): đây là nợ cần xử lý, không phải kết quả "0 lỗi".
+
+## Điều tra full suite đỏ (2026-11-17, chỉ đo, không đổi mã)
+Chỉ chạy JVM, không chạm thiết bị, **không sửa tệp nào trong kho** (công cụ đo nằm ngoài kho; hai test chẩn đoán tạm đã xóa). **Kết luận: chưa tìm ra gốc của `AppNotIdleException`; tìm ra và thu hẹp một lỗi thứ hai, riêng biệt.**
+
+**Đã loại (có số đo):**
+- **Hết bộ nhớ heap:** mẫu heap worker mỗi 15 giây trong một lần full suite đỏ: ổn định ~300 MB trên trần 512 MB, chỉ 1 lần Full GC. Worker chạy 169% CPU lúc treo (bận, không đứng).
+- **`setMain` không `resetMain`:** cả 61 lớp dùng `setMain` đều có `resetMain`.
+- **Cấu hình `@Config(application = Application::class)`:** 43 lớp Compose cùng cấu hình vẫn xanh; 4 lớp đỏ không có gì riêng ở cấu hình.
+- **JIT/C1:** chạy với `-XX:TieredStopAtLevel=1` lỗi vẫn xảy ra; còn sinh thêm cảnh báo "CodeCache is full" do chính thiết lập đó, nên không dùng để suy luận.
+
+**Đã đo được:**
+- 60 lớp Compose chạy **riêng**: 407 test, 0 lỗi, 24 giây.
+- 210 lớp không-Compose (nửa A) cộng 60 lớp Compose: 2.104 test, **xanh**, 37 giây. Nửa B (211 lớp) cộng Compose: **đỏ** (lần mặc định thì JVM tự sập vì lỗi trình biên dịch C2 của JBR 17.0.14, exit 134, SIGSEGV; lần C1-only thì `AppNotIdleException`). Nửa B chia tiếp: B1a xanh, B2a đỏ, rồi C1 đỏ kiểu treo và C2 đỏ kiểu `ReelsViewModelTest`. **Chưa bisect AppNotIdle tới một lớp cụ thể** (mỗi lượt đỏ treo 5 đến 7 phút).
+- Một sai sót đo của chính tôi, đã sửa: một đợt 6 lượt chẩn đoán bị Gradle lấy kết quả **từ cache** (`FROM-CACHE`, 5 trong 6 lượt không chạy thật). Mọi đợt đo trước đó (bisect, ddmin, pair) đều có `cache=0`; đợt chẩn đoán cuối đã chạy lại với `--no-build-cache`, 8 lượt thật.
+
+**Lỗi thứ hai (tách biệt): `ReelsViewModelTest` đỏ khi chạy sau `SelectionActionChipsTest`.**
+- `ReelsViewModelTest` chạy riêng: xanh. Chạy chung với 60 lớp Compose: đỏ 6/8 test, lặp lại (2 lần liên tiếp). Chia đôi tự động ra **cặp nhỏ nhất: `SelectionActionChipsTest` + `ReelsViewModelTest`**.
+- **Chập chờn:** chạy cặp thật: đỏ, đỏ, xanh (3 lần); test chẩn đoán đầu (có thể có lượt lấy cache, nên số này chỉ để tham khảo): đỏ 7/8; test chẩn đoán cuối, chắc chắn không cache: **đỏ 1/8**.
+- **Dấu vết:** test Reels khóa cứng `ACCOUNT_ID = 1`, nhưng ở mọi lượt đỏ `context.currentAccountId` đọc ra **2, 3 hoặc 4**, bài rỗng, `isLoading` vẫn true. Lượt xanh luôn đọc ra 1. Ở lượt đỏ duy nhất của đợt cuối, tệp DataStore của lớp chip có **24 byte** (các lượt xanh: **50 byte**), tức bị ghi dở hoặc ghi khác.
+- `Application` thật là `android.app.Application` (không phải `RApp`), nên giả thuyết "`RApp` khởi động ở nền" **sai**. Mã của lớp chip (`QuoteShareChip.kt`, `QuoteTextToolbar.kt`) **không chạm DataStore** (đã đọc).
+
+**Chưa biết:** **ai ghi** `currentAccountId` ra 2, 3, 4; vì sao tệp có 24 byte; và liệu lỗi này có chung gốc với `AppNotIdleException` hay không (không có bằng chứng cho hay chống). Lỗi Reels là **lỗi phụ thuộc thứ tự và chập chờn của chính bộ test**, không phải lỗi sản phẩm; lỗi sản phẩm chưa được chứng minh ở đâu.
+
+**Việc còn lại (nợ mở):** (1) bisect `AppNotIdleException` tới lớp cụ thể (khoảng 30 đến 40 phút, có thể cần một tổ hợp lớp); (2) tìm ai ghi `currentAccountId` (đọc mã chỉ cho biết ai **có thể** ghi, không biết ai **đã** ghi; cần đo); (3) sau khi hiểu gốc, mới quyết cách sửa. Cho tới lúc đó, **không có số full suite sạch sau 02p**.
