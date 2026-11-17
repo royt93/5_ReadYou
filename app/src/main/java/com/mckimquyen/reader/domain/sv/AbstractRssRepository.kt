@@ -376,6 +376,8 @@ abstract class AbstractRssRepository(
 
     suspend fun isFeedExist(url: String): Boolean = feedDao.queryByLink(context.currentAccountId, url).isNotEmpty()
 
+    suspend fun isFeedSourceExist(sourceUrl: String): Boolean = feedDao.queryBySourceUrl(context.currentAccountId, sourceUrl).isNotEmpty()
+
     suspend fun updateGroup(group: Group) {
         groupDao.update(group)
     }

@@ -87,6 +87,16 @@ interface FeedDao {
     )
     suspend fun queryByLink(accountId: Int, url: String): List<Feed>
 
+    /** The feeds of one account that are read from [sourceUrl]; unlike queryByLink it does not look at the shown address. */
+    @Query(
+        """
+        SELECT * FROM feed
+        WHERE accountId = :accountId
+        and sourceUrl = :sourceUrl
+        """
+    )
+    suspend fun queryBySourceUrl(accountId: Int, sourceUrl: String): List<Feed>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(vararg feed: Feed)
 
