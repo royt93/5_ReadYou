@@ -17,7 +17,8 @@ import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 
 @RunWith(RobolectricTestRunner::class)
-@Config(manifest = Config.NONE, sdk = [34])
+// Plain Application: the real RApp would run accountInit() in the background and write CurrentAccountId into the shared DataStore.
+@Config(manifest = Config.NONE, sdk = [34], application = android.app.Application::class)
 class SelectionActionChipsTest {
 
     @get:Rule
