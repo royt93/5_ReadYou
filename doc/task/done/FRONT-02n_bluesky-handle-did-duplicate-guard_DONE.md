@@ -26,7 +26,7 @@ Handle do máy chủ trả về **không đáng tin**, nên hàm lọc: rỗng, 
 
 ## Những gì CHƯA chặn (nói thẳng)
 - **API lỗi hoặc `Found` rỗng** (rơi về RSS): không có tên thứ hai nên **không** chặn handle với DID. Có test ghi lại hành vi này (`anApiFailure_fallsBackToRss_andTheOtherNameIsNotAsked_aKnownLimit`).
-- **Chủ tài khoản đã đổi handle** sau khi đăng ký: nguồn cũ lưu handle cũ, API trả handle mới và DID, nên hai địa chỉ kiểm không khớp nguồn cũ. Giải quyết cần lưu DID lúc đăng ký (thay đổi dữ liệu, ngoài phạm vi).
+- **Chủ tài khoản đã đổi handle** sau khi đăng ký: nguồn cũ lưu handle cũ, API trả handle mới và DID, nên hai địa chỉ kiểm không khớp nguồn cũ. **Cập nhật FRONT-02o (2026-11-17):** nguồn đăng ký **mới** nay lưu DID ở `sourceUrl` nên ca này được chặn; nguồn **cũ** thì chưa (xem `FRONT-02o_bluesky-did-in-source-url_DONE.md`).
 - **Nguồn RSS từ OPML** hoặc địa chỉ dạng khác; **cặp trùng đã có sẵn** trong máy: không xử lý.
 - **Rủi ro bảo mật mức thấp:** một máy chủ độc có thể trả handle giả của người khác để **chặn một lần đăng ký**. Chỉ chặn đăng ký, không làm hại dữ liệu; đã lọc handle không hợp lệ nhưng không loại hẳn được ca này (không có cách khi không hỏi thêm mạng).
 - **Trải nghiệm:** với ca handle với DID, người dùng thấy "Đang tìm" rồi mới thấy "Đã đăng ký" (khác 02i, báo trước khi gọi API).
