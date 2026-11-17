@@ -302,7 +302,10 @@ class SubscribeViewModelBlueskyTest {
     @Test fun aDifferentHandle_isNotBlockedByAnotherAccountsSource() = runTest(dispatcher) {
         coEvery { localService.isFeedExist(rssUrl) } returns true
         coEvery { localService.isFeedExist("bsky:alice.bsky.social") } returns true
-        coEvery { api.fetch("bob.bsky.social") } returns found(BlueskyTestPayloads.post("3k1", "hello"))
+        // Bob's own DID and posts: with alice's data the API would be saying "this is alice", and alice IS subscribed (FRONT-02n).
+        coEvery { api.fetch("bob.bsky.social") } returns foundAs(
+            BlueskyTestPayloads.OTHER_DID, "bob.bsky.social", BlueskyTestPayloads.post("3k1", "hello", did = BlueskyTestPayloads.OTHER_DID),
+        )
         search("@bob.bsky.social")
         assertEquals("", state.errorMessage)
         assertEquals("bsky:bob.bsky.social", state.feed?.url)
@@ -331,5 +334,99 @@ class SubscribeViewModelBlueskyTest {
         assertEquals(strings.getString(R.string.already_subscribed), state.errorMessage)
         coVerify(exactly = 1) { localService.isFeedExist(rss) }
         coVerify(exactly = 0) { localService.isFeedExist(match { it.startsWith("bsky:") || it.startsWith("https://bsky.app") }) }
+    }
+
+    // FRONT-02n: the API names both the DID and the handle of one account, so a source stored under the OTHER name is the same account.
+    private val didRss = "https://bsky.app/profile/${BlueskyTestPayloads.DID}/rss"
+    private val didApi = "bsky:${BlueskyTestPayloads.DID}"
+
+    private fun foundAs(did: String, handle: String, vararg items: String) = BlueskyOutcome.Found(
+        BlueskyFetchResult(BlueskyTestPayloads.array(*items), did, handle, "Alice A", "https://cdn.bsky.app/img/avatar/a@jpeg"),
+    )
+
+    private fun assertNoPreviewWasBuilt() {
+        assertNull(state.feed)
+        assertTrue(state.articles.isEmpty())
+        assertFalse(state.lockLinkInput)
+    }
+
+    @Test fun aHandleTypedAfterTheDidWasSubscribedAsApi_isReported() = runTest(dispatcher) {
+        coEvery { localService.isFeedExist(didApi) } returns true
+        coEvery { api.fetch("alice.bsky.social") } returns foundAs(BlueskyTestPayloads.DID, BlueskyTestPayloads.HANDLE, BlueskyTestPayloads.post("3k1", "hello"))
+        search("@alice.bsky.social")
+        assertReportedAsAlreadySubscribed()
+        coVerify(exactly = 1) { api.fetch("alice.bsky.social") }
+    }
+
+    @Test fun aHandleTypedAfterTheDidWasSubscribedAsRss_isReported() = runTest(dispatcher) {
+        coEvery { localService.isFeedExist(didRss) } returns true
+        coEvery { api.fetch("alice.bsky.social") } returns foundAs(BlueskyTestPayloads.DID, BlueskyTestPayloads.HANDLE, BlueskyTestPayloads.post("3k1", "hello"))
+        search("@alice.bsky.social")
+        assertReportedAsAlreadySubscribed()
+    }
+
+    @Test fun aDidTypedAfterTheHandleWasSubscribedAsApi_isReported() = runTest(dispatcher) {
+        coEvery { localService.isFeedExist("bsky:alice.bsky.social") } returns true
+        coEvery { api.fetch(BlueskyTestPayloads.DID) } returns foundAs(BlueskyTestPayloads.DID, BlueskyTestPayloads.HANDLE, BlueskyTestPayloads.post("3k1", "hello"))
+        search("https://bsky.app/profile/${BlueskyTestPayloads.DID}")
+        assertReportedAsAlreadySubscribed()
+    }
+
+    @Test fun aDidTypedAfterTheHandleWasSubscribedAsRss_isReported() = runTest(dispatcher) {
+        coEvery { localService.isFeedExist(rssUrl) } returns true
+        coEvery { api.fetch(BlueskyTestPayloads.DID) } returns foundAs(BlueskyTestPayloads.DID, BlueskyTestPayloads.HANDLE, BlueskyTestPayloads.post("3k1", "hello"))
+        search("https://bsky.app/profile/${BlueskyTestPayloads.DID}")
+        assertReportedAsAlreadySubscribed()
+    }
+
+    @Test fun anInvalidHandleFromTheServer_isNotUsedToBlock() = runTest(dispatcher) {
+        coEvery { localService.isFeedExist("bsky:handle.invalid") } returns true
+        coEvery { localService.isFeedExist("https://bsky.app/profile/handle.invalid/rss") } returns true
+        coEvery { api.fetch(BlueskyTestPayloads.DID) } returns foundAs(BlueskyTestPayloads.DID, "handle.invalid", BlueskyTestPayloads.post("3k1", "hello"))
+        search("https://bsky.app/profile/${BlueskyTestPayloads.DID}")
+        assertEquals("", state.errorMessage)
+        assertEquals(didApi, state.feed?.url)
+        coVerify(exactly = 0) { localService.isFeedExist("bsky:handle.invalid") }
+    }
+
+    @Test fun whenNothingIsStored_theOtherNameIsAskedOnce_andTheTypedNameIsNotAskedAgain() = runTest(dispatcher) {
+        coEvery { api.fetch("alice.bsky.social") } returns foundAs(BlueskyTestPayloads.DID, BlueskyTestPayloads.HANDLE, BlueskyTestPayloads.post("3k1", "hello"))
+        search("@alice.bsky.social")
+        assertEquals("", state.errorMessage)
+        assertEquals("bsky:alice.bsky.social", state.feed?.url)
+        coVerify(exactly = 1) { localService.isFeedExist(didApi) }
+        coVerify(exactly = 1) { localService.isFeedExist(didRss) }
+        coVerify(exactly = 1) { localService.isFeedExist("bsky:alice.bsky.social") }
+        coVerify(exactly = 1) { localService.isFeedExist(rssUrl) }
+    }
+
+    @Test fun anApiFailure_fallsBackToRss_andTheOtherNameIsNotAsked_aKnownLimit() = runTest(dispatcher) {
+        coEvery { localService.isFeedExist(didApi) } returns true
+        coEvery { api.fetch(any()) } returns BlueskyOutcome.Failed
+        coEvery { rssHelper.searchFeed(rssUrl) } returns feedAt(rssUrl)
+        search("@alice.bsky.social")
+        coVerify(exactly = 1) { rssHelper.searchFeed(rssUrl) }
+        coVerify(exactly = 0) { localService.isFeedExist(didApi) }
+        assertEquals("the old RSS flow still shows its preview", rssUrl, state.feed?.url)
+    }
+
+    @Test fun aSecondNameThatIsAlreadyStored_blocksWithoutBuildingAPreview_andKeepsWhatWasTyped() = runTest(dispatcher) {
+        coEvery { localService.isFeedExist(didApi) } returns true
+        coEvery { api.fetch("alice.bsky.social") } returns foundAs(BlueskyTestPayloads.DID, BlueskyTestPayloads.HANDLE, BlueskyTestPayloads.post("3k1", "hello"))
+        search("@alice.bsky.social")
+        assertNoPreviewWasBuilt()
+        assertEquals("@alice.bsky.social", state.linkContent)
+    }
+
+    @Test fun aDifferentAccountWhoseNamesAreNotStored_isNotBlocked() = runTest(dispatcher) {
+        coEvery { localService.isFeedExist("bsky:alice.bsky.social") } returns true
+        coEvery { localService.isFeedExist(didApi) } returns false
+        // The posts must be bob's own, or the mapper drops them and the flow falls back to RSS.
+        coEvery { api.fetch("bob.bsky.social") } returns foundAs(
+            BlueskyTestPayloads.OTHER_DID, "bob.bsky.social", BlueskyTestPayloads.post("3k1", "hello", did = BlueskyTestPayloads.OTHER_DID),
+        )
+        search("@bob.bsky.social")
+        assertEquals("", state.errorMessage)
+        assertEquals("bsky:bob.bsky.social", state.feed?.url)
     }
 }

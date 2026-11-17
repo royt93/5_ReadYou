@@ -244,6 +244,19 @@ class SubscribeViewModel @Inject constructor(
                     }
                     if (outcome is com.mckimquyen.reader.infrastructure.social.bluesky.BlueskyOutcome.Found) {
                         val found = outcome.result
+                        // The API named the account's other name: a source stored under it (as API or as the old RSS form) is the same account.
+                        val otherNames = com.mckimquyen.reader.infrastructure.social.bluesky.BlueskyFeedMapper
+                            .otherNameAddresses(blueskyActor, found.did, found.handle)
+                        if (otherNames.any { rssService.get().isFeedExist(it) }) {
+                            _subscribeUiState.update {
+                                it.copy(
+                                    title = androidStringsHelper.getString(R.string.subscribe),
+                                    errorMessage = androidStringsHelper.getString(R.string.already_subscribed),
+                                    lockLinkInput = false,
+                                )
+                            }
+                            return@launch
+                        }
                         val feedId = context.currentAccountId.spacerDollar(UUID.randomUUID().toString())
                         val articles = com.mckimquyen.reader.infrastructure.social.bluesky.BlueskyFeedMapper.toArticles(
                             profileDid = found.did,
