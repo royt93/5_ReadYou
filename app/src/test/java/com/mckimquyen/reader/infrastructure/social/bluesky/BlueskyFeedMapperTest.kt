@@ -220,4 +220,74 @@ class BlueskyFeedMapperTest {
             assertEquals(typed, resolved, BlueskyFeedMapper.rssUrl(actor))
         }
     }
+
+    // The other name of one account: what FRONT-02n asks the database about once the API has named both the DID and the handle.
+    private val abcDid = "did:plc:abc123"
+
+    private fun both(name: String) = listOf(BlueskyFeedMapper.feedUrl(name), BlueskyFeedMapper.rssUrl(name))
+
+    @Test fun typedHandle_gives_theDidAddresses() {
+        assertEquals(
+            listOf("bsky:did:plc:abc123", "https://bsky.app/profile/did:plc:abc123/rss"),
+            BlueskyFeedMapper.otherNameAddresses("alice.bsky.social", abcDid, "alice.bsky.social"),
+        )
+    }
+
+    @Test fun typedDid_gives_theHandleAddresses_lowerCased() {
+        assertEquals(
+            listOf("bsky:alice.bsky.social", "https://bsky.app/profile/alice.bsky.social/rss"),
+            BlueskyFeedMapper.otherNameAddresses(abcDid, abcDid, "Alice.Bsky.Social"),
+        )
+    }
+
+    @Test fun aTypedHandleInMixedCase_isNotAskedAgain() {
+        assertEquals(both(abcDid), BlueskyFeedMapper.otherNameAddresses("ALICE.bsky.social", abcDid, "alice.bsky.social"))
+    }
+
+    @Test fun aTypedDid_isNotAskedAgain_andKeepsItsCase() {
+        val mixed = "did:plc:AbC123"
+        assertEquals(both("alice.bsky.social"), BlueskyFeedMapper.otherNameAddresses(mixed, mixed, "alice.bsky.social"))
+        // A DID that differs only by case is another account: it must still be asked about.
+        assertTrue(BlueskyFeedMapper.otherNameAddresses("alice.bsky.social", mixed, "alice.bsky.social").contains("bsky:did:plc:AbC123"))
+    }
+
+    @Test fun anInvalidHandle_isIgnored() {
+        listOf("handle.invalid", "HANDLE.INVALID", "", "did:plc:other", "-bad", "a b").forEach { bad ->
+            assertEquals(bad, both(abcDid), BlueskyFeedMapper.otherNameAddresses("alice.bsky.social", abcDid, bad))
+        }
+    }
+
+    @Test fun aTypedDidWithAnInvalidHandle_givesNothing() {
+        assertEquals(emptyList<String>(), BlueskyFeedMapper.otherNameAddresses(abcDid, abcDid, "handle.invalid"))
+    }
+
+    @Test fun aTypedNameThatIsNeitherOfTheTwo_gives_bothNamesInBothForms_withoutDuplicates() {
+        val addresses = BlueskyFeedMapper.otherNameAddresses("some-alias", abcDid, "alice.bsky.social")
+        assertEquals(both(abcDid) + both("alice.bsky.social"), addresses)
+        assertEquals(addresses.size, addresses.toSet().size)
+    }
+
+    @Test fun aDidThatIsNotValid_isIgnored() {
+        // The typed name is the handle and the handle is skipped as equal to it, so a bad DID leaves nothing to ask about.
+        listOf("", "alice.bsky.social", "did:", "did:plc", "did:plc:", "did::abc", "did: x").forEach { bad ->
+            assertEquals(bad, emptyList<String>(), BlueskyFeedMapper.otherNameAddresses("alice.bsky.social", bad, "alice.bsky.social"))
+        }
+    }
+
+    // "x:y:z" has three non-empty parts and passes isActor, so only the "did:" prefix tells it from a DID.
+    @Test fun aColonSeparatedNameThatIsNotADid_isIgnored() {
+        listOf("x:y:z", "alice:bsky:social", "plc:did:abc").forEach { notADid ->
+            assertEquals(notADid, emptyList<String>(), BlueskyFeedMapper.otherNameAddresses("alice.bsky.social", notADid, "alice.bsky.social"))
+        }
+    }
+
+    @Test fun aDidIsNeverTheSameAsTheHandleOfTheSameAccount_soNoAddressIsListedTwice() {
+        val addresses = BlueskyFeedMapper.otherNameAddresses("some-alias", abcDid, "alice.bsky.social")
+        assertEquals(addresses.size, addresses.toSet().size)
+    }
+
+    @Test fun theAddressesUseTheSameSpellingAsTheStoredSources() {
+        val addresses = BlueskyFeedMapper.otherNameAddresses("alice.bsky.social", "did:plc:AbC123", "alice.bsky.social")
+        assertEquals(listOf(BlueskyFeedMapper.feedUrl("did:plc:AbC123"), BlueskyFeedMapper.rssUrl("did:plc:AbC123")), addresses)
+    }
 }

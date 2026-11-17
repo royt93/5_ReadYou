@@ -23,6 +23,8 @@ object BlueskyFeedMapper {
     private const val POST_LINK_BASE = "https://bsky.app/profile/"
     private const val HTTPS = "https"
     private const val DID_PREFIX = "did:"
+    private const val INVALID_HANDLE = "handle.invalid"
+    private const val DID_PARTS = 3
     private const val BSKY_APP = "bsky.app"
     private const val BSKY_SOCIAL = "bsky.social"
     private const val DEFAULT_PORT = -1
@@ -57,6 +59,22 @@ object BlueskyFeedMapper {
     fun feedUrl(actor: String): String {
         val trimmed = actor.trim()
         return FEED_URL_PREFIX + if (trimmed.startsWith(DID_PREFIX)) trimmed else trimmed.lowercase(Locale.ROOT)
+    }
+
+    /** A DID is "did:<method>:<id>": a bare "did:" or "did:plc" passes [isActor] but names nobody. */
+    private fun isDid(text: String): Boolean = isActor(text) && text.startsWith(DID_PREFIX) && text.split(':').size >= DID_PARTS && text.split(':').all { it.isNotEmpty() }
+
+    /**
+     * Addresses under which an already stored source of the SAME account could look under its OTHER name (as API and as the old RSS
+     * form). The typed name is left out: it was checked before the API call. A handle the server returns is not trusted blindly.
+     */
+    fun otherNameAddresses(typedActor: String, did: String, handle: String): List<String> {
+        val typed = feedUrl(typedActor)
+        val names = buildList {
+            if (isDid(did)) add(did)
+            if (isActor(handle) && !handle.startsWith(DID_PREFIX) && !handle.equals(INVALID_HANDLE, ignoreCase = true)) add(handle)
+        }
+        return names.filter { feedUrl(it) != typed }.flatMap { listOf(feedUrl(it), rssUrl(it)) }
     }
 
     fun feedName(actor: String, displayName: String?): String =
