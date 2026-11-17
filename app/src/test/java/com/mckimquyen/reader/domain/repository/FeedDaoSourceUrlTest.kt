@@ -74,4 +74,50 @@ class FeedDaoSourceUrlTest {
         assertTrue(db.feedDao().queryBySourceUrl(FIRST_ACCOUNT, DID_ADDRESS).isEmpty())
         assertTrue(db.feedDao().queryBySourceUrl(FIRST_ACCOUNT, "").isEmpty())
     }
+
+    // FRONT-02q: rewrite the sync address of one feed only if it still is what the caller read.
+    private val newAddress = "bsky:did:plc:abc"
+
+    @Test fun writesWhenTheStoredValueIsTheExpectedOne() = runBlocking {
+        db.feedDao().insert(feed("f1", "bsky:old", "bsky:old"))
+        assertEquals(1, db.feedDao().updateSourceUrlIfUnchanged("f1", "bsky:old", newAddress))
+        assertEquals(newAddress, db.feedDao().queryById("f1")?.sourceUrl)
+    }
+
+    @Test fun doesNotWriteWhenTheStoredValueChanged() = runBlocking {
+        db.feedDao().insert(feed("f1", "bsky:old", "bsky:other"))
+        assertEquals(0, db.feedDao().updateSourceUrlIfUnchanged("f1", "bsky:old", newAddress))
+        assertEquals("bsky:other", db.feedDao().queryById("f1")?.sourceUrl)
+    }
+
+    @Test fun matchesANullStoredValue_withANullExpectation() = runBlocking {
+        db.feedDao().insert(feed("f1", "bsky:old", null))
+        assertEquals(1, db.feedDao().updateSourceUrlIfUnchanged("f1", null, newAddress))
+        assertEquals(newAddress, db.feedDao().queryById("f1")?.sourceUrl)
+    }
+
+    @Test fun aNullExpectationDoesNotMatchANonNullValue() = runBlocking {
+        db.feedDao().insert(feed("f1", "bsky:old", "bsky:x"))
+        assertEquals(0, db.feedDao().updateSourceUrlIfUnchanged("f1", null, newAddress))
+        assertEquals("bsky:x", db.feedDao().queryById("f1")?.sourceUrl)
+    }
+
+    @Test fun onlyTheOneFeedChanges() = runBlocking {
+        db.feedDao().insert(feed("f1", "bsky:old", "bsky:old"), feed("f2", "bsky:old2", "bsky:old"))
+        assertEquals(1, db.feedDao().updateSourceUrlIfUnchanged("f1", "bsky:old", newAddress))
+        assertEquals("bsky:old", db.feedDao().queryById("f2")?.sourceUrl)
+    }
+
+    @Test fun noOtherColumnChanges() = runBlocking {
+        val before = feed("f1", "bsky:old", "bsky:old").apply { icon = "icon"; isNotification = true; isFullContent = true }
+        db.feedDao().insert(before)
+        db.feedDao().updateSourceUrlIfUnchanged("f1", "bsky:old", newAddress)
+        assertEquals(before.copy(sourceUrl = newAddress), db.feedDao().queryById("f1"))
+    }
+
+    @Test fun anUnknownIdWritesNothing() = runBlocking {
+        db.feedDao().insert(feed("f1", "bsky:old", "bsky:old"))
+        assertEquals(0, db.feedDao().updateSourceUrlIfUnchanged("nobody", "bsky:old", newAddress))
+        assertEquals("bsky:old", db.feedDao().queryById("f1")?.sourceUrl)
+    }
 }

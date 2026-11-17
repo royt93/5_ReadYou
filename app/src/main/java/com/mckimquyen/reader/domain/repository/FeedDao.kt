@@ -97,6 +97,16 @@ interface FeedDao {
     )
     suspend fun queryBySourceUrl(accountId: Int, sourceUrl: String): List<Feed>
 
+    /** Rewrites the sync address of one feed only if it still is what the caller read; returns the rows changed (0 or 1). */
+    @Query(
+        """
+        UPDATE feed SET sourceUrl = :newSourceUrl
+        WHERE id = :id
+        AND sourceUrl IS :expectedSourceUrl
+        """
+    )
+    suspend fun updateSourceUrlIfUnchanged(id: String, expectedSourceUrl: String?, newSourceUrl: String): Int
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(vararg feed: Feed)
 
