@@ -17,7 +17,9 @@
 ## 02q (thêm sau khi viết bản này)
 **02q** Nâng cấp nguồn Bluesky cũ lên lưu DID khi đồng bộ thành công: **xong, có sửa mã** (`LocalRssSv.kt`, một hàm DAO `updateSourceUrlIfUnchanged`, không đổi schema). +21 test, mutation 12/12, 11 lớp liên quan 165 test xanh.
 
-**Số full suite ở trên (3.776) là của 02p và KHÔNG còn đúng cho 02q.** Sau 02q, full suite đỏ ba lần cùng mô hình (`AppNotIdleException` ở các lớp Compose, bắt đầu ~240 giây); bisect cho thấy **đã đỏ từ 02p** (không do 02q), chạy riêng các lớp đỏ thì xanh. Nguyên nhân chưa biết (nghi máy hết bộ nhớ hoặc test Compose dùng chung trạng thái). **Hiện không có số full suite sạch.** Đây là nợ mở.
+**Cập nhật cuối ngày 2026-11-17:** full suite đỏ sau 02q có gốc là test `FeedOptionViewModelTest` của **02p** (gọi `showDrawer`); đã sửa ở `3dd97401`. Đồng thời sửa một lỗi phụ: `ReelsViewModelTest` đỏ chập chờn vì hai lớp test khởi động `RApp` thật (`9fe2b102`). **Full suite hiện xanh: 3.797 test, 0 lỗi, 3 lần thật không cache.** Chi tiết và những gì chưa giải thích ở báo cáo 02q.
+
+(Lịch sử lúc viết: sau 02q full suite đỏ ba lần, nguyên nhân khi đó chưa biết.)
 
 ## Thay đổi mã production, theo từng việc
 Tổng cả đợt **5 tệp, 62 dòng thêm, 3 dòng bỏ**. 02j, 02k, 02l, 02m **không đổi** mã production.

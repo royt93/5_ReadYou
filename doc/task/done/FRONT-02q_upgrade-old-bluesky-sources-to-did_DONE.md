@@ -6,7 +6,10 @@
 **Scope:** **chỉ JVM, không chạm thiết bị nào**. Mã production đổi **hai tệp, 17 dòng thêm, 0 dòng bỏ**: `FeedDao.updateSourceUrlIfUnchanged` (10 dòng) và một khối 7 dòng trong `LocalRssSv.queryBlueskyArticles`. **Không đổi schema Room** (băm `app/schemas/.../22.json` giữ nguyên `45d76f04…`, `git diff` rỗng ở `app/schemas`, không migration, không cột mới), không chuỗi, locale, manifest, `app/build.gradle`, dependency; không Gemini, ad, IAP, VIP.  
 **Spec / plan:** `docs/superpowers/specs/2026-11-17-front-02q-upgrade-old-bluesky-sources-to-did-design.md`, `docs/superpowers/plans/2026-11-17-front-02q-upgrade-old-bluesky-sources-to-did.md`.
 
-## ⚠ Điều phải nói trước: full suite JVM KHÔNG sạch lúc viết báo cáo này
+## Cập nhật 2026-11-17 (cuối ngày): full suite JVM ĐÃ SẠCH sau khi sửa test của 02p
+Sau điều tra (mục "Điều tra full suite đỏ" cuối báo cáo), full suite JVM chạy **3 lần thật, không cache** (`--no-build-cache`, `cleanTest`): **3.797 test, 0 lỗi, 0 bỏ qua, 485 lớp**, mỗi lần 2 đến 3 phút (3.797 = 3.776 của 02p + 21 test của 02q). **Gốc của `AppNotIdleException` là test `FeedOptionViewModelTest` của chính 02p** (xem cuối báo cáo). Hai đoạn "KHÔNG sạch" bên dưới giữ nguyên làm lịch sử của lúc viết, **không còn đúng cho trạng thái hiện tại**.
+
+## ⚠ (Lịch sử, lúc viết báo cáo này) full suite JVM KHÔNG sạch
 Báo cáo các việc trước (02i đến 02p) đều ghi một con số "full suite, 0 lỗi". **Báo cáo này không có con số đó**, và lý do được ghi rõ ở mục "Full suite" bên dưới. Phần đã đo được là **11 lớp test liên quan, 165 test, 0 lỗi** khi chạy riêng.
 
 ## Việc đã làm
@@ -68,4 +71,15 @@ Chỉ chạy JVM, không chạm thiết bị, **không sửa tệp nào trong kh
 
 **Chưa biết:** **ai ghi** `currentAccountId` ra 2, 3, 4; vì sao tệp có 24 byte; và liệu lỗi này có chung gốc với `AppNotIdleException` hay không (không có bằng chứng cho hay chống). Lỗi Reels là **lỗi phụ thuộc thứ tự và chập chờn của chính bộ test**, không phải lỗi sản phẩm; lỗi sản phẩm chưa được chứng minh ở đâu.
 
-**Việc còn lại (nợ mở):** (1) bisect `AppNotIdleException` tới lớp cụ thể (khoảng 30 đến 40 phút, có thể cần một tổ hợp lớp); (2) tìm ai ghi `currentAccountId` (đọc mã chỉ cho biết ai **có thể** ghi, không biết ai **đã** ghi; cần đo); (3) sau khi hiểu gốc, mới quyết cách sửa. Cho tới lúc đó, **không có số full suite sạch sau 02p**.
+**Việc còn lại (nợ mở):** (1) bisect `AppNotIdleException` tới lớp cụ thể: **xong, xem mục dưới**; (2) tìm ai ghi `currentAccountId`: **xong** (`RApp` thật, đã sửa ở commit `9fe2b102`); (3) full suite sạch: **xong, 3/3 lần** (xem mục dưới).
+
+## Gốc của `AppNotIdleException` (đã đo, đã sửa; 2026-11-17)
+- **Cặp tối thiểu (tìm bằng chia đôi tự động, rồi kiểm lại):** `SubscribeDialogTypingTest` bị `AppNotIdleException` **chỉ khi** `FeedOptionViewModelTest` **và** `NativeSwipeRefreshWidgetTest` cùng chạy trước nó. Đo bằng `--no-build-cache`: cả ba lớp cùng chạy **đỏ 6/6**; mỗi cặp thiếu một lớp **xanh 6/6** (cả hai cặp).
+- **Theo từng test:** 7 trong 8 test của `FeedOptionViewModelTest` (mọi test có gọi `open()` tức `showDrawer`) đều làm bộ ba treo; test duy nhất không gọi `open()` (`withoutALoadedFeed_nothingIsSaved`) xanh.
+- **Can thiệp:** thay `open()` bằng nạp feed thẳng vào state (không gọi `showDrawer`) thì bộ ba **xanh 5/5**; bản sửa chính thức **xanh 8/8** (trước đó đỏ 6/6). Mutation 5/5 bị bắt, hai tệp khôi phục giống hệt.
+- **Sửa:** commit `3dd97401` (chỉ test, không đổi mã sản phẩm). Lý do cơ chế: `showDrawer` chạy `ModalBottomSheetState.show()` trên `backgroundScope` của test; đây là suy luận từ kết quả đo, **chưa** có phép đo trực tiếp bên trong Compose cho thấy chính xác cái gì bị treo.
+- **Sai sót của tôi trong lúc điều tra, đã sửa:** (a) một đợt đo bị lấy từ cache Gradle; (b) một lần chia đôi dùng tên lớp thiếu gói con nên kết luận "2 lớp" sai, bộ phát hiện sau đó chỉ tính đỏ khi có `AppNotIdleException`; (c) một thí nghiệm can thiệp đầu hỏng vì lỗi biên dịch (thiếu `@OptIn`) và tôi suýt đọc nó như kết quả xanh; chỉ tin khi `rc=0` và đủ số lớp.
+
+**Điều tôi KHÔNG giải thích được:** báo cáo 02o và 02p ghi full suite **xanh** (3.767 và 3.776 test) ở các commit **đã chứa** test `FeedOptionViewModelTest` gọi `showDrawer` (02p). Hôm nay chính test đó làm full suite đỏ 5 lần liên tiếp. Tôi không biết vì sao lúc đó xanh; có thể thứ tự chạy lớp trong JVM hoặc thời điểm khác nhau. Chỉ có thể nói: **lỗi là chập chờn theo môi trường, không chắc chắn xảy ra**, và bản sửa bỏ hẳn nguyên nhân thay vì phụ thuộc vào may rủi.
+
+**Tác động lên 02m:** `SubscribeDialogTypingTest` là lớp bị hại. Lỗi gõ chữ chập chờn của 02m là một lỗi **khác** (đo trên Pixel, ngoài `MainActivity`); **không có bằng chứng** nó cùng gốc với `showDrawer`, nên 02m vẫn đóng "không có gốc".
