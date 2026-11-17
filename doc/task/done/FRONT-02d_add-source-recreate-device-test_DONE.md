@@ -78,7 +78,7 @@ Sau lệnh của owner "chỉ dùng tecno, cấm đụng pixel", tôi chạy l�
 
 - Một máy (Pixel 7 Pro, Android 17); không so với Tecno KJ7 hay A50s.
 - Test phụ thuộc: tài khoản Local, không ở màn khởi động lần đầu, không có quảng cáo che nút `+`; nếu không thì đỏ có lý do rõ.
-- Chập chờn bước gõ chưa hiểu nguyên nhân (xem trên). **Cập nhật FRONT-02m (2026-11-16):** đã điều tra một phần, lỗi tái hiện ~1% (4/400) ngoài `MainActivity`; còn nghi cuộc đua gõ và focus hoặc `reset()` muộn; **chưa kết luận gốc**, xem `FRONT-02m_typing-flake-investigation_DONE.md`.
+- Chập chờn bước gõ chưa hiểu nguyên nhân (xem trên). **Cập nhật FRONT-02m (2026-11-16):** đã điều tra một phần, lỗi tái hiện ~1% (4/400) ngoài `MainActivity`; còn nghi cuộc đua gõ và focus hoặc `reset()` muộn; **chưa kết luận gốc**, xem `FRONT-02m_typing-flake-investigation_DONE.md`. **Cập nhật 2026-11-17:** vòng đo thứ hai (199 lượt) cho thêm: một lượt kiểu chữ vào ViewModel rồi bị đặt về rỗng lặp lại giống hệt ba lần; vẫn chưa biết ai ghi.
 - `describeScreen()` chỉ ghi số lượng và cờ, không ghi chữ trên màn hình.
 
 ## Commits trên `dev`

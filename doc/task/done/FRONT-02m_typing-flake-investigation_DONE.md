@@ -1,6 +1,7 @@
 # FRONT-02m (Điều tra gốc lỗi gõ chữ chập chờn của test 02d), CHƯA KẾT LUẬN GỐC
 
-**Date:** 2026-11-16  
+**Date:** 2026-11-16 (cập nhật 2026-11-17: thêm vòng đo thứ hai)
+
 **Branch:** `dev` (không push)  
 **Commit:** `9aea8512` và `b2191805` (chỉ bộ phân loại và test thuần JVM của nó)  
 **Scope:** điều tra, **không đổi mã production**, manifest, chuỗi, Room (v22), DataStore, `app/build.gradle`; không dependency mới. **Điều tra chưa xong**: vòng đo dừng ở 4 lô hợp lệ trên 10 vì Pixel bị dùng cho việc khác.  
@@ -52,6 +53,37 @@ RED{outcome=ERASED iter=96 winFocus=true fieldFocus=false enabled=true vm=18x1,0
 - **Chưa chạy Pha B** (`MainActivity` thật); plan hoãn có chủ ý và cần owner đồng ý (quảng cáo).
 - Tỉ lệ ~1% từ 4 lượt đỏ: **khoảng tin cậy rộng** (khoảng 0,3% đến 2,5% ở độ tin cậy 95% theo Wilson); chưa đủ để so tỉ lệ hai chế độ.
 
+## Vòng đo thứ hai (2026-11-17, probe bản mới, cùng chế độ `manual`)
+Probe bản mới ghi thêm focus theo từng khung hình, cờ cửa sổ mất focus và bắt lỗi từng lượt (một lượt hỏng không còn làm mất cả lô). APK đã được kiểm có chứa probe mới (đếm chuỗi `typing_summary`, `focus_before`, `control_summary`, `NEVER_DELIVERED_FOCUS_LATE` trong dex). Lượt thử 10 lượt: 10 xanh; phép thử âm (không gõ gì) báo đúng nhãn `NEVER_DELIVERED_FOCUS_LATE` 5/5.
+
+| Lô | Kết quả |
+|---|---|
+| 1 | 100 lượt: 98 xanh, **2 `ERASED`** |
+| 2 | 100 lượt: 97 xanh, **1 `NEVER_DELIVERED_FOCUS_LATE`**, 1 `INVALID`, 1 lượt hỏng của probe (`AssertionError`, đếm riêng) |
+| 3, 4 | **chưa chạy**: cổng dừng vì một màn hình xin quyền của Android rồi `loyalty.skyjoy.vn.dev` lại ở foreground |
+| **Cộng** | **199 lượt, 198 hợp lệ: 195 xanh, 3 đỏ (≈1,5%)** |
+
+Các dòng đỏ (nguyên văn, không có chữ người dùng):
+```
+RED{outcome=ERASED iter=34 winFocus=true fieldFocus=false enabled=true focusFrames=60/60 vm=18x1,0x59 screen=0x60}
+RED{outcome=ERASED iter=53 winFocus=true fieldFocus=false enabled=true focusFrames=60/60 vm=18x1,0x59 screen=0x60}
+RED{outcome=NEVER_DELIVERED_FOCUS_LATE iter=47 winFocus=true fieldFocus=false enabled=true focusFrames=60/60 vm=0x60 screen=0x60}
+```
+
+**Điều vòng đo này cho thêm:**
+1. **Ba lượt `ERASED` giống hệt nhau từng khung hình** (hai ở vòng này, một ở vòng trước): `vm=18x1,0x59`, tức ViewModel giữ đủ 18 ký tự **đúng một khung hình** rồi về rỗng và ở đó 59 khung còn lại; màn hình không bao giờ thấy chữ. Giống hệt nhau từng khung nên **không phải ngẫu nhiên**, mà là một chuỗi sự kiện lặp lại.
+2. **Chữ đã tới ViewModel** trong ca `ERASED`, nên `performTextInput` **không** làm mất chữ ở tầng test hay thư viện nhập; có thứ ghi `linkContent` về rỗng ngay sau đó.
+3. **Ô có focus ở cả 60 khung hình** sau khi gõ (`focusFrames=60/60`) ở cả ba lượt đỏ; **trước khi gõ ô chưa focus** (`fieldFocus=false`) nhưng điều đó đúng ở **cả 200/200 lượt**, kể cả lượt xanh (`performTextInput` tự xin focus). Vì vậy "ô chưa focus" **không** giải thích được lượt đỏ nào.
+4. **Có ít nhất hai cơ chế khác nhau:** chữ vào rồi bị xóa (`ERASED`) và chữ **không bao giờ vào** dù ô có focus (`NEVER_DELIVERED_FOCUS_LATE`). Một lượt duy nhất của cơ chế thứ hai thì chưa đủ để nói gì thêm.
+5. **Nhãn `UNFOCUSED_AT_TYPING` ở vòng đo cũ (3 lượt) nay không còn xuất hiện**; bản probe mới phân biệt được "focus đến sau lúc gõ", và 1 lượt thuộc nhãn đó. Vòng trước chưa đủ thông tin để biết 3 lượt cũ thực ra thuộc nhãn nào.
+
+**Đọc mã (đã làm, chưa chứng minh thủ phạm):**
+- Trong `SubscribeViewModel`, chỗ **duy nhất** đặt `linkContent` về rỗng trên đường gõ là `reset()`, gọi từ `LaunchedEffect(subscribeUiState.visible)` khi `visible` thành `false`. Ghi `linkContent = ""` còn có ở nhánh khóa bí mật Nostr, không liên quan.
+- `CoreTextField` (foundation 1.7.8) mỗi lần compose lại gọi `state.processor.reset(value, inputSession)`: nếu `value` Compose đưa vào khác bộ đệm hiện tại thì **thay bộ đệm bằng `value`**. Vì `SubscribeDialog` đọc state qua `collectAsState(Dispatchers.Default)` nên giá trị tới composition **trễ** so với `StateFlow`: có đường hợp lệ để một giá trị cũ (rỗng) đè lên chữ vừa vào ở **ô nhập**.
+- **Nhưng** dữ liệu cho thấy chính `StateFlow` của ViewModel (`vm=…0x59`) về 0, tức `linkContent` trong ViewModel bị ghi `""`. `processor.reset` **không ghi ngược xuống ViewModel**; muốn thế phải có `onValueChange("")`. Tôi **chưa tìm được** chỗ nào trong mã làm điều đó trên đường này (ngoài nút xóa `X` và `Paste`, đều cần bấm). **Đọc mã chưa chỉ ra được thủ phạm.**
+
+**Đo tiếp cần gì (không làm):** ghi nhật ký **bên trong** `SubscribeViewModel` mọi lần ghi vào `linkContent` (hàm nào, thứ tự nào, khung nào) trong một lượt `ERASED`. Đó là một thay đổi mã **chỉ để chẩn đoán**; owner chọn **không làm** bước này (2026-11-17) và chốt báo cáo với số liệu hiện có.
+
 ## Điều chỉnh khi thực thi
 - Lượt thử đầu: **toàn bộ INVALID** vì cửa sổ hộp thoại nhận focus cửa sổ chậm hơn lúc ô hiện (đo: chưa có lúc ô vừa hiện, có sau 30 khung). Probe đổi sang chờ có hạn cho focus cửa sổ rồi mới đo (3 giây).
 - Plan hoãn Pha B và chọn giữ `performTextInput` nguyên bản (không đọc giá trị trả về).
@@ -61,8 +93,16 @@ RED{outcome=ERASED iter=96 winFocus=true fieldFocus=false enabled=true vm=18x1,0
 ## Dữ liệu máy và an toàn
 Mọi lô đã chạy: DataStore trước và sau **giống hệt** (`ed9f6887…`), khôi phục byte-exact 6 tệp. Pixel `user_rotation` vẫn 0. Test không ghi Room. **Pixel đang để app `loyalty.skyjoy.vn.dev` của owner ở foreground**, nên tôi dừng, không chạm tiếp.
 
-## Kết luận
-**Chưa kết luận gốc.** Đã chứng minh lỗi tái hiện ngoài `MainActivity` (4/400), thu hẹp được còn H3 và H4 (một lượt `ERASED` cho thấy chữ **có lúc đã tới ViewModel rồi mất**), và có công cụ để phân biệt tiếp, nhưng vòng đo mới chạy được 4 trên 10 lô và bản probe tốt hơn chưa chạy trên máy. Test 02d vẫn dùng cơ chế gõ lại có điều kiện.
+## Kết luận (cập nhật 2026-11-17)
+**Chưa kết luận gốc.** Điều đã chứng minh bằng số liệu, sau hai vòng đo (tổng khoảng 600 lượt, 7 đỏ):
+- Lỗi **tái hiện ngoài `MainActivity`**, ở tỉ lệ khoảng **1 đến 1,5%** (4/400 rồi 3/198).
+- Ít nhất **hai cơ chế khác nhau**: (a) **chữ vào ViewModel đúng một khung hình rồi bị đặt về rỗng** (`ERASED`, **ba lượt giống hệt từng khung hình** qua hai vòng đo), (b) **chữ không bao giờ vào** dù ô có focus liên tục (`NEVER_DELIVERED_FOCUS_LATE`, một lượt).
+- Ở cơ chế (a), `performTextInput` **không** làm mất chữ ở tầng test hay thư viện nhập: chữ đã tới ViewModel; có thứ ghi `linkContent` về rỗng ngay sau đó. "Ô chưa focus lúc gõ" **không** giải thích được lượt đỏ nào (đúng ở cả 200/200 lượt vòng hai).
+
+Điều **chưa** biết: **ai** ghi `linkContent` về rỗng ở (a), và vì sao (b) xảy ra. Giả thuyết H3 (cuộc đua gõ và focus) **yếu đi** vì chữ đã vào ở (a); H4 (có thứ xóa chữ sau khi vào, ví dụ `reset()` muộn hoặc một bên ghi lại giá trị cũ) **còn mở và hợp nhất** với dữ liệu nhưng **chưa chứng minh**; đọc mã không chỉ ra được thủ phạm (xem trên). Chế độ `auto` (giống 02e), vốn dùng để so với 02d, **chưa chạy**, nên H5 ("đồng hồ `manual`") vẫn chưa loại trừ. Test 02d vẫn dùng cơ chế gõ lại có điều kiện.
 
 ## Để mở lại
-Khi Pixel rảnh khoảng 40 phút: chạy cổng, rồi `px_m_loop.sh 4 100 manual` và `px_m_loop.sh 4 100 auto` với probe đã sửa (commit probe trước khi chạy để có bản lưu), so tỉ lệ hai chế độ và đọc nhãn `NEVER_DELIVERED_FOCUS_LATE` so với `UNFOCUSED_AT_TYPING` / `ERASED`.
+Muốn tiếp tục cần **một trong hai** (owner đã chọn không làm cả hai ở thời điểm này):
+1. **Đo bên trong ViewModel:** thêm nhật ký **tạm, chỉ để chẩn đoán** (không commit) ghi mọi lần ghi vào `linkContent` (hàm nào, thứ tự nào, khung nào) rồi chạy lại khi có một lượt `ERASED`; cần Pixel rảnh khoảng 40 phút.
+2. **Chạy chế độ `auto`:** khi Pixel rảnh, cổng riêng trước, rồi `px_m_loop.sh 4 100 auto`, so tỉ lệ với `manual` (đã có 199 lượt `manual` bản mới).
+Probe và bộ phân loại đã commit (`271fe76a`, `b2191805`); công cụ `px_m_*` nằm ngoài kho.
