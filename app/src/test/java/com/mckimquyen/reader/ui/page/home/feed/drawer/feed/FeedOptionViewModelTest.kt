@@ -1,6 +1,7 @@
 package com.mckimquyen.reader.ui.page.home.feed.drawer.feed
 
 import android.app.Application
+import androidx.compose.material.ExperimentalMaterialApi
 import com.mckimquyen.reader.domain.model.feed.Feed
 import com.mckimquyen.reader.domain.sv.LocalRssSv
 import com.mckimquyen.reader.domain.sv.RssSv
@@ -11,8 +12,8 @@ import io.mockk.mockk
 import io.mockk.slot
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.advanceUntilIdle
@@ -31,6 +32,7 @@ import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 
 private const val NEW_ADDRESS = "bsky:bob.bsky.social"
+private const val UI_STATE_FIELD = "_feedOptionUiState"
 
 /**
  * The address menu of a source. The sync of a web, Nostr or Bluesky source reads sourceUrl before url, so an address typed in
@@ -63,10 +65,19 @@ class FeedOptionViewModelTest {
         isNotification = true, isFullContent = true, sourceType = sourceType, sourceUrl = sourceUrl,
     )
 
-    /** Loads [feed] into the view model the way the drawer does; the drawer itself (a Compose sheet) is never shown here. */
+    /**
+     * Puts [feed] into the view model's state, as the drawer would after loading it. It does NOT call showDrawer(): that call runs
+     * ModalBottomSheetState.show() on a scope that outlives the test, and measured on 2026-11-17 it left the Compose clock of the
+     * JVM busy, so Compose test classes that ran later in the same JVM failed with AppNotIdleException (SubscribeDialogTypingTest
+     * with NativeSwipeRefreshWidgetTest: red 6/6 with the call, green 5/5 without). The state is written by reflection because
+     * the view model has no public way to load a feed without opening the drawer.
+     */
+    @OptIn(ExperimentalMaterialApi::class)
     private fun TestScope.open(feed: Feed) {
-        coEvery { localService.findFeedById(feed.id) } returns feed
-        backgroundScope.launch { viewModel.showDrawer(backgroundScope, feed.id) }
+        val field = FeedOptionViewModel::class.java.getDeclaredField(UI_STATE_FIELD).apply { isAccessible = true }
+        @Suppress("UNCHECKED_CAST") // the field is a MutableStateFlow<FeedOptionUiState>; a wrong type fails loudly right here
+        val state = field.get(viewModel) as MutableStateFlow<FeedOptionUiState>
+        state.value = state.value.copy(feed = feed, selectedGroupId = feed.groupId)
         runCurrent()
     }
 
