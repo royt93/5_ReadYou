@@ -47,7 +47,7 @@ Helper `androidTest` tạm (đã xóa, **không commit**) gọi **API thật** q
 - Giới hạn tốc độ của Bluesky khi đồng bộ nhiều nguồn; API đổi hình dạng sau này.
 - Đồng bộ nền thật của một nguồn `BLUESKY` trên máy (chỉ có test JVM với dịch vụ giả).
 - Hiển thị bài có `embed` lạ; TalkBack; ngôn ngữ ngoài EN/VI.
-- Hai nguồn trùng (RSS cũ + API mới): **từ FRONT-02i đã được chặn khi cùng dạng tên** (handle với handle, DID với DID). **Còn trùng:** handle so với DID của cùng người, nguồn RSS qua OPML hoặc địa chỉ dạng khác, cặp trùng đã có sẵn trong máy.
+- Hai nguồn trùng (RSS cũ + API mới): **từ FRONT-02i đã được chặn khi cùng dạng tên** (handle với handle, DID với DID). **Cập nhật FRONT-02n (2026-11-17): handle so với DID của cùng người nay cũng được chặn khi API trả lời.** **Còn trùng:** API lỗi, chủ tài khoản đã đổi handle, nguồn RSS qua OPML hoặc địa chỉ dạng khác, cặp trùng đã có sẵn trong máy.
 
 ## Giới hạn
 

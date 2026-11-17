@@ -35,5 +35,5 @@ Chỉ **02i**, tổng **hai tệp, 10 dòng thêm, 1 dòng đổi** (`SubscribeV
 ## Việc tiếp có thể làm (không ưu tiên, theo thứ tự rủi ro tăng dần)
 1. Mở lại 02m khi Pixel rảnh khoảng 40 phút: 4 lô × 100 lượt cho `manual` và `auto`.
 2. Test bấm giữ `FeedItem` và ngăn kéo `FeedOptionDrawer` (cần môi trường thêm, có thể ghi dữ liệu).
-3. Chặn trùng handle với DID (cần hỏi mạng).
+3. ~~Chặn trùng handle với DID~~ **Đã làm ở FRONT-02n (2026-11-17)** khi API trả lời; vẫn chưa: API lỗi, chủ tài khoản đã đổi handle.
 4. Các mục còn lại của FRONT-02 trong `doc/task/todo/`.
