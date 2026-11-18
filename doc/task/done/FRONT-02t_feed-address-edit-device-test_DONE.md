@@ -46,4 +46,4 @@ Bấm giữ dòng địa chỉ, `FeedOptionDrawer`, `ChangeUrlDialog` (gõ và b
 ## Điều cần biết
 - Test đồng bộ qua `LocalRssSv` dựng từ DAO thật (như 02r), không qua `SyncWorker`.
 - Hệ quả 02p vẫn đúng: sửa địa chỉ Bluesky làm mất DID đã nhớ cho tới lần đồng bộ thành công kế tiếp (02q đưa lại DID); test 1 chứng minh vòng đó trên máy.
-- Test Oracle chập chờn trong JVM (xem trên) là việc riêng, chưa làm.
+- **Test Oracle chập chờn đã điều tra (2026-11-18):** gốc là một cuộc đua trong chính test, không phải lỗi sản phẩm. `close_clearsTheState_andTheFailure` đọc `vm.state.value` ngay sau `close()`, nhưng thông báo đổi dữ liệu của Room (`observeBet`) có thể còn đang bay trên luồng khác lúc `failed` thành `true`, nên đôi khi state còn là bản cũ một lúc. Đo bằng một test đo tạm (không commit): **2/300** lượt đọc state cũ ngay sau `close()`, **cả 2 tự về `null` sau đó, 0 kẹt vĩnh viễn**. Chạy riêng lớp 20 lần có tải CPU (9 tiến trình) trước và sau khi sửa đều xanh 20/20 nên con số này **không** chứng minh bản sửa, bằng chứng là phép đo 2/300. Sửa: test chờ state về `null` bằng `awaitReal { vm.state.first { it == null } }` rồi mới khẳng định (chỉ đổi test).
