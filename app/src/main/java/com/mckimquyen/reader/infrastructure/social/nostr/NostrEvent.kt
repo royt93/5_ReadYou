@@ -15,8 +15,30 @@ class NostrEvent(
     val content: String,
     val sig: String,
 ) {
-    /** A reply carries an `e` tag (it answers another note); the feed shows originals only. */
-    val isReply: Boolean get() = tags.any { it.firstOrNull() == REPLY_TAG }
+    /**
+     * A reply carries an `e` tag that is not just a mention (NIP-10): it answers another note. A note whose only `e` tags say
+     * `mention` points at other notes without answering them, so it counts as an ordinary note.
+     */
+    val isReply: Boolean get() = answeredTags().isNotEmpty()
+
+    /**
+     * The id of the note this one answers, read the NIP-10 way: the tag marked `reply` (the last one if several), else the one marked
+     * `root`, else (old style, no markers) the last unmarked tag. Only a lower-case 64-character hex id is accepted, anything else
+     * is null (the note is still a reply, it just names nothing the app can find).
+     */
+    val repliedToId: String?
+        get() {
+            val answered = answeredTags()
+            val pick = answered.lastOrNull { marker(it) == MARKER_REPLY }
+                ?: answered.lastOrNull { marker(it) == MARKER_ROOT }
+                ?: answered.lastOrNull { marker(it).isEmpty() }
+            val target = pick?.getOrNull(ETAG_ID_INDEX) ?: return null
+            return target.takeIf { isLowerHex(it, ID_HEX_LENGTH) }
+        }
+
+    private fun answeredTags(): List<List<String>> = tags.filter { it.firstOrNull() == REPLY_TAG && marker(it) != MARKER_MENTION }
+
+    private fun marker(tag: List<String>): String = tag.getOrNull(ETAG_MARKER_INDEX).orEmpty()
 
     fun isValid(expectedPubkeyHex: String): Boolean {
         if (kind != TEXT_NOTE_KIND) return false
@@ -54,6 +76,11 @@ class NostrEvent(
         const val TEXT_NOTE_KIND = 1
         const val PROFILE_KIND = 0
         private const val REPLY_TAG = "e"
+        private const val ETAG_ID_INDEX = 1
+        private const val ETAG_MARKER_INDEX = 3
+        private const val MARKER_REPLY = "reply"
+        private const val MARKER_ROOT = "root"
+        private const val MARKER_MENTION = "mention"
         private const val ID_HEX_LENGTH = 64
         private const val SIG_HEX_LENGTH = 128
 
