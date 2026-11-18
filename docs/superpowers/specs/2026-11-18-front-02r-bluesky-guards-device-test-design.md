@@ -61,3 +61,13 @@ Như FRONT-02e trên Tecno: cổng chỉ đọc `/tmp/kj7_gate.sh` (launcher `co
 - Một máy (Tecno KJ7, Android 14); không so với Pixel.
 - Không chứng minh nút và hộp thoại thật; chỉ state ViewModel và dữ liệu Room.
 - Không chứng minh 02p.
+
+## Điều chỉnh khi thực thi
+- **Không tái dùng `BackgroundSyncRig` (02h) nguyên vẹn:** hồ sơ giả của nó cố định (một DID, một handle); viết `BlueskyGuardRig` nhỏ, **tái dùng** `LocalRssSvFactory.build` và `SyncResult` của 02h và cách dọn nhóm; tiền tố `front02r_probe_`.
+- **Factory:** thêm hàm mới `subscribeViewModelFactoryWith(relayUrl, blueskyApi, rssHelper, newsletterUrlResolver)`; hàm cũ `subscribeViewModelFactory(relayUrl)` gọi nó với `null` nên không đổi hành vi (`SubscribeNostrPreviewRecreateDeviceTest` không đụng).
+- **Chặn mạng ngoài 127.0.0.1:** khi API không dùng được `search()` rơi về `rssHelper.searchFeed` và `newsletterUrlResolver.resolveToRssUrl` (mạng thật); rig truyền hai đối tượng dùng một client từ chối host khác `127.0.0.1` và đếm.
+- **Bài giả phải do đúng DID của hồ sơ viết:** `toArticles` bỏ bài có `author.did` khác DID hồ sơ; `BlueskyDeviceFixtures.post` cố định tác giả nên rig dựng bài riêng theo hồ sơ hiện tại.
+- **Gõ DID:** `SocialFeedUrlResolver` không nhận `@did:...`, chỉ link `https://bsky.app/profile/did:...`; test dùng link.
+- **12 test, không 10:** thêm `aSyncThatFindsNoOwnPosts…` để đột biến `r07` (nâng cấp trước khi kiểm bài rỗng) có test nhắm đúng; `aFailedSync` (máy chủ 500 ở hồ sơ) lỗi trước khi biết DID nên không bắt được `r07`.
+- **Đột biến:** 8 (r01 đến r08) thay vì 7: tách `r02` (chỉ kiểm RSS cũ) khỏi `r01`; cả 8 làm đúng tập test dự định đỏ.
+- **Số test JVM:** đo lại **3.797** (không dùng số cũ 3.776).
