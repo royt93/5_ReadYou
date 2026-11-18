@@ -1,0 +1,117 @@
+package com.mckimquyen.reader.infrastructure.social.nostr
+
+import android.app.Application
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
+import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
+import org.robolectric.annotation.Config
+import java.util.concurrent.atomic.AtomicInteger
+
+/**
+ * Which replies the Nostr feed keeps: only those that continue the author's OWN kept notes (a thread). The signature is never checked
+ * by the mapper, so the notes are built by hand. A note is kept when it is not a reply, or when the note it answers is itself kept.
+ */
+@RunWith(RobolectricTestRunner::class)
+@Config(sdk = [34], application = Application::class)
+class NostrFeedMapperThreadTest {
+    private val now = 1_800_000_000_000L
+    private val author = "dff1d77f2a671c5f36183726db2341be58feae1da2deced843240f7b502ba659"
+    private fun id(n: Int) = "%064x".format(n)
+    private fun note(n: Int, createdAt: Long, content: String, vararg tags: List<String>): NostrEvent =
+        requireNotNull(
+            NostrEvent.parse(
+                org.json.JSONObject().apply {
+                    put("id", id(n)); put("pubkey", author); put("created_at", createdAt); put("kind", 1)
+                    put("tags", org.json.JSONArray(tags.map { org.json.JSONArray(it) }))
+                    put("content", content); put("sig", "0".repeat(128))
+                }.toString(),
+            ),
+        )
+    private fun reply(n: Int, createdAt: Long, content: String, to: String, marker: String = "reply") =
+        note(n, createdAt, content, listOf("e", to, "", marker))
+
+    private fun titles(vararg events: NostrEvent): List<String> {
+        val counter = AtomicInteger()
+        return NostrFeedMapper.toArticles(events.toList(), "feed-1", 7, now) { "u${counter.incrementAndGet()}" }.map { it.title }
+    }
+
+    // the thread A <- B <- C, all by the author
+    private val a = note(1, 1_700_000_100L, "Part one")
+    private val b = reply(2, 1_700_000_200L, "Part two", id(1))
+    private val c = reply(3, 1_700_000_300L, "Part three", id(2))
+
+    @Test fun anOwnThread_isKeptWholeNewestFirst() {
+        assertEquals(listOf("Part three", "Part two", "Part one"), titles(a, b, c))
+    }
+
+    @Test fun aReplyToSomeoneElse_isDropped() {
+        val toStranger = reply(9, 1_700_000_150L, "Answer to a stranger", id(99))
+        assertEquals(listOf("Part one"), titles(a, toStranger))
+    }
+
+    @Test fun aReplyToADroppedNote_isDropped() {
+        val toStranger = reply(9, 1_700_000_150L, "Answer to a stranger", id(99))
+        val followUp = reply(4, 1_700_000_400L, "Follow-up to my own answer", id(9))
+        assertEquals("the follow-up would read with no context", emptyList<String>(), titles(toStranger, followUp))
+    }
+
+    @Test fun aMentionOnlyNote_isKeptLikeAnyNote() {
+        val quoting = note(5, 1_700_000_500L, "Look at this", listOf("e", id(1), "", "mention"))
+        assertEquals(listOf("Look at this", "Part one"), titles(a, quoting))
+    }
+
+    @Test(timeout = 5_000)
+    fun aLoopOfReplies_endsAndDropsBoth() {
+        val first = reply(6, 1_700_000_600L, "Loop one", id(7))
+        val second = reply(7, 1_700_000_700L, "Loop two", id(6))
+        assertEquals(listOf("Part one"), titles(first, second, a))
+    }
+
+    @Test(timeout = 5_000)
+    fun aNoteReplyingToItself_isDropped() {
+        val selfish = reply(8, 1_700_000_800L, "Answering myself in a loop", id(8))
+        assertEquals(listOf("Part one"), titles(selfish, a))
+    }
+
+    @Test fun theSameNoteTwice_isKeptOnce() {
+        assertEquals(listOf("Part two", "Part one"), titles(a, a, b))
+    }
+
+    @Test fun theOrderOfTheInputChangesNothing() {
+        val expected = listOf("Part three", "Part two", "Part one")
+        assertEquals(expected, titles(a, b, c))
+        assertEquals(expected, titles(c, b, a))
+        assertEquals(expected, titles(b, c, a))
+        assertEquals(expected, titles(c, a, b))
+    }
+
+    @Test fun eachPieceOfAThreadHasItsOwnTitleAndLink() {
+        val counter = AtomicInteger()
+        val articles = NostrFeedMapper.toArticles(listOf(a, b, c), "feed-1", 7, now) { "u${counter.incrementAndGet()}" }
+        assertEquals(3, articles.size)
+        assertEquals(3, articles.map { it.link }.toSet().size)
+        assertTrue(articles.all { it.link.startsWith("https://njump.me/note1") })
+        assertEquals(listOf("Part three", "Part two", "Part one"), articles.map { it.title })
+        assertEquals(listOf(1_700_000_300_000L, 1_700_000_200_000L, 1_700_000_100_000L), articles.map { it.date.time })
+    }
+
+    @Test fun aRootOnlyReplyToAKeptNote_isKept() {
+        val direct = reply(10, 1_700_000_900L, "Straight to the root", id(1), marker = "root")
+        assertEquals(listOf("Straight to the root", "Part one"), titles(a, direct))
+    }
+
+    @Test fun atMostTwentyArticles_stillHolds_withThreads() {
+        val root = note(100, 1_700_001_000L, "root")
+        val chain = (1..25).map { n -> reply(100 + n, 1_700_001_000L + n, "piece $n", id(100 + n - 1)) }
+        val articles = NostrFeedMapper.toArticles(listOf(root) + chain, "feed-1", 7, now)
+        assertEquals(NostrRelayClient.MAX_NOTES_KEPT, articles.size)
+        assertEquals("piece 25", articles.first().title)
+    }
+
+    @Test fun aReplyWhoseTargetIdIsBroken_isDropped() {
+        val broken = note(11, 1_700_001_100L, "Answers nothing findable", listOf("e", "not-an-id", "", "reply"))
+        assertEquals(listOf("Part one"), titles(a, broken))
+    }
+}

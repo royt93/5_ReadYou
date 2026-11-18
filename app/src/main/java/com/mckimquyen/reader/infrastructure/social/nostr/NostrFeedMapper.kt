@@ -36,9 +36,7 @@ object NostrFeedMapper {
         nowMillis: Long,
         newId: () -> String = { UUID.randomUUID().toString() },
     ): List<Article> =
-        events.asSequence()
-            .filterNot { it.isReply }
-            .distinctBy { it.id }
+        keepOriginalsAndOwnThreads(events).asSequence()
             .sortedByDescending { it.createdAt }
             .take(NostrRelayClient.MAX_NOTES_KEPT)
             .mapNotNull { event ->
@@ -58,6 +56,29 @@ object NostrFeedMapper {
                 )
             }
             .toList()
+
+    /**
+     * The notes the feed shows: every note that is not a reply, plus every reply to a note that is itself kept (the author continuing
+     * their own thread). Whether a note is kept never depends on the order of the list or on the dates. A reply to a stranger's note
+     * is dropped, and so is anything that only answers such a reply, because it would be read with no context. A loop of replies
+     * (a note that answers itself, directly or through others) is dropped as a whole, never followed forever.
+     */
+    private fun keepOriginalsAndOwnThreads(events: List<NostrEvent>): List<NostrEvent> {
+        val byId = LinkedHashMap<String, NostrEvent>()
+        for (event in events) byId.putIfAbsent(event.id, event)
+        val kept = HashMap<String, Boolean>()
+        fun isKept(id: String, visiting: Set<String>): Boolean {
+            kept[id]?.let { return it }
+            if (id in visiting) return false
+            val event = byId.getValue(id)
+            val target = event.repliedToId
+            val result = !event.isReply || (target != null && target in byId && isKept(target, visiting + id))
+            // A verdict reached while a loop was open can depend on where the walk began, so only a verdict that did not touch a loop is stored.
+            if (visiting.isEmpty() || result) kept[id] = result
+            return result
+        }
+        return byId.values.filter { isKept(it.id, emptySet()) }
+    }
 
     private fun escapeToHtml(text: String): String = buildString {
         for (c in text) {
