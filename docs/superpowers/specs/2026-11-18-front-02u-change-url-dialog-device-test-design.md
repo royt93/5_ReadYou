@@ -51,3 +51,10 @@ Như 02t: cổng `/tmp/kj7_gate.sh` in `GATE OK` **trong một lệnh riêng** t
 ## Giới hạn đã biết
 - Một máy (Tecno KJ7, Android 14); không so với Pixel.
 - Không chứng minh bấm giữ, ngăn kéo, bàn phím thật.
+
+## Điều chỉnh khi thực thi
+- **Chữ nút:** lấy bằng `activity.getString(R.string.confirm / cancel)` (máy có hai ngôn ngữ `en-US,vi-VN`); không bọc `AppTheme`.
+- **Test hủy tất định nhờ thứ tự:** chờ hộp thoại đóng rồi mới đọc Room (nếu Hủy gọi nhầm lưu thì hộp chỉ đóng sau khi ghi).
+- **u5 đổi nghĩa:** thành "test nối `onDismissRequest = {}`" (u2 đã phủ nút Xác nhận).
+- **Quảng cáo:** vòng 1 đỏ 9/20 (cả 9 có `AdActivity`); tổng 12/41 đỏ, cả 12 có quảng cáo, 0 xanh có. Quy tắc "từ 2 đỏ dừng" kích hoạt; owner chọn chạy tiếp và ghi số thật. Đợt đột biến đầu bị quảng cáo đè nên chạy lại các nhãn bị ảnh hưởng (tối đa 3 lần mỗi nhãn) bằng `/tmp/kj7_u_rerun.sh`.
+- **Kết quả:** 5/5 đột biến đúng tập test dự kiến; JVM 3.797, 0 lỗi.
