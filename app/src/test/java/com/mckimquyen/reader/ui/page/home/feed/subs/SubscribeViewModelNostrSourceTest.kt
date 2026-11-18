@@ -11,10 +11,17 @@ class SubscribeViewModelNostrSourceTest {
         .joinToString("\n")
     private val search = source.substringAfter("fun search()").substringBefore("fun confirmWebFeed()")
 
+    // substringAfter() returns the WHOLE text when its anchor is missing, which would make the order checks below pass for nothing.
+    @Test fun theNostrAnchorExists() {
+        assertTrue("the Nostr branch must call authorHexFrom(", search.contains("authorHexFrom("))
+        assertTrue("an nprofile must not be read through npubToHex only", !search.contains("npubToHex("))
+        assertTrue(search.indexOf("authorHexFrom(") >= 0 && search.indexOf("formatUrl()") > search.indexOf("authorHexFrom("))
+    }
+
     @Test fun npubIsResolvedBeforeFormatUrl() {
-        val nostr = search.substringAfter("npubToHex(")
+        val nostr = search.substringAfter("authorHexFrom(")
         assertTrue(nostr.contains("nostrRelayClient.fetch("))
-        assertTrue(search.indexOf("npubToHex(") < search.indexOf("formatUrl()"))
+        assertTrue(search.indexOf("authorHexFrom(") < search.indexOf("formatUrl()"))
     }
 
     @Test fun nsecGuardIsBeforeEveryNetworkResolver() {
@@ -25,7 +32,7 @@ class SubscribeViewModelNostrSourceTest {
     }
 
     @Test fun nostrFailureDoesNotFallThroughToWeb() {
-        val branch = search.substringAfter("npubToHex(").substringBefore("formatUrl()")
+        val branch = search.substringAfter("authorHexFrom(").substringBefore("formatUrl()")
         assertFalse(branch.contains("resolveToRssUrl("))
         assertFalse(branch.contains("webFeedScraper.discover("))
     }
@@ -33,7 +40,7 @@ class SubscribeViewModelNostrSourceTest {
     @Test fun newNostrCodeDoesNotLogKeysOrNotes() {
         val file = File("src/main/java/com/mckimquyen/reader/ui/page/home/feed/subs/SubscribeViewModel.kt")
             .readLines().filterNot { it.trimStart().startsWith("import ") || it.trimStart().startsWith("//") }.joinToString("\n")
-        val nostr = file.substringAfter("npubToHex(").substringBefore("formatUrl()")
+        val nostr = file.substringAfter("authorHexFrom(").substringBefore("formatUrl()")
         listOf("Log.", "println", "printStackTrace").forEach { assertFalse(it, nostr.contains(it)) }
     }
 }

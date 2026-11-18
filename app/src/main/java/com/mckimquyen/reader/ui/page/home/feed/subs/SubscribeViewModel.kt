@@ -137,7 +137,7 @@ class SubscribeViewModel @Inject constructor(
                     return@launch
                 }
                 if (context.currentAccountType == AccountType.Local.id) {
-                    val authorHex = com.mckimquyen.reader.infrastructure.social.nostr.NostrKeys.npubToHex(typed)
+                    val authorHex = com.mckimquyen.reader.infrastructure.social.nostr.NostrKeys.authorHexFrom(typed)
                     if (authorHex != null) {
                         val npub = requireNotNull(com.mckimquyen.reader.infrastructure.social.nostr.NostrKeys.hexToNpub(authorHex))
                         val feedUrl = com.mckimquyen.reader.infrastructure.social.nostr.NostrFeedMapper.feedUrl(npub)
