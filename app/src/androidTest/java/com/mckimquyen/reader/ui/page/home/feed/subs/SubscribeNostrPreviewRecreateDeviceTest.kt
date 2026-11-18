@@ -1,8 +1,5 @@
 package com.mckimquyen.reader.ui.page.home.feed.subs
 
-import android.app.UiAutomation
-import android.content.res.Configuration
-import android.provider.Settings
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.ui.test.assertIsDisplayed
@@ -30,13 +27,12 @@ import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNotSame
 import org.junit.Assert.assertSame
 import org.junit.Assert.assertTrue
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
 /**
- * What survives, for the Nostr preview of the Add Source dialog, when its Activity is recreated or the screen is rotated.
+ * What survives, for the Nostr preview of the Add Source dialog, when its Activity is recreated.
  * The view model comes from a real ViewModelStore (ViewModelProvider on the test Activity), built from the app's real
  * services but reading a fake relay on 127.0.0.1; nothing here reaches the network.
  *
@@ -48,27 +44,12 @@ class SubscribeNostrPreviewRecreateDeviceTest {
     @get:Rule val compose = createAndroidComposeRule<ComponentActivity>()
 
     private val relay = NostrFakeRelay()
-    private val automation: UiAutomation get() = InstrumentationRegistry.getInstrumentation().uiAutomation
-    private var initialAutoRotate = AUTO_ROTATE_ON
     private var shown: SubscribeViewModel? = null
     private val npub: String = requireNotNull(NostrKeys.hexToNpub(NostrDeviceFixtures.AUTHOR_HEX))
 
-    @Before
-    fun rememberAutoRotate() {
-        initialAutoRotate = Settings.System.getInt(
-            InstrumentationRegistry.getInstrumentation().targetContext.contentResolver,
-            Settings.System.ACCELEROMETER_ROTATION,
-            AUTO_ROTATE_ON,
-        )
-    }
-
-    /** Gives the phone back the rotation setting the owner had, and stops the fake relay. */
+    /** Stops the fake relay. */
     @After
     fun cleanUp() {
-        // A test that stopped while the screen was frozen sideways must be turned upright first; UNFREEZE alone
-        // leaves the phone's user_rotation where the test left it.
-        automation.setRotation(UiAutomation.ROTATION_FREEZE_0)
-        if (initialAutoRotate == AUTO_ROTATE_ON) automation.setRotation(UiAutomation.ROTATION_UNFREEZE)
         relay.close()
     }
 
@@ -168,28 +149,6 @@ class SubscribeNostrPreviewRecreateDeviceTest {
     }
 
     @Test
-    fun previewSurvivesRealRotation() {
-        openDialog()
-        typeNpubAndSearch()
-        waitForPreview()
-        val viewModel = requireNotNull(shown)
-        val activityBefore = compose.activity
-
-        automation.setRotation(UiAutomation.ROTATION_FREEZE_90)
-        waitFor("landscape") { compose.activity.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE }
-        assertPreviewIsComplete(viewModel)
-        automation.setRotation(UiAutomation.ROTATION_FREEZE_0)
-        waitFor("portrait") { compose.activity.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT }
-        assertPreviewIsComplete(viewModel)
-        // The plain test Activity has no configChanges, so a rotation recreates it, unlike MainActivity (FRONT-02d).
-        // Either outcome keeps the same view model; we record which one happened instead of assuming.
-        val recreated = compose.activity !== activityBefore
-        val again = viewModelOf(compose.activity)
-        assertSame("the view model must survive the rotation (recreated=$recreated)", viewModel, again)
-        assertEquals(1, relay.requestsReceived())
-    }
-
-    @Test
     fun recreateWhileTheRelayIsStillAnswering_stillShowsThePreview() {
         val gate = CompletableDeferred<Unit>()
         relay.holdAnswerUntil(gate)
@@ -214,6 +173,5 @@ class SubscribeNostrPreviewRecreateDeviceTest {
 
     private companion object {
         const val WAIT_MILLIS = 15_000L
-        const val AUTO_ROTATE_ON = 1
     }
 }

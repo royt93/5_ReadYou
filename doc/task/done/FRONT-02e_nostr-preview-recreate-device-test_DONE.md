@@ -7,18 +7,17 @@
 
 ## Điều test chứng minh
 
-Test dùng **một `ComponentActivity` của test (không phải `MainActivity`)**. `SubscribeViewModel` thật được lấy qua `ViewModelProvider(activity, factory)` (ViewModelStore thật), dựng từ các singleton thật của app (đọc từ field `@Inject` công khai của `RApp`), nhưng `NostrRelayClient` trỏ vào một **relay giả** (`MockWebServer` WebSocket trên `127.0.0.1`, không mạng thật). Bốn test:
+Test dùng **một `ComponentActivity` của test (không phải `MainActivity`)**. `SubscribeViewModel` thật được lấy qua `ViewModelProvider(activity, factory)` (ViewModelStore thật), dựng từ các singleton thật của app (đọc từ field `@Inject` công khai của `RApp`), nhưng `NostrRelayClient` trỏ vào một **relay giả** (`MockWebServer` WebSocket trên `127.0.0.1`, không mạng thật). Ba test (từ 2026-11-18; trước đó là bốn, xem mục "Test xoay thật đã gỡ"):
 
 1. `fixtures_areSignedAndNameTheProfile`: ghi chú và hồ sơ sao chép từ fixture JVM vẫn có chữ ký hợp lệ và hồ sơ cho tên `Alice Liddell`.
 2. `previewSurvivesRecreate`: tìm một `npub`, có bản xem trước (tên `Nostr · Alice Liddell`, 1 ghi chú, ô nhập bị khóa); `recreate()`: ViewModelStore trả đúng **cùng instance**, hộp thoại dựng lại bằng `setContent`, tiêu đề hiện trên màn hình, state còn nguyên, relay chỉ nhận 1 yêu cầu.
-3. `previewSurvivesRealRotation`: xoay thật bằng `UiAutomation.setRotation` (90° rồi 0°); state còn nguyên, cùng ViewModel, relay chỉ nhận 1 yêu cầu. Activity test không có `configChanges` nên có thể bị tạo lại; test ghi lại việc đó.
-4. `recreateWhileTheRelayIsStillAnswering_stillShowsThePreview`: giữ phản hồi của relay bằng cổng, `recreate()` lúc relay còn im lặng, rồi mở cổng: bản xem trước vẫn đến đúng, không lỗi, **không** có lần tìm thứ hai.
+3. `recreateWhileTheRelayIsStillAnswering_stillShowsThePreview`: giữ phản hồi của relay bằng cổng, `recreate()` lúc relay còn im lặng, rồi mở cổng: bản xem trước vẫn đến đúng, không lỗi, **không** có lần tìm thứ hai.
 
 ## Nói thẳng về phạm vi
 
-- **Không** chứng minh `hiltViewModel()` trong `FeedsPage` giữ xem trước Nostr trên `MainActivity` thật (FRONT-02d chỉ chứng minh chữ đã gõ ở đó). Test này chứng minh: (i) ViewModelStore của Android giữ `SubscribeViewModel` qua `recreate()`/xoay, (ii) `SubscribeDialog` dựng lại đúng từ state còn nguyên.
+- **Không** chứng minh `hiltViewModel()` trong `FeedsPage` giữ xem trước Nostr trên `MainActivity` thật (FRONT-02d chỉ chứng minh chữ đã gõ ở đó). Test này chứng minh: (i) ViewModelStore của Android giữ `SubscribeViewModel` qua `recreate()`, (ii) `SubscribeDialog` dựng lại đúng từ state còn nguyên.
 - Một relay giả, **không** hai relay, **không** relay thật, không mạng thật.
-- **Không kiểm:** xuống nền, process bị giết, đổi ngôn ngữ/chế độ tối thật, đồng bộ nền, mở `njump.me`, tên hồ sơ thật.
+- **Không kiểm:** xoay màn hình thật trên Activity test (đã gỡ, xem dưới; FRONT-02d vẫn xoay thật trên `MainActivity`), xuống nền, process bị giết, đổi ngôn ngữ/chế độ tối thật, đồng bộ nền, mở `njump.me`, tên hồ sơ thật.
 - Lint **không quét** `androidTest`, nên lint không kiểm các tệp test mới; chỉ biên dịch được kiểm.
 
 ## Kiểm chứng
@@ -43,6 +42,20 @@ Test dùng **một `ComponentActivity` của test (không phải `MainActivity`)
 - **Cách tôi xử lý lệch khi chạy:** script đột biến hiện đo `user_rotation` **trước** khi đặt lại về 0 (owner cho phép đặt lại), nên lệch vẫn được ghi nhận chứ không bị che.
 - `/tmp` bị dọn giữa chừng (mất script, bản sao lưu cũ); công cụ được dựng lại ngoài `/tmp` (không nằm trong repo).
 - Chập chờn bước gõ chữ của FRONT-02d (gốc chưa rõ) **không tái xuất** ở đây (test này gõ `npub`; 40/40 Pixel và 40/40 Tecno), nhưng không chứng minh nó biến mất.
+
+## Test xoay thật đã gỡ khỏi 02e (2026-11-18, owner chọn) và vì sao
+
+`previewSurvivesRealRotation` (xoay 90° rồi 0° bằng `UiAutomation.setRotation`) **đã bị gỡ**, cùng `@Before`/`@After` xoay. Lý do, theo thứ tự bằng chứng đo trên **Tecno KJ7 (Android 14)**:
+
+1. **Cơ chế (probe riêng, không dính test):** `FREEZE_90` đặt `user_rotation=1` và `accelerometer_rotation=0`; `UNFREEZE` chỉ trả `accelerometer_rotation` về 1; `FREEZE_0` mới đưa `user_rotation` về 0.
+2. **`@After` đúng chuỗi, chạy trọn, không ném lỗi** (nhật ký chỉ-số, 5 lượt ép test xoay đỏ bằng `m03`): `ENTER` luôn đủ cặp `EXIT`, `setRotation` luôn `returned=true`. Giả thuyết "`@After` không chạy hoặc bị cắt" **bị bác**.
+3. **Chỗ lệch thật:** trong lượt lệch (run1), `UNFREEZE` **tự đặt lại `user_rotation=1`** dù ngay trước đó `FREEZE_0` vừa đặt 0 (`before: user=0` rồi `after: user=1`); trong lượt sạch (run2), cùng chuỗi, cùng trạng thái đầu vào, nó giữ 0. Hành vi này của hệ điều hành **không ổn định**; tôi chưa biết vì sao.
+4. **Thử sửa bằng đọc lại và thử lại tối đa 3 lần** (`RotationRestore`, 6 test logic xanh, mutation 9/9 bắt): trên Tecno, 20 lượt ép test xoay đỏ vẫn có **2/11 lượt lệch** (lượt 12 trở đi bị cổng chặn), lệch bị báo thành lỗi thứ tư thay vì im lặng. **Thử lại không chữa được.** Nhật ký từng bước ở đợt sau (11 lượt, 0 lệch) không bắt được lượt lệch nào, nên **gốc cuối cùng vẫn chưa biết**. Mã `RotationRestore` **không** được giữ.
+5. **Tần suất đo được, mẫu nhỏ:** 1/5, 2/11 và 0/11 lượt lệch ở ba đợt khác nhau trên Tecno; Pixel (Android 17) cũng lệch hai lần. Không đủ để ước tính tỉ lệ.
+
+Sau khi gỡ: **12/12 lượt `base` xanh (`OK (3 tests)`) và 12/12 lượt `m03` đỏ, cả 24 lượt `user_rotation=0`, `accelerometer_rotation=1` ngay sau mỗi lượt** (Tecno, 2026-11-18). Điều đó cho thấy lệch chỉ đến từ test xoay, nhưng 24 lượt không chứng minh lệch biến mất.
+
+**Hệ quả:** FRONT-02e **không còn kiểm xoay thật**. `m02`, `m03`, `m04` trước kia cũng bị bắt bởi test xoay; sau khi gỡ, ba mutation đó vẫn bị bắt bởi hai test recreate còn lại (đã đo ở lô 12 lượt `m03`: 12/12 đỏ). FRONT-02d giữ test xoay thật trên `MainActivity` (cùng cơ chế `@After`; **chưa kiểm** xem nó có cùng rủi ro lệch không, 190 lượt trước đó không để lại lệch).
 
 ## Giới hạn
 
