@@ -54,3 +54,9 @@ Như 02r: cổng `/tmp/kj7_gate.sh` in `GATE OK` **trong một lệnh riêng** t
 ## Giới hạn đã biết
 - Một máy (Tecno KJ7, Android 14); không so với Pixel.
 - Không chứng minh giao diện sửa địa chỉ; chỉ ViewModel, Room và đồng bộ.
+
+## Điều chỉnh khi thực thi
+- **Rig:** thêm `profileActors()` (đọc `actor` từ dòng yêu cầu bằng regex, không dùng `requestUrl` của mockwebserver3 alpha) và `seed` nhận `icon`, `isNotification`, `isFullContent` có mặc định; 12 test 02r không đổi.
+- **Reflection:** trường `_feedOptionUiState` (kiểu `MutableStateFlow<FeedOptionUiState>`); chờ hộp thoại đóng thay cho `sleep` (hộp đóng sau `updateFeed`).
+- **Đột biến:** 5 (thêm `t5` đổi `name` cho test "mọi trường khác"); `t1` và `t3` cùng điểm chết, ghi rõ. `t4` đỏ đúng ở khẳng định sau đồng bộ (dòng 141).
+- **Kết quả:** 41/41 xanh, 0 `AdActivity`. JVM lần đầu có 1 test Oracle đỏ chập chờn không liên quan; lần hai xanh 3.797.
