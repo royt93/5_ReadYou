@@ -59,3 +59,11 @@ Như 02t/02u: cổng `/tmp/kj7_gate.sh` in `GATE OK` **trong một lệnh riêng
 ## Giới hạn đã biết
 - Một máy (Tecno KJ7, Android 14); không so Pixel.
 - Không `FeedsPage`, không vuốt tay, không bàn phím thật.
+
+## Điều chỉnh khi thực thi
+- **Máy:** Tecno không kết nối lúc chạy; owner cho phép Pixel 7 Pro (`2B051FDH3006MU`) cho việc này. Dựng lại cổng/sao lưu/khôi phục cho Pixel (`/tmp/px_*`). Kết quả là của Pixel.
+- **Gói:** test nằm ở gói `ui.page.home.feed` (cùng `FeedItemDeviceTest`), watcher đổi `CLS` cho đúng.
+- **v4:** đổi thành `onLongClick = {}` ở `FeedOptionView` (đổi chỗ `onClick` có thể bật ứng dụng ngoài); v5 đo được chỉ làm test 2 đỏ (test 3 và 4 thay hết chữ trong ô).
+- **Compose không bận** trên Pixel với đồng hồ mặc định (41 lượt): không cần xử lý riêng.
+- **Cổng dừng giữa đợt đột biến** vì ứng dụng khác mở trên Pixel; kết quả đợt đó không dùng, chạy lại v2 đến v5 và base sau khi owner đưa máy về màn hình chính.
+- **Kết quả:** 41/41 xanh, 5/5 đột biến, JVM 3.797, 0 lỗi.
