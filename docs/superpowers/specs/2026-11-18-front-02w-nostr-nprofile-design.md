@@ -45,3 +45,10 @@ Dán `nprofile1…` (hoặc `nostr:nprofile1…`) vào ô **Thêm nguồn** thì
 ## Giới hạn đã biết
 - Chỉ JVM; không kiểm trên màn hình hay máy thật.
 - Không link `njump.me/...`, không `nevent`/`naddr`, không ảnh, không trả lời.
+
+## Điều chỉnh khi thực thi
+- **`Bech32.MAX_LENGTH` đổi thành `DEFAULT_MAX_LENGTH`** (công khai trong `internal object`) để test và đột biến trỏ vào một chỗ.
+- **Test neo:** `SubscribeViewModelNostrSourceTest` có 4 chỗ dùng `npubToHex(` (không phải 6); neo đổi sang `authorHexFrom(` và thêm test `theNostrAnchorExists` vì `substringAfter` trả nguyên chuỗi khi mất neo (test cũ xanh giả).
+- **Đột biến n8 của spec** (nhận relay) đổi thành kiểm cấu trúc: `NostrRelayClient.fetch` chỉ có một tham số `String`; đột biến `n10` chứng minh test đó không xanh giả. Thêm `n13`, `n16`.
+- **Dự đoán tập test đỏ sai 4 chỗ** (n1, n3, n16; n11 chứa thêm một test đọc mã nguồn): đã đọc lý do và sửa bảng; không có đột biến sống sót.
+- **Kết quả:** 25 test mới, mutation 13/13, JVM 3.822 test, 0 lỗi; đúng ba tệp production.

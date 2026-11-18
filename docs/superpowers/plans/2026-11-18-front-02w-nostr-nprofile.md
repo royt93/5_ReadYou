@@ -43,7 +43,7 @@ Tệp mới `NostrNprofileTest` (lớp **N**): **P0** `helperAgreesWithTheIndepe
 | Đột biến | Đổi gì (tệp) | Test đỏ mong đợi | Kiểu so |
 |---|---|---|---|
 | base | không | không | đúng |
-| n1 | `DEFAULT_MAX_LENGTH` 90 thành 1000 (`Bech32.kt`) | B0, B2, P15 | đúng |
+| n1 | `DEFAULT_MAX_LENGTH` 90 thành 1000 (`Bech32.kt`) | B0, B1, B2, P12, P15 | đúng |
 | n2 | bỏ kiểm "khóa đúng 32 byte" (`NostrKeys.kt`) | P7 | đúng |
 | n3 | cho phép hai khóa | P8 | đúng |
 | n4 | loại lạ (không phải 0 hoặc 1) thì trả `null` | P5 | đúng |
@@ -55,7 +55,7 @@ Tệp mới `NostrNprofileTest` (lớp **N**): **P0** `helperAgreesWithTheIndepe
 | n10 | `NostrRelayClient.fetch` thêm tham số thứ hai | P16 | đúng |
 | n11 | `SubscribeViewModel` gọi lại `npubToHex(typed)` | V1, V2, V3, V4, A | ít nhất |
 | n13 | `NPROFILE_MAX_LENGTH` 1000 thành 2000 | P11 | đúng |
-| n16 | bỏ kiểm HRP `nprofile` | P13 | đúng |
+| n16 | bỏ kiểm HRP `nprofile` | P13, P14 | đúng |
 
 "Ít nhất": tập đỏ thực tế phải **chứa** các test ghi, và mọi test đỏ phải nằm trong năm lớp N, K, V, S và `SubscribeViewModelNostrTest`. "Đúng": phải trùng chính xác. Dự đoán có thể sai; khi lệch phải **đọc lý do** và sửa bảng hoặc test (ghi trong báo cáo), không bỏ qua.
 
