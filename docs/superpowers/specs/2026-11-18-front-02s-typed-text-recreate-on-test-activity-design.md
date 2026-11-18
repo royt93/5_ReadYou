@@ -51,3 +51,11 @@ Như FRONT-02e/02r trên Tecno: cổng chỉ đọc `/tmp/kj7_gate.sh` in `GATE 
 - Một máy (Tecno KJ7, Android 14); không so với Pixel.
 - Không chứng minh `hiltViewModel()` hay nút `+` thật; không xoay thật.
 - Không chứng minh quảng cáo hết gây đỏ cho các test khác dùng `MainActivity` (đã grep: `EInkVolumeDispatchInstrumentationTest` là test duy nhất còn khởi động `MainActivity` bằng `ActivityScenario`); chỉ 02d được chuyển, và test kia **chưa đo** xem có chịu quảng cáo hay không.
+
+## Điều chỉnh khi thực thi
+- **Hộp thoại dựa vào `LaunchedEffect(visible)`:** `init()` chạy khi `visible`, `reset()` xóa mọi state khi không `visible`; test gọi `showDrawer()` rồi dựng `SubscribeDialog`. Danh sách nhóm đọc từ Room (chỉ đọc, không ghi).
+- **Không đổi factory, không `autoAdvance`:** `waitUntil` mặc định đủ trên Activity test.
+- **Thử `waitFor` bỏ qua lỗi tạm rồi gỡ:** không chữa được (ComposeTimeoutException sau 15 s); đã gỡ, giữ `waitUntil` thường.
+- **Gốc lượt đỏ:** `AdActivity` của SDK quảng cáo đè lên Activity test (`lifecycle=STARTED`, `windowFocus=false`, Compose báo "No compose hierarchies found"). Đo bản cuối: 3/40 đỏ, cả 3 có `AdActivity`, 0/37 xanh có. Owner chấp nhận ~7% đỏ do quảng cáo; quy tắc "từ 2 đỏ trong 40 thì dừng" đã kích hoạt, đã điều tra và hỏi owner.
+- **Nhật ký chẩn đoán tạm** (trạng thái Activity, số `ComposeView`, watcher ngoài) đã gỡ khỏi mã; chỉ còn `describe()` dạng số.
+- **Mutation:** 4 đột biến đều làm đúng hai test đỏ (xem báo cáo).

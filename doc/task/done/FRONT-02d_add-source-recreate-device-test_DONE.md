@@ -1,5 +1,7 @@
 # FRONT-02d (Test máy thật: ô Thêm nguồn khi Activity tạo lại hoặc xoay màn hình)
 
+> **Đã được thay bằng FRONT-02s (2026-11-18).** Test `SubscribeDialogRecreateDeviceTest` nay chạy trên Activity test (không còn `MainActivity`, nút `+`, `hiltViewModel()` và xoay thật), vì `MainActivity` bị quảng cáo toàn màn hình làm đỏ khoảng 25% lượt trên Tecno. Nội dung dưới đây là kết quả của bản cũ (Pixel, `MainActivity`); lịch sử git giữ mã cũ. Xem `FRONT-02s_typed-text-recreate-on-test-activity_DONE.md`.
+
 **Date:** 2026-11-15  
 **Branch:** `dev` (không push)  
 **Scope:** chỉ thêm test, **không đổi mã production**, manifest, chuỗi, Room (v22), DataStore, dependency. Đây là test, không phải tính năng người dùng.  
