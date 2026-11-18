@@ -73,8 +73,9 @@ object NostrFeedMapper {
             val event = byId.getValue(id)
             val target = event.repliedToId
             val result = !event.isReply || (target != null && target in byId && isKept(target, visiting + id))
-            // A verdict reached while a loop was open can depend on where the walk began, so only a verdict that did not touch a loop is stored.
-            if (visiting.isEmpty() || result) kept[id] = result
+            // Every note names at most ONE note it answers, so a walk is a single path: a verdict reached inside a loop is the same
+            // wherever the walk began, and can be stored as it is.
+            kept[id] = result
             return result
         }
         return byId.values.filter { isKept(it.id, emptySet()) }

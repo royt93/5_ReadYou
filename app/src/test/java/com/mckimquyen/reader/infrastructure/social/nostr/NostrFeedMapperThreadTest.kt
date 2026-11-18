@@ -114,4 +114,28 @@ class NostrFeedMapperThreadTest {
         val broken = note(11, 1_700_001_100L, "Answers nothing findable", listOf("e", "not-an-id", "", "reply"))
         assertEquals(listOf("Part one"), titles(a, broken))
     }
+
+    // An id written in capitals is not the lower-case form NIP-01 requires, so a reply naming it names nothing, even though a note
+    // with that very id is in the list and could be linked.
+    @Test fun aReplyNamingATargetInCapitals_isDropped() {
+        val upperId = "%064X".format(0xabc)
+        val target = requireNotNull(
+            NostrEvent.parse(
+                org.json.JSONObject().apply {
+                    put("id", upperId); put("pubkey", author); put("created_at", 1_700_001_200L); put("kind", 1)
+                    put("tags", org.json.JSONArray()); put("content", "Id in capitals"); put("sig", "0".repeat(128))
+                }.toString(),
+            ),
+        )
+        val answer = reply(12, 1_700_001_300L, "Answers the capitals note", upperId)
+        assertEquals(listOf("Id in capitals"), titles(target, answer))
+    }
+
+    // Nothing in the rule looks at dates: an answer stamped BEFORE the note it answers (clocks differ) is still part of the thread.
+    @Test fun aReplyDatedBeforeItsTarget_isStillKept() {
+        val late = note(13, 1_700_002_000L, "Posted late")
+        val early = reply(14, 1_700_001_500L, "Answer with an earlier date", id(13))
+        assertEquals(listOf("Posted late", "Answer with an earlier date"), titles(late, early))
+        assertEquals(listOf("Posted late", "Answer with an earlier date"), titles(early, late))
+    }
 }
