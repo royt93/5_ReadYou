@@ -156,6 +156,9 @@ class OracleBettingViewModelTest {
         vm.placeBet(OracleBetSide.NO, 75)
         failedBecomes(true)
         vm.close()
+        // Room's change notification for the bet can still be in flight on another thread when failed turns true, so the state
+        // reaches null a moment after close() (measured 2026-11-18: 2 of 300 runs read the old state right away, all settled to null).
+        awaitReal { vm.state.first { it == null } }
         assertNull(vm.state.value)
         assertFalse("closing the card forgets an earlier failure", vm.failed.value)
     }
