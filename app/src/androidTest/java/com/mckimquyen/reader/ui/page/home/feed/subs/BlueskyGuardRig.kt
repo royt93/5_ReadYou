@@ -21,6 +21,8 @@ import mockwebserver3.RecordedRequest
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import java.io.IOException
+import java.net.URLDecoder
+import java.util.concurrent.CopyOnWriteArrayList
 import java.util.concurrent.atomic.AtomicInteger
 
 private const val GUARD_TIMEOUT_MS = 5_000L
@@ -37,6 +39,7 @@ class BlueskyGuardRig : AutoCloseable {
     val accountId: Int = app.currentAccountId
 
     private val profileCalls = AtomicInteger(0)
+    private val profileActorsSeen = CopyOnWriteArrayList<String>()
     private val feedCalls = AtomicInteger(0)
     @Volatile private var profileBody: String = BlueskyDeviceFixtures.PROFILE_BODY
     @Volatile private var feedBodyText: String = authorFeedBody(BlueskyDeviceFixtures.DID, BlueskyDeviceFixtures.HANDLE)
@@ -47,6 +50,7 @@ class BlueskyGuardRig : AutoCloseable {
             override fun dispatch(request: RecordedRequest): MockResponse =
                 if (request.requestLine.contains("getProfile")) {
                     profileCalls.incrementAndGet()
+                    ACTOR_PARAM.find(request.requestLine)?.let { profileActorsSeen.add(URLDecoder.decode(it.groupValues[1], "UTF-8")) }
                     if (profileFails) MockResponse().setResponseCode(HTTP_SERVER_ERROR) else json(profileBody)
                 } else {
                     feedCalls.incrementAndGet()
@@ -102,6 +106,9 @@ class BlueskyGuardRig : AutoCloseable {
     }
 
     fun profileRequests(): Int = profileCalls.get()
+
+    /** The account each getProfile request asked about, in the order they came (FRONT-02t: which address did the sync use?). */
+    fun profileActors(): List<String> = profileActorsSeen.toList()
     fun feedRequests(): Int = feedCalls.get()
 
     /** Requests the guarded client refused because they were not for 127.0.0.1; must stay 0. */
@@ -112,11 +119,19 @@ class BlueskyGuardRig : AutoCloseable {
     }
 
     /** One stored Bluesky source of the probe group; [sourceUrl] null means "same as url" like a source saved before FRONT-02o. */
-    suspend fun seed(id: String, url: String, sourceUrl: String?, sourceType: String = Feed.BLUESKY_SOURCE_TYPE) {
+    suspend fun seed(
+        id: String,
+        url: String,
+        sourceUrl: String?,
+        sourceType: String = Feed.BLUESKY_SOURCE_TYPE,
+        icon: String? = null,
+        isNotification: Boolean = false,
+        isFullContent: Boolean = false,
+    ) {
         db.feedDao().insert(
             Feed(
-                id = "$PROBE_PREFIX$id", name = "Bluesky · Probe", icon = null, url = url, sourceUrl = sourceUrl,
-                groupId = groupId, accountId = accountId, isNotification = false, sourceType = sourceType,
+                id = "$PROBE_PREFIX$id", name = "Bluesky · Probe", icon = icon, url = url, sourceUrl = sourceUrl,
+                groupId = groupId, accountId = accountId, isNotification = isNotification, isFullContent = isFullContent, sourceType = sourceType,
             ),
         )
     }
@@ -168,6 +183,7 @@ class BlueskyGuardRig : AutoCloseable {
 
     companion object {
         const val PROBE_PREFIX = "front02r_probe_"
+        private val ACTOR_PARAM = Regex("[?&]actor=([^& ]+)")
         private const val LOOPBACK_HOST = "127.0.0.1"
 
         /** One own post written by [did]; the fixtures' own post is fixed to another DID, which would be dropped here. */
