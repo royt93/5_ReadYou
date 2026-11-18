@@ -100,4 +100,25 @@ class LocalRssSvNostrSyncTest {
         val result = service.syncSingleFeed(feed)
         assertEquals("Nostr", result?.feed?.name)
     }
+
+    // FRONT-02x: the author continuing their own thread is synced, answering a stranger is not.
+    @Test fun anOwnThread_isSyncedWhole() = runBlocking {
+        fun id(n: Int) = "%064x".format(n)
+        fun note(n: Int, createdAt: Long, content: String, vararg tags: List<String>): NostrEvent = requireNotNull(
+            NostrEvent.parse(
+                org.json.JSONObject().apply {
+                    put("id", id(n)); put("pubkey", NostrTestEvents.AUTHOR); put("created_at", createdAt); put("kind", 1)
+                    put("tags", org.json.JSONArray(tags.map { org.json.JSONArray(it) }))
+                    put("content", content); put("sig", "0".repeat(128))
+                }.toString(),
+            ),
+        )
+        val first = note(1, 1_700_000_100L, "Thread part one")
+        val second = note(2, 1_700_000_200L, "Thread part two", listOf("e", id(1), "", "reply"))
+        val toStranger = note(3, 1_700_000_300L, "Answer to somebody else", listOf("e", id(99), "", "reply"))
+        coEvery { relay.fetch(NostrTestEvents.AUTHOR) } returns NostrFetchResult(listOf(toStranger, second, first), null)
+        val articles = service.syncSingleFeed(feed)?.articles.orEmpty()
+        assertEquals(listOf("Thread part two", "Thread part one"), articles.map { it.title })
+        assertTrue(articles.all { it.feedId == "nostr-feed" && it.link.startsWith("https://njump.me/note1") })
+    }
 }
