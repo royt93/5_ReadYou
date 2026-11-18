@@ -47,6 +47,25 @@ class NostrKeysTest {
         assertNull(Bech32.decode(Bech32.encode("npub", ByteArray(64))))
     }
 
+    // FRONT-02w: a longer string is only read when the caller asks for a longer limit (nprofile does, npub and note1 never).
+    @Test fun bech32_customLimit_acceptsALongerStringThatTheDefaultRefuses() {
+        val text = Bech32.encode("nprofile", ByteArray(64))
+        assertTrue(text.length > 90)
+        assertNull("the default limit still refuses it", Bech32.decode(text))
+        assertEquals(ByteArray(64).toList(), Bech32.decode(text, maxLength = 1000)?.payload?.toList())
+        assertNull("a custom limit is a limit too", Bech32.decode(text, maxLength = text.length - 1))
+    }
+
+    @Test fun bech32_defaultLimitIsStillNinety() {
+        assertEquals(90, Bech32.DEFAULT_MAX_LENGTH)
+        val atTheLimit = Bech32.encode("npub", ByteArray(49))
+        val overTheLimit = Bech32.encode("npub", ByteArray(50))
+        assertEquals(90, atTheLimit.length)
+        assertEquals(91, overTheLimit.length)
+        assertNotNull(Bech32.decode(atTheLimit))
+        assertNull(Bech32.decode(overTheLimit))
+    }
+
     @Test fun bech32_encodeThenDecode_roundTrips() {
         val payload = ByteArray(32) { it.toByte() }
         val text = Bech32.encode("npub", payload)

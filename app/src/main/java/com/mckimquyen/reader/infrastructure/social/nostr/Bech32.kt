@@ -9,7 +9,8 @@ internal object Bech32 {
     private const val CHARSET = "qpzry9x8gf2tvdw0s3jn54khce6mua7l"
     private const val SEPARATOR = '1'
     private const val CHECKSUM_LENGTH = 6
-    private const val MAX_LENGTH = 90
+    /** BIP-173's limit, kept for npub and note1; a caller that reads a longer NIP-19 string (nprofile) says so. */
+    const val DEFAULT_MAX_LENGTH = 90
     private const val MIN_PRINTABLE = 33
     private const val MAX_PRINTABLE = 126
     private const val BITS_PER_CHAR = 5
@@ -20,8 +21,8 @@ internal object Bech32 {
     private const val CHECKSUM_CONSTANT = 1
     private val GENERATOR = intArrayOf(0x3b6a57b2, 0x26508e6d, 0x1ea119fa, 0x3d4233dd, 0x2a1462b3)
 
-    fun decode(text: String): Decoded? {
-        if (text.length > MAX_LENGTH) return null
+    fun decode(text: String, maxLength: Int = DEFAULT_MAX_LENGTH): Decoded? {
+        if (text.length > maxLength) return null
         if (text.any { it.code < MIN_PRINTABLE || it.code > MAX_PRINTABLE }) return null
         if (text != text.lowercase(Locale.ROOT) && text != text.uppercase(Locale.ROOT)) return null
         val lower = text.lowercase(Locale.ROOT)
