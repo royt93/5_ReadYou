@@ -14,6 +14,13 @@ object NostrFeedMapper {
     /** The most articles one Nostr source shows. The cut comes AFTER replies to other people are filtered out, never before. */
     const val MAX_ARTICLES_SHOWN = 20
 
+    /** The longest cover image address kept. A longer link is skipped, so one line of a note cannot fill the database. */
+    const val MAX_COVER_URL_LENGTH = 2048
+    private const val COVER_IMAGE_EXTENSIONS = "jpe?g|png|gif|webp"
+
+    // https only, up to an image extension, then an optional ?query or #fragment, then a space or the end of the text.
+    private val COVER_IMAGE_URL = Regex("""https://\S+?\.(?:$COVER_IMAGE_EXTENSIONS)(?:[?#]\S*)?(?=\s|$)""", RegexOption.IGNORE_CASE)
+
     const val FEED_URL_PREFIX = "nostr:"
     const val FEED_NAME_PREFIX = "Nostr · "
     private const val MILLIS_PER_SECOND = 1000L
@@ -30,6 +37,13 @@ object NostrFeedMapper {
      */
     fun feedName(npub: String, profileName: String?): String =
         if (profileName == null) feedName(npub) else FEED_NAME_PREFIX + profileName
+
+    /**
+     * The address of the first image link in the note text as the author typed it (not the escaped HTML): https, an image extension,
+     * not longer than [MAX_COVER_URL_LENGTH]. Nothing is downloaded here; the list shows it only when the user's image switch is on.
+     */
+    fun coverImageUrl(content: String): String? =
+        COVER_IMAGE_URL.findAll(content).map { it.value }.firstOrNull { it.length <= MAX_COVER_URL_LENGTH }
 
     fun feedUrl(npub: String): String = FEED_URL_PREFIX + npub.trim().lowercase(Locale.ROOT)
 
@@ -55,6 +69,7 @@ object NostrFeedMapper {
                     rawDescription = html,
                     shortDescription = title.take(RssDescriptionParser.MAX_SHORT_DESCRIPTION_LENGTH),
                     link = NJUMP_BASE + noteId,
+                    img = coverImageUrl(event.content),
                     feedId = feedId,
                     accountId = accountId,
                 )
