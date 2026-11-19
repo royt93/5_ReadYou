@@ -27,3 +27,5 @@ Hai `LocalSyncViewModel` thật chạy **cạnh nhau trên cùng một máy**: m
 - **Tiêu chí 3 giây chưa đạt và chưa đo đúng:** phía nhận ~2,8 s, tổng ~4,6 s; cần hai máy thật để biết con số thật. Phần lớn thời gian là PBKDF2 310.000 vòng ở cả hai phía (đã nêu ở 05a), không phải NSD.
 - Một máy, một mạng Wi-Fi; Android 17 duy nhất.
 - Task gốc EXC-05 còn: kiểm hai máy thật, tự phát nền, ACK, đo 3 giây giữa hai máy.
+
+> **Cập nhật 2026-11-19 (EXC-05f):** thời gian 4,45 đến 4,83 s ở trên đã được **giảm xuống 1,26 đến 1,70 s** khi gói đồng bộ đổi sang RCS2 (HKDF thay PBKDF2), xem [`EXC-05f_hkdf-envelope-rcs2_DONE.md`](EXC-05f_hkdf-envelope-rcs2_DONE.md). Con số "chưa đạt 3 giây" trong báo cáo này là số của RCS1.

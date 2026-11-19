@@ -42,3 +42,9 @@ PBKDF2 làm **chậm** việc đoán một mật khẩu **yếu**. Secret ghép 
 
 ## Giới hạn đã biết
 - Chỉ JVM cho mã hóa; thời gian trên Pixel đo một máy. Tiêu chí 3 giây giữa **hai** máy vẫn chưa đo được (cần máy thứ hai).
+
+## Điều chỉnh khi thực thi
+- **Không lập plan riêng.** Vector RCS1 không đóng băng từ "mã cũ trước khi sửa" như spec nói mà tạo bằng một chương trình Java độc lập (chỉ JCA) và khóa HKDF kiểm lại bằng Python (`hmac`, `hashlib`), vì Python ở máy này không có thư viện `cryptography` nhưng có đủ HMAC; mạnh hơn kế hoạch.
+- Test "nhãn/version lạ bị loại trước khi suy khóa" **không có trong spec**; thêm sau khi đột biến h5 (bỏ kiểm version) sống sót.
+- `LocalSyncViewModel.kt` **không** phải đổi (dự kiến "có thể").
+- Đo lại trên Pixel: 12/12 lượt xanh, 1,26 đến 1,70 s (trung vị 1,49 s). JVM 3.917 test.
