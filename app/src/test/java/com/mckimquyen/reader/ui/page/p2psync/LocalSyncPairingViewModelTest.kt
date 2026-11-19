@@ -93,7 +93,11 @@ private class PairFakeNsd : NsdPlatform {
         registered = Triple(serviceName, port, attributes); onResult(true)
     }
     override fun unregister() { unregisters++; registered = null }
-    override fun discover(onFound: (String, String?, Int, Map<String, ByteArray?>) -> Unit, onLost: (String) -> Unit, onFailed: () -> Unit) { discoveries++ }
+    var onDiscover: (((String, String?, Int, Map<String, ByteArray?>) -> Unit) -> Unit)? = null
+    override fun discover(onFound: (String, String?, Int, Map<String, ByteArray?>) -> Unit, onLost: (String) -> Unit, onFailed: () -> Unit) {
+        discoveries++
+        onDiscover?.invoke(onFound)
+    }
     override fun stopDiscovery() { stopDiscoveries++ }
 }
 
@@ -512,5 +516,106 @@ class LocalSyncPairingViewModelTest {
         vm.startPairedSend(ACCOUNT, "Tablet"); runCurrent()
         assertEquals(LocalSyncError.SERVER, error(vm))
         assertNull(nsd.registered)
+    }
+
+    // ---- EXC-05d: the sync screen may receive by itself only when the choice is not a guess ----
+
+    private val autoSecret = PairingSecret.fromHex("00112233445566778899aabbccddeeff")
+
+    /** One device broadcasting through the fake NSD: found at a private address with the nonce a paired device would derive from. */
+    private fun broadcast(nonce: ByteArray, name: String = "svc1", host: String = "192.168.1.30", port: Int = 4321) {
+        discoveredCallback!!.invoke(name, host, port, NsdTxtCodec.encode(nonce).mapValues { it.value })
+    }
+
+    private var discoveredCallback: ((String, String?, Int, Map<String, ByteArray?>) -> Unit)? = null
+
+    private fun startedVm(): LocalSyncViewModel {
+        val vm = vm()
+        nsd.onDiscover = { discoveredCallback = it }
+        vm.refreshPeers()
+        vm.startFindingPeers()
+        return vm
+    }
+
+    private fun stubFetch(nonce: ByteArray) {
+        val url = "http://192.168.1.30:4321/s/${SessionTokenDerivation.derive(autoSecret, nonce)}"
+        every { transport.fetch(url) } returns SyncEnvelopeCrypto.encrypt(SyncPackageCodec.encode(outgoing), autoSecret)
+    }
+
+    @Test fun autoReceive_withOnePairedDeviceAndOneBroadcaster_showsAPreview_andWritesNothing() = runTest(dispatcher) {
+        store.add("Phone", autoSecret, PairingStatus.CONFIRMED)
+        val nonce = SessionTokenDerivation.newNonce(); stubFetch(nonce)
+        val vm = startedVm(); broadcast(nonce)
+        vm.maybeAutoReceive(ACCOUNT, isLocal = true); runCurrent()
+        assertTrue(vm.state.value is LocalSyncUiState.Preview)
+        coVerify(exactly = 0) { repository.apply(any(), any()) }
+    }
+
+    @Test fun autoReceive_isTriedOnlyOncePerBroadcast_evenAfterCancel() = runTest(dispatcher) {
+        store.add("Phone", autoSecret, PairingStatus.CONFIRMED)
+        val nonce = SessionTokenDerivation.newNonce(); stubFetch(nonce)
+        val vm = startedVm(); broadcast(nonce)
+        vm.maybeAutoReceive(ACCOUNT, isLocal = true); runCurrent()
+        vm.cancelPreview()
+        vm.maybeAutoReceive(ACCOUNT, isLocal = true); runCurrent()
+        assertTrue("a cancelled preview must not come back", vm.state.value is LocalSyncUiState.Idle)
+        verify(exactly = 1) { transport.fetch(any()) }
+    }
+
+    @Test fun autoReceive_isTriedOnlyOncePerBroadcast_evenAfterAnError() = runTest(dispatcher) {
+        store.add("Phone", autoSecret, PairingStatus.CONFIRMED)
+        val nonce = SessionTokenDerivation.newNonce()
+        every { transport.fetch(any()) } throws java.io.IOException("down")
+        val vm = startedVm(); broadcast(nonce)
+        vm.maybeAutoReceive(ACCOUNT, isLocal = true); runCurrent()
+        assertEquals(LocalSyncError.NETWORK, error(vm))
+        vm.maybeAutoReceive(ACCOUNT, isLocal = true); runCurrent()
+        verify(exactly = 1) { transport.fetch(any()) }
+    }
+
+    @Test fun autoReceive_doesNothing_withTwoPairedDevices() = runTest(dispatcher) {
+        store.add("Phone", autoSecret, PairingStatus.CONFIRMED); store.add("Tablet", PairingSecret.fromHex("f".repeat(32)), PairingStatus.CONFIRMED)
+        val vm = startedVm(); broadcast(SessionTokenDerivation.newNonce())
+        vm.maybeAutoReceive(ACCOUNT, isLocal = true); runCurrent()
+        assertTrue(vm.state.value is LocalSyncUiState.Idle)
+        verify(exactly = 0) { transport.fetch(any()) }
+    }
+
+    @Test fun autoReceive_doesNothing_withTwoBroadcasters() = runTest(dispatcher) {
+        store.add("Phone", autoSecret, PairingStatus.CONFIRMED)
+        val vm = startedVm(); broadcast(SessionTokenDerivation.newNonce(), "svc1"); broadcast(SessionTokenDerivation.newNonce(), "svc2")
+        vm.maybeAutoReceive(ACCOUNT, isLocal = true); runCurrent()
+        assertTrue(vm.state.value is LocalSyncUiState.Idle)
+        verify(exactly = 0) { transport.fetch(any()) }
+    }
+
+    @Test fun autoReceive_doesNothing_whenTheAccountIsNotLocal() = runTest(dispatcher) {
+        store.add("Phone", autoSecret, PairingStatus.CONFIRMED)
+        val vm = startedVm(); broadcast(SessionTokenDerivation.newNonce())
+        vm.maybeAutoReceive(ACCOUNT, isLocal = false); runCurrent()
+        assertTrue(vm.state.value is LocalSyncUiState.Idle)
+        verify(exactly = 0) { transport.fetch(any()) }
+    }
+
+    @Test fun autoReceive_doesNothing_whileASessionIsBusy() = runTest(dispatcher) {
+        store.add("Phone", autoSecret, PairingStatus.CONFIRMED)
+        val vm = startedVm()
+        vm.startSend(ACCOUNT); runCurrent()
+        broadcast(SessionTokenDerivation.newNonce())
+        vm.maybeAutoReceive(ACCOUNT, isLocal = true); runCurrent()
+        assertTrue(vm.state.value is LocalSyncUiState.Sending)
+        verify(exactly = 0) { transport.fetch(any()) }
+    }
+
+    @Test fun autoReceive_withAWrongSecret_endsInTheSamePackageErrorAsAHandReceive() = runTest(dispatcher) {
+        store.add("Phone", autoSecret, PairingStatus.UNCONFIRMED)
+        val nonce = SessionTokenDerivation.newNonce()
+        val url = "http://192.168.1.30:4321/s/${SessionTokenDerivation.derive(autoSecret, nonce)}"
+        every { transport.fetch(url) } returns SyncEnvelopeCrypto.encrypt(SyncPackageCodec.encode(outgoing), PairingSecret.fromHex("f".repeat(32)))
+        val vm = startedVm(); broadcast(nonce)
+        vm.maybeAutoReceive(ACCOUNT, isLocal = true); runCurrent()
+        assertEquals(LocalSyncError.PACKAGE, error(vm))
+        assertEquals(PairingStatus.UNCONFIRMED, store.list().single().status)
+        coVerify(exactly = 0) { repository.apply(any(), any()) }
     }
 }

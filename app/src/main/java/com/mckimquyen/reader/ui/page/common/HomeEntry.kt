@@ -449,6 +449,11 @@ fun HomeEntry(
                     syncViewModel.refreshPeers()
                     syncViewModel.startFindingPeers()
                 }
+                // EXC-05d: one paired device and one broadcaster on an idle Local screen start a receive by themselves (preview only, no Apply).
+                val isLocalAccount = context.currentAccountType == com.mckimquyen.reader.domain.model.account.AccountType.Local.id
+                LaunchedEffect(pairedPeers, nearbyPeers, syncState, isLocalAccount) {
+                    syncViewModel.maybeAutoReceive(context.currentAccountId, isLocalAccount)
+                }
                 val processLifecycle = ProcessLifecycleOwner.get().lifecycle
                 DisposableEffect(syncViewModel) {
                     val observer = LifecycleEventObserver { _, event ->

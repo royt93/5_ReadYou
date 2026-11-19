@@ -73,6 +73,8 @@ class LocalSyncViewModel @Inject constructor(
     private var networkJob: Job? = null
     private var activePackageId: String? = null
     private var activeAccountId: Int? = null
+    /** The broadcasts (by nonce) that [maybeAutoReceive] already tried, so a Cancel, an Apply or an error is never followed by the same receive. */
+    private val autoTriedNonces = HashSet<String>()
 
     fun startSend(localAccountId: Int) {
         if (_state.value !is LocalSyncUiState.Idle && _state.value !is LocalSyncUiState.Error &&
@@ -397,6 +399,23 @@ class LocalSyncViewModel @Inject constructor(
             }
             fetchAndPreview(localAccountId, url, secret, confirmPeerId = peerId)
         }
+    }
+
+    /**
+     * Starts a receive by itself, once per broadcast, only when [AutoReceivePolicy] says the choice is not a guess (one usable paired device,
+     * one broadcaster, an idle Local screen). It goes through [receiveFromPaired], so the result is the same preview as a hand receive and
+     * nothing is written before the user presses Apply; when the policy says no, nothing happens at all.
+     */
+    fun maybeAutoReceive(localAccountId: Int, isLocal: Boolean) {
+        val pick = AutoReceivePolicy.pick(
+            paired = _pairedPeers.value,
+            discovered = discovered.value,
+            idle = _state.value is LocalSyncUiState.Idle,
+            isLocal = isLocal,
+            triedNonces = autoTriedNonces,
+        ) ?: return
+        autoTriedNonces += AutoReceivePolicy.nonceKey(pick.broadcaster)
+        receiveFromPaired(localAccountId, pick.peer.peerId, pick.broadcaster.host, pick.broadcaster.port, pick.broadcaster.nonce)
     }
 
     fun confirmPeer(peerId: String) {
