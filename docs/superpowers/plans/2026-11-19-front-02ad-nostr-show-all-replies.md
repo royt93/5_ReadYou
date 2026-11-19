@@ -37,13 +37,13 @@ Test mới (lớp `NostrRepliesTest`): **R1** `aReplyToAStranger_isShown_withALi
 |---|---|---|
 | base | không | không |
 | m1 | `visibleNotes` lại bỏ trả lời (`repliedToId == null`) | R1, R2, R7, R8, R10, M1, V1, `fetch_stopsAtTheFirstRelay_whenItHasOnlyAReply` (ít nhất) |
-| m2 | bỏ dòng link (không thêm) | R1, R2, R7 |
+| m2 | bỏ dòng link (không thêm) | R1, R2, R7 và `anOwnThread_andAnAnswerToAStranger_areSynced` (**đo được**; dự đoán đầu thiếu test đồng bộ) |
 | m3 | link dùng id của chính trả lời (`event.id`) | R1, R2, R3, R7 |
-| m4 | bỏ `REPLY_MARK` (chỉ còn `<br> <a …`) | R1, R7 |
+| m4 | bỏ `REPLY_MARK` (chỉ còn `<br> <a …`) | R1, R7 và test đồng bộ (**đo được**) |
 | m5 | mọi bài đều có dòng link (id bài gốc, hoặc id chính nó khi không có) | R2, R4, R5, R6 (ít nhất) |
 | m6 | bài có thẻ `e` mà không tìm được bài gốc bị bỏ | R4, R5 và `aMentionOnlyNote_isKeptLikeAnyNote` |
-| m7 | bỏ `<br>` trước `↩` | R1, R7 |
-| m8 | bỏ khoảng trắng sau `↩` | R1, R7 |
+| m7 | bỏ `<br>` trước `↩` | R1, R7 và test đồng bộ (**đo được**) |
+| m8 | bỏ khoảng trắng sau `↩` | R1, R7 và test đồng bộ (**đo được**) |
 | m9 | bỏ bộ lọc tiêu đề rỗng khỏi `visibleNotes` | R9, M1, V1 (ít nhất) |
 
 Kiểu so: **đúng** (tập đỏ phải trùng chính xác), trừ khi ghi chú ở báo cáo. Đây là **dự đoán**; lệch thì đọc lý do, sửa bảng, ghi trong báo cáo. (Nhiều đột biến sẽ làm đỏ thêm test cũ còn lại như `eachPieceOfAThreadHasItsOwnTitleAndLink`: kiểm khi chạy, không đoán thêm ở đây.)
@@ -528,17 +528,18 @@ M1 = "aBlankNote_isSkipped_butAReplyIsShown"
 V1 = "visibleNotes_isExactlyWhatToArticlesTurnsIntoArticles"
 STOP = "fetch_stopsAtTheFirstRelay_whenItHasOnlyAReply"
 MENTION = "aMentionOnlyNote_isKeptLikeAnyNote"
+SYNC = "anOwnThread_andAnAnswerToAStranger_areSynced"
 def S(*ks): return {R.get(k, k) for k in ks}
 # exact: the failing set must be equal. atleast: it must contain these (the old chain tests and relay tests fail too, they are not all listed).
 EXPECTED = {
  "m1": ("atleast", S("R1", "R2", "R7", "R8", "R10", M1, V1, STOP)),   # replies filtered out again
- "m2": ("exact", S("R1", "R2", "R7")),                                 # no reply line at all
+ "m2": ("exact", S("R1", "R2", "R7", SYNC)),                                 # no reply line at all
  "m3": ("exact", S("R1", "R2", "R3", "R7")),                           # link built from the reply's own id
- "m4": ("exact", S("R1", "R7")),                                       # the mark is gone
+ "m4": ("exact", S("R1", "R7", SYNC)),                                       # the mark is gone
  "m5": ("atleast", S("R2", "R4", "R5", "R6")),                         # every note gets a line (also old rawDescription tests fail)
  "m6": ("exact", S("R4", "R5", MENTION)),                              # a note with an e tag but no findable target is dropped
- "m7": ("exact", S("R1", "R7")),                                       # no break before the mark
- "m8": ("exact", S("R1", "R7")),                                       # no space after the mark
+ "m7": ("exact", S("R1", "R7", SYNC)),                                       # no break before the mark
+ "m8": ("exact", S("R1", "R7", SYNC)),                                       # no space after the mark
  "m9": ("atleast", S("R9", M1, V1)),                                   # blank notes are shown again
 }
 bad = 0

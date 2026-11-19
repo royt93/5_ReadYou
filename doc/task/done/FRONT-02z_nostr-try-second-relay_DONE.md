@@ -29,3 +29,5 @@ Từ FRONT-02y, `fetch` trả cả trả lời người khác. Nhưng `fetch` v�
 - `visibleNotes` chạy thêm một lần cho mỗi relay trên tối đa 50 sự kiện; chi phí không đáng kể.
 - **Chưa kiểm** relay thật hay máy thật; chỉ JVM với relay giả.
 - Task gốc FRONT-02 vẫn ở `doc/task/todo/`: còn ảnh Nostr, trả lời bài người khác, đăng nhập, đăng bài.
+
+> **Cập nhật 2026-11-19 (FRONT-02ad):** luật "trả lời bài người khác bị bỏ" và bộ lọc chuỗi của báo cáo này đã **được thay**: nay mọi trả lời đều hiện, kèm dòng cuối `↩ link njump` (xem [`FRONT-02ad_nostr-show-all-replies_DONE.md`](FRONT-02ad_nostr-show-all-replies_DONE.md)). Phần còn lại của báo cáo giữ nguyên như lịch sử.

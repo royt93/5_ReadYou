@@ -45,3 +45,10 @@ Từ FRONT-02x, mọi trả lời bài người khác bị bỏ vì đọc riên
 ## Giới hạn đã biết
 - Chỉ JVM; không kiểm máy thật hay relay thật.
 - Trả lời không biết bài gốc (thẻ `e` hỏng) vẫn hiện, không có link.
+
+## Điều chỉnh khi thực thi
+- Làm theo plan: ba tệp production; `isReply` xóa (không còn nơi dùng); `answeredTags` giữ (cho `repliedToId`).
+- **Phát sinh:** `LocalRssSvNostrSyncTest.anOwnThread_isSyncedWhole` cũng kỳ vọng luật cũ; đổi tên thành `anOwnThread_andAnAnswerToAStranger_areSynced`, kỳ vọng thêm bài trả lời và dòng `↩ link`.
+- **Test relay 02z:** `REPLY` thành bài hiện được nên các test dùng `EMPTY`; `fetch_triesTheSecondRelay_whenTheFirstHasOnlyRepliesToOthers` xóa (trùng với test bài trống); thêm `fetch_stopsAtTheFirstRelay_whenItHasOnlyAReply`.
+- **Mutation:** 9/9 khớp sau khi sửa m2, m4, m7, m8 (đỏ thêm test đồng bộ).
+- **JVM đo lại:** 3.886 test, 0 lỗi (3.885 + 11 − 10).
