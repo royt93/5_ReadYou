@@ -44,3 +44,9 @@ Hiện link trong bài Nostr chỉ là chữ thường: người đọc muốn x
 ## Giới hạn đã biết
 - Chỉ JVM; không kiểm máy thật.
 - Link `http` và các giao thức khác vẫn là chữ.
+
+## Điều chỉnh khi thực thi
+- Làm đúng plan: một tệp production (`NostrFeedMapper.kt`); hàm thoát cũ đổi tên `escapePlain`, `escapeToHtml` mới bọc link; test trong lớp mới `NostrTappableLinksTest` (11 test, dùng Jsoup đọc `abs:href` như trang đọc).
+- Không có test hiện có nào chứa link trong chữ bài nên không test cũ đổi kết quả.
+- **Mutation:** 9/9 khớp dự đoán, không sửa bảng.
+- **JVM đo lại:** 3.885 test, 0 lỗi (đúng kỳ vọng 3.874 + 11).
