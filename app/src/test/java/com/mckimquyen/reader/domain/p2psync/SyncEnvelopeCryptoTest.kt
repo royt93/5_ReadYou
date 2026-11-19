@@ -130,6 +130,20 @@ class SyncEnvelopeCryptoTest {
         assertTrue(runCatching { SyncEnvelopeCrypto.decrypt(unknown, fixedSecret) }.isFailure)
     }
 
+    @Test fun anUnknownLabelOrVersionIsRejectedBeforeAnyKeyDerivation() {
+        // The GCM tag would reject these too, but only AFTER an old-style key derivation (about 1.5 s on a phone): a junk envelope must not cost that.
+        fun fastest(block: () -> Unit): Long { block(); return (1..3).minOf { val t = System.nanoTime(); block(); System.nanoTime() - t } }
+        val oneOldDerivation = fastest { SyncEnvelopeCrypto.decrypt(frozenRcs1, fixedSecret) }
+        val unknownLabel = frozenRcs1.copyOf().also { "RCS9".toByteArray(Charsets.US_ASCII).copyInto(it) }
+        val rightLabelWrongVersion = frozenRcs1.copyOf().also { it[SyncEnvelopeCrypto.VERSION_OFFSET] = 9 }
+        listOf(unknownLabel, rightLabelWrongVersion).forEach { junk ->
+            var failure: Throwable? = null
+            val rejected = fastest { failure = runCatching { SyncEnvelopeCrypto.decrypt(junk, fixedSecret) }.exceptionOrNull() }
+            assertTrue(failure is IllegalArgumentException)
+            assertTrue("rejected in ${rejected / 1_000} us; one old derivation took ${oneOldDerivation / 1_000} us", rejected * MIN_SPEEDUP <= oneOldDerivation)
+        }
+    }
+
     @Test fun theRcs2KeyDependsOnTheSaltAndOnTheSecret() {
         val first = SyncEnvelopeCrypto.encrypt(plain, secret)
         val second = SyncEnvelopeCrypto.encrypt(plain, secret)
