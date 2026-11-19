@@ -91,7 +91,9 @@ class AutoReceiveTwoPhonesDeviceTest {
         val before = roomCounts()
         val started = System.currentTimeMillis()
         assertTrue("the send side must start, state=${sender.state.value}", startSending(secret))
+        val sendingMs = System.currentTimeMillis() - started
         runBlocking(Dispatchers.Main) { receiver.refreshPeers(); receiver.startFindingPeers() }
+        val foundAfter = System.currentTimeMillis()
         // The same call the sync screen's LaunchedEffect makes every time the peers or the state change.
         val gotPreview = waitFor(PREVIEW_TIMEOUT_MS) {
             runBlocking(Dispatchers.Main) { receiver.maybeAutoReceive(context.currentAccountId, isLocal = true) }
@@ -99,7 +101,14 @@ class AutoReceiveTwoPhonesDeviceTest {
         }
         val elapsed = System.currentTimeMillis() - started
         // println is not shown by a raw instrument run; a status bundle is, as INSTRUMENTATION_STATUS: exc05e_preview_ms=...
-        InstrumentationRegistry.getInstrumentation().sendStatus(0, android.os.Bundle().apply { putString("exc05e_preview_ms", elapsed.toString()) })
+        InstrumentationRegistry.getInstrumentation().sendStatus(
+            0,
+            android.os.Bundle().apply {
+                putString("exc05e_preview_ms", elapsed.toString())
+                putString("exc05e_sender_ready_ms", sendingMs.toString())
+                putString("exc05e_find_to_preview_ms", (started + elapsed - foundAfter).toString())
+            },
+        )
         assertTrue("a preview must appear by itself, state=${receiver.state.value}", gotPreview)
         runBlocking(Dispatchers.Main) { receiver.cancelPreview() }
         assertEquals("Room must not change before Apply", before, roomCounts())
