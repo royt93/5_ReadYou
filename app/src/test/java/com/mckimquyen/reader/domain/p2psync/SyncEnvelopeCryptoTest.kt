@@ -135,8 +135,9 @@ class SyncEnvelopeCryptoTest {
         fun fastest(block: () -> Unit): Long { block(); return (1..3).minOf { val t = System.nanoTime(); block(); System.nanoTime() - t } }
         val oneOldDerivation = fastest { SyncEnvelopeCrypto.decrypt(frozenRcs1, fixedSecret) }
         val unknownLabel = frozenRcs1.copyOf().also { "RCS9".toByteArray(Charsets.US_ASCII).copyInto(it) }
-        val rightLabelWrongVersion = frozenRcs1.copyOf().also { it[SyncEnvelopeCrypto.VERSION_OFFSET] = 9 }
-        listOf(unknownLabel, rightLabelWrongVersion).forEach { junk ->
+        val rcs1LabelWrongVersion = frozenRcs1.copyOf().also { it[SyncEnvelopeCrypto.VERSION_OFFSET] = 9 }
+        val rcs2LabelWrongVersion = frozenRcs2.copyOf().also { it[SyncEnvelopeCrypto.VERSION_OFFSET] = 9 }
+        listOf(unknownLabel, rcs1LabelWrongVersion, rcs2LabelWrongVersion).forEach { junk ->
             var failure: Throwable? = null
             val rejected = fastest { failure = runCatching { SyncEnvelopeCrypto.decrypt(junk, fixedSecret) }.exceptionOrNull() }
             assertTrue(failure is IllegalArgumentException)
