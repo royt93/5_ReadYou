@@ -54,3 +54,19 @@ Bấm giữ là thao tác Compose lên chính node (`performTouchInput { longCli
 ## Điều cần biết
 - Test dùng tên nguồn do rig đặt (`Bluesky · Probe`) và `hasText` tìm theo chuỗi con; trong 41 lượt không nhập nhằng.
 - Công cụ Pixel nằm ở `/tmp` (không trong kho); nếu cần chạy lại trên Pixel phải dựng lại từ mẫu Tecno.
+
+## Chạy lại trên Tecno (2026-11-19)
+Tecno KJ7 đã kết nối lại; chạy cùng test (cùng mã, build của commit `f625f4fd`) bằng cổng, sao lưu và khôi phục byte-exact, watcher quảng cáo.
+
+| Vòng | Lượt | Xanh | Đỏ | Đỏ có `AdActivity` | Compose "bận" | Xanh có `AdActivity` |
+|---|---|---|---|---|---|---|
+| thử | 1 | 0 | 1 | 1 | 0 | 0 |
+| vòng 1 | 20 | 20 | 0 | 0 | 0 | 0 |
+| vòng 2 | 20 | 19 | 1 | 1 | 0 | 0 |
+| **Cộng** | **41** | **39** | **2** | **2** | **0** | **0** |
+
+- **Cả 2 lượt đỏ giống hệt:** test `editingTheAddressAndConfirming_...` (hoặc test chạy cùng lượt) báo "No compose hierarchies found" và có `AdActivity` trên cùng (chuỗi Activity: app, launcher, app, `AdActivity`). Không lượt nào là lỗi hộp thoại, ngăn kéo hay bấm giữ. Theo lời bạn bỏ qua quảng cáo, tôi không điều tra thêm.
+- **Compose không bận lần nào trên Tecno** với đồng hồ mặc định: nỗi lo từ JVM về `ModalBottomSheet` không xảy ra trên cả hai máy.
+- Tỉ lệ đỏ do quảng cáo 2/41 (~5%) thấp hơn nhiều so với 02u (12/41); 02v có bằng chứng trên **cả Pixel (41/41 xanh) và Tecno (39/41, 2 đỏ do quảng cáo)**.
+- Băm DataStore Tecno `9ca1c202…` trước và sau; xoay `1 0` sau mọi lượt; khôi phục byte-exact OK; gói test gỡ cuối mỗi vòng; máy sạch.
+- **Không chạy lại mutation trên Tecno** (đã làm trên Pixel; mã production không đổi giữa hai máy).
