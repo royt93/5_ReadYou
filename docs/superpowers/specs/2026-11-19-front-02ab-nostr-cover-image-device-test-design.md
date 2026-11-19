@@ -48,3 +48,9 @@ Như FRONT-02s/02u trên Tecno: cổng `/tmp/kj7_gate.sh` in `GATE OK` **trong m
 
 ## Giới hạn đã biết
 - Không chứng minh ảnh hiện thật hay mạng thật; chỉ "có hỏi đúng địa chỉ".
+
+## Điều chỉnh khi thực thi
+- `Coil.reset()` không công khai: lưu bộ tải thật trong `@Before`, trả lại bằng `Coil.setImageLoader` trong `@After`.
+- Khẳng định theo địa chỉ khác nhau (`distinct()`), không theo số yêu cầu; `waitUntil` dùng hằng `WAIT_MS = 15_000`.
+- Có thêm đột biến d1 (lấy link cuối) vào ba đột biến của spec, để test "link đầu tiên" có răng.
+- **Kết quả:** 20/20 lượt xanh, đột biến 4/4 khớp dự đoán, JVM 3.874 test (không đổi).
