@@ -110,13 +110,38 @@ class NostrRelayClientTest {
         assertTrue(client(wsUrl(), wsUrl()).fetch(NostrTestEvents.AUTHOR).notes.isEmpty())
     }
 
-    @Test fun fetch_keepsTheTwentyNewest_newestFirst() = runBlocking {
+    // FRONT-02y: fetch hands over EVERY valid event it read; the feed is cut to twenty later, after the replies are filtered out.
+    @Test fun fetch_keepsEveryValidEventItRead_newestFirst() = runBlocking {
         server.enqueue(relay(*NostrTestEvents.MANY.toTypedArray()))
         val notes = client(wsUrl()).fetch(NostrTestEvents.AUTHOR).notes
-        assertEquals(NostrRelayClient.MAX_NOTES_KEPT, notes.size)
+        assertEquals(NostrTestEvents.MANY.size, notes.size)
         assertEquals(notes.sortedByDescending { it.createdAt }.map { it.id }, ids(notes))
         assertEquals(1_700_001_029L, notes.first().createdAt)
-        assertEquals(1_700_001_010L, notes.last().createdAt)
+        assertEquals(1_700_001_000L, notes.last().createdAt)
+    }
+
+    /** Every valid note of the author that the fixtures hold: 8 single notes and the 30 of MANY (38, fewer than the 50 frames read). */
+    private val everyValidNote: List<String> = listOf(
+        NostrTestEvents.PLAIN, NostrTestEvents.RICH, NostrTestEvents.REPLY, NostrTestEvents.OLDER,
+        NostrTestEvents.EMPTY, NostrTestEvents.FUTURE, NostrTestEvents.LONG, NostrTestEvents.QUOTES,
+    ) + NostrTestEvents.MANY
+
+    private fun junkFrames(count: Int): Array<String> = Array(count) { "{\"n\":$it}" }
+
+    // The limit is on frames read (junk counts), not on notes kept: with exactly 50 frames every valid note is still read.
+    @Test fun fetch_readsFiftyFramesAndKeepsEveryValidOne() = runBlocking {
+        server.enqueue(relay(*junkFrames(NostrRelayClient.MAX_EVENTS_READ - everyValidNote.size), *everyValidNote.toTypedArray()))
+        val notes = client(wsUrl()).fetch(NostrTestEvents.AUTHOR).notes
+        assertEquals(everyValidNote.size, notes.size)
+    }
+
+    // One frame over the limit: the 51st frame (here the last valid note) is never read.
+    @Test fun fetch_doesNotReadTheFiftyFirstFrame() = runBlocking {
+        server.enqueue(relay(*junkFrames(NostrRelayClient.MAX_EVENTS_READ - everyValidNote.size + 1), *everyValidNote.toTypedArray()))
+        val notes = client(wsUrl()).fetch(NostrTestEvents.AUTHOR).notes
+        val lastSentId = requireNotNull(NostrEvent.parse(everyValidNote.last())).id
+        assertEquals(everyValidNote.size - 1, notes.size)
+        assertFalse("the last frame was the 51st and must not be read", ids(notes).contains(lastSentId))
     }
 
     @Test fun fetch_mergesTheSameNoteSentTwice() = runBlocking {

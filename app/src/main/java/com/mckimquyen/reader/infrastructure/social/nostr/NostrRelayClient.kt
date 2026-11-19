@@ -108,7 +108,7 @@ class NostrRelayClient internal constructor(
             }
         }
         return NostrFetchResult(
-            notes = found.values.sortedByDescending { it.createdAt }.take(MAX_NOTES_KEPT),
+            notes = found.values.sortedByDescending { it.createdAt },
             profileName = profiles.sortedByDescending { it.createdAt }.firstNotNullOfOrNull { NostrProfileName.fromContent(it.content) },
         )
     }
