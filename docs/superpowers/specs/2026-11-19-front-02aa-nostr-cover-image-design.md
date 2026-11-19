@@ -41,3 +41,9 @@ Bài Nostr có link ảnh trong chữ thì danh sách hiện ảnh bìa như cá
 ## Giới hạn đã biết
 - Chỉ JVM; không kiểm máy thật hay mạng thật.
 - Chỉ ảnh đầu tiên trong chữ bài.
+
+## Điều chỉnh khi thực thi
+- Làm đúng plan: một tệp production (`NostrFeedMapper.kt`), test trong lớp mới `NostrCoverImageTest` (12 test, dựng sự kiện hình thức vì sự kiện mẫu không có link ảnh).
+- Link quá dài: bỏ link đó và lấy link hợp lệ kế tiếp; ranh giới đúng 2048 được giữ, 2049 bị bỏ.
+- **Mutation:** 9/9 khớp dự đoán, không sửa bảng.
+- **JVM đo lại:** 3.874 test, 0 lỗi (đúng kỳ vọng 3.862 + 12).
