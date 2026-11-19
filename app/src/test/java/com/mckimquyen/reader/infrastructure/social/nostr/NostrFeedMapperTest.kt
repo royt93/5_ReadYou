@@ -89,10 +89,13 @@ class NostrFeedMapperTest {
 
     @Test fun atMostTwentyArticles_areKept_newestFirst() {
         val a = map(*NostrTestEvents.MANY.toTypedArray())
-        assertEquals(NostrRelayClient.MAX_NOTES_KEPT, a.size)
+        assertEquals(NostrFeedMapper.MAX_ARTICLES_SHOWN, a.size)
         assertEquals(1_700_001_029_000L, a.first().date.time)
         assertEquals(1_700_001_010_000L, a.last().date.time)
     }
+
+    // FRONT-02y: the number of articles shown is a property of the mapper (it cuts after the filter), and it is twenty.
+    @Test fun theArticleLimit_isTwentyArticles() = assertEquals(20, NostrFeedMapper.MAX_ARTICLES_SHOWN)
 
     @Test fun feedNameAndUrl_useTheNpub() {
         assertEquals("Nostr \u00b7 npub1mlc\u20267a0a", NostrFeedMapper.feedName(npub))

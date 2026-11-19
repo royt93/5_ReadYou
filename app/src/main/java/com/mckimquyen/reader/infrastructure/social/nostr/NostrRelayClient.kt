@@ -118,7 +118,6 @@ class NostrRelayClient internal constructor(
         const val RELAY_TIMEOUT_MS = 8_000L
         const val MAX_MESSAGE_BYTES = 64 * 1024
         const val MAX_EVENTS_READ = 50
-        const val MAX_NOTES_KEPT = 20
         private const val PROFILE_LIMIT = 1
         private const val SUBSCRIPTION_ID = "f2"
         private const val SECURE_SCHEME = "wss://"

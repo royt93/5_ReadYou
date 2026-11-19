@@ -106,8 +106,14 @@ class NostrFeedMapperThreadTest {
         val root = note(100, 1_700_001_000L, "root")
         val chain = (1..25).map { n -> reply(100 + n, 1_700_001_000L + n, "piece $n", id(100 + n - 1)) }
         val articles = NostrFeedMapper.toArticles(listOf(root) + chain, "feed-1", 7, now)
-        assertEquals(NostrRelayClient.MAX_NOTES_KEPT, articles.size)
+        assertEquals(NostrFeedMapper.MAX_ARTICLES_SHOWN, articles.size)
         assertEquals("piece 25", articles.first().title)
+    }
+
+    // FRONT-02y: twenty-five NEWER answers to people we do not follow must not push an older own thread out: the cut comes after the filter.
+    @Test fun aThreadBehindManyAnswersToOthers_isStillShown() {
+        val strangers = (0 until 25).map { n -> reply(200 + n, 1_700_005_000L + n, "answer $n", id(900 + n)) }
+        assertEquals(listOf("Part three", "Part two", "Part one"), titles(*(strangers + listOf(a, b, c)).toTypedArray()))
     }
 
     @Test fun aReplyWhoseTargetIdIsBroken_isDropped() {

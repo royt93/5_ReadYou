@@ -10,6 +10,10 @@ import java.util.UUID
 /** Turns verified Nostr notes into articles. The note text is untrusted: it is escaped before it is stored as HTML. */
 object NostrFeedMapper {
     const val NJUMP_BASE = "https://njump.me/"
+
+    /** The most articles one Nostr source shows. The cut comes AFTER replies to other people are filtered out, never before. */
+    const val MAX_ARTICLES_SHOWN = 20
+
     const val FEED_URL_PREFIX = "nostr:"
     const val FEED_NAME_PREFIX = "Nostr · "
     private const val MILLIS_PER_SECOND = 1000L
@@ -38,7 +42,7 @@ object NostrFeedMapper {
     ): List<Article> =
         keepOriginalsAndOwnThreads(events).asSequence()
             .sortedByDescending { it.createdAt }
-            .take(NostrRelayClient.MAX_NOTES_KEPT)
+            .take(MAX_ARTICLES_SHOWN)
             .mapNotNull { event ->
                 val noteId = NostrKeys.noteId(event.id) ?: return@mapNotNull null
                 val html = escapeToHtml(event.content)
