@@ -40,14 +40,14 @@ object NostrFeedMapper {
         nowMillis: Long,
         newId: () -> String = { UUID.randomUUID().toString() },
     ): List<Article> =
-        keepOriginalsAndOwnThreads(events).asSequence()
+        visibleNotes(events).asSequence()
             .sortedByDescending { it.createdAt }
             .take(MAX_ARTICLES_SHOWN)
-            .mapNotNull { event ->
-                val noteId = NostrKeys.noteId(event.id) ?: return@mapNotNull null
+            .map { event ->
+                // visibleNotes already refused every note without a valid id or a title, so both are there.
+                val noteId = requireNotNull(NostrKeys.noteId(event.id))
                 val html = escapeToHtml(event.content)
-                val title = RssDescriptionParser.titleFromBody(html)
-                if (title.isEmpty()) return@mapNotNull null
+                val title = titleOf(html)
                 Article(
                     id = accountId.spacerDollar(newId()),
                     date = Date(minOf(event.createdAt * MILLIS_PER_SECOND, nowMillis)),
@@ -60,6 +60,17 @@ object NostrFeedMapper {
                 )
             }
             .toList()
+
+    /**
+     * The notes that become articles, in the order they came: not a reply to someone else (see [keepOriginalsAndOwnThreads]), a valid
+     * id to link to, and a title that is not empty (a note of nothing but spaces has none). This is the ONE rule for "which notes are
+     * shown": [toArticles] cuts to [MAX_ARTICLES_SHOWN] after it, and the relay client asks it before deciding that a relay had
+     * something to show, so an answer to a stranger or a blank note never stops the search at the first relay.
+     */
+    fun visibleNotes(events: List<NostrEvent>): List<NostrEvent> =
+        keepOriginalsAndOwnThreads(events).filter { NostrKeys.noteId(it.id) != null && titleOf(escapeToHtml(it.content)).isNotEmpty() }
+
+    private fun titleOf(html: String): String = RssDescriptionParser.titleFromBody(html)
 
     /**
      * The notes the feed shows: every note that is not a reply, plus every reply to a note that is itself kept (the author continuing

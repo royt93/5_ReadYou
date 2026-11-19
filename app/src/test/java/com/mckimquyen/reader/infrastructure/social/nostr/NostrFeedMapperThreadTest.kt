@@ -116,6 +116,43 @@ class NostrFeedMapperThreadTest {
         assertEquals(listOf("Part three", "Part two", "Part one"), titles(*(strangers + listOf(a, b, c)).toTypedArray()))
     }
 
+    // ---- FRONT-02z: the one rule that says which notes are shown, shared by the feed and by the relay client.
+
+    /** A mix: two titled notes, a blank one, an answer to a stranger, an own thread piece and another blank one (ids 1..6, oldest first). */
+    private val mix: List<NostrEvent> = listOf(
+        note(1, 1_700_000_100L, "Titled one"),
+        note(2, 1_700_000_200L, "   "),
+        reply(3, 1_700_000_300L, "Answer to a stranger", id(999)),
+        note(4, 1_700_000_400L, "Titled two"),
+        reply(5, 1_700_000_500L, "Own thread piece", id(4)),
+        note(6, 1_700_000_600L, "\n  \t"),
+    )
+
+    @Test fun visibleNotes_dropsRepliesToOthersAndBlankNotes() {
+        val shown = NostrFeedMapper.visibleNotes(mix)
+        assertEquals(listOf(id(1), id(4), id(5)), shown.map { it.id })
+    }
+
+    @Test fun visibleNotes_isExactlyWhatToArticlesTurnsIntoArticles() {
+        val counter = AtomicInteger()
+        val articles = NostrFeedMapper.toArticles(mix, "feed-1", 7, now) { "u${counter.incrementAndGet()}" }
+        val shownLinks = NostrFeedMapper.visibleNotes(mix).sortedByDescending { it.createdAt }
+            .map { NostrFeedMapper.NJUMP_BASE + requireNotNull(NostrKeys.noteId(it.id)) }
+        assertEquals(shownLinks, articles.map { it.link })
+        assertEquals(listOf("Own thread piece", "Titled two", "Titled one"), articles.map { it.title })
+    }
+
+    // Before FRONT-02z the cut to twenty came first and the blank notes were dropped after it, so a few blank notes among the newest
+    // twenty left fewer than twenty articles: here 22 real notes and 3 NEWER blank ones must still give twenty real articles.
+    @Test fun aBlankNote_isNotShown_andDoesNotTakeAPlaceAmongTheTwenty() {
+        val real = (0 until 22).map { n -> note(300 + n, 1_700_000_000L + n, "real $n") }
+        val blanks = (0 until 3).map { n -> note(400 + n, 1_700_009_000L + n, "  ") }
+        val articles = NostrFeedMapper.toArticles(real + blanks, "feed-1", 7, now)
+        assertEquals(NostrFeedMapper.MAX_ARTICLES_SHOWN, articles.size)
+        assertEquals("real 21", articles.first().title)
+        assertTrue(articles.none { it.title.isBlank() })
+    }
+
     @Test fun aReplyWhoseTargetIdIsBroken_isDropped() {
         val broken = note(11, 1_700_001_100L, "Answers nothing findable", listOf("e", "not-an-id", "", "reply"))
         assertEquals(listOf("Part one"), titles(a, broken))
