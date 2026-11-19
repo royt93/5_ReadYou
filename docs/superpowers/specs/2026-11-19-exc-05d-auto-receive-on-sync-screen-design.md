@@ -42,3 +42,9 @@ Hôm nay người dùng mở màn hình Đồng bộ rồi phải bấm "nhận"
 
 ## Giới hạn đã biết
 - Chỉ JVM; một lát nhỏ của EXC-05, task gốc vẫn mở (còn tự phát nền, ACK, đo 3 giây, hai máy thật).
+
+## Điều chỉnh khi thực thi
+- **Không lập plan riêng**: spec rồi làm thẳng. Câu hỏi mở đã chốt (owner 2026-11-19): máy ghép `UNCONFIRMED` **được** tự nhận.
+- Chính sách đặt ở `ui/page/p2psync/AutoReceivePolicy.kt` (cùng gói với ViewModel, không phải `domain/p2psync` như spec nói) vì nó dùng `DiscoveredPeer` (infrastructure); không đổi hành vi.
+- Đột biến k7 và test "một lần sau lỗi" làm lộ hai chỗ test yếu (cổng trạng thái của `receiveFromPaired` che lỗi); đã thêm một test và sửa một test, ghi trong báo cáo.
+- **JVM đo lại:** 3.908 test, 0 lỗi (3.889 + 19).

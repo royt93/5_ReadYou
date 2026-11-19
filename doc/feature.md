@@ -74,6 +74,7 @@ Thứ tự owner chọn ngày 2026-11-09; mỗi mục duyệt thiết kế/spec 
 ## 🟡 In progress
 
 - **EXC-05a (partial; EXC-05 remains in progress)** — Đồng bộ thủ công một chiều, mã hóa đầu-cuối qua LAN; preview rồi xác nhận Apply, chỉ Local, giữ Room v20. BG6 instrumentation 4/4 pass; Mac chỉ kiểm truyền ciphertext (không có AES-GCM trên Mac, không giải mã/apply); Stop server đã smoke thật. **Chưa đạt EXC-05 gốc:** chưa NSD, hai Android, tự động/2 chiều; smoke expiry trên thiết bị thật không kết luận được do HiOS freezer. Báo cáo: [`EXC-05a_manual-lan-sync_DONE.md`](doc/task/done/EXC-05a_manual-lan-sync_DONE.md). Todo gốc vẫn mở: [`EXC-05_local-p2p-sync.md`](doc/task/todo/EXC-05_local-p2p-sync.md).
+- **EXC-05d (partial; EXC-05 remains in progress)** — 2026-11-19, báo cáo [`EXC-05d_auto-receive-on-sync-screen_DONE.md`](doc/task/done/EXC-05d_auto-receive-on-sync-screen_DONE.md). Màn hình Đồng bộ tự nhận **một lần cho mỗi lượt phát** khi đúng một máy ghép dùng được và đúng một máy đang phát (màn hình rảnh, tài khoản Local); chỉ hiện xem trước, **không tự Apply**. Ba tệp production (`AutoReceivePolicy` mới, `LocalSyncViewModel`, `HomeEntry`), không đổi giao thức/NSD/Room v20/chuỗi. **Chỉ JVM**: +19 test, đột biến 8/8 khớp (hai đột biến sống sót lần đầu đã sửa test), JVM **3.908 test, 0 lỗi**. **Chưa:** hai máy thật, tự phát nền, ACK, đo 3 giây; phải mở màn hình Đồng bộ và máy kia phải đang phát.
 
 ## ✅ Recently implemented
 
