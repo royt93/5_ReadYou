@@ -45,11 +45,11 @@ Sẵn có liên quan: **K1** `fetch_triesTheSecondRelay_whenTheFirstHasNoValidNo
 | base | không | không | đúng |
 | z1 | `fetch` quay lại `result.notes.isNotEmpty()` | A1, A3, A4, A5, A6, A7 | đúng |
 | z2 | `fetch` luôn hỏi cả hai relay | A2 | đúng |
-| z3 | `fetch` gộp sự kiện hai relay (relay đầu `REPLY` lẫn vào kết quả) | A7 | đúng |
-| z4 | `fetch` bỏ `firstProfile` | A5, A6 | đúng |
+| z3 | `fetch` gộp sự kiện hai relay (relay đầu `REPLY` lẫn vào kết quả) | A2, A4, A5, A7, `NostrRelayProfileTest.fallsBackToTheSecondRelay_whenFirstHasOnlyAProfile_andPrefersSecondName` (**đo được**; dự đoán đầu chỉ có A7) | đúng |
+| z4 | `fetch` bỏ `firstProfile` | A5, A6 và sáu test hồ sơ cũ của `NostrRelayProfileTest` có relay chỉ có hồ sơ (**đo được**; dự đoán đầu chỉ A5, A6) | đúng |
 | z5 | `visibleNotes` bỏ bước lọc chuỗi (chỉ lọc trống): bỏ cả bộ lọc chuỗi nên **nhiều test chuỗi sẵn có cũng đỏ** | V1, V3, A1, A3, A5, A6, A7, M1, M4 | ít nhất |
 | z6 | `visibleNotes` bỏ lọc bài trống | V1, V2, V3, A4, M1 | ít nhất |
-| z7 | `toArticles` không dùng `visibleNotes` (lọc riêng như cũ: cắt 20 rồi mới bỏ bài trống) | V2 | đúng |
+| z7 | `toArticles` không dùng `visibleNotes` (lọc riêng như cũ: cắt 20 rồi mới bỏ bài trống) | V1, V2, M1 (**đo được**; dự đoán đầu chỉ V2: `toArticles` không còn tự lọc bài trống nên V1, M1 cũng đỏ) | đúng |
 
 **Ghi chú từ suy luận từng test:** `toArticles` và `visibleNotes` cùng đổi khi z5 hoặc z6 (dùng chung một hàm), nên phép so "visibleNotes khớp toArticles" trong V1 không tự bắt z5, z6; nhưng V1 **cũng** khẳng định danh sách tiêu đề cụ thể (`Own thread piece`, `Titled two`, `Titled one`) nên vẫn đỏ ở z5 (trả lời người lạ lọt vào) và z6 (bài trống lọt vào). V3 khóa nội dung `visibleNotes`. M1 (`repliesAndBlankNotesAreSkipped`) đỏ ở z5 vì trả lời lọt vào và ở z6 vì bài trống lọt vào (`toArticles` **không** còn tự kiểm tiêu đề trống: tin vào `visibleNotes`, xem Task 1). M4 đỏ ở z5 vì 25 trả lời người lạ chiếm 20 chỗ. **z5 bỏ cả bộ lọc chuỗi nên các test chuỗi sẵn có của `NostrFeedMapperThreadTest` (trả lời người lạ, vòng lặp, ...) cũng đỏ**: bảng chỉ liệt kê tập con bắt buộc. V2 xanh ở z5 (V2 không có trả lời) và đỏ ở z6 (bài trống mới nhất chiếm chỗ). A1 khẳng định id trả về **chứa** `PLAIN`, còn A7 khẳng định danh sách **đúng bằng** `[PLAIN]`, nên chỉ A7 bắt việc gộp (z3).
 

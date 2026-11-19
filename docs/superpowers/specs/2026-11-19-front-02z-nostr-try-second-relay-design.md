@@ -49,3 +49,8 @@ Nếu "hiện được" chỉ là `keepOriginalsAndOwnThreads(...).isNotEmpty()`
 ## Giới hạn đã biết
 - Chỉ JVM; không kiểm relay thật hay máy thật.
 - Chuỗi dài hơn 50 sự kiện gần nhất vẫn cụt (REQ không đổi).
+
+## Điều chỉnh khi thực thi
+- Làm đúng plan (bảng "Điều chỉnh so với spec" của plan, 2026-11-19): Task 1 mapper (`visibleNotes`), Task 2 điều kiện dừng của `fetch`; hai tệp production, không đổi chữ ký `fetch`.
+- **Mutation:** ba dự đoán của plan quá hẹp (z3, z4, z7 làm đỏ thêm test sẵn có có liên quan); đã đọc lý do, sửa bảng plan và `z_check.py`; không có đột biến sống sót.
+- **JVM đo lại:** 3.862 test, 0 lỗi (đúng kỳ vọng 3.852 + 10).
