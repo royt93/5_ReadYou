@@ -62,11 +62,16 @@ class CommuteWorkerScheduleTest {
         assertEquals(CommuteWorker::class.java.name, request.workSpec.workerClassName)
     }
 
-    @Test fun theNetworkConstraintIsKept_andNoChargingOrBatteryConstraintIsAdded() {
+    @Test fun theNetworkConstraintIsKept_andTheBatteryNotLowConditionIsAdded_butNotACharger() {
         val c = enqueue(listen = 7 * 60).first.workSpec.constraints
         assertEquals(NetworkType.CONNECTED, c.requiredNetworkType)
-        assertTrue("spec: no charging constraint", !c.requiresCharging())
-        assertTrue("spec: no battery constraint", !c.requiresBatteryNotLow())
+        assertTrue("STRAT-01b: do not compose the episode when the battery is low", c.requiresBatteryNotLow())
+        assertTrue("a charger is NOT required (owner chose battery-not-low only)", !c.requiresCharging())
+    }
+
+    @Test fun changingTheTime_alsoCarriesTheBatteryCondition() {
+        val c = enqueue(listen = 9 * 60, policy = ExistingPeriodicWorkPolicy.REPLACE).first.workSpec.constraints
+        assertTrue(c.requiresBatteryNotLow())
     }
 
     @Test fun theUniqueName_isUnchanged_soOldInstallsDoNotGetTwoSchedules() =

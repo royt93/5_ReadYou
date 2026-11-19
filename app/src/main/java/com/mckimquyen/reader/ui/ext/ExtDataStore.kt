@@ -165,6 +165,14 @@ suspend fun Context.setCommuteListenMinuteOfDay(minute: Int) {
     this.dataStore.put(DataStoreKeys.CommuteListenMinuteOfDay, minute)
 }
 
+/** STRAT-01b: true once the daily schedule has been replaced with the battery condition; absent means an older schedule may still be queued. */
+val Context.commuteBatteryConditionApplied: Boolean
+    get() = this.dataStore.get(DataStoreKeys.CommuteBatteryConditionApplied) ?: false
+
+suspend fun Context.setCommuteBatteryConditionApplied(applied: Boolean) {
+    this.dataStore.put(DataStoreKeys.CommuteBatteryConditionApplied, applied)
+}
+
 val Context.commuteAutoPlayOnHeadset: Boolean
     get() = this.dataStore.get(DataStoreKeys.CommuteAutoPlayOnHeadset) ?: false
 
@@ -754,6 +762,11 @@ sealed class DataStoreKeys<T> {
     object CommuteScriptGeminiConsent : DataStoreKeys<Boolean>() {
         override val key: Preferences.Key<Boolean>
             get() = booleanPreferencesKey("commute_script_gemini_consent")
+    }
+
+    object CommuteBatteryConditionApplied : DataStoreKeys<Boolean>() {
+        override val key: Preferences.Key<Boolean>
+            get() = booleanPreferencesKey("commute_battery_condition_applied")
     }
 
     object CommuteListenMinuteOfDay : DataStoreKeys<Int>() {

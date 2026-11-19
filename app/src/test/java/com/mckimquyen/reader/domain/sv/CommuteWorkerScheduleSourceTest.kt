@@ -32,9 +32,18 @@ class CommuteWorkerScheduleSourceTest {
         assertFalse("startup must not replace the schedule on every launch", call.contains("REPLACE"))
     }
 
-    @Test fun theWorkerStillTakesNoChargingOrBatteryConstraint() {
+    @Test fun theWorkerTakesTheBatteryNotLowConstraint_butNoChargerConstraint() {
+        assertTrue(worker.contains("setRequiresBatteryNotLow(true)"))
         assertFalse(worker.contains("setRequiresCharging"))
-        assertFalse(worker.contains("setRequiresBatteryNotLow"))
+    }
+
+    @Test fun startupChoosesThePolicyFromTheMigrationFlag_andWritesTheFlagAfterScheduling() {
+        val body = app.substringAfter("private suspend fun workerInit()").substringBefore("FeedAutopilotWorker")
+        assertTrue(body.contains("CommuteScheduleMigration.policyFor("))
+        val schedule = body.indexOf("CommuteWorker.enqueueDailyWork(")
+        val flag = body.indexOf("setCommuteBatteryConditionApplied(")
+        assertTrue("the flag must be written", flag >= 0)
+        assertTrue("the flag is written AFTER the schedule is queued, so a failure never marks it applied", schedule in 0 until flag)
     }
 
     @Test fun enqueueDailyWorkIsCalledFromExactlyOneStartupPlace() {

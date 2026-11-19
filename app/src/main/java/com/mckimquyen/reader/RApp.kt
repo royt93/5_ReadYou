@@ -33,7 +33,10 @@ import com.roy.sdkadbmob.AdSdkConfig
 import com.roy.sdkadbmob.AdSafetyLimits
 import com.roy.sdkadbmob.SdkVersion
 import com.mckimquyen.reader.ui.page.setting.vip.AdKeys
+import com.mckimquyen.reader.domain.commute.CommuteScheduleMigration
+import com.mckimquyen.reader.ui.ext.commuteBatteryConditionApplied
 import com.mckimquyen.reader.ui.ext.commuteListenMinuteOfDay
+import com.mckimquyen.reader.ui.ext.setCommuteBatteryConditionApplied
 import com.mckimquyen.reader.ui.ext.del
 import com.mckimquyen.reader.ui.ext.getLatestApk
 import com.mckimquyen.reader.ui.ext.isFdroid
@@ -208,7 +211,13 @@ class RApp : Application(), WorkConfiguration.Provider, ImageLoaderFactory {
 
     private suspend fun workerInit() {
         rssSv.get().doSync(isOnStart = true)
-        CommuteWorker.enqueueDailyWork(workManager, listenMinuteOfDay = applicationContext.commuteListenMinuteOfDay)
+        // STRAT-01b: an older install still has a schedule without the battery condition; replace it once, then keep it (see CommuteScheduleMigration).
+        CommuteWorker.enqueueDailyWork(
+            workManager,
+            listenMinuteOfDay = applicationContext.commuteListenMinuteOfDay,
+            policy = CommuteScheduleMigration.policyFor(applicationContext.commuteBatteryConditionApplied),
+        )
+        applicationContext.setCommuteBatteryConditionApplied(true)
         BrainRpgDecayWorker.enqueueDailyWork(workManager)
         FeedAutopilotWorker.enqueueWeeklyWork(workManager)
     }

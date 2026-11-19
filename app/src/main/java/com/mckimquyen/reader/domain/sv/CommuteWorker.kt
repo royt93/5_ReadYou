@@ -53,6 +53,8 @@ class CommuteWorker @AssistedInject constructor(
         ) {
             val constraints = Constraints.Builder()
                 .setRequiredNetworkType(NetworkType.CONNECTED)
+                // STRAT-01b: composing the episode (Gemini and a synthesized voice) is not worth a nearly empty battery. The system's "low" level, not 50%.
+                .setRequiresBatteryNotLow(true)
                 .build()
 
             val initialDelay = CommuteSchedulePolicy.initialDelayMillis(nowMillis, listenMinuteOfDay, zone)
