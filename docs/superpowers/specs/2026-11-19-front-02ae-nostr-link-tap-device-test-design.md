@@ -37,3 +37,8 @@ Như FRONT-02ab: cổng `/tmp/kj7_gate.sh` in `GATE OK` **trong một lệnh ri�
 
 ## Giới hạn đã biết
 - Không chứng minh mở trình duyệt; một máy.
+
+## Điều chỉnh khi thực thi
+- Vị trí chạm lấy từ `SemanticsActions.GetTextLayoutResult` (cách repo đã dùng ở `FeedItemDeviceTest`): rủi ro "nút `ClickableText` không lộ bố cục" không xảy ra.
+- Đột biến a1 làm đỏ thêm `tappingAnHttpLink_givesNothing` (nửa sau của test cần link đầu bấm được); bảng đã sửa trong plan trước khi chạy; kết quả đo khớp.
+- **Kết quả:** 20/20 lượt xanh, đột biến 4/4 khớp dự đoán, JVM 3.886 test (không đổi).
