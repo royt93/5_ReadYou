@@ -98,7 +98,8 @@ class AutoReceiveTwoPhonesDeviceTest {
             receiver.state.value is LocalSyncUiState.Preview
         }
         val elapsed = System.currentTimeMillis() - started
-        println("EXC05E_PREVIEW_MS=$elapsed")
+        // println is not shown by a raw instrument run; a status bundle is, as INSTRUMENTATION_STATUS: exc05e_preview_ms=...
+        InstrumentationRegistry.getInstrumentation().sendStatus(0, android.os.Bundle().apply { putString("exc05e_preview_ms", elapsed.toString()) })
         assertTrue("a preview must appear by itself, state=${receiver.state.value}", gotPreview)
         runBlocking(Dispatchers.Main) { receiver.cancelPreview() }
         assertEquals("Room must not change before Apply", before, roomCounts())
