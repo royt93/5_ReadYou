@@ -30,3 +30,8 @@ Gherkin gốc STRAT-01: WorkManager soạn bản tin lúc 06:30 "với điều k
 ## Kiểm chứng
 - TDD: test đỏ trước; đột biến JVM (bỏ `setRequiresBatteryNotLow`; `policyFor` đảo; không ghi cờ; ghi cờ **trước** khi xếp lịch; bỏ kiểm cờ nên REPLACE mọi lần khởi động) với bảng dự đoán suy luận từng test.
 - JVM full `--rerun-tasks` (số trước 3.917). Diff production: `CommuteWorker.kt`, `RApp.kt`, `ExtDataStore.kt` (một khóa + hai hàm), một tệp mới `CommuteScheduleMigration.kt`.
+
+## Điều chỉnh khi thực thi
+- Không lập plan riêng. Đột biến "ghi cờ trước khi xếp lịch" (b4) được thực hiện bằng cách bỏ dòng ghi cờ khỏi chỗ chuyển (khó chèn trước mà vẫn biên dịch), cùng ý.
+- Đột biến b5 (luôn REPLACE) làm đỏ thêm `startupPassesTheSavedListenTime_andKeepsTheSchedule` ngoài test mới; dự đoán đã sửa.
+- JVM đo lại 3.921 test; một lần đỏ đầu của `BrainRpgRepositoryTest` là chập chờn không liên quan.
