@@ -3,6 +3,7 @@ package com.mckimquyen.reader.infrastructure.social.nostr
 import android.app.Application
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
@@ -102,5 +103,40 @@ class NostrCoverImageTest {
     @Test fun aLinkAtTheEndOfALine_isStillACover() {
         // A new line becomes "<br>" in the stored body; the link must be found in the text as typed, where the line break is a space.
         assertEquals("https://x.example/a.jpg", coverOf("look\nhttps://x.example/a.jpg\nnext line"))
+    }
+
+    // ---- FRONT-02af: a hostile note must not slow the sync. The old pattern is rebuilt here, unbounded, only to measure against.
+
+    private val unboundedPattern = Regex("""https://\S+?\.(?:jpe?g|png|gif|webp)(?:[?#]\S*)?(?=\s|$)""", RegexOption.IGNORE_CASE)
+
+    /** The fastest of [runs] timings of [block], after a few warm-up runs, in nanoseconds. */
+    private fun fastestNanos(block: () -> Unit): Long {
+        repeat(WARMUP_RUNS) { block() }
+        return (1..TIMED_RUNS).minOf { val t = System.nanoTime(); block(); System.nanoTime() - t }
+    }
+
+    @Test fun aHostileNote_isScannedMuchFasterThanTheUnboundedPattern() {
+        val hostile = "https://".repeat(HOSTILE_LENGTH / "https://".length)
+        val bounded = fastestNanos { NostrFeedMapper.coverImageUrl(hostile) }
+        val unbounded = fastestNanos { unboundedPattern.findAll(hostile).toList() }
+        assertTrue("bounded=${bounded / NANOS_PER_MS} ms, unbounded=${unbounded / NANOS_PER_MS} ms", unbounded >= bounded * MIN_SPEEDUP)
+    }
+
+    @Test fun aHostileNote_stillGivesAnArticleWithoutACover() {
+        val hostile = "https://".repeat(HOSTILE_LENGTH / "https://".length)
+        assertNull(coverOf(hostile))
+    }
+
+    @Test fun aValidLinkInsideAVeryLongToken_isStillFound() {
+        val token = "https://" + "a".repeat(limit + 100) + "https://y.example/inner.png"
+        assertEquals("https://y.example/inner.png", NostrFeedMapper.coverImageUrl(token))
+    }
+
+    private companion object {
+        const val HOSTILE_LENGTH = 65_000
+        const val WARMUP_RUNS = 3
+        const val TIMED_RUNS = 5
+        const val MIN_SPEEDUP = 3
+        const val NANOS_PER_MS = 1_000_000L
     }
 }
