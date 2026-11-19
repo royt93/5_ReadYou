@@ -44,3 +44,9 @@
 ## Giới hạn đã biết
 - Chỉ JVM; không kiểm trên relay thật hay máy thật.
 - Không tăng `limit` REQ; chuỗi dài hơn 50 sự kiện gần nhất vẫn cụt.
+
+## Điều chỉnh khi thực thi
+- **Không có test "55 sự kiện hợp lệ":** chỉ có 38 sự kiện kind 1 ký thật (8 lẻ + 30 trong `MANY`). Giới hạn đọc 50 chứng minh bằng số khung (khung rác cũng tính): 12 rác + 38 hợp lệ = 50 khung đọc hết; 13 rác = 51 khung thì khung hợp lệ cuối không được đọc.
+- **Bỏ ca đồng bộ MockK** (không đi qua `readRelay`, trùng test mapper).
+- **Đột biến:** thêm `y7` (mapper cắt 20 trước khi lọc, đúng lỗi gốc); `y2` dùng cắt 30 thay cho 49 (cắt 49 là đột biến tương đương vì chỉ có 38 sự kiện hợp lệ); dự đoán y5 sai một chỗ (hằng 21 cũng làm đỏ test 30 bài mẫu), đã sửa bảng.
+- **Kết quả:** +4 test, mutation 7/7, JVM 3.852, 0 lỗi; đúng ba tệp production.
