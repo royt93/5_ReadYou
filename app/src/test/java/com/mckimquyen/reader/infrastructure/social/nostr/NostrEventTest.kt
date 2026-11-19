@@ -121,10 +121,4 @@ class NostrEventTest {
         assertFalse(ev(plain).isValid(author.uppercase()))
     }
 
-    // ---- isReply
-    @Test fun isReply_isTrueOnlyWithAnETag() {
-        assertTrue(ev(reply).isReply)
-        assertFalse(ev(plain).isReply)
-        assertFalse(ev(rich).isReply)
-    }
 }

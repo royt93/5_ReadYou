@@ -16,12 +16,6 @@ class NostrEvent(
     val sig: String,
 ) {
     /**
-     * A reply carries an `e` tag that is not just a mention (NIP-10): it answers another note. A note whose only `e` tags say
-     * `mention` points at other notes without answering them, so it counts as an ordinary note.
-     */
-    val isReply: Boolean get() = answeredTags().isNotEmpty()
-
-    /**
      * The id of the note this one answers, read the NIP-10 way: the tag marked `reply` (the last one if several), else the one marked
      * `root`, else (old style, no markers) the last unmarked tag. Only a lower-case 64-character hex id is accepted, anything else
      * is null (the note is still a reply, it just names nothing the app can find).

@@ -11,8 +11,10 @@ import java.util.UUID
 object NostrFeedMapper {
     const val NJUMP_BASE = "https://njump.me/"
 
-    /** The most articles one Nostr source shows. The cut comes AFTER replies to other people are filtered out, never before. */
+    /** The most articles one Nostr source shows: the newest, replies and ordinary notes alike (see [visibleNotes]). */
     const val MAX_ARTICLES_SHOWN = 20
+    /** The sign that starts the last line of a reply: it is a symbol, not a word, so it needs no translation. */
+    const val REPLY_MARK = "↩"
 
     /** The longest cover image address kept. A longer link is skipped, so one line of a note cannot fill the database. */
     const val MAX_COVER_URL_LENGTH = 2048
@@ -79,11 +81,12 @@ object NostrFeedMapper {
                 val noteId = requireNotNull(NostrKeys.noteId(event.id))
                 val html = escapeToHtml(event.content)
                 val title = titleOf(html)
+                val body = html + replyLine(event)
                 Article(
                     id = accountId.spacerDollar(newId()),
                     date = Date(minOf(event.createdAt * MILLIS_PER_SECOND, nowMillis)),
                     title = title,
-                    rawDescription = html,
+                    rawDescription = body,
                     shortDescription = title.take(RssDescriptionParser.MAX_SHORT_DESCRIPTION_LENGTH),
                     link = NJUMP_BASE + noteId,
                     img = coverImageUrl(event.content),
@@ -94,39 +97,25 @@ object NostrFeedMapper {
             .toList()
 
     /**
-     * The notes that become articles, in the order they came: not a reply to someone else (see [keepOriginalsAndOwnThreads]), a valid
-     * id to link to, and a title that is not empty (a note of nothing but spaces has none). This is the ONE rule for "which notes are
-     * shown": [toArticles] cuts to [MAX_ARTICLES_SHOWN] after it, and the relay client asks it before deciding that a relay had
-     * something to show, so an answer to a stranger or a blank note never stops the search at the first relay.
+     * The notes that become articles, in the order they came, each once: a valid id to link to and a title that is not empty (a note of
+     * nothing but spaces has none). A reply is a note like any other (it only gets a last line that links to the note it answers). This is
+     * the ONE rule for "which notes are shown": [toArticles] cuts to [MAX_ARTICLES_SHOWN] after it, and the relay client asks it before
+     * deciding that a relay had something to show, so a blank note never stops the search at the first relay.
      */
     fun visibleNotes(events: List<NostrEvent>): List<NostrEvent> =
-        keepOriginalsAndOwnThreads(events).filter { NostrKeys.noteId(it.id) != null && titleOf(escapeToHtml(it.content)).isNotEmpty() }
+        events.distinctBy { it.id }.filter { NostrKeys.noteId(it.id) != null && titleOf(escapeToHtml(it.content)).isNotEmpty() }
+
+    /** The njump address of the note this one answers, built from a checked id (never from the text); null when it names nothing findable. */
+    fun replyTargetUrl(event: NostrEvent): String? =
+        event.repliedToId?.let { NostrKeys.noteId(it) }?.let { NJUMP_BASE + it }
+
+    /** The last line of a reply: a break, the mark, and the address as an anchor. Empty for a note that answers nothing findable. */
+    private fun replyLine(event: NostrEvent): String {
+        val url = escapePlain(replyTargetUrl(event) ?: return "")
+        return "<br>" + REPLY_MARK + " <a href=\"" + url + "\">" + url + "</a>"
+    }
 
     private fun titleOf(html: String): String = RssDescriptionParser.titleFromBody(html)
-
-    /**
-     * The notes the feed shows: every note that is not a reply, plus every reply to a note that is itself kept (the author continuing
-     * their own thread). Whether a note is kept never depends on the order of the list or on the dates. A reply to a stranger's note
-     * is dropped, and so is anything that only answers such a reply, because it would be read with no context. A loop of replies
-     * (a note that answers itself, directly or through others) is dropped as a whole, never followed forever.
-     */
-    private fun keepOriginalsAndOwnThreads(events: List<NostrEvent>): List<NostrEvent> {
-        val byId = LinkedHashMap<String, NostrEvent>()
-        for (event in events) byId.putIfAbsent(event.id, event)
-        val kept = HashMap<String, Boolean>()
-        fun isKept(id: String, visiting: Set<String>): Boolean {
-            kept[id]?.let { return it }
-            if (id in visiting) return false
-            val event = byId.getValue(id)
-            val target = event.repliedToId
-            val result = !event.isReply || (target != null && target in byId && isKept(target, visiting + id))
-            // Every note names at most ONE note it answers, so a walk is a single path: a verdict reached inside a loop is the same
-            // wherever the walk began, and can be stored as it is.
-            kept[id] = result
-            return result
-        }
-        return byId.values.filter { isKept(it.id, emptySet()) }
-    }
 
     /** The note text as HTML: the plain parts escaped, each https link (see [linkSpans]) wrapped as an anchor whose address is escaped too. */
     private fun escapeToHtml(text: String): String = buildString {

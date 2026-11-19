@@ -46,33 +46,9 @@ class NostrFeedMapperThreadTest {
         assertEquals(listOf("Part three", "Part two", "Part one"), titles(a, b, c))
     }
 
-    @Test fun aReplyToSomeoneElse_isDropped() {
-        val toStranger = reply(9, 1_700_000_150L, "Answer to a stranger", id(99))
-        assertEquals(listOf("Part one"), titles(a, toStranger))
-    }
-
-    @Test fun aReplyToADroppedNote_isDropped() {
-        val toStranger = reply(9, 1_700_000_150L, "Answer to a stranger", id(99))
-        val followUp = reply(4, 1_700_000_400L, "Follow-up to my own answer", id(9))
-        assertEquals("the follow-up would read with no context", emptyList<String>(), titles(toStranger, followUp))
-    }
-
     @Test fun aMentionOnlyNote_isKeptLikeAnyNote() {
         val quoting = note(5, 1_700_000_500L, "Look at this", listOf("e", id(1), "", "mention"))
         assertEquals(listOf("Look at this", "Part one"), titles(a, quoting))
-    }
-
-    @Test(timeout = 5_000)
-    fun aLoopOfReplies_endsAndDropsBoth() {
-        val first = reply(6, 1_700_000_600L, "Loop one", id(7))
-        val second = reply(7, 1_700_000_700L, "Loop two", id(6))
-        assertEquals(listOf("Part one"), titles(first, second, a))
-    }
-
-    @Test(timeout = 5_000)
-    fun aNoteReplyingToItself_isDropped() {
-        val selfish = reply(8, 1_700_000_800L, "Answering myself in a loop", id(8))
-        assertEquals(listOf("Part one"), titles(selfish, a))
     }
 
     @Test fun theSameNoteTwice_isKeptOnce() {
@@ -110,12 +86,6 @@ class NostrFeedMapperThreadTest {
         assertEquals("piece 25", articles.first().title)
     }
 
-    // FRONT-02y: twenty-five NEWER answers to people we do not follow must not push an older own thread out: the cut comes after the filter.
-    @Test fun aThreadBehindManyAnswersToOthers_isStillShown() {
-        val strangers = (0 until 25).map { n -> reply(200 + n, 1_700_005_000L + n, "answer $n", id(900 + n)) }
-        assertEquals(listOf("Part three", "Part two", "Part one"), titles(*(strangers + listOf(a, b, c)).toTypedArray()))
-    }
-
     // ---- FRONT-02z: the one rule that says which notes are shown, shared by the feed and by the relay client.
 
     /** A mix: two titled notes, a blank one, an answer to a stranger, an own thread piece and another blank one (ids 1..6, oldest first). */
@@ -128,18 +98,13 @@ class NostrFeedMapperThreadTest {
         note(6, 1_700_000_600L, "\n  \t"),
     )
 
-    @Test fun visibleNotes_dropsRepliesToOthersAndBlankNotes() {
-        val shown = NostrFeedMapper.visibleNotes(mix)
-        assertEquals(listOf(id(1), id(4), id(5)), shown.map { it.id })
-    }
-
     @Test fun visibleNotes_isExactlyWhatToArticlesTurnsIntoArticles() {
         val counter = AtomicInteger()
         val articles = NostrFeedMapper.toArticles(mix, "feed-1", 7, now) { "u${counter.incrementAndGet()}" }
         val shownLinks = NostrFeedMapper.visibleNotes(mix).sortedByDescending { it.createdAt }
             .map { NostrFeedMapper.NJUMP_BASE + requireNotNull(NostrKeys.noteId(it.id)) }
         assertEquals(shownLinks, articles.map { it.link })
-        assertEquals(listOf("Own thread piece", "Titled two", "Titled one"), articles.map { it.title })
+        assertEquals(listOf("Own thread piece", "Titled two", "Answer to a stranger", "Titled one"), articles.map { it.title })
     }
 
     // Before FRONT-02z the cut to twenty came first and the blank notes were dropped after it, so a few blank notes among the newest
@@ -151,27 +116,6 @@ class NostrFeedMapperThreadTest {
         assertEquals(NostrFeedMapper.MAX_ARTICLES_SHOWN, articles.size)
         assertEquals("real 21", articles.first().title)
         assertTrue(articles.none { it.title.isBlank() })
-    }
-
-    @Test fun aReplyWhoseTargetIdIsBroken_isDropped() {
-        val broken = note(11, 1_700_001_100L, "Answers nothing findable", listOf("e", "not-an-id", "", "reply"))
-        assertEquals(listOf("Part one"), titles(a, broken))
-    }
-
-    // An id written in capitals is not the lower-case form NIP-01 requires, so a reply naming it names nothing, even though a note
-    // with that very id is in the list and could be linked.
-    @Test fun aReplyNamingATargetInCapitals_isDropped() {
-        val upperId = "%064X".format(0xabc)
-        val target = requireNotNull(
-            NostrEvent.parse(
-                org.json.JSONObject().apply {
-                    put("id", upperId); put("pubkey", author); put("created_at", 1_700_001_200L); put("kind", 1)
-                    put("tags", org.json.JSONArray()); put("content", "Id in capitals"); put("sig", "0".repeat(128))
-                }.toString(),
-            ),
-        )
-        val answer = reply(12, 1_700_001_300L, "Answers the capitals note", upperId)
-        assertEquals(listOf("Id in capitals"), titles(target, answer))
     }
 
     // Nothing in the rule looks at dates: an answer stamped BEFORE the note it answers (clocks differ) is still part of the thread.

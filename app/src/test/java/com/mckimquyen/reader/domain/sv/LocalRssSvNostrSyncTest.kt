@@ -8,6 +8,7 @@ import com.mckimquyen.reader.domain.repository.FeedHealthDao
 import com.mckimquyen.reader.infrastructure.rss.RssHelper
 import com.mckimquyen.reader.infrastructure.rss.scraper.WebFeedScraper
 import com.mckimquyen.reader.infrastructure.social.nostr.NostrEvent
+import com.mckimquyen.reader.infrastructure.social.nostr.NostrFeedMapper
 import com.mckimquyen.reader.infrastructure.social.nostr.NostrFetchResult
 import com.mckimquyen.reader.infrastructure.social.nostr.NostrKeys
 import com.mckimquyen.reader.infrastructure.social.nostr.NostrRelayClient
@@ -101,8 +102,8 @@ class LocalRssSvNostrSyncTest {
         assertEquals("Nostr", result?.feed?.name)
     }
 
-    // FRONT-02x: the author continuing their own thread is synced, answering a stranger is not.
-    @Test fun anOwnThread_isSyncedWhole() = runBlocking {
+    // FRONT-02x/02ad: the author continuing their own thread is synced, and since FRONT-02ad so is an answer to a stranger (with a link to the note it answers).
+    @Test fun anOwnThread_andAnAnswerToAStranger_areSynced() = runBlocking {
         fun id(n: Int) = "%064x".format(n)
         fun note(n: Int, createdAt: Long, content: String, vararg tags: List<String>): NostrEvent = requireNotNull(
             NostrEvent.parse(
@@ -118,7 +119,10 @@ class LocalRssSvNostrSyncTest {
         val toStranger = note(3, 1_700_000_300L, "Answer to somebody else", listOf("e", id(99), "", "reply"))
         coEvery { relay.fetch(NostrTestEvents.AUTHOR) } returns NostrFetchResult(listOf(toStranger, second, first), null)
         val articles = service.syncSingleFeed(feed)?.articles.orEmpty()
-        assertEquals(listOf("Thread part two", "Thread part one"), articles.map { it.title })
+        assertEquals(listOf("Answer to somebody else", "Thread part two", "Thread part one"), articles.map { it.title })
         assertTrue(articles.all { it.feedId == "nostr-feed" && it.link.startsWith("https://njump.me/note1") })
+        val answer = articles.first().rawDescription
+        assertTrue(answer, answer.contains("<br>${NostrFeedMapper.REPLY_MARK} <a href=\"https://njump.me/note1"))
+        assertTrue("an ordinary note has no reply line", !articles.last().rawDescription.contains(NostrFeedMapper.REPLY_MARK))
     }
 }

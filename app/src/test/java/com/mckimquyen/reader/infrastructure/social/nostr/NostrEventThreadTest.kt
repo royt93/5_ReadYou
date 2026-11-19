@@ -30,27 +30,23 @@ class NostrEventThreadTest {
             ),
         )
 
-    @Test fun aNoteWithoutETags_isNotAReply() {
+    @Test fun aNoteWithoutETags_namesNoTarget() {
         val plain = note(1, listOf("t", "news"))
-        assertFalse(plain.isReply)
         assertNull(plain.repliedToId)
     }
 
-    @Test fun aMentionOnlyNote_isNotAReply() {
+    @Test fun aMentionOnlyNote_namesNoTarget() {
         val quoting = note(2, listOf("e", id(1), "", "mention"))
-        assertFalse("a note that only points at another is not an answer", quoting.isReply)
         assertNull(quoting.repliedToId)
     }
 
-    @Test fun aReplyMarker_isAReply_andNamesItsTarget() {
+    @Test fun aReplyMarker_namesItsTarget() {
         val reply = note(3, listOf("e", id(1), "", "reply"))
-        assertTrue(reply.isReply)
         assertEquals(id(1), reply.repliedToId)
     }
 
-    @Test fun aRootOnlyNote_repliesDirectlyToTheRoot() {
+    @Test fun aRootOnlyNote_namesTheRoot() {
         val direct = note(4, listOf("e", id(1), "", "root"))
-        assertTrue(direct.isReply)
         assertEquals(id(1), direct.repliedToId)
     }
 
@@ -61,9 +57,8 @@ class NostrEventThreadTest {
         assertEquals(id(2), deepReversed.repliedToId)
     }
 
-    @Test fun oldStyleOneTag_isAReplyToThatNote() {
+    @Test fun oldStyleOneTag_namesThatNote() {
         val old = note(7, listOf("e", id(1)))
-        assertTrue(old.isReply)
         assertEquals(id(1), old.repliedToId)
     }
 
@@ -74,15 +69,13 @@ class NostrEventThreadTest {
 
     @Test fun aMentionAmongOldStyleTags_isNeverTheTarget() {
         val old = note(9, listOf("e", id(1)), listOf("e", id(9), "", "mention"))
-        assertTrue(old.isReply)
         assertEquals("the mention comes last but is only a mention", id(1), old.repliedToId)
     }
 
-    @Test fun aBrokenTargetId_isStillAReply_butNamesNothing() {
+    @Test fun aBrokenTargetId_namesNothing() {
         val upperId = "%064X".format(0xabc)
         listOf("XYZ", id(1).dropLast(2), upperId, "").forEach { bad ->
             val reply = note(10, listOf("e", bad, "", "reply"))
-            assertTrue(bad, reply.isReply)
             assertNull(bad, reply.repliedToId)
         }
     }
@@ -92,9 +85,8 @@ class NostrEventThreadTest {
         assertEquals(id(2), odd.repliedToId)
     }
 
-    @Test fun anETagWithNoId_isAReplyThatNamesNothing() {
+    @Test fun anETagWithNoId_namesNothing() {
         val bare = note(12, listOf("e"))
-        assertTrue(bare.isReply)
         assertNull(bare.repliedToId)
     }
 }

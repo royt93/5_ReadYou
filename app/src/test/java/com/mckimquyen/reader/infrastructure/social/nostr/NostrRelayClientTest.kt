@@ -162,14 +162,15 @@ class NostrRelayClientTest {
         assertEquals(listOf(NostrTestEvents.PLAIN_ID), ids(client(wsUrl(), wsUrl()).fetch(NostrTestEvents.AUTHOR).notes))
     }
 
-    // ---- FRONT-02z: a relay "had something" only when at least one of its notes can be SHOWN (not an answer to a stranger, not blank).
+    // ---- FRONT-02z: a relay "had something" only when at least one of its notes can be SHOWN (not blank). Since FRONT-02ad a reply can be shown.
 
-    @Test fun fetch_triesTheSecondRelay_whenTheFirstHasOnlyRepliesToOthers() = runBlocking {
+    // FRONT-02ad: a reply is shown like any note, so a relay that has only a reply has "something" and the second relay is not asked.
+    @Test fun fetch_stopsAtTheFirstRelay_whenItHasOnlyAReply() = runBlocking {
         server.enqueue(relay(NostrTestEvents.REPLY))
         server.enqueue(relay(NostrTestEvents.PLAIN))
         val notes = client(wsUrl(), wsUrl()).fetch(NostrTestEvents.AUTHOR).notes
-        assertTrue(ids(notes).contains(NostrTestEvents.PLAIN_ID))
-        assertEquals("both relays were asked", 2, server.requestCount)
+        assertEquals(1, notes.size)
+        assertEquals("the second relay must not be asked", 1, server.requestCount)
     }
 
     @Test fun fetch_stopsAtTheFirstRelay_whenItHasAShowableNote() = runBlocking {
@@ -180,9 +181,9 @@ class NostrRelayClientTest {
         assertEquals("the second relay must not be asked", 1, server.requestCount)
     }
 
-    @Test fun fetch_returnsEmpty_whenBothRelaysHaveOnlyRepliesToOthers() = runBlocking {
-        server.enqueue(relay(NostrTestEvents.REPLY))
-        server.enqueue(relay(NostrTestEvents.REPLY))
+    @Test fun fetch_returnsEmpty_whenBothRelaysHaveOnlyABlankNote() = runBlocking {
+        server.enqueue(relay(NostrTestEvents.EMPTY))
+        server.enqueue(relay(NostrTestEvents.EMPTY))
         assertTrue(client(wsUrl(), wsUrl()).fetch(NostrTestEvents.AUTHOR).notes.isEmpty())
         assertEquals(2, server.requestCount)
     }
@@ -195,7 +196,7 @@ class NostrRelayClientTest {
     }
 
     @Test fun fetch_keepsTheFirstProfileName_whenTheNotesComeFromTheSecondRelay() = runBlocking {
-        server.enqueue(relay(NostrTestEvents.REPLY, NostrTestEvents.PROFILE))
+        server.enqueue(relay(NostrTestEvents.EMPTY, NostrTestEvents.PROFILE))
         server.enqueue(relay(NostrTestEvents.PLAIN))
         val result = client(wsUrl(), wsUrl()).fetch(NostrTestEvents.AUTHOR)
         assertEquals(listOf(NostrTestEvents.PLAIN_ID), ids(result.notes))
@@ -203,16 +204,16 @@ class NostrRelayClientTest {
     }
 
     @Test fun fetch_returnsTheFirstProfileName_whenNeitherRelayHasAShowableNote() = runBlocking {
-        server.enqueue(relay(NostrTestEvents.REPLY, NostrTestEvents.PROFILE))
-        server.enqueue(relay(NostrTestEvents.REPLY))
+        server.enqueue(relay(NostrTestEvents.EMPTY, NostrTestEvents.PROFILE))
+        server.enqueue(relay(NostrTestEvents.EMPTY))
         val result = client(wsUrl(), wsUrl()).fetch(NostrTestEvents.AUTHOR)
         assertTrue(result.notes.isEmpty())
         assertEquals("Alice Liddell", result.profileName)
     }
 
-    // The relay that is used is used ALONE: what the first relay had (an answer to a stranger) does not travel along.
+    // The relay that is used is used ALONE: what the first relay had (a blank note) does not travel along.
     @Test fun fetch_doesNotMergeTheTwoRelays() = runBlocking {
-        server.enqueue(relay(NostrTestEvents.REPLY))
+        server.enqueue(relay(NostrTestEvents.EMPTY))
         server.enqueue(relay(NostrTestEvents.PLAIN))
         assertEquals(listOf(NostrTestEvents.PLAIN_ID), ids(client(wsUrl(), wsUrl()).fetch(NostrTestEvents.AUTHOR).notes))
     }

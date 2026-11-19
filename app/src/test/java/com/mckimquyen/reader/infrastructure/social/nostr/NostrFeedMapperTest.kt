@@ -69,8 +69,11 @@ class NostrFeedMapperTest {
         assertEquals("it's line2", a.title)
     }
 
-    @Test fun repliesAndBlankNotesAreSkipped() {
-        assertEquals(listOf("Hello nostr, first note"), map(NostrTestEvents.PLAIN, NostrTestEvents.REPLY, NostrTestEvents.EMPTY).map { it.title })
+    @Test fun aBlankNote_isSkipped_butAReplyIsShown() {
+        assertEquals(
+            listOf("Hello nostr, first note", "This one is a reply"),
+            map(NostrTestEvents.PLAIN, NostrTestEvents.REPLY, NostrTestEvents.EMPTY).map { it.title },
+        )
     }
 
     @Test fun theSameNoteTwice_isKeptOnce() = assertEquals(1, map(NostrTestEvents.PLAIN, NostrTestEvents.PLAIN).size)
