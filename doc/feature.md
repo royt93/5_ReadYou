@@ -157,6 +157,15 @@ Thứ tự owner chọn ngày 2026-11-09; mỗi mục duyệt thiết kế/spec 
   - Options discussed: (a) only reduce risk (restrict keys to package+SHA-1 and Generative Language API in Google Cloud, set quotas, document it), (b) BYOK only, (c) own proxy backend, (d) Firebase AI Logic + App Check. No option chosen yet.
   - Revoking/rotating keys in Google Cloud Console is a manual owner action, not done here.
 
+- **Phần còn lại của ORACLE-01/02/03, STRAT-01, RPG-02, FRONT-01 — bị chặn có chủ ý (ghi 2026-11-19, sau khi rà `doc/task/todo/`).** Mỗi mục đã có bản thu hẹp xong (báo cáo `_DONE`) và **giữ trong `todo/`**; phần còn lại không làm được hoặc không nên làm với cách hiện nay. **Không ai cần rà lại trừ khi một lý do dưới đây đổi.**
+  - **ORACLE-01 (kèo dự báo):** chưa thấy AI trả một kèo hợp lệ trên bài thật (12/12 bài BBC ra `NO_CLAIM`, rồi key Gemini chung hỏng, FIX-09). Cần Gemini thật; owner đã dừng kiểm Gemini thật.
+  - **ORACLE-02 (ví và cược):** hai yêu cầu của Gherkin gốc không làm: "% đồng thuận của cộng đồng" (không có backend, sẽ là số giả) và "âm thanh chip" (chưa có asset). Kèo trên máy vẫn là kèo mẫu.
+  - **ORACLE-03 (chốt kèo):** ba yêu cầu không làm: agent AI tự thẩm định và chốt (AI không tra web, chốt sai làm mất điểm không hoàn tác), chia thưởng cho mọi người chọn đúng (một người dùng, không backend), push "+850 Intel Points" (không có số điểm trong thông báo).
+  - **STRAT-01 (bản tin DJ):** còn "tự chọn 10 bài theo thói quen đọc" (giữ bộ chọn theo ngân sách thời gian của DJ-08), phát hoàn toàn không chạm (Android chặn app tự phát tiếng từ nền), tự phát khi nối Android Auto. Điều kiện pin đã làm một phần ở STRAT-01b (pin không thấp, **không phải 50%**). Chưa thử tự phát với tai nghe Bluetooth thật.
+  - **RPG-02 (quiz AI):** còn nợ kiểm trên máy (trả lời đúng và XP, công tắc riêng tư tắt, máy bay) vì cần Gemini thật; key mặc định đầu tiên trả `API_KEY_INVALID` (FIX-09, owner giữ nguyên).
+  - **FRONT-01 (Deep Dive):** bản thu hẹp dùng **một** request Gemini ba vai (không phải chuỗi 3 agent thật, không tra web); báo cáo thật từ Gemini chưa kiểm trên máy (key chung hỏng). Task giữ trong `todo/` theo quyết định của owner.
+  - **Cùng gốc:** Gemini thật không kiểm được (owner dừng kiểm Gemini, FIX-09 giữ nguyên), không có backend/asset, và Android chặn tự phát. **Mở lại khi:** owner có key Gemini riêng, hoặc chọn làm chuỗi 3 agent, hoặc có backend cộng đồng.
+
 ## ✅ Implemented
 
 - INGEST-04 — Multi-device Read Position Sync: Lưu vị trí đọc (0.0..1.0) vào Room v15, tự động khôi phục trong `ReadingPage`, WebDAV sync `read_positions.json` dùng định danh portable `(feedUrl, articleLink)`, merge theo tiến độ xa hơn thắng. Setting `ReadPositionSyncPref` mặc định bật. 856 unit tests, lint, build, smoke test trên Pixel_10_Pro pass. Commit: `ed042dec` – `[next commit]`.
