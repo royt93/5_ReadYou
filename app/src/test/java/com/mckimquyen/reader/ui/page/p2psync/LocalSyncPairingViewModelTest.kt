@@ -569,7 +569,9 @@ class LocalSyncPairingViewModelTest {
         val vm = startedVm(); broadcast(nonce)
         vm.maybeAutoReceive(ACCOUNT, isLocal = true); runCurrent()
         assertEquals(LocalSyncError.NETWORK, error(vm))
+        vm.cancelPreview()                                   // the screen is Idle again: only the memory of the nonce stops a second try
         vm.maybeAutoReceive(ACCOUNT, isLocal = true); runCurrent()
+        assertTrue(vm.state.value is LocalSyncUiState.Idle)
         verify(exactly = 1) { transport.fetch(any()) }
     }
 
@@ -605,6 +607,25 @@ class LocalSyncPairingViewModelTest {
         vm.maybeAutoReceive(ACCOUNT, isLocal = true); runCurrent()
         assertTrue(vm.state.value is LocalSyncUiState.Sending)
         verify(exactly = 0) { transport.fetch(any()) }
+    }
+
+    // A preview on screen is not Idle: a NEW broadcast must not replace it, and the broadcast must not be marked as tried for later.
+    @Test fun autoReceive_doesNotReplaceAPreviewOnScreen_andLeavesTheNewBroadcastUntried() = runTest(dispatcher) {
+        store.add("Phone", autoSecret, PairingStatus.CONFIRMED)
+        val first = SessionTokenDerivation.newNonce(); stubFetch(first)
+        val vm = startedVm(); broadcast(first)
+        vm.maybeAutoReceive(ACCOUNT, isLocal = true); runCurrent()
+        val shown = vm.state.value
+        assertTrue(shown is LocalSyncUiState.Preview)
+        val second = SessionTokenDerivation.newNonce(); stubFetch(second)
+        broadcast(second, name = "svc1")           // same service name: replaces the first broadcast, still exactly one broadcaster
+        vm.maybeAutoReceive(ACCOUNT, isLocal = true); runCurrent()
+        assertTrue("the preview is still the same one", vm.state.value === shown)
+        verify(exactly = 1) { transport.fetch(any()) }
+        vm.cancelPreview()
+        vm.maybeAutoReceive(ACCOUNT, isLocal = true); runCurrent()
+        assertTrue("after Cancel the new broadcast is received once", vm.state.value is LocalSyncUiState.Preview)
+        verify(exactly = 2) { transport.fetch(any()) }
     }
 
     @Test fun autoReceive_withAWrongSecret_endsInTheSamePackageErrorAsAHandReceive() = runTest(dispatcher) {
