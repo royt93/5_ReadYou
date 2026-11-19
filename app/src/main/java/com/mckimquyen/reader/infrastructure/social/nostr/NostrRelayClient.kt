@@ -36,7 +36,11 @@ class NostrRelayClient internal constructor(
         for (relay in relays) {
             if (requireSecure && !relay.startsWith(SECURE_SCHEME)) continue
             val result = readRelay(relay, authorHex)
-            if (result.notes.isNotEmpty()) return@withContext result.copy(profileName = result.profileName ?: firstProfile)
+            // A relay "had something" only if one of its notes can be SHOWN: a relay that holds nothing but answers to strangers (or blank
+            // notes) must not stop the search here. The relay that is used is used alone (its notes are returned as they came, not merged).
+            if (NostrFeedMapper.visibleNotes(result.notes).isNotEmpty()) {
+                return@withContext result.copy(profileName = result.profileName ?: firstProfile)
+            }
             firstProfile = firstProfile ?: result.profileName
         }
         NostrFetchResult(emptyList(), firstProfile)
