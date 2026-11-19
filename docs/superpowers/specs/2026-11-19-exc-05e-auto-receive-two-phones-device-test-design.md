@@ -41,3 +41,8 @@ Một lớp test mới `app/src/androidTest/.../infrastructure/p2psync/AutoRecei
 
 ## Giới hạn đã biết
 - Hai máy, một mạng Wi-Fi; chưa ba máy; chưa NSD các API khác ngoài Android 14 (Tecno) và 17 (Pixel).
+
+## Điều chỉnh khi thực thi
+- **Chỉ còn một máy (Pixel):** Tecno rơi khỏi adb trước khi cài gì. Owner chọn biến thể **một máy** (hai ViewModel cùng máy, mỗi bên một tệp pairing riêng qua `ContextWrapper`). Mọi chỗ spec nói "hai máy" chỉ đúng cho bản gốc chưa chạy; kết quả thật ở báo cáo `EXC-05e_auto-receive-one-phone-device-test_DONE.md`. Rủi ro 1 (nâng Room Tecno v20 lên v22) **không xảy ra** (không cài lên Tecno).
+- Đột biến chạy trên máy: d1 (không gọi `receiveFromPaired`) và d2 (bỏ điều kiện "đúng một") thay cho (a) và (b) trong spec (cùng ý).
+- **Kết quả:** 15/15 lượt xanh, đột biến 2/2 khớp, JVM 3.908 test (không đổi); thời gian bắt đầu đến xem trước 4,45 đến 4,83 s, chưa đạt 3 s.
