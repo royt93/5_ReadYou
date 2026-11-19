@@ -23,3 +23,5 @@ Bài Nostr có link ảnh trong chữ thì danh sách hiện ảnh bìa như cá
 - Regex có thể chậm (bậc hai) với chữ rất dài chứa hàng loạt `https://` nối nhau; mỗi bài tối đa 64 KiB, chấp nhận.
 - **Chưa kiểm** máy thật, máy chủ ảnh thật, hay công tắc ảnh trên màn hình; chỉ JVM.
 - Task gốc FRONT-02 vẫn ở `doc/task/todo/`: còn trả lời bài người khác, đăng nhập, đăng bài (và ảnh trong trang đọc).
+
+> **Cập nhật 2026-11-19 (FRONT-02af):** dòng "Regex có thể chậm (bậc hai) ... chấp nhận" ở trên đã được **sửa**: regex nay có giới hạn độ dài, nhanh hơn khoảng 15 lần (xem [`FRONT-02af_nostr-cover-regex-linear-time_DONE.md`](FRONT-02af_nostr-cover-regex-linear-time_DONE.md)).

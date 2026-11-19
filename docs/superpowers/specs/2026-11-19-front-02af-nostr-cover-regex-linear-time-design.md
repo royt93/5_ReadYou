@@ -21,3 +21,9 @@ Hằng có tên (R5): `COVER_SCHEME_LENGTH = "https://".length`; `N` tính từ 
 - Test thời gian có thể chập chờn trên máy rất chậm: dùng tỉ lệ (bản sửa so bản cũ trong cùng lượt chạy) thay vì mili giây tuyệt đối, và ngưỡng 3 lần so với ~10 lần đo được.
 - Chỉ sửa regex ảnh bìa; regex link 02ac tuyến tính, không đổi.
 - Chưa kiểm máy thật; chỉ JVM.
+
+## Điều chỉnh khi thực thi
+- **Không lập plan riêng** (chọn quy trình ngắn); bước: test đỏ, sửa, đột biến, JVM đầy đủ.
+- Số đo thật: bản cũ `unbounded=742 ms` trong test (một lượt đo JDK khác ~850 ms, lượt khác 206 ms; thay đổi theo máy và lượt); tỉ lệ bản sửa so bản cũ ~15 lần, ngưỡng test 3 lần.
+- Test thứ hai (`aValidLinkInsideAVeryLongToken_isStillFound`) là một **khác biệt hành vi có lợi** ngoài thời gian: bản cũ khớp nhầm cả token dài rồi bỏ nó và mất link con hợp lệ; bản sửa tìm đúng link con.
+- **JVM đo lại:** 3.889 test, 0 lỗi (3.886 + 3). Đột biến 2/2 khớp.
