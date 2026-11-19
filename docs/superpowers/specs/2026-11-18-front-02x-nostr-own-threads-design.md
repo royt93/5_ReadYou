@@ -46,3 +46,10 @@ Hiện nay mọi bài có thẻ `e` đều bị coi là "trả lời" và bị b
 ## Giới hạn đã biết
 - Chỉ JVM; không kiểm trên máy hay mạng thật.
 - Không chứng minh ranh giới 50/20 của relay thật; chỉ test với dữ liệu mẫu.
+
+## Điều chỉnh khi thực thi
+- **Không cần chữ ký thật:** `toArticles` không kiểm chữ ký, test dựng sự kiện bằng `NostrEvent.parse` với `sig` toàn số 0; ca đồng bộ cũng đi qua `NostrFetchResult` do MockK trả về.
+- **Bộ nhớ đệm của bước đi chuỗi được đơn giản hóa:** mỗi bài chỉ trỏ tới **một** bài, nên một lần đi là một đường và kết luận không phụ thuộc điểm bắt đầu; ghi đệm mọi kết luận (đã đo 0 khác biệt trên mọi thứ tự của 6 đồ thị).
+- **Hai test thêm** sau khi mutation cho thấy chỗ hở: `aReplyNamingATargetInCapitals_isDropped` (kiểm hex chữ thường) và `aReplyDatedBeforeItsTarget_isStillKept` (không phụ thuộc ngày).
+- **x9 đổi** thành đột biến thật sự phụ thuộc thứ tự (đột biến gốc là tương đương); **dự đoán sai 5 chỗ** (x1, x2, x3, x8, x9) đã đọc lý do và sửa bảng.
+- **Kết quả:** 26 test mới, mutation 11/11, JVM 3.848, 0 lỗi; đúng hai tệp production. Giới hạn 20 của `fetch` giữ nguyên theo lựa chọn của owner.
