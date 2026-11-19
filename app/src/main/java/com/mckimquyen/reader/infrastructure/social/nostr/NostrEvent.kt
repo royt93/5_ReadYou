@@ -18,7 +18,7 @@ class NostrEvent(
     /**
      * The id of the note this one answers, read the NIP-10 way: the tag marked `reply` (the last one if several), else the one marked
      * `root`, else (old style, no markers) the last unmarked tag. Only a lower-case 64-character hex id is accepted, anything else
-     * is null (the note is still a reply, it just names nothing the app can find).
+     * is null (a note with a broken target is still shown, it just has no link to the note it answers).
      */
     val repliedToId: String?
         get() {
