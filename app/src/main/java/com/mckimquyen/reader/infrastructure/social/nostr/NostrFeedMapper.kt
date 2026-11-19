@@ -45,6 +45,23 @@ object NostrFeedMapper {
     fun coverImageUrl(content: String): String? =
         COVER_IMAGE_URL.findAll(content).map { it.value }.firstOrNull { it.length <= MAX_COVER_URL_LENGTH }
 
+    /** The longest link made tappable. A longer one stays plain text, so one line of a note cannot fill the database. */
+    const val MAX_LINK_URL_LENGTH = 2048
+    private const val LINK_SCHEME = "https://"
+    private const val LINK_TRAILING_PUNCTUATION = ".,;:!?)]}'\""
+    private val LINK_CANDIDATE = Regex("""https://\S+""", RegexOption.IGNORE_CASE)
+
+    /**
+     * Where the https links are in the note text as the author typed it: from the scheme to the next space, without the punctuation that
+     * ends a sentence, at least one character after the scheme, not longer than [MAX_LINK_URL_LENGTH]. Each range holds both ends.
+     */
+    fun linkSpans(content: String): List<IntRange> =
+        LINK_CANDIDATE.findAll(content).mapNotNull { match ->
+            val link = match.value.trimEnd { it in LINK_TRAILING_PUNCTUATION }
+            if (link.length <= LINK_SCHEME.length || link.length > MAX_LINK_URL_LENGTH) null
+            else match.range.first until match.range.first + link.length
+        }.toList()
+
     fun feedUrl(npub: String): String = FEED_URL_PREFIX + npub.trim().lowercase(Locale.ROOT)
 
     fun toArticles(
@@ -111,7 +128,19 @@ object NostrFeedMapper {
         return byId.values.filter { isKept(it.id, emptySet()) }
     }
 
+    /** The note text as HTML: the plain parts escaped, each https link (see [linkSpans]) wrapped as an anchor whose address is escaped too. */
     private fun escapeToHtml(text: String): String = buildString {
+        var cursor = 0
+        for (span in linkSpans(text)) {
+            append(escapePlain(text.substring(cursor, span.first)))
+            val url = escapePlain(text.substring(span.first, span.last + 1))
+            append("<a href=\"").append(url).append("\">").append(url).append("</a>")
+            cursor = span.last + 1
+        }
+        append(escapePlain(text.substring(cursor)))
+    }
+
+    private fun escapePlain(text: String): String = buildString {
         for (c in text) {
             when (c) {
                 '&' -> append("&amp;")
