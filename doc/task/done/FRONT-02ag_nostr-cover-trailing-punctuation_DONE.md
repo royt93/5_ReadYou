@@ -26,10 +26,10 @@ Full suite sau batch: `./gradlew testDevDebugUnitTest --rerun-tasks` — **BUILD
 
 ## Giới hạn
 
-- Chỉ JVM; chưa kiểm ảnh trên thiết bị hoặc relay thật cho sửa đổi này. Không chạy lệnh thiết bị trong đợt kiểm chứng trên.
+- Đợt JVM ban đầu không chạm thiết bị; kiểm thiết bị làm sau, xem mục Tecno bên dưới. Chưa kiểm relay thật.
 - Chỉ bài mới được ánh xạ; bài đã lưu không đổi.
 - Theo đúng luật link hiện có: ký tự dấu câu hợp lệ thuộc URL nhưng đứng cuối cũng bị cắt. Không cố phân biệt dấu câu của câu văn với ký tự có chủ đích của URL.
-- Kiểm bổ sung trên nguồn đã khôi phục (2026-11-20, sau một phép đo trace tạm không liên quan, đã hoàn nguyên byte-identical): `NostrCoverImageTest` + `BrainRpgRepositoryTest` **53 test, 0 lỗi**; `lintDevDebug` **0 lỗi, 2.465 cảnh báo, 10 thông tin** (số cảnh báo bằng mức nền đã ghi trước đó); `assembleDevDebug` thành công, APK không chứa chuỗi trace. Chưa chạy `assembleProdRelease` cho riêng 02ag. Log: `~/exc-flaky-evidence/post-trace-20261120/`.
+- Kiểm bổ sung trên nguồn đã khôi phục (2026-11-20, sau một phép đo trace tạm không liên quan, đã hoàn nguyên byte-identical): `NostrCoverImageTest` + `BrainRpgRepositoryTest` **53 test, 0 lỗi**; `lintDevDebug` **0 lỗi, 2.465 cảnh báo, 10 thông tin** (số cảnh báo bằng mức nền đã ghi trước đó); `assembleDevDebug` thành công, APK không chứa chuỗi trace. Log: `~/exc-flaky-evidence/post-trace-20261120/`.
 - **Test thiết bị (Tecno KJ7 `115333744A005844`, 2026-11-20):** thêm 4 test vào `NostrCoverImageDeviceTest` (dấu chấm cuối, ngoặc, query kèm dấu chấm, tên tệp còn tiếp sau dấu câu `.exe`). Lớp đủ **9 test: 10/10 lượt xanh, 0 dòng `AdActivity`**, xoay màn hình `1 0` sau cùng. Đột biến trên máy: g1 (lookahead về `\s|$`) đỏ 2 test; g2 (bỏ `trimEnd`) lần đầu **xanh** vì chưa có ca query, nên thêm test query rồi chạy lại: đỏ 1 test; g4 (bỏ buộc khoảng trắng/hết chữ) đỏ 1 test. Nguồn production khôi phục giống hệt (`cmp`, `git diff` rỗng). Trước và sau: sao lưu byte-exact Room, DataStore và prefs, khôi phục **BYTE IDENTICAL**, băm DataStore trùng `f08744a1…`; APK test đã gỡ. Chỉ chứng minh danh sách **hỏi đúng địa chỉ ảnh** qua bộ tải Coil giả; không chứng minh ảnh được vẽ hay tải qua mạng thật.
 - `assembleProdRelease` thành công (5 phút 11 giây, R8, ký, `apksigner verify` đọc được chứng chỉ); log không nhắc Nostr, release dex không chứa chuỗi trace.
 - Lint chạy trên cả dự án, chưa tách riêng tệp 02ag; không có bằng chứng riêng rằng 0 cảnh báo mới nằm ở `NostrFeedMapper.kt`.
