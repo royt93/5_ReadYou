@@ -92,6 +92,39 @@ class NostrCoverImageDeviceTest {
         assertEquals(listOf(FIRST_IMAGE), asked.distinct())
     }
 
+    // ---- FRONT-02ag: a link that ends a sentence still gets its cover image, and the full stop is not part of the address.
+
+    @Test
+    fun switchOn_aLinkEndingTheSentenceWithAFullStop_asksForTheImageWithoutTheDot() {
+        showRow("look $FIRST_IMAGE.", FlowArticleListImagePref.ON)
+        waitForAnImageRequest()
+        compose.waitForIdle()
+        assertEquals(listOf(FIRST_IMAGE), asked.distinct())
+    }
+
+    @Test
+    fun switchOn_aLinkInBrackets_asksForTheImageWithoutTheBracket() {
+        showRow("($FIRST_IMAGE)", FlowArticleListImagePref.ON)
+        waitForAnImageRequest()
+        compose.waitForIdle()
+        assertEquals(listOf(FIRST_IMAGE), asked.distinct())
+    }
+
+    @Test
+    fun switchOn_aLinkWithAQueryEndingTheSentence_asksForTheImageWithoutTheDot() {
+        showRow("look $FIRST_IMAGE?w=1.", FlowArticleListImagePref.ON)
+        waitForAnImageRequest()
+        compose.waitForIdle()
+        assertEquals(listOf("$FIRST_IMAGE?w=1"), asked.distinct())
+    }
+
+    @Test
+    fun switchOn_anImageNameThatContinuesAfterThePunctuation_asksForNothing() {
+        showRow("look ${FIRST_IMAGE}.exe", FlowArticleListImagePref.ON)
+        compose.waitForIdle()
+        assertTrue("asked for ${asked.distinct()}", asked.isEmpty())
+    }
+
     private fun waitForAnImageRequest() = compose.waitUntil(WAIT_MS) { asked.isNotEmpty() }
 
     private fun showRow(noteText: String, switch: FlowArticleListImagePref) {
