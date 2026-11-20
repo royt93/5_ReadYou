@@ -171,6 +171,10 @@ Thứ tự owner chọn ngày 2026-11-09; mỗi mục duyệt thiết kế/spec 
   - **Wear OS:** cần module `wear/` mới (đổi build, có thể thêm dependency) và một đồng hồ để kiểm; owner không có đồng hồ. Yêu cầu gốc: Tile 3 tiêu đề nóng nhất và nút phát TTS ra tai nghe.
   - **Mở lại khi:** có thiết bị DHU dùng được (hoặc bản Android Auto/Play services không còn chặn `CAR.AUTH`), hoặc owner có đồng hồ Wear OS và duyệt thêm module.
 
+- **Test chập chờn `BrainRpgRepositoryTest.firstProgressRead_importsLegacyPrefsBeforeExposingRoomState` — chưa tìm ra gốc (ghi 2026-11-20).** Đỏ **một lần** trong lần chạy cả bộ `testDevDebugUnitTest --rerun-tasks` (khoảng 3.920 test) khi làm STRAT-01b; ngay sau đó chạy riêng lớp 3 lần xanh và chạy lại cả bộ xanh. Đo thêm: **25 lượt riêng lớp, mỗi lượt `--rerun-tasks`, 25/25 xanh** (cộng 28/28 xanh riêng lớp). Không sửa gì, vì chưa tái hiện được.
+  - **Giả thuyết chưa kiểm chứng (chỉ từ đọc code):** các lớp RPG dùng chung tệp prefs `brain_rpg_prefs` trong Robolectric (`BrainRpgLegacyImportTest` ghi 16 giá trị mà không có `@After`; `BrainRpgLegacyImporterTest` cũng ghi 16 giá trị); mỗi lớp xóa prefs ở `@Before`, nhưng nếu hai lớp chạm tệp cùng lúc trong một tiến trình thì `refresh()` có thể đọc giá trị của lớp khác. Test này chỉ khẳng định `640 / 320 / 5` nên sẽ đỏ nếu đọc nhầm.
+  - **Cách bắt khi cần:** chạy cả bộ nhiều lần (mỗi lần khoảng 5 phút), hoặc chạy cùng lúc ba lớp có ghi prefs (`BrainRpgRepositoryTest`, `BrainRpgLegacyImportTest`, `BrainRpgLegacyImporterTest`). Nếu đỏ lại, đọc đúng thông báo lỗi (lần đầu chỉ có dòng 65, là dòng khai báo test, không có giá trị nào).
+
 ## ✅ Implemented
 
 - INGEST-04 — Multi-device Read Position Sync: Lưu vị trí đọc (0.0..1.0) vào Room v15, tự động khôi phục trong `ReadingPage`, WebDAV sync `read_positions.json` dùng định danh portable `(feedUrl, articleLink)`, merge theo tiến độ xa hơn thắng. Setting `ReadPositionSyncPref` mặc định bật. 856 unit tests, lint, build, smoke test trên Pixel_10_Pro pass. Commit: `ed042dec` – `[next commit]`.
