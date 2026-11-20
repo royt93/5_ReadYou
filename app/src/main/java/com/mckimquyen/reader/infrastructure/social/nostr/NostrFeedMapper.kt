@@ -21,6 +21,9 @@ object NostrFeedMapper {
     private const val COVER_IMAGE_EXTENSIONS = "jpe?g|png|gif|webp"
     private const val COVER_SCHEME = "https://"
 
+    /** The marks that end a sentence: never part of an address, for the cover image and for the tappable link alike. */
+    private const val TRAILING_PUNCTUATION = ".,;:!?)]}'\""
+
     /**
      * The most characters between the scheme and the image extension: a link of at most [MAX_COVER_URL_LENGTH] characters never has more.
      * The bound keeps the search linear: without it a note of 65,000 characters of "https://https://..." costs the matcher a pass over
@@ -29,7 +32,10 @@ object NostrFeedMapper {
     private const val COVER_MAX_MIDDLE = MAX_COVER_URL_LENGTH - COVER_SCHEME.length
 
     // https only, up to an image extension, then an optional ?query or #fragment, then a space or the end of the text.
-    private val COVER_IMAGE_URL = Regex("""https://\S{1,$COVER_MAX_MIDDLE}?\.(?:$COVER_IMAGE_EXTENSIONS)(?:[?#]\S*)?(?=\s|$)""", RegexOption.IGNORE_CASE)
+    private val COVER_IMAGE_URL = Regex(
+        """https://\S{1,$COVER_MAX_MIDDLE}?\.(?:$COVER_IMAGE_EXTENSIONS)(?:[?#]\S*)?(?=[${Regex.escape(TRAILING_PUNCTUATION)}]*(?:\s|$))""",
+        RegexOption.IGNORE_CASE,
+    )
 
     const val FEED_URL_PREFIX = "nostr:"
     const val FEED_NAME_PREFIX = "Nostr · "
@@ -53,12 +59,11 @@ object NostrFeedMapper {
      * not longer than [MAX_COVER_URL_LENGTH]. Nothing is downloaded here; the list shows it only when the user's image switch is on.
      */
     fun coverImageUrl(content: String): String? =
-        COVER_IMAGE_URL.findAll(content).map { it.value }.firstOrNull { it.length <= MAX_COVER_URL_LENGTH }
+        COVER_IMAGE_URL.findAll(content).map { it.value.trimEnd { c -> c in TRAILING_PUNCTUATION } }.firstOrNull { it.length <= MAX_COVER_URL_LENGTH }
 
     /** The longest link made tappable. A longer one stays plain text, so one line of a note cannot fill the database. */
     const val MAX_LINK_URL_LENGTH = 2048
     private const val LINK_SCHEME = "https://"
-    private const val LINK_TRAILING_PUNCTUATION = ".,;:!?)]}'\""
     private val LINK_CANDIDATE = Regex("""https://\S+""", RegexOption.IGNORE_CASE)
 
     /**
@@ -67,7 +72,7 @@ object NostrFeedMapper {
      */
     fun linkSpans(content: String): List<IntRange> =
         LINK_CANDIDATE.findAll(content).mapNotNull { match ->
-            val link = match.value.trimEnd { it in LINK_TRAILING_PUNCTUATION }
+            val link = match.value.trimEnd { it in TRAILING_PUNCTUATION }
             if (link.length <= LINK_SCHEME.length || link.length > MAX_LINK_URL_LENGTH) null
             else match.range.first until match.range.first + link.length
         }.toList()

@@ -105,6 +105,45 @@ class NostrCoverImageTest {
         assertEquals("https://x.example/a.jpg", coverOf("look\nhttps://x.example/a.jpg\nnext line"))
     }
 
+    // ---- FRONT-02ag: punctuation right after the image address must not lose the cover image, and must not be part of the address.
+
+    @Test fun aTrailingDotAfterTheExtension_keepsTheCover_withoutTheDot() {
+        assertEquals("https://x.example/a.jpg", NostrFeedMapper.coverImageUrl("see https://x.example/a.jpg."))
+    }
+
+    @Test fun everySentencePunctuationAfterTheExtension_keepsTheCover_withoutIt() {
+        for (mark in listOf(".", ",", ";", ":", "!", "?", ")", "]", "}", "'", "\"", "!?", ").", "\".")) {
+            assertEquals("after '$mark'", "https://x.example/a.png", NostrFeedMapper.coverImageUrl("(look https://x.example/a.png$mark next"))
+        }
+    }
+
+    @Test fun punctuationAfterTheQuery_isNotPartOfTheAddress() {
+        assertEquals("https://x.example/a.jpg?w=1", NostrFeedMapper.coverImageUrl("see https://x.example/a.jpg?w=1."))
+        assertEquals("https://x.example/a.jpg?w=1&h=2", NostrFeedMapper.coverImageUrl("(https://x.example/a.jpg?w=1&h=2)"))
+    }
+
+    @Test fun aLinkInBracketsOrQuotes_isACover() {
+        assertEquals("https://x.example/a.png", NostrFeedMapper.coverImageUrl("(https://x.example/a.png)"))
+        assertEquals("https://x.example/a.png", NostrFeedMapper.coverImageUrl("\"https://x.example/a.png\""))
+    }
+
+    @Test fun punctuationFollowedByMoreLetters_isStillNotACover() {
+        // The extension must END the address (up to punctuation and a space): these are other file names.
+        for (text in listOf("https://x.example/a.png.exe", "https://x.example/a.pngx", "https://x.example/a.jpg,and", "https://x.example/a.jpg.bak")) {
+            assertNull(text, NostrFeedMapper.coverImageUrl(text))
+        }
+    }
+
+    @Test fun aLinkOfExactlyTheLimitFollowedByADot_isKept_andOneMoreIsStillSkipped() {
+        val exact = linkOfLength(limit)
+        assertEquals(exact, NostrFeedMapper.coverImageUrl("$exact."))
+        assertNull(NostrFeedMapper.coverImageUrl(linkOfLength(limit + 1) + "."))
+    }
+
+    @Test fun aSentenceWithAnImageLinkAtTheEnd_getsACoverThroughToArticles() {
+        assertEquals("https://img.example/photo.jpg", coverOf("Look at this photo https://img.example/photo.jpg."))
+    }
+
     // ---- FRONT-02af: a hostile note must not slow the sync. The old pattern is rebuilt here, unbounded, only to measure against.
 
     private val unboundedPattern = Regex("""https://\S+?\.(?:jpe?g|png|gif|webp)(?:[?#]\S*)?(?=\s|$)""", RegexOption.IGNORE_CASE)
