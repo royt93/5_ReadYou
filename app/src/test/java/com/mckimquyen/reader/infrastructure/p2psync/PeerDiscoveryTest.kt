@@ -135,6 +135,24 @@ class PeerDiscoveryTest {
         assertTrue(discovery.peers.value.isEmpty())
     }
 
+    // EXC-05i: the OS never reports a stopped service as lost, so an older service stays listed next to the new one. PeerDiscovery must keep
+    // both (it only forgets what the platform says is lost); the policy in the view model is what copes with the stale one (EXC-05j).
+    @Test fun twoServicesWithoutAnyLostSignalBetween_areBothListed_theStaleOneIsNotGuessedAway() {
+        discovery.startDiscovery()
+        nsd.found("old", "192.168.1.20", 4321, goodAttrs)
+        nsd.found("new", "192.168.1.20", 4322, goodAttrs)
+        assertEquals(listOf("old", "new"), discovery.peers.value.map { it.serviceName })
+        assertEquals(listOf(4321, 4322), discovery.peers.value.map { it.port })
+    }
+
+    @Test fun onlyTheServiceThePlatformReportsLostIsForgotten_theOtherStays() {
+        discovery.startDiscovery()
+        nsd.found("old", "192.168.1.20", 4321, goodAttrs)
+        nsd.found("new", "192.168.1.20", 4322, goodAttrs)
+        nsd.lost("old")
+        assertEquals(listOf("new"), discovery.peers.value.map { it.serviceName })
+    }
+
     @Test fun theDiscoveredNonceIsDecodedFromTheRecord() {
         discovery.startDiscovery()
         nsd.found("a", "192.168.1.20", 80, goodAttrs)
