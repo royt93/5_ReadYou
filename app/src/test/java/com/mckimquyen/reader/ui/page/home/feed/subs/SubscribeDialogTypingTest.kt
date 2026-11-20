@@ -126,6 +126,40 @@ class SubscribeDialogTypingTest {
         coVerify(exactly = 1) { localService.subscribe(match { it.sourceType == Feed.NOSTR_SOURCE_TYPE && it.url == "nostr:$npub" }, any()) }
     }
 
+    // ---- FRONT-02w on the real dialog: an nprofile typed into the box does what the same person's npub does. The strings are the ones
+    // SubscribeViewModelNostrNprofileTest uses (made by an independent encoder); their key is NostrTestEvents.AUTHOR.
+    private val nprofile = "nprofile1qqsdluwh0u4xw8zlxcvrwfkmydqmuk874cw69hkwmppjgrmm2q46vkgv8s759"
+    private val nprofileWithRelays = "nprofile1qqsdluwh0u4xw8zlxcvrwfkmydqmuk874cw69hkwmppjgrmm2q46vkgpzemhxue69uhk2anfdshx27rpd4cxcefwvdhk6qgnwaen5te0xyerwt3s9cczuvf68yunjwg4vju7n"
+
+    @Test fun typingAnNprofile_showsTheSameNostrPreviewAsItsNpub() {
+        coEvery { relay.fetch(NostrTestEvents.AUTHOR) } returns NostrFetchResult(notes(NostrTestEvents.PLAIN, NostrTestEvents.OLDER), null)
+        openDialog()
+        typeAndSearch(nprofile)
+        composeRule.onNodeWithText("Nostr · " + npub.take(8) + "…" + npub.takeLast(4)).assertIsDisplayed()
+        composeRule.onNodeWithText("Subscribe").assertIsDisplayed()
+        assertEquals(listOf("Hello nostr, first note", "Older note"), viewModel.subscribeUiState.value.articles.map { it.title })
+        coVerify(exactly = 1) { relay.fetch(NostrTestEvents.AUTHOR) }
+        coVerify(exactly = 0) { rssHelper.searchFeed(any()) }
+    }
+
+    @Test fun typingAnNprofileWithRelayHints_asksTheRelayClientForTheKeyOnly() {
+        coEvery { relay.fetch(NostrTestEvents.AUTHOR) } returns NostrFetchResult(notes(NostrTestEvents.PLAIN), null)
+        openDialog()
+        typeAndSearch(nprofileWithRelays)
+        composeRule.onNodeWithText("Subscribe").assertIsDisplayed()
+        coVerify(exactly = 1) { relay.fetch(NostrTestEvents.AUTHOR) }
+        coVerify(exactly = 1) { relay.fetch(any()) }
+    }
+
+    @Test fun pressingSubscribeAfterAnNprofile_savesTheFeedUnderTheNpubAddress() {
+        coEvery { relay.fetch(NostrTestEvents.AUTHOR) } returns NostrFetchResult(notes(NostrTestEvents.PLAIN), null)
+        openDialog()
+        typeAndSearch(nprofile)
+        composeRule.onNodeWithText("Subscribe").performClick()
+        composeRule.waitUntil(WAIT_MILLIS) { runCatching { coVerify(exactly = 1) { localService.subscribe(any(), any()) } }.isSuccess }
+        coVerify(exactly = 1) { localService.subscribe(match { it.sourceType == Feed.NOSTR_SOURCE_TYPE && it.url == "nostr:$npub" }, any()) }
+    }
+
     @Test fun typingAMastodonHandle_isSearchedAsItsRssAddress() {
         val rss = "https://mastodon.social/@Mastodon.rss"
         coEvery { rssHelper.searchFeed(rss) } returns FeedWithArticle(
