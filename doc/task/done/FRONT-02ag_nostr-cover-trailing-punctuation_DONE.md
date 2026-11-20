@@ -29,4 +29,5 @@ Full suite sau batch: `./gradlew testDevDebugUnitTest --rerun-tasks` — **BUILD
 - Chỉ JVM; chưa kiểm ảnh trên thiết bị hoặc relay thật cho sửa đổi này. Không chạy lệnh thiết bị trong đợt kiểm chứng trên.
 - Chỉ bài mới được ánh xạ; bài đã lưu không đổi.
 - Theo đúng luật link hiện có: ký tự dấu câu hợp lệ thuộc URL nhưng đứng cuối cũng bị cắt. Không cố phân biệt dấu câu của câu văn với ký tự có chủ đích của URL.
-- Không chạy lại lint hoặc release build cho riêng 02ag; không dùng kết quả cũ làm bằng chứng mới.
+- Kiểm bổ sung trên nguồn đã khôi phục (2026-11-20, sau một phép đo trace tạm không liên quan, đã hoàn nguyên byte-identical): `NostrCoverImageTest` + `BrainRpgRepositoryTest` **53 test, 0 lỗi**; `lintDevDebug` **0 lỗi, 2.465 cảnh báo, 10 thông tin** (số cảnh báo bằng mức nền đã ghi trước đó); `assembleDevDebug` thành công, APK không chứa chuỗi trace. Chưa chạy `assembleProdRelease` cho riêng 02ag. Log: `~/exc-flaky-evidence/post-trace-20261120/`.
+- Lint chạy trên cả dự án, chưa tách riêng tệp 02ag; không có bằng chứng riêng rằng 0 cảnh báo mới nằm ở `NostrFeedMapper.kt`.
