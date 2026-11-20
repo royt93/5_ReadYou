@@ -1,8 +1,8 @@
-# FRONT-02ag — Ảnh bìa Nostr không mất khi dấu câu đứng ngay sau đuôi ảnh (thiết kế ngắn, chờ owner duyệt spec)
+# FRONT-02ag — Ảnh bìa Nostr không mất khi dấu câu đứng ngay sau đuôi ảnh
 
 **Ngày:** 2026-11-20 · **Nhánh:** `dev` · **Nền:** FRONT-02aa (`coverImageUrl`), 02ac (`linkSpans`, cắt dấu câu cuối), 02af (regex có giới hạn độ dài)
 
-> Trạng thái: owner đã chọn (2026-11-20) "sửa luật ảnh bìa cho khớp luật link: bỏ dấu câu cuối sau đuôi ảnh". Chưa có plan, chưa có mã. Chỉ JVM, không thiết bị (Pixel bị cấm).
+> Trạng thái: đã sửa trong `84dbbe64`, đúng lựa chọn của owner ngày 2026-11-20. +7 test (6 đỏ trên mã cũ), 4/4 đột biến bị bắt; full JVM `--rerun-tasks`: 3.928 test, 0 lỗi, 0 bỏ qua. Chỉ JVM, không thiết bị. Kết quả và giới hạn: [báo cáo](../../../doc/task/done/FRONT-02ag_nostr-cover-trailing-punctuation_DONE.md).
 
 ## Vấn đề (đo thật trên JDK, 2026-11-20)
 `see https://x.example/a.jpg.` (câu kết thúc bằng dấu chấm ngay sau đuôi ảnh) cho **không có ảnh bìa**. Regex ảnh bìa đòi sau đuôi ảnh là khoảng trắng hoặc hết chữ (`(?=\s|$)`), nên dấu chấm làm trượt. Trong cùng bài, link bấm được (02ac) cắt dấu chấm cuối đúng. Hai luật không nhất quán. Báo cáo 02aa đã ghi giới hạn "link dính dấu câu bị bỏ sót"; đây là sửa giới hạn đó.
