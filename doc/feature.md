@@ -166,6 +166,11 @@ Thứ tự owner chọn ngày 2026-11-09; mỗi mục duyệt thiết kế/spec 
   - **FRONT-01 (Deep Dive):** bản thu hẹp dùng **một** request Gemini ba vai (không phải chuỗi 3 agent thật, không tra web); báo cáo thật từ Gemini chưa kiểm trên máy (key chung hỏng). Task giữ trong `todo/` theo quyết định của owner.
   - **Cùng gốc:** Gemini thật không kiểm được (owner dừng kiểm Gemini, FIX-09 giữ nguyên), không có backend/asset, và Android chặn tự phát. **Mở lại khi:** owner có key Gemini riêng, hoặc chọn làm chuỗi 3 agent, hoặc có backend cộng đồng.
 
+- **FRONT-04 — phần còn lại (kiểm Android Auto thật bằng DHU, Wear OS) — chặn có chủ ý (ghi 2026-11-20).** Lát Android Auto 04a đã xong (cây media hai nhánh, điều khiển chung; báo cáo `FRONT-04a_android-auto-media-tree_DONE.md`) và task gốc **giữ trong `todo/`**; phần còn lại không làm được với thiết bị hiện có.
+  - **DHU:** lần chạy trên Tecno KJ7 (2026-11-11) dừng ở "Waiting for phone..." với `CAR.AUTH: Call from UID … is not allowed` (`isGoogleSigned=true`, `isPackageAllowed=false`); đó là cách đọc một dòng log, chưa kiểm chứng gốc. **Pixel không dùng được:** owner ra lệnh **"chỉ dùng tecno, cấm dùng pixel" (2026-11-20)**. Đã dựng lại công cụ cổng và sao lưu (`tools/device/`) nhưng chưa chạy DHU lần nào trên máy khác. Thử lại trên Tecno gần như chắc chắn lặp lại `CAR.AUTH`.
+  - **Wear OS:** cần module `wear/` mới (đổi build, có thể thêm dependency) và một đồng hồ để kiểm; owner không có đồng hồ. Yêu cầu gốc: Tile 3 tiêu đề nóng nhất và nút phát TTS ra tai nghe.
+  - **Mở lại khi:** có thiết bị DHU dùng được (hoặc bản Android Auto/Play services không còn chặn `CAR.AUTH`), hoặc owner có đồng hồ Wear OS và duyệt thêm module.
+
 ## ✅ Implemented
 
 - INGEST-04 — Multi-device Read Position Sync: Lưu vị trí đọc (0.0..1.0) vào Room v15, tự động khôi phục trong `ReadingPage`, WebDAV sync `read_positions.json` dùng định danh portable `(feedUrl, articleLink)`, merge theo tiến độ xa hơn thắng. Setting `ReadPositionSyncPref` mặc định bật. 856 unit tests, lint, build, smoke test trên Pixel_10_Pro pass. Commit: `ed042dec` – `[next commit]`.
