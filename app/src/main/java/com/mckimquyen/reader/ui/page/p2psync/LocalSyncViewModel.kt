@@ -1,5 +1,6 @@
 package com.mckimquyen.reader.ui.page.p2psync
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mckimquyen.reader.domain.mirror.MirrorStartResult
@@ -38,6 +39,8 @@ import kotlinx.coroutines.withContext
 import java.net.InetAddress
 import java.util.UUID
 import javax.inject.Inject
+
+private const val LOG_TAG = "LocalSync"
 
 @HiltViewModel
 class LocalSyncViewModel @Inject constructor(
@@ -172,7 +175,9 @@ class LocalSyncViewModel @Inject constructor(
             withContext(ioDispatcher) { transport.fetch(normalizedUrl) }
         } catch (e: CancellationException) {
             throw e
-        } catch (_: Exception) {
+        } catch (e: Exception) {
+            // Only the class: its message carries the peer's address and port, and the session address is a bearer token.
+            Log.w(LOG_TAG, "fetch failed: ${e.javaClass.simpleName}")
             _state.value = LocalSyncUiState.Error(LocalSyncError.NETWORK)
             return
         }

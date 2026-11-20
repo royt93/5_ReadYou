@@ -43,6 +43,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
+import org.robolectric.shadows.ShadowLog
 import java.net.InetAddress
 
 private const val LONG_LIVED = 10_000_000L
@@ -284,6 +285,19 @@ class LocalSyncViewModelTest {
         vm.loadPreview(LOCAL_ACCOUNT, sessionUrl, secret.hex); runCurrent()
         assertEquals(LocalSyncError.NETWORK, error(vm))
         coVerify(exactly = 0) { repository.apply(any(), any()) }
+    }
+
+    @Test fun networkFailureLeavesTheExceptionClassInTheLog_withoutTheAddressOrTheToken() = runTest(dispatcher) {
+        ShadowLog.clear()
+        every { transport.fetch(sessionUrl) } throws java.net.SocketTimeoutException("failed to connect to /192.168.1.30:4321 for ${"c".repeat(32)}")
+        val vm = vm()
+        vm.loadPreview(LOCAL_ACCOUNT, sessionUrl, secret.hex); runCurrent()
+        assertEquals(LocalSyncError.NETWORK, error(vm))
+        val logged = ShadowLog.getLogs().filter { it.tag == "LocalSync" }
+        assertTrue("one LocalSync line with the exception class, logs=${ShadowLog.getLogs().map { it.msg }}", logged.any { it.msg.contains("SocketTimeoutException") })
+        // The session token and the secret open the sync package: they must never reach logcat, not even through the exception text.
+        assertTrue(logged.none { it.msg.contains("c".repeat(32)) || it.msg.contains(secret.hex) || it.msg.contains("192.168.1.30") })
+        assertTrue(logged.all { it.throwable == null })
     }
 
     @Test fun wrongSecretFailsAuthenticationAndNeverReachesThePlannerOrDatabase() = runTest(dispatcher) {
