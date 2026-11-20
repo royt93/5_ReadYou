@@ -575,6 +575,64 @@ class LocalSyncPairingViewModelTest {
         verify(exactly = 1) { transport.fetch(any()) }
     }
 
+    // ---- EXC-05j: a broadcast that refuses the connection is dead; it must not block the live one that shows up next ----
+
+    private fun urlOf(nonce: ByteArray, port: Int) = "http://192.168.1.30:$port/s/${SessionTokenDerivation.derive(autoSecret, nonce)}"
+
+    @Test fun autoReceive_aRefusedConnection_goesBackToIdleWithoutAnError() = runTest(dispatcher) {
+        store.add("Phone", autoSecret, PairingStatus.CONFIRMED)
+        val nonce = SessionTokenDerivation.newNonce()
+        every { transport.fetch(any()) } throws java.net.ConnectException("refused")
+        val vm = startedVm(); broadcast(nonce)
+        vm.maybeAutoReceive(ACCOUNT, isLocal = true); runCurrent()
+        assertTrue("an automatic try at a dead broadcast must stay quiet, state=${vm.state.value}", vm.state.value is LocalSyncUiState.Idle)
+    }
+
+    @Test fun autoReceive_afterARefusedConnection_theLiveBroadcastThatAppearsNextIsReceived_whileTheDeadOneIsStillListed() = runTest(dispatcher) {
+        store.add("Phone", autoSecret, PairingStatus.CONFIRMED)
+        val dead = SessionTokenDerivation.newNonce(); val live = SessionTokenDerivation.newNonce()
+        every { transport.fetch(urlOf(dead, 4321)) } throws java.net.ConnectException("refused")
+        every { transport.fetch(urlOf(live, 4322)) } returns SyncEnvelopeCrypto.encrypt(SyncPackageCodec.encode(outgoing), autoSecret)
+        val vm = startedVm(); broadcast(dead, name = "dead", port = 4321)
+        vm.maybeAutoReceive(ACCOUNT, isLocal = true); runCurrent()
+        broadcast(live, name = "live", port = 4322)                       // the dead one is still in the list: two broadcasters
+        assertEquals(2, vm.discovered.value.size)
+        vm.maybeAutoReceive(ACCOUNT, isLocal = true); runCurrent()
+        assertTrue("the live broadcast must be received, state=${vm.state.value}", vm.state.value is LocalSyncUiState.Preview)
+        verify(exactly = 2) { transport.fetch(any()) }
+    }
+
+    @Test fun autoReceive_aDeadBroadcastThatIsAnnouncedAgain_isNotTriedAgain() = runTest(dispatcher) {
+        store.add("Phone", autoSecret, PairingStatus.CONFIRMED)
+        val nonce = SessionTokenDerivation.newNonce()
+        every { transport.fetch(any()) } throws java.net.ConnectException("refused")
+        val vm = startedVm(); broadcast(nonce)
+        vm.maybeAutoReceive(ACCOUNT, isLocal = true); runCurrent()
+        broadcast(nonce)
+        vm.maybeAutoReceive(ACCOUNT, isLocal = true); runCurrent()
+        verify(exactly = 1) { transport.fetch(any()) }
+        assertTrue(vm.state.value is LocalSyncUiState.Idle)
+    }
+
+    @Test fun autoReceive_aDeadBroadcast_stillCountsAsNothingWhenTwoLiveOnesRemain() = runTest(dispatcher) {
+        store.add("Phone", autoSecret, PairingStatus.CONFIRMED)
+        val dead = SessionTokenDerivation.newNonce()
+        every { transport.fetch(any()) } throws java.net.ConnectException("refused")
+        val vm = startedVm(); broadcast(dead, name = "dead")
+        vm.maybeAutoReceive(ACCOUNT, isLocal = true); runCurrent()
+        broadcast(SessionTokenDerivation.newNonce(), name = "live1"); broadcast(SessionTokenDerivation.newNonce(), name = "live2")
+        vm.maybeAutoReceive(ACCOUNT, isLocal = true); runCurrent()
+        verify(exactly = 1) { transport.fetch(any()) }          // two live broadcasters is still a guess: nothing starts
+    }
+
+    @Test fun handReceive_aRefusedConnection_stillShowsTheNetworkError() = runTest(dispatcher) {
+        val peer = store.add("Phone", autoSecret, PairingStatus.CONFIRMED)
+        every { transport.fetch(any()) } throws java.net.ConnectException("refused")
+        val vm = vm()
+        vm.receiveFromPaired(ACCOUNT, peer.peerId, "192.168.1.30", 4321, SessionTokenDerivation.newNonce()); runCurrent()
+        assertEquals(LocalSyncError.NETWORK, error(vm))
+    }
+
     @Test fun autoReceive_doesNothing_withTwoPairedDevices() = runTest(dispatcher) {
         store.add("Phone", autoSecret, PairingStatus.CONFIRMED); store.add("Tablet", PairingSecret.fromHex("f".repeat(32)), PairingStatus.CONFIRMED)
         val vm = startedVm(); broadcast(SessionTokenDerivation.newNonce())

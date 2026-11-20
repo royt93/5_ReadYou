@@ -78,6 +78,11 @@ class LocalSyncViewModel @Inject constructor(
     private var activeAccountId: Int? = null
     /** The broadcasts (by nonce) that [maybeAutoReceive] already tried, so a Cancel, an Apply or an error is never followed by the same receive. */
     private val autoTriedNonces = HashSet<String>()
+    /**
+     * The broadcasts (by nonce) that refused the connection of an automatic receive: the service is still listed (the OS never reports a dead
+     * one as lost) but nothing listens behind it. They stop counting as "a broadcaster", so a live one that shows up next is not a guess.
+     */
+    private val autoRefusedNonces = HashSet<String>()
 
     fun startSend(localAccountId: Int) {
         if (_state.value !is LocalSyncUiState.Idle && _state.value !is LocalSyncUiState.Error &&
@@ -169,12 +174,23 @@ class LocalSyncViewModel @Inject constructor(
         secret: PairingSecret,
         confirmPeerId: String?,
         newPeerLabel: String? = null,
+        onRefused: (() -> Unit)? = null,
     ) {
         _replyPeer.value = null
         val encrypted = try {
             withContext(ioDispatcher) { transport.fetch(normalizedUrl) }
         } catch (e: CancellationException) {
             throw e
+        } catch (e: java.net.ConnectException) {
+            Log.w(LOG_TAG, "fetch failed: ${e.javaClass.simpleName}")
+            // Only an automatic receive passes onRefused: it was a try at a listing, not an action of the user, so a dead one stays quiet.
+            if (onRefused != null) {
+                onRefused()
+                _state.value = LocalSyncUiState.Idle
+            } else {
+                _state.value = LocalSyncUiState.Error(LocalSyncError.NETWORK)
+            }
+            return
         } catch (e: Exception) {
             // Only the class: its message carries the peer's address and port, and the session address is a bearer token.
             Log.w(LOG_TAG, "fetch failed: ${e.javaClass.simpleName}")
@@ -376,7 +392,7 @@ class LocalSyncViewModel @Inject constructor(
     fun stopFindingPeers() = discovery.stop()
 
     /** Receive from an already paired device: the token is computed from the stored secret and the peer's nonce. */
-    fun receiveFromPaired(localAccountId: Int, peerId: String, host: String, port: Int, nonce: ByteArray) {
+    fun receiveFromPaired(localAccountId: Int, peerId: String, host: String, port: Int, nonce: ByteArray, auto: Boolean = false) {
         if (_state.value !is LocalSyncUiState.Idle && _state.value !is LocalSyncUiState.Error &&
             _state.value !is LocalSyncUiState.Done) return
         if (!lanGate.granted()) {
@@ -402,7 +418,8 @@ class LocalSyncViewModel @Inject constructor(
                 _state.value = LocalSyncUiState.Error(LocalSyncError.URL)
                 return@launch
             }
-            fetchAndPreview(localAccountId, url, secret, confirmPeerId = peerId)
+            val onRefused: (() -> Unit)? = if (auto) ({ autoRefusedNonces += SessionTokenDerivation.nonceHex(nonce) }) else null
+            fetchAndPreview(localAccountId, url, secret, confirmPeerId = peerId, onRefused = onRefused)
         }
     }
 
@@ -414,13 +431,13 @@ class LocalSyncViewModel @Inject constructor(
     fun maybeAutoReceive(localAccountId: Int, isLocal: Boolean) {
         val pick = AutoReceivePolicy.pick(
             paired = _pairedPeers.value,
-            discovered = discovered.value,
+            discovered = discovered.value.filterNot { SessionTokenDerivation.nonceHex(it.nonce) in autoRefusedNonces },
             idle = _state.value is LocalSyncUiState.Idle,
             isLocal = isLocal,
             triedNonces = autoTriedNonces,
         ) ?: return
         autoTriedNonces += AutoReceivePolicy.nonceKey(pick.broadcaster)
-        receiveFromPaired(localAccountId, pick.peer.peerId, pick.broadcaster.host, pick.broadcaster.port, pick.broadcaster.nonce)
+        receiveFromPaired(localAccountId, pick.peer.peerId, pick.broadcaster.host, pick.broadcaster.port, pick.broadcaster.nonce, auto = true)
     }
 
     fun confirmPeer(peerId: String) {
