@@ -163,6 +163,69 @@ class AiQuizPolicyParseTest {
         assertTrue(parse(fenced) is AiQuizParse.Valid)
     }
 
+    // ---- RPG-02: a trailing comma is the commonest slip of a model writing JSON; the answer is still the same question.
+
+    @Test
+    fun aTrailingCommaAfterTheLastObjectField_isAccepted() {
+        val raw = json().replace("\"The preview names the agency.\"}", "\"The preview names the agency.\",}")
+
+        assertTrue(raw, parse(raw) is AiQuizParse.Valid)
+    }
+
+    @Test
+    fun aTrailingCommaAfterTheLastOption_isAcceptedAndStillFourOptions() {
+        val raw = json().replace("\"A film studio\"]", "\"A film studio\",]")
+
+        assertEquals(4, valid(raw).options.size)
+    }
+
+    @Test
+    fun aTrailingCommaFollowedByWhitespaceOrANewline_isAccepted() {
+        val raw = json().replace("\"A film studio\"]", "\"A film studio\" ,\n  ]").replace("agency.\"}", "agency.\" ,\n}")
+
+        assertTrue(raw, parse(raw) is AiQuizParse.Valid)
+    }
+
+    @Test
+    fun aCommaBeforeABracketInsideAString_isNotTouched() {
+        val tricky = "Marks like ,] or ,} are not code"
+        val quiz = valid(json(options = listOf("The space agency", tricky, "A local council", "A film studio")))
+
+        assertTrue(quiz.options.contains(tricky))
+    }
+
+    @Test
+    fun anEscapedQuoteBeforeACommaBracketInsideAString_doesNotEndTheString() {
+        // ONE escaped quote only: with two of them the odd and even count would hide a scanner that ignores the backslash.
+        val tricky = "He said \"open,] and left"
+        val quiz = valid(json(options = listOf("The space agency", tricky, "A local council", "A film studio")))
+
+        assertTrue(quiz.options.contains(tricky))
+    }
+
+    @Test
+    fun aTrailingCommaWithAFence_isAccepted() {
+        val raw = "```json\n" + json().replace("agency.\"}", "agency.\",}") + "\n```"
+
+        assertTrue(raw, parse(raw) is AiQuizParse.Valid)
+    }
+
+    @Test
+    fun otherBrokenJson_isStillRejected() {
+        val unescapedQuote = json().replace("Which body launched the rocket?", "Which \"body\" launched the rocket?")
+        val unescaped = unescapedQuote.replace("\\\"body\\\"", "\"body\"")
+        assertEquals(AiQuizRejection.NOT_JSON, rejected(unescaped))
+        assertEquals(AiQuizRejection.NOT_JSON, rejected(json().dropLast(1)))
+        assertEquals(AiQuizRejection.NOT_JSON, rejected("Here it is:\n" + json()))
+    }
+
+    @Test
+    fun aDoubleTrailingComma_isStillRejected() {
+        val raw = json().replace("agency.\"}", "agency.\",,}")
+
+        assertEquals(AiQuizRejection.NOT_JSON, rejected(raw))
+    }
+
     @Test
     fun stringsAreTrimmedAndWhitespaceCollapsed() {
         val quiz = valid(json(question = "  Which   body\nlaunched it?  ", options = listOf(" The space  agency ", "A shipping firm", "A local council", "A film studio")))

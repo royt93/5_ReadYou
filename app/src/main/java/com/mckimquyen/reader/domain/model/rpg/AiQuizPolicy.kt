@@ -58,10 +58,42 @@ object AiQuizPolicy {
         put("generationConfig", JSONObject().put("temperature", TEMPERATURE).put("responseMimeType", JSON_MIME_TYPE))
     }.toString()
 
+    /**
+     * Drops ONE comma that stands right before a closing `}` or `]` (only whitespace between), the commonest slip of a model writing JSON.
+     * It walks the text and leaves everything inside a string alone, so `",]"` typed in a question stays as it is; any other damage is
+     * untouched and still fails to parse (two commas in a row, a cut-off answer, prose before the object).
+     */
+    internal fun dropTrailingCommas(json: String): String {
+        val out = StringBuilder(json.length)
+        var inString = false
+        var escaped = false
+        var i = 0
+        while (i < json.length) {
+            val c = json[i]
+            if (inString) {
+                out.append(c)
+                if (escaped) escaped = false else if (c == '\\') escaped = true else if (c == '"') inString = false
+            } else if (c == '"') {
+                inString = true
+                out.append(c)
+            } else if (c == ',') {
+                var j = i + 1
+                while (j < json.length && json[j].isWhitespace()) j++
+                val closes = j < json.length && (json[j] == '}' || json[j] == ']')
+                // Only the comma next to the closer goes: a double comma leaves one behind, which the parser still rejects.
+                if (!closes) out.append(c)
+            } else {
+                out.append(c)
+            }
+            i++
+        }
+        return out.toString()
+    }
+
     fun parseAndValidate(raw: String, articleId: String, category: String): AiQuizParse {
         fun reject(r: AiQuizRejection): AiQuizParse = AiQuizParse.Rejected(r)
         val obj = try {
-            JSONObject(raw.trim().replace(FENCE, "").trim())
+            JSONObject(dropTrailingCommas(raw.trim().replace(FENCE, "").trim()))
         } catch (_: JSONException) {
             return reject(AiQuizRejection.NOT_JSON)
         }
