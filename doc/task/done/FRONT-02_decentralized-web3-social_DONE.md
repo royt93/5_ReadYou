@@ -6,6 +6,8 @@
 **Spec / plan:** `docs/superpowers/specs/2026-11-14-front-02-social-feeds-design.md`, `docs/superpowers/plans/2026-11-14-front-02-social-feeds.md`.  
 **Trạng thái task gốc:** vẫn nằm trong `doc/task/todo/` (owner chọn), vì **Nostr chưa làm**.
 
+> **Cập nhật 2026-11-21 (báo cáo này giữ nguyên như ngày 2026-11-14; hai dòng "Nostr chưa làm" và "gõ thật vào ô Thêm nguồn: không làm" bên dưới đã lỗi thời):** Nostr đã làm ở FRONT-02b (`FRONT-02b_nostr_DONE.md`, rồi 02c đến 02am trong `doc/feature.md`). Gõ thật vào ô Thêm nguồn rồi bấm Search và Subscribe đã kiểm trên Pixel 7 Pro ở FRONT-02ak (`SubscribeNostrRealTapDeviceTest`, Room thật). Vẫn **chưa** kiểm trên máy: nguồn Bluesky và web qua nút Subscribe, việc từ chối nguồn đã có, máy chủ Mastodon khác `mastodon.social`, TalkBack.
+
 ## Nói thẳng về phạm vi
 
 - **Nostr chưa làm.** Task gốc nêu ba mạng; làm hai (Mastodon, Bluesky). Nostr không có RSS, cần WebSocket tới relay và giải mã `npub`.
