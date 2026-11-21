@@ -3,4 +3,6 @@
     <!-- EXC-05b: pairing secrets are wrapped by a device-bound Keystore key; a restored copy would be undecryptable
          ciphertext that still left the device, so it is never backed up. -->
     <exclude domain="sharedpref" path="pairing_store.xml" />
+    <!-- REL-01 M3: the WebDAV password is stored in clear text, so it must not leave the device in a backup. -->
+    <exclude domain="sharedpref" path="webdav_backup_prefs.xml" />
 </full-backup-content>

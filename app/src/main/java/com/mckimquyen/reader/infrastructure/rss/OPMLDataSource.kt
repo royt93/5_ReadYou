@@ -43,24 +43,27 @@ class OPMLDataSource @Inject constructor(
                     // It's a empty group
                     if (it.attributes["xmlUrl"] == null) {
                         if (!it.attributes["isDefault"].toBoolean()) {
+                            // An outline with no name is skipped: the file is untrusted and one broken entry must not abort the import.
+                            val groupName = it.attributes["title"] ?: it.text ?: return@forEach
                             groupWithFeedList.addGroup(
                                 Group(
                                     id = context.currentAccountId.spacerDollar(
                                         UUID.randomUUID().toString()
                                     ),
-                                    name = it.attributes["title"] ?: it.text!!,
+                                    name = groupName,
                                     accountId = accountId,
                                 )
                             )
                         }
                     } else {
+                        val feedName = it.attributes["title"] ?: it.text ?: return@forEach
                         groupWithFeedList.addFeedToDefault(
                             Feed(
                                 id = context.currentAccountId.spacerDollar(
                                     UUID.randomUUID().toString()
                                 ),
-                                name = it.attributes["title"] ?: it.text!!,
-                                url = it.attributes["xmlUrl"]!!,
+                                name = feedName,
+                                url = requireNotNull(it.attributes["xmlUrl"]) { "checked above" },
                                 groupId = defaultGroup.id,
                                 accountId = accountId,
                                 isNotification = it.attributes["isNotification"].toBoolean(),
@@ -71,24 +74,27 @@ class OPMLDataSource @Inject constructor(
                 } else {
                     var groupId = defaultGroup.id
                     if (!it.attributes["isDefault"].toBoolean()) {
+                        val groupName = it.attributes["title"] ?: it.text ?: return@forEach
                         groupId =
                             context.currentAccountId.spacerDollar(UUID.randomUUID().toString())
                         groupWithFeedList.addGroup(
                             Group(
                                 id = groupId,
-                                name = it.attributes["title"] ?: it.text!!,
+                                name = groupName,
                                 accountId = accountId,
                             )
                         )
                     }
-                    it.subElements.forEach { outline ->
+                    it.subElements.forEach inner@{ outline ->
+                        val feedName = outline.attributes["title"] ?: outline.text ?: return@inner
+                        val feedUrl = outline.attributes["xmlUrl"] ?: return@inner
                         groupWithFeedList.addFeed(
                             Feed(
                                 id = context.currentAccountId.spacerDollar(
                                     UUID.randomUUID().toString()
                                 ),
-                                name = outline.attributes["title"] ?: outline.text!!,
-                                url = outline.attributes["xmlUrl"]!!,
+                                name = feedName,
+                                url = feedUrl,
                                 groupId = groupId,
                                 accountId = accountId,
                                 isNotification = outline.attributes["isNotification"].toBoolean(),

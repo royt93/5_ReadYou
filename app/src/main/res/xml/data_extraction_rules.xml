@@ -3,8 +3,10 @@
     <!-- EXC-05b: see backup_rules.xml. Both Android 12+ paths must exclude the pairing store. -->
     <cloud-backup>
         <exclude domain="sharedpref" path="pairing_store.xml" />
+        <exclude domain="sharedpref" path="webdav_backup_prefs.xml" />
     </cloud-backup>
     <device-transfer>
         <exclude domain="sharedpref" path="pairing_store.xml" />
+        <exclude domain="sharedpref" path="webdav_backup_prefs.xml" />
     </device-transfer>
 </data-extraction-rules>
