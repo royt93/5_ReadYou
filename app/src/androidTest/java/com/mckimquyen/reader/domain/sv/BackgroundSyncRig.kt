@@ -69,7 +69,7 @@ object LocalRssSvFactory {
 data class SyncResult(val outcome: FeedWithArticle?, val inserted: List<Article>)
 data class TableCounts(val feed: Long, val article: Long, val feedHealth: Long, val group: Long)
 
-class BackgroundSyncRig : AutoCloseable {
+class BackgroundSyncRig(withSecondRelay: Boolean = false) : AutoCloseable {
     private val app = LocalRssSvFactory.app()
     private val db = app.androidDatabase
     private val accountId = app.currentAccountId
@@ -87,6 +87,9 @@ class BackgroundSyncRig : AutoCloseable {
     }
     val nostrRelay = NostrFakeRelay()
 
+    /** Only built when asked for: the client then asks [nostrRelay] first and this one second. */
+    val secondNostrRelay: NostrFakeRelay? = if (withSecondRelay) NostrFakeRelay() else null
+
     val groupId = "front02h_probe_group"
     val blueskyFeed = Feed(
         id = "front02h_probe_bluesky", name = "Bluesky · Probe", icon = "https://cdn.bsky.app/img/avatar/probe@jpeg",
@@ -101,7 +104,7 @@ class BackgroundSyncRig : AutoCloseable {
 
     val service: LocalRssSv = LocalRssSvFactory.build(
         BlueskyApiClient(app.okHttpClient, Dispatchers.IO, blueskyServer.url("/").toString().trimEnd('/'), SOCIAL_TIMEOUT_MS, SOCIAL_MAX_BODY_BYTES),
-        NostrRelayClient(app.okHttpClient, Dispatchers.IO, listOf(nostrRelay.url), false, SOCIAL_TIMEOUT_MS),
+        NostrRelayClient(app.okHttpClient, Dispatchers.IO, listOfNotNull(nostrRelay.url, secondNostrRelay?.url), false, SOCIAL_TIMEOUT_MS),
     )
     private val filters = LocalRssSvFactory.smartFilterManager(app)
 
@@ -148,6 +151,7 @@ class BackgroundSyncRig : AutoCloseable {
     override fun close() {
         blueskyServer.shutdown()
         nostrRelay.close()
+        secondNostrRelay?.close()
     }
 
     private fun json(body: String) = MockResponse().setHeader("Content-Type", "application/json").setBody(body)
