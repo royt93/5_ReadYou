@@ -133,3 +133,18 @@
 
 # Note: -optimizeaggressively and -overloadaggressively are not supported in R8
 # Use R8 optimization instead
+
+# --- REL-01: found by running the release build on a phone (the JVM tests cannot run R8) ---
+# Retrofit reads the generic return type of a suspend function (Response<T>) through the synthetic Continuation parameter. Without these two
+# rules R8 strips the generic signature and the update check fails with "Class cannot be cast to ParameterizedType".
+-keep,allowobfuscation,allowshrinking class kotlin.coroutines.Continuation
+-keep,allowobfuscation,allowshrinking class retrofit2.Response
+
+# Gson fills these classes through reflection, field by field. They are private or non-model classes that no other rule covers, so R8 was free
+# to drop or retype their fields (a saved CommuteCast episode failed with "LinkedTreeMap cannot be cast to ...DialogueDto").
+-keepclassmembers class com.mckimquyen.reader.infrastructure.audio.CommuteEpisodeStore$EpisodeDto { <fields>; }
+-keepclassmembers class com.mckimquyen.reader.infrastructure.audio.CommuteEpisodeStore$DialogueDto { <fields>; }
+-keepclassmembers class com.mckimquyen.reader.infrastructure.ai.DailyDigestContent { <fields>; }
+-keepclassmembers class com.mckimquyen.reader.infrastructure.ai.DailyDigestSection { <fields>; }
+-keepclassmembers class com.mckimquyen.reader.infrastructure.ai.DailyDigestItem { <fields>; }
+-keepclassmembers class com.mckimquyen.reader.infrastructure.sync.WebDavPositionRecord { <fields>; }

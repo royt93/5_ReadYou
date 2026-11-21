@@ -8,7 +8,7 @@
 | Mức | Số | Việc |
 |---|---|---|
 | Critical | 0 | Không thấy lỗi chặn phát hành trong phạm vi này |
-| High | 1 | R8 `-dontobfuscate` và quy tắc keep trỏ vào gói không còn (xem H1) |
+| High | 1 | R8: hai lỗi thật ở bản release (Retrofit, Gson), **đã sửa bằng keep rule và chứng minh trên Pixel** (xem H1 và `doc/feature.md`) |
 | Medium | 3 | Migration 1→2 đến 5→6 không có test và không có snapshot (M1); Gson dựa vào lớp không được keep (M2); sao lưu đám mây mang khóa API và mật khẩu WebDAV chữ thường (M3) |
 | Low | 2 | `!!` còn lại (L1), `usesCleartextTraffic="true"` (L2) |
 
