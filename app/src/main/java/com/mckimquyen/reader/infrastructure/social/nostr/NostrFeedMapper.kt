@@ -59,7 +59,7 @@ object NostrFeedMapper {
      * not longer than [MAX_COVER_URL_LENGTH]. Nothing is downloaded here; the list shows it only when the user's image switch is on.
      */
     fun coverImageUrl(content: String): String? =
-        COVER_IMAGE_URL.findAll(content).map { it.value.trimEnd { c -> c in TRAILING_PUNCTUATION } }.firstOrNull { it.length <= MAX_COVER_URL_LENGTH }
+        COVER_IMAGE_URL.findAll(content).map { it.value.take(linkLengthWithoutSentenceEnd(it.value)) }.firstOrNull { it.length <= MAX_COVER_URL_LENGTH }
 
     /** The longest link made tappable. A longer one stays plain text, so one line of a note cannot fill the database. */
     const val MAX_LINK_URL_LENGTH = 2048

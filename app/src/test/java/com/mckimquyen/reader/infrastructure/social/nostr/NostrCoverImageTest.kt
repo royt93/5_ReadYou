@@ -144,6 +144,32 @@ class NostrCoverImageTest {
         assertEquals("https://img.example/photo.jpg", coverOf("Look at this photo https://img.example/photo.jpg."))
     }
 
+    // ---- FRONT-02aj: the cover image address ends the same way the tappable link does: a closing bracket that matches one inside it stays.
+
+    @Test fun aBalancedBracketInTheQuery_isKeptInTheCoverAddress() {
+        assertEquals("https://x.example/a.jpg?x=(y)", NostrFeedMapper.coverImageUrl("https://x.example/a.jpg?x=(y)"))
+        assertEquals("https://x.example/a.jpg?x=(y)", NostrFeedMapper.coverImageUrl("see https://x.example/a.jpg?x=(y)."))
+        assertEquals("https://x.example/a.jpg#(f)", NostrFeedMapper.coverImageUrl("https://x.example/a.jpg#(f)"))
+        assertEquals("https://x.example/a.png?k=[1]", NostrFeedMapper.coverImageUrl("https://x.example/a.png?k=[1],"))
+    }
+
+    @Test fun aBalancedBracketInThePath_stillWorks() {
+        assertEquals("https://x.example/a_(1).jpg", NostrFeedMapper.coverImageUrl("https://x.example/a_(1).jpg."))
+    }
+
+    @Test fun aClosingBracketThatMatchesNothing_isStillCutFromTheCoverAddress() {
+        assertEquals("https://x.example/a.jpg", NostrFeedMapper.coverImageUrl("(https://x.example/a.jpg)"))
+        assertEquals("https://x.example/a.jpg?w=1", NostrFeedMapper.coverImageUrl("see https://x.example/a.jpg?w=1)"))
+        assertEquals("https://x.example/a.png", NostrFeedMapper.coverImageUrl("[https://x.example/a.png]"))
+    }
+
+    @Test fun aBalancedBracketCoverOfExactlyTheLimit_isKept_andOneMoreIsStillSkipped() {
+        val exact = linkOfLength(limit - 4) + "?(y)"
+        assertEquals(limit, exact.length)
+        assertEquals(exact, NostrFeedMapper.coverImageUrl(exact))
+        assertNull(NostrFeedMapper.coverImageUrl(linkOfLength(limit - 3) + "?(y)"))
+    }
+
     // ---- FRONT-02af: a hostile note must not slow the sync. The old pattern is rebuilt here, unbounded, only to measure against.
 
     private val unboundedPattern = Regex("""https://\S+?\.(?:jpe?g|png|gif|webp)(?:[?#]\S*)?(?=\s|$)""", RegexOption.IGNORE_CASE)
