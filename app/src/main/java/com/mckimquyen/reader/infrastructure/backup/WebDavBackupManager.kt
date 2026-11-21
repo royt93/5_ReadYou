@@ -113,9 +113,28 @@ class WebDavBackupManager @Inject constructor(
                 )
             }
 
-            response.body.byteStream().use { stream ->
-                opmlSv.saveToDatabase(stream)
+            // The server is not trusted: read at most MAX_RESTORE_BYTES (counting the bytes, because the announced length can be absent or a
+            // lie), and only then parse. Nothing reaches the importer, and so nothing reaches Room, from an oversized answer.
+            val announced = response.body.contentLength()
+            if (announced > MAX_RESTORE_BYTES) {
+                return@withContext Result.failure(IOException("WebDAV restore file is too large ($announced bytes)"))
             }
+            val bytes = response.body.byteStream().use { stream ->
+                val out = java.io.ByteArrayOutputStream()
+                val buffer = ByteArray(RESTORE_BUFFER_BYTES)
+                var total = 0L
+                while (true) {
+                    val read = stream.read(buffer)
+                    if (read < 0) break
+                    total += read
+                    if (total > MAX_RESTORE_BYTES) {
+                        return@withContext Result.failure(IOException("WebDAV restore file is too large (over $MAX_RESTORE_BYTES bytes)"))
+                    }
+                    out.write(buffer, 0, read)
+                }
+                out.toByteArray()
+            }
+            opmlSv.saveToDatabase(java.io.ByteArrayInputStream(bytes))
             Result.success(Unit)
         } catch (e: Exception) {
             Result.failure(e)
@@ -136,5 +155,9 @@ class WebDavBackupManager @Inject constructor(
         private const val KEY_LAST_BACKUP_TIME = "webdav_last_backup_time"
 
         const val BACKUP_FILENAME = "rss_hub_backup.opml"
+
+        /** A restore file bigger than this is refused (the server is not trusted); an OPML of thousands of feeds is far smaller. */
+        const val MAX_RESTORE_BYTES = 10L * 1024L * 1024L
+        private const val RESTORE_BUFFER_BYTES = 8 * 1024
     }
 }
