@@ -89,7 +89,7 @@ fun AiSettingsPage(
     val coroutineScope = rememberCoroutineScope()
     val clipboardManager = LocalClipboardManager.current
 
-    var selectedProvider by remember { mutableIntStateOf(context.aiProvider) }
+    var selectedProvider by remember { mutableIntStateOf(AiProviderChoice.effective(context.aiProvider)) }
     var summaryLength by remember { mutableIntStateOf(context.aiSummaryLength) }
     var geminiKeyInput by remember { mutableStateOf(context.customGeminiApiKey) }
     var keyVisible by remember { mutableStateOf(false) }
@@ -220,9 +220,11 @@ fun AiSettingsPage(
                         .padding(bottom = 12.dp),
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
-                    listOf("Gemini", "OpenAI", "DeepSeek", "Groq").forEachIndexed { index, name ->
+                    AiProviderChoice.NAMES.forEachIndexed { index, name ->
                         FilterChip(
                             selected = selectedProvider == index,
+                            // Only Gemini is wired up; the other chips stay visible but disabled (see AiProviderChoice).
+                            enabled = AiProviderChoice.isSelectable(index),
                             onClick = {
                                 selectedProvider = index
                                 coroutineScope.launch {
