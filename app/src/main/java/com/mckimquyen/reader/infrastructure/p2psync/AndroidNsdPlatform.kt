@@ -38,11 +38,15 @@ class AndroidNsdPlatform @Inject constructor(
         val nsd = manager ?: return onResult(false)
         synchronized(lock) {
             if (registration != null) return onResult(false)
+            // setAttribute(String, ByteArray) exists only from SDK 37 (T extension 22); the String overload exists everywhere and, for ASCII
+            // values (all NsdTxtCodec writes), puts the same bytes in the record. A non-ASCII value would change, so it is refused.
+            val texts = attributes.mapValues { (_, value) -> asciiTxtValue(value) }
+            if (texts.values.any { it == null }) return onResult(false)
             val info = NsdServiceInfo().apply {
                 this.serviceName = serviceName
                 serviceType = NsdTxtCodec.SERVICE_TYPE
                 this.port = port
-                attributes.forEach { (key, value) -> setAttribute(key, value.copyOf()) }
+                texts.forEach { (key, text) -> setAttribute(key, text) }
             }
             val listener = object : NsdManager.RegistrationListener {
                 override fun onRegistrationFailed(serviceInfo: NsdServiceInfo, errorCode: Int) {
@@ -198,10 +202,16 @@ class AndroidNsdPlatform @Inject constructor(
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
             taken.second.forEach { runCatching { nsd.unregisterServiceInfoCallback(it) } }
         }
-        @Suppress("DEPRECATION")
+        // stopServiceResolution is tagged with a T extension in api-versions.xml; a phone without it throws NoSuchMethodError (an Error, which
+        // runCatching still catches), and the resolve listener then simply times out on its own.
+        @Suppress("DEPRECATION", "NewApi")
         taken.third.forEach { runCatching { nsd.stopServiceResolution(it) } }
     }
 
     private fun copy(attributes: Map<String, ByteArray>): Map<String, ByteArray?> =
         attributes.mapValues { (_, value) -> value.copyOf() }
 }
+
+/** The value as text only when UTF-8 text gives back exactly the same bytes (pure ASCII); otherwise null. */
+internal fun asciiTxtValue(value: ByteArray): String? =
+    if (value.all { it >= 0 }) String(value, Charsets.US_ASCII) else null
