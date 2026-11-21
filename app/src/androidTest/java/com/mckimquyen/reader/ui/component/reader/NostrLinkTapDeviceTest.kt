@@ -76,6 +76,36 @@ class NostrLinkTapDeviceTest {
         assertEquals(listOf(SECOND_LINK), opened.toList())
     }
 
+    // ---- FRONT-02ai: a closing bracket that matches an opening one inside the link is part of the tapped address.
+
+    @Test
+    fun aLinkWithABalancedParenthesis_isTappedWithItsClosingParenthesis() {
+        show(note("$TEXT_BEFORE $WIKI_LINK"))
+        tapOnTheTextAt(TEXT_BEFORE, WIKI_LINK)
+        assertEquals(listOf(WIKI_LINK), opened.toList())
+    }
+
+    @Test
+    fun aBalancedParenthesisFollowedByTheEndOfTheSentence_isStillTappedWhole() {
+        show(note("($TEXT_BEFORE $WIKI_LINK)."))
+        tapOnTheTextAt(TEXT_BEFORE, WIKI_LINK)
+        assertEquals(listOf(WIKI_LINK), opened.toList())
+    }
+
+    @Test
+    fun aParenthesisThatMatchesNothing_isNotPartOfTheTappedAddress() {
+        show(note("($TEXT_BEFORE $FIRST_LINK)"))
+        tapOnTheTextAt(TEXT_BEFORE, FIRST_LINK)
+        assertEquals(listOf(FIRST_LINK), opened.toList())
+    }
+
+    @Test
+    fun aLinkWithBalancedSquareBrackets_isTappedWithThem() {
+        show(note("$TEXT_BEFORE $SQUARE_LINK, ok"))
+        tapOnTheTextAt(TEXT_BEFORE, SQUARE_LINK)
+        assertEquals(listOf(SQUARE_LINK), opened.toList())
+    }
+
     private fun note(content: String, vararg tags: List<String>): NostrEvent = requireNotNull(
         NostrEvent.parse(
             JSONObject().apply {
@@ -119,6 +149,8 @@ class NostrLinkTapDeviceTest {
         const val FIRST_LINK = "https://img.example.test/one.jpg"
         const val SECOND_LINK = "https://img.example.test/two.png"
         const val HTTP_LINK = "http://img.example.test/plain.jpg"
+        const val WIKI_LINK = "https://vi.wikipedia.org/wiki/Foo_(bar)"
+        const val SQUARE_LINK = "https://img.example.test/list[1]"
         const val ID_ANSWERED = "00000000000000000000000000000000000000000000000000000000000000aa"
         const val NOTE_ID = "0000000000000000000000000000000000000000000000000000000000000001"
         const val AUTHOR = "dff1d77f2a671c5f36183726db2341be58feae1da2deced843240f7b502ba659"
