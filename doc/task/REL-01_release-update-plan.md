@@ -10,11 +10,11 @@
 
 | Mục | Giá trị | Nguồn |
 |---|---|---|
-| `versionCode` / `versionName` trong repo | `20260906` / `2026.09.06`, không đổi từ ít nhất 2026-10-15 | `app/build.gradle` dòng 30 đến 31 |
+| `versionCode` / `versionName` trong repo | `20261122` / `2026.11.22` (owner đổi hôm nay, commit `0181b282`); trước đó `20260906` | `app/build.gradle` dòng 30 đến 31 |
 | Số bản đang trên store | **CHƯA BIẾT** (tag git mới nhất `0.9.12` năm 2024, không phản ánh store) | cần owner cho |
 | Room | `version = 22`, chuỗi `MIGRATION_1_2` đến `MIGRATION_21_22`, **không** có `fallbackToDestructiveMigration` | `AndroidDb.kt` |
 | Snapshot schema | chỉ `5.json` đến `22.json` (không có v1 đến v4) | `app/schemas` |
-| Test migration (theo tên tệp) | có 6→7 đến 11→12 và 14→15 đến 21→22; **không thấy tên** cho 12→13, 13→14 và 1→5 (tìm theo tên, có thể sót) | `app/src/test/.../infrastructure/db` |
+| Test migration | **đã đính chính:** 12→13 (`BrainRpgMigration13Test`) và 13→14 (`WebFeedMigration14Test`) **có** test ở `androidTest`; còn thiếu chỉ 1→2 đến 5→6 (không test, không snapshot) | `app/src/test` và `app/src/androidTest/.../infrastructure/db` |
 | JVM | 3.984 test, 0 lỗi (`--rerun-tasks`, 2026-11-21) | `doc/feature.md` |
 | Lint | 0 lỗi, `NewApi` 0, **chỉ khi vá tạm** `api-versions.xml` của SDK 37 (`37.0` thành `37`); chạy bình thường vẫn chết vì `NumberFormatException: "37.0"` | FRONT-02am và mục lint trong `doc/feature.md` |
 | Crash JVM 134 | 2/60 lượt full JVM, chỉ ở test, không phải lỗi app | `doc/feature.md` |
@@ -36,8 +36,9 @@ Nguyên tắc: không đưa tính năng chưa kiểm được vào bản phát h
 
 ## Giai đoạn A: audit rủi ro (chỉ đọc, báo cáo theo mức độ, sửa khi owner duyệt)
 
+- [x] **A1 đến A3 xong (chỉ đọc), báo cáo:** [`done/REL-01_audit_A1-A3_DONE.md`](done/REL-01_audit_A1-A3_DONE.md): 0 Critical, 1 High (R8), 2 Medium (migration cũ, Gson), 3 Low (`!!`, cleartext, backup). Dưới đây giữ nguyên danh sách ban đầu để đối chiếu.
 - [ ] **A1 Cấu hình release:** `versionCode`/`versionName` (cần số store); R8 và `shrinkResources` giữ lớp Room, Hilt, Gson, Gemini; `resourceConfigurations` khớp các thư mục `values-*` (xem `CLAUDE.md`); permission đã merge của manifest (đã thấy `ACCESS_LOCAL_NETWORK`, `POST_NOTIFICATIONS`, `FOREGROUND_SERVICE_MEDIA_PLAYBACK`, cần liệt kê đủ); `foregroundServiceType` khớp quyền.
-- [ ] **A2 Dữ liệu người dùng khi update:** bổ sung test migration cho các bước không thấy test (12→13, 13→14); đối chiếu chuỗi migration với snapshot v5 đến v22; kiểm DataStore giữ nguyên qua update; đường nâng cấp từ bản đang trên store (cần APK/AAB cũ cùng chữ ký, xem mục "Cần từ owner").
+- [ ] **A2 Dữ liệu người dùng khi update:** (12→13 và 13→14 đã có test, chỉ 1→5 chưa có); đối chiếu chuỗi migration với snapshot v5 đến v22; kiểm DataStore giữ nguyên qua update; đường nâng cấp từ bản đang trên store (cần APK/AAB cũ cùng chữ ký, xem mục "Cần từ owner").
 - [ ] **A3 Crash tiềm ẩn (R5):** `!!`, `lateinit`, listener/timer/stream chưa `dispose` hoặc `cancel`; `NoSuchMethodError` kiểu NSD đã gặp (lint không còn che sau khi vá SDK).
 - [ ] **A4 Chính sách store:** Data safety (dữ liệu gửi lên Gemini, Nostr/Bluesky), quyền `ACCESS_LOCAL_NETWORK`, mô tả quyền mạng LAN, Gemini key mặc định nhúng trong APK (FIX-09, giữ nguyên, ghi trong hồ sơ rủi ro).
 - [ ] **A5 Lint:** quyết định cách chạy lint ổn định (vá tạm `api-versions.xml` mỗi lần, hoặc chấp nhận hạn chế); ghi vào quy trình, không sửa tệp SDK vĩnh viễn.
