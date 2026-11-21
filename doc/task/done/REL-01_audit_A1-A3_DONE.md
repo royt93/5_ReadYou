@@ -9,8 +9,8 @@
 |---|---|---|
 | Critical | 0 | Không thấy lỗi chặn phát hành trong phạm vi này |
 | High | 1 | R8 `-dontobfuscate` và quy tắc keep trỏ vào gói không còn (xem H1) |
-| Medium | 2 | Migration 1→2 đến 5→6 không có test và không có snapshot (M1); Gson dựa vào lớp không được keep (M2) |
-| Low | 3 | `!!` còn lại (L1), `usesCleartextTraffic="true"` (L2), `allowBackup="true"` (L3) |
+| Medium | 3 | Migration 1→2 đến 5→6 không có test và không có snapshot (M1); Gson dựa vào lớp không được keep (M2); sao lưu đám mây mang khóa API và mật khẩu WebDAV chữ thường (M3) |
+| Low | 2 | `!!` còn lại (L1), `usesCleartextTraffic="true"` (L2) |
 
 ## A1 Cấu hình release
 
@@ -59,12 +59,20 @@
 ### L2 (Low) `usesCleartextTraffic="true"` (manifest dòng 42)
 Cho phép HTTP không mã hóa. **Có chủ ý khả dĩ** (nhiều nguồn RSS cũ chỉ có HTTP; relay Nostr nội bộ test dùng `ws://`), nhưng là điểm cần ghi vào hồ sơ Data safety/bảo mật. **Không đổi** nếu không có quyết định riêng: tắt sẽ làm hỏng các nguồn HTTP.
 
-### L3 (Low) `allowBackup="true"` (manifest dòng 33)
-Có `dataExtractionRules` và `fullBackupContent` trỏ tới `@xml/data_extraction_rules`, `@xml/backup_rules`. **Chưa đọc** hai tệp đó để xem có loại trừ DataStore chứa khóa Gemini của người dùng khỏi sao lưu đám mây hay không. Việc cần làm: đọc hai tệp, xác nhận.
+### M3 (Medium) Sao lưu đám mây mang theo khóa API và mật khẩu của người dùng
+Đã đọc `res/xml/data_extraction_rules.xml` và `backup_rules.xml`: **chỉ** `sharedpref/pairing_store.xml` bị loại khỏi `cloud-backup`, `device-transfer` và `full-backup-content`. Mọi thứ khác theo `allowBackup="true"` (manifest dòng 33) đều được sao lưu, gồm:
+- **DataStore** `files/datastore/settings.preferences_pb`: chứa `CustomGeminiApiKey`, `CustomOpenAiApiKey`, `CustomDeepSeekApiKey` (khóa riêng của người dùng, `ui/ext/ExtDataStore.kt:56,59,62`) cùng mọi cài đặt.
+- **`webdav_backup_prefs.xml`**: **mật khẩu WebDAV ở dạng chữ thường** (`WebDavBackupManager.kt:52` `.putString(KEY_PASSWORD, password)`, tệp `webdav_backup_prefs`, dòng 132). Không dùng Keystore hay mã hóa.
+- Cả Room (bài báo, nguồn, ví Oracle) và các `commute_cast_prefs`, `podcast_positions`, `vip_screen_prefs`.
+- **Hệ quả:** khóa API và mật khẩu WebDAV rời máy lên Google Drive của người dùng (theo cơ chế sao lưu của Android), và có thể khôi phục sang máy khác. Khôi phục lên máy khác là hành vi tiện lợi, nhưng với mật khẩu WebDAV chữ thường là rủi ro riêng tư mà Data safety phải khai báo trung thực.
+- **Chưa chứng minh** có sự cố thực tế. Không đổi trong REL-01 nếu không có quyết định riêng vì: loại DataStore khỏi sao lưu sẽ làm người dùng mất toàn bộ cài đặt khi đổi máy (đổi hành vi). Hai hướng: (a) ghi trung thực vào Data safety và giữ nguyên; (b) loại `webdav_backup_prefs.xml` khỏi sao lưu (tối thiểu, ít hại) và mã hóa bằng Keystore ở bản sau.
+
+### L3 (Low) `allowBackup="true"`
+Gộp vào M3 ở trên.
 
 ## Việc tiếp theo đề xuất
 
-1. Đọc `data_extraction_rules.xml` và `backup_rules.xml` (L3), vì liên quan khóa API riêng của người dùng.
+1. Owner quyết hướng M3 (khai báo trung thực hoặc loại `webdav_backup_prefs.xml` khỏi sao lưu).
 2. Sửa `OPMLDataSource.kt:51,62` (L1) bằng TDD (test OPML thiếu cả `title` và `text` không ném lỗi).
 3. Chạy bản release trên Pixel (D6) để kiểm M2 và H1; chỉ thêm keep rule nếu lỗi thật xuất hiện.
 4. Chờ owner: số bản trên store, APK/AAB cũ (M1 và test cập nhật từ bản cũ).

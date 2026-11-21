@@ -36,7 +36,7 @@ Nguyên tắc: không đưa tính năng chưa kiểm được vào bản phát h
 
 ## Giai đoạn A: audit rủi ro (chỉ đọc, báo cáo theo mức độ, sửa khi owner duyệt)
 
-- [x] **A1 đến A3 xong (chỉ đọc), báo cáo:** [`done/REL-01_audit_A1-A3_DONE.md`](done/REL-01_audit_A1-A3_DONE.md): 0 Critical, 1 High (R8), 2 Medium (migration cũ, Gson), 3 Low (`!!`, cleartext, backup). Dưới đây giữ nguyên danh sách ban đầu để đối chiếu.
+- [x] **A1 đến A3 xong (chỉ đọc), báo cáo:** [`done/REL-01_audit_A1-A3_DONE.md`](done/REL-01_audit_A1-A3_DONE.md): 0 Critical, 1 High (R8), 3 Medium (migration cũ, Gson, sao lưu mang khóa API và mật khẩu WebDAV), 2 Low (`!!`, cleartext). Dưới đây giữ nguyên danh sách ban đầu để đối chiếu.
 - [ ] **A1 Cấu hình release:** `versionCode`/`versionName` (cần số store); R8 và `shrinkResources` giữ lớp Room, Hilt, Gson, Gemini; `resourceConfigurations` khớp các thư mục `values-*` (xem `CLAUDE.md`); permission đã merge của manifest (đã thấy `ACCESS_LOCAL_NETWORK`, `POST_NOTIFICATIONS`, `FOREGROUND_SERVICE_MEDIA_PLAYBACK`, cần liệt kê đủ); `foregroundServiceType` khớp quyền.
 - [ ] **A2 Dữ liệu người dùng khi update:** (12→13 và 13→14 đã có test, chỉ 1→5 chưa có); đối chiếu chuỗi migration với snapshot v5 đến v22; kiểm DataStore giữ nguyên qua update; đường nâng cấp từ bản đang trên store (cần APK/AAB cũ cùng chữ ký, xem mục "Cần từ owner").
 - [ ] **A3 Crash tiềm ẩn (R5):** `!!`, `lateinit`, listener/timer/stream chưa `dispose` hoặc `cancel`; `NoSuchMethodError` kiểu NSD đã gặp (lint không còn che sau khi vá SDK).
