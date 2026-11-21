@@ -106,6 +106,13 @@ class NostrLinkTapDeviceTest {
         assertEquals(listOf(SQUARE_LINK), opened.toList())
     }
 
+    @Test
+    fun aLinkWithBalancedCurlyBrackets_isTappedWithThem() {
+        show(note("$TEXT_BEFORE $CURLY_LINK, ok"))
+        tapOnTheTextAt(TEXT_BEFORE, CURLY_LINK)
+        assertEquals(listOf(CURLY_LINK), opened.toList())
+    }
+
     private fun note(content: String, vararg tags: List<String>): NostrEvent = requireNotNull(
         NostrEvent.parse(
             JSONObject().apply {
@@ -151,6 +158,7 @@ class NostrLinkTapDeviceTest {
         const val HTTP_LINK = "http://img.example.test/plain.jpg"
         const val WIKI_LINK = "https://vi.wikipedia.org/wiki/Foo_(bar)"
         const val SQUARE_LINK = "https://img.example.test/list[1]"
+        const val CURLY_LINK = "https://img.example.test/set{x}"
         const val ID_ANSWERED = "00000000000000000000000000000000000000000000000000000000000000aa"
         const val NOTE_ID = "0000000000000000000000000000000000000000000000000000000000000001"
         const val AUTHOR = "dff1d77f2a671c5f36183726db2341be58feae1da2deced843240f7b502ba659"
