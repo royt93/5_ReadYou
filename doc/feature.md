@@ -176,6 +176,11 @@ Thứ tự owner chọn ngày 2026-11-09; mỗi mục duyệt thiết kế/spec 
 
 ## ⏸️ Deferred
 
+- SEC-01 — HTTPS không kiểm chứng chứng chỉ (`trustAllCerts` mặc định `true`), `doc/task/todo/SEC-01_https-trust-all-certs.md`. **Deferred 2026-11-21 theo lời owner: "defer sẽ làm sau"** (sau phase migrate ad SDK; owner cũng bảo không can thiệp ad, VIP, consent, keystore).
+  - Fact: `OkHttpClientModule.kt` đặt `trustAllCerts: Boolean = true` từ commit `71dde14b` (2024-04-24): `X509TrustManager` rỗng và `hostnameVerifier { _, _ -> true }`; `provideOkHttpClient` không tắt nó, không chỗ nào đặt `false`; `ProviderAPI` và `GoogleReaderApi` gọi `cachingHttpClient()` mặc định. Mọi HTTPS (Gemini kèm khóa trong query, WebDAV Basic auth, Bluesky, Nostr, GitHub, Google Reader) chấp nhận chứng chỉ giả.
+  - Chưa kiểm: Play Console có cảnh báo hay chặn bản update vì `TrustManager`/`HostnameVerifier` không an toàn hay không. Chưa chọn phương án (bật mặc định + công tắc tự ký / chỉ dịch vụ công cộng / giữ nguyên).
+  - Đi kèm: `WebDavBackupManager.restore()` không giới hạn dung lượng và không xác nhận trước khi ghi Room (S3, xem ticket).
+
 - IDEA-04 — Gamified Ad Streaks (`doc/task/todo/IDEA-04_gamified-ad-streaks.md`) và mọi task ad/IAP/money. **Deferred on 2026-10-18 by the owner ("bỏ qua các task về ad/iap/money, tháng sau mới làm"); revisit around 2026-11-18.**
   - Fact: `AdManager.activateVipByKey(context, key, days)` (AdmobApplovinWrapper 1.1.5) ghi đè hạn VIP = now + days, không cộng dồn; nút xem ad ở `VipManagementPage` đang `enabled = !isActive`. Streak hằng ngày phải tự tính số ngày còn lại trước khi gọi.
   - Chưa chọn thiết kế; brainstorming dừng trước khi viết spec.
