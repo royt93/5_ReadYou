@@ -16,6 +16,7 @@ import com.mckimquyen.reader.domain.model.podcast.PodcastBrowseItem
 import java.io.ByteArrayOutputStream
 import com.mckimquyen.reader.domain.model.statistics.FeedReadCount
 import com.mckimquyen.reader.domain.model.statistics.ReadingDayCount
+import com.mckimquyen.reader.domain.model.feed.Feed
 import com.mckimquyen.reader.domain.model.feed.ImportantNum
 import com.mckimquyen.reader.domain.p2psync.SyncArticleSnapshot
 import java.util.*
@@ -767,6 +768,20 @@ interface ArticleDao {
 
     @Insert
     suspend fun insertList(articles: List<Article>)
+
+    /** The source row of a subscription (replaces a stored one with the same id, as [FeedDao.insert] does). Only [insertFeedWithArticles] uses it. */
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertFeedOfSubscription(feed: Feed)
+
+    /**
+     * A new source and its first articles in ONE transaction: both are saved or neither is. Written as two separate statements, a failed
+     * article write left a source behind with no article.
+     */
+    @Transaction
+    suspend fun insertFeedWithArticles(feed: Feed, articles: List<Article>) {
+        insertFeedOfSubscription(feed)
+        insertList(articles.map { it.copy(feedId = feed.id) })
+    }
 
     @Transaction
     @Query(

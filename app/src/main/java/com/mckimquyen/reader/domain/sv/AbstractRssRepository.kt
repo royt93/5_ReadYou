@@ -66,10 +66,7 @@ abstract class AbstractRssRepository(
     open suspend fun validCredentials(): Boolean = true
 
     open suspend fun subscribe(feed: Feed, articles: List<Article>) {
-        feedDao.insert(feed)
-        articleDao.insertList(articles.map {
-            it.copy(feedId = feed.id)
-        })
+        articleDao.insertFeedWithArticles(feed, articles)
     }
 
     open suspend fun addGroup(name: String): String {
