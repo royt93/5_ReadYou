@@ -48,7 +48,8 @@ class OpmlSv @Inject constructor(
             val repeatList = mutableListOf<Feed>()
             groupWithFeed.feeds.forEach {
                 it.groupId = groupWithFeed.group.id
-                if (rssService.get().isFeedExist(it.url)) {
+                val storedSource = it.sourceUrl
+                if (rssService.get().isFeedExist(it.url) || (storedSource != null && rssService.get().isFeedSourceExist(storedSource))) {
                     repeatList.add(it)
                 }
             }
@@ -87,7 +88,7 @@ class OpmlSv @Inject constructor(
                                     "htmlUrl" to feed.url,
                                     "isNotification" to feed.isNotification.toString(),
                                     "isFullContent" to feed.isFullContent.toString(),
-                                ),
+                                ) + com.mckimquyen.reader.infrastructure.rss.OPMLDataSource.socialAttributes(feed),
                                 listOf()
                             )
                         }

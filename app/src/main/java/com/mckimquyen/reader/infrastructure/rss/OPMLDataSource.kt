@@ -6,6 +6,9 @@ import com.mckimquyen.reader.domain.model.feed.Feed
 import com.mckimquyen.reader.domain.model.group.Group
 import com.mckimquyen.reader.domain.model.group.GroupWithFeed
 import com.mckimquyen.reader.infrastructure.di.IODispatcher
+import com.mckimquyen.reader.infrastructure.social.bluesky.BlueskyFeedMapper
+import com.mckimquyen.reader.infrastructure.social.nostr.NostrFeedMapper
+import com.mckimquyen.reader.infrastructure.social.nostr.NostrKeys
 import com.mckimquyen.reader.ui.ext.currentAccountId
 import com.mckimquyen.reader.ui.ext.spacerDollar
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -62,7 +65,7 @@ class OPMLDataSource @Inject constructor(
                                 accountId = accountId,
                                 isNotification = it.attributes["isNotification"].toBoolean(),
                                 isFullContent = it.attributes["isFullContent"].toBoolean(),
-                            )
+                            ).withSocialSource(it.attributes)
                         )
                     }
                 } else {
@@ -90,7 +93,7 @@ class OPMLDataSource @Inject constructor(
                                 accountId = accountId,
                                 isNotification = outline.attributes["isNotification"].toBoolean(),
                                 isFullContent = outline.attributes["isFullContent"].toBoolean(),
-                            )
+                            ).withSocialSource(outline.attributes)
                         )
                     }
                 }
@@ -109,5 +112,44 @@ class OPMLDataSource @Inject constructor(
 
     private fun MutableList<GroupWithFeed>.addFeedToDefault(feed: Feed) {
         first().feeds.add(feed)
+    }
+
+    /**
+     * What the file says about a social source (Bluesky, Nostr), kept ONLY when it matches the address. The file is untrusted: a kind that does
+     * not fit its address, an unknown kind or a wrong stored address is dropped and the source stays a plain RSS one (the behaviour before this).
+     */
+    private fun Feed.withSocialSource(attributes: Map<String, String>): Feed {
+        val kind = attributes[ATTR_SOURCE_TYPE]
+        val stored = attributes[ATTR_SOURCE_URL]
+        val fits: (String) -> Boolean = when (kind) {
+            Feed.BLUESKY_SOURCE_TYPE -> ::isBlueskyAddress
+            Feed.NOSTR_SOURCE_TYPE -> ::isNostrAddress
+            else -> return this
+        }
+        if (!fits(url)) return this
+        sourceType = kind
+        sourceUrl = stored?.takeIf(fits)
+        return this
+    }
+
+    companion object {
+        private const val ATTR_SOURCE_TYPE = "sourceType"
+        private const val ATTR_SOURCE_URL = "sourceUrl"
+
+        private fun isBlueskyAddress(address: String): Boolean =
+            address.startsWith(BlueskyFeedMapper.FEED_URL_PREFIX) &&
+                BlueskyFeedMapper.isActor(address.removePrefix(BlueskyFeedMapper.FEED_URL_PREFIX))
+
+        private fun isNostrAddress(address: String): Boolean =
+            address.startsWith(NostrFeedMapper.FEED_URL_PREFIX) &&
+                NostrKeys.npubToHex(address.removePrefix(NostrFeedMapper.FEED_URL_PREFIX)) != null
+
+        /** The two extra attributes of an exported outline: only for a Bluesky or Nostr source, so every other outline is written as before. */
+        fun socialAttributes(feed: Feed): Map<String, String> {
+            if (feed.sourceType != Feed.BLUESKY_SOURCE_TYPE && feed.sourceType != Feed.NOSTR_SOURCE_TYPE) return emptyMap()
+            val stored = feed.sourceUrl
+            return if (stored == null) mapOf(ATTR_SOURCE_TYPE to feed.sourceType)
+            else mapOf(ATTR_SOURCE_TYPE to feed.sourceType, ATTR_SOURCE_URL to stored)
+        }
     }
 }
