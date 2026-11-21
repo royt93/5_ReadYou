@@ -53,6 +53,77 @@ class NostrTappableLinksTest {
         assertEquals(listOf("https://x.example/a"), linksIn("\"https://x.example/a\"!?"))
     }
 
+    // ---- FRONT-02ai: a closing bracket that matches an opening one INSIDE the link belongs to the link; one that matches nothing ends a sentence.
+
+    private val wiki = "https://vi.wikipedia.org/wiki/Foo_(bar)"
+
+    @Test fun aBalancedParenthesisAtTheEnd_staysInTheLink() {
+        assertEquals(listOf(wiki), linksIn("see $wiki now"))
+        assertEquals(listOf(wiki), linksIn(wiki))
+    }
+
+    @Test fun aBalancedParenthesisInsideAnOuterOne_keepsOnlyTheLinksOwn() {
+        assertEquals(listOf(wiki), linksIn("(xem $wiki)."))
+        assertEquals(listOf("https://x.example/a_(b)"), linksIn("https://x.example/a_(b))"))
+    }
+
+    @Test fun aClosingParenthesisThatMatchesNothing_isStillCut() {
+        assertEquals(listOf("https://y.example/b"), linksIn("(https://y.example/b)."))
+        assertEquals(listOf("https://x.example/a"), linksIn("https://x.example/a)))"))
+    }
+
+    @Test fun squareAndCurlyBracketsAreBalancedTheSameWay() {
+        assertEquals(listOf("https://x.example/a[1]"), linksIn("see https://x.example/a[1]."))
+        assertEquals(listOf("https://x.example/a{x}"), linksIn("see https://x.example/a{x}, ok"))
+        assertEquals(listOf("https://x.example/a"), linksIn("[https://x.example/a]"))
+        assertEquals(listOf("https://x.example/a"), linksIn("{https://x.example/a}"))
+    }
+
+    @Test fun eachKindOfBracketIsCountedOnItsOwn() {
+        // The "]" has no "[" in the link, so it is cut even though a "(" is there; the ")" matches its "(" and stays.
+        assertEquals(listOf("https://x.example/a(1"), linksIn("https://x.example/a(1]"))
+        assertEquals(listOf("https://x.example/a_(b)"), linksIn("https://x.example/a_(b)]"))
+        assertEquals(listOf("https://x.example/a_(b)"), linksIn("https://x.example/a_(b)}"))
+    }
+
+    @Test fun moreOpeningThanClosingBrackets_keepsTheClosingOnes() {
+        assertEquals(listOf("https://x.example/a_((b)"), linksIn("https://x.example/a_((b)"))
+    }
+
+    @Test fun sentencePunctuationAfterABalancedBracket_isCutFirst() {
+        assertEquals(listOf(wiki), linksIn("$wiki."))
+        assertEquals(listOf(wiki), linksIn("$wiki,"))
+        assertEquals(listOf(wiki), linksIn("$wiki!?"))
+        assertEquals(listOf(wiki), linksIn("\"$wiki\""))
+        assertEquals(listOf(wiki), linksIn("\"$wiki\"."))
+    }
+
+    @Test fun theAnchorKeepsTheBalancedParenthesis() {
+        assertEquals(
+            "see <a href=\"$wiki\">$wiki</a> ok",
+            articleOf("see $wiki ok").rawDescription,
+        )
+    }
+
+    @Test fun aBalancedLinkOfExactlyTheLimit_isKept_andOneMoreIsStillPlainText() {
+        val exact = linkOfLength(limit - 3) + "(b)"
+        assertEquals(limit, exact.length)
+        assertEquals(listOf(exact), linksIn(exact))
+        assertEquals(listOf(exact), linksIn("$exact."))
+        assertEquals(emptyList<String>(), linksIn(linkOfLength(limit - 2) + "(b)"))
+    }
+
+    @Test fun aHostileNoteOfClosingBrackets_isScannedInLinearTime() {
+        // A quadratic scan (counting the whole link again for every cut character) needs about 4e10 steps here; the linear one a few ms.
+        val hostile = "https://x.example/" + ")".repeat(HOSTILE_BRACKETS)
+        val started = System.nanoTime()
+        val links = NostrFeedMapper.linkSpans(hostile)
+        val millis = (System.nanoTime() - started) / NANOS_PER_MS
+        assertEquals(1, links.size)
+        assertEquals("https://x.example/", hostile.substring(links.single().first, links.single().last + 1))
+        assertTrue("took $millis ms", millis < HOSTILE_BUDGET_MS)
+    }
+
     @Test fun anHttpLink_orAnotherScheme_staysPlainText() {
         val text = "http://x.example/a javascript:alert(1) data:text/html,x mailto:a@b.c nostr:npub1abc ftp://x.example/f"
         assertTrue(linksIn(text).isEmpty())
@@ -110,5 +181,11 @@ class NostrTappableLinksTest {
             "one <a href=\"https://x.example/1\">https://x.example/1</a><br>two <a href=\"https://y.example/2\">https://y.example/2</a>",
             articleOf("one https://x.example/1\ntwo https://y.example/2").rawDescription,
         )
+    }
+
+    private companion object {
+        const val HOSTILE_BRACKETS = 65_000
+        const val HOSTILE_BUDGET_MS = 500L
+        const val NANOS_PER_MS = 1_000_000L
     }
 }

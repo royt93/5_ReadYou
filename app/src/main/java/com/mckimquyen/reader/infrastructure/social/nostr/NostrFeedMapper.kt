@@ -72,10 +72,40 @@ object NostrFeedMapper {
      */
     fun linkSpans(content: String): List<IntRange> =
         LINK_CANDIDATE.findAll(content).mapNotNull { match ->
-            val link = match.value.trimEnd { it in TRAILING_PUNCTUATION }
-            if (link.length <= LINK_SCHEME.length || link.length > MAX_LINK_URL_LENGTH) null
-            else match.range.first until match.range.first + link.length
+            val linkLength = linkLengthWithoutSentenceEnd(match.value)
+            if (linkLength <= LINK_SCHEME.length || linkLength > MAX_LINK_URL_LENGTH) null
+            else match.range.first until match.range.first + linkLength
         }.toList()
+
+    private val CLOSING_TO_OPENING = mapOf(')' to '(', ']' to '[', '}' to '{')
+
+    /**
+     * How much of [text] is the link: the sentence marks at its end are cut, EXCEPT a closing bracket that has an opening one of its own
+     * kind inside the link (`.../Foo_(bar)`), which belongs to the link. One that matches nothing (`(see https://x/a)`) ends the sentence.
+     * Walks back from the end and counts the brackets ONCE, then adjusts the counts as it cuts, so a note made of thousands of `)` costs a
+     * single pass, not one pass per cut character.
+     */
+    private fun linkLengthWithoutSentenceEnd(text: String): Int {
+        val opened = HashMap<Char, Int>()
+        val closed = HashMap<Char, Int>()
+        for (c in text) {
+            if (c in CLOSING_TO_OPENING.values) opened.merge(c, 1, Int::plus)
+            else if (c in CLOSING_TO_OPENING.keys) closed.merge(c, 1, Int::plus)
+        }
+        var end = text.length
+        while (end > 0) {
+            val c = text[end - 1]
+            if (c !in TRAILING_PUNCTUATION) break
+            val opening = CLOSING_TO_OPENING[c]
+            if (opening != null) {
+                val closers = closed.getOrDefault(c, 0)
+                if (opened.getOrDefault(opening, 0) >= closers) break
+                closed[c] = closers - 1
+            }
+            end--
+        }
+        return end
+    }
 
     fun feedUrl(npub: String): String = FEED_URL_PREFIX + npub.trim().lowercase(Locale.ROOT)
 
