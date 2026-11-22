@@ -41,9 +41,17 @@ class OpmlSv @Inject constructor(
         val defaultGroup = requireDefaultGroup(context.currentAccountId)
         val groupWithFeedList =
             OPMLDataSource.parseFileInputStream(inputStream, defaultGroup)
+        // The parser gives every group a fresh random id, so a second restore of the same file would add every group again (feeds are
+        // already skipped by address). A group whose name this account already has is reused instead of created.
+        val existingGroups = groupDao.queryAll(context.currentAccountId).associateBy { it.name }
         groupWithFeedList.forEach { groupWithFeed ->
             if (groupWithFeed.group != defaultGroup) {
-                groupDao.insert(groupWithFeed.group)
+                val existing = existingGroups[groupWithFeed.group.name]
+                if (existing != null) {
+                    groupWithFeed.group.id = existing.id
+                } else {
+                    groupDao.insert(groupWithFeed.group)
+                }
             }
             val repeatList = mutableListOf<Feed>()
             groupWithFeed.feeds.forEach {
