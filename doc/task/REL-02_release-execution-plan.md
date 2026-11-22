@@ -2,8 +2,8 @@
 
 - **Type:** Release
 - **Priority:** `P0 (Blocker)`
-- **Ngày lập:** 2026-11-21, nhánh `dev` (một nhánh duy nhất, không nhánh phụ). HEAD khi lập: `42b4b35b`.
-- **Thiết bị kiểm:** chỉ Pixel 7 Pro `2B051FDH3006MU` (Android 17, SDK 37). Không gửi lệnh tới Tecno.
+- **Ngày lập:** 2026-11-21, nhánh `dev` (một nhánh duy nhất, không nhánh phụ). HEAD khi lập: `42b4b35b`. **Cập nhật 2026-11-22**, HEAD `44686937`.
+- **Thiết bị kiểm:** từ 2026-11-22 chỉ **Tecno KJ7** `115333744A005844` (Android 14, SDK 34), theo lời owner "dùng tecno cho mọi phiên"; không gửi lệnh tới Pixel. Các mục kiểm trên Pixel (Android 17) ở bản trước giữ nguyên làm bằng chứng lịch sử. Tecno **dùng chung** với một phiên Claude khác (LensLauncher): mỗi lệnh ghi phải gate và đếm `ActiveInstrumentation` ngay trước.
 - **Quan hệ với REL-01:** REL-01 (`REL-01_release-update-plan.md`) là kế hoạch gốc; audit A1 đến A3 xong (`done/REL-01_audit_A1-A3_DONE.md`). REL-02 chỉ giữ phần **chưa xong**, theo thứ tự thực hiện.
 
 ## 1. Đã xong (có bằng chứng, xem `doc/feature.md`)
@@ -15,8 +15,29 @@
 | OPML: mục hỏng bị bỏ qua thay vì làm hỏng cả lần nhập | 7 test, đột biến 4/4 | `88c6afe5` |
 | Sao lưu: loại `webdav_backup_prefs.xml` (mật khẩu WebDAV chữ thường) | 5 test | `88c6afe5` |
 | R8: hai lỗi thật ở bản release (Retrofit `ParameterizedType`, Gson `LinkedTreeMap`) | keep rule + 4 test JVM + chạy bản release trên Pixel | `42b4b35b` |
-| Full JVM | **4.000 test, 0 lỗi** (`--rerun-tasks`, XML mới) | |
+| Khôi phục OPML hai lần không nhân đôi nhóm (đo trên Room thật) | 6 test, đột biến 4/4 | `ee6f7acc` |
+| Khôi phục WebDAV giới hạn 10 MiB (công bố và đếm byte) | 6 test, đột biến 3/3 | `d578c5d6` |
+| Ba chip AI không dùng bị làm mờ, lựa chọn cũ hiển thị là Gemini | 6 test JVM + 3 test máy (Pixel 3/3, Tecno 4 lượt xanh) | `a5a34516` |
+| Hộp thoại xác nhận trước khi khôi phục WebDAV, dịch máy 37 ngôn ngữ | 12 test, đột biến bị bắt (bản dịch **chưa có người duyệt**) | `7e9783a3` |
+| Update 20260906 lên 20261122 trên Tecno: migration Room 20 lên 22, dữ liệu nguyên vẹn, DataStore chỉ thêm 2 khóa | integrity ok, foreign key 0 | `15bd125e` |
+| NSD trên Tecno Android 14 (`setAttribute(String)`), Wi-Fi bật | 3/3 lượt xanh | `44686937` |
+| Full JVM | **4.030 test, 0 lỗi** (`--rerun-tasks`, XML mới; lần chạy đầu đỏ 1 test chập chờn `SettingsProviderLoggingTest`, lần hai xanh) | |
 | Phiên bản trong repo | `20261122` / `2026.11.22` (owner đổi) | `0181b282` |
+
+## 1b. Đã ghi vào ticket, **không làm trong bản này** (owner defer)
+
+| Ticket | Nội dung | Mức |
+|---|---|---|
+| `todo/SEC-01_https-trust-all-certs.md` | HTTPS không kiểm chứng chứng chỉ (`trustAllCerts` mặc định `true`); Play có thể cảnh báo; **chưa kiểm Play Console** | High |
+| `todo/AI-01_byok-other-providers.md` | OpenAI, DeepSeek, Groq chỉ có chip (đã làm mờ), chưa nối thật | Medium |
+
+## 1c. Còn mở ngoài kế hoạch kỹ thuật (chỉ owner xử lý)
+
+| Việc | Ghi chú |
+|---|---|
+| **Khóa ký app đang public trên GitHub** (`app/keystores.jks`, `keystore.properties`, lịch sử git) | **Critical, chặn phát hành**; chờ owner kiểm Play Console có Play App Signing không. Chi tiết ở `~/exc-flaky-evidence/REL-03_secrets_audit_NOT_FOR_GIT.md` (ngoài repo). Tôi không đụng keystore theo lời owner |
+| Khóa Gemini `AIza…` nằm thô trong `.claude/settings.local.json` (đã push) | owner tự xoay khóa Gemini |
+| Duyệt bản dịch máy 37 ngôn ngữ của hộp thoại WebDAV | nhất là `lzh`, Miến Điện, Kannada, Malayalam |
 
 ## 2. Chưa xong, theo thứ tự cổng
 
@@ -26,7 +47,7 @@
 - [ ] **APK/AAB bản đã xuất bản (cùng khóa ký)** nếu muốn test cập nhật từ bản cũ. Không có thì bước đó chỉ kiểm được từ `0.9.x` nếu có APK, nếu không thì bỏ.
 
 ### Cổng 1: cố định mã (tôi làm được, sau Cổng 0 mục 2)
-- [ ] Chạy lại **đúng bài kiểm bản release R8** của REL-01 trên bản có SDK quảng cáo mới (xem mục 3). Lý do: JVM không chạy R8, lỗi chỉ lộ trên máy.
+- [ ] Chạy lại **đúng bài kiểm bản release R8** trên bản có SDK quảng cáo mới (xem mục 3), **trên Tecno** (Android 14) và nếu còn thời gian trên Pixel. Lý do: JVM không chạy R8, lỗi chỉ lộ trên máy. Owner chọn đợi xong migrate ad SDK rồi chạy **một lần** trên bản cuối.
 - [ ] Rà `proguard-rules.pro` sau khi SDK mới vào: rule trỏ gói không còn (`me.ash.reader`, `data.provider`) vẫn nằm đó (vô hại, ghi nhận trong audit H1). Chỉ dọn khi owner duyệt.
 - [ ] Digest (`DailyDigestContent`) và `WebDavPositionRecord`: rule đã thêm nhưng **chưa chạy trên bản release** (Pixel không có digest, không có cấu hình WebDAV). Tạo một digest trên Pixel (cần Gemini) hoặc chấp nhận rủi ro đã ghi.
 - [ ] Lint ổn định: quyết định cách chạy (vá tạm `api-versions.xml` mỗi lần, hoặc chấp nhận). Không sửa tệp SDK vĩnh viễn.
@@ -37,7 +58,7 @@
 3. [ ] Lint (cách đã chọn): 0 lỗi, `NewApi` 0.
 4. [ ] `./gradlew assembleProdRelease` và `./gradlew bundleProdRelease` (AAB nộp store): BUILD SUCCESSFUL; `apksigner verify` đọc được chứng chỉ **thật** (không phải khóa debug).
 5. [ ] So APK/AAB mới với bản trước: kích thước, danh sách quyền (`aapt2 dump permissions`), `resourceConfigurations` (37 thư mục, đã khớp), dex không lộ chuỗi trace.
-6. [ ] Bản release trên Pixel theo mục 3 (R8, Retrofit, Gson, quảng cáo thử).
+6. [ ] Bản release trên Tecno theo mục 3 (R8, Retrofit, Gson, quảng cáo thử). Lượt trên Pixel của bản trước đã chứng minh rule Retrofit và Gson (`doc/feature.md`, mục REL-01 R8).
 7. [ ] Test cập nhật từ bản cũ (nếu có APK/AAB cũ cùng chữ ký).
 8. [ ] Ghi vào `doc/feature.md`, đóng REL-02.
 
@@ -58,7 +79,7 @@
 Lý do: R8 không chạy trong JVM; lượt đầu tìm ra 2 lỗi thật. Cách làm (đã dùng thành công, `doc/feature.md` mục REL-01):
 1. Sửa **tạm** `app/build.gradle` (không commit): `release` ký `signingConfigs.debug`, ad ID thử. Sao lưu tệp, `cmp` sau khi hoàn nguyên.
 2. `assembleProdRelease`; cất APK ra `/tmp`; **hoàn nguyên `build.gradle` ngay** và `cmp`.
-3. Pixel: gate (`tools/device/pixel_gate.py`), sao lưu byte-exact (`device_backup.py backup`), **đối chiếu manifest với bản đã xác minh** (bẫy: `run-as` bị từ chối trên bản release nên sao lưu cho `absent`), cài đè (cùng `versionCode` với bản debug để khỏi `INSTALL_FAILED_VERSION_DOWNGRADE`).
+3. Thiết bị (hiện **Tecno**, launcher `com.transsion.hilauncher`): gate (`tools/device/pixel_gate.py <serial> <launcher>`), **đếm `ActiveInstrumentation` = 0 ngay trước mỗi lệnh ghi** (máy dùng chung), sao lưu byte-exact (`device_backup.py backup`), **đối chiếu manifest với bản đã xác minh** (bẫy: `run-as` bị từ chối trên bản release nên sao lưu cho `absent`), cài đè (cùng `versionCode` với bản debug để khỏi `INSTALL_FAILED_VERSION_DOWNGRADE`).
 4. Quan sát **chủ động** hai đường mã: kiểm tra cập nhật (Retrofit) và đọc tập CommuteCast đã lưu (Gson). R8 gỡ `android.util.Log`, nên dùng `System.err` cho probe tạm.
 5. Quảng cáo toàn màn hình: dump mới, nút có nhãn "Tiếp tục đến ứng dụng", kiểm foreground trước và sau (quy tắc `auto-close-ads-during-smoke`).
 6. Cài lại bản debug đúng `versionCode`, `device_backup.py restore`, 8/8 `BYTE IDENTICAL`.
@@ -69,17 +90,21 @@ Lý do: R8 không chạy trong JVM; lượt đầu tìm ra 2 lỗi thật. Cách
 |---|---|---|---|
 | 1 | SDK ad mới mang rule R8, quyền hoặc lớp reflection chưa kiểm | High | Cổng 1 chạy lại bài kiểm mục 3 |
 | 2 | Số `versionCode` store chưa biết | High | Cổng 0 |
-| 3 | Pixel là SDK 37: đường NSD `setAttribute(String)` và màu thanh điều hướng trên Android 12 đến 16, và API 26 đến 28 **chưa kiểm** (không có máy cũ) | Medium | ghi vào hồ sơ; cân nhắc rollout nhỏ trước |
+| 3 | **Đã kiểm một phần:** NSD `setAttribute(String)` chạy trên **Android 14** (Tecno, 3/3 xanh khi có Wi-Fi). **Chưa kiểm:** màu thanh điều hướng và chủ đề trên **API 26 đến 28** và Android 12 đến 13 (không có máy cũ); NSD mới thử với chính nó trên một mạng, chưa hai máy | Medium | ghi vào hồ sơ; cân nhắc rollout nhỏ trước |
 | 4 | Digest và WebDAV chưa chạy ở bản release | Medium | Cổng 1 hoặc chấp nhận |
 | 5 | Lint API-level chỉ chạy khi vá tệp SDK | Medium | Cổng 1: quyết cách chạy |
 | 6 | DataStore (khóa API riêng) vẫn được sao lưu đám mây | Medium | khai báo Data safety (M3a) |
 | 7 | Migration Room 1 đến 5 không có test và không có snapshot; cập nhật thật từ bản store chưa kiểm | Medium | cần APK cũ cùng khóa ký; bỏ nếu không còn người dùng v1 đến v5 |
 | 8 | `-dontobfuscate` bật: bản release dễ đọc ngược | Low | ghi nhận, có chủ ý |
 | 9 | Crash JVM 134 (2/60), chỉ ở test | Low | không chặn |
-| 10 | Bản release thật (khóa thật, ad ID thật) chưa chạy trên máy vì sẽ mất dữ liệu Pixel | Medium | owner thử qua cài mới trên máy phụ, hoặc rollout nhỏ |
+| 10 | Bản release thật (khóa thật, ad ID thật) chưa chạy trên máy vì khác khóa ký nên cài đè không được và gỡ app sẽ mất dữ liệu | Medium | owner thử qua cài mới trên máy phụ, hoặc rollout nhỏ |
+| 11 | **Khóa ký app public trên GitHub** (`keystores.jks`, mật khẩu trong `keystore.properties` và lịch sử git) | **Critical** | chờ owner kiểm Play Console (Play App Signing); chi tiết ngoài repo |
+| 12 | HTTPS không kiểm chứng chứng chỉ (SEC-01); Play có thể cảnh báo, **chưa kiểm** | High | defer theo owner; khai Data safety không khẳng định "mã hóa mọi dữ liệu khi truyền" |
+| 13 | Bản dịch máy 37 ngôn ngữ của hộp thoại WebDAV chưa có người duyệt | Low | owner duyệt ngôn ngữ biết; test chỉ chứng minh cú pháp |
+| 14 | `SettingsProviderLoggingTest` chập chờn (1 lần đỏ trong 2 lượt full JVM, hạn 5 giây) | Low | chưa có nguyên nhân; chạy lại khi đỏ, kiểm tuổi XML |
 
 ## 5. Quy tắc xuyên suốt
 - Chỉ nhánh `dev`; thử nghiệm là sửa tạm không commit, hoàn nguyên và `cmp` byte-identical.
 - Commit không attribution AI (R6). Không tạo PR, không nhắc PR.
-- Pixel: gate, sao lưu và khôi phục byte-exact quanh mỗi lượt; không xóa DataStore; không bấm theo tọa độ cũ; chỉ `adb -s 2B051FDH3006MU`.
+- Thiết bị: chỉ **Tecno** `adb -s 115333744A005844` (owner, 2026-11-22). Gate và sao lưu byte-exact quanh mỗi lượt; đếm `ActiveInstrumentation` ngay trước mỗi lệnh ghi vì máy dùng chung với phiên LensLauncher; không xóa DataStore; không bấm theo tọa độ cũ; việc làm được bằng adb (bật Wi-Fi, quyền tạm, cài đè, đóng quảng cáo) tự làm và trả về giá trị gốc, không hỏi lại. Vẫn hỏi trước khi xóa dữ liệu, gỡ app, force-push, đổi chế độ repo.
 - Không dùng cờ ad/VIP làm lối tắt cho test. Không sửa tệp ad (owner đang migrate).
