@@ -724,6 +724,9 @@
     <string name="webdav_password">كلمة المرور / رمز التطبيق</string>
     <string name="webdav_restore_now">استعادة من السحابة</string>
     <string name="webdav_restore_success">تم استعادة المصادر والمجموعات بنجاح من السحابة!</string>
+    <string name="webdav_restore_confirm_title">الاستعادة من السحابة؟</string>
+    <string name="webdav_restore_confirm_message">سيقرأ هذا ملف النسخة الاحتياطية من خادم WebDAV الخاص بك ويضيف المصادر والمجموعات الموجودة فيه إلى هذا الهاتف. لن يُحذف أي شيء ولن يُستبدل.</string>
+    <string name="webdav_restore_confirm_action">استعادة</string>
     <string name="webdav_server_url">رابط خادم WebDAV</string>
     <string name="webdav_username">اسم المستخدم</string>
     <string name="zen_audio_focus_denied">تم رفض تركيز الصوت من تطبيق آخر</string>

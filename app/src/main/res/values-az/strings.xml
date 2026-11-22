@@ -821,6 +821,9 @@
     <string name="webdav_password">Şifrə / Tətbiq Tokeni</string>
     <string name="webdav_restore_now">Buluddan Bərpa Et</string>
     <string name="webdav_restore_success">Lentlər və qruplar buluddan uğurla bərpa edildi!</string>
+    <string name="webdav_restore_confirm_title">Buluddan bərpa edilsin?</string>
+    <string name="webdav_restore_confirm_message">Bu, WebDAV serverinizdən ehtiyat nüsxə faylını oxuyur və içindəki mənbələri və qrupları bu telefona əlavə edir. Heç nə silinmir və ya üzərinə yazılmır.</string>
+    <string name="webdav_restore_confirm_action">Bərpa et</string>
     <string name="webdav_server_url">WebDAV Server Ünvanı</string>
     <string name="webdav_username">İstifadəçi adı</string>
     <string name="zen_audio_focus_denied">Audio fokusu başqa tətbiq tərəfindən rədd edildi</string>

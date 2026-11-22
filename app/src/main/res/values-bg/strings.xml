@@ -688,6 +688,9 @@
     <string name="webdav_restore_now">Възстанови от облака</string>
     <string name="webdav_backup_success">OPML резервното копие е качено успешно!</string>
     <string name="webdav_restore_success">Емисиите и групите са възстановени успешно от облака!</string>
+    <string name="webdav_restore_confirm_title">Възстановяване от облака?</string>
+    <string name="webdav_restore_confirm_message">Това чете архивния файл от вашия WebDAV сървър и добавя източниците и групите в него към този телефон. Нищо не се изтрива и не се презаписва.</string>
+    <string name="webdav_restore_confirm_action">Възстанови</string>
     <string name="webdav_last_backup">Последно архивиране: %1$s</string>
     <string name="invalid_credentials">Невалидни данни за вход, моля проверете URL адреса на сървъра, потребителското име и паролата</string>
     <string name="reels_title">Ролки</string>

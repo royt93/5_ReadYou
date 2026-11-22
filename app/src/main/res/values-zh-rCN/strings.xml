@@ -746,6 +746,9 @@
     <string name="webdav_restore_now">从云端恢复</string>
     <string name="webdav_backup_success">OPML 备份上传成功！</string>
     <string name="webdav_restore_success">已从云端成功恢复订阅源和分组！</string>
+    <string name="webdav_restore_confirm_title">从云端恢复？</string>
+    <string name="webdav_restore_confirm_message">这将从您的 WebDAV 服务器读取备份文件，并把其中的订阅源和分组添加到这部手机。不会删除或覆盖任何内容。</string>
+    <string name="webdav_restore_confirm_action">恢复</string>
     <string name="webdav_last_backup">上次备份：%1$s</string>
     <string name="invalid_credentials">凭据无效，请检查服务器地址、用户名和密码</string>
 

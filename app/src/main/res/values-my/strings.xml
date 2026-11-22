@@ -821,6 +821,9 @@
     <string name="webdav_password">စကားဝှက် / App Token</string>
     <string name="webdav_restore_now">Cloud မှ ပြန်ယူရန်</string>
     <string name="webdav_restore_success">ဖိဒ်များနှင့် အုပ်စုများကို cloud မှ အောင်မြင်စွာ ပြန်ယူပြီးပါပြီ!</string>
+    <string name="webdav_restore_confirm_title">Cloud မှ ပြန်ယူမလား?</string>
+    <string name="webdav_restore_confirm_message">ဤလုပ်ဆောင်ချက်သည် သင့် WebDAV ဆာဗာမှ အရန်ဖိုင်ကို ဖတ်ပြီး ၎င်းထဲရှိ ရင်းမြစ်များနှင့် အုပ်စုများကို ဤဖုန်းသို့ ထည့်ပေးသည်။ မည်သည့်အရာကိုမျှ မဖျက်ပါ သို့မဟုတ် မထပ်ရေးပါ။</string>
+    <string name="webdav_restore_confirm_action">ပြန်ယူရန်</string>
     <string name="webdav_server_url">WebDAV ဆာဗာ URL</string>
     <string name="webdav_username">အသုံးပြုသူအမည်</string>
     <string name="zen_audio_focus_denied">အခြား app တစ်ခုက အသံ focus ကို ငြင်းပယ်လိုက်သည်</string>

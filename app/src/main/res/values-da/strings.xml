@@ -749,6 +749,9 @@
     <string name="webdav_password">Adgangskode / app-token</string>
     <string name="webdav_restore_now">Gendan fra sky</string>
     <string name="webdav_restore_success">Feeds og grupper gendannet fra skyen!</string>
+    <string name="webdav_restore_confirm_title">Gendan fra skyen?</string>
+    <string name="webdav_restore_confirm_message">Dette læser sikkerhedskopifilen fra din WebDAV-server og tilføjer kilderne og grupperne i den til denne telefon. Intet slettes eller overskrives.</string>
+    <string name="webdav_restore_confirm_action">Gendan</string>
     <string name="webdav_server_url">WebDAV-server-URL</string>
     <string name="webdav_username">Brugernavn</string>
     <string name="zen_audio_focus_denied">Lydfokus nægtet af en anden app</string>

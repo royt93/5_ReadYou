@@ -755,6 +755,9 @@
     <string name="webdav_password">Пароль / токен застосунку</string>
     <string name="webdav_restore_now">Відновити з хмари</string>
     <string name="webdav_restore_success">Канали та групи успішно відновлено з хмари!</string>
+    <string name="webdav_restore_confirm_title">Відновити з хмари?</string>
+    <string name="webdav_restore_confirm_message">Буде прочитано файл резервної копії з вашого сервера WebDAV, а джерела та групи з нього додано на цей телефон. Нічого не видаляється й не перезаписується.</string>
+    <string name="webdav_restore_confirm_action">Відновити</string>
     <string name="webdav_server_url">URL сервера WebDAV</string>
     <string name="webdav_username">Ім\'я користувача</string>
     <string name="zen_audio_focus_denied">У фокусі аудіо відмовлено іншим застосунком</string>

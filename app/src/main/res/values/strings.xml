@@ -815,6 +815,9 @@
     <string name="webdav_restore_now">Restore from Cloud</string>
     <string name="webdav_backup_success">OPML backup uploaded successfully!</string>
     <string name="webdav_restore_success">Feeds and groups restored successfully from cloud!</string>
+    <string name="webdav_restore_confirm_title">Restore from cloud?</string>
+    <string name="webdav_restore_confirm_message">This reads the backup file from your WebDAV server and adds the feeds and groups in it to this phone. Nothing is deleted or overwritten.</string>
+    <string name="webdav_restore_confirm_action">Restore</string>
     <string name="webdav_last_backup">Last backup: %1$s</string>
     <string name="invalid_credentials">Invalid credentials, please check server URL, username and password</string>
 

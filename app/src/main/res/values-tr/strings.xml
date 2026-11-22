@@ -750,6 +750,9 @@
     <string name="webdav_password">Parola / Uygulama Anahtarı</string>
     <string name="webdav_restore_now">Buluttan Geri Yükle</string>
     <string name="webdav_restore_success">Beslemeler ve gruplar buluttan başarıyla geri yüklendi!</string>
+    <string name="webdav_restore_confirm_title">Buluttan geri yüklensin mi?</string>
+    <string name="webdav_restore_confirm_message">Bu işlem, WebDAV sunucunuzdaki yedek dosyasını okur ve içindeki kaynakları ve grupları bu telefona ekler. Hiçbir şey silinmez veya üzerine yazılmaz.</string>
+    <string name="webdav_restore_confirm_action">Geri yükle</string>
     <string name="webdav_server_url">WebDAV Sunucu URL\'si</string>
     <string name="webdav_username">Kullanıcı Adı</string>
     <string name="zen_audio_focus_denied">Ses odağı başka bir uygulama tarafından reddedildi</string>

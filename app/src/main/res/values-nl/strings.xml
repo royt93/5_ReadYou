@@ -750,6 +750,9 @@
     <string name="webdav_password">Wachtwoord / app-token</string>
     <string name="webdav_restore_now">Herstellen vanuit cloud</string>
     <string name="webdav_restore_success">Feeds en groepen succesvol hersteld vanuit de cloud!</string>
+    <string name="webdav_restore_confirm_title">Herstellen vanuit de cloud?</string>
+    <string name="webdav_restore_confirm_message">Hiermee wordt het back-upbestand van je WebDAV-server gelezen en worden de bronnen en groepen erin aan deze telefoon toegevoegd. Er wordt niets verwijderd of overschreven.</string>
+    <string name="webdav_restore_confirm_action">Herstellen</string>
     <string name="webdav_server_url">WebDAV-server-URL</string>
     <string name="webdav_username">Gebruikersnaam</string>
     <string name="zen_audio_focus_denied">Audiofocus geweigerd door een andere app</string>

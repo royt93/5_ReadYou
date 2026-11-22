@@ -736,6 +736,9 @@
     <string name="webdav_restore_now">Aus der Cloud wiederherstellen</string>
     <string name="webdav_backup_success">OPML-Sicherung erfolgreich hochgeladen!</string>
     <string name="webdav_restore_success">Feeds und Gruppen erfolgreich aus der Cloud wiederhergestellt!</string>
+    <string name="webdav_restore_confirm_title">Aus der Cloud wiederherstellen?</string>
+    <string name="webdav_restore_confirm_message">Dadurch wird die Sicherungsdatei von Ihrem WebDAV-Server gelesen und die darin enthaltenen Feeds und Gruppen werden zu diesem Telefon hinzugefügt. Nichts wird gelöscht oder überschrieben.</string>
+    <string name="webdav_restore_confirm_action">Wiederherstellen</string>
     <string name="webdav_last_backup">Letzte Sicherung: %1$s</string>
     <string name="invalid_credentials">Ungültige Anmeldedaten, bitte Server-URL, Benutzername und Passwort prüfen</string>
 

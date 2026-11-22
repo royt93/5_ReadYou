@@ -752,6 +752,9 @@
     <string name="webdav_password">Parolă / Token de aplicație</string>
     <string name="webdav_restore_now">Restaurează din cloud</string>
     <string name="webdav_restore_success">Fluxurile și grupurile au fost restaurate cu succes din cloud!</string>
+    <string name="webdav_restore_confirm_title">Restaurați din cloud?</string>
+    <string name="webdav_restore_confirm_message">Aceasta citește fișierul de rezervă de pe serverul dvs. WebDAV și adaugă pe acest telefon sursele și grupurile din el. Nimic nu este șters sau suprascris.</string>
+    <string name="webdav_restore_confirm_action">Restaurați</string>
     <string name="webdav_server_url">URL server WebDAV</string>
     <string name="webdav_username">Nume de utilizator</string>
     <string name="zen_audio_focus_denied">Focalizarea audio a fost refuzată de o altă aplicație</string>

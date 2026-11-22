@@ -824,6 +824,9 @@
     <string name="webdav_password">Heslo / token aplikace</string>
     <string name="webdav_restore_now">Obnovit z cloudu</string>
     <string name="webdav_restore_success">Zdroje a skupiny byly úspěšně obnoveny z cloudu!</string>
+    <string name="webdav_restore_confirm_title">Obnovit z cloudu?</string>
+    <string name="webdav_restore_confirm_message">Přečte se záložní soubor z vašeho serveru WebDAV a zdroje a skupiny v něm se přidají do tohoto telefonu. Nic se nemaže ani nepřepisuje.</string>
+    <string name="webdav_restore_confirm_action">Obnovit</string>
     <string name="webdav_server_url">URL serveru WebDAV</string>
     <string name="webdav_username">Uživatelské jméno</string>
     <string name="zen_audio_focus_denied">Zaostření zvuku zamítnuto jinou aplikací</string>

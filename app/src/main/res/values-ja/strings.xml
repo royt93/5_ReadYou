@@ -747,6 +747,9 @@
     <string name="webdav_restore_now">クラウドから復元</string>
     <string name="webdav_backup_success">OPML バックアップが正常にアップロードされました！</string>
     <string name="webdav_restore_success">クラウドからフィードとグループが正常に復元されました！</string>
+    <string name="webdav_restore_confirm_title">クラウドから復元しますか？</string>
+    <string name="webdav_restore_confirm_message">WebDAVサーバーからバックアップファイルを読み込み、含まれているフィードとグループをこの端末に追加します。削除や上書きは行われません。</string>
+    <string name="webdav_restore_confirm_action">復元</string>
     <string name="webdav_last_backup">最終バックアップ：%1$s</string>
     <string name="invalid_credentials">認証情報が無効です。サーバーURL、ユーザー名、パスワードを確認してください</string>
 

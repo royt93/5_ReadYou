@@ -752,6 +752,9 @@
     <string name="webdav_password">Contraseña / Token de aplicación</string>
     <string name="webdav_restore_now">Restaurar desde la nube</string>
     <string name="webdav_restore_success">¡Fuentes y grupos restaurados correctamente desde la nube!</string>
+    <string name="webdav_restore_confirm_title">¿Restaurar desde la nube?</string>
+    <string name="webdav_restore_confirm_message">Esto lee el archivo de copia de seguridad de su servidor WebDAV y añade a este teléfono las fuentes y los grupos que contiene. No se elimina ni se sobrescribe nada.</string>
+    <string name="webdav_restore_confirm_action">Restaurar</string>
     <string name="webdav_server_url">URL del servidor WebDAV</string>
     <string name="webdav_username">Usuario</string>
     <string name="zen_audio_focus_denied">Foco de audio denegado por otra app</string>

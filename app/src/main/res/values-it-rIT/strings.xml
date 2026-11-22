@@ -750,6 +750,9 @@
     <string name="webdav_password">Password / Token app</string>
     <string name="webdav_restore_now">Ripristina dal cloud</string>
     <string name="webdav_restore_success">Feed e gruppi ripristinati correttamente dal cloud!</string>
+    <string name="webdav_restore_confirm_title">Ripristinare dal cloud?</string>
+    <string name="webdav_restore_confirm_message">Questo legge il file di backup dal tuo server WebDAV e aggiunge a questo telefono le fonti e i gruppi che contiene. Nulla viene eliminato o sovrascritto.</string>
+    <string name="webdav_restore_confirm_action">Ripristina</string>
     <string name="webdav_server_url">URL server WebDAV</string>
     <string name="webdav_username">Nome utente</string>
     <string name="zen_audio_focus_denied">Focus audio negato da un\'altra app</string>

@@ -750,6 +750,9 @@
     <string name="webdav_password">Passord / App-token</string>
     <string name="webdav_restore_now">Gjenopprett fra sky</string>
     <string name="webdav_restore_success">OPML gjenopprettet fra WebDAV!</string>
+    <string name="webdav_restore_confirm_title">Gjenopprette fra skyen?</string>
+    <string name="webdav_restore_confirm_message">Dette leser sikkerhetskopifilen fra WebDAV-serveren din og legger kildene og gruppene i den til denne telefonen. Ingenting slettes eller overskrives.</string>
+    <string name="webdav_restore_confirm_action">Gjenopprett</string>
     <string name="webdav_server_url">WebDAV-server-URL</string>
     <string name="webdav_username">Brukernavn</string>
     <string name="zen_audio_focus_denied">Lydfokus avslått av en annen app</string>

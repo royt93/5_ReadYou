@@ -752,6 +752,9 @@
     <string name="webdav_password">Senha / Token do app</string>
     <string name="webdav_restore_now">Restaurar da nuvem</string>
     <string name="webdav_restore_success">Feeds e grupos restaurados da nuvem com sucesso!</string>
+    <string name="webdav_restore_confirm_title">Restaurar da nuvem?</string>
+    <string name="webdav_restore_confirm_message">Isso lê o arquivo de backup do seu servidor WebDAV e adiciona a este celular as fontes e os grupos que ele contém. Nada é excluído nem substituído.</string>
+    <string name="webdav_restore_confirm_action">Restaurar</string>
     <string name="webdav_server_url">URL do servidor WebDAV</string>
     <string name="webdav_username">Usuário</string>
     <string name="zen_audio_focus_denied">Foco de áudio negado por outro app</string>

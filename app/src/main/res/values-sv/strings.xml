@@ -749,6 +749,9 @@
     <string name="webdav_password">Lösenord / apptoken</string>
     <string name="webdav_restore_now">Återställ från molnet</string>
     <string name="webdav_restore_success">Flöden och grupper återställda från molnet!</string>
+    <string name="webdav_restore_confirm_title">Återställ från molnet?</string>
+    <string name="webdav_restore_confirm_message">Detta läser säkerhetskopian från din WebDAV-server och lägger till källorna och grupperna i den på den här telefonen. Inget raderas eller skrivs över.</string>
+    <string name="webdav_restore_confirm_action">Återställ</string>
     <string name="webdav_server_url">WebDAV-server-URL</string>
     <string name="webdav_username">Användarnamn</string>
     <string name="zen_audio_focus_denied">Ljudfokus nekat av en annan app</string>

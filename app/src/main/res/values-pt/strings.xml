@@ -753,6 +753,9 @@
     <string name="webdav_password">Palavra-passe / Token da aplicação</string>
     <string name="webdav_restore_now">Restaurar da nuvem</string>
     <string name="webdav_restore_success">Feeds e grupos restaurados com sucesso a partir da nuvem!</string>
+    <string name="webdav_restore_confirm_title">Restaurar da nuvem?</string>
+    <string name="webdav_restore_confirm_message">Isto lê o ficheiro de cópia de segurança do seu servidor WebDAV e adiciona a este telemóvel as fontes e os grupos que contém. Nada é eliminado nem substituído.</string>
+    <string name="webdav_restore_confirm_action">Restaurar</string>
     <string name="webdav_server_url">URL do servidor WebDAV</string>
     <string name="webdav_username">Nome de utilizador</string>
     <string name="zen_audio_focus_denied">Foco de áudio negado por outra aplicação</string>

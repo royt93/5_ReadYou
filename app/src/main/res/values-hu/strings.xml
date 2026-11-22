@@ -745,6 +745,9 @@
     <string name="webdav_password">Jelszó / alkalmazás-token</string>
     <string name="webdav_restore_now">Visszaállítás a felhőből</string>
     <string name="webdav_restore_success">A források és csoportok sikeresen visszaállítva a felhőből!</string>
+    <string name="webdav_restore_confirm_title">Visszaállítás a felhőből?</string>
+    <string name="webdav_restore_confirm_message">Ez beolvassa a biztonsági mentés fájlját a WebDAV-kiszolgálóról, és hozzáadja a benne lévő forrásokat és csoportokat ehhez a telefonhoz. Semmi nem törlődik és nem íródik felül.</string>
+    <string name="webdav_restore_confirm_action">Visszaállítás</string>
     <string name="webdav_server_url">WebDAV szerver URL-je</string>
     <string name="webdav_username">Felhasználónév</string>
     <string name="zen_audio_focus_denied">Egy másik alkalmazás megtagadta a hangfókuszt</string>

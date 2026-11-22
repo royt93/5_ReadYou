@@ -820,6 +820,9 @@
     <string name="webdav_password">Pasahitza / Aplikazio Tokena</string>
     <string name="webdav_restore_now">Berreskuratu Hodeitik</string>
     <string name="webdav_restore_success">Jarioak eta taldeak ondo berreskuratu dira hodeitik!</string>
+    <string name="webdav_restore_confirm_title">Hodeitik berreskuratu?</string>
+    <string name="webdav_restore_confirm_message">Honek zure WebDAV zerbitzariko babeskopia-fitxategia irakurtzen du eta bertan dauden iturriak eta taldeak telefono honetara gehitzen ditu. Ez da ezer ezabatzen edo gainidazten.</string>
+    <string name="webdav_restore_confirm_action">Berreskuratu</string>
     <string name="webdav_server_url">WebDAV Zerbitzariaren URLa</string>
     <string name="webdav_username">Erabiltzaile-izena</string>
     <string name="zen_audio_focus_denied">Beste aplikazio batek ukatu du audio-fokua</string>

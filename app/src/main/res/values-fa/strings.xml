@@ -749,6 +749,9 @@
     <string name="webdav_password">رمز عبور / توکن برنامه</string>
     <string name="webdav_restore_now">بازیابی از فضای ابری</string>
     <string name="webdav_restore_success">خوراک‌ها و گروه‌ها با موفقیت از فضای ابری بازیابی شدند!</string>
+    <string name="webdav_restore_confirm_title">از فضای ابری بازیابی شود؟</string>
+    <string name="webdav_restore_confirm_message">این کار فایل پشتیبان را از سرور WebDAV شما می‌خواند و منابع و گروه‌های داخل آن را به این تلفن اضافه می‌کند. چیزی حذف یا بازنویسی نمی‌شود.</string>
+    <string name="webdav_restore_confirm_action">بازیابی</string>
     <string name="webdav_server_url">نشانی سرور WebDAV</string>
     <string name="webdav_username">نام کاربری</string>
     <string name="zen_audio_focus_denied">دسترسی به پخش صدا توسط برنامه دیگری رد شد</string>

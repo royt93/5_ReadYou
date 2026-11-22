@@ -746,6 +746,9 @@
     <string name="webdav_password">密碼 / App 權杖</string>
     <string name="webdav_restore_now">從雲端還原</string>
     <string name="webdav_restore_success">已成功從雲端還原來源與群組！</string>
+    <string name="webdav_restore_confirm_title">從雲端還原？</string>
+    <string name="webdav_restore_confirm_message">這會從您的 WebDAV 伺服器讀取備份檔，並將其中的來源與群組加入這支手機。不會刪除或覆寫任何內容。</string>
+    <string name="webdav_restore_confirm_action">還原</string>
     <string name="webdav_server_url">WebDAV 伺服器網址</string>
     <string name="webdav_username">使用者名稱</string>
     <string name="zen_audio_focus_denied">音訊焦點遭其他 App 拒絕</string>

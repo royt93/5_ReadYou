@@ -822,6 +822,9 @@
     <string name="webdav_password">പാസ്‌വേഡ് / ആപ്പ് ടോക്കൺ</string>
     <string name="webdav_restore_now">ക്ലൗഡിൽ നിന്ന് പുനഃസ്ഥാപിക്കുക</string>
     <string name="webdav_restore_success">ഫീഡുകളും ഗ്രൂപ്പുകളും ക്ലൗഡിൽ നിന്ന് വിജയകരമായി പുനഃസ്ഥാപിച്ചു!</string>
+    <string name="webdav_restore_confirm_title">ക്ലൗഡിൽ നിന്ന് പുനഃസ്ഥാപിക്കണോ?</string>
+    <string name="webdav_restore_confirm_message">ഇത് നിങ്ങളുടെ WebDAV സെർവറിൽ നിന്ന് ബാക്കപ്പ് ഫയൽ വായിച്ച് അതിലെ ഉറവിടങ്ങളും ഗ്രൂപ്പുകളും ഈ ഫോണിലേക്ക് ചേർക്കുന്നു. ഒന്നും ഇല്ലാതാക്കുകയോ തിരുത്തിയെഴുതുകയോ ചെയ്യില്ല.</string>
+    <string name="webdav_restore_confirm_action">പുനഃസ്ഥാപിക്കുക</string>
     <string name="webdav_server_url">WebDAV സെർവർ URL</string>
     <string name="webdav_username">യൂസർനെയിം</string>
     <string name="zen_audio_focus_denied">മറ്റൊരു ആപ്പ് ഓഡിയോ ഫോക്കസ് നിരസിച്ചു</string>

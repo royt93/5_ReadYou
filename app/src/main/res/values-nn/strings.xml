@@ -822,6 +822,9 @@
     <string name="webdav_password">Passord / app-token</string>
     <string name="webdav_restore_now">Gjenopprett frå sky</string>
     <string name="webdav_restore_success">Kjelder og grupper gjenoppretta frå skya!</string>
+    <string name="webdav_restore_confirm_title">Gjenopprette frå skyen?</string>
+    <string name="webdav_restore_confirm_message">Dette les sikkerheitskopifila frå WebDAV-tenaren din og legg kjeldene og gruppene i henne til denne telefonen. Ingenting blir sletta eller overskrive.</string>
+    <string name="webdav_restore_confirm_action">Gjenopprett</string>
     <string name="webdav_server_url">WebDAV tenar-URL</string>
     <string name="webdav_username">Brukarnamn</string>
     <string name="zen_audio_focus_denied">Lydfokus avslått av ein annan app</string>

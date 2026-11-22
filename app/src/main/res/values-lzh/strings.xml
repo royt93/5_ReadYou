@@ -821,6 +821,9 @@
     <string name="webdav_password">密碼／應用權杖</string>
     <string name="webdav_restore_now">自雲端復原</string>
     <string name="webdav_restore_success">源與群組已自雲端復原成功！</string>
+    <string name="webdav_restore_confirm_title">自雲端復原乎？</string>
+    <string name="webdav_restore_confirm_message">此舉自汝之WebDAV伺服器讀取備份檔，並將其中之源與群組增於此機。不刪不覆。</string>
+    <string name="webdav_restore_confirm_action">復原</string>
     <string name="webdav_server_url">WebDAV伺服器之網址</string>
     <string name="webdav_username">用戶名</string>
     <string name="zen_audio_focus_denied">音焦為他應用所拒</string>

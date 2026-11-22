@@ -749,6 +749,9 @@
     <string name="webdav_password">Contrasenya / Testimoni d\'aplicació</string>
     <string name="webdav_restore_now">Restaura des del núvol</string>
     <string name="webdav_restore_success">Fonts i grups restaurats correctament des del núvol!</string>
+    <string name="webdav_restore_confirm_title">Restaurar des del núvol?</string>
+    <string name="webdav_restore_confirm_message">Això llegeix el fitxer de còpia de seguretat del vostre servidor WebDAV i afegeix les fonts i els grups que conté a aquest telèfon. No se suprimeix ni se sobreescriu res.</string>
+    <string name="webdav_restore_confirm_action">Restaura</string>
     <string name="webdav_server_url">URL del servidor WebDAV</string>
     <string name="webdav_username">Nom d\'usuari</string>
     <string name="zen_audio_focus_denied">Una altra aplicació ha denegat el focus d\'àudio</string>

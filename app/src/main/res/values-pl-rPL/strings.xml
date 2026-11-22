@@ -795,6 +795,9 @@
     <string name="webdav_restore_now">Przywróć z chmury</string>
     <string name="webdav_backup_success">Kopia zapasowa OPML przesłana pomyślnie!</string>
     <string name="webdav_restore_success">Źródła i grupy przywrócone pomyślnie z chmury!</string>
+    <string name="webdav_restore_confirm_title">Przywrócić z chmury?</string>
+    <string name="webdav_restore_confirm_message">Spowoduje to odczytanie pliku kopii zapasowej z serwera WebDAV i dodanie źródeł oraz grup z tego pliku do tego telefonu. Nic nie zostanie usunięte ani zastąpione.</string>
+    <string name="webdav_restore_confirm_action">Przywróć</string>
     <string name="webdav_last_backup">Ostatnia kopia zapasowa: %1$s</string>
     <string name="invalid_credentials">Nieprawidłowe dane logowania, sprawdź adres URL serwera, nazwę użytkownika i hasło</string>
     <string name="reels_title">Rolki</string>

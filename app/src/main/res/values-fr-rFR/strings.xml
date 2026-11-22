@@ -739,6 +739,9 @@
     <string name="webdav_restore_now">Restaurer depuis le cloud</string>
     <string name="webdav_backup_success">Sauvegarde OPML téléversée avec succès !</string>
     <string name="webdav_restore_success">Flux et groupes restaurés avec succès depuis le cloud !</string>
+    <string name="webdav_restore_confirm_title">Restaurer depuis le cloud ?</string>
+    <string name="webdav_restore_confirm_message">Ceci lit le fichier de sauvegarde de votre serveur WebDAV et ajoute à ce téléphone les sources et les groupes qu\'il contient. Rien n\'est supprimé ni écrasé.</string>
+    <string name="webdav_restore_confirm_action">Restaurer</string>
     <string name="webdav_last_backup">Dernière sauvegarde : %1$s</string>
     <string name="invalid_credentials">Identifiants invalides, veuillez vérifier l\'URL du serveur, le nom d\'utilisateur et le mot de passe</string>
 

@@ -747,6 +747,9 @@
     <string name="webdav_password">पासवर्ड / ऐप टोकन</string>
     <string name="webdav_restore_now">क्लाउड से रीस्टोर करें</string>
     <string name="webdav_restore_success">फ़ीड और ग्रुप क्लाउड से सफलतापूर्वक रीस्टोर हो गए!</string>
+    <string name="webdav_restore_confirm_title">क्लाउड से पुनर्स्थापित करें?</string>
+    <string name="webdav_restore_confirm_message">यह आपके WebDAV सर्वर से बैकअप फ़ाइल पढ़ता है और उसमें मौजूद स्रोतों और समूहों को इस फ़ोन में जोड़ता है। कुछ भी हटाया या अधिलेखित नहीं किया जाता।</string>
+    <string name="webdav_restore_confirm_action">पुनर्स्थापित करें</string>
     <string name="webdav_server_url">WebDAV सर्वर URL</string>
     <string name="webdav_username">यूज़रनेम</string>
     <string name="zen_audio_focus_denied">किसी अन्य ऐप ने ऑडियो फ़ोकस देने से मना कर दिया</string>

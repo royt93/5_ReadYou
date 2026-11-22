@@ -755,6 +755,9 @@
     <string name="webdav_password">Пароль / токен приложения</string>
     <string name="webdav_restore_now">Восстановить из облака</string>
     <string name="webdav_restore_success">Ленты и группы успешно восстановлены из облака!</string>
+    <string name="webdav_restore_confirm_title">Восстановить из облака?</string>
+    <string name="webdav_restore_confirm_message">Будет прочитан файл резервной копии с вашего сервера WebDAV, а источники и группы из него добавятся на этот телефон. Ничего не удаляется и не перезаписывается.</string>
+    <string name="webdav_restore_confirm_action">Восстановить</string>
     <string name="webdav_server_url">URL сервера WebDAV</string>
     <string name="webdav_username">Имя пользователя</string>
     <string name="zen_audio_focus_denied">В аудиофокусе отказано другим приложением</string>

@@ -719,6 +719,9 @@
     <string name="webdav_password">Geslo / žeton aplikacije</string>
     <string name="webdav_restore_now">Obnovi iz oblaka</string>
     <string name="webdav_restore_success">Viri in skupine uspešno obnovljeni iz oblaka!</string>
+    <string name="webdav_restore_confirm_title">Obnovi iz oblaka?</string>
+    <string name="webdav_restore_confirm_message">To prebere datoteko z varnostno kopijo z vašega strežnika WebDAV in doda vire ter skupine v njej v ta telefon. Nič se ne izbriše ali prepiše.</string>
+    <string name="webdav_restore_confirm_action">Obnovi</string>
     <string name="webdav_server_url">URL strežnika WebDAV</string>
     <string name="webdav_username">Uporabniško ime</string>
     <string name="zen_audio_focus_denied">Druga aplikacija je zavrnila zvočni fokus</string>

@@ -821,6 +821,9 @@
     <string name="webdav_password">ಪಾಸ್‌ವರ್ಡ್ / ಆ್ಯಪ್ ಟೋಕನ್</string>
     <string name="webdav_restore_now">ಕ್ಲೌಡ್‌ನಿಂದ ಪುನಃಸ್ಥಾಪಿಸಿ</string>
     <string name="webdav_restore_success">ಫೀಡ್‌ಗಳು ಮತ್ತು ಗುಂಪುಗಳನ್ನು ಕ್ಲೌಡ್‌ನಿಂದ ಯಶಸ್ವಿಯಾಗಿ ಪುನಃಸ್ಥಾಪಿಸಲಾಗಿದೆ!</string>
+    <string name="webdav_restore_confirm_title">ಕ್ಲೌಡ್‌ನಿಂದ ಪುನಃಸ್ಥಾಪಿಸಬೇಕೇ?</string>
+    <string name="webdav_restore_confirm_message">ಇದು ನಿಮ್ಮ WebDAV ಸರ್ವರ್‌ನಿಂದ ಬ್ಯಾಕಪ್ ಫೈಲ್ ಅನ್ನು ಓದಿ ಅದರಲ್ಲಿರುವ ಮೂಲಗಳು ಮತ್ತು ಗುಂಪುಗಳನ್ನು ಈ ಫೋನ್‌ಗೆ ಸೇರಿಸುತ್ತದೆ. ಯಾವುದನ್ನೂ ಅಳಿಸಲಾಗುವುದಿಲ್ಲ ಅಥವಾ ಬದಲಿಸಲಾಗುವುದಿಲ್ಲ.</string>
+    <string name="webdav_restore_confirm_action">ಪುನಃಸ್ಥಾಪಿಸಿ</string>
     <string name="webdav_server_url">WebDAV ಸರ್ವರ್ URL</string>
     <string name="webdav_username">ಬಳಕೆದಾರಹೆಸರು</string>
     <string name="zen_audio_focus_denied">ಮತ್ತೊಂದು ಆ್ಯಪ್‌ನಿಂದ ಆಡಿಯೋ ಫೋಕಸ್ ನಿರಾಕರಿಸಲಾಗಿದೆ</string>

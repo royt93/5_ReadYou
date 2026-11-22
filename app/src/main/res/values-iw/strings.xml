@@ -828,6 +828,9 @@
     <string name="webdav_password">סיסמה / טוקן אפליקציה</string>
     <string name="webdav_restore_now">שחזר מהענן</string>
     <string name="webdav_restore_success">הערוצים והקבוצות שוחזרו בהצלחה מהענן!</string>
+    <string name="webdav_restore_confirm_title">לשחזר מהענן?</string>
+    <string name="webdav_restore_confirm_message">פעולה זו קוראת את קובץ הגיבוי משרת ה-WebDAV שלך ומוסיפה לטלפון הזה את המקורות והקבוצות שבו. שום דבר לא נמחק ולא נדרס.</string>
+    <string name="webdav_restore_confirm_action">שחזר</string>
     <string name="webdav_server_url">כתובת URL של שרת WebDAV</string>
     <string name="webdav_username">שם משתמש</string>
     <string name="zen_audio_focus_denied">פוקוס השמע נדחה על ידי אפליקציה אחרת</string>

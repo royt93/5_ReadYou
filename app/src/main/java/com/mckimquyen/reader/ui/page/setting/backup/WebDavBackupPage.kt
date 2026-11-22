@@ -20,6 +20,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.CloudDownload
 import androidx.compose.material.icons.outlined.CloudUpload
 import androidx.compose.material.icons.rounded.ArrowBack
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -29,6 +30,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -65,6 +67,17 @@ fun WebDavBackupPage(
     var serverUrl by remember(config.serverUrl) { mutableStateOf(config.serverUrl) }
     var username by remember(config.username) { mutableStateOf(config.username) }
     var password by remember(config.password) { mutableStateOf(config.password) }
+    var confirmRestore by remember { mutableStateOf(false) }
+
+    if (confirmRestore) {
+        WebDavRestoreConfirmDialog(
+            onConfirm = {
+                confirmRestore = false
+                viewModel.restore()
+            },
+            onDismiss = { confirmRestore = false },
+        )
+    }
 
     val backupSuccessMsg = stringResource(R.string.webdav_backup_success)
     val restoreSuccessMsg = stringResource(R.string.webdav_restore_success)
@@ -218,7 +231,7 @@ fun WebDavBackupPage(
                         }
 
                         OutlinedButton(
-                            onClick = { viewModel.restore() },
+                            onClick = { confirmRestore = true },
                             enabled = canOperate,
                             modifier = Modifier.weight(1f),
                             shape = RoundedCornerShape(12.dp),
@@ -242,5 +255,17 @@ fun WebDavBackupPage(
                 }
             }
         }
+    )
+}
+
+/** A restore reads a file from a server the app does not control and adds its sources and groups, so it asks first. */
+@Composable
+fun WebDavRestoreConfirmDialog(onConfirm: () -> Unit, onDismiss: () -> Unit) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(stringResource(R.string.webdav_restore_confirm_title)) },
+        text = { Text(stringResource(R.string.webdav_restore_confirm_message)) },
+        confirmButton = { TextButton(onClick = onConfirm) { Text(stringResource(R.string.webdav_restore_confirm_action)) } },
+        dismissButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.cancel)) } },
     )
 }

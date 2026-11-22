@@ -748,6 +748,9 @@
     <string name="webdav_password">Kata Sandi / Token Aplikasi</string>
     <string name="webdav_restore_now">Pulihkan dari Cloud</string>
     <string name="webdav_restore_success">Feed dan grup berhasil dipulihkan dari cloud!</string>
+    <string name="webdav_restore_confirm_title">Pulihkan dari Cloud?</string>
+    <string name="webdav_restore_confirm_message">Ini membaca berkas cadangan dari server WebDAV Anda dan menambahkan sumber serta grup di dalamnya ke ponsel ini. Tidak ada yang dihapus atau ditimpa.</string>
+    <string name="webdav_restore_confirm_action">Pulihkan</string>
     <string name="webdav_server_url">URL Server WebDAV</string>
     <string name="webdav_username">Nama Pengguna</string>
     <string name="zen_audio_focus_denied">Fokus audio ditolak oleh aplikasi lain</string>
