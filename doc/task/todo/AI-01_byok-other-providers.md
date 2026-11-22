@@ -28,6 +28,9 @@
 - **Given** bản cũ đã lưu `AiProvider` khác Gemini **When** mở màn hình **Then** hiển thị đúng nhà cung cấp đã nối, hoặc Gemini nếu chưa nối.
 - **And** Data safety khai đúng các điểm đến dữ liệu.
 
+## Phát hiện bố cục trên máy thật (2026-11-23, Tecno KJ7 1080x2436)
+Hàng chip nhà cung cấp là một `Row` cố định 4 chip (`AiSettingsPage.kt:217`); trên máy rộng ~411 dp chip thứ tư `Groq` **bị ép thành cột chữ dọc và cắt ở mép phải** (ảnh `~/exc-flaky-evidence/tecno-ui-20261123/ai.png`). Cấu trúc này có từ commit `10ced53a`, không do việc làm mờ chip. Phương án 1 (bỏ hẳn 3 chip) giải quyết luôn; nếu giữ chip thì cần `FlowRow` hoặc hàng cuộn ngang.
+
 ## Ghi chú cho người thực thi
 - Hiện có `AiProviderChoice` (6 test JVM) và `AiProviderChipsDeviceTest` (3 test máy); khi nối thật phải đổi cả hai.
 - Quyết định này gắn với Data safety (`doc/task/REL-03_data-safety-audit.md`): thêm điểm đến thì phải khai thêm.
