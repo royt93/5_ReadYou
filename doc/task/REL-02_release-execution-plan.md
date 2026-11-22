@@ -101,7 +101,7 @@ Lý do: R8 không chạy trong JVM; lượt đầu tìm ra 2 lỗi thật. Cách
 | 11 | **Khóa ký app public trên GitHub** (`keystores.jks`, mật khẩu trong `keystore.properties` và lịch sử git) | **Critical** | chờ owner kiểm Play Console (Play App Signing); chi tiết ngoài repo |
 | 12 | HTTPS không kiểm chứng chứng chỉ (SEC-01); Play có thể cảnh báo, **chưa kiểm** | High | defer theo owner; khai Data safety không khẳng định "mã hóa mọi dữ liệu khi truyền" |
 | 13 | Bản dịch máy 37 ngôn ngữ của hộp thoại WebDAV chưa có người duyệt | Low | owner duyệt ngôn ngữ biết; test chỉ chứng minh cú pháp |
-| 14 | `SettingsProviderLoggingTest` chập chờn (1 lần đỏ trong 2 lượt full JVM, hạn 5 giây) | Low | chưa có nguyên nhân; chạy lại khi đỏ, kiểm tuổi XML |
+| 14 | `SettingsProviderLoggingTest` chập chờn (1 lần đỏ trong 2 lượt full JVM, hạn 5 giây); **không tái hiện được** (15 lượt riêng lớp, kể cả dưới tải CPU, đều xanh) | Low | chưa có nguyên nhân; nếu đỏ lại, giữ `app/build/test-results` và log của lượt đó trước khi chạy lại; chạy lại và kiểm tuổi XML, không bỏ qua |
 
 ## 5. Quy tắc xuyên suốt
 - Chỉ nhánh `dev`; thử nghiệm là sửa tạm không commit, hoàn nguyên và `cmp` byte-identical.
