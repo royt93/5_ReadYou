@@ -55,7 +55,7 @@
 ### Cổng 2: cổng kiểm cuối (tuần tự, không hai Gradle chung cây, chạy sau Cổng 1)
 1. [ ] `git status` sạch (ngoài `.idea/workspace.xml`), đang ở `dev`, `origin/dev` đồng bộ.
 2. [ ] `./gradlew testDevDebugUnitTest --rerun-tasks`: 0 lỗi, kiểm tuổi XML (bẫy XML cũ sau crash JVM 134, tỷ lệ 2/60).
-3. [ ] Lint (cách đã chọn): 0 lỗi, `NewApi` 0.
+3. [ ] Lint (vá tạm `api-versions.xml`, trả lại bằng `trap`, kiểm sha `9fd47aaa…`): 0 lỗi, `NewApi` 0. **Đã đạt tại HEAD `1b346efc` (2026-11-22)**; chạy lại sau khi SDK ad mới vào.
 4. [ ] `./gradlew assembleProdRelease` và `./gradlew bundleProdRelease` (AAB nộp store): BUILD SUCCESSFUL; `apksigner verify` đọc được chứng chỉ **thật** (không phải khóa debug).
 5. [ ] So APK/AAB mới với bản trước: kích thước, danh sách quyền (`aapt2 dump permissions`), `resourceConfigurations` (37 thư mục, đã khớp), dex không lộ chuỗi trace.
 6. [ ] Bản release trên Tecno theo mục 3 (R8, Retrofit, Gson, quảng cáo thử). Lượt trên Pixel của bản trước đã chứng minh rule Retrofit và Gson (`doc/feature.md`, mục REL-01 R8).
