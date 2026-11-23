@@ -134,6 +134,9 @@ android {
             buildConfigField "String", "VIP_REDEEM_CODES", q(privateProp("VIP_REDEEM_CODES"))
             buildConfigField "String", "PRIVACY_POLICY_URL", q(privateProp("PRIVACY_POLICY_URL"))
             buildConfigField "Boolean", "IS_ENABLE_ADMOB", "true"
+            // Consent test: ./gradlew ... -PumpDebugGeography=EEA -PumpTestDeviceHashedIds=<hash UMP prints in logcat>. Debug only.
+            buildConfigField "String", "UMP_DEBUG_GEOGRAPHY", q(providers.gradleProperty("umpDebugGeography").getOrElse(""))
+            buildConfigField "String", "UMP_TEST_DEVICE_HASHED_IDS", q(providers.gradleProperty("umpTestDeviceHashedIds").getOrElse(""))
         }
 
         release {
@@ -154,6 +157,9 @@ android {
             buildConfigField "String", "VIP_REDEEM_CODES", q(privateProp("VIP_REDEEM_CODES"))
             buildConfigField "String", "PRIVACY_POLICY_URL", q(privateProp("PRIVACY_POLICY_URL"))
             buildConfigField "Boolean", "IS_ENABLE_ADMOB", "true"
+            // Never a region override in a release build, whatever gradle properties are set.
+            buildConfigField "String", "UMP_DEBUG_GEOGRAPHY", "\"\""
+            buildConfigField "String", "UMP_TEST_DEVICE_HASHED_IDS", "\"\""
 
             signingConfig signingConfigs.release
             debuggable false

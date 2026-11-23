@@ -36,6 +36,7 @@ import com.roy.sdkadbmob.PaidEventListener
 import com.roy.sdkadbmob.SdkVersion
 import com.mckimquyen.reader.ui.page.setting.vip.AdKeys
 import com.mckimquyen.reader.infrastructure.android.SplashActivity
+import com.mckimquyen.reader.infrastructure.android.AdUmpDebug
 import com.mckimquyen.reader.domain.commute.CommuteScheduleMigration
 import com.mckimquyen.reader.ui.ext.commuteBatteryConditionApplied
 import com.mckimquyen.reader.ui.ext.commuteListenMinuteOfDay
@@ -187,6 +188,9 @@ class RApp : Application(), WorkConfiguration.Provider, ImageLoaderFactory {
             // Pay the reward the moment the user has earned it (Google's recommendation); the callback still fires exactly once,
             // and every rewarded call site in this app reads that single callback, so nothing is paid twice.
             grantRewardOnEarn      = true,
+            // Consent test only: force the UMP form for a phone outside the EEA. Empty (null) unless a debug build was given the gradle properties.
+            umpDebugGeography      = if (BuildConfig.DEBUG) AdUmpDebug.geographyOrNull(BuildConfig.UMP_DEBUG_GEOGRAPHY) else null,
+            umpTestDeviceHashedIds = if (BuildConfig.DEBUG) AdUmpDebug.parseHashedIds(BuildConfig.UMP_TEST_DEVICE_HASHED_IDS) else emptyList(),
             // The splash already runs consent and the SDK's own splash ad; an App Open on top of it would stack two ads.
             appOpenExcludedActivities = listOf(SplashActivity::class.java),
             // Debug: nới throttle để QC test ad nhanh. Release: balanced preset cho app reader.
