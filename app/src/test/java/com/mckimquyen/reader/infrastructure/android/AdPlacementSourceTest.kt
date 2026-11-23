@@ -48,6 +48,18 @@ class AdPlacementSourceTest {
     }
 
     @Test
+    fun everyFileThatSuppressesOnLaunchReleasesInItsResultCallback() {
+        // A launch without a release keeps the app open ad off for the SDK's five minute limit.
+        val launchers = Regex("""\.launchGuarded\(""")
+        val releases = Regex("""AppOpenGuard\.shared\.onResult\(\)""")
+        val offenders = allKotlin().filter { (name, t) ->
+            !name.endsWith("AppOpenGuard.kt") && launchers.findAll(t).count() > 0 &&
+                releases.findAll(t).count() < Regex("""rememberLauncherForActivityResult\(""").findAll(t).count()
+        }.map { it.first }
+        assertEquals("files with a guarded launch but fewer releases than launchers: $offenders", emptyList<String>(), offenders)
+    }
+
+    @Test
     fun theGuardTurnsTheSuppressionOffWhenTheResultComes_andOnAnyError() {
         val helper = src("infrastructure/android/AppOpenGuard.kt")
         assertTrue("the result callback must clear the flag", helper.contains("finally") || helper.contains("onResult"))

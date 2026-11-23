@@ -33,6 +33,6 @@ class AppOpenGuard(private val setSuppressed: (Boolean) -> Unit = AdManager::sup
         val shared: AppOpenGuard by lazy { AppOpenGuard() } // lazy: a plain JVM test must be able to load the class without the ad SDK
 
         /** `launcher.launch(input)` with the app open ad suppressed until the result. */
-        fun <I> ActivityResultLauncher<I>.launchGuarded(input: I) = shared.wrap<I> { launch(it) }(input)
+        fun <I> ActivityResultLauncher<I>.launchGuarded(input: I, guard: AppOpenGuard = shared) = guard.wrap<I> { launch(it) }(input)
     }
 }
