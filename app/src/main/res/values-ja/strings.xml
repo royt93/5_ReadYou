@@ -373,6 +373,9 @@
     <string name="vip_success_title">成功</string>
     <string name="vip_success_message">VIPが%1$d日間有効になりました。</string>
     <string name="vip_failed_title">失敗</string>
+    <string name="ad_attribution_label" translatable="false">Ad Networks (AdMob / AppLovin MAX)</string>
+    <string name="vip_failed_busy">前のコードを確認中です。少し待ってからもう一度お試しください。</string>
+    <string name="vip_failed_no_network">コードの有効化にはインターネット接続が必要です。接続してもう一度お試しください。</string>
     <string name="vip_failed_invalid_key">無効なコードです。もう一度ご確認ください。</string>
     <string name="privacy_policy">プライバシーポリシー</string>
     <string name="ok">OK</string>

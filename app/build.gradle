@@ -9,15 +9,51 @@ plugins {
 
 def gitCommitHash = "git rev-parse --verify --short HEAD".execute().text.trim()
 
-// Load keystore properties from file for security
-def keystoreProps = new Properties()
-def keystorePropsFile = rootProject.file("keystore.properties")
-if (keystorePropsFile.exists()) {
-    keystoreProps.load(new FileInputStream(keystorePropsFile))
+// Every secret (signing, ad ids, VIP keys, test-device hashes) lives in ONE private file outside this repo:
+// myKeyStore/com.mckimquyen.reader/app.properties (+ keystore.jks next to it). Nothing sensitive is committed here.
+// An explicit READER_PRIVATE_CONFIG_DIR wins outright: pointing it at a wrong folder must not silently fall back to another one.
+def explicitPrivateDir = System.getenv("READER_PRIVATE_CONFIG_DIR")
+def privateConfigDirs = (explicitPrivateDir ? [explicitPrivateDir] : [
+        "/Users/loitran/AndroidStudioProjects/@mckimquyen/myKeyStore/com.mckimquyen.reader",
+        "/Users/LoiTP/StudioProjects/roy/myKeyStore/com.mckimquyen.reader",
+]).collect { new File(it) }
+def privateConfigDir = privateConfigDirs.find { new File(it, "app.properties").exists() }
+def privateProps = new Properties()
+if (privateConfigDir != null) {
+    new File(privateConfigDir, "app.properties").withInputStream { privateProps.load(it) }
 }
 
-// Release AdMob Rewarded ID: read from keystore.properties or env var, fallback to production publisher ID (never Google test ID)
-def releaseAdmobRewardedId = keystoreProps['admob.rewarded.id'] ?: System.getenv("ADMOB_REWARDED_ID") ?: "ca-app-pub-3612191981543807/5224354917"
+// A release build must never fall back to a test id or a missing key: it stops here instead of shipping wrong ads.
+// Debug/test/lint tasks stay usable on a machine without the private folder.
+def releaseRequested = gradle.startParameter.taskNames.any {
+    def n = it.toLowerCase()
+    n.contains("release") || n.contains("bundle")
+}
+
+def privateProp = { String key ->
+    def v = privateProps.getProperty(key)
+    if (v == null || v.trim().isEmpty()) {
+        if (releaseRequested) {
+            throw new GradleException("Release build needs '${key}' in app.properties (READER_PRIVATE_CONFIG_DIR or myKeyStore/com.mckimquyen.reader)")
+        }
+        return ""
+    }
+    return v.trim()
+}
+// Quote a value for buildConfigField; keys never contain quotes or backslashes, so refuse them rather than escape.
+def q = { String v ->
+    if (v.contains('"') || v.contains('\\')) {
+        throw new GradleException("Value contains a quote or backslash, not allowed in a BuildConfig string")
+    }
+    return "\"${v}\"".toString()
+}
+
+// Google's public sample ids: safe for debug, never for release.
+def GOOGLE_TEST_APP_ID = "ca-app-pub-3940256099942544~3347511713"
+def GOOGLE_TEST_BANNER = "ca-app-pub-3940256099942544/6300978111"
+def GOOGLE_TEST_INTERSTITIAL = "ca-app-pub-3940256099942544/1033173712"
+def GOOGLE_TEST_APP_OPEN = "ca-app-pub-3940256099942544/9257395921"
+def GOOGLE_TEST_REWARDED = "ca-app-pub-3940256099942544/5224354917"
 
 android {
     namespace 'com.mckimquyen.reader'
@@ -71,44 +107,52 @@ android {
     }
     signingConfigs {
         release {
-            if (keystorePropsFile.exists()) {
-                storeFile file(keystoreProps['storeFile'])
-                storePassword keystoreProps['storePassword']
-                keyAlias keystoreProps['keyAlias']
-                keyPassword keystoreProps['keyPassword']
+            if (privateConfigDir != null && privateProps.getProperty("KEYSTORE_FILE") != null) {
+                storeFile new File(privateConfigDir, privateProps.getProperty("KEYSTORE_FILE"))
+                storePassword privateProps.getProperty("KS_STORE_PASSWORD")
+                keyAlias privateProps.getProperty("KS_ALIAS")
+                keyPassword privateProps.getProperty("KS_KEY_PASSWORD")
             }
         }
     }
     buildTypes {
         debug {
-            buildConfigField "String", "APPLOVIN_SDK_KEY", "\"e75FnQfS9XTTqM1Kne69U7PW_MBgAnGQTFvtwVVui6kRPKs5L7ws9twr5IQWwVfzPKZ5pF2IfDa7lguMgGlCyt\""
-            buildConfigField "String", "APPLOVIN_BANNER_ID", "\"1c8add7db0559d0b\""
-            buildConfigField "String", "APPLOVIN_INTERSTITIAL_ID", "\"c64cc20b2583e3cb\""
-            buildConfigField "String", "APPLOVIN_APP_OPEN_ID", "\"4e74ffbdceb9a6cf\""
-            buildConfigField "String", "ADMOB_BANNER_ID", "\"ca-app-pub-3940256099942544/6300978111\""
-            buildConfigField "String", "ADMOB_INTERSTITIAL_ID", "\"ca-app-pub-3940256099942544/1033173712\""
-            buildConfigField "String", "ADMOB_APP_OPEN_ID", "\"ca-app-pub-3940256099942544/9257395921\""
-            // Rewarded — AppLovin là provider chính (real ID); AdMob phụ dùng Google test ID.
-            buildConfigField "String", "APPLOVIN_REWARDED_ID", "\"2d899bfeff96984a\""
-            buildConfigField "String", "ADMOB_REWARDED_ID", "\"ca-app-pub-3940256099942544/5224354917\""
-            buildConfigField "String", "PRIVACY_POLICY_URL", "\"https://loitp.notion.site/Term-Privacy-Policy-Disclaimer-319b1cd8783942fa8923d2a3c9bce60f\""
+            // Debug serves Google's sample ad units only. AppLovin has no sample units, so its ids come from the private file.
+            buildConfigField "String", "APPLOVIN_SDK_KEY", q(privateProp("APPLOVIN_SDK_KEY"))
+            buildConfigField "String", "APPLOVIN_BANNER_ID", q(privateProp("APPLOVIN_BANNER_ID"))
+            buildConfigField "String", "APPLOVIN_INTERSTITIAL_ID", q(privateProp("APPLOVIN_INTERSTITIAL_ID"))
+            buildConfigField "String", "APPLOVIN_APP_OPEN_ID", q(privateProp("APPLOVIN_APP_OPEN_ID"))
+            buildConfigField "String", "APPLOVIN_REWARDED_ID", q(privateProp("APPLOVIN_REWARDED_ID"))
+            buildConfigField "String", "ADMOB_BANNER_ID", q(GOOGLE_TEST_BANNER)
+            buildConfigField "String", "ADMOB_INTERSTITIAL_ID", q(GOOGLE_TEST_INTERSTITIAL)
+            buildConfigField "String", "ADMOB_APP_OPEN_ID", q(GOOGLE_TEST_APP_OPEN)
+            buildConfigField "String", "ADMOB_REWARDED_ID", q(GOOGLE_TEST_REWARDED)
+            manifestPlaceholders = [admobAppId: GOOGLE_TEST_APP_ID]
+            buildConfigField "String", "ADMOB_TEST_DEVICE_IDS", q(privateProp("ADMOB_TEST_DEVICE_IDS"))
+            buildConfigField "String", "VIP_KEY_SECRET", q(privateProp("VIP_INTEGRITY_SECRET"))
+            buildConfigField "String", "VIP_TOKEN_PUBLIC_KEY", q(privateProp("VIP_TOKEN_PUBLIC_KEY"))
+            buildConfigField "String", "VIP_REDEEM_CODES", q(privateProp("VIP_REDEEM_CODES"))
+            buildConfigField "String", "PRIVACY_POLICY_URL", q(privateProp("PRIVACY_POLICY_URL"))
             buildConfigField "Boolean", "IS_ENABLE_ADMOB", "true"
         }
 
         release {
-            // nhớ check APPLICATION_ID trong manifest
-            buildConfigField "String", "APPLOVIN_SDK_KEY", "\"e75FnQfS9XTTqM1Kne69U7PW_MBgAnGQTFvtwVVui6kRPKs5L7ws9twr5IQWwVfzPKZ5pF2IfDa7lguMgGlCyt\""
-            buildConfigField "String", "APPLOVIN_BANNER_ID", "\"1c8add7db0559d0b\""
-            buildConfigField "String", "APPLOVIN_INTERSTITIAL_ID", "\"c64cc20b2583e3cb\""
-            buildConfigField "String", "APPLOVIN_APP_OPEN_ID", "\"4e74ffbdceb9a6cf\""
-            buildConfigField "String", "ADMOB_BANNER_ID", "\"ca-app-pub-3612191981543807/6401478547\""
-            buildConfigField "String", "ADMOB_INTERSTITIAL_ID", "\"ca-app-pub-3612191981543807/4529159528\""
-            buildConfigField "String", "ADMOB_APP_OPEN_ID", "\"ca-app-pub-3612191981543807/4028490288\""
-            // Rewarded — AppLovin là provider chính (real ID).
-            // Production AdMob Rewarded ID configured via keystore.properties / env var / production ID
-            buildConfigField "String", "APPLOVIN_REWARDED_ID", "\"2d899bfeff96984a\""
-            buildConfigField "String", "ADMOB_REWARDED_ID", "\"${releaseAdmobRewardedId}\""
-            buildConfigField "String", "PRIVACY_POLICY_URL", "\"https://loitp.notion.site/Term-Privacy-Policy-Disclaimer-319b1cd8783942fa8923d2a3c9bce60f\""
+            // Release has no fallback: a missing key stops the build (privateProp), a test id would ship zero revenue.
+            buildConfigField "String", "APPLOVIN_SDK_KEY", q(privateProp("APPLOVIN_SDK_KEY"))
+            buildConfigField "String", "APPLOVIN_BANNER_ID", q(privateProp("APPLOVIN_BANNER_ID"))
+            buildConfigField "String", "APPLOVIN_INTERSTITIAL_ID", q(privateProp("APPLOVIN_INTERSTITIAL_ID"))
+            buildConfigField "String", "APPLOVIN_APP_OPEN_ID", q(privateProp("APPLOVIN_APP_OPEN_ID"))
+            buildConfigField "String", "APPLOVIN_REWARDED_ID", q(privateProp("APPLOVIN_REWARDED_ID"))
+            buildConfigField "String", "ADMOB_BANNER_ID", q(privateProp("ADMOB_BANNER_ID"))
+            buildConfigField "String", "ADMOB_INTERSTITIAL_ID", q(privateProp("ADMOB_INTERSTITIAL_ID"))
+            buildConfigField "String", "ADMOB_APP_OPEN_ID", q(privateProp("ADMOB_APP_OPEN_ID"))
+            buildConfigField "String", "ADMOB_REWARDED_ID", q(privateProp("ADMOB_REWARDED_ID"))
+            manifestPlaceholders = [admobAppId: privateProp("ADMOB_APP_ID")]
+            buildConfigField "String", "ADMOB_TEST_DEVICE_IDS", q(privateProp("ADMOB_TEST_DEVICE_IDS"))
+            buildConfigField "String", "VIP_KEY_SECRET", q(privateProp("VIP_INTEGRITY_SECRET"))
+            buildConfigField "String", "VIP_TOKEN_PUBLIC_KEY", q(privateProp("VIP_TOKEN_PUBLIC_KEY"))
+            buildConfigField "String", "VIP_REDEEM_CODES", q(privateProp("VIP_REDEEM_CODES"))
+            buildConfigField "String", "PRIVACY_POLICY_URL", q(privateProp("PRIVACY_POLICY_URL"))
             buildConfigField "Boolean", "IS_ENABLE_ADMOB", "true"
 
             signingConfig signingConfigs.release
@@ -200,6 +244,9 @@ dependencies {
     api "com.squareup.okhttp3:okhttp-coroutines-jvm:5.0.0-alpha.11"
     api "com.squareup.retrofit2:retrofit:2.9.0"
     api "com.squareup.retrofit2:converter-gson:2.9.0"
+    // The app calls JsonParser.parseString (Gson 2.8.6+). converter-gson 2.9.0 only brings 2.8.5; the ad SDK 1.1.5 used to lift it
+    // to 2.13.2 as a side effect and 1.8.5 no longer does, so the app declares the version it was built and R8-tested with.
+    api "com.google.code.gson:gson:2.13.2"
     api "androidx.profileinstaller:profileinstaller:1.4.1"
     api "androidx.work:work-runtime-ktx:2.8.0-alpha02"
     api "androidx.datastore:datastore-preferences:1.0.0"
@@ -241,7 +288,7 @@ dependencies {
     implementation("com.google.android.play:review:2.0.1")
     implementation("com.google.android.play:review-ktx:2.0.1")
 
-    implementation("com.github.royt93:AdmobApplovinWrapper:1.1.5")
+    implementation("com.github.royt93:AdmobApplovinWrapper:1.8.5")
 //    implementation("androidx.appcompat:appcompat:1.7.0")
 
     // ProcessPhoenix for app restart

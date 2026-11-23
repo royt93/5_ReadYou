@@ -385,6 +385,9 @@
     <string name="vip_success_title">Erfolg</string>
     <string name="vip_success_message">VIP für %1$d Tage aktiv.</string>
     <string name="vip_failed_title">Fehlgeschlagen</string>
+    <string name="ad_attribution_label" translatable="false">Ad Networks (AdMob / AppLovin MAX)</string>
+    <string name="vip_failed_busy">Ein vorheriger Code wird noch geprüft. Bitte kurz warten und erneut versuchen.</string>
+    <string name="vip_failed_no_network">Zum Aktivieren eines Codes ist eine Internetverbindung nötig. Verbinde dich und versuche es erneut.</string>
     <string name="vip_failed_invalid_key">Ungültiger Code. Bitte erneut prüfen.</string>
     <string name="privacy_policy">Datenschutzrichtlinie</string>
     <string name="ok">OK</string>

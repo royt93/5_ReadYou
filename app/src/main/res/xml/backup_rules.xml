@@ -5,4 +5,6 @@
     <exclude domain="sharedpref" path="pairing_store.xml" />
     <!-- REL-01 M3: the WebDAV password is stored in clear text, so it must not leave the device in a backup. -->
     <exclude domain="sharedpref" path="webdav_backup_prefs.xml" />
+    <!-- AD-01: the ad SDK keeps the used redeem codes and the trial flag here; a restored copy would hand them out again. -->
+    <exclude domain="sharedpref" path="loitp_admob.xml" />
 </full-backup-content>

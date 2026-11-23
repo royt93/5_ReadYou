@@ -523,10 +523,13 @@
     <string name="vip_success_title">Success</string>
     <string name="vip_success_message">VIP active for %1$d days.</string>
     <string name="vip_failed_title">Failed</string>
+    <string name="vip_failed_busy">A previous code is still being checked. Please wait a moment and try again.</string>
+    <string name="vip_failed_no_network">Activating a code needs an internet connection. Connect and try again.</string>
     <string name="vip_failed_invalid_key">Invalid code. Please check again.</string>
     <string name="privacy_policy">Privacy Policy</string>
     <string name="ok">OK</string>
     <string name="vip_rewarded_not_earned">Ad is not available or was not completed. Please try again.</string>
+    <string name="ad_attribution_label" translatable="false">Ad Networks (AdMob / AppLovin MAX)</string>
     <string name="splash_ad_notice">Please note: this app may show ads</string>
     <string name="commute_cast_title">CommuteCast AI DJ</string>
     <string name="commute_cast_subtitle">2-Host Morning Radio Overview</string>

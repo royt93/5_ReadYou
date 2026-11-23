@@ -39,6 +39,19 @@ class ProguardRulesTest {
         }
     }
 
+    /**
+     * Found by the release run on the A50s (2026-11-23): once the update check was switched off nothing called a method of this interface, so the
+     * Retrofit rule `-if interface * { @retrofit2.http.* <methods>; }` never fired, R8 saw an interface nobody implements (Retrofit builds a
+     * java.lang.reflect.Proxy at run time) and compiled `Retrofit.create(...)` into `throw ClassCastException`. The app then crashed in
+     * `RApp.onCreate` on every start of the release build. The interface is injected into RApp, so it has to stay whether or not a method is used.
+     */
+    @Test fun networkDataSource_isKeptSoRetrofitsProxyIsNotCompiledIntoAClassCastException() {
+        val source = source("infrastructure/net/NetworkDataSource.kt")
+        assertTrue(source.contains("interface NetworkDataSource"))
+        val rule = Regex("""-keep\s+interface\s+com\.mckimquyen\.reader\.infrastructure\.net\.NetworkDataSource\s*\{\s*\*;\s*}""")
+        assertTrue("no keep rule for NetworkDataSource", rule.containsMatchIn(rules))
+    }
+
     @Test fun webDavPositionRecord_hasItsFieldsKept() {
         assertTrue(source("infrastructure/sync/WebDavReadPositionSyncer.kt").contains("data class WebDavPositionRecord("))
         assertFieldsKept("com.mckimquyen.reader.infrastructure.sync.WebDavPositionRecord")

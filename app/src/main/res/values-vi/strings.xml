@@ -348,6 +348,9 @@
     <string name="vip_success_title">Thành công</string>
     <string name="vip_success_message">VIP kích hoạt trong %1$d ngày.</string>
     <string name="vip_failed_title">Thất bại</string>
+    <string name="ad_attribution_label" translatable="false">Ad Networks (AdMob / AppLovin MAX)</string>
+    <string name="vip_failed_busy">Mã trước đó vẫn đang được kiểm tra. Vui lòng chờ một lát rồi thử lại.</string>
+    <string name="vip_failed_no_network">Kích hoạt mã cần kết nối internet. Hãy kết nối rồi thử lại.</string>
     <string name="vip_failed_invalid_key">Mã không hợp lệ. Vui lòng kiểm tra lại.</string>
     <string name="privacy_policy">Chính sách bảo mật</string>
     <string name="ok">OK</string>

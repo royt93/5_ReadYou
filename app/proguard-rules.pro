@@ -148,3 +148,9 @@
 -keepclassmembers class com.mckimquyen.reader.infrastructure.ai.DailyDigestSection { <fields>; }
 -keepclassmembers class com.mckimquyen.reader.infrastructure.ai.DailyDigestItem { <fields>; }
 -keepclassmembers class com.mckimquyen.reader.infrastructure.sync.WebDavPositionRecord { <fields>; }
+
+# --- REL-03: found by running the release build on the Samsung A50s. NetworkDataSource is injected into RApp, but since the update check is
+# switched off nothing calls one of its methods, so Retrofit's own rule (`-if interface * { @retrofit2.http.* <methods>; }`) no longer matches and R8
+# turns Retrofit.create(...) into `throw new ClassCastException()` (Retrofit makes the implementation with a java.lang.reflect.Proxy, R8 sees none).
+# Result without this rule: RApp.onCreate crashed on every start of the release build.
+-keep interface com.mckimquyen.reader.infrastructure.net.NetworkDataSource { *; }

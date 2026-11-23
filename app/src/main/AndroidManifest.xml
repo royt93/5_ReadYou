@@ -18,6 +18,9 @@
     <!-- solely for advertising personalization and frequency capping -->
     <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
 
+    <!-- Android 12+: ad networks read the advertising id under this tag; without it logcat floods with attributionTag warnings. -->
+    <attribution android:tag="ads" android:label="@string/ad_attribution_label" />
+
     <queries>
         <intent>
             <action android:name="android.intent.action.MAIN" />
@@ -41,10 +44,10 @@
         android:localeConfig="@xml/locales_config"
         android:usesCleartextTraffic="true">
 
-        <!-- Khai báo AdMob App ID -->
+        <!-- AdMob App ID comes from the build type: Google sample id in debug, the real id (private app.properties) in release. -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3612191981543807~7020425646" /> <!-- Sample AdMob App ID -->
+            android:value="${admobAppId}" />
 
 
 

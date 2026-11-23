@@ -1,4 +1,80 @@
-# Kế hoạch migrate Ad sang `AdmobApplovinWrapper` 1.1.5
+# Tích hợp `AdmobApplovinWrapper` 1.8.5 (cập nhật 2026-11-23)
+
+> Nâng từ 1.1.5 (2026-06-06) lên **1.8.5** theo `doc/AD_PROMPT_AOS.MD`. Provider chạy: **AdMob** (`IS_ENABLE_ADMOB=true`), AppLovin MAX là phụ. Mọi bí mật nằm ngoài repo, ở `myKeyStore/com.mckimquyen.reader/app.properties` (repo private `royt93/myKeyStore`). Audit SDK: `doc/audit/audit_gemini.md`.
+
+## 0. Trạng thái
+
+- JVM **4053 test, 0 lỗi**; lint **0 lỗi** (2.538 cảnh báo, +36 là `Untranslatable` của `ad_attribution_label`, cùng loại 1.900 cái có sẵn); `prodRelease` R8 build được.
+- **Bản release R8 chạy được trên Samsung A50s (Android 11)** sau khi sửa keep rule `NetworkDataSource` (xem mục 6). **Ad chưa được kiểm hiển thị trên máy nào**: A50s là máy whitelist VIP của SDK nên mọi ad bị tắt.
+- Chưa push `dev`. Chưa dựng bản ký khoá phát hành thật.
+
+## 1. Touchpoint
+
+| Slot | File | Trigger | API |
+|---|---|---|---|
+| Init | `RApp.setupAdmob()` | `Application.onCreate` | `setConfig`, `setTestDeviceIds`, `paidEventListener`, `errorReporter`, `initialize` |
+| Consent + App Open splash | `SplashActivity` | `onCreate` | `requestConsentInfoUpdate` rồi `initSplashScreen` (không còn timer 8 giây của app) |
+| App Open resume | SDK | `ProcessLifecycleOwner` | tự động; `SplashActivity` nằm trong `appOpenExcludedActivities` |
+| Banner | `sdkadbmob/ComposeBannerAd` -> `ReadingPage` | cuối trang đọc | `AdBanner(adSize = AdBannerSize)` với Activity thật |
+| Interstitial | `MainActivity` (load), `SettingsPage`, `DarkThemePage`, `AiSettingsPage` (show) | quay lại, mở khoá AMOLED | `loadInterstitial`, `showInterstitial` |
+| Rewarded | `VipManagementPage`, `BrainRpgViewModel`, `StreakRescueViewModel`, `CommuteCastSheet` | người dùng bấm | `showRewarded`; VIP dùng `grantVipDays(3)` |
+| VIP nhập mã | `VipManagementPage` + `VipRedeem` | bấm Kích hoạt | `activateVipByToken` (token ECDSA **và** thẻ cào `vipRedeemCodes`) |
+
+## 2. Thay đổi so với 1.1.5
+
+| Khía cạnh | 1.1.5 | 1.8.5 |
+|---|---|---|
+| VIP | `activateVipByKey(secret, ngày)` plaintext, secret Base64 trong git | ECDSA P-256: app chỉ giữ public key; thẻ cào `vipRedeemCodes`; đường plaintext của SDK **tắt mặc định**, app không dùng |
+| Rewarded -> VIP | `activateVipByKey(secret, 3)` (sẽ **thất bại im lặng** ở 1.8.5) | `grantVipDays(ctx, 3)` |
+| Bí mật | trong `build.gradle`, `keystore.properties`, `AdKeys` (git public) | `app.properties` ngoài repo; release **dừng build** nếu thiếu khoá |
+| Test device | không có `setTestDeviceIds` | 23 hash từ myKeyStore, gọi cho debug **và** release |
+| AdMob App ID | cố định (ID thật) cho cả debug | `manifestPlaceholders`: debug = Google sample, release = ID thật |
+| Splash | timer 8 giây của app đua với watchdog của SDK | chỉ watchdog của SDK |
+| Backup | VIP/trial ledger đi theo sao lưu | `loitp_admob.xml` bị loại khỏi `backup_rules` và `data_extraction_rules` |
+| Reward | cộng ở callback `showRewarded` | `grantRewardOnEarn=true`: callback bắn lúc earn; vẫn một kênh nên không cộng đôi |
+| Gson | 2.13.2 do SDK kéo ngầm | khai tường minh `gson:2.13.2` (SDK mới không kéo nữa) |
+
+## 3. Thông tin owner phải cấp / làm
+
+1. **Reset upload key trên Play Console.** `keystores.jks` và mật khẩu nằm trong git history của repo public `royt93/5_ReadYou` (2024-06-01, 2026-01-03). Untrack không thu hồi.
+2. Publish UMP "European regulations" (+ "US states") cho đúng AdMob App ID; xác nhận app-ads.txt.
+3. Hash test-device cho **chứng chỉ release** của máy bạn (chưa có); danh sách hiện tại: 23 hash.
+4. Xác nhận 4 AdMob ad unit release và 4 AppLovin ad unit là của đúng app.
+5. Data safety: thêm `AD_ID`, `ACCESS_ADSERVICES_*`, Install Referrer, UMP (xem `doc/task/REL-03_data-safety-audit.md` mục 7).
+6. Duyệt bản dịch máy của hai chuỗi VIP mới (`vip_failed_busy`, `vip_failed_no_network`) ở 37 ngôn ngữ.
+7. Mã thẻ cào 30 ngày và 3 ngày mới nằm ở `VIP_REDEEM_CODES` trong `app.properties`; mã cũ (Base64 trong git) **không còn dùng được**.
+
+## 4. Policy check (Step 7)
+
+| # | Rule | Kết quả |
+|---|---|---|
+| 1 | Banner không che nội dung tương tác | Đạt theo mã: dock dưới `ReadingPage`, có `navigationBarsPadding`. **Chưa thấy trên máy** |
+| 2 | App Open không hiện trên splash thuần | Đạt theo mã: `appOpenExcludedActivities = [SplashActivity]` + test nguồn |
+| 3 | Interstitial theo frequency cap | `AdSafetyLimits.TEST` ở debug, `.CONTENT` ở release |
+| 4 | Rewarded chỉ khi người dùng bấm | Đạt theo mã |
+| 5 | Không tự click, không nút đóng giả | Đạt: banner do SDK vẽ |
+| 6 | Không thưởng cho interstitial thay rewarded | Đạt: nhánh `earned=false` chỉ cho interstitial, **không cấp VIP** |
+
+## 5. Rủi ro đã biết
+
+- A50s không kiểm được ad: GAID máy nằm trong `keyListGAID` (21 GAID) mà bản app cũ đã lưu vào `loitp_admob.xml`; SDK 1.8.5 vẫn đọc và không xoá. Mọi máy từng chạy bản cũ của owner có thể bị tương tự.
+- Cooldown backoff của SDK không báo lỗi cho Interstitial/Rewarded (audit 1.8.3 MEDIUM); chưa kiểm UI có treo spinner không.
+- Nhập mã VIP bắt buộc có mạng (yêu cầu sản phẩm của SDK, V-03). App báo "cần mạng" thay vì "mã sai".
+- Thẻ cào lộ mã là hại vĩnh viễn; xoá dữ liệu app + cài lại có thể redeem lại.
+
+## 6. Lỗi tìm thấy khi chạy bản release R8 (không thuộc SDK)
+
+`RApp.onCreate` crash `ClassCastException` ở Dagger `SwitchingProvider.get` mỗi lần mở bản release, **cả bản baseline trước migrate**. Gốc: kiểm tra cập nhật đã tắt nên không còn ai gọi method của `NetworkDataSource`; luật Retrofit `-if interface * { @retrofit2.http.* <methods>; }` hết khớp; R8 biên dịch `Retrofit.create()` thành `throw ClassCastException()`. Sửa: `-keep interface ...NetworkDataSource { *; }` + test `ProguardRulesTest`. Cách bắt được: chạy bản release thật trên máy; JVM test không bắt được R8.
+
+## 7. Công cụ đúc token VIP
+
+`generateVipToken` chỉ chạy khi `isDebug=true` và cần Context Android đã init SDK, nên cần một **app debug riêng** (không phải RSS Cat Hub) giữ private key. Private key: `VIP_TOKEN_PRIVATE_KEY` trong `myKeyStore/com.mckimquyen.reader/app.properties`, không bao giờ vào repo app. Token bind `applicationId` `com.mckimquyen.reader` và bind máy (`bindToCurrentDevice`), nên phải đúc đúng package và (nếu bind máy) trên đúng máy nhận. **Chưa dựng.**
+
+---
+
+# Lịch sử: kế hoạch cũ cho 1.1.5
+
+## Kế hoạch migrate 1.1.5 (2026-06-06, đã thay thế)
 
 > Cập nhật: 2026-06-06. Migrate từ `com.github.royt93:AdmobWrapper:1.1.1` → `com.github.royt93:AdmobApplovinWrapper:1.1.5`
 > (lib đổi tên, package vẫn `com.roy.sdkadbmob`). Provider chính **AppLovin MAX**, AdMob là phụ

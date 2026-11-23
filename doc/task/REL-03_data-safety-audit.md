@@ -62,10 +62,27 @@
 - **Mã hóa khi truyền:** **không khẳng định "tất cả dữ liệu được mã hóa khi truyền"** chừng nào SEC-01 chưa sửa (trust-all) và `usesCleartextTraffic="true"`.
 - **Xóa dữ liệu:** dữ liệu nằm cục bộ; gỡ app xóa; sao lưu đám mây theo cơ chế Android.
 - **Quyền `ACCESS_LOCAL_NETWORK`:** nêu lý do đồng bộ P2P trong LAN, không quét thiết bị ngoài.
-- **Phần ad (AD_ID, ACCESS_ADSERVICES, UMP):** để owner điền sau migrate.
+- **Phần ad (AD_ID, ACCESS_ADSERVICES, UMP):** xem mục 7 (đã đo trên APK sau migrate, 2026-11-23); biểu mẫu do owner điền.
 
 ## 6. Chưa kiểm
 - Biểu mẫu Data safety hiện đang khai trên Play Console (tôi không có quyền truy cập).
 - Các chuỗi mô tả quyền và chính sách quyền riêng tư (`PRIVACY_POLICY_URL` trỏ tới Notion): chưa đọc nội dung trang.
 - Nhật ký mạng thật: chưa bắt gói tin, chỉ đọc mã; có thể có thư viện gửi thêm.
 - Dữ liệu SDK quảng cáo: bỏ theo lời owner.
+
+## 7. Dữ liệu và quyền của SDK quảng cáo 1.8.5 (đo 2026-11-23 trên APK sau migrate)
+
+**Quyền thêm hoặc đổi so với trước migrate** (so `apk_facts.txt` của `baseline-pre-adsdk-e890c8cb-debugsigned-fixed` và `post-adsdk-2`): thêm `android.permission.VIBRATE` và `com.android.vending.CHECK_LICENSE`; bỏ `com.applovin.array.apphub.permission.BIND_APPHUB_SERVICE`. Đã có từ trước: `com.google.android.gms.permission.AD_ID`, `ACCESS_ADSERVICES_AD_ID`, `ACCESS_ADSERVICES_ATTRIBUTION`, `ACCESS_ADSERVICES_TOPICS`, `BIND_GET_INSTALL_REFERRER_SERVICE`.
+
+| Dữ liệu / dịch vụ | Gửi đi đâu | Khi nào | Nguồn |
+|---|---|---|---|
+| Mã quảng cáo (Advertising ID) và dữ liệu thiết bị/quảng cáo | Google (AdMob), AppLovin (nếu mediation) | khi có yêu cầu quảng cáo; chỉ sau khi UMP cho phép `canRequestAds` | SDK, log `consent canRequestAds=true`, `resolveGaid ok` |
+| Chuỗi đồng ý (UMP / TCF, GPP cho Hoa Kỳ) | Google, đối tác quảng cáo | EEA, Anh, Thuỵ Sĩ, một số bang Mỹ | `requestConsentInfoUpdate` |
+| Install Referrer (mốc cài) | Google Play, **cục bộ** để cấp trial 1 ngày | lần chạy đầu của bản release | SDK Step 9 |
+| Số liệu hiển thị quảng cáo (doanh thu, impression) | Google, AppLovin | khi có quảng cáo | `paidEventListener`; app **chỉ ghi log ở debug**, không gửi đi đâu |
+| App Set ID | AppLovin (có thể chạy trước consent, `AppLovinInitProvider`, accepted risk E-8 của SDK) | lúc khởi động | SDK `CLAUDE.md` |
+
+- **Không** có nhà phát triển thu thập: không có Firebase, không analytics riêng; `analyticsReporter` của SDK để trống.
+- Chuỗi VIP: mã VIP người dùng nhập được kiểm **cục bộ** (ECDSA), không gửi lên máy chủ nào; nhưng SDK **yêu cầu có mạng** lúc nhập.
+- **Không khẳng định "mã hoá khi truyền cho mọi dữ liệu"** (SEC-01 còn mở, `usesCleartextTraffic="true"`).
+- **Chưa kiểm:** tôi không có bản chụp biểu mẫu Data safety hiện tại; SDK có thể gửi thêm thứ không thấy trong mã (không bắt gói tin; A50s tắt ad vì whitelist VIP nên cũng không quan sát được lưu lượng quảng cáo).

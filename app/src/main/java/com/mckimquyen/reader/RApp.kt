@@ -31,8 +31,11 @@ import com.mckimquyen.reader.infrastructure.rss.RssHelper
 import com.roy.sdkadbmob.AdManager
 import com.roy.sdkadbmob.AdSdkConfig
 import com.roy.sdkadbmob.AdSafetyLimits
+import com.roy.sdkadbmob.ErrorReporter
+import com.roy.sdkadbmob.PaidEventListener
 import com.roy.sdkadbmob.SdkVersion
 import com.mckimquyen.reader.ui.page.setting.vip.AdKeys
+import com.mckimquyen.reader.infrastructure.android.SplashActivity
 import com.mckimquyen.reader.domain.commute.CommuteScheduleMigration
 import com.mckimquyen.reader.ui.ext.commuteBatteryConditionApplied
 import com.mckimquyen.reader.ui.ext.commuteListenMinuteOfDay
@@ -175,13 +178,33 @@ class RApp : Application(), WorkConfiguration.Provider, ImageLoaderFactory {
             applovinAppOpenId      = BuildConfig.APPLOVIN_APP_OPEN_ID,
             applovinRewardedId     = BuildConfig.APPLOVIN_REWARDED_ID,
             applovinSdkKey         = BuildConfig.APPLOVIN_SDK_KEY,
+            applovinPrivacyPolicyUrl = AdKeys.PRIVACY_POLICY_URL,
+            // Integrity secret for the SDK's own preferences + the public key that verifies ECDSA VIP tokens + the redeem codes.
+            // All three come from the private app.properties; the SDK refuses a release build that still uses its sample key.
             vipKeySecret           = AdKeys.VIP_SECRET,
+            vipTokenPublicKey      = AdKeys.VIP_TOKEN_PUBLIC_KEY,
+            vipRedeemCodes         = AdKeys.VIP_REDEEM_CODES,
+            // Pay the reward the moment the user has earned it (Google's recommendation); the callback still fires exactly once,
+            // and every rewarded call site in this app reads that single callback, so nothing is paid twice.
+            grantRewardOnEarn      = true,
+            // The splash already runs consent and the SDK's own splash ad; an App Open on top of it would stack two ads.
+            appOpenExcludedActivities = listOf(SplashActivity::class.java),
             // Debug: nới throttle để QC test ad nhanh. Release: balanced preset cho app reader.
             safety                 = if (BuildConfig.DEBUG) AdSafetyLimits.TEST else AdSafetyLimits.CONTENT,
         )
 
         Log.d("roy93~Ad", "[setupAdmob] 📦 AdSdkConfig built — setConfig() + initialize() one-shot")
         AdManager.setConfig(adConfig)
+        // Owner test devices. Debug AND release: a release-signed build has a different hash from a debug-signed one on the same
+        // phone, and an unknown device gets real ads (invalid traffic). The SDK adds its own QC list; this list is only ever added to.
+        AdManager.setTestDeviceIds(*AdKeys.TEST_DEVICE_IDS.toTypedArray())
+        // Must be set here and not from an Activity: the SDK drops a listener when the Activity that set it is destroyed.
+        AdManager.paidEventListener = PaidEventListener { adType, valueMicros, currency, precision, adSource ->
+            if (BuildConfig.DEBUG) Log.d("roy93~Ad", "[paid] $adType $valueMicros $currency $precision $adSource")
+        }
+        AdManager.errorReporter = ErrorReporter { throwable, context ->
+            Log.w("roy93~Ad", "[sdk-error] $context", throwable)
+        }
         // initialize() tự chạy đủ 4 bước: earlyInit → provider SDK init → AdManager.init →
         // registerAppOpenAdLifecycle (main thread). Không cần wire MobileAds/AppLovinSdk thủ công.
         AdManager.initialize(this) { success, gaid ->

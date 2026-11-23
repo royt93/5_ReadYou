@@ -32,7 +32,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import com.mckimquyen.reader.R
-import kotlinx.coroutines.Job
 
 @SuppressLint("CustomSplashScreen")
 @AndroidEntryPoint
@@ -41,8 +40,9 @@ class SplashActivity : ComponentActivity() {
     // Guard against goToMain() being called more than once (e.g. race between
     // SplashScreen's onReady and AdMobManager's onAdLoaded callbacks).
     private var navigationStarted = false
-    private var sdkSplashStarted = false
-    private var preSdkTimeoutJob: Job? = null
+
+    // The SDK reports consent exactly once, but this belt-and-braces guard keeps a second callback from starting a second splash ad.
+    private val splashFlowStarted = java.util.concurrent.atomic.AtomicBoolean(false)
 
     override fun attachBaseContext(newBase: android.content.Context) {
         val languagePref = try {
@@ -84,31 +84,21 @@ class SplashActivity : ComponentActivity() {
 
         Log.d("roy93~Ad", "[Splash] 🔐 onCreate — requestConsentInfoUpdate()")
 
-        // [C1] Fallback only while UMP/consent has not handed control to the ad SDK.
-        // Once initSplashScreen() starts, the SDK owns the timeout because it can
-        // distinguish "ad is still loading" from "fullscreen ad is currently shown".
-        preSdkTimeoutJob = lifecycleScope.launch {
-            delay(8_000L)
-            if (!sdkSplashStarted && !navigationStarted && !isFinishing && !isDestroyed) {
-                Log.w("roy93~Ad", "[Splash] ⏰ consent timeout (8s) before SDK splash — navigating anyway")
-                goToMain()
-            }
-        }
-
+        // No timer of our own: requestConsentInfoUpdate has a two-stage watchdog inside the SDK and fires the callback exactly once.
+        // A second app-side timer used to race it and could open the main screen underneath a consent form that was still showing.
         AdManager.requestConsentInfoUpdate(this) { canRequestAds ->
             if (isFinishing || isDestroyed) {
                 Log.d("roy93~Ad", "[Splash] Activity finishing or destroyed, skipping initSplashScreen")
                 return@requestConsentInfoUpdate
             }
-            Log.d("roy93~Ad", "[Splash] ✅ consent resolved, canRequestAds=$canRequestAds — initSplashScreen()")
-            sdkSplashStarted = true
-            preSdkTimeoutJob?.cancel()
+            if (!splashFlowStarted.compareAndSet(false, true)) return@requestConsentInfoUpdate
+            Log.d("roy93~Ad", "[Splash] consent resolved, canRequestAds=$canRequestAds, initSplashScreen()")
             AdManager.initSplashScreen(this) {
                 if (isFinishing || isDestroyed) {
                     Log.d("roy93~Ad", "[Splash] Activity finishing or destroyed, skipping goToMain")
                     return@initSplashScreen
                 }
-                Log.d("roy93~Ad", "[Splash] ✅ initSplashScreen callback fired — navigating to Main")
+                Log.d("roy93~Ad", "[Splash] initSplashScreen callback fired, navigating to Main")
                 goToMain()
             }
         }

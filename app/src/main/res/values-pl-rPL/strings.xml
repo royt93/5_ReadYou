@@ -509,6 +509,9 @@
     <string name="vip_success_title">Success</string>
     <string name="vip_success_message">VIP active for %1$d days.</string>
     <string name="vip_failed_title">Failed</string>
+    <string name="ad_attribution_label" translatable="false">Ad Networks (AdMob / AppLovin MAX)</string>
+    <string name="vip_failed_busy">Poprzedni kod jest nadal sprawdzany. Poczekaj chwilę i spróbuj ponownie.</string>
+    <string name="vip_failed_no_network">Aktywacja kodu wymaga połączenia z internetem. Połącz się i spróbuj ponownie.</string>
     <string name="vip_failed_invalid_key">Invalid code. Please check again.</string>
     <string name="privacy_policy">Privacy Policy</string>
     <string name="ok">OK</string>

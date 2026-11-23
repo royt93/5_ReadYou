@@ -509,6 +509,9 @@
     <string name="vip_success_title">Success</string>
     <string name="vip_success_message">VIP active for %1$d days.</string>
     <string name="vip_failed_title">Failed</string>
+    <string name="ad_attribution_label" translatable="false">Ad Networks (AdMob / AppLovin MAX)</string>
+    <string name="vip_failed_busy">ယခင်ကုဒ်ကို စစ်ဆေးနေဆဲဖြစ်သည်။ ခဏစောင့်ပြီး ထပ်ကြိုးစားပါ။</string>
+    <string name="vip_failed_no_network">ကုဒ်ကို အသက်သွင်းရန် အင်တာနက်ချိတ်ဆက်မှု လိုအပ်သည်။ ချိတ်ဆက်ပြီး ထပ်ကြိုးစားပါ။</string>
     <string name="vip_failed_invalid_key">Invalid code. Please check again.</string>
     <string name="privacy_policy">Privacy Policy</string>
     <string name="ok">OK</string>

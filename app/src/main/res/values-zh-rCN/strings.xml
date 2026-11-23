@@ -373,6 +373,9 @@
     <string name="vip_success_title">成功</string>
     <string name="vip_success_message">VIP 已激活 %1$d 天。</string>
     <string name="vip_failed_title">失败</string>
+    <string name="ad_attribution_label" translatable="false">Ad Networks (AdMob / AppLovin MAX)</string>
+    <string name="vip_failed_busy">上一个码仍在验证中。请稍候再试。</string>
+    <string name="vip_failed_no_network">激活码需要联网。请连接网络后重试。</string>
     <string name="vip_failed_invalid_key">无效的码。请重新检查。</string>
     <string name="privacy_policy">隐私政策</string>
     <string name="ok">确定</string>

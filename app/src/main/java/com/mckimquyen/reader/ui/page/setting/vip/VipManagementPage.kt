@@ -144,23 +144,28 @@ fun VipManagementPage(navController: NavHostController) {
     }
 
     fun grantRewarded() {
-        val ok = AdManager.activateVipByKey(context, AdKeys.VIP_SECRET, VipKeys.REWARDED_DAYS)
+        // The rewarded ad is a trusted source (the SDK said earned=true), so it uses grantVipDays, not the code path.
+        val ok = AdManager.grantVipDays(context, VipRedeem.REWARDED_DAYS)
         if (ok) onGranted(System.currentTimeMillis())
     }
 
     fun redeem() {
-        val days = VipKeys.lookupDays(inputKey)
-        if (days == null) {
-            dialog = VipDialog.Failed(context.getString(R.string.vip_failed_invalid_key))
-            return
+        val sdk = object : VipSdk {
+            override val isResolutionInFlight get() = AdManager.isVipTokenResolutionInFlight
+            override fun isNetworkAvailable() = com.roy.sdkadbmob.NetworkUtils.isDeviceConnected(context)
+            override fun activate(code: String) = AdManager.activateVipByToken(context, code)
+            override fun expiryMs() = AdManager.getVipByKeyExpiry()
         }
-        val ok = AdManager.activateVipByKey(context, AdKeys.VIP_SECRET, days)
-        if (ok) {
-            inputKey = ""
-            onGranted(System.currentTimeMillis())
-            dialog = VipDialog.Success(days)
-        } else {
-            dialog = VipDialog.Failed(context.getString(R.string.vip_failed_invalid_key))
+        when (val result = VipRedeem.redeem(sdk, inputKey)) {
+            is VipRedeemResult.Granted -> {
+                inputKey = ""
+                onGranted(System.currentTimeMillis())
+                val days = ((result.expiryMs - System.currentTimeMillis()) / MS_PER_DAY).toInt().coerceAtLeast(1)
+                dialog = VipDialog.Success(days)
+            }
+            VipRedeemResult.Busy -> dialog = VipDialog.Failed(context.getString(R.string.vip_failed_busy))
+            VipRedeemResult.NeedsNetwork -> dialog = VipDialog.Failed(context.getString(R.string.vip_failed_no_network))
+            VipRedeemResult.Rejected -> dialog = VipDialog.Failed(context.getString(R.string.vip_failed_invalid_key))
         }
     }
 
@@ -353,6 +358,8 @@ fun VipManagementPage(navController: NavHostController) {
         null -> Unit
     }
 }
+
+private const val MS_PER_DAY = 24L * 60 * 60 * 1000
 
 private sealed interface VipDialog {
     data class Success(val days: Int) : VipDialog
