@@ -44,6 +44,8 @@
 6. Duyệt bản dịch máy của hai chuỗi VIP mới (`vip_failed_busy`, `vip_failed_no_network`) ở 37 ngôn ngữ.
 7. Mã thẻ cào 30 ngày và 3 ngày mới nằm ở `VIP_REDEEM_CODES` trong `app.properties`; mã cũ (Base64 trong git) **không còn dùng được**.
 
+**ID AdMob (cập nhật 2026-11-23):** theo `doc/admob.MD`; nằm ở `myKeyStore/com.mckimquyen.reader/app.properties`, không có trong repo này. ID publisher cũ và unit rewarded trùng ID mẫu của Google đã bỏ. Chi tiết: mục "Audit ID AdMob" trong `doc/audit/audit_gemini.md`.
+
 ## 4. Policy check (Step 7)
 
 | # | Rule | Kết quả |

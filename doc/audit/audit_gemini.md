@@ -37,6 +37,17 @@ SDK dùng được cho app này **nếu** làm đủ các điều kiện dưới
 5. **Cooldown không báo lỗi (Trung bình).** Nếu UI chờ callback để tắt spinner thì có thể treo khi SDK ở cooldown. Cần kiểm tay các điểm gọi `showRewarded` (RPG, CommuteCast, VIP).
 6. **Banner `AdBanner` cần `Activity` (Thấp, đã xử lý).** SDK ép `LocalContext` thành Activity và im lặng bỏ qua nếu không được; `ComposeBannerAd` cấp Activity thật. Chưa thấy banner hiện trên máy (xem dưới).
 
+## Audit ID AdMob so với `doc/admob.MD` (2026-11-23, owner yêu cầu)
+
+Owner đưa `doc/admob.MD` (ghi App ID, 4 unit và 1 unit native của app) và một ảnh chụp danh sách ad unit. Tôi đối chiếu với ID reader đang dùng:
+
+- **Reader đang dùng sai publisher.** `build.gradle` cũ, các nhánh release 2025-05 đến 2026-06 và `app.properties` tôi dựng đều mang publisher cũ (`3612…`, App ID `~7020425646`). `admob.MD` ghi publisher khác (`3004…`, App ID `~7354810943`). Trong myKeyStore chỉ vài app lẻ dùng publisher cũ (với unit khác hẳn), còn 9 thư mục dùng publisher của `admob.MD` (62 chỗ). Không có chỗ nào xác nhận publisher cũ là của reader. Hệ quả của việc để nguyên: release gửi request tới unit không thuộc tài khoản của app (không doanh thu, có thể vi phạm policy). **Đã sửa:** `app.properties` (myKeyStore, private) dùng đủ 5 ID theo `admob.MD`; repo reader không chứa ID nào.
+- **Unit rewarded cũ đáng ngờ:** đuôi `5224354917` **trùng đúng** unit rewarded mẫu công khai của Google; code cũ từng dùng nó làm fallback. Nhiều khả năng đó chưa bao giờ là unit thật. Đã thay.
+- **Ảnh và `admob.MD` lệch một chữ số trong publisher** (vị trí thứ 12). Số unit của 4 loại khớp hoàn toàn. Owner chọn giá trị của `admob.MD` (khớp 62 chỗ trong myKeyStore); tôi chưa thấy được Console để xác nhận lần nữa.
+- **Unit `native`** có trong `admob.MD` nhưng app **không có slot native**; không thêm (spec cấm tự thêm slot ad).
+- **Chưa kiểm:** các unit này chưa bao giờ được dùng để xin quảng cáo từ app này; unit mới tạo có thể cần vài giờ để có fill; `app-ads.txt` chưa kiểm; AppLovin SDK key và 4 ad unit AppLovin vẫn là giá trị cũ, chưa có tài liệu nào xác nhận chúng thuộc reader.
+- **Kiểm chứng:** build `prodRelease` ký khoá phát hành với ID mới (chỉ build trên máy, **không cài**): dex chứa đúng 4 unit mới, manifest mang App ID mới, 0 ID cũ. Script cổng đã sửa để kiểm cả hai publisher; chạy lại: APK ký debug, 0 ID thật, manifest App ID Google sample.
+
 ## Phát hiện trong lúc migrate (không thuộc SDK)
 
 - **Bản release R8 crash ở `RApp.onCreate` trên mọi lần mở, cả bản trước migrate.** Nguyên nhân: sau khi tắt kiểm tra cập nhật (`UPDATE_CHECK_ENABLED=false`, 2026-11-23) không còn ai gọi method của `NetworkDataSource`, nên luật của Retrofit `-if interface * { @retrofit2.http.* <methods>; }` không còn khớp, R8 coi interface chưa có ai cài đặt và biên dịch `Retrofit.create()` thành `throw ClassCastException()`. Bản baseline `e890c8cb` (đã tắt kiểm tra cập nhật) **cũng crash** y hệt trên A50s: đo bằng cài lại baseline. Sửa bằng `-keep interface ...NetworkDataSource { *; }` (commit `1b5d58bf`). Đây là lỗi tôi **chưa bắt được ở đợt trước** vì tôi chưa chạy bản R8 sau khi tắt kiểm tra cập nhật; mốc cổng đã ghi chỗ này là chưa kiểm.
