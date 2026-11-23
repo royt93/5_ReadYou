@@ -126,8 +126,8 @@ Bản release R8 (ký debug, ID mẫu Google) tại `3edfb2b9`: khởi động n
 | Hạng mục | Điểm | Đã chứng minh | Còn thiếu |
 |---|---|---|---|
 | Rewarded | 9 | A50s, Pixel (debug), Tecno release R8: "Test Ad", "Reward granted", VIP +3 ngày; callback luôn fire; hết thưởng giả (AMOLED chỉ mở khi `earned`) | Rớt mạng giữa lúc ad; kiểm tay spinner khi SDK ở cooldown |
-| App Open | 8 | A50s, Pixel, Tecno release R8; splash loại trừ | `AppOpenGuard` quanh hộp thoại quyền: có 8 launcher bọc, JVM + 4 mutant, **chưa chạy trên máy** |
-| Banner | 8 | A50s, Pixel debug; Pixel release R8 | Tecno release R8 chưa chạy lại |
+| App Open | 8.5 | A50s, Pixel, Tecno release R8; splash loại trừ; `AppOpenGuard` trên Tecno (debug HEAD): khi hộp thoại quyền thông báo đang chờ, 3 lần app ra trước đều log `Skipping - suppressAppOpenTemporarily(true) đang active`, không App Open, không ad thật; test JVM `AppOpenGuardLauncherTest` (launcher thật, Robolectric) + 7 mutant bị bắt | Nửa 'thả cờ sau khi trả lời' chưa thấy trên máy (hộp thoại không trả kết quả được), chỉ có test JVM |
+| Banner | 9 | A50s, Pixel debug; Pixel và Tecno release R8 (trang đọc bài: nhãn "Test Ad", 468x60, `This request is sent from a test device.`) | Banner chỉ có ở trang đọc bài; chưa đo ad thật |
 | Interstitial | 9 về policy, 0 về doanh thu | Không còn chỗ nào hiện (gỡ khỏi Back, rời màn, dự phòng); 8 test policy; không nạp thừa | Chưa có điểm ngắt tự nhiên (owner chọn đo trước) |
 | VIP | 8.5 | Token ECDSA do SDK thật chấp nhận, 2 mã đổi của owner, dọn danh sách auto-VIP cũ, rewarded -> `grantVipDays` | Nhập mã cần mạng; VIP client-side (chấp nhận); dịch máy chưa duyệt |
 | Consent / UMP | 7 | EEA, US_STATE, offline, hồi phục; mục "Ad choices" có mã + test | UMP message thật chưa publish; chưa chạm mục Ad choices trên máy; GPP/UK thật; US_STATE -> doNotSell |
@@ -136,4 +136,4 @@ Bản release R8 (ký debug, ID mẫu Google) tại `3edfb2b9`: khởi động n
 | Chặn invalid traffic | 6 | 23 hash; hash cho cert release trên A50s và Pixel; 0 tín hiệu `Use RequestConfiguration` trong mọi lần chạy | Hash cho cert release `67:B2:E6:CD` trên Tecno chưa probe: bản ký thật cài lên Tecno có thể ra ad thật |
 | Khoá ký | 4 | Chuyển sang myKeyStore, untrack | Key đã lộ trong git public: owner reset upload key trên Play Console |
 
-**Tổng thể: 7/10, GO có điều kiện.** Ad hoạt động đúng trên bản release R8 với ID thử. Chặn phát hành: (1) reset upload key, (2) publish UMP message, (3) hash release cho máy owner dùng bản ký thật, (4) form Data safety. Việc đo còn lại: guard App Open + banner release trên Tecno khi máy rảnh.
+**Tổng thể: 7/10, GO có điều kiện** (cập nhật cùng ngày: Banner 9, App Open 8.5; tổng không đổi vì các ô nặng là khoá ký, trial, hash). Ad hoạt động đúng trên bản release R8 với ID thử. Chặn phát hành: (1) reset upload key, (2) publish UMP message, (3) hash release cho máy owner dùng bản ký thật, (4) form Data safety. Việc đo còn lại: probe hash cert release cho Tecno (cần cài APK probe), nửa 'thả cờ' của guard trên máy, trial 1 ngày.
