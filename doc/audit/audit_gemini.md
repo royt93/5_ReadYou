@@ -161,3 +161,21 @@ Hai bằng chứng khác cùng buổi, trên Tecno, chỉ khởi động và kh�
 - Hash của máy cho chứng chỉ release (khoá thật) đã có trong danh sách, nhưng chưa thử bản ký bằng khoá thật với ID thật.
 
 Điều tôi phát hiện khi dọn máy: `device_backup.py` không phủ `vip_screen_prefs.xml` (app tạo khi nhập token) và các pref ad. Đã mở rộng danh sách, thêm test, một mutant bị bắt.
+
+## Bản ký bằng khoá thật + ID thật trên Tecno KJ7 (2026-11-23, 23:13)
+
+HEAD `08192f88`. Kiểm trên máy tính trước: chứng chỉ ký là khoá thật (`67b2e6cd…`), không debuggable, ID AdMob trong manifest và dex là ID thật, 0 ID mẫu của Google, có mã mới (`RewardedGate`), hash của Tecno cho chứng chỉ release nằm trong danh sách 27 mục đã biên dịch vào APK.
+
+Trên máy: Tecno đang cài app ký bằng khoá debug, Android không cho cài đè khoá khác, nên owner đồng ý gỡ app. Đã sao lưu byte-exact trước (13 file qua `device_backup.py`, thêm 26 file kiểm kích thước); `pairing_store.xml` không tồn tại (chưa ghép cặp P2P) nên không mất bí mật Keystore nào. Cài bản ký thật, khởi động đúng một lần dưới trạm dừng tự động (đọc logcat, force-stop khi có `Use RequestConfiguration`): **3 lần `This request is sent from a test device`, 0 tín hiệu ad thật, trạm dừng không phải kích hoạt.** Đây là bằng chứng một build khoá thật + ID thật được nhận là test device trên máy này. Không bấm vào ad.
+
+Khôi phục: gỡ bản ký thật, cài lại APK gốc (`cmp` khớp byte), `device_backup restore` OK cho cả 13 file, ghi lại `legacy_auto_vip_cleaner.xml`, cờ quyền khớp. **Không khôi phục được:** `firstInstallTime` và vài cache do hệ thống hoặc SDK tự ghi lại.
+
+### Phát hiện lúc khôi phục: APK gốc trên Tecno là bản trước migrate
+
+Lần khởi động đầu của APK gốc vừa cài lại in `Use RequestConfiguration` hai lần (23:14:47, 23:14:49). Điều tra bằng log và dex: APK gốc là bản SDK **1.1.5** với **3** hash test device nằm trong mã; hai hash app truyền cho SDK lúc chạy là 2 trong 3 chuỗi đó, và hash SDK đòi đăng ký (hash của máy cho chứng chỉ debug) không có trong bản cũ nhưng có trong danh sách 27 mục của bản mới. Tức tín hiệu đến từ bản cũ thiếu hash, không phải từ bản 1.8.5. Các request dùng unit ID mẫu của Google nên không tính invalid traffic. **Hệ quả cho test:** Tecno hiện đang chạy bản trước migrate; các lần test bản 1.8.5 trước đó đều cài tạm rồi trả máy về bản cũ, đúng quy tắc "trả máy như cũ".
+
+### Giới hạn của bằng chứng này
+
+- Một lần khởi động, một máy, không bấm vào ad: chưa chứng minh ad thật được phục vụ ra sao, chỉ chứng minh máy được nhận là test device.
+- Hash phụ thuộc cả máy lẫn chứng chỉ ký: máy khác của owner cần hash riêng cho chứng chỉ release (A50s, Pixel, Tecno đã có).
+- Bản ký thật chỉ nên được cài lên máy test sau khi kiểm `This request is sent from a test device` ở lần chạy đầu.
