@@ -257,3 +257,5 @@ Thứ tự owner chọn ngày 2026-11-09; mỗi mục duyệt thiết kế/spec 
 
 
 - ✅ AD-02 Interstitial tại điểm ngắt "Next Article" (2026-11-23): `InterstitialPacer` 1 ad / 3 lần bấm, preload có cổng, không ở Back hay rời màn, bỏ VIP (SDK). Chứng minh trên Tecno bằng ID thử. Chưa đo doanh thu; chỉnh số 3 theo dữ liệu thật.
+
+- 📋 REL-05 Việc của owner trước khi phát hành (2026-11-23): checklist khoá ký, UMP, Data safety, AppLovin, kiểm lần cuối. Owner chọn giữ keystore hiện tại và giữ AppLovin; xem `doc/task/REL-05_owner-release-checklist.md`.
