@@ -46,6 +46,26 @@
 
 **ID AdMob (cập nhật 2026-11-23):** theo `doc/admob.MD`; nằm ở `myKeyStore/com.mckimquyen.reader/app.properties`, không có trong repo này. ID publisher cũ và unit rewarded trùng ID mẫu của Google đã bỏ. Chi tiết: mục "Audit ID AdMob" trong `doc/audit/audit_gemini.md`.
 
+## 3b. Bản đồ điểm chạm quảng cáo (mã chạy, 2026-11-23, chỉ Android + AdMob)
+
+| Loại | Chỗ trong app | Người dùng kích hoạt? | Ghi chú |
+|---|---|---|---|
+| **App Open** | `SplashActivity`: `requestConsentInfoUpdate` rồi `initSplashScreen`; SDK tự hiện khi quay lại từ nền | Không (tự động) | Chính sách App Open cho phép khi mở hoặc quay lại app; `SplashActivity` loại khỏi App Open khi resume; lần mở đầu tiên sau cài bị bỏ qua (`skipAppOpenOnFirstEverLaunch`); không có `suppressAppOpenTemporarily` quanh hộp thoại/quyền |
+| **Banner** | `ReadingPage` (`ComposeBannerAd`) cuối trang đọc | Không | Chỉ một vị trí; nằm dưới thanh nút |
+| **Interstitial** | Không còn điểm hiện | | `MainActivity` vẫn `loadInterstitial` (request không dùng) |
+| **Rewarded** | 1) trang VIP "Xem quảng cáo → 3 ngày VIP"; 2) mở khoá AMOLED; 3) Deep Dive CommuteCast; 4) Brain RPG: nhân đôi XP quiz, khôi phục danh mục, làm lại quiz, bật khiên chuỗi; 5) hộp thoại cứu chuỗi khi mở app | **Có**, mọi chỗ đều qua một nút bấm | Hộp thoại cứu chuỗi tự hiện một lần mỗi ngày UTC, nhưng chỉ hiện ad khi người dùng bấm nút trong đó |
+| **Consent form** | Splash (tự động theo vùng) và trang Riêng tư "Ad choices" | Splash: không; Riêng tư: có | |
+| Native, Rewarded Interstitial | Không có | | |
+
+## 3c. Đề xuất tối ưu (chưa làm, cần owner chọn)
+
+1. **Bỏ `loadInterstitial` ở `MainActivity`:** không còn chỗ hiện, mỗi lần nạp là một request không được hiển thị, kéo tụt tỷ lệ hiển thị của unit.
+2. **Nạp rewarded trước khi người dùng bấm:** chỉ trang VIP gọi `loadRewarded`; các chỗ còn lại phụ thuộc SDK tự nạp sau lần đầu. Nạp sớm (khi mở màn có nút) giảm "ad chưa sẵn sàng".
+3. **Bỏ AppLovin khỏi bản AdMob:** `IS_ENABLE_ADMOB` là hằng số build `true`, nên AppLovin không bao giờ chạy nhưng vẫn nằm trong APK (khoảng 3 MB mục mang tên applovin, các host `a.applovin.com`, `assets.applovin.com`...) và kéo thêm quyền, khai báo Data safety (App Set ID chạy trước consent, E-8 của SDK). Cách làm cần sửa phụ thuộc: không thể loại ở thư viện hiện tại (nó là `api` của SDK); cần SDK có bản chỉ AdMob.
+4. **Interstitial hợp lệ nếu cần doanh thu:** đặt ở điểm ngừng tự nhiên, ví dụ sau khi đọc xong một bài (đóng trang đọc), tối đa một lần cho hai thao tác; hiện không thêm vì spec cấm tự thêm slot ad.
+5. **`suppressAppOpenTemporarily`** quanh hộp thoại xin quyền và hộp thoại thanh toán/đăng ký, tránh App Open đè lên.
+6. **Thông điệp UMP thật** phải publish trước khi phát hành (không phải mục tối ưu doanh thu, nhưng là điều kiện để ad cá nhân hoá phục vụ ở EEA).
+
 ## 4. Policy check (Step 7)
 
 | # | Rule | Kết quả |
