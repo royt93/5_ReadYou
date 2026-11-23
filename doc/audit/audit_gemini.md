@@ -179,3 +179,9 @@ Lần khởi động đầu của APK gốc vừa cài lại in `Use RequestConf
 - Một lần khởi động, một máy, không bấm vào ad: chưa chứng minh ad thật được phục vụ ra sao, chỉ chứng minh máy được nhận là test device.
 - Hash phụ thuộc cả máy lẫn chứng chỉ ký: máy khác của owner cần hash riêng cho chứng chỉ release (A50s, Pixel, Tecno đã có).
 - Bản ký thật chỉ nên được cài lên máy test sau khi kiểm `This request is sent from a test device` ở lần chạy đầu.
+
+### Cập nhật 2026-11-23 (cuối ngày): rủi ro còn mở, theo lựa chọn của owner
+
+- Khoá ký: owner tự xử lý riêng, không theo dõi ở đây.
+- Owner sẽ: publish UMP message thật (European regulations và US states) trên AdMob Console; điền Data safety theo `doc/task/REL-03_data-safety-audit.md` mục 5 và 7; kiểm key SDK và 4 ad unit AppLovin trên AppLovin Dashboard.
+- AppLovin vẫn nằm trong APK theo lựa chọn của owner; không đổi mã.
