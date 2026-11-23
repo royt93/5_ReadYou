@@ -40,6 +40,18 @@ def privateProp = { String key ->
     }
     return v.trim()
 }
+// Google's public sample ids serve test ads and pay nothing. A release built with one ships zero revenue, and Log.e is stripped by R8 so nothing
+// would say so at run time. The build stops instead. A device test of a release build (R8 check on a phone) passes -PallowTestAdIds=true on purpose;
+// a build that goes to the store never does.
+def allowTestAdIds = providers.gradleProperty("allowTestAdIds").getOrElse("false") == "true"
+def GOOGLE_TEST_PUBLISHER = "3940256099942544"
+def releaseAdId = { String key ->
+    def v = privateProp(key)
+    if (releaseRequested && !allowTestAdIds && v.contains(GOOGLE_TEST_PUBLISHER)) {
+        throw new GradleException("Release build: '${key}' is a Google sample ad id. Fix app.properties, or pass -PallowTestAdIds=true for a device test that is never published.")
+    }
+    return v
+}
 // Quote a value for buildConfigField; keys never contain quotes or backslashes, so refuse them rather than escape.
 def q = { String v ->
     if (v.contains('"') || v.contains('\\')) {
@@ -146,11 +158,11 @@ android {
             buildConfigField "String", "APPLOVIN_INTERSTITIAL_ID", q(privateProp("APPLOVIN_INTERSTITIAL_ID"))
             buildConfigField "String", "APPLOVIN_APP_OPEN_ID", q(privateProp("APPLOVIN_APP_OPEN_ID"))
             buildConfigField "String", "APPLOVIN_REWARDED_ID", q(privateProp("APPLOVIN_REWARDED_ID"))
-            buildConfigField "String", "ADMOB_BANNER_ID", q(privateProp("ADMOB_BANNER_ID"))
-            buildConfigField "String", "ADMOB_INTERSTITIAL_ID", q(privateProp("ADMOB_INTERSTITIAL_ID"))
-            buildConfigField "String", "ADMOB_APP_OPEN_ID", q(privateProp("ADMOB_APP_OPEN_ID"))
-            buildConfigField "String", "ADMOB_REWARDED_ID", q(privateProp("ADMOB_REWARDED_ID"))
-            manifestPlaceholders = [admobAppId: privateProp("ADMOB_APP_ID")]
+            buildConfigField "String", "ADMOB_BANNER_ID", q(releaseAdId("ADMOB_BANNER_ID"))
+            buildConfigField "String", "ADMOB_INTERSTITIAL_ID", q(releaseAdId("ADMOB_INTERSTITIAL_ID"))
+            buildConfigField "String", "ADMOB_APP_OPEN_ID", q(releaseAdId("ADMOB_APP_OPEN_ID"))
+            buildConfigField "String", "ADMOB_REWARDED_ID", q(releaseAdId("ADMOB_REWARDED_ID"))
+            manifestPlaceholders = [admobAppId: releaseAdId("ADMOB_APP_ID")]
             buildConfigField "String", "ADMOB_TEST_DEVICE_IDS", q(privateProp("ADMOB_TEST_DEVICE_IDS"))
             buildConfigField "String", "VIP_KEY_SECRET", q(privateProp("VIP_INTEGRITY_SECRET"))
             buildConfigField "String", "VIP_TOKEN_PUBLIC_KEY", q(privateProp("VIP_TOKEN_PUBLIC_KEY"))
