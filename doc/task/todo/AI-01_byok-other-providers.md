@@ -4,7 +4,7 @@
 - **Priority:** `P2 (Medium)`
 - **Estimation:** `8 Story Points` (nối thật); `1 Story Point` (bỏ hẳn)
 - **Epic:** 06. KNOWLEDGE — AI (BYOK)
-- **Status:** ⏸️ **Deferred** (owner chọn 2026-11-21: "defer làm sau"). **Giảm nhẹ đã làm:** ba chip OpenAI, DeepSeek, Groq bị làm mờ và không bấm được; giá trị đã lưu bởi bản cũ được hiển thị là Gemini (`AiProviderChoice`).
+- **Status:** ⏸️ **Deferred** (owner chọn 2026-11-21: "defer làm sau"). **Giảm nhẹ đã làm:** 2026-11-21 ba chip bị làm mờ; **2026-11-23 owner chọn ẩn hẳn, nay `AiProviderChoice.NAMES` chỉ còn `["Gemini"]`** (ba chip không còn hiển thị; chip thứ tư từng bị ép thành cột chữ dọc trên máy 411 dp). Giá trị đã lưu bởi bản cũ vẫn hiển thị là Gemini. Khi nối thật AI-01, thêm lại các tên **sau** Gemini để chỉ số 0 giữ nguyên.
 - **Location:** [`AiSettingsPage.kt`](../../../app/src/main/java/com/mckimquyen/reader/ui/page/setting/ai/AiSettingsPage.kt), [`AiProviderChoice.kt`](../../../app/src/main/java/com/mckimquyen/reader/ui/page/setting/ai/AiProviderChoice.kt), [`ExtDataStore.kt`](../../../app/src/main/java/com/mckimquyen/reader/ui/ext/ExtDataStore.kt) (`customOpenAiApiKey`, `customDeepSeekApiKey`, `customGroqApiKey`, `AiProvider`), [`GeminiSummaryService.kt`](../../../app/src/main/java/com/mckimquyen/reader/infrastructure/ai/GeminiSummaryService.kt) (`resolveApiKeys`)
 
 ## Vấn đề thực tế (đã đọc mã, 2026-11-21)

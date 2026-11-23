@@ -3,9 +3,7 @@ package com.mckimquyen.reader.ui.page.setting.ai
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.ui.test.assertIsEnabled
-import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.assertIsSelected
-import androidx.compose.ui.test.assertIsNotSelected
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
@@ -28,7 +26,7 @@ private const val CLASS_TIMEOUT_SECONDS = 60L
 private const val STORED_BEFORE_NOT_SET = -1
 
 /**
- * The AI screen on the phone: only the Gemini chip is enabled, the other three are visible but disabled and do nothing when tapped, and a
+ * The AI screen on the phone: only the Gemini chip is shown (the other providers are not wired up, so they are not offered), and a
  * provider saved by an older build is shown as Gemini. The stored value is read before the test and put back afterwards (only this one
  * DataStore key is touched; the rest of the owner's settings, including any key, are not read or written).
  * NOT covered: the key box and Save button (they would write the owner's real key), the Back button (it shows an interstitial ad).
@@ -63,10 +61,10 @@ class AiProviderChipsDeviceTest {
         onAllNodes(androidx.compose.ui.test.hasText(text)).fetchSemanticsNodes().size
 
     @Test
-    fun onlyTheGeminiChipIsEnabled() {
+    fun onlyTheGeminiChipIsShown_andItIsEnabled() {
         showThePage()
         compose.onNodeWithText("Gemini").assertIsEnabled()
-        listOf("OpenAI", "DeepSeek", "Groq").forEach { compose.onNodeWithText(it).assertIsNotEnabled() }
+        listOf("OpenAI", "DeepSeek", "Groq").forEach { compose.onNodeWithText(it).assertDoesNotExist() }
     }
 
     @Test
@@ -74,16 +72,15 @@ class AiProviderChipsDeviceTest {
         runBlocking { compose.activity.dataStore.put(DataStoreKeys.AiProvider, 1) }
         showThePage()
         compose.onNodeWithText("Gemini").assertIsSelected()
-        compose.onNodeWithText("OpenAI").assertIsNotSelected()
+        compose.onNodeWithText("OpenAI").assertDoesNotExist()
     }
 
     @Test
-    fun tappingADisabledChip_changesNothing_andStoresNothing() {
+    fun theOnlyChipLeft_isGemini_andTappingItKeepsTheChoice() {
         runBlocking { compose.activity.dataStore.put(DataStoreKeys.AiProvider, 0) }
         showThePage()
-        compose.onNodeWithText("OpenAI").performClick()
+        compose.onNodeWithText("Gemini").performClick()
         compose.onNodeWithText("Gemini").assertIsSelected()
-        compose.onNodeWithText("OpenAI").assertIsNotSelected()
-        assertEquals("a disabled chip must not write the choice", 0, compose.activity.aiProvider)
+        assertEquals(0, compose.activity.aiProvider)
     }
 }

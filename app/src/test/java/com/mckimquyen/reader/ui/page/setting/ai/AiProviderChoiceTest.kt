@@ -11,8 +11,13 @@ import org.junit.Test
  * that provider would be saved as the Gemini key and sent to Google).
  */
 class AiProviderChoiceTest {
-    @Test fun theProviderListKeepsItsOrder_soStoredIndexesStayMeaningful() {
-        assertEquals(listOf("Gemini", "OpenAI", "DeepSeek", "Groq"), AiProviderChoice.NAMES)
+    @Test fun onlyGeminiIsOffered_theOthersAreNotShownBecauseTheyAreNotWiredUp() {
+        assertEquals(listOf("Gemini"), AiProviderChoice.NAMES)
+    }
+
+    @Test fun theStoredIndexOfGeminiStaysZero_soAnOlderSavedChoiceStillMeansTheSameThing() {
+        assertEquals(0, AiProviderChoice.NAMES.indexOf("Gemini"))
+        assertEquals(0, AiProviderChoice.GEMINI_INDEX)
     }
 
     @Test fun onlyGeminiIsSelectable() {
