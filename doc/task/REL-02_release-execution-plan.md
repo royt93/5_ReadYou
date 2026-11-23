@@ -16,6 +16,8 @@
 
 **Đã chứng minh trên máy thật (A50s Android 11, bản release R8):** kiểm tra cập nhật qua Retrofit chạy tới phản hồi (HTTP 403 từ GitHub, không lỗi R8); đọc tập CommuteCast qua Gson chạy (`episode parsed: true dialogues=2`, dùng tập giả tạm rồi xóa); hộp thoại xác nhận WebDAV hiển thị đúng ở `ar`, `fa`, `iw`, `kn`, `my`, `ml`, `lzh`, nút Hủy không gửi yêu cầu; update 20260906 lên 20261122 giữ dữ liệu. **Chưa chứng minh:** máy API 26 đến 28, bản ký bằng khóa thật, 403 của kiểm tra cập nhật chưa tra nguyên nhân, chất lượng bản dịch.
 
+**Đã tắt theo lựa chọn của bạn:** kiểm tra cập nhật nội bộ (`UPDATE_CHECK_ENABLED = false`), vì nó trỏ tới repo upstream và không thể báo bản mới của app này.
+
 **Cố ý không làm (đã ghi ticket):** SEC-01 (HTTPS không kiểm chứng chứng chỉ), AI-01 (OpenAI, DeepSeek, Groq).
 
 ## 1. Đã xong (có bằng chứng, xem `doc/feature.md`)
