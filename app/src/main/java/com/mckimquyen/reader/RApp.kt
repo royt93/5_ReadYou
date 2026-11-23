@@ -37,6 +37,7 @@ import com.roy.sdkadbmob.SdkVersion
 import com.mckimquyen.reader.ui.page.setting.vip.AdKeys
 import com.mckimquyen.reader.infrastructure.android.SplashActivity
 import com.mckimquyen.reader.infrastructure.android.AdUmpDebug
+import com.mckimquyen.reader.infrastructure.android.LegacyAutoVipCleaner
 import com.mckimquyen.reader.domain.commute.CommuteScheduleMigration
 import com.mckimquyen.reader.ui.ext.commuteBatteryConditionApplied
 import com.mckimquyen.reader.ui.ext.commuteListenMinuteOfDay
@@ -213,6 +214,8 @@ class RApp : Application(), WorkConfiguration.Provider, ImageLoaderFactory {
         // registerAppOpenAdLifecycle (main thread). Không cần wire MobileAds/AppLovinSdk thủ công.
         AdManager.initialize(this) { success, gaid ->
             Log.d("roy93~Ad", "[setupAdmob] AdManager.initialize() result: success=$success, gaid=$gaid")
+            // The SDK has loaded its stored phone list by now; drop the old auto-VIP list once (see LegacyAutoVipCleaner).
+            if (success) LegacyAutoVipCleaner.forApp(this).runOnce()
         }
     }
 
