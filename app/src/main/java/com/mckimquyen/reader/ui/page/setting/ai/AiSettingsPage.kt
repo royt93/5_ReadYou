@@ -76,7 +76,6 @@ import com.mckimquyen.reader.ui.ext.customGeminiApiKey
 import com.mckimquyen.reader.ui.ext.dataStore
 import com.mckimquyen.reader.ui.ext.put
 import com.mckimquyen.reader.ui.theme.palette.onLight
-import com.roy.sdkadbmob.AdManager
 import kotlinx.coroutines.launch
 
 @OptIn(androidx.compose.material3.ExperimentalMaterial3Api::class)
@@ -94,11 +93,7 @@ fun AiSettingsPage(
     var geminiKeyInput by remember { mutableStateOf(context.customGeminiApiKey) }
     var keyVisible by remember { mutableStateOf(false) }
 
-    BackHandler {
-        AdManager.showInterstitial(activity) {
-            navController.popBackStack()
-        }
-    }
+    BackHandler { navController.popBackStack() }
 
     BaseScaffold(
         containerColor = MaterialTheme.colorScheme.surface onLight MaterialTheme.colorScheme.inverseOnSurface,
@@ -108,9 +103,7 @@ fun AiSettingsPage(
                 contentDescription = stringResource(R.string.back),
                 tint = MaterialTheme.colorScheme.onSurface,
             ) {
-                AdManager.showInterstitial(activity) {
-                    navController.popBackStack()
-                }
+                navController.popBackStack()
             }
         },
         content = {

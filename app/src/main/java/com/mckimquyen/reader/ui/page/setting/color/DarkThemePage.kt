@@ -80,17 +80,15 @@ fun DarkThemePage(
                     showRewardDialog = false
                     val activity = context as? Activity
                     if (activity != null) {
-                        com.roy.sdkadbmob.AdManager.showInterstitial(activity) { success ->
-                            android.util.Log.d("roy93~Ad", "showInterstitial callback: success=$success")
-                            if (success) {
-                                // [H1] Dùng scope (rememberCoroutineScope) thay vì GlobalScope
-                                // để tránh leak khi Activity bị destroy giữa config change.
+                        // The unlock is a reward, so it comes from a rewarded ad and only when the reward was earned.
+                        com.roy.sdkadbmob.AdManager.showRewarded(activity) { earned ->
+                            if (earned) {
+                                // [H1] rememberCoroutineScope instead of GlobalScope: no leak if the Activity is destroyed on a config change.
                                 scope.launch {
                                     AmoledUnlockedPref.ON.put(context, this)
                                     com.mckimquyen.reader.infrastructure.pref.AmoledDarkThemePref.ON.put(context, this)
                                     com.mckimquyen.reader.infrastructure.pref.DarkThemePref.ON.put(context, this)
                                 }
-                                android.util.Log.d("roy93~Ad", "Amoled theme unlocked and activated!")
                             } else {
                                 android.widget.Toast.makeText(context, context.getString(R.string.ad_not_ready), android.widget.Toast.LENGTH_SHORT).show()
                             }

@@ -740,9 +740,8 @@ private fun DeepDiveBanner(
                                 Toast.makeText(context, context.getString(R.string.commute_deepdive_unlocked), Toast.LENGTH_SHORT).show()
                                 onUnlocked()
                             } else {
-                                AdManager.showInterstitial(act) {
-                                    Toast.makeText(context, context.getString(R.string.vip_rewarded_not_earned), Toast.LENGTH_SHORT).show()
-                                }
+                                // No reward earned: say so, never show another ad in its place.
+                                Toast.makeText(context, context.getString(R.string.vip_rewarded_not_earned), Toast.LENGTH_SHORT).show()
                             }
                         }
                     }

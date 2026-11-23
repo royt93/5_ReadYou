@@ -272,13 +272,8 @@ fun VipManagementPage(navController: NavHostController) {
                                 // Chỉ grant khi user xem HẾT rewarded.
                                 grantRewarded()
                             } else {
-                                // Rewarded chưa sẵn / đóng sớm → vẫn tận dụng interstitial
-                                // (doanh thu) nhưng KHÔNG grant; báo user thử lại sau khi ad đóng.
-                                AdManager.showInterstitial(act) {
-                                    dialog = VipDialog.Failed(
-                                        context.getString(R.string.vip_rewarded_not_earned)
-                                    )
-                                }
+                                // No reward earned (ad not ready, closed early): say so. Never show another ad in its place.
+                                dialog = VipDialog.Failed(context.getString(R.string.vip_rewarded_not_earned))
                             }
                         }
                     },

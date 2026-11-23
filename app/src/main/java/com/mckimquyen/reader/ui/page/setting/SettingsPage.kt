@@ -57,7 +57,6 @@ import com.mckimquyen.reader.BuildConfig
 import com.mckimquyen.reader.R
 import com.mckimquyen.reader.infrastructure.pref.LocalNewVersionNumber
 import com.mckimquyen.reader.infrastructure.pref.LocalSkipVersionNumber
-import com.roy.sdkadbmob.AdManager
 import com.mckimquyen.reader.ui.component.base.Banner
 import com.mckimquyen.reader.ui.component.base.BaseScaffold
 import com.mckimquyen.reader.ui.component.base.DisplayText
@@ -94,17 +93,7 @@ fun SettingsPage(
     val skipVersion = LocalSkipVersionNumber.current
     val currentVersion by remember { mutableStateOf(context.getCurrentVersion()) }
 
-    BackHandler {
-        Log.d("roy93~Ad", "[Settings] 🔙 System back triggered — calling AdManager.showInterstitial()")
-        AdManager.showInterstitial(activity) { success ->
-            if (success) {
-                Log.d("roy93~Ad", "[Settings] ✅ Interstitial shown & dismissed (System Back)")
-            } else {
-                Log.d("roy93~Ad", "[Settings] ⚠️ Interstitial not available (System Back) — navigating anyway")
-            }
-            navController.popBackStack()
-        }
-    }
+    BackHandler { navController.popBackStack() }
 
     BaseScaffold(
         containerColor = MaterialTheme.colorScheme.surface onLight MaterialTheme.colorScheme.inverseOnSurface,
@@ -117,15 +106,7 @@ fun SettingsPage(
                     contentDescription = stringResource(R.string.back),
                     tint = MaterialTheme.colorScheme.onSurface
                 ) {
-                    Log.d("roy93~Ad", "[Settings] ◀️ Back icon tapped — calling AdManager.showInterstitial()")
-                    AdManager.showInterstitial(activity) { success ->
-                        if (success) {
-                            Log.d("roy93~Ad", "[Settings] ✅ Interstitial shown & dismissed (Back Icon)")
-                        } else {
-                            Log.d("roy93~Ad", "[Settings] ⚠️ Interstitial not available (Back Icon) — navigating anyway")
-                        }
-                        navController.popBackStack()
-                    }
+                    navController.popBackStack()
                 }
             }
         },
