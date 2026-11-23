@@ -79,6 +79,24 @@ Cả **bốn loại ad** chạy với ID Google sample, đều có nhãn "Test A
 
 **Gate cuối (`post-adsdk-6-final`, HEAD `f732da0b`):** 510 XML, **4068 test, 0 lỗi, 0 bỏ qua**; lint 0 lỗi, `NewApi` 0, 2.538 cảnh báo (cùng loại 36 `Untranslatable` đã biết); `prodRelease` R8 ký debug, 0 ID AdMob thật, manifest mang App ID Google sample; 88.088.017 byte, 3 dex.
 
+## Rà chính sách AdMob đối chiếu mã (2026-11-23, theo [Disallowed interstitial implementations](https://support.google.com/admob/answer/6201362?hl=en))
+
+Chính sách (trích): *"Do not place interstitial ads on app load and when exiting apps as interstitials should only be placed in between pages of app content."*; *"no more than one interstitial ad after every two user actions… this requirement also applies when a user clicks the Back button"*; interstitial chỉ ở *"logical breaks in between your app's content"*.
+
+| Vi phạm tìm thấy trong mã | Đã làm |
+|---|---|
+| Interstitial khi bấm Back ở **Settings** (Back hệ thống và nút mũi tên) và **AI Settings** | Gỡ: Back chỉ điều hướng |
+| Interstitial hiện thay cho **rewarded bị từ chối** ở trang VIP và Deep Dive của CommuteCast (người dùng bấm "xem ad để nhận thưởng", nhận ad không thưởng) | Gỡ: chỉ báo "chưa sẵn sàng" |
+| Mở khoá **AMOLED** bằng interstitial ("xem video để mở khoá" nhưng đó là phần thưởng) | Đổi sang rewarded, chỉ mở khoá khi `earned`; không mở khoá trong nhánh không thưởng |
+
+Hiện app **không còn điểm gọi `showInterstitial` nào** ở mã chạy; `loadInterstitial` vẫn nạp ở `MainActivity` nhưng không có chỗ hiện (có thể bỏ nạp để đỡ tốn request; chưa làm). 8 test nguồn `AdPolicySourceTest` khoá lại các điều trên, 8 đột biến đều bị bắt (một mutant sống sót ở lượt đầu đã được siết test rồi bắt).
+
+**Còn rủi ro, chưa đối chiếu:** chính sách riêng của **App Open** (hiện khi mở và khi quay lại là được phép, nhưng tôi chưa đọc từng điều khoản), kích cỡ và vị trí banner trên mọi màn hình, tần suất App Open do SDK giữ (preset CONTENT), và việc ad thật chưa từng chạy với unit mới.
+
+**Bản release R8 trên Pixel (ID thử):** khởi động không crash, 0 tín hiệu ad thật, **banner hiện** ở đáy trang đọc (ảnh trong evidence); App Open, interstitial (không còn) và rewarded chưa quan sát ở release; kết nối ADB của Pixel rớt ở giữa lúc test, máy đang giữ bản release (xem `STATE_NOT_RESTORED.md` trong evidence).
+
+**Gate (`post-adsdk-8-policy-final`):** 511 XML, **4076 test, 0 lỗi, 0 bỏ qua**; lint 0 lỗi, NewApi 0; APK ký debug, 0 ID AdMob thật, manifest mang App ID Google sample; 88.088.017 byte, 3 dex.
+
 ## Phát hiện trong lúc migrate (không thuộc SDK)
 
 - **Bản release R8 crash ở `RApp.onCreate` trên mọi lần mở, cả bản trước migrate.** Nguyên nhân: sau khi tắt kiểm tra cập nhật (`UPDATE_CHECK_ENABLED=false`, 2026-11-23) không còn ai gọi method của `NetworkDataSource`, nên luật của Retrofit `-if interface * { @retrofit2.http.* <methods>; }` không còn khớp, R8 coi interface chưa có ai cài đặt và biên dịch `Retrofit.create()` thành `throw ClassCastException()`. Bản baseline `e890c8cb` (đã tắt kiểm tra cập nhật) **cũng crash** y hệt trên A50s: đo bằng cài lại baseline. Sửa bằng `-keep interface ...NetworkDataSource { *; }` (commit `1b5d58bf`). Đây là lỗi tôi **chưa bắt được ở đợt trước** vì tôi chưa chạy bản R8 sau khi tắt kiểm tra cập nhật; mốc cổng đã ghi chỗ này là chưa kiểm.
