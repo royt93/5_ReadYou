@@ -1,5 +1,6 @@
 package com.mckimquyen.reader.ui.component.commute
 
+import com.mckimquyen.reader.infrastructure.android.RewardedGate
 import android.app.Activity
 import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
@@ -688,6 +689,8 @@ private fun DeepDiveBanner(
 ) {
     val context = LocalContext.current
     val isVip = remember { AdManager.isVipByKeyActive() }
+    // Warm the next rewarded ad so the first press is not answered with "not ready".
+    androidx.compose.runtime.LaunchedEffect(Unit) { RewardedGate.shared.warmUp(context) }
 
     Card(
         modifier = Modifier.fillMaxWidth(),
@@ -735,7 +738,7 @@ private fun DeepDiveBanner(
                         onUnlocked()
                     } else {
                         val act = activity ?: return@Button
-                        AdManager.showRewarded(act) { earned ->
+                        RewardedGate.shared.request(act) { earned ->
                             if (earned) {
                                 Toast.makeText(context, context.getString(R.string.commute_deepdive_unlocked), Toast.LENGTH_SHORT).show()
                                 onUnlocked()

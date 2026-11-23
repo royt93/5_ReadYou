@@ -1,5 +1,6 @@
 package com.mckimquyen.reader.ui.page.setting.vip
 
+import com.mckimquyen.reader.infrastructure.android.RewardedGate
 import android.content.Intent
 import android.net.Uri
 import android.view.HapticFeedbackConstants
@@ -112,7 +113,7 @@ fun VipManagementPage(navController: NavHostController) {
     }
 
     // Preload rewarded để nút "Watch ad" sẵn sàng.
-    LaunchedEffect(Unit) { activity?.let { AdManager.loadRewarded(it) } }
+    LaunchedEffect(Unit) { activity?.let { RewardedGate.shared.warmUp(it) } }
 
     var inputKey by remember { mutableStateOf("") }
     var dialog by remember { mutableStateOf<VipDialog?>(null) }
@@ -267,7 +268,7 @@ fun VipManagementPage(navController: NavHostController) {
                 Button(
                     onClick = {
                         val act = activity ?: return@Button
-                        AdManager.showRewarded(act) { earned ->
+                        RewardedGate.shared.requestAdOnly(act) { earned ->
                             if (earned) {
                                 // Chỉ grant khi user xem HẾT rewarded.
                                 grantRewarded()

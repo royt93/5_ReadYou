@@ -379,7 +379,7 @@
     <string name="vip_failed_invalid_key">无效的码。请重新检查。</string>
     <string name="privacy_policy">隐私政策</string>
     <string name="ok">确定</string>
-    <string name="vip_rewarded_not_earned">广告暂不可用或尚未完成。请重试。</string>
+    <string name="vip_rewarded_not_earned">广告尚未准备好或未播放完毕。请几分钟后再试。</string>
     <string name="splash_ad_notice">注意：此应用可能会显示广告</string>
     <string name="read_you" translatable="false">RSS Hub</string>
     <string name="feed_url_placeholder" translatable="false">http://example.com/feed.rss</string>

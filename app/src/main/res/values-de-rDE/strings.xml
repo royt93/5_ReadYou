@@ -391,7 +391,7 @@
     <string name="vip_failed_invalid_key">Ungültiger Code. Bitte erneut prüfen.</string>
     <string name="privacy_policy">Datenschutzrichtlinie</string>
     <string name="ok">OK</string>
-    <string name="vip_rewarded_not_earned">Die Anzeige ist nicht verfügbar oder wurde nicht abgeschlossen. Bitte versuche es erneut.</string>
+    <string name="vip_rewarded_not_earned">Die Anzeige ist nicht bereit oder wurde nicht abgeschlossen. Bitte versuche es in ein paar Minuten erneut.</string>
     <string name="splash_ad_notice">Hinweis: Diese App kann Werbung anzeigen</string>
     <string name="read_you" translatable="false">RSS Hub</string>
     <string name="feed_url_placeholder" translatable="false">http://example.com/feed.rss</string>

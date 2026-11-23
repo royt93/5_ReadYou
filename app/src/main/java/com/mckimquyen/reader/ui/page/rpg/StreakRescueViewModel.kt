@@ -1,5 +1,6 @@
 package com.mckimquyen.reader.ui.page.rpg
 
+import com.mckimquyen.reader.infrastructure.android.RewardedGate
 import android.app.Activity
 import android.util.Log
 import androidx.lifecycle.ViewModel
@@ -9,7 +10,6 @@ import com.mckimquyen.reader.domain.model.rpg.StreakRescuePolicy
 import com.mckimquyen.reader.domain.repository.BrainRpgRepository
 import com.mckimquyen.reader.infrastructure.di.DefaultDispatcher
 import com.mckimquyen.reader.infrastructure.di.IODispatcher
-import com.roy.sdkadbmob.AdManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineDispatcher
@@ -34,7 +34,7 @@ sealed interface StreakRescueUiState {
 private const val TAG = "StreakRescue"
 
 private fun showRewardedAd(activity: Activity, onResult: (Boolean) -> Unit) {
-    AdManager.showRewarded(activity) { earned -> onResult(earned) }
+    RewardedGate.shared.request(activity, onResult)
 }
 
 /**

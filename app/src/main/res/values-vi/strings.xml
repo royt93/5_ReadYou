@@ -354,7 +354,7 @@
     <string name="vip_failed_invalid_key">Mã không hợp lệ. Vui lòng kiểm tra lại.</string>
     <string name="privacy_policy">Chính sách bảo mật</string>
     <string name="ok">OK</string>
-    <string name="vip_rewarded_not_earned">Quảng cáo chưa sẵn sàng hoặc chưa hoàn tất. Vui lòng thử lại.</string>
+    <string name="vip_rewarded_not_earned">Quảng cáo chưa sẵn sàng hoặc chưa xem xong. Vui lòng thử lại sau vài phút.</string>
     <string name="splash_ad_notice">Lưu ý: ứng dụng có thể hiển thị quảng cáo</string>
     <string name="commute_cast_title">CommuteCast AI DJ</string>
     <string name="commute_cast_subtitle">Bản tin đối đáp 2 MC buổi sáng</string>

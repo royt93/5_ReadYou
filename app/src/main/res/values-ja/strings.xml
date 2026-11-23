@@ -379,7 +379,7 @@
     <string name="vip_failed_invalid_key">無効なコードです。もう一度ご確認ください。</string>
     <string name="privacy_policy">プライバシーポリシー</string>
     <string name="ok">OK</string>
-    <string name="vip_rewarded_not_earned">広告を利用できないか、完了していません。もう一度お試しください。</string>
+    <string name="vip_rewarded_not_earned">広告の準備ができていないか、最後まで再生されませんでした。数分後にもう一度お試しください。</string>
     <string name="splash_ad_notice">ご注意：このアプリは広告を表示する場合があります</string>
     <string name="read_you" translatable="false">RSS Hub</string>
     <string name="feed_url_placeholder" translatable="false">http://example.com/feed.rss</string>

@@ -515,7 +515,7 @@
     <string name="vip_failed_invalid_key">Invalid code. Please check again.</string>
     <string name="privacy_policy">Privacy Policy</string>
     <string name="ok">OK</string>
-    <string name="vip_rewarded_not_earned">Ad is not available or was not completed. Please try again.</string>
+    <string name="vip_rewarded_not_earned">ကြော်ငြာ အဆင်သင့်မဖြစ်သေးပါ သို့မဟုတ် မပြီးဆုံးသေးပါ။ မိနစ်အနည်းငယ်အကြာတွင် ထပ်စမ်းကြည့်ပါ။</string>
     <string name="splash_ad_notice">Please note: this app may show ads</string>
     <string name="commute_cast_title">CommuteCast AI DJ</string>
     <string name="commute_cast_subtitle">2-Host Morning Radio Overview</string>

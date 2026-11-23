@@ -1,5 +1,6 @@
 package com.mckimquyen.reader.ui.page.rpg
 
+import com.mckimquyen.reader.infrastructure.android.RewardedGate
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -18,7 +19,6 @@ import com.mckimquyen.reader.infrastructure.rpg.BrainWrappedRenderer
 import com.mckimquyen.reader.infrastructure.rpg.BrainWrappedSharer
 import com.mckimquyen.reader.ui.ext.quizGeminiConsent
 import com.mckimquyen.reader.ui.ext.setQuizGeminiConsent
-import com.roy.sdkadbmob.AdManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CancellationException
@@ -212,7 +212,7 @@ class BrainRpgViewModel @Inject constructor(
             onDone(false)
             return
         }
-        AdManager.showRewarded(activity) { earned ->
+        RewardedGate.shared.request(activity) { earned ->
             if (earned) claimDoubleReward(articleId, category, bonusXp, onDone) else onDone(false)
         }
     }
@@ -246,16 +246,16 @@ class BrainRpgViewModel @Inject constructor(
     }
 
     fun recoverCategory(activity: Activity, categoryId: String, onDone: (Boolean) -> Unit) =
-        recoverCategory(categoryId, showAd = { cb -> AdManager.showRewarded(activity) { earned -> cb(earned) } }, onDone = onDone)
+        recoverCategory(categoryId, showAd = { cb -> RewardedGate.shared.request(activity) { earned -> cb(earned) } }, onDone = onDone)
 
     fun retryQuiz(activity: Activity, onDone: (Boolean) -> Unit) {
-        AdManager.showRewarded(activity) { earned ->
+        RewardedGate.shared.request(activity) { earned ->
             onDone(earned)
         }
     }
 
     fun activateStreakShield(activity: Activity, onDone: (Boolean) -> Unit) {
-        AdManager.showRewarded(activity) { earned ->
+        RewardedGate.shared.request(activity) { earned ->
             if (earned) {
                 viewModelScope.launch {
                     repository.activateStreakShield()

@@ -80,6 +80,19 @@ class AdPlacementSourceTest {
     }
 
     @Test
+    fun everyRewardedButtonGoesThroughTheGate_noScreenCallsTheSdkDirectly() {
+        // A direct AdManager.showRewarded call would be refused for a VIP (the SDK answers false), so only the gate may call it.
+        val direct = allKotlin().filter { (name, t) -> !name.endsWith("RewardedGate.kt") && Regex("""AdManager\.(showRewarded|loadRewarded)\(""").containsMatchIn(t) }.map { it.first }
+        assertEquals("screens that bypass RewardedGate: $direct", emptyList<String>(), direct)
+    }
+
+    @Test
+    fun onlyTheVipDaysButtonSkipsTheVipShortcut() {
+        val adOnly = allKotlin().filter { (name, t) -> !name.endsWith("RewardedGate.kt") && t.contains("requestAdOnly(") }.map { it.first.replace('\\', '/') }
+        assertEquals(listOf("ui/page/setting/vip/VipManagementPage.kt"), adOnly)
+    }
+
+    @Test
     fun theGuardTurnsTheSuppressionOffWhenTheResultComes_andOnAnyError() {
         val helper = src("infrastructure/android/AppOpenGuard.kt")
         assertTrue("the result callback must clear the flag", helper.contains("finally") || helper.contains("onResult"))

@@ -1,5 +1,6 @@
 package com.mckimquyen.reader.ui.page.setting.color
 
+import com.mckimquyen.reader.infrastructure.android.RewardedGate
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -54,6 +55,8 @@ fun DarkThemePage(
     val amoledUnlocked = LocalAmoledUnlocked.current
     val scope = rememberCoroutineScope()
     var showRewardDialog by remember { mutableStateOf(false) }
+    // Warm the next rewarded ad so the first press is not answered with "not ready".
+    androidx.compose.runtime.LaunchedEffect(Unit) { RewardedGate.shared.warmUp(context) }
 
     val handleAmoledToggle: () -> Unit = {
         if (amoledUnlocked.value) {
@@ -81,7 +84,7 @@ fun DarkThemePage(
                     val activity = context as? Activity
                     if (activity != null) {
                         // The unlock is a reward, so it comes from a rewarded ad and only when the reward was earned.
-                        com.roy.sdkadbmob.AdManager.showRewarded(activity) { earned ->
+                        RewardedGate.shared.request(activity) { earned ->
                             if (earned) {
                                 // [H1] rememberCoroutineScope instead of GlobalScope: no leak if the Activity is destroyed on a config change.
                                 scope.launch {

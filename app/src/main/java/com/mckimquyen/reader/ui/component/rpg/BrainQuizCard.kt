@@ -1,5 +1,6 @@
 package com.mckimquyen.reader.ui.component.rpg
 
+import com.mckimquyen.reader.infrastructure.android.RewardedGate
 import android.app.Activity
 import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
@@ -45,6 +46,8 @@ fun BrainQuizCard(
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
+    // Warm the next rewarded ad so the first press is not answered with "not ready".
+    androidx.compose.runtime.LaunchedEffect(Unit) { RewardedGate.shared.warmUp(context) }
     val activity = remember(context) { context.findActivity() }
 
     var selectedIndex by remember(quiz.articleId) { mutableStateOf<Int?>(null) }

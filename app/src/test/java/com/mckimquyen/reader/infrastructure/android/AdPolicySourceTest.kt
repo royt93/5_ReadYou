@@ -52,14 +52,15 @@ class AdPolicySourceTest {
     @Test
     fun unlockingTheAmoledTheme_comesFromARewardedAd_notFromAnInterstitial() {
         val page = src("ui/page/setting/color/DarkThemePage.kt")
-        assertTrue("the unlock must use a rewarded ad", page.contains("showRewarded"))
+        assertTrue("the unlock must use a rewarded ad (through the gate)", page.contains("RewardedGate.shared.request("))
         assertFalse("watching an interstitial must not grant anything", page.contains("showInterstitial"))
     }
 
     @Test
     fun theUnlockOnlyHappensWhenTheRewardWasEarned() {
         val page = src("ui/page/setting/color/DarkThemePage.kt")
-        val call = page.indexOf("showRewarded")
+        val call = page.indexOf("RewardedGate.shared.request(")
+        assertTrue("the rewarded call exists", call >= 0)
         val body = page.substring(call, minOf(page.length, call + 1400))
         val branch = Regex("""\{\s*earned\s*->\s*if\s*\(\s*earned\s*\)\s*\{""").find(body)
         assertTrue("the callback must branch on the real `earned` flag: $body", branch != null)

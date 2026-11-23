@@ -1,5 +1,6 @@
 package com.mckimquyen.reader.ui.page.rpg
 
+import com.mckimquyen.reader.infrastructure.android.RewardedGate
 import android.app.Activity
 import android.widget.Toast
 import androidx.activity.compose.BackHandler
@@ -46,6 +47,8 @@ fun BrainRpgPage(
     viewModel: BrainRpgViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
+    // Warm the next rewarded ad so the first press is not answered with "not ready".
+    androidx.compose.runtime.LaunchedEffect(Unit) { RewardedGate.shared.warmUp(context) }
     val progress by viewModel.userProgress.collectAsState()
 
     LaunchedEffect(viewModel) { viewModel.refresh() }
