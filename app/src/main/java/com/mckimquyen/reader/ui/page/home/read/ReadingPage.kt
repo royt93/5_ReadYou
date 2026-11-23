@@ -88,7 +88,10 @@ import com.mckimquyen.reader.R
 import com.mckimquyen.reader.ui.page.common.RouteName
 import com.mckimquyen.reader.ui.page.notebook.HighlightNoteDialog
 import com.mckimquyen.reader.ui.page.notebook.NotebookViewModel
+import com.mckimquyen.reader.infrastructure.android.InterstitialPacer
 import com.mckimquyen.reader.ui.ext.collectAsStateValue
+import com.mckimquyen.reader.ui.ext.findActivity
+import com.roy.sdkadbmob.AdManager
 import com.mckimquyen.reader.ui.ext.isScrollDown
 import com.mckimquyen.reader.ui.page.home.HomeViewModel
 
@@ -190,6 +193,11 @@ fun ReadingPage(
     // current article actually changes, not on every recomposition.
     LaunchedEffect(pagingItems.size, readingUiState.articleWithFeed?.article?.id) {
         readingViewModel.recorderNextArticle(pagingItems)
+    }
+
+    // Preload an interstitial only when the next "next article" tap is the one that may show it, so a request is never wasted.
+    LaunchedEffect(readingUiState.articleWithFeed?.article?.id) {
+        if (InterstitialPacer.shared.nextActionMayShow()) AdManager.loadInterstitial(context)
     }
 
     LaunchedEffect(Unit) {
@@ -642,6 +650,10 @@ fun ReadingPage(
                         onNextArticle = {
                             if (readingUiState.nextArticleId.isNotEmpty()) {
                                 readingViewModel.initData(readingUiState.nextArticleId, autoTts)
+                                // A natural break (the user asked for the next article); at most one ad per three taps, never on Back or on leaving.
+                                if (InterstitialPacer.shared.onUserAction()) {
+                                    context.findActivity()?.let { AdManager.showInterstitial(it) { } }
+                                }
                             }
                         },
                         onFullContent = {

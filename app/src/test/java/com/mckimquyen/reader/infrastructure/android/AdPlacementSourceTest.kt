@@ -60,6 +60,26 @@ class AdPlacementSourceTest {
     }
 
     @Test
+    fun theOnlyInterstitialIsAtTheNextArticleBreak_behindThePacer() {
+        val shows = allKotlin().filter { (_, t) -> t.contains("AdManager.showInterstitial(") }.map { it.first }
+        assertEquals("the one natural break", listOf("ui/page/home/read/ReadingPage.kt"), shows.map { it.replace('\\', '/') })
+        val page = src("ui/page/home/read/ReadingPage.kt")
+        val next = page.substringAfter("onNextArticle = {").substringBefore("onFullContent")
+        assertTrue("shown only when the pacer allows it", next.contains("InterstitialPacer.shared.onUserAction()"))
+        assertTrue(next.indexOf("onUserAction") < next.indexOf("showInterstitial"))
+        assertFalse("never from a back handler", Regex("""BackHandler\s*\{[^}]*showInterstitial""").containsMatchIn(page))
+    }
+
+    @Test
+    fun theInterstitialIsPreloadedOnlyWhenThePacerIsAboutToAllowIt() {
+        val page = src("ui/page/home/read/ReadingPage.kt")
+        val loads = Regex("""AdManager\.loadInterstitial\(""").findAll(page).count()
+        assertEquals(1, loads)
+        val before = page.substringBefore("AdManager.loadInterstitial(").takeLast(120)
+        assertTrue("the preload sits behind nextActionMayShow", before.contains("nextActionMayShow()"))
+    }
+
+    @Test
     fun theGuardTurnsTheSuppressionOffWhenTheResultComes_andOnAnyError() {
         val helper = src("infrastructure/android/AppOpenGuard.kt")
         assertTrue("the result callback must clear the flag", helper.contains("finally") || helper.contains("onResult"))
