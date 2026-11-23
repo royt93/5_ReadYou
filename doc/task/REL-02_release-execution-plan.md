@@ -90,7 +90,7 @@ Lý do: R8 không chạy trong JVM; lượt đầu tìm ra 2 lỗi thật. Cách
 |---|---|---|---|
 | 1 | SDK ad mới mang rule R8, quyền hoặc lớp reflection chưa kiểm | High | Cổng 1 chạy lại bài kiểm mục 3 |
 | 2 | Số `versionCode` store chưa biết | High | Cổng 0 |
-| 3 | **Đã kiểm một phần:** NSD `setAttribute(String)` chạy trên **Android 14** (Tecno, 3/3 xanh khi có Wi-Fi). **Chưa kiểm:** màu thanh điều hướng và chủ đề trên **API 26 đến 28** và Android 12 đến 13 (không có máy cũ); NSD mới thử với chính nó trên một mạng, chưa hai máy | Medium | ghi vào hồ sơ; cân nhắc rollout nhỏ trước |
+| 3 | **Cập nhật 2026-11-23:** NSD và chip AI đã chạy xanh trên **A50s API 30** (và Tecno API 34). Màu thanh điều hướng đã đọc qua cờ `LIGHT_NAVIGATION_BARS` trên API 30, nhưng chưa có máy **API 26 đến 28**. **Đã kiểm một phần (trước đó):** NSD `setAttribute(String)` chạy trên **Android 14** (Tecno, 3/3 xanh khi có Wi-Fi). **Chưa kiểm:** màu thanh điều hướng và chủ đề trên **API 26 đến 28** và Android 12 đến 13 (không có máy cũ); NSD mới thử với chính nó trên một mạng, chưa hai máy | Medium | ghi vào hồ sơ; cân nhắc rollout nhỏ trước |
 | 4 | Digest và WebDAV chưa chạy ở bản release | Medium | Cổng 1 hoặc chấp nhận |
 | 5 | Lint API-level chỉ chạy khi vá tệp SDK | Medium | Cổng 1: quyết cách chạy |
 | 6 | DataStore (khóa API riêng) vẫn được sao lưu đám mây | Medium | khai báo Data safety (M3a) |
@@ -106,5 +106,5 @@ Lý do: R8 không chạy trong JVM; lượt đầu tìm ra 2 lỗi thật. Cách
 ## 5. Quy tắc xuyên suốt
 - Chỉ nhánh `dev`; thử nghiệm là sửa tạm không commit, hoàn nguyên và `cmp` byte-identical.
 - Commit không attribution AI (R6). Không tạo PR, không nhắc PR.
-- Thiết bị: chỉ **Tecno** `adb -s 115333744A005844` (owner, 2026-11-22). Gate và sao lưu byte-exact quanh mỗi lượt; đếm `ActiveInstrumentation` ngay trước mỗi lệnh ghi vì máy dùng chung với phiên LensLauncher; không xóa DataStore; không bấm theo tọa độ cũ; việc làm được bằng adb (bật Wi-Fi, quyền tạm, cài đè, đóng quảng cáo) tự làm và trả về giá trị gốc, không hỏi lại. Vẫn hỏi trước khi xóa dữ liệu, gỡ app, force-push, đổi chế độ repo.
+- Thiết bị: từ 2026-11-23 chỉ **Samsung A50s** `adb -s R58MA6WYRPE` (Android 11, API 30; owner: "dùng a50s cho mọi phiên"), launcher `com.sec.android.app.launcher`; trước đó Tecno `115333744A005844` (2026-11-22) và Pixel. Gate đọc được Android 11 từ `94c4b86a`. Không gửi lệnh tới Tecno (dùng chung với phiên LensLauncher) hay Pixel. (Cũ, Tecno:) Gate và sao lưu byte-exact quanh mỗi lượt; đếm `ActiveInstrumentation` ngay trước mỗi lệnh ghi vì máy dùng chung với phiên LensLauncher; không xóa DataStore; không bấm theo tọa độ cũ; việc làm được bằng adb (bật Wi-Fi, quyền tạm, cài đè, đóng quảng cáo) tự làm và trả về giá trị gốc, không hỏi lại. Vẫn hỏi trước khi xóa dữ liệu, gỡ app, force-push, đổi chế độ repo.
 - Không dùng cờ ad/VIP làm lối tắt cho test. Không sửa tệp ad (owner đang migrate).
