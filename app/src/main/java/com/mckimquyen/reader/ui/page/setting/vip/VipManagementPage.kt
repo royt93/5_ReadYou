@@ -236,8 +236,7 @@ fun VipManagementPage(navController: NavHostController) {
                 // (6) Nhập key VIP
                 OutlinedTextField(
                     value = inputKey,
-                    // KHÔNG uppercase/capitalize: VIP key là mixed-case (vd 9fA0q7eN!...),
-                    // ép hoa sẽ khiến VipKeys.lookupDays không bao giờ khớp.
+                    // KHÔNG uppercase/capitalize: mã VIP phân biệt hoa thường, ép hoa sẽ làm mã không bao giờ khớp.
                     onValueChange = { inputKey = it },
                     label = { Text(stringResource(R.string.vip_redeem_label)) },
                     placeholder = { Text(stringResource(R.string.vip_redeem_hint)) },

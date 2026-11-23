@@ -29,8 +29,8 @@
 | TC-CONFIG-001 | [U] | — | `AdKeys.VIP_SECRET` bằng `VipKeys.VIP_30D_KEY` | Assert `AdKeys.VIP_SECRET == VipKeys.VIP_30D_KEY` | PASS | — |
 | TC-CONFIG-002 | [U] | — | `PRIVACY_POLICY_URL` bắt đầu bằng `https://` | Assert `AdKeys.PRIVACY_POLICY_URL.startsWith("https://")` | PASS | — |
 | TC-CONFIG-003 | [M] | [ON] | Release build: `ADMOB_REWARDED_ID` còn dùng Google test ID | Mở `app/build.gradle` release block, kiểm tra field `ADMOB_REWARDED_ID` | Thấy comment `WARNING [H2]` và giá trị `ca-app-pub-3940256099942544/...` — **PHẢI thay real ID trước khi bật `IS_ENABLE_ADMOB=true`** | H2 |
-| TC-CONFIG-004 | [M] | — | Không có plain VIP key trong file doc | `grep -r "9fA0q7eN" doc/` và `grep -r "eQ7@93L0" doc/` | 0 kết quả | H3 |
-| TC-CONFIG-005 | [M] | — | Không có plain VIP key trong source `.kt` | `grep -r "9fA0q7eN" app/src/` và `grep -r "eQ7@93L0" app/src/` | 0 kết quả | H3 |
+| TC-CONFIG-004 | [M] | — | Không có plain VIP key trong file doc | `grep -rn` từng đoạn đầu của hai mã trong `doc/` và `app/src` (mã nằm ở myKeyStore) | 0 kết quả | H3 |
+| TC-CONFIG-005 | [M] | — | Không có plain VIP key trong source `.kt` | `grep -r "<đoạn-đầu-mã-VIP>" app/src/` và `grep -r "<đoạn-đầu-mã-VIP>" app/src/` | 0 kết quả | H3 |
 | TC-CONFIG-006 | [M] | — | `IS_ENABLE_ADMOB=false` trên cả debug + release | Kiểm tra `app/build.gradle` cả 2 block | Đều là `false` | — |
 | TC-CONFIG-007 | [M] | — | `AdSafetyLimits.TEST` chỉ dùng cho debug | Đọc `RApp.setupAdmob()` — `safety = if (BuildConfig.DEBUG) AdSafetyLimits.TEST else AdSafetyLimits.CONTENT` | Đúng phân nhánh | — |
 
@@ -212,7 +212,7 @@
 
 | ID | Loại | Mô tả | Bước | Kỳ vọng | Issue ref |
 |---|---|---|---|---|---|
-| TC-SEC-001 | [M] | Plain VIP key không có trong repo source | `grep -r "9fA0q7eN" .` từ repo root | 0 match (chỉ có Base64 trong `.kt`, `[REDACTED]` trong doc) | H3 |
+| TC-SEC-001 | [M] | Plain VIP key không có trong repo source | `grep -r "<đoạn-đầu-mã-VIP>" .` từ repo root | 0 match (chỉ có Base64 trong `.kt`, `[REDACTED]` trong doc) | H3 |
 | TC-SEC-002 | [M] | APK decompile: key ở dạng Base64, không plain text | Decompile release APK bằng jadx. Search class `VipKeys`. | Thấy `VIP_30D_B64 = "OWZBMHE3..."` (Base64). Không thấy plain key. | H3 |
 | TC-SEC-003 | [M] | VIP key không thể đoán từ UI | Không có hint plain key trên màn VIP (placeholder chỉ là "VD: LOITP_30"). | Không lộ pattern key qua UI. | — |
 | TC-SEC-004 | [M] | Replay: key đã dùng không thể kích hoạt thêm lần nữa (lib tự handle) | Kích hoạt key 30 ngày. Revoke. Nhập lại cùng key. | Hành vi tùy lib — nếu lib cho phép re-use, ghi nhận. Nếu không, dialog failed. | — |
@@ -261,5 +261,5 @@ adb logcat -s "roy93~Ad" | grep -E "timeout|consent|initSplash|goToMain"
 ```bash
 # Cài jadx-gui hoặc dùng jadx CLI
 jadx --output-dir out/ app-prodRelease.apk
-grep -r "VIP_30D_B64\|9fA0q7eN" out/
+grep -r "VIP_30D_B64\|<đoạn-đầu-mã-VIP>" out/
 ```
