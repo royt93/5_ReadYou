@@ -202,4 +202,57 @@ class StreakRescueViewModelTest {
         assertFalse(prompt.isLoadingAd)
         assertFalse(repository.getProgress().streakShieldActive)
     }
+
+    /**
+     * The ad SDK answers `earned=false` on every path where no ad is shown (cooldown, safety block, not ready, no network), so the only state the
+     * app has to survive is "waiting for the callback". While it waits the dialog must not start a second ad or let the user leave a half state,
+     * and once the callback says no, every button has to work again.
+     */
+    @Test fun onRescueWithAd_whileWaiting_ignoresASecondTapAndTheOtherButtons_thenWorksAgainAfterAFailure() = runTest(testDispatcher) {
+        seedBrokenStreak(streak = 5, daysAgo = 3)
+        val pending = mutableListOf<(Boolean) -> Unit>()
+        val vm = createViewModel(adLauncher = { _, cb -> pending += cb })
+        vm.checkOnStartup()
+        advanceUntilIdle()
+
+        vm.onRescueWithAd(mockk())
+        vm.onRescueWithAd(mockk())
+        vm.onDismissLater()
+        vm.onRestartFromScratch()
+        advanceUntilIdle()
+
+        assertEquals("a second tap must not start a second ad", 1, pending.size)
+        val waiting = vm.state.value as StreakRescueUiState.Prompt
+        assertTrue(waiting.isLoadingAd)
+        assertEquals("the streak must not be reset while the ad is pending", 5, repository.getProgress().streakDays)
+
+        pending.single()(false)
+        advanceUntilIdle()
+
+        val failed = vm.state.value as StreakRescueUiState.Prompt
+        assertFalse(failed.isLoadingAd)
+        assertTrue(failed.adFailed)
+
+        vm.onRescueWithAd(mockk())
+        advanceUntilIdle()
+        assertEquals("after a failure the user can try again", 2, pending.size)
+    }
+
+    @Test fun onRescueWithAd_retryAfterAFailure_canStillRescue() = runTest(testDispatcher) {
+        seedBrokenStreak(streak = 5, daysAgo = 3)
+        var answers = listOf(false, true).iterator()
+        val vm = createViewModel(adLauncher = { _, cb -> cb(answers.next()) })
+        vm.checkOnStartup()
+        advanceUntilIdle()
+
+        vm.onRescueWithAd(mockk())
+        advanceUntilIdle()
+        assertTrue((vm.state.value as StreakRescueUiState.Prompt).adFailed)
+
+        vm.onRescueWithAd(mockk())
+        advanceUntilIdle()
+
+        assertEquals(StreakRescueUiState.Idle, vm.state.value)
+        assertTrue(repository.getProgress().streakShieldActive)
+    }
 }
