@@ -28,6 +28,15 @@ class DeviceBackupTest(unittest.TestCase):
         for needed in ("databases/Reader", "databases/Reader-wal", "files/datastore/settings.preferences_pb", "shared_prefs/pairing_store.xml"):
             self.assertIn(needed, FILES)
 
+    def test_the_file_list_covers_the_ad_and_vip_state(self):
+        # A VIP token creates vip_screen_prefs.xml and changes loitp_admob.xml; without them in the list a restore leaves the phone VIP.
+        for needed in ("shared_prefs/loitp_admob.xml", "shared_prefs/vip_screen_prefs.xml", "shared_prefs/app_preferences.xml",
+                       "shared_prefs/com.mckimquyen.reader_preferences.xml", "shared_prefs/__GOOGLE_FUNDING_CHOICE_SDK_INTERNAL__.xml"):
+            self.assertIn(needed, FILES)
+
+    def test_the_file_list_has_no_duplicates(self):
+        self.assertEqual(len(FILES), len(set(FILES)))
+
     def test_the_file_list_names_only_our_own_package_state(self):
         for name in FILES:
             self.assertTrue(name.split("/")[0] in ("databases", "files", "shared_prefs"), name)

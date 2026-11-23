@@ -141,3 +141,23 @@ Bản release R8 (ký debug, ID mẫu Google) tại `3edfb2b9`: khởi động n
 ### Rủi ro đã biết, owner chọn giữ (2026-11-23): interstitial và rewarded dùng chung hạn mức
 
 `AdManager.showInterstitial` và `AdManager.showRewarded` cùng gọi `AdSafetyConfig.canShowFullscreenAd` (đọc từ `AdManager` 1.8.5). Preset `AdSafetyLimits.CONTENT` build bằng toàn bộ giá trị mặc định (mask `131071`), theo spec: 60 giây giữa hai ad toàn màn hình, 6 mỗi phiên, 3 mỗi giờ, 10 mỗi ngày (chưa đo bằng số liệu thật trên máy ở chế độ release). Hệ quả: nếu một interstitial vừa hiện (trong 60 giây) hoặc đã đủ 3 ad trong giờ, nút rewarded do người dùng bấm (VIP, AMOLED, Brain RPG, cứu chuỗi, CommuteCast) bị SDK chặn và app báo "ad chưa sẵn sàng". Rewarded có eCPM cao và do người dùng chủ động, nên đây là đánh đổi thật. Owner chọn giữ nguyên. Cách giảm nếu số liệu thật cho thấy mất rewarded: tăng `InterstitialPacer.DEFAULT_EVERY_NTH_ACTION` (sàn 3 theo AdMob), không hạ cap của SDK.
+
+## Audit độc lập và sửa theo audit (2026-11-23, buổi tối)
+
+Một agent mới, không dùng kết luận của tôi, đọc mã và bytecode. Không có Blocker; 1 High, 2 Medium, 4 Low. Tôi tự kiểm lại High từ mã và bytecode, đúng.
+
+| # | Mức | Phát hiện | Xử lý |
+|---|---|---|---|
+| 1 | High | Người dùng VIP bấm rewarded ở Brain RPG (5 chỗ) và cứu chuỗi bị SDK từ chối (`showRewarded` trả `false` cho VIP) và thấy "ad không có" | Sửa (`RewardedGate`): VIP nhận thưởng thẳng; riêng nút "xem ad lấy 3 ngày VIP" luôn qua SDK để không phát VIP miễn phí. Test hành vi + 6 mutant. **Chạy trên Tecno bằng token VIP thật gắn máy:** "Activate Shield" ra "Shield Active", không ad, không toast lỗi |
+| 2 | Medium | Interstitial và rewarded dùng chung hạn mức; một chuỗi lỗi chung cho mọi lý do | Owner chọn giữ hạn mức chung; chuỗi lỗi đổi thành "thử lại sau vài phút" ở 38 ngôn ngữ (**dịch máy, chưa người duyệt**) |
+| 3 | Medium | Rewarded không preload ở phần lớn nút | Sửa: `warmUp` ở Brain RPG, quiz, CommuteCast, AMOLED; trang VIP đã có |
+| 4 | Low | `showInterstitial(it) { }` bỏ kết quả, pacer đếm cả khi ad không hiện | Chấp nhận (chỉ ít ad hơn) |
+| 5 | Low | `AdValidationHelper` dùng `Log.e`, R8 cắt ở release nên vô tác dụng | **Chưa làm** (owner chọn làm, đang chờ cờ `-PallowTestAdIds`) |
+| 6 | Low | Debug dùng ID AppLovin thật; nếu bật `IS_ENABLE_ADMOB=false` sẽ ra ad thật | Chưa làm, hiện `true` |
+| 7 | Low | Không đặt `tagForChildDirectedTreatment` | Chấp nhận nếu app không nhắm trẻ em; owner xác nhận trên Play Console |
+
+Hai bằng chứng khác cùng buổi, trên Tecno, chỉ khởi động và không bấm vào ad:
+- Bản release R8 ký debug **dựng bằng ID AdMob thật**, hash của máy cho chứng chỉ debug đã đăng ký: 3 lần `This request is sent from a test device`, 0 lần `Use RequestConfiguration`, trạm dừng tự động (đọc logcat, force-stop khi có tín hiệu) không phải kích hoạt.
+- Hash của máy cho chứng chỉ release (khoá thật) đã có trong danh sách, nhưng chưa thử bản ký bằng khoá thật với ID thật.
+
+Điều tôi phát hiện khi dọn máy: `device_backup.py` không phủ `vip_screen_prefs.xml` (app tạo khi nhập token) và các pref ad. Đã mở rộng danh sách, thêm test, một mutant bị bắt.

@@ -19,6 +19,9 @@ FILES = [
     "databases/Reader", "databases/Reader-shm", "databases/Reader-wal", "databases/Reader-journal",
     "files/datastore/settings.preferences_pb",
     "shared_prefs/pairing_store.xml", "shared_prefs/commute_cast_prefs.xml", "shared_prefs/podcast_positions.xml",
+    # Ad and VIP state: a VIP token, a rewarded ad or the consent form change these, so a restore must put them back too.
+    "shared_prefs/loitp_admob.xml", "shared_prefs/vip_screen_prefs.xml", "shared_prefs/app_preferences.xml",
+    "shared_prefs/com.mckimquyen.reader_preferences.xml", "shared_prefs/__GOOGLE_FUNDING_CHOICE_SDK_INTERNAL__.xml",
 ]
 
 
