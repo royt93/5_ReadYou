@@ -14,6 +14,7 @@ import com.mckimquyen.reader.infrastructure.pref.NewVersionNumberPref
 import com.mckimquyen.reader.infrastructure.pref.NewVersionPublishDatePref
 import com.mckimquyen.reader.infrastructure.pref.NewVersionSizePref
 import com.mckimquyen.reader.infrastructure.pref.NewVersionSizePref.formatSize
+import com.mckimquyen.reader.ui.ext.UPDATE_CHECK_ENABLED
 import com.mckimquyen.reader.ui.ext.getCurrentVersion
 import com.mckimquyen.reader.ui.ext.getLatestApk
 import com.mckimquyen.reader.ui.ext.showToast
@@ -36,6 +37,7 @@ class AppSv @Inject constructor(
 ) {
 
     suspend fun checkUpdate(showToast: Boolean = true): Boolean? = withContext(ioDispatcher) {
+        if (!UPDATE_CHECK_ENABLED) return@withContext null
         try {
             val response = networkDataSource.getReleaseLatest(context.getString(R.string.update_link))
             when {

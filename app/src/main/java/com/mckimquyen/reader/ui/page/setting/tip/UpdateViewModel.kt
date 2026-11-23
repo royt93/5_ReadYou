@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mckimquyen.reader.domain.sv.AppSv
 import com.mckimquyen.reader.infrastructure.net.Download
+import com.mckimquyen.reader.ui.ext.UPDATE_CHECK_ENABLED
 import com.mckimquyen.reader.ui.ext.notFdroid
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
@@ -29,7 +30,7 @@ class UpdateViewModel @Inject constructor(
         preProcessor: suspend () -> Unit = {},
         postProcessor: suspend (Boolean) -> Unit = {},
     ) {
-        if (notFdroid) {
+        if (notFdroid && UPDATE_CHECK_ENABLED) {
             viewModelScope.launch {
                 preProcessor()
                 appService.checkUpdate().let {
