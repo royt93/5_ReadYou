@@ -6,6 +6,18 @@
 - **Thiết bị kiểm:** từ 2026-11-22 chỉ **Tecno KJ7** `115333744A005844` (Android 14, SDK 34), theo lời owner "dùng tecno cho mọi phiên"; không gửi lệnh tới Pixel. Các mục kiểm trên Pixel (Android 17) ở bản trước giữ nguyên làm bằng chứng lịch sử. Tecno **dùng chung** với một phiên Claude khác (LensLauncher): mỗi lệnh ghi phải gate và đếm `ActiveInstrumentation` ngay trước.
 - **Quan hệ với REL-01:** REL-01 (`REL-01_release-update-plan.md`) là kế hoạch gốc; audit A1 đến A3 xong (`done/REL-01_audit_A1-A3_DONE.md`). REL-02 chỉ giữ phần **chưa xong**, theo thứ tự thực hiện.
 
+## 0. Tóm tắt cho owner (2026-11-23, HEAD `ee975df2` + doc; chi tiết ở các mục dưới và `doc/feature.md`)
+
+**Mã trên `dev` đã sẵn sàng về phía tôi.** Việc **chặn phát hành** và việc chỉ bạn làm được:
+1. **Khóa ký app public trên GitHub** (Critical): kiểm Play Console có Play App Signing không rồi chọn hướng (`~/exc-flaky-evidence/REL-04_release_pack_NOT_FOR_GIT.md` mục 5). Tôi không làm gì khi chưa có lời bạn.
+2. **Migrate ad SDK** xong và vào `dev`; sau đó tôi chạy cổng cuối (full JVM, lint đã vá, bản release R8 trên A50s, so quyền và dung lượng).
+3. **Duyệt bản dịch máy** hộp thoại WebDAV (37 ngôn ngữ), nhất là `lzh`, `my`, `kn`, `ml`.
+4. `versionCode` store phải nhỏ hơn `20261122`.
+
+**Đã chứng minh trên máy thật (A50s Android 11, bản release R8):** kiểm tra cập nhật qua Retrofit chạy tới phản hồi (HTTP 403 từ GitHub, không lỗi R8); đọc tập CommuteCast qua Gson chạy (`episode parsed: true dialogues=2`, dùng tập giả tạm rồi xóa); hộp thoại xác nhận WebDAV hiển thị đúng ở `ar`, `fa`, `iw`, `kn`, `my`, `ml`, `lzh`, nút Hủy không gửi yêu cầu; update 20260906 lên 20261122 giữ dữ liệu. **Chưa chứng minh:** máy API 26 đến 28, bản ký bằng khóa thật, 403 của kiểm tra cập nhật chưa tra nguyên nhân, chất lượng bản dịch.
+
+**Cố ý không làm (đã ghi ticket):** SEC-01 (HTTPS không kiểm chứng chứng chỉ), AI-01 (OpenAI, DeepSeek, Groq).
+
 ## 1. Đã xong (có bằng chứng, xem `doc/feature.md`)
 
 | Việc | Kết quả | Commit |
@@ -91,7 +103,7 @@ Lý do: R8 không chạy trong JVM; lượt đầu tìm ra 2 lỗi thật. Cách
 | 1 | SDK ad mới mang rule R8, quyền hoặc lớp reflection chưa kiểm | High | Cổng 1 chạy lại bài kiểm mục 3 |
 | 2 | Số `versionCode` store chưa biết | High | Cổng 0 |
 | 3 | **Cập nhật 2026-11-23:** NSD và chip AI đã chạy xanh trên **A50s API 30** (và Tecno API 34). Màu thanh điều hướng đã đọc qua cờ `LIGHT_NAVIGATION_BARS` trên API 30, nhưng chưa có máy **API 26 đến 28**. **Đã kiểm một phần (trước đó):** NSD `setAttribute(String)` chạy trên **Android 14** (Tecno, 3/3 xanh khi có Wi-Fi). **Chưa kiểm:** màu thanh điều hướng và chủ đề trên **API 26 đến 28** và Android 12 đến 13 (không có máy cũ); NSD mới thử với chính nó trên một mạng, chưa hai máy | Medium | ghi vào hồ sơ; cân nhắc rollout nhỏ trước |
-| 4 | Digest và WebDAV chưa chạy ở bản release | Medium | Cổng 1 hoặc chấp nhận |
+| 4 | Digest và WebDAV chưa chạy ở bản release (**cập nhật 2026-11-23:** kiểm tra cập nhật Retrofit và đọc tập CommuteCast Gson **đã chạy** trên bản release R8 ở A50s; hộp thoại WebDAV hiển thị ở 7 ngôn ngữ; chưa gọi digest hay WebDAV thật) | Medium | Cổng 1 hoặc chấp nhận |
 | 5 | Lint API-level chỉ chạy khi vá tệp SDK | Medium | Cổng 1: quyết cách chạy |
 | 6 | DataStore (khóa API riêng) vẫn được sao lưu đám mây | Medium | khai báo Data safety (M3a) |
 | 7 | Migration Room 1 đến 5 không có test và không có snapshot; cập nhật thật từ bản store chưa kiểm | Medium | cần APK cũ cùng khóa ký; bỏ nếu không còn người dùng v1 đến v5 |
