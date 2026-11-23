@@ -48,6 +48,16 @@ Owner đưa `doc/admob.MD` (ghi App ID, 4 unit và 1 unit native của app) và 
 - **Chưa kiểm:** các unit này chưa bao giờ được dùng để xin quảng cáo từ app này; unit mới tạo có thể cần vài giờ để có fill; `app-ads.txt` chưa kiểm; AppLovin SDK key và 4 ad unit AppLovin vẫn là giá trị cũ, chưa có tài liệu nào xác nhận chúng thuộc reader.
 - **Kiểm chứng:** build `prodRelease` ký khoá phát hành với ID mới (chỉ build trên máy, **không cài**): dex chứa đúng 4 unit mới, manifest mang App ID mới, 0 ID cũ. Script cổng đã sửa để kiểm cả hai publisher; chạy lại: APK ký debug, 0 ID thật, manifest App ID Google sample.
 
+## Đã chứng minh trên A50s bằng ID thử (2026-11-23 14:20-14:55, bản debug)
+
+Cả **bốn loại ad** chạy với ID Google sample, đều có nhãn "Test Ad", **0 dòng `Use RequestConfiguration`** ở mọi lượt: **banner** hiện đáy trang đọc (`✅ Loaded`, `👁️ Impression`), nằm dưới thanh nút, không che nút nào; **App Open** hiện khi mở lại app sau khi về nền (lần mở đầu đúng hành vi `skipAppOpenOnFirstEverLaunch`); **interstitial** hiện khi Settings quay lại; **rewarded** hiện, "Reward granted", cấp 3 ngày VIP bằng `grantVipDays`. Ad toàn màn đóng bằng nút `Close` / "Continue to app" có nhãn, không chạm creative. Mẫu "Share" tới `ShareTargetActivity` dùng để có bài mở trang đọc (gõ URL bằng `adb input` bị bàn phím IME làm méo ký tự).
+
+**Token VIP:** công cụ `mint_vip_token.py` (myKeyStore, ngoài repo) đúc token ECDSA bằng Python + openssl; **SDK thật chấp nhận token do nó đúc** (5/5 test trên A50s với khoá dùng một lần, không phải khoá thật: token hợp lệ, replay bị từ chối, máy khác bị từ chối, hết hạn bị từ chối, đổi một ký tự bị từ chối); đột biến public key sai khiến 2/5 đỏ, lượt đối chứng lại xanh. Token bind `v2.1|hạn|máy hoặc *|com.mckimquyen.reader`.
+
+**Hash test-device cho chứng chỉ release:** tính bằng APK dò không có mã ad, không quyền, không gửi request (md5 của ANDROID_ID), ký bằng cả khoá debug và khoá phát hành. Khoá debug cho một hash **đã có trong danh sách**, nên phương pháp được kiểm chứng; khoá phát hành cho một hash **chưa có**, nay đã thêm (24 hash, chỉ thêm). Hash này chỉ cho A50s: máy khác của owner vẫn cần tính riêng.
+
+**Vẫn chưa chứng minh:** consent EEA và form UMP, offline, trial 1 ngày (chỉ bản release), spinner khi cooldown, bản **ký khoá phát hành với ID thật chạy trên máy** (không cài, vì unit mới chưa từng có fill và owner chưa kiểm tay), và mọi thứ trên máy ngoài A50s.
+
 ## Phát hiện trong lúc migrate (không thuộc SDK)
 
 - **Bản release R8 crash ở `RApp.onCreate` trên mọi lần mở, cả bản trước migrate.** Nguyên nhân: sau khi tắt kiểm tra cập nhật (`UPDATE_CHECK_ENABLED=false`, 2026-11-23) không còn ai gọi method của `NetworkDataSource`, nên luật của Retrofit `-if interface * { @retrofit2.http.* <methods>; }` không còn khớp, R8 coi interface chưa có ai cài đặt và biên dịch `Retrofit.create()` thành `throw ClassCastException()`. Bản baseline `e890c8cb` (đã tắt kiểm tra cập nhật) **cũng crash** y hệt trên A50s: đo bằng cài lại baseline. Sửa bằng `-keep interface ...NetworkDataSource { *; }` (commit `1b5d58bf`). Đây là lỗi tôi **chưa bắt được ở đợt trước** vì tôi chưa chạy bản R8 sau khi tắt kiểm tra cập nhật; mốc cổng đã ghi chỗ này là chưa kiểm.

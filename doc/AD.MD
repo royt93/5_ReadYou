@@ -70,7 +70,7 @@
 
 ## 7. Công cụ đúc token VIP
 
-`generateVipToken` chỉ chạy khi `isDebug=true` và cần Context Android đã init SDK, nên cần một **app debug riêng** (không phải RSS Cat Hub) giữ private key. Private key: `VIP_TOKEN_PRIVATE_KEY` trong `myKeyStore/com.mckimquyen.reader/app.properties`, không bao giờ vào repo app. Token bind `applicationId` `com.mckimquyen.reader` và bind máy (`bindToCurrentDevice`), nên phải đúc đúng package và (nếu bind máy) trên đúng máy nhận. **Chưa dựng.**
+`generateVipToken` chỉ chạy khi `isDebug=true` và cần Context Android đã init SDK, nên cần một **app debug riêng** (không phải RSS Cat Hub) giữ private key. Private key: `VIP_TOKEN_PRIVATE_KEY` trong `myKeyStore/com.mckimquyen.reader/app.properties`, không bao giờ vào repo app. Token bind `applicationId` `com.mckimquyen.reader` và bind máy (`bindToCurrentDevice`), nên phải đúc đúng package và (nếu bind máy) trên đúng máy nhận. **Đã dựng:** `myKeyStore/com.mckimquyen.reader/mint_vip_token.py` (Python 3 + openssl, ngoài repo, đọc riêng `VIP_TOKEN_PRIVATE_KEY`); xem README myKeyStore. SDK thật chấp nhận token của nó (test thiết bị `MintedTokenAcceptedBySdkTest`).
 
 ---
 
