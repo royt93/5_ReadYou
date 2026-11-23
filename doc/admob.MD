@@ -1,5 +1,5 @@
 package name: com.mckimquyen.reader
-admob app id: 
+admob app id: ca-app-pub-3004713799155145~7354810943
 banner: 
 inter: 
 open app: 
