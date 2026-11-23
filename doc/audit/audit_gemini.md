@@ -112,3 +112,8 @@ Hiện app **không còn điểm gọi `showInterstitial` nào** ở mã chạy;
 - Chưa chạy consent EEA (`umpDebugGeography`), chưa chạy offline, chưa kiểm trial, chưa kiểm token ECDSA thật (chưa có công cụ đúc), chưa kiểm rewarded.
 - Chưa có API 26-28 thật; chỉ A50s Android 11.
 - Bản dịch hai chuỗi VIP mới là dịch máy, chưa người duyệt.
+
+
+## Bổ sung 2026-11-23: bản release R8 trên Tecno KJ7
+
+Bản release R8 (ký debug, ID mẫu Google) tại `3edfb2b9`: khởi động nguội ra `This request is sent from a test device.`, 0 lần `Use RequestConfiguration`. App Open hiện với nhãn "Test Ad", đóng bằng nút có nhãn; rewarded hiện "Test Ad", "Reward granted", VIP +3 ngày. Máy đã khôi phục byte-exact. Chưa chứng minh: ad với đơn vị thật, API 26-28.
