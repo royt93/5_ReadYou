@@ -1,5 +1,7 @@
 package com.mckimquyen.reader.ui.page.setting.tip
 
+import com.mckimquyen.reader.infrastructure.android.AppOpenGuard
+import com.mckimquyen.reader.infrastructure.android.AppOpenGuard.Companion.launchGuarded
 import android.Manifest
 import android.content.Intent
 import android.net.Uri
@@ -59,16 +61,18 @@ fun UpdateDialog(
     val settings = rememberLauncherForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) {
+        AppOpenGuard.shared.onResult()
         context.installLatestApk()
     }
 
     val launcher = rememberLauncherForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { result ->
+        AppOpenGuard.shared.onResult()
         if (result) {
             context.installLatestApk()
         } else {
-            settings.launch(
+            settings.launchGuarded(
                 Intent(
                     Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES,
                     Uri.parse("package:${context.packageName}"),
@@ -138,7 +142,7 @@ fun UpdateDialog(
                                 )
                                 context.installLatestApk()
                             } else {
-                                launcher.launch(Manifest.permission.REQUEST_INSTALL_PACKAGES)
+                                launcher.launchGuarded(Manifest.permission.REQUEST_INSTALL_PACKAGES)
                             }
                             ""
                         }

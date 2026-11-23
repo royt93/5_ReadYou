@@ -1,5 +1,7 @@
 package com.mckimquyen.reader.ui.ext
 
+import com.mckimquyen.reader.infrastructure.android.AppOpenGuard
+import com.mckimquyen.reader.infrastructure.android.AppOpenGuard.Companion.launchGuarded
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
@@ -32,11 +34,12 @@ fun rememberNotificationPermissionRequest(): () -> Unit {
     val launcher = rememberLauncherForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { granted ->
+        AppOpenGuard.shared.onResult()
         if (!granted) context.showToastLong(context.getString(R.string.notification_permission_denied))
     }
     return {
         if (needsNotificationPermission(Build.VERSION.SDK_INT, context.isNotificationPermissionGranted())) {
-            launcher.launch(Manifest.permission.POST_NOTIFICATIONS)
+            launcher.launchGuarded(Manifest.permission.POST_NOTIFICATIONS)
         }
     }
 }

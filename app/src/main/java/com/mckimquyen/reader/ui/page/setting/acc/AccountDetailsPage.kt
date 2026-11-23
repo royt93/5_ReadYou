@@ -1,5 +1,7 @@
 package com.mckimquyen.reader.ui.page.setting.acc
 
+import com.mckimquyen.reader.infrastructure.android.AppOpenGuard
+import com.mckimquyen.reader.infrastructure.android.AppOpenGuard.Companion.launchGuarded
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -89,6 +91,7 @@ fun AccountDetailsPage(
     val launcher = rememberLauncherForActivityResult(
         ActivityResultContracts.CreateDocument("application/xml")
     ) { result ->
+        AppOpenGuard.shared.onResult()
         viewModel.exportAsOPML(selectedAccount!!.id!!) { string ->
             result?.let { uri ->
                 context.contentResolver.openOutputStream(uri)?.use { outputStream ->
@@ -207,7 +210,7 @@ fun AccountDetailsPage(
                     SettingItem(
                         title = stringResource(R.string.export_as_opml),
                         onClick = {
-                            launcher.launch("ReadYou.opml")
+                            launcher.launchGuarded("ReadYou.opml")
                         },
                     ) {}
                     SettingItem(

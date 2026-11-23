@@ -54,10 +54,10 @@ class CommuteMorningSettingsSourceTest {
     @Test fun theBluetoothPermissionIsRequestedOnlyWhenTheSwitchIsTurnedOn() {
         // Two mentions, both inside the same switch handler: the "already granted?" check and the single request.
         assertEquals("one check and one request", 2, Regex("""BLUETOOTH_CONNECT""").findAll(page).count())
-        assertEquals("exactly one place launches the request", 1, Regex("""permissionLauncher\.launch\(""").findAll(page).count())
+        assertEquals("exactly one place launches the request", 1, Regex("""permissionLauncher\.launch(?:Guarded)?\(""").findAll(page).count())
         val handler = page.substringAfter("val onToggleAutoPlay").substringBefore("BaseScaffold(")
-        assertTrue("the request must sit inside the switch handler", handler.contains("permissionLauncher.launch(Manifest.permission.BLUETOOTH_CONNECT)"))
-        assertFalse("the page must not ask at start", page.substringBefore("val onToggleAutoPlay").contains("permissionLauncher.launch("))
+        assertTrue("the request must sit inside the switch handler", handler.contains("permissionLauncher.launchGuarded(Manifest.permission.BLUETOOTH_CONNECT)"))
+        assertFalse("the page must not ask at start", page.substringBefore("val onToggleAutoPlay").contains("permissionLauncher.launchGuarded("))
         assertFalse("the rows composable must not ask for permissions itself", rows.contains("BLUETOOTH_CONNECT"))
     }
 

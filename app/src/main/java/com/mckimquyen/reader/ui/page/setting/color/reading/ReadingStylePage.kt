@@ -1,5 +1,7 @@
 package com.mckimquyen.reader.ui.page.setting.color.reading
 
+import com.mckimquyen.reader.infrastructure.android.AppOpenGuard
+import com.mckimquyen.reader.infrastructure.android.AppOpenGuard.Companion.launchGuarded
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
@@ -95,6 +97,7 @@ fun ReadingStylePage(
     var bilingualTargetDialogVisible by remember { mutableStateOf(false) }
 
     val launcher = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+        AppOpenGuard.shared.onResult()
         uri?.let {
             ExternalFonts(context, it, ExternalFonts.FontType.ReadingFont).copyToInternalStorage()
             ReadingFontsPref.External.put(context, scope)
@@ -339,7 +342,7 @@ fun ReadingStylePage(
                 selected = it == fonts,
             ) {
                 if (it.value == ReadingFontsPref.External.value) {
-                    launcher.launch("*/*")
+                    launcher.launchGuarded("*/*")
                 } else {
                     it.put(context, scope)
                 }

@@ -177,11 +177,7 @@ class MainActivity : ComponentActivity() {
 
         // Language is now applied in attachBaseContext, no need to set it here
 
-        // Initialize AdMob on main thread (required by AdMob)
-        lifecycleScope.launch(Dispatchers.Main) {
-            Log.d("roy93~Ad", "[MainActivity] 📥 Calling AdManager.loadInterstitial()")
-            AdManager.loadInterstitial(this@MainActivity)
-        }
+        // No interstitial is shown anywhere in the app, so none is loaded: a request that is never shown lowers the unit's show rate.
     }
 
 //    private var doubleBackToExitPressedOnce = false

@@ -1,5 +1,7 @@
 package com.mckimquyen.reader.ui.page.home.feed.subs
 
+import com.mckimquyen.reader.infrastructure.android.AppOpenGuard
+import com.mckimquyen.reader.infrastructure.android.AppOpenGuard.Companion.launchGuarded
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedContent
@@ -52,6 +54,7 @@ fun SubscribeDialog(
     val subscribeUiState = subscribeViewModel.subscribeUiState.collectAsStateValue()
     val groupsState = subscribeUiState.groups.collectAsState(initial = emptyList())
     val launcher = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) {
+        AppOpenGuard.shared.onResult()
         it?.let { uri ->
             context.contentResolver.openInputStream(uri)?.let { inputStream ->
                 subscribeViewModel.importFromInputStream(inputStream)
@@ -189,7 +192,7 @@ fun SubscribeDialog(
                 TextButton(
                     onClick = {
                         focusManager.clearFocus()
-                        launcher.launch("*/*")
+                        launcher.launchGuarded("*/*")
                         subscribeViewModel.hideDrawer()
                     }
                 ) {

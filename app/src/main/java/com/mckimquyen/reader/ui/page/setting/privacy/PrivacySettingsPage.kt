@@ -1,5 +1,7 @@
 package com.mckimquyen.reader.ui.page.setting.privacy
 
+import com.mckimquyen.reader.infrastructure.android.AppOpenGuard
+import com.mckimquyen.reader.infrastructure.android.AppOpenGuard.Companion.launchGuarded
 import android.Manifest
 import android.app.Activity
 import android.content.pm.PackageManager
@@ -65,6 +67,7 @@ fun PrivacySettingsPage(
     val context = LocalContext.current
     var permissionDenied by remember { mutableStateOf(false) }
     val permissionLauncher = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
+        AppOpenGuard.shared.onResult()
         permissionDenied = !granted
         if (granted) viewModel.setCommuteAutoPlayOnHeadset(true)
     }
@@ -79,7 +82,7 @@ fun PrivacySettingsPage(
             viewModel.setCommuteAutoPlayOnHeadset(true)
         } else {
             // Asked only now, when the user turns the feature on; denying keeps the switch off.
-            permissionLauncher.launch(Manifest.permission.BLUETOOTH_CONNECT)
+            permissionLauncher.launchGuarded(Manifest.permission.BLUETOOTH_CONNECT)
         }
     }
 

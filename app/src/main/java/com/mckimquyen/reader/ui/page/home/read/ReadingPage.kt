@@ -1,5 +1,7 @@
 package com.mckimquyen.reader.ui.page.home.read
 
+import com.mckimquyen.reader.infrastructure.android.AppOpenGuard
+import com.mckimquyen.reader.infrastructure.android.AppOpenGuard.Companion.launchGuarded
 import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedContent
@@ -251,7 +253,10 @@ fun ReadingPage(
     val secondScreenViewModel: SecondScreenViewModel = hiltViewModel()
     val lanPermissionLauncher = androidx.activity.compose.rememberLauncherForActivityResult(
         androidx.activity.result.contract.ActivityResultContracts.RequestPermission(),
-    ) { secondScreenViewModel.start() }
+    ) {
+        AppOpenGuard.shared.onResult()
+        secondScreenViewModel.start()
+    }
     val secondScreenState by secondScreenViewModel.state.collectAsState()
     val clipboard = LocalClipboardManager.current
     val secondScreenCopiedText = stringResource(R.string.second_screen_copied)
@@ -355,7 +360,7 @@ fun ReadingPage(
                                 context, com.mckimquyen.reader.domain.p2psync.LanAccess.PERMISSION,
                             ) != android.content.pm.PackageManager.PERMISSION_GRANTED
                         ) {
-                            lanPermissionLauncher.launch(com.mckimquyen.reader.domain.p2psync.LanAccess.PERMISSION)
+                            lanPermissionLauncher.launchGuarded(com.mckimquyen.reader.domain.p2psync.LanAccess.PERMISSION)
                         } else {
                             secondScreenViewModel.start()
                         }

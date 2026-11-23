@@ -1,5 +1,7 @@
 package com.mckimquyen.reader.ui.page.common
 
+import com.mckimquyen.reader.infrastructure.android.AppOpenGuard
+import com.mckimquyen.reader.infrastructure.android.AppOpenGuard.Companion.launchGuarded
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
@@ -443,6 +445,7 @@ fun HomeEntry(
                     pairedPeers.firstOrNull { it.peerId == reply.peerId && !it.needsRepair }?.label
                 }
                 val lanPermissionLauncher = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
+                    AppOpenGuard.shared.onResult()
                     if (granted) syncViewModel.startFindingPeers()
                 }
                 LaunchedEffect(syncViewModel) {
@@ -497,7 +500,7 @@ fun HomeEntry(
                                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
                         )
                     },
-                    onRequestLanPermission = { lanPermissionLauncher.launch(LanAccess.PERMISSION) },
+                    onRequestLanPermission = { lanPermissionLauncher.launchGuarded(LanAccess.PERMISSION) },
                 )
                 LaunchedEffect(syncViewModel) {
                     syncViewModel.shareUrl.collect { context.share(it) }

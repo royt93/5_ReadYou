@@ -1,5 +1,7 @@
 package com.mckimquyen.reader.ui.page.setting.color
 
+import com.mckimquyen.reader.infrastructure.android.AppOpenGuard
+import com.mckimquyen.reader.infrastructure.android.AppOpenGuard.Companion.launchGuarded
 import android.content.Context
 import android.os.Build
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -104,6 +106,7 @@ fun ColorAndStylePage(
     var fontsDialogVisible by remember { mutableStateOf(false) }
 
     val launcher = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+        AppOpenGuard.shared.onResult()
         uri?.let {
             ExternalFonts(context, it, ExternalFonts.FontType.BasicFont).copyToInternalStorage()
             BasicFontsPref.External.put(context, scope)
@@ -273,7 +276,7 @@ fun ColorAndStylePage(
                 selected = it == fonts,
             ) {
                 if (it.value == BasicFontsPref.External.value) {
-                    launcher.launch("*/*")
+                    launcher.launchGuarded("*/*")
                 } else {
                     it.put(context, scope)
                 }
