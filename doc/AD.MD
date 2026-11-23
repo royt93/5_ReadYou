@@ -57,7 +57,7 @@
 
 ## 5. Rủi ro đã biết
 
-- A50s không kiểm được ad: GAID máy nằm trong `keyListGAID` (21 GAID) mà bản app cũ đã lưu vào `loitp_admob.xml`; SDK 1.8.5 vẫn đọc và không xoá. Mọi máy từng chạy bản cũ của owner có thể bị tương tự.
+- (Đã gỡ trên A50s ngày 2026-11-23, xem audit) A50s không kiểm được ad: GAID máy nằm trong `keyListGAID` (21 GAID) mà bản app cũ đã lưu vào `loitp_admob.xml`; SDK 1.8.5 vẫn đọc và không xoá. Mọi máy từng chạy bản cũ của owner có thể bị tương tự.
 - Cooldown backoff của SDK không báo lỗi cho Interstitial/Rewarded (audit 1.8.3 MEDIUM); chưa kiểm UI có treo spinner không.
 - Nhập mã VIP bắt buộc có mạng (yêu cầu sản phẩm của SDK, V-03). App báo "cần mạng" thay vì "mã sai".
 - Thẻ cào lộ mã là hại vĩnh viễn; xoá dữ liệu app + cài lại có thể redeem lại.
