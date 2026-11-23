@@ -109,7 +109,7 @@ Hiện app **không còn điểm gọi `showInterstitial` nào** ở mã chạy;
 ## Chưa kiểm (nói thẳng)
 
 - **Chưa thấy ad nào hiện, và đã biết vì sao: GAID của A50s nằm trong danh sách auto-VIP lưu trong prefs của app.** Bản debug của tôi log `###init GAID=… vipByGaid=true → isVIPMember=true`, rồi `loadAppOpenAd ⏭️ skipped due to whitelist device` và `loadInterstitial … isVIPMember=true`. **Nguồn danh sách (đã truy):** `loitp_admob.xml` trên A50s có `keyListGAID` với **21 GAID**; SDK nạp nó ở `###init` (`setGAIDVipMember.addAll(appPreferences.getGAIDList())`). Danh sách do **bản app cũ ghi vào**: commit `67254884` (2025-05-01) hard-code 21 GAID máy test trong SDK cũ và gọi `addVIPMember(list)`, nên nó được lưu bền và **SDK 1.8.5 không xoá** (config mới `vipDeviceGaids` mặc định rỗng chỉ thêm, không dọn). Đây không phải do SDK 1.8.5 và không phải cấu hình của tôi. Hệ quả: trên A50s SDK **tắt mọi ad**, nên máy này **không kiểm được** banner, interstitial, App Open, rewarded. Đây là hành vi đúng của SDK, không phải lỗi; tôi **không** gỡ whitelist hay đổi VIP để lách (đã cấm). **Cập nhật cùng ngày (2026-11-23 13:51-13:55): sau khi xoá riêng `keyListGAID` khỏi `loitp_admob.xml` của A50s (đã sao lưu, khôi phục lại đúng hash `25d30f9c…` sau thử), ad hiện ra và đã chứng minh trên bản debug (ID Google sample):** `isVIPMember=false`; App Open `✅ Loaded`, Interstitial `✅ Loaded`, Rewarded `✅ Loaded`; **Interstitial** hiện khi Settings → Back (có nhãn "Test Ad", tôi đóng bằng nút `Close` có nhãn, không chạm creative); **Rewarded** hiện, đếm ngược, "Reward granted", log `User earned`, `grantVipDays ✅ cấp 3 ngày VIP`, màn VIP hiện "VIP active", rồi thu hồi bằng "Revoke VIP". **0 dòng `Use RequestConfiguration`** (không có tín hiệu ad thật) và log có `sent from a test device` 3 lần. **Chưa thấy:** banner (không có bài nào để mở `ReadingPage`), App Open lúc khởi động (hết 8 giây chờ nên vào Main trước; log `Activity destroyed before show`), consent EEA, offline, trial. Cái đã chứng minh trên máy trước đó: app khởi động, `requestConsentInfoUpdate` trả `canRequestAds=true`, provider AdMob init thành công, 23 hash test-device được nạp (`setTestDeviceIds` có mặt), `initSplashScreen` điều hướng sang Main, màn VIP mở được và mã sai báo "Invalid code". Cái **chưa** chứng minh: có ad thật hay ad thử hiện hay không, trên bất kỳ máy nào.
-- Chưa chạy consent EEA (`umpDebugGeography`), chưa chạy offline, chưa kiểm trial, chưa kiểm token ECDSA thật (chưa có công cụ đúc), chưa kiểm rewarded.
+- (Đã cũ, xem bảng chấm điểm cuối file) Consent EEA/US_STATE, offline, token ECDSA, mã đổi VIP và rewarded đã chạy sau đó trên Pixel/A50s/Tecno. Chưa kiểm: trial 1 ngày.
 - Chưa có API 26-28 thật; chỉ A50s Android 11.
 - Bản dịch hai chuỗi VIP mới là dịch máy, chưa người duyệt.
 
@@ -117,3 +117,23 @@ Hiện app **không còn điểm gọi `showInterstitial` nào** ở mã chạy;
 ## Bổ sung 2026-11-23: bản release R8 trên Tecno KJ7
 
 Bản release R8 (ký debug, ID mẫu Google) tại `3edfb2b9`: khởi động nguội ra `This request is sent from a test device.`, 0 lần `Use RequestConfiguration`. App Open hiện với nhãn "Test Ad", đóng bằng nút có nhãn; rewarded hiện "Test Ad", "Reward granted", VIP +3 ngày. Máy đã khôi phục byte-exact. Chưa chứng minh: ad với đơn vị thật, API 26-28.
+
+
+## Nghiệm thu và chấm điểm /10 (2026-11-23, bằng chứng có sẵn, chỉ Android + AdMob)
+
+Điểm = mức tin cậy từ bằng chứng chạy máy, không phải chất lượng mã. Không có máy nào chạy ad với đơn vị thật.
+
+| Hạng mục | Điểm | Đã chứng minh | Còn thiếu |
+|---|---|---|---|
+| Rewarded | 9 | A50s, Pixel (debug), Tecno release R8: "Test Ad", "Reward granted", VIP +3 ngày; callback luôn fire; hết thưởng giả (AMOLED chỉ mở khi `earned`) | Rớt mạng giữa lúc ad; kiểm tay spinner khi SDK ở cooldown |
+| App Open | 8 | A50s, Pixel, Tecno release R8; splash loại trừ | `AppOpenGuard` quanh hộp thoại quyền: có 8 launcher bọc, JVM + 4 mutant, **chưa chạy trên máy** |
+| Banner | 8 | A50s, Pixel debug; Pixel release R8 | Tecno release R8 chưa chạy lại |
+| Interstitial | 9 về policy, 0 về doanh thu | Không còn chỗ nào hiện (gỡ khỏi Back, rời màn, dự phòng); 8 test policy; không nạp thừa | Chưa có điểm ngắt tự nhiên (owner chọn đo trước) |
+| VIP | 8.5 | Token ECDSA do SDK thật chấp nhận, 2 mã đổi của owner, dọn danh sách auto-VIP cũ, rewarded -> `grantVipDays` | Nhập mã cần mạng; VIP client-side (chấp nhận); dịch máy chưa duyệt |
+| Consent / UMP | 7 | EEA, US_STATE, offline, hồi phục; mục "Ad choices" có mã + test | UMP message thật chưa publish; chưa chạm mục Ad choices trên máy; GPP/UK thật; US_STATE -> doNotSell |
+| Trial 1 ngày | 3 | Đọc mã: app không tự cấp, SDK cấp chỉ release | Cần cài từ Play (Install Referrer); chưa chạy |
+| Policy AdMob | 7 | 3 vi phạm đã gỡ (`a3a1b0b0`), 8 test policy, 4 mutant guard | Form Data safety chưa điền; AppLovin ~3 MB trong APK, key/unit chưa xác minh |
+| Chặn invalid traffic | 6 | 23 hash; hash cho cert release trên A50s và Pixel; 0 tín hiệu `Use RequestConfiguration` trong mọi lần chạy | Hash cho cert release `67:B2:E6:CD` trên Tecno chưa probe: bản ký thật cài lên Tecno có thể ra ad thật |
+| Khoá ký | 4 | Chuyển sang myKeyStore, untrack | Key đã lộ trong git public: owner reset upload key trên Play Console |
+
+**Tổng thể: 7/10, GO có điều kiện.** Ad hoạt động đúng trên bản release R8 với ID thử. Chặn phát hành: (1) reset upload key, (2) publish UMP message, (3) hash release cho máy owner dùng bản ký thật, (4) form Data safety. Việc đo còn lại: guard App Open + banner release trên Tecno khi máy rảnh.
