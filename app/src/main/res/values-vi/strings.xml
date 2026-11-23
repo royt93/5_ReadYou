@@ -889,6 +889,8 @@
     <string name="brain_wrapped_current_streak">Chuỗi %1$d ngày</string>
     <!-- DoH Privacy Shield (STRAT-03) -->
     <string name="privacy_settings_title">Privacy &amp; Security</string>
+    <string name="ad_consent_manage_title">Tùy chọn quảng cáo</string>
+    <string name="ad_consent_manage_desc">Xem hoặc thay đổi sự đồng ý của bạn với quảng cáo được cá nhân hoá</string>
     <string name="privacy_settings_desc">DNS-over-HTTPS, URL cleaner, and anti-tracker shield</string>
     <string name="doh_title">DNS-over-HTTPS (DoH)</string>
     <string name="doh_desc">Encrypts domain name resolution queries to prevent surveillance by network providers and public Wi-Fi.</string>

@@ -995,6 +995,8 @@
     <string name="brain_wrapped_current_streak">%1$d Day Streak</string>
     <!-- DoH Privacy Shield (STRAT-03) -->
     <string name="privacy_settings_title">Privacy &amp; Security</string>
+    <string name="ad_consent_manage_title">പരസ്യ തിരഞ്ഞെടുപ്പുകൾ</string>
+    <string name="ad_consent_manage_desc">വ്യക്തിഗതമാക്കിയ പരസ്യങ്ങൾക്കുള്ള നിങ്ങളുടെ സമ്മതം പരിശോധിക്കുക അല്ലെങ്കിൽ മാറ്റുക</string>
     <string name="privacy_settings_desc">DNS-over-HTTPS, URL cleaner, and anti-tracker shield</string>
     <string name="doh_title">DNS-over-HTTPS (DoH)</string>
     <string name="doh_desc">Encrypts domain name resolution queries to prevent surveillance by network providers and public Wi-Fi.</string>

@@ -10,6 +10,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
+import com.mckimquyen.reader.ui.ext.findActivity
+import com.roy.sdkadbmob.AdManager
 import androidx.core.content.ContextCompat
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -123,6 +125,16 @@ fun PrivacySettingsPage(
                     PrivacyRadioItem(stringResource(R.string.doh_mode_adguard), dohProvider == DohProviderPref.ADGUARD) {
                         viewModel.setDohProvider(DohProviderPref.ADGUARD)
                     }
+                }
+                item {
+                    // Ad consent: lets the user change the answer given in the first-start form (Google UMP privacy options). The SDK opens
+                    // the form only where one is required and does nothing elsewhere; it needs a real Activity, so no Activity means no action.
+                    val adActivity = remember(context) { context.findActivity() }
+                    SettingItem(
+                        title = stringResource(R.string.ad_consent_manage_title),
+                        desc = stringResource(R.string.ad_consent_manage_desc),
+                        onClick = { adActivity?.let { AdManager.showConsentFormIfAvailable(it) } },
+                    )
                 }
                 item {
                     SettingItem(
