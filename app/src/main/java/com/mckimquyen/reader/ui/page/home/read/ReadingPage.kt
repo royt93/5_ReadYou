@@ -200,11 +200,16 @@ fun ReadingPage(
         if (InterstitialPacer.shared.nextActionMayShow()) AdManager.loadInterstitial(context)
     }
 
+    // LaunchedEffect(Unit) keeps the first composition's values, where articleWithFeed was still null, so the id check below was always true and every return to this
+    // screen (from Reading Style, Notebook...) reloaded the article, stopped TTS and reset the scroll. rememberUpdatedState reads the current values.
+    val currentArticleIdForNav by rememberUpdatedState(readingUiState.articleWithFeed?.article?.id)
+    val currentAutoTts by rememberUpdatedState(autoTts)
+    val currentPositionSync by rememberUpdatedState(readPositionSyncEnabled)
     LaunchedEffect(Unit) {
         navController.currentBackStackEntryFlow.collect {
             it.arguments?.getString("articleId")?.let { articleId ->
-                if (readingUiState.articleWithFeed?.article?.id != articleId) {
-                    readingViewModel.initData(articleId, autoTts, readPositionSyncEnabled)
+                if (currentArticleIdForNav != articleId) {
+                    readingViewModel.initData(articleId, currentAutoTts, currentPositionSync)
                 }
             }
         }
@@ -651,7 +656,7 @@ fun ReadingPage(
                         },
                         onNextArticle = {
                             if (readingUiState.nextArticleId.isNotEmpty()) {
-                                readingViewModel.initData(readingUiState.nextArticleId, autoTts)
+                                readingViewModel.initData(readingUiState.nextArticleId, autoTts, readPositionSyncEnabled)
                                 // A natural break (the user asked for the next article); at most one ad per three taps, never on Back or on leaving.
                                 if (InterstitialPacer.shared.onUserAction()) {
                                     context.findActivity()?.let { AdManager.showInterstitial(it) { } }

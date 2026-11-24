@@ -82,7 +82,11 @@ fun RsvpReaderDialog(
     }
 
     Dialog(
-        onDismissRequest = onDismiss,
+        // Back and a tap outside used to close the dialog while the playback job kept advancing in the background; only the X button paused it.
+        onDismissRequest = {
+            viewModel.pause()
+            onDismiss()
+        },
         properties = DialogProperties(usePlatformDefaultWidth = false)
     ) {
         DialogEdgeToEdge()

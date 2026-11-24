@@ -709,7 +709,11 @@ class ReadingViewModel @Inject constructor(
     fun openMindMap() {
         Log.d("roy93~AI", "[VM.openMindMap] clicked, article=${_readingUiState.value.articleWithFeed?.article?.id}")
         _readingUiState.update { it.copy(showMindMapSheet = true) }
-        requestMindMap()
+        // initData resets mindMapState to Idle when the article changes, so a Success here belongs to this article: reopening must not pay for a second Gemini call
+        // (and a rate-limited second call used to replace a good map with an error), the same rule openSummary already follows.
+        if (_readingUiState.value.mindMapState !is MindMapState.Success) {
+            requestMindMap()
+        }
     }
 
     fun dismissMindMap() {
@@ -945,12 +949,12 @@ class ReadingViewModel @Inject constructor(
         // where articleWithFeed could be set to null by initData() before line 138 runs.
         val articleId = articleWithFeed.article.id
         viewModelScope.launch {
-            _readingUiState.update {
-                it.copy(
-                    articleWithFeed = articleWithFeed.copy(
-                        article = articleWithFeed.article.copy(
-                            isUnread = isUnread
-                        )
+            _readingUiState.update { current ->
+                // Only touch the screen if it still shows this article: writing the captured object back put the old title, feed and link over a newer article.
+                if (current.articleWithFeed?.article?.id != articleId) current
+                else current.copy(
+                    articleWithFeed = current.articleWithFeed.copy(
+                        article = current.articleWithFeed.article.copy(isUnread = isUnread)
                     )
                 )
             }
@@ -966,13 +970,12 @@ class ReadingViewModel @Inject constructor(
 
     fun markStarred(isStarred: Boolean) {
         val articleWithFeed = _readingUiState.value.articleWithFeed ?: return
-        viewModelScope.launch(Dispatchers.IO) {
-            _readingUiState.update {
-                it.copy(
-                    articleWithFeed = articleWithFeed.copy(
-                        article = articleWithFeed.article.copy(
-                            isStarred = isStarred
-                        )
+        viewModelScope.launch(ioDispatcher) {
+            _readingUiState.update { current ->
+                if (current.articleWithFeed?.article?.id != articleWithFeed.article.id) current
+                else current.copy(
+                    articleWithFeed = current.articleWithFeed.copy(
+                        article = current.articleWithFeed.article.copy(isStarred = isStarred)
                     )
                 )
             }
