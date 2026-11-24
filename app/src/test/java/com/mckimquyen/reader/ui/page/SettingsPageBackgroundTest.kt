@@ -26,6 +26,8 @@ class SettingsPageBackgroundTest {
         "ui/page/setting/vip/VipManagementPage.kt",
         "ui/page/secondbrain/SecondBrainPage.kt",
         "ui/page/notebook/NotebookPage.kt",
+        "ui/page/statistics/ReadingStatisticsPage.kt",
+        "ui/page/digest/DigestPage.kt",
     )
 
     @Test

@@ -43,6 +43,7 @@ import androidx.navigation.NavHostController
 import com.mckimquyen.reader.R
 import com.mckimquyen.reader.domain.model.statistics.ReadingStats
 import com.mckimquyen.reader.ui.component.base.FeedbackIconButton
+import com.mckimquyen.reader.ui.component.base.settingsPageContainerColor
 import com.mckimquyen.reader.ui.component.statistics.ReadingHeatmap
 import java.time.LocalDate
 import java.util.Locale
@@ -78,6 +79,7 @@ fun ReadingStatisticsPage(
     }
 
     Scaffold(
+        containerColor = settingsPageContainerColor(),
         topBar = {
             Row(
                 modifier = Modifier
