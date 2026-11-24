@@ -216,3 +216,9 @@ Trên máy thật, bấm "Tùy chọn quảng cáo" ở Việt Nam không mở f
 ### Lượt VIP + Brain RPG lần hai, trên Pixel 7 Pro (2026-11-24)
 
 Lặp lại bằng chứng của Tecno trên máy thứ hai (Android 17): token VIP 1 ngày gắn máy do `mint_vip_token.py` đúc, nhập qua trang VIP, SDK log `token hợp lệ`, chip chuyển từ "GET VIP" sang "VIP" vàng. Ở Brain RPG, "Kích hoạt Khiên (Xem quảng cáo)" ra "Khiên đang kích hoạt" không có ad (foreground giữ ở `MainActivity` suốt 4 giây), không toast lỗi, 0 tín hiệu `Use RequestConfiguration`. Khôi phục byte-exact cả 13 file (kể cả `vip_screen_prefs.xml`, lần này công cụ backup đã phủ nên tự xoá), APK gốc `cmp` khớp, cờ quyền khớp. Token và id đã xoá khỏi đĩa.
+
+### Kiểm cơ học bản dịch máy (2026-11-24)
+
+Owner bảo tự audit bản dịch. Không có người bản ngữ trong phiên này, nên chỉ kiểm được phần cơ học, và đã làm thành test thường trực `AdStringsMechanicalTest`: với 6 chuỗi quảng cáo/VIP ở 37 locale có file riêng, kiểm không thiếu khoá, không rỗng, không dấu cách thừa, không xuống dòng, escape dấu nháy và `&` đúng, placeholder khớp bản Anh, không để nguyên tiếng Anh, độ dài hợp lý so với bản Anh, đúng chữ viết (Cyrillic, Ả Rập, Do Thái, Devanagari, Kannada, Malayalam, Myanmar, CJK), và không lẫn chữ lạ trong locale Latin (xét theo Unicode script, không theo dải mã: chữ ə của tiếng Azerbaijan là Latin). Kết quả: 0 lỗi cơ học; 7 loại lỗi cố ý gây ra đều bị test bắt, file khôi phục byte-identical. Lần chạy đầu test báo ə của Azerbaijan, đó là lỗi của chính test (dùng dải mã), đã sửa.
+
+**Không kiểm được và nói rõ:** độ đúng ngữ nghĩa và văn phong của bản dịch ở mọi ngôn ngữ. Chuỗi Ad choices liên quan consent nên nếu muốn chắc ở EEA, nhờ người bản ngữ đọc riêng Đức, Pháp, Tây Ban Nha, Ý, Hà Lan, Ba Lan. `lzh` (Hán văn): các chuỗi mới dùng chữ phồn thể, nhưng file `lzh` cũ của dự án lẫn cả giản thể và phồn thể, nên không có chuẩn để đối chiếu; để nguyên.
