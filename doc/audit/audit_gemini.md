@@ -212,3 +212,7 @@ Trên máy thật, bấm "Tùy chọn quảng cáo" ở Việt Nam không mở f
 | Chất lượng test | 8 | 4119 test; đột biến cho từng thay đổi ad (guard, pacer, gate, Ad choices, Gradle), restore byte-identical | Nhiều test ad vẫn chỉ đọc text nguồn; test hạn mức chung chưa có (callback SDK không cho lý do) |
 
 **Tổng thể: 8/10 về mặt mã và bằng chứng kỹ thuật** (trước đó 7/10). Hai ô còn thấp là Trial (3) và Consent thật (7), cả hai phụ thuộc việc ngoài tầm của tôi (cài từ Play, publish UMP). Chưa tối ưu doanh thu theo số liệu: chưa đo fill-rate hay eCPM thật vì cố ý không chạy ad thật, nên số "1 interstitial mỗi 3 lần bấm" chỉ là ước đoán an toàn.
+
+### Lượt VIP + Brain RPG lần hai, trên Pixel 7 Pro (2026-11-24)
+
+Lặp lại bằng chứng của Tecno trên máy thứ hai (Android 17): token VIP 1 ngày gắn máy do `mint_vip_token.py` đúc, nhập qua trang VIP, SDK log `token hợp lệ`, chip chuyển từ "GET VIP" sang "VIP" vàng. Ở Brain RPG, "Kích hoạt Khiên (Xem quảng cáo)" ra "Khiên đang kích hoạt" không có ad (foreground giữ ở `MainActivity` suốt 4 giây), không toast lỗi, 0 tín hiệu `Use RequestConfiguration`. Khôi phục byte-exact cả 13 file (kể cả `vip_screen_prefs.xml`, lần này công cụ backup đã phủ nên tự xoá), APK gốc `cmp` khớp, cờ quyền khớp. Token và id đã xoá khỏi đĩa.
