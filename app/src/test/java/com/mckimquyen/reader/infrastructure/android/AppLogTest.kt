@@ -23,6 +23,12 @@ class AppLogTest {
     }
 
     @Test
+    fun theDefaultSinkNeverThrowsEvenWithoutAndroidsLog() {
+        AppLog.sink = original
+        AppLog.event("nav", "screen", "route" to "x")
+    }
+
+    @Test
     fun formatsAreaEventAndKeyValues() {
         AppLog.event("reels", "open", "via" to "button", "article" to "a1")
         assertEquals(listOf("reels: open via=button article=a1"), lines)
@@ -55,6 +61,25 @@ class AppLogTest {
         )
         val missing = expect.filter { (f, s) -> s !in File(root, f).readText() }.keys
         assertEquals("trace points that lost their logger call: $missing", emptySet<String>(), missing)
+    }
+
+    @Test
+    fun everyFeatureViewModelLogsItsMainActions() {
+        val root = listOf(File("src/main/java/com/mckimquyen/reader"), File("app/src/main/java/com/mckimquyen/reader")).first { it.exists() }
+        val expect = mapOf(
+            "ui/page/triage/TriageViewModel.kt" to listOf("\"triage\", \"skip\"", "\"triage\", \"save\"", "\"triage\", \"read-now\""),
+            "ui/page/home/read/podcaststudio/PodcastStudioViewModel.kt" to listOf("\"podcast-studio\", \"consent\"", "\"podcast-studio\", \"toggle-play\""),
+            "ui/page/setting/backup/WebDavBackupViewModel.kt" to listOf("\"webdav\", \"backup\"", "\"webdav\", \"restore\""),
+            "ui/page/rpg/BrainRpgViewModel.kt" to listOf("\"rpg\", \"quiz-consent\"", "\"rpg\", \"article-read-finished\""),
+            "ui/page/rpg/StreakRescueViewModel.kt" to listOf("\"streak\", \"check-on-startup\""),
+            "ui/page/digest/DigestViewModel.kt" to listOf("\"digest\", \"generate\""),
+            "ui/page/home/read/ReadingViewModel.kt" to listOf("\"reading\", \"open-summary\"", "\"reading\", \"open-second-screen\""),
+            "ui/component/commute/CommuteCastViewModel.kt" to listOf("\"commute\", \"time-budget\"", "\"commute\", \"toggle-play\""),
+            "ui/page/home/read/deepdive/DeepDiveViewModel.kt" to listOf("\"deep-dive\", \"consent\""),
+            "ui/page/notebook/NotebookViewModel.kt" to listOf("\"notebook\", \"delete-highlight\"", "\"notebook\", \"export-all\""),
+        )
+        val missing = expect.flatMap { (f, needles) -> val s = File(root, f).readText(); needles.filter { "AppLog.event($it" !in s }.map { "$f: $it" } }
+        assertEquals("actions that lost their trace line: $missing", emptyList<String>(), missing)
     }
 
     @Test

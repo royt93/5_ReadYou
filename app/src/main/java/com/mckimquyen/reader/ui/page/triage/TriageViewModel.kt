@@ -1,5 +1,6 @@
 package com.mckimquyen.reader.ui.page.triage
 
+import com.mckimquyen.reader.infrastructure.android.AppLog
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mckimquyen.reader.domain.repository.ArticleDao
@@ -71,6 +72,7 @@ class TriageViewModel @Inject constructor(
     }
 
     fun skipCurrent() {
+        AppLog.event("triage", "skip")
         val current = _uiState.value.currentArticle ?: return
         viewModelScope.launch(ioDispatcher) {
             articleDao.markAsReadByArticleId(currentAccountId, current.article.id, false)
@@ -81,6 +83,7 @@ class TriageViewModel @Inject constructor(
     }
 
     fun saveCurrent() {
+        AppLog.event("triage", "save")
         val current = _uiState.value.currentArticle ?: return
         viewModelScope.launch(ioDispatcher) {
             articleDao.markAsStarredByArticleId(currentAccountId, current.article.id, true)
@@ -92,6 +95,7 @@ class TriageViewModel @Inject constructor(
     }
 
     fun markCurrentReadForNavigation(): String? {
+        AppLog.event("triage", "read-now")
         val current = _uiState.value.currentArticle ?: return null
         val articleId = current.article.id
         viewModelScope.launch(ioDispatcher) {

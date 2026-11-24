@@ -1,5 +1,6 @@
 package com.mckimquyen.reader.ui.page.notebook
 
+import com.mckimquyen.reader.infrastructure.android.AppLog
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -135,6 +136,7 @@ class NotebookViewModel @Inject constructor(
     }
 
     fun deleteHighlight(id: String) {
+        AppLog.event("notebook", "delete-highlight", "id" to id)
         viewModelScope.launch(ioDispatcher) {
             Log.d(TAG, "Deleting highlight: id=$id")
             highlightDao.deleteById(id)
@@ -177,6 +179,7 @@ class NotebookViewModel @Inject constructor(
     }
 
     fun exportAll(onExported: (String) -> Unit) {
+        AppLog.event("notebook", "export-all")
         viewModelScope.launch(ioDispatcher) {
             Log.d(TAG, "Exporting all notebook highlights to master Markdown")
             val highlights = highlightDao.getAllList()

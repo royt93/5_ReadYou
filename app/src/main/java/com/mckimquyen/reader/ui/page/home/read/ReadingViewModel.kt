@@ -1,5 +1,6 @@
 package com.mckimquyen.reader.ui.page.home.read
 
+import com.mckimquyen.reader.infrastructure.android.AppLog
 import android.content.Intent
 import android.util.Log
 import androidx.annotation.Keep
@@ -255,6 +256,7 @@ class ReadingViewModel @Inject constructor(
     }
 
     fun renderFullContent() {
+        AppLog.event("reading", "render-full-content")
         val wasPlaying = _readingUiState.value.ttsState == TtsState.PLAYING
         if (wasPlaying) {
             ttsManager.stop()
@@ -337,6 +339,7 @@ class ReadingViewModel @Inject constructor(
 
     /** Mở BottomSheet tóm tắt. Nếu bài viết đã có bản tóm tắt lưu trong DB, hiển thị ngay mà không cần gọi API lại. */
     fun openSummary() {
+        AppLog.event("reading", "open-summary")
         Log.d("roy93~AI", "[VM.openSummary] clicked, article=${_readingUiState.value.articleWithFeed?.article?.id}")
         _readingUiState.update { it.copy(showSummarySheet = true) }
         if (_readingUiState.value.summaryState !is SummaryState.Success) {
@@ -391,6 +394,7 @@ class ReadingViewModel @Inject constructor(
 
     /** EXC-13: opens the Second Screen sheet. Only meaningful for a loaded article, so it is a no-op before that. */
     fun openSecondScreen() {
+        AppLog.event("reading", "open-second-screen")
         if (_readingUiState.value.articleWithFeed == null) return
         _readingUiState.update { it.copy(showSecondScreenSheet = true) }
     }

@@ -1,5 +1,6 @@
 package com.mckimquyen.reader.ui.page.home.read.podcast
 
+import com.mckimquyen.reader.infrastructure.android.AppLog
 import androidx.lifecycle.ViewModel
 import com.mckimquyen.reader.domain.model.article.AudioInfo
 import com.mckimquyen.reader.domain.model.podcast.PodcastPlaybackState
@@ -17,6 +18,7 @@ class PodcastPlayerViewModel @Inject constructor(
 
     /** Selects the episode unless it is already the active one (so a running session keeps playing). */
     fun bind(articleId: String, title: String, feedName: String, audio: AudioInfo) {
+        AppLog.event("podcast", "bind", "article" to articleId)
         controller.open(articleId, title, feedName, audio)
     }
 

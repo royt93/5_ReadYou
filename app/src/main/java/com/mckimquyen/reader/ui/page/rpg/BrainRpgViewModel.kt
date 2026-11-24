@@ -1,5 +1,6 @@
 package com.mckimquyen.reader.ui.page.rpg
 
+import com.mckimquyen.reader.infrastructure.android.AppLog
 import com.mckimquyen.reader.infrastructure.android.RewardedGate
 import android.app.Activity
 import android.content.Context
@@ -87,6 +88,7 @@ class BrainRpgViewModel @Inject constructor(
 
     /** The user answered the in-card question. Agreeing continues with the article that is waiting. */
     fun onQuizConsent(agreed: Boolean) {
+        AppLog.event("rpg", "quiz-consent", "agreed" to agreed)
         val waiting = pendingQuiz
         quizJob?.cancel()
         quizJob = viewModelScope.launch {
@@ -106,6 +108,7 @@ class BrainRpgViewModel @Inject constructor(
 
     /** Asks for a new question after a failure. Only the user's tap gets here; nothing retries by itself. */
     fun retryQuizGeneration() {
+        AppLog.event("rpg", "quiz-retry")
         val waiting = pendingQuiz ?: return
         if (_quizState.value !is QuizUiState.Failed) return
         quizJob?.cancel()
@@ -185,6 +188,7 @@ class BrainRpgViewModel @Inject constructor(
      * process must not let the same article be rewarded again. [onRewarded] only fires when XP was really awarded.
      */
     fun onArticleReadFinished(articleId: String, category: String, onRewarded: ((Long) -> Unit)? = null) {
+        AppLog.event("rpg", "article-read-finished", "article" to articleId, "category" to category)
         if (articleId.isBlank()) return
         viewModelScope.launch {
             val awarded = repository.awardReadingXpOnce(articleId, category, READING_XP)

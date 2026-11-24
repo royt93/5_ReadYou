@@ -13,7 +13,13 @@ object AppLog {
 
     /** Tests replace this to read the lines without Android's Log. */
     @Volatile
-    internal var sink: (String) -> Unit = { line -> Log.d(TAG, line) }
+    internal var sink: (String) -> Unit = { line ->
+        // A plain JVM unit test has no android.util.Log ("Method d ... not mocked"); a trace line must never be able to fail the caller.
+        try {
+            Log.d(TAG, line)
+        } catch (_: RuntimeException) {
+        }
+    }
 
     /** [area] is a short noun such as `nav`, `reels`, `setting`, `sync`; [event] a short phrase; [kv] extra facts. */
     fun event(area: String, event: String, vararg kv: Pair<String, Any?>) {

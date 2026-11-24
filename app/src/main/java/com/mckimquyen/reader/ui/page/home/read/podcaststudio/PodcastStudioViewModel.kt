@@ -1,5 +1,6 @@
 package com.mckimquyen.reader.ui.page.home.read.podcaststudio
 
+import com.mckimquyen.reader.infrastructure.android.AppLog
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -56,6 +57,7 @@ class PodcastStudioViewModel @Inject constructor(
     }
 
     fun onConsent(agreed: Boolean) {
+        AppLog.event("podcast-studio", "consent", "agreed" to agreed)
         val pending = (_state.value as? PodcastStudioUiState.AwaitingConsent)?.article ?: return
         viewModelScope.launch(ioDispatcher) {
             context.setPodcastStudioGeminiConsent(agreed)
@@ -106,6 +108,7 @@ class PodcastStudioViewModel @Inject constructor(
     }
 
     fun togglePlayPause() {
+        AppLog.event("podcast-studio", "toggle-play")
         if (audioPlayer.playerState.value.isPlaying) audioPlayer.pause() else audioPlayer.resume()
     }
 
@@ -117,6 +120,7 @@ class PodcastStudioViewModel @Inject constructor(
 
     /** Closing the sheet only pauses: the shared player is a singleton and must not be torn down. */
     fun dismissSheet() {
+        AppLog.event("podcast-studio", "dismiss")
         playerJob?.cancel()
         generationJob?.cancel()
         if (_state.value is PodcastStudioUiState.Ready) audioPlayer.pause()

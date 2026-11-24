@@ -1,5 +1,6 @@
 package com.mckimquyen.reader.ui.page.digest
 
+import com.mckimquyen.reader.infrastructure.android.AppLog
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.ViewModel
@@ -43,6 +44,7 @@ class DigestViewModel @Inject constructor(
     private var generateJob: Job? = null
 
     fun generate() {
+        AppLog.event("digest", "generate")
         // A second tap while a brief is being written must not start a second (billable) model call.
         if (generateJob?.isActive == true) return
         generateJob = viewModelScope.launch {
@@ -98,6 +100,7 @@ class DigestViewModel @Inject constructor(
     }
 
     fun selectDigest(id: String) {
+        AppLog.event("digest", "select", "id" to id)
         viewModelScope.launch {
             try {
                 val history = withContext(ioDispatcher) { digestDao.queryRecent(context.currentAccountId) }

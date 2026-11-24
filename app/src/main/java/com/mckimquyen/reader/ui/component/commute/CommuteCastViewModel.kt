@@ -1,5 +1,6 @@
 package com.mckimquyen.reader.ui.component.commute
 
+import com.mckimquyen.reader.infrastructure.android.AppLog
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
@@ -71,6 +72,7 @@ class CommuteCastViewModel @Inject constructor(
     }
 
     fun selectTimeBudget(minutes: Int) {
+        AppLog.event("commute", "time-budget", "minutes" to minutes)
         _uiState.update { it.copy(selectedBudgetMinutes = minutes) }
         // Persisted so the 6 AM CommuteWorker honors the same budget the user picked here (DJ-08).
         CommuteTimeBudgetPref.fromMinutes(minutes).put(getApplication(), viewModelScope)
@@ -130,6 +132,7 @@ class CommuteCastViewModel @Inject constructor(
     }
 
     fun togglePlayPause() {
+        AppLog.event("commute", "toggle-play")
         if (_uiState.value.playerState.isPlaying) {
             audioPlayer.pause()
         } else {

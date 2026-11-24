@@ -1,5 +1,6 @@
 package com.mckimquyen.reader.ui.page.home.read.deepdive
 
+import com.mckimquyen.reader.infrastructure.android.AppLog
 import android.content.Context
 import android.content.Intent
 import android.util.Log
@@ -71,6 +72,7 @@ class DeepDiveViewModel @Inject constructor(
 
     /** The user answered the in-sheet question. Agreeing continues with the article that is waiting. */
     fun onConsent(agreed: Boolean) {
+        AppLog.event("deep-dive", "consent", "agreed" to agreed)
         val waiting = pending
         job?.cancel()
         job = viewModelScope.launch {
@@ -88,6 +90,7 @@ class DeepDiveViewModel @Inject constructor(
 
     /** Asks again after a failure. Only the user's tap gets here; nothing retries by itself. */
     fun retry() {
+        AppLog.event("deep-dive", "retry")
         val waiting = pending ?: return
         if (_state.value !is DeepDiveUiState.Failed) return
         job?.cancel()

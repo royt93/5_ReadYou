@@ -1,5 +1,6 @@
 package com.mckimquyen.reader.ui.page.rpg
 
+import com.mckimquyen.reader.infrastructure.android.AppLog
 import com.mckimquyen.reader.infrastructure.android.RewardedGate
 import android.app.Activity
 import android.util.Log
@@ -63,6 +64,7 @@ class StreakRescueViewModel internal constructor(
     val state: StateFlow<StreakRescueUiState> = _state.asStateFlow()
 
     fun checkOnStartup() {
+        AppLog.event("streak", "check-on-startup")
         viewModelScope.launch {
             try {
                 val today = StreakRescuePolicy.epochDay(clock())
@@ -103,6 +105,7 @@ class StreakRescueViewModel internal constructor(
     }
 
     fun onRestartFromScratch() {
+        AppLog.event("streak", "restart")
         if ((_state.value as? StreakRescueUiState.Prompt)?.isLoadingAd == true) return
         viewModelScope.launch {
             withContext(ioDispatcher) { repository.resetBrokenStreak(clock()) }
@@ -111,6 +114,7 @@ class StreakRescueViewModel internal constructor(
     }
 
     fun onDismissLater() {
+        AppLog.event("streak", "dismiss-later")
         if ((_state.value as? StreakRescueUiState.Prompt)?.isLoadingAd == true) return
         _state.value = StreakRescueUiState.Idle
     }

@@ -1,5 +1,6 @@
 package com.mckimquyen.reader.ui.page.setting.backup
 
+import com.mckimquyen.reader.infrastructure.android.AppLog
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -39,6 +40,7 @@ class WebDavBackupViewModel @Inject constructor(
     }
 
     fun backup() {
+        AppLog.event("webdav", "backup")
         _opState.value = BackupOpState.InProgress
         viewModelScope.launch {
             val result = webDavBackupManager.backup(context.currentAccountId)
@@ -51,6 +53,7 @@ class WebDavBackupViewModel @Inject constructor(
     }
 
     fun restore() {
+        AppLog.event("webdav", "restore")
         _opState.value = BackupOpState.InProgress
         viewModelScope.launch {
             val result = webDavBackupManager.restore()
