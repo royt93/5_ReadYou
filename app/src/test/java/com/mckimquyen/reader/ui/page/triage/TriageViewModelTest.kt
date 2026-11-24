@@ -147,4 +147,36 @@ class TriageViewModelTest {
         assertEquals(1, state.savedCount)
         assertTrue(state.isInboxZero)
     }
+
+    @Test
+    fun setAccountId_loadsTheSelectedAccountsArticlesNotAccountOne() = runTest {
+        // The page used to leave the ViewModel on account 1 whatever account was selected.
+        coEvery { articleDao.queryTotalUnreadCount(1) } returns 0
+        coEvery { articleDao.queryTotalUnreadCount(2) } returns 1
+        coEvery { articleDao.queryOldestUnreadArticleListWithFeed(2, 50) } returns listOf(createArticle("acc2", "Second account"))
+
+        val viewModel = TriageViewModel(
+            accountId = 1,
+            articleDao = articleDao,
+            widgetRefreshNotifier = widgetRefreshNotifier,
+            brainRpgRepository = brainRpgRepository,
+            ioDispatcher = testDispatcher,
+        )
+        testDispatcher.scheduler.advanceUntilIdle()
+        assertTrue("account 1 is empty", viewModel.uiState.value.isInboxZero)
+
+        viewModel.setAccountId(2)
+        testDispatcher.scheduler.advanceUntilIdle()
+
+        val state = viewModel.uiState.value
+        assertFalse(state.isInboxZero)
+        assertEquals("acc2", state.currentArticle?.article?.id)
+    }
+
+    @Test
+    fun triagePageTellsTheViewModelWhichAccountIsSelected() {
+        val src = listOf(java.io.File("src/main/java"), java.io.File("app/src/main/java")).first { it.exists() }
+        val page = java.io.File(src, "com/mckimquyen/reader/ui/page/triage/TriagePage.kt").readText()
+        assertTrue("TriagePage must call setAccountId with the selected account", Regex("""viewModel\.setAccountId\(\s*accountId""").containsMatchIn(page) && "context.currentAccountId" in page)
+    }
 }

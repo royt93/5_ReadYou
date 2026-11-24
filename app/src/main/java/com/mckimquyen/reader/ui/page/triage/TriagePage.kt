@@ -26,6 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.mckimquyen.reader.ui.ext.currentAccountId
 import androidx.navigation.NavController
 import com.mckimquyen.reader.R
 import com.mckimquyen.reader.ui.page.common.RouteName
@@ -39,6 +40,14 @@ fun TriagePage(
     viewModel: TriageViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
+
+    // The ViewModel starts on account 1 and nothing told it which account is selected, so with a second account Triage showed Inbox Zero or the other account's articles.
+    val context = androidx.compose.ui.platform.LocalContext.current
+    androidx.compose.runtime.LaunchedEffect(Unit) {
+        // currentAccountId reads the DataStore with runBlocking, so it runs on IO, not on the main thread.
+        val accountId = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) { context.currentAccountId }
+        viewModel.setAccountId(accountId)
+    }
 
     Scaffold(
         modifier = modifier.fillMaxSize(),

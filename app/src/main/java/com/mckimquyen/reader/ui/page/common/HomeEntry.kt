@@ -139,13 +139,19 @@ fun HomeEntry(
     var initialRoute by rememberSaveable {
         mutableStateOf(intent?.getStringExtra(NotificationHelper.EXTRA_INITIAL_ROUTE).orEmpty())
     }
+    // Read before replaceExtras(null) below: the LaunchedEffect that used to read the extra ran after it, so the "Morning Radio ready" notification never opened the player.
+    var startCommute by rememberSaveable {
+        mutableStateOf(intent?.getBooleanExtra(NotificationHelper.EXTRA_START_COMMUTE, false) == true)
+    }
     intent?.replaceExtras(null)
     val notificationRoute = initialRoute.takeIf(String::isNotBlank)
 
     val showCommuteCast by homeViewModel.showCommuteCast.collectAsState()
 
     LaunchedEffect(Unit) {
-        if (intent?.getBooleanExtra(NotificationHelper.EXTRA_START_COMMUTE, false) == true) {
+        if (startCommute) {
+            startCommute = false
+            AppLog.event("commute", "open-from-notification")
             homeViewModel.openCommuteCast()
         }
     }

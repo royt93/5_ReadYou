@@ -31,7 +31,7 @@ val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "se
 val Context.skipVersionNumber: String
     get() = this.dataStore.get(DataStoreKeys.SkipVersionNumber) ?: ""
 val Context.isFirstLaunch: Boolean
-    get() = this.dataStore.get(DataStoreKeys.IsFirstLaunch) ?: false
+    get() = com.mckimquyen.reader.infrastructure.android.FirstLaunchPolicy.isFirstLaunch(this, this.dataStore.get(DataStoreKeys.IsFirstLaunch))
 // Trả về default an toàn thay vì !! (tránh NPE/crash khi DataStore ở trạng thái thiếu key,
 // vd lần chạy đầu trước khi addDefaultAccount kịp ghi). Default khớp tài khoản mặc định: Local, id 1.
 val Context.currentAccountId: Int

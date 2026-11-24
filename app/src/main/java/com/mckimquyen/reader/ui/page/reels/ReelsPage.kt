@@ -109,6 +109,13 @@ private fun Modifier.leftEdgeGestureExclusion(): Modifier {
     val view = LocalView.current
     val density = LocalDensity.current
     val lastTop = androidx.compose.runtime.remember { intArrayOf(Int.MIN_VALUE) }
+    // The exclusion lives on the one view of MainActivity. Without this the band stayed on every screen after Reels was closed and swallowed Back there.
+    androidx.compose.runtime.DisposableEffect(view) {
+        onDispose {
+            view.systemGestureExclusionRects = emptyList()
+            AppLog.event("reels", "edge-exclusion-cleared")
+        }
+    }
     return this.onGloballyPositioned { coords ->
         val bounds = coords.boundsInWindow()
         val h = with(density) { LEFT_EDGE_EXCLUSION_HEIGHT.dp.toPx() }
