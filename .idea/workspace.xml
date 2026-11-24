@@ -16,11 +16,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6f28f826-4208-4800-b7bf-3c32f11fba88" name="Changes" comment="chore(ide): update device streami&#10;ng profiles and deployment target settings&#10;&#10;- Added new device configurations for Lenovo Tab M11, TECNO SPARK Go 2024, and Samsung Galaxy A05s.&#10;- Updated deployment target timestamp for Android testing.&#10;- Removed obsolete Samsung Galaxy A15 5G configuration.">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/domain/repository/ArticleDao.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/domain/repository/ArticleDao.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/domain/sv/AbstractRssRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/mckimquyen/reader/domain/sv/AbstractRssRepository.kt" afterDir="false" />
-    </list>
+    <list default="true" id="6f28f826-4208-4800-b7bf-3c32f11fba88" name="Changes" comment="docs: add initial AdMob configuration details and policy link" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -62,7 +58,7 @@
       <entry key="edit-panel" value="GPT-5 mini" />
     </selectedModels>
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[PhysicalDevice::serial=2B051FDH3006MU]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[PhysicalDevice::serial=R58MA6WYRPE]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -130,41 +126,42 @@
     <option name="showMembers" value="true" />
     <option name="showVisibilityIcons" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Android App.app.executor&quot;: &quot;Run&quot;,
-    &quot;BundleExportedModule&quot;: &quot;RSS_Cat_Hub.app&quot;,
-    &quot;CidrDebugProfileConversion&quot;: &quot;true&quot;,
-    &quot;ExportBundle.BundlePathForRSS_Cat_Hub.app&quot;: &quot;/Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260606_ReadYou/_playStore&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;Notification.DisplayName-DoNotAsk-vcs.commit.finished&quot;: &quot;1 file committed&quot;,
-    &quot;Notification.DoNotAsk-vcs.commit.finished&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
-    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;com.google.services.firebase.aqiPopupShown&quot;: &quot;true&quot;,
-    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
-    &quot;copilot.chat.legacySessionMetadata.migrated&quot;: &quot;true&quot;,
-    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.google.gct.login2.settings.GoogleLoginApplicationSettingsConfigurableProvider&quot;,
-    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;,
-    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Android App.app.executor": "Run",
+    "BundleExportedModule": "RSS_Cat_Hub.app",
+    "CidrDebugProfileConversion": "true",
+    "ExportBundle.BundlePathForRSS_Cat_Hub.app": "/Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260606_ReadYou/_playStore",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Notification.DisplayName-DoNotAsk-vcs.commit.finished": "1 file committed",
+    "Notification.DoNotAsk-vcs.commit.finished": "true",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "com.google.services.firebase.aqiPopupShown": "true",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "copilot.chat.legacySessionMetadata.migrated": "true",
+    "dart.analysis.tool.window.visible": "false",
+    "git-widget-placeholder": "dev",
+    "junie.onboarding.icon.badge.shown": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/loitran/AndroidStudioProjects/@mckimquyen/@playstore/@prodution/@ad/260620_ReadYou/doc",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "com.google.gct.login2.settings.GoogleLoginApplicationSettingsConfigurableProvider",
+    "show.migrate.to.gradle.popup": "false",
+    "to.speed.mode.migration.done": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;ExportApk.BuildVariants&quot;: [
-      &quot;prodRelease&quot;
+  "keyToStringList": {
+    "ExportApk.BuildVariants": [
+      "prodRelease"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/doc" />
@@ -848,8 +845,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
-    <MESSAGE value="Refactor: Implement obfuscated Gemini key rotation and remove user-managed keys&#10;&#10;This commit transitions the AI summary feature from user-provided API keys to a centralized, obfuscated rotation system. It also improves DataStore safety and updates the reading UI with localized resources.&#10;&#10;- **`GeminiSummaryService.kt` &amp; `GeminiConfig.kt`**:&#10;    - Introduced `GeminiConfig` to store multiple API keys obfuscated with XOR and Base64 to prevent plain-text extraction from the APK.&#10;    - Updated `GeminiSummaryService` to implement a failover mechanism that automatically rotates through the list of embedded keys if one encounters rate limits (429) or server errors.&#10;    - Updated the summary model to `gemini-2.5-flash`.&#10;    - Integrated logic to fetch the current app locale to ensure Gemini responses match the user's selected language.&#10;&#10;- **API Key Management Cleanup**:&#10;    - **`ReadingViewModel.kt`**: Removed `SummaryState.NeedApiKey` and the logic for saving user-provided keys.&#10;    - **`GeminiApiKeyPref.kt` &amp; `ExtDataStore.kt`**: Deleted the `GeminiApiKey` preference and corresponding DataStore logic as user-managed keys are no longer supported.&#10;    - **`app/build.gradle`**: Removed the `GEMINI_API_KEY` field from `BuildConfig`.&#10;&#10;- **UI &amp; UX Improvements**:&#10;    - **`ReadingPage.kt` &amp; `TopBar.kt`**: The AI summary action (✨) is now conditionally visible based on whether keys are configured in `GeminiConfig`.&#10;    - **`SummarySheet.kt`**: Removed the API key input UI and &quot;Retry&quot; button in the success state to streamline the experience. Added a close button to the header.&#10;    - **`strings.xml`**: Added and localized the `read_aloud` string across multiple languages (German, Chinese, Japanese, Vietnamese, French).&#10;&#10;- **Infrastructure**:&#10;    - **`ExtDataStore.kt`**: Updated `currentAccountId` and `currentAccountType` to provide safe default values (Local account, ID 1) instead of using force-unwrapping, preventing potential crashes during initial launches.&#10;    - **`.claude/settings.local.json`**: Updated local IDE environment settings with new allowed bash commands." />
-    <MESSAGE value="Docs: Add prompt template for `_AdmobWrapper` migration&#10;&#10;This commit introduces a comprehensive prompt template designed to guide AI assistants through the migration of an Android application's advertisement system to the `_AdmobWrapper` library. The template ensures consistency across projects by defining strict implementation rules, UI standards, and lifecycle management.&#10;&#10;- **`doc/AD_PROMPT_AOS.MD`**:&#10;    - Created a structured 12-step migration guide covering environment setup, API auditing, and implementation planning.&#10;    - Defined mandatory requirements for a VIP management system, including UI specifications (Material 3), memory leak prevention rules, and Base64-based key obfuscation.&#10;    - Established technical standards for ad placement (App Open, Banner, Interstitial, Rewarded) and Consent (UMP) integration.&#10;    - Included specific logic for a &quot;first-install grace period&quot; and detailed progress bar calculations for VIP status tracking.&#10;    - Provided standardized string resources and navigation entry point patterns for consistent UX across different applications." />
     <MESSAGE value="Refactor: Migrate to `AdmobApplovinWrapper` 1.1.5 and implement VIP management system&#10;&#10;This commit transitions the application's advertisement and monetization framework to the `AdmobApplovinWrapper` library. It introduces a comprehensive VIP management system, integrates Google UMP consent flows, and refactors ad components to use modern SDK patterns.&#10;&#10;- **`RApp.kt` &amp; `app/build.gradle`**:&#10;    - Updated SDK to `com.github.royt93:AdmobApplovinWrapper:1.1.5`.&#10;    - Refactored `setupAdmob` to use the one-shot `AdManager.initialize` pattern, removing manual initialization logic for AdMob and AppLovin.&#10;    - Configured `AdSdkConfig` with new rewarded ad unit IDs, obfuscated VIP secrets, and environment-based `AdSafetyLimits`.&#10;    - Bumped `versionCode` to `20260606` and added test dependencies for Robolectric and Compose UI testing.&#10;&#10;- **`SplashActivity.kt` &amp; Ad Components**:&#10;    - Integrated `AdManager.requestConsentInfoUpdate` to handle UMP consent requirements before initializing ads.&#10;    - **`ComposeBannerAd.kt`**: Refactored to delegate to the SDK's native `AdBanner` composable, supporting adaptive sizing and automated lifecycle management (pause/resume/destroy).&#10;&#10;- **VIP Management System (`ui/page/setting/vip/`)**:&#10;    - **`VipManagementPage.kt`**: Created a new Material 3 management screen featuring activation progress bars, membership countdowns, and confetti-driven success animations.&#10;    - **`AdKeys.kt` &amp; `VipKeys.kt`**: Implemented Base64-based obfuscation for VIP secrets and mapped user-facing codes to specific membership durations.&#10;    - **`VipPrefs.kt`**: Introduced local persistence to track membership grant dates and distinguish between first-install gifts and redeemed keys.&#10;    - **`VipBadge.kt`**: Added a gold membership chip for the home screen top bar that dynamically updates based on membership status.&#10;&#10;- **UI &amp; Localization**:&#10;    - **`strings.xml`**: Added and localized comprehensive VIP-related strings across English, Vietnamese, Chinese, Japanese, French, and German locales.&#10;    - **`SettingsPage.kt` &amp; `HomeEntry.kt`**: Registered the new VIP route and added a navigation entry point within the settings menu.&#10;&#10;- **Infrastructure**:&#10;    - Removed legacy IDE module definitions in `.idea/modules.xml`.&#10;    - Updated `.idea/workspace.xml` and `.idea/deploymentTargetSelector.xml` with current project state and deployment configurations." />
     <MESSAGE value="Test: Implement comprehensive VIP system testing and update status UI&#10;&#10;This commit introduces a robust testing suite for the VIP management system, including unit, Robolectric, and instrumented UI tests. It also refactors the `VipBadge` component to provide visual feedback for both VIP and Free user states.&#10;&#10;- **`VipMath.kt`**:&#10;    - Extracted pure Kotlin logic for VIP-related calculations to facilitate JVM unit testing.&#10;    - Implemented `computeElapsedProgress` to calculate progress bar percentages and `formatCountdown` for time-remaining strings (`Xd HHh MMm SSs`).&#10;&#10;- **`VipBadge.kt`**:&#10;    - Updated the component to be persistent rather than conditionally hidden.&#10;    - Added distinct visual states: a gold &quot;VIP&quot; badge for active subscribers and a gray &quot;FREE&quot; badge for standard users, using Material 3 color schemes.&#10;&#10;- **Testing Infrastructure**:&#10;    - **Unit Tests (`VipMathTest.kt`)**: Verified progress calculation edge cases (e.g., clock skew, expiration) and countdown formatting.&#10;    - **Robolectric Tests (`VipPrefsTest.kt`, `VipKeysTest.kt`, `AdKeysTest.kt`)**: Validated `SharedPreferences` persistence, key lookup logic (including trimming and case sensitivity), and configuration constants.&#10;    - **Instrumented Tests (`VipFlowIntegrationTest.kt`, `VipManagementPageWidgetTest.kt`)**:&#10;        - Implemented an end-to-end integration test to verify the full VIP activation flow, from text input to `AdManager` state updates.&#10;        - Added widget tests to ensure the `VipManagementPage` correctly renders the &quot;Free&quot; state and handles UI interactions like button enabling/disabling." />
     <MESSAGE value="UI: Update `VipBadge` label for non-active status&#10;&#10;This commit modifies the `VipBadge` component to display a clearer call-to-action for users without an active subscription. It also updates internal IDE workspace metadata.&#10;&#10;- **`VipBadge.kt`**:&#10;    - Updated the label text for the inactive state from &quot;FREE&quot; to &quot;GET VIP&quot;.&#10;    - Updated the component's KDoc to reflect the label change.&#10;&#10;- **`.idea/workspace.xml`**:&#10;    - Updated internal task history and change list tracking to reflect recent project commits." />
@@ -872,8 +867,10 @@
     <MESSAGE value="chore(ide): update workspace configuration and change list history&#10;&#10;- Update `ChangeListManager` and task history in `.idea/workspace.xml` to reflect recent file modifications" />
     <MESSAGE value="feat(ui): add device manager configuration and new layout options" />
     <MESSAGE value="feat(database): update migration tests for version 20 and improve assertions" />
+    <MESSAGE value="chore: update versionCode and versionName to 20261122 and 2026.11.22 respectively" />
     <MESSAGE value="chore(ide): update device streaming profiles and deployment target settings&#10;&#10;- Added new device configurations for Lenovo Tab M11, TECNO SPARK Go 2024, and Samsung Galaxy A05s.&#10;- Updated deployment target timestamp for Android testing.&#10;- Removed obsolete Samsung Galaxy A15 5G configuration." />
-    <option name="LAST_COMMIT_MESSAGE" value="chore(ide): update device streaming profiles and deployment target settings&#10;&#10;- Added new device configurations for Lenovo Tab M11, TECNO SPARK Go 2024, and Samsung Galaxy A05s.&#10;- Updated deployment target timestamp for Android testing.&#10;- Removed obsolete Samsung Galaxy A15 5G configuration." />
+    <MESSAGE value="docs: add initial AdMob configuration details and policy link" />
+    <option name="LAST_COMMIT_MESSAGE" value="docs: add initial AdMob configuration details and policy link" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>
