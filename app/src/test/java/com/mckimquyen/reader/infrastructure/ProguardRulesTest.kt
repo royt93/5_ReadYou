@@ -64,4 +64,29 @@ class ProguardRulesTest {
     @Test fun composeIsNotKeptWholesale_soTheMappingFileStaysSmall() {
         assertTrue(!Regex("""-keep\s+class\s+androidx\.compose\.\*\*""").containsMatchIn(rules))
     }
+
+    /**
+     * Gson reads these classes by reflection, so R8 must not remove their fields. Each `data class` of the provider DTO files has to carry
+     * `@Keep`; the DTOs outside them are pinned by [assertFieldsKept] above or sit under `-keep class ...domain.model.**`. A new provider DTO
+     * without `@Keep` would work in a debug build and lose its fields in the release build.
+     */
+    @Test fun everyProviderDtoDataClass_isMarkedKeep() {
+        listOf("infrastructure/rss/provider/fever/FeverDTO.kt", "infrastructure/rss/provider/googleReader/GoogleReaderApiDto.kt").forEach { path ->
+            val lines = source(path).lines()
+            lines.forEachIndexed { index, line ->
+                if (line.trimStart().startsWith("data class ")) {
+                    // a comment line may sit between the annotation and the class (ReadingList does)
+                    val previous = lines.take(index).lastOrNull { it.isNotBlank() && !it.trimStart().startsWith("//") }?.trim().orEmpty()
+                    assertTrue("$path: `${line.trim()}` has no @Keep right above it", previous == "@Keep")
+                }
+            }
+        }
+    }
+
+    @Test fun gsonTargetsOutsideTheKeptPackages_haveKeepOrFieldRules() {
+        val articleHighlights = source("domain/model/article/ArticleHighlights.kt")
+        assertTrue(articleHighlights.substringBefore("data class ArticleHighlights(").trimEnd().endsWith("@Keep"))
+        assertTrue(rules.contains("-keep class com.mckimquyen.reader.domain.model.** { *; }"))
+        assertFieldsKept("com.mckimquyen.reader.infrastructure.ai.DailyDigestContent")
+    }
 }
