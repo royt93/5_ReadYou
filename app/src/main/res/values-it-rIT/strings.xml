@@ -925,6 +925,7 @@
     <string name="privacy_settings_title">Privacy &amp; Security</string>
     <string name="ad_consent_manage_title">Scelte sugli annunci</string>
     <string name="ad_consent_manage_desc">Rivedi o modifica il consenso per gli annunci personalizzati</string>
+    <string name="ad_consent_not_needed">Nella tua regione non ci sono scelte pubblicitarie da modificare.</string>
     <string name="privacy_settings_desc">DNS-over-HTTPS, URL cleaner, and anti-tracker shield</string>
     <string name="doh_title">DNS-over-HTTPS (DoH)</string>
     <string name="doh_desc">Encrypts domain name resolution queries to prevent surveillance by network providers and public Wi-Fi.</string>

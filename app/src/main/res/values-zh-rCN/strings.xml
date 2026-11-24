@@ -917,6 +917,7 @@
     <string name="privacy_settings_title">Privacy &amp; Security</string>
     <string name="ad_consent_manage_title">广告选择</string>
     <string name="ad_consent_manage_desc">查看或更改你对个性化广告的同意</string>
+    <string name="ad_consent_not_needed">您所在的地区没有可更改的广告选项。</string>
     <string name="privacy_settings_desc">DNS-over-HTTPS, URL cleaner, and anti-tracker shield</string>
     <string name="doh_title">DNS-over-HTTPS (DoH)</string>
     <string name="doh_desc">Encrypts domain name resolution queries to prevent surveillance by network providers and public Wi-Fi.</string>

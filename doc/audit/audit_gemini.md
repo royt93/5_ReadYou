@@ -189,3 +189,7 @@ Lần khởi động đầu của APK gốc vừa cài lại in `Use RequestConf
 ### Test hành vi cho đường rewarded của Brain RPG (2026-11-24)
 
 Bốn nút rewarded của Brain RPG (Double XP, thử lại quiz, khiên chuỗi, phục hồi danh mục) giờ nhận `RewardedGate` qua tham số mặc định, nên test chạy cổng thật cùng Room thật với SDK thay bằng một hàm (8 ca): VIP nhận thưởng ghi vào cơ sở dữ liệu và không có ad; ad bị từ chối (cap dùng chung với interstitial, no-fill, đóng sớm) thì không thưởng gì và callback nhận `false`; bonus Double XP chỉ một lần cho mỗi bài. 4 đột biến bị bắt. Đây là test hành vi cho đường mà hạn mức chung làm SDK từ chối rewarded; nó không đọc được *lý do* từ chối, vì callback của SDK chỉ trả `true` hoặc `false`.
+
+### Mục "Ad choices" ngoài vùng cần form (2026-11-24, Pixel, Việt Nam)
+
+Trên máy thật, bấm "Tùy chọn quảng cáo" ở Việt Nam không mở form nào (log SDK: `privacy options form not required`) và người dùng không thấy gì. Lần sửa đầu dựa vào trạng thái của UMP không chạy: ở Việt Nam UMP trả `UNKNOWN`, và coi `UNKNOWN` là "không cần" sẽ giấu form khỏi người dùng EEA chưa trả lời. Bản cuối hỏi SDK rồi nhìn xem SDK có mở form không (đọc bytecode: `ConsentBridge` gọi `onDone` trước khi trả về khi không có form, và gọi sau khi đóng khi có form), rồi hiện Toast "Khu vực của bạn không có tùy chọn quảng cáo nào để thay đổi". **Đã thấy Toast hiện trên Pixel.** Chưa thấy trên máy: nhánh có form thật (EEA, bang Mỹ), chỉ có test đơn vị (4 ca hành vi, 6 mutant bị bắt). Chuỗi mới ở 38 ngôn ngữ là dịch máy, chưa người duyệt.

@@ -904,6 +904,7 @@
     <string name="privacy_settings_title">Privacy &amp; Security</string>
     <string name="ad_consent_manage_title">Možnosti oglasov</string>
     <string name="ad_consent_manage_desc">Preglejte ali spremenite soglasje za prilagojene oglase</string>
+    <string name="ad_consent_not_needed">V vaši regiji ni oglaševalskih možnosti, ki bi jih lahko spremenili.</string>
     <string name="privacy_settings_desc">DNS-over-HTTPS, URL cleaner, and anti-tracker shield</string>
     <string name="doh_title">DNS-over-HTTPS (DoH)</string>
     <string name="doh_desc">Encrypts domain name resolution queries to prevent surveillance by network providers and public Wi-Fi.</string>

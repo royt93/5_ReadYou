@@ -1,5 +1,7 @@
 package com.mckimquyen.reader.ui.page.setting.privacy
 
+import android.widget.Toast
+import com.mckimquyen.reader.infrastructure.android.AdChoicesAction
 import com.mckimquyen.reader.infrastructure.android.AppOpenGuard
 import com.mckimquyen.reader.infrastructure.android.AppOpenGuard.Companion.launchGuarded
 import android.Manifest
@@ -136,7 +138,14 @@ fun PrivacySettingsPage(
                     SettingItem(
                         title = stringResource(R.string.ad_consent_manage_title),
                         desc = stringResource(R.string.ad_consent_manage_desc),
-                        onClick = { adActivity?.let { AdManager.showConsentFormIfAvailable(it) } },
+                        onClick = {
+                            // The SDK opens the form only where UMP requires one. Where it shows nothing, say so instead of leaving a row that does nothing.
+                            adActivity?.let {
+                                AdChoicesAction().open(it) {
+                                    Toast.makeText(context, context.getString(R.string.ad_consent_not_needed), Toast.LENGTH_LONG).show()
+                                }
+                            }
+                        },
                     )
                 }
                 item {

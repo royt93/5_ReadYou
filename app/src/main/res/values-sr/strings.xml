@@ -933,6 +933,7 @@
     <string name="privacy_settings_title">Privacy &amp; Security</string>
     <string name="ad_consent_manage_title">Опције огласа</string>
     <string name="ad_consent_manage_desc">Прегледајте или промените сагласност за персонализоване огласе</string>
+    <string name="ad_consent_not_needed">У вашем региону нема опција огласа које можете да промените.</string>
     <string name="privacy_settings_desc">DNS-over-HTTPS, URL cleaner, and anti-tracker shield</string>
     <string name="doh_title">DNS-over-HTTPS (DoH)</string>
     <string name="doh_desc">Encrypts domain name resolution queries to prevent surveillance by network providers and public Wi-Fi.</string>

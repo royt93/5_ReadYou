@@ -924,6 +924,7 @@
     <string name="privacy_settings_title">Privacy &amp; Security</string>
     <string name="ad_consent_manage_title">گزینه‌های تبلیغات</string>
     <string name="ad_consent_manage_desc">رضایت خود را برای تبلیغات شخصی‌سازی‌شده بررسی یا تغییر دهید</string>
+    <string name="ad_consent_not_needed">در منطقه شما گزینه تبلیغاتی برای تغییر وجود ندارد.</string>
     <string name="privacy_settings_desc">DNS-over-HTTPS, URL cleaner, and anti-tracker shield</string>
     <string name="doh_title">DNS-over-HTTPS (DoH)</string>
     <string name="doh_desc">Encrypts domain name resolution queries to prevent surveillance by network providers and public Wi-Fi.</string>

@@ -1006,6 +1006,7 @@
     <string name="privacy_settings_title">Privacy &amp; Security</string>
     <string name="ad_consent_manage_title">Opcje reklam</string>
     <string name="ad_consent_manage_desc">Sprawdź lub zmień zgodę na spersonalizowane reklamy</string>
+    <string name="ad_consent_not_needed">W Twoim regionie nie ma opcji reklam do zmiany.</string>
     <string name="privacy_settings_desc">DNS-over-HTTPS, URL cleaner, and anti-tracker shield</string>
     <string name="doh_title">DNS-over-HTTPS (DoH)</string>
     <string name="doh_desc">Encrypts domain name resolution queries to prevent surveillance by network providers and public Wi-Fi.</string>

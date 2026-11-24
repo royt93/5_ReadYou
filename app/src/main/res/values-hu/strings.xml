@@ -920,6 +920,7 @@
     <string name="privacy_settings_title">Privacy &amp; Security</string>
     <string name="ad_consent_manage_title">Hirdetési beállítások</string>
     <string name="ad_consent_manage_desc">Tekintse át vagy módosítsa a személyre szabott hirdetésekhez adott hozzájárulását</string>
+    <string name="ad_consent_not_needed">A te régiódban nincs módosítható hirdetési beállítás.</string>
     <string name="privacy_settings_desc">DNS-over-HTTPS, URL cleaner, and anti-tracker shield</string>
     <string name="doh_title">DNS-over-HTTPS (DoH)</string>
     <string name="doh_desc">Encrypts domain name resolution queries to prevent surveillance by network providers and public Wi-Fi.</string>

@@ -1009,6 +1009,7 @@
     <string name="privacy_settings_title">Privacy &amp; Security</string>
     <string name="ad_consent_manage_title">Volby reklam</string>
     <string name="ad_consent_manage_desc">Zkontrolujte nebo změňte svůj souhlas s personalizovanými reklamami</string>
+    <string name="ad_consent_not_needed">Ve vaší oblasti nejsou žádné možnosti reklam, které by šlo změnit.</string>
     <string name="privacy_settings_desc">DNS-over-HTTPS, URL cleaner, and anti-tracker shield</string>
     <string name="doh_title">DNS-over-HTTPS (DoH)</string>
     <string name="doh_desc">Encrypts domain name resolution queries to prevent surveillance by network providers and public Wi-Fi.</string>
