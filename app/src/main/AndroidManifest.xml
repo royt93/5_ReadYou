@@ -97,7 +97,7 @@
 
         <activity
             android:name=".ui.page.about.AboutActivity"
-            android:exported="true"
+            android:exported="false"
             android:theme="@style/Theme.Reader" />
 
         <activity
@@ -130,10 +130,6 @@
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name="androidx.activity.ComponentActivity"
-            android:exported="true" />
 
         <service
             android:name=".infrastructure.audio.TtsForegroundService"

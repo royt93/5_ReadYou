@@ -1,5 +1,6 @@
 package com.mckimquyen.reader.ui.ext
 
+import com.mckimquyen.reader.infrastructure.android.AppOpenGuard
 import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
@@ -69,13 +70,15 @@ fun Context.share(content: String) {
     val cleanContent = if (urlTrackingCleanEnabled) {
         com.mckimquyen.reader.domain.security.UrlTrackingCleaner.clean(content)
     } else content
-    startActivity(Intent.createChooser(Intent(Intent.ACTION_SEND).apply {
-        putExtra(
-            Intent.EXTRA_TEXT,
-            cleanContent,
-        )
-        type = "text/plain"
-    }, getString(R.string.share)))
+    AppOpenGuard.leaveForOtherApp {
+        startActivity(Intent.createChooser(Intent(Intent.ACTION_SEND).apply {
+            putExtra(
+                Intent.EXTRA_TEXT,
+                cleanContent,
+            )
+            type = "text/plain"
+        }, getString(R.string.share)))
+    }
 }
 
 fun Context.openURL(
@@ -91,62 +94,65 @@ fun Context.openURL(
         val intent = Intent(Intent.ACTION_VIEW, uri)
         val customTabsIntent = CustomTabsIntent.Builder().setShowTitle(true).build()
         try {
-            when (openLink) {
-                OpenLinkPref.AlwaysAsk -> {
-                    val intents = packageManager.run {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                            queryIntentActivities(
-                                intent,
-                                PackageManager.ResolveInfoFlags.of(PackageManager.MATCH_ALL.toLong())
+            // Every branch below leaves for a browser, a Custom Tab or a chooser: no app open ad on the way back.
+            AppOpenGuard.leaveForOtherApp {
+                when (openLink) {
+                    OpenLinkPref.AlwaysAsk -> {
+                        val intents = packageManager.run {
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                                queryIntentActivities(
+                                    intent,
+                                    PackageManager.ResolveInfoFlags.of(PackageManager.MATCH_ALL.toLong())
+                                )
+                            } else {
+                                queryIntentActivities(intent, PackageManager.MATCH_ALL)
+                            }
+                        }.map {
+                            Intent(intent).setPackage(it.activityInfo.packageName)
+                        }.toMutableList()
+                        val chooser = Intent.createChooser(Intent(), null)
+                            .putExtra(
+                                Intent.EXTRA_ALTERNATE_INTENTS,
+                                intents.toTypedArray<Parcelable>()
                             )
-                        } else {
-                            queryIntentActivities(intent, PackageManager.MATCH_ALL)
-                        }
-                    }.map {
-                        Intent(intent).setPackage(it.activityInfo.packageName)
-                    }.toMutableList()
-                    val chooser = Intent.createChooser(Intent(), null)
-                        .putExtra(
-                            Intent.EXTRA_ALTERNATE_INTENTS,
-                            intents.toTypedArray<Parcelable>()
-                        )
 
-                    startActivity(chooser)
-                }
-
-                OpenLinkPref.AutoPreferCustomTabs -> {
-                    customTabsIntent.launchUrl(this, uri)
-                }
-
-                OpenLinkPref.AutoPreferDefaultBrowser -> startActivity(intent)
-                OpenLinkPref.CustomTabs -> {
-                    val customTabsPackages = getCustomTabsPackages()
-                    require(customTabsPackages.isNotEmpty())
-                    val defaultBrowser = getDefaultBrowserInfo()!!.activityInfo.packageName
-
-                    val targetApp = if (customTabsPackages.contains(defaultBrowser)) {
-                        defaultBrowser
-                    } else {
-                        customTabsPackages[0]
+                        startActivity(chooser)
                     }
-                    customTabsIntent.intent.setPackage(targetApp)
-                    customTabsIntent.launchUrl(this, uri)
-                }
 
-                OpenLinkPref.DefaultBrowser -> {
-                    val packageName = getDefaultBrowserInfo()!!.activityInfo.packageName
-                    startActivity(intent.setPackage(packageName))
-                }
+                    OpenLinkPref.AutoPreferCustomTabs -> {
+                        customTabsIntent.launchUrl(this, uri)
+                    }
 
-                OpenLinkPref.SpecificBrowser -> {
-                    require(!specificBrowser.packageName.isNullOrBlank())
-                    startActivity(intent.setPackage(specificBrowser.packageName))
-                }
+                    OpenLinkPref.AutoPreferDefaultBrowser -> startActivity(intent)
+                    OpenLinkPref.CustomTabs -> {
+                        val customTabsPackages = getCustomTabsPackages()
+                        require(customTabsPackages.isNotEmpty())
+                        val defaultBrowser = getDefaultBrowserInfo()!!.activityInfo.packageName
 
+                        val targetApp = if (customTabsPackages.contains(defaultBrowser)) {
+                            defaultBrowser
+                        } else {
+                            customTabsPackages[0]
+                        }
+                        customTabsIntent.intent.setPackage(targetApp)
+                        customTabsIntent.launchUrl(this, uri)
+                    }
+
+                    OpenLinkPref.DefaultBrowser -> {
+                        val packageName = getDefaultBrowserInfo()!!.activityInfo.packageName
+                        startActivity(intent.setPackage(packageName))
+                    }
+
+                    OpenLinkPref.SpecificBrowser -> {
+                        require(!specificBrowser.packageName.isNullOrBlank())
+                        startActivity(intent.setPackage(specificBrowser.packageName))
+                    }
+
+                }
             }
         } catch (_: Throwable) {
             showToast(getString(R.string.open_link_something_wrong))
-            startActivity(intent)
+            AppOpenGuard.leaveForOtherApp { startActivity(intent) }
         }
     }
 }

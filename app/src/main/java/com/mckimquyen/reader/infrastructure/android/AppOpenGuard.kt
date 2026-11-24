@@ -25,6 +25,21 @@ class AppOpenGuard(private val setSuppressed: (Boolean) -> Unit = AdManager::sup
         }
     }
 
+    /**
+     * For a `startActivity` that takes the user to another app (share chooser, browser, Custom Tab). That call returns no result, so the suppression is
+     * released by [onResult], which MainActivity calls from onResume when the app is back in front; the SDK also clears it by itself after five minutes.
+     * If the other app cannot be started the suppression is undone at once and the error goes on.
+     */
+    fun leaveForOtherApp(start: () -> Unit) {
+        setSuppressed(true)
+        try {
+            start()
+        } catch (e: Exception) {
+            setSuppressed(false)
+            throw e
+        }
+    }
+
     /** Call from the result callback of the launcher. */
     fun onResult() = setSuppressed(false)
 
@@ -33,6 +48,9 @@ class AppOpenGuard(private val setSuppressed: (Boolean) -> Unit = AdManager::sup
         val shared: AppOpenGuard by lazy { AppOpenGuard() } // lazy: a plain JVM test must be able to load the class without the ad SDK
 
         /** `launcher.launch(input)` with the app open ad suppressed until the result. */
+        /** `leaveForOtherApp` on the shared guard, for call sites that have no result callback. */
+        fun leaveForOtherApp(start: () -> Unit) = shared.leaveForOtherApp(start)
+
         fun <I> ActivityResultLauncher<I>.launchGuarded(input: I, guard: AppOpenGuard = shared) = guard.wrap<I> { launch(it) }(input)
     }
 }

@@ -111,6 +111,8 @@ class MainActivity : ComponentActivity() {
 
     override fun onResume() {
         super.onResume()
+        // Back in front after another app (share chooser, browser, Custom Tab): the app open ad may show again from the next return on.
+        AppOpenGuard.shared.onResult()
 //        adView?.resume()
         wakeLockManager.acquire()
         rateAppInApp(BuildConfig.DEBUG)

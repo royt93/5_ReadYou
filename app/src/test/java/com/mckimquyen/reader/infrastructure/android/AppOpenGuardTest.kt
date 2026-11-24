@@ -36,6 +36,32 @@ class AppOpenGuardTest {
     }
 
     @Test
+    fun leavingForAnotherApp_suppressesUntilTheAppIsBackInFront() {
+        val s = Switch()
+        val guard = AppOpenGuard(s::set)
+        var opened = 0
+        guard.leaveForOtherApp { opened++ }
+        assertEquals("the other app was started", 1, opened)
+        assertEquals("the ad is off while the user is in the other app", listOf(true), s.calls)
+        guard.onResult() // MainActivity.onResume: the app is in front again
+        assertEquals(listOf(true, false), s.calls)
+    }
+
+    @Test
+    fun leavingForAnotherApp_thatCannotBeStarted_releasesAtOnceAndRethrows() {
+        val s = Switch()
+        val guard = AppOpenGuard(s::set)
+        var thrown = false
+        try {
+            guard.leaveForOtherApp { error("no activity found") }
+        } catch (_: IllegalStateException) {
+            thrown = true
+        }
+        assertTrue(thrown)
+        assertEquals(listOf(true, false), s.calls)
+    }
+
+    @Test
     fun aSecondResultWithoutALaunch_doesNotSuppressAgain() {
         val s = Switch()
         val guard = AppOpenGuard(s::set)

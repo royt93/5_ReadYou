@@ -382,7 +382,9 @@ fun ReadingPage(
                             type = "text/plain"
                             putExtra(Intent.EXTRA_TEXT, url)
                         }
-                        context.startActivity(Intent.createChooser(send, secondScreenChooserTitle))
+                        com.mckimquyen.reader.infrastructure.android.AppOpenGuard.leaveForOtherApp {
+                            context.startActivity(Intent.createChooser(send, secondScreenChooserTitle))
+                        }
                     },
                 )
             } else if (readingUiState.showDualCardSheet) {

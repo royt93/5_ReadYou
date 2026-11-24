@@ -93,6 +93,24 @@ class AdPlacementSourceTest {
     }
 
     @Test
+    fun theTripsToAnotherApp_goThroughTheGuard_andMainActivityReleasesOnResume() {
+        val ext = src("ui/ext/ExtContext.kt")
+        val share = ext.substringAfter("fun Context.share(").substringBefore("fun Context.openURL(")
+        assertTrue("the share chooser must leave through the guard", share.contains("AppOpenGuard.leaveForOtherApp"))
+        val open = ext.substringAfter("fun Context.openURL(")
+        // the main branch, inside the try and before the catch: the `when` that picks a browser, a Custom Tab or a chooser
+        val tryPart = open.substringAfter("try {").substringBefore("catch (_: Throwable)")
+        assertTrue("the browser and Custom Tab branches must leave through the guard", tryPart.contains("AppOpenGuard.leaveForOtherApp {"))
+        assertTrue("and the `when` must sit inside that call", tryPart.indexOf("AppOpenGuard.leaveForOtherApp {") < tryPart.indexOf("when (openLink)"))
+        // the fallback after a failed open is a trip too
+        assertTrue(open.substringAfter("catch (_: Throwable)").contains("AppOpenGuard.leaveForOtherApp"))
+        val page = src("ui/page/home/read/ReadingPage.kt")
+        assertTrue("the second screen share chooser", page.substringAfter("onShare = { url ->").substringBefore("},").contains("AppOpenGuard.leaveForOtherApp"))
+        val main = src("infrastructure/android/MainActivity.kt").substringAfter("override fun onResume()").substringBefore("override fun onPause()")
+        assertTrue("the flag must be released when the app is back in front", main.contains("AppOpenGuard.shared.onResult()"))
+    }
+
+    @Test
     fun theGuardTurnsTheSuppressionOffWhenTheResultComes_andOnAnyError() {
         val helper = src("infrastructure/android/AppOpenGuard.kt")
         assertTrue("the result callback must clear the flag", helper.contains("finally") || helper.contains("onResult"))

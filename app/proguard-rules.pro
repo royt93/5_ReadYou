@@ -76,7 +76,6 @@
 -keep class com.mckimquyen.reader.data.provider.** { *; }
 
 # Compose
--keep class androidx.compose.** { *; }
 -dontwarn androidx.compose.**
 
 # AdMob

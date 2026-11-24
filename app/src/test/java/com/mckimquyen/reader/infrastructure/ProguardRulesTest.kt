@@ -56,4 +56,12 @@ class ProguardRulesTest {
         assertTrue(source("infrastructure/sync/WebDavReadPositionSyncer.kt").contains("data class WebDavPositionRecord("))
         assertFieldsKept("com.mckimquyen.reader.infrastructure.sync.WebDavPositionRecord")
     }
+
+    /**
+     * `-keep class androidx.compose.** { *; }` kept every class of material-icons-extended (about 11 000 icon files) and made the R8 mapping
+     * 264 MiB. Compose ships its own consumer rules, so the blanket keep is not needed; without it the mapping is about 127 MiB.
+     */
+    @Test fun composeIsNotKeptWholesale_soTheMappingFileStaysSmall() {
+        assertTrue(!Regex("""-keep\s+class\s+androidx\.compose\.\*\*""").containsMatchIn(rules))
+    }
 }
