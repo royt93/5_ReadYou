@@ -176,7 +176,7 @@ class FeverRssSvTest {
         val articles = mutableListOf<Article>()
         coEvery { groupDao.insertOrUpdate(capture(groups)) } returns Unit
         coEvery { feedDao.insertOrUpdate(capture(feeds)) } returns Unit
-        coEvery { articleDao.insert(*anyVararg()) } answers {
+        coEvery { articleDao.upsertKeepingLocalState(*anyVararg()) } answers {
             @Suppress("UNCHECKED_CAST")
             articles.addAll(args.first() as Array<Article>)
         }
@@ -197,7 +197,7 @@ class FeverRssSvTest {
     }
 
     @Test
-    fun sync_radarComparesBeforeTheReplaceInsertAndRecordsBaselinesAfterIt() {
+    fun sync_radarComparesBeforeTheUpsertAndRecordsBaselinesAfterIt() {
         coEvery { accountDao.queryById(any()) } answers {
             feverAccount(FeverSecurityKey(serverUrl = "https://fever.test", username = "user", password = "pass")).copy(id = firstArg())
         }
@@ -222,7 +222,7 @@ class FeverRssSvTest {
             events += "compare"
             setOf(firstArg<List<Article>>().first().id)
         }
-        coEvery { articleDao.insert(*anyVararg()) } answers { events += "insert" }
+        coEvery { articleDao.upsertKeepingLocalState(*anyVararg()) } answers { events += "insert" }
         val baselines = slot<List<Article>>()
         coEvery { radar.recordBaselines(capture(baselines)) } answers { events += "baseline" }
 
@@ -302,7 +302,7 @@ class FeverRssSvTest {
         coEvery { feverApi.getUnreadItems() } returns FeverDTO.ItemsByUnread(null, 1, null, unread_item_ids = "")
         coEvery { feverApi.getSavedItems() } returns FeverDTO.ItemsByStarred(null, 1, null, saved_item_ids = "")
         every { articleDao.queryArticleMetadataAll(any()) } returns emptyList()
-        coEvery { articleDao.insert(*anyVararg()) } returns Unit
+        coEvery { articleDao.upsertKeepingLocalState(*anyVararg()) } returns Unit
         mockkObject(RssDescriptionParser)
         every { RssDescriptionParser.shortDescription(any()) } answers { firstArg<String?>().orEmpty() }
         every { RssDescriptionParser.shortDescription("Bad summary") } throws IllegalArgumentException("bad summary")
@@ -347,7 +347,7 @@ class FeverRssSvTest {
         coEvery { feverApi.getSavedItems() } returns FeverDTO.ItemsByStarred(null, 1, null, saved_item_ids = "")
         every { articleDao.queryArticleMetadataAll(any()) } returns emptyList()
         val articles = mutableListOf<Article>()
-        coEvery { articleDao.insert(*anyVararg()) } answers {
+        coEvery { articleDao.upsertKeepingLocalState(*anyVararg()) } answers {
             @Suppress("UNCHECKED_CAST")
             articles.addAll(args.first() as Array<Article>)
         }
@@ -390,7 +390,7 @@ class FeverRssSvTest {
             FeverDTO.ItemsByStarred(null, 1, null, saved_item_ids = "")
         every { articleDao.queryArticleMetadataAll(any()) } returns emptyList()
         val articles = mutableListOf<Article>()
-        coEvery { articleDao.insert(*anyVararg()) } answers {
+        coEvery { articleDao.upsertKeepingLocalState(*anyVararg()) } answers {
             @Suppress("UNCHECKED_CAST")
             articles.addAll(args.first() as Array<Article>)
         }

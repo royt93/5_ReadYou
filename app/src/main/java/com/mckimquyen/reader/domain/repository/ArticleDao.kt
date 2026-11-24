@@ -766,6 +766,35 @@ interface ArticleDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertOnConflictIgnore(vararg article: Article)
 
+    /**
+     * Writes only what a server owns: the text, link, image, date and audio of an article. The reader's own state (unread, starred, read time, summary, read-later flag)
+     * and the row itself stay, so rows that cascade from it (read position, snapshots, embeddings, radar state) are not deleted the way REPLACE does.
+     */
+    @Query(
+        """
+        UPDATE article SET title = :title, author = :author, rawDescription = :rawDescription, shortDescription = :shortDescription,
+            fullContent = :fullContent, img = :img, link = :link, date = :date,
+            audioUrl = :audioUrl, audioMime = :audioMime, audioDurationSec = :audioDurationSec
+        WHERE id = :id AND accountId = :accountId
+        """
+    )
+    suspend fun updateServerOwnedColumns(
+        id: String, accountId: Int, title: String, author: String?, rawDescription: String, shortDescription: String,
+        fullContent: String?, img: String?, link: String, date: Date, audioUrl: String?, audioMime: String?, audioDurationSec: Int?,
+    ): Int
+
+    /** Insert new articles, refresh the server-owned columns of existing ones, and never delete a row (see [updateServerOwnedColumns]). */
+    @Transaction
+    suspend fun upsertKeepingLocalState(vararg articles: Article) {
+        articles.forEach { a ->
+            insertOnConflictIgnore(a)
+            updateServerOwnedColumns(
+                a.id, a.accountId, a.title, a.author, a.rawDescription, a.shortDescription,
+                a.fullContent, a.img, a.link, a.date, a.audioUrl, a.audioMime, a.audioDurationSec,
+            )
+        }
+    }
+
     @Insert
     suspend fun insertList(articles: List<Article>)
 

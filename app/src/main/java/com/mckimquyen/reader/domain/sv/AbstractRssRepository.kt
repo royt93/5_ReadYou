@@ -269,10 +269,12 @@ abstract class AbstractRssRepository(
     fun cancelSync() {
         // Only cancel the sync job, not every WorkManager job in the queue
         workManager.cancelUniqueWork(SyncWorker.WORK_NAME)
+        workManager.cancelUniqueWork(SyncWorker.ONE_TIME_WORK_NAME)
     }
 
     suspend fun doSync(isOnStart: Boolean = false) {
-        // Only cancel the sync job, not every WorkManager job in the queue
+        // Only cancel the sync job, not every WorkManager job in the queue. The one-time work is deliberately NOT cancelled here: it is unique with KEEP, so a request
+        // made while a sync runs is ignored instead of running a second SyncWorker, and cancelling it would let the start-up sync be cut by the first refresh.
         workManager.cancelUniqueWork(SyncWorker.WORK_NAME)
         accountDao.queryById(context.currentAccountId)?.let {
             if (isOnStart) {

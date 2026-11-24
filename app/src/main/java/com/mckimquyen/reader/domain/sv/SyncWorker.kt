@@ -8,6 +8,7 @@ import androidx.work.Constraints
 import androidx.work.CoroutineWorker
 import androidx.work.Data
 import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.ExistingWorkPolicy
 import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.PeriodicWorkRequestBuilder
@@ -85,13 +86,18 @@ class SyncWorker @AssistedInject constructor(
 
         private const val IS_SYNCING = "isSyncing"
         const val WORK_NAME = "ReadYou"
+        const val ONE_TIME_WORK_NAME = "ReadYouOneTime"
         // Was lateinit: never assigned anywhere — accessing before init throws UninitializedPropertyAccessException
         var uuid: UUID? = null
 
         fun enqueueOneTimeWork(
             workManager: WorkManager,
         ) {
-            workManager.enqueue(
+            // Unique, so a second pull-to-refresh or the start-up sync cannot run a second SyncWorker next to the first. It has its own name: WORK_NAME belongs to the
+            // periodic chain, and two unique works under one name replace each other. The WORK_NAME tag stays so the UI still sees this work as a sync.
+            workManager.enqueueUniqueWork(
+                ONE_TIME_WORK_NAME,
+                ExistingWorkPolicy.KEEP,
                 OneTimeWorkRequestBuilder<SyncWorker>()
                     .addTag(WORK_NAME)
                     .build()

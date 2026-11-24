@@ -186,9 +186,10 @@ class FeverRssSv @Inject constructor(
                 val remoteItems = itemsBody.items.orEmpty()
                 remoteItems.lastOrNull()?.id?.let { sinceId = it }
                 val articles = remoteItems.mapNotNull { item -> toArticle(item, accountId) }
-                // REPLACE would erase the stored copy, so compare first; Fever normally sends each item once.
+                // Compare with the stored copy first (the radar needs the old text), then upsert: REPLACE deleted the row and, through ON DELETE CASCADE, the reader's
+                // position, snapshots, embeddings and smart-collection links whenever the server sent an item again.
                 val alreadyStored = radar.recordEdits(articles)
-                articleDao.insert(*articles.toTypedArray())
+                articleDao.upsertKeepingLocalState(*articles.toTypedArray())
                 radar.recordBaselines(articles.filter { it.id !in alreadyStored })
                 if (remoteItems.size >= FEVER_PAGE_SIZE) {
                     itemsBody = feverAPI.getItemsSince(sinceId)
@@ -203,21 +204,17 @@ class FeverRssSv @Inject constructor(
             }
 
             // 4. Synchronize read/unread and starred/un-starred
-            val unreadArticleIds = feverAPI.getUnreadItems().unread_item_ids?.split(",")
-            val starredArticleIds = feverAPI.getSavedItems().saved_item_ids?.split(",")
+            val unreadArticleIds = FeverStateSync.parseIds(feverAPI.getUnreadItems().unread_item_ids)
+            val starredArticleIds = FeverStateSync.parseIds(feverAPI.getSavedItems().saved_item_ids)
+            if (unreadArticleIds == null || starredArticleIds == null) {
+                Log.w(TAG, "Fever answered without unread_item_ids or saved_item_ids; the flag(s) it left out are not synchronised this time")
+            }
             val articleMeta = articleDao.queryArticleMetadataAll(accountId)
             for (meta: ArticleMeta in articleMeta) {
                 val articleId = meta.id.dollarLast()
-                val shouldBeUnread = unreadArticleIds?.contains(articleId)
-                val shouldBeStarred = starredArticleIds?.contains(articleId)
-                if (meta.isUnread != shouldBeUnread) {
-                    articleDao.markAsReadByArticleId(accountId, meta.id, shouldBeUnread ?: true)
-                }
-                if (meta.isStarred != shouldBeStarred) {
-                    articleDao.markAsStarredByArticleId(accountId, meta.id, shouldBeStarred ?: false)
-                }
+                FeverStateSync.targetFlag(articleId, unreadArticleIds, meta.isUnread)?.let { articleDao.markAsReadByArticleId(accountId, meta.id, it) }
+                FeverStateSync.targetFlag(articleId, starredArticleIds, meta.isStarred)?.let { articleDao.markAsStarredByArticleId(accountId, meta.id, it) }
             }
-
 
             Log.i("RLog", "onCompletion: ${System.currentTimeMillis() - preTime}")
             accountDao.update(account.apply {
