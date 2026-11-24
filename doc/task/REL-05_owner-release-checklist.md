@@ -43,7 +43,7 @@ Nguồn dữ liệu: `doc/task/REL-03_data-safety-audit.md`, mục 5 và mục 7
 - File mapping R8 trong AAB là 264 MiB (`-dontobfuscate` cộng keep rộng cho compose, okhttp3, retrofit2). Google không nêu giới hạn riêng cho mapping Java (800 MB là của debug symbols native); nếu Play từ chối, thu gọn keep rule.
 - Mã đổi VIP và `VIP_INTEGRITY_SECRET` nằm sẵn trong dex (VIP đã được owner hoãn).
 - `allowBackup="true"`: Room và DataStore `settings` (có `customGeminiApiKey`) vào cloud backup.
-- App Open có thể hiện ngay khi người dùng quay lại từ chooser chia sẻ hoặc Custom Tabs (chỉ chặn quanh hộp thoại quyền và file picker).
+- ĐÃ SỬA 2026-11-24: App Open bị chặn khi quay lại từ chooser chia sẻ và Custom Tabs (`AppOpenGuard.leaveForOtherApp`), `ComponentActivity` bỏ khỏi manifest chính, `AboutActivity` exported=false, mapping R8 264 → 127 MiB (bỏ `-keep class androidx.compose.**`).
 - Test `CommuteCastViewModelTest` đã fail 1 lần trong full JVM, 5 lần chạy sau đều xanh (lỗi lẻ, chưa tìm nguyên nhân).
 
 ## 4. Kiểm lần cuối trước khi đưa lên store
@@ -56,6 +56,6 @@ Nguồn dữ liệu: `doc/task/REL-03_data-safety-audit.md`, mục 5 và mục 7
 
 ## 5. Giới hạn đã biết
 
-- Chưa chạy ad bằng đơn vị thật (cố ý, để tránh invalid traffic).
+- Ad bằng đơn vị thật: đã chạy rewarded trên Pixel (máy đã đăng ký hash) với build ký thật, nhãn "Quảng cáo thử nghiệm", 0 tín hiệu `Use RequestConfiguration` (2026-11-24, HEAD 2d915178). Chưa thử banner, interstitial, App Open với đơn vị thật.
 - Chưa có máy API 26-28.
 - Interstitial và rewarded dùng chung hạn mức: xem `audit_gemini.md`.
