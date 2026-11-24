@@ -58,6 +58,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mckimquyen.reader.R
 import com.mckimquyen.reader.ui.component.base.BaseScaffold
+import com.mckimquyen.reader.ui.component.base.settingsPageContainerColor
 import com.mckimquyen.reader.ui.component.base.FeedbackIconButton
 import com.mckimquyen.reader.domain.model.secondbrain.BrainGraph
 import com.mckimquyen.reader.ui.page.secondbrain.galaxy.GALAXY_TOGGLE_CONCEPTS_TAG
@@ -108,6 +109,7 @@ fun SecondBrainPage(
     val sides = if (onBack != null) WindowInsetsSides.Horizontal + WindowInsetsSides.Bottom
     else WindowInsetsSides.Horizontal + WindowInsetsSides.Vertical
     BaseScaffold(
+        containerColor = settingsPageContainerColor(),
         navigationIcon = if (onBack != null) {
             {
                 FeedbackIconButton(

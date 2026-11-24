@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
@@ -22,6 +24,9 @@ import androidx.compose.ui.unit.dp
 import com.mckimquyen.reader.R
 import com.mckimquyen.reader.domain.model.digest.DailyDigest
 import com.mckimquyen.reader.infrastructure.ai.DailyDigestContent
+import com.mckimquyen.reader.ui.component.base.BaseScaffold
+import com.mckimquyen.reader.ui.component.base.FeedbackIconButton
+import com.mckimquyen.reader.ui.component.base.settingsPageContainerColor
 
 const val DIGEST_TITLE_TAG = "digest_title"
 
@@ -34,8 +39,24 @@ fun DigestPage(
     onRetry: () -> Unit,
     onOpenSource: (String) -> Unit,
     onSelectDigest: (String) -> Unit = {},
+    onBack: (() -> Unit)? = null,
     modifier: Modifier = Modifier,
 ) {
+    // The page used to be a bare Column: no top bar, no back button, a different background from the Settings pages. The route passes onBack; tests that render the
+    // page alone leave it null and get no arrow.
+    BaseScaffold(
+        containerColor = settingsPageContainerColor(),
+        navigationIcon = onBack?.let { back ->
+            {
+                FeedbackIconButton(
+                    imageVector = Icons.Rounded.ArrowBack,
+                    contentDescription = stringResource(R.string.back),
+                    tint = MaterialTheme.colorScheme.onSurface,
+                    onClick = back,
+                )
+            }
+        },
+    ) {
     Column(modifier.fillMaxSize().safeDrawingPadding().padding(16.dp)) {
         Text(
             stringResource(R.string.daily_digest_title),
@@ -90,6 +111,7 @@ fun DigestPage(
                 Button(onClick = onGenerate) { Text(stringResource(R.string.daily_digest_generate)) }
             }
         }
+    }
     }
 }
 

@@ -336,6 +336,7 @@ fun HomeEntry(
                         navController.navigate("${RouteName.READING}/$articleId") { launchSingleTop = true }
                     },
                     onSelectDigest = { id -> digestViewModel.selectDigest(id) },
+                    onBack = { navController.popBackStack() },
                 )
             }
             animatedComposable(route = "${RouteName.READING}/{articleId}", eInk = eInk) {

@@ -23,6 +23,9 @@ class SettingsPageBackgroundTest {
         "ui/page/autopilot/FeedAutopilotPage.kt",
         "ui/page/rpg/BrainRpgPage.kt",
         "ui/page/about/AboutActivity.kt",
+        "ui/page/setting/vip/VipManagementPage.kt",
+        "ui/page/secondbrain/SecondBrainPage.kt",
+        "ui/page/notebook/NotebookPage.kt",
     )
 
     @Test
@@ -43,5 +46,15 @@ class SettingsPageBackgroundTest {
         val scaffold = read("ui/component/base/BaseScaffold.kt")
         assertEquals(1, Regex("""fun settingsPageContainerColor\(\)""").findAll(scaffold).count())
         assertTrue("MaterialTheme.colorScheme.surface onLight MaterialTheme.colorScheme.inverseOnSurface" in scaffold)
+    }
+
+    @Test
+    fun dailyDigestPageHasABackButtonAndTheSharedBackground() {
+        val page = read("ui/page/digest/DigestPage.kt")
+        assertTrue("DigestPage must sit in BaseScaffold", "BaseScaffold(" in page)
+        assertTrue("DigestPage must take its background from the shared token", "containerColor = settingsPageContainerColor()" in page)
+        assertTrue("DigestPage must expose onBack", "onBack: (() -> Unit)? = null" in page)
+        val route = read("ui/page/common/HomeEntry.kt").substringAfter("route = RouteName.DAILY_DIGEST").substringBefore("route = \"\${RouteName.READING}")
+        assertTrue("the DAILY_DIGEST route must pass a real back action", "onBack = { navController.popBackStack() }" in route)
     }
 }

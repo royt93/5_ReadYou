@@ -71,6 +71,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.mckimquyen.reader.R
+import com.mckimquyen.reader.ui.component.base.settingsPageContainerColor
 import com.mckimquyen.reader.domain.model.notebook.ArticleHighlightNote
 import com.mckimquyen.reader.domain.model.notebook.HighlightColor
 import java.text.SimpleDateFormat
@@ -88,6 +89,7 @@ fun NotebookPage(
     var isSearchVisible by remember { mutableStateOf(false) }
 
     Scaffold(
+        containerColor = settingsPageContainerColor(),
         topBar = {
             TopAppBar(
                 title = {
@@ -124,7 +126,7 @@ fun NotebookPage(
                     }
                 },
                 colors = TopAppBarDefaults.smallTopAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.surface,
+                    containerColor = settingsPageContainerColor(),
                 )
             )
         }
