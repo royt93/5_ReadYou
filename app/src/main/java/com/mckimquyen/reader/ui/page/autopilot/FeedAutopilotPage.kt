@@ -33,6 +33,7 @@ import androidx.compose.ui.unit.dp
 import com.mckimquyen.reader.R
 import com.mckimquyen.reader.domain.autopilot.FeedAutopilotSuggestion
 import com.mckimquyen.reader.ui.component.base.BaseScaffold
+import com.mckimquyen.reader.ui.component.base.settingsPageContainerColor
 import com.mckimquyen.reader.ui.component.base.FeedbackIconButton
 
 const val AUTOPILOT_SWITCH_TAG = "autopilot_switch"
@@ -60,6 +61,7 @@ fun FeedAutopilotPage(
     onRetry: () -> Unit,
 ) {
     BaseScaffold(
+        containerColor = settingsPageContainerColor(),
         navigationIcon = {
             FeedbackIconButton(
                 imageVector = Icons.Rounded.ArrowBack,

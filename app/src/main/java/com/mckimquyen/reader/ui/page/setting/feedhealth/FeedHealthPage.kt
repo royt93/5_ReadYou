@@ -49,6 +49,7 @@ import androidx.navigation.NavHostController
 import com.mckimquyen.reader.R
 import com.mckimquyen.reader.domain.model.feed.FeedErrorType
 import com.mckimquyen.reader.ui.component.base.BaseScaffold
+import com.mckimquyen.reader.ui.component.base.settingsPageContainerColor
 import com.mckimquyen.reader.ui.component.base.FeedbackIconButton
 import com.mckimquyen.reader.ui.theme.palette.onLight
 
@@ -61,7 +62,7 @@ fun FeedHealthPage(
     val uiState by viewModel.uiState.collectAsState()
 
     BaseScaffold(
-        containerColor = MaterialTheme.colorScheme.surface onLight MaterialTheme.colorScheme.inverseOnSurface,
+        containerColor = settingsPageContainerColor(),
         navigationIcon = {
             FeedbackIconButton(
                 imageVector = Icons.Rounded.ArrowBack,

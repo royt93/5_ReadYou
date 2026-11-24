@@ -41,6 +41,7 @@ import androidx.navigation.NavHostController
 import com.mckimquyen.reader.R
 import com.mckimquyen.reader.infrastructure.pref.DohProviderPref
 import com.mckimquyen.reader.ui.component.base.BaseScaffold
+import com.mckimquyen.reader.ui.component.base.settingsPageContainerColor
 import com.mckimquyen.reader.ui.component.base.BaseSwitch
 import com.mckimquyen.reader.ui.component.base.DisplayText
 import com.mckimquyen.reader.ui.component.base.FeedbackIconButton
@@ -89,7 +90,7 @@ fun PrivacySettingsPage(
     }
 
     BaseScaffold(
-        containerColor = MaterialTheme.colorScheme.surface,
+        containerColor = settingsPageContainerColor(),
         navigationIcon = {
             FeedbackIconButton(
                 imageVector = Icons.Rounded.ArrowBack,

@@ -18,6 +18,14 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.mckimquyen.reader.ui.ext.surfaceColorAtElevation
 import com.mckimquyen.reader.ui.theme.palette.onDark
+import com.mckimquyen.reader.ui.theme.palette.onLight
+
+/**
+ * Background of every page opened from Settings. Each page used to pick its own colour (the tinted `surface onLight inverseOnSurface` on 23 pages, plain `surface`
+ * on Privacy, Local sync, Archive Q&A and Feed Autopilot), so on a phone the same flow flipped between #FDEDEB and #FFFBFF. One token keeps them identical.
+ */
+@Composable
+fun settingsPageContainerColor(): Color = MaterialTheme.colorScheme.surface onLight MaterialTheme.colorScheme.inverseOnSurface
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

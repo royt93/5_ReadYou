@@ -31,6 +31,7 @@ import com.mckimquyen.reader.R
 import com.mckimquyen.reader.ui.component.base.DisplayText
 import com.mckimquyen.reader.ui.component.base.FeedbackIconButton
 import com.mckimquyen.reader.ui.component.base.BaseScaffold
+import com.mckimquyen.reader.ui.component.base.settingsPageContainerColor
 import com.mckimquyen.reader.ui.component.base.Subtitle
 import com.mckimquyen.reader.ui.page.setting.SettingItem
 import com.mckimquyen.reader.ui.theme.palette.onLight
@@ -40,7 +41,7 @@ fun ReadingVideoPage(
     navController: NavHostController,
 ) {
     BaseScaffold(
-        containerColor = MaterialTheme.colorScheme.surface onLight MaterialTheme.colorScheme.inverseOnSurface,
+        containerColor = settingsPageContainerColor(),
         navigationIcon = {
             FeedbackIconButton(
                 imageVector = Icons.Rounded.ArrowBack,

@@ -47,6 +47,7 @@ import com.mckimquyen.reader.domain.p2psync.PairedPeer
 import com.mckimquyen.reader.domain.p2psync.PairingStatus
 import com.mckimquyen.reader.infrastructure.p2psync.DiscoveredPeer
 import com.mckimquyen.reader.ui.component.base.BaseScaffold
+import com.mckimquyen.reader.ui.component.base.settingsPageContainerColor
 import com.mckimquyen.reader.ui.component.base.FeedbackIconButton
 
 const val SYNC_SEND_START_TAG = "sync_send_start"
@@ -125,6 +126,7 @@ fun LocalSyncPage(
     val canReceive = isLocal && !busy && preview == null
 
     BaseScaffold(
+        containerColor = settingsPageContainerColor(),
         navigationIcon = {
             FeedbackIconButton(
                 imageVector = Icons.Rounded.ArrowBack,

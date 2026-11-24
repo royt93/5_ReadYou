@@ -36,6 +36,7 @@ import com.mckimquyen.reader.R
 import com.mckimquyen.reader.domain.model.rpg.UserProgress
 import com.mckimquyen.reader.domain.sv.QuizGeneratorService
 import com.mckimquyen.reader.ui.component.base.BaseScaffold
+import com.mckimquyen.reader.ui.component.base.settingsPageContainerColor
 import com.mckimquyen.reader.ui.component.base.DisplayText
 import com.mckimquyen.reader.ui.component.base.FeedbackIconButton
 import com.mckimquyen.reader.ui.ext.findActivity
@@ -59,7 +60,7 @@ fun BrainRpgPage(
     }
 
     BaseScaffold(
-        containerColor = MaterialTheme.colorScheme.surface,
+        containerColor = settingsPageContainerColor(),
         navigationIcon = {
             FeedbackIconButton(
                 imageVector = Icons.Rounded.ArrowBack,

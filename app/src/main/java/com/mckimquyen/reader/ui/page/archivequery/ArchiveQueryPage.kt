@@ -48,6 +48,7 @@ import com.mckimquyen.reader.domain.archivequery.ArchivePerspectiveShift
 import com.mckimquyen.reader.domain.archivequery.ArchiveQueryRange
 import com.mckimquyen.reader.domain.archivequery.ArchiveQueryResult
 import com.mckimquyen.reader.ui.component.base.BaseScaffold
+import com.mckimquyen.reader.ui.component.base.settingsPageContainerColor
 import com.mckimquyen.reader.ui.component.base.FeedbackIconButton
 import java.time.LocalDate
 import java.time.Month
@@ -84,6 +85,7 @@ fun ArchiveQueryPage(
     val busy = state is ArchiveQueryUiState.Searching
 
     BaseScaffold(
+        containerColor = settingsPageContainerColor(),
         navigationIcon = {
             FeedbackIconButton(
                 imageVector = Icons.Rounded.ArrowBack,

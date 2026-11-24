@@ -61,6 +61,7 @@ import com.mckimquyen.reader.infrastructure.pref.OpenLinkPref
 import com.mckimquyen.reader.ui.component.base.CurlyCornerShape
 import com.mckimquyen.reader.ui.component.base.FeedbackIconButton
 import com.mckimquyen.reader.ui.component.base.BaseScaffold
+import com.mckimquyen.reader.ui.component.base.settingsPageContainerColor
 import com.mckimquyen.reader.ui.ext.DataStoreKeys
 import com.mckimquyen.reader.ui.ext.dataStore
 import com.mckimquyen.reader.ui.ext.getCurrentVersion
@@ -91,7 +92,7 @@ fun TipsAndSupportPage(
     }
 
     BaseScaffold(
-        containerColor = MaterialTheme.colorScheme.surface onLight MaterialTheme.colorScheme.inverseOnSurface,
+        containerColor = settingsPageContainerColor(),
         navigationIcon = {
             FeedbackIconButton(
                 imageVector = Icons.Rounded.ArrowBack,

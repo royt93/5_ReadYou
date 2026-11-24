@@ -57,6 +57,7 @@ import com.mckimquyen.reader.domain.model.filter.FilterAction
 import com.mckimquyen.reader.domain.model.filter.FilterTargetField
 import com.mckimquyen.reader.domain.model.filter.SmartFilterRule
 import com.mckimquyen.reader.ui.component.base.BaseScaffold
+import com.mckimquyen.reader.ui.component.base.settingsPageContainerColor
 import com.mckimquyen.reader.ui.component.base.FeedbackIconButton
 import com.mckimquyen.reader.ui.theme.palette.onLight
 
@@ -70,7 +71,7 @@ fun SmartFilterPage(
     var showAddDialog by remember { mutableStateOf(false) }
 
     BaseScaffold(
-        containerColor = MaterialTheme.colorScheme.surface onLight MaterialTheme.colorScheme.inverseOnSurface,
+        containerColor = settingsPageContainerColor(),
         navigationIcon = {
             FeedbackIconButton(
                 imageVector = Icons.Rounded.ArrowBack,

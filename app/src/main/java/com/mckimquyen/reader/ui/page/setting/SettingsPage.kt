@@ -59,6 +59,7 @@ import com.mckimquyen.reader.infrastructure.pref.LocalNewVersionNumber
 import com.mckimquyen.reader.infrastructure.pref.LocalSkipVersionNumber
 import com.mckimquyen.reader.ui.component.base.Banner
 import com.mckimquyen.reader.ui.component.base.BaseScaffold
+import com.mckimquyen.reader.ui.component.base.settingsPageContainerColor
 import com.mckimquyen.reader.ui.component.base.DisplayText
 import com.mckimquyen.reader.ui.component.base.FeedbackIconButton
 import com.mckimquyen.reader.ui.ext.dataStore
@@ -96,7 +97,7 @@ fun SettingsPage(
     BackHandler { navController.popBackStack() }
 
     BaseScaffold(
-        containerColor = MaterialTheme.colorScheme.surface onLight MaterialTheme.colorScheme.inverseOnSurface,
+        containerColor = settingsPageContainerColor(),
         navigationIcon = {
             Row(
                 verticalAlignment = Alignment.CenterVertically

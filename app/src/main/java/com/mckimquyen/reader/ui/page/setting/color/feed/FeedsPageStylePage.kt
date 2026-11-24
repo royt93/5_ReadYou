@@ -46,6 +46,7 @@ import com.mckimquyen.reader.infrastructure.pref.not
 import com.mckimquyen.reader.ui.component.base.DisplayText
 import com.mckimquyen.reader.ui.component.base.FeedbackIconButton
 import com.mckimquyen.reader.ui.component.base.BaseScaffold
+import com.mckimquyen.reader.ui.component.base.settingsPageContainerColor
 import com.mckimquyen.reader.ui.component.base.BaseSwitch
 import com.mckimquyen.reader.ui.component.base.RadioDlg
 import com.mckimquyen.reader.ui.component.base.RadioDialogOption
@@ -79,7 +80,7 @@ fun FeedsPageStylePage(
     var filterBarPaddingValue: Int? by remember { mutableStateOf(filterBarPadding) }
 
     BaseScaffold(
-        containerColor = MaterialTheme.colorScheme.surface onLight MaterialTheme.colorScheme.inverseOnSurface,
+        containerColor = settingsPageContainerColor(),
         navigationIcon = {
             FeedbackIconButton(
                 imageVector = Icons.Rounded.ArrowBack,

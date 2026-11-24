@@ -28,6 +28,7 @@ import androidx.core.view.WindowCompat
 import com.mckimquyen.reader.R
 import com.mckimquyen.reader.infrastructure.pref.LanguagesPref
 import com.mckimquyen.reader.ui.component.base.BaseScaffold
+import com.mckimquyen.reader.ui.component.base.settingsPageContainerColor
 import com.mckimquyen.reader.ui.component.base.FeedbackIconButton
 import com.mckimquyen.reader.infrastructure.pref.LocalDarkTheme
 import com.mckimquyen.reader.infrastructure.pref.SettingsProvider
@@ -71,7 +72,7 @@ class AboutActivity : ComponentActivity() {
             SettingsProvider {
                 AppTheme(useDarkTheme = LocalDarkTheme.current.isDarkTheme()) {
             BaseScaffold(
-                containerColor = MaterialTheme.colorScheme.surface,
+                containerColor = settingsPageContainerColor(),
                 navigationIcon = {
                     androidx.compose.foundation.layout.Row(
                         verticalAlignment = Alignment.CenterVertically
