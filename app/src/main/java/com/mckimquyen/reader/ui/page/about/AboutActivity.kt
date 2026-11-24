@@ -29,6 +29,9 @@ import com.mckimquyen.reader.R
 import com.mckimquyen.reader.infrastructure.pref.LanguagesPref
 import com.mckimquyen.reader.ui.component.base.BaseScaffold
 import com.mckimquyen.reader.ui.component.base.FeedbackIconButton
+import com.mckimquyen.reader.infrastructure.pref.LocalDarkTheme
+import com.mckimquyen.reader.infrastructure.pref.SettingsProvider
+import com.mckimquyen.reader.ui.theme.AppTheme
 
 class AboutActivity : ComponentActivity() {
     override fun attachBaseContext(newBase: Context) {
@@ -65,6 +68,8 @@ class AboutActivity : ComponentActivity() {
             window.isNavigationBarContrastEnforced = false
         }
         setContent {
+            SettingsProvider {
+                AppTheme(useDarkTheme = LocalDarkTheme.current.isDarkTheme()) {
             BaseScaffold(
                 containerColor = MaterialTheme.colorScheme.surface,
                 navigationIcon = {
@@ -90,6 +95,8 @@ class AboutActivity : ComponentActivity() {
                     AboutWebView()
                 }
             )
+                }
+            }
         }
     }
 }
