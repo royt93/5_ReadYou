@@ -682,7 +682,8 @@
     <string name="reels_desc">Veja as notícias como reels de tela cheia</string>
     <string name="reels_empty">Nenhuma notícia disponível ainda</string>
     <string name="reels_has_video">Esta notícia contém um vídeo</string>
-    <string name="reels_swipe_hint">Deslize para cima para a próxima · Deslize para a direita para ler</string>
+    <string name="reels_swipe_hint">Deslize para cima para o próximo · Deslize para a direita ou toque em Ler para abrir</string>
+    <string name="reels_open_article">Ler artigo</string>
     <string name="reels_title">Reels</string>
     <string name="smart_filter_action_read">Marcar como lido</string>
     <string name="smart_filter_action_star">Favoritar artigo</string>

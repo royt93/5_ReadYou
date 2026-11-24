@@ -751,7 +751,8 @@
     <string name="reels_desc">以滿屏之式覽新聞短片</string>
     <string name="reels_empty">尚無故事可覽</string>
     <string name="reels_has_video">此篇含影片</string>
-    <string name="reels_swipe_hint">上滑觀下則·右滑而讀之</string>
+    <string name="reels_swipe_hint">上滑觀次 · 右滑或觸讀以開</string>
+    <string name="reels_open_article">讀文</string>
     <string name="reels_title">短片</string>
     <string name="smart_filter_action_read">標為已讀</string>
     <string name="smart_filter_action_star">加星標之</string>

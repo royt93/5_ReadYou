@@ -680,7 +680,8 @@
     <string name="reels_desc">Bla gjennom nyheter i fullskjerm reels</string>
     <string name="reels_empty">Ingen historier tilgjengelig ennå</string>
     <string name="reels_has_video">Denne historien inneholder video</string>
-    <string name="reels_swipe_hint">Sveip opp for neste · Sveip høyre for å lese</string>
+    <string name="reels_swipe_hint">Sveip opp for neste · Sveip til høyre eller trykk på Les for å åpne</string>
+    <string name="reels_open_article">Les artikkelen</string>
     <string name="reels_title">Reels</string>
     <string name="smart_filter_action_read">Merk som lest</string>
     <string name="smart_filter_action_star">Stjernemerk artikkel</string>

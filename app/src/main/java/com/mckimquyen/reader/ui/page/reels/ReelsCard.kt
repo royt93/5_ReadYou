@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.PlayCircle
+import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -25,6 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -41,6 +43,7 @@ import com.mckimquyen.reader.ui.component.base.BaseAsyncImage
 fun ReelsCard(
     item: ReelItem,
     modifier: Modifier = Modifier,
+    onOpen: (() -> Unit)? = null,
 ) {
     Box(modifier = modifier.fillMaxSize()) {
         if (item.coverImageUrl != null) {
@@ -142,6 +145,15 @@ fun ReelsCard(
 
             Spacer(modifier = Modifier.height(BLOCK_SPACING.dp))
 
+            // A button next to the swipe: the system Back gesture owns the left edge, so a swipe that starts there never reaches the card.
+            if (onOpen != null) {
+                Button(
+                    onClick = onOpen,
+                    modifier = Modifier.testTag(REELS_OPEN_BUTTON_TAG),
+                ) {
+                    Text(stringResource(R.string.reels_open_article))
+                }
+            }
             Text(
                 text = stringResource(R.string.reels_swipe_hint),
                 style = MaterialTheme.typography.labelMedium,
@@ -157,6 +169,8 @@ private fun relativeTimeOf(millis: Long): CharSequence = DateUtils.getRelativeTi
     System.currentTimeMillis(),
     DateUtils.MINUTE_IN_MILLIS,
 )
+
+const val REELS_OPEN_BUTTON_TAG = "reels_open_button"
 
 private const val SCRIM_ALPHA_TOP = 0.35f
 private const val SCRIM_ALPHA_MIDDLE = 0.55f

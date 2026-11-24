@@ -259,3 +259,6 @@ Thứ tự owner chọn ngày 2026-11-09; mỗi mục duyệt thiết kế/spec 
 - ✅ AD-02 Interstitial tại điểm ngắt "Next Article" (2026-11-23): `InterstitialPacer` 1 ad / 3 lần bấm, preload có cổng, không ở Back hay rời màn, bỏ VIP (SDK). Chứng minh trên Tecno bằng ID thử. Chưa đo doanh thu; chỉnh số 3 theo dữ liệu thật.
 
 - 📋 REL-05 Việc của owner trước khi phát hành (2026-11-23): checklist khoá ký, UMP, Data safety, AppLovin, kiểm lần cuối. Owner chọn giữ keystore hiện tại và giữ AppLovin; xem `doc/task/REL-05_owner-release-checklist.md`.
+
+- ✅ UI-AUDIT-01 Audit chức năng và giao diện trên Pixel (2026-11-24 tối, REL-05 mục 6): nền thống nhất bằng `settingsPageContainerColor()`; trang Bản tin AI hằng ngày có thanh trên và nút back; Reels có nút "Đọc bài viết", vuốt phải giữ nguyên, loại trừ dải 32x200dp ở cạnh trái khỏi cử chỉ Back; 22 locale được dịch máy (chưa người duyệt), 40 chuỗi chết bị xoá; logger `AppLog` (`adb logcat -s 'roy93~Flow'`) cho điều hướng, mở bài, E-Ink, sync. Chưa nên phát hành: lỗi "nút back không work" chưa tái hiện được, chưa duyệt hết màn hình.
+- 💭 E-Ink bật làm toàn app trắng và xám mà không có cảnh báo trên màn hình; chưa quyết định hiển thị gì (owner chọn "quyết định về E-Ink" ở lượt này, chờ chọn cách hiển thị).

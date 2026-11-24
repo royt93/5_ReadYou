@@ -679,7 +679,8 @@
     <string name="reels_desc">مرور اخبار به‌صورت ریلز تمام‌صفحه</string>
     <string name="reels_empty">هنوز خبری موجود نیست</string>
     <string name="reels_has_video">این خبر شامل ویدیو است</string>
-    <string name="reels_swipe_hint">برای بعدی به بالا بکشید · برای مطالعه به راست بکشید</string>
+    <string name="reels_swipe_hint">برای بعدی به بالا بکشید · برای باز کردن به راست بکشید یا روی خواندن بزنید</string>
+    <string name="reels_open_article">خواندن مقاله</string>
     <string name="reels_title">ریلز</string>
     <string name="smart_filter_action_read">علامت‌گذاری به‌عنوان خوانده‌شده</string>
     <string name="smart_filter_action_star">ستاره‌دار کردن مقاله</string>

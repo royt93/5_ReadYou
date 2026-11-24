@@ -60,3 +60,23 @@ Nguồn dữ liệu: `doc/task/REL-03_data-safety-audit.md`, mục 5 và mục 7
 - Nâng cấp dữ liệu thật (Pixel, 2026-11-24): cài bản R8 đè lên bản 20261122, giữ 2164 bài, 9 feed, Room v22. Chooser chia sẻ và Custom Tabs không bật App Open (log `suppressAppOpenTemporarily`, đối chứng Home thì hiện). Bản R8 mới không crash ở home, Settings, CommuteCast, danh sách, trang đọc, menu, chooser. Đã mở thêm màn hình thứ hai, hộp thoại đồng ý AI, tìm kiếm (kể cả khớp ngữ nghĩa AI), Privacy & Security, cài đặt AI: 0 crash. Đã mở thêm thẻ trích dẫn (render PNG và chooser ảnh): 0 crash. So sánh class hai APK R8 (17 566 class biến mất, 94/97 class tên là file Compose bị R8 gộp), DTO Gson (Fever, GoogleReader, Highlights, Digest, Episode, WebDAV) đều có `@Keep` hoặc keep field rule, có test `ProguardRulesTest` giữ điều này. Đã mở thêm (R8, Pixel, 18:35): sơ đồ tư duy, AI Deep Read, AI Deep Dive, Podcast Studio (chỉ tới hộp thoại đồng ý, không bấm đồng ý, không gọi Gemini): 0 crash. Đã thấy tiếp (R8, Pixel, 18:44): trình sửa Highlight, trang Sổ tay tri thức, trang Sao lưu WebDAV: 0 crash. Widget: chỉ kiểm provider còn đăng ký và 8 class còn sau R8, chưa đặt lên màn hình chính nên chưa thấy nó vẽ.
 - Chưa có máy API 26-28.
 - Interstitial và rewarded dùng chung hạn mức: xem `audit_gemini.md`.
+
+## 6. Audit chức năng và giao diện trên Pixel (2026-11-24 tối), chưa nên phát hành
+
+Owner huỷ đợt phát hành vì nhiều lỗi chức năng. Tôi đã rút lại kết luận "publish được" ở các mục trên. Bằng chứng nằm ở `~/exc-flaky-evidence/audit-20261124-pixel/` (ảnh, màu đo từng điểm ảnh, log `roy93~Flow`).
+
+Đã sửa và có bằng chứng trên máy:
+- **Nền không đồng bộ:** Settings `#FDEDEB`, nhiều trang con `#FFFBFF`. Nguyên nhân: mỗi trang tự đặt `containerColor`. Thêm `settingsPageContainerColor()` trong `BaseScaffold.kt`, 33 trang dùng nó, đo lại trên Pixel đều `#FDEDEB`. Test `SettingsPageBackgroundTest`. About (Activity riêng) trước đó không bọc `AppTheme`, đã bọc.
+- **Trang "Bản tin AI hằng ngày":** không thanh trên, không nút back, tiêu đề dính đỉnh. Đã bọc `BaseScaffold` có nút back, bấm nút back thật về đúng danh sách.
+- **Reels, "Vuốt phải để đọc":** vuốt bắt đầu ở cạnh trái (x=20) bị cử chỉ Back của hệ thống chiếm, đẩy user ra Home. Tái hiện được trên Pixel (điều hướng cử chỉ). Sửa: thêm nút "Đọc bài viết" trên thẻ, giữ vuốt phải, nhãn thành "Vuốt phải hoặc chạm Đọc để mở", loại trừ dải 32x200dp ở cạnh trái khỏi Back (giới hạn Android 200dp). Test `ReelsOpenArticleTest`. Trên máy: chạm nút, vuốt từ cạnh trái, vuốt từ giữa đều mở bài (log `reels: open via=button|swipe`).
+- **Bản dịch:** 22 locale có trên 60% chuỗi y hệt tiếng Anh (16.375 chuỗi). Đã dịch máy toàn bộ (chưa người duyệt, danh sách nghi ngờ ở `i18n-machine-translation-doubts.md`). Xoá 40 chuỗi chết, trong đó 3 chuỗi `mark_as_read_*` là câu vô nghĩa chép vào 37 file. Test `StringResourcesHealthTest` chặn chuỗi chết, bản dịch rỗng, bản dịch đổi placeholder.
+- **E-Ink:** khi công tắc E-Ink ở Màu & kiểu bật, toàn app chuyển nền trắng và xám. Đây là một nguyên nhân thật của "nền lúc trắng lúc màu". Đã thêm log `setting: eink on=...` để dò.
+
+Chưa chứng minh:
+- Lỗi "nút back không work" mà owner thấy: chưa tái hiện được. Back qua phím hệ thống, nút trên màn hình ở Digest và Reels đều chạy.
+- "Nhiều tính năng hỏng logic": chưa tìm thêm tính năng nào hỏng ngoài các mục trên. Tính năng gọi Gemini (Digest, AI, Podcast) chưa chạy vì không gọi Gemini.
+- Chưa mở OPML, widget trên màn hình chính, Thống kê đọc với dữ liệu thật.
+- Dịch 22 locale là dịch máy.
+- Tap của tôi từng rơi vào một ad (Chrome mở một trang cửa hàng). Log chỉ có dòng "test device", 0 tín hiệu `Use RequestConfiguration`, nhưng không chứng minh được không có click. Owner nên xem báo cáo AdMob.
+
+Cách dò thủ công: `adb logcat -s 'roy93~Flow'` in điều hướng (`nav: screen route=...`), mở bài từ Reels, đổi E-Ink, bắt đầu sync. SDK quảng cáo ghi riêng ở `roy93~Ad*`. `AppLog` không ghi tiêu đề, URL, khoá; test chặn điều đó.

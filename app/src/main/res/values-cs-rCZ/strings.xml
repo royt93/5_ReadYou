@@ -754,7 +754,8 @@
     <string name="reels_desc">Procházejte zprávy jako celoobrazovkové reels</string>
     <string name="reels_empty">Zatím nejsou k dispozici žádné příběhy</string>
     <string name="reels_has_video">Tento příběh obsahuje video</string>
-    <string name="reels_swipe_hint">Přejetím nahoru další · přejetím doprava číst</string>
+    <string name="reels_swipe_hint">Přejetím nahoru zobrazíte další · Přejeďte doprava nebo klepněte na Číst pro otevření</string>
+    <string name="reels_open_article">Číst článek</string>
     <string name="reels_title">Reels</string>
     <string name="smart_filter_action_read">Označit jako přečtené</string>
     <string name="smart_filter_action_star">Označit hvězdičkou</string>

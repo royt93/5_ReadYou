@@ -752,7 +752,8 @@
     <string name="reels_desc">ഫുൾ-സ്ക്രീൻ ന്യൂസ് റീലുകളിലൂടെ സ്റ്റോറികൾ ബ്രൗസ് ചെയ്യുക</string>
     <string name="reels_empty">ഇതുവരെ സ്റ്റോറികളൊന്നും ലഭ്യമല്ല</string>
     <string name="reels_has_video">ഈ സ്റ്റോറിയിൽ വീഡിയോ ഉൾപ്പെടുന്നു</string>
-    <string name="reels_swipe_hint">മുകളിലേക്ക് സ്വൈപ്പ് ചെയ്യുക അടുത്തത് · വലത്തേക്ക് സ്വൈപ്പ് ചെയ്യുക വായിക്കാൻ</string>
+    <string name="reels_swipe_hint">അടുത്തതിന് മുകളിലേക്ക് സ്വൈപ്പ് ചെയ്യുക · തുറക്കാൻ വലത്തേക്ക് സ്വൈപ്പ് ചെയ്യുക അല്ലെങ്കിൽ വായിക്കുക ടാപ്പ് ചെയ്യുക</string>
+    <string name="reels_open_article">ലേഖനം വായിക്കുക</string>
     <string name="reels_title">റീലുകൾ</string>
     <string name="smart_filter_action_read">വായിച്ചതായി അടയാളപ്പെടുത്തുക</string>
     <string name="smart_filter_action_star">ലേഖനം സ്റ്റാർ ചെയ്യുക</string>

@@ -682,7 +682,8 @@
     <string name="reels_desc">Explora las historias como reels de noticias a pantalla completa</string>
     <string name="reels_empty">Aún no hay historias disponibles</string>
     <string name="reels_has_video">Esta historia contiene un vídeo</string>
-    <string name="reels_swipe_hint">Desliza hacia arriba para la siguiente · Desliza a la derecha para leer</string>
+    <string name="reels_swipe_hint">Desliza hacia arriba para el siguiente · Desliza a la derecha o toca Leer para abrir</string>
+    <string name="reels_open_article">Leer artículo</string>
     <string name="reels_title">Reels</string>
     <string name="smart_filter_action_read">Marcar como leído</string>
     <string name="smart_filter_action_star">Destacar artículo</string>

@@ -680,7 +680,8 @@
     <string name="reels_desc">Blader door verhalen als full-screen nieuwsreels</string>
     <string name="reels_empty">Nog geen verhalen beschikbaar</string>
     <string name="reels_has_video">Dit verhaal bevat een video</string>
-    <string name="reels_swipe_hint">Veeg omhoog voor volgende · Veeg rechts om te lezen</string>
+    <string name="reels_swipe_hint">Veeg omhoog voor de volgende · Veeg naar rechts of tik op Lezen om te openen</string>
+    <string name="reels_open_article">Artikel lezen</string>
     <string name="reels_title">Reels</string>
     <string name="smart_filter_action_read">Markeren als gelezen</string>
     <string name="smart_filter_action_star">Artikel met ster markeren</string>

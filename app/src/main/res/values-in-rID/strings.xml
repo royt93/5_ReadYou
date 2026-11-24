@@ -678,7 +678,8 @@
     <string name="reels_desc">Jelajahi berita dalam bentuk reels layar penuh</string>
     <string name="reels_empty">Belum ada berita yang tersedia</string>
     <string name="reels_has_video">Berita ini berisi video</string>
-    <string name="reels_swipe_hint">Geser ke atas untuk berikutnya · Geser ke kanan untuk membaca</string>
+    <string name="reels_swipe_hint">Geser ke atas untuk berikutnya · Geser ke kanan atau ketuk Baca untuk membuka</string>
+    <string name="reels_open_article">Baca artikel</string>
     <string name="reels_title">Reels</string>
     <string name="smart_filter_action_read">Tandai sebagai Dibaca</string>
     <string name="smart_filter_action_star">Bintangi Artikel</string>

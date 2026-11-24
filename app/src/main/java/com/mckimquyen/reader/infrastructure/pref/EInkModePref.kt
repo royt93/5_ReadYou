@@ -1,5 +1,6 @@
 package com.mckimquyen.reader.infrastructure.pref
 
+import com.mckimquyen.reader.infrastructure.android.AppLog
 import android.content.Context
 import androidx.datastore.preferences.core.Preferences
 import com.mckimquyen.reader.ui.ext.DataStoreKeys
@@ -13,6 +14,7 @@ sealed class EInkModePref(val value: Boolean) : Pref() {
     object OFF : EInkModePref(false)
 
     override fun put(context: Context, scope: CoroutineScope) {
+        AppLog.event("setting", "eink", "on" to value)
         scope.launch {
             context.dataStore.put(DataStoreKeys.EInkMode, value)
         }

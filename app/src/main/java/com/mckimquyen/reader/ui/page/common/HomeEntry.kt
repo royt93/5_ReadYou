@@ -1,5 +1,6 @@
 package com.mckimquyen.reader.ui.page.common
 
+import com.mckimquyen.reader.infrastructure.android.AppLog
 import com.mckimquyen.reader.infrastructure.android.AppOpenGuard
 import com.mckimquyen.reader.infrastructure.android.AppOpenGuard.Companion.launchGuarded
 import android.app.Activity
@@ -184,6 +185,7 @@ fun HomeEntry(
         // This is finally
         navController.currentBackStackEntryFlow.collectLatest {
             Log.i("RLog", "currentBackStackEntry: ${navController.currentDestination?.route}")
+            AppLog.event("nav", "screen", "route" to navController.currentDestination?.route)
             // Animation duration takes 310 ms
             delay(310L)
             isReadingPage = navController.currentDestination?.route == "${RouteName.READING}/{articleId}"

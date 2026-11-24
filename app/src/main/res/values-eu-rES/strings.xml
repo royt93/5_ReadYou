@@ -750,7 +750,8 @@
     <string name="reels_desc">Arakatu istorioak pantaila osoko albiste-rulo gisa</string>
     <string name="reels_empty">Oraindik ez dago istoriorik erabilgarri</string>
     <string name="reels_has_video">Istorio honek bideo bat dauka</string>
-    <string name="reels_swipe_hint">Irristatu gora hurrengorako · irristatu eskuinera irakurtzeko</string>
+    <string name="reels_swipe_hint">Irristatu gora hurrengorako · Irristatu eskuinera edo ukitu Irakurri irekitzeko</string>
+    <string name="reels_open_article">Irakurri artikulua</string>
     <string name="reels_title">Roloak</string>
     <string name="smart_filter_action_read">Markatu Irakurritako gisa</string>
     <string name="smart_filter_action_star">Izartu Artikulua</string>

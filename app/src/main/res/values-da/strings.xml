@@ -679,7 +679,8 @@
     <string name="reels_desc">Gennemse historier som fuldskærms nyhedsreels</string>
     <string name="reels_empty">Ingen historier tilgængelige endnu</string>
     <string name="reels_has_video">Denne historie indeholder en video</string>
-    <string name="reels_swipe_hint">Stryg op for næste · Stryg til højre for at læse</string>
+    <string name="reels_swipe_hint">Stryg op for næste · Stryg til højre eller tryk på Læs for at åbne</string>
+    <string name="reels_open_article">Læs artikel</string>
     <string name="reels_title">Reels</string>
     <string name="smart_filter_action_read">Marker som læst</string>
     <string name="smart_filter_action_star">Stjernemarker artikel</string>

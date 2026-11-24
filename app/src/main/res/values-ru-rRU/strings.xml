@@ -685,7 +685,8 @@
     <string name="reels_desc">Просматривайте истории в виде полноэкранных новостных роликов</string>
     <string name="reels_empty">Пока нет доступных историй</string>
     <string name="reels_has_video">Эта история содержит видео</string>
-    <string name="reels_swipe_hint">Смахните вверх для следующей · вправо, чтобы читать</string>
+    <string name="reels_swipe_hint">Смахните вверх для следующей · Смахните вправо или нажмите Читать, чтобы открыть</string>
+    <string name="reels_open_article">Читать статью</string>
     <string name="reels_title">Ролики</string>
     <string name="smart_filter_action_read">Отметить как прочитанное</string>
     <string name="smart_filter_action_star">Добавить в избранное</string>

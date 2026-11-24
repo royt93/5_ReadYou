@@ -727,7 +727,8 @@
     <!-- News Reels (REEL-01/02) -->
     <string name="reels_title">新闻短片</string>
     <string name="reels_desc">以全屏新闻卡片浏览文章</string>
-    <string name="reels_swipe_hint">向上滑看下一篇 · 向右滑阅读</string>
+    <string name="reels_swipe_hint">上滑查看下一条 · 右滑或点击阅读按钮打开</string>
+    <string name="reels_open_article">阅读文章</string>
     <string name="reels_empty">暂无可显示的文章</string>
     <string name="reels_has_video">此文章包含视频</string>
     <string name="reading_video_autoplay">自动播放视频</string>

@@ -679,7 +679,8 @@
     <string name="reels_desc">Navega per les notícies com a reels de pantalla completa</string>
     <string name="reels_empty">Encara no hi ha cap notícia disponible</string>
     <string name="reels_has_video">Aquesta notícia conté un vídeo</string>
-    <string name="reels_swipe_hint">Llisca cap amunt per a la següent · Llisca a la dreta per llegir</string>
+    <string name="reels_swipe_hint">Llisca amunt per al següent · Llisca a la dreta o toca Llegir per obrir</string>
+    <string name="reels_open_article">Llegir article</string>
     <string name="reels_title">Reels</string>
     <string name="smart_filter_action_read">Marca com a llegit</string>
     <string name="smart_filter_action_star">Destaca l\'article</string>

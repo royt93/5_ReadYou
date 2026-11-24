@@ -677,7 +677,8 @@
     <string name="reels_desc">स्टोरीज़ को फ़ुल-स्क्रीन न्यूज़ रील्स की तरह देखें</string>
     <string name="reels_empty">अभी कोई स्टोरी उपलब्ध नहीं है</string>
     <string name="reels_has_video">इस स्टोरी में एक वीडियो शामिल है</string>
-    <string name="reels_swipe_hint">अगली स्टोरी के लिए ऊपर स्वाइप करें · पढ़ने के लिए दाईं ओर स्वाइप करें</string>
+    <string name="reels_swipe_hint">अगले के लिए ऊपर स्वाइप करें · खोलने के लिए दाएं स्वाइप करें या पढ़ें पर टैप करें</string>
+    <string name="reels_open_article">लेख पढ़ें</string>
     <string name="reels_title">रील्स</string>
     <string name="smart_filter_action_read">पढ़ा हुआ चिह्नित करें</string>
     <string name="smart_filter_action_star">आर्टिकल को स्टार करें</string>

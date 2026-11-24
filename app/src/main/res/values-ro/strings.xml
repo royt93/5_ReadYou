@@ -682,7 +682,8 @@
     <string name="reels_desc">Răsfoiește știrile ca reels pe tot ecranul</string>
     <string name="reels_empty">Nicio poveste disponibilă încă</string>
     <string name="reels_has_video">Această poveste conține un videoclip</string>
-    <string name="reels_swipe_hint">Glisează în sus pentru următoarea · Glisează la dreapta pentru citire</string>
+    <string name="reels_swipe_hint">Glisează în sus pentru următorul · Glisează la dreapta sau atinge Citește pentru a deschide</string>
+    <string name="reels_open_article">Citește articolul</string>
     <string name="reels_title">Reels</string>
     <string name="smart_filter_action_read">Marchează ca citit</string>
     <string name="smart_filter_action_star">Marchează cu stea</string>

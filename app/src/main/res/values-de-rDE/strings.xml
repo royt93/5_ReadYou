@@ -718,7 +718,8 @@
     <!-- News Reels (REEL-01/02) -->
     <string name="reels_title">Nachrichten-Reels</string>
     <string name="reels_desc">Artikel als Nachrichtenkarten im Vollbild ansehen</string>
-    <string name="reels_swipe_hint">Nach oben für den nächsten Beitrag · nach rechts zum Lesen</string>
+    <string name="reels_swipe_hint">Nach oben wischen für nächsten · Nach rechts wischen oder auf Lesen tippen zum Öffnen</string>
+    <string name="reels_open_article">Artikel lesen</string>
     <string name="reels_empty">Noch keine Artikel verfügbar</string>
     <string name="reels_has_video">Dieser Artikel enthält ein Video</string>
     <string name="reading_video_autoplay">Videos automatisch abspielen</string>

@@ -680,7 +680,8 @@
     <string name="reels_desc">Sfoglia le notizie come reel a schermo intero</string>
     <string name="reels_empty">Nessuna storia disponibile al momento</string>
     <string name="reels_has_video">Questa storia contiene un video</string>
-    <string name="reels_swipe_hint">Scorri in alto per la successiva · Scorri a destra per leggere</string>
+    <string name="reels_swipe_hint">Scorri verso su per il prossimo · Scorri a destra o tocca Leggi per aprire</string>
+    <string name="reels_open_article">Leggi articolo</string>
     <string name="reels_title">Reel</string>
     <string name="smart_filter_action_read">Segna come letto</string>
     <string name="smart_filter_action_star">Aggiungi ai preferiti</string>

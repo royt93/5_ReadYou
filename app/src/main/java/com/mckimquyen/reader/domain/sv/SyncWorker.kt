@@ -1,5 +1,6 @@
 package com.mckimquyen.reader.domain.sv
 
+import com.mckimquyen.reader.infrastructure.android.AppLog
 import android.content.Context
 import android.util.Log
 import androidx.hilt.work.HiltWorker
@@ -47,6 +48,7 @@ class SyncWorker @AssistedInject constructor(
     override suspend fun doWork(): Result =
         withContext(Dispatchers.Default) {
             Log.i("RLog", "doWork: ")
+            AppLog.event("sync", "start", "attempt" to runAttemptCount)
             val syncResult = rssService.get().sync(this@SyncWorker).also {
                 rssService.get().clearKeepArchivedArticles()
             }

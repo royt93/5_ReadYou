@@ -776,7 +776,8 @@
     <string name="invalid_credentials">Nieprawidłowe dane logowania, sprawdź adres URL serwera, nazwę użytkownika i hasło</string>
     <string name="reels_title">Rolki</string>
     <string name="reels_desc">Przeglądaj wiadomości w formacie pełnoekranowych rolek</string>
-    <string name="reels_swipe_hint">Przesuń w górę, aby zobaczyć kolejne · Przesuń w prawo, aby przeczytać</string>
+    <string name="reels_swipe_hint">Przesuń w górę, aby zobaczyć następny · Przesuń w prawo lub dotknij Czytaj, aby otworzyć</string>
+    <string name="reels_open_article">Czytaj artykuł</string>
     <string name="reels_empty">Brak dostępnych historii</string>
     <string name="reels_has_video">Ta historia zawiera film</string>
     <string name="reading_video_autoplay">Automatyczne odtwarzanie filmów</string>

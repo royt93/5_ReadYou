@@ -721,7 +721,8 @@
     <!-- News Reels (REEL-01/02) -->
     <string name="reels_title">Actualités express</string>
     <string name="reels_desc">Parcourir les articles sous forme de fiches plein écran</string>
-    <string name="reels_swipe_hint">Balayez vers le haut pour continuer · vers la droite pour lire</string>
+    <string name="reels_swipe_hint">Balayez vers le haut pour le suivant · Balayez à droite ou touchez Lire pour ouvrir</string>
+    <string name="reels_open_article">Lire cet article</string>
     <string name="reels_empty">Aucun article disponible</string>
     <string name="reels_has_video">Cet article contient une vidéo</string>
     <string name="reading_video_autoplay">Lecture auto des vidéos</string>

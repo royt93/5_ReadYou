@@ -669,7 +669,8 @@
     <string name="invalid_credentials">Невалидни данни за вход, моля проверете URL адреса на сървъра, потребителското име и паролата</string>
     <string name="reels_title">Ролки</string>
     <string name="reels_desc">Разглеждайте новини като новинарски ролки на цял екран</string>
-    <string name="reels_swipe_hint">Плъзнете нагоре за следваща · Плъзнете надясно за четене</string>
+    <string name="reels_swipe_hint">Плъзнете нагоре за следваща · Плъзнете надясно или докоснете Прочети, за да отворите</string>
+    <string name="reels_open_article">Прочети статията</string>
     <string name="reels_empty">Все още няма налични новини</string>
     <string name="reels_has_video">Тази новина съдържа видео</string>
     <string name="reading_video_autoplay">Автоматично възпроизвеждане на видеа</string>

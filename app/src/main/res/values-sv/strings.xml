@@ -679,7 +679,8 @@
     <string name="reels_desc">Bläddra bland nyheter som helskärms-nyhetsreels</string>
     <string name="reels_empty">Inga nyheter tillgängliga än</string>
     <string name="reels_has_video">Denna nyhet innehåller en video</string>
-    <string name="reels_swipe_hint">Svep upp för nästa · Svep höger för att läsa</string>
+    <string name="reels_swipe_hint">Svep uppåt för nästa · Svep åt höger eller tryck på Läs för att öppna</string>
+    <string name="reels_open_article">Läs artikeln</string>
     <string name="reels_title">Reels</string>
     <string name="smart_filter_action_read">Markera som läst</string>
     <string name="smart_filter_action_star">Stjärnmärk artikel</string>

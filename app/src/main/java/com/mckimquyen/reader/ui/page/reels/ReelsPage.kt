@@ -20,11 +20,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalView
+import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.mckimquyen.reader.R
+import com.mckimquyen.reader.infrastructure.android.AppLog
 import com.mckimquyen.reader.ui.component.base.FeedbackIconButton
 import com.mckimquyen.reader.ui.ext.collectAsStateValue
 import com.mckimquyen.reader.ui.page.common.RouteName
@@ -96,6 +100,29 @@ fun ReelsPage(
     }
 }
 
+/** Height of the left-edge band, in dp, that is withheld from the system Back gesture. Android honours at most 200dp per edge. */
+internal const val LEFT_EDGE_EXCLUSION_HEIGHT = 200
+internal const val LEFT_EDGE_EXCLUSION_WIDTH = 32
+
+@Composable
+private fun Modifier.leftEdgeGestureExclusion(): Modifier {
+    val view = LocalView.current
+    val density = LocalDensity.current
+    val lastTop = androidx.compose.runtime.remember { intArrayOf(Int.MIN_VALUE) }
+    return this.onGloballyPositioned { coords ->
+        val bounds = coords.boundsInWindow()
+        val h = with(density) { LEFT_EDGE_EXCLUSION_HEIGHT.dp.toPx() }
+        val w = with(density) { LEFT_EDGE_EXCLUSION_WIDTH.dp.toPx() }
+        val top = (bounds.center.y - h / 2f).toInt()
+        view.systemGestureExclusionRects = listOf(android.graphics.Rect(0, top, w.toInt(), top + h.toInt()))
+        // Layout runs on every frame of a scroll; log only when the band actually moves.
+        if (top != lastTop[0]) {
+            lastTop[0] = top
+            AppLog.event("reels", "edge-exclusion", "topPx" to top, "widthPx" to w.toInt(), "heightPx" to h.toInt())
+        }
+    }
+}
+
 /** The pager itself, kept free of navigation so it can be rendered in tests. */
 @Composable
 fun ReelsPager(
@@ -109,7 +136,9 @@ fun ReelsPager(
 
     VerticalPager(
         state = pagerState,
-        modifier = modifier.fillMaxSize(),
+        // The right-swipe must be able to start near the left edge, where the system Back gesture would otherwise take it. Android caps the excluded
+        // height (200dp), so only a band in the vertical middle is excluded and Back still works from the rest of the edge.
+        modifier = modifier.fillMaxSize().leftEdgeGestureExclusion(),
     ) { page ->
         val item = items[page]
         // How far this page is from resting position: 0 centred, ±1 fully off-screen.
@@ -133,7 +162,12 @@ fun ReelsPager(
                     detectHorizontalDragGestures(
                         onDragStart = { totalDrag = 0f },
                         onDragEnd = {
-                            if (totalDrag >= openThresholdPx) onOpenArticle(item.articleId)
+                            if (totalDrag >= openThresholdPx) {
+                                AppLog.event("reels", "open", "via" to "swipe", "article" to item.articleId, "dragPx" to totalDrag.toInt())
+                                onOpenArticle(item.articleId)
+                            } else {
+                                AppLog.event("reels", "swipe-too-short", "dragPx" to totalDrag.toInt(), "needPx" to openThresholdPx.toInt())
+                            }
                         },
                         onDragCancel = { totalDrag = 0f },
                     ) { change, dragAmount ->
@@ -142,7 +176,13 @@ fun ReelsPager(
                     }
                 },
         ) {
-            ReelsCard(item = item)
+            ReelsCard(
+                item = item,
+                onOpen = {
+                    AppLog.event("reels", "open", "via" to "button", "article" to item.articleId)
+                    onOpenArticle(item.articleId)
+                },
+            )
         }
     }
 }

@@ -701,7 +701,8 @@
     <!-- News Reels (REEL-01/02) -->
     <string name="reels_title">Tin ngắn</string>
     <string name="reels_desc">Lướt tin dưới dạng thẻ toàn màn hình</string>
-    <string name="reels_swipe_hint">Vuốt lên để xem tiếp · Vuốt phải để đọc</string>
+    <string name="reels_swipe_hint">Vuốt lên để xem tiếp · Vuốt phải hoặc chạm Đọc để mở</string>
+    <string name="reels_open_article">Đọc bài viết</string>
     <string name="reels_empty">Chưa có bài viết để hiển thị</string>
     <string name="reels_has_video">Bài viết này có video</string>
     <string name="reading_video_autoplay">Tự phát video</string>

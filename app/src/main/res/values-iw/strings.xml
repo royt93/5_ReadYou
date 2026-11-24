@@ -758,7 +758,8 @@
     <string name="reels_desc">עיין/י בכתבות כרילס חדשות במסך מלא</string>
     <string name="reels_empty">אין עדיין כתבות זמינות</string>
     <string name="reels_has_video">כתבה זו מכילה סרטון</string>
-    <string name="reels_swipe_hint">החלק/י למעלה למעבר הבא · החלק/י ימינה לקריאה</string>
+    <string name="reels_swipe_hint">החלק למעלה לבא · החלק ימינה או הקש על קרא כדי לפתוח</string>
+    <string name="reels_open_article">קרא כתבה</string>
     <string name="reels_title">רילס</string>
     <string name="smart_filter_action_read">סמן כנקרא</string>
     <string name="smart_filter_action_star">סמן כתבה בכוכב</string>

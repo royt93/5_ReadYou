@@ -649,7 +649,8 @@
     <string name="reels_desc">Brskajte po zgodbah kot celozaslonskih novičarskih reels</string>
     <string name="reels_empty">Trenutno ni zgodb na voljo</string>
     <string name="reels_has_video">Ta zgodba vsebuje videoposnetek</string>
-    <string name="reels_swipe_hint">Podrsnite navzgor za naslednjo · podrsnite desno za branje</string>
+    <string name="reels_swipe_hint">Povleci navzgor za naslednjega · Povleci desno ali tapni Preberi za odpiranje</string>
+    <string name="reels_open_article">Preberi članek</string>
     <string name="reels_title">Reels</string>
     <string name="smart_filter_action_read">Označi kot prebrano</string>
     <string name="smart_filter_action_star">Označi z zvezdico</string>

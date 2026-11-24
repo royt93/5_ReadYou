@@ -676,7 +676,8 @@
     <string name="reels_desc">以全螢幕新聞短影音形式瀏覽報導</string>
     <string name="reels_empty">目前尚無可瀏覽的報導</string>
     <string name="reels_has_video">此則報導包含影片</string>
-    <string name="reels_swipe_hint">向上滑動看下一則 · 向右滑動閱讀</string>
+    <string name="reels_swipe_hint">上滑查看下一則 · 右滑或點按閱讀按鈕開啟</string>
+    <string name="reels_open_article">閱讀文章</string>
     <string name="reels_title">短影音</string>
     <string name="smart_filter_action_read">標記為已讀</string>
     <string name="smart_filter_action_star">加星號標記文章</string>

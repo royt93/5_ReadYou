@@ -728,7 +728,8 @@
     <!-- News Reels (REEL-01/02) -->
     <string name="reels_title">ニュースリール</string>
     <string name="reels_desc">全画面のニュースカードで記事を見る</string>
-    <string name="reels_swipe_hint">上にスワイプで次へ · 右にスワイプで読む</string>
+    <string name="reels_swipe_hint">上にスワイプで次へ · 右にスワイプまたは読むをタップで開く</string>
+    <string name="reels_open_article">記事を読む</string>
     <string name="reels_empty">表示できる記事がありません</string>
     <string name="reels_has_video">この記事には動画があります</string>
     <string name="reading_video_autoplay">動画を自動再生</string>

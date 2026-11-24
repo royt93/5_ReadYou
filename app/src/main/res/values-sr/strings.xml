@@ -683,7 +683,8 @@
     <string name="reels_desc">Прегледајте приче као целоекранске вести у форми рилса</string>
     <string name="reels_empty">Још нема доступних прича</string>
     <string name="reels_has_video">Ова прича садржи видео</string>
-    <string name="reels_swipe_hint">Превуците на горе за следеће · Превуците удесно за читање</string>
+    <string name="reels_swipe_hint">Превуци нагоре за следећи · Превуци удесно или додирни Прочитај да отвориш</string>
+    <string name="reels_open_article">Прочитај чланак</string>
     <string name="reels_title">Рилсови</string>
     <string name="smart_filter_action_read">Означи као прочитано</string>
     <string name="smart_filter_action_star">Означи чланак звездицом</string>

@@ -675,7 +675,8 @@
     <string name="reels_desc">Hírek böngészése teljes képernyős hírfolyamként</string>
     <string name="reels_empty">Még nincsenek elérhető hírek</string>
     <string name="reels_has_video">Ez a hír videót tartalmaz</string>
-    <string name="reels_swipe_hint">Húzza felfelé a következőhöz · Húzza jobbra az olvasáshoz</string>
+    <string name="reels_swipe_hint">Húzd felfelé a következőhöz · Húzd jobbra vagy koppints a Cikk olvasása gombra a megnyitáshoz</string>
+    <string name="reels_open_article">Cikk olvasása</string>
     <string name="reels_title">Reels</string>
     <string name="smart_filter_action_read">Megjelölés olvasottként</string>
     <string name="smart_filter_action_star">Cikk csillagozása</string>

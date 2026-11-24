@@ -751,7 +751,8 @@
     <string name="reels_desc">ಪೂರ್ಣ-ಪರದೆಯ ಸುದ್ದಿ ರೀಲ್‌ಗಳಾಗಿ ಸುದ್ದಿಗಳನ್ನು ವೀಕ್ಷಿಸಿ</string>
     <string name="reels_empty">ಇನ್ನೂ ಯಾವುದೇ ಸುದ್ದಿಗಳು ಲಭ್ಯವಿಲ್ಲ</string>
     <string name="reels_has_video">ಈ ಸುದ್ದಿಯಲ್ಲಿ ವೀಡಿಯೊ ಇದೆ</string>
-    <string name="reels_swipe_hint">ಮುಂದಿನದಕ್ಕೆ ಮೇಲಕ್ಕೆ ಸ್ವೈಪ್ ಮಾಡಿ · ಓದಲು ಬಲಕ್ಕೆ ಸ್ವೈಪ್ ಮಾಡಿ</string>
+    <string name="reels_swipe_hint">ಮುಂದಿನದಕ್ಕೆ ಮೇಲಕ್ಕೆ ಸ್ವೈಪ್ ಮಾಡಿ · ತೆರೆಯಲು ಬಲಕ್ಕೆ ಸ್ವೈಪ್ ಮಾಡಿ ಅಥವಾ ಓದಿ ಟ್ಯಾಪ್ ಮಾಡಿ</string>
+    <string name="reels_open_article">ಲೇಖನ ಓದಿ</string>
     <string name="reels_title">ರೀಲ್‌ಗಳು</string>
     <string name="smart_filter_action_read">ಓದಿದಂತೆ ಗುರುತಿಸಿ</string>
     <string name="smart_filter_action_star">ಲೇಖನಕ್ಕೆ ಸ್ಟಾರ್ ಹಾಕಿ</string>

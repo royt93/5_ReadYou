@@ -751,7 +751,8 @@
     <string name="reels_desc">သတင်းများကို full-screen reels အနေဖြင့် ကြည့်ရှုပါ</string>
     <string name="reels_empty">သတင်းများ မရှိသေးပါ</string>
     <string name="reels_has_video">ဤသတင်းတွင် ဗီဒီယို ပါဝင်ပါသည်</string>
-    <string name="reels_swipe_hint">နောက်တစ်ခုအတွက် အပေါ်သို့ swipe · ဖတ်ရန် ညာဘက်သို့ swipe</string>
+    <string name="reels_swipe_hint">နောက်တစ်ခုအတွက် အပေါ်သို့ ပွတ်ဆွဲပါ · ဖွင့်ရန် ညာသို့ ပွတ်ဆွဲပါ သို့မဟုတ် ဖတ်ရန် ကို နှိပ်ပါ</string>
+    <string name="reels_open_article">ဆောင်းပါးဖတ်ရန်</string>
     <string name="reels_title">Reels</string>
     <string name="smart_filter_action_read">ဖတ်ပြီးအဖြစ် သတ်မှတ်ရန်</string>
     <string name="smart_filter_action_star">ဆောင်းပါးကို စတား ပေးရန်</string>

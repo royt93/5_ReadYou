@@ -751,7 +751,8 @@
     <string name="reels_desc">Hekayələrə tam ekran xəbər lenti kimi baxın</string>
     <string name="reels_empty">Hələ heç bir hekayə yoxdur</string>
     <string name="reels_has_video">Bu hekayədə video var</string>
-    <string name="reels_swipe_hint">Növbəti üçün yuxarı sürüşdürün · Oxumaq üçün sağa sürüşdürün</string>
+    <string name="reels_swipe_hint">Növbətisi üçün yuxarı sürüşdürün · Açmaq üçün sağa sürüşdürün və ya Oxu düyməsinə toxunun</string>
+    <string name="reels_open_article">Məqaləni oxu</string>
     <string name="reels_title">Reels</string>
     <string name="smart_filter_action_read">Oxunmuş kimi İşarələ</string>
     <string name="smart_filter_action_star">Məqaləni Ulduzla</string>

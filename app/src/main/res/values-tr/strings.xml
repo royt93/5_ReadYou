@@ -680,7 +680,8 @@
     <string name="reels_desc">Haberlere tam ekran akış (reels) olarak göz atın</string>
     <string name="reels_empty">Henüz haber yok</string>
     <string name="reels_has_video">Bu haberde video var</string>
-    <string name="reels_swipe_hint">Sonraki için yukarı kaydırın · Okumak için sağa kaydırın</string>
+    <string name="reels_swipe_hint">Sonraki için yukarı kaydırın · Açmak için sağa kaydırın veya Oku düğmesine dokunun</string>
+    <string name="reels_open_article">Makaleyi oku</string>
     <string name="reels_title">Reels</string>
     <string name="smart_filter_action_read">Okundu Olarak İşaretle</string>
     <string name="smart_filter_action_star">Makaleyi Yıldızla</string>

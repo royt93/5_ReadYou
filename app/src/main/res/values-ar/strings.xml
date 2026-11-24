@@ -654,7 +654,8 @@
     <string name="reels_desc">تصفح القصص كريلز إخبارية بملء الشاشة</string>
     <string name="reels_empty">لا توجد قصص متاحة بعد</string>
     <string name="reels_has_video">تحتوي هذه القصة على فيديو</string>
-    <string name="reels_swipe_hint">اسحب لأعلى للتالي · اسحب لليمين للقراءة</string>
+    <string name="reels_swipe_hint">مرّر للأعلى للتالي · مرّر لليمين أو اضغط قراءة للفتح</string>
+    <string name="reels_open_article">قراءة المقال</string>
     <string name="reels_title">ريلز</string>
     <string name="smart_filter_action_read">تحديد كمقروء</string>
     <string name="smart_filter_action_star">تمييز المقال</string>

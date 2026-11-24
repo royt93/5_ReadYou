@@ -685,7 +685,8 @@
     <string name="reels_desc">Перегляд новин у вигляді повноекранних стрічок</string>
     <string name="reels_empty">Поки що немає доступних історій</string>
     <string name="reels_has_video">Ця новина містить відео</string>
-    <string name="reels_swipe_hint">Проведіть угору для наступної · Проведіть праворуч, щоб читати</string>
+    <string name="reels_swipe_hint">Проведіть угору для наступної · Проведіть праворуч або торкніться Читати, щоб відкрити</string>
+    <string name="reels_open_article">Читати статтю</string>
     <string name="reels_title">Стрічки</string>
     <string name="smart_filter_action_read">Позначити як прочитане</string>
     <string name="smart_filter_action_star">Позначити зіркою</string>
