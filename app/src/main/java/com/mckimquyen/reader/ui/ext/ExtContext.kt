@@ -1,5 +1,6 @@
 package com.mckimquyen.reader.ui.ext
 
+import com.mckimquyen.reader.infrastructure.android.AppLog
 import com.mckimquyen.reader.infrastructure.android.AppOpenGuard
 import android.app.Activity
 import android.content.Context
@@ -67,6 +68,7 @@ fun Context.showToastLong(message: String?) {
 }
 
 fun Context.share(content: String) {
+    AppLog.event("share", "chooser", "chars" to content.length)
     val cleanContent = if (urlTrackingCleanEnabled) {
         com.mckimquyen.reader.domain.security.UrlTrackingCleaner.clean(content)
     } else content
@@ -87,6 +89,7 @@ fun Context.openURL(
     specificBrowser: OpenLinkSpecificBrowserPref = OpenLinkSpecificBrowserPref.default,
 ) {
     if (!url.isNullOrBlank()) {
+        AppLog.event("link", "open", "mode" to openLink::class.simpleName)
         val cleanUrl = if (urlTrackingCleanEnabled) {
             com.mckimquyen.reader.domain.security.UrlTrackingCleaner.clean(url)
         } else url

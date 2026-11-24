@@ -59,4 +59,12 @@ class SettingsPageBackgroundTest {
         val route = read("ui/page/common/HomeEntry.kt").substringAfter("route = RouteName.DAILY_DIGEST").substringBefore("route = \"\${RouteName.READING}")
         assertTrue("the DAILY_DIGEST route must pass a real back action", "onBack = { navController.popBackStack() }" in route)
     }
+
+    @Test
+    fun settingsShowsABannerWhileEInkIsOnAndItTurnsEInkOff() {
+        val page = read("ui/page/setting/SettingsPage.kt")
+        assertTrue("the banner must only exist while E-Ink is on", "if (eInkMode.value)" in page)
+        assertTrue("the banner must use its own strings", "R.string.eink_active_title" in page && "R.string.eink_active_desc" in page)
+        assertTrue("tapping the banner must turn E-Ink off", "EInkModePref.OFF.put(context, scope)" in page)
+    }
 }

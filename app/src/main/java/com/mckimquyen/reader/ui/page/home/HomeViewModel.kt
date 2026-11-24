@@ -1,5 +1,6 @@
 package com.mckimquyen.reader.ui.page.home
 
+import com.mckimquyen.reader.infrastructure.android.AppLog
 import androidx.annotation.Keep
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -111,6 +112,7 @@ class HomeViewModel @Inject constructor(
     val showCommuteCast: StateFlow<Boolean> = _showCommuteCast.asStateFlow()
 
     fun openCommuteCast() {
+        AppLog.event("commute", "open-sheet")
         _showCommuteCast.value = true
     }
 
@@ -142,12 +144,14 @@ class HomeViewModel @Inject constructor(
     val syncWorkLiveData = workManager.getWorkInfosByTagLiveData(SyncWorker.WORK_NAME)
 
     fun sync() {
+        AppLog.event("sync", "manual-request")
         viewModelScope.launch(ioDispatcher) {
             rssService.get().doSync()
         }
     }
 
     fun changeFilter(filterState: FilterState) {
+        AppLog.event("filter", "change", "filter" to filterState.filter::class.simpleName, "hasGroup" to (filterState.group != null), "hasFeed" to (filterState.feed != null))
         _filterUiState.update {
             it.copy(
                 group = filterState.group,

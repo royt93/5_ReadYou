@@ -790,6 +790,8 @@
     <string name="smart_collection_empty_articles">Henüz eşleşen yeni makale yok. Yeni eşleşmeler senkronizasyondan sonra görünecek.</string>
     <string name="save">Save</string>
     <string name="eink_mode_title">E-Ink optimizasyonu</string>
+    <string name="eink_active_title">E-Ink modu açık</string>
+    <string name="eink_active_desc">Uygulama siyah beyaz gösteriliyor. Kapatmak için dokunun.</string>
     <string name="eink_mode_desc">Tek renkli ekran, gri tonlamalı görseller ve uygulama animasyonları kapalı; sayfa çevirmek için kenarlara dokunun veya ses tuşlarını kullanın.</string>
     <string name="on_this_day_title">Bugün Tarihte</string>
     <string name="on_this_day_desc">Önceki yıllarda bu günde yayımlanmış, okuduğunuz makaleler</string>

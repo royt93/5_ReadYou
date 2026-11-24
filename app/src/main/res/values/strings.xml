@@ -870,6 +870,8 @@
     <string name="share_target_saved_toast">Saved to Read Later</string>
     <string name="share_target_invalid_url">No valid link found</string>
     <string name="eink_mode_title">E-Ink Optimisation</string>
+    <string name="eink_active_title">E-Ink mode is on</string>
+    <string name="eink_active_desc">The app is shown in black and white. Tap to turn it off.</string>
     <string name="eink_mode_desc">Pure monochrome display, grayscale images, no app animations, tap page edges or use volume keys to turn pages.</string>
     <string name="on_this_day_title">On This Day</string>
     <string name="on_this_day_desc">Articles you\'ve read that were published on this day in earlier years</string>

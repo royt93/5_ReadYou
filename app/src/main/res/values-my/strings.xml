@@ -861,6 +861,8 @@
     <string name="smart_collection_empty_articles">ကိုက်ညီသော ဆောင်းပါးသစ် မရှိသေးပါ။ ထပ်တူပြုပြီးနောက် ကိုက်ညီမှုအသစ်များ ပေါ်လာမည်။</string>
     <string name="save">Save</string>
     <string name="eink_mode_title">E-Ink အတွက် အကောင်းဆုံးပြုလုပ်ခြင်း</string>
+    <string name="eink_active_title">E-Ink မုဒ် ဖွင့်ထားသည်</string>
+    <string name="eink_active_desc">အက်ပ်ကို အဖြူအမည်းဖြင့် ပြထားသည်။ ပိတ်ရန် ထိပါ။</string>
     <string name="eink_mode_desc">အဖြူအမည်း မျက်နှာပြင်၊ မီးခိုးရောင်ပုံများ၊ အက်ပ်လှုပ်ရှားမှုများ ပိတ်ထားသည်။ စာမျက်နှာလှန်ရန် အစွန်းကိုနှိပ်ပါ သို့မဟုတ် အသံခလုတ်ကိုသုံးပါ။</string>
     <string name="on_this_day_title">ဒီနေ့</string>
     <string name="on_this_day_desc">ယခင်နှစ်များတွင် ယနေ့တူညီသောရက်၌ ထုတ်ဝေခဲ့သည့် သင်ဖတ်ပြီးသော ဆောင်းပါးများ</string>

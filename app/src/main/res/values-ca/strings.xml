@@ -789,6 +789,8 @@
     <string name="smart_collection_empty_articles">Encara no hi ha articles nous coincidents. Les noves coincidències apareixeran després de sincronitzar.</string>
     <string name="save">Save</string>
     <string name="eink_mode_title">Optimització per a E-Ink</string>
+    <string name="eink_active_title">El mode E-Ink està activat</string>
+    <string name="eink_active_desc">Aplicació en blanc i negre. Toca per desactivar-lo.</string>
     <string name="eink_mode_desc">Pantalla monocroma, imatges en escala de grisos i sense animacions; toca les vores o usa els botons de volum per passar pàgina.</string>
     <string name="on_this_day_title">Un dia com avui</string>
     <string name="on_this_day_desc">Articles que has llegit i que es van publicar aquest dia en anys anteriors</string>

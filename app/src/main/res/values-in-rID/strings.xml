@@ -788,6 +788,8 @@
     <string name="smart_collection_empty_articles">No matching new articles yet. New matches will appear after sync.</string>
     <string name="save">Save</string>
     <string name="eink_mode_title">Optimasi E-Ink</string>
+    <string name="eink_active_title">Mode E-Ink aktif</string>
+    <string name="eink_active_desc">Aplikasi ditampilkan dalam hitam putih. Ketuk untuk menonaktifkan.</string>
     <string name="eink_mode_desc">Tampilan monokrom, gambar skala abu-abu, tanpa animasi aplikasi; ketuk tepi halaman atau gunakan tombol volume untuk membalik halaman.</string>
     <string name="on_this_day_title">Pada Hari Ini</string>
     <string name="on_this_day_desc">Artikel yang sudah Anda baca dan terbit pada tanggal ini di tahun-tahun sebelumnya</string>

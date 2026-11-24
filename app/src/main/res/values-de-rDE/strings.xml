@@ -791,6 +791,8 @@
     <string name="smart_collection_empty_articles">Noch keine passenden neuen Artikel. Neue Treffer erscheinen nach der Synchronisierung.</string>
     <string name="save">Speichern</string>
     <string name="eink_mode_title">E-Ink-Optimierung</string>
+    <string name="eink_active_title">E-Ink-Modus ist aktiv</string>
+    <string name="eink_active_desc">Die App wird in Schwarzweiß angezeigt. Zum Ausschalten tippen.</string>
     <string name="eink_mode_desc">Monochromes Display, Graustufenbilder, keine App-Animationen; Seitenränder antippen oder Lautstärketasten zum Umblättern verwenden.</string>
     <string name="on_this_day_title">An diesem Tag</string>
     <string name="on_this_day_desc">Gelesene Artikel, die an diesem Tag in früheren Jahren veröffentlicht wurden</string>

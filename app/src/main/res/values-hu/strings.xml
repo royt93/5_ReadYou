@@ -785,6 +785,8 @@
     <string name="smart_collection_empty_articles">Még nincs egyező új cikk. Az új találatok szinkronizálás után jelennek meg.</string>
     <string name="save">Save</string>
     <string name="eink_mode_title">E-Ink optimalizálás</string>
+    <string name="eink_active_title">Az E-Ink mód be van kapcsolva</string>
+    <string name="eink_active_desc">Az alkalmazás fekete-fehérben jelenik meg. Koppintson a kikapcsoláshoz.</string>
     <string name="eink_mode_desc">Monokróm kijelző, szürkeárnyalatos képek, animációk nélkül; lapozáshoz koppints a szélekre vagy használd a hangerőgombokat.</string>
     <string name="on_this_day_title">Ezen a napon</string>
     <string name="on_this_day_desc">Az Ön által elolvasott cikkek, amelyek korábbi években ezen a napon jelentek meg</string>

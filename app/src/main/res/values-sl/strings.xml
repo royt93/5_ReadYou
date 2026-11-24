@@ -759,6 +759,8 @@
     <string name="smart_collection_empty_articles">Ustreznih novih člankov še ni. Novi zadetki se bodo prikazali po sinhronizaciji.</string>
     <string name="save">Save</string>
     <string name="eink_mode_title">Optimizacija E-Ink</string>
+    <string name="eink_active_title">Način E-Ink je vklopljen</string>
+    <string name="eink_active_desc">Aplikacija je prikazana črno-belo. Tapnite za izklop.</string>
     <string name="eink_mode_desc">Enobarvni zaslon, sivinske slike in brez animacij; za obračanje strani tapnite robove ali uporabite gumba za glasnost.</string>
     <string name="on_this_day_title">Na ta dan</string>
     <string name="on_this_day_desc">Prebrani članki, objavljeni na ta dan v preteklih letih</string>

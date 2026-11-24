@@ -790,6 +790,8 @@
     <string name="smart_collection_empty_articles">No matching new articles yet. New matches will appear after sync.</string>
     <string name="save">Save</string>
     <string name="eink_mode_title">Ottimizzazione E-Ink</string>
+    <string name="eink_active_title">Modalità E-Ink attiva</string>
+    <string name="eink_active_desc">Schermo in bianco e nero. Tocca per disattivare.</string>
     <string name="eink_mode_desc">Schermo monocromatico, immagini in scala di grigi e niente animazioni; tocca i bordi o usa i tasti del volume per sfogliare.</string>
     <string name="on_this_day_title">In questo giorno</string>
     <string name="on_this_day_desc">Articoli letti pubblicati in questa data negli anni precedenti</string>

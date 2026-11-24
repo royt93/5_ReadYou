@@ -786,6 +786,8 @@
     <string name="smart_collection_empty_articles">No matching new articles yet. New matches will appear after sync.</string>
     <string name="save">Save</string>
     <string name="eink_mode_title">E-Ink 最佳化</string>
+    <string name="eink_active_title">E-Ink 模式已開啟</string>
+    <string name="eink_active_desc">應用程式以黑白顯示。點一下即可關閉。</string>
     <string name="eink_mode_desc">單色顯示、圖片轉為灰階並停用應用程式動畫；點擊頁面邊緣或使用音量鍵翻頁。</string>
     <string name="on_this_day_title">歷史上的今天</string>
     <string name="on_this_day_desc">往年今天發布、且你已讀過的文章</string>

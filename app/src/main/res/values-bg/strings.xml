@@ -754,6 +754,8 @@
     <string name="smart_collection_empty_articles">Още няма нови съвпадащи статии. Новите съвпадения ще се появят след синхронизация.</string>
     <string name="save">Save</string>
     <string name="eink_mode_title">Оптимизация за E-Ink</string>
+    <string name="eink_active_title">Режимът E-Ink е включен</string>
+    <string name="eink_active_desc">Приложението се показва в черно и бяло. Докоснете, за да го изключите.</string>
     <string name="eink_mode_desc">Монохромен екран, изображения в сивата гама, без анимации; докоснете краищата или използвайте бутоните за звук за прелистване.</string>
     <string name="on_this_day_title">На този ден</string>
     <string name="on_this_day_desc">Статии, които сте прочели и са публикувани на тази дата в предишни години</string>

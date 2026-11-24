@@ -860,6 +860,8 @@
     <string name="smart_collection_empty_articles">Oraindik ez dago bat datorren artikulu berririk. Bat-etortze berriak sinkronizatu ondoren agertuko dira.</string>
     <string name="save">Save</string>
     <string name="eink_mode_title">E-Ink optimizazioa</string>
+    <string name="eink_active_title">E-Ink modua aktibatuta dago</string>
+    <string name="eink_active_desc">Aplikazioa zuri-beltzean erakusten da. Sakatu desaktibatzeko.</string>
     <string name="eink_mode_desc">Pantaila monokromoa, gris-eskalako irudiak eta aplikazio-animaziorik ez; ukitu orri-ertzak edo erabili bolumen-botoiak orriak pasatzeko.</string>
     <string name="on_this_day_title">Egun honetan</string>
     <string name="on_this_day_desc">Aurreko urteetan egun honetan argitaratutako irakurritako artikuluak</string>

@@ -868,6 +868,8 @@
     <string name="smart_collection_empty_articles">עדיין אין כתבות חדשות תואמות. התאמות חדשות יופיעו אחרי סנכרון.</string>
     <string name="save">Save</string>
     <string name="eink_mode_title">מיטוב E-Ink</string>
+    <string name="eink_active_title">מצב E-Ink פעיל</string>
+    <string name="eink_active_desc">האפליקציה מוצגת בשחור לבן. הקש כדי לכבות.</string>
     <string name="eink_mode_desc">תצוגה מונוכרומטית, תמונות בגווני אפור וללא הנפשות; יש להקיש בשולי העמוד או להשתמש בלחצני עוצמת הקול לדפדוף.</string>
     <string name="on_this_day_title">ביום זה</string>
     <string name="on_this_day_desc">מאמרים שקראת ופורסמו בתאריך זה בשנים קודמות</string>

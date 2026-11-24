@@ -790,6 +790,8 @@
     <string name="smart_collection_empty_articles">Ingen nye artikler som matcher ennå. Nye treff vises etter synkronisering.</string>
     <string name="save">Save</string>
     <string name="eink_mode_title">E-Ink-optimalisering</string>
+    <string name="eink_active_title">E-Ink-modus er på</string>
+    <string name="eink_active_desc">Appen vises i svart-hvitt. Trykk for å slå av.</string>
     <string name="eink_mode_desc">Monokrom skjerm, gråtonebilder og ingen app-animasjoner; trykk på sidekantene eller bruk volumknappene for å bla.</string>
     <string name="on_this_day_title">På denne dagen</string>
     <string name="on_this_day_desc">Artikler du har lest som ble publisert denne datoen i tidligere år</string>

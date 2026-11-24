@@ -787,6 +787,8 @@
     <string name="smart_collection_empty_articles">अभी कोई मेल खाता नया लेख नहीं है। सिंक के बाद नए मिलान यहाँ दिखेंगे।</string>
     <string name="save">Save</string>
     <string name="eink_mode_title">E-Ink अनुकूलन</string>
+    <string name="eink_active_title">E-Ink मोड चालू है</string>
+    <string name="eink_active_desc">ऐप काले और सफेद रंग में दिख रहा है। बंद करने के लिए टैप करें।</string>
     <string name="eink_mode_desc">एकरंगी डिस्प्ले, ग्रेस्केल चित्र और ऐप ऐनिमेशन बंद; पेज बदलने के लिए किनारों पर टैप करें या वॉल्यूम बटन दबाएँ।</string>
     <string name="on_this_day_title">आज के दिन</string>
     <string name="on_this_day_desc">वे पढ़े हुए लेख जो पिछले वर्षों में इसी दिन प्रकाशित हुए थे</string>

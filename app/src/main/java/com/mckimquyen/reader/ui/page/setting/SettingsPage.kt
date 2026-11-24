@@ -55,6 +55,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.mckimquyen.reader.BuildConfig
 import com.mckimquyen.reader.R
+import com.mckimquyen.reader.infrastructure.android.AppLog
+import com.mckimquyen.reader.infrastructure.pref.EInkModePref
+import com.mckimquyen.reader.infrastructure.pref.LocalEInkMode
 import com.mckimquyen.reader.infrastructure.pref.LocalNewVersionNumber
 import com.mckimquyen.reader.infrastructure.pref.LocalSkipVersionNumber
 import com.mckimquyen.reader.ui.component.base.Banner
@@ -93,6 +96,8 @@ fun SettingsPage(
     val newVersion = LocalNewVersionNumber.current
     val skipVersion = LocalSkipVersionNumber.current
     val currentVersion by remember { mutableStateOf(context.getCurrentVersion()) }
+    val eInkMode = LocalEInkMode.current
+    val scope = androidx.compose.runtime.rememberCoroutineScope()
 
     BackHandler { navController.popBackStack() }
 
@@ -115,6 +120,20 @@ fun SettingsPage(
             LazyColumn {
                 item {
                     DisplayText(text = stringResource(R.string.settings), desc = "")
+                }
+                // E-Ink turns the whole app white and grey; without a sign on screen it looked like a random background change.
+                if (eInkMode.value) {
+                    item {
+                        Banner(
+                            title = stringResource(R.string.eink_active_title),
+                            desc = stringResource(R.string.eink_active_desc),
+                            icon = Icons.Outlined.Lightbulb,
+                        ) {
+                            AppLog.event("setting", "eink-banner-off")
+                            EInkModePref.OFF.put(context, scope)
+                        }
+                        Spacer(modifier = Modifier.height(16.dp))
+                    }
                 }
                 item {
                     Box {

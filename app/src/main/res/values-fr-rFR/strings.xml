@@ -794,6 +794,8 @@
     <string name="smart_collection_empty_articles">Aucun nouvel article correspondant. Les résultats apparaîtront après la synchronisation.</string>
     <string name="save">Enregistrer</string>
     <string name="eink_mode_title">Optimisation E-Ink</string>
+    <string name="eink_active_title">Mode E-Ink activé</string>
+    <string name="eink_active_desc">Application affichée en noir et blanc. Touchez pour le désactiver.</string>
     <string name="eink_mode_desc">Affichage monochrome, images en niveaux de gris, sans animations ; touchez les bords ou utilisez les boutons de volume pour tourner les pages.</string>
     <string name="on_this_day_title">Ce jour-là</string>
     <string name="on_this_day_desc">Articles lus publiés à cette date lors des années précédentes</string>

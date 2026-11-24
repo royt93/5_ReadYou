@@ -861,6 +861,8 @@
     <string name="smart_collection_empty_articles">No matching new articles yet. New matches will appear after sync.</string>
     <string name="save">Save</string>
     <string name="eink_mode_title">Optymalizacja E-Ink</string>
+    <string name="eink_active_title">Tryb E-Ink jest włączony</string>
+    <string name="eink_active_desc">Aplikacja jest wyświetlana w czerni i bieli. Dotknij, aby wyłączyć.</string>
     <string name="eink_mode_desc">Monochromatyczny ekran, obrazy w skali szarości i brak animacji; dotknij krawędzi lub użyj przycisków głośności, aby przewracać strony.</string>
     <string name="on_this_day_title">W tym dniu</string>
     <string name="on_this_day_desc">Przeczytane artykuły opublikowane tego dnia w poprzednich latach</string>

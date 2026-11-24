@@ -1,5 +1,6 @@
 package com.mckimquyen.reader.infrastructure.pref
 
+import com.mckimquyen.reader.infrastructure.android.AppLog
 import android.content.Context
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
@@ -18,6 +19,7 @@ sealed class DarkThemePref(val value: Int) : Pref() {
     object OFF : DarkThemePref(2)
 
     override fun put(context: Context, scope: CoroutineScope) {
+        AppLog.event("setting", "dark-theme", "mode" to this::class.simpleName)
         scope.launch {
             context.dataStore.put(
                 DataStoreKeys.DarkTheme,

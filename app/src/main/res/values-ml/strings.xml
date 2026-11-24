@@ -862,6 +862,8 @@
     <string name="smart_collection_empty_articles">പൊരുത്തപ്പെടുന്ന പുതിയ ലേഖനങ്ങളൊന്നുമില്ല. സമന്വയത്തിന് ശേഷം പുതിയവ ദൃശ്യമാകും.</string>
     <string name="save">Save</string>
     <string name="eink_mode_title">E-Ink ഒപ്റ്റിമൈസേഷൻ</string>
+    <string name="eink_active_title">E-Ink മോഡ് ഓണാണ്</string>
+    <string name="eink_active_desc">ആപ്പ് കറുപ്പും വെളുപ്പും നിറത്തിൽ കാണിക്കുന്നു. ഓഫ് ചെയ്യാൻ ടാപ്പ് ചെയ്യുക.</string>
     <string name="eink_mode_desc">മോണോക്രോം ഡിസ്പ്ലേ, ഗ്രേസ്‌കെയിൽ ചിത്രങ്ങൾ, ആപ്പ് ആനിമേഷനുകളില്ല; പേജ് മാറ്റാൻ വശങ്ങളിൽ തൊടുക അല്ലെങ്കിൽ വോള്യം ബട്ടണുകൾ ഉപയോഗിക്കുക.</string>
     <string name="on_this_day_title">ഈ ദിവസം</string>
     <string name="on_this_day_desc">മുൻ വർഷങ്ങളിൽ ഇതേ ദിവസം പ്രസിദ്ധീകരിച്ച, നിങ്ങൾ വായിച്ച ലേഖനങ്ങൾ</string>

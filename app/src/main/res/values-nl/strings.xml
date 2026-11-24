@@ -790,6 +790,8 @@
     <string name="smart_collection_empty_articles">Nog geen overeenkomende nieuwe artikelen. Nieuwe treffers verschijnen na synchronisatie.</string>
     <string name="save">Save</string>
     <string name="eink_mode_title">E-Ink-optimalisatie</string>
+    <string name="eink_active_title">E-Ink-modus staat aan</string>
+    <string name="eink_active_desc">De app wordt in zwart-wit weergegeven. Tik om uit te zetten.</string>
     <string name="eink_mode_desc">Monochroom scherm, grijswaardenafbeeldingen en geen app-animaties; tik op de paginaranden of gebruik volumeknoppen om te bladeren.</string>
     <string name="on_this_day_title">Op deze dag</string>
     <string name="on_this_day_desc">Gelezen artikelen die op deze dag in eerdere jaren zijn gepubliceerd</string>

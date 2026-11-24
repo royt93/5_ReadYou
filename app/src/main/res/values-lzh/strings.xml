@@ -861,6 +861,8 @@
     <string name="smart_collection_empty_articles">尚無相合之新文章。同步後，新合者即現。</string>
     <string name="save">Save</string>
     <string name="eink_mode_title">E-Ink 優化</string>
+    <string name="eink_active_title">E-Ink 之式已啟</string>
+    <string name="eink_active_desc">此應用以黑白呈之。輕觸以閉之。</string>
     <string name="eink_mode_desc">單色顯示、灰階圖像、停用應用動畫；點擊頁側或按音量鍵翻頁。</string>
     <string name="on_this_day_title">往年今日</string>
     <string name="on_this_day_desc">往歲此日所刊，而君已讀之文</string>

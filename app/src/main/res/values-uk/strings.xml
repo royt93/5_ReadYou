@@ -795,6 +795,8 @@
     <string name="smart_collection_empty_articles">No matching new articles yet. New matches will appear after sync.</string>
     <string name="save">Save</string>
     <string name="eink_mode_title">Оптимізація E-Ink</string>
+    <string name="eink_active_title">Режим E-Ink увімкнено</string>
+    <string name="eink_active_desc">Застосунок показано в чорно-білому кольорі. Торкніться, щоб вимкнути.</string>
     <string name="eink_mode_desc">Монохромний екран, зображення у відтінках сірого, без анімацій; торкайтеся країв або використовуйте кнопки гучності для гортання.</string>
     <string name="on_this_day_title">Цього дня</string>
     <string name="on_this_day_desc">Прочитані статті, опубліковані цього дня в попередні роки</string>

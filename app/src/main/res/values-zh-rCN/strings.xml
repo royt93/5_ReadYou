@@ -787,6 +787,8 @@
     <string name="read_position_sync">同步阅读进度</string>
     <string name="read_position_sync_desc">在此设备上保存并恢复阅读进度，并在配置时通过 WebDAV 进行同步</string>
     <string name="eink_mode_title">E-Ink 优化</string>
+    <string name="eink_active_title">E-Ink 模式已开启</string>
+    <string name="eink_active_desc">应用以黑白显示。点按即可关闭。</string>
     <string name="eink_mode_desc">单色显示、图片转为灰度并关闭应用动画；点击页面边缘或使用音量键翻页。</string>
     <string name="on_this_day_title">历史上的今天</string>
     <string name="on_this_day_desc">往年今天发布、且你已读过的文章</string>

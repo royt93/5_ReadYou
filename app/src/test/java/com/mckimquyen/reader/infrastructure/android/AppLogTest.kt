@@ -48,6 +48,10 @@ class AppLogTest {
             "domain/sv/SyncWorker.kt" to "AppLog.event(\"sync\", \"start\"",
             "infrastructure/pref/EInkModePref.kt" to "AppLog.event(\"setting\", \"eink\"",
             "ui/page/reels/ReelsPage.kt" to "AppLog.event(\"reels\", \"open\"",
+            "ui/page/home/HomeViewModel.kt" to "AppLog.event(\"sync\", \"manual-request\"",
+            "ui/ext/ExtContext.kt" to "AppLog.event(\"share\", \"chooser\"",
+            "infrastructure/pref/DarkThemePref.kt" to "AppLog.event(\"setting\", \"dark-theme\"",
+            "ui/page/setting/SettingsPage.kt" to "AppLog.event(\"setting\", \"eink-banner-off\"",
         )
         val missing = expect.filter { (f, s) -> s !in File(root, f).readText() }.keys
         assertEquals("trace points that lost their logger call: $missing", emptySet<String>(), missing)

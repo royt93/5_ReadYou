@@ -789,6 +789,8 @@
     <string name="smart_collection_empty_articles">هنوز مقالهٔ جدید مطابقی نیست. موارد جدید پس از همگام‌سازی ظاهر می‌شوند.</string>
     <string name="save">Save</string>
     <string name="eink_mode_title">بهینه‌سازی E-Ink</string>
+    <string name="eink_active_title">حالت E-Ink روشن است</string>
+    <string name="eink_active_desc">برنامه به صورت سیاه و سفید نمایش داده می‌شود. برای خاموش کردن ضربه بزنید.</string>
     <string name="eink_mode_desc">نمایش تک‌رنگ، تصاویر خاکستری و بدون پویانمایی برنامه؛ برای ورق‌زدن لبه صفحه را لمس کنید یا از کلیدهای صدا استفاده کنید.</string>
     <string name="on_this_day_title">در چنین روزی</string>
     <string name="on_this_day_desc">مقاله‌هایی که خوانده‌اید و در چنین روزی در سال‌های گذشته منتشر شده‌اند</string>

@@ -861,6 +861,8 @@
     <string name="smart_collection_empty_articles">ಇನ್ನೂ ಹೊಂದುವ ಹೊಸ ಲೇಖನಗಳಿಲ್ಲ. ಸಿಂಕ್ ನಂತರ ಹೊಸ ಹೊಂದಾಣಿಕೆಗಳು ಕಾಣಿಸುತ್ತವೆ.</string>
     <string name="save">Save</string>
     <string name="eink_mode_title">E-Ink ಆಪ್ಟಿಮೈಜೇಶನ್</string>
+    <string name="eink_active_title">E-Ink ಮೋಡ್ ಆನ್ ಆಗಿದೆ</string>
+    <string name="eink_active_desc">ಆ್ಯಪ್ ಕಪ್ಪು ಮತ್ತು ಬಿಳಿ ಬಣ್ಣದಲ್ಲಿ ತೋರಿಸಲಾಗುತ್ತಿದೆ. ಆಫ್ ಮಾಡಲು ಟ್ಯಾಪ್ ಮಾಡಿ.</string>
     <string name="eink_mode_desc">ಏಕವರ್ಣದ ಪ್ರದರ್ಶನ, ಗ್ರೇಸ್ಕೇಲ್ ಚಿತ್ರಗಳು ಮತ್ತು ಆ್ಯಪ್ ಅನಿಮೇಷನ್ ಇಲ್ಲ; ಪುಟ ತಿರುಗಿಸಲು ಅಂಚುಗಳನ್ನು ಟ್ಯಾಪ್ ಮಾಡಿ ಅಥವಾ ವಾಲ್ಯೂಮ್ ಬಟನ್ ಬಳಸಿ.</string>
     <string name="on_this_day_title">ಈ ದಿನ</string>
     <string name="on_this_day_desc">ಹಿಂದಿನ ವರ್ಷಗಳಲ್ಲಿ ಇದೇ ದಿನ ಪ್ರಕಟವಾದ, ನೀವು ಓದಿದ ಲೇಖನಗಳು</string>

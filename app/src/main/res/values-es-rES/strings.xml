@@ -792,6 +792,8 @@
     <string name="smart_collection_empty_articles">No matching new articles yet. New matches will appear after sync.</string>
     <string name="save">Save</string>
     <string name="eink_mode_title">Optimización E-Ink</string>
+    <string name="eink_active_title">El modo E-Ink está activado</string>
+    <string name="eink_active_desc">La aplicación se muestra en blanco y negro. Toca para desactivarlo.</string>
     <string name="eink_mode_desc">Pantalla monocroma, imágenes en escala de grises y sin animaciones; toca los bordes o usa los botones de volumen para pasar página.</string>
     <string name="on_this_day_title">Un día como hoy</string>
     <string name="on_this_day_desc">Artículos que has leído y que se publicaron este día en años anteriores</string>

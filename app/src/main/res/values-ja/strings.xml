@@ -788,6 +788,8 @@
     <string name="read_position_sync">読書位置を同期</string>
     <string name="read_position_sync_desc">この端末で読書位置を保存・復元し、設定時はWebDAV経由で同期します</string>
     <string name="eink_mode_title">E-Ink 最適化</string>
+    <string name="eink_active_title">E-Inkモードがオンです</string>
+    <string name="eink_active_desc">アプリは白黒で表示されています。タップするとオフにします。</string>
     <string name="eink_mode_desc">モノクロ表示、画像をグレースケール化し、アプリのアニメーションを無効化します。ページ端のタップまたは音量ボタンでページをめくれます。</string>
     <string name="on_this_day_title">この日</string>
     <string name="on_this_day_desc">過去の年のこの日に公開された、既読の記事</string>

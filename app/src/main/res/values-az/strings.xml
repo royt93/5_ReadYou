@@ -861,6 +861,8 @@
     <string name="smart_collection_empty_articles">Hələ uyğun yeni məqalə yoxdur. Yeni uyğunluqlar sinxronizasiyadan sonra görünəcək.</string>
     <string name="save">Save</string>
     <string name="eink_mode_title">E-Ink optimallaşdırması</string>
+    <string name="eink_active_title">E-Ink rejimi aktivdir</string>
+    <string name="eink_active_desc">Tətbiq qara-ağ göstərilir. Söndürmək üçün toxunun.</string>
     <string name="eink_mode_desc">Monoxrom ekran, boz tonlu şəkillər, tətbiq animasiyaları yoxdur; səhifəni çevirmək üçün kənarlara toxunun və ya səs düymələrindən istifadə edin.</string>
     <string name="on_this_day_title">Bu gün</string>
     <string name="on_this_day_desc">Əvvəlki illərdə bu gün dərc edilmiş oxuduğunuz məqalələr</string>

@@ -864,6 +864,8 @@
     <string name="smart_collection_empty_articles">Zatím žádné nové odpovídající články. Nové shody se objeví po synchronizaci.</string>
     <string name="save">Save</string>
     <string name="eink_mode_title">Optimalizace pro E-Ink</string>
+    <string name="eink_active_title">Režim E-Ink je zapnutý</string>
+    <string name="eink_active_desc">Aplikace se zobrazuje černobíle. Klepnutím ji vypnete.</string>
     <string name="eink_mode_desc">Černobílý displej, obrázky v odstínech šedi, animace vypnuté; stránky otáčejte klepnutím na okraj nebo tlačítky hlasitosti.</string>
     <string name="on_this_day_title">Tento den</string>
     <string name="on_this_day_desc">Přečtené články, které byly v předchozích letech zveřejněny v tento den</string>
