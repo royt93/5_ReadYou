@@ -29,6 +29,7 @@ import kotlin.coroutines.resumeWithException
 
 import com.mckimquyen.reader.infrastructure.di.ApplicationScope
 import com.mckimquyen.reader.infrastructure.di.IODispatcher
+import com.mckimquyen.reader.infrastructure.di.SecureHttp
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -54,7 +55,7 @@ class AiRequestGateway internal constructor(
 
     @Inject
     constructor(
-        okHttpClient: OkHttpClient,
+        @SecureHttp okHttpClient: OkHttpClient,
         @ApplicationScope externalScope: CoroutineScope,
         @IODispatcher ioDispatcher: CoroutineDispatcher,
     ) : this(

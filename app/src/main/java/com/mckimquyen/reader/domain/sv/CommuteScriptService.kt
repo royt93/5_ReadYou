@@ -11,6 +11,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.MediaType.Companion.toMediaType
+import com.mckimquyen.reader.infrastructure.di.SecureHttp
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -28,7 +29,7 @@ import javax.inject.Singleton
 @Singleton
 class CommuteScriptService @Inject constructor(
     @ApplicationContext private val context: Context,
-    private val okHttpClient: OkHttpClient,
+    @SecureHttp private val okHttpClient: OkHttpClient,
 ) {
 
     companion object {

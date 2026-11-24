@@ -50,7 +50,7 @@ sealed class OpenLinkPref(val value: Int) : Pref() {
                 3 -> DefaultBrowser
                 4 -> SpecificBrowser
                 5 -> AlwaysAsk
-                else -> AutoPreferCustomTabs
+                else -> default
             }
     }
 }

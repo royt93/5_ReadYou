@@ -303,9 +303,11 @@ fun AccountDetailsPage(
         },
         onConfirm = {
             selectedAccount?.id?.let {
-                SyncBlockListPref.put(it, viewModel, selectedAccount.syncBlockList)
+                // The old call wrote selectedAccount.syncBlockList back, i.e. the value from before the edit, and the toast then showed the unchanged list.
+                val edited = SyncBlockListPref.of(blockListValue)
+                SyncBlockListPref.put(it, viewModel, edited)
                 blockListDialogVisible = false
-                context.showToast(selectedAccount.syncBlockList.toString())
+                context.showToast(SyncBlockListPref.toString(edited))
             }
         }
     )

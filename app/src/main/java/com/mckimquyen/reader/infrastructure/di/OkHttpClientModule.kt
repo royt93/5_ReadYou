@@ -23,6 +23,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 import javax.net.ssl.SSLContext
 import javax.net.ssl.TrustManager
+import javax.net.ssl.TrustManagerFactory
 import javax.net.ssl.X509TrustManager
 
 /**
@@ -54,6 +55,29 @@ object OkHttpClientModule {
         // A 304 response is merged with the cached body before callers see it.
         .addInterceptor(ConditionalCacheInterceptor)
         .addNetworkInterceptor(UserAgentInterceptor)
+        .build()
+
+    @Provides
+    @Singleton
+    @SecureHttp
+    fun provideSecureHttpClient(
+        base: OkHttpClient,
+    ): OkHttpClient = secureHttpClientFrom(base)
+}
+
+/**
+ * Same DNS, timeouts and cache as [base], but certificates and host names are checked by the platform again.
+ * [OkHttpClient.Builder.sslSocketFactory] without arguments for the trust manager is not available, so the default factory and the system trust manager are set explicitly.
+ */
+fun secureHttpClientFrom(base: OkHttpClient): OkHttpClient {
+    val factory = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm())
+    factory.init(null as java.security.KeyStore?)
+    val systemTrust = factory.trustManagers.filterIsInstance<X509TrustManager>().first()
+    val ssl = SSLContext.getInstance("TLS")
+    ssl.init(null, arrayOf<TrustManager>(systemTrust), null)
+    return base.newBuilder()
+        .sslSocketFactory(ssl.socketFactory, systemTrust)
+        .hostnameVerifier(javax.net.ssl.HttpsURLConnection.getDefaultHostnameVerifier())
         .build()
 }
 
