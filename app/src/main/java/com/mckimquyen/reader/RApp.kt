@@ -175,6 +175,8 @@ class RApp : Application(), WorkConfiguration.Provider, ImageLoaderFactory {
             admobInterstitialId    = BuildConfig.ADMOB_INTERSTITIAL_ID,
             admobAppOpenId         = BuildConfig.ADMOB_APP_OPEN_ID,
             admobRewardedId        = BuildConfig.ADMOB_REWARDED_ID,
+            // AppLovin is deferred by the owner (2026-11-24): the app ships with AdMob only (IS_ENABLE_ADMOB=true) and these ids are not exercised.
+            // Do not touch this branch without the owner asking for it.
             applovinBannerId       = BuildConfig.APPLOVIN_BANNER_ID,
             applovinInterstitialId = BuildConfig.APPLOVIN_INTERSTITIAL_ID,
             applovinAppOpenId      = BuildConfig.APPLOVIN_APP_OPEN_ID,
