@@ -44,7 +44,7 @@ Nguồn dữ liệu: `doc/task/REL-03_data-safety-audit.md`, mục 5 và mục 7
 - Mã đổi VIP và `VIP_INTEGRITY_SECRET` nằm sẵn trong dex (VIP đã được owner hoãn).
 - `allowBackup="true"`: Room và DataStore `settings` (có `customGeminiApiKey`) vào cloud backup.
 - ĐÃ SỬA 2026-11-24: App Open bị chặn khi quay lại từ chooser chia sẻ và Custom Tabs (`AppOpenGuard.leaveForOtherApp`), `ComponentActivity` bỏ khỏi manifest chính, `AboutActivity` exported=false, mapping R8 264 → 127 MiB (bỏ `-keep class androidx.compose.**`).
-- Test `CommuteCastViewModelTest` đã fail 1 lần trong full JVM, 5 lần chạy sau đều xanh (lỗi lẻ, chưa tìm nguyên nhân).
+- Test `CommuteCastViewModelTest` đã fail 1 lần trong full JVM. Điều tra 2026-11-24: KHÔNG tái hiện được (lớp chạy riêng 60/60 xanh kể cả dưới tải CPU, full JVM 4 lần xanh, 400 vòng lặp trong một JVM xanh). Chưa có nguyên nhân gốc. Giả thuyết chưa chứng minh: test dùng `Dispatchers.IO`/`Default` thật và `runBlocking` trên DataStore (`CommuteCastViewModel.kt` quanh `prepareOrPlay`, `ExtDataStore.kt:207-221`) nên `advanceUntilIdle()` không chờ được; DataStore là singleton chung giữa các class test. Lần chạy tải nặng cũng làm `SubscribeDialogTypingTest` fail 1 lần ("component is not displayed"), cùng kiểu lỗi thời gian.
 
 ## 4. Kiểm lần cuối trước khi đưa lên store
 
@@ -57,6 +57,6 @@ Nguồn dữ liệu: `doc/task/REL-03_data-safety-audit.md`, mục 5 và mục 7
 ## 5. Giới hạn đã biết
 
 - Ad bằng đơn vị thật: đã chạy rewarded trên Pixel (máy đã đăng ký hash) với build ký thật, nhãn "Quảng cáo thử nghiệm", 0 tín hiệu `Use RequestConfiguration` (2026-11-24, HEAD 2d915178). Chưa thử banner, interstitial, App Open với đơn vị thật.
-- Nâng cấp dữ liệu thật (Pixel, 2026-11-24): cài bản R8 đè lên bản 20261122, giữ 2164 bài, 9 feed, Room v22. Chooser chia sẻ và Custom Tabs không bật App Open (log `suppressAppOpenTemporarily`, đối chứng Home thì hiện). Bản R8 mới không crash ở home, Settings, CommuteCast, danh sách, trang đọc, menu, chooser. Chưa mở hết mọi màn (Podcast Studio, AI, widget, tìm kiếm, WebDAV).
+- Nâng cấp dữ liệu thật (Pixel, 2026-11-24): cài bản R8 đè lên bản 20261122, giữ 2164 bài, 9 feed, Room v22. Chooser chia sẻ và Custom Tabs không bật App Open (log `suppressAppOpenTemporarily`, đối chứng Home thì hiện). Bản R8 mới không crash ở home, Settings, CommuteCast, danh sách, trang đọc, menu, chooser. Đã mở thêm màn hình thứ hai, hộp thoại đồng ý AI, tìm kiếm (kể cả khớp ngữ nghĩa AI), Privacy & Security, cài đặt AI: 0 crash. Chưa mở WebDAV, widget, sơ đồ tư duy, Deep Read, Deep Dive, Highlight, Sổ tay, Podcast Studio.
 - Chưa có máy API 26-28.
 - Interstitial và rewarded dùng chung hạn mức: xem `audit_gemini.md`.
