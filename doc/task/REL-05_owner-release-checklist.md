@@ -57,5 +57,6 @@ Nguồn dữ liệu: `doc/task/REL-03_data-safety-audit.md`, mục 5 và mục 7
 ## 5. Giới hạn đã biết
 
 - Ad bằng đơn vị thật: đã chạy rewarded trên Pixel (máy đã đăng ký hash) với build ký thật, nhãn "Quảng cáo thử nghiệm", 0 tín hiệu `Use RequestConfiguration` (2026-11-24, HEAD 2d915178). Chưa thử banner, interstitial, App Open với đơn vị thật.
+- Nâng cấp dữ liệu thật (Pixel, 2026-11-24): cài bản R8 đè lên bản 20261122, giữ 2164 bài, 9 feed, Room v22. Chooser chia sẻ và Custom Tabs không bật App Open (log `suppressAppOpenTemporarily`, đối chứng Home thì hiện). Bản R8 mới không crash ở home, Settings, CommuteCast, danh sách, trang đọc, menu, chooser. Chưa mở hết mọi màn (Podcast Studio, AI, widget, tìm kiếm, WebDAV).
 - Chưa có máy API 26-28.
 - Interstitial và rewarded dùng chung hạn mức: xem `audit_gemini.md`.
