@@ -23,8 +23,6 @@
     <string name="search_for">%1$sアイテムを検索</string>
     <string name="mark_as_read">既読にする</string>
     <string name="mark_as_starred">星を付ける</string>
-    <string name="mark_as_read_one_day">1 日以上前の記事を既読としてマーク</string>
-    <string name="mark_as_read_three_days">３日以上前の記事を既読としてマーク</string>
     <string name="seven_days">7日</string>
     <string name="close">閉じる</string>
     <string name="get_new_updates">新しいアップデートを取得する</string>
@@ -34,7 +32,6 @@
     <string name="interaction_desc">起動時のページ、触覚フィードバック</string>
     <string name="languages">言語</string>
     <string name="languages_desc">英語、中国語、その他</string>
-    <string name="help_translate">翻訳を手伝う</string>
     <string name="welcome">ようこそ</string>
     <string name="terms_of_service">利用規約</string>
     <string name="agree">同意する</string>
@@ -87,7 +84,6 @@
     <string name="web_feed_fetch_failed">ページを安全に取得できませんでした。URL を確認して再試行してください。</string>
     <string name="web_feed_preview_notice">このページから記事が見つかりました。確認してローカルウェブフィードを追加してください。</string>
     <string name="web_feed_add">ウェブフィードを追加</string>
-    <string name="web_feed_preview">ウェブフィードをプレビュー</string>
     <string name="syncing">同期中…</string>
     <string name="refresh">更新</string>
     <string name="defaults">デフォルト</string>
@@ -131,7 +127,6 @@
     <string name="color_and_style">色とスタイル</string>
     <string name="use_device_languages">デバイスの言語を使用する</string>
     <string name="tos_tips">RSS Bear Hub の利用規約とプライバシーポリシーをお読みになり、同意される場合は、[同意する]をタップしてください。</string>
-    <string name="tips_and_support_desc">このアプリについて、オープンソースライセンス</string>
     <string name="browse_tos_tips">
         <i>
             <u>利用規約とプライバシー ポリシー</u>
@@ -318,8 +313,6 @@
     <string name="no_sources_for_country">この国のソースが見つかりません</string>
     <string name="oops_something_wrong">エラーが発生しました</string>
     <string name="try_again">もう一度試す</string>
-    <string name="already_added">追加済み</string>
-    <string name="add_new_source">ソースを追加</string>
     <string name="change_language">言語を変更</string>
     <string name="change_language_confirm">新しい言語を適用するためにアプリが再起動します。続行しますか？</string>
     <string name="yes">はい</string>
@@ -333,12 +326,8 @@
     <string name="ad_not_ready">広告の準備ができていません。後でもう一度お試しください。</string>
     <string name="summary_title">AIで要約</string>
     <string name="summary_loading">要約しています…</string>
-    <string name="summary_retry">もう一度要約</string>
     <string name="summary_try_again">再試行</string>
-    <string name="summary_apikey_desc">この機能は Google Gemini（無料枠あり）を使用します。無料の API キーを取得してここに貼り付けてください。キーは端末内にのみ保存されます。</string>
-    <string name="summary_apikey_hint">Gemini API キー</string>
     <string name="summary_get_key">無料キーを取得</string>
-    <string name="summary_save_and_summarize">保存して要約</string>
     <string name="summary_err_empty_content">要約する記事の内容がありません</string>
     <string name="summary_err_invalid_key">API キーが無効または拒否されました</string>
     <string name="summary_err_rate_limited">Gemini の上限を超えました。しばらくしてからお試しください</string>
@@ -443,12 +432,7 @@
     <string name="always_ask">Always Ask</string>
     <string name="open_link_specific_browser">Browser</string>
     <string name="open_link_something_wrong">\"Open Link\" setting ignored because something went wrong.</string>
-    <string name="open_link_ask_dialog_title">Open with…</string>
-    <string name="mark_as_read_seven_days">Mark as read older than 7 days</string>
-    <string name="line_spacing">Line spacing</string>
     <string name="tips_top_bar_tonal_elevation">Tonal height is only available when scrolling</string>
-    <string name="open_with">Open %1$s</string>
-    <string name="options">choice</string>
     <string name="commute_cast_title">CommuteCast AI DJ</string>
     <string name="commute_cast_subtitle">2-Host Morning Radio Overview</string>
     <string name="commute_host_alex">Alex (Anchor)</string>
@@ -475,13 +459,11 @@
     <string name="beta_testing_community">Join the BetaTesting Community Today!</string>
     <string name="beta_testing_desc">Test exciting new products and get paid to give feedback for new apps</string>
     <string name="next_article">Next Article</string>
-    <string name="add_tag">Add Tag</string>
     <string name="brain_rpg_title">Brain RPG</string>
     <string name="brain_rpg_subtitle">Knowledge Skill Tree &amp; Daily Streak</string>
     <string name="brain_rpg_settings_desc">Track your reading XP, streak, level, and knowledge tree</string>
     <string name="brain_rpg_level">Level %1$d</string>
     <string name="brain_rpg_streak">%1$d Day Streak</string>
-    <string name="brain_rpg_xp">%1$d XP</string>
     <string name="brain_rpg_quiz_title">10s AI Micro-Quiz</string>
     <string name="brain_rpg_quiz_reward">+150 XP</string>
     <string name="brain_rpg_reading_reward">+50 XP Reading Complete!</string>
@@ -503,7 +485,6 @@
     <string name="brain_rpg_streak_shield_active">Shield Active (Streak Protected)</string>
     <string name="brain_rpg_streak_shield_activate">Activate Shield (Watch ad)</string>
     <string name="brain_rpg_wrapped_title">Weekly Brain Wrapped</string>
-    <string name="brain_rpg_wrapped_share">Share Wrapped</string>
     <string name="brain_rpg_correct">🎉 Correct Answer!</string>
     <string name="brain_rpg_wrong">❌ Incorrect Answer</string>
     <string name="brain_rpg_category_tech">Tech &amp; AI</string>
@@ -534,10 +515,8 @@
     <!-- Epic 08: Zen Focus & Speed Reading -->
     <string name="zen_speed_reading">Speed Reading (RSVP)</string>
     <string name="zen_speed_reading_desc">Read up to 900 words per minute with fixed focal alignment</string>
-    <string name="zen_wpm">%1$d WPM</string>
     <string name="zen_wpm_label">Reading Speed: %1$d WPM</string>
     <string name="zen_words_progress">%1$d / %2$d words</string>
-    <string name="zen_time_remaining">%1$s remaining</string>
     <string name="zen_ambient_audio">Zen Focus Audio</string>
     <string name="zen_ambient_audio_desc">Soothing soundscapes for deep reading concentration</string>
     <string name="zen_sound_rain">Gentle Rain</string>
@@ -555,7 +534,6 @@
     <string name="zen_audio_focus_denied">他のアプリが音声フォーカスを使用中です</string>
     <string name="zen_audio_start_failed">環境音を開始できませんでした</string>
     <string name="zen_audio_interrupted">環境音が中断されました</string>
-    <string name="zen_daily_edition_title">Daily Focus Edition</string>
     <string name="zen_daily_edition_notification">%1$d unread articles ready for your focus reading.</string>
     <string name="zen_sleep_timer">Sleep Timer</string>
     <string name="zen_sleep_timer_off">Continuous</string>
@@ -571,7 +549,6 @@
     <string name="highlights_copied_toast">要点をクリップボードにコピーしました</string>
     <string name="highlights_share">共有</string>
     <string name="highlights_tldr">要約 (TL;DR)</string>
-    <string name="highlights_offline_fallback">オフラインスマート要約</string>
     <string name="highlights_ai_badge">Gemini AI</string>
     <string name="highlights_fallback_badge">オフライン</string>
     <string name="highlights_retry_ai">Gemini AIで再分析</string>
@@ -594,7 +571,6 @@
     <string name="deep_read_input_placeholder">この記事について質問する…</string>
     <string name="deep_read_send">送信</string>
     <string name="deep_read_clear_chat">チャットをクリア</string>
-    <string name="deep_read_cleared_toast">会話履歴を消去しました</string>
     <string name="deep_read_copied_toast">回答をクリップボードにコピーしました</string>
     <string name="deep_read_welcome_message">こんにちは！記事全体を読み込みました。質問を入力するか、下の提案トピックをタップしてください。</string>
     <string name="deep_read_context_label">対話中の記事：</string>
@@ -645,10 +621,8 @@
     <string name="smart_collection_delete">削除</string>
     <string name="smart_collection_delete_confirm">このコレクションを削除しますか？記事はライブラリに残ります。</string>
     <string name="smart_collection_saved">スマートコレクションを保存しました</string>
-    <string name="smart_collection_rename_title">スマートコレクションを編集</string>
     <string name="smart_collection_empty_articles">一致する新しい記事はまだありません。同期後に表示されます。</string>
     <string name="save">保存</string>
-    <string name="semantic_search_results_desc">%d 件の一致記事</string>
     <string name="keyword_search_results_title">キーワード一致結果</string>
     <string name="watchdog_title">キーワード・ウォッチドッグ</string>
     <string name="watchdog_desc">バックグラウンド同期で重要キーワードや銘柄を監視し、即座に高優先度通知</string>
@@ -690,7 +664,6 @@
     <string name="notebook_empty_title">ハイライトはまだありません</string>
     <string name="notebook_empty_subtitle">記事を読みながら引用をハイライトし、セカンドブレインを構築しましょう。</string>
     <string name="notebook_empty_search">一致するハイライトは見つかりませんでした</string>
-    <string name="notebook_saved_toast">ナレッジノートに保存しました！📚</string>
 
     <string name="notebook_save">保存</string>
     <string name="notebook_copy">コピー</string>
@@ -705,11 +678,7 @@
     <string name="ai_settings_desc">API キー、カスタムプロバイダー、要約フォーマット</string>
     <string name="ai_byok_title">個人用 API キー (BYOK)</string>
     <string name="ai_byok_desc">自身の API キーを使用して、共有クォータに依存せず無制限に要約できます。</string>
-    <string name="ai_provider_title">AI プロバイダー</string>
     <string name="ai_gemini_key_hint">Google Gemini API キー (AIzaSy...)</string>
-    <string name="ai_openai_key_hint">OpenAI API キー (sk-...)</string>
-    <string name="ai_deepseek_key_hint">DeepSeek API キー (sk-...)</string>
-    <string name="ai_groq_key_hint">Groq API キー (gsk_...)</string>
     <string name="ai_key_saved_toast">API キーを保存しました</string>
     <string name="ai_key_cleared_toast">API キーを消去し、デフォルトに戻しました</string>
     <string name="ai_summary_length_title">要約の長さと形式</string>
@@ -899,7 +868,6 @@
     <string name="triage_summary_skipped">既読に設定：%1$d</string>
     <string name="triage_summary_xp">+%1$d Brain RPG XP</string>
     <string name="triage_finish_button">完了</string>
-    <string name="triage_empty_state">仕分ける未読記事はありません！</string>
     <!-- Brain Wrapped tuần (RPG-09) -->
     <string name="brain_wrapped_share_story">ストーリーに共有</string>
     <string name="brain_wrapped_xp_label">今週のXP</string>
@@ -950,10 +918,6 @@
     <string name="headline_signals_tone_desc_positive">Lexical headline tone: positive indicators present.</string>
     <string name="headline_signals_tone_desc_unclear">Lexical headline tone: unclear or insufficient indicators.</string>
     <string name="headline_signals_tone_desc_negative">Lexical headline tone: negative indicators present.</string>
-    <string name="headline_signals_disclaimer">Local lexical heuristics based solely on headline wording; not evidence of factual accuracy, political bias, or article content.</string>
-    <string name="brain_rpg_skill_tree_details">Skill details</string>
-    <string name="brain_rpg_skill_tree_node_desc">%1$s, %2$d XP</string>
-    <string name="brain_rpg_skill_tree_node_decayed_desc">%1$s, %2$d of %3$d XP retained (%4$d%%)</string>
     <string name="brain_rpg_skill_tree_decay_warning">This skill has faded over time. Practice to restore it.</string>
     <string name="bounty_action_investigate">Investigate</string>
     <string name="bounty_sheet_title">Entity Investigation Agent</string>
@@ -964,7 +928,6 @@
     <string name="bounty_ai_context_title">Entity context (Gemini)</string>
     <string name="bounty_ai_context_no_key">Add your own Gemini API key in AI settings to use this.</string>
     <string name="bounty_time_range">Timeline: %1$s – %2$s</string>
-    <string name="bounty_invalid_query">Selected text is too short to investigate.</string>
     <string name="bounty_radar_description">Radar scanning your archive</string>
     <string name="bounty_error">Could not search your archive. Try again.</string>
     <string name="bounty_ai_context_loading">Summarizing context…</string>
@@ -1033,12 +996,9 @@
 
     <!-- ECHO-02 contrasting coverage -->
     <string name="echo_contrast_title">Other angles in your archive</string>
-    <string name="echo_contrast_phrases_label">Topic:</string>
-    <string name="echo_contrast_cue_prefix">Contrast: %1$s</string>
     <string name="echo_contrast_limitation">Articles from other saved feeds with contrarian headline wording. Not a fact-check.</string>
     <string name="echo_contrast_card_desc">Contrasting coverage card with %1$d articles</string>
     <string name="echo_contrast_open_article_desc">Open article %1$s from %2$s</string>
-    <string name="echo_contrast_empty_wording">No contrasting articles found</string>
     <string name="echo_contrast_switch_phrase_desc">Switch to topic %1$s</string>
 
     <!-- ECHO-03 two-headline card -->

@@ -43,7 +43,6 @@
     <string name="web_feed_fetch_failed">Không thể tải trang an toàn. Hãy kiểm tra URL và thử lại.</string>
     <string name="web_feed_preview_notice">Đã tìm thấy bài viết trên trang. Xác nhận để thêm web feed cục bộ.</string>
     <string name="web_feed_add">Thêm web feed</string>
-    <string name="web_feed_preview">Xem trước web feed</string>
     <string name="import_from_opml">Nhập từ OPML</string>
     <string name="selected">Đã chọn</string>
     <string name="allow_notification">Cho phép thông báo</string>
@@ -85,10 +84,8 @@
     <string name="accounts">Tài khoản</string>
     <string name="accounts_desc">Điện thoại, FreshRSS</string>
     <string name="languages_desc">Anh, Việt, Trung và hơn nữa</string>
-    <string name="help_translate">Giúp dịch</string>
     <string name="use_device_languages">Dùng ngôn ngữ thiết bị</string>
     <string name="tips_and_support">Mẹo &amp; hỗ trợ</string>
-    <string name="tips_and_support_desc">Giới thiệu, giấy phép mã nguồn mở</string>
     <string name="welcome">Chào mừng</string>
     <string name="tos_tips">Đọc và đồng ý với Điều khoản dịch vụ và Chính sách quyền riêng tư của RSS Bear Hub để tiếp tục.</string>
     <string name="browse_tos_tips">Đọc <i><u>Điều khoản Dịch vụ và Chính sách Bảo mật</u></i></string>
@@ -249,7 +246,6 @@
     <string name="empty">Trống</string>
     <string name="system_default">Hệ thống</string>
     <string name="custom_tabs">Ép CustomTabs</string>
-    <string name="open_link_ask_dialog_title">Mở bằng…</string>
     <string name="open_link_specific_browser">Trình duyệt</string>
     <string name="auto_default_browser">Tự động (nên dùng Trình duyệt mặc định)</string>
     <string name="always_ask">Luôn hỏi</string>
@@ -290,8 +286,6 @@
     <string name="no_sources_for_country">Không tìm thấy nguồn cho quốc gia này</string>
     <string name="oops_something_wrong">Rất tiếc! Đã xảy ra lỗi</string>
     <string name="try_again">Thử lại</string>
-    <string name="already_added">Đã thêm</string>
-    <string name="add_new_source">Thêm nguồn</string>
     <string name="change_language">Thay đổi ngôn ngữ</string>
     <string name="change_language_confirm">Ứng dụng sẽ khởi động lại để áp dụng ngôn ngữ mới. Bạn có muốn tiếp tục?</string>
     <string name="yes">Có</string>
@@ -306,12 +300,8 @@
     <!-- AI Summary (Gemini) -->
     <string name="summary_title">Tóm tắt bằng AI</string>
     <string name="summary_loading">Đang tóm tắt…</string>
-    <string name="summary_retry">Tóm tắt lại</string>
     <string name="summary_try_again">Thử lại</string>
-    <string name="summary_apikey_desc">Tính năng này dùng Google Gemini (có gói miễn phí). Hãy lấy API key miễn phí rồi dán vào đây — key chỉ lưu trên máy bạn.</string>
-    <string name="summary_apikey_hint">Khóa API Gemini</string>
     <string name="summary_get_key">Lấy key miễn phí</string>
-    <string name="summary_save_and_summarize">Lưu &amp; tóm tắt</string>
     <string name="summary_err_empty_content">Bài viết không có nội dung để tóm tắt</string>
     <string name="summary_err_invalid_key">API key không hợp lệ hoặc bị từ chối</string>
     <string name="summary_err_rate_limited">Đã vượt hạn mức Gemini, vui lòng thử lại sau</string>
@@ -382,7 +372,6 @@
     <string name="beta_testing_community">Tham gia cộng đồng Beta Tester!</string>
     <string name="beta_testing_desc">Trải nghiệm các sản phẩm mới và đóng góp ý kiến hoàn thiện ứng dụng</string>
     <string name="next_article">Bài tiếp theo</string>
-    <string name="add_tag">Thêm thẻ</string>
 
     <!-- Languages names in Vietnamese -->
     <string name="arabic">Tiếng Ả Rập</string>
@@ -441,12 +430,6 @@
 
     <!-- General UI -->
     <string name="in_coding">Đang phát triển</string>
-    <string name="line_spacing">Khoảng cách dòng</string>
-    <string name="mark_as_read_one_day">Đánh dấu đã đọc bài cũ hơn 1 ngày</string>
-    <string name="mark_as_read_three_days">Đánh dấu đã đọc bài cũ hơn 3 ngày</string>
-    <string name="mark_as_read_seven_days">Đánh dấu đã đọc bài cũ hơn 7 ngày</string>
-    <string name="open_with">Mở bằng %1$s</string>
-    <string name="options">Tùy chọn</string>
     <string name="read_you">RSS Hub</string>
     <string name="tips_top_bar_tonal_elevation">Độ nổi màu sắc chỉ khả dụng khi cuộn</string>
     <string name="brain_rpg_title">Nhập Vai Trí Tuệ (Brain RPG)</string>
@@ -454,7 +437,6 @@
     <string name="brain_rpg_settings_desc">Theo dõi XP, chuỗi ngày đọc, cấp độ và phân bổ tri thức</string>
     <string name="brain_rpg_level">Cấp %1$d</string>
     <string name="brain_rpg_streak">Chuỗi %1$d ngày</string>
-    <string name="brain_rpg_xp">%1$d XP</string>
     <string name="brain_rpg_quiz_title">Thử Thách 10s Của AI</string>
     <string name="brain_rpg_quiz_reward">+150 XP</string>
     <string name="brain_rpg_reading_reward">+50 XP Hoàn thành đọc bài!</string>
@@ -476,7 +458,6 @@
     <string name="brain_rpg_streak_shield_active">Khiên đang kích hoạt (Được bảo vệ)</string>
     <string name="brain_rpg_streak_shield_activate">Kích hoạt Khiên (Xem quảng cáo)</string>
     <string name="brain_rpg_wrapped_title">Bản Tin Trí Tuệ Tuần Này (Brain Wrapped)</string>
-    <string name="brain_rpg_wrapped_share">Chia Sẻ Thành Tích</string>
     <string name="brain_rpg_correct">🎉 Chính xác!</string>
     <string name="brain_rpg_wrong">❌ Chưa chính xác</string>
     <string name="brain_rpg_category_tech">Công Nghệ &amp; AI</string>
@@ -507,10 +488,8 @@
     <!-- Epic 08: Zen Focus & Speed Reading -->
     <string name="zen_speed_reading">Đọc siêu tốc (RSVP)</string>
     <string name="zen_speed_reading_desc">Đọc chớp mắt lên tới 900 từ/phút với tiêu điểm cố định</string>
-    <string name="zen_wpm">%1$d WPM</string>
     <string name="zen_wpm_label">Tốc độ: %1$d WPM</string>
     <string name="zen_words_progress">%1$d / %2$d từ</string>
-    <string name="zen_time_remaining">Còn %1$s</string>
     <string name="zen_ambient_audio">Âm thanh tập trung Zen</string>
     <string name="zen_ambient_audio_desc">Âm thanh nền giúp tập trung đọc sâu</string>
     <string name="zen_sound_rain">Mưa rào tĩnh lặng</string>
@@ -528,7 +507,6 @@
     <string name="zen_audio_focus_denied">Ứng dụng khác đang chiếm quyền phát âm thanh</string>
     <string name="zen_audio_start_failed">Không thể bật âm thanh nền</string>
     <string name="zen_audio_interrupted">Âm thanh nền đã bị ngắt</string>
-    <string name="zen_daily_edition_title">Bản tin tiêu điểm trong ngày</string>
     <string name="zen_daily_edition_notification">%1$d bài viết mới đang chờ bạn đọc tập trung.</string>
     <string name="zen_sleep_timer">Hẹn giờ tắt</string>
     <string name="zen_sleep_timer_off">Không giới hạn</string>
@@ -544,7 +522,6 @@
     <string name="highlights_copied_toast">Đã sao chép tóm tắt vào bộ nhớ tạm</string>
     <string name="highlights_share">Chia sẻ</string>
     <string name="highlights_tldr">Tóm tắt nhanh (TL;DR)</string>
-    <string name="highlights_offline_fallback">Tóm tắt thông minh ngoại tuyến</string>
     <string name="highlights_ai_badge">Gemini AI</string>
     <string name="highlights_fallback_badge">Ngoại tuyến</string>
     <string name="highlights_retry_ai">Phân tích bằng Gemini AI</string>
@@ -567,7 +544,6 @@
     <string name="deep_read_input_placeholder">Hỏi bất kỳ điều gì về bài viết…</string>
     <string name="deep_read_send">Gửi</string>
     <string name="deep_read_clear_chat">Xoá đoạn chat</string>
-    <string name="deep_read_cleared_toast">Đã xoá lịch sử trò chuyện</string>
     <string name="deep_read_copied_toast">Đã sao chép câu trả lời vào bộ nhớ tạm</string>
     <string name="deep_read_welcome_message">Xin chào! Tôi đã đọc toàn bộ bài viết này. Hãy đặt câu hỏi hoặc chạm vào các gợi ý bên dưới để tìm hiểu sâu hơn.</string>
     <string name="deep_read_context_label">Đang hỏi đáp về:</string>
@@ -618,10 +594,8 @@
     <string name="smart_collection_delete">Xóa</string>
     <string name="smart_collection_delete_confirm">Xóa bộ sưu tập này? Bài viết vẫn được giữ trong thư viện.</string>
     <string name="smart_collection_saved">Đã lưu bộ sưu tập thông minh</string>
-    <string name="smart_collection_rename_title">Sửa bộ sưu tập thông minh</string>
     <string name="smart_collection_empty_articles">Chưa có bài mới phù hợp. Kết quả sẽ xuất hiện sau khi đồng bộ.</string>
     <string name="save">Lưu</string>
-    <string name="semantic_search_results_desc">%d bài viết phù hợp</string>
     <string name="keyword_search_results_title">Kết quả theo từ khóa</string>
     <string name="watchdog_title">Chó Săn Cảnh Báo</string>
     <string name="watchdog_desc">Giám sát từ khóa nhạy cảm &amp; mã cổ phiếu trong chu kỳ đồng bộ nền và cảnh báo khẩn cấp</string>
@@ -663,7 +637,6 @@
     <string name="notebook_empty_title">Chưa có trích dẫn nào</string>
     <string name="notebook_empty_subtitle">Bôi đen đoạn văn tâm đắc khi đọc bài để gom vào Sổ tay tri thức Second Brain của bạn.</string>
     <string name="notebook_empty_search">Không tìm thấy kết quả phù hợp</string>
-    <string name="notebook_saved_toast">Đã lưu vào Sổ tay tri thức! 📚</string>
 
     <string name="notebook_save">Lưu</string>
     <string name="notebook_copy">Sao chép</string>
@@ -678,11 +651,7 @@
     <string name="ai_settings_desc">Cấu hình API Key, nhà cung cấp và định dạng tóm tắt</string>
     <string name="ai_byok_title">API Key cá nhân (BYOK)</string>
     <string name="ai_byok_desc">Sử dụng API Key của riêng bạn để tóm tắt không giới hạn và không phụ thuộc quota mặc định.</string>
-    <string name="ai_provider_title">Nhà cung cấp AI</string>
     <string name="ai_gemini_key_hint">Google Gemini API Key (AIzaSy...)</string>
-    <string name="ai_openai_key_hint">OpenAI API Key (sk-...)</string>
-    <string name="ai_deepseek_key_hint">DeepSeek API Key (sk-...)</string>
-    <string name="ai_groq_key_hint">Groq API Key (gsk_...)</string>
     <string name="ai_key_saved_toast">Đã lưu API Key thành công</string>
     <string name="ai_key_cleared_toast">Đã xóa API Key, khôi phục quota mặc định</string>
     <string name="ai_summary_length_title">Độ dài &amp; Định dạng tóm tắt</string>
@@ -872,7 +841,6 @@
     <string name="triage_summary_skipped">Đã đánh dấu đọc: %1$d</string>
     <string name="triage_summary_xp">+%1$d XP Brain RPG</string>
     <string name="triage_finish_button">Hoàn tất</string>
-    <string name="triage_empty_state">Không có bài chưa đọc nào cần xử lý!</string>
     <!-- Brain Wrapped tuần (RPG-09) -->
     <string name="brain_wrapped_share_story">Chia sẻ lên Story</string>
     <string name="brain_wrapped_xp_label">XP tuần này</string>
@@ -923,10 +891,6 @@
     <string name="headline_signals_tone_desc_positive">Sắc thái từ ngữ tiêu đề: có dấu hiệu tích cực.</string>
     <string name="headline_signals_tone_desc_unclear">Sắc thái từ ngữ tiêu đề: chưa rõ hoặc không đủ dấu hiệu.</string>
     <string name="headline_signals_tone_desc_negative">Sắc thái từ ngữ tiêu đề: có dấu hiệu tiêu cực.</string>
-    <string name="headline_signals_disclaimer">Suy luận từ vựng cục bộ chỉ dựa trên tiêu đề; không phải bằng chứng về tính xác thực, thiên lệch chính trị hay nội dung bài viết.</string>
-    <string name="brain_rpg_skill_tree_details">Chi tiết kỹ năng</string>
-    <string name="brain_rpg_skill_tree_node_desc">%1$s, %2$d XP</string>
-    <string name="brain_rpg_skill_tree_node_decayed_desc">%1$s, giữ lại %2$d trên %3$d XP (%4$d%%)</string>
     <string name="brain_rpg_skill_tree_decay_warning">Kỹ năng đã suy giảm theo thời gian. Hãy ôn tập để khôi phục.</string>
     <string name="bounty_action_investigate">Điều tra</string>
     <string name="bounty_sheet_title">Agent điều tra thực thể</string>
@@ -937,7 +901,6 @@
     <string name="bounty_ai_context_title">Bối cảnh thực thể (Gemini)</string>
     <string name="bounty_ai_context_no_key">Hãy nhập Gemini API key riêng trong cài đặt AI để dùng tính năng này.</string>
     <string name="bounty_time_range">Mốc thời gian: %1$s – %2$s</string>
-    <string name="bounty_invalid_query">Đoạn chọn quá ngắn để điều tra.</string>
     <string name="bounty_radar_description">Radar đang quét kho tin của bạn</string>
     <string name="bounty_error">Không tìm được trong kho tin. Hãy thử lại.</string>
     <string name="bounty_ai_context_loading">Đang tóm tắt bối cảnh…</string>
@@ -1006,12 +969,9 @@
 
     <!-- ECHO-02 contrasting coverage -->
     <string name="echo_contrast_title">Góc nhìn khác trong kho của bạn</string>
-    <string name="echo_contrast_phrases_label">Chủ đề:</string>
-    <string name="echo_contrast_cue_prefix">Từ đối lập: %1$s</string>
     <string name="echo_contrast_limitation">Các bài đã lưu từ nguồn khác có từ ngữ trái chiều ở tiêu đề. Không phải kiểm chứng sự thật.</string>
     <string name="echo_contrast_card_desc">Thẻ góc nhìn khác với %1$d bài viết</string>
     <string name="echo_contrast_open_article_desc">Mở bài viết %1$s từ %2$s</string>
-    <string name="echo_contrast_empty_wording">Không tìm thấy bài viết đối lập nào</string>
     <string name="echo_contrast_switch_phrase_desc">Chuyển sang chủ đề %1$s</string>
 
     <!-- ECHO-03 two-headline card -->

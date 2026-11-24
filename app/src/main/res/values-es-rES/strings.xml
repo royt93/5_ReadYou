@@ -97,10 +97,8 @@
     <string name="interaction_desc">Página inicial, respuesta táctil</string>
     <string name="languages">Idiomas</string>
     <string name="languages_desc">Inglés, Chino, más</string>
-    <string name="help_translate">Ayuda para traducir</string>
     <string name="use_device_languages">Usar idioma del dispositivo</string>
     <string name="tips_and_support">Consejos y ayuda</string>
-    <string name="tips_and_support_desc">Acerca de, licencias de código abierto</string>
     <string name="welcome">Bienvenido</string>
     <string name="tos_tips">Para continuar, lee y acepta las Condiciones del servicio y la Política de privacidad de RSS Bear Hub.</string>
     <string name="browse_tos_tips">Navegue por los &lt;i&gt;&lt;u&gt;Términos de Servicio y la Política de Privacidad&lt;/u&gt;&lt;/i&gt;
@@ -324,8 +322,6 @@
     <string name="no_sources_for_country">No se encontraron fuentes para este país</string>
     <string name="oops_something_wrong">¡Ups! Algo salió mal</string>
     <string name="try_again">Intentar de nuevo</string>
-    <string name="already_added">Ya añadida</string>
-    <string name="add_new_source">Añadir fuente</string>
     <string name="change_language">Cambiar idioma</string>
     <string name="change_language_confirm">La aplicación se reiniciará para aplicar el nuevo idioma. ¿Deseas continuar?</string>
     <string name="yes">Sí</string>
@@ -389,23 +385,12 @@
     <string name="inoreader_desc" translatable="false">inoreader.com</string>
     <string name="fresh_rss_desc" translatable="false">freshrss.org</string>
     <string name="google_reader_desc" translatable="false">Google Reader API</string>
-    <string name="open_link_ask_dialog_title">Open with…</string>
-    <string name="mark_as_read_one_day">1 Mark posts older than days as read</string>
-    <string name="mark_as_read_three_days">３Mark posts older than days as read</string>
-    <string name="mark_as_read_seven_days">Mark as read older than 7 days</string>
     <string name="in_coding">In development</string>
-    <string name="line_spacing">Line spacing</string>
     <string name="tips_top_bar_tonal_elevation">Tonal height is only available when scrolling</string>
-    <string name="open_with">Open %1$s</string>
-    <string name="options">choice</string>
     <string name="summary_title">Summarize with AI</string>
     <string name="summary_loading">Summarizing…</string>
-    <string name="summary_retry">Summarize again</string>
     <string name="summary_try_again">Try again</string>
-    <string name="summary_apikey_desc">This feature uses Google Gemini (free tier available). Get a free API key and paste it here — the key is stored only on your device.</string>
-    <string name="summary_apikey_hint">Gemini API key</string>
     <string name="summary_get_key">Get a free key</string>
-    <string name="summary_save_and_summarize">Save &amp; summarize</string>
     <string name="summary_err_empty_content">The article has no content to summarize</string>
     <string name="summary_err_invalid_key">API key is invalid or rejected</string>
     <string name="summary_err_rate_limited">Gemini quota exceeded, please try again later</string>
@@ -474,13 +459,11 @@
     <string name="beta_testing_community">Join the BetaTesting Community Today!</string>
     <string name="beta_testing_desc">Test exciting new products and get paid to give feedback for new apps</string>
     <string name="next_article">Next Article</string>
-    <string name="add_tag">Add Tag</string>
     <string name="brain_rpg_title">Brain RPG</string>
     <string name="brain_rpg_subtitle">Knowledge Skill Tree &amp; Daily Streak</string>
     <string name="brain_rpg_settings_desc">Track your reading XP, streak, level, and knowledge tree</string>
     <string name="brain_rpg_level">Level %1$d</string>
     <string name="brain_rpg_streak">%1$d Day Streak</string>
-    <string name="brain_rpg_xp">%1$d XP</string>
     <string name="brain_rpg_quiz_title">10s AI Micro-Quiz</string>
     <string name="brain_rpg_quiz_reward">+150 XP</string>
     <string name="brain_rpg_reading_reward">+50 XP Reading Complete!</string>
@@ -502,7 +485,6 @@
     <string name="brain_rpg_streak_shield_active">Shield Active (Streak Protected)</string>
     <string name="brain_rpg_streak_shield_activate">Activate Shield (Watch ad)</string>
     <string name="brain_rpg_wrapped_title">Weekly Brain Wrapped</string>
-    <string name="brain_rpg_wrapped_share">Share Wrapped</string>
     <string name="brain_rpg_correct">🎉 Correct Answer!</string>
     <string name="brain_rpg_wrong">❌ Incorrect Answer</string>
     <string name="brain_rpg_category_tech">Tech &amp; AI</string>
@@ -533,10 +515,8 @@
     <!-- Epic 08: Zen Focus & Speed Reading -->
     <string name="zen_speed_reading">Speed Reading (RSVP)</string>
     <string name="zen_speed_reading_desc">Read up to 900 words per minute with fixed focal alignment</string>
-    <string name="zen_wpm">%1$d WPM</string>
     <string name="zen_wpm_label">Reading Speed: %1$d WPM</string>
     <string name="zen_words_progress">%1$d / %2$d words</string>
-    <string name="zen_time_remaining">%1$s remaining</string>
     <string name="zen_ambient_audio">Zen Focus Audio</string>
     <string name="zen_ambient_audio_desc">Soothing soundscapes for deep reading concentration</string>
     <string name="zen_sound_rain">Gentle Rain</string>
@@ -549,7 +529,6 @@
     <string name="zen_daily_edition_enabled">Batch Delivery Mode</string>
     <string name="zen_morning_edition">Morning Edition (07:00)</string>
     <string name="zen_evening_edition">Evening Edition (20:00)</string>
-    <string name="zen_daily_edition_title">Daily Focus Edition</string>
     <string name="zen_daily_edition_notification">%1$d unread articles ready for your focus reading.</string>
     <string name="zen_sleep_timer">Sleep Timer</string>
     <string name="zen_sleep_timer_off">Continuous</string>
@@ -565,7 +544,6 @@
     <string name="highlights_copied_toast">Puntos clave copiados al portapapeles</string>
     <string name="highlights_share">Compartir</string>
     <string name="highlights_tldr">Resumen rápido (TL;DR)</string>
-    <string name="highlights_offline_fallback">Puntos clave sin conexión</string>
     <string name="highlights_ai_badge">Gemini AI</string>
     <string name="highlights_fallback_badge">Sin conexión</string>
     <string name="highlights_retry_ai">Analizar con Gemini AI</string>
@@ -586,7 +564,6 @@
     <string name="deep_read_input_placeholder">Haz una pregunta sobre este artículo…</string>
     <string name="deep_read_send">Enviar</string>
     <string name="deep_read_clear_chat">Borrar chat</string>
-    <string name="deep_read_cleared_toast">Historial de chat borrado</string>
     <string name="deep_read_copied_toast">Respuesta copiada al portapapeles</string>
     <string name="deep_read_welcome_message">¡Hola! He analizado este artículo. Hazme cualquier pregunta o toca una sugerencia a continuación.</string>
     <string name="deep_read_context_label">En discusión:</string>
@@ -612,7 +589,6 @@
     <string name="semantic_search_desc">Buscar artículos por concepto y significado semántico en vez de palabras clave exactas</string>
     <string name="semantic_match_badge">%d%% coincidencia</string>
     <string name="semantic_search_results_title">✨ Coincidencias semánticas IA</string>
-    <string name="semantic_search_results_desc">%d artículos encontrados</string>
     <string name="keyword_search_results_title">Coincidencias por palabra clave</string>
     <string name="watchdog_title">Centinela de palabras clave</string>
     <string name="watchdog_desc">Monitorea palabras clave críticas y valores bursátiles en sincronización en segundo plano</string>
@@ -638,7 +614,6 @@
     <string name="notebook_empty_title">No Highlights Yet</string>
     <string name="notebook_empty_subtitle">Highlight inspiring quotes while reading to organize your Second Brain knowledge.</string>
     <string name="notebook_empty_search">No matching highlights found</string>
-    <string name="notebook_saved_toast">Saved to Knowledge Notebook! 📚</string>
 
     <string name="notebook_save">Save</string>
     <string name="notebook_copy">Copy</string>
@@ -651,13 +626,9 @@
     <string name="ai_active_key_default">Usando la cuota compartida predeterminada</string>
     <string name="ai_byok_desc">Usa tu clave API personal para solicitudes ilimitadas sin depender de la cuota compartida de la app.</string>
     <string name="ai_byok_title">Clave API personalizada (BYOK)</string>
-    <string name="ai_deepseek_key_hint">Clave API de DeepSeek (sk-...)</string>
     <string name="ai_gemini_key_hint">Clave API de Gemini (AIzaSy...)</string>
-    <string name="ai_groq_key_hint">Clave API de Groq (gsk_...)</string>
     <string name="ai_key_cleared_toast">Clave API eliminada, se restauró la predeterminada</string>
     <string name="ai_key_saved_toast">Clave API guardada correctamente</string>
-    <string name="ai_openai_key_hint">Clave API de OpenAI (sk-...)</string>
-    <string name="ai_provider_title">Proveedor de IA</string>
     <string name="ai_save">Guardar</string>
     <string name="ai_settings_desc">Clave API, proveedor personalizado y formato de resumen</string>
     <string name="ai_settings_title">IA &amp; Resúmenes</string>
@@ -797,7 +768,6 @@
     <string name="web_feed_fetch_failed">Could not safely fetch this page. Check the URL and try again.</string>
     <string name="web_feed_preview_notice">Preview found articles from this page. Confirm to add a local web feed.</string>
     <string name="web_feed_add">Add web feed</string>
-    <string name="web_feed_preview">Preview web feed</string>
 
     <!-- Share Target / Read Later (INGEST-02) -->
     <string name="read_later_feed_title">Read Later</string>
@@ -818,7 +788,6 @@
     <string name="smart_collection_delete">Delete</string>
     <string name="smart_collection_delete_confirm">Delete this collection? Its articles will remain in your library.</string>
     <string name="smart_collection_saved">Smart collection saved</string>
-    <string name="smart_collection_rename_title">Edit smart collection</string>
     <string name="smart_collection_empty_articles">No matching new articles yet. New matches will appear after sync.</string>
     <string name="save">Save</string>
     <string name="eink_mode_title">Optimización E-Ink</string>
@@ -908,7 +877,6 @@
     <string name="triage_summary_skipped">Marcados como leídos: %1$d</string>
     <string name="triage_summary_xp">+%1$d EXP Brain RPG</string>
     <string name="triage_finish_button">Listo</string>
-    <string name="triage_empty_state">¡No hay artículos sin leer para clasificar!</string>
     <!-- Brain Wrapped tuần (RPG-09) -->
     <string name="brain_wrapped_share_story">Compartir en historia</string>
     <string name="brain_wrapped_xp_label">XP semanal</string>
@@ -959,10 +927,6 @@
     <string name="headline_signals_tone_desc_positive">Tono léxico del titular: se observan indicadores positivos.</string>
     <string name="headline_signals_tone_desc_unclear">Tono léxico del titular: indicadores poco claros o insuficientes.</string>
     <string name="headline_signals_tone_desc_negative">Tono léxico del titular: se observan indicadores negativos.</string>
-    <string name="headline_signals_disclaimer">Heurística léxica local basada únicamente en el titular; no es prueba de veracidad, sesgo político ni del contenido del artículo.</string>
-    <string name="brain_rpg_skill_tree_details">Skill details</string>
-    <string name="brain_rpg_skill_tree_node_desc">%1$s, %2$d XP</string>
-    <string name="brain_rpg_skill_tree_node_decayed_desc">%1$s, %2$d of %3$d XP retained (%4$d%%)</string>
     <string name="brain_rpg_skill_tree_decay_warning">This skill has faded over time. Practice to restore it.</string>
     <string name="bounty_action_investigate">Investigate</string>
     <string name="bounty_sheet_title">Entity Investigation Agent</string>
@@ -973,7 +937,6 @@
     <string name="bounty_ai_context_title">Entity context (Gemini)</string>
     <string name="bounty_ai_context_no_key">Add your own Gemini API key in AI settings to use this.</string>
     <string name="bounty_time_range">Timeline: %1$s – %2$s</string>
-    <string name="bounty_invalid_query">Selected text is too short to investigate.</string>
     <string name="bounty_radar_description">Radar scanning your archive</string>
     <string name="bounty_error">Could not search your archive. Try again.</string>
     <string name="bounty_ai_context_loading">Summarizing context…</string>
@@ -1042,12 +1005,9 @@
 
     <!-- ECHO-02 contrasting coverage -->
     <string name="echo_contrast_title">Other angles in your archive</string>
-    <string name="echo_contrast_phrases_label">Topic:</string>
-    <string name="echo_contrast_cue_prefix">Contrast: %1$s</string>
     <string name="echo_contrast_limitation">Articles from other saved feeds with contrarian headline wording. Not a fact-check.</string>
     <string name="echo_contrast_card_desc">Contrasting coverage card with %1$d articles</string>
     <string name="echo_contrast_open_article_desc">Open article %1$s from %2$s</string>
-    <string name="echo_contrast_empty_wording">No contrasting articles found</string>
     <string name="echo_contrast_switch_phrase_desc">Switch to topic %1$s</string>
 
     <!-- ECHO-03 two-headline card -->
