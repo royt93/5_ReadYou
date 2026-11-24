@@ -1,6 +1,6 @@
 # [REL-05] Việc của owner trước khi phát hành bản mới (Android + AdMob)
 
-Cập nhật 2026-11-23. Phần này tôi không làm được thay: Play Console, AdMob Console. Không có giá trị bí mật trong file này (ID, hash, khoá nằm ở `myKeyStore`, repo private).
+Cập nhật 2026-11-24. Phần này tôi không làm được thay: Play Console, AdMob Console. Không có giá trị bí mật trong file này (ID, hash, khoá nằm ở `myKeyStore`, repo private).
 
 Quyết định của owner đã chốt:
 - Giữ AppLovin trong APK (không exclude `applovin-sdk`), khai Data safety cho cả hai SDK.
@@ -28,6 +28,23 @@ Nguồn dữ liệu: `doc/task/REL-03_data-safety-audit.md`, mục 5 và mục 7
 
 - Key SDK và 4 unit AppLovin trong `app.properties` là giá trị cũ, **chưa xác minh**. Vào AppLovin Dashboard kiểm khoá còn hợp lệ và 4 unit đúng app. Khi `IS_ENABLE_ADMOB=true` (hiện tại) AppLovin không chạy, nên sai ở đây không gây lỗi ngay, nhưng nếu ai bật `false` mà key sai thì mất ad.
 - Nếu muốn bỏ ~3 MB: exclude `applovin-sdk` build được nhưng `AdManager` vẫn có mã gọi lớp AppLovin ở nhánh AppLovin; chưa chạy R8 release và máy thật cho phương án này. Owner đã chọn giữ.
+
+## 0. Việc phải làm TRƯỚC khi upload AAB (từ audit độc lập 2026-11-24, kết luận GO có điều kiện, 7.5/10)
+
+1. **Play Console > App content > Foreground service permissions:** khai loại **Media playback** (đọc to bài, podcast, CommuteCast). Bản này thêm `FOREGROUND_SERVICE`, `FOREGROUND_SERVICE_MEDIA_PLAYBACK`, `WAKE_LOCK`, `BLUETOOTH_CONNECT`, `ACCESS_LOCAL_NETWORK` và 3 service `foregroundServiceType=mediaPlayback`. Thiếu khai báo có thể chặn review. Owner đã nhận khai trước khi upload.
+2. **Data safety:** thêm Advertising ID, văn bản bài báo gửi tới Gemini (chỉ khi người dùng tự nhập key), máy chủ WebDAV do người dùng cấu hình (có mật khẩu), thiết bị Bluetooth, mạng LAN.
+3. **Nâng cấp DB v6 lên v22:** đã có `RoomUpgradeFromV6ToV22Test` (Room mở DB v6 bằng migration production và xác thực schema 22). Chưa nâng cấp được từ một APK bản store thật; nếu có máy dùng bản store, cài đè bản mới và đếm lại feed và bài.
+4. **Build đúng task:** `bundleProdRelease` (flavor `prod`). Flavor `dev` cùng `applicationId`. Nếu thiếu `KEYSTORE_FILE` thì Gradle bỏ qua cấu hình ký và ra AAB không ký, nên kiểm chữ ký sau khi build (`keytool -printcert -jarfile app-prod-release.aab`, prefix `67:B2:E6:CD`).
+5. **Cờ `-PallowTestAdIds=true` KHÔNG được dùng** khi build để upload.
+
+## Điều đã biết, chưa sửa ở bản này (ghi để sửa bản sau)
+
+- `androidx.activity.ComponentActivity` khai `exported="true"` không có bộ lọc intent trong manifest chính (thêm 2026-09-06 cho bộ test Android 17); nên chuyển sang manifest debug.
+- File mapping R8 trong AAB là 264 MiB (`-dontobfuscate` cộng keep rộng cho compose, okhttp3, retrofit2). Google không nêu giới hạn riêng cho mapping Java (800 MB là của debug symbols native); nếu Play từ chối, thu gọn keep rule.
+- Mã đổi VIP và `VIP_INTEGRITY_SECRET` nằm sẵn trong dex (VIP đã được owner hoãn).
+- `allowBackup="true"`: Room và DataStore `settings` (có `customGeminiApiKey`) vào cloud backup.
+- App Open có thể hiện ngay khi người dùng quay lại từ chooser chia sẻ hoặc Custom Tabs (chỉ chặn quanh hộp thoại quyền và file picker).
+- Test `CommuteCastViewModelTest` đã fail 1 lần trong full JVM, 5 lần chạy sau đều xanh (lỗi lẻ, chưa tìm nguyên nhân).
 
 ## 4. Kiểm lần cuối trước khi đưa lên store
 

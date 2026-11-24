@@ -244,3 +244,18 @@ Audit độc lập chỉ ra: từng bước migration đã có test nhưng khôn
 **Giới hạn thật:** chạy trên SQLite của Robolectric, không phải trên máy thật nâng cấp từ một APK store. Tôi không có APK bản store nên chưa nâng cấp được bản cài thật. `MigrationTestHelper` của Room không dùng được ở dự án này (cần kotlinx-serialization 1.8, app ghim 1.7.3).
 
 **Lỗi chập chờn đã thấy:** một lần chạy full JVM có 2 test của `CommuteCastViewModelTest` fail; chạy riêng lớp đó 3 lần và chạy full thêm 2 lần đều xanh. Khớp ghi chú cũ của dự án (lỗi lẻ chỉ ở test, không phải lỗi app). Chưa tìm nguyên nhân gốc.
+
+## Chấm điểm /10 cuối ngày 2026-11-24 (HEAD `25d33424`, chỉ Android + AdMob)
+
+| Hạng mục | Điểm | Thay đổi so với bảng sáng nay |
+|---|---|---|
+| Rewarded, App Open, Banner, Interstitial, VIP | 9, 9.5, 9, 8.5, 9 | không đổi; VIP và Brain RPG đã chứng minh trên hai máy (Tecno, Pixel) |
+| Consent / UMP | 8.5 (từ 7) | message Châu Âu thật của owner đã thấy trên Pixel (form, "Manage options", `canRequestAds` chỉ sau khi trả lời, mục Ad choices mở lại đúng form); US_STATE: UMP không hiện form (owner chấp nhận); chưa kiểm Anh |
+| Trial 1 ngày | 3 | không đổi, chỉ chứng minh được khi cài từ Play |
+| Policy AdMob | 8 | không đổi; audit độc lập lần hai không thấy vi phạm |
+| Chặn invalid traffic | 8.5 | không đổi |
+| Dữ liệu người dùng cũ | 7.5 (mới) | test migration 1 đến 6 trên DB dựng từ schema git, và test Room mở DB v6 bằng migration production; chưa nâng cấp từ APK store thật; bước 1→2 chỉ kiểm bằng bảng dựng tay |
+| Artifact phát hành | 8.5 (mới) | AAB ký khoá thật, ID thật, 0 ID mẫu, 16 KB đúng, mã mới có mặt; thiếu khai báo Foreground service trên Play (việc owner) |
+| Chất lượng test | 8 | 4132 test, đột biến cho từng thay đổi |
+
+**Tổng thể: 8/10, GO có điều kiện.** Audit độc lập trước phát hành: 7.5/10, không có blocker kỹ thuật. Điều kiện: khai Foreground service trên Play Console, đưa lên Internal testing trước, lần cài đầu kiểm "This request is sent from a test device". Chưa chứng minh: trial, ad với đơn vị thật, nâng cấp từ APK store thật, Anh.
