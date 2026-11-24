@@ -259,3 +259,15 @@ Audit độc lập chỉ ra: từng bước migration đã có test nhưng khôn
 | Chất lượng test | 8 | 4132 test, đột biến cho từng thay đổi |
 
 **Tổng thể: 8/10, GO có điều kiện.** Audit độc lập trước phát hành: 7.5/10, không có blocker kỹ thuật. Điều kiện: khai Foreground service trên Play Console, đưa lên Internal testing trước, lần cài đầu kiểm "This request is sent from a test device". Chưa chứng minh: trial, ad với đơn vị thật, nâng cấp từ APK store thật, Anh.
+
+## Chấm điểm /10 sau đợt nâng cấp (2026-11-24 chiều, HEAD `2d915178`, chỉ Android + AdMob)
+
+| Hạng mục | Điểm | Thay đổi |
+|---|---|---|
+| Rewarded, App Open, Banner, Interstitial | 9.5, 9.5, 9.5, 9 | cả 4 loại chạy trên Pixel với build ký khoá thật và đơn vị thật (máy đã đăng ký hash, nhãn "Quảng cáo thử nghiệm"), 0 tín hiệu `Use RequestConfiguration`; App Open cần ad nạp xong (lần đầu 6 s chưa hiện, lần sau 30 s hiện) |
+| App Open sau chooser chia sẻ / Custom Tabs | 9 (mới) | `AppOpenGuard.leaveForOtherApp`, 6 đột biến đều bị bắt; chưa thử trên máy |
+| Bề mặt manifest | 9 (mới) | `ComponentActivity` bỏ khỏi manifest chính, `AboutActivity` exported=false, test khoá tập exported |
+| Artifact phát hành | 9 (từ 8.5) | mapping R8 264 → 127 MiB, APK 88 → 83 MB, 0 cảnh báo R8; AAB ký `67:B2:E6:CD`, 4 đơn vị thật, 0 mẫu |
+| Các hạng mục còn lại | không đổi | Consent 8.5, Trial 3, Policy 8, Invalid traffic 8.5, Dữ liệu cũ 7.5, Test 8 (4140 test) |
+
+**Tổng thể: 8.5/10, GO có điều kiện.** Giới hạn trung thực: ad thật chỉ chạy ở chế độ test-device nên chưa đo fill-rate, eCPM, và chưa thử bấm vào creative. Bản R8 mới (bỏ keep Compose) đã chạy trên Pixel qua cả 4 loại ad và các màn chính, nhưng chưa qua mọi màn. Chưa chứng minh: trial (cần Play), nâng cấp từ APK store, UMP Anh. Điều kiện giữ nguyên: khai Foreground service, Internal testing trước.
