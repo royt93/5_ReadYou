@@ -272,9 +272,9 @@ fun Content(
                                 }
                             },
                             onDoubleXpRequested = { act, quiz, onDone ->
-                                brainRpgViewModel.doubleQuizReward(act, quiz.articleId, quiz.category, 150L, onDone)
+                                brainRpgViewModel.doubleQuizReward(act, quiz.articleId, quiz.category, 150L, onDone = onDone)
                             },
-                            onRetryQuizRequested = { act, onDone -> brainRpgViewModel.retryQuiz(act, onDone) },
+                            onRetryQuizRequested = { act, onDone -> brainRpgViewModel.retryQuiz(act, onDone = onDone) },
                         )
                     }
                 }

@@ -185,3 +185,7 @@ Lần khởi động đầu của APK gốc vừa cài lại in `Use RequestConf
 - Khoá ký: owner tự xử lý riêng, không theo dõi ở đây.
 - Owner sẽ: publish UMP message thật (European regulations và US states) trên AdMob Console; điền Data safety theo `doc/task/REL-03_data-safety-audit.md` mục 5 và 7; kiểm key SDK và 4 ad unit AppLovin trên AppLovin Dashboard.
 - AppLovin vẫn nằm trong APK theo lựa chọn của owner; không đổi mã.
+
+### Test hành vi cho đường rewarded của Brain RPG (2026-11-24)
+
+Bốn nút rewarded của Brain RPG (Double XP, thử lại quiz, khiên chuỗi, phục hồi danh mục) giờ nhận `RewardedGate` qua tham số mặc định, nên test chạy cổng thật cùng Room thật với SDK thay bằng một hàm (8 ca): VIP nhận thưởng ghi vào cơ sở dữ liệu và không có ad; ad bị từ chối (cap dùng chung với interstitial, no-fill, đóng sớm) thì không thưởng gì và callback nhận `false`; bonus Double XP chỉ một lần cho mỗi bài. 4 đột biến bị bắt. Đây là test hành vi cho đường mà hạn mức chung làm SDK từ chối rewarded; nó không đọc được *lý do* từ chối, vì callback của SDK chỉ trả `true` hoặc `false`.

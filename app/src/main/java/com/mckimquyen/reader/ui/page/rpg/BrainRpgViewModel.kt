@@ -206,13 +206,20 @@ class BrainRpgViewModel @Inject constructor(
         }
     }
 
-    fun doubleQuizReward(activity: Activity, articleId: String, category: String, bonusXp: Long, onDone: (Boolean) -> Unit) {
+    fun doubleQuizReward(
+        activity: Activity,
+        articleId: String,
+        category: String,
+        bonusXp: Long,
+        gate: RewardedGate = RewardedGate.shared,
+        onDone: (Boolean) -> Unit,
+    ) {
         // Do not even offer the rewarded ad when the bonus was already taken.
         if (articleId in doubleRewardedArticleIds.value) {
             onDone(false)
             return
         }
-        RewardedGate.shared.request(activity) { earned ->
+        gate.request(activity) { earned ->
             if (earned) claimDoubleReward(articleId, category, bonusXp, onDone) else onDone(false)
         }
     }
@@ -245,17 +252,17 @@ class BrainRpgViewModel @Inject constructor(
         }
     }
 
-    fun recoverCategory(activity: Activity, categoryId: String, onDone: (Boolean) -> Unit) =
-        recoverCategory(categoryId, showAd = { cb -> RewardedGate.shared.request(activity) { earned -> cb(earned) } }, onDone = onDone)
+    fun recoverCategory(activity: Activity, categoryId: String, gate: RewardedGate = RewardedGate.shared, onDone: (Boolean) -> Unit) =
+        recoverCategory(categoryId, showAd = { cb -> gate.request(activity) { earned -> cb(earned) } }, onDone = onDone)
 
-    fun retryQuiz(activity: Activity, onDone: (Boolean) -> Unit) {
-        RewardedGate.shared.request(activity) { earned ->
+    fun retryQuiz(activity: Activity, gate: RewardedGate = RewardedGate.shared, onDone: (Boolean) -> Unit) {
+        gate.request(activity) { earned ->
             onDone(earned)
         }
     }
 
-    fun activateStreakShield(activity: Activity, onDone: (Boolean) -> Unit) {
-        RewardedGate.shared.request(activity) { earned ->
+    fun activateStreakShield(activity: Activity, gate: RewardedGate = RewardedGate.shared, onDone: (Boolean) -> Unit) {
+        gate.request(activity) { earned ->
             if (earned) {
                 viewModelScope.launch {
                     repository.activateStreakShield()
