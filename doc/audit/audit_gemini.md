@@ -193,3 +193,22 @@ Bốn nút rewarded của Brain RPG (Double XP, thử lại quiz, khiên chuỗi
 ### Mục "Ad choices" ngoài vùng cần form (2026-11-24, Pixel, Việt Nam)
 
 Trên máy thật, bấm "Tùy chọn quảng cáo" ở Việt Nam không mở form nào (log SDK: `privacy options form not required`) và người dùng không thấy gì. Lần sửa đầu dựa vào trạng thái của UMP không chạy: ở Việt Nam UMP trả `UNKNOWN`, và coi `UNKNOWN` là "không cần" sẽ giấu form khỏi người dùng EEA chưa trả lời. Bản cuối hỏi SDK rồi nhìn xem SDK có mở form không (đọc bytecode: `ConsentBridge` gọi `onDone` trước khi trả về khi không có form, và gọi sau khi đóng khi có form), rồi hiện Toast "Khu vực của bạn không có tùy chọn quảng cáo nào để thay đổi". **Đã thấy Toast hiện trên Pixel.** Chưa thấy trên máy: nhánh có form thật (EEA, bang Mỹ), chỉ có test đơn vị (4 ca hành vi, 6 mutant bị bắt). Chuỗi mới ở 38 ngôn ngữ là dịch máy, chưa người duyệt.
+
+## Chấm điểm /10 cập nhật (2026-11-24, HEAD `d2c05172`, chỉ Android + AdMob)
+
+Điểm = mức tin cậy từ bằng chứng, không phải chất lượng mã. Bằng chứng gồm: gate đầy đủ xanh (JVM 4119 test 0 lỗi, lint không lỗi mới, R8 dựng được, 0 ID thật trong dex), chạy máy trên Tecno KJ7 và Pixel 7 Pro, kiểm độc lập bằng một agent không dùng kết luận của tôi. Không máy nào chạy ad bằng đơn vị thật. Khoá ký và AppLovin không nằm trong bảng này theo quyết định của owner.
+
+| Hạng mục | Điểm | Vì sao | Còn thiếu |
+|---|---|---|---|
+| Rewarded | 9 | 4 nút Brain RPG + VIP + AMOLED + CommuteCast qua `RewardedGate`; VIP nhận thưởng không cần ad (đã thấy trên Tecno bằng token VIP thật); ad bị từ chối thì không thưởng (8 ca hành vi với Room thật, 4 mutant); preload sớm ở màn có nút | Callback SDK không cho biết lý do từ chối; VIP bằng token chưa chạy trên Pixel |
+| App Open | 9.5 | Trên A50s, Pixel, Tecno (cả release R8); `AppOpenGuard` chạy đủ hai chiều trên máy (chặn khi hộp thoại quyền đang chờ, hiện lại sau khi trả lời) | API 26-28 |
+| Banner | 9 | Trang đọc bài, A50s/Pixel/Tecno, release R8 | Chỉ một vị trí; chưa đo ad thật |
+| Interstitial | 8.5 | Một điểm ngắt ("Next Article"), 1 mỗi 3 lần bấm (sàn 3 theo luật AdMob), không ở Back hay rời màn; thấy trên Tecno debug và release R8 | Chưa đo show-rate hay eCPM thật; số 3 là ước đoán |
+| VIP | 9 | Token ECDSA gắn máy nhập bằng tay trên Tecno, SDK trả "VIP active for 1 days", nút RPG của VIP nhận thưởng; 2 mã đổi của owner; dọn danh sách auto-VIP cũ | Nhập mã cần mạng; VIP client-side (chấp nhận) |
+| Consent / UMP | 7 | EEA, US_STATE, offline, hồi phục đã chạy bằng message thử; mục "Ad choices": ở Việt Nam đã thấy Toast "không có tùy chọn" (sửa sau khi phát hiện bấm mà không thấy gì) | UMP message thật chưa publish (owner làm); chưa thấy form thật ở EEA/bang Mỹ; trạng thái UMP ở VN là `UNKNOWN` |
+| Trial 1 ngày | 3 | Đọc mã: app không tự cấp, SDK cấp chỉ ở release | Cần cài từ Play (Install Referrer); chưa chạy được |
+| Policy AdMob | 8 | 3 vi phạm đã gỡ; mọi chỗ gọi ad đã phân loại; không interstitial ở Back/rời màn; rewarded do người dùng chủ động; kiểm độc lập không thấy vi phạm | Data safety chưa điền (owner làm) |
+| Chặn invalid traffic | 8.5 | 27 hash (debug và release, only-add); build release dừng nếu ID là ID mẫu của Google (cờ `-PallowTestAdIds`); bản ký thật + ID thật chạy dưới trạm dừng tự động trên Tecno: 3 lần "test device", 0 tín hiệu ad thật | Máy khác của owner cần hash riêng cho chứng chỉ release; chưa chạy ad bằng đơn vị thật (cố ý) |
+| Chất lượng test | 8 | 4119 test; đột biến cho từng thay đổi ad (guard, pacer, gate, Ad choices, Gradle), restore byte-identical | Nhiều test ad vẫn chỉ đọc text nguồn; test hạn mức chung chưa có (callback SDK không cho lý do) |
+
+**Tổng thể: 8/10 về mặt mã và bằng chứng kỹ thuật** (trước đó 7/10). Hai ô còn thấp là Trial (3) và Consent thật (7), cả hai phụ thuộc việc ngoài tầm của tôi (cài từ Play, publish UMP). Chưa tối ưu doanh thu theo số liệu: chưa đo fill-rate hay eCPM thật vì cố ý không chạy ad thật, nên số "1 interstitial mỗi 3 lần bấm" chỉ là ước đoán an toàn.
