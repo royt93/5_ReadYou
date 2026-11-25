@@ -29,4 +29,14 @@ class NavigationFixesSourceTest {
         assertTrue("the extra must be read before replaceExtras(null)", read < wipe)
         assertTrue("the effect must use the saved flag, not the wiped intent", "if (startCommute)" in home)
     }
+
+    @Test
+    fun theStartDestinationIsChosenOnceNotOnEveryRecomposition() {
+        // Seen on a Pixel: the first article opened after a fresh install jumped back to Feeds, because the start destination flipped STARTUP -> FEEDS when the flag turned
+        // false and NavHost reset its back stack.
+        val nav = home.substringAfter("NavHost(").substringBefore("animatedComposable(route = RouteName.STARTUP")
+        assertTrue("startDestination must come from a remembered value", "startDestination = startDestination" in nav)
+        assertTrue("the value must be remembered", "val startDestination = remember {" in home)
+        assertTrue("isFirstLaunch must not be read inside the NavHost call", "context.isFirstLaunch" !in nav)
+    }
 }

@@ -131,3 +131,9 @@ Chưa kiểm được trên máy này:
 - **TTS:** trạng thái giữ `PLAYING` giữa các đoạn của bài dài (trước đây thành `IDLE` ở mỗi đoạn); khi "Next" hết bài thì service dừng và thông báo ongoing biến mất; CommuteCast trả audio focus khi TTS lỗi.
 - **Audit nút back bằng đọc mã (chưa tái hiện được lỗi của owner):** 61 nút `FeedbackIconButton`, chỉ một nút back không có hành động là bản xem trước trong `FeedsPagePreview` (chủ ý). `FeedsPage` có `BackHandler(true)` luôn bật và gọi `moveTaskToBack`, nên Back ở màn chính đưa app xuống nền thay vì thoát (hợp lệ). Chuỗi `BackHandler` của màn đọc bao đủ chín cờ sheet. Không tìm thấy bẫy Back trong mã.
 
+### Lỗi điều hướng tái hiện được trên Pixel (2026-11-25), có thể là "nút back/điều hướng không work"
+- **Triệu chứng:** sau khi cài mới và bấm Đồng ý, bài đầu tiên mở ra rồi **0,4 giây sau tự nhảy về màn Feeds** (log `reading/{articleId}` rồi `feeds` không có thao tác nào). Lỗi chỉ ở phiên đầu sau khi cài mới, và dường như hết ở lần mở bài sau, nên rất dễ bị bỏ sót.
+- **Nguyên nhân:** `NavHost(startDestination = if (context.isFirstLaunch) STARTUP else FEEDS)` được tính lại ở mỗi lần recompose. Sau khi người dùng bấm Đồng ý, cờ `isFirstLaunch` thành `false`, điểm bắt đầu đổi từ STARTUP sang FEEDS, `NavHost` dựng lại đồ thị và đặt lại back stack, nên màn đang mở bị đưa về Feeds. Màn Điều khoản tôi mở lại ở lượt trước (`FirstLaunchPolicy`) là thứ đã làm lỗi này lộ ra: trước đó cờ luôn `false` nên không bao giờ đổi.
+- **Sửa:** `val startDestination = remember { ... }`, chọn một lần. Trên Pixel sau sửa: `startup`, `feeds`, `flow`, `reading` và ở lại màn đọc. Test `NavigationFixesSourceTest` bắt được khi đưa lại cách cũ.
+- **Giới hạn:** tôi chưa chứng minh đây đúng là lỗi owner gặp. Nó khớp "điều hướng không work" với người dùng mới, nhưng owner có thể đã gặp lỗi khác.
+

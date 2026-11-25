@@ -300,10 +300,13 @@ fun HomeEntry(
                     }
                 },
             )
+        // Chosen once. It used to be evaluated on every recomposition: after the user agreed to the Terms the flag turned false, the start destination changed from STARTUP
+        // to FEEDS, NavHost built a new graph and reset the back stack, so the first article opened after a fresh install jumped back to Feeds 0.4 s later.
+        val startDestination = remember { if (context.isFirstLaunch) RouteName.STARTUP else RouteName.FEEDS }
         NavHost(
             modifier = Modifier.background(MaterialTheme.colorScheme.surface),
             navController = navController,
-            startDestination = if (context.isFirstLaunch) RouteName.STARTUP else RouteName.FEEDS,
+            startDestination = startDestination,
         ) {
             // Startup
             animatedComposable(route = RouteName.STARTUP, eInk = eInk) {
