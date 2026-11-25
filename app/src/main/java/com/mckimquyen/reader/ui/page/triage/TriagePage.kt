@@ -118,7 +118,7 @@ fun TriagePage(
                             onSwipeUp = {
                                 val id = viewModel.markCurrentReadForNavigation()
                                 if (id != null) {
-                                    navController.navigate("${RouteName.READING}/$id")
+                                    navController.navigate("${RouteName.READING}/$id") { launchSingleTop = true }
                                 }
                             },
                             modifier = Modifier.weight(1f),
@@ -131,7 +131,7 @@ fun TriagePage(
                             onReadNow = {
                                 val id = viewModel.markCurrentReadForNavigation()
                                 if (id != null) {
-                                    navController.navigate("${RouteName.READING}/$id")
+                                    navController.navigate("${RouteName.READING}/$id") { launchSingleTop = true }
                                 }
                             },
                             onSave = { viewModel.saveCurrent() },

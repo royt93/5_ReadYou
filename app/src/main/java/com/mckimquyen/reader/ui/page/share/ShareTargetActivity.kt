@@ -25,7 +25,8 @@ class ShareTargetActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (intent?.action == Intent.ACTION_SEND && intent.type == "text/plain") {
-            val text = intent.getStringExtra(Intent.EXTRA_TEXT)
+            // getStringExtra returns null when the extra is a CharSequence that is not a String (a Spanned from a browser or reader app), which showed "invalid URL".
+            val text = intent.getCharSequenceExtra(Intent.EXTRA_TEXT)?.toString()
             viewModel.initFromShareText(text)
         } else {
             finish()

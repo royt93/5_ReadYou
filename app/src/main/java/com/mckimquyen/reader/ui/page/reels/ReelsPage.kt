@@ -75,7 +75,7 @@ fun ReelsPage(
                 ReelsPager(
                     items = uiState.items,
                     onOpenArticle = { articleId ->
-                        navController.navigate("${RouteName.READING}/$articleId")
+                        navController.navigate("${RouteName.READING}/$articleId") { launchSingleTop = true }
                     },
                 )
             }

@@ -232,6 +232,8 @@ class CommuteAudioPlayer @Inject constructor(
     internal fun handleUtteranceError(utteranceId: String?, errorCode: Int?) {
         Log.e(TAG, "Utterance error: $utteranceId, code: $errorCode")
         ambientLoop.pause()
+        // Every other way out of playback gives the focus back; this one did not, so music or video in another app stayed ducked until the process died.
+        abandonAudioFocus()
         _playerState.update { it.copy(isPlaying = false) }
         try {
             CommuteMediaSessionService.pause(context)
