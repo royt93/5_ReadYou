@@ -59,4 +59,22 @@ class TtsForegroundServiceNextTest {
         assertEquals(true, "TtsNotificationActions.endsService(outcome)" in advance)
         assertEquals(true, "stopForeground(STOP_FOREGROUND_REMOVE)" in advance && "stopSelf()" in advance)
     }
+
+    @Test
+    fun aFinishedSingleArticleEndsTheServiceButAQueueKeepsItForNext() {
+        assertEquals(true, TtsNotificationActions.endsServiceAfterCompletion(hasQueue = false))
+        assertEquals(false, TtsNotificationActions.endsServiceAfterCompletion(hasQueue = true))
+    }
+
+    /** On the Pixel (2026-11-25) the service and its undismissable ongoing notification were still there a minute after the voice had finished one article. */
+    @Test
+    fun theServiceListensForTheEndOfSpeechAndStopsItselfThenWhenNothingIsQueued() {
+        val src = listOf(java.io.File("src/main/java"), java.io.File("app/src/main/java")).first { it.exists() }
+        val service = java.io.File(src, "com/mckimquyen/reader/infrastructure/audio/TtsForegroundService.kt").readText()
+        val onCreate = service.substringAfter("override fun onCreate()").substringBefore("override fun onStartCommand")
+        assertEquals(true, "ttsManager.completions.collect" in onCreate)
+        val handler = onCreate.substringAfter("ttsManager.completions.collect")
+        assertEquals(true, "TtsNotificationActions.endsServiceAfterCompletion(readNewsController.hasQueue.value)" in handler)
+        assertEquals(true, "stopForeground(STOP_FOREGROUND_REMOVE)" in handler && "stopSelf()" in handler)
+    }
 }

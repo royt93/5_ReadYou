@@ -64,6 +64,16 @@ class TtsForegroundService : Service() {
             })
             isActive = true
         }
+        // The last chunk of a read finished. Without this the service and its undismissable ongoing notification outlived a single article until Stop was pressed.
+        serviceScope.launch {
+            ttsManager.completions.collect {
+                if (TtsNotificationActions.endsServiceAfterCompletion(readNewsController.hasQueue.value)) {
+                    updatePlaybackState(PlaybackStateCompat.STATE_STOPPED)
+                    stopForeground(STOP_FOREGROUND_REMOVE)
+                    stopSelf()
+                }
+            }
+        }
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -285,6 +295,12 @@ object TtsNotificationActions {
     /** True when "Next" found no more story to play, so the service and its ongoing notification must end. */
     fun endsService(outcome: com.mckimquyen.reader.domain.sv.ReadNewsOutcome): Boolean =
         outcome == com.mckimquyen.reader.domain.sv.ReadNewsOutcome.QUEUE_FINISHED
+
+    /**
+     * True when the voice finished and there is no news queue behind it: nothing more will play, so the ongoing notification must not stay.
+     * With a queue, "Next" or the queue controller decides what comes next, so the service stays.
+     */
+    fun endsServiceAfterCompletion(hasQueue: Boolean): Boolean = !hasQueue
 
     /** Chỉ số các hành động hiện ở dạng thu gọn: tất cả hành động đang hiển thị. */
     fun compactIndices(hasQueue: Boolean): List<Int> =

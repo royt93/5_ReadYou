@@ -50,8 +50,6 @@ import com.mckimquyen.reader.ui.component.base.settingsPageContainerColor
 import com.mckimquyen.reader.ui.ext.openURL
 import com.mckimquyen.reader.ui.page.setting.SettingItem
 import com.mckimquyen.reader.ui.theme.palette.onLight
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -122,11 +120,10 @@ fun LanguagesPage(
                         if (target != null) {
                             selectedLanguage = target
                             isRestarting = true
-                            scope.launch {
-                                target.put(context, scope)
-                                delay(300)
-                                ProcessPhoenix.triggerRebirth(context)
-                            }
+                            // Writing the locale makes Android recreate this activity, which cancels `scope`; a delay here meant the rebirth never ran and the old process kept
+                            // its cached strings. The preference is committed synchronously, so the rebirth can follow at once with the application context.
+                            target.put(context, scope)
+                            ProcessPhoenix.triggerRebirth(context.applicationContext)
                         }
                     }
                 ) {
