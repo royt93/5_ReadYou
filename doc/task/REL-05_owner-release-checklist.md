@@ -96,11 +96,11 @@ Bốn agent đọc mã (dữ liệu và đồng bộ, đọc và âm thanh, đi�
 
 Chưa sửa, đã xác nhận bằng đọc mã (cần quyết định hoặc rủi ro cao):
 - **Client chung `trustAllCerts = true`** cho feed và ảnh: người chặn giữa có thể chèn nội dung feed. Chưa đổi vì feed tự ký sẽ lỗi TLS; cần quyết định sản phẩm.
-- **Mười hai khoá Gemini nhúng trong APK** (XOR + hằng số cùng lớp): ghi sẵn là rủi ro chấp nhận, ai giải nén APK đều lấy được.
+- **Sáu khoá Gemini nhúng trong APK** (XOR + hằng số cùng lớp): ghi sẵn là rủi ro chấp nhận, ai giải nén APK đều lấy được.
 - Chuỗi streak dùng ngày UTC (`now / 86_400_000`) thay vì ngày địa phương: người ở UTC+7 có thể mất chuỗi quanh nửa đêm.
 - Dấu "đã hỏi cứu streak hôm nay" được ghi trước khi hộp thoại hiện.
 - Vòng phân trang Fever không có giới hạn trang; `lastArticleId` chỉ ghi cuối sync.
-- `queryArticleBodyChunk`, ghi vị trí đọc trong `ReadingPage` khôi phục vào hàng placeholder (cuộn về đầu bài).
+- Khôi phục vị trí đọc (`ReadingPage.kt:165-169`) đợi `totalItemsCount > 1`, mà trang đã có 3 hàng placeholder lúc đang tải, nên có thể cuộn vào hàng placeholder thay vì thân bài (agent báo, tôi chưa chạy lại).
 - TTS foreground service không dừng khi hàng đợi đọc tin hết; TTS chuyển IDLE ở mỗi đoạn; focus âm thanh không được trả khi TTS lỗi (CommuteCast).
 - Id bài của Google Reader/FreshRSS có dấu `/` làm route điều hướng lỗi (PLAUSIBLE, phụ thuộc server).
 - Tìm kiếm bị xoá khi mở bài rồi quay lại; hai điều hướng trùng khi bấm đúp ở Triage và Reels.
