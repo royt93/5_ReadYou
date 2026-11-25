@@ -118,7 +118,8 @@ class RssHelperNoTitleTest {
         assertEquals("one bad entry must not empty the feed", listOf("A", "C"), list.map { it.title })
     }
 
-    @Test fun sync_stopsAtTheLatestKnownLink_evenWhenAnEarlierEntryWasSkipped() = runBlocking {
+    @Test fun sync_readsEveryEntryEvenWhenAnEarlierOneWasSkipped() = runBlocking {
+        // The cut at the newest stored article moved to AbstractRssRepository (by date, not by position in the document); here a malformed entry must only skip itself.
         enqueue(feedOf(
             item("https://example.test/new", title = "New", desc = "ok"),
             item("https://example.test/bad"),
@@ -126,13 +127,15 @@ class RssHelperNoTitleTest {
             item("https://example.test/older", title = "Older", desc = "ok"),
         ))
         val list = helper.queryRssXml(Feed(id = "f", name = "Social", url = url(), groupId = "g", accountId = 1), "https://example.test/known")
-        assertEquals(listOf("New"), list.map { it.title })
+        assertEquals(listOf("New", "Known", "Older"), list.map { it.title })
     }
 
-    @Test fun sync_aFeedThatCannotBeRead_stillGivesAnEmptyList() = runBlocking {
+    @Test fun sync_aFeedThatCannotBeRead_isAFailureNotAnEmptyList() {
+        // It used to return an empty list, which syncSingleFeed recorded as a healthy fetch.
         server.enqueue(MockResponse().setResponseCode(500).setBody("nope"))
-        val list = helper.queryRssXml(Feed(id = "f", name = "Social", url = url(), groupId = "g", accountId = 1), null)
-        assertEquals(emptyList<Any>(), list)
+        org.junit.Assert.assertThrows(java.io.IOException::class.java) {
+            runBlocking { helper.queryRssXml(Feed(id = "f", name = "Social", url = url(), groupId = "g", accountId = 1), null) }
+        }
     }
 
     // ---- logging must not leak

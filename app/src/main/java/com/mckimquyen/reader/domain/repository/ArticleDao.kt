@@ -903,7 +903,8 @@ interface ArticleDao {
 
     @Transaction
     suspend fun insertListIfNotExist(articles: List<Article>): List<Article> {
-        return articles.mapNotNull {
+        // A feed that lists the same link twice gave two rows with different ids: only the DB was checked, never the batch itself.
+        return articles.distinctBy { Triple(it.accountId, it.feedId, it.link) }.mapNotNull {
             if (queryArticleByLink(
                     link = it.link,
                     feedId = it.feedId,

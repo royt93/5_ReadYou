@@ -119,7 +119,9 @@ class RssHelper @Inject constructor(
                     .build(XmlReader(it))
                     .entries
                     .asSequence()
-                    .takeWhile { latestLink == null || latestLink != it.link }
+                    // Not takeWhile(latestLink): that cut by position in the document, but latestLink is the newest by date in the DB. A feed that pins an old entry on top, or
+                    // has one entry with a future date, stopped the read early and the entries after the cut were never fetched. Links already stored are dropped by
+                    // insertListIfNotExist, so reading the whole feed only costs parsing.
                     .mapNotNull { entry ->
                         // One malformed entry must not empty the whole feed; only its type is logged, never its content.
                         runCatching { article(feed, accountId, entry) }
@@ -129,9 +131,10 @@ class RssHelper @Inject constructor(
                     .toList()
             }
         } catch (e: Exception) {
-            e.printStackTrace()
+            if (e is kotlinx.coroutines.CancellationException) throw e
+            // Rethrown, not turned into an empty list: the caller (syncSingleFeed) records the failure in the feed health record, and an empty list looked like a healthy feed.
             Log.e("RLog", "queryRssXml[${feed.name}]: ${e.message}")
-            listOf()
+            throw e
         }
 
     internal fun article(
@@ -345,10 +348,22 @@ class RssHelper @Inject constructor(
         )
     }
 
+    /**
+     * The body of a feed, or an [java.io.IOException] when the server did not answer 2xx. A 404 or 500 page was handed to the XML parser, its error was swallowed by
+     * [queryRssXml], and the feed was recorded as a healthy fetch with zero articles. (OkHttp's cache merges a 304 into a 200 before this point.)
+     */
     private suspend fun inputStream(
         client: OkHttpClient,
         url: String,
-    ): InputStream = response(client, url).body.byteStream()
+    ): InputStream {
+        val response = response(client, url)
+        if (!response.isSuccessful) {
+            val code = response.code
+            response.close()
+            throw java.io.IOException("HTTP $code from the feed server")
+        }
+        return response.body.byteStream()
+    }
 
     private suspend fun response(
         client: OkHttpClient,

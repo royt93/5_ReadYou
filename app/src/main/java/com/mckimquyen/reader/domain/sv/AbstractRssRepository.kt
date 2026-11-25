@@ -1,5 +1,6 @@
 package com.mckimquyen.reader.domain.sv
 
+import com.mckimquyen.reader.infrastructure.android.AppLog
 import android.content.Context
 import android.util.Log
 import androidx.paging.PagingSource
@@ -89,11 +90,15 @@ abstract class AbstractRssRepository(
             @Suppress("UNUSED_VARIABLE")
             val preTime = System.currentTimeMillis()
             val accountId = context.currentAccountId
+            var feedsTried = 0
+            var feedsFetched = 0
             feedDao.queryAll(accountId)
                 .chunked(6)
                 .forEach { chunk ->
-                    chunk.map { feed -> async { syncFeed(feed) } }
-                        .awaitAll()
+                    val fetched = chunk.map { feed -> async { syncFeed(feed) } }.awaitAll()
+                    feedsTried += fetched.size
+                    feedsFetched += fetched.count { it != null }
+                    fetched
                         .filterNotNull()
                         .forEach {
                             val filteredArticles = smartFilterManager.applyRules(it.articles)
@@ -122,7 +127,13 @@ abstract class AbstractRssRepository(
                 accountDao.update(account.apply { updateAt = Date() })
             }
             coroutineWorker.setProgress(SyncWorker.setIsSyncing(false))
-            ListenableWorker.Result.success()
+            // Every feed failed (no network, DNS down): say so, so WorkManager retries with backoff and the worker does not go on to WebDAV and precache as if it had synced.
+            if (SyncOutcome.allFailed(feedsTried, feedsFetched)) {
+                AppLog.event("sync", "all-feeds-failed", "feeds" to feedsTried)
+                ListenableWorker.Result.retry()
+            } else {
+                ListenableWorker.Result.success()
+            }
         }
 
     open suspend fun markAsRead(
@@ -190,7 +201,7 @@ abstract class AbstractRssRepository(
         val startTime = System.currentTimeMillis()
         return runCatching {
             val latest = articleDao.queryLatestByFeedId(context.currentAccountId, feed.id)
-            val articles = fetchNewArticles(feed, latest?.link)
+            val articles = fetchNewArticles(feed, latest)
             if (feed.icon == null) {
                 try {
                     rssHelper.queryRssIcon(feedDao, feed)
@@ -232,16 +243,14 @@ abstract class AbstractRssRepository(
      * entries newer than [latestLink] are returned for insertion (the same set the incremental read returned, so
      * archived-and-cleaned old entries are never re-inserted).
      */
-    private suspend fun fetchNewArticles(feed: Feed, latestLink: String?): List<Article> {
+    private suspend fun fetchNewArticles(feed: Feed, latest: Article?): List<Article> {
+        val latestLink = latest?.link
         if (latestLink == null || !scansFullFeedForRadar || !retractionRadar.isEnabled()) {
-            return queryFeedArticles(feed, latestLink)
+            return RssCut.onlyNotOlderThanStored(feed, latest, queryFeedArticles(feed, latestLink))
         }
         val full = queryFeedArticles(feed, null)
         retractionRadar.processFetched(feed, full)
-        // WEB feeds never used latestLink (the scraper returns every candidate and Room dedupes), so keep that.
-        if (feed.sourceType != Feed.RSS_SOURCE_TYPE) return full
-        val cut = full.indexOfFirst { it.link == latestLink }
-        return if (cut < 0) full else full.subList(0, cut)
+        return RssCut.onlyNotOlderThanStored(feed, latest, full)
     }
 
     private suspend fun syncFeed(feed: Feed): FeedWithArticle? = syncSingleFeed(feed)

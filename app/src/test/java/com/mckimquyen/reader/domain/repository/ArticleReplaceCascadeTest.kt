@@ -82,4 +82,21 @@ class ArticleReplaceCascadeTest {
         assertEquals("brand new", dao.queryArticleByLink("https://x/a2", "f1", 1)?.title)
         assertNotNull(db.articleReadPositionDao().getPosition("a1"))
     }
+
+    @Test
+    fun aBatchThatListsTheSameLinkTwiceInsertsOneRow() = runBlocking {
+        val dao = seed()
+        val first = article("dup1").also { it.link = "https://x/same" }
+        val second = article("dup2").also { it.link = "https://x/same" }
+        val inserted = dao.insertListIfNotExist(listOf(first, second))
+        assertEquals(1, inserted.size)
+        assertEquals("https://x/same", inserted.single().link)
+    }
+
+    @Test
+    fun aLinkAlreadyInTheDatabaseIsStillSkipped() = runBlocking {
+        val dao = seed()
+        val again = article("other").also { it.link = "https://x/a1" }
+        assertEquals(0, dao.insertListIfNotExist(listOf(again)).size)
+    }
 }
