@@ -8,10 +8,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
@@ -28,7 +26,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mckimquyen.reader.ui.theme.palette.alwaysLight
@@ -48,12 +45,14 @@ fun Banner(
     Surface(
         modifier = modifier
             .fillMaxWidth()
-            .height(if (!desc.isNullOrBlank()) 88.dp else Dp.Unspecified),
+            // A minimum, not a fixed height: Arabic lines are taller than Latin ones and a large system font grows them too, and a fixed 88dp cut the bottom of the text.
+            .heightIn(min = if (!desc.isNullOrBlank()) 88.dp else 0.dp),
         color = Color.Unspecified,
     ) {
         Row(
             modifier = Modifier
-                .fillMaxSize()
+                .fillMaxWidth()
+                .heightIn(min = if (!desc.isNullOrBlank()) 88.dp else 0.dp)
                 .padding(horizontal = 16.dp)
                 .clip(RoundedCornerShape(32.dp))
                 .background(backgroundColor alwaysLight true)
@@ -75,10 +74,8 @@ fun Banner(
                 }
             }
             Column(
-                modifier = Modifier
-                    .weight(1f)
-                    .fillMaxHeight(),
-                verticalArrangement = Arrangement.SpaceBetween,
+                modifier = Modifier.weight(1f),
+                verticalArrangement = Arrangement.spacedBy(4.dp),
             ) {
                 Text(
                     text = title,
