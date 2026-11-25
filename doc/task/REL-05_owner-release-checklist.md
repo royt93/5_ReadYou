@@ -107,3 +107,24 @@ Chưa sửa, đã xác nhận bằng đọc mã (cần quyết định hoặc r�
 
 Mỗi mục trên là phát hiện của agent. Mục nào chưa ghi "đã sửa" thì tôi chưa tự chạy lại, nên chưa tính là đã chứng minh.
 
+## 8. Kiểm trên máy thật Samsung S24 Ultra (2026-11-25, bản debug từ `50dade18`, chỉ Android + AdMob)
+
+Máy: S24 Ultra SM-S928B, Android 17, user 0. Cài mới (app chưa có trên máy nên không có dữ liệu cũ để mất), cài lại một lần để thử "người cài mới". Bằng chứng: `~/exc-flaky-evidence/s24u-20261125/` (ảnh, log `roy93~Flow`, bản sao DB). 0 `FATAL EXCEPTION`, 0 `Use RequestConfiguration` từ app này (một dòng như thế trong logcat là của app `com.bookmark.money`, không phải của app này).
+
+Đã chạy được trên máy:
+- **Người cài mới thấy màn Chào mừng và Điều khoản**, bấm Đồng ý, mở lại thì không bị hỏi nữa (log `nav: screen route=startup` rồi `feeds`).
+- **Reels:** thẻ có nút "Đọc bài viết"; nút mở được bài; vuốt từ cạnh trái mở được bài; Back về Reels đúng. Dải loại trừ cử chỉ Back tồn tại khi ở Reels (`mSystemGestureExclusion=(0,870,96,1470)`) và **biến mất sau khi rời Reels** (`SkRegion()`, log `edge-exclusion-cleared`).
+- **Nền đồng bộ:** Settings, Privacy, Đồng bộ cục bộ, Hỏi kho lưu trữ, Feed Autopilot, AI, Brain RPG, Thống kê đọc, Sổ tay, Bản tin AI hằng ngày đều đo `#F0F1F1` (màu động của Samsung), trước đó lệch nhau ở bản Pixel.
+- **Bản tin AI hằng ngày** có thanh trên và nút back; bấm nút back trên màn hình về đúng danh sách.
+- **Thông báo Morning Radio:** gửi intent cùng cờ và extra (`NEW_TASK|CLEAR_TASK`, `extra_start_commute`) thì sheet CommuteCast tự mở và phát (log `commute: open-from-notification`). Đây là thông báo thật không được bật vì app chưa có quyền thông báo, nên tôi dùng intent tương đương, không phải bấm vào thông báo thật.
+- **Triage:** mở với tài khoản 1, 115 bài; bấm đúp "Đọc ngay" không tạo hai màn chồng (một lần Back là về Triage).
+- **Đồng bộ:** thêm hai nguồn tin, 103 rồi 142 bài, `feed_health_record` hai nguồn đều `lastErrorType = NONE`. Dán URL trả HTTP 500 vào ô đăng ký: app hiện lỗi cho người dùng, log `HttpError(statusCode=500)`.
+- **Ngôn ngữ:** chọn tiếng Séc, giao diện đổi sang Séc (đã trả lại "theo thiết bị"). Phát hiện: chuỗi `version` còn tiếng Anh trong 22 locale. Nguyên nhân: đợt dịch đầu chỉ lấy chuỗi từ hai chữ trở lên. Đã dịch bù ~2.400 chuỗi một hay hai từ (dịch máy, chưa người duyệt).
+
+Chưa kiểm được trên máy này:
+- Fever, Google Reader (không có server).
+- Quảng cáo thật: bản debug chỉ dùng đơn vị thử `ca-app-pub-3940256099942544/*`.
+- Thông báo thật Morning Radio, TTS, âm thanh, widget, nút "Next article" và gắn sao có đua nhau ở máy chậm.
+- API 26-28; lỗi "nút back không work" của owner vẫn chưa tái hiện.
+- Tìm kiếm không phải đường đồng bộ: HTTP 500 ở đường đồng bộ được chứng minh bằng test JVM, không phải bằng máy.
+
