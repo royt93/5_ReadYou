@@ -80,3 +80,30 @@ Chưa chứng minh:
 - Tap của tôi từng rơi vào một ad (Chrome mở một trang cửa hàng). Log chỉ có dòng "test device", 0 tín hiệu `Use RequestConfiguration`, nhưng không chứng minh được không có click. Owner nên xem báo cáo AdMob.
 
 Cách dò thủ công: `adb logcat -s 'roy93~Flow'` in điều hướng (`nav: screen route=...`), mở bài từ Reels, đổi E-Ink, bắt đầu sync. SDK quảng cáo ghi riêng ở `roy93~Ad*`. `AppLog` không ghi tiêu đề, URL, khoá; test chặn điều đó.
+
+## 7. Audit mã bốn mảng bằng agent, kiểm lại từng dòng (2026-11-25)
+
+Bốn agent đọc mã (dữ liệu và đồng bộ, đọc và âm thanh, điều hướng và cử chỉ, AI và VIP và Settings) trả 56 phát hiện. Tôi chỉ tin phát hiện nào tôi tự đọc lại mã hoặc chạy được. Mỗi sửa có test, và test được thử bằng đột biến (đưa lỗi cũ lại, test phải đỏ).
+
+Đã sửa (commit `23b7fc86`, `2465ab44`, `36d2dbe4`, `af9a686b`, `31f8a36f`):
+- **Block list tài khoản** lưu sai (`joinToString { }` chèn ", ") và hộp thoại ghi lại giá trị cũ. Dữ liệu cũ bị hỏng được làm sạch khi đọc.
+- **Link mặc định** `OpenLinkPref`: nhánh dự phòng khác `default`.
+- **TLS:** các cuộc gọi Gemini (mang khoá trong URL) dùng client `@SecureHttp` xác thực chứng chỉ. Client chung của feed vẫn tin mọi chứng chỉ (còn mở, xem dưới).
+- **Màn đọc:** tải lại mỗi lần quay về; Next bỏ qua cài đặt đồng bộ vị trí; gắn sao có thể đặt bài cũ lên màn bài mới; sơ đồ tư duy gọi Gemini lại; RSVP chạy ngầm sau Back.
+- **Điều hướng:** dải loại trừ cử chỉ Back ở Reels còn nằm lại mọi màn (lỗi do tôi tạo ra); chạm thông báo Morning Radio không mở player; Triage cố định tài khoản 1; màn Điều khoản không bao giờ hiện cho người cài mới.
+- **Dữ liệu Fever:** `REPLACE` xoá vị trí đọc và 5 bảng con khi server gửi lại bài (chứng minh trên SQLite thật); trường `unread_item_ids` hoặc `saved_item_ids` vắng làm mất mọi dấu sao; sync một lần không duy nhất.
+- **RSS:** feed trả HTTP 404 hoặc 500 bị ghi là fetch khoẻ rỗng; feed ghim bài cũ lên đầu làm mất bài mới; một lô có hai link giống nhau chèn hai hàng; sync báo thành công khi mọi feed lỗi (nay `retry`).
+
+Chưa sửa, đã xác nhận bằng đọc mã (cần quyết định hoặc rủi ro cao):
+- **Client chung `trustAllCerts = true`** cho feed và ảnh: người chặn giữa có thể chèn nội dung feed. Chưa đổi vì feed tự ký sẽ lỗi TLS; cần quyết định sản phẩm.
+- **Mười hai khoá Gemini nhúng trong APK** (XOR + hằng số cùng lớp): ghi sẵn là rủi ro chấp nhận, ai giải nén APK đều lấy được.
+- Chuỗi streak dùng ngày UTC (`now / 86_400_000`) thay vì ngày địa phương: người ở UTC+7 có thể mất chuỗi quanh nửa đêm.
+- Dấu "đã hỏi cứu streak hôm nay" được ghi trước khi hộp thoại hiện.
+- Vòng phân trang Fever không có giới hạn trang; `lastArticleId` chỉ ghi cuối sync.
+- `queryArticleBodyChunk`, ghi vị trí đọc trong `ReadingPage` khôi phục vào hàng placeholder (cuộn về đầu bài).
+- TTS foreground service không dừng khi hàng đợi đọc tin hết; TTS chuyển IDLE ở mỗi đoạn; focus âm thanh không được trả khi TTS lỗi (CommuteCast).
+- Id bài của Google Reader/FreshRSS có dấu `/` làm route điều hướng lỗi (PLAUSIBLE, phụ thuộc server).
+- Tìm kiếm bị xoá khi mở bài rồi quay lại; hai điều hướng trùng khi bấm đúp ở Triage và Reels.
+
+Mỗi mục trên là phát hiện của agent. Mục nào chưa ghi "đã sửa" thì tôi chưa tự chạy lại, nên chưa tính là đã chứng minh.
+
