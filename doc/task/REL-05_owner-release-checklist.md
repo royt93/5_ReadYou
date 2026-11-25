@@ -155,6 +155,7 @@ Máy: Pixel `2B051FDH3006MU`, Android 17, Wi-Fi bật, id quảng cáo thử c�
 Không kiểm được trên máy này, hoặc kiểm một phần:
 - Bàn phím Telex tiếng Việt biến "Energy" thành "Ểngy", làm một lần tìm kiếm của tôi sai; đây là hành vi của bàn phím, không phải của app.
 - Chưa mở Reels trên Pixel ở đợt này (đã chạy được ở S24U), chưa nghe TTS, chưa thử Fever, Google Reader và thông báo thật.
+- Dịch tiếng Đức xem trên Pixel 2026-11-25 (`~/exc-flaky-evidence/audit-20261125-pixel/locale/`): giao diện đổi sang Đức, công tắc TLS và WebDAV hiện đúng tiếng Đức, không vỡ layout. **Nhưng 14 locale vẫn còn nhiều chuỗi y hệt tiếng Anh** (đếm chuỗi từ hai chữ trở lên giống bản gốc, tổng 6.603): uk 552, pl 537, it 533, in 531, ar 521, pt-BR 518, pt 518, ru 492, es 478, zh-TW 450, de 371, ja 369, fr 368, zh-CN 365. Trên máy thấy rõ ở tiếng Đức: "Rate app", "Get more apps", "Share this app" cùng mô tả của chúng. Chưa dịch; chờ owner quyết (xem feature.md).
 - Dịch tiếng Đức và các locale khác ngoài Séc chưa xem trên máy.
 - Dữ liệu 1585 bài ban đầu của Pixel đã mất theo lựa chọn của owner ngày 2026-11-24; hiện có 137 bài BBC.
 
