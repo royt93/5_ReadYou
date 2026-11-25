@@ -26,6 +26,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
@@ -97,7 +98,9 @@ fun FlowPage(
     val focusRequester = remember { FocusRequester() }
     var markAsRead by remember { mutableStateOf(false) }
     var actionsExpanded by remember { mutableStateOf(false) }
-    var onSearch by remember { mutableStateOf(false) }
+    // remember lost the flag when this page left composition for an article: on return onSearch was false again, the effect below treated that as "search closed"
+    // and cleared the query. The query itself lives in the ViewModel, so the flag starts from it, and rememberSaveable keeps it across the trip.
+    var onSearch by rememberSaveable { mutableStateOf(homeUiState.searchContent.isNotBlank()) }
     var isSyncing by remember { mutableStateOf(false) }
     var showSaveCollectionDialog by remember { mutableStateOf(false) }
     val smartCollectionsViewModel: SmartCollectionsViewModel = hiltViewModel()

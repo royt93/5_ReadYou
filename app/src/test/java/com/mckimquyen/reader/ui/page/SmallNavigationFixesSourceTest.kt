@@ -29,4 +29,12 @@ class SmallNavigationFixesSourceTest {
         assertTrue("getCharSequenceExtra(Intent.EXTRA_TEXT)?.toString()" in src)
         assertTrue("getStringExtra(Intent.EXTRA_TEXT)" !in src)
     }
+
+    @Test
+    fun theFlowSearchFlagSurvivesLeavingForAnArticle() {
+        // remember was lost on the trip to an article; on return the flag was false and the effect cleared the query the user had typed.
+        val flow = File(root, "ui/page/home/flow/FlowPage.kt").readText()
+        assertTrue("onSearch must be rememberSaveable", "var onSearch by rememberSaveable" in flow)
+        assertTrue("and start from the stored query, not from false", "homeUiState.searchContent.isNotBlank()" in flow.substringAfter("var onSearch by rememberSaveable").substringBefore("\n"))
+    }
 }
