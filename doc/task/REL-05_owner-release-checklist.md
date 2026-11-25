@@ -141,3 +141,20 @@ Chưa kiểm được trên máy này:
 - Tìm "Lib", mở một bài kết quả, bấm Back: ô tìm kiếm bị đóng và xoá truy vấn, vì click bài đặt `onSearch = false` trước khi điều hướng và effect xoá truy vấn khi cờ này tắt. Owner chọn giữ truy vấn và ô tìm kiếm; nay chỉ nút X của ô và Back khi ô đang mở mới đóng nó.
 - Trong lúc kiểm tra, quay lại từ bài làm `focusRequester.requestFocus()` ném `IllegalStateException` (hộp tìm kiếm không còn được compose vì cuộn ra ngoài); bao `try/catch`. Trên Pixel: 0 lỗi `FocusRequester`, 0 crash, ô còn "Man" và kết quả còn nguyên sau khi mở bài rồi Back.
 
+## 9. Kiểm trên Pixel 7 Pro (2026-11-25 tối, bản debug từ `d274272c`)
+
+Máy: Pixel `2B051FDH3006MU`, Android 17, Wi-Fi bật, id quảng cáo thử của Google. Bằng chứng: `~/exc-flaky-evidence/audit-20261125-pixel/` (ảnh và log `roy93~Flow`). 0 `FATAL EXCEPTION`, 0 `Use RequestConfiguration` (chỉ thấy quảng cáo thử "Nice job!" và "Flood-It!" có nhãn "Quảng cáo thử nghiệm").
+
+Đã chạy được trên máy:
+- **Người cài mới** thấy Chào mừng và Điều khoản, bấm Đồng ý vào Feeds. Sau Đồng ý, bài đầu tiên mở ra **không còn nhảy về Feeds** (lỗi `startDestination` ở mục trên, đã tái hiện trước sửa và hết sau sửa).
+- **Tìm kiếm:** mở bài kết quả rồi Back thì ô tìm kiếm còn nguyên truy vấn và kết quả. Một `IllegalStateException` của `FocusRequester` lộ ra khi quay lại, đã bao `try/catch` và kiểm lại, 0 lỗi.
+- **Triage:** "Lưu lại" ghi `triage: save`; bấm đúp "Đọc ngay" chỉ ghi một `read-now` và mở một màn đọc, một lần Back là về Triage (đếm `1/136` rồi `2/136`).
+- **Dịch tiếng Séc:** hàng "Version" của Settings nay là "Verze" (trước chỉ có tiếng Anh), các hàng mới dịch ("Zeptat se mého archivu", "Autopilot kanálů", "Zdrojový kód (tato verze)", "Připojte se ještě dnes ke komunitě BetaTesting!") hiển thị đúng. Đã trả ngôn ngữ về "theo thiết bị".
+- **Chọn ngôn ngữ** đổi giao diện ngay sau khi bấm Có, quay lại Settings đúng.
+
+Không kiểm được trên máy này, hoặc kiểm một phần:
+- Bàn phím Telex tiếng Việt biến "Energy" thành "Ểngy", làm một lần tìm kiếm của tôi sai; đây là hành vi của bàn phím, không phải của app.
+- Chưa mở Reels trên Pixel ở đợt này (đã chạy được ở S24U), chưa nghe TTS, chưa thử Fever, Google Reader và thông báo thật.
+- Dịch tiếng Đức và các locale khác ngoài Séc chưa xem trên máy.
+- Dữ liệu 1585 bài ban đầu của Pixel đã mất theo lựa chọn của owner ngày 2026-11-24; hiện có 137 bài BBC.
+
