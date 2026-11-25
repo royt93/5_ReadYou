@@ -654,3 +654,153 @@ Cách kiểm: mở `app/src/main/res/values-<locale>/strings.xml`, tìm key. S�
 
 ### tr (0)
 
+
+
+# Đợt 2: 14 locale còn chuỗi tiếng Anh (2026-11-25)
+
+Trước đợt này 14 locale có 6.603 chuỗi y hệt tiếng Anh (đếm chuỗi từ hai chữ trở lên). Đã dịch 6.508 chuỗi bằng mô hình ngôn ngữ (7 lượt, mỗi lượt hai locale; còn lại là URL, tên thương hiệu, hashtag, thuật ngữ `Deep Dive`/`Brain RPG` giữ nguyên). Chưa người bản ngữ nào duyệt; chuỗi một chữ hoặc dưới ba ký tự chữ cái không nằm trong đợt này. Danh sách dưới đây là chỗ bản dịch tự đánh dấu nghi ngờ, không phải toàn bộ chỗ có thể sai.
+
+## uk (9 chuỗi)
+- `triage_inbox_zero_title`: Inbox Zero kept as English term
+- `bounty_sheet_title`: 'Entity Investigation Agent' - bounty/entity wording
+- `echo_hype_warning`: 'Hype' threshold term kept
+- `brain_rpg_xp_retained`: 'retained' phrasing
+- `zen_sound_binaural`: term kept with 40Hz
+- `feed_zero_triage_title`: product-style name partly translated
+- `oracle_bet_out_of_points`: daily UTC points wording
+- `local_sync_pairing_limits`: 'forward secret' technical term
+- `local_sync_role_hint`: send/receive role flow wording
+
+## pl-rPL (8 chuỗi)
+- `triage_inbox_zero_title`: Inbox Zero kept as English term
+- `bounty_sheet_title`: 'Entity' rendered as encja
+- `echo_hype_warning`: 'Hype' threshold term kept
+- `dossier_sheet_title`: 'intelligence dossier' as teczka wywiadowcza
+- `local_sync_pairing_limits`: 'forward secret' rendered as poufność z wyprzedzeniem
+- `feed_zero_triage_title`: product-style name partly translated
+- `local_sync_role_hint`: send/receive role flow wording
+- `echo_details_title`: 'Body Language Signals' interpreted as text wording signals
+
+## it-rIT (9 chuỗi)
+- `mindmap_node_details`: 'Copy Insight' - copia spunto, sense ambiguous
+- `brain_rpg_xp_retained`: 'Base XP · % retained' phrasing
+- `echo_hype_warning`: 'Hype' term kept in echo_no_passages
+- `source_dna_action`: DNA della fonte metaphor
+- `oracle_bet_awaiting_hint`: 'Unclear' refers to a button label; translated as Incerto
+- `archive_query_limits`: 'Vietnamese' kept as in English source
+- `local_sync_pairing_limits`: 'forward secret' technical term
+- `local_sync_monotonic_warning`: read/starred wording (preferito for starred)
+- `zen_sound_binaural`: Gamma binaurale 40Hz - technical
+
+## in-rID (8 chuỗi)
+- `brain_rpg_xp_retained`: 'Base XP · % retained' phrasing
+- `echo_no_passages`: 'Hype' term kept as feature name
+- `oracle_bet_awaiting_hint`: 'Unclear' is a button label; translated Tidak jelas
+- `local_sync_pairing_limits`: 'forward secrecy' technical term left in English
+- `dossier_create_action`: 'dossier' translated as dosir
+- `feed_zero_triage_title`: 'Feed Zero Triage' - Triase Feed Nol
+- `triage_inbox_zero_title`: 'Inbox Zero' kept in English
+- `zen_sound_binaural`: technical
+
+## ar (9 chuỗi)
+- `triage_inbox_zero_title`: Inbox Zero rendered as 'empty inbox'
+- `feed_zero_triage_title`: 'Feed Zero' concept, translated literally
+- `source_dna_action`: DNA metaphor translated literally
+- `echo_details_title`: 'Body Language Signals' interpreted as wording signals
+- `brain_rpg_wrapped_title`: 'Wrapped' rendered as 'ملخص'
+- `second_brain_title`: 'Second Brain' translated literally
+- `commute_cast_subtitle`: '2-Host Morning Radio Overview' paraphrased
+- `local_sync_pairing_limits`: 'forward secret' rendered as 'السرية المستقبلية'
+- `local_sync_monotonic_warning`: monotonic read-state wording is technical
+
+## pt-rBR (7 chuỗi)
+- `feed_autopilot_title`: 'Autopilot' rendered as 'Piloto automático'
+- `local_sync_pairing_limits`: 'forward secret' rendered as 'sigilo futuro'
+- `local_sync_monotonic_warning`: monotonic read-state wording is technical
+- `echo_details_title`: 'Body Language Signals' interpreted as text-language signals
+- `brain_rpg_wrapped_title`: 'Wrapped' rendered as 'Resumo'
+- `commute_cast_subtitle`: '2-Host Morning Radio Overview' paraphrased
+- `oracle_bet_awaiting_hint`: 'Unclear' quoted with guillemets, check UI label match
+
+## pt (8 chuỗi)
+- `vip_buy_30d_locked`: "brevemente" for coming soon
+- `brain_rpg_xp_retained`: retained XP wording
+- `bionic_reading_desc`: "skim" -> ler na diagonal
+- `echo_disclaimer`: Hype/lexical evidence wording
+- `dossier_create_action`: dossier -> dossiê (BR spelling) maybe dossier in PT-PT
+- `oracle_bet_awaiting_hint`: "Unclear" button label must match the option label in app
+- `local_sync_pairing_limits`: forward secret -> sigilo de encaminhamento technical term
+- `brain_rpg_title`: Brain RPG kept as brand-like name
+
+## ru-rRU (9 chuỗi)
+- `brain_rpg_xp_retained`: retained XP phrasing
+- `brain_rpg_decay_notification_body`: Practice: %2$s grammar with placeholder
+- `echo_disclaimer`: Unclear/Hype wording must match option labels
+- `oracle_bet_awaiting_hint`: Unclear option label must match app
+- `local_sync_pairing_limits`: forward secret technical term
+- `streak_rescue_message`: plural forms of days with %d
+- `bionic_reading_desc`: skim faster idiom
+- `commute_unlock_deepdive`: Deep Dive translated as razbor
+- `zen_settings_title`: Zen Focus wording
+
+## es-rES (10 chuỗi)
+- `brain_rpg_title`: Brand-like name kept in English
+- `zen_sound_binaural`: Technical term 'Binaural 40Hz Gamma'
+- `quote_card_template_dark`: Template name 'Dark Studio'
+- `echo_hype_warning`: 'Hype' translated as exaggerated/promotional
+- `echo_no_passages`: 'Hype threshold' rendered as umbral de exageración
+- `local_sync_pairing_limits`: 'forward secret' rendered as 'secreto perfecto hacia adelante'
+- `oracle_bet_awaiting_hint`: 'Unclear' refers to a button label; quoted as «No claro»
+- `echo_disclaimer`: 'Unclear' refers to a label; quoted as «No claro»
+- `archive_query_limits`: English and Vietnamese kept as languages
+- `zen_calibration_questions_header`: Comprehension check wording
+
+## zh-rTW (13 chuỗi)
+- `brain_rpg_title`: Brand-like name kept in English
+- `zen_sound_binaural`: Technical term binaural gamma
+- `zen_speed_reading`: RSVP kept as technical term
+- `source_dna_action`: 'Source DNA' feature name; DNA kept
+- `echo_hype_warning`: 'Hype' rendered as promotional/exaggerated
+- `echo_no_passages`: 'Hype threshold' rendered as 誇大門檻
+- `headline_signals_title`: 'Clickbait' rendered as 釣魚標題 (Taiwan usage: 標題黨/釣魚標題)
+- `local_sync_pairing_limits`: 'forward secret' rendered as 前向保密
+- `oracle_bet_awaiting_hint`: 'Unclear' refers to a button label, quoted as 「不明確」
+- `bounty_sheet_title`: 'Entity Investigation Agent' wording
+- `bounty_stats_summary`: Bullet separator kept
+- `curated_bundles_title`: 'bundles' rendered as 組合
+- `quote_card_template_dark`: Template name 'Dark Studio'
+
+## de-rDE (6 chuỗi)
+- `echo_disclaimer`: 'Unclear' vs 'Unklar' must match UI label; unsure of term
+- `dossier_names_note`: named-entity recognition rendered literally
+- `local_sync_pairing_limits`: 'forward secret' kept as Forward Secrecy
+- `zen_sound_pink_noise`: 'Soft Focus Noise' coined name
+- `oracle_bet_pick_side`: 'Your pick' ambiguous in betting context
+- `story_clustering_title`: AI Deduplication wording
+
+## ja (7 chuỗi)
+- `echo_disclaimer`: 'Unclear' rendered as 不明; must match UI label
+- `dossier_sheet_title`: 'intelligence dossier' loanword ドシエ
+- `dossier_names_note`: named-entity recognition rendered as 固有表現認識
+- `local_sync_pairing_limits`: 'forward secret' rendered as 前方秘匿性
+- `zen_sound_pink_noise`: 'Soft Focus Noise' coined name
+- `oracle_bet_pick_side`: 'Your pick' ambiguous in betting context
+- `galaxy_canvas_desc`: 'Knowledge galaxy' feature name
+
+## fr-rFR (7 chuỗi)
+- `echo_dual_share_text`: hashtags, kept
+- `bounty_sheet_title`: 'Entity Investigation Agent' product term
+- `echo_disclaimer`: 'Unclear' must match UI label for the unclear option
+- `brain_rpg_title`: brand-like name kept
+- `zen_sound_binaural`: technical term
+- `echo_hype_warning`: 'Hype' threshold term kept English
+- `local_sync_pairing_limits`: 'forward secret' crypto term
+
+## zh-rCN (7 chuỗi)
+- `echo_dual_share_text`: hashtags, kept
+- `echo_hype_warning`: 'Hype' threshold term
+- `echo_no_passages`: 'Hype' kept as UI label
+- `local_sync_pairing_limits`: 'forward secret' crypto term
+- `feed_autopilot_title`: 'Autopilot' rendered as 自动驾驶
+- `brain_rpg_title`: brand-like name kept
+- `oracle_bet_balance`: 'points' unit 点 vs 积分
