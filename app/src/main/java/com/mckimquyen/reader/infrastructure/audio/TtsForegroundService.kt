@@ -188,7 +188,15 @@ class TtsForegroundService : Service() {
     /** Chuyển sang bài tin kế tiếp, rồi làm mới thông báo để nút Next biến mất khi hết hàng đợi. */
     private fun advanceReadNews() {
         serviceScope.launch {
-            readNewsController.next()
+            val outcome = readNewsController.next()
+            if (TtsNotificationActions.endsService(outcome)) {
+                // The queue ran out: the "no more news" notice is spoken by the controller, but nothing is playing a story any more. The notification used to stay as an
+                // ongoing "playing" one with no way to finish it except finding its Stop action.
+                updatePlaybackState(PlaybackStateCompat.STATE_STOPPED)
+                stopForeground(STOP_FOREGROUND_REMOVE)
+                stopSelf()
+                return@launch
+            }
             val manager = getSystemService(NotificationManager::class.java)
             manager.notify(
                 NOTIFICATION_ID,
@@ -273,6 +281,10 @@ object TtsNotificationActions {
     /** Thứ tự hiển thị: toggle, next (chỉ khi còn hàng đợi tin), stop. */
     fun actionNames(isPlaying: Boolean, hasQueue: Boolean): List<String> =
         if (hasQueue) listOf(TOGGLE, NEXT, STOP) else listOf(TOGGLE, STOP)
+
+    /** True when "Next" found no more story to play, so the service and its ongoing notification must end. */
+    fun endsService(outcome: com.mckimquyen.reader.domain.sv.ReadNewsOutcome): Boolean =
+        outcome == com.mckimquyen.reader.domain.sv.ReadNewsOutcome.QUEUE_FINISHED
 
     /** Chỉ số các hành động hiện ở dạng thu gọn: tất cả hành động đang hiển thị. */
     fun compactIndices(hasQueue: Boolean): List<Int> =

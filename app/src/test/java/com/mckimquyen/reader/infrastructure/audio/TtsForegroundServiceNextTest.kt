@@ -42,4 +42,21 @@ class TtsForegroundServiceNextTest {
         assertEquals(false, TtsForegroundService.ACTION_NEXT in others)
         assertNotEquals("", TtsForegroundService.ACTION_NEXT)
     }
+
+    @Test
+    fun onlyAFinishedQueueEndsTheService() {
+        for (outcome in com.mckimquyen.reader.domain.sv.ReadNewsOutcome.values()) {
+            val expected = outcome == com.mckimquyen.reader.domain.sv.ReadNewsOutcome.QUEUE_FINISHED
+            assertEquals("$outcome", expected, TtsNotificationActions.endsService(outcome))
+        }
+    }
+
+    @Test
+    fun theServiceStopsItselfWhenNextRunsOutOfStories() {
+        val src = listOf(java.io.File("src/main/java"), java.io.File("app/src/main/java")).first { it.exists() }
+        val service = java.io.File(src, "com/mckimquyen/reader/infrastructure/audio/TtsForegroundService.kt").readText()
+        val advance = service.substringAfter("private fun advanceReadNews()").substringBefore("private fun createNotificationChannel")
+        assertEquals(true, "TtsNotificationActions.endsService(outcome)" in advance)
+        assertEquals(true, "stopForeground(STOP_FOREGROUND_REMOVE)" in advance && "stopSelf()" in advance)
+    }
 }

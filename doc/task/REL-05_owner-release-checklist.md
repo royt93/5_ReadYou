@@ -97,10 +97,7 @@ Bốn agent đọc mã (dữ liệu và đồng bộ, đọc và âm thanh, đi�
 Chưa sửa, đã xác nhận bằng đọc mã (cần quyết định hoặc rủi ro cao):
 - **Client chung `trustAllCerts = true`** cho feed và ảnh: người chặn giữa có thể chèn nội dung feed. Chưa đổi vì feed tự ký sẽ lỗi TLS; cần quyết định sản phẩm.
 - **Sáu khoá Gemini nhúng trong APK** (XOR + hằng số cùng lớp): ghi sẵn là rủi ro chấp nhận, ai giải nén APK đều lấy được.
-- Khôi phục vị trí đọc (`ReadingPage.kt:165-169`) đợi `totalItemsCount > 1`, mà trang đã có 3 hàng placeholder lúc đang tải, nên có thể cuộn vào hàng placeholder thay vì thân bài (agent báo, tôi chưa chạy lại).
-- TTS foreground service không dừng khi hàng đợi đọc tin hết; TTS chuyển IDLE ở mỗi đoạn; focus âm thanh không được trả khi TTS lỗi (CommuteCast).
 - Id bài của Google Reader/FreshRSS có dấu `/` làm route điều hướng lỗi (PLAUSIBLE, phụ thuộc server).
-- Tìm kiếm bị xoá khi mở bài rồi quay lại; hai điều hướng trùng khi bấm đúp ở Triage và Reels.
 
 Mỗi mục trên là phát hiện của agent. Mục nào chưa ghi "đã sửa" thì tôi chưa tự chạy lại, nên chưa tính là đã chứng minh.
 
@@ -129,4 +126,8 @@ Chưa kiểm được trên máy này:
 - **Chuỗi đọc dùng ngày địa phương** (`StreakDay`), trước đây ngày UTC. Test nhiều múi giờ (Việt Nam UTC+7, Phoenix UTC-7), đột biến bắt được. Chuỗi đã lưu theo ngày UTC có thể lệch tối đa một ngày một lần sau khi cập nhật.
 - **Dấu "đã hỏi cứu chuỗi hôm nay"** chỉ ghi khi người dùng đã trả lời (cứu thành công, bắt đầu lại, hoặc để sau). Cứu thất bại vì quảng cáo hỏng không ghi, để người dùng thử lại; app bị kill khi hộp thoại đang hiện thì hôm đó vẫn được hỏi lại.
 - **Vòng phân trang Fever** dừng khi con trỏ `since_id` không tăng và sau tối đa 100 trang mỗi lần sync (5.000 bài; lần sau tiếp tục). `lastArticleId` vẫn chỉ ghi ở cuối sync, nên nếu app bị kill giữa chừng thì lần sau đọc lại từ mốc cũ, nhưng nay đọc lại không còn xoá dữ liệu con của bài.
+- **Tìm kiếm ở danh sách bài** không còn bị xoá khi mở bài rồi quay lại (cờ tìm kiếm dùng `rememberSaveable`, khởi tạo từ truy vấn trong ViewModel).
+- **Khôi phục vị trí đọc** đợi bài đọc xong trước khi cuộn, không còn cuộn vào ba hàng placeholder lúc đang tải.
+- **TTS:** trạng thái giữ `PLAYING` giữa các đoạn của bài dài (trước đây thành `IDLE` ở mỗi đoạn); khi "Next" hết bài thì service dừng và thông báo ongoing biến mất; CommuteCast trả audio focus khi TTS lỗi.
+- **Audit nút back bằng đọc mã (chưa tái hiện được lỗi của owner):** 61 nút `FeedbackIconButton`, chỉ một nút back không có hành động là bản xem trước trong `FeedsPagePreview` (chủ ý). `FeedsPage` có `BackHandler(true)` luôn bật và gọi `moveTaskToBack`, nên Back ở màn chính đưa app xuống nền thay vì thoát (hợp lệ). Chuỗi `BackHandler` của màn đọc bao đủ chín cờ sheet. Không tìm thấy bẫy Back trong mã.
 

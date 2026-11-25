@@ -33,4 +33,11 @@ class ReadingNavigationSourceTest {
         val dismiss = rsvp.substringAfter("Dialog(").substringBefore("DialogEdgeToEdge()")
         assertTrue("onDismissRequest must pause playback", "viewModel.pause()" in dismiss && "onDismissRequest" in dismiss)
     }
+
+    @Test
+    fun theSavedReadPositionIsRestoredOnlyAfterTheArticleHasFinishedLoading() {
+        val effect = page.substringAfter("restoreScrollPositionEvent.collect").substringBefore("listState.scrollToItem")
+        assertTrue("must wait for loading to finish", "!loading && count > 1" in effect)
+        assertTrue("must read the loading flag through rememberUpdatedState", "rememberUpdatedState(readingUiState.isLoading)" in page)
+    }
 }

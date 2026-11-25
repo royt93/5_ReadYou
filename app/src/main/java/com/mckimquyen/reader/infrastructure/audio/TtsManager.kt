@@ -91,11 +91,16 @@ class TtsManager @Inject constructor(
                 }
                 override fun onDone(utteranceId: String?) {
                     Log.d("roy93~", "TtsManager onDone: $utteranceId")
-                    _ttsState.value = TtsState.IDLE
                     if (utteranceId != null && utteranceId == lastUtteranceId) {
                         lastUtteranceId = null
+                        _ttsState.value = TtsState.IDLE
                         _completions.tryEmit(Unit)
+                    } else if (lastUtteranceId == null) {
+                        // A notice, or a read that was paused or stopped: nothing more is coming.
+                        _ttsState.value = TtsState.IDLE
                     }
+                    // else: a middle chunk of a long text. The state used to flip to IDLE at every chunk boundary, so switching article then dropped autoplay and a Play or
+                    // Stop tap in that moment started a second QUEUE_FLUSH instead of stopping.
                 }
                 @Deprecated("Deprecated in Java", ReplaceWith("onError(utteranceId: String?, errorCode: Int)"))
                 override fun onError(utteranceId: String?) {

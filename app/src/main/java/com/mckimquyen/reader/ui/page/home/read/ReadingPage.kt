@@ -159,11 +159,14 @@ fun ReadingPage(
         onTurn = { direction -> pageTurnScope.launch { listState.turnPage(direction) } },
     )
 
+    // The saved progress is firstVisibleIndex / (itemCount - 1) measured on the finished article. While the body is still loading the list holds only three placeholder
+    // rows (metadata, loader, spacer), so waiting for "more than one item" restored into those rows and the reader landed at the top. Wait until loading is over.
+    val currentIsLoading by rememberUpdatedState(readingUiState.isLoading)
     LaunchedEffect(Unit) {
         readingViewModel.restoreScrollPositionEvent.collect { event ->
             if (event.articleId != currentArticleId) return@collect
-            snapshotFlow { listState.layoutInfo.totalItemsCount }
-                .first { it > 1 }
+            snapshotFlow { currentIsLoading to listState.layoutInfo.totalItemsCount }
+                .first { (loading, count) -> !loading && count > 1 }
             val lastIndex = (listState.layoutInfo.totalItemsCount - 1).coerceAtLeast(0)
             val targetIndex = (event.progress * lastIndex).toInt().coerceIn(0, lastIndex)
             listState.scrollToItem(targetIndex)

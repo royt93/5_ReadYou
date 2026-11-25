@@ -120,6 +120,40 @@ class TtsManagerTest {
     }
 
     @Test
+    fun ttsState_staysPlayingBetweenChunksOfALongText() = runTest {
+        val listener = initializedListener()
+        val maxLength = TextToSpeech.getMaxSpeechInputLength()
+        val text = "x".repeat(maxLength * 2)
+        val lastIndex = text.chunked(maxLength - 100).lastIndex
+
+        manager.play(text, "Title", "Feed")
+        listener.onStart("TTS_ID_0")
+        listener.onDone("TTS_ID_0")
+        assertEquals("a chunk boundary is not the end of the article", TtsState.PLAYING, manager.ttsState.value)
+
+        listener.onDone("TTS_ID_$lastIndex")
+        assertEquals(TtsState.IDLE, manager.ttsState.value)
+    }
+
+    @Test
+    fun ttsState_goesIdleWhenASingleChunkTextIsDone() = runTest {
+        val listener = initializedListener()
+        manager.play("short text", "Title", "Feed")
+        listener.onStart("TTS_ID")
+        listener.onDone("TTS_ID")
+        assertEquals(TtsState.IDLE, manager.ttsState.value)
+    }
+
+    @Test
+    fun ttsState_goesIdleWhenANoticeFinishes() = runTest {
+        val listener = initializedListener()
+        manager.speakNotice("No unread news")
+        listener.onStart("TTS_NOTICE")
+        listener.onDone("TTS_NOTICE")
+        assertEquals(TtsState.IDLE, manager.ttsState.value)
+    }
+
+    @Test
     fun completions_doesNotEmitAfterPause() = runTest {
         val listener = initializedListener()
         val emitted = mutableListOf<Unit>()
