@@ -77,7 +77,8 @@ class StreakRescueViewModel internal constructor(
                     todayEpochDay = today,
                     lastPromptEpochDay = lastPromptDay,
                 ) ?: return@launch
-                withContext(ioDispatcher) { promptDayStore.writeLastPromptDay(today) }
+                // Not written here: the mark used to be saved before the dialog showed, so if the process died or the screen was recreated first, the user was not offered
+                // the rescue again for the rest of the day. It is saved once the user has answered (see markAnsweredToday).
                 _state.value = StreakRescueUiState.Prompt(offer)
             } catch (e: CancellationException) {
                 throw e
@@ -96,6 +97,7 @@ class StreakRescueViewModel internal constructor(
             viewModelScope.launch {
                 val rescued = earned && withContext(ioDispatcher) { repository.rescueBrokenStreak(clock()) }
                 _state.value = if (rescued) {
+                    markAnsweredToday()
                     StreakRescueUiState.Idle
                 } else {
                     current.copy(isLoadingAd = false, adFailed = true)
@@ -109,6 +111,7 @@ class StreakRescueViewModel internal constructor(
         if ((_state.value as? StreakRescueUiState.Prompt)?.isLoadingAd == true) return
         viewModelScope.launch {
             withContext(ioDispatcher) { repository.resetBrokenStreak(clock()) }
+            markAnsweredToday()
             _state.value = StreakRescueUiState.Idle
         }
     }
@@ -116,6 +119,18 @@ class StreakRescueViewModel internal constructor(
     fun onDismissLater() {
         AppLog.event("streak", "dismiss-later")
         if ((_state.value as? StreakRescueUiState.Prompt)?.isLoadingAd == true) return
+        viewModelScope.launch { markAnsweredToday() }
         _state.value = StreakRescueUiState.Idle
+    }
+
+    /** Remember that today's question has been answered, so it is not asked again today. */
+    private suspend fun markAnsweredToday() {
+        try {
+            withContext(ioDispatcher) { promptDayStore.writeLastPromptDay(StreakRescuePolicy.epochDay(clock())) }
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            Log.w(TAG, "[markAnsweredToday] not saved: $e")
+        }
     }
 }

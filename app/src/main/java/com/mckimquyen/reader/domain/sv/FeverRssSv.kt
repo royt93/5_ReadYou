@@ -182,8 +182,11 @@ class FeverRssSv @Inject constructor(
             // 3. Fetch the Fever articles (up to unlimited counts)
             var sinceId = account.lastArticleId?.dollarLast() ?: ""
             var itemsBody = feverAPI.getItemsSince(sinceId)
+            var pageNumber = 0
             while (itemsBody.items?.isNotEmpty() == true) {
                 val remoteItems = itemsBody.items.orEmpty()
+                pageNumber++
+                val previousSinceId = sinceId
                 remoteItems.lastOrNull()?.id?.let { sinceId = it }
                 val articles = remoteItems.mapNotNull { item -> toArticle(item, accountId) }
                 // Compare with the stored copy first (the radar needs the old text), then upsert: REPLACE deleted the row and, through ON DELETE CASCADE, the reader's
@@ -191,7 +194,7 @@ class FeverRssSv @Inject constructor(
                 val alreadyStored = radar.recordEdits(articles)
                 articleDao.upsertKeepingLocalState(*articles.toTypedArray())
                 radar.recordBaselines(articles.filter { it.id !in alreadyStored })
-                if (remoteItems.size >= FEVER_PAGE_SIZE) {
+                if (FeverPaging.shouldFetchNextPage(remoteItems.size, FEVER_PAGE_SIZE, pageNumber, previousSinceId, sinceId)) {
                     itemsBody = feverAPI.getItemsSince(sinceId)
                 } else {
                     break

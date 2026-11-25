@@ -297,7 +297,10 @@ class BrainRpgRepository @Inject constructor(
         else -> 1 to false
     }
 
-    private fun epochDay(nowMillis: Long): Long = nowMillis / MILLIS_PER_DAY
+    private fun epochDay(nowMillis: Long): Long = com.mckimquyen.reader.domain.model.rpg.StreakDay.of(nowMillis, zone())
+
+    /** The zone streak days are counted in; tests replace it to pin a time zone. */
+    internal var zone: () -> java.time.ZoneId = { java.time.ZoneId.systemDefault() }
 
     private companion object {
         const val READING_XP = 50L

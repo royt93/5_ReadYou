@@ -7,7 +7,7 @@ data class StreakRescueOffer(
 
 /**
  * Pure policy for prompting users about a broken reading streak.
- * Only prompts when saved streak is >= 3 days, missed days >= 2, no shield armed, and not yet prompted today (UTC).
+ * Only prompts when saved streak is >= 3 days, missed days >= 2, no shield armed, and not yet prompted today (local day).
  */
 object StreakRescuePolicy {
     const val MIN_STREAK_TO_OFFER = 3
@@ -30,5 +30,5 @@ object StreakRescuePolicy {
         return StreakRescueOffer(streakDays = streakDays, missedDays = gap)
     }
 
-    fun epochDay(nowMillis: Long): Long = nowMillis / MILLIS_PER_DAY
+    fun epochDay(nowMillis: Long, zone: java.time.ZoneId = java.time.ZoneId.systemDefault()): Long = StreakDay.of(nowMillis, zone)
 }

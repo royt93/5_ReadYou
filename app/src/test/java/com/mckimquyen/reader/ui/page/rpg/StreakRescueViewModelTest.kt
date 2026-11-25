@@ -69,6 +69,8 @@ class StreakRescueViewModelTest {
         dao = database.brainRpgDao()
         val importer = BrainRpgLegacyImporter(database, context.getSharedPreferences(BrainRpgLegacyPreferences.PREFS_NAME, Context.MODE_PRIVATE), dao)
         repository = BrainRpgRepository(context, database, dao, importer, newScope(), Dispatchers.Unconfined)
+        // The streak day is the local day; this test computes days as now / day (a UTC day), so it pins UTC.
+        repository.zone = { java.time.ZoneOffset.UTC }
         promptDayStore.day = -1L
     }
 
@@ -103,7 +105,7 @@ class StreakRescueViewModelTest {
         repository.refresh(now)
     }
 
-    @Test fun checkOnStartup_promptsWhenStreakIsBroken_andSavesPromptDay() = runTest(testDispatcher) {
+    @Test fun checkOnStartup_promptsWhenStreakIsBroken_butDoesNotYetSaveThePromptDay() = runTest(testDispatcher) {
         seedBrokenStreak(streak = 5, daysAgo = 3)
         val vm = createViewModel()
 
@@ -114,7 +116,71 @@ class StreakRescueViewModelTest {
         assertEquals(StreakRescueOffer(streakDays = 5, missedDays = 3), prompt.offer)
         assertFalse(prompt.adFailed)
         assertFalse(prompt.isLoadingAd)
+        assertEquals("shown is not answered: the mark must wait for the user", -1L, promptDayStore.readLastPromptDay())
+    }
+
+    @Test fun aPromptThatWasShownButNeverAnswered_isOfferedAgainAfterARestart() = runTest(testDispatcher) {
+        seedBrokenStreak(streak = 5, daysAgo = 3)
+        createViewModel().apply { checkOnStartup() }
+        advanceUntilIdle()
+        // The process dies here. A new view model must offer the rescue again the same day.
+        val vm2 = createViewModel()
+        vm2.checkOnStartup()
+        advanceUntilIdle()
+        assertTrue(vm2.state.value is StreakRescueUiState.Prompt)
+    }
+
+    @Test fun onDismissLater_savesThePromptDay_soItIsNotAskedAgainToday() = runTest(testDispatcher) {
+        seedBrokenStreak(streak = 5, daysAgo = 3)
+        val vm = createViewModel()
+        vm.checkOnStartup()
+        advanceUntilIdle()
+
+        vm.onDismissLater()
+        advanceUntilIdle()
+
         assertEquals(now / day, promptDayStore.readLastPromptDay())
+        val vm2 = createViewModel()
+        vm2.checkOnStartup()
+        advanceUntilIdle()
+        assertEquals(StreakRescueUiState.Idle, vm2.state.value)
+    }
+
+    @Test fun onRestartFromScratch_savesThePromptDay() = runTest(testDispatcher) {
+        seedBrokenStreak(streak = 5, daysAgo = 3)
+        val vm = createViewModel()
+        vm.checkOnStartup()
+        advanceUntilIdle()
+
+        vm.onRestartFromScratch()
+        advanceUntilIdle()
+
+        assertEquals(now / day, promptDayStore.readLastPromptDay())
+    }
+
+    @Test fun aRescueThatWorked_savesThePromptDay() = runTest(testDispatcher) {
+        seedBrokenStreak(streak = 5, daysAgo = 3)
+        val vm = createViewModel { _, cb -> cb(true) }
+        vm.checkOnStartup()
+        advanceUntilIdle()
+
+        vm.onRescueWithAd(mockk(relaxed = true))
+        advanceUntilIdle()
+
+        assertEquals(now / day, promptDayStore.readLastPromptDay())
+    }
+
+    @Test fun aRescueWhoseAdFailed_doesNotSaveThePromptDay_soTheUserCanTryAgain() = runTest(testDispatcher) {
+        seedBrokenStreak(streak = 5, daysAgo = 3)
+        val vm = createViewModel { _, cb -> cb(false) }
+        vm.checkOnStartup()
+        advanceUntilIdle()
+
+        vm.onRescueWithAd(mockk(relaxed = true))
+        advanceUntilIdle()
+
+        assertTrue((vm.state.value as StreakRescueUiState.Prompt).adFailed)
+        assertEquals(-1L, promptDayStore.readLastPromptDay())
     }
 
     @Test fun checkOnStartup_staysIdleWhenStreakIsAlive() = runTest(testDispatcher) {

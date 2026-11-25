@@ -97,9 +97,6 @@ Bốn agent đọc mã (dữ liệu và đồng bộ, đọc và âm thanh, đi�
 Chưa sửa, đã xác nhận bằng đọc mã (cần quyết định hoặc rủi ro cao):
 - **Client chung `trustAllCerts = true`** cho feed và ảnh: người chặn giữa có thể chèn nội dung feed. Chưa đổi vì feed tự ký sẽ lỗi TLS; cần quyết định sản phẩm.
 - **Sáu khoá Gemini nhúng trong APK** (XOR + hằng số cùng lớp): ghi sẵn là rủi ro chấp nhận, ai giải nén APK đều lấy được.
-- Chuỗi streak dùng ngày UTC (`now / 86_400_000`) thay vì ngày địa phương: người ở UTC+7 có thể mất chuỗi quanh nửa đêm.
-- Dấu "đã hỏi cứu streak hôm nay" được ghi trước khi hộp thoại hiện.
-- Vòng phân trang Fever không có giới hạn trang; `lastArticleId` chỉ ghi cuối sync.
 - Khôi phục vị trí đọc (`ReadingPage.kt:165-169`) đợi `totalItemsCount > 1`, mà trang đã có 3 hàng placeholder lúc đang tải, nên có thể cuộn vào hàng placeholder thay vì thân bài (agent báo, tôi chưa chạy lại).
 - TTS foreground service không dừng khi hàng đợi đọc tin hết; TTS chuyển IDLE ở mỗi đoạn; focus âm thanh không được trả khi TTS lỗi (CommuteCast).
 - Id bài của Google Reader/FreshRSS có dấu `/` làm route điều hướng lỗi (PLAUSIBLE, phụ thuộc server).
@@ -127,4 +124,9 @@ Chưa kiểm được trên máy này:
 - Thông báo thật Morning Radio, TTS, âm thanh, widget, nút "Next article" và gắn sao có đua nhau ở máy chậm.
 - API 26-28; lỗi "nút back không work" của owner vẫn chưa tái hiện.
 - Tìm kiếm không phải đường đồng bộ: HTTP 500 ở đường đồng bộ được chứng minh bằng test JVM, không phải bằng máy.
+
+### Sửa thêm sau mục 7 (2026-11-25)
+- **Chuỗi đọc dùng ngày địa phương** (`StreakDay`), trước đây ngày UTC. Test nhiều múi giờ (Việt Nam UTC+7, Phoenix UTC-7), đột biến bắt được. Chuỗi đã lưu theo ngày UTC có thể lệch tối đa một ngày một lần sau khi cập nhật.
+- **Dấu "đã hỏi cứu chuỗi hôm nay"** chỉ ghi khi người dùng đã trả lời (cứu thành công, bắt đầu lại, hoặc để sau). Cứu thất bại vì quảng cáo hỏng không ghi, để người dùng thử lại; app bị kill khi hộp thoại đang hiện thì hôm đó vẫn được hỏi lại.
+- **Vòng phân trang Fever** dừng khi con trỏ `since_id` không tăng và sau tối đa 100 trang mỗi lần sync (5.000 bài; lần sau tiếp tục). `lastArticleId` vẫn chỉ ghi ở cuối sync, nên nếu app bị kill giữa chừng thì lần sau đọc lại từ mốc cũ, nhưng nay đọc lại không còn xoá dữ liệu con của bài.
 

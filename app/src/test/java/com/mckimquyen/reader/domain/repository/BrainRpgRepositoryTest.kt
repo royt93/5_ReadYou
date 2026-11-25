@@ -46,6 +46,8 @@ class BrainRpgRepositoryTest {
         dao = database.brainRpgDao()
         importer = BrainRpgLegacyImporter(database, context.getSharedPreferences(BrainRpgLegacyPreferences.PREFS_NAME, Context.MODE_PRIVATE), dao)
         repository = BrainRpgRepository(context, database, dao, importer, newScope(), Dispatchers.Unconfined)
+        // The streak day is the local day now; these tests do their day arithmetic as NOW / day, which is a UTC day, so they pin UTC.
+        repository.zone = { java.time.ZoneOffset.UTC }
     }
 
     @After fun tearDown() {
@@ -317,12 +319,41 @@ class BrainRpgRepositoryTest {
         assertEquals(1 to false, streak())
     }
 
-    /** Current behaviour: the day boundary is UTC midnight, independent of the device time zone. */
-    @Test fun streak_dayBoundaryIsUtcMidnight() = runTest {
-        val justBeforeMidnightUtc = (NOW / day) * day + day - 1
-        readAt("s1", justBeforeMidnightUtc)
-        readAt("s2", justBeforeMidnightUtc + 2)
-        assertEquals(2 to false, streak())
+    private fun at(zone: String, localDateTime: String): Long =
+        java.time.LocalDateTime.parse(localDateTime).atZone(java.time.ZoneId.of(zone)).toInstant().toEpochMilli()
+
+    /** The day boundary is LOCAL midnight. It was UTC midnight, which broke a streak for anyone not in UTC. */
+    @Test fun streak_dayBoundaryIsLocalMidnight() = runTest {
+        repository.zone = { java.time.ZoneId.of("Asia/Ho_Chi_Minh") }
+        readAt("s1", at("Asia/Ho_Chi_Minh", "2026-11-23T23:50:00"))
+        readAt("s2", at("Asia/Ho_Chi_Minh", "2026-11-24T00:10:00"))
+        assertEquals("20 minutes apart but on two local days", 2 to false, streak())
+    }
+
+    @Test fun streak_threeLocalDaysInARowAtUtcPlus7_keepsAStreakOfThree() = runTest {
+        // 06:00, 06:00 and 08:00 local: the UTC days are N, N+1 and N+2 only by luck of the hour; the old code saw a gap here.
+        repository.zone = { java.time.ZoneId.of("Asia/Ho_Chi_Minh") }
+        readAt("s1", at("Asia/Ho_Chi_Minh", "2026-11-23T06:00:00"))
+        readAt("s2", at("Asia/Ho_Chi_Minh", "2026-11-24T06:00:00"))
+        readAt("s3", at("Asia/Ho_Chi_Minh", "2026-11-25T08:00:00"))
+        assertEquals(3 to false, streak())
+    }
+
+    @Test fun streak_twoReadsOnTheSameLocalDayThatStraddleUtcMidnight_doNotCountTwice() = runTest {
+        // Phoenix is UTC-7. 16:30 local is 23:30 UTC on 24 Nov, 17:30 local is 00:30 UTC on 25 Nov: two UTC days, ONE local day. The old UTC arithmetic advanced the streak here.
+        repository.zone = { java.time.ZoneId.of("America/Phoenix") }
+        readAt("s1", at("America/Phoenix", "2026-11-24T16:30:00"))
+        readAt("s2", at("America/Phoenix", "2026-11-24T17:30:00"))
+        assertEquals("the same local day must not advance the streak", 1 to false, streak())
+    }
+
+    @Test fun streakDay_isTheLocalCalendarDay() {
+        val vn = java.time.ZoneId.of("Asia/Ho_Chi_Minh")
+        val ph = java.time.ZoneId.of("America/Phoenix")
+        val instant = at("Asia/Ho_Chi_Minh", "2026-11-24T00:30:00") // 24 Nov in Vietnam, 23 Nov in UTC and in Phoenix
+        assertEquals(java.time.LocalDate.of(2026, 11, 24).toEpochDay(), com.mckimquyen.reader.domain.model.rpg.StreakDay.of(instant, vn))
+        assertEquals(java.time.LocalDate.of(2026, 11, 23).toEpochDay(), com.mckimquyen.reader.domain.model.rpg.StreakDay.of(instant, java.time.ZoneOffset.UTC))
+        assertEquals(java.time.LocalDate.of(2026, 11, 23).toEpochDay(), com.mckimquyen.reader.domain.model.rpg.StreakDay.of(instant, ph))
     }
 
     /** Current behaviour: only reading (and triage) touch the streak; a correct quiz answer does not. */
