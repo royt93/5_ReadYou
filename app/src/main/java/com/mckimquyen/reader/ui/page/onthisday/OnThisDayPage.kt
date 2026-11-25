@@ -1,5 +1,6 @@
 package com.mckimquyen.reader.ui.page.onthisday
 
+import com.mckimquyen.reader.ui.page.common.readingRoute
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -165,7 +166,7 @@ fun OnThisDayPage(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .clickable {
-                                    navController.navigate("${RouteName.READING}/${item.article.id}") {
+                                    navController.navigate(readingRoute(item.article.id)) {
                                         launchSingleTop = true
                                     }
                                 }

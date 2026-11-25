@@ -1,8 +1,15 @@
 package com.mckimquyen.reader.ui.page.common
 
+import android.app.Application
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
+import org.robolectric.annotation.Config
 
+// readingRoute percent-encodes the id with android.net.Uri, which a plain JVM test cannot call.
+@RunWith(RobolectricTestRunner::class)
+@Config(sdk = [34], application = Application::class)
 class HomeEntryNavigationTest {
     @Test fun notificationRouteTakesPrecedenceOverConfiguredInitialPage() {
         assertEquals(RouteName.BRAIN_RPG, resolveInitialRoute(RouteName.BRAIN_RPG, initialPage = 1))

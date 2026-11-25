@@ -1,5 +1,6 @@
 package com.mckimquyen.reader.ui.page.home.read
 
+import com.mckimquyen.reader.ui.page.common.readingRoute
 import com.mckimquyen.reader.infrastructure.android.AppOpenGuard
 import com.mckimquyen.reader.infrastructure.android.AppOpenGuard.Companion.launchGuarded
 import android.util.Log
@@ -417,7 +418,7 @@ fun ReadingPage(
                     onOpenArticle = { targetId ->
                         readingViewModel.dismissDossier()
                         readingViewModel.dismissBountyInvestigation()
-                        navController.navigate("${RouteName.READING}/$targetId")
+                        navController.navigate(readingRoute(targetId))
                     },
                     onShare = {
                         quoteScope.launch {
@@ -433,7 +434,7 @@ fun ReadingPage(
                     state = bountyState,
                     onOpenArticle = { targetId ->
                         readingViewModel.dismissBountyInvestigation()
-                        navController.navigate("${RouteName.READING}/$targetId")
+                        navController.navigate(readingRoute(targetId))
                     },
                     onRequestAiContext = { readingViewModel.requestBountyAiContext() },
                     onClose = { readingViewModel.dismissBountyInvestigation() },
@@ -594,7 +595,7 @@ fun ReadingPage(
                                 onOpenEchoSheet = { readingViewModel.openEchoSheet() },
                                 contrastingCoverageState = contrastingCoverage,
                                 onSelectContrastPhrase = { readingViewModel.selectContrastPhrase(it) },
-                                onOpenContrastArticle = { targetId -> navController.navigate("${RouteName.READING}/$targetId") },
+                                onOpenContrastArticle = { targetId -> navController.navigate(readingRoute(targetId)) },
                                 bodyRange = bodyRange,
                                 onExportContrastArticle = { readingViewModel.openDualCard(it) },
                             )

@@ -1,5 +1,6 @@
 package com.mckimquyen.reader.ui.page.watchdog
 
+import com.mckimquyen.reader.ui.page.common.readingRoute
 import android.app.Activity
 import android.text.format.DateUtils
 import androidx.compose.foundation.background
@@ -148,7 +149,7 @@ fun WatchdogInboxPage(
                         alert = alert,
                         onOpen = {
                             viewModel.markAsRead(alert.id)
-                            navController.navigate("${com.mckimquyen.reader.ui.page.common.RouteName.READING}/${alert.articleId}") {
+                            navController.navigate(readingRoute(alert.articleId)) {
                                 launchSingleTop = true
                             }
                         },

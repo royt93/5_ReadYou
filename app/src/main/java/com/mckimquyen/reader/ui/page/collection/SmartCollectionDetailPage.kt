@@ -1,5 +1,6 @@
 package com.mckimquyen.reader.ui.page.collection
 
+import com.mckimquyen.reader.ui.page.common.readingRoute
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -96,7 +97,7 @@ fun SmartCollectionDetailPage(
                 items(articles, key = { it.article.id }) { article ->
                     Column(
                         modifier = Modifier.fillMaxWidth().clickable {
-                            navController.navigate("${com.mckimquyen.reader.ui.page.common.RouteName.READING}/${article.article.id}") {
+                            navController.navigate(readingRoute(article.article.id)) {
                                 launchSingleTop = true
                             }
                         }.padding(horizontal = 16.dp, vertical = 12.dp),

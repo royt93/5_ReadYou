@@ -13,7 +13,7 @@ class SmallNavigationFixesSourceTest {
     private val root: File = listOf(File("src/main/java/com/mckimquyen/reader"), File("app/src/main/java/com/mckimquyen/reader")).first { it.exists() }
 
     private fun readingNavigations(rel: String) =
-        File(root, rel).readLines().filter { "navigate(\"\${RouteName.READING}/" in it }
+        File(root, rel).readLines().filter { "navigate(readingRoute(" in it }
 
     @Test
     fun everyReadingNavigationInTriageAndReelsIsSingleTop() {
@@ -42,7 +42,7 @@ class SmallNavigationFixesSourceTest {
     fun openingAnArticleFromTheListOrFromSearchResultsDoesNotCloseTheSearch() {
         // On a Pixel: search "Lib", open a result, press Back, and the search box was closed and its query cleared, because the click set onSearch = false first.
         val flow = File(root, "ui/page/home/flow/FlowPage.kt").readText()
-        val openings = Regex("""onClick = \{([^}]*?)navController\.navigate\("\$\{RouteName\.READING\}/""", RegexOption.DOT_MATCHES_ALL).findAll(flow).map { it.groupValues[1] }.toList()
+        val openings = Regex("""onClick = \{([^}]*?)navController\.navigate\(readingRoute\(""", RegexOption.DOT_MATCHES_ALL).findAll(flow).map { it.groupValues[1] }.toList()
         assertTrue("expected the list click and the semantic result click", openings.size >= 2)
         val closing = openings.filter { "onSearch = false" in it }
         assertTrue("clicks that close the search before opening an article: ${closing.size}", closing.isEmpty())

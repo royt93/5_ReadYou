@@ -1,5 +1,6 @@
 package com.mckimquyen.reader.ui.page.triage
 
+import com.mckimquyen.reader.ui.page.common.readingRoute
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -118,7 +119,7 @@ fun TriagePage(
                             onSwipeUp = {
                                 val id = viewModel.markCurrentReadForNavigation()
                                 if (id != null) {
-                                    navController.navigate("${RouteName.READING}/$id") { launchSingleTop = true }
+                                    navController.navigate(readingRoute(id)) { launchSingleTop = true }
                                 }
                             },
                             modifier = Modifier.weight(1f),
@@ -131,7 +132,7 @@ fun TriagePage(
                             onReadNow = {
                                 val id = viewModel.markCurrentReadForNavigation()
                                 if (id != null) {
-                                    navController.navigate("${RouteName.READING}/$id") { launchSingleTop = true }
+                                    navController.navigate(readingRoute(id)) { launchSingleTop = true }
                                 }
                             },
                             onSave = { viewModel.saveCurrent() },

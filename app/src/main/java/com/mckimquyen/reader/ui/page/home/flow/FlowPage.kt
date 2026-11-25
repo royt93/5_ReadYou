@@ -1,5 +1,6 @@
 package com.mckimquyen.reader.ui.page.home.flow
 
+import com.mckimquyen.reader.ui.page.common.readingRoute
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -315,7 +316,7 @@ fun FlowPage(
                                 result = result,
                                 isShowFeedIcon = articleListFeedIcon.value,
                                 onClick = {
-                                    navController.navigate("${RouteName.READING}/${result.articleWithFeed.article.id}") {
+                                    navController.navigate(readingRoute(result.articleWithFeed.article.id)) {
                                         launchSingleTop = true
                                     }
                                 }
@@ -337,7 +338,7 @@ fun FlowPage(
                         articleListTonalElevation = articleListTonalElevation.value,
                         onClick = {
                             // The search box stays open and keeps its query while an article is read: only the box's own close button (or Back while it is open) closes it.
-                            navController.navigate("${RouteName.READING}/${it.article.id}") {
+                            navController.navigate(readingRoute(it.article.id)) {
                                 launchSingleTop = true
                             }
                         },
@@ -367,7 +368,7 @@ fun FlowPage(
                 cluster = selectedCluster,
                 onDismissRequest = { homeViewModel.closeCluster() },
                 onArticleClick = {
-                    navController.navigate("${RouteName.READING}/${it.article.id}") {
+                    navController.navigate(readingRoute(it.article.id)) {
                         launchSingleTop = true
                     }
                 },

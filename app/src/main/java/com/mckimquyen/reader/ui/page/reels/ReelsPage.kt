@@ -1,5 +1,6 @@
 package com.mckimquyen.reader.ui.page.reels
 
+import com.mckimquyen.reader.ui.page.common.readingRoute
 import android.os.Build
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
@@ -76,7 +77,7 @@ fun ReelsPage(
                 ReelsPager(
                     items = uiState.items,
                     onOpenArticle = { articleId ->
-                        navController.navigate("${RouteName.READING}/$articleId") { launchSingleTop = true }
+                        navController.navigate(readingRoute(articleId)) { launchSingleTop = true }
                     },
                 )
             }

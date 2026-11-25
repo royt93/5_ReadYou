@@ -203,7 +203,7 @@ fun HomeEntry(
             navController.navigate(RouteName.FLOW) {
                 launchSingleTop = true
             }
-            navController.navigate("${RouteName.READING}/${openArticleId}") {
+            navController.navigate(readingRoute(openArticleId)) {
                 launchSingleTop = true
             }
             openArticleId = ""
@@ -271,7 +271,7 @@ fun HomeEntry(
             },
             LocalHeadlineSignalsEnabled provides headlineSignalsReactive,
             LocalOpenRadarDiff provides { articleId ->
-                navController.navigate("${RouteName.ARTICLE_DIFF_PREFIX}/$articleId") { launchSingleTop = true }
+                navController.navigate(articleDiffRoute(articleId)) { launchSingleTop = true }
             },
             LocalOpenPrivacySettings provides {
                 navController.navigate(RouteName.PRIVACY_SETTINGS) { launchSingleTop = true }
@@ -294,7 +294,7 @@ fun HomeEntry(
                             onOpenArticle = { id ->
                                 openOracleArticleId = null
                                 oracleBettingViewModel.close()
-                                navController.navigate("${RouteName.READING}/$id") { launchSingleTop = true }
+                                navController.navigate(readingRoute(id)) { launchSingleTop = true }
                             },
                         )
                     }
@@ -344,7 +344,7 @@ fun HomeEntry(
                     onGenerate = { digestViewModel.generate() },
                     onRetry = { digestViewModel.generate() },
                     onOpenSource = { articleId ->
-                        navController.navigate("${RouteName.READING}/$articleId") { launchSingleTop = true }
+                        navController.navigate(readingRoute(articleId)) { launchSingleTop = true }
                     },
                     onSelectDigest = { id -> digestViewModel.selectDigest(id) },
                     onBack = { navController.popBackStack() },
@@ -550,7 +550,7 @@ fun HomeEntry(
                     state = state,
                     onSelectNode = secondBrainViewModel::selectNode,
                     onRangeChange = secondBrainViewModel::setRange,
-                    onOpenArticle = { id -> navController.navigate("${RouteName.READING}/$id") { launchSingleTop = true } },
+                    onOpenArticle = { id -> navController.navigate(readingRoute(id)) { launchSingleTop = true } },
                     onRetry = secondBrainViewModel::refresh,
                     galaxyState = galaxyState,
                     onSelectStar = galaxyViewModel::selectStar,
@@ -638,4 +638,7 @@ fun HomeEntry(
 }
 
 /** Reader route for one article id; shared so tests pin the exact destination. */
-internal fun readingRoute(articleId: String): String = "${RouteName.READING}/$articleId"
+/** The id goes into one path segment; Google Reader ids hold `/`, `$`, `,` and `:`, so it is percent-encoded here and Navigation decodes it again. */
+internal fun readingRoute(articleId: String): String = "${RouteName.READING}/${android.net.Uri.encode(articleId)}"
+
+internal fun articleDiffRoute(articleId: String): String = "${RouteName.ARTICLE_DIFF_PREFIX}/${android.net.Uri.encode(articleId)}"

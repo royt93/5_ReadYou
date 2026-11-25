@@ -1,5 +1,6 @@
 package com.mckimquyen.reader.ui.page.home.feed
 
+import com.mckimquyen.reader.ui.page.common.readingRoute
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.animateFloat
@@ -271,7 +272,7 @@ fun FeedsPage(
                             articles = onThisDayState.articles,
                             currentYear = onThisDayState.currentYear,
                             onArticleClick = { articleId ->
-                                navController.navigate("${RouteName.READING}/$articleId") {
+                                navController.navigate(readingRoute(articleId)) {
                                     launchSingleTop = true
                                 }
                             },
