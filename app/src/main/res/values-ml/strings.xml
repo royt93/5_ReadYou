@@ -1343,4 +1343,6 @@
     <string name="commute_play_action">പ്ലേ ചെയ്യുക</string>
     <string name="commute_ready_to_play_title">നിങ്ങളുടെ പ്രഭാത എപ്പിസോഡ് തയ്യാറാണ്</string>
     <string name="commute_ready_to_play_body">നിങ്ങളുടെ ഹെഡ്ഫോണുകൾ കണക്റ്റ് ചെയ്തിരിക്കുന്നു. കേൾക്കാൻ പ്ലേ ടാപ്പ് ചെയ്യുക.</string>
+    <string name="trust_self_signed_title">സ്വയം ഒപ്പിട്ട സർട്ടിഫിക്കറ്റ് വിശ്വസിക്കുക</string>
+    <string name="trust_self_signed_desc">ഈ സെർവറിന് മാത്രം. നിങ്ങളുടെ സെർവർ നിങ്ങൾ തന്നെ നിർമ്മിച്ച സർട്ടിഫിക്കറ്റ് ഉപയോഗിക്കുന്നില്ലെങ്കിൽ ഇത് ഓഫ് ആക്കി വയ്ക്കുക; അല്ലെങ്കിൽ അതേ നെറ്റ്‌വർക്കിലെ ആർക്കും നിങ്ങളുടെ പാസ്‌വേഡ് വായിക്കാൻ കഴിയും.</string>
 </resources>

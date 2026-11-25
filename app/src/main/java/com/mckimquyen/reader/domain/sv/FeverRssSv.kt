@@ -1,5 +1,6 @@
 package com.mckimquyen.reader.domain.sv
 
+import com.mckimquyen.reader.infrastructure.net.SelfSignedTrust
 import android.content.Context
 import android.text.Html
 import android.util.Log
@@ -91,6 +92,7 @@ class FeverRssSv @Inject constructor(
             password = password,
             httpUsername = null,
             httpPassword = null,
+            trustSelfSigned = SelfSignedTrust.of(context).isTrusted(serverUrl),
         )
     }
 

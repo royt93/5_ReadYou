@@ -39,6 +39,10 @@ class WebDavBackupViewModel @Inject constructor(
         _config.value = webDavBackupManager.getConfig()
     }
 
+    fun isSelfSignedTrusted(serverUrl: String): Boolean = webDavBackupManager.isSelfSignedTrusted(serverUrl)
+
+    fun setSelfSignedTrusted(serverUrl: String, trusted: Boolean) = webDavBackupManager.setSelfSignedTrusted(serverUrl, trusted)
+
     fun backup() {
         AppLog.event("webdav", "backup")
         _opState.value = BackupOpState.InProgress

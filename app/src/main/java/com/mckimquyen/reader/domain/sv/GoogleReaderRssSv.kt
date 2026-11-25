@@ -1,5 +1,6 @@
 package com.mckimquyen.reader.domain.sv
 
+import com.mckimquyen.reader.infrastructure.net.SelfSignedTrust
 import android.content.Context
 import android.text.Html
 import android.util.Log
@@ -90,7 +91,8 @@ class GoogleReaderRssSv @Inject constructor(
             ?: throw IllegalStateException("Username not configured")
         val password = securityKey.password
             ?: throw IllegalStateException("Password not configured")
-        return GoogleReaderApi.getInstance(serverUrl = serverUrl, username = username, password = password)
+        return GoogleReaderApi.getInstance(serverUrl = serverUrl, username = username, password = password,
+            trustSelfSigned = SelfSignedTrust.of(context).isTrusted(serverUrl))
     }
 
     override suspend fun validCredentials(): Boolean = getGoogleReaderApi().validCredentials()

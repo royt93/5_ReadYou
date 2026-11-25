@@ -1286,4 +1286,6 @@
     <string name="commute_play_action">Play</string>
     <string name="commute_ready_to_play_title">Your morning episode is ready</string>
     <string name="commute_ready_to_play_body">Your headphones are connected. Tap Play to listen.</string>
+    <string name="trust_self_signed_title">Доверять самоподписанному сертификату</string>
+    <string name="trust_self_signed_desc">Только для этого сервера. Оставьте выключенным, если сервер не использует сертификат, созданный вами; иначе любой в той же сети сможет прочитать ваш пароль.</string>
 </resources>

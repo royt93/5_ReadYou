@@ -1,6 +1,7 @@
 package com.mckimquyen.reader.infrastructure.rss.provider.fever
 
 import com.mckimquyen.reader.infrastructure.rss.provider.ProviderAPI
+import com.mckimquyen.reader.infrastructure.rss.provider.credentialApiClient
 import com.mckimquyen.reader.ui.ext.encodeBase64
 import com.mckimquyen.reader.ui.ext.md5
 import okhttp3.FormBody
@@ -13,7 +14,8 @@ class FeverAPI private constructor(
     private val apiKey: String,
     private val httpUsername: String? = null,
     private val httpPassword: String? = null,
-) : ProviderAPI() {
+    trustSelfSigned: Boolean = false,
+) : ProviderAPI(credentialApiClient(trustSelfSigned)) {
 
     private suspend inline fun <reified T> postRequest(query: String?): T {
         val response = client.newCall(
@@ -108,9 +110,11 @@ class FeverAPI private constructor(
             password: String,
             httpUsername: String? = null,
             httpPassword: String? = null,
+            trustSelfSigned: Boolean = false,
         ): FeverAPI = "$username:$password".md5().run {
-            instances.getOrPut("$serverUrl$this$httpUsername$httpPassword") {
-                FeverAPI(serverUrl, this, httpUsername, httpPassword)
+            // The trust flag is part of the key: switching the exception on or off must not keep serving the old client.
+            instances.getOrPut("$serverUrl$this$httpUsername$httpPassword$trustSelfSigned") {
+                FeverAPI(serverUrl, this, httpUsername, httpPassword, trustSelfSigned)
             }
         }
     }

@@ -1250,4 +1250,6 @@
     <string name="commute_play_action">Predvajaj</string>
     <string name="commute_ready_to_play_title">Vaša jutranja epizoda je pripravljena</string>
     <string name="commute_ready_to_play_body">Slušalke so povezane. Tapnite Predvajaj za poslušanje.</string>
+    <string name="trust_self_signed_title">Zaupaj samopodpisanemu potrdilu</string>
+    <string name="trust_self_signed_desc">Samo za ta strežnik. Pustite izklopljeno, razen če strežnik uporablja potrdilo, ki ste ga ustvarili sami; sicer lahko vsak v istem omrežju prebere vaše geslo.</string>
 </resources>

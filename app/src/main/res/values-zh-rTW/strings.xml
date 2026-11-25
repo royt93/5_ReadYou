@@ -1262,4 +1262,6 @@
     <string name="commute_play_action">Play</string>
     <string name="commute_ready_to_play_title">Your morning episode is ready</string>
     <string name="commute_ready_to_play_body">Your headphones are connected. Tap Play to listen.</string>
+    <string name="trust_self_signed_title">信任自簽憑證</string>
+    <string name="trust_self_signed_desc">僅對此伺服器生效。除非您的伺服器使用自行建立的憑證,否則請保持關閉;否則同一網路中的任何人都可能讀取您的密碼。</string>
 </resources>

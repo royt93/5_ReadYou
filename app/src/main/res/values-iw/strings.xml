@@ -1355,4 +1355,6 @@
     <string name="commute_play_action">נגן</string>
     <string name="commute_ready_to_play_title">פרק הבוקר שלכם מוכן</string>
     <string name="commute_ready_to_play_body">האוזניות שלכם מחוברות. הקישו על ניגון כדי להאזין.</string>
+    <string name="trust_self_signed_title">לסמוך על אישור בחתימה עצמית</string>
+    <string name="trust_self_signed_desc">רק עבור השרת הזה. השאירו כבוי אלא אם השרת שלכם משתמש באישור שיצרתם בעצמכם; אחרת כל אחד באותה רשת יוכל לקרוא את הסיסמה שלכם.</string>
 </resources>

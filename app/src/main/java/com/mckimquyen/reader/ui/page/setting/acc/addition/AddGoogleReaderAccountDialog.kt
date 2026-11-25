@@ -1,5 +1,7 @@
 package com.mckimquyen.reader.ui.page.setting.acc.addition
 
+import com.mckimquyen.reader.infrastructure.net.SelfSignedTrust
+import com.mckimquyen.reader.ui.page.setting.SelfSignedTrustSwitch
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -57,6 +59,7 @@ fun AddGoogleReaderAccountDialog(
     var serverUrl by rememberSaveable { mutableStateOf("") }
     var username by rememberSaveable { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }
+    var trustSelfSigned by rememberSaveable { mutableStateOf(false) }
 
     BaseDlg(
         modifier = Modifier.padding(44.dp),
@@ -109,6 +112,7 @@ fun AddGoogleReaderAccountDialog(
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                 )
                 Spacer(modifier = Modifier.height(10.dp))
+                SelfSignedTrustSwitch(checked = trustSelfSigned, onCheckedChange = { trustSelfSigned = it })
             }
         },
         confirmButton = {
@@ -116,6 +120,10 @@ fun AddGoogleReaderAccountDialog(
                 enabled = serverUrl.isNotBlank() && username.isNotEmpty() && password.isNotEmpty(),
                 onClick = {
                     focusManager.clearFocus()
+                    // Set before the credentials are checked, because the check itself is the first request; undone below if the account is not added.
+                    val trust = SelfSignedTrust.of(context)
+                    val wasTrusted = trust.isTrusted(serverUrl)
+                    if (trustSelfSigned) trust.setTrusted(serverUrl, true)
                     accountViewModel.addAccount(
                         Account(
                             type = AccountType.GoogleReader,

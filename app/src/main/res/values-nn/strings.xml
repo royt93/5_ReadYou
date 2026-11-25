@@ -1343,4 +1343,6 @@
     <string name="commute_play_action">Spel av</string>
     <string name="commute_ready_to_play_title">Morgonepisoden din er klar</string>
     <string name="commute_ready_to_play_body">Hovudtelefonane dine er tilkopla. Trykk på Spel av for å lytte.</string>
+    <string name="trust_self_signed_title">Stol på sjølvsignert sertifikat</string>
+    <string name="trust_self_signed_desc">Berre for denne tenaren. La det stå av med mindre tenaren din bruker eit sertifikat du har laga sjølv; elles kan alle på same nettverk lesa passordet ditt.</string>
 </resources>

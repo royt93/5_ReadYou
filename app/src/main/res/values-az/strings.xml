@@ -1342,4 +1342,6 @@
     <string name="commute_play_action">Oxut</string>
     <string name="commute_ready_to_play_title">Səhər epizodunuz hazırdır</string>
     <string name="commute_ready_to_play_body">Qulaqlığınız qoşulub. Dinləmək üçün Oxut düyməsinə toxunun.</string>
+    <string name="trust_self_signed_title">Öz-imzalı sertifikata etibar et</string>
+    <string name="trust_self_signed_desc">Yalnız bu server üçün. Serveriniz özünüzün yaratdığı sertifikat işlətmirsə, söndürülmüş saxlayın; əks halda eyni şəbəkədəki hər kəs parolunuzu oxuya bilər.</string>
 </resources>

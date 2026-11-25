@@ -49,6 +49,7 @@ class WebDavBackupManagerTest {
             context = context,
             opmlSv = opmlSv,
             okHttpClient = okHttpClient,
+            secureClient = okHttpClient,
             ioDispatcher = Dispatchers.Unconfined,
         )
     }

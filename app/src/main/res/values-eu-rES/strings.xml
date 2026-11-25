@@ -1341,4 +1341,6 @@
     <string name="commute_play_action">Erreproduzitu</string>
     <string name="commute_ready_to_play_title">Zure goizeko atala prest dago</string>
     <string name="commute_ready_to_play_body">Zure entzungailuak konektatuta daude. Sakatu Erreproduzitu entzuteko.</string>
+    <string name="trust_self_signed_title">Fidatu ziurtagiri autosinatu batean</string>
+    <string name="trust_self_signed_desc">Zerbitzari honetarako soilik. Utzi desaktibatuta, zure zerbitzariak zuk sortutako ziurtagiria erabiltzen ez badu; bestela, sare bereko edonork irakur dezake zure pasahitza.</string>
 </resources>

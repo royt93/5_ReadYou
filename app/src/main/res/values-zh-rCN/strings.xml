@@ -1263,4 +1263,6 @@
     <string name="commute_play_action">Play</string>
     <string name="commute_ready_to_play_title">Your morning episode is ready</string>
     <string name="commute_ready_to_play_body">Your headphones are connected. Tap Play to listen.</string>
+    <string name="trust_self_signed_title">信任自签名证书</string>
+    <string name="trust_self_signed_desc">仅对此服务器生效。除非您的服务器使用自己创建的证书,否则请保持关闭;否则同一网络中的任何人都可能读取您的密码。</string>
 </resources>

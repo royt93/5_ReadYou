@@ -1268,4 +1268,6 @@
     <string name="commute_play_action">चलाएँ</string>
     <string name="commute_ready_to_play_title">आपका सुबह का एपिसोड तैयार है</string>
     <string name="commute_ready_to_play_body">आपके हेडफ़ोन जुड़े हैं। सुनने के लिए चलाएँ पर टैप करें।</string>
+    <string name="trust_self_signed_title">स्व-हस्ताक्षरित प्रमाणपत्र पर भरोसा करें</string>
+    <string name="trust_self_signed_desc">केवल इसी सर्वर के लिए। जब तक आपका सर्वर आपके खुद बनाए प्रमाणपत्र का उपयोग नहीं करता, इसे बंद रखें; अन्यथा उसी नेटवर्क का कोई भी व्यक्ति आपका पासवर्ड पढ़ सकता है।</string>
 </resources>

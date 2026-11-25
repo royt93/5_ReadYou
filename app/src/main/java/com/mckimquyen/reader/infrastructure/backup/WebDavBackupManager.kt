@@ -1,5 +1,7 @@
 package com.mckimquyen.reader.infrastructure.backup
 
+import com.mckimquyen.reader.infrastructure.di.SecureHttp
+import com.mckimquyen.reader.infrastructure.net.SelfSignedTrust
 import android.content.Context
 import com.mckimquyen.reader.domain.sv.OpmlSv
 import com.mckimquyen.reader.infrastructure.di.IODispatcher
@@ -30,9 +32,20 @@ data class WebDavConfig(
 class WebDavBackupManager @Inject constructor(
     @ApplicationContext private val context: Context,
     private val opmlSv: OpmlSv,
+    // The shared client accepts any certificate; it is used only for a server the user allowed (see SelfSignedTrust).
     private val okHttpClient: OkHttpClient,
+    @SecureHttp private val secureClient: OkHttpClient,
     @IODispatcher private val ioDispatcher: CoroutineDispatcher,
 ) {
+
+    private val trust by lazy { SelfSignedTrust.of(context) }
+
+    /** WebDAV sends a password: verify the certificate unless the user switched the exception on for this server. */
+    fun clientFor(serverUrl: String): OkHttpClient = if (trust.isTrusted(serverUrl)) okHttpClient else secureClient
+
+    fun isSelfSignedTrusted(serverUrl: String): Boolean = trust.isTrusted(serverUrl)
+
+    fun setSelfSignedTrusted(serverUrl: String, trusted: Boolean) = trust.setTrusted(serverUrl, trusted)
 
     private val prefs by lazy { context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE) }
 
@@ -75,7 +88,7 @@ class WebDavBackupManager @Inject constructor(
                 .header("Authorization", authHeader)
                 .build()
 
-            val response = okHttpClient.newCall(request).executeAsync()
+            val response = clientFor(config.serverUrl).newCall(request).executeAsync()
             if (!response.isSuccessful) {
                 return@withContext Result.failure(
                     IOException("WebDAV PUT failed with HTTP code ${response.code}: ${response.message}")
@@ -106,7 +119,7 @@ class WebDavBackupManager @Inject constructor(
                 .header("Authorization", authHeader)
                 .build()
 
-            val response = okHttpClient.newCall(request).executeAsync()
+            val response = clientFor(config.serverUrl).newCall(request).executeAsync()
             if (!response.isSuccessful) {
                 return@withContext Result.failure(
                     IOException("WebDAV GET failed with HTTP code ${response.code}: ${response.message}")

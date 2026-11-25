@@ -2,6 +2,7 @@
 
 package com.mckimquyen.reader.ui.page.setting.backup
 
+import com.mckimquyen.reader.ui.page.setting.SelfSignedTrustSwitch
 import android.app.Activity
 import android.text.format.DateUtils
 import androidx.compose.foundation.layout.Arrangement
@@ -68,6 +69,7 @@ fun WebDavBackupPage(
     var serverUrl by remember(config.serverUrl) { mutableStateOf(config.serverUrl) }
     var username by remember(config.username) { mutableStateOf(config.username) }
     var password by remember(config.password) { mutableStateOf(config.password) }
+    var trustSelfSigned by remember(serverUrl) { mutableStateOf(viewModel.isSelfSignedTrusted(serverUrl)) }
     var confirmRestore by remember { mutableStateOf(false) }
 
     if (confirmRestore) {
@@ -182,6 +184,14 @@ fun WebDavBackupPage(
                                 singleLine = true,
                                 visualTransformation = PasswordVisualTransformation(),
                                 modifier = Modifier.fillMaxWidth(),
+                            )
+
+                            SelfSignedTrustSwitch(
+                                checked = trustSelfSigned,
+                                onCheckedChange = {
+                                    trustSelfSigned = it
+                                    viewModel.setSelfSignedTrusted(serverUrl, it)
+                                },
                             )
 
                             config.lastBackupTime?.let { time ->

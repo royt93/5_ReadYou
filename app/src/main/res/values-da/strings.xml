@@ -1270,4 +1270,6 @@
     <string name="commute_play_action">Afspil</string>
     <string name="commute_ready_to_play_title">Dit morgenafsnit er klar</string>
     <string name="commute_ready_to_play_body">Dine hovedtelefoner er tilsluttet. Tryk på Afspil for at lytte.</string>
+    <string name="trust_self_signed_title">Stol på et selvsigneret certifikat</string>
+    <string name="trust_self_signed_desc">Kun for denne server. Lad det være slået fra, medmindre din server bruger et certifikat, du selv har lavet; ellers kan alle på samme netværk læse din adgangskode.</string>
 </resources>

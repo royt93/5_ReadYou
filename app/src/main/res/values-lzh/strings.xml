@@ -1337,4 +1337,6 @@
     <string name="commute_play_action">播</string>
     <string name="commute_ready_to_play_title">君之晨間集已備妥</string>
     <string name="commute_ready_to_play_body">耳機已連。輕觸播放以聽。</string>
+    <string name="trust_self_signed_title">信自簽之證</string>
+    <string name="trust_self_signed_desc">唯此伺服器適用。若伺服器所用之證非君自製,宜置於關;否則同網之人皆可竊讀君之密碼。</string>
 </resources>

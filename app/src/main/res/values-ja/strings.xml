@@ -1264,4 +1264,6 @@
     <string name="commute_play_action">Play</string>
     <string name="commute_ready_to_play_title">Your morning episode is ready</string>
     <string name="commute_ready_to_play_body">Your headphones are connected. Tap Play to listen.</string>
+    <string name="trust_self_signed_title">自己署名証明書を信頼する</string>
+    <string name="trust_self_signed_desc">このサーバーにのみ適用されます。サーバーが自作の証明書を使っている場合を除き、オフのままにしてください。オンにすると、同じネットワークの誰でもパスワードを読み取れる可能性があります。</string>
 </resources>

@@ -1271,4 +1271,6 @@
     <string name="commute_play_action">Oynat</string>
     <string name="commute_ready_to_play_title">Sabah bölümünüz hazır</string>
     <string name="commute_ready_to_play_body">Kulaklıklarınız bağlı. Dinlemek için Oynat\'a dokunun.</string>
+    <string name="trust_self_signed_title">Kendinden imzalı sertifikaya güven</string>
+    <string name="trust_self_signed_desc">Yalnızca bu sunucu için. Sunucunuz kendi oluşturduğunuz bir sertifika kullanmıyorsa kapalı bırakın; aksi halde aynı ağdaki herkes parolanızı okuyabilir.</string>
 </resources>

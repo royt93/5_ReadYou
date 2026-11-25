@@ -1265,4 +1265,6 @@
     <string name="commute_play_action">Play</string>
     <string name="commute_ready_to_play_title">Your morning episode is ready</string>
     <string name="commute_ready_to_play_body">Your headphones are connected. Tap Play to listen.</string>
+    <string name="trust_self_signed_title">الوثوق بشهادة موقّعة ذاتيًا</string>
+    <string name="trust_self_signed_desc">لهذا الخادم فقط. اتركه معطّلًا ما لم يستخدم خادمك شهادة أنشأتها بنفسك؛ وإلا يمكن لأي شخص على الشبكة نفسها قراءة كلمة المرور.</string>
 </resources>

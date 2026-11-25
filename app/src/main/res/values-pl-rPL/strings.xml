@@ -1352,4 +1352,6 @@
     <string name="commute_play_action">Play</string>
     <string name="commute_ready_to_play_title">Your morning episode is ready</string>
     <string name="commute_ready_to_play_body">Your headphones are connected. Tap Play to listen.</string>
+    <string name="trust_self_signed_title">Ufaj certyfikatowi z własnym podpisem</string>
+    <string name="trust_self_signed_desc">Tylko dla tego serwera. Pozostaw wyłączone, chyba że serwer używa certyfikatu utworzonego przez Ciebie; w przeciwnym razie każdy w tej samej sieci może odczytać Twoje hasło.</string>
 </resources>

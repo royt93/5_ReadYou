@@ -1,8 +1,7 @@
 package com.mckimquyen.reader.infrastructure.rss.provider.googleReader
 
-import com.mckimquyen.reader.infrastructure.di.UserAgentInterceptor
-import com.mckimquyen.reader.infrastructure.di.cachingHttpClient
 import com.mckimquyen.reader.infrastructure.rss.provider.ProviderAPI
+import com.mckimquyen.reader.infrastructure.rss.provider.credentialApiClient
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -23,9 +22,9 @@ class GoogleReaderApi private constructor(
     private val serverUrl: String,
     private val username: String,
     private val password: String,
-    // ponytail: default is production's shared caching client; tests inject one pointed at a
+    // ponytail: default verifies TLS (or trusts the host the user allowed); tests inject one pointed at a
     // local stub server instead of adding a MockWebServer-style dependency.
-    httpClient: OkHttpClient = cachingHttpClient().newBuilder().addNetworkInterceptor(UserAgentInterceptor).build(),
+    httpClient: OkHttpClient,
 ) : ProviderAPI(httpClient) {
 
     @Volatile
@@ -168,9 +167,9 @@ class GoogleReaderApi private constructor(
 
         private val instances: ConcurrentHashMap<String, GoogleReaderApi> = ConcurrentHashMap()
 
-        fun getInstance(serverUrl: String, username: String, password: String): GoogleReaderApi =
-            instances.getOrPut("$serverUrl$username") {
-                GoogleReaderApi(serverUrl, username, password)
+        fun getInstance(serverUrl: String, username: String, password: String, trustSelfSigned: Boolean = false): GoogleReaderApi =
+            instances.getOrPut("$serverUrl$username$trustSelfSigned") {
+                GoogleReaderApi(serverUrl, username, password, credentialApiClient(trustSelfSigned))
             }
 
         /** Visible for testing: same caching semantics as [getInstance] but with an injectable [OkHttpClient]. */

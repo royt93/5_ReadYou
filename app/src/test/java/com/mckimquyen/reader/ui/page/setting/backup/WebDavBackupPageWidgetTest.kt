@@ -32,7 +32,7 @@ class WebDavBackupPageWidgetTest {
     fun webDavBackupPage_rendersHeadersAndFields() {
         val context = ApplicationProvider.getApplicationContext<Application>()
         val opmlSv = mockk<OpmlSv>(relaxed = true)
-        val manager = WebDavBackupManager(context, opmlSv, mockk(relaxed = true), Dispatchers.Unconfined)
+        val manager = WebDavBackupManager(context, opmlSv, mockk(relaxed = true), mockk(relaxed = true), Dispatchers.Unconfined)
         val viewModel = WebDavBackupViewModel(context, manager)
 
         composeRule.setContent {

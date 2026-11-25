@@ -1266,4 +1266,6 @@
     <string name="commute_play_action">Lejátszás</string>
     <string name="commute_ready_to_play_title">Elkészült a reggeli adásod</string>
     <string name="commute_ready_to_play_body">A fejhallgatód csatlakoztatva van. Koppints a Lejátszásra a hallgatáshoz.</string>
+    <string name="trust_self_signed_title">Önaláírt tanúsítvány elfogadása</string>
+    <string name="trust_self_signed_desc">Csak ehhez a szerverhez. Hagyja kikapcsolva, kivéve ha a szervere saját maga által készített tanúsítványt használ; különben bárki elolvashatja a jelszavát ugyanazon a hálózaton.</string>
 </resources>

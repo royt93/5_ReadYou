@@ -1278,4 +1278,6 @@
     <string name="commute_play_action">Redă</string>
     <string name="commute_ready_to_play_title">Episodul de dimineață este gata</string>
     <string name="commute_ready_to_play_body">Căștile sunt conectate. Atingeți Redare pentru a asculta.</string>
+    <string name="trust_self_signed_title">Ai încredere în certificatul autosemnat</string>
+    <string name="trust_self_signed_desc">Doar pentru acest server. Lasă oprit, cu excepția cazului în care serverul tău folosește un certificat creat de tine; altfel oricine din aceeași rețea îți poate citi parola.</string>
 </resources>

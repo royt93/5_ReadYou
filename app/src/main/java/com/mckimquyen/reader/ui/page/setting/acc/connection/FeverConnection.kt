@@ -1,5 +1,8 @@
 package com.mckimquyen.reader.ui.page.setting.acc.connection
 
+import androidx.compose.ui.platform.LocalContext
+import com.mckimquyen.reader.infrastructure.net.SelfSignedTrust
+import com.mckimquyen.reader.ui.component.base.BaseSwitch
 import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -26,6 +29,9 @@ fun LazyItemScope.FeverConnection(
     val securityKey by remember {
         derivedStateOf { FeverSecurityKey(account.securityKey) }
     }
+
+    val context = LocalContext.current
+    var trustSelfSigned by remember(securityKey.serverUrl) { mutableStateOf(SelfSignedTrust.of(context).isTrusted(securityKey.serverUrl)) }
 
     var passwordMask by remember { mutableStateOf(securityKey.password?.mask()) }
 
@@ -62,6 +68,20 @@ fun LazyItemScope.FeverConnection(
             passwordDialogVisible = true
         },
     ) {}
+    SettingItem(
+        title = stringResource(R.string.trust_self_signed_title),
+        desc = stringResource(R.string.trust_self_signed_desc),
+        onClick = {
+            trustSelfSigned = !trustSelfSigned
+            SelfSignedTrust.of(context).setTrusted(securityKey.serverUrl, trustSelfSigned)
+        },
+        action = {
+            BaseSwitch(activated = trustSelfSigned) {
+                trustSelfSigned = !trustSelfSigned
+                SelfSignedTrust.of(context).setTrusted(securityKey.serverUrl, trustSelfSigned)
+            }
+        },
+    )
 
     TextFieldDlg(
         visible = serverUrlDialogVisible,

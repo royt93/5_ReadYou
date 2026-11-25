@@ -1270,4 +1270,6 @@
     <string name="commute_play_action">پخش</string>
     <string name="commute_ready_to_play_title">قسمت صبحگاهی شما آماده است</string>
     <string name="commute_ready_to_play_body">هدفون شما وصل است. برای شنیدن، پخش را بزنید.</string>
+    <string name="trust_self_signed_title">اعتماد به گواهی خودامضا</string>
+    <string name="trust_self_signed_desc">فقط برای همین سرور. مگر اینکه سرور شما از گواهی ساخته‌شده توسط خودتان استفاده کند، آن را خاموش بگذارید؛ در غیر این صورت هر کسی در همان شبکه می‌تواند گذرواژه شما را بخواند.</string>
 </resources>

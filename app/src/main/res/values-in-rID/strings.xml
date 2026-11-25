@@ -1264,4 +1264,6 @@
     <string name="commute_play_action">Play</string>
     <string name="commute_ready_to_play_title">Your morning episode is ready</string>
     <string name="commute_ready_to_play_body">Your headphones are connected. Tap Play to listen.</string>
+    <string name="trust_self_signed_title">Percayai sertifikat yang ditandatangani sendiri</string>
+    <string name="trust_self_signed_desc">Hanya untuk server ini. Biarkan mati kecuali server Anda memakai sertifikat buatan sendiri; jika tidak, siapa pun di jaringan yang sama dapat membaca kata sandi Anda.</string>
 </resources>

@@ -1271,4 +1271,6 @@
     <string name="commute_play_action">Afspelen</string>
     <string name="commute_ready_to_play_title">Je ochtendaflevering staat klaar</string>
     <string name="commute_ready_to_play_body">Je koptelefoon is verbonden. Tik op Afspelen om te luisteren.</string>
+    <string name="trust_self_signed_title">Zelfondertekend certificaat vertrouwen</string>
+    <string name="trust_self_signed_desc">Alleen voor deze server. Laat uit, tenzij je server een zelfgemaakt certificaat gebruikt; anders kan iedereen op hetzelfde netwerk je wachtwoord lezen.</string>
 </resources>

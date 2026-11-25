@@ -1272,4 +1272,6 @@
     <string name="commute_play_action">Play</string>
     <string name="commute_ready_to_play_title">Your morning episode is ready</string>
     <string name="commute_ready_to_play_body">Your headphones are connected. Tap Play to listen.</string>
+    <string name="trust_self_signed_title">Selbstsigniertem Zertifikat vertrauen</string>
+    <string name="trust_self_signed_desc">Nur für diesen Server. Lassen Sie die Option aus, es sei denn, Ihr Server nutzt ein selbst erstelltes Zertifikat; sonst kann jeder im selben Netzwerk Ihr Passwort mitlesen.</string>
 </resources>

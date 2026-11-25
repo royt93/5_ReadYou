@@ -1235,4 +1235,6 @@
     <string name="commute_play_action">Пусни</string>
     <string name="commute_ready_to_play_title">Вашият сутрешен епизод е готов</string>
     <string name="commute_ready_to_play_body">Слушалките ви са свързани. Докоснете Пусни, за да слушате.</string>
+    <string name="trust_self_signed_title">Доверяване на самоподписан сертификат</string>
+    <string name="trust_self_signed_desc">Само за този сървър. Оставете изключено, освен ако сървърът ви използва сертификат, създаден от вас; иначе всеки в същата мрежа може да прочете паролата ви.</string>
 </resources>

@@ -1237,4 +1237,6 @@
     <string name="commute_play_action">Phát</string>
     <string name="commute_ready_to_play_title">Bản tin sáng đã sẵn sàng</string>
     <string name="commute_ready_to_play_body">Tai nghe đã kết nối. Chạm Phát để nghe.</string>
+    <string name="trust_self_signed_title">Tin chứng chỉ tự ký</string>
+    <string name="trust_self_signed_desc">Chỉ áp dụng cho máy chủ này. Để tắt trừ khi máy chủ dùng chứng chỉ do bạn tự tạo; bật lên thì người cùng mạng có thể đọc được mật khẩu của bạn.</string>
 </resources>

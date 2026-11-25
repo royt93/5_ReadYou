@@ -1,5 +1,6 @@
 package com.mckimquyen.reader.ui.page.reels
 
+import android.os.Build
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.layout.Box
@@ -112,7 +113,8 @@ private fun Modifier.leftEdgeGestureExclusion(): Modifier {
     // The exclusion lives on the one view of MainActivity. Without this the band stayed on every screen after Reels was closed and swallowed Back there.
     androidx.compose.runtime.DisposableEffect(view) {
         onDispose {
-            view.systemGestureExclusionRects = emptyList()
+            // setSystemGestureExclusionRects exists from API 29; below that the system Back gesture does not exist either (3-button navigation).
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) view.systemGestureExclusionRects = emptyList()
             AppLog.event("reels", "edge-exclusion-cleared")
         }
     }
@@ -121,7 +123,9 @@ private fun Modifier.leftEdgeGestureExclusion(): Modifier {
         val h = with(density) { LEFT_EDGE_EXCLUSION_HEIGHT.dp.toPx() }
         val w = with(density) { LEFT_EDGE_EXCLUSION_WIDTH.dp.toPx() }
         val top = (bounds.center.y - h / 2f).toInt()
-        view.systemGestureExclusionRects = listOf(android.graphics.Rect(0, top, w.toInt(), top + h.toInt()))
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            view.systemGestureExclusionRects = listOf(android.graphics.Rect(0, top, w.toInt(), top + h.toInt()))
+        }
         // Layout runs on every frame of a scroll; log only when the band actually moves.
         if (top != lastTop[0]) {
             lastTop[0] = top

@@ -1279,4 +1279,6 @@
     <string name="commute_play_action">Пусти</string>
     <string name="commute_ready_to_play_title">Ваша јутарња епизода је спремна</string>
     <string name="commute_ready_to_play_body">Ваше слушалице су повезане. Додирните Пусти за слушање.</string>
+    <string name="trust_self_signed_title">Верујте самопотписаном сертификату</string>
+    <string name="trust_self_signed_desc">Само за овај сервер. Оставите искључено осим ако ваш сервер користи сертификат који сте сами направили; иначе свако на истој мрежи може да прочита вашу лозинку.</string>
 </resources>

@@ -58,6 +58,7 @@ class WebDavReadPositionSyncNetworkTest {
             feeds.insert(Feed(id = FEED_ID, name = "Example", url = FEED_URL, groupId = GROUP_ID, accountId = ACCOUNT_ID))
             articles.insert(article(ARTICLE_ID_A, ARTICLE_LINK_A))
             articles.insert(article(ARTICLE_ID_B, ARTICLE_LINK_B))
+            every { backupManager.clientFor(any()) } returns OkHttpClient()
             every { backupManager.getConfig() } returns com.mckimquyen.reader.infrastructure.backup.WebDavConfig(
                 serverUrl = server.url("/").toString(),
                 username = USERNAME,
@@ -153,7 +154,6 @@ class WebDavReadPositionSyncNetworkTest {
         readPositionDao = positions,
         feedDao = feeds,
         articleDao = articles,
-        okHttpClient = OkHttpClient(),
         ioDispatcher = Dispatchers.IO,
     )
 

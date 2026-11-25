@@ -1271,4 +1271,6 @@
     <string name="commute_play_action">Spill av</string>
     <string name="commute_ready_to_play_title">Morgenepisoden din er klar</string>
     <string name="commute_ready_to_play_body">Hodetelefonene dine er tilkoblet. Trykk på Spill av for å lytte.</string>
+    <string name="trust_self_signed_title">Stol på selvsignert sertifikat</string>
+    <string name="trust_self_signed_desc">Bare for denne serveren. La det stå av med mindre serveren din bruker et sertifikat du har laget selv; ellers kan alle på samme nettverk lese passordet ditt.</string>
 </resources>

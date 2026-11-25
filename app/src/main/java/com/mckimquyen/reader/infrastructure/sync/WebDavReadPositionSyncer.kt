@@ -34,7 +34,6 @@ class WebDavReadPositionSyncer @Inject constructor(
     private val readPositionDao: ArticleReadPositionDao,
     private val feedDao: FeedDao,
     private val articleDao: ArticleDao,
-    private val okHttpClient: OkHttpClient,
     @IODispatcher private val ioDispatcher: CoroutineDispatcher,
 ) {
 
@@ -46,11 +45,12 @@ class WebDavReadPositionSyncer @Inject constructor(
 
         try {
             val fileUrl = buildPositionsFileUrl(config.serverUrl)
+            val client = webDavBackupManager.clientFor(config.serverUrl)
             val authHeader = "Basic " + "${config.username}:${config.password}".encodeUtf8().base64().trim()
 
             // Snapshot local state before any writes; merge must compare same-cycle local and remote data.
             val localPositions = readPositionDao.getAllPositions(accountId)
-            val remoteRecords = fetchRemoteRecords(fileUrl, authHeader)
+            val remoteRecords = fetchRemoteRecords(fileUrl, authHeader, client)
             val mergedForRemote = merge(localPositions, remoteRecords)
 
             // Persist remote winners locally, keyed back to this device's article IDs.
@@ -75,7 +75,7 @@ class WebDavReadPositionSyncer @Inject constructor(
             }
 
             // Upload complete merge. Only mark local rows synced after successful PUT.
-            uploadRecords(fileUrl, authHeader, mergedForRemote)
+            uploadRecords(fileUrl, authHeader, client, mergedForRemote)
             readPositionDao.markAllSynced(accountId)
 
             Result.success(Unit)
@@ -84,7 +84,7 @@ class WebDavReadPositionSyncer @Inject constructor(
         }
     }
 
-    private fun fetchRemoteRecords(fileUrl: String, authHeader: String): List<WebDavPositionRecord> {
+    private fun fetchRemoteRecords(fileUrl: String, authHeader: String, client: OkHttpClient): List<WebDavPositionRecord> {
         val request = Request.Builder()
             .url(fileUrl)
             .get()
@@ -92,7 +92,7 @@ class WebDavReadPositionSyncer @Inject constructor(
             .build()
 
         return runCatching {
-            okHttpClient.newCall(request).execute().use { response ->
+            client.newCall(request).execute().use { response ->
                 if (response.code == HTTP_NOT_FOUND) return emptyList()
                 if (!response.isSuccessful) {
                     throw IOException("WebDAV GET $POSITIONS_FILENAME failed with HTTP ${response.code}")
@@ -106,7 +106,7 @@ class WebDavReadPositionSyncer @Inject constructor(
         }
     }
 
-    private fun uploadRecords(fileUrl: String, authHeader: String, records: List<WebDavPositionRecord>) {
+    private fun uploadRecords(fileUrl: String, authHeader: String, client: OkHttpClient, records: List<WebDavPositionRecord>) {
         val json = serialize(records)
         val body = json.toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
         val request = Request.Builder()
@@ -115,7 +115,7 @@ class WebDavReadPositionSyncer @Inject constructor(
             .header("Authorization", authHeader)
             .build()
 
-        okHttpClient.newCall(request).execute().use { response ->
+        client.newCall(request).execute().use { response ->
             if (!response.isSuccessful) {
                 throw IOException("WebDAV PUT $POSITIONS_FILENAME failed with HTTP ${response.code}")
             }

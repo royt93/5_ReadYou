@@ -1270,4 +1270,6 @@
     <string name="commute_play_action">Spela upp</string>
     <string name="commute_ready_to_play_title">Ditt morgonavsnitt är klart</string>
     <string name="commute_ready_to_play_body">Dina hörlurar är anslutna. Tryck på Spela för att lyssna.</string>
+    <string name="trust_self_signed_title">Lita på självsignerat certifikat</string>
+    <string name="trust_self_signed_desc">Endast för den här servern. Låt det vara avstängt om inte servern använder ett certifikat du skapat själv; annars kan alla i samma nätverk läsa ditt lösenord.</string>
 </resources>

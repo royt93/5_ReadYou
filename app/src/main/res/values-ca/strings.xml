@@ -1270,4 +1270,6 @@
     <string name="commute_play_action">Reprodueix</string>
     <string name="commute_ready_to_play_title">El teu episodi matinal està a punt</string>
     <string name="commute_ready_to_play_body">Els teus auriculars estan connectats. Toca Reprodueix per escoltar-lo.</string>
+    <string name="trust_self_signed_title">Confia en un certificat autosignat</string>
+    <string name="trust_self_signed_desc">Només per a aquest servidor. Deixa-ho desactivat tret que el servidor faci servir un certificat creat per tu; si no, qualsevol persona de la mateixa xarxa podria llegir la contrasenya.</string>
 </resources>

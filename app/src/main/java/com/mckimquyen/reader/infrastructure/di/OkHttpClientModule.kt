@@ -106,6 +106,13 @@ fun cachingHttpClient(
     return builder.build()
 }
 
+/**
+ * The HTTP client for a server the user logs in to (Fever, Google Reader, WebDAV). It verifies the certificate and host name like a browser, unless [trustSelfSigned] is
+ * true, which the caller sets only for a host the user has explicitly allowed (see SelfSignedTrust).
+ */
+fun credentialHttpClientFrom(base: OkHttpClient, trustSelfSigned: Boolean): OkHttpClient =
+    if (trustSelfSigned) base.newBuilder().apply { trustAllCerts() }.build() else secureHttpClientFrom(base)
+
 fun OkHttpClient.Builder.trustAllCerts() {
     try {
         val trustManager = @SuppressLint("CustomX509TrustManager")
