@@ -106,6 +106,12 @@ fun ReelsPage(
 internal const val LEFT_EDGE_EXCLUSION_HEIGHT = 200
 internal const val LEFT_EDGE_EXCLUSION_WIDTH = 32
 
+/** A move smaller than this is rounding noise, not worth a trace line. */
+internal const val EDGE_LOG_MIN_MOVE_PX = 8
+
+internal fun edgeBandMovedEnoughToLog(previousTop: Int, top: Int): Boolean =
+    previousTop == Int.MIN_VALUE || kotlin.math.abs(top - previousTop) >= EDGE_LOG_MIN_MOVE_PX
+
 @Composable
 private fun Modifier.leftEdgeGestureExclusion(): Modifier {
     val view = LocalView.current
@@ -127,8 +133,8 @@ private fun Modifier.leftEdgeGestureExclusion(): Modifier {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             view.systemGestureExclusionRects = listOf(android.graphics.Rect(0, top, w.toInt(), top + h.toInt()))
         }
-        // Layout runs on every frame of a scroll; log only when the band actually moves.
-        if (top != lastTop[0]) {
+        // Layout runs on every frame of a scroll and rounding flips the top by 1 px; log only when the band really moves.
+        if (edgeBandMovedEnoughToLog(lastTop[0], top)) {
             lastTop[0] = top
             AppLog.event("reels", "edge-exclusion", "topPx" to top, "widthPx" to w.toInt(), "heightPx" to h.toInt())
         }
