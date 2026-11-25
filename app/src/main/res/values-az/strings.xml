@@ -28,8 +28,8 @@
     <string name="try_again">Yenidən cəhd et</string>
     <string name="change_language">Dili dəyiş</string>
     <string name="change_language_confirm">Yeni dilin tətbiqi üçün tətbiq yenidən başladılacaq. Davam etmək istəyirsiniz?</string>
-    <string name="yes">Yes</string>
-    <string name="no">No</string>
+    <string name="yes">Bəli</string>
+    <string name="no">Xeyr</string>
     <string name="restarting_app">Tətbiq yenidən başladılır…</string>
     <string name="auto_tts">Mətnin səsləndirilməsini avtomatik başlat</string>
     <string name="auto_tts_desc">Məqalə açılanda avtomatik səsləndir</string>
@@ -38,47 +38,47 @@
     <string name="watch_ad">Reklama Bax</string>
     <string name="ad_not_ready">Reklam hazır deyil. Zəhmət olmasa, daha sonra yenidən cəhd edin.</string>
     <string name="read_you" translatable="false">RSS Hub</string>
-    <string name="all">All</string>
+    <string name="all">Hamısı</string>
     <plurals name="all_desc">
         <item quantity="one">%1$d Archived Item</item>
         <item quantity="other">%1$d Archived Items</item>
     </plurals>
-    <string name="unread">Unread</string>
+    <string name="unread">Oxunmamış</string>
     <plurals name="unread_desc">
         <item quantity="one">%1$d Unread Item</item>
         <item quantity="other">%1$d Unread Items</item>
     </plurals>
-    <string name="starred">Starred</string>
+    <string name="starred">Seçilmişlər</string>
     <plurals name="starred_desc">
         <item quantity="one">%1$d Starred Item</item>
         <item quantity="other">%1$d Starred Items</item>
     </plurals>
-    <string name="feeds">Feeds</string>
-    <string name="syncing">Syncing…</string>
-    <string name="loading">Loading…</string>
-    <string name="expand_less">Shrink</string>
-    <string name="expand_more">Expand</string>
-    <string name="confirm">Confirm</string>
-    <string name="cancel">Cancel</string>
-    <string name="allow">Allow</string>
-    <string name="deny">Deny</string>
-    <string name="defaults">Default</string>
-    <string name="unknown">Unknown</string>
-    <string name="empty">Empty</string>
-    <string name="back">Back</string>
+    <string name="feeds">Lentlər</string>
+    <string name="syncing">Sinxronlaşdırılır…</string>
+    <string name="loading">Yüklənir…</string>
+    <string name="expand_less">Yığ</string>
+    <string name="expand_more">Genişləndir</string>
+    <string name="confirm">Təsdiqlə</string>
+    <string name="cancel">Ləğv et</string>
+    <string name="allow">İcazə ver</string>
+    <string name="deny">Rədd et</string>
+    <string name="defaults">Defolt</string>
+    <string name="unknown">Naməlum</string>
+    <string name="empty">Boş</string>
+    <string name="back">Geri</string>
     <string name="go_to">Go to</string>
-    <string name="settings">Settings</string>
-    <string name="refresh">Refresh</string>
-    <string name="search">Search</string>
-    <string name="searching">Searching…</string>
-    <string name="subscribe">Subscribe</string>
+    <string name="settings">Parametrlər</string>
+    <string name="refresh">Yenilə</string>
+    <string name="search">Axtar</string>
+    <string name="searching">Axtarılır…</string>
+    <string name="subscribe">Abunə ol</string>
     <string name="already_subscribed">Artıq abunə olunub</string>
-    <string name="clear">Clear</string>
-    <string name="paste">Paste</string>
+    <string name="clear">Təmizlə</string>
+    <string name="paste">Yapışdır</string>
     <string name="feed_or_site_url">Lent və ya sayt URL-i</string>
     <string name="import_from_opml">OPML-dən idxal et</string>
-    <string name="preset">Preset</string>
-    <string name="selected">Selected</string>
+    <string name="preset">Şablon</string>
+    <string name="selected">Seçilib</string>
     <string name="allow_notification">Bildirişlərə icazə ver</string>
     <string name="all_allow_notification_tips">\"%1$s\" qrupundakı bütün lentlərə bildiriş göndərməyə icazə ver</string>
     <string name="all_allow_notification_toast">\"%1$s\" qrupundan bütün bildirişlərə icazə verildi</string>
@@ -96,21 +96,21 @@
     <string name="move_to_group">Qrupa köçür</string>
     <string name="all_move_to_group_tips">\"%1$s\" qrupundakı bütün lentləri \"%2$s\" qrupuna köçür</string>
     <string name="all_move_to_group_toast">Bütün lentlər \"%1$s\" qrupuna köçürüldü</string>
-    <string name="rename">Rename</string>
+    <string name="rename">Adını dəyiş</string>
     <string name="change_url">URL-i dəyiş</string>
     <string name="feed_url_placeholder" translatable="false">http://example.com/feed.rss</string>
     <string name="rename_toast">Renamed to \"%1$s\"</string>
     <string name="create_new_group">Yeni qrup yarat</string>
-    <string name="name">Name</string>
-    <string name="delete">Delete</string>
+    <string name="name">Ad</string>
+    <string name="delete">Sil</string>
     <string name="delete_toast">Deleted \"%1$s\"</string>
-    <string name="unsubscribe">Unsubscribe</string>
+    <string name="unsubscribe">Abunəliyi ləğv et</string>
     <string name="unsubscribe_tips">\"%1$s\" lentindən abunəliyi ləğv et və içindəki bütün arxivlənmiş məqalələri sil</string>
     <string name="delete_group">Qrupu sil</string>
     <string name="delete_group_tips">\"%1$s\" qrupunu və içindəki bütün lentləri və arxivlənmiş məqalələri sil</string>
     <string name="group_option_tips">Aşağıdakı seçimlər bu qrupdakı bütün lentlərə tətbiq olunur</string>
-    <string name="today">Today</string>
-    <string name="yesterday">Yesterday</string>
+    <string name="today">Bu gün</string>
+    <string name="yesterday">Dünən</string>
     <string name="date_at_time">%1$s at %2$s</string>
     <string name="search_for_in">\"%2$s\" daxilində %1$s elementlərini axtar</string>
     <string name="search_for">%1$s elementlərini axtar</string>
@@ -122,17 +122,17 @@
     <string name="one_day">1d</string>
     <string name="three_days">3d</string>
     <string name="seven_days">7d</string>
-    <string name="close">Close</string>
+    <string name="close">Bağla</string>
     <string name="get_new_updates">Yeniliyi əldə et</string>
     <string name="get_new_updates_desc">Yeni %1$s versiyası mövcuddur</string>
     <string name="coming_soon">Tezliklə</string>
-    <string name="accounts">Accounts</string>
+    <string name="accounts">Hesablar</string>
     <string name="accounts_desc">Lokal, FreshRSS</string>
     <string name="color_and_style">Rəng &amp; üslub</string>
     <string name="color_and_style_desc">Tema, rəng üslubu, şrift ölçüsü</string>
-    <string name="interaction">Interaction</string>
+    <string name="interaction">Qarşılıqlı əlaqə</string>
     <string name="interaction_desc">Başlanğıc səhifə, haptik əks-əlaqə</string>
-    <string name="languages">Languages</string>
+    <string name="languages">Dillər</string>
     <string name="languages_desc">İngilis, Çin, daha çoxu</string>
     <string name="translatable_url" translatable="false">https://hosted.weblate.org/projects/readyou/</string>
     <string name="use_device_languages">Cihazın dilini istifadə et</string>
@@ -175,7 +175,7 @@
     <string name="malayalam" translatable="false">മലയാളം</string>
     <string name="burmese" translatable="false">မြန်မာ</string>
     <string name="tips_and_support">İpucları &amp; dəstək</string>
-    <string name="welcome">Welcome</string>
+    <string name="welcome">Xoş gəldiniz</string>
     <string name="tos_tips">Davam etmək üçün RSS Bear Hub-ın İstifadə Şərtləri və Məxfilik Siyasəti ilə tanış olub razılaşın.</string>
     <string name="browse_tos_tips">Browse the &lt;i&gt;&lt;u&gt;Terms of Service and Privacy Policy&lt;/u&gt;&lt;/i&gt;
         </string>
@@ -290,20 +290,20 @@
     
             &lt;/p&gt;
         </string>
-    <string name="agree">Agree</string>
+    <string name="agree">Razıyam</string>
     <string name="wallpaper_colors">Divar kağızı rəngləri</string>
-    <string name="no_palettes">No Palettes</string>
+    <string name="no_palettes">Palitra yoxdur</string>
     <string name="only_android_8.1_plus">Yalnız Android 8.1+</string>
     <string name="basic_colors">Əsas rənglər</string>
     <string name="primary_color">Əsas rəng</string>
-    <string name="primary_color_hint">Like #666666 or 666666</string>
-    <string name="appearance">Appearance</string>
-    <string name="style">Style</string>
+    <string name="primary_color_hint">Məsələn, #666666 və ya 666666</string>
+    <string name="appearance">Görünüş</string>
+    <string name="style">Üslub</string>
     <string name="dark_theme">Qaranlıq tema</string>
     <string name="use_device_theme">Cihazın temasını istifadə et</string>
-    <string name="on">On</string>
-    <string name="off">Off</string>
-    <string name="other">Other</string>
+    <string name="on">Aktiv</string>
+    <string name="off">Deaktiv</string>
+    <string name="other">Digər</string>
     <string name="amoled_dark_theme">AMOLED qaranlıq tema</string>
     <string name="tonal_elevation">Tonal yüksəklik</string>
     <string name="reading_fonts">Oxu şriftləri</string>
@@ -311,21 +311,21 @@
     <string name="feeds_page">Lentlər səhifəsi</string>
     <string name="flow_page">Axın səhifəsi</string>
     <string name="reading_page">Oxu səhifəsi</string>
-    <string name="sponsor">Sponsor</string>
+    <string name="sponsor">Dəstək ol</string>
     <string name="open_source_licenses">Açıq mənbə lisenziyaları</string>
     <string name="github_link" translatable="false">https://github.com/Ashinch/ReadYou</string>
     <string name="telegram_link" translatable="false">https://t.me/ReadYouApp</string>
     <string name="update_link">https://api.github.com/repos/Ashinch/ReadYou/releases/latest</string>
-    <string name="change_log">Changelog</string>
-    <string name="update">Update</string>
+    <string name="change_log">Dəyişikliklər</string>
+    <string name="update">Yenilə</string>
     <string name="skip_this_version">Bu versiyanı keç</string>
     <string name="checking_updates">Yeniliklər yoxlanılır…</string>
     <string name="is_latest_version">Bu tətbiqin ən son versiyasıdır</string>
     <string name="check_failure">Yeniliklər yoxlanıla bilmədi</string>
     <string name="download_failure">Yenilik yüklənə bilmədi</string>
     <string name="rate_limit">Sorğu sürəti məhdudlaşdırılıb</string>
-    <string name="help">Help</string>
-    <string name="on_start">On Start</string>
+    <string name="help">Kömək</string>
+    <string name="on_start">Başlanğıcda</string>
     <string name="initial_page">Başlanğıc səhifə</string>
     <string name="initial_filter">Başlanğıc filtr</string>
     <string name="preview_article_title">"Sirlərin Hökmdarı" romanı nəhayət sona çatdı</string>
@@ -333,7 +333,7 @@
             written by Cuttlefish That Loves Diving.
         </string>
     <string name="preview_feed_name">Reddit</string>
-    <string name="value">value</string>
+    <string name="value">dəyər</string>
     <string name="horizontal_padding">Üfüqi boşluq</string>
     <string name="article_date">Məqalənin dərc vaxtı</string>
     <string name="article_desc">Məqalə təsvirləri</string>
@@ -344,46 +344,46 @@
     <string name="article_list">Məqalə siyahısı</string>
     <string name="group_list">Qrup siyahısı</string>
     <string name="always_expand">Həmişə aç</string>
-    <string name="top">Top</string>
+    <string name="top">Yuxarı</string>
     <string name="mark_as_read_button_position">\"Oxunmuş kimi işarələ\" düyməsinin yeri</string>
     <string name="top_bar">Üst panel</string>
     <string name="fill_selected_icon">Cari filtr ikonunu doldur</string>
     <string name="filter_bar">Filtr paneli</string>
-    <string name="icons">Icons</string>
+    <string name="icons">İkonlar</string>
     <string name="icons_and_labels">İkonlar və etiketlər</string>
     <string name="icons_and_label_only_selected">İkonlar və etiket (yalnız aktiv)</string>
     <string name="tips_article_list_tonal_elevation">Məqalə siyahısı üçün tonal yüksəklik yalnız işıqlı temada mövcuddur</string>
     <string name="tips_group_list_tonal_elevation">Qrup siyahısı üçün tonal yüksəklik yalnız işıqlı temada mövcuddur</string>
-    <string name="share">Share</string>
+    <string name="share">Paylaş</string>
     <string name="touch_to_play_video">Videonu oynatmaq üçün toxunun</string>
-    <string name="text">Text</string>
+    <string name="text">Mətn</string>
     <string name="font_size">Şrift ölçüsü</string>
     <string name="letter_spacing">Hərf aralığı</string>
-    <string name="alignment">Alignment</string>
-    <string name="general">General</string>
+    <string name="alignment">Düzləndirmə</string>
+    <string name="general">Ümumi</string>
     <string name="auto_hide_toolbars">Alət panellərini avtomatik gizlət</string>
     <string name="rearrange_buttons">Düymələri yenidən düz</string>
     <string name="bionic_reading">Bionik oxu</string>
-    <string name="images">Images</string>
+    <string name="images">Şəkillər</string>
     <string name="rounded_corners">Yuvarlaq künclər</string>
-    <string name="videos">Videos</string>
+    <string name="videos">Videolar</string>
     <string name="align_left">Sola düz</string>
     <string name="align_right">Sağa düz</string>
     <string name="center_text">Mərkəzə düz</string>
-    <string name="justify">Justify</string>
+    <string name="justify">Hər iki tərəfə</string>
     <string name="external_fonts">Xarici şriftlər</string>
-    <string name="title">Title</string>
-    <string name="bold">Bold</string>
+    <string name="title">Başlıq</string>
+    <string name="bold">Qalın</string>
     <string name="upper_case">Böyük hərflər</string>
-    <string name="subhead">Subhead</string>
+    <string name="subhead">Alt başlıq</string>
     <string name="use_app_theme">Tətbiq temasını istifadə et</string>
-    <string name="advanced">Advanced</string>
+    <string name="advanced">Qabaqcıl</string>
     <string name="dark_reading_theme">Qaranlıq oxu teması</string>
     <string name="title_desc">Qalın, böyük hərflər, düzülmə</string>
     <string name="text_desc">Şrift ölçüsü, hərf aralığı, düzülmə</string>
     <string name="images_desc">Yuvarlaq künclər, üfüqi boşluq</string>
     <string name="videos_desc">Yuvarlaq künclər, üfüqi boşluq</string>
-    <string name="maximize">Maximize</string>
+    <string name="maximize">Böyüt</string>
     <string name="every_15_minutes">Hər 15 dəqiqədən bir</string>
     <string name="every_30_minutes">Hər 30 dəqiqədən bir</string>
     <string name="every_1_hour">Hər saat</string>
@@ -392,35 +392,35 @@
     <string name="every_6_hours">Hər 6 saatdan bir</string>
     <string name="every_12_hours">Hər 12 saatdan bir</string>
     <string name="every_1_day">Hər gün</string>
-    <string name="manually">Manually</string>
-    <string name="always">Always</string>
-    <string name="for_1_day">1 day</string>
-    <string name="for_2_days">2 days</string>
-    <string name="for_3_days">3 days</string>
-    <string name="for_1_week">1 week</string>
-    <string name="for_2_weeks">2 weeks</string>
-    <string name="for_1_month">1 month</string>
-    <string name="local">Local</string>
+    <string name="manually">Əl ilə</string>
+    <string name="always">Həmişə</string>
+    <string name="for_1_day">1 gün</string>
+    <string name="for_2_days">2 gün</string>
+    <string name="for_3_days">3 gün</string>
+    <string name="for_1_week">1 həftə</string>
+    <string name="for_2_weeks">2 həftə</string>
+    <string name="for_1_month">1 ay</string>
+    <string name="local">Lokal</string>
     <string name="fever" translatable="false">Fever</string>
     <string name="google_reader" translatable="false">Google Reader</string>
     <string name="fresh_rss" translatable="false">FreshRSS</string>
     <string name="feedly" translatable="false">Feedly</string>
     <string name="inoreader" translatable="false">Inoreader</string>
     <string name="local_desc">Bu cihazda</string>
-    <string name="services">Services</string>
+    <string name="services">Xidmətlər</string>
     <string name="feedly_desc" translatable="false">feedly.com</string>
     <string name="inoreader_desc" translatable="false">inoreader.com</string>
     <string name="self_hosted">Öz serverində</string>
     <string name="fresh_rss_desc" translatable="false">freshrss.org</string>
     <string name="google_reader_desc" translatable="false">Google Reader API</string>
     <string name="fever_desc">Köhnəlib. Tövsiyə olunmur.</string>
-    <string name="more">More</string>
+    <string name="more">Daha çox</string>
     <string name="add_accounts">Hesab əlavə et</string>
-    <string name="list">List</string>
+    <string name="list">Siyahı</string>
     <string name="add_accounts_desc">Lokal, Xidmətlər, Öz serverində</string>
-    <string name="display">Display</string>
-    <string name="synchronous">Syncing</string>
-    <string name="sync_interval">Sync</string>
+    <string name="display">Ekran</string>
+    <string name="synchronous">Sinxronlaşma</string>
+    <string name="sync_interval">Sinxron</string>
     <string name="sync_once_on_start">Başlayanda bir dəfə sinxronlaşdır</string>
     <string name="only_on_wifi">Only on Wi-Fi</string>
     <string name="only_when_charging">Yalnız şarj olunarkən</string>
@@ -435,16 +435,16 @@
     <string name="clear_all_articles_toast">Məqalə siyahısı təmizləndi</string>
     <string name="delete_account_toast">Hesab silindi</string>
     <string name="synchronous_tips">Dəyişikliklərin qüvvəyə minməsi üçün yenidən başlatmaq lazımdır</string>
-    <string name="switch_account">Switch</string>
-    <string name="add">Add</string>
+    <string name="switch_account">Keç</string>
+    <string name="add">Əlavə et</string>
     <string name="accounts_tips">Dəyişmək üçün lentlər səhifəsində hesab adına toxuna bilərsiniz</string>
     <string name="server_url">Server URL-i</string>
-    <string name="username">Username</string>
-    <string name="password">Password</string>
-    <string name="connection">Connection</string>
-    <string name="system_default">System</string>
+    <string name="username">İstifadəçi adı</string>
+    <string name="password">Parol</string>
+    <string name="connection">Bağlantı</string>
+    <string name="system_default">Sistem</string>
     <string name="initial_open_app">Keçidə toxunduqda açılan tətbiq</string>
-    <string name="open_link_specific_browser_not_selected">None</string>
+    <string name="open_link_specific_browser_not_selected">Heç biri</string>
     <string name="auto_customtabs">Avto (CustomTabs üstün)</string>
     <string name="auto_default_browser">Avto (Defolt brauzer üstün)</string>
     <string name="custom_tabs">CustomTabs məcburi</string>
@@ -452,12 +452,12 @@
     <string name="specific_browser_name">Browser: %1$s</string>
     <string name="default_browser">Defolt brauzer məcburi</string>
     <string name="always_ask">Həmişə soruş</string>
-    <string name="open_link_specific_browser">Browser</string>
+    <string name="open_link_specific_browser">Brauzer</string>
     <string name="open_link_something_wrong">Xəta baş verdiyi üçün \"Keçidi aç\" ayarı nəzərə alınmadı.</string>
-    <string name="in_coding">In development</string>
+    <string name="in_coding">İşlənir</string>
     <string name="tips_top_bar_tonal_elevation">Tonal yüksəklik yalnız sürüşdürərkən mövcuddur</string>
     <string name="summary_title">AI ilə xülasə et</string>
-    <string name="summary_loading">Summarizing…</string>
+    <string name="summary_loading">Xülasə edilir…</string>
     <string name="summary_try_again">Yenidən cəhd et</string>
     <string name="summary_get_key">Pulsuz açar əldə et</string>
     <string name="summary_err_empty_content">Məqalədə xülasə üçün məzmun yoxdur</string>
@@ -479,7 +479,7 @@
     <string name="vip_remaining_short">%1$d gün %2$d saat qalıb</string>
     <string name="vip_redeem_label">VIP kodunu daxil edin</string>
     <string name="vip_redeem_hint">məs. VIP kodunuz</string>
-    <string name="vip_redeem_button">Activate</string>
+    <string name="vip_redeem_button">Aktivləşdir</string>
     <string name="vip_watch_ad_3d">Reklama bax → 3 gün VIP</string>
     <string name="vip_buy_30d_locked">30 günlük VIP al — tezliklə</string>
     <string name="vip_buy_90d_locked">90 günlük VIP al — tezliklə</string>
@@ -491,9 +491,9 @@
     <string name="vip_revoke_all_confirm_message">VIP-i ləğv edib Pulsuz hesaba qayıtmaq istədiyinizə əminsiniz?</string>
     <string name="vip_entry_first_install">🎁 Yeni quraşdırma hədiyyəsi</string>
     <string name="vip_entry_active">VIP üzvlük</string>
-    <string name="vip_success_title">Success</string>
+    <string name="vip_success_title">Uğurlu</string>
     <string name="vip_success_message">VIP %1$d gün aktivdir.</string>
-    <string name="vip_failed_title">Failed</string>
+    <string name="vip_failed_title">Uğursuz</string>
     <string name="ad_attribution_label" translatable="false">Ad Networks (AdMob / AppLovin MAX)</string>
     <string name="vip_failed_busy">Əvvəlki kod hələ yoxlanılır. Bir az gözləyib yenidən cəhd edin.</string>
     <string name="vip_failed_no_network">Kodu aktivləşdirmək üçün internet bağlantısı lazımdır. Qoşulub yenidən cəhd edin.</string>
@@ -510,8 +510,8 @@
     <string name="commute_deepdive_unlocked">🎉 Dərin təhlil açıldı!</string>
     <string name="commute_empty">Səhər radiosu üçün oxunmamış məqalə yoxdur</string>
     <string name="commute_generating">AI DJ şounuzu hazırlayır...</string>
-    <string name="retry">Retry</string>
-    <string name="version">Version</string>
+    <string name="retry">Yenidən cəhd et</string>
+    <string name="version">Versiya</string>
     <string name="rate_app">Tətbiqi qiymətləndir</string>
     <string name="rate_app_desc">Tətbiq sizə faydalı olubsa, 5 ulduz verin</string>
     <string name="more_apps">Daha çox tətbiq əldə et</string>
@@ -520,7 +520,7 @@
     <string name="share_app_desc">Başqaları da istifadə etsin deyə tətbiqi paylaşın</string>
     <string name="term_and_policy">Şərtlər &amp; Siyasət</string>
     <string name="term_and_policy_desc">Təhlükəsizlik şərtləri və məxfilik siyasətini oxuyun</string>
-    <string name="about_title">About</string>
+    <string name="about_title">Haqqında</string>
     <string name="about_desc">Tətbiqlə tanış olun</string>
     <string name="source_code_original">Mənbə kodu (orijinal versiya)</string>
     <string name="source_code_current">Mənbə kodu (bu versiya)</string>
@@ -546,7 +546,7 @@
     <string name="quiz_ai_no_key">Gemini açarı yoxdur, ona görə AI sual yaza bilmədi.</string>
     <string name="quiz_ai_nothing_to_ask">Bu məqalədə sual üçün başlıq və ya önizləmə yoxdur.</string>
     <string name="quiz_ai_retry">Yenidən cəhd et</string>
-    <string name="quiz_ai_consent_agree">Agree</string>
+    <string name="quiz_ai_consent_agree">Razıyam</string>
     <string name="quiz_ai_consent_later">İndi yox</string>
     <string name="quiz_ai_declined_message">AI viktorina sualları söndürülüb. Sual almaq üçün Ayarlar, Məxfilik bölməsindən aktiv edin.</string>
     <string name="quiz_ai_open_privacy">Məxfilik ayarlarını aç</string>
@@ -572,13 +572,13 @@
     <string name="brain_rpg_decay_notification_channel_desc">Gündəlik kateqoriya zəifləməsi xülasəsi</string>
     <string name="brain_rpg_xp_retained">Əsas %1$d XP · %2$d%% saxlanılıb</string>
     <string name="brain_rpg_streak_shield_success">Seriya qoruyucusu aktiv edildi!</string>
-    <string name="brain_rpg_streak_shield_protected">Protected</string>
+    <string name="brain_rpg_streak_shield_protected">Qorunur</string>
     <string name="brain_rpg_target_xp">Target: %1$d XP</string>
     <string name="brain_rpg_skill_tree_title">Bilik bacarıq ağacı</string>
     <string name="brain_rpg_stats_title">AI çağırış statistikası</string>
-    <string name="brain_rpg_stats_attempted">Attempted</string>
-    <string name="brain_rpg_stats_passed">Correct</string>
-    <string name="brain_rpg_stats_accuracy">Accuracy</string>
+    <string name="brain_rpg_stats_attempted">Cəhd edilib</string>
+    <string name="brain_rpg_stats_passed">Düzgün</string>
+    <string name="brain_rpg_stats_accuracy">Dəqiqlik</string>
     <string name="brain_rpg_wrapped_desc">"%1$d XP qazandınız və %2$d günlük oxu seriyasını saxladınız! Başqalarına ilham vermək üçün nailiyyətinizi paylaşın."</string>
 
     <!-- Epic 08: Zen Focus & Speed Reading -->
@@ -600,7 +600,7 @@
     <string name="zen_evening_edition">Evening Edition (20:00)</string>
     <string name="zen_daily_edition_notification">%1$d oxunmamış məqalə fokuslu oxunuz üçün hazırdır.</string>
     <string name="zen_sleep_timer">Yuxu taymeri</string>
-    <string name="zen_sleep_timer_off">Continuous</string>
+    <string name="zen_sleep_timer_off">Fasiləsiz</string>
     <string name="zen_sleep_timer_min">%1$d minutes</string>
     <string name="zen_volume">Volume: %1$d%%</string>
     <string name="zen_settings_title">Zen fokus &amp; sürətli oxu</string>
@@ -611,7 +611,7 @@
     <string name="highlights_bullet_count">%1$d əsas məqam</string>
     <string name="highlights_copy_all">Məqamları kopyala</string>
     <string name="highlights_copied_toast">Məqamlar mübadilə buferinə kopyalandı</string>
-    <string name="highlights_share">Share</string>
+    <string name="highlights_share">Paylaş</string>
     <string name="highlights_tldr">Quick TL;DR</string>
     <string name="highlights_ai_badge">Gemini AI</string>
     <string name="highlights_fallback_badge">Oflayn ağıllı</string>
@@ -631,13 +631,13 @@
     <string name="deep_read_title">AI dərin oxu</string>
     <string name="deep_read_subtitle">İnteraktiv məqalə söhbəti</string>
     <string name="deep_read_input_placeholder">Bu məqalə barədə sual verin…</string>
-    <string name="deep_read_send">Send</string>
+    <string name="deep_read_send">Göndər</string>
     <string name="deep_read_clear_chat">Söhbəti təmizlə</string>
     <string name="deep_read_copied_toast">Cavab mübadilə buferinə kopyalandı</string>
     <string name="deep_read_welcome_message">Salam! Bu məqaləni təhlil etdim. İstənilən sualı verin, aydınlaşdırma istəyin və ya aşağıdakı təklif olunan mövzuya toxunun.</string>
-    <string name="deep_read_context_label">Discussing:</string>
+    <string name="deep_read_context_label">Müzakirə:</string>
     <string name="deep_read_thinking">AI məqaləni təhlil edir…</string>
-    <string name="deep_read_grounded_badge">Grounded</string>
+    <string name="deep_read_grounded_badge">Əsaslandırılıb</string>
     <string name="deep_read_offline_badge">Oflayn ağıllı</string>
     <string name="deep_read_ai_badge">Gemini AI</string>
     <string name="deep_read_copy_transcript">Söhbəti kopyala</string>
@@ -653,7 +653,7 @@
     <string name="story_cluster_all_perspectives">Bütün baxışlar (%d)</string>
     <string name="story_cluster_mark_all_read">Hamısını oxunmuş et</string>
     <string name="story_cluster_sheet_title">Çoxbaxışlı hadisə işıqlandırması</string>
-    <string name="story_cluster_lead_badge">Lead</string>
+    <string name="story_cluster_lead_badge">Əsas</string>
     <string name="semantic_search_title">AI semantik axtarış</string>
     <string name="semantic_search_desc">Məqalələri dəqiq açar sözlərlə deyil, anlayış və mənaya görə axtarın</string>
     <string name="semantic_match_badge">%d%% match</string>
@@ -662,7 +662,7 @@
     <string name="watchdog_title">Açar söz gözətçisi</string>
     <string name="watchdog_desc">Fon sinxronizasiyasında vacib açar sözləri &amp; birja simvollarını izləyin və dərhal xəbərdar olun</string>
     <string name="watchdog_add_hint">Açar söz və ya simvol daxil edin (məs. $VIC, Bitcoin, Gold)...</string>
-    <string name="watchdog_add_btn">Add</string>
+    <string name="watchdog_add_btn">Əlavə et</string>
     <string name="watchdog_empty_desc">Hələ açar söz əlavə edilməyib. İzləməyə başlamaq üçün açar söz əlavə edin və ya aşağıdakı təkliflərdən seçin.</string>
     <string name="watchdog_matched_count">%d matched</string>
     <string name="watchdog_channel_name">Açar söz xəbərdarlığı gözətçisi</string>
@@ -684,12 +684,12 @@
     <string name="notebook_empty_subtitle">İkinci Beyin biliklərinizi təşkil etmək üçün oxuyarkən ilhamverici sitatları seçin.</string>
     <string name="notebook_empty_search">Uyğun seçim tapılmadı</string>
 
-    <string name="notebook_save">Save</string>
-    <string name="notebook_copy">Copy</string>
-    <string name="notebook_edit">Edit</string>
+    <string name="notebook_save">Yadda saxla</string>
+    <string name="notebook_copy">Kopyala</string>
+    <string name="notebook_edit">Redaktə et</string>
     <string name="notebook_copied">Mübadilə buferinə kopyalandı</string>
-    <string name="notebook_saved">Saved</string>
-    <string name="notebook_deleted">Deleted</string>
+    <string name="notebook_saved">Saxlanıldı</string>
+    <string name="notebook_deleted">Silindi</string>
     <string name="notebook_untitled">Başlıqsız məqalə</string>
     <string name="ai_active_key_custom">Şəxsi API açarınızdan istifadə olunur</string>
     <string name="ai_active_key_default">Standart paylaşılan kvota istifadə olunur</string>
@@ -819,7 +819,7 @@
     <string name="second_brain_settings_desc">Oxuduğunuz mövzuların zamanla necə əlaqəli olduğunu görün</string>
     <string name="second_brain_empty">Bir neçə məqalə oxuyun və ya saxlayın, mövzu qrafınız burada görünəcək.</string>
     <string name="second_brain_error">Qraf qurula bilmədi. Yenidən cəhd edin.</string>
-    <string name="second_brain_retry">Retry</string>
+    <string name="second_brain_retry">Yenidən cəhd et</string>
     <string name="second_brain_graph_desc">%1$d mövzu və %2$d əlaqəli mövzu qrafı</string>
     <string name="second_brain_node_articles">%1$d articles</string>
     <string name="second_brain_range_label">Vaxt aralığı</string>
@@ -842,7 +842,7 @@
     <!-- Share Target / Read Later (INGEST-02) -->
     <string name="read_later_feed_title">Sonra oxu</string>
     <string name="share_target_save_btn">Sonra oxumaq üçün saxla</string>
-    <string name="share_target_cancel_btn">Cancel</string>
+    <string name="share_target_cancel_btn">Ləğv et</string>
     <string name="share_target_saved_toast">Sonra oxumaq üçün saxlanıldı</string>
     <string name="share_target_invalid_url">Düzgün keçid tapılmadı</string>
     <string name="read_position_sync">Oxu mövqeyini sinxronlaşdır</string>
@@ -854,12 +854,12 @@
     <string name="smart_collection_save_action">Kolleksiya kimi saxla</string>
     <string name="smart_collection_empty">Hələ ağıllı kolleksiya yoxdur. Mövzunu izləmək üçün semantik axtarışı saxlayın.</string>
     <string name="smart_collection_articles_count">%1$d articles</string>
-    <string name="smart_collection_edit">Edit</string>
-    <string name="smart_collection_delete">Delete</string>
+    <string name="smart_collection_edit">Redaktə et</string>
+    <string name="smart_collection_delete">Sil</string>
     <string name="smart_collection_delete_confirm">Bu kolleksiya silinsin? Məqalələr kitabxananızda qalacaq.</string>
     <string name="smart_collection_saved">Ağıllı kolleksiya saxlanıldı</string>
     <string name="smart_collection_empty_articles">Hələ uyğun yeni məqalə yoxdur. Yeni uyğunluqlar sinxronizasiyadan sonra görünəcək.</string>
-    <string name="save">Save</string>
+    <string name="save">Yadda saxla</string>
     <string name="eink_mode_title">E-Ink optimallaşdırması</string>
     <string name="eink_active_title">E-Ink rejimi aktivdir</string>
     <string name="eink_active_desc">Tətbiq qara-ağ göstərilir. Söndürmək üçün toxunun.</string>
@@ -938,8 +938,8 @@
     <string name="widget_article_pin_unsupported">Launcher-iniz vidcetin avtomatik sancılmasını dəstəkləmir</string>
     <!-- Feed Zero Triage (EXC-14) -->
     <string name="feed_zero_triage_title">Sıfır lent çeşidləməsi</string>
-    <string name="triage_swipe_left_skip">Skip</string>
-    <string name="triage_swipe_right_save">Save</string>
+    <string name="triage_swipe_left_skip">Keç</string>
+    <string name="triage_swipe_right_save">Saxla</string>
     <string name="triage_swipe_up_read">İndi oxu</string>
     <string name="triage_progress_format">%1$d / %2$d</string>
     <string name="triage_inbox_zero_title">🎉 Gələnlər qutusu sıfırdır!</string>
@@ -948,7 +948,7 @@
     <string name="triage_summary_saved">Sonraya saxlanıldı: %1$d</string>
     <string name="triage_summary_skipped">Oxunmuş kimi işarələndi: %1$d</string>
     <string name="triage_summary_xp">+%1$d Brain RPG XP</string>
-    <string name="triage_finish_button">Done</string>
+    <string name="triage_finish_button">Hazır</string>
     <!-- Brain Wrapped tuần (RPG-09) -->
     <string name="brain_wrapped_share_story">Hekayədə paylaş</string>
     <string name="brain_wrapped_xp_label">Həftəlik XP</string>
@@ -993,14 +993,14 @@
     <string name="headline_signals_desc">Klikbeyt işarələri, reklam/şişirtmə ifadələri və emosional ton (müsbət/qeyri-müəyyən/mənfi) üçün başlıq və məqalə ifadələrini cihazda təhlil edir. Heç nə hara isə göndərilmir, AI və ya şəbəkə istifadə olunmur. Bunlar yalnız ifadə siqnallarıdır, fakt yoxlaması və ya siyasi qərəzlilik qiymətləndirməsi deyil. İspan, Fransız və Alman dilləri eksperimentaldır.</string>
     <string name="headline_signals_clickbait_badge">🎯 Clickbait %1$d%%</string>
     <string name="headline_signals_clickbait_desc">Klikbeyt dili göstəricisi: bal 100-dən %1$d.</string>
-    <string name="headline_signals_tone_positive">🟢 Positive</string>
-    <string name="headline_signals_tone_unclear">⚪ Unclear</string>
-    <string name="headline_signals_tone_negative">🔴 Negative</string>
+    <string name="headline_signals_tone_positive">🟢 Müsbət</string>
+    <string name="headline_signals_tone_unclear">⚪ Qeyri-müəyyən</string>
+    <string name="headline_signals_tone_negative">🔴 Mənfi</string>
     <string name="headline_signals_tone_desc_positive">Başlığın leksik tonu: müsbət göstəricilər var.</string>
     <string name="headline_signals_tone_desc_unclear">Başlığın leksik tonu: göstəricilər qeyri-müəyyən və ya yetərsizdir.</string>
     <string name="headline_signals_tone_desc_negative">Başlığın leksik tonu: mənfi göstəricilər var.</string>
     <string name="brain_rpg_skill_tree_decay_warning">Bu bacarıq zamanla zəifləyib. Bərpa etmək üçün məşq edin.</string>
-    <string name="bounty_action_investigate">Investigate</string>
+    <string name="bounty_action_investigate">Araşdır</string>
     <string name="bounty_sheet_title">Varlıq araşdırma agenti</string>
     <string name="bounty_scanning_status">Xəbər arxivinizdə axtarılır: %1$s…</string>
     <string name="bounty_stats_summary">%1$d əlaqəli məqalə • %2$d mənbə</string>
@@ -1015,14 +1015,14 @@
     <string name="echo_hype_label">Hype: %1$d%%</string>
     <string name="echo_hype_warning">Güclü reklam və ya şişirdilmiş ifadələr aşkarlandı</string>
     <string name="echo_tone_label">Tone: %1$s</string>
-    <string name="echo_tone_positive">🟢 Positive</string>
-    <string name="echo_tone_unclear">⚪ Unclear</string>
-    <string name="echo_tone_negative">🔴 Negative</string>
+    <string name="echo_tone_positive">🟢 Müsbət</string>
+    <string name="echo_tone_unclear">⚪ Qeyri-müəyyən</string>
+    <string name="echo_tone_negative">🔴 Mənfi</string>
     <string name="echo_details_title">Ifadə siqnalları</string>
     <string name="echo_disclaimer">Yalnız lokal ifadə siqnalları; fakt yoxlaması, etibarlılıq balı, siyasi qərəz təhlili və ya müəllif niyyəti iddiası deyil. “Qeyri-müəyyən” neytral deyil, kifayət qədər leksik sübut olmadığını bildirir.</string>
     <string name="echo_flagged_passages_title">İşarələnmiş hissələr (%1$d)</string>
     <string name="echo_cue_promotional">Reklam ifadəsi</string>
-    <string name="echo_cue_intensifier">Exaggeration</string>
+    <string name="echo_cue_intensifier">Şişirtmə</string>
     <string name="echo_cue_absolute">Mütləq iddia</string>
     <string name="echo_cue_exclamation">Durğu işarəsi və ya böyük hərflə vurğu</string>
     <string name="echo_no_passages">Heç bir abzas Şişirtmə həddini keçmədi.</string>
@@ -1030,10 +1030,10 @@
     <!-- BOUNTY-02 dossier -->
     <string name="dossier_create_action">Dosye yarat</string>
     <string name="dossier_sheet_title">Lokal kəşfiyyat dosyesi</string>
-    <string name="dossier_tab_summary">Summary</string>
-    <string name="dossier_tab_timeline">Timeline</string>
-    <string name="dossier_tab_names">Names</string>
-    <string name="dossier_tab_sources">Sources</string>
+    <string name="dossier_tab_summary">Xülasə</string>
+    <string name="dossier_tab_timeline">Xronologiya</string>
+    <string name="dossier_tab_names">Adlar</string>
+    <string name="dossier_tab_sources">Mənbələr</string>
     <string name="dossier_share_action">Markdown paylaş</string>
     <string name="dossier_chooser_title">Dosyeni paylaş</string>
     <string name="dossier_limitation">Yalnız bu tətbiqdə saxlanılan məqalələrdən qurulub. Bəzi baxışlar buraxıla bilər və fakt yoxlaması deyil.</string>
@@ -1056,7 +1056,7 @@
     <string name="streak_rescue_message">%1$d gün oxumadınız. Növbəti oxuda %2$d günlük seriyanız sıfırlanacaq.</string>
     <string name="streak_rescue_action_ad">Seriyanı xilas etmək üçün video izlə</string>
     <string name="streak_rescue_action_restart">Sıfırdan başla</string>
-    <string name="streak_rescue_action_later">Later</string>
+    <string name="streak_rescue_action_later">Sonra</string>
     <string name="streak_rescue_ad_failed">Video yüklənmədi. Yenidən cəhd edin.</string>
 
     <!-- ZEN-07 RSVP calibration -->
@@ -1071,8 +1071,8 @@
     <string name="zen_calibration_suggested_wpm">Tövsiyə olunan sürət: ~%1$d söz/dəq</string>
     <string name="zen_calibration_limitation">Bu, 6 sual əsasında kobud təxmindir və dərin anlamanın ölçüsü deyil. Sürəti həmişə əl ilə tənzimləyə bilərsiniz.</string>
     <string name="zen_calibration_low_confidence_note">Cavablarınız sürətlər arasında dəyişdi; öz tempinizdə oxuyun və sonra yenidən kalibrləyin.</string>
-    <string name="zen_calibration_apply">Apply</string>
-    <string name="zen_calibration_skip">Skip</string>
+    <string name="zen_calibration_apply">Tətbiq et</string>
+    <string name="zen_calibration_skip">Keç</string>
     <string name="zen_calibration_settings_desc">Oxu sürətinizi 3 qısa raundda kalibrləyin</string>
 
     <!-- ECHO-02 contrasting coverage -->
@@ -1086,7 +1086,7 @@
     <string name="echo_dual_export">Kartı ixrac et</string>
     <string name="echo_dual_export_desc">%1$s ilə iki başlıqlı kartı ixrac et</string>
     <string name="echo_dual_title">İki başlığı paylaş</string>
-    <string name="echo_dual_share">Share</string>
+    <string name="echo_dual_share">Paylaş</string>
     <string name="echo_dual_cut_note">Başlıq qısaldıldı</string>
     <string name="echo_dual_error">Kart yaradıla bilmədi. Yenidən cəhd üçün toxunun.</string>
     <string name="echo_dual_chooser_title">İki başlıqlı kartı paylaş</string>
@@ -1097,7 +1097,7 @@
     <string name="curated_bundle_verified_on">Checked %1$s</string>
     <string name="curated_bundle_source_count">Sources: %1$d</string>
     <string name="curated_bundle_subscribe_all">Hamısına abunə ol</string>
-    <string name="curated_bundle_subscribing">Subscribing…</string>
+    <string name="curated_bundle_subscribing">Abunə olunur…</string>
     <string name="curated_bundle_progress">Subscribing %1$d of %2$d</string>
     <string name="curated_bundle_result">Əlavə edildi %1$d · artıq var idi %2$d · alınmadı %3$d</string>
     <string name="curated_bundle_error">Abunə olmaq mümkün olmadı: %1$s</string>
@@ -1105,11 +1105,11 @@
     <string name="curated_bundle_account_local_only">Bütöv dəstə abunə olmaq yalnız lokal hesab üçün mövcuddur.</string>
 
     <!-- FRONT-03 knowledge galaxy -->
-    <string name="galaxy_mode_concepts">Concepts</string>
-    <string name="galaxy_mode_stars">Galaxy</string>
+    <string name="galaxy_mode_concepts">Anlayışlar</string>
+    <string name="galaxy_mode_stars">Qalaktika</string>
     <string name="galaxy_empty">Bir neçə məqaləni oxunmuş kimi işarələyin, onlar burada ulduz kimi parlayacaq. Vaxt aralığını genişləndirməyə çalışın.</string>
     <string name="galaxy_error">Qalaktika qurula bilmədi. Yenidən cəhd edin.</string>
-    <string name="galaxy_retry">Retry</string>
+    <string name="galaxy_retry">Yenidən cəhd et</string>
     <string name="galaxy_reset_view">Görünüşü sıfırla</string>
     <string name="galaxy_stats">Ulduzlar: %1$d · Əlaqələr: %2$d</string>
     <string name="galaxy_star_open">Məqaləni aç</string>
@@ -1127,7 +1127,7 @@
     <string name="second_screen_viewers">Viewers: %1$d</string>
     <string name="second_screen_expires">Expires at %1$s</string>
     <string name="second_screen_warning">Şifrələnməyib. Bu Wi-Fi şəbəkəsində keçidi görən hər kəs məqaləni oxuya bilər. Yalnız etibar etdiyiniz şəbəkədə istifadə edin.</string>
-    <string name="second_screen_starting">Starting…</string>
+    <string name="second_screen_starting">Başladılır…</string>
     <string name="second_screen_no_network">Şəxsi ünvanlı Wi-Fi və ya Ethernet şəbəkəsi yoxdur. Wi-Fi-a qoşulub yenidən cəhd edin.</string>
     <string name="second_screen_lan_permission_denied">Lokal şəbəkə girişi söndürülüb. Məqalələri ikinci ekranda göstərmək üçün Ayarlarda icazə verin.</string>
     <string name="second_screen_expired">Sessiya bitdi. Yeni keçid almaq üçün yenidən aktiv edin.</string>
@@ -1138,8 +1138,8 @@
     <string name="galaxy_related_title">Əlaqəli məqalələr</string>
     <string name="galaxy_shared_terms">Ortaq sözlər: %1$s</string>
     <string name="local_sync_title">Lokal sinxronizasiya</string>
-    <string name="local_sync_send">Send</string>
-    <string name="local_sync_receive">Receive</string>
+    <string name="local_sync_send">Göndər</string>
+    <string name="local_sync_receive">Qəbul et</string>
     <string name="local_sync_send_instructions">Bu lokal şəbəkədəki başqa cihaz üçün şifrələnmiş paket yaradın.</string>
     <string name="local_sync_secret_warning">Bu cütləşmə sirrini URL-dən ayrıca paylaşın. Hər ikisi olan hər kəs paketi oxuya bilər.</string>
     <string name="local_sync_http_warning">HTTP URL-i, cihaz ünvanını, vaxtı və ötürmə ölçüsünü gizlətmir. Yalnız paketin məzmunu şifrələnir. Etibarlı lokal şəbəkədən istifadə edin.</string>
@@ -1163,7 +1163,7 @@
     <string name="local_sync_apply">Dəyişiklikləri tətbiq et</string>
     <string name="local_sync_confirm_apply">Sinxronizasiya dəyişiklikləri tətbiq edilsin?</string>
     <string name="local_sync_confirm_counts">Əlavə ediləcək lentlər: %1$d. Yenilənəcək məqalə vəziyyətləri: %2$d. Bu dəyişikliklər tətbiq edilsin?</string>
-    <string name="local_sync_cancel">Cancel</string>
+    <string name="local_sync_cancel">Ləğv et</string>
     <string name="local_sync_done">Sinxronizasiya dəyişiklikləri tətbiq edildi.</string>
     <string name="local_sync_not_local">Sinxronizasiyadan istifadə üçün Lokal hesab seçin.</string>
     <string name="local_sync_error_network">Sinxronizasiya sessiyasına qoşulmaq mümkün olmadı. URL-i və lokal şəbəkəni yoxlayın.</string>
@@ -1189,9 +1189,9 @@
     <string name="local_sync_reply_instruction">Digər telefondan göndərməni dayandırıb əvvəlcə Qəbul et bölməsini açmasını xahiş edin.</string>
     <string name="local_sync_merge_limit">Birləşdirmə yalnız oxunmuş və ulduz işarələrini saxlayır; bir telefonda oxunmamış kimi işarələmək və ya ulduzu götürmək sinxronizasiyadan sonra geri qayıda bilər.</string>
     <string name="local_sync_peer_unconfirmed">Digər cihazın bir dəfə qəbul etməsi gözlənilir</string>
-    <string name="local_sync_peer_confirmed">Paired</string>
+    <string name="local_sync_peer_confirmed">Cütləşdi</string>
     <string name="local_sync_peer_needs_repair">Bu telefonda istifadə oluna bilməz. Onu unudub yenidən cütləşdirin.</string>
-    <string name="local_sync_forget_peer">Forget</string>
+    <string name="local_sync_forget_peer">Unut</string>
     <string name="local_sync_confirm_peer">Cütləşdirilmiş kimi işarələ</string>
     <string name="local_sync_nearby_title">Cütləşdirilmiş cihaz yaxınlıqdadır.</string>
     <string name="local_sync_no_peer_found">Yaxınlıqda hələ cihaz tapılmadı. Digər cihazda Göndər bölməsini açın.</string>
@@ -1203,7 +1203,7 @@
     <!-- EXC-11 Temporal Ask My Archive -->
     <string name="archive_query_title">Arxivimdən soruş</string>
     <string name="archive_query_desc">Mövzu barədə soruşun və saxlanılmış məqalələrinizin onu ay-ay necə işıqlandırdığını görün.</string>
-    <string name="archive_query_question_label">Question</string>
+    <string name="archive_query_question_label">Sual</string>
     <string name="archive_query_question_hint">məs. martdan bəri faiz dərəcələri</string>
     <string name="archive_query_search">Arxivdə axtar</string>
     <string name="archive_query_start_date">Başlanğıc tarixi (YYYY-MM-DD)</string>
@@ -1242,7 +1242,7 @@
     <string name="feed_autopilot_summary_clean">Lentləriniz səliqəlidir. Küylü lent aşkarlanmadı.</string>
     <string name="feed_autopilot_reason_opened">%2$d-dən %1$d açıldı (son %3$d günlük dövr; %4$d%% cəlbolunma)</string>
     <string name="feed_autopilot_reason_zero">Son %2$d günlük dövrdə %1$d məqalədən heç biri açılmayıb</string>
-    <string name="feed_autopilot_action_unsubscribe">Unsubscribe</string>
+    <string name="feed_autopilot_action_unsubscribe">Abunəliyi ləğv et</string>
     <string name="feed_autopilot_action_snooze">30 gün təxirə sal</string>
     <string name="feed_autopilot_action_keep">Saxla və təklif etməyi dayandır</string>
     <string name="feed_autopilot_confirm_title">%1$s lentindən abunəlik ləğv edilsin?</string>
@@ -1257,14 +1257,14 @@
     <string name="podcast_studio_menu">Podkast studiyası</string>
     <string name="podcast_studio_consent_title">Ssenari AI ilə yazılsın?</string>
     <string name="podcast_studio_consent_message">İki aparıcılı ssenari yazmaq üçün Google Gemini-yə yalnız bu məqalənin başlığı və qısa önizləməsi (250 simvoldan az) göndərilir. Məqalənin mətni, keçidlər və oxu tarixçəniz heç vaxt göndərilmir.</string>
-    <string name="podcast_studio_consent_agree">Use AI</string>
+    <string name="podcast_studio_consent_agree">AI istifadə et</string>
     <string name="podcast_studio_consent_decline">Oflayn ssenari istifadə et</string>
     <string name="podcast_studio_conflict_title">Oxunan dayandırılsın?</string>
     <string name="podcast_studio_conflict_message">Bu məqaləni podkast kimi oxutmaq indi oxunan səsi dayandıracaq.</string>
     <string name="podcast_studio_badge_source_gemini">Ssenari AI tərəfindən yazılıb</string>
     <string name="podcast_studio_badge_source_heuristic">Oflayn ssenari, AI yoxdur</string>
-    <string name="podcast_studio_play">Play</string>
-    <string name="podcast_studio_pause">Pause</string>
+    <string name="podcast_studio_play">Oxut</string>
+    <string name="podcast_studio_pause">Fasilə</string>
     <string name="podcast_studio_next">Növbəti sətir</string>
     <string name="podcast_studio_previous">Əvvəlki sətir</string>
     <string name="podcast_studio_host_alex">Alex</string>
@@ -1274,7 +1274,7 @@
     <string name="deep_dive_menu">🔬 AI dərin təhlil</string>
     <string name="deep_dive_title">AI dərin təhlil</string>
     <string name="deep_dive_consent_message">Bu hesabatı yazmaq üçün Google Gemini-yə məqalənin başlığı və mətninin ilk 6 000 simvolu göndərilir. Keçidlər, lent adı və oxu tarixçəniz heç vaxt göndərilmir. Gemini internetdə axtarış etmir.</string>
-    <string name="deep_dive_consent_agree">Agree</string>
+    <string name="deep_dive_consent_agree">Razıyam</string>
     <string name="deep_dive_consent_later">İndi yox</string>
     <string name="deep_dive_declined_message">AI dərin təhlil söndürülüb. Hesabat yazdırmaq üçün Ayarlar, Məxfilik bölməsindən aktiv edin.</string>
     <string name="deep_dive_open_privacy">Məxfilik ayarlarını aç</string>
@@ -1284,30 +1284,30 @@
     <string name="deep_dive_nothing_to_analyze">Bu məqalədə təhlil üçün başlıq və ya mətn yoxdur.</string>
     <string name="deep_dive_retry">Yenidən cəhd et</string>
     <string name="deep_dive_label">Başlıq və çıxarış əsasında AI tərəfindən yazılıb; internetdə axtarış yoxdur; səhv ola bilər</string>
-    <string name="deep_dive_section_context">Context</string>
+    <string name="deep_dive_section_context">Kontekst</string>
     <string name="deep_dive_section_critical">Əks fikirlər</string>
     <string name="deep_dive_section_impact">Təsir matrisi</string>
-    <string name="deep_dive_col_area">Area</string>
+    <string name="deep_dive_col_area">Sahə</string>
     <string name="deep_dive_col_short">Qısa müddət</string>
     <string name="deep_dive_col_long">Uzun müddət</string>
     <string name="deep_dive_export_pdf">PDF ixrac et</string>
     <string name="deep_dive_chooser_title">Dərin təhlil PDF-ni paylaş</string>
     <string name="deep_dive_export_error">PDF yaradıla bilmədi</string>
     <string name="deep_dive_pdf_truncated">Bir səhifəyə sığmaq üçün qısaldıldı. Tam hesabatı tətbiqdə görün.</string>
-    <string name="deep_dive_close">Close</string>
-    <string name="oracle_badge_label">Prediction</string>
+    <string name="deep_dive_close">Bağla</string>
+    <string name="oracle_badge_label">Proqnoz</string>
     <string name="oracle_badge_open">Proqnozu aç</string>
     <string name="oracle_sheet_title">Bu məqalədə tapılan proqnoz</string>
     <string name="oracle_sheet_expires">Expected by %1$s</string>
     <string name="oracle_sheet_criteria_heading">Cavabı necə yoxlamaq olar</string>
     <string name="oracle_sheet_ai_label">Başlıq və təsvir əsasında AI tərəfindən yazılıb; səhv ola bilər.</string>
-    <string name="oracle_sheet_close">Close</string>
+    <string name="oracle_sheet_close">Bağla</string>
     <string name="oracle_consent_title">Yeni məqalələrdə proqnozları tap</string>
     <string name="oracle_consent_message">Hər sinxronizasiyadan sonra proqnoz axtarmaq üçün Google Gemini-yə ən çox 5 yeni məqalənin başlığı və qısa təsviri (cəmi 500 simvola qədər) göndərilir. Məqalənin mətni, keçidlər, lent adı və oxu tarixçəniz heç vaxt göndərilmir. Defolt olaraq söndürülüb.</string>
     <string name="oracle_bet_balance">Balans: %1$s xal</string>
     <string name="oracle_bet_pick_side">Seçiminiz</string>
-    <string name="oracle_bet_yes">Yes</string>
-    <string name="oracle_bet_no">No</string>
+    <string name="oracle_bet_yes">Bəli</string>
+    <string name="oracle_bet_no">Xeyr</string>
     <string name="oracle_bet_pick_stake">Mərc ediləcək xal</string>
     <string name="oracle_bet_stake_option">%1$s points</string>
     <string name="oracle_bet_place">Mərc et</string>
@@ -1316,7 +1316,7 @@
     <string name="oracle_bet_open">%2$s üzərinə %1$s xal mərc etdiniz.</string>
     <string name="oracle_bet_open_hint">Nəticəni yuxarıdakı tarixdən sonra bildirə bilərsiniz.</string>
     <string name="oracle_bet_awaiting_title">Nəticə nə oldu?</string>
-    <string name="oracle_bet_outcome_unclear">Unclear</string>
+    <string name="oracle_bet_outcome_unclear">Qeyri-müəyyən</string>
     <string name="oracle_bet_awaiting_hint">%2$s üzərinə %1$s xal mərc etdiniz. Qeyri-müəyyən xallarınızı qaytarır.</string>
     <string name="oracle_bet_settled_won">%1$s xal qazandınız.</string>
     <string name="oracle_bet_settled_lost">%1$s xal itirdiniz.</string>
@@ -1339,7 +1339,7 @@
     <string name="commute_autoplay_title">Bluetooth qulaqlıq qoşulanda oxut</string>
     <string name="commute_autoplay_desc">Səhər epizodunu hazır olduqdan sonra 2 saat ərzində gündə bir dəfə başlatmağa çalışır. Android bloklasa, Oxut düyməli bildiriş alırsınız.</string>
     <string name="commute_autoplay_permission_denied">Yaxınlıqdakı cihazlar icazəsi olmadan tətbiq qulaqlığınızı görə bilmir, ona görə bu söndürülmüş qalır.</string>
-    <string name="commute_play_action">Play</string>
+    <string name="commute_play_action">Oxut</string>
     <string name="commute_ready_to_play_title">Səhər epizodunuz hazırdır</string>
     <string name="commute_ready_to_play_body">Qulaqlığınız qoşulub. Dinləmək üçün Oxut düyməsinə toxunun.</string>
 </resources>

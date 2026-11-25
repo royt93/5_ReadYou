@@ -370,7 +370,7 @@
     <string name="fresh_rss_desc" translatable="false">freshrss.org</string>
     <string name="google_reader_desc" translatable="false">Google Reader API</string>
     <string name="initial_open_app">लिंक क्लिक करने पर खुलने वाला ऐप</string>
-    <string name="open_link_specific_browser_not_selected">None</string>
+    <string name="open_link_specific_browser_not_selected">कोई नहीं</string>
     <string name="auto_customtabs">ऑटो (CustomTabs को प्राथमिकता)</string>
     <string name="auto_default_browser">ऑटो (डिफ़ॉल्ट ब्राउज़र को प्राथमिकता)</string>
     <string name="custom_tabs">CustomTabs ज़बरदस्ती उपयोग करें</string>
@@ -378,12 +378,12 @@
     <string name="specific_browser_name">Browser: %1$s</string>
     <string name="default_browser">डिफ़ॉल्ट ब्राउज़र ज़बरदस्ती उपयोग करें</string>
     <string name="always_ask">हमेशा पूछें</string>
-    <string name="open_link_specific_browser">Browser</string>
+    <string name="open_link_specific_browser">ब्राउज़र</string>
     <string name="open_link_something_wrong">कुछ गड़बड़ होने के कारण \"लिंक खोलें\" सेटिंग अनदेखी की गई।</string>
-    <string name="in_coding">In development</string>
+    <string name="in_coding">विकास में</string>
     <string name="tips_top_bar_tonal_elevation">टोनल ऊँचाई केवल स्क्रॉल करते समय उपलब्ध है</string>
     <string name="summary_title">AI से सारांश बनाएँ</string>
-    <string name="summary_loading">Summarizing…</string>
+    <string name="summary_loading">सारांश बन रहा है…</string>
     <string name="summary_try_again">फिर कोशिश करें</string>
     <string name="summary_get_key">मुफ़्त कुंजी पाएँ</string>
     <string name="summary_err_empty_content">लेख में सारांश बनाने लायक सामग्री नहीं है</string>
@@ -405,7 +405,7 @@
     <string name="vip_remaining_short">%1$d दिन %2$d घंटे शेष</string>
     <string name="vip_redeem_label">VIP कोड दर्ज करें</string>
     <string name="vip_redeem_hint">जैसे आपका VIP कोड</string>
-    <string name="vip_redeem_button">Activate</string>
+    <string name="vip_redeem_button">सक्रिय करें</string>
     <string name="vip_watch_ad_3d">विज्ञापन देखें → 3 दिन VIP</string>
     <string name="vip_buy_30d_locked">30 दिन का VIP खरीदें — जल्द आ रहा है</string>
     <string name="vip_buy_90d_locked">90 दिन का VIP खरीदें — जल्द आ रहा है</string>
@@ -417,9 +417,9 @@
     <string name="vip_revoke_all_confirm_message">क्या आप वाकई VIP रद्द करके मुफ़्त खाते पर लौटना चाहते हैं?</string>
     <string name="vip_entry_first_install">🎁 नई इंस्टॉल का उपहार</string>
     <string name="vip_entry_active">VIP सदस्यता</string>
-    <string name="vip_success_title">Success</string>
+    <string name="vip_success_title">सफल</string>
     <string name="vip_success_message">VIP %1$d दिनों के लिए सक्रिय है।</string>
-    <string name="vip_failed_title">Failed</string>
+    <string name="vip_failed_title">विफल</string>
     <string name="ad_attribution_label" translatable="false">Ad Networks (AdMob / AppLovin MAX)</string>
     <string name="vip_failed_busy">पिछला कोड अभी जाँचा जा रहा है। कृपया थोड़ा रुकें और फिर से प्रयास करें।</string>
     <string name="vip_failed_no_network">कोड सक्रिय करने के लिए इंटरनेट कनेक्शन चाहिए। कनेक्ट करें और फिर से प्रयास करें।</string>
@@ -436,8 +436,8 @@
     <string name="commute_deepdive_unlocked">🎉 डीप डाइव अनलॉक हो गया!</string>
     <string name="commute_empty">सुबह के रेडियो के लिए कोई अपठित लेख नहीं है</string>
     <string name="commute_generating">AI DJ आपका शो तैयार कर रहा है...</string>
-    <string name="retry">Retry</string>
-    <string name="version">Version</string>
+    <string name="retry">पुनः प्रयास</string>
+    <string name="version">संस्करण</string>
     <string name="rate_app">ऐप को रेट करें</string>
     <string name="rate_app_desc">अगर यह ऐप आपके काम का लगे तो कृपया 5 स्टार दें</string>
     <string name="more_apps">और ऐप पाएँ</string>
@@ -446,7 +446,7 @@
     <string name="share_app_desc">कृपया इस ऐप को साझा करें ताकि दूसरे भी आपके साथ इसका उपयोग कर सकें</string>
     <string name="term_and_policy">शर्तें और नीति</string>
     <string name="term_and_policy_desc">सुरक्षा शर्तें और गोपनीयता नीति पढ़ें</string>
-    <string name="about_title">About</string>
+    <string name="about_title">जानकारी</string>
     <string name="about_desc">इस ऐप के बारे में जानें</string>
     <string name="source_code_original">सोर्स कोड (मूल संस्करण)</string>
     <string name="source_code_current">सोर्स कोड (यह संस्करण)</string>
@@ -472,7 +472,7 @@
     <string name="quiz_ai_no_key">कोई Gemini कुंजी उपलब्ध नहीं है, इसलिए AI प्रश्न नहीं लिख सका।</string>
     <string name="quiz_ai_nothing_to_ask">इस लेख में प्रश्न पूछने लायक कोई शीर्षक या पूर्वावलोकन नहीं है।</string>
     <string name="quiz_ai_retry">फिर कोशिश करें</string>
-    <string name="quiz_ai_consent_agree">Agree</string>
+    <string name="quiz_ai_consent_agree">सहमत</string>
     <string name="quiz_ai_consent_later">अभी नहीं</string>
     <string name="quiz_ai_declined_message">AI क्विज़ प्रश्न बंद हैं। यहाँ प्रश्न पाने के लिए सेटिंग, गोपनीयता में इन्हें चालू करें।</string>
     <string name="quiz_ai_open_privacy">गोपनीयता सेटिंग खोलें</string>
@@ -498,13 +498,13 @@
     <string name="brain_rpg_decay_notification_channel_desc">श्रेणियों में दैनिक गिरावट का सारांश</string>
     <string name="brain_rpg_xp_retained">मूल %1$d XP · %2$d%% बरकरार</string>
     <string name="brain_rpg_streak_shield_success">स्ट्रीक शील्ड सक्रिय हो गई!</string>
-    <string name="brain_rpg_streak_shield_protected">Protected</string>
+    <string name="brain_rpg_streak_shield_protected">सुरक्षित</string>
     <string name="brain_rpg_target_xp">Target: %1$d XP</string>
     <string name="brain_rpg_skill_tree_title">ज्ञान स्किल ट्री</string>
     <string name="brain_rpg_stats_title">AI चैलेंज आँकड़े</string>
-    <string name="brain_rpg_stats_attempted">Attempted</string>
-    <string name="brain_rpg_stats_passed">Correct</string>
-    <string name="brain_rpg_stats_accuracy">Accuracy</string>
+    <string name="brain_rpg_stats_attempted">प्रयास किए</string>
+    <string name="brain_rpg_stats_passed">सही</string>
+    <string name="brain_rpg_stats_accuracy">सटीकता</string>
     <string name="brain_rpg_wrapped_desc">"आपने %1$d XP कमाए और %2$d दिन की पढ़ने की स्ट्रीक बनाए रखी! दूसरों को प्रेरित करने के लिए अपनी उपलब्धि साझा करें।"</string>
 
     <!-- Epic 08: Zen Focus & Speed Reading -->
@@ -526,7 +526,7 @@
     <string name="zen_evening_edition">Evening Edition (20:00)</string>
     <string name="zen_daily_edition_notification">%1$d अपठित लेख आपके फ़ोकस के साथ पढ़ने के लिए तैयार हैं।</string>
     <string name="zen_sleep_timer">स्लीप टाइमर</string>
-    <string name="zen_sleep_timer_off">Continuous</string>
+    <string name="zen_sleep_timer_off">लगातार</string>
     <string name="zen_sleep_timer_min">%1$d minutes</string>
     <string name="zen_volume">Volume: %1$d%%</string>
     <string name="zen_settings_title">ज़ेन फ़ोकस और स्पीड रीडिंग</string>
@@ -537,7 +537,7 @@
     <string name="highlights_bullet_count">%1$d मुख्य बिंदु</string>
     <string name="highlights_copy_all">हाइलाइट कॉपी करें</string>
     <string name="highlights_copied_toast">हाइलाइट क्लिपबोर्ड पर कॉपी हो गए</string>
-    <string name="highlights_share">Share</string>
+    <string name="highlights_share">साझा करें</string>
     <string name="highlights_tldr">Quick TL;DR</string>
     <string name="highlights_ai_badge">Gemini AI</string>
     <string name="highlights_fallback_badge">ऑफ़लाइन स्मार्ट</string>
@@ -557,13 +557,13 @@
     <string name="deep_read_title">AI डीप रीड</string>
     <string name="deep_read_subtitle">लेख से इंटरैक्टिव चैट</string>
     <string name="deep_read_input_placeholder">इस लेख के बारे में प्रश्न पूछें…</string>
-    <string name="deep_read_send">Send</string>
+    <string name="deep_read_send">भेजें</string>
     <string name="deep_read_clear_chat">चैट साफ़ करें</string>
     <string name="deep_read_copied_toast">उत्तर क्लिपबोर्ड पर कॉपी हो गया</string>
     <string name="deep_read_welcome_message">नमस्ते! मैंने इस लेख का विश्लेषण कर लिया है। मुझसे कोई भी प्रश्न पूछें, स्पष्टीकरण माँगें, या नीचे सुझाए गए किसी विषय पर टैप करें।</string>
-    <string name="deep_read_context_label">Discussing:</string>
+    <string name="deep_read_context_label">चर्चा:</string>
     <string name="deep_read_thinking">AI लेख का विश्लेषण कर रहा है…</string>
-    <string name="deep_read_grounded_badge">Grounded</string>
+    <string name="deep_read_grounded_badge">आधारित</string>
     <string name="deep_read_offline_badge">ऑफ़लाइन स्मार्ट</string>
     <string name="deep_read_ai_badge">Gemini AI</string>
     <string name="deep_read_copy_transcript">बातचीत कॉपी करें</string>
@@ -579,7 +579,7 @@
     <string name="story_cluster_all_perspectives">सभी दृष्टिकोण (%d)</string>
     <string name="story_cluster_mark_all_read">सभी को पढ़ा हुआ मार्क करें</string>
     <string name="story_cluster_sheet_title">बहु-दृष्टिकोण खबर कवरेज</string>
-    <string name="story_cluster_lead_badge">Lead</string>
+    <string name="story_cluster_lead_badge">मुख्य</string>
     <string name="semantic_search_title">AI सिमैंटिक खोज</string>
     <string name="semantic_search_desc">सटीक कीवर्ड के बजाय अवधारणा और अर्थ के आधार पर लेख खोजें</string>
     <string name="semantic_match_badge">%d%% match</string>
@@ -588,7 +588,7 @@
     <string name="watchdog_title">कीवर्ड वॉचडॉग</string>
     <string name="watchdog_desc">बैकग्राउंड सिंक में ज़रूरी कीवर्ड और स्टॉक टिकर पर नज़र रखें और तुरंत अलर्ट पाएँ</string>
     <string name="watchdog_add_hint">कीवर्ड या टिकर दर्ज करें (जैसे $VIC, Bitcoin, Gold)...</string>
-    <string name="watchdog_add_btn">Add</string>
+    <string name="watchdog_add_btn">जोड़ें</string>
     <string name="watchdog_empty_desc">अभी कोई कीवर्ड नहीं जोड़ा गया। नज़र रखना शुरू करने के लिए कीवर्ड जोड़ें या नीचे से सुझाव चुनें।</string>
     <string name="watchdog_matched_count">%d matched</string>
     <string name="watchdog_channel_name">कीवर्ड अलर्ट वॉचडॉग</string>
@@ -610,12 +610,12 @@
     <string name="notebook_empty_subtitle">अपना Second Brain ज्ञान व्यवस्थित करने के लिए पढ़ते समय प्रेरक उद्धरण हाइलाइट करें।</string>
     <string name="notebook_empty_search">कोई मिलता-जुलता हाइलाइट नहीं मिला</string>
 
-    <string name="notebook_save">Save</string>
-    <string name="notebook_copy">Copy</string>
-    <string name="notebook_edit">Edit</string>
+    <string name="notebook_save">सहेजें</string>
+    <string name="notebook_copy">कॉपी करें</string>
+    <string name="notebook_edit">संपादित करें</string>
     <string name="notebook_copied">क्लिपबोर्ड पर कॉपी हो गया</string>
-    <string name="notebook_saved">Saved</string>
-    <string name="notebook_deleted">Deleted</string>
+    <string name="notebook_saved">सहेजा गया</string>
+    <string name="notebook_deleted">हटाया गया</string>
     <string name="notebook_untitled">बिना शीर्षक का लेख</string>
     <string name="ai_active_key_custom">आपकी निजी API कुंजी का उपयोग हो रहा है</string>
     <string name="ai_active_key_default">डिफ़ॉल्ट शेयर्ड कोटा का उपयोग हो रहा है</string>
@@ -745,7 +745,7 @@
     <string name="second_brain_settings_desc">देखें कि आपके पढ़े विषय समय के साथ कैसे जुड़ते हैं</string>
     <string name="second_brain_empty">कुछ लेख पढ़ें या सहेजें, फिर आपका विषय ग्राफ़ यहाँ दिखेगा।</string>
     <string name="second_brain_error">ग्राफ़ नहीं बन सका। फिर कोशिश करें।</string>
-    <string name="second_brain_retry">Retry</string>
+    <string name="second_brain_retry">पुनः प्रयास</string>
     <string name="second_brain_graph_desc">%1$d विषयों और %2$d कनेक्शनों वाला विषय ग्राफ़</string>
     <string name="second_brain_node_articles">%1$d articles</string>
     <string name="second_brain_range_label">समय सीमा</string>
@@ -768,7 +768,7 @@
     <!-- Share Target / Read Later (INGEST-02) -->
     <string name="read_later_feed_title">बाद में पढ़ें</string>
     <string name="share_target_save_btn">बाद में पढ़ने के लिए सहेजें</string>
-    <string name="share_target_cancel_btn">Cancel</string>
+    <string name="share_target_cancel_btn">रद्द करें</string>
     <string name="share_target_saved_toast">बाद में पढ़ने के लिए सहेजा गया</string>
     <string name="share_target_invalid_url">कोई मान्य लिंक नहीं मिला</string>
     <string name="read_position_sync">पढ़ने की स्थिति सिंक करें</string>
@@ -780,12 +780,12 @@
     <string name="smart_collection_save_action">संग्रह के रूप में सहेजें</string>
     <string name="smart_collection_empty">अभी कोई स्मार्ट संग्रह नहीं है। किसी विषय को फ़ॉलो करने के लिए सिमैंटिक खोज सहेजें।</string>
     <string name="smart_collection_articles_count">%1$d articles</string>
-    <string name="smart_collection_edit">Edit</string>
-    <string name="smart_collection_delete">Delete</string>
+    <string name="smart_collection_edit">संपादित करें</string>
+    <string name="smart_collection_delete">हटाएँ</string>
     <string name="smart_collection_delete_confirm">यह संग्रह हटाएँ? इसके लेख आपकी लाइब्रेरी में बने रहेंगे।</string>
     <string name="smart_collection_saved">स्मार्ट संग्रह सहेजा गया</string>
     <string name="smart_collection_empty_articles">अभी कोई मेल खाता नया लेख नहीं है। सिंक के बाद नए मिलान यहाँ दिखेंगे।</string>
-    <string name="save">Save</string>
+    <string name="save">सहेजें</string>
     <string name="eink_mode_title">E-Ink अनुकूलन</string>
     <string name="eink_active_title">E-Ink मोड चालू है</string>
     <string name="eink_active_desc">ऐप काले और सफेद रंग में दिख रहा है। बंद करने के लिए टैप करें।</string>
@@ -864,8 +864,8 @@
     <string name="widget_article_pin_unsupported">आपका लॉन्चर विजेट को अपने आप पिन करने का समर्थन नहीं करता</string>
     <!-- Feed Zero Triage (EXC-14) -->
     <string name="feed_zero_triage_title">फ़ीड ज़ीरो ट्रायाज</string>
-    <string name="triage_swipe_left_skip">Skip</string>
-    <string name="triage_swipe_right_save">Save</string>
+    <string name="triage_swipe_left_skip">छोड़ें</string>
+    <string name="triage_swipe_right_save">सहेजें</string>
     <string name="triage_swipe_up_read">अभी पढ़ें</string>
     <string name="triage_progress_format">%1$d / %2$d</string>
     <string name="triage_inbox_zero_title">🎉 इनबॉक्स ज़ीरो हासिल!</string>
@@ -874,7 +874,7 @@
     <string name="triage_summary_saved">बाद के लिए सहेजे: %1$d</string>
     <string name="triage_summary_skipped">पढ़ा हुआ मार्क किए: %1$d</string>
     <string name="triage_summary_xp">+%1$d Brain RPG XP</string>
-    <string name="triage_finish_button">Done</string>
+    <string name="triage_finish_button">हो गया</string>
     <!-- Brain Wrapped tuần (RPG-09) -->
     <string name="brain_wrapped_share_story">स्टोरी पर साझा करें</string>
     <string name="brain_wrapped_xp_label">इस सप्ताह के XP</string>
@@ -919,14 +919,14 @@
     <string name="headline_signals_desc">इस डिवाइस पर शीर्षक और लेख के शब्दों का विश्लेषण करता है: क्लिकबेट के संकेत, प्रचार/बढ़ा-चढ़ाकर कहे शब्द, और भावनात्मक टोन (सकारात्मक/अस्पष्ट/नकारात्मक)। कुछ भी कहीं नहीं भेजा जाता और न AI या नेटवर्क का उपयोग होता है। ये केवल शब्दों के संकेत हैं, तथ्य-जाँच या राजनीतिक पक्षपात का निर्णय नहीं। स्पेनिश, फ़्रेंच और जर्मन प्रायोगिक हैं।</string>
     <string name="headline_signals_clickbait_badge">🎯 Clickbait %1$d%%</string>
     <string name="headline_signals_clickbait_desc">क्लिकबेट भाषा संकेतक: स्कोर 100 में से %1$d है।</string>
-    <string name="headline_signals_tone_positive">🟢 Positive</string>
-    <string name="headline_signals_tone_unclear">⚪ Unclear</string>
-    <string name="headline_signals_tone_negative">🔴 Negative</string>
+    <string name="headline_signals_tone_positive">🟢 सकारात्मक</string>
+    <string name="headline_signals_tone_unclear">⚪ अस्पष्ट</string>
+    <string name="headline_signals_tone_negative">🔴 नकारात्मक</string>
     <string name="headline_signals_tone_desc_positive">शब्दों पर आधारित शीर्षक टोन: सकारात्मक संकेत मौजूद हैं।</string>
     <string name="headline_signals_tone_desc_unclear">शब्दों पर आधारित शीर्षक टोन: संकेत अस्पष्ट या अपर्याप्त हैं।</string>
     <string name="headline_signals_tone_desc_negative">शब्दों पर आधारित शीर्षक टोन: नकारात्मक संकेत मौजूद हैं।</string>
     <string name="brain_rpg_skill_tree_decay_warning">यह स्किल समय के साथ कमज़ोर हो गई है। इसे बहाल करने के लिए अभ्यास करें।</string>
-    <string name="bounty_action_investigate">Investigate</string>
+    <string name="bounty_action_investigate">जाँच करें</string>
     <string name="bounty_sheet_title">एंटिटी जाँच एजेंट</string>
     <string name="bounty_scanning_status">आपके समाचार संग्रह में खोजा जा रहा है: %1$s…</string>
     <string name="bounty_stats_summary">%1$d संबंधित लेख • %2$d स्रोत</string>
@@ -941,14 +941,14 @@
     <string name="echo_hype_label">Hype: %1$d%%</string>
     <string name="echo_hype_warning">अत्यधिक प्रचारात्मक या बढ़ा-चढ़ाकर कहे शब्द मिले</string>
     <string name="echo_tone_label">Tone: %1$s</string>
-    <string name="echo_tone_positive">🟢 Positive</string>
-    <string name="echo_tone_unclear">⚪ Unclear</string>
-    <string name="echo_tone_negative">🔴 Negative</string>
+    <string name="echo_tone_positive">🟢 सकारात्मक</string>
+    <string name="echo_tone_unclear">⚪ अस्पष्ट</string>
+    <string name="echo_tone_negative">🔴 नकारात्मक</string>
     <string name="echo_details_title">भाषा शैली के संकेत</string>
     <string name="echo_disclaimer">केवल स्थानीय शब्द-संकेत; यह तथ्य-जाँच, विश्वसनीयता स्कोर, राजनीतिक-पक्षपात विश्लेषण या लेखक की मंशा का दावा नहीं है। “अस्पष्ट” का मतलब शब्दों के पर्याप्त प्रमाण का न होना है, तटस्थ होना नहीं।</string>
     <string name="echo_flagged_passages_title">चिह्नित अंश (%1$d)</string>
     <string name="echo_cue_promotional">प्रचारात्मक वाक्यांश</string>
-    <string name="echo_cue_intensifier">Exaggeration</string>
+    <string name="echo_cue_intensifier">अतिशयोक्ति</string>
     <string name="echo_cue_absolute">निरपेक्ष दावा</string>
     <string name="echo_cue_exclamation">विराम चिह्न या बड़े अक्षरों से ज़ोर</string>
     <string name="echo_no_passages">कोई भी अनुच्छेद हाइप की सीमा पार नहीं कर पाया।</string>
@@ -956,10 +956,10 @@
     <!-- BOUNTY-02 dossier -->
     <string name="dossier_create_action">डोज़ियर बनाएँ</string>
     <string name="dossier_sheet_title">स्थानीय इंटेलिजेंस डोज़ियर</string>
-    <string name="dossier_tab_summary">Summary</string>
-    <string name="dossier_tab_timeline">Timeline</string>
-    <string name="dossier_tab_names">Names</string>
-    <string name="dossier_tab_sources">Sources</string>
+    <string name="dossier_tab_summary">सारांश</string>
+    <string name="dossier_tab_timeline">समयरेखा</string>
+    <string name="dossier_tab_names">नाम</string>
+    <string name="dossier_tab_sources">स्रोत</string>
     <string name="dossier_share_action">Markdown साझा करें</string>
     <string name="dossier_chooser_title">डोज़ियर साझा करें</string>
     <string name="dossier_limitation">केवल इस ऐप में सहेजे लेखों से बना है। इसमें कुछ दृष्टिकोण छूट सकते हैं और यह तथ्य-जाँच नहीं है।</string>
@@ -982,7 +982,7 @@
     <string name="streak_rescue_message">आपने %1$d दिन पढ़ाई छोड़ी। अगली बार पढ़ने पर आपकी %2$d दिन की स्ट्रीक रीसेट हो जाएगी।</string>
     <string name="streak_rescue_action_ad">स्ट्रीक बचाने के लिए वीडियो देखें</string>
     <string name="streak_rescue_action_restart">शुरू से शुरू करें</string>
-    <string name="streak_rescue_action_later">Later</string>
+    <string name="streak_rescue_action_later">बाद में</string>
     <string name="streak_rescue_ad_failed">वीडियो लोड नहीं हो सका। कृपया फिर कोशिश करें।</string>
 
     <!-- ZEN-07 RSVP calibration -->
@@ -997,8 +997,8 @@
     <string name="zen_calibration_suggested_wpm">सुझाई गई गति: ~%1$d WPM</string>
     <string name="zen_calibration_limitation">यह 6 प्रश्नों से निकला मोटा अनुमान है, गहरी समझ का माप नहीं। आप गति हमेशा हाथ से बदल सकते हैं।</string>
     <string name="zen_calibration_low_confidence_note">अलग-अलग गति पर आपके उत्तर भिन्न रहे; अपनी गति से पढ़कर देखें और बाद में फिर कैलिब्रेट करें।</string>
-    <string name="zen_calibration_apply">Apply</string>
-    <string name="zen_calibration_skip">Skip</string>
+    <string name="zen_calibration_apply">लागू करें</string>
+    <string name="zen_calibration_skip">छोड़ें</string>
     <string name="zen_calibration_settings_desc">3 छोटे राउंड में अपनी पढ़ने की गति कैलिब्रेट करें</string>
 
     <!-- ECHO-02 contrasting coverage -->
@@ -1012,7 +1012,7 @@
     <string name="echo_dual_export">कार्ड निर्यात करें</string>
     <string name="echo_dual_export_desc">%1$s के साथ दो शीर्षकों वाला कार्ड निर्यात करें</string>
     <string name="echo_dual_title">दो शीर्षक साझा करें</string>
-    <string name="echo_dual_share">Share</string>
+    <string name="echo_dual_share">साझा करें</string>
     <string name="echo_dual_cut_note">एक शीर्षक छोटा किया गया</string>
     <string name="echo_dual_error">कार्ड नहीं बन सका। फिर कोशिश करने के लिए टैप करें।</string>
     <string name="echo_dual_chooser_title">दो शीर्षकों वाला कार्ड साझा करें</string>
@@ -1023,7 +1023,7 @@
     <string name="curated_bundle_verified_on">Checked %1$s</string>
     <string name="curated_bundle_source_count">Sources: %1$d</string>
     <string name="curated_bundle_subscribe_all">सभी की सदस्यता लें</string>
-    <string name="curated_bundle_subscribing">Subscribing…</string>
+    <string name="curated_bundle_subscribing">सदस्यता ली जा रही है…</string>
     <string name="curated_bundle_progress">Subscribing %1$d of %2$d</string>
     <string name="curated_bundle_result">जोड़े %1$d · पहले से थे %2$d · विफल %3$d</string>
     <string name="curated_bundle_error">सदस्यता नहीं ली जा सकी: %1$s</string>
@@ -1031,11 +1031,11 @@
     <string name="curated_bundle_account_local_only">पूरे बंडल की सदस्यता केवल स्थानीय खाते के लिए उपलब्ध है।</string>
 
     <!-- FRONT-03 knowledge galaxy -->
-    <string name="galaxy_mode_concepts">Concepts</string>
-    <string name="galaxy_mode_stars">Galaxy</string>
+    <string name="galaxy_mode_concepts">अवधारणाएँ</string>
+    <string name="galaxy_mode_stars">गैलेक्सी</string>
     <string name="galaxy_empty">कुछ लेखों को पढ़ा हुआ मार्क करें, वे यहाँ तारों की तरह चमकेंगे। समय सीमा बढ़ाकर देखें।</string>
     <string name="galaxy_error">गैलेक्सी नहीं बन सकी। फिर कोशिश करें।</string>
-    <string name="galaxy_retry">Retry</string>
+    <string name="galaxy_retry">पुनः प्रयास</string>
     <string name="galaxy_reset_view">व्यू रीसेट करें</string>
     <string name="galaxy_stats">तारे: %1$d · लिंक: %2$d</string>
     <string name="galaxy_star_open">लेख खोलें</string>
@@ -1053,7 +1053,7 @@
     <string name="second_screen_viewers">Viewers: %1$d</string>
     <string name="second_screen_expires">Expires at %1$s</string>
     <string name="second_screen_warning">एन्क्रिप्टेड नहीं है। इस Wi-Fi पर जो भी लिंक देख ले, वह लेख पढ़ सकता है। केवल भरोसेमंद नेटवर्क पर उपयोग करें।</string>
-    <string name="second_screen_starting">Starting…</string>
+    <string name="second_screen_starting">शुरू हो रहा है…</string>
     <string name="second_screen_no_network">निजी पते वाला कोई Wi-Fi या Ethernet नेटवर्क नहीं है। Wi-Fi से जुड़ें और फिर कोशिश करें।</string>
     <string name="second_screen_lan_permission_denied">स्थानीय नेटवर्क एक्सेस बंद है। लेख को दूसरी स्क्रीन पर दिखाने के लिए सेटिंग में इसे अनुमति दें।</string>
     <string name="second_screen_expired">सत्र समाप्त हो गया। नया लिंक पाने के लिए इसे फिर चालू करें।</string>
@@ -1064,8 +1064,8 @@
     <string name="galaxy_related_title">संबंधित लेख</string>
     <string name="galaxy_shared_terms">साझा शब्द: %1$s</string>
     <string name="local_sync_title">स्थानीय सिंक</string>
-    <string name="local_sync_send">Send</string>
-    <string name="local_sync_receive">Receive</string>
+    <string name="local_sync_send">भेजें</string>
+    <string name="local_sync_receive">प्राप्त करें</string>
     <string name="local_sync_send_instructions">इस स्थानीय नेटवर्क पर किसी दूसरे डिवाइस के लिए एन्क्रिप्टेड पैकेज बनाएँ।</string>
     <string name="local_sync_secret_warning">यह पेयरिंग सीक्रेट URL से अलग साझा करें। दोनों जिसके पास हों, वह पैकेज पढ़ सकता है।</string>
     <string name="local_sync_http_warning">HTTP, URL, डिवाइस का पता, समय या ट्रांसफ़र का आकार नहीं छिपाता। केवल पैकेज की सामग्री एन्क्रिप्टेड है। भरोसेमंद स्थानीय नेटवर्क का उपयोग करें।</string>
@@ -1089,7 +1089,7 @@
     <string name="local_sync_apply">बदलाव लागू करें</string>
     <string name="local_sync_confirm_apply">सिंक के बदलाव लागू करें?</string>
     <string name="local_sync_confirm_counts">जोड़ी जाने वाली फ़ीड: %1$d। अपडेट होने वाली लेख स्थितियाँ: %2$d। ये बदलाव लागू करें?</string>
-    <string name="local_sync_cancel">Cancel</string>
+    <string name="local_sync_cancel">रद्द करें</string>
     <string name="local_sync_done">सिंक के बदलाव लागू हो गए।</string>
     <string name="local_sync_not_local">सिंक का उपयोग करने के लिए स्थानीय खाता चुनें।</string>
     <string name="local_sync_error_network">सिंक सत्र से कनेक्ट नहीं हो सका। URL और स्थानीय नेटवर्क जाँचें।</string>
@@ -1115,9 +1115,9 @@
     <string name="local_sync_reply_instruction">दूसरे फ़ोन से कहें कि भेजना रोककर पहले प्राप्त करें खोले।</string>
     <string name="local_sync_merge_limit">मर्ज केवल पढ़ा हुआ और स्टार के निशान रखता है; एक फ़ोन पर अपठित मार्क करने या स्टार हटाने का बदलाव सिंक के बाद वापस आ सकता है।</string>
     <string name="local_sync_peer_unconfirmed">दूसरे डिवाइस के एक बार प्राप्त करने की प्रतीक्षा है</string>
-    <string name="local_sync_peer_confirmed">Paired</string>
+    <string name="local_sync_peer_confirmed">जुड़ा हुआ</string>
     <string name="local_sync_peer_needs_repair">इस फ़ोन पर उपयोग नहीं हो सकता। इसे हटाएँ और दोबारा पेयर करें।</string>
-    <string name="local_sync_forget_peer">Forget</string>
+    <string name="local_sync_forget_peer">भूलें</string>
     <string name="local_sync_confirm_peer">पेयर किया हुआ मार्क करें</string>
     <string name="local_sync_nearby_title">एक पेयर किया डिवाइस पास में है।</string>
     <string name="local_sync_no_peer_found">अभी तक कोई पास का डिवाइस नहीं मिला। दूसरे डिवाइस पर भेजें खोलें।</string>
@@ -1129,7 +1129,7 @@
     <!-- EXC-11 Temporal Ask My Archive -->
     <string name="archive_query_title">मेरे संग्रह से पूछें</string>
     <string name="archive_query_desc">किसी विषय के बारे में पूछें और देखें कि आपके सहेजे लेखों ने उसे महीने-दर-महीने कैसे कवर किया।</string>
-    <string name="archive_query_question_label">Question</string>
+    <string name="archive_query_question_label">प्रश्न</string>
     <string name="archive_query_question_hint">जैसे मार्च से ब्याज दरें</string>
     <string name="archive_query_search">संग्रह खोजें</string>
     <string name="archive_query_start_date">प्रारंभ तिथि (YYYY-MM-DD)</string>
@@ -1168,7 +1168,7 @@
     <string name="feed_autopilot_summary_clean">आपकी फ़ीड व्यवस्थित दिखती हैं। कोई शोर भरी फ़ीड नहीं मिली।</string>
     <string name="feed_autopilot_reason_opened">%2$d में से %1$d खोले (पिछले %3$d दिन की अवधि; %4$d%% जुड़ाव)</string>
     <string name="feed_autopilot_reason_zero">पिछले %2$d दिनों में %1$d में से कोई लेख नहीं खोला गया</string>
-    <string name="feed_autopilot_action_unsubscribe">Unsubscribe</string>
+    <string name="feed_autopilot_action_unsubscribe">सदस्यता छोड़ें</string>
     <string name="feed_autopilot_action_snooze">30 दिन के लिए स्नूज़ करें</string>
     <string name="feed_autopilot_action_keep">रखें और सुझाना बंद करें</string>
     <string name="feed_autopilot_confirm_title">%1$s की सदस्यता छोड़ें?</string>
@@ -1183,24 +1183,24 @@
     <string name="podcast_studio_menu">पॉडकास्ट स्टूडियो</string>
     <string name="podcast_studio_consent_title">AI से स्क्रिप्ट लिखवाएँ?</string>
     <string name="podcast_studio_consent_message">दो होस्ट की स्क्रिप्ट लिखने के लिए Google Gemini को केवल इस लेख का शीर्षक और एक छोटा पूर्वावलोकन (250 अक्षरों से कम) भेजा जाता है। लेख का पाठ, लिंक और आपका पढ़ने का इतिहास कभी नहीं भेजा जाता।</string>
-    <string name="podcast_studio_consent_agree">Use AI</string>
+    <string name="podcast_studio_consent_agree">AI का उपयोग करें</string>
     <string name="podcast_studio_consent_decline">ऑफ़लाइन स्क्रिप्ट उपयोग करें</string>
     <string name="podcast_studio_conflict_title">जो चल रहा है उसे रोकें?</string>
     <string name="podcast_studio_conflict_message">इस लेख को पॉडकास्ट के रूप में चलाने से अभी चल रहा ऑडियो रुक जाएगा।</string>
     <string name="podcast_studio_badge_source_gemini">स्क्रिप्ट AI ने लिखी</string>
     <string name="podcast_studio_badge_source_heuristic">ऑफ़लाइन स्क्रिप्ट, AI नहीं</string>
-    <string name="podcast_studio_play">Play</string>
-    <string name="podcast_studio_pause">Pause</string>
+    <string name="podcast_studio_play">चलाएँ</string>
+    <string name="podcast_studio_pause">रोकें</string>
     <string name="podcast_studio_next">अगली पंक्ति</string>
     <string name="podcast_studio_previous">पिछली पंक्ति</string>
-    <string name="podcast_studio_host_alex">Alex</string>
-    <string name="podcast_studio_host_sam">Sam</string>
+    <string name="podcast_studio_host_alex">एलेक्स</string>
+    <string name="podcast_studio_host_sam">सैम</string>
     <string name="podcast_studio_waveform_playing">विज़ुअलाइज़र: चल रहा है, बोलने वाला: %1$s</string>
     <string name="podcast_studio_waveform_paused">विज़ुअलाइज़र: रुका हुआ</string>
     <string name="deep_dive_menu">🔬 AI डीप डाइव</string>
     <string name="deep_dive_title">AI डीप डाइव</string>
     <string name="deep_dive_consent_message">यह रिपोर्ट लिखने के लिए Google Gemini को लेख का शीर्षक और उसके पाठ के 6,000 अक्षरों तक भेजे जाते हैं। लिंक, फ़ीड का नाम और आपका पढ़ने का इतिहास कभी नहीं भेजा जाता। Gemini वेब पर खोज नहीं करता।</string>
-    <string name="deep_dive_consent_agree">Agree</string>
+    <string name="deep_dive_consent_agree">सहमत</string>
     <string name="deep_dive_consent_later">अभी नहीं</string>
     <string name="deep_dive_declined_message">AI डीप डाइव बंद है। रिपोर्ट लिखवाने के लिए सेटिंग, गोपनीयता में इसे चालू करें।</string>
     <string name="deep_dive_open_privacy">गोपनीयता सेटिंग खोलें</string>
@@ -1210,30 +1210,30 @@
     <string name="deep_dive_nothing_to_analyze">इस लेख में विश्लेषण के लिए कोई शीर्षक या पाठ नहीं है।</string>
     <string name="deep_dive_retry">फिर कोशिश करें</string>
     <string name="deep_dive_label">शीर्षक और एक अंश से AI ने लिखा; वेब खोज नहीं; इसमें गलती हो सकती है</string>
-    <string name="deep_dive_section_context">Context</string>
+    <string name="deep_dive_section_context">संदर्भ</string>
     <string name="deep_dive_section_critical">विरोधी दृष्टिकोण</string>
     <string name="deep_dive_section_impact">प्रभाव मैट्रिक्स</string>
-    <string name="deep_dive_col_area">Area</string>
+    <string name="deep_dive_col_area">क्षेत्र</string>
     <string name="deep_dive_col_short">अल्पकालिक</string>
     <string name="deep_dive_col_long">दीर्घकालिक</string>
     <string name="deep_dive_export_pdf">PDF निर्यात करें</string>
     <string name="deep_dive_chooser_title">डीप डाइव PDF साझा करें</string>
     <string name="deep_dive_export_error">PDF नहीं बन सकी</string>
     <string name="deep_dive_pdf_truncated">एक पेज में समाने के लिए छोटा किया गया। पूरी रिपोर्ट ऐप में देखें।</string>
-    <string name="deep_dive_close">Close</string>
-    <string name="oracle_badge_label">Prediction</string>
+    <string name="deep_dive_close">बंद करें</string>
+    <string name="oracle_badge_label">पूर्वानुमान</string>
     <string name="oracle_badge_open">भविष्यवाणी खोलें</string>
     <string name="oracle_sheet_title">इस लेख में मिली भविष्यवाणी</string>
     <string name="oracle_sheet_expires">Expected by %1$s</string>
     <string name="oracle_sheet_criteria_heading">उत्तर कैसे जाँचें</string>
     <string name="oracle_sheet_ai_label">शीर्षक और विवरण से AI ने लिखा है; इसमें गलती हो सकती है।</string>
-    <string name="oracle_sheet_close">Close</string>
+    <string name="oracle_sheet_close">बंद करें</string>
     <string name="oracle_consent_title">नए लेखों में भविष्यवाणियाँ खोजें</string>
     <string name="oracle_consent_message">हर सिंक के बाद, भविष्यवाणी खोजने के लिए अधिकतम 5 नए लेखों का शीर्षक और एक छोटा विवरण (कुल 500 अक्षरों तक) Google Gemini को भेजा जाता है। लेख का पाठ, लिंक, फ़ीड का नाम और आपका पढ़ने का इतिहास कभी नहीं भेजा जाता। डिफ़ॉल्ट रूप से बंद।</string>
     <string name="oracle_bet_balance">शेष: %1$s अंक</string>
     <string name="oracle_bet_pick_side">आपकी पसंद</string>
-    <string name="oracle_bet_yes">Yes</string>
-    <string name="oracle_bet_no">No</string>
+    <string name="oracle_bet_yes">हाँ</string>
+    <string name="oracle_bet_no">नहीं</string>
     <string name="oracle_bet_pick_stake">दाँव पर लगाने के अंक</string>
     <string name="oracle_bet_stake_option">%1$s points</string>
     <string name="oracle_bet_place">दाँव लगाएँ</string>
@@ -1242,7 +1242,7 @@
     <string name="oracle_bet_open">आपने %2$s पर %1$s अंकों का दाँव लगाया है।</string>
     <string name="oracle_bet_open_hint">ऊपर दी तारीख के बाद आप नतीजा बता सकते हैं।</string>
     <string name="oracle_bet_awaiting_title">नतीजा क्या रहा?</string>
-    <string name="oracle_bet_outcome_unclear">Unclear</string>
+    <string name="oracle_bet_outcome_unclear">अस्पष्ट</string>
     <string name="oracle_bet_awaiting_hint">आपने %2$s पर %1$s अंकों का दाँव लगाया था। अस्पष्ट चुनने पर आपके अंक लौटा दिए जाते हैं।</string>
     <string name="oracle_bet_settled_won">आपने %1$s अंक जीते।</string>
     <string name="oracle_bet_settled_lost">आपने %1$s अंक गँवाए।</string>
@@ -1265,7 +1265,7 @@
     <string name="commute_autoplay_title">ब्लूटूथ हेडफ़ोन जुड़ने पर चलाएँ</string>
     <string name="commute_autoplay_desc">एपिसोड तैयार होने के 2 घंटे के भीतर दिन में एक बार उसे चलाने की कोशिश करता है। अगर Android इसे रोक दे, तो आपको चलाएँ बटन वाली सूचना मिलती है।</string>
     <string name="commute_autoplay_permission_denied">आस-पास के डिवाइस की अनुमति के बिना ऐप आपके हेडफ़ोन नहीं देख सकता, इसलिए यह बंद रहेगा।</string>
-    <string name="commute_play_action">Play</string>
+    <string name="commute_play_action">चलाएँ</string>
     <string name="commute_ready_to_play_title">आपका सुबह का एपिसोड तैयार है</string>
     <string name="commute_ready_to_play_body">आपके हेडफ़ोन जुड़े हैं। सुनने के लिए चलाएँ पर टैप करें।</string>
 </resources>

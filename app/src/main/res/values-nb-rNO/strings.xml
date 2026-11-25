@@ -321,8 +321,8 @@
     <string name="try_again">Prøv igjen</string>
     <string name="change_language">Endre språk</string>
     <string name="change_language_confirm">Appen starter på nytt for å ta i bruk det nye språket. Vil du fortsette?</string>
-    <string name="yes">Yes</string>
-    <string name="no">No</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nei</string>
     <string name="restarting_app">Starter appen på nytt…</string>
     <string name="auto_tts">Spill av tekst til tale automatisk</string>
     <string name="auto_tts_desc">Les artikler høyt automatisk når de åpnes</string>
@@ -382,10 +382,10 @@
     <string name="inoreader_desc" translatable="false">inoreader.com</string>
     <string name="fresh_rss_desc" translatable="false">freshrss.org</string>
     <string name="google_reader_desc" translatable="false">Google Reader API</string>
-    <string name="in_coding">In development</string>
+    <string name="in_coding">Under utvikling</string>
     <string name="tips_top_bar_tonal_elevation">Tonal høyde er bare tilgjengelig ved rulling</string>
     <string name="summary_title">Oppsummer med AI</string>
-    <string name="summary_loading">Summarizing…</string>
+    <string name="summary_loading">Oppsummerer…</string>
     <string name="summary_try_again">Prøv igjen</string>
     <string name="summary_get_key">Få en gratis nøkkel</string>
     <string name="summary_err_empty_content">Artikkelen har ikke noe innhold å oppsummere</string>
@@ -407,7 +407,7 @@
     <string name="vip_remaining_short">%1$d dager %2$d timer igjen</string>
     <string name="vip_redeem_label">Skriv inn VIP-kode</string>
     <string name="vip_redeem_hint">f.eks. din VIP-kode</string>
-    <string name="vip_redeem_button">Activate</string>
+    <string name="vip_redeem_button">Aktiver</string>
     <string name="vip_watch_ad_3d">Se reklame → 3 dager VIP</string>
     <string name="vip_buy_30d_locked">Kjøp 30 dagers VIP – kommer snart</string>
     <string name="vip_buy_90d_locked">Kjøp 90 dagers VIP – kommer snart</string>
@@ -419,9 +419,9 @@
     <string name="vip_revoke_all_confirm_message">Er du sikker på at du vil trekke tilbake VIP og gå tilbake til gratiskontoen?</string>
     <string name="vip_entry_first_install">🎁 Gave for ny installasjon</string>
     <string name="vip_entry_active">VIP-medlemskap</string>
-    <string name="vip_success_title">Success</string>
+    <string name="vip_success_title">Vellykket</string>
     <string name="vip_success_message">VIP er aktivt i %1$d dager.</string>
-    <string name="vip_failed_title">Failed</string>
+    <string name="vip_failed_title">Mislyktes</string>
     <string name="ad_attribution_label" translatable="false">Ad Networks (AdMob / AppLovin MAX)</string>
     <string name="vip_failed_busy">En tidligere kode kontrolleres fortsatt. Vent litt og prøv igjen.</string>
     <string name="vip_failed_no_network">Aktivering av en kode krever internettforbindelse. Koble til og prøv igjen.</string>
@@ -438,8 +438,8 @@
     <string name="commute_deepdive_unlocked">🎉 Dybdedykk låst opp!</string>
     <string name="commute_empty">Ingen uleste artikler til morgenradioen</string>
     <string name="commute_generating">AI-DJ-en lager showet ditt...</string>
-    <string name="retry">Retry</string>
-    <string name="version">Version</string>
+    <string name="retry">Prøv igen</string>
+    <string name="version">Versjon</string>
     <string name="rate_app">Vurder appen</string>
     <string name="rate_app_desc">Gi 5 stjerner hvis du synes denne appen er nyttig</string>
     <string name="more_apps">Få flere apper</string>
@@ -448,7 +448,7 @@
     <string name="share_app_desc">Del denne appen slik at andre kan bruke den sammen med deg</string>
     <string name="term_and_policy">Vilkår &amp; personvern</string>
     <string name="term_and_policy_desc">Les sikkerhetsvilkårene og personvernerklæringen</string>
-    <string name="about_title">About</string>
+    <string name="about_title">Om</string>
     <string name="about_desc">Bli kjent med denne appen</string>
     <string name="source_code_original">Kildekode (originalversjon)</string>
     <string name="source_code_current">Kildekode (denne versjonen)</string>
@@ -474,7 +474,7 @@
     <string name="quiz_ai_no_key">Ingen Gemini-nøkkel er tilgjengelig, så AI kunne ikke lage et spørsmål.</string>
     <string name="quiz_ai_nothing_to_ask">Denne artikkelen har ingen tittel eller forhåndsvisning å spørre om.</string>
     <string name="quiz_ai_retry">Prøv igjen</string>
-    <string name="quiz_ai_consent_agree">Agree</string>
+    <string name="quiz_ai_consent_agree">Godta</string>
     <string name="quiz_ai_consent_later">Ikke nå</string>
     <string name="quiz_ai_declined_message">AI-kvisspørsmål er av. Slå dem på under Innstillinger, Personvern, for å få et spørsmål her.</string>
     <string name="quiz_ai_open_privacy">Åpne personverninnstillinger</string>
@@ -500,13 +500,13 @@
     <string name="brain_rpg_decay_notification_channel_desc">Daglig oppsummering av kategoriforfall</string>
     <string name="brain_rpg_xp_retained">Grunn %1$d XP · %2$d%% bevart</string>
     <string name="brain_rpg_streak_shield_success">Rekkeskjold aktivert!</string>
-    <string name="brain_rpg_streak_shield_protected">Protected</string>
+    <string name="brain_rpg_streak_shield_protected">Beskyttet</string>
     <string name="brain_rpg_target_xp">Target: %1$d XP</string>
     <string name="brain_rpg_skill_tree_title">Kunnskapstre</string>
     <string name="brain_rpg_stats_title">AI-utfordringsstatistikk</string>
-    <string name="brain_rpg_stats_attempted">Attempted</string>
-    <string name="brain_rpg_stats_passed">Correct</string>
-    <string name="brain_rpg_stats_accuracy">Accuracy</string>
+    <string name="brain_rpg_stats_attempted">Forsøkt</string>
+    <string name="brain_rpg_stats_passed">Riktige</string>
+    <string name="brain_rpg_stats_accuracy">Nøyaktighet</string>
     <string name="brain_rpg_wrapped_desc">"Du har tjent %1$d XP og holdt en leserekke på %2$d dager! Del bragden din for å inspirere andre."</string>
 
     <!-- Epic 08: Zen Focus & Speed Reading -->
@@ -528,7 +528,7 @@
     <string name="zen_evening_edition">Evening Edition (20:00)</string>
     <string name="zen_daily_edition_notification">%1$d uleste artikler er klare for fokusert lesing.</string>
     <string name="zen_sleep_timer">Søvntimer</string>
-    <string name="zen_sleep_timer_off">Continuous</string>
+    <string name="zen_sleep_timer_off">Kontinuerlig</string>
     <string name="zen_sleep_timer_min">%1$d minutes</string>
     <string name="zen_volume">Volume: %1$d%%</string>
     <string name="zen_settings_title">Zen-fokus &amp; hurtiglesing</string>
@@ -539,7 +539,7 @@
     <string name="highlights_bullet_count">%1$d hovedpunkter</string>
     <string name="highlights_copy_all">Kopier uthevinger</string>
     <string name="highlights_copied_toast">Uthevinger kopiert til utklippstavlen</string>
-    <string name="highlights_share">Share</string>
+    <string name="highlights_share">Del</string>
     <string name="highlights_tldr">Quick TL;DR</string>
     <string name="highlights_ai_badge">Gemini AI</string>
     <string name="highlights_fallback_badge">Smart uten nett</string>
@@ -563,9 +563,9 @@
     <string name="deep_read_clear_chat">Tøm chat</string>
     <string name="deep_read_copied_toast">Svaret er kopiert til utklippstavlen</string>
     <string name="deep_read_welcome_message">Hei! Jeg har analysert denne artikkelen. Still meg et spørsmål, be om avklaringer eller trykk på et foreslått tema nedenfor.</string>
-    <string name="deep_read_context_label">Discussing:</string>
+    <string name="deep_read_context_label">Diskuterer:</string>
     <string name="deep_read_thinking">AI analyserer artikkelen…</string>
-    <string name="deep_read_grounded_badge">Grounded</string>
+    <string name="deep_read_grounded_badge">Kildebasert</string>
     <string name="deep_read_offline_badge">Smart uten nett</string>
     <string name="deep_read_ai_badge">Gemini AI</string>
     <string name="deep_read_copy_transcript">Kopier samtalen</string>
@@ -581,7 +581,7 @@
     <string name="story_cluster_all_perspectives">Alle perspektiver (%d)</string>
     <string name="story_cluster_mark_all_read">Merk alle som lest</string>
     <string name="story_cluster_sheet_title">Dekning av saken fra flere perspektiver</string>
-    <string name="story_cluster_lead_badge">Lead</string>
+    <string name="story_cluster_lead_badge">Hoved</string>
     <string name="semantic_search_title">AI-semantisk søk</string>
     <string name="semantic_search_desc">Søk i artikler etter begrep og betydning i stedet for eksakte nøkkelord</string>
     <string name="semantic_match_badge">%d%% match</string>
@@ -590,7 +590,7 @@
     <string name="watchdog_title">Nøkkelordvakt</string>
     <string name="watchdog_desc">Overvåk viktige nøkkelord &amp; aksjesymboler under bakgrunnssynkronisering og varsle umiddelbart</string>
     <string name="watchdog_add_hint">Skriv inn nøkkelord eller aksjesymbol (f.eks. $VIC, Bitcoin, Gull)...</string>
-    <string name="watchdog_add_btn">Add</string>
+    <string name="watchdog_add_btn">Legg til</string>
     <string name="watchdog_empty_desc">Ingen nøkkelord er lagt til ennå. Legg til nøkkelord eller velg forslag nedenfor for å begynne å overvåke.</string>
     <string name="watchdog_matched_count">%d matched</string>
     <string name="watchdog_channel_name">Nøkkelordvarsler</string>
@@ -612,12 +612,12 @@
     <string name="notebook_empty_subtitle">Uthev inspirerende sitater mens du leser for å organisere kunnskapen i din Second Brain.</string>
     <string name="notebook_empty_search">Fant ingen samsvarende uthevinger</string>
 
-    <string name="notebook_save">Save</string>
-    <string name="notebook_copy">Copy</string>
-    <string name="notebook_edit">Edit</string>
+    <string name="notebook_save">Lagre</string>
+    <string name="notebook_copy">Kopier</string>
+    <string name="notebook_edit">Rediger</string>
     <string name="notebook_copied">Kopiert til utklippstavlen</string>
-    <string name="notebook_saved">Saved</string>
-    <string name="notebook_deleted">Deleted</string>
+    <string name="notebook_saved">Lagret</string>
+    <string name="notebook_deleted">Slettet</string>
     <string name="notebook_untitled">Artikkel uten tittel</string>
 
     <string name="ai_active_key_custom">Bruker personlig API-nøkkel</string>
@@ -748,7 +748,7 @@
     <string name="second_brain_settings_desc">Se hvordan temaene du leser henger sammen over tid</string>
     <string name="second_brain_empty">Les eller lagre noen artikler, så vises temagrafen din her.</string>
     <string name="second_brain_error">Kunne ikke bygge grafen. Prøv igjen.</string>
-    <string name="second_brain_retry">Retry</string>
+    <string name="second_brain_retry">Prøv igen</string>
     <string name="second_brain_graph_desc">Temagraf med %1$d temaer og %2$d forbindelser</string>
     <string name="second_brain_node_articles">%1$d articles</string>
     <string name="second_brain_range_label">Tidsrom</string>
@@ -771,7 +771,7 @@
     <!-- Share Target / Read Later (INGEST-02) -->
     <string name="read_later_feed_title">Les senere</string>
     <string name="share_target_save_btn">Lagre til Les senere</string>
-    <string name="share_target_cancel_btn">Cancel</string>
+    <string name="share_target_cancel_btn">Avbryt</string>
     <string name="share_target_saved_toast">Lagret til Les senere</string>
     <string name="share_target_invalid_url">Fant ingen gyldig lenke</string>
     <string name="read_position_sync">Synkroniser leseposisjon</string>
@@ -783,12 +783,12 @@
     <string name="smart_collection_save_action">Lagre som samling</string>
     <string name="smart_collection_empty">Ingen smarte samlinger ennå. Lagre et semantisk søk for å følge et tema.</string>
     <string name="smart_collection_articles_count">%1$d articles</string>
-    <string name="smart_collection_edit">Edit</string>
-    <string name="smart_collection_delete">Delete</string>
+    <string name="smart_collection_edit">Rediger</string>
+    <string name="smart_collection_delete">Slett</string>
     <string name="smart_collection_delete_confirm">Slette denne samlingen? Artiklene beholdes i biblioteket ditt.</string>
     <string name="smart_collection_saved">Smart samling lagret</string>
     <string name="smart_collection_empty_articles">Ingen nye artikler som matcher ennå. Nye treff vises etter synkronisering.</string>
-    <string name="save">Save</string>
+    <string name="save">Lagre</string>
     <string name="eink_mode_title">E-Ink-optimalisering</string>
     <string name="eink_active_title">E-Ink-modus er på</string>
     <string name="eink_active_desc">Appen vises i svart-hvitt. Trykk for å slå av.</string>
@@ -867,8 +867,8 @@
     <string name="widget_article_pin_unsupported">Startskjermen din støtter ikke automatisk festing av widgeter</string>
     <!-- Feed Zero Triage (EXC-14) -->
     <string name="feed_zero_triage_title">Feed Zero-sortering</string>
-    <string name="triage_swipe_left_skip">Skip</string>
-    <string name="triage_swipe_right_save">Save</string>
+    <string name="triage_swipe_left_skip">Hopp over</string>
+    <string name="triage_swipe_right_save">Lagre</string>
     <string name="triage_swipe_up_read">Les nå</string>
     <string name="triage_progress_format">%1$d / %2$d</string>
     <string name="triage_inbox_zero_title">🎉 Innboks null nådd!</string>
@@ -877,7 +877,7 @@
     <string name="triage_summary_saved">Lagret til senere: %1$d</string>
     <string name="triage_summary_skipped">Merket som lest: %1$d</string>
     <string name="triage_summary_xp">+%1$d Brain RPG XP</string>
-    <string name="triage_finish_button">Done</string>
+    <string name="triage_finish_button">Ferdig</string>
     <!-- Brain Wrapped tuần (RPG-09) -->
     <string name="brain_wrapped_share_story">Del til historie</string>
     <string name="brain_wrapped_xp_label">Ukens XP</string>
@@ -922,14 +922,14 @@
     <string name="headline_signals_desc">Analyserer ordbruken i overskrifter og artikler på denne enheten for clickbait-signaler, reklame-/oppskrytt ordbruk og følelsesmessig tone (positiv/uklar/negativ). Ingenting sendes noe sted, og verken AI eller nettverk brukes. Dette er bare signaler om ordbruk, ikke faktasjekk eller vurdering av politisk slagside. Spansk, fransk og tysk er eksperimentelt.</string>
     <string name="headline_signals_clickbait_badge">🎯 Clickbait %1$d%%</string>
     <string name="headline_signals_clickbait_desc">Indikator for clickbait-språk: poengsummen er %1$d av 100.</string>
-    <string name="headline_signals_tone_positive">🟢 Positive</string>
-    <string name="headline_signals_tone_unclear">⚪ Unclear</string>
-    <string name="headline_signals_tone_negative">🔴 Negative</string>
+    <string name="headline_signals_tone_positive">🟢 Positiv</string>
+    <string name="headline_signals_tone_unclear">⚪ Uklart</string>
+    <string name="headline_signals_tone_negative">🔴 Negativ</string>
     <string name="headline_signals_tone_desc_positive">Leksikalsk tone i overskriften: positive indikatorer finnes.</string>
     <string name="headline_signals_tone_desc_unclear">Leksikalsk tone i overskriften: uklare eller utilstrekkelige indikatorer.</string>
     <string name="headline_signals_tone_desc_negative">Leksikalsk tone i overskriften: negative indikatorer finnes.</string>
     <string name="brain_rpg_skill_tree_decay_warning">Denne ferdigheten har svekket seg over tid. Øv for å gjenopprette den.</string>
-    <string name="bounty_action_investigate">Investigate</string>
+    <string name="bounty_action_investigate">Undersøk</string>
     <string name="bounty_sheet_title">Enhetsetterforsker</string>
     <string name="bounty_scanning_status">Skanner nyhetsarkivet ditt etter: %1$s…</string>
     <string name="bounty_stats_summary">%1$d relaterte artikler • %2$d kilder</string>
@@ -944,14 +944,14 @@
     <string name="echo_hype_label">Hype: %1$d%%</string>
     <string name="echo_hype_warning">Sterk reklameaktig eller overdrevet ordbruk oppdaget</string>
     <string name="echo_tone_label">Tone: %1$s</string>
-    <string name="echo_tone_positive">🟢 Positive</string>
-    <string name="echo_tone_unclear">⚪ Unclear</string>
-    <string name="echo_tone_negative">🔴 Negative</string>
+    <string name="echo_tone_positive">🟢 Positiv</string>
+    <string name="echo_tone_unclear">⚪ Uklart</string>
+    <string name="echo_tone_negative">🔴 Negativ</string>
     <string name="echo_details_title">Signaler i språkbruken</string>
     <string name="echo_disclaimer">Kun lokale signaler om ordbruk. Dette er ikke en faktasjekk, troverdighetsscore, analyse av politisk slagside eller påstand om forfatterens hensikt. «Uklar» betyr utilstrekkelig leksikalsk grunnlag, ikke nøytral.</string>
     <string name="echo_flagged_passages_title">Markerte avsnitt (%1$d)</string>
     <string name="echo_cue_promotional">Reklameaktig frase</string>
-    <string name="echo_cue_intensifier">Exaggeration</string>
+    <string name="echo_cue_intensifier">Overdrivelse</string>
     <string name="echo_cue_absolute">Absolutt påstand</string>
     <string name="echo_cue_exclamation">Utropstegn eller utheving med store bokstaver</string>
     <string name="echo_no_passages">Ingen enkeltavsnitt overskred hype-grensen.</string>
@@ -959,10 +959,10 @@
     <!-- BOUNTY-02 dossier -->
     <string name="dossier_create_action">Lag dossier</string>
     <string name="dossier_sheet_title">Lokal etterretningsdossier</string>
-    <string name="dossier_tab_summary">Summary</string>
-    <string name="dossier_tab_timeline">Timeline</string>
-    <string name="dossier_tab_names">Names</string>
-    <string name="dossier_tab_sources">Sources</string>
+    <string name="dossier_tab_summary">Sammendrag</string>
+    <string name="dossier_tab_timeline">Tidslinje</string>
+    <string name="dossier_tab_names">Navn</string>
+    <string name="dossier_tab_sources">Kilder</string>
     <string name="dossier_share_action">Del Markdown</string>
     <string name="dossier_chooser_title">Del dossier</string>
     <string name="dossier_limitation">Bygget bare på artikler lagret i denne appen. Kan utelate synspunkter og er ikke en faktasjekk.</string>
@@ -985,7 +985,7 @@
     <string name="streak_rescue_message">Du har gått glipp av %1$d dagers lesing. Rekken din på %2$d dager nullstilles ved neste lesing.</string>
     <string name="streak_rescue_action_ad">Se video for å redde rekken</string>
     <string name="streak_rescue_action_restart">Start på nytt</string>
-    <string name="streak_rescue_action_later">Later</string>
+    <string name="streak_rescue_action_later">Senere</string>
     <string name="streak_rescue_ad_failed">Kunne ikke laste videoen. Prøv igjen.</string>
 
     <!-- ZEN-07 RSVP calibration -->
@@ -1000,8 +1000,8 @@
     <string name="zen_calibration_suggested_wpm">Anbefalt hastighet: ~%1$d ord/min</string>
     <string name="zen_calibration_limitation">Dette er et grovt anslag basert på 6 spørsmål, ikke et mål på dyp forståelse. Du kan alltid justere hastigheten manuelt.</string>
     <string name="zen_calibration_low_confidence_note">Svarene dine varierte mellom hastighetene. Prøv å lese i ditt eget tempo og kalibrer på nytt senere.</string>
-    <string name="zen_calibration_apply">Apply</string>
-    <string name="zen_calibration_skip">Skip</string>
+    <string name="zen_calibration_apply">Bruk</string>
+    <string name="zen_calibration_skip">Hopp over</string>
     <string name="zen_calibration_settings_desc">Kalibrer lesehastigheten din over 3 korte runder</string>
 
     <!-- ECHO-02 contrasting coverage -->
@@ -1015,7 +1015,7 @@
     <string name="echo_dual_export">Eksporter kort</string>
     <string name="echo_dual_export_desc">Eksporter et kort med to overskrifter med %1$s</string>
     <string name="echo_dual_title">Del to overskrifter</string>
-    <string name="echo_dual_share">Share</string>
+    <string name="echo_dual_share">Del</string>
     <string name="echo_dual_cut_note">En overskrift ble forkortet</string>
     <string name="echo_dual_error">Kunne ikke lage kortet. Trykk for å prøve igjen.</string>
     <string name="echo_dual_chooser_title">Del kort med to overskrifter</string>
@@ -1026,7 +1026,7 @@
     <string name="curated_bundle_verified_on">Checked %1$s</string>
     <string name="curated_bundle_source_count">Sources: %1$d</string>
     <string name="curated_bundle_subscribe_all">Abonner på alle</string>
-    <string name="curated_bundle_subscribing">Subscribing…</string>
+    <string name="curated_bundle_subscribing">Abonnerer…</string>
     <string name="curated_bundle_progress">Subscribing %1$d of %2$d</string>
     <string name="curated_bundle_result">Lagt til %1$d · hadde fra før %2$d · mislyktes %3$d</string>
     <string name="curated_bundle_error">Kunne ikke abonnere: %1$s</string>
@@ -1034,11 +1034,11 @@
     <string name="curated_bundle_account_local_only">Abonnement på en hel pakke er bare tilgjengelig for den lokale kontoen.</string>
 
     <!-- FRONT-03 knowledge galaxy -->
-    <string name="galaxy_mode_concepts">Concepts</string>
-    <string name="galaxy_mode_stars">Galaxy</string>
+    <string name="galaxy_mode_concepts">Begreper</string>
+    <string name="galaxy_mode_stars">Galakse</string>
     <string name="galaxy_empty">Merk noen artikler som lest, så lyser de her som stjerner. Prøv å utvide tidsrommet.</string>
     <string name="galaxy_error">Kunne ikke bygge galaksen. Prøv igjen.</string>
-    <string name="galaxy_retry">Retry</string>
+    <string name="galaxy_retry">Prøv igen</string>
     <string name="galaxy_reset_view">Tilbakestill visning</string>
     <string name="galaxy_stats">Stjerner: %1$d · Lenker: %2$d</string>
     <string name="galaxy_star_open">Åpne artikkel</string>
@@ -1056,7 +1056,7 @@
     <string name="second_screen_viewers">Viewers: %1$d</string>
     <string name="second_screen_expires">Expires at %1$s</string>
     <string name="second_screen_warning">Ikke kryptert. Alle på dette Wi-Fi-nettverket som ser lenken, kan lese artikkelen. Bruk bare på et nettverk du stoler på.</string>
-    <string name="second_screen_starting">Starting…</string>
+    <string name="second_screen_starting">Starter…</string>
     <string name="second_screen_no_network">Ingen Wi-Fi- eller Ethernet-tilkobling med privat adresse. Koble til Wi-Fi og prøv igjen.</string>
     <string name="second_screen_lan_permission_denied">Tilgang til lokalt nettverk er slått av. Tillat den i Innstillinger for å vise artikler på en andre skjerm.</string>
     <string name="second_screen_expired">Økten er avsluttet. Slå den på igjen for å få en ny lenke.</string>
@@ -1068,7 +1068,7 @@
     <string name="galaxy_shared_terms">Felles ord: %1$s</string>
     <string name="local_sync_title">Lokal synkronisering</string>
     <string name="local_sync_send">Send</string>
-    <string name="local_sync_receive">Receive</string>
+    <string name="local_sync_receive">Motta</string>
     <string name="local_sync_send_instructions">Lag en kryptert pakke for en annen enhet på dette lokale nettverket.</string>
     <string name="local_sync_secret_warning">Del denne paringshemmeligheten adskilt fra URL-en. Alle som har begge, kan lese pakken.</string>
     <string name="local_sync_http_warning">HTTP skjuler ikke URL-en, enhetsadressen, tidspunktet eller overføringsstørrelsen. Bare pakkeinnholdet er kryptert. Bruk et pålitelig lokalt nettverk.</string>
@@ -1092,7 +1092,7 @@
     <string name="local_sync_apply">Ta i bruk endringer</string>
     <string name="local_sync_confirm_apply">Ta i bruk synkroniseringsendringer?</string>
     <string name="local_sync_confirm_counts">Feeder som legges til: %1$d. Artikkelstatuser som oppdateres: %2$d. Ta i bruk disse endringene?</string>
-    <string name="local_sync_cancel">Cancel</string>
+    <string name="local_sync_cancel">Avbryt</string>
     <string name="local_sync_done">Synkroniseringsendringene er tatt i bruk.</string>
     <string name="local_sync_not_local">Velg en lokal konto for å bruke synkronisering.</string>
     <string name="local_sync_error_network">Kunne ikke koble til synkroniseringsøkten. Sjekk URL-en og det lokale nettverket.</string>
@@ -1118,9 +1118,9 @@
     <string name="local_sync_reply_instruction">Be den andre telefonen om å stoppe sendingen og åpne Motta først.</string>
     <string name="local_sync_merge_limit">Sammenslåing beholder bare lest- og stjernemerker. Hvis du merker som ulest eller fjerner en stjerne på én telefon, kan det komme tilbake etter synkronisering.</string>
     <string name="local_sync_peer_unconfirmed">Venter på at den andre enheten skal motta én gang</string>
-    <string name="local_sync_peer_confirmed">Paired</string>
+    <string name="local_sync_peer_confirmed">Paret</string>
     <string name="local_sync_peer_needs_repair">Kan ikke brukes på denne telefonen. Glem den og par på nytt.</string>
-    <string name="local_sync_forget_peer">Forget</string>
+    <string name="local_sync_forget_peer">Glem</string>
     <string name="local_sync_confirm_peer">Merk som paret</string>
     <string name="local_sync_nearby_title">En paret enhet er i nærheten.</string>
     <string name="local_sync_no_peer_found">Fant ingen enhet i nærheten ennå. Åpne Send på den andre enheten.</string>
@@ -1132,7 +1132,7 @@
     <!-- EXC-11 Temporal Ask My Archive -->
     <string name="archive_query_title">Spør arkivet mitt</string>
     <string name="archive_query_desc">Spør om et tema og se hvordan de lagrede artiklene dine dekket det, måned for måned.</string>
-    <string name="archive_query_question_label">Question</string>
+    <string name="archive_query_question_label">Spørsmål</string>
     <string name="archive_query_question_hint">f.eks. rentene siden mars</string>
     <string name="archive_query_search">Søk i arkivet</string>
     <string name="archive_query_start_date">Startdato (ÅÅÅÅ-MM-DD)</string>
@@ -1171,7 +1171,7 @@
     <string name="feed_autopilot_summary_clean">Feedene dine ser ryddige ut. Ingen støyende feeder funnet.</string>
     <string name="feed_autopilot_reason_opened">Åpnet %1$d av %2$d (siste %3$d dager, %4$d%% engasjement)</string>
     <string name="feed_autopilot_reason_zero">Ingen artikler åpnet av %1$d de siste %2$d dagene</string>
-    <string name="feed_autopilot_action_unsubscribe">Unsubscribe</string>
+    <string name="feed_autopilot_action_unsubscribe">Avslutt abonnement</string>
     <string name="feed_autopilot_action_snooze">Utsett i 30 dager</string>
     <string name="feed_autopilot_action_keep">Behold og slutt å foreslå</string>
     <string name="feed_autopilot_confirm_title">Avslutte abonnementet på %1$s?</string>
@@ -1186,13 +1186,13 @@
     <string name="podcast_studio_menu">Podkaststudio</string>
     <string name="podcast_studio_consent_title">Skrive manuset med AI?</string>
     <string name="podcast_studio_consent_message">Bare tittelen på denne artikkelen og en kort forhåndsvisning (under 250 tegn) sendes til Google Gemini for å skrive et manus for to verter. Artikkelteksten, lenker og leseloggen din sendes aldri.</string>
-    <string name="podcast_studio_consent_agree">Use AI</string>
+    <string name="podcast_studio_consent_agree">Bruk AI</string>
     <string name="podcast_studio_consent_decline">Bruk manus uten nett</string>
     <string name="podcast_studio_conflict_title">Stoppe det som spilles?</string>
     <string name="podcast_studio_conflict_message">Hvis du spiller av denne artikkelen som podkast, stopper lyden som spilles nå.</string>
     <string name="podcast_studio_badge_source_gemini">Manus skrevet av AI</string>
     <string name="podcast_studio_badge_source_heuristic">Manus uten nett, ingen AI</string>
-    <string name="podcast_studio_play">Play</string>
+    <string name="podcast_studio_play">Spill av</string>
     <string name="podcast_studio_pause">Pause</string>
     <string name="podcast_studio_next">Neste replikk</string>
     <string name="podcast_studio_previous">Forrige replikk</string>
@@ -1203,7 +1203,7 @@
     <string name="deep_dive_menu">🔬 AI-dybdedykk</string>
     <string name="deep_dive_title">AI-dybdedykk</string>
     <string name="deep_dive_consent_message">Tittelen på artikkelen og opptil 6 000 tegn av teksten sendes til Google Gemini for å skrive denne rapporten. Lenker, feednavnet og leseloggen din sendes aldri. Gemini søker ikke på nettet.</string>
-    <string name="deep_dive_consent_agree">Agree</string>
+    <string name="deep_dive_consent_agree">Godta</string>
     <string name="deep_dive_consent_later">Ikke nå</string>
     <string name="deep_dive_declined_message">AI-dybdedykk er av. Slå det på under Innstillinger, Personvern, for å skrive en rapport.</string>
     <string name="deep_dive_open_privacy">Åpne personverninnstillinger</string>
@@ -1213,30 +1213,30 @@
     <string name="deep_dive_nothing_to_analyze">Denne artikkelen har ingen tittel eller tekst å analysere.</string>
     <string name="deep_dive_retry">Prøv igjen</string>
     <string name="deep_dive_label">Skrevet av AI ut fra tittel og et utdrag. Ingen nettsøk. Kan inneholde feil</string>
-    <string name="deep_dive_section_context">Context</string>
+    <string name="deep_dive_section_context">Kontekst</string>
     <string name="deep_dive_section_critical">Motstridende synspunkter</string>
     <string name="deep_dive_section_impact">Konsekvensmatrise</string>
-    <string name="deep_dive_col_area">Area</string>
+    <string name="deep_dive_col_area">Område</string>
     <string name="deep_dive_col_short">Kort sikt</string>
     <string name="deep_dive_col_long">Lang sikt</string>
     <string name="deep_dive_export_pdf">Eksporter PDF</string>
     <string name="deep_dive_chooser_title">Del PDF fra dybdedykk</string>
     <string name="deep_dive_export_error">Kunne ikke lage PDF-en</string>
     <string name="deep_dive_pdf_truncated">Forkortet for å passe på én side. Se hele rapporten i appen.</string>
-    <string name="deep_dive_close">Close</string>
-    <string name="oracle_badge_label">Prediction</string>
+    <string name="deep_dive_close">Lukk</string>
+    <string name="oracle_badge_label">Prediksjon</string>
     <string name="oracle_badge_open">Åpne prediksjonen</string>
     <string name="oracle_sheet_title">Prediksjon funnet i denne artikkelen</string>
     <string name="oracle_sheet_expires">Expected by %1$s</string>
     <string name="oracle_sheet_criteria_heading">Slik sjekker du svaret</string>
     <string name="oracle_sheet_ai_label">Skrevet av AI ut fra tittel og beskrivelse. Kan inneholde feil.</string>
-    <string name="oracle_sheet_close">Close</string>
+    <string name="oracle_sheet_close">Lukk</string>
     <string name="oracle_consent_title">Finn prediksjoner i nye artikler</string>
     <string name="oracle_consent_message">Etter hver synkronisering sendes tittelen og en kort beskrivelse (maks 500 tegn til sammen) av opptil 5 nye artikler til Google Gemini for å lete etter en prediksjon. Artikkeltekst, lenker, feednavn og leseloggen din sendes aldri. Av som standard.</string>
     <string name="oracle_bet_balance">Saldo: %1$s poeng</string>
     <string name="oracle_bet_pick_side">Ditt valg</string>
-    <string name="oracle_bet_yes">Yes</string>
-    <string name="oracle_bet_no">No</string>
+    <string name="oracle_bet_yes">Ja</string>
+    <string name="oracle_bet_no">Nei</string>
     <string name="oracle_bet_pick_stake">Poeng å satse</string>
     <string name="oracle_bet_stake_option">%1$s points</string>
     <string name="oracle_bet_place">Legg inn spill</string>
@@ -1245,7 +1245,7 @@
     <string name="oracle_bet_open">Du satset %1$s poeng på %2$s.</string>
     <string name="oracle_bet_open_hint">Du kan rapportere resultatet etter datoen ovenfor.</string>
     <string name="oracle_bet_awaiting_title">Hva ble resultatet?</string>
-    <string name="oracle_bet_outcome_unclear">Unclear</string>
+    <string name="oracle_bet_outcome_unclear">Uklart</string>
     <string name="oracle_bet_awaiting_hint">Du satset %1$s poeng på %2$s. Uklart gir deg poengene tilbake.</string>
     <string name="oracle_bet_settled_won">Du vant %1$s poeng.</string>
     <string name="oracle_bet_settled_lost">Du tapte %1$s poeng.</string>
@@ -1268,7 +1268,7 @@
     <string name="commute_autoplay_title">Spill av når Bluetooth-hodetelefoner kobles til</string>
     <string name="commute_autoplay_desc">Prøver å starte morgenepisoden én gang om dagen, innen 2 timer etter at den er klar. Hvis Android blokkerer det, får du et varsel med en Spill av-knapp.</string>
     <string name="commute_autoplay_permission_denied">Uten tillatelsen Enheter i nærheten kan ikke appen se hodetelefonene dine, så dette forblir av.</string>
-    <string name="commute_play_action">Play</string>
+    <string name="commute_play_action">Spill av</string>
     <string name="commute_ready_to_play_title">Morgenepisoden din er klar</string>
     <string name="commute_ready_to_play_body">Hodetelefonene dine er tilkoblet. Trykk på Spill av for å lytte.</string>
 </resources>

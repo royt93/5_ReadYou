@@ -539,3 +539,118 @@ Cách kiểm: mở `app/src/main/res/values-<locale>/strings.xml`, tìm key. S�
 - `zen_calibration_train_action`: 'Train' menu action rendered as 'Hızı kalibre et'
 - `tips_top_bar_tonal_elevation`: 'Tonal height' Material term; rendered as 'ton yüksekliği'
 - `auto_branch_commute`: 'Morning briefing' short label, Android Auto context
+
+## Đợt hai: chuỗi một từ (2026-11-25)
+
+Đợt một chỉ lấy chuỗi từ hai chữ trở lên nên bỏ sót 178 chuỗi một từ (Version, Title, Bold, Cancel...). Phát hiện khi chọn tiếng Séc trên S24U thấy "Version" còn tiếng Anh. Đợt hai dịch ~2.400 chuỗi một hay hai từ cho 22 locale, vẫn là dịch máy chưa người duyệt.
+
+### az (4)
+- `justify`: Text justify term
+- `sync_interval`: Short form
+- `story_cluster_lead_badge`: Lead badge term
+- `echo_cue_intensifier`: Exaggeration term
+
+### bg (4)
+- `sync_interval`: Abbreviated "Синхр."
+- `story_cluster_lead_badge`: Lead badge term
+- `echo_cue_intensifier`: Exaggeration term
+- `justify`: Text justify term
+
+### ca (2)
+- `deep_read_grounded_badge`: guessed
+- `story_cluster_lead_badge`: Lead meaning unclear
+
+### cs-rCZ (4)
+- `synchronous`: Synchronizuji: progressive state
+- `story_cluster_lead_badge`: Hlavní: lead badge meaning
+- `echo_cue_intensifier`: Přehánění
+- `deep_dive_col_area`: Oblast
+
+### da (2)
+- `deep_read_grounded_badge`: Kildebaseret guessed
+- `story_cluster_lead_badge`: Lead meaning unclear
+
+### eu-rES (3)
+- `deep_read_grounded_badge`: guessed
+- `galaxy_mode_stars`: Galaxia vs stars
+- `feed_autopilot_action_unsubscribe`: phrasing
+
+### fa (1)
+- `story_cluster_lead_badge`: 'Lead' as top story badge; picked short word
+
+### hi-rIN (1)
+- `story_cluster_lead_badge`: 'Lead' as top story badge; picked short word
+
+### hu (1)
+- `story_cluster_lead_badge`: 'Lead' as top story badge; picked short word
+
+### iw (5)
+- `story_cluster_lead_badge`: ראשי
+- `brain_rpg_stats_attempted`: נוסו
+- `local_sync_peer_confirmed`: מצומד
+- `echo_cue_intensifier`: הגזמה
+- `zen_sleep_timer_off`: רצוף
+
+### kn (5)
+- `justify`: Transliterated justify
+- `story_cluster_lead_badge`: Lead badge term
+- `echo_cue_intensifier`: Exaggeration term
+- `deep_read_grounded_badge`: Grounded term
+- `synchronous`: Syncing form
+
+### lzh (7)
+- `for_2_weeks`: 兩週，同於一週之義
+- `agree`: 許 as agree/consent: terse
+- `yes`: 然/否 literary yes/no
+- `close`: 閉 single-char
+- `bounty_action_investigate`: 查
+- `echo_cue_intensifier`: 誇飾
+- `local_sync_peer_confirmed`: 已配對
+
+### ml (5)
+- `justify`: Transliterated justify
+- `story_cluster_lead_badge`: Lead badge term
+- `echo_cue_intensifier`: Exaggeration term
+- `deep_read_grounded_badge`: Grounded term
+- `sync_interval`: Short form
+
+### my (4)
+- `justify`: Text justify term
+- `echo_cue_intensifier`: Exaggeration term
+- `story_cluster_lead_badge`: Lead badge term
+- `brain_rpg_streak_shield_protected`: Protected term
+
+### nb-rNO (2)
+- `deep_read_grounded_badge`: guessed
+- `story_cluster_lead_badge`: Lead meaning unclear
+
+### nl (4)
+- `story_cluster_lead_badge`: Hoofd
+- `brain_rpg_streak_shield_protected`: Beschermd
+- `echo_cue_intensifier`: Overdrijving
+- `deep_dive_col_area`: Gebied
+
+### nn (3)
+- `sync_interval`: Short for Sync interval; "Synk" may be ambiguous
+- `story_cluster_lead_badge`: "Leiande" for Lead badge
+- `echo_cue_intensifier`: Exaggeration term
+
+### ro (2)
+- `deep_read_grounded_badge`: guessed
+- `story_cluster_lead_badge`: Lead meaning unclear
+
+### sl (4)
+- `synchronous`: Sinhroniziranje
+- `story_cluster_lead_badge`: Glavno
+- `deep_dive_col_area`: Področje
+- `echo_cue_intensifier`: Pretiravanje
+
+### sr (1)
+- `story_cluster_lead_badge`: 'Lead' as top story badge; picked short word
+
+### sv (2)
+- `deep_read_grounded_badge`: Källbaserad guessed
+- `story_cluster_lead_badge`: Lead meaning unclear
+
+### tr (0)
+

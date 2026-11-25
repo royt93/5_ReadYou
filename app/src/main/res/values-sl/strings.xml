@@ -228,8 +228,8 @@
     <string name="try_again">Poskusi znova</string>
     <string name="change_language">Spremeni jezik</string>
     <string name="change_language_confirm">Aplikacija se bo znova zagnala, da uporabi nov jezik. Želite nadaljevati?</string>
-    <string name="yes">Yes</string>
-    <string name="no">No</string>
+    <string name="yes">Da</string>
+    <string name="no">Ne</string>
     <string name="restarting_app">Ponovni zagon aplikacije …</string>
     <string name="auto_tts">Samodejno predvajanje besedila v govor</string>
     <string name="auto_tts_desc">Ob odprtju samodejno preberi članke na glas</string>
@@ -238,7 +238,7 @@
     <string name="watch_ad">Oglejte si oglas</string>
     <string name="ad_not_ready">Oglas ni pripravljen. Prosimo, poskusite znova pozneje.</string>
     <string name="read_you" translatable="false">RSS Hub</string>
-    <string name="empty">Empty</string>
+    <string name="empty">Prazno</string>
     <string name="feed_url_placeholder" translatable="false">http://example.com/feed.rss</string>
     <string name="translatable_url" translatable="false">https://hosted.weblate.org/projects/readyou/</string>
     <string name="english" translatable="false">English</string>
@@ -289,35 +289,35 @@
     <string name="every_6_hours">Vsakih 6 ur</string>
     <string name="every_12_hours">Vsakih 12 ur</string>
     <string name="every_1_day">Vsak dan</string>
-    <string name="manually">Manually</string>
-    <string name="always">Always</string>
-    <string name="for_1_day">1 day</string>
-    <string name="for_2_days">2 days</string>
-    <string name="for_3_days">3 days</string>
-    <string name="for_1_week">1 week</string>
-    <string name="for_2_weeks">2 weeks</string>
-    <string name="for_1_month">1 month</string>
-    <string name="local">Local</string>
+    <string name="manually">Ročno</string>
+    <string name="always">Vedno</string>
+    <string name="for_1_day">1 dan</string>
+    <string name="for_2_days">2 dni</string>
+    <string name="for_3_days">3 dni</string>
+    <string name="for_1_week">1 teden</string>
+    <string name="for_2_weeks">2 tedna</string>
+    <string name="for_1_month">1 mesec</string>
+    <string name="local">Lokalno</string>
     <string name="fever" translatable="false">Fever</string>
     <string name="google_reader" translatable="false">Google Reader</string>
     <string name="fresh_rss" translatable="false">FreshRSS</string>
     <string name="feedly" translatable="false">Feedly</string>
     <string name="inoreader" translatable="false">Inoreader</string>
     <string name="local_desc">V tej napravi</string>
-    <string name="services">Services</string>
+    <string name="services">Storitve</string>
     <string name="feedly_desc" translatable="false">feedly.com</string>
     <string name="inoreader_desc" translatable="false">inoreader.com</string>
     <string name="self_hosted">Lastni strežnik</string>
     <string name="fresh_rss_desc" translatable="false">freshrss.org</string>
     <string name="google_reader_desc" translatable="false">Google Reader API</string>
     <string name="fever_desc">Zastarelo. Ni priporočljivo.</string>
-    <string name="more">More</string>
+    <string name="more">Več</string>
     <string name="add_accounts">Dodaj račune</string>
-    <string name="list">List</string>
+    <string name="list">Seznam</string>
     <string name="add_accounts_desc">Lokalni, storitve, lastni strežnik</string>
-    <string name="display">Display</string>
-    <string name="synchronous">Syncing</string>
-    <string name="sync_interval">Sync</string>
+    <string name="display">Prikaz</string>
+    <string name="synchronous">Sinhroniziranje</string>
+    <string name="sync_interval">Sinhronizacija</string>
     <string name="sync_once_on_start">Sinhroniziraj ob zagonu</string>
     <string name="only_on_wifi">Only on Wi-Fi</string>
     <string name="only_when_charging">Samo med polnjenjem</string>
@@ -332,16 +332,16 @@
     <string name="clear_all_articles_toast">Seznam člankov je počiščen</string>
     <string name="delete_account_toast">Račun je izbrisan</string>
     <string name="synchronous_tips">Za uveljavitev sprememb je potreben ponovni zagon</string>
-    <string name="switch_account">Switch</string>
-    <string name="add">Add</string>
+    <string name="switch_account">Preklopi</string>
+    <string name="add">Dodaj</string>
     <string name="accounts_tips">Račun lahko preklopite z dotikom imena računa na strani virov</string>
     <string name="server_url">Naslov strežnika</string>
-    <string name="username">Username</string>
-    <string name="password">Password</string>
-    <string name="connection">Connection</string>
-    <string name="system_default">System</string>
+    <string name="username">Uporabniško ime</string>
+    <string name="password">Geslo</string>
+    <string name="connection">Povezava</string>
+    <string name="system_default">Sistem</string>
     <string name="initial_open_app">Aplikacija ob kliku na povezavo</string>
-    <string name="open_link_specific_browser_not_selected">None</string>
+    <string name="open_link_specific_browser_not_selected">Brez</string>
     <string name="auto_customtabs">Samodejno (prednost CustomTabs)</string>
     <string name="auto_default_browser">Samodejno (prednost privzeti brskalnik)</string>
     <string name="custom_tabs">Vsili CustomTabs</string>
@@ -349,12 +349,12 @@
     <string name="specific_browser_name">Browser: %1$s</string>
     <string name="default_browser">Vsili privzeti brskalnik</string>
     <string name="always_ask">Vedno vprašaj</string>
-    <string name="open_link_specific_browser">Browser</string>
+    <string name="open_link_specific_browser">Brskalnik</string>
     <string name="open_link_something_wrong">Nastavitev \"Odpri povezavo\" je prezrta, ker je šlo nekaj narobe.</string>
-    <string name="in_coding">In development</string>
+    <string name="in_coding">V razvoju</string>
     <string name="tips_top_bar_tonal_elevation">Tonska višina je na voljo le med pomikanjem</string>
     <string name="summary_title">Povzemi z AI</string>
-    <string name="summary_loading">Summarizing…</string>
+    <string name="summary_loading">Povzemam…</string>
     <string name="summary_try_again">Poskusi znova</string>
     <string name="summary_get_key">Pridobi brezplačen ključ</string>
     <string name="summary_err_empty_content">Članek nima vsebine za povzetek</string>
@@ -376,7 +376,7 @@
     <string name="vip_remaining_short">Še %1$d d %2$d h</string>
     <string name="vip_redeem_label">Vnesite kodo VIP</string>
     <string name="vip_redeem_hint">npr. vaša koda VIP</string>
-    <string name="vip_redeem_button">Activate</string>
+    <string name="vip_redeem_button">Aktiviraj</string>
     <string name="vip_watch_ad_3d">Oglej si oglas → 3 dni VIP</string>
     <string name="vip_buy_30d_locked">Nakup 30-dnevnega VIP — kmalu</string>
     <string name="vip_buy_90d_locked">Nakup 90-dnevnega VIP — kmalu</string>
@@ -388,9 +388,9 @@
     <string name="vip_revoke_all_confirm_message">Ali res želite preklicati VIP in se vrniti na brezplačni račun?</string>
     <string name="vip_entry_first_install">🎁 Darilo ob prvi namestitvi</string>
     <string name="vip_entry_active">Članstvo VIP</string>
-    <string name="vip_success_title">Success</string>
+    <string name="vip_success_title">Uspeh</string>
     <string name="vip_success_message">VIP je aktiven še %1$d dni.</string>
-    <string name="vip_failed_title">Failed</string>
+    <string name="vip_failed_title">Neuspešno</string>
     <string name="ad_attribution_label" translatable="false">Ad Networks (AdMob / AppLovin MAX)</string>
     <string name="vip_failed_busy">Prejšnja koda se še preverja. Počakajte trenutek in poskusite znova.</string>
     <string name="vip_failed_no_network">Za aktivacijo kode je potrebna internetna povezava. Povežite se in poskusite znova.</string>
@@ -407,8 +407,8 @@
     <string name="commute_deepdive_unlocked">🎉 Poglobitev odklenjena!</string>
     <string name="commute_empty">Ni neprebranih člankov za jutranji radio</string>
     <string name="commute_generating">AI DJ pripravlja vašo oddajo ...</string>
-    <string name="retry">Retry</string>
-    <string name="version">Version</string>
+    <string name="retry">Poskusi znova</string>
+    <string name="version">Različica</string>
     <string name="rate_app">Oceni aplikacijo</string>
     <string name="rate_app_desc">Če se vam zdi aplikacija uporabna, jo ocenite s 5 zvezdicami</string>
     <string name="more_apps">Več aplikacij</string>
@@ -417,7 +417,7 @@
     <string name="share_app_desc">Delite aplikacijo, da jo bodo uporabljali tudi drugi</string>
     <string name="term_and_policy">Pogoji &amp; politika</string>
     <string name="term_and_policy_desc">Preberite varnostne pogoje in politiko zasebnosti</string>
-    <string name="about_title">About</string>
+    <string name="about_title">O aplikaciji</string>
     <string name="about_desc">Spoznajte to aplikacijo</string>
     <string name="source_code_original">Izvorna koda (izvirna različica)</string>
     <string name="source_code_current">Izvorna koda (ta različica)</string>
@@ -443,7 +443,7 @@
     <string name="quiz_ai_no_key">Ključ Gemini ni na voljo, zato AI ni mogel napisati vprašanja.</string>
     <string name="quiz_ai_nothing_to_ask">Ta članek nima naslova ali predogleda za postavitev vprašanja.</string>
     <string name="quiz_ai_retry">Poskusi znova</string>
-    <string name="quiz_ai_consent_agree">Agree</string>
+    <string name="quiz_ai_consent_agree">Strinjam se</string>
     <string name="quiz_ai_consent_later">Ne zdaj</string>
     <string name="quiz_ai_declined_message">AI kvizna vprašanja so izklopljena. Vklopite jih v Nastavitve, Zasebnost, da dobite vprašanje tukaj.</string>
     <string name="quiz_ai_open_privacy">Odpri nastavitve zasebnosti</string>
@@ -469,13 +469,13 @@
     <string name="brain_rpg_decay_notification_channel_desc">Dnevni povzetek upadanja kategorij</string>
     <string name="brain_rpg_xp_retained">Osnova %1$d XP · ohranjeno %2$d%%</string>
     <string name="brain_rpg_streak_shield_success">Ščit niza aktiviran!</string>
-    <string name="brain_rpg_streak_shield_protected">Protected</string>
+    <string name="brain_rpg_streak_shield_protected">Zaščiteno</string>
     <string name="brain_rpg_target_xp">Target: %1$d XP</string>
     <string name="brain_rpg_skill_tree_title">Drevo veščin znanja</string>
     <string name="brain_rpg_stats_title">Statistika AI izzivov</string>
-    <string name="brain_rpg_stats_attempted">Attempted</string>
-    <string name="brain_rpg_stats_passed">Correct</string>
-    <string name="brain_rpg_stats_accuracy">Accuracy</string>
+    <string name="brain_rpg_stats_attempted">Poskusi</string>
+    <string name="brain_rpg_stats_passed">Pravilno</string>
+    <string name="brain_rpg_stats_accuracy">Natančnost</string>
     <string name="brain_rpg_wrapped_desc">"Zbrali ste %1$d XP in ohranili %2$d-dnevni niz branja! Delite svoj dosežek in navdihnite druge."</string>
 
     <!-- Epic 08: Zen Focus & Speed Reading -->
@@ -497,7 +497,7 @@
     <string name="zen_evening_edition">Evening Edition (20:00)</string>
     <string name="zen_daily_edition_notification">Neprebranih člankov za osredotočeno branje: %1$d.</string>
     <string name="zen_sleep_timer">Časovnik za spanje</string>
-    <string name="zen_sleep_timer_off">Continuous</string>
+    <string name="zen_sleep_timer_off">Neprekinjeno</string>
     <string name="zen_sleep_timer_min">%1$d minutes</string>
     <string name="zen_volume">Volume: %1$d%%</string>
     <string name="zen_settings_title">Zen osredotočenost &amp; hitro branje</string>
@@ -508,7 +508,7 @@
     <string name="highlights_bullet_count">Ključnih točk: %1$d</string>
     <string name="highlights_copy_all">Kopiraj poudarke</string>
     <string name="highlights_copied_toast">Poudarki so kopirani v odložišče</string>
-    <string name="highlights_share">Share</string>
+    <string name="highlights_share">Deli</string>
     <string name="highlights_tldr">Quick TL;DR</string>
     <string name="highlights_ai_badge">Gemini AI</string>
     <string name="highlights_fallback_badge">Pametno brez povezave</string>
@@ -528,13 +528,13 @@
     <string name="deep_read_title">AI poglobljeno branje</string>
     <string name="deep_read_subtitle">Interaktivni klepet o članku</string>
     <string name="deep_read_input_placeholder">Postavite vprašanje o tem članku …</string>
-    <string name="deep_read_send">Send</string>
+    <string name="deep_read_send">Pošlji</string>
     <string name="deep_read_clear_chat">Počisti klepet</string>
     <string name="deep_read_copied_toast">Odgovor je kopiran v odložišče</string>
     <string name="deep_read_welcome_message">Pozdravljeni! Analiziral sem ta članek. Postavite mi poljubno vprašanje, prosite za pojasnila ali tapnite predlagano temo spodaj.</string>
-    <string name="deep_read_context_label">Discussing:</string>
+    <string name="deep_read_context_label">Razpravljamo:</string>
     <string name="deep_read_thinking">AI analizira članek …</string>
-    <string name="deep_read_grounded_badge">Grounded</string>
+    <string name="deep_read_grounded_badge">Utemeljeno</string>
     <string name="deep_read_offline_badge">Pametno brez povezave</string>
     <string name="deep_read_ai_badge">Gemini AI</string>
     <string name="deep_read_copy_transcript">Kopiraj pogovor</string>
@@ -550,7 +550,7 @@
     <string name="story_cluster_all_perspectives">Vsi pogledi (%d)</string>
     <string name="story_cluster_mark_all_read">Označi vse kot prebrano</string>
     <string name="story_cluster_sheet_title">Poročanje o zgodbi z več zornih kotov</string>
-    <string name="story_cluster_lead_badge">Lead</string>
+    <string name="story_cluster_lead_badge">Glavno</string>
     <string name="semantic_search_title">AI semantično iskanje</string>
     <string name="semantic_search_desc">Iščite članke po konceptu in pomenu, ne le po natančnih ključnih besedah</string>
     <string name="semantic_match_badge">%d%% match</string>
@@ -559,7 +559,7 @@
     <string name="watchdog_title">Stražar ključnih besed</string>
     <string name="watchdog_desc">Spremljaj ključne besede &amp; borzne oznake med sinhronizacijo v ozadju in opozori takoj</string>
     <string name="watchdog_add_hint">Vnesite ključno besedo ali oznako (npr. $VIC, Bitcoin, Gold) ...</string>
-    <string name="watchdog_add_btn">Add</string>
+    <string name="watchdog_add_btn">Dodaj</string>
     <string name="watchdog_empty_desc">Ključnih besed še ni. Dodajte ključne besede ali izberite predloge spodaj, da začnete spremljati.</string>
     <string name="watchdog_matched_count">%d matched</string>
     <string name="watchdog_channel_name">Opozorila stražarja ključnih besed</string>
@@ -581,12 +581,12 @@
     <string name="notebook_empty_subtitle">Med branjem poudarite navdihujoče citate in uredite svoje znanje v Drugih možganih.</string>
     <string name="notebook_empty_search">Ni ustreznih poudarkov</string>
 
-    <string name="notebook_save">Save</string>
-    <string name="notebook_copy">Copy</string>
-    <string name="notebook_edit">Edit</string>
+    <string name="notebook_save">Shrani</string>
+    <string name="notebook_copy">Kopiraj</string>
+    <string name="notebook_edit">Uredi</string>
     <string name="notebook_copied">Kopirano v odložišče</string>
-    <string name="notebook_saved">Saved</string>
-    <string name="notebook_deleted">Deleted</string>
+    <string name="notebook_saved">Shranjeno</string>
+    <string name="notebook_deleted">Izbrisano</string>
     <string name="notebook_untitled">Članek brez naslova</string>
 
     <string name="ai_active_key_custom">Uporabljate svoj osebni API ključ</string>
@@ -717,7 +717,7 @@
     <string name="second_brain_settings_desc">Poglejte, kako se teme, ki jih berete, sčasoma povezujejo</string>
     <string name="second_brain_empty">Preberite ali shranite nekaj člankov in tukaj se bo prikazal graf tem.</string>
     <string name="second_brain_error">Grafa ni bilo mogoče zgraditi. Poskusite znova.</string>
-    <string name="second_brain_retry">Retry</string>
+    <string name="second_brain_retry">Poskusi znova</string>
     <string name="second_brain_graph_desc">Graf tem s %1$d temami in %2$d povezavami</string>
     <string name="second_brain_node_articles">%1$d articles</string>
     <string name="second_brain_range_label">Časovno obdobje</string>
@@ -740,7 +740,7 @@
     <!-- Share Target / Read Later (INGEST-02) -->
     <string name="read_later_feed_title">Preberi pozneje</string>
     <string name="share_target_save_btn">Shrani za pozneje</string>
-    <string name="share_target_cancel_btn">Cancel</string>
+    <string name="share_target_cancel_btn">Prekliči</string>
     <string name="share_target_saved_toast">Shranjeno za pozneje</string>
     <string name="share_target_invalid_url">Veljavna povezava ni najdena</string>
     <string name="read_position_sync">Sinhroniziraj položaj branja</string>
@@ -752,12 +752,12 @@
     <string name="smart_collection_save_action">Shrani kot zbirko</string>
     <string name="smart_collection_empty">Pametnih zbirk še ni. Shranite semantično iskanje, da sledite temi.</string>
     <string name="smart_collection_articles_count">%1$d articles</string>
-    <string name="smart_collection_edit">Edit</string>
-    <string name="smart_collection_delete">Delete</string>
+    <string name="smart_collection_edit">Uredi</string>
+    <string name="smart_collection_delete">Izbriši</string>
     <string name="smart_collection_delete_confirm">Izbrišem to zbirko? Njeni članki bodo ostali v knjižnici.</string>
     <string name="smart_collection_saved">Pametna zbirka shranjena</string>
     <string name="smart_collection_empty_articles">Ustreznih novih člankov še ni. Novi zadetki se bodo prikazali po sinhronizaciji.</string>
-    <string name="save">Save</string>
+    <string name="save">Shrani</string>
     <string name="eink_mode_title">Optimizacija E-Ink</string>
     <string name="eink_active_title">Način E-Ink je vklopljen</string>
     <string name="eink_active_desc">Aplikacija je prikazana črno-belo. Tapnite za izklop.</string>
@@ -846,8 +846,8 @@
     <string name="widget_article_pin_unsupported">Vaš zaganjalnik ne podpira samodejnega pripenjanja pripomočkov</string>
     <!-- Feed Zero Triage (EXC-14) -->
     <string name="feed_zero_triage_title">Pregled do ničle</string>
-    <string name="triage_swipe_left_skip">Skip</string>
-    <string name="triage_swipe_right_save">Save</string>
+    <string name="triage_swipe_left_skip">Preskoči</string>
+    <string name="triage_swipe_right_save">Shrani</string>
     <string name="triage_swipe_up_read">Beri zdaj</string>
     <string name="triage_progress_format">%1$d / %2$d</string>
     <string name="triage_inbox_zero_title">🎉 Nabiralnik je prazen!</string>
@@ -856,7 +856,7 @@
     <string name="triage_summary_saved">Shranjeno za pozneje: %1$d</string>
     <string name="triage_summary_skipped">Označeno kot prebrano: %1$d</string>
     <string name="triage_summary_xp">+%1$d Brain RPG XP</string>
-    <string name="triage_finish_button">Done</string>
+    <string name="triage_finish_button">Končano</string>
     <!-- Brain Wrapped tuần (RPG-09) -->
     <string name="brain_wrapped_share_story">Deli v zgodbi</string>
     <string name="brain_wrapped_xp_label">Tedenski XP</string>
@@ -901,14 +901,14 @@
     <string name="headline_signals_desc">V tej napravi analizira besedilo naslovov in člankov za znake vabljivih naslovov (clickbait), promocijskega ali pretiravajočega besedja in čustvenega tona (pozitiven/nejasen/negativen). Nič se ne pošilja drugam, AI in omrežje se ne uporabljata. To so le signali besedila, ne preverjanje dejstev ali presoja politične pristranskosti. Španščina, francoščina in nemščina so eksperimentalne.</string>
     <string name="headline_signals_clickbait_badge">🎯 Clickbait %1$d%%</string>
     <string name="headline_signals_clickbait_desc">Kazalnik vabljivega jezika: ocena je %1$d od 100.</string>
-    <string name="headline_signals_tone_positive">🟢 Positive</string>
-    <string name="headline_signals_tone_unclear">⚪ Unclear</string>
-    <string name="headline_signals_tone_negative">🔴 Negative</string>
+    <string name="headline_signals_tone_positive">🟢 Pozitivno</string>
+    <string name="headline_signals_tone_unclear">⚪ Nejasno</string>
+    <string name="headline_signals_tone_negative">🔴 Negativno</string>
     <string name="headline_signals_tone_desc_positive">Besedni ton naslova: prisotni so pozitivni kazalniki.</string>
     <string name="headline_signals_tone_desc_unclear">Besedni ton naslova: nejasni ali nezadostni kazalniki.</string>
     <string name="headline_signals_tone_desc_negative">Besedni ton naslova: prisotni so negativni kazalniki.</string>
     <string name="brain_rpg_skill_tree_decay_warning">Ta veščina je sčasoma zbledela. Vadite, da jo obnovite.</string>
-    <string name="bounty_action_investigate">Investigate</string>
+    <string name="bounty_action_investigate">Preišči</string>
     <string name="bounty_sheet_title">Agent za preiskavo entitet</string>
     <string name="bounty_scanning_status">Pregledovanje arhiva novic za: %1$s …</string>
     <string name="bounty_stats_summary">Sorodnih člankov: %1$d • virov: %2$d</string>
@@ -923,14 +923,14 @@
     <string name="echo_hype_label">Hype: %1$d%%</string>
     <string name="echo_hype_warning">Zaznano izrazito promocijsko ali pretirano besedilo</string>
     <string name="echo_tone_label">Tone: %1$s</string>
-    <string name="echo_tone_positive">🟢 Positive</string>
-    <string name="echo_tone_unclear">⚪ Unclear</string>
-    <string name="echo_tone_negative">🔴 Negative</string>
+    <string name="echo_tone_positive">🟢 Pozitivno</string>
+    <string name="echo_tone_unclear">⚪ Nejasno</string>
+    <string name="echo_tone_negative">🔴 Negativno</string>
     <string name="echo_details_title">Signali govorice besedila</string>
     <string name="echo_disclaimer">Samo lokalni signali besedila; ni preverjanje dejstev, ocena verodostojnosti, analiza politične pristranskosti ali trditev o namenu avtorja. „Nejasno“ pomeni premalo besednih dokazov, ne nevtralnosti.</string>
     <string name="echo_flagged_passages_title">Označeni odlomki (%1$d)</string>
     <string name="echo_cue_promotional">Promocijska fraza</string>
-    <string name="echo_cue_intensifier">Exaggeration</string>
+    <string name="echo_cue_intensifier">Pretiravanje</string>
     <string name="echo_cue_absolute">Absolutna trditev</string>
     <string name="echo_cue_exclamation">Poudarek z ločili ali velikimi črkami</string>
     <string name="echo_no_passages">Noben posamezen odstavek ni presegel praga pretiravanja.</string>
@@ -938,10 +938,10 @@
     <!-- BOUNTY-02 dossier -->
     <string name="dossier_create_action">Ustvari dosje</string>
     <string name="dossier_sheet_title">Lokalni obveščevalni dosje</string>
-    <string name="dossier_tab_summary">Summary</string>
-    <string name="dossier_tab_timeline">Timeline</string>
-    <string name="dossier_tab_names">Names</string>
-    <string name="dossier_tab_sources">Sources</string>
+    <string name="dossier_tab_summary">Povzetek</string>
+    <string name="dossier_tab_timeline">Časovnica</string>
+    <string name="dossier_tab_names">Imena</string>
+    <string name="dossier_tab_sources">Viri</string>
     <string name="dossier_share_action">Deli Markdown</string>
     <string name="dossier_chooser_title">Deli dosje</string>
     <string name="dossier_limitation">Sestavljen samo iz člankov, shranjenih v tej aplikaciji. Lahko izpusti stališča in ni preverjanje dejstev.</string>
@@ -964,7 +964,7 @@
     <string name="streak_rescue_message">Zamudili ste dni branja: %1$d. Vaš %2$d-dnevni niz bo ponastavljen ob naslednjem branju.</string>
     <string name="streak_rescue_action_ad">Oglej si videoposnetek in reši niz</string>
     <string name="streak_rescue_action_restart">Začni znova</string>
-    <string name="streak_rescue_action_later">Later</string>
+    <string name="streak_rescue_action_later">Pozneje</string>
     <string name="streak_rescue_ad_failed">Videoposnetka ni bilo mogoče naložiti. Poskusite znova.</string>
 
     <!-- ZEN-07 RSVP calibration -->
@@ -979,8 +979,8 @@
     <string name="zen_calibration_suggested_wpm">Predlagana hitrost: ~%1$d WPM</string>
     <string name="zen_calibration_limitation">To je groba ocena na podlagi 6 vprašanj, ne merilo globokega razumevanja. Hitrost lahko vedno prilagodite ročno.</string>
     <string name="zen_calibration_low_confidence_note">Vaši odgovori so se pri različnih hitrostih razlikovali; poskusite brati v svojem tempu in umerite pozneje znova.</string>
-    <string name="zen_calibration_apply">Apply</string>
-    <string name="zen_calibration_skip">Skip</string>
+    <string name="zen_calibration_apply">Uporabi</string>
+    <string name="zen_calibration_skip">Preskoči</string>
     <string name="zen_calibration_settings_desc">Umerite hitrost branja v 3 kratkih krogih</string>
 
     <!-- ECHO-02 contrasting coverage -->
@@ -994,7 +994,7 @@
     <string name="echo_dual_export">Izvozi kartico</string>
     <string name="echo_dual_export_desc">Izvozi kartico z dvema naslovoma z: %1$s</string>
     <string name="echo_dual_title">Deli dva naslova</string>
-    <string name="echo_dual_share">Share</string>
+    <string name="echo_dual_share">Deli</string>
     <string name="echo_dual_cut_note">Naslov je bil skrajšan</string>
     <string name="echo_dual_error">Kartice ni bilo mogoče ustvariti. Tapnite za ponoven poskus.</string>
     <string name="echo_dual_chooser_title">Deli kartico z dvema naslovoma</string>
@@ -1005,7 +1005,7 @@
     <string name="curated_bundle_verified_on">Checked %1$s</string>
     <string name="curated_bundle_source_count">Sources: %1$d</string>
     <string name="curated_bundle_subscribe_all">Naroči se na vse</string>
-    <string name="curated_bundle_subscribing">Subscribing…</string>
+    <string name="curated_bundle_subscribing">Naročam se…</string>
     <string name="curated_bundle_progress">Subscribing %1$d of %2$d</string>
     <string name="curated_bundle_result">Dodano: %1$d · že obstaja: %2$d · neuspešno: %3$d</string>
     <string name="curated_bundle_error">Naročanje ni uspelo: %1$s</string>
@@ -1013,11 +1013,11 @@
     <string name="curated_bundle_account_local_only">Naročanje na celoten paket je na voljo samo za lokalni račun.</string>
 
     <!-- FRONT-03 knowledge galaxy -->
-    <string name="galaxy_mode_concepts">Concepts</string>
-    <string name="galaxy_mode_stars">Galaxy</string>
+    <string name="galaxy_mode_concepts">Pojmi</string>
+    <string name="galaxy_mode_stars">Galaksija</string>
     <string name="galaxy_empty">Označite nekaj člankov kot prebrane in tukaj bodo zasvetili kot zvezde. Poskusite razširiti časovno obdobje.</string>
     <string name="galaxy_error">Galaksije ni bilo mogoče zgraditi. Poskusite znova.</string>
-    <string name="galaxy_retry">Retry</string>
+    <string name="galaxy_retry">Poskusi znova</string>
     <string name="galaxy_reset_view">Ponastavi pogled</string>
     <string name="galaxy_stats">Zvezde: %1$d · Povezave: %2$d</string>
     <string name="galaxy_star_open">Odpri članek</string>
@@ -1035,7 +1035,7 @@
     <string name="second_screen_viewers">Viewers: %1$d</string>
     <string name="second_screen_expires">Expires at %1$s</string>
     <string name="second_screen_warning">Ni šifrirano. Vsak v tem omrežju Wi-Fi, ki vidi povezavo, lahko prebere članek. Uporabljajte samo v omrežju, ki mu zaupate.</string>
-    <string name="second_screen_starting">Starting…</string>
+    <string name="second_screen_starting">Zaganjam…</string>
     <string name="second_screen_no_network">Ni omrežja Wi-Fi ali Ethernet z zasebnim naslovom. Povežite se z Wi-Fi in poskusite znova.</string>
     <string name="second_screen_lan_permission_denied">Dostop do lokalnega omrežja je izklopljen. Dovolite ga v nastavitvah za prikaz člankov na drugem zaslonu.</string>
     <string name="second_screen_expired">Seja se je končala. Znova jo vklopite, da dobite novo povezavo.</string>
@@ -1046,8 +1046,8 @@
     <string name="galaxy_related_title">Sorodni članki</string>
     <string name="galaxy_shared_terms">Skupne besede: %1$s</string>
     <string name="local_sync_title">Lokalna sinhronizacija</string>
-    <string name="local_sync_send">Send</string>
-    <string name="local_sync_receive">Receive</string>
+    <string name="local_sync_send">Pošlji</string>
+    <string name="local_sync_receive">Prejmi</string>
     <string name="local_sync_send_instructions">Ustvarite šifriran paket za drugo napravo v tem lokalnem omrežju.</string>
     <string name="local_sync_secret_warning">Skrivnost za seznanitev delite ločeno od naslova URL. Kdor ima oba, lahko prebere paket.</string>
     <string name="local_sync_http_warning">HTTP ne skrije naslova URL, naslova naprave, časa ali velikosti prenosa. Šifrirana je le vsebina paketa. Uporabite zaupanja vredno lokalno omrežje.</string>
@@ -1071,7 +1071,7 @@
     <string name="local_sync_apply">Uveljavi spremembe</string>
     <string name="local_sync_confirm_apply">Uveljavim spremembe sinhronizacije?</string>
     <string name="local_sync_confirm_counts">Viri za dodajanje: %1$d. Stanja člankov za posodobitev: %2$d. Uveljavim te spremembe?</string>
-    <string name="local_sync_cancel">Cancel</string>
+    <string name="local_sync_cancel">Prekliči</string>
     <string name="local_sync_done">Spremembe sinhronizacije so uveljavljene.</string>
     <string name="local_sync_not_local">Za sinhronizacijo izberite lokalni račun.</string>
     <string name="local_sync_error_network">S sejo sinhronizacije se ni bilo mogoče povezati. Preverite naslov URL in lokalno omrežje.</string>
@@ -1097,9 +1097,9 @@
     <string name="local_sync_reply_instruction">Prosite drugi telefon, naj preneha pošiljati in najprej odpre Prejem.</string>
     <string name="local_sync_merge_limit">Združevanje ohrani samo oznaki prebrano in z zvezdico; označitev kot neprebrano ali odstranitev zvezdice na enem telefonu se lahko po sinhronizaciji vrne.</string>
     <string name="local_sync_peer_unconfirmed">Čakanje, da druga naprava enkrat prejme podatke</string>
-    <string name="local_sync_peer_confirmed">Paired</string>
+    <string name="local_sync_peer_confirmed">Seznanjeno</string>
     <string name="local_sync_peer_needs_repair">Ni mogoče uporabljati v tem telefonu. Pozabite jo in se znova seznanite.</string>
-    <string name="local_sync_forget_peer">Forget</string>
+    <string name="local_sync_forget_peer">Pozabi</string>
     <string name="local_sync_confirm_peer">Označi kot seznanjeno</string>
     <string name="local_sync_nearby_title">Seznanjena naprava je v bližini.</string>
     <string name="local_sync_no_peer_found">V bližini še ni najdene naprave. Odprite Pošlji na drugi napravi.</string>
@@ -1111,7 +1111,7 @@
     <!-- EXC-11 Temporal Ask My Archive -->
     <string name="archive_query_title">Vprašaj moj arhiv</string>
     <string name="archive_query_desc">Vprašajte o temi in poglejte, kako so jo vaši shranjeni članki obravnavali mesec za mesecem.</string>
-    <string name="archive_query_question_label">Question</string>
+    <string name="archive_query_question_label">Vprašanje</string>
     <string name="archive_query_question_hint">npr. obrestne mere od marca</string>
     <string name="archive_query_search">Išči po arhivu</string>
     <string name="archive_query_start_date">Začetni datum (LLLL-MM-DD)</string>
@@ -1150,7 +1150,7 @@
     <string name="feed_autopilot_summary_clean">Vaši viri so urejeni. Hrupnih virov ni zaznanih.</string>
     <string name="feed_autopilot_reason_opened">Odprtih %1$d od %2$d (zadnjih %3$d dni; %4$d%% angažiranosti)</string>
     <string name="feed_autopilot_reason_zero">Noben od %1$d člankov ni bil odprt v zadnjih %2$d dneh</string>
-    <string name="feed_autopilot_action_unsubscribe">Unsubscribe</string>
+    <string name="feed_autopilot_action_unsubscribe">Odjavi naročnino</string>
     <string name="feed_autopilot_action_snooze">Odloži za 30 dni</string>
     <string name="feed_autopilot_action_keep">Ohrani in ne predlagaj več</string>
     <string name="feed_autopilot_confirm_title">Se odjavim od vira %1$s?</string>
@@ -1165,14 +1165,14 @@
     <string name="podcast_studio_menu">Podkast studio</string>
     <string name="podcast_studio_consent_title">Napišem scenarij z AI?</string>
     <string name="podcast_studio_consent_message">Samo naslov tega članka in kratek predogled (do 250 znakov) se pošljeta storitvi Google Gemini za pripravo scenarija za dva voditelja. Besedilo članka, povezave in zgodovina branja se nikoli ne pošljejo.</string>
-    <string name="podcast_studio_consent_agree">Use AI</string>
+    <string name="podcast_studio_consent_agree">Uporabi AI</string>
     <string name="podcast_studio_consent_decline">Uporabi scenarij brez povezave</string>
     <string name="podcast_studio_conflict_title">Ustavim predvajanje?</string>
     <string name="podcast_studio_conflict_message">Predvajanje tega članka kot podkasta bo ustavilo zvok, ki se zdaj predvaja.</string>
     <string name="podcast_studio_badge_source_gemini">Scenarij je napisal AI</string>
     <string name="podcast_studio_badge_source_heuristic">Scenarij brez povezave, brez AI</string>
-    <string name="podcast_studio_play">Play</string>
-    <string name="podcast_studio_pause">Pause</string>
+    <string name="podcast_studio_play">Predvajaj</string>
+    <string name="podcast_studio_pause">Premor</string>
     <string name="podcast_studio_next">Naslednja vrstica</string>
     <string name="podcast_studio_previous">Prejšnja vrstica</string>
     <string name="podcast_studio_host_alex">Alex</string>
@@ -1182,7 +1182,7 @@
     <string name="deep_dive_menu">🔬 AI poglobitev</string>
     <string name="deep_dive_title">AI poglobitev</string>
     <string name="deep_dive_consent_message">Naslov članka in do 6.000 znakov njegovega besedila se pošlje storitvi Google Gemini za pripravo tega poročila. Povezave, ime vira in zgodovina branja se nikoli ne pošljejo. Gemini ne išče po spletu.</string>
-    <string name="deep_dive_consent_agree">Agree</string>
+    <string name="deep_dive_consent_agree">Strinjam se</string>
     <string name="deep_dive_consent_later">Ne zdaj</string>
     <string name="deep_dive_declined_message">AI poglobitev je izklopljena. Vklopite jo v Nastavitve, Zasebnost, da napišete poročilo.</string>
     <string name="deep_dive_open_privacy">Odpri nastavitve zasebnosti</string>
@@ -1192,30 +1192,30 @@
     <string name="deep_dive_nothing_to_analyze">Ta članek nima naslova ali besedila za analizo.</string>
     <string name="deep_dive_retry">Poskusi znova</string>
     <string name="deep_dive_label">Napisal AI iz naslova in odlomka; brez iskanja po spletu; lahko je napačno</string>
-    <string name="deep_dive_section_context">Context</string>
+    <string name="deep_dive_section_context">Kontekst</string>
     <string name="deep_dive_section_critical">Nasprotna stališča</string>
     <string name="deep_dive_section_impact">Matrika vpliva</string>
-    <string name="deep_dive_col_area">Area</string>
+    <string name="deep_dive_col_area">Področje</string>
     <string name="deep_dive_col_short">Kratkoročno</string>
     <string name="deep_dive_col_long">Dolgoročno</string>
     <string name="deep_dive_export_pdf">Izvozi PDF</string>
     <string name="deep_dive_chooser_title">Deli PDF poglobitve</string>
     <string name="deep_dive_export_error">PDF ni bilo mogoče ustvariti</string>
     <string name="deep_dive_pdf_truncated">Skrajšano, da gre na eno stran. Celotno poročilo si oglejte v aplikaciji.</string>
-    <string name="deep_dive_close">Close</string>
-    <string name="oracle_badge_label">Prediction</string>
+    <string name="deep_dive_close">Zapri</string>
+    <string name="oracle_badge_label">Napoved</string>
     <string name="oracle_badge_open">Odpri napoved</string>
     <string name="oracle_sheet_title">Napoved, najdena v tem članku</string>
     <string name="oracle_sheet_expires">Expected by %1$s</string>
     <string name="oracle_sheet_criteria_heading">Kako preveriti odgovor</string>
     <string name="oracle_sheet_ai_label">Napisal AI iz naslova in opisa; lahko je napačno.</string>
-    <string name="oracle_sheet_close">Close</string>
+    <string name="oracle_sheet_close">Zapri</string>
     <string name="oracle_consent_title">Poišči napovedi v novih člankih</string>
     <string name="oracle_consent_message">Po vsaki sinhronizaciji se naslov in kratek opis (skupaj do 500 znakov) do 5 novih člankov pošljeta storitvi Google Gemini za iskanje napovedi. Besedilo članka, povezave, ime vira in zgodovina branja se nikoli ne pošljejo. Privzeto izklopljeno.</string>
     <string name="oracle_bet_balance">Stanje: %1$s točk</string>
     <string name="oracle_bet_pick_side">Vaša izbira</string>
-    <string name="oracle_bet_yes">Yes</string>
-    <string name="oracle_bet_no">No</string>
+    <string name="oracle_bet_yes">Da</string>
+    <string name="oracle_bet_no">Ne</string>
     <string name="oracle_bet_pick_stake">Točke za stavo</string>
     <string name="oracle_bet_stake_option">%1$s points</string>
     <string name="oracle_bet_place">Postavi stavo</string>
@@ -1224,7 +1224,7 @@
     <string name="oracle_bet_open">Stavili ste %1$s točk na: %2$s.</string>
     <string name="oracle_bet_open_hint">Rezultat lahko sporočite po zgornjem datumu.</string>
     <string name="oracle_bet_awaiting_title">Kakšen je bil rezultat?</string>
-    <string name="oracle_bet_outcome_unclear">Unclear</string>
+    <string name="oracle_bet_outcome_unclear">Nejasno</string>
     <string name="oracle_bet_awaiting_hint">Stavili ste %1$s točk na: %2$s. Možnost nejasno vam vrne točke.</string>
     <string name="oracle_bet_settled_won">Zmagali ste %1$s točk.</string>
     <string name="oracle_bet_settled_lost">Izgubili ste %1$s točk.</string>
@@ -1247,7 +1247,7 @@
     <string name="commute_autoplay_title">Predvajaj ob povezavi slušalk Bluetooth</string>
     <string name="commute_autoplay_desc">Poskusi zagnati jutranjo epizodo enkrat na dan, v 2 urah po tem, ko je pripravljena. Če Android to prepreči, prejmete obvestilo z gumbom Predvajaj.</string>
     <string name="commute_autoplay_permission_denied">Brez dovoljenja za naprave v bližini aplikacija ne vidi vaših slušalk, zato ostane izklopljeno.</string>
-    <string name="commute_play_action">Play</string>
+    <string name="commute_play_action">Predvajaj</string>
     <string name="commute_ready_to_play_title">Vaša jutranja epizoda je pripravljena</string>
     <string name="commute_ready_to_play_body">Slušalke so povezane. Tapnite Predvajaj za poslušanje.</string>
 </resources>

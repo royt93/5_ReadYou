@@ -373,7 +373,7 @@
     <string name="fresh_rss_desc" translatable="false">freshrss.org</string>
     <string name="google_reader_desc" translatable="false">Google Reader API</string>
     <string name="initial_open_app">Bağlantıya tıklanınca açılacak uygulama</string>
-    <string name="open_link_specific_browser_not_selected">None</string>
+    <string name="open_link_specific_browser_not_selected">Yok</string>
     <string name="auto_customtabs">Otomatik (CustomTabs öncelikli)</string>
     <string name="auto_default_browser">Otomatik (Varsayılan tarayıcı öncelikli)</string>
     <string name="custom_tabs">CustomTabs kullanmaya zorla</string>
@@ -381,12 +381,12 @@
     <string name="specific_browser_name">Browser: %1$s</string>
     <string name="default_browser">Varsayılan tarayıcıya zorla</string>
     <string name="always_ask">Her zaman sor</string>
-    <string name="open_link_specific_browser">Browser</string>
+    <string name="open_link_specific_browser">Tarayıcı</string>
     <string name="open_link_something_wrong">Bir sorun oluştuğu için \"Bağlantıyı aç\" ayarı yok sayıldı.</string>
-    <string name="in_coding">In development</string>
+    <string name="in_coding">Geliştirme aşamasında</string>
     <string name="tips_top_bar_tonal_elevation">Ton yüksekliği yalnızca kaydırırken kullanılabilir</string>
     <string name="summary_title">AI ile özetle</string>
-    <string name="summary_loading">Summarizing…</string>
+    <string name="summary_loading">Özetleniyor…</string>
     <string name="summary_try_again">Tekrar dene</string>
     <string name="summary_get_key">Ücretsiz anahtar al</string>
     <string name="summary_err_empty_content">Makalede özetlenecek içerik yok</string>
@@ -408,7 +408,7 @@
     <string name="vip_remaining_short">%1$d gün %2$d saat kaldı</string>
     <string name="vip_redeem_label">VIP kodunu girin</string>
     <string name="vip_redeem_hint">örn. VIP kodunuz</string>
-    <string name="vip_redeem_button">Activate</string>
+    <string name="vip_redeem_button">Etkinleştir</string>
     <string name="vip_watch_ad_3d">Reklam izle → 3 gün VIP</string>
     <string name="vip_buy_30d_locked">30 günlük VIP satın al — yakında</string>
     <string name="vip_buy_90d_locked">90 günlük VIP satın al — yakında</string>
@@ -420,9 +420,9 @@
     <string name="vip_revoke_all_confirm_message">VIP\'i iptal edip Ücretsiz hesaba dönmek istediğinizden emin misiniz?</string>
     <string name="vip_entry_first_install">🎁 Yeni kurulum hediyesi</string>
     <string name="vip_entry_active">VIP üyelik</string>
-    <string name="vip_success_title">Success</string>
+    <string name="vip_success_title">Başarılı</string>
     <string name="vip_success_message">VIP %1$d gün boyunca etkin.</string>
-    <string name="vip_failed_title">Failed</string>
+    <string name="vip_failed_title">Başarısız</string>
     <string name="ad_attribution_label" translatable="false">Ad Networks (AdMob / AppLovin MAX)</string>
     <string name="vip_failed_busy">Önceki bir kod hâlâ kontrol ediliyor. Biraz bekleyip tekrar deneyin.</string>
     <string name="vip_failed_no_network">Kodu etkinleştirmek için internet bağlantısı gerekir. Bağlanıp tekrar deneyin.</string>
@@ -439,8 +439,8 @@
     <string name="commute_deepdive_unlocked">🎉 Derin Analizin kilidi açıldı!</string>
     <string name="commute_empty">Sabah radyosu için okunmamış makale yok</string>
     <string name="commute_generating">AI DJ programınızı hazırlıyor...</string>
-    <string name="retry">Retry</string>
-    <string name="version">Version</string>
+    <string name="retry">Yeniden dene</string>
+    <string name="version">Sürüm</string>
     <string name="rate_app">Uygulamayı puanla</string>
     <string name="rate_app_desc">Bu uygulamayı faydalı buluyorsanız lütfen 5 yıldız verin</string>
     <string name="more_apps">Daha fazla uygulama edinin</string>
@@ -449,7 +449,7 @@
     <string name="share_app_desc">Başkalarının da kullanabilmesi için lütfen bu uygulamayı paylaşın</string>
     <string name="term_and_policy">Şartlar &amp; Politika</string>
     <string name="term_and_policy_desc">Güvenlik şartlarını ve gizlilik politikasını okuyun</string>
-    <string name="about_title">About</string>
+    <string name="about_title">Hakkında</string>
     <string name="about_desc">Bu uygulamayı tanıyın</string>
     <string name="source_code_original">Kaynak kodu (orijinal sürüm)</string>
     <string name="source_code_current">Kaynak kodu (bu sürüm)</string>
@@ -475,7 +475,7 @@
     <string name="quiz_ai_no_key">Kullanılabilir Gemini anahtarı yok, bu yüzden AI soru yazamadı.</string>
     <string name="quiz_ai_nothing_to_ask">Bu makalede soru sorulabilecek başlık veya önizleme yok.</string>
     <string name="quiz_ai_retry">Tekrar dene</string>
-    <string name="quiz_ai_consent_agree">Agree</string>
+    <string name="quiz_ai_consent_agree">Kabul et</string>
     <string name="quiz_ai_consent_later">Şimdi değil</string>
     <string name="quiz_ai_declined_message">AI sınav soruları kapalı. Burada soru görmek için Ayarlar, Gizlilik bölümünden açın.</string>
     <string name="quiz_ai_open_privacy">Gizlilik ayarlarını aç</string>
@@ -501,13 +501,13 @@
     <string name="brain_rpg_decay_notification_channel_desc">Günlük kategori gerileme özeti</string>
     <string name="brain_rpg_xp_retained">Temel %1$d XP · %%%2$d korundu</string>
     <string name="brain_rpg_streak_shield_success">Seri Kalkanı etkinleştirildi!</string>
-    <string name="brain_rpg_streak_shield_protected">Protected</string>
+    <string name="brain_rpg_streak_shield_protected">Korumalı</string>
     <string name="brain_rpg_target_xp">Target: %1$d XP</string>
     <string name="brain_rpg_skill_tree_title">Bilgi Yetenek Ağacı</string>
     <string name="brain_rpg_stats_title">AI Meydan Okuma İstatistikleri</string>
-    <string name="brain_rpg_stats_attempted">Attempted</string>
-    <string name="brain_rpg_stats_passed">Correct</string>
-    <string name="brain_rpg_stats_accuracy">Accuracy</string>
+    <string name="brain_rpg_stats_attempted">Denenen</string>
+    <string name="brain_rpg_stats_passed">Doğru</string>
+    <string name="brain_rpg_stats_accuracy">Doğruluk</string>
     <string name="brain_rpg_wrapped_desc">"%1$d XP kazandınız ve %2$d günlük okuma serisini sürdürdünüz! Başkalarına ilham vermek için başarınızı paylaşın."</string>
 
     <!-- Epic 08: Zen Focus & Speed Reading -->
@@ -529,7 +529,7 @@
     <string name="zen_evening_edition">Evening Edition (20:00)</string>
     <string name="zen_daily_edition_notification">Odaklanarak okumanız için %1$d okunmamış makale hazır.</string>
     <string name="zen_sleep_timer">Uyku Zamanlayıcısı</string>
-    <string name="zen_sleep_timer_off">Continuous</string>
+    <string name="zen_sleep_timer_off">Kesintisiz</string>
     <string name="zen_sleep_timer_min">%1$d minutes</string>
     <string name="zen_volume">Volume: %1$d%%</string>
     <string name="zen_settings_title">Zen Odak &amp; Hızlı Okuma</string>
@@ -540,7 +540,7 @@
     <string name="highlights_bullet_count">%1$d önemli nokta</string>
     <string name="highlights_copy_all">Vurguları kopyala</string>
     <string name="highlights_copied_toast">Vurgular panoya kopyalandı</string>
-    <string name="highlights_share">Share</string>
+    <string name="highlights_share">Paylaş</string>
     <string name="highlights_tldr">Quick TL;DR</string>
     <string name="highlights_ai_badge">Gemini AI</string>
     <string name="highlights_fallback_badge">Çevrimdışı Akıllı</string>
@@ -560,13 +560,13 @@
     <string name="deep_read_title">AI Derin Okuma</string>
     <string name="deep_read_subtitle">Etkileşimli Makale Sohbeti</string>
     <string name="deep_read_input_placeholder">Bu makale hakkında bir soru sorun…</string>
-    <string name="deep_read_send">Send</string>
+    <string name="deep_read_send">Gönder</string>
     <string name="deep_read_clear_chat">Sohbeti temizle</string>
     <string name="deep_read_copied_toast">Yanıt panoya kopyalandı</string>
     <string name="deep_read_welcome_message">Merhaba! Bu makaleyi inceledim. Bana istediğiniz soruyu sorun, açıklama isteyin veya aşağıdaki önerilen konulardan birine dokunun.</string>
-    <string name="deep_read_context_label">Discussing:</string>
+    <string name="deep_read_context_label">Konu:</string>
     <string name="deep_read_thinking">AI makaleyi analiz ediyor…</string>
-    <string name="deep_read_grounded_badge">Grounded</string>
+    <string name="deep_read_grounded_badge">Dayanaklı</string>
     <string name="deep_read_offline_badge">Çevrimdışı Akıllı</string>
     <string name="deep_read_ai_badge">Gemini AI</string>
     <string name="deep_read_copy_transcript">Konuşmayı kopyala</string>
@@ -591,7 +591,7 @@
     <string name="watchdog_title">Anahtar Sözcük Bekçisi</string>
     <string name="watchdog_desc">Arka plan senkronizasyonunda önemli anahtar sözcükleri ve borsa kodlarını izleyin, anında uyarı alın</string>
     <string name="watchdog_add_hint">Anahtar sözcük veya kod girin (örn. $VIC, Bitcoin, Altın)...</string>
-    <string name="watchdog_add_btn">Add</string>
+    <string name="watchdog_add_btn">Ekle</string>
     <string name="watchdog_empty_desc">Henüz anahtar sözcük eklenmedi. İzlemeye başlamak için anahtar sözcük ekleyin veya aşağıdaki önerilerden seçin.</string>
     <string name="watchdog_matched_count">%d matched</string>
     <string name="watchdog_channel_name">Anahtar Sözcük Uyarı Bekçisi</string>
@@ -613,12 +613,12 @@
     <string name="notebook_empty_subtitle">İkinci Beyin bilginizi düzenlemek için okurken ilham verici alıntıları vurgulayın.</string>
     <string name="notebook_empty_search">Eşleşen vurgu bulunamadı</string>
 
-    <string name="notebook_save">Save</string>
-    <string name="notebook_copy">Copy</string>
-    <string name="notebook_edit">Edit</string>
+    <string name="notebook_save">Kaydet</string>
+    <string name="notebook_copy">Kopyala</string>
+    <string name="notebook_edit">Düzenle</string>
     <string name="notebook_copied">Panoya kopyalandı</string>
-    <string name="notebook_saved">Saved</string>
-    <string name="notebook_deleted">Deleted</string>
+    <string name="notebook_saved">Kaydedildi</string>
+    <string name="notebook_deleted">Silindi</string>
     <string name="notebook_untitled">Başlıksız Makale</string>
     <string name="ai_active_key_custom">Kişisel API anahtarınız kullanılıyor</string>
     <string name="ai_active_key_default">Varsayılan paylaşılan kota kullanılıyor</string>
@@ -748,7 +748,7 @@
     <string name="second_brain_settings_desc">Okuduğunuz konuların zaman içinde nasıl bağlandığını görün</string>
     <string name="second_brain_empty">Birkaç makale okuyun veya kaydedin, konu grafiğiniz burada görünecek.</string>
     <string name="second_brain_error">Grafik oluşturulamadı. Tekrar deneyin.</string>
-    <string name="second_brain_retry">Retry</string>
+    <string name="second_brain_retry">Yeniden dene</string>
     <string name="second_brain_graph_desc">%1$d konu ve %2$d bağlantılı konu grafiği</string>
     <string name="second_brain_node_articles">%1$d articles</string>
     <string name="second_brain_range_label">Zaman aralığı</string>
@@ -771,7 +771,7 @@
     <!-- Share Target / Read Later (INGEST-02) -->
     <string name="read_later_feed_title">Sonra Oku</string>
     <string name="share_target_save_btn">Sonra Oku\'ya kaydet</string>
-    <string name="share_target_cancel_btn">Cancel</string>
+    <string name="share_target_cancel_btn">İptal</string>
     <string name="share_target_saved_toast">Sonra Oku\'ya kaydedildi</string>
     <string name="share_target_invalid_url">Geçerli bağlantı bulunamadı</string>
     <string name="read_position_sync">Okuma konumunu senkronize et</string>
@@ -783,12 +783,12 @@
     <string name="smart_collection_save_action">Koleksiyon olarak kaydet</string>
     <string name="smart_collection_empty">Henüz akıllı koleksiyon yok. Bir konuyu takip etmek için anlamsal bir aramayı kaydedin.</string>
     <string name="smart_collection_articles_count">%1$d articles</string>
-    <string name="smart_collection_edit">Edit</string>
-    <string name="smart_collection_delete">Delete</string>
+    <string name="smart_collection_edit">Düzenle</string>
+    <string name="smart_collection_delete">Sil</string>
     <string name="smart_collection_delete_confirm">Bu koleksiyon silinsin mi? Makaleleri kitaplığınızda kalır.</string>
     <string name="smart_collection_saved">Akıllı koleksiyon kaydedildi</string>
     <string name="smart_collection_empty_articles">Henüz eşleşen yeni makale yok. Yeni eşleşmeler senkronizasyondan sonra görünecek.</string>
-    <string name="save">Save</string>
+    <string name="save">Kaydet</string>
     <string name="eink_mode_title">E-Ink optimizasyonu</string>
     <string name="eink_active_title">E-Ink modu açık</string>
     <string name="eink_active_desc">Uygulama siyah beyaz gösteriliyor. Kapatmak için dokunun.</string>
@@ -867,8 +867,8 @@
     <string name="widget_article_pin_unsupported">Başlatıcınız otomatik widget sabitlemeyi desteklemiyor</string>
     <!-- Feed Zero Triage (EXC-14) -->
     <string name="feed_zero_triage_title">Sıfır Besleme Ayıklama</string>
-    <string name="triage_swipe_left_skip">Skip</string>
-    <string name="triage_swipe_right_save">Save</string>
+    <string name="triage_swipe_left_skip">Atla</string>
+    <string name="triage_swipe_right_save">Kaydet</string>
     <string name="triage_swipe_up_read">Şimdi oku</string>
     <string name="triage_progress_format">%1$d / %2$d</string>
     <string name="triage_inbox_zero_title">🎉 Gelen Kutusu Sıfırlandı!</string>
@@ -877,7 +877,7 @@
     <string name="triage_summary_saved">Sonrası için kaydedilen: %1$d</string>
     <string name="triage_summary_skipped">Okundu olarak işaretlenen: %1$d</string>
     <string name="triage_summary_xp">+%1$d Brain RPG XP</string>
-    <string name="triage_finish_button">Done</string>
+    <string name="triage_finish_button">Bitti</string>
     <!-- Brain Wrapped tuần (RPG-09) -->
     <string name="brain_wrapped_share_story">Hikâyede paylaş</string>
     <string name="brain_wrapped_xp_label">Haftalık XP</string>
@@ -922,14 +922,14 @@
     <string name="headline_signals_desc">Başlık ve makale ifadelerini bu cihazda tık tuzağı ipuçları, reklam/abartı ifadeleri ve duygusal ton (olumlu/belirsiz/olumsuz) açısından analiz eder. Hiçbir yere veri gönderilmez ve AI veya ağ kullanılmaz. Bunlar yalnızca ifade sinyalleridir; doğruluk kontrolü veya siyasi yanlılık değerlendirmesi değildir. İspanyolca, Fransızca ve Almanca deneyseldir.</string>
     <string name="headline_signals_clickbait_badge">🎯 Clickbait %1$d%%</string>
     <string name="headline_signals_clickbait_desc">Tık tuzağı dili göstergesi: puan 100 üzerinden %1$d.</string>
-    <string name="headline_signals_tone_positive">🟢 Positive</string>
-    <string name="headline_signals_tone_unclear">⚪ Unclear</string>
-    <string name="headline_signals_tone_negative">🔴 Negative</string>
+    <string name="headline_signals_tone_positive">🟢 Olumlu</string>
+    <string name="headline_signals_tone_unclear">⚪ Belirsiz</string>
+    <string name="headline_signals_tone_negative">🔴 Olumsuz</string>
     <string name="headline_signals_tone_desc_positive">Sözcüksel başlık tonu: olumlu göstergeler var.</string>
     <string name="headline_signals_tone_desc_unclear">Sözcüksel başlık tonu: belirsiz veya yetersiz gösterge.</string>
     <string name="headline_signals_tone_desc_negative">Sözcüksel başlık tonu: olumsuz göstergeler var.</string>
     <string name="brain_rpg_skill_tree_decay_warning">Bu yetenek zamanla zayıfladı. Geri kazanmak için pratik yapın.</string>
-    <string name="bounty_action_investigate">Investigate</string>
+    <string name="bounty_action_investigate">İncele</string>
     <string name="bounty_sheet_title">Varlık Araştırma Ajanı</string>
     <string name="bounty_scanning_status">Haber arşiviniz taranıyor: %1$s…</string>
     <string name="bounty_stats_summary">%1$d ilgili makale • %2$d kaynak</string>
@@ -944,14 +944,14 @@
     <string name="echo_hype_label">Hype: %1$d%%</string>
     <string name="echo_hype_warning">Güçlü reklam veya abartılı ifade algılandı</string>
     <string name="echo_tone_label">Tone: %1$s</string>
-    <string name="echo_tone_positive">🟢 Positive</string>
-    <string name="echo_tone_unclear">⚪ Unclear</string>
-    <string name="echo_tone_negative">🔴 Negative</string>
+    <string name="echo_tone_positive">🟢 Olumlu</string>
+    <string name="echo_tone_unclear">⚪ Belirsiz</string>
+    <string name="echo_tone_negative">🔴 Olumsuz</string>
     <string name="echo_details_title">Beden Dili Sinyalleri</string>
     <string name="echo_disclaimer">Yalnızca yerel ifade sinyalleridir; doğruluk kontrolü, güvenilirlik puanı, siyasi yanlılık analizi veya yazarın niyetine dair iddia değildir. “Belirsiz”, tarafsız değil, yeterli sözcüksel kanıt olmadığı anlamına gelir.</string>
     <string name="echo_flagged_passages_title">İşaretlenen bölümler (%1$d)</string>
     <string name="echo_cue_promotional">Reklam ifadesi</string>
-    <string name="echo_cue_intensifier">Exaggeration</string>
+    <string name="echo_cue_intensifier">Abartı</string>
     <string name="echo_cue_absolute">Mutlak iddia</string>
     <string name="echo_cue_exclamation">Noktalama veya büyük harf vurgusu</string>
     <string name="echo_no_passages">Hiçbir paragraf Abartı eşiğini aşmadı.</string>
@@ -959,10 +959,10 @@
     <!-- BOUNTY-02 dossier -->
     <string name="dossier_create_action">Dosya oluştur</string>
     <string name="dossier_sheet_title">Yerel istihbarat dosyası</string>
-    <string name="dossier_tab_summary">Summary</string>
-    <string name="dossier_tab_timeline">Timeline</string>
-    <string name="dossier_tab_names">Names</string>
-    <string name="dossier_tab_sources">Sources</string>
+    <string name="dossier_tab_summary">Özet</string>
+    <string name="dossier_tab_timeline">Zaman çizelgesi</string>
+    <string name="dossier_tab_names">İsimler</string>
+    <string name="dossier_tab_sources">Kaynaklar</string>
     <string name="dossier_share_action">Markdown paylaş</string>
     <string name="dossier_chooser_title">Dosyayı paylaş</string>
     <string name="dossier_limitation">Yalnızca bu uygulamada kayıtlı makalelerden oluşturulur. Bazı görüşleri dışarıda bırakabilir ve doğruluk kontrolü değildir.</string>
@@ -985,7 +985,7 @@
     <string name="streak_rescue_message">%1$d gün okuma yapmadınız. %2$d günlük seriniz bir sonraki okumanızda sıfırlanacak.</string>
     <string name="streak_rescue_action_ad">Seriyi kurtarmak için video izle</string>
     <string name="streak_rescue_action_restart">Sıfırdan başla</string>
-    <string name="streak_rescue_action_later">Later</string>
+    <string name="streak_rescue_action_later">Sonra</string>
     <string name="streak_rescue_ad_failed">Video yüklenemedi. Lütfen tekrar deneyin.</string>
 
     <!-- ZEN-07 RSVP calibration -->
@@ -1000,8 +1000,8 @@
     <string name="zen_calibration_suggested_wpm">Önerilen hız: ~%1$d kelime/dk</string>
     <string name="zen_calibration_limitation">Bu, 6 sorudan elde edilen kaba bir tahmindir; derin anlamanın ölçüsü değildir. Hızı her zaman elle ayarlayabilirsiniz.</string>
     <string name="zen_calibration_low_confidence_note">Yanıtlarınız hızlara göre değişti; kendi hızınızda okumayı deneyin ve daha sonra yeniden kalibre edin.</string>
-    <string name="zen_calibration_apply">Apply</string>
-    <string name="zen_calibration_skip">Skip</string>
+    <string name="zen_calibration_apply">Uygula</string>
+    <string name="zen_calibration_skip">Atla</string>
     <string name="zen_calibration_settings_desc">Okuma hızınızı 3 kısa turda kalibre edin</string>
 
     <!-- ECHO-02 contrasting coverage -->
@@ -1015,7 +1015,7 @@
     <string name="echo_dual_export">Kartı dışa aktar</string>
     <string name="echo_dual_export_desc">%1$s ile iki başlıklı bir kartı dışa aktar</string>
     <string name="echo_dual_title">İki başlığı paylaş</string>
-    <string name="echo_dual_share">Share</string>
+    <string name="echo_dual_share">Paylaş</string>
     <string name="echo_dual_cut_note">Bir başlık kısaltıldı</string>
     <string name="echo_dual_error">Kart oluşturulamadı. Tekrar denemek için dokunun.</string>
     <string name="echo_dual_chooser_title">İki başlıklı kartı paylaş</string>
@@ -1026,7 +1026,7 @@
     <string name="curated_bundle_verified_on">Checked %1$s</string>
     <string name="curated_bundle_source_count">Sources: %1$d</string>
     <string name="curated_bundle_subscribe_all">Tümüne abone ol</string>
-    <string name="curated_bundle_subscribing">Subscribing…</string>
+    <string name="curated_bundle_subscribing">Abone olunuyor…</string>
     <string name="curated_bundle_progress">Subscribing %1$d of %2$d</string>
     <string name="curated_bundle_result">Eklenen %1$d · zaten olan %2$d · başarısız %3$d</string>
     <string name="curated_bundle_error">Abone olunamadı: %1$s</string>
@@ -1034,11 +1034,11 @@
     <string name="curated_bundle_account_local_only">Bir paketin tamamına abone olma yalnızca yerel hesapta kullanılabilir.</string>
 
     <!-- FRONT-03 knowledge galaxy -->
-    <string name="galaxy_mode_concepts">Concepts</string>
-    <string name="galaxy_mode_stars">Galaxy</string>
+    <string name="galaxy_mode_concepts">Kavramlar</string>
+    <string name="galaxy_mode_stars">Galaksi</string>
     <string name="galaxy_empty">Birkaç makaleyi okundu olarak işaretleyin, burada yıldız olarak parlasınlar. Zaman aralığını genişletmeyi deneyin.</string>
     <string name="galaxy_error">Galaksi oluşturulamadı. Tekrar deneyin.</string>
-    <string name="galaxy_retry">Retry</string>
+    <string name="galaxy_retry">Yeniden dene</string>
     <string name="galaxy_reset_view">Görünümü sıfırla</string>
     <string name="galaxy_stats">Yıldız: %1$d · Bağlantı: %2$d</string>
     <string name="galaxy_star_open">Makaleyi aç</string>
@@ -1056,7 +1056,7 @@
     <string name="second_screen_viewers">Viewers: %1$d</string>
     <string name="second_screen_expires">Expires at %1$s</string>
     <string name="second_screen_warning">Şifreli değildir. Bu Wi-Fi ağında bağlantıyı gören herkes makaleyi okuyabilir. Yalnızca güvendiğiniz bir ağda kullanın.</string>
-    <string name="second_screen_starting">Starting…</string>
+    <string name="second_screen_starting">Başlatılıyor…</string>
     <string name="second_screen_no_network">Özel adresli Wi-Fi veya Ethernet ağı yok. Wi-Fi\'a bağlanıp tekrar deneyin.</string>
     <string name="second_screen_lan_permission_denied">Yerel ağ erişimi kapalı. Makaleleri ikinci ekranda göstermek için Ayarlar\'dan izin verin.</string>
     <string name="second_screen_expired">Oturum sona erdi. Yeni bir bağlantı almak için tekrar açın.</string>
@@ -1067,8 +1067,8 @@
     <string name="galaxy_related_title">İlgili makaleler</string>
     <string name="galaxy_shared_terms">Ortak sözcükler: %1$s</string>
     <string name="local_sync_title">Yerel Senkronizasyon</string>
-    <string name="local_sync_send">Send</string>
-    <string name="local_sync_receive">Receive</string>
+    <string name="local_sync_send">Gönder</string>
+    <string name="local_sync_receive">Al</string>
     <string name="local_sync_send_instructions">Bu yerel ağdaki başka bir cihaz için şifreli bir paket oluşturun.</string>
     <string name="local_sync_secret_warning">Bu eşleştirme sırrını URL\'den ayrı paylaşın. İkisine de sahip olan herkes paketi okuyabilir.</string>
     <string name="local_sync_http_warning">HTTP; URL\'yi, cihaz adresini, zamanı veya aktarım boyutunu gizlemez. Yalnızca paket içeriği şifrelenir. Güvenilir bir yerel ağ kullanın.</string>
@@ -1092,7 +1092,7 @@
     <string name="local_sync_apply">Değişiklikleri uygula</string>
     <string name="local_sync_confirm_apply">Senkronizasyon değişiklikleri uygulansın mı?</string>
     <string name="local_sync_confirm_counts">Eklenecek beslemeler: %1$d. Güncellenecek makale durumları: %2$d. Bu değişiklikler uygulansın mı?</string>
-    <string name="local_sync_cancel">Cancel</string>
+    <string name="local_sync_cancel">İptal</string>
     <string name="local_sync_done">Senkronizasyon değişiklikleri uygulandı.</string>
     <string name="local_sync_not_local">Senkronizasyonu kullanmak için bir Yerel hesap seçin.</string>
     <string name="local_sync_error_network">Senkronizasyon oturumuna bağlanılamadı. URL\'yi ve yerel ağı kontrol edin.</string>
@@ -1118,9 +1118,9 @@
     <string name="local_sync_reply_instruction">Diğer telefondan göndermeyi durdurmasını ve önce Al\'ı açmasını isteyin.</string>
     <string name="local_sync_merge_limit">Birleştirme yalnızca okundu ve yıldız işaretlerini korur; bir telefonda okunmadı olarak işaretlemek veya yıldızı kaldırmak, senkronizasyondan sonra geri gelebilir.</string>
     <string name="local_sync_peer_unconfirmed">Diğer cihazın bir kez almasını bekliyor</string>
-    <string name="local_sync_peer_confirmed">Paired</string>
+    <string name="local_sync_peer_confirmed">Eşleşti</string>
     <string name="local_sync_peer_needs_repair">Bu telefonda kullanılamaz. Cihazı unutup yeniden eşleştirin.</string>
-    <string name="local_sync_forget_peer">Forget</string>
+    <string name="local_sync_forget_peer">Unut</string>
     <string name="local_sync_confirm_peer">Eşleştirilmiş olarak işaretle</string>
     <string name="local_sync_nearby_title">Eşleştirilmiş bir cihaz yakınlarda.</string>
     <string name="local_sync_no_peer_found">Henüz yakında cihaz bulunamadı. Diğer cihazda Gönder\'i açın.</string>
@@ -1132,7 +1132,7 @@
     <!-- EXC-11 Temporal Ask My Archive -->
     <string name="archive_query_title">Arşivime Sor</string>
     <string name="archive_query_desc">Bir konu sorun ve kayıtlı makalelerinizin onu ay ay nasıl ele aldığını görün.</string>
-    <string name="archive_query_question_label">Question</string>
+    <string name="archive_query_question_label">Soru</string>
     <string name="archive_query_question_hint">örn. Mart\'tan bu yana faiz oranları</string>
     <string name="archive_query_search">Arşivde ara</string>
     <string name="archive_query_start_date">Başlangıç tarihi (YYYY-MM-DD)</string>
@@ -1171,7 +1171,7 @@
     <string name="feed_autopilot_summary_clean">Beslemeleriniz düzenli görünüyor. Gürültülü besleme algılanmadı.</string>
     <string name="feed_autopilot_reason_opened">%2$d içinden %1$d açıldı (son %3$d günlük dönem; %%%4$d etkileşim)</string>
     <string name="feed_autopilot_reason_zero">Son %2$d günlük dönemde %1$d makaleden hiçbiri açılmadı</string>
-    <string name="feed_autopilot_action_unsubscribe">Unsubscribe</string>
+    <string name="feed_autopilot_action_unsubscribe">Abonelikten çık</string>
     <string name="feed_autopilot_action_snooze">30 gün ertele</string>
     <string name="feed_autopilot_action_keep">Tut ve önermeyi bırak</string>
     <string name="feed_autopilot_confirm_title">%1$s aboneliğinden çıkılsın mı?</string>
@@ -1186,14 +1186,14 @@
     <string name="podcast_studio_menu">Podcast Stüdyosu</string>
     <string name="podcast_studio_consent_title">Senaryo AI ile yazılsın mı?</string>
     <string name="podcast_studio_consent_message">İki sunuculu bir senaryo yazması için Google Gemini\'ye yalnızca bu makalenin başlığı ve kısa bir önizlemesi (250 karakterin altında) gönderilir. Makale metni, bağlantılar ve okuma geçmişiniz asla gönderilmez.</string>
-    <string name="podcast_studio_consent_agree">Use AI</string>
+    <string name="podcast_studio_consent_agree">AI kullan</string>
     <string name="podcast_studio_consent_decline">Çevrimdışı senaryo kullan</string>
     <string name="podcast_studio_conflict_title">Çalan içerik durdurulsun mu?</string>
     <string name="podcast_studio_conflict_message">Bu makaleyi podcast olarak oynatmak, şu anda çalan sesi durduracak.</string>
     <string name="podcast_studio_badge_source_gemini">Senaryo AI tarafından yazıldı</string>
     <string name="podcast_studio_badge_source_heuristic">Çevrimdışı senaryo, AI yok</string>
-    <string name="podcast_studio_play">Play</string>
-    <string name="podcast_studio_pause">Pause</string>
+    <string name="podcast_studio_play">Oynat</string>
+    <string name="podcast_studio_pause">Duraklat</string>
     <string name="podcast_studio_next">Sonraki replik</string>
     <string name="podcast_studio_previous">Önceki replik</string>
     <string name="podcast_studio_host_alex">Alex</string>
@@ -1203,7 +1203,7 @@
     <string name="deep_dive_menu">🔬 AI Derin Analiz</string>
     <string name="deep_dive_title">AI Derin Analiz</string>
     <string name="deep_dive_consent_message">Bu raporu yazması için Google Gemini\'ye makalenin başlığı ve metninin en fazla 6.000 karakteri gönderilir. Bağlantılar, besleme adı ve okuma geçmişiniz asla gönderilmez. Gemini web\'de arama yapmaz.</string>
-    <string name="deep_dive_consent_agree">Agree</string>
+    <string name="deep_dive_consent_agree">Kabul et</string>
     <string name="deep_dive_consent_later">Şimdi değil</string>
     <string name="deep_dive_declined_message">AI Derin Analiz kapalı. Rapor yazdırmak için Ayarlar, Gizlilik bölümünden açın.</string>
     <string name="deep_dive_open_privacy">Gizlilik ayarlarını aç</string>
@@ -1213,30 +1213,30 @@
     <string name="deep_dive_nothing_to_analyze">Bu makalede analiz edilecek başlık veya metin yok.</string>
     <string name="deep_dive_retry">Tekrar dene</string>
     <string name="deep_dive_label">Başlık ve bir alıntıdan AI tarafından yazıldı; web araması yok; hatalı olabilir</string>
-    <string name="deep_dive_section_context">Context</string>
+    <string name="deep_dive_section_context">Bağlam</string>
     <string name="deep_dive_section_critical">Karşıt görüşler</string>
     <string name="deep_dive_section_impact">Etki matrisi</string>
-    <string name="deep_dive_col_area">Area</string>
+    <string name="deep_dive_col_area">Alan</string>
     <string name="deep_dive_col_short">Kısa vade</string>
     <string name="deep_dive_col_long">Uzun vade</string>
     <string name="deep_dive_export_pdf">PDF olarak dışa aktar</string>
     <string name="deep_dive_chooser_title">Derin Analiz PDF\'sini paylaş</string>
     <string name="deep_dive_export_error">PDF oluşturulamadı</string>
     <string name="deep_dive_pdf_truncated">Tek sayfaya sığması için kısaltıldı. Raporun tamamını uygulamada görün.</string>
-    <string name="deep_dive_close">Close</string>
-    <string name="oracle_badge_label">Prediction</string>
+    <string name="deep_dive_close">Kapat</string>
+    <string name="oracle_badge_label">Tahmin</string>
     <string name="oracle_badge_open">Tahmini aç</string>
     <string name="oracle_sheet_title">Bu makalede bulunan tahmin</string>
     <string name="oracle_sheet_expires">Expected by %1$s</string>
     <string name="oracle_sheet_criteria_heading">Cevap nasıl kontrol edilir</string>
     <string name="oracle_sheet_ai_label">Başlık ve açıklamadan AI tarafından yazıldı; hatalı olabilir.</string>
-    <string name="oracle_sheet_close">Close</string>
+    <string name="oracle_sheet_close">Kapat</string>
     <string name="oracle_consent_title">Yeni makalelerde tahmin bul</string>
     <string name="oracle_consent_message">Her senkronizasyondan sonra, tahmin aramak için en fazla 5 yeni makalenin başlığı ve kısa bir açıklaması (toplam en fazla 500 karakter) Google Gemini\'ye gönderilir. Makale metni, bağlantılar, besleme adı ve okuma geçmişiniz asla gönderilmez. Varsayılan olarak kapalıdır.</string>
     <string name="oracle_bet_balance">Bakiye: %1$s puan</string>
     <string name="oracle_bet_pick_side">Seçiminiz</string>
-    <string name="oracle_bet_yes">Yes</string>
-    <string name="oracle_bet_no">No</string>
+    <string name="oracle_bet_yes">Evet</string>
+    <string name="oracle_bet_no">Hayır</string>
     <string name="oracle_bet_pick_stake">Yatırılacak puan</string>
     <string name="oracle_bet_stake_option">%1$s points</string>
     <string name="oracle_bet_place">Bahis yap</string>
@@ -1245,7 +1245,7 @@
     <string name="oracle_bet_open">%2$s için %1$s puan yatırdınız.</string>
     <string name="oracle_bet_open_hint">Sonucu yukarıdaki tarihten sonra bildirebilirsiniz.</string>
     <string name="oracle_bet_awaiting_title">Sonuç ne oldu?</string>
-    <string name="oracle_bet_outcome_unclear">Unclear</string>
+    <string name="oracle_bet_outcome_unclear">Belirsiz</string>
     <string name="oracle_bet_awaiting_hint">%2$s için %1$s puan yatırdınız. Belirsiz seçeneği puanlarınızı iade eder.</string>
     <string name="oracle_bet_settled_won">%1$s puan kazandınız.</string>
     <string name="oracle_bet_settled_lost">%1$s puan kaybettiniz.</string>
@@ -1268,7 +1268,7 @@
     <string name="commute_autoplay_title">Bluetooth kulaklık bağlanınca çal</string>
     <string name="commute_autoplay_desc">Sabah bölümünü hazır olduktan sonraki 2 saat içinde günde bir kez başlatmayı dener. Android engellerse Oynat düğmeli bir bildirim alırsınız.</string>
     <string name="commute_autoplay_permission_denied">Yakındaki cihazlar izni olmadan uygulama kulaklıklarınızı göremez, bu yüzden bu seçenek kapalı kalır.</string>
-    <string name="commute_play_action">Play</string>
+    <string name="commute_play_action">Oynat</string>
     <string name="commute_ready_to_play_title">Sabah bölümünüz hazır</string>
     <string name="commute_ready_to_play_body">Kulaklıklarınız bağlı. Dinlemek için Oynat\'a dokunun.</string>
 </resources>

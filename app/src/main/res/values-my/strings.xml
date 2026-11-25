@@ -28,8 +28,8 @@
     <string name="try_again">ထပ်ကြိုးစားရန်</string>
     <string name="change_language">ဘာသာစကား ပြောင်းရန်</string>
     <string name="change_language_confirm">ဘာသာစကားအသစ်ကို အသုံးပြုရန် အက်ပ်ကို ပြန်စတင်မည်။ ဆက်လုပ်လိုပါသလား။</string>
-    <string name="yes">Yes</string>
-    <string name="no">No</string>
+    <string name="yes">ဟုတ်ကဲ့</string>
+    <string name="no">မဟုတ်ပါ</string>
     <string name="restarting_app">အက်ပ်ကို ပြန်စတင်နေသည်…</string>
     <string name="auto_tts">စာဖတ်သံ အလိုအလျောက် ဖွင့်ရန်</string>
     <string name="auto_tts_desc">ဆောင်းပါးဖွင့်လိုက်သည်နှင့် အလိုအလျောက် အသံထွက်ဖတ်ပေးမည်</string>
@@ -38,47 +38,47 @@
     <string name="watch_ad">ကြော်ငြာကြည့်ရန်</string>
     <string name="ad_not_ready">ကြော်ငြာအသင့်မဖြစ်သေးပါ။ ကျေးဇူးပြု၍ ခဏနေမှ ထပ်ကြိုးစားပါ။</string>
     <string name="read_you" translatable="false">RSS Hub</string>
-    <string name="all">All</string>
+    <string name="all">အားလုံး</string>
     <plurals name="all_desc">
         <item quantity="one">%1$d Archived Item</item>
         <item quantity="other">%1$d Archived Items</item>
     </plurals>
-    <string name="unread">Unread</string>
+    <string name="unread">မဖတ်ရသေး</string>
     <plurals name="unread_desc">
         <item quantity="one">%1$d Unread Item</item>
         <item quantity="other">%1$d Unread Items</item>
     </plurals>
-    <string name="starred">Starred</string>
+    <string name="starred">ကြယ်ပွင့်ပေးထားသည်</string>
     <plurals name="starred_desc">
         <item quantity="one">%1$d Starred Item</item>
         <item quantity="other">%1$d Starred Items</item>
     </plurals>
-    <string name="feeds">Feeds</string>
-    <string name="syncing">Syncing…</string>
-    <string name="loading">Loading…</string>
-    <string name="expand_less">Shrink</string>
-    <string name="expand_more">Expand</string>
-    <string name="confirm">Confirm</string>
-    <string name="cancel">Cancel</string>
-    <string name="allow">Allow</string>
-    <string name="deny">Deny</string>
-    <string name="defaults">Default</string>
-    <string name="unknown">Unknown</string>
-    <string name="empty">Empty</string>
-    <string name="back">Back</string>
+    <string name="feeds">ဖိဒ်များ</string>
+    <string name="syncing">ထပ်တူပြုနေသည်…</string>
+    <string name="loading">ဖွင့်နေသည်…</string>
+    <string name="expand_less">ချုံ့ရန်</string>
+    <string name="expand_more">ချဲ့ရန်</string>
+    <string name="confirm">အတည်ပြုရန်</string>
+    <string name="cancel">မလုပ်တော့ပါ</string>
+    <string name="allow">ခွင့်ပြုရန်</string>
+    <string name="deny">ငြင်းပယ်ရန်</string>
+    <string name="defaults">မူလ</string>
+    <string name="unknown">မသိ</string>
+    <string name="empty">ဗလာ</string>
+    <string name="back">နောက်သို့</string>
     <string name="go_to">Go to</string>
-    <string name="settings">Settings</string>
-    <string name="refresh">Refresh</string>
-    <string name="search">Search</string>
-    <string name="searching">Searching…</string>
-    <string name="subscribe">Subscribe</string>
+    <string name="settings">ဆက်တင်များ</string>
+    <string name="refresh">ပြန်လည်စတင်ရန်</string>
+    <string name="search">ရှာဖွေရန်</string>
+    <string name="searching">ရှာဖွေနေသည်…</string>
+    <string name="subscribe">စာရင်းသွင်းရန်</string>
     <string name="already_subscribed">စာရင်းသွင်းပြီးသား</string>
-    <string name="clear">Clear</string>
-    <string name="paste">Paste</string>
+    <string name="clear">ရှင်းလင်းရန်</string>
+    <string name="paste">ကူးထည့်ရန်</string>
     <string name="feed_or_site_url">ဖိဒ် သို့မဟုတ် ဝဘ်ဆိုက် URL</string>
     <string name="import_from_opml">OPML မှ တင်သွင်းရန်</string>
-    <string name="preset">Preset</string>
-    <string name="selected">Selected</string>
+    <string name="preset">ကြိုတင်သတ်မှတ်ချက်</string>
+    <string name="selected">ရွေးထားသည်</string>
     <string name="allow_notification">အကြောင်းကြားချက် ခွင့်ပြုရန်</string>
     <string name="all_allow_notification_tips">\"%1$s\" အုပ်စုရှိ ဖိဒ်အားလုံးကို အကြောင်းကြားချက်ပို့ခွင့်ပြုရန်</string>
     <string name="all_allow_notification_toast">\"%1$s\" အုပ်စုမှ အကြောင်းကြားချက်အားလုံးကို ခွင့်ပြုထားသည်</string>
@@ -96,21 +96,21 @@
     <string name="move_to_group">အုပ်စုသို့ ရွှေ့ရန်</string>
     <string name="all_move_to_group_tips">\"%1$s\" အုပ်စုရှိ ဖိဒ်အားလုံးကို \"%2$s\" အုပ်စုသို့ ရွှေ့ရန်</string>
     <string name="all_move_to_group_toast">ဖိဒ်အားလုံးကို \"%1$s\" အုပ်စုသို့ ရွှေ့ပြီးပါပြီ</string>
-    <string name="rename">Rename</string>
+    <string name="rename">အမည်ပြောင်းရန်</string>
     <string name="change_url">URL ပြောင်းရန်</string>
     <string name="feed_url_placeholder" translatable="false">http://example.com/feed.rss</string>
     <string name="rename_toast">Renamed to \"%1$s\"</string>
     <string name="create_new_group">အုပ်စုအသစ် ဖန်တီးရန်</string>
-    <string name="name">Name</string>
-    <string name="delete">Delete</string>
+    <string name="name">အမည်</string>
+    <string name="delete">ဖျက်ရန်</string>
     <string name="delete_toast">Deleted \"%1$s\"</string>
-    <string name="unsubscribe">Unsubscribe</string>
+    <string name="unsubscribe">စာရင်းမှထွက်ရန်</string>
     <string name="unsubscribe_tips">\"%1$s\" မှ စာရင်းပယ်ဖျက်ပြီး ၎င်းရှိ သိမ်းဆည်းထားသော ဆောင်းပါးအားလုံးကို ဖျက်ရန်</string>
     <string name="delete_group">အုပ်စု ဖျက်ရန်</string>
     <string name="delete_group_tips">\"%1$s\" အုပ်စုနှင့် ၎င်းတွင်ပါဝင်သော ဖိဒ်များနှင့် သိမ်းဆည်းထားသော ဆောင်းပါးအားလုံးကို ဖျက်ရန်</string>
     <string name="group_option_tips">အောက်ပါရွေးချယ်စရာများသည် ဤအုပ်စုရှိ ဖိဒ်အားလုံးနှင့် သက်ဆိုင်သည်</string>
-    <string name="today">Today</string>
-    <string name="yesterday">Yesterday</string>
+    <string name="today">ယနေ့</string>
+    <string name="yesterday">မနေ့က</string>
     <string name="date_at_time">%1$s at %2$s</string>
     <string name="search_for_in">\"%2$s\" ထဲတွင် %1$s ရှာရန်</string>
     <string name="search_for">%1$s ရှာရန်</string>
@@ -122,17 +122,17 @@
     <string name="one_day">1d</string>
     <string name="three_days">3d</string>
     <string name="seven_days">7d</string>
-    <string name="close">Close</string>
+    <string name="close">ပိတ်ရန်</string>
     <string name="get_new_updates">အပ်ဒိတ်အသစ် ရယူရန်</string>
     <string name="get_new_updates_desc">ဗားရှင်းအသစ် %1$s ရရှိနိုင်ပါပြီ</string>
     <string name="coming_soon">မကြာမီ လာမည်</string>
-    <string name="accounts">Accounts</string>
+    <string name="accounts">အကောင့်များ</string>
     <string name="accounts_desc">ဒေသတွင်း၊ FreshRSS</string>
     <string name="color_and_style">အရောင်နှင့် ပုံစံ</string>
     <string name="color_and_style_desc">အပြင်အဆင်၊ အရောင်ပုံစံ၊ စာလုံးအရွယ်အစား</string>
-    <string name="interaction">Interaction</string>
+    <string name="interaction">အပြန်အလှန်ဆက်သွယ်မှု</string>
     <string name="interaction_desc">စတင်စာမျက်နှာ၊ တုန်ခါမှုတုံ့ပြန်ချက်</string>
-    <string name="languages">Languages</string>
+    <string name="languages">ဘာသာစကားများ</string>
     <string name="languages_desc">အင်္ဂလိပ်၊ တရုတ်၊ အခြားများ</string>
     <string name="translatable_url" translatable="false">https://hosted.weblate.org/projects/readyou/</string>
     <string name="use_device_languages">စက်၏ ဘာသာစကားကို သုံးရန်</string>
@@ -175,7 +175,7 @@
     <string name="malayalam" translatable="false">മലയാളം</string>
     <string name="burmese" translatable="false">မြန်မာ</string>
     <string name="tips_and_support">အကြံပြုချက်နှင့် အကူအညီ</string>
-    <string name="welcome">Welcome</string>
+    <string name="welcome">ကြိုဆိုပါသည်</string>
     <string name="tos_tips">ဆက်လက်ရန် RSS Bear Hub ၏ ဝန်ဆောင်မှုစည်းမျဉ်းများနှင့် ကိုယ်ရေးကိုယ်တာမူဝါဒကို ဖတ်ပြီး သဘောတူပါ။</string>
     <string name="browse_tos_tips">Browse the &lt;i&gt;&lt;u&gt;Terms of Service and Privacy Policy&lt;/u&gt;&lt;/i&gt;
         </string>
@@ -290,20 +290,20 @@
     
             &lt;/p&gt;
         </string>
-    <string name="agree">Agree</string>
+    <string name="agree">သဘောတူသည်</string>
     <string name="wallpaper_colors">နောက်ခံပုံအရောင်များ</string>
-    <string name="no_palettes">No Palettes</string>
+    <string name="no_palettes">အရောင်ပြားမရှိပါ</string>
     <string name="only_android_8.1_plus">Android 8.1 နှင့်အထက်သာ</string>
     <string name="basic_colors">အခြေခံအရောင်များ</string>
     <string name="primary_color">အဓိကအရောင်</string>
-    <string name="primary_color_hint">Like #666666 or 666666</string>
-    <string name="appearance">Appearance</string>
-    <string name="style">Style</string>
+    <string name="primary_color_hint">ဥပမာ #666666 သို့မဟုတ် 666666</string>
+    <string name="appearance">အသွင်အပြင်</string>
+    <string name="style">စတိုင်</string>
     <string name="dark_theme">အမှောင်အပြင်အဆင်</string>
     <string name="use_device_theme">စက်၏ အပြင်အဆင်ကို သုံးရန်</string>
-    <string name="on">On</string>
-    <string name="off">Off</string>
-    <string name="other">Other</string>
+    <string name="on">ဖွင့်</string>
+    <string name="off">ပိတ်</string>
+    <string name="other">အခြား</string>
     <string name="amoled_dark_theme">AMOLED အမှောင်အပြင်အဆင်</string>
     <string name="tonal_elevation">အရောင်အနက်အရင့် မြင့်တင်မှု</string>
     <string name="reading_fonts">စာဖတ်ရန် ဖောင့်များ</string>
@@ -311,21 +311,21 @@
     <string name="feeds_page">ဖိဒ်စာမျက်နှာ</string>
     <string name="flow_page">စီးဆင်းမှုစာမျက်နှာ</string>
     <string name="reading_page">စာဖတ်စာမျက်နှာ</string>
-    <string name="sponsor">Sponsor</string>
+    <string name="sponsor">ထောက်ပံ့ရန်</string>
     <string name="open_source_licenses">ပွင့်လင်းအရင်းအမြစ် လိုင်စင်များ</string>
     <string name="github_link" translatable="false">https://github.com/Ashinch/ReadYou</string>
     <string name="telegram_link" translatable="false">https://t.me/ReadYouApp</string>
     <string name="update_link">https://api.github.com/repos/Ashinch/ReadYou/releases/latest</string>
-    <string name="change_log">Changelog</string>
-    <string name="update">Update</string>
+    <string name="change_log">ပြောင်းလဲမှုမှတ်တမ်း</string>
+    <string name="update">အပ်ဒိတ်</string>
     <string name="skip_this_version">ဤဗားရှင်းကို ကျော်ရန်</string>
     <string name="checking_updates">အပ်ဒိတ်များကို စစ်ဆေးနေသည်…</string>
     <string name="is_latest_version">ဤအက်ပ်သည် နောက်ဆုံးဗားရှင်း ဖြစ်သည်</string>
     <string name="check_failure">အပ်ဒိတ်စစ်ဆေးမှု မအောင်မြင်ပါ</string>
     <string name="download_failure">အပ်ဒိတ်များကို ဒေါင်းလုဒ်မလုပ်နိုင်ပါ</string>
     <string name="rate_limit">တောင်းဆိုမှုနှုန်း ကန့်သတ်ထားသည်</string>
-    <string name="help">Help</string>
-    <string name="on_start">On Start</string>
+    <string name="help">အကူအညီ</string>
+    <string name="on_start">စတင်သည့်အခါ</string>
     <string name="initial_page">စတင်စာမျက်နှာ</string>
     <string name="initial_filter">စတင်စစ်ထုတ်မှု</string>
     <string name="preview_article_title">"Lord of the Mysteries" ဝတ္ထုသည် နောက်ဆုံးတွင် ပြီးဆုံးသွားပြီ</string>
@@ -333,7 +333,7 @@
             written by Cuttlefish That Loves Diving.
         </string>
     <string name="preview_feed_name">Reddit</string>
-    <string name="value">value</string>
+    <string name="value">တန်ဖိုး</string>
     <string name="horizontal_padding">ဘေးဘောင်အကွာအဝေး</string>
     <string name="article_date">ဆောင်းပါး ထုတ်ဝေချိန်</string>
     <string name="article_desc">ဆောင်းပါးဖော်ပြချက်များ</string>
@@ -344,46 +344,46 @@
     <string name="article_list">ဆောင်းပါးစာရင်း</string>
     <string name="group_list">အုပ်စုစာရင်း</string>
     <string name="always_expand">အမြဲ ဖြန့်ကားရန်</string>
-    <string name="top">Top</string>
+    <string name="top">အပေါ်</string>
     <string name="mark_as_read_button_position">\"ဖတ်ပြီးအဖြစ် မှတ်ရန်\" ခလုတ်နေရာ</string>
     <string name="top_bar">အပေါ်ဘား</string>
     <string name="fill_selected_icon">လက်ရှိစစ်ထုတ်မှု သင်္ကေတကို ဖြည့်ရန်</string>
     <string name="filter_bar">စစ်ထုတ်မှုဘား</string>
-    <string name="icons">Icons</string>
+    <string name="icons">အိုင်ကွန်များ</string>
     <string name="icons_and_labels">သင်္ကေတနှင့် အညွှန်းများ</string>
     <string name="icons_and_label_only_selected">သင်္ကေတနှင့် အညွှန်း (လက်ရှိတစ်ခုသာ)</string>
     <string name="tips_article_list_tonal_elevation">ဆောင်းပါးစာရင်း၏ အရောင်အနက်အရင့် မြင့်တင်မှုကို အလင်းအပြင်အဆင်တွင်သာ ရနိုင်သည်</string>
     <string name="tips_group_list_tonal_elevation">အုပ်စုစာရင်း၏ အရောင်အနက်အရင့် မြင့်တင်မှုကို အလင်းအပြင်အဆင်တွင်သာ ရနိုင်သည်</string>
-    <string name="share">Share</string>
+    <string name="share">မျှဝေရန်</string>
     <string name="touch_to_play_video">ဗီဒီယိုဖွင့်ရန် ထိပါ</string>
-    <string name="text">Text</string>
+    <string name="text">စာသား</string>
     <string name="font_size">စာလုံးအရွယ်အစား</string>
     <string name="letter_spacing">စာလုံးအကွာအဝေး</string>
-    <string name="alignment">Alignment</string>
-    <string name="general">General</string>
+    <string name="alignment">ညှိမှု</string>
+    <string name="general">အထွေထွေ</string>
     <string name="auto_hide_toolbars">ကိရိယာဘားများကို အလိုအလျောက် ဝှက်ရန်</string>
     <string name="rearrange_buttons">ခလုတ်များ ပြန်စီရန်</string>
     <string name="bionic_reading">Bionic Reading</string>
-    <string name="images">Images</string>
+    <string name="images">ပုံများ</string>
     <string name="rounded_corners">ထောင့်အဝိုင်းများ</string>
-    <string name="videos">Videos</string>
+    <string name="videos">ဗီဒီယိုများ</string>
     <string name="align_left">ဘယ်ညှိရန်</string>
     <string name="align_right">ညာညှိရန်</string>
     <string name="center_text">စာကို အလယ်ညှိရန်</string>
-    <string name="justify">Justify</string>
+    <string name="justify">နှစ်ဖက်ညှိ</string>
     <string name="external_fonts">ပြင်ပဖောင့်များ</string>
-    <string name="title">Title</string>
-    <string name="bold">Bold</string>
+    <string name="title">ခေါင်းစဉ်</string>
+    <string name="bold">စာလုံးမည်း</string>
     <string name="upper_case">စာလုံးကြီး</string>
-    <string name="subhead">Subhead</string>
+    <string name="subhead">ခေါင်းစဉ်ခွဲ</string>
     <string name="use_app_theme">အက်ပ်၏ အပြင်အဆင်ကို သုံးရန်</string>
-    <string name="advanced">Advanced</string>
+    <string name="advanced">အဆင့်မြင့်</string>
     <string name="dark_reading_theme">အမှောင်စာဖတ်အပြင်အဆင်</string>
     <string name="title_desc">စာလုံးမည်း၊ စာလုံးကြီး၊ ညှိမှု</string>
     <string name="text_desc">စာလုံးအရွယ်အစား၊ စာလုံးအကွာအဝေး၊ ညှိမှု</string>
     <string name="images_desc">ထောင့်အဝိုင်းများ၊ ဘေးဘောင်အကွာအဝေး</string>
     <string name="videos_desc">ထောင့်အဝိုင်းများ၊ ဘေးဘောင်အကွာအဝေး</string>
-    <string name="maximize">Maximize</string>
+    <string name="maximize">အကြီးဆုံးချဲ့ရန်</string>
     <string name="every_15_minutes">၁၅ မိနစ်တိုင်း</string>
     <string name="every_30_minutes">၃၀ မိနစ်တိုင်း</string>
     <string name="every_1_hour">တစ်နာရီတိုင်း</string>
@@ -392,35 +392,35 @@
     <string name="every_6_hours">၆ နာရီတိုင်း</string>
     <string name="every_12_hours">၁၂ နာရီတိုင်း</string>
     <string name="every_1_day">တစ်ရက်တိုင်း</string>
-    <string name="manually">Manually</string>
-    <string name="always">Always</string>
-    <string name="for_1_day">1 day</string>
-    <string name="for_2_days">2 days</string>
-    <string name="for_3_days">3 days</string>
-    <string name="for_1_week">1 week</string>
-    <string name="for_2_weeks">2 weeks</string>
-    <string name="for_1_month">1 month</string>
-    <string name="local">Local</string>
+    <string name="manually">ကိုယ်တိုင်</string>
+    <string name="always">အမြဲ</string>
+    <string name="for_1_day">၁ ရက်</string>
+    <string name="for_2_days">၂ ရက်</string>
+    <string name="for_3_days">၃ ရက်</string>
+    <string name="for_1_week">၁ ပတ်</string>
+    <string name="for_2_weeks">၂ ပတ်</string>
+    <string name="for_1_month">၁ လ</string>
+    <string name="local">ဒေသတွင်း</string>
     <string name="fever" translatable="false">Fever</string>
     <string name="google_reader" translatable="false">Google Reader</string>
     <string name="fresh_rss" translatable="false">FreshRSS</string>
     <string name="feedly" translatable="false">Feedly</string>
     <string name="inoreader" translatable="false">Inoreader</string>
     <string name="local_desc">ဤစက်ပေါ်တွင်</string>
-    <string name="services">Services</string>
+    <string name="services">ဝန်ဆောင်မှုများ</string>
     <string name="feedly_desc" translatable="false">feedly.com</string>
     <string name="inoreader_desc" translatable="false">inoreader.com</string>
     <string name="self_hosted">ကိုယ်ပိုင်ဆာဗာ</string>
     <string name="fresh_rss_desc" translatable="false">freshrss.org</string>
     <string name="google_reader_desc" translatable="false">Google Reader API</string>
     <string name="fever_desc">အသုံးမပြုသင့်တော့ပါ။ အကြံမပြုပါ။</string>
-    <string name="more">More</string>
+    <string name="more">နောက်ထပ်</string>
     <string name="add_accounts">အကောင့်များ ထည့်ရန်</string>
-    <string name="list">List</string>
+    <string name="list">စာရင်း</string>
     <string name="add_accounts_desc">ဒေသတွင်း၊ ဝန်ဆောင်မှုများ၊ ကိုယ်ပိုင်ဆာဗာ</string>
-    <string name="display">Display</string>
-    <string name="synchronous">Syncing</string>
-    <string name="sync_interval">Sync</string>
+    <string name="display">ပြသမှု</string>
+    <string name="synchronous">ထပ်တူပြုခြင်း</string>
+    <string name="sync_interval">ထပ်တူပြု</string>
     <string name="sync_once_on_start">စတင်ချိန်တွင် တစ်ကြိမ် ထပ်တူပြုရန်</string>
     <string name="only_on_wifi">Only on Wi-Fi</string>
     <string name="only_when_charging">အားသွင်းနေစဉ်သာ</string>
@@ -435,16 +435,16 @@
     <string name="clear_all_articles_toast">ဆောင်းပါးစာရင်းကို ရှင်းလင်းပြီးပါပြီ</string>
     <string name="delete_account_toast">အကောင့်ကို ဖျက်ပြီးပါပြီ</string>
     <string name="synchronous_tips">ပြောင်းလဲမှု သက်ရောက်ရန် ပြန်စတင်ရမည်</string>
-    <string name="switch_account">Switch</string>
-    <string name="add">Add</string>
+    <string name="switch_account">ပြောင်းရန်</string>
+    <string name="add">ထည့်ရန်</string>
     <string name="accounts_tips">ဖိဒ်စာမျက်နှာရှိ အကောင့်အမည်ကို ထိ၍ အကောင့်ပြောင်းနိုင်သည်</string>
     <string name="server_url">ဆာဗာ URL</string>
-    <string name="username">Username</string>
-    <string name="password">Password</string>
-    <string name="connection">Connection</string>
-    <string name="system_default">System</string>
+    <string name="username">အသုံးပြုသူအမည်</string>
+    <string name="password">စကားဝှက်</string>
+    <string name="connection">ချိတ်ဆက်မှု</string>
+    <string name="system_default">စနစ်</string>
     <string name="initial_open_app">လင့်ခ်ကိုနှိပ်ပါက ဖွင့်မည့်အက်ပ်</string>
-    <string name="open_link_specific_browser_not_selected">None</string>
+    <string name="open_link_specific_browser_not_selected">မရှိ</string>
     <string name="auto_customtabs">အလိုအလျောက် (CustomTabs ကို ဦးစားပေး)</string>
     <string name="auto_default_browser">အလိုအလျောက် (မူလဘရောက်ဇာကို ဦးစားပေး)</string>
     <string name="custom_tabs">CustomTabs ကို အတင်းသုံးရန်</string>
@@ -452,12 +452,12 @@
     <string name="specific_browser_name">Browser: %1$s</string>
     <string name="default_browser">မူလဘရောက်ဇာကို အတင်းသုံးရန်</string>
     <string name="always_ask">အမြဲမေးရန်</string>
-    <string name="open_link_specific_browser">Browser</string>
+    <string name="open_link_specific_browser">ဘရောက်ဇာ</string>
     <string name="open_link_something_wrong">တစ်ခုခု မှားယွင်းသဖြင့် \"လင့်ခ်ဖွင့်ရန်\" ဆက်တင်ကို လျစ်လျူရှုထားသည်။</string>
-    <string name="in_coding">In development</string>
+    <string name="in_coding">ဖန်တီးဆဲ</string>
     <string name="tips_top_bar_tonal_elevation">အရောင်အနက်အရင့် မြင့်တင်မှုကို လှိမ့်ချိန်တွင်သာ ရနိုင်သည်</string>
     <string name="summary_title">AI ဖြင့် အနှစ်ချုပ်ရန်</string>
-    <string name="summary_loading">Summarizing…</string>
+    <string name="summary_loading">အကျဉ်းချုပ်နေသည်…</string>
     <string name="summary_try_again">ထပ်ကြိုးစားရန်</string>
     <string name="summary_get_key">အခမဲ့ key ရယူရန်</string>
     <string name="summary_err_empty_content">ဆောင်းပါးတွင် အနှစ်ချုပ်ရန် အကြောင်းအရာ မရှိပါ</string>
@@ -479,7 +479,7 @@
     <string name="vip_remaining_short">%1$d ရက် %2$d နာရီ ကျန်သည်</string>
     <string name="vip_redeem_label">VIP ကုဒ် ထည့်ပါ</string>
     <string name="vip_redeem_hint">ဥပမာ - သင့် VIP ကုဒ်</string>
-    <string name="vip_redeem_button">Activate</string>
+    <string name="vip_redeem_button">အသက်သွင်းရန်</string>
     <string name="vip_watch_ad_3d">ကြော်ငြာကြည့်ပါ → VIP ၃ ရက်</string>
     <string name="vip_buy_30d_locked">VIP ၃၀ ရက် ဝယ်ရန် — မကြာမီ လာမည်</string>
     <string name="vip_buy_90d_locked">VIP ၉၀ ရက် ဝယ်ရန် — မကြာမီ လာမည်</string>
@@ -491,9 +491,9 @@
     <string name="vip_revoke_all_confirm_message">VIP ကို ရုပ်သိမ်းပြီး အခမဲ့အကောင့်သို့ ပြန်သွားလိုသည်မှာ သေချာပါသလား။</string>
     <string name="vip_entry_first_install">🎁 အသစ်ထည့်သွင်းမှု လက်ဆောင်</string>
     <string name="vip_entry_active">VIP အဖွဲ့ဝင်</string>
-    <string name="vip_success_title">Success</string>
+    <string name="vip_success_title">အောင်မြင်သည်</string>
     <string name="vip_success_message">VIP ကို %1$d ရက် အသက်ဝင်စေပြီ။</string>
-    <string name="vip_failed_title">Failed</string>
+    <string name="vip_failed_title">မအောင်မြင်ပါ</string>
     <string name="ad_attribution_label" translatable="false">Ad Networks (AdMob / AppLovin MAX)</string>
     <string name="vip_failed_busy">ယခင်ကုဒ်ကို စစ်ဆေးနေဆဲဖြစ်သည်။ ခဏစောင့်ပြီး ထပ်ကြိုးစားပါ။</string>
     <string name="vip_failed_no_network">ကုဒ်ကို အသက်သွင်းရန် အင်တာနက်ချိတ်ဆက်မှု လိုအပ်သည်။ ချိတ်ဆက်ပြီး ထပ်ကြိုးစားပါ။</string>
@@ -510,8 +510,8 @@
     <string name="commute_deepdive_unlocked">🎉 အနက်ရှိုင်း အစီအစဉ် ဖွင့်ပြီးပါပြီ!</string>
     <string name="commute_empty">နံနက်ရေဒီယိုအတွက် မဖတ်ရသေးသော ဆောင်းပါး မရှိပါ</string>
     <string name="commute_generating">AI DJ က သင့်အစီအစဉ်ကို ပြင်ဆင်နေသည်...</string>
-    <string name="retry">Retry</string>
-    <string name="version">Version</string>
+    <string name="retry">ထပ်ကြိုးစားရန်</string>
+    <string name="version">ဗားရှင်း</string>
     <string name="rate_app">အက်ပ်ကို အဆင့်ပေးရန်</string>
     <string name="rate_app_desc">ဤအက်ပ်ကို အသုံးဝင်သည်ဟု ယူဆပါက ကြယ် ၅ ပွင့် ပေးပါ</string>
     <string name="more_apps">အက်ပ်များ ပိုမိုရယူရန်</string>
@@ -520,7 +520,7 @@
     <string name="share_app_desc">အခြားသူများလည်း သုံးနိုင်ရန် ဤအက်ပ်ကို မျှဝေပါ</string>
     <string name="term_and_policy">စည်းမျဉ်းနှင့် မူဝါဒ</string>
     <string name="term_and_policy_desc">လုံခြုံရေးစည်းမျဉ်းများနှင့် ကိုယ်ရေးကိုယ်တာမူဝါဒကို ဖတ်ရန်</string>
-    <string name="about_title">About</string>
+    <string name="about_title">အကြောင်း</string>
     <string name="about_desc">ဤအက်ပ်ကို သိရှိရန်</string>
     <string name="source_code_original">ရင်းမြစ်ကုဒ် (မူရင်းဗားရှင်း)</string>
     <string name="source_code_current">ရင်းမြစ်ကုဒ် (ဤဗားရှင်း)</string>
@@ -546,7 +546,7 @@
     <string name="quiz_ai_no_key">Gemini key မရှိသဖြင့် AI က မေးခွန်း မရေးနိုင်ပါ။</string>
     <string name="quiz_ai_nothing_to_ask">ဤဆောင်းပါးတွင် မေးရန် ခေါင်းစဉ် သို့မဟုတ် အစမ်းကြည့်ချက် မရှိပါ။</string>
     <string name="quiz_ai_retry">ထပ်ကြိုးစားရန်</string>
-    <string name="quiz_ai_consent_agree">Agree</string>
+    <string name="quiz_ai_consent_agree">သဘောတူသည်</string>
     <string name="quiz_ai_consent_later">ယခု မလုပ်ပါ</string>
     <string name="quiz_ai_declined_message">AI မေးခွန်းများ ပိတ်ထားသည်။ ဤနေရာတွင် မေးခွန်းရရန် ဆက်တင်၊ ကိုယ်ရေးကိုယ်တာတွင် ဖွင့်ပါ။</string>
     <string name="quiz_ai_open_privacy">ကိုယ်ရေးကိုယ်တာ ဆက်တင်ဖွင့်ရန်</string>
@@ -572,13 +572,13 @@
     <string name="brain_rpg_decay_notification_channel_desc">နေ့စဉ် အမျိုးအစားယုတ်လျော့မှု အနှစ်ချုပ်</string>
     <string name="brain_rpg_xp_retained">အခြေခံ %1$d XP · %2$d%% ကျန်ရှိ</string>
     <string name="brain_rpg_streak_shield_success">ဆက်တိုက်ရက် ဒိုင်း ဖွင့်ပြီးပါပြီ။</string>
-    <string name="brain_rpg_streak_shield_protected">Protected</string>
+    <string name="brain_rpg_streak_shield_protected">ကာကွယ်ထားသည်</string>
     <string name="brain_rpg_target_xp">Target: %1$d XP</string>
     <string name="brain_rpg_skill_tree_title">ဗဟုသုတ ကျွမ်းကျင်မှုသစ်ပင်</string>
     <string name="brain_rpg_stats_title">AI စိန်ခေါ်မှု စာရင်းအင်း</string>
-    <string name="brain_rpg_stats_attempted">Attempted</string>
-    <string name="brain_rpg_stats_passed">Correct</string>
-    <string name="brain_rpg_stats_accuracy">Accuracy</string>
+    <string name="brain_rpg_stats_attempted">ကြိုးစားသည်</string>
+    <string name="brain_rpg_stats_passed">မှန်သည်</string>
+    <string name="brain_rpg_stats_accuracy">တိကျမှု</string>
     <string name="brain_rpg_wrapped_desc">"သင် %1$d XP ရရှိပြီး %2$d ရက်ဆက်တိုက် စာဖတ်ခဲ့သည်။ အခြားသူများကို လှုံ့ဆော်ရန် သင့်အောင်မြင်မှုကို မျှဝေပါ။"</string>
 
     <!-- Epic 08: Zen Focus & Speed Reading -->
@@ -600,7 +600,7 @@
     <string name="zen_evening_edition">Evening Edition (20:00)</string>
     <string name="zen_daily_edition_notification">မဖတ်ရသေးသော ဆောင်းပါး %1$d ခုကို အာရုံစူးစိုက်ဖတ်ရန် အဆင်သင့်ဖြစ်ပါပြီ။</string>
     <string name="zen_sleep_timer">အိပ်ချိန်တိုင်မာ</string>
-    <string name="zen_sleep_timer_off">Continuous</string>
+    <string name="zen_sleep_timer_off">မရပ်မနား</string>
     <string name="zen_sleep_timer_min">%1$d minutes</string>
     <string name="zen_volume">Volume: %1$d%%</string>
     <string name="zen_settings_title">Zen အာရုံစူးစိုက်မှုနှင့် အမြန်ဖတ်ခြင်း</string>
@@ -611,7 +611,7 @@
     <string name="highlights_bullet_count">အဓိကအချက် %1$d ခု</string>
     <string name="highlights_copy_all">အဓိကအချက်များ ကူးယူရန်</string>
     <string name="highlights_copied_toast">အဓိကအချက်များကို ကလစ်ဘုတ်သို့ ကူးယူပြီးပါပြီ</string>
-    <string name="highlights_share">Share</string>
+    <string name="highlights_share">မျှဝေရန်</string>
     <string name="highlights_tldr">Quick TL;DR</string>
     <string name="highlights_ai_badge">Gemini AI</string>
     <string name="highlights_fallback_badge">အော့ဖ်လိုင်း စမတ်</string>
@@ -631,13 +631,13 @@
     <string name="deep_read_title">AI အနက်ဖတ်ခြင်း</string>
     <string name="deep_read_subtitle">ဆောင်းပါးနှင့် အပြန်အလှန်စကားပြောခြင်း</string>
     <string name="deep_read_input_placeholder">ဤဆောင်းပါးအကြောင်း မေးခွန်းမေးပါ…</string>
-    <string name="deep_read_send">Send</string>
+    <string name="deep_read_send">ပို့ရန်</string>
     <string name="deep_read_clear_chat">စကားပြောမှု ရှင်းလင်းရန်</string>
     <string name="deep_read_copied_toast">အဖြေကို ကလစ်ဘုတ်သို့ ကူးယူပြီးပါပြီ</string>
     <string name="deep_read_welcome_message">မင်္ဂလာပါ။ ဤဆောင်းပါးကို ခွဲခြမ်းစိတ်ဖြာပြီးပါပြီ။ မေးခွန်းမေးနိုင်သည်၊ ရှင်းပြချက်တောင်းနိုင်သည်၊ သို့မဟုတ် အောက်ပါအကြံပြုခေါင်းစဉ်ကို ထိပါ။</string>
-    <string name="deep_read_context_label">Discussing:</string>
+    <string name="deep_read_context_label">ဆွေးနွေးနေသည်:</string>
     <string name="deep_read_thinking">AI က ဆောင်းပါးကို ခွဲခြမ်းစိတ်ဖြာနေသည်…</string>
-    <string name="deep_read_grounded_badge">Grounded</string>
+    <string name="deep_read_grounded_badge">အခြေခံထားသည်</string>
     <string name="deep_read_offline_badge">အော့ဖ်လိုင်း စမတ်</string>
     <string name="deep_read_ai_badge">Gemini AI</string>
     <string name="deep_read_copy_transcript">စကားပြောမှု ကူးယူရန်</string>
@@ -653,7 +653,7 @@
     <string name="story_cluster_all_perspectives">ရှုထောင့်အားလုံး (%d)</string>
     <string name="story_cluster_mark_all_read">အားလုံး ဖတ်ပြီးမှတ်ရန်</string>
     <string name="story_cluster_sheet_title">ရှုထောင့်စုံ သတင်းဖော်ပြမှု</string>
-    <string name="story_cluster_lead_badge">Lead</string>
+    <string name="story_cluster_lead_badge">ဦးဆောင်</string>
     <string name="semantic_search_title">AI အဓိပ္ပာယ်ရှာဖွေမှု</string>
     <string name="semantic_search_desc">စကားလုံးအတိအကျအစား အယူအဆနှင့် အဓိပ္ပာယ်ဖြင့် ဆောင်းပါးများကို ရှာပါ</string>
     <string name="semantic_match_badge">%d%% match</string>
@@ -662,7 +662,7 @@
     <string name="watchdog_title">သော့ချက်စကားလုံး စောင့်ကြည့်သူ</string>
     <string name="watchdog_desc">နောက်ခံထပ်တူပြုမှုတွင် အရေးကြီးသော စကားလုံးများနှင့် စတော့ကုဒ်များကို စောင့်ကြည့်ပြီး ချက်ချင်းသတိပေးရန်</string>
     <string name="watchdog_add_hint">စကားလုံး သို့မဟုတ် ကုဒ် ထည့်ပါ (ဥပမာ $VIC, Bitcoin, Gold)...</string>
-    <string name="watchdog_add_btn">Add</string>
+    <string name="watchdog_add_btn">ထည့်ရန်</string>
     <string name="watchdog_empty_desc">စကားလုံး မထည့်ရသေးပါ။ စောင့်ကြည့်စတင်ရန် စကားလုံးထည့်ပါ သို့မဟုတ် အောက်ပါအကြံပြုချက်များကို ရွေးပါ။</string>
     <string name="watchdog_matched_count">%d matched</string>
     <string name="watchdog_channel_name">သော့ချက်စကားလုံး သတိပေးစောင့်ကြည့်သူ</string>
@@ -684,12 +684,12 @@
     <string name="notebook_empty_subtitle">သင်၏ Second Brain ဗဟုသုတကို စီစဉ်ရန် စာဖတ်စဉ် စိတ်ဝင်စားဖွယ် ကိုးကားချက်များကို မှတ်ထားပါ။</string>
     <string name="notebook_empty_search">ကိုက်ညီသော အဓိကအချက် မတွေ့ပါ</string>
 
-    <string name="notebook_save">Save</string>
-    <string name="notebook_copy">Copy</string>
-    <string name="notebook_edit">Edit</string>
+    <string name="notebook_save">သိမ်းရန်</string>
+    <string name="notebook_copy">ကူးယူရန်</string>
+    <string name="notebook_edit">တည်းဖြတ်ရန်</string>
     <string name="notebook_copied">ကလစ်ဘုတ်သို့ ကူးယူပြီးပါပြီ</string>
-    <string name="notebook_saved">Saved</string>
-    <string name="notebook_deleted">Deleted</string>
+    <string name="notebook_saved">သိမ်းပြီး</string>
+    <string name="notebook_deleted">ဖျက်ပြီး</string>
     <string name="notebook_untitled">ခေါင်းစဉ်မရှိသော ဆောင်းပါး</string>
     <string name="ai_active_key_custom">ကိုယ်ပိုင် API key ကို အသုံးပြုနေသည်</string>
     <string name="ai_active_key_default">မူရင်း အများသုံး quota ကို အသုံးပြုနေသည်</string>
@@ -819,7 +819,7 @@
     <string name="second_brain_settings_desc">သင်ဖတ်သော ခေါင်းစဉ်များ အချိန်နှင့်အမျှ မည်သို့ ဆက်စပ်သည်ကို ကြည့်ပါ</string>
     <string name="second_brain_empty">ဆောင်းပါးအနည်းငယ် ဖတ်ပါ သို့မဟုတ် သိမ်းပါ၊ သင့်ခေါင်းစဉ်ဂရပ် ဤနေရာတွင် ပေါ်လာမည်။</string>
     <string name="second_brain_error">ဂရပ်ကို တည်ဆောက်၍ မရပါ။ ထပ်ကြိုးစားပါ။</string>
-    <string name="second_brain_retry">Retry</string>
+    <string name="second_brain_retry">ထပ်ကြိုးစားရန်</string>
     <string name="second_brain_graph_desc">ခေါင်းစဉ် %1$d ခုနှင့် ဆက်စပ်မှု %2$d ခုပါသော ခေါင်းစဉ်ဂရပ်</string>
     <string name="second_brain_node_articles">%1$d articles</string>
     <string name="second_brain_range_label">အချိန်ကာလ</string>
@@ -842,7 +842,7 @@
     <!-- Share Target / Read Later (INGEST-02) -->
     <string name="read_later_feed_title">နောက်မှဖတ်ရန်</string>
     <string name="share_target_save_btn">နောက်မှဖတ်ရန် သိမ်းရန်</string>
-    <string name="share_target_cancel_btn">Cancel</string>
+    <string name="share_target_cancel_btn">မလုပ်တော့ပါ</string>
     <string name="share_target_saved_toast">နောက်မှဖတ်ရန် သိမ်းပြီးပါပြီ</string>
     <string name="share_target_invalid_url">မှန်ကန်သော လင့်ခ် မတွေ့ပါ</string>
     <string name="read_position_sync">စာဖတ်နေရာ ထပ်တူပြုရန်</string>
@@ -854,12 +854,12 @@
     <string name="smart_collection_save_action">စုစည်းမှုအဖြစ် သိမ်းရန်</string>
     <string name="smart_collection_empty">စမတ်စုစည်းမှု မရှိသေးပါ။ ခေါင်းစဉ်တစ်ခုကို လိုက်ကြည့်ရန် အဓိပ္ပာယ်ရှာဖွေမှုကို သိမ်းပါ။</string>
     <string name="smart_collection_articles_count">%1$d articles</string>
-    <string name="smart_collection_edit">Edit</string>
-    <string name="smart_collection_delete">Delete</string>
+    <string name="smart_collection_edit">တည်းဖြတ်ရန်</string>
+    <string name="smart_collection_delete">ဖျက်ရန်</string>
     <string name="smart_collection_delete_confirm">ဤစုစည်းမှုကို ဖျက်မလား။ ၎င်း၏ ဆောင်းပါးများသည် သင့်စာကြည့်တိုက်တွင် ကျန်ရှိမည်။</string>
     <string name="smart_collection_saved">စမတ်စုစည်းမှု သိမ်းပြီးပါပြီ</string>
     <string name="smart_collection_empty_articles">ကိုက်ညီသော ဆောင်းပါးသစ် မရှိသေးပါ။ ထပ်တူပြုပြီးနောက် ကိုက်ညီမှုအသစ်များ ပေါ်လာမည်။</string>
-    <string name="save">Save</string>
+    <string name="save">သိမ်းရန်</string>
     <string name="eink_mode_title">E-Ink အတွက် အကောင်းဆုံးပြုလုပ်ခြင်း</string>
     <string name="eink_active_title">E-Ink မုဒ် ဖွင့်ထားသည်</string>
     <string name="eink_active_desc">အက်ပ်ကို အဖြူအမည်းဖြင့် ပြထားသည်။ ပိတ်ရန် ထိပါ။</string>
@@ -933,8 +933,8 @@
     <string name="widget_article_pin_unsupported">သင့်လောင်ချာသည် ဝစ်ဂျက် အလိုအလျောက်ပင်ထိုးခြင်းကို မပံ့ပိုးပါ</string>
     <!-- Feed Zero Triage (EXC-14) -->
     <string name="feed_zero_triage_title">ဖိဒ်သုညဖြစ်အောင် စီစစ်ခြင်း</string>
-    <string name="triage_swipe_left_skip">Skip</string>
-    <string name="triage_swipe_right_save">Save</string>
+    <string name="triage_swipe_left_skip">ကျော်ရန်</string>
+    <string name="triage_swipe_right_save">သိမ်းရန်</string>
     <string name="triage_swipe_up_read">ယခု ဖတ်ရန်</string>
     <string name="triage_progress_format">%1$d / %2$d</string>
     <string name="triage_inbox_zero_title">🎉 ဝင်စာပုံးသုည ရောက်ပါပြီ။</string>
@@ -943,7 +943,7 @@
     <string name="triage_summary_saved">နောက်မှဖတ်ရန် သိမ်းထားသည်- %1$d</string>
     <string name="triage_summary_skipped">ဖတ်ပြီးမှတ်ထားသည်- %1$d</string>
     <string name="triage_summary_xp">+%1$d Brain RPG XP</string>
-    <string name="triage_finish_button">Done</string>
+    <string name="triage_finish_button">ပြီးပြီ</string>
     <!-- Brain Wrapped tuần (RPG-09) -->
     <string name="brain_wrapped_share_story">စတိုရီသို့ မျှဝေရန်</string>
     <string name="brain_wrapped_xp_label">ယခုအပတ် XP</string>
@@ -988,14 +988,14 @@
     <string name="headline_signals_desc">ခေါင်းစဉ်နှင့် ဆောင်းပါးစကားရပ်များကို ဤစက်ပေါ်တွင် ခွဲခြမ်း၍ ကလစ်ဘိတ်လက္ခဏာများ၊ ကြော်ငြာ/ချီးမြှင့်စကားရပ်များနှင့် စိတ်ခံစားမှုလေသံ (အပြုသဘော/မရှင်းလင်း/အပျက်သဘော) ကို ကြည့်သည်။ မည်သည့်အရာမျှ မည်သည့်နေရာသို့မျှ မပို့ပါ၊ AI သို့မဟုတ် ကွန်ရက်လည်း မသုံးပါ။ ၎င်းတို့သည် စကားရပ်အချက်ပြမှုသာဖြစ်ပြီး အချက်အလက်စစ်ဆေးမှု သို့မဟုတ် နိုင်ငံရေးဘက်လိုက်မှု အကဲဖြတ်ချက် မဟုတ်ပါ။ စပိန်၊ ပြင်သစ်နှင့် ဂျာမန်ဘာသာများမှာ စမ်းသပ်ဆဲဖြစ်သည်။</string>
     <string name="headline_signals_clickbait_badge">🎯 Clickbait %1$d%%</string>
     <string name="headline_signals_clickbait_desc">ကလစ်ဘိတ်စကားရပ် ညွှန်ပြချက်- ရမှတ် ၁၀၀ တွင် %1$d။</string>
-    <string name="headline_signals_tone_positive">🟢 Positive</string>
-    <string name="headline_signals_tone_unclear">⚪ Unclear</string>
-    <string name="headline_signals_tone_negative">🔴 Negative</string>
+    <string name="headline_signals_tone_positive">🟢 အပြုသဘော</string>
+    <string name="headline_signals_tone_unclear">⚪ မရှင်းလင်း</string>
+    <string name="headline_signals_tone_negative">🔴 အပျက်သဘော</string>
     <string name="headline_signals_tone_desc_positive">ခေါင်းစဉ်စကားလုံးလေသံ- အပြုသဘော ညွှန်ပြချက်များ ရှိသည်။</string>
     <string name="headline_signals_tone_desc_unclear">ခေါင်းစဉ်စကားလုံးလေသံ- မရှင်းလင်းပါ သို့မဟုတ် ညွှန်ပြချက် မလုံလောက်ပါ။</string>
     <string name="headline_signals_tone_desc_negative">ခေါင်းစဉ်စကားလုံးလေသံ- အပျက်သဘော ညွှန်ပြချက်များ ရှိသည်။</string>
     <string name="brain_rpg_skill_tree_decay_warning">ဤကျွမ်းကျင်မှုသည် အချိန်ကြာလာသဖြင့် မှေးမှိန်လာသည်။ ပြန်လည်ရယူရန် လေ့ကျင့်ပါ။</string>
-    <string name="bounty_action_investigate">Investigate</string>
+    <string name="bounty_action_investigate">စုံစမ်းရန်</string>
     <string name="bounty_sheet_title">အဖွဲ့အစည်း/ပုဂ္ဂိုလ် စုံစမ်းရေးအေးဂျင့်</string>
     <string name="bounty_scanning_status">သင့်သတင်းမော်ကွန်းတွင် ရှာဖွေနေသည်- %1$s…</string>
     <string name="bounty_stats_summary">ဆက်စပ်ဆောင်းပါး %1$d ခု • ရင်းမြစ် %2$d ခု</string>
@@ -1010,14 +1010,14 @@
     <string name="echo_hype_label">Hype: %1$d%%</string>
     <string name="echo_hype_warning">ကြော်ငြာဆန်သော သို့မဟုတ် အလွန်အကျွံချဲ့ကားသော စကားရပ်များ တွေ့ရှိသည်</string>
     <string name="echo_tone_label">Tone: %1$s</string>
-    <string name="echo_tone_positive">🟢 Positive</string>
-    <string name="echo_tone_unclear">⚪ Unclear</string>
-    <string name="echo_tone_negative">🔴 Negative</string>
+    <string name="echo_tone_positive">🟢 အပြုသဘော</string>
+    <string name="echo_tone_unclear">⚪ မရှင်းလင်း</string>
+    <string name="echo_tone_negative">🔴 အပျက်သဘော</string>
     <string name="echo_details_title">စကားရပ်ပုံစံ အချက်ပြမှုများ</string>
     <string name="echo_disclaimer">ဤစက်ပေါ်ရှိ စကားရပ်အချက်ပြမှုများသာဖြစ်ပြီး အချက်အလက်စစ်ဆေးမှု၊ ယုံကြည်စိတ်ချရမှုရမှတ်၊ နိုင်ငံရေးဘက်လိုက်မှုခွဲခြမ်းချက် သို့မဟုတ် စာရေးသူရည်ရွယ်ချက်ဟု မဆိုလိုပါ။ “မရှင်းလင်း” ဆိုသည်မှာ စကားလုံးအထောက်အထား မလုံလောက်ခြင်းဖြစ်ပြီး ကြားနေခြင်း မဟုတ်ပါ။</string>
     <string name="echo_flagged_passages_title">အမှတ်အသားပြုထားသော စာပိုဒ်များ (%1$d)</string>
     <string name="echo_cue_promotional">ကြော်ငြာစကားရပ်</string>
-    <string name="echo_cue_intensifier">Exaggeration</string>
+    <string name="echo_cue_intensifier">ချဲ့ကားပြောဆိုမှု</string>
     <string name="echo_cue_absolute">အတိအလင်း အခိုင်အမာ ပြောဆိုချက်</string>
     <string name="echo_cue_exclamation">ပုဒ်ဖြတ်ပုံ သို့မဟုတ် စာလုံးကြီးဖြင့် အလေးပေးခြင်း</string>
     <string name="echo_no_passages">Hype အဆင့်ကို ကျော်လွန်သော စာပိုဒ်တစ်ခုမျှ မရှိပါ။</string>
@@ -1025,10 +1025,10 @@
     <!-- BOUNTY-02 dossier -->
     <string name="dossier_create_action">မှတ်တမ်းဖိုင် ဖန်တီးရန်</string>
     <string name="dossier_sheet_title">ဒေသတွင်း ထောက်လှမ်းမှတ်တမ်းဖိုင်</string>
-    <string name="dossier_tab_summary">Summary</string>
-    <string name="dossier_tab_timeline">Timeline</string>
-    <string name="dossier_tab_names">Names</string>
-    <string name="dossier_tab_sources">Sources</string>
+    <string name="dossier_tab_summary">အကျဉ်းချုပ်</string>
+    <string name="dossier_tab_timeline">အချိန်ဇယား</string>
+    <string name="dossier_tab_names">အမည်များ</string>
+    <string name="dossier_tab_sources">ရင်းမြစ်များ</string>
     <string name="dossier_share_action">Markdown မျှဝေရန်</string>
     <string name="dossier_chooser_title">မှတ်တမ်းဖိုင် မျှဝေရန်</string>
     <string name="dossier_limitation">ဤအက်ပ်တွင် သိမ်းထားသော ဆောင်းပါးများမှသာ တည်ဆောက်ထားသည်။ အမြင်အချို့ ကျန်ခဲ့နိုင်ပြီး အချက်အလက်စစ်ဆေးမှု မဟုတ်ပါ။</string>
@@ -1051,7 +1051,7 @@
     <string name="streak_rescue_message">စာဖတ်ရက် %1$d ရက် လွတ်သွားသည်။ နောက်ဖတ်သည့်အခါ သင့် %2$d ရက်ဆက်တိုက်မှတ်တမ်း ပြန်စမည်။</string>
     <string name="streak_rescue_action_ad">ဆက်တိုက်ရက်သိမ်းရန် ဗီဒီယိုကြည့်ပါ</string>
     <string name="streak_rescue_action_restart">အစမှ ပြန်စရန်</string>
-    <string name="streak_rescue_action_later">Later</string>
+    <string name="streak_rescue_action_later">နောက်မှ</string>
     <string name="streak_rescue_ad_failed">ဗီဒီယိုကို မဖွင့်နိုင်ပါ။ ထပ်ကြိုးစားပါ။</string>
 
     <!-- ZEN-07 RSVP calibration -->
@@ -1066,8 +1066,8 @@
     <string name="zen_calibration_suggested_wpm">အကြံပြုမြန်နှုန်း- ~%1$d WPM</string>
     <string name="zen_calibration_limitation">ဤသည်မှာ မေးခွန်း ၆ ခုမှ ခန့်မှန်းချက်သာဖြစ်ပြီး နက်နဲသော နားလည်မှုကို တိုင်းတာခြင်း မဟုတ်ပါ။ မြန်နှုန်းကို မည်သည့်အချိန်တွင်မဆို ကိုယ်တိုင်ညှိနိုင်သည်။</string>
     <string name="zen_calibration_low_confidence_note">မြန်နှုန်းအလိုက် သင့်အဖြေများ ကွဲပြားသည်။ ကိုယ့်အရှိန်ဖြင့် ဖတ်ကြည့်ပြီး နောက်မှ ပြန်ချိန်ညှိပါ။</string>
-    <string name="zen_calibration_apply">Apply</string>
-    <string name="zen_calibration_skip">Skip</string>
+    <string name="zen_calibration_apply">အသုံးပြုရန်</string>
+    <string name="zen_calibration_skip">ကျော်ရန်</string>
     <string name="zen_calibration_settings_desc">အပတ်တို ၃ ခုဖြင့် သင့်စာဖတ်မြန်နှုန်းကို ချိန်ညှိပါ</string>
 
     <!-- ECHO-02 contrasting coverage -->
@@ -1081,7 +1081,7 @@
     <string name="echo_dual_export">ကတ် ထုတ်ယူရန်</string>
     <string name="echo_dual_export_desc">%1$s ပါသော ခေါင်းစဉ်နှစ်ခုကတ်ကို ထုတ်ယူရန်</string>
     <string name="echo_dual_title">ခေါင်းစဉ်နှစ်ခု မျှဝေရန်</string>
-    <string name="echo_dual_share">Share</string>
+    <string name="echo_dual_share">မျှဝေရန်</string>
     <string name="echo_dual_cut_note">ခေါင်းစဉ်တစ်ခုကို တိုတောင်းစေထားသည်</string>
     <string name="echo_dual_error">ကတ်ကို မဖန်တီးနိုင်ပါ။ ထပ်ကြိုးစားရန် ထိပါ။</string>
     <string name="echo_dual_chooser_title">ခေါင်းစဉ်နှစ်ခုကတ် မျှဝေရန်</string>
@@ -1092,7 +1092,7 @@
     <string name="curated_bundle_verified_on">Checked %1$s</string>
     <string name="curated_bundle_source_count">Sources: %1$d</string>
     <string name="curated_bundle_subscribe_all">အားလုံး စာရင်းသွင်းရန်</string>
-    <string name="curated_bundle_subscribing">Subscribing…</string>
+    <string name="curated_bundle_subscribing">စာရင်းသွင်းနေသည်…</string>
     <string name="curated_bundle_progress">Subscribing %1$d of %2$d</string>
     <string name="curated_bundle_result">ထည့်ပြီး %1$d · ရှိပြီးသား %2$d · မအောင်မြင် %3$d</string>
     <string name="curated_bundle_error">စာရင်းမသွင်းနိုင်ပါ- %1$s</string>
@@ -1100,11 +1100,11 @@
     <string name="curated_bundle_account_local_only">အစုတစ်ခုလုံးကို စာရင်းသွင်းခြင်းသည် ဒေသတွင်းအကောင့်တွင်သာ ရနိုင်သည်။</string>
 
     <!-- FRONT-03 knowledge galaxy -->
-    <string name="galaxy_mode_concepts">Concepts</string>
-    <string name="galaxy_mode_stars">Galaxy</string>
+    <string name="galaxy_mode_concepts">သဘောတရားများ</string>
+    <string name="galaxy_mode_stars">ဂလက်ဆီ</string>
     <string name="galaxy_empty">ဆောင်းပါးအနည်းငယ်ကို ဖတ်ပြီးမှတ်ပါ၊ ၎င်းတို့ ကြယ်များအဖြစ် ဤနေရာတွင် ထွန်းလင်းမည်။ အချိန်ကာလကို ချဲ့ကြည့်ပါ။</string>
     <string name="galaxy_error">ဂလက်ဆီကို တည်ဆောက်၍ မရပါ။ ထပ်ကြိုးစားပါ။</string>
-    <string name="galaxy_retry">Retry</string>
+    <string name="galaxy_retry">ထပ်ကြိုးစားရန်</string>
     <string name="galaxy_reset_view">မြင်ကွင်း ပြန်လည်သတ်မှတ်ရန်</string>
     <string name="galaxy_stats">ကြယ်များ- %1$d · ချိတ်ဆက်မှုများ- %2$d</string>
     <string name="galaxy_star_open">ဆောင်းပါး ဖွင့်ရန်</string>
@@ -1122,7 +1122,7 @@
     <string name="second_screen_viewers">Viewers: %1$d</string>
     <string name="second_screen_expires">Expires at %1$s</string>
     <string name="second_screen_warning">ကုဒ်မဝှက်ထားပါ။ ဤ Wi-Fi ရှိ လင့်ခ်ကိုမြင်သူမည်သူမဆို ဆောင်းပါးကို ဖတ်နိုင်သည်။ ယုံကြည်ရသော ကွန်ရက်တွင်သာ သုံးပါ။</string>
-    <string name="second_screen_starting">Starting…</string>
+    <string name="second_screen_starting">စတင်နေသည်…</string>
     <string name="second_screen_no_network">ကိုယ်ပိုင်လိပ်စာပါသော Wi-Fi သို့မဟုတ် Ethernet ကွန်ရက် မရှိပါ။ Wi-Fi ချိတ်ပြီး ထပ်ကြိုးစားပါ။</string>
     <string name="second_screen_lan_permission_denied">ဒေသတွင်းကွန်ရက်ဝင်ရောက်ခွင့် ပိတ်ထားသည်။ ဒုတိယစခရင်တွင် ဆောင်းပါးပြရန် ဆက်တင်တွင် ခွင့်ပြုပါ။</string>
     <string name="second_screen_expired">စက်ရှင် ပြီးဆုံးသွားသည်။ လင့်ခ်အသစ်ရရန် ပြန်ဖွင့်ပါ။</string>
@@ -1133,8 +1133,8 @@
     <string name="galaxy_related_title">ဆက်စပ်ဆောင်းပါးများ</string>
     <string name="galaxy_shared_terms">ဘုံစကားလုံးများ- %1$s</string>
     <string name="local_sync_title">ဒေသတွင်း ထပ်တူပြုခြင်း</string>
-    <string name="local_sync_send">Send</string>
-    <string name="local_sync_receive">Receive</string>
+    <string name="local_sync_send">ပို့ရန်</string>
+    <string name="local_sync_receive">လက်ခံရန်</string>
     <string name="local_sync_send_instructions">ဤဒေသတွင်းကွန်ရက်ရှိ အခြားစက်အတွက် ကုဒ်ဝှက်ထားသော ပက်ကေ့ခ်ျ ဖန်တီးပါ။</string>
     <string name="local_sync_secret_warning">ဤတွဲချိတ်လျှို့ဝှက်ကုဒ်ကို URL နှင့် သီးခြားစီ မျှဝေပါ။ နှစ်ခုလုံးရှိသူမည်သူမဆို ပက်ကေ့ခ်ျကို ဖတ်နိုင်သည်။</string>
     <string name="local_sync_http_warning">HTTP သည် URL၊ စက်လိပ်စာ၊ အချိန်နှင့် လွှဲပြောင်းအရွယ်အစားကို မဝှက်ပါ။ ပက်ကေ့ခ်ျအကြောင်းအရာကိုသာ ကုဒ်ဝှက်သည်။ ယုံကြည်ရသော ဒေသတွင်းကွန်ရက်ကို သုံးပါ။</string>
@@ -1158,7 +1158,7 @@
     <string name="local_sync_apply">ပြောင်းလဲမှုများ အသုံးချရန်</string>
     <string name="local_sync_confirm_apply">ထပ်တူပြုမှု ပြောင်းလဲချက်များ အသုံးချမလား။</string>
     <string name="local_sync_confirm_counts">ထည့်မည့်ဖိဒ်များ- %1$d။ အပ်ဒိတ်လုပ်မည့် ဆောင်းပါးအခြေအနေများ- %2$d။ ဤပြောင်းလဲမှုများကို အသုံးချမလား။</string>
-    <string name="local_sync_cancel">Cancel</string>
+    <string name="local_sync_cancel">မလုပ်တော့ပါ</string>
     <string name="local_sync_done">ထပ်တူပြုမှု ပြောင်းလဲချက်များ အသုံးချပြီးပါပြီ။</string>
     <string name="local_sync_not_local">ထပ်တူပြုမှုကို သုံးရန် ဒေသတွင်းအကောင့်ကို ရွေးပါ။</string>
     <string name="local_sync_error_network">ထပ်တူပြုမှုစက်ရှင်သို့ မချိတ်ဆက်နိုင်ပါ။ URL နှင့် ဒေသတွင်းကွန်ရက်ကို စစ်ပါ။</string>
@@ -1184,9 +1184,9 @@
     <string name="local_sync_reply_instruction">အခြားဖုန်းကို ပို့ခြင်းရပ်ပြီး လက်ခံရန်ကို အရင်ဖွင့်ရန် ပြောပါ။</string>
     <string name="local_sync_merge_limit">ပေါင်းစည်းမှုသည် ဖတ်ပြီးနှင့် ကြယ်ပွင့်မှတ်ထားမှုကိုသာ ထိန်းသိမ်းသည်၊ ဖုန်းတစ်လုံးတွင် မဖတ်ရသေးအဖြစ်ပြန်မှတ်ခြင်း သို့မဟုတ် ကြယ်ပွင့်ဖြုတ်ခြင်းများသည် ထပ်တူပြုပြီးနောက် ပြန်ပေါ်လာနိုင်သည်။</string>
     <string name="local_sync_peer_unconfirmed">အခြားစက်က တစ်ကြိမ် လက်ခံရန် စောင့်နေသည်</string>
-    <string name="local_sync_peer_confirmed">Paired</string>
+    <string name="local_sync_peer_confirmed">တွဲချိတ်ပြီး</string>
     <string name="local_sync_peer_needs_repair">ဤဖုန်းတွင် မသုံးနိုင်ပါ။ ဖယ်ရှားပြီး ပြန်တွဲချိတ်ပါ။</string>
-    <string name="local_sync_forget_peer">Forget</string>
+    <string name="local_sync_forget_peer">မေ့ပစ်ရန်</string>
     <string name="local_sync_confirm_peer">တွဲချိတ်ပြီးအဖြစ် မှတ်ရန်</string>
     <string name="local_sync_nearby_title">တွဲချိတ်ထားသောစက် အနီးတွင် ရှိသည်။</string>
     <string name="local_sync_no_peer_found">အနီးရှိစက် မတွေ့သေးပါ။ အခြားစက်တွင် ပို့ရန်ကို ဖွင့်ပါ။</string>
@@ -1198,7 +1198,7 @@
     <!-- EXC-11 Temporal Ask My Archive -->
     <string name="archive_query_title">ကျွန်ုပ်၏မော်ကွန်းကို မေးရန်</string>
     <string name="archive_query_desc">ခေါင်းစဉ်တစ်ခုအကြောင်း မေးပြီး သင့်သိမ်းထားသော ဆောင်းပါးများက လအလိုက် မည်သို့ဖော်ပြခဲ့သည်ကို ကြည့်ပါ။</string>
-    <string name="archive_query_question_label">Question</string>
+    <string name="archive_query_question_label">မေးခွန်း</string>
     <string name="archive_query_question_hint">ဥပမာ - မတ်လမှစ၍ အတိုးနှုန်းများ</string>
     <string name="archive_query_search">မော်ကွန်း ရှာရန်</string>
     <string name="archive_query_start_date">စတင်ရက် (YYYY-MM-DD)</string>
@@ -1237,7 +1237,7 @@
     <string name="feed_autopilot_summary_clean">သင့်ဖိဒ်များ သပ်ရပ်နေသည်။ ဆူညံသောဖိဒ် မတွေ့ပါ။</string>
     <string name="feed_autopilot_reason_opened">%2$d ခုတွင် %1$d ခု ဖွင့်ထားသည် (နောက်ဆုံး %3$d ရက်ကာလ၊ ပါဝင်မှု %4$d%%)</string>
     <string name="feed_autopilot_reason_zero">နောက်ဆုံး %2$d ရက်ကာလတွင် %1$d ခုအနက် ဆောင်းပါးတစ်ခုမျှ မဖွင့်ပါ</string>
-    <string name="feed_autopilot_action_unsubscribe">Unsubscribe</string>
+    <string name="feed_autopilot_action_unsubscribe">စာရင်းမှထွက်ရန်</string>
     <string name="feed_autopilot_action_snooze">၃၀ ရက် ရွှေ့ဆိုင်းရန်</string>
     <string name="feed_autopilot_action_keep">ဆက်ထားပြီး အကြံမပြုတော့ရန်</string>
     <string name="feed_autopilot_confirm_title">%1$s မှ စာရင်းပယ်ဖျက်မလား။</string>
@@ -1252,14 +1252,14 @@
     <string name="podcast_studio_menu">ပေါ့ဒ်ကာစ် စတူဒီယို</string>
     <string name="podcast_studio_consent_title">AI ဖြင့် ဇာတ်ညွှန်း ရေးမလား။</string>
     <string name="podcast_studio_consent_message">ဤဆောင်းပါး၏ ခေါင်းစဉ်နှင့် အတိုချုပ်အစမ်းကြည့်ချက် (စာလုံး ၂၅၀ အောက်) ကိုသာ အစီအစဉ်ဆောင်နှစ်ဦးပါ ဇာတ်ညွှန်းရေးရန် Google Gemini သို့ ပို့သည်။ ဆောင်းပါးစာသား၊ လင့်ခ်များနှင့် သင့်စာဖတ်မှတ်တမ်းကို မည်သည့်အခါမျှ မပို့ပါ။</string>
-    <string name="podcast_studio_consent_agree">Use AI</string>
+    <string name="podcast_studio_consent_agree">AI သုံးမည်</string>
     <string name="podcast_studio_consent_decline">အော့ဖ်လိုင်းဇာတ်ညွှန်း သုံးရန်</string>
     <string name="podcast_studio_conflict_title">ဖွင့်နေသည်ကို ရပ်မလား။</string>
     <string name="podcast_studio_conflict_message">ဤဆောင်းပါးကို ပေါ့ဒ်ကာစ်အဖြစ် ဖွင့်ပါက လက်ရှိဖွင့်နေသော အသံကို ရပ်မည်။</string>
     <string name="podcast_studio_badge_source_gemini">AI ရေးသော ဇာတ်ညွှန်း</string>
     <string name="podcast_studio_badge_source_heuristic">အော့ဖ်လိုင်းဇာတ်ညွှန်း၊ AI မပါ</string>
-    <string name="podcast_studio_play">Play</string>
-    <string name="podcast_studio_pause">Pause</string>
+    <string name="podcast_studio_play">ဖွင့်ရန်</string>
+    <string name="podcast_studio_pause">ခဏရပ်ရန်</string>
     <string name="podcast_studio_next">နောက်စာကြောင်း</string>
     <string name="podcast_studio_previous">ယခင်စာကြောင်း</string>
     <string name="podcast_studio_host_alex">Alex</string>
@@ -1269,7 +1269,7 @@
     <string name="deep_dive_menu">🔬 AI အနက်စူးစမ်းမှု</string>
     <string name="deep_dive_title">AI အနက်စူးစမ်းမှု</string>
     <string name="deep_dive_consent_message">ဤအစီရင်ခံစာရေးရန် ဆောင်းပါး၏ ခေါင်းစဉ်နှင့် စာသား စာလုံး ၆,၀၀၀ အထိကို Google Gemini သို့ ပို့သည်။ လင့်ခ်များ၊ ဖိဒ်အမည်နှင့် သင့်စာဖတ်မှတ်တမ်းကို မည်သည့်အခါမျှ မပို့ပါ။ Gemini သည် ဝဘ်ပေါ်တွင် မရှာပါ။</string>
-    <string name="deep_dive_consent_agree">Agree</string>
+    <string name="deep_dive_consent_agree">သဘောတူသည်</string>
     <string name="deep_dive_consent_later">ယခု မလုပ်ပါ</string>
     <string name="deep_dive_declined_message">AI အနက်စူးစမ်းမှု ပိတ်ထားသည်။ အစီရင်ခံစာရေးရန် ဆက်တင်၊ ကိုယ်ရေးကိုယ်တာတွင် ဖွင့်ပါ။</string>
     <string name="deep_dive_open_privacy">ကိုယ်ရေးကိုယ်တာ ဆက်တင်ဖွင့်ရန်</string>
@@ -1279,30 +1279,30 @@
     <string name="deep_dive_nothing_to_analyze">ဤဆောင်းပါးတွင် ခွဲခြမ်းစိတ်ဖြာရန် ခေါင်းစဉ် သို့မဟုတ် စာသား မရှိပါ။</string>
     <string name="deep_dive_retry">ထပ်ကြိုးစားရန်</string>
     <string name="deep_dive_label">ခေါင်းစဉ်နှင့် ကောက်နုတ်ချက်မှ AI ရေးထားသည်၊ ဝဘ်ရှာဖွေမှု မပါ၊ မှားနိုင်သည်</string>
-    <string name="deep_dive_section_context">Context</string>
+    <string name="deep_dive_section_context">နောက်ခံအကြောင်းအရာ</string>
     <string name="deep_dive_section_critical">ဆန့်ကျင်သောအမြင်များ</string>
     <string name="deep_dive_section_impact">သက်ရောက်မှု ဇယား</string>
-    <string name="deep_dive_col_area">Area</string>
+    <string name="deep_dive_col_area">နယ်ပယ်</string>
     <string name="deep_dive_col_short">ရေတို</string>
     <string name="deep_dive_col_long">ရေရှည်</string>
     <string name="deep_dive_export_pdf">PDF ထုတ်ယူရန်</string>
     <string name="deep_dive_chooser_title">အနက်စူးစမ်းမှု PDF မျှဝေရန်</string>
     <string name="deep_dive_export_error">PDF ကို မဖန်တီးနိုင်ပါ</string>
     <string name="deep_dive_pdf_truncated">စာမျက်နှာတစ်ခုတည်း ဆန့်စေရန် ဖြတ်တောက်ထားသည်။ အစီရင်ခံစာအပြည့်အစုံကို အက်ပ်တွင် ကြည့်ပါ။</string>
-    <string name="deep_dive_close">Close</string>
-    <string name="oracle_badge_label">Prediction</string>
+    <string name="deep_dive_close">ပိတ်ရန်</string>
+    <string name="oracle_badge_label">ခန့်မှန်းချက်</string>
     <string name="oracle_badge_open">ခန့်မှန်းချက်ကို ဖွင့်ရန်</string>
     <string name="oracle_sheet_title">ဤဆောင်းပါးတွင် တွေ့ရှိသော ခန့်မှန်းချက်</string>
     <string name="oracle_sheet_expires">Expected by %1$s</string>
     <string name="oracle_sheet_criteria_heading">အဖြေကို စစ်ဆေးပုံ</string>
     <string name="oracle_sheet_ai_label">ခေါင်းစဉ်နှင့် ဖော်ပြချက်မှ AI ရေးထားသည်၊ မှားနိုင်သည်။</string>
-    <string name="oracle_sheet_close">Close</string>
+    <string name="oracle_sheet_close">ပိတ်ရန်</string>
     <string name="oracle_consent_title">ဆောင်းပါးသစ်များတွင် ခန့်မှန်းချက်ရှာရန်</string>
     <string name="oracle_consent_message">ထပ်တူပြုပြီးတိုင်း ဆောင်းပါးသစ် ၅ ခုအထိ၏ ခေါင်းစဉ်နှင့် ဖော်ပြချက်တို (စုစုပေါင်း စာလုံး ၅၀၀ အထိ) ကို ခန့်မှန်းချက်ရှာရန် Google Gemini သို့ ပို့သည်။ ဆောင်းပါးစာသား၊ လင့်ခ်များ၊ ဖိဒ်အမည်နှင့် သင့်စာဖတ်မှတ်တမ်းကို မည်သည့်အခါမျှ မပို့ပါ။ မူလအားဖြင့် ပိတ်ထားသည်။</string>
     <string name="oracle_bet_balance">လက်ကျန်- %1$s မှတ်</string>
     <string name="oracle_bet_pick_side">သင့်ရွေးချယ်မှု</string>
-    <string name="oracle_bet_yes">Yes</string>
-    <string name="oracle_bet_no">No</string>
+    <string name="oracle_bet_yes">ဟုတ်ကဲ့</string>
+    <string name="oracle_bet_no">မဟုတ်ပါ</string>
     <string name="oracle_bet_pick_stake">ထိုးမည့်မှတ်များ</string>
     <string name="oracle_bet_stake_option">%1$s points</string>
     <string name="oracle_bet_place">လောင်းကြေးထိုးရန်</string>
@@ -1311,7 +1311,7 @@
     <string name="oracle_bet_open">သင် %2$s ပေါ်တွင် %1$s မှတ် ထိုးထားသည်။</string>
     <string name="oracle_bet_open_hint">အထက်ပါရက်စွဲပြီးနောက် ရလဒ်ကို အစီရင်ခံနိုင်သည်။</string>
     <string name="oracle_bet_awaiting_title">ရလဒ်က ဘာဖြစ်သနည်း။</string>
-    <string name="oracle_bet_outcome_unclear">Unclear</string>
+    <string name="oracle_bet_outcome_unclear">မရှင်းလင်း</string>
     <string name="oracle_bet_awaiting_hint">သင် %2$s ပေါ်တွင် %1$s မှတ် ထိုးထားသည်။ မရှင်းလင်းပါက သင့်မှတ်များ ပြန်ရမည်။</string>
     <string name="oracle_bet_settled_won">သင် %1$s မှတ် နိုင်သည်။</string>
     <string name="oracle_bet_settled_lost">သင် %1$s မှတ် ရှုံးသည်။</string>
@@ -1334,7 +1334,7 @@
     <string name="commute_autoplay_title">ဘလူးတုသ်နားကြပ် ချိတ်ဆက်သည့်အခါ ဖွင့်ရန်</string>
     <string name="commute_autoplay_desc">အဆင်သင့်ဖြစ်ပြီး ၂ နာရီအတွင်း နံနက်အစီအစဉ်ကို တစ်နေ့တစ်ကြိမ် စတင်ရန် ကြိုးစားသည်။ Android က ပိတ်ပါက ဖွင့်ရန်ခလုတ်ပါသော အကြောင်းကြားချက် ရမည်။</string>
     <string name="commute_autoplay_permission_denied">အနီးရှိစက်များ ခွင့်ပြုချက်မရှိလျှင် အက်ပ်က သင့်နားကြပ်ကို မမြင်နိုင်သဖြင့် ၎င်းကို ပိတ်ထားမည်။</string>
-    <string name="commute_play_action">Play</string>
+    <string name="commute_play_action">ဖွင့်ရန်</string>
     <string name="commute_ready_to_play_title">သင့်နံနက်အစီအစဉ် အဆင်သင့်ဖြစ်ပါပြီ</string>
     <string name="commute_ready_to_play_body">သင့်နားကြပ် ချိတ်ဆက်ထားသည်။ နားထောင်ရန် ဖွင့်ရန်ကို ထိပါ။</string>
 </resources>

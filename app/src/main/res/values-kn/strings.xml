@@ -101,8 +101,8 @@
     <string name="try_again">ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ</string>
     <string name="change_language">ಭಾಷೆ ಬದಲಿಸಿ</string>
     <string name="change_language_confirm">ಹೊಸ ಭಾಷೆಯನ್ನು ಅನ್ವಯಿಸಲು ಆ್ಯಪ್ ಮರುಪ್ರಾರಂಭವಾಗುತ್ತದೆ. ಮುಂದುವರಿಸಬೇಕೇ?</string>
-    <string name="yes">Yes</string>
-    <string name="no">No</string>
+    <string name="yes">ಹೌದು</string>
+    <string name="no">ಇಲ್ಲ</string>
     <string name="restarting_app">ಆ್ಯಪ್ ಮರುಪ್ರಾರಂಭವಾಗುತ್ತಿದೆ…</string>
     <string name="auto_tts">ಟೆಕ್ಸ್ಟ್-ಟು-ಸ್ಪೀಚ್ ತಾನಾಗಿ ಪ್ಲೇ ಮಾಡಿ</string>
     <string name="auto_tts_desc">ಲೇಖನ ತೆರೆದಾಗ ತಾನಾಗಿ ಗಟ್ಟಿಯಾಗಿ ಓದಿಸಿ</string>
@@ -122,17 +122,17 @@
     <string name="one_day">1d</string>
     <string name="three_days">3d</string>
     <string name="seven_days">7d</string>
-    <string name="close">Close</string>
+    <string name="close">ಮುಚ್ಚಿ</string>
     <string name="get_new_updates">ಹೊಸ ಅಪ್‌ಡೇಟ್ ಪಡೆಯಿರಿ</string>
     <string name="get_new_updates_desc">ಹೊಸ ಆವೃತ್ತಿ %1$s ಲಭ್ಯವಿದೆ</string>
     <string name="coming_soon">ಶೀಘ್ರದಲ್ಲೇ ಬರಲಿದೆ</string>
-    <string name="accounts">Accounts</string>
+    <string name="accounts">ಖಾತೆಗಳು</string>
     <string name="accounts_desc">ಸ್ಥಳೀಯ, FreshRSS</string>
     <string name="color_and_style">ಬಣ್ಣ &amp; ಶೈಲಿ</string>
     <string name="color_and_style_desc">ಥೀಮ್, ಬಣ್ಣದ ಶೈಲಿ, ಫಾಂಟ್ ಗಾತ್ರ</string>
-    <string name="interaction">Interaction</string>
+    <string name="interaction">ಸಂವಹನ</string>
     <string name="interaction_desc">ಆರಂಭಿಕ ಪುಟ, ಹ್ಯಾಪ್ಟಿಕ್ ಪ್ರತಿಕ್ರಿಯೆ</string>
-    <string name="languages">Languages</string>
+    <string name="languages">ಭಾಷೆಗಳು</string>
     <string name="languages_desc">ಇಂಗ್ಲಿಷ್, ಚೈನೀಸ್, ಇನ್ನಷ್ಟು</string>
     <string name="translatable_url" translatable="false">https://hosted.weblate.org/projects/readyou/</string>
     <string name="use_device_languages">ಸಾಧನದ ಭಾಷೆ ಬಳಸಿ</string>
@@ -175,7 +175,7 @@
     <string name="malayalam" translatable="false">മലയാളം</string>
     <string name="burmese" translatable="false">မြန်မာ</string>
     <string name="tips_and_support">ಸಲಹೆ &amp; ಬೆಂಬಲ</string>
-    <string name="welcome">Welcome</string>
+    <string name="welcome">ಸ್ವಾಗತ</string>
     <string name="tos_tips">ಮುಂದುವರಿಯಲು RSS Bear Hub ನ ಸೇವಾ ನಿಯಮಗಳು ಮತ್ತು ಗೌಪ್ಯತಾ ನೀತಿಯನ್ನು ಓದಿ ಒಪ್ಪಿಕೊಳ್ಳಿ.</string>
     <string name="browse_tos_tips">Browse the &lt;i&gt;&lt;u&gt;Terms of Service and Privacy Policy&lt;/u&gt;&lt;/i&gt;
         </string>
@@ -290,20 +290,20 @@
     
             &lt;/p&gt;
         </string>
-    <string name="agree">Agree</string>
+    <string name="agree">ಒಪ್ಪುತ್ತೇನೆ</string>
     <string name="wallpaper_colors">ವಾಲ್‌ಪೇಪರ್ ಬಣ್ಣಗಳು</string>
-    <string name="no_palettes">No Palettes</string>
+    <string name="no_palettes">ಪ್ಯಾಲೆಟ್‌ಗಳಿಲ್ಲ</string>
     <string name="only_android_8.1_plus">Android 8.1+ ಮಾತ್ರ</string>
     <string name="basic_colors">ಮೂಲ ಬಣ್ಣಗಳು</string>
     <string name="primary_color">ಪ್ರಾಥಮಿಕ ಬಣ್ಣ</string>
-    <string name="primary_color_hint">Like #666666 or 666666</string>
-    <string name="appearance">Appearance</string>
-    <string name="style">Style</string>
+    <string name="primary_color_hint">ಉದಾ. #666666 ಅಥವಾ 666666</string>
+    <string name="appearance">ಗೋಚರತೆ</string>
+    <string name="style">ಶೈಲಿ</string>
     <string name="dark_theme">ಡಾರ್ಕ್ ಥೀಮ್</string>
     <string name="use_device_theme">ಸಾಧನದ ಥೀಮ್ ಬಳಸಿ</string>
-    <string name="on">On</string>
-    <string name="off">Off</string>
-    <string name="other">Other</string>
+    <string name="on">ಆನ್</string>
+    <string name="off">ಆಫ್</string>
+    <string name="other">ಇತರೆ</string>
     <string name="amoled_dark_theme">AMOLED ಡಾರ್ಕ್ ಥೀಮ್</string>
     <string name="tonal_elevation">ಟೋನಲ್ ಎತ್ತರ</string>
     <string name="reading_fonts">ಓದುವ ಫಾಂಟ್‌ಗಳು</string>
@@ -311,21 +311,21 @@
     <string name="feeds_page">ಫೀಡ್‌ಗಳ ಪುಟ</string>
     <string name="flow_page">ಫ್ಲೋ ಪುಟ</string>
     <string name="reading_page">ಓದುವ ಪುಟ</string>
-    <string name="sponsor">Sponsor</string>
+    <string name="sponsor">ಬೆಂಬಲಿಸಿ</string>
     <string name="open_source_licenses">ಓಪನ್ ಸೋರ್ಸ್ ಪರವಾನಗಿಗಳು</string>
     <string name="github_link" translatable="false">https://github.com/Ashinch/ReadYou</string>
     <string name="telegram_link" translatable="false">https://t.me/ReadYouApp</string>
     <string name="update_link">https://api.github.com/repos/Ashinch/ReadYou/releases/latest</string>
-    <string name="change_log">Changelog</string>
-    <string name="update">Update</string>
+    <string name="change_log">ಬದಲಾವಣೆಗಳು</string>
+    <string name="update">ಅಪ್‌ಡೇಟ್</string>
     <string name="skip_this_version">ಈ ಆವೃತ್ತಿಯನ್ನು ಬಿಟ್ಟುಬಿಡಿ</string>
     <string name="checking_updates">ಅಪ್‌ಡೇಟ್‌ಗಳನ್ನು ಪರಿಶೀಲಿಸಲಾಗುತ್ತಿದೆ…</string>
     <string name="is_latest_version">ಇದು ಆ್ಯಪ್‌ನ ಇತ್ತೀಚಿನ ಆವೃತ್ತಿ</string>
     <string name="check_failure">ಅಪ್‌ಡೇಟ್ ಪರಿಶೀಲಿಸಲು ಆಗಲಿಲ್ಲ</string>
     <string name="download_failure">ಅಪ್‌ಡೇಟ್ ಡೌನ್‌ಲೋಡ್ ಮಾಡಲು ಆಗಲಿಲ್ಲ</string>
     <string name="rate_limit">ವಿನಂತಿ ದರಕ್ಕೆ ಮಿತಿ ಇದೆ</string>
-    <string name="help">Help</string>
-    <string name="on_start">On Start</string>
+    <string name="help">ಸಹಾಯ</string>
+    <string name="on_start">ಪ್ರಾರಂಭದಲ್ಲಿ</string>
     <string name="initial_page">ಆರಂಭಿಕ ಪುಟ</string>
     <string name="initial_filter">ಆರಂಭಿಕ ಫಿಲ್ಟರ್</string>
     <string name="preview_article_title">"Lord of the Mysteries" ಕಾದಂಬರಿ ಕೊನೆಗೂ ಮುಕ್ತಾಯವಾಯಿತು</string>
@@ -333,7 +333,7 @@
             written by Cuttlefish That Loves Diving.
         </string>
     <string name="preview_feed_name">Reddit</string>
-    <string name="value">value</string>
+    <string name="value">ಮೌಲ್ಯ</string>
     <string name="horizontal_padding">ಅಡ್ಡ ಪ್ಯಾಡಿಂಗ್</string>
     <string name="article_date">ಲೇಖನ ಪ್ರಕಟಣೆ ಸಮಯ</string>
     <string name="article_desc">ಲೇಖನ ವಿವರಣೆಗಳು</string>
@@ -344,46 +344,46 @@
     <string name="article_list">ಲೇಖನ ಪಟ್ಟಿ</string>
     <string name="group_list">ಗುಂಪು ಪಟ್ಟಿ</string>
     <string name="always_expand">ಯಾವಾಗಲೂ ವಿಸ್ತರಿಸಿ</string>
-    <string name="top">Top</string>
+    <string name="top">ಮೇಲೆ</string>
     <string name="mark_as_read_button_position">\"ಓದಿದೆ ಎಂದು ಗುರುತಿಸಿ\" ಬಟನ್ ಸ್ಥಾನ</string>
     <string name="top_bar">ಮೇಲಿನ ಬಾರ್</string>
     <string name="fill_selected_icon">ಪ್ರಸ್ತುತ ಫಿಲ್ಟರ್ ಐಕಾನ್ ತುಂಬಿಸಿ</string>
     <string name="filter_bar">ಫಿಲ್ಟರ್ ಬಾರ್</string>
-    <string name="icons">Icons</string>
+    <string name="icons">ಐಕಾನ್‌ಗಳು</string>
     <string name="icons_and_labels">ಐಕಾನ್‌ಗಳು ಮತ್ತು ಲೇಬಲ್‌ಗಳು</string>
     <string name="icons_and_label_only_selected">ಐಕಾನ್‌ಗಳು ಮತ್ತು ಲೇಬಲ್ (ಸಕ್ರಿಯವಾದದ್ದು ಮಾತ್ರ)</string>
     <string name="tips_article_list_tonal_elevation">ಲೇಖನ ಪಟ್ಟಿಯ ಟೋನಲ್ ಎತ್ತರ ಲೈಟ್ ಥೀಮ್‌ನಲ್ಲಿ ಮಾತ್ರ ಲಭ್ಯ</string>
     <string name="tips_group_list_tonal_elevation">ಗುಂಪು ಪಟ್ಟಿಯ ಟೋನಲ್ ಎತ್ತರ ಲೈಟ್ ಥೀಮ್‌ನಲ್ಲಿ ಮಾತ್ರ ಲಭ್ಯ</string>
-    <string name="share">Share</string>
+    <string name="share">ಹಂಚಿಕೊಳ್ಳಿ</string>
     <string name="touch_to_play_video">ವೀಡಿಯೊ ಪ್ಲೇ ಮಾಡಲು ಟ್ಯಾಪ್ ಮಾಡಿ</string>
-    <string name="text">Text</string>
+    <string name="text">ಪಠ್ಯ</string>
     <string name="font_size">ಫಾಂಟ್ ಗಾತ್ರ</string>
     <string name="letter_spacing">ಅಕ್ಷರ ಅಂತರ</string>
-    <string name="alignment">Alignment</string>
-    <string name="general">General</string>
+    <string name="alignment">ಜೋಡಣೆ</string>
+    <string name="general">ಸಾಮಾನ್ಯ</string>
     <string name="auto_hide_toolbars">ಟೂಲ್‌ಬಾರ್ ತಾನಾಗಿ ಮರೆಮಾಡಿ</string>
     <string name="rearrange_buttons">ಬಟನ್‌ಗಳನ್ನು ಮರುಜೋಡಿಸಿ</string>
     <string name="bionic_reading">ಬಯೋನಿಕ್ ರೀಡಿಂಗ್</string>
-    <string name="images">Images</string>
+    <string name="images">ಚಿತ್ರಗಳು</string>
     <string name="rounded_corners">ದುಂಡಗಿನ ಮೂಲೆಗಳು</string>
-    <string name="videos">Videos</string>
+    <string name="videos">ವೀಡಿಯೊಗಳು</string>
     <string name="align_left">ಎಡಕ್ಕೆ ಜೋಡಿಸಿ</string>
     <string name="align_right">ಬಲಕ್ಕೆ ಜೋಡಿಸಿ</string>
     <string name="center_text">ಪಠ್ಯ ಕೇಂದ್ರೀಕರಿಸಿ</string>
-    <string name="justify">Justify</string>
+    <string name="justify">ಜಸ್ಟಿಫೈ</string>
     <string name="external_fonts">ಬಾಹ್ಯ ಫಾಂಟ್‌ಗಳು</string>
-    <string name="title">Title</string>
-    <string name="bold">Bold</string>
+    <string name="title">ಶೀರ್ಷಿಕೆ</string>
+    <string name="bold">ಬೋಲ್ಡ್</string>
     <string name="upper_case">ದೊಡ್ಡ ಅಕ್ಷರ</string>
-    <string name="subhead">Subhead</string>
+    <string name="subhead">ಉಪಶೀರ್ಷಿಕೆ</string>
     <string name="use_app_theme">ಆ್ಯಪ್ ಥೀಮ್ ಬಳಸಿ</string>
-    <string name="advanced">Advanced</string>
+    <string name="advanced">ಸುಧಾರಿತ</string>
     <string name="dark_reading_theme">ಡಾರ್ಕ್ ಓದುವ ಥೀಮ್</string>
     <string name="title_desc">ದಪ್ಪ, ದೊಡ್ಡ ಅಕ್ಷರ, ಜೋಡಣೆ</string>
     <string name="text_desc">ಫಾಂಟ್ ಗಾತ್ರ, ಅಕ್ಷರ ಅಂತರ, ಜೋಡಣೆ</string>
     <string name="images_desc">ದುಂಡಗಿನ ಮೂಲೆಗಳು, ಅಡ್ಡ ಪ್ಯಾಡಿಂಗ್</string>
     <string name="videos_desc">ದುಂಡಗಿನ ಮೂಲೆಗಳು, ಅಡ್ಡ ಪ್ಯಾಡಿಂಗ್</string>
-    <string name="maximize">Maximize</string>
+    <string name="maximize">ಹಿಗ್ಗಿಸಿ</string>
     <string name="every_15_minutes">ಪ್ರತಿ 15 ನಿಮಿಷಕ್ಕೆ</string>
     <string name="every_30_minutes">ಪ್ರತಿ 30 ನಿಮಿಷಕ್ಕೆ</string>
     <string name="every_1_hour">ಪ್ರತಿ ಗಂಟೆಗೆ</string>
@@ -392,35 +392,35 @@
     <string name="every_6_hours">ಪ್ರತಿ 6 ಗಂಟೆಗೆ</string>
     <string name="every_12_hours">ಪ್ರತಿ 12 ಗಂಟೆಗೆ</string>
     <string name="every_1_day">ಪ್ರತಿ ದಿನ</string>
-    <string name="manually">Manually</string>
-    <string name="always">Always</string>
-    <string name="for_1_day">1 day</string>
-    <string name="for_2_days">2 days</string>
-    <string name="for_3_days">3 days</string>
-    <string name="for_1_week">1 week</string>
-    <string name="for_2_weeks">2 weeks</string>
-    <string name="for_1_month">1 month</string>
-    <string name="local">Local</string>
+    <string name="manually">ಕೈಯಾರೆ</string>
+    <string name="always">ಯಾವಾಗಲೂ</string>
+    <string name="for_1_day">1 ದಿನ</string>
+    <string name="for_2_days">2 ದಿನಗಳು</string>
+    <string name="for_3_days">3 ದಿನಗಳು</string>
+    <string name="for_1_week">1 ವಾರ</string>
+    <string name="for_2_weeks">2 ವಾರಗಳು</string>
+    <string name="for_1_month">1 ತಿಂಗಳು</string>
+    <string name="local">ಸ್ಥಳೀಯ</string>
     <string name="fever" translatable="false">Fever</string>
     <string name="google_reader" translatable="false">Google Reader</string>
     <string name="fresh_rss" translatable="false">FreshRSS</string>
     <string name="feedly" translatable="false">Feedly</string>
     <string name="inoreader" translatable="false">Inoreader</string>
     <string name="local_desc">ಈ ಸಾಧನದಲ್ಲಿ</string>
-    <string name="services">Services</string>
+    <string name="services">ಸೇವೆಗಳು</string>
     <string name="feedly_desc" translatable="false">feedly.com</string>
     <string name="inoreader_desc" translatable="false">inoreader.com</string>
     <string name="self_hosted">ಸ್ವಯಂ-ಹೋಸ್ಟ್</string>
     <string name="fresh_rss_desc" translatable="false">freshrss.org</string>
     <string name="google_reader_desc" translatable="false">Google Reader API</string>
     <string name="fever_desc">ಬಳಕೆಯಲ್ಲಿಲ್ಲ. ಶಿಫಾರಸು ಮಾಡುವುದಿಲ್ಲ.</string>
-    <string name="more">More</string>
+    <string name="more">ಇನ್ನಷ್ಟು</string>
     <string name="add_accounts">ಖಾತೆಗಳನ್ನು ಸೇರಿಸಿ</string>
-    <string name="list">List</string>
+    <string name="list">ಪಟ್ಟಿ</string>
     <string name="add_accounts_desc">ಸ್ಥಳೀಯ, ಸೇವೆಗಳು, ಸ್ವಯಂ-ಹೋಸ್ಟ್</string>
-    <string name="display">Display</string>
-    <string name="synchronous">Syncing</string>
-    <string name="sync_interval">Sync</string>
+    <string name="display">ಪ್ರದರ್ಶನ</string>
+    <string name="synchronous">ಸಿಂಕ್ ಆಗುತ್ತಿದೆ</string>
+    <string name="sync_interval">ಸಿಂಕ್</string>
     <string name="sync_once_on_start">ಆರಂಭದಲ್ಲಿ ಒಮ್ಮೆ ಸಿಂಕ್ ಮಾಡಿ</string>
     <string name="only_on_wifi">Only on Wi-Fi</string>
     <string name="only_when_charging">ಚಾರ್ಜ್ ಆಗುತ್ತಿರುವಾಗ ಮಾತ್ರ</string>
@@ -435,16 +435,16 @@
     <string name="clear_all_articles_toast">ಲೇಖನ ಪಟ್ಟಿ ತೆರವುಗೊಂಡಿದೆ</string>
     <string name="delete_account_toast">ಖಾತೆ ಅಳಿಸಲಾಗಿದೆ</string>
     <string name="synchronous_tips">ಬದಲಾವಣೆ ಜಾರಿಗೆ ಬರಲು ಮರುಪ್ರಾರಂಭ ಅಗತ್ಯ</string>
-    <string name="switch_account">Switch</string>
-    <string name="add">Add</string>
+    <string name="switch_account">ಬದಲಿಸಿ</string>
+    <string name="add">ಸೇರಿಸಿ</string>
     <string name="accounts_tips">ಫೀಡ್ ಪುಟದಲ್ಲಿ ಖಾತೆ ಹೆಸರನ್ನು ಟ್ಯಾಪ್ ಮಾಡಿ ಬದಲಿಸಬಹುದು</string>
     <string name="server_url">ಸರ್ವರ್ URL</string>
-    <string name="username">Username</string>
-    <string name="password">Password</string>
-    <string name="connection">Connection</string>
-    <string name="system_default">System</string>
+    <string name="username">ಬಳಕೆದಾರ ಹೆಸರು</string>
+    <string name="password">ಪಾಸ್‌ವರ್ಡ್</string>
+    <string name="connection">ಸಂಪರ್ಕ</string>
+    <string name="system_default">ಸಿಸ್ಟಮ್</string>
     <string name="initial_open_app">ಲಿಂಕ್ ಟ್ಯಾಪ್ ಮಾಡಿದಾಗ ತೆರೆಯುವ ಆ್ಯಪ್</string>
-    <string name="open_link_specific_browser_not_selected">None</string>
+    <string name="open_link_specific_browser_not_selected">ಯಾವುದೂ ಇಲ್ಲ</string>
     <string name="auto_customtabs">ಸ್ವಯಂ (CustomTabs ಆದ್ಯತೆ)</string>
     <string name="auto_default_browser">ಸ್ವಯಂ (ಡೀಫಾಲ್ಟ್ ಬ್ರೌಸರ್ ಆದ್ಯತೆ)</string>
     <string name="custom_tabs">CustomTabs ಒತ್ತಾಯಿಸಿ</string>
@@ -452,12 +452,12 @@
     <string name="specific_browser_name">Browser: %1$s</string>
     <string name="default_browser">ಡೀಫಾಲ್ಟ್ ಬ್ರೌಸರ್ ಒತ್ತಾಯಿಸಿ</string>
     <string name="always_ask">ಯಾವಾಗಲೂ ಕೇಳಿ</string>
-    <string name="open_link_specific_browser">Browser</string>
+    <string name="open_link_specific_browser">ಬ್ರೌಸರ್</string>
     <string name="open_link_something_wrong">ಏನೋ ತಪ್ಪಾದ ಕಾರಣ \"ಲಿಂಕ್ ತೆರೆಯಿರಿ\" ಸೆಟ್ಟಿಂಗ್ ಅನ್ನು ನಿರ್ಲಕ್ಷಿಸಲಾಗಿದೆ.</string>
-    <string name="in_coding">In development</string>
+    <string name="in_coding">ಅಭಿವೃದ್ಧಿಯಲ್ಲಿದೆ</string>
     <string name="tips_top_bar_tonal_elevation">ಟೋನಲ್ ಎತ್ತರ ಸ್ಕ್ರಾಲ್ ಮಾಡುವಾಗ ಮಾತ್ರ ಲಭ್ಯ</string>
     <string name="summary_title">AI ಯಿಂದ ಸಾರಾಂಶ ಮಾಡಿ</string>
-    <string name="summary_loading">Summarizing…</string>
+    <string name="summary_loading">ಸಾರಾಂಶ ಮಾಡಲಾಗುತ್ತಿದೆ…</string>
     <string name="summary_try_again">ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ</string>
     <string name="summary_get_key">ಉಚಿತ ಕೀ ಪಡೆಯಿರಿ</string>
     <string name="summary_err_empty_content">ಸಾರಾಂಶ ಮಾಡಲು ಲೇಖನದಲ್ಲಿ ವಿಷಯವಿಲ್ಲ</string>
@@ -479,7 +479,7 @@
     <string name="vip_remaining_short">%1$d ದಿನ %2$d ಗಂಟೆ ಬಾಕಿ</string>
     <string name="vip_redeem_label">VIP ಕೋಡ್ ನಮೂದಿಸಿ</string>
     <string name="vip_redeem_hint">ಉದಾ. ನಿಮ್ಮ VIP ಕೋಡ್</string>
-    <string name="vip_redeem_button">Activate</string>
+    <string name="vip_redeem_button">ಸಕ್ರಿಯಗೊಳಿಸಿ</string>
     <string name="vip_watch_ad_3d">ಜಾಹೀರಾತು ನೋಡಿ → 3 ದಿನ VIP</string>
     <string name="vip_buy_30d_locked">30 ದಿನದ VIP ಖರೀದಿಸಿ — ಶೀಘ್ರದಲ್ಲೇ</string>
     <string name="vip_buy_90d_locked">90 ದಿನದ VIP ಖರೀದಿಸಿ — ಶೀಘ್ರದಲ್ಲೇ</string>
@@ -491,9 +491,9 @@
     <string name="vip_revoke_all_confirm_message">VIP ರದ್ದುಗೊಳಿಸಿ ಉಚಿತ ಖಾತೆಗೆ ಮರಳಲು ಖಚಿತವೇ?</string>
     <string name="vip_entry_first_install">🎁 ಹೊಸ ಇನ್‌ಸ್ಟಾಲ್ ಉಡುಗೊರೆ</string>
     <string name="vip_entry_active">VIP ಸದಸ್ಯತ್ವ</string>
-    <string name="vip_success_title">Success</string>
+    <string name="vip_success_title">ಯಶಸ್ವಿ</string>
     <string name="vip_success_message">VIP %1$d ದಿನಗಳ ಕಾಲ ಸಕ್ರಿಯ.</string>
-    <string name="vip_failed_title">Failed</string>
+    <string name="vip_failed_title">ವಿಫಲವಾಗಿದೆ</string>
     <string name="ad_attribution_label" translatable="false">Ad Networks (AdMob / AppLovin MAX)</string>
     <string name="vip_failed_busy">ಹಿಂದಿನ ಕೋಡ್ ಇನ್ನೂ ಪರಿಶೀಲನೆಯಲ್ಲಿದೆ. ಸ್ವಲ್ಪ ಕಾಯಿರಿ ಮತ್ತು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.</string>
     <string name="vip_failed_no_network">ಕೋಡ್ ಸಕ್ರಿಯಗೊಳಿಸಲು ಇಂಟರ್ನೆಟ್ ಸಂಪರ್ಕ ಬೇಕು. ಸಂಪರ್ಕಿಸಿ ಮತ್ತು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.</string>
@@ -510,8 +510,8 @@
     <string name="commute_deepdive_unlocked">🎉 ಆಳ ವಿಶ್ಲೇಷಣೆ ಅನ್‌ಲಾಕ್ ಆಯಿತು!</string>
     <string name="commute_empty">ಬೆಳಗಿನ ರೇಡಿಯೋಗೆ ಓದದ ಲೇಖನಗಳಿಲ್ಲ</string>
     <string name="commute_generating">AI DJ ನಿಮ್ಮ ಕಾರ್ಯಕ್ರಮ ಸಿದ್ಧಪಡಿಸುತ್ತಿದ್ದಾರೆ...</string>
-    <string name="retry">Retry</string>
-    <string name="version">Version</string>
+    <string name="retry">ಮರುಪ್ರಯತ್ನಿಸಿ</string>
+    <string name="version">ಆವೃತ್ತಿ</string>
     <string name="rate_app">ಆ್ಯಪ್‌ಗೆ ರೇಟಿಂಗ್ ನೀಡಿ</string>
     <string name="rate_app_desc">ಈ ಆ್ಯಪ್ ಉಪಯುಕ್ತವೆನಿಸಿದರೆ 5 ಸ್ಟಾರ್ ರೇಟಿಂಗ್ ನೀಡಿ</string>
     <string name="more_apps">ಇನ್ನಷ್ಟು ಆ್ಯಪ್‌ಗಳನ್ನು ಪಡೆಯಿರಿ</string>
@@ -520,7 +520,7 @@
     <string name="share_app_desc">ಇತರರೂ ಬಳಸುವಂತೆ ಈ ಆ್ಯಪ್ ಅನ್ನು ಹಂಚಿಕೊಳ್ಳಿ</string>
     <string name="term_and_policy">ನಿಯಮ &amp; ನೀತಿ</string>
     <string name="term_and_policy_desc">ಭದ್ರತಾ ನಿಯಮಗಳು ಮತ್ತು ಗೌಪ್ಯತಾ ನೀತಿ ಓದಿ</string>
-    <string name="about_title">About</string>
+    <string name="about_title">ಕುರಿತು</string>
     <string name="about_desc">ಈ ಆ್ಯಪ್ ಬಗ್ಗೆ ತಿಳಿಯಿರಿ</string>
     <string name="source_code_original">ಸೋರ್ಸ್ ಕೋಡ್ (ಮೂಲ ಆವೃತ್ತಿ)</string>
     <string name="source_code_current">ಸೋರ್ಸ್ ಕೋಡ್ (ಈ ಆವೃತ್ತಿ)</string>
@@ -546,7 +546,7 @@
     <string name="quiz_ai_no_key">Gemini ಕೀ ಲಭ್ಯವಿಲ್ಲ, ಆದ್ದರಿಂದ AI ಪ್ರಶ್ನೆ ಬರೆಯಲಾಗಲಿಲ್ಲ.</string>
     <string name="quiz_ai_nothing_to_ask">ಈ ಲೇಖನದಲ್ಲಿ ಪ್ರಶ್ನೆ ಕೇಳಲು ಶೀರ್ಷಿಕೆ ಅಥವಾ ಪೂರ್ವವೀಕ್ಷಣೆ ಇಲ್ಲ.</string>
     <string name="quiz_ai_retry">ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ</string>
-    <string name="quiz_ai_consent_agree">Agree</string>
+    <string name="quiz_ai_consent_agree">ಒಪ್ಪುತ್ತೇನೆ</string>
     <string name="quiz_ai_consent_later">ಈಗ ಬೇಡ</string>
     <string name="quiz_ai_declined_message">AI ಕ್ವಿಜ್ ಪ್ರಶ್ನೆಗಳು ಆಫ್ ಆಗಿವೆ. ಇಲ್ಲಿ ಪ್ರಶ್ನೆ ಪಡೆಯಲು ಸೆಟ್ಟಿಂಗ್ಸ್, ಗೌಪ್ಯತೆಯಲ್ಲಿ ಆನ್ ಮಾಡಿ.</string>
     <string name="quiz_ai_open_privacy">ಗೌಪ್ಯತೆ ಸೆಟ್ಟಿಂಗ್ಸ್ ತೆರೆಯಿರಿ</string>
@@ -572,13 +572,13 @@
     <string name="brain_rpg_decay_notification_channel_desc">ದೈನಂದಿನ ವರ್ಗ ಕ್ಷೀಣತೆ ಸಾರಾಂಶ</string>
     <string name="brain_rpg_xp_retained">ಮೂಲ %1$d XP · %2$d%% ಉಳಿದಿದೆ</string>
     <string name="brain_rpg_streak_shield_success">ಸ್ಟ್ರೀಕ್ ಶೀಲ್ಡ್ ಸಕ್ರಿಯವಾಯಿತು!</string>
-    <string name="brain_rpg_streak_shield_protected">Protected</string>
+    <string name="brain_rpg_streak_shield_protected">ರಕ್ಷಿತ</string>
     <string name="brain_rpg_target_xp">Target: %1$d XP</string>
     <string name="brain_rpg_skill_tree_title">ಜ್ಞಾನ ಕೌಶಲ್ಯ ವೃಕ್ಷ</string>
     <string name="brain_rpg_stats_title">AI ಸವಾಲು ಅಂಕಿಅಂಶಗಳು</string>
-    <string name="brain_rpg_stats_attempted">Attempted</string>
-    <string name="brain_rpg_stats_passed">Correct</string>
-    <string name="brain_rpg_stats_accuracy">Accuracy</string>
+    <string name="brain_rpg_stats_attempted">ಪ್ರಯತ್ನಿಸಿದ್ದು</string>
+    <string name="brain_rpg_stats_passed">ಸರಿ</string>
+    <string name="brain_rpg_stats_accuracy">ನಿಖರತೆ</string>
     <string name="brain_rpg_wrapped_desc">"ನೀವು %1$d XP ಗಳಿಸಿದ್ದೀರಿ ಮತ್ತು %2$d ದಿನಗಳ ಓದುವ ಸ್ಟ್ರೀಕ್ ಉಳಿಸಿಕೊಂಡಿದ್ದೀರಿ! ಇತರರಿಗೆ ಸ್ಫೂರ್ತಿ ನೀಡಲು ನಿಮ್ಮ ಸಾಧನೆಯನ್ನು ಹಂಚಿಕೊಳ್ಳಿ."</string>
 
     <!-- Epic 08: Zen Focus & Speed Reading -->
@@ -600,7 +600,7 @@
     <string name="zen_evening_edition">Evening Edition (20:00)</string>
     <string name="zen_daily_edition_notification">%1$d ಓದದ ಲೇಖನಗಳು ನಿಮ್ಮ ಏಕಾಗ್ರ ಓದಿಗೆ ಸಿದ್ಧ.</string>
     <string name="zen_sleep_timer">ಸ್ಲೀಪ್ ಟೈಮರ್</string>
-    <string name="zen_sleep_timer_off">Continuous</string>
+    <string name="zen_sleep_timer_off">ನಿರಂತರ</string>
     <string name="zen_sleep_timer_min">%1$d minutes</string>
     <string name="zen_volume">Volume: %1$d%%</string>
     <string name="zen_settings_title">Zen ಫೋಕಸ್ &amp; ವೇಗದ ಓದು</string>
@@ -611,7 +611,7 @@
     <string name="highlights_bullet_count">%1$d ಪ್ರಮುಖ ಅಂಶಗಳು</string>
     <string name="highlights_copy_all">ಹೈಲೈಟ್‌ಗಳನ್ನು ನಕಲಿಸಿ</string>
     <string name="highlights_copied_toast">ಹೈಲೈಟ್‌ಗಳನ್ನು ಕ್ಲಿಪ್‌ಬೋರ್ಡ್‌ಗೆ ನಕಲಿಸಲಾಗಿದೆ</string>
-    <string name="highlights_share">Share</string>
+    <string name="highlights_share">ಹಂಚಿಕೊಳ್ಳಿ</string>
     <string name="highlights_tldr">Quick TL;DR</string>
     <string name="highlights_ai_badge">Gemini AI</string>
     <string name="highlights_fallback_badge">ಆಫ್‌ಲೈನ್ ಸ್ಮಾರ್ಟ್</string>
@@ -631,13 +631,13 @@
     <string name="deep_read_title">AI ಆಳ ಓದು</string>
     <string name="deep_read_subtitle">ಸಂವಾದಾತ್ಮಕ ಲೇಖನ ಚಾಟ್</string>
     <string name="deep_read_input_placeholder">ಈ ಲೇಖನದ ಬಗ್ಗೆ ಪ್ರಶ್ನೆ ಕೇಳಿ…</string>
-    <string name="deep_read_send">Send</string>
+    <string name="deep_read_send">ಕಳುಹಿಸಿ</string>
     <string name="deep_read_clear_chat">ಚಾಟ್ ತೆರವುಗೊಳಿಸಿ</string>
     <string name="deep_read_copied_toast">ಉತ್ತರವನ್ನು ಕ್ಲಿಪ್‌ಬೋರ್ಡ್‌ಗೆ ನಕಲಿಸಲಾಗಿದೆ</string>
     <string name="deep_read_welcome_message">ನಮಸ್ಕಾರ! ನಾನು ಈ ಲೇಖನವನ್ನು ವಿಶ್ಲೇಷಿಸಿದ್ದೇನೆ. ಯಾವುದೇ ಪ್ರಶ್ನೆ ಕೇಳಿ, ಸ್ಪಷ್ಟೀಕರಣ ಕೇಳಿ, ಅಥವಾ ಕೆಳಗಿನ ಸೂಚಿತ ವಿಷಯವನ್ನು ಟ್ಯಾಪ್ ಮಾಡಿ.</string>
-    <string name="deep_read_context_label">Discussing:</string>
+    <string name="deep_read_context_label">ಚರ್ಚೆ:</string>
     <string name="deep_read_thinking">AI ಲೇಖನವನ್ನು ವಿಶ್ಲೇಷಿಸುತ್ತಿದೆ…</string>
-    <string name="deep_read_grounded_badge">Grounded</string>
+    <string name="deep_read_grounded_badge">ಆಧಾರಿತ</string>
     <string name="deep_read_offline_badge">ಆಫ್‌ಲೈನ್ ಸ್ಮಾರ್ಟ್</string>
     <string name="deep_read_ai_badge">Gemini AI</string>
     <string name="deep_read_copy_transcript">ಸಂಭಾಷಣೆ ನಕಲಿಸಿ</string>
@@ -653,7 +653,7 @@
     <string name="story_cluster_all_perspectives">ಎಲ್ಲಾ ದೃಷ್ಟಿಕೋನಗಳು (%d)</string>
     <string name="story_cluster_mark_all_read">ಎಲ್ಲವನ್ನೂ ಓದಿದೆ ಎಂದು ಗುರುತಿಸಿ</string>
     <string name="story_cluster_sheet_title">ಬಹು-ದೃಷ್ಟಿಕೋನ ಕಥೆ ವರದಿ</string>
-    <string name="story_cluster_lead_badge">Lead</string>
+    <string name="story_cluster_lead_badge">ಪ್ರಮುಖ</string>
     <string name="semantic_search_title">AI ಅರ್ಥಾಧಾರಿತ ಹುಡುಕಾಟ</string>
     <string name="semantic_search_desc">ನಿಖರ ಕೀವರ್ಡ್ ಬದಲು ಪರಿಕಲ್ಪನೆ ಮತ್ತು ಅರ್ಥದ ಆಧಾರದ ಮೇಲೆ ಲೇಖನಗಳನ್ನು ಹುಡುಕಿ</string>
     <string name="semantic_match_badge">%d%% match</string>
@@ -662,7 +662,7 @@
     <string name="watchdog_title">ಕೀವರ್ಡ್ ವಾಚ್‌ಡಾಗ್</string>
     <string name="watchdog_desc">ಹಿನ್ನೆಲೆ ಸಿಂಕ್‌ನಲ್ಲಿ ಪ್ರಮುಖ ಕೀವರ್ಡ್‌ಗಳು &amp; ಷೇರು ಟಿಕರ್‌ಗಳನ್ನು ಗಮನಿಸಿ, ತಕ್ಷಣ ಎಚ್ಚರಿಸಿ</string>
     <string name="watchdog_add_hint">ಕೀವರ್ಡ್ ಅಥವಾ ಟಿಕರ್ ನಮೂದಿಸಿ (ಉದಾ. $VIC, Bitcoin, Gold)...</string>
-    <string name="watchdog_add_btn">Add</string>
+    <string name="watchdog_add_btn">ಸೇರಿಸಿ</string>
     <string name="watchdog_empty_desc">ಇನ್ನೂ ಕೀವರ್ಡ್ ಸೇರಿಸಿಲ್ಲ. ಗಮನಿಸಲು ಕೀವರ್ಡ್ ಸೇರಿಸಿ ಅಥವಾ ಕೆಳಗಿನ ಸಲಹೆಗಳನ್ನು ಆರಿಸಿ.</string>
     <string name="watchdog_matched_count">%d matched</string>
     <string name="watchdog_channel_name">ಕೀವರ್ಡ್ ಎಚ್ಚರಿಕೆ ವಾಚ್‌ಡಾಗ್</string>
@@ -684,12 +684,12 @@
     <string name="notebook_empty_subtitle">ನಿಮ್ಮ Second Brain ಜ್ಞಾನ ಸಂಘಟಿಸಲು ಓದುವಾಗ ಸ್ಫೂರ್ತಿದಾಯಕ ಉಲ್ಲೇಖಗಳನ್ನು ಹೈಲೈಟ್ ಮಾಡಿ.</string>
     <string name="notebook_empty_search">ಹೊಂದುವ ಹೈಲೈಟ್‌ಗಳು ಸಿಗಲಿಲ್ಲ</string>
 
-    <string name="notebook_save">Save</string>
-    <string name="notebook_copy">Copy</string>
-    <string name="notebook_edit">Edit</string>
+    <string name="notebook_save">ಉಳಿಸಿ</string>
+    <string name="notebook_copy">ನಕಲಿಸಿ</string>
+    <string name="notebook_edit">ಸಂಪಾದಿಸಿ</string>
     <string name="notebook_copied">ಕ್ಲಿಪ್‌ಬೋರ್ಡ್‌ಗೆ ನಕಲಿಸಲಾಗಿದೆ</string>
-    <string name="notebook_saved">Saved</string>
-    <string name="notebook_deleted">Deleted</string>
+    <string name="notebook_saved">ಉಳಿಸಲಾಗಿದೆ</string>
+    <string name="notebook_deleted">ಅಳಿಸಲಾಗಿದೆ</string>
     <string name="notebook_untitled">ಶೀರ್ಷಿಕೆಯಿಲ್ಲದ ಲೇಖನ</string>
     <string name="ai_active_key_custom">ನಿಮ್ಮ ವೈಯಕ್ತಿಕ API ಕೀಯನ್ನು ಬಳಸಲಾಗುತ್ತಿದೆ</string>
     <string name="ai_active_key_default">ಡೀಫಾಲ್ಟ್ ಹಂಚಿಕೆಯ ಕೋಟಾ ಬಳಸಲಾಗುತ್ತಿದೆ</string>
@@ -819,7 +819,7 @@
     <string name="second_brain_settings_desc">ನೀವು ಓದುವ ವಿಷಯಗಳು ಕಾಲಕ್ರಮೇಣ ಹೇಗೆ ಸಂಪರ್ಕಗೊಳ್ಳುತ್ತವೆ ನೋಡಿ</string>
     <string name="second_brain_empty">ಕೆಲವು ಲೇಖನಗಳನ್ನು ಓದಿ ಅಥವಾ ಉಳಿಸಿ, ನಿಮ್ಮ ವಿಷಯ ಗ್ರಾಫ್ ಇಲ್ಲಿ ಕಾಣಿಸುತ್ತದೆ.</string>
     <string name="second_brain_error">ಗ್ರಾಫ್ ರಚಿಸಲಾಗಲಿಲ್ಲ. ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.</string>
-    <string name="second_brain_retry">Retry</string>
+    <string name="second_brain_retry">ಮರುಪ್ರಯತ್ನಿಸಿ</string>
     <string name="second_brain_graph_desc">%1$d ವಿಷಯಗಳು ಮತ್ತು %2$d ಸಂಪರ್ಕಗಳ ವಿಷಯ ಗ್ರಾಫ್</string>
     <string name="second_brain_node_articles">%1$d articles</string>
     <string name="second_brain_range_label">ಸಮಯ ವ್ಯಾಪ್ತಿ</string>
@@ -842,7 +842,7 @@
     <!-- Share Target / Read Later (INGEST-02) -->
     <string name="read_later_feed_title">ನಂತರ ಓದಿ</string>
     <string name="share_target_save_btn">ನಂತರ ಓದಲು ಉಳಿಸಿ</string>
-    <string name="share_target_cancel_btn">Cancel</string>
+    <string name="share_target_cancel_btn">ರದ್ದುಮಾಡಿ</string>
     <string name="share_target_saved_toast">ನಂತರ ಓದಲು ಉಳಿಸಲಾಗಿದೆ</string>
     <string name="share_target_invalid_url">ಮಾನ್ಯ ಲಿಂಕ್ ಸಿಗಲಿಲ್ಲ</string>
     <string name="read_position_sync">ಓದುವ ಸ್ಥಾನ ಸಿಂಕ್ ಮಾಡಿ</string>
@@ -854,12 +854,12 @@
     <string name="smart_collection_save_action">ಸಂಗ್ರಹವಾಗಿ ಉಳಿಸಿ</string>
     <string name="smart_collection_empty">ಇನ್ನೂ ಸ್ಮಾರ್ಟ್ ಸಂಗ್ರಹಗಳಿಲ್ಲ. ವಿಷಯ ಅನುಸರಿಸಲು ಅರ್ಥಾಧಾರಿತ ಹುಡುಕಾಟ ಉಳಿಸಿ.</string>
     <string name="smart_collection_articles_count">%1$d articles</string>
-    <string name="smart_collection_edit">Edit</string>
-    <string name="smart_collection_delete">Delete</string>
+    <string name="smart_collection_edit">ಸಂಪಾದಿಸಿ</string>
+    <string name="smart_collection_delete">ಅಳಿಸಿ</string>
     <string name="smart_collection_delete_confirm">ಈ ಸಂಗ್ರಹ ಅಳಿಸಬೇಕೇ? ಅದರ ಲೇಖನಗಳು ನಿಮ್ಮ ಲೈಬ್ರರಿಯಲ್ಲಿ ಉಳಿಯುತ್ತವೆ.</string>
     <string name="smart_collection_saved">ಸ್ಮಾರ್ಟ್ ಸಂಗ್ರಹ ಉಳಿಸಲಾಗಿದೆ</string>
     <string name="smart_collection_empty_articles">ಇನ್ನೂ ಹೊಂದುವ ಹೊಸ ಲೇಖನಗಳಿಲ್ಲ. ಸಿಂಕ್ ನಂತರ ಹೊಸ ಹೊಂದಾಣಿಕೆಗಳು ಕಾಣಿಸುತ್ತವೆ.</string>
-    <string name="save">Save</string>
+    <string name="save">ಉಳಿಸಿ</string>
     <string name="eink_mode_title">E-Ink ಆಪ್ಟಿಮೈಜೇಶನ್</string>
     <string name="eink_active_title">E-Ink ಮೋಡ್ ಆನ್ ಆಗಿದೆ</string>
     <string name="eink_active_desc">ಆ್ಯಪ್ ಕಪ್ಪು ಮತ್ತು ಬಿಳಿ ಬಣ್ಣದಲ್ಲಿ ತೋರಿಸಲಾಗುತ್ತಿದೆ. ಆಫ್ ಮಾಡಲು ಟ್ಯಾಪ್ ಮಾಡಿ.</string>
@@ -938,8 +938,8 @@
     <string name="widget_article_pin_unsupported">ನಿಮ್ಮ ಲಾಂಚರ್ ಸ್ವಯಂಚಾಲಿತ ವಿಜೆಟ್ ಪಿನ್ ಮಾಡುವುದನ್ನು ಬೆಂಬಲಿಸುವುದಿಲ್ಲ</string>
     <!-- Feed Zero Triage (EXC-14) -->
     <string name="feed_zero_triage_title">ಫೀಡ್ ಜೀರೋ ಟ್ರಯಾಜ್</string>
-    <string name="triage_swipe_left_skip">Skip</string>
-    <string name="triage_swipe_right_save">Save</string>
+    <string name="triage_swipe_left_skip">ಬಿಟ್ಟುಬಿಡಿ</string>
+    <string name="triage_swipe_right_save">ಉಳಿಸಿ</string>
     <string name="triage_swipe_up_read">ಈಗ ಓದಿ</string>
     <string name="triage_progress_format">%1$d / %2$d</string>
     <string name="triage_inbox_zero_title">🎉 ಇನ್‌ಬಾಕ್ಸ್ ಜೀರೋ ತಲುಪಿದ್ದೀರಿ!</string>
@@ -948,7 +948,7 @@
     <string name="triage_summary_saved">ನಂತರಕ್ಕೆ ಉಳಿಸಿದ್ದು: %1$d</string>
     <string name="triage_summary_skipped">ಓದಿದೆ ಎಂದು ಗುರುತಿಸಿದ್ದು: %1$d</string>
     <string name="triage_summary_xp">+%1$d Brain RPG XP</string>
-    <string name="triage_finish_button">Done</string>
+    <string name="triage_finish_button">ಮುಗಿಯಿತು</string>
     <!-- Brain Wrapped tuần (RPG-09) -->
     <string name="brain_wrapped_share_story">ಸ್ಟೋರಿಗೆ ಹಂಚಿಕೊಳ್ಳಿ</string>
     <string name="brain_wrapped_xp_label">ಈ ವಾರದ XP</string>
@@ -993,14 +993,14 @@
     <string name="headline_signals_desc">ಕ್ಲಿಕ್‌ಬೈಟ್ ಸೂಚನೆಗಳು, ಪ್ರಚಾರ/ಅತಿಶಯೋಕ್ತಿ ಪದಗಳು ಮತ್ತು ಭಾವನಾತ್ಮಕ ಧ್ವನಿಗಾಗಿ (ಧನಾತ್ಮಕ/ಅಸ್ಪಷ್ಟ/ಋಣಾತ್ಮಕ) ಶೀರ್ಷಿಕೆ ಮತ್ತು ಲೇಖನದ ಪದಗಳನ್ನು ಈ ಸಾಧನದಲ್ಲೇ ವಿಶ್ಲೇಷಿಸುತ್ತದೆ. ಯಾವುದನ್ನೂ ಎಲ್ಲಿಗೂ ಕಳುಹಿಸುವುದಿಲ್ಲ ಮತ್ತು AI ಅಥವಾ ನೆಟ್‌ವರ್ಕ್ ಬಳಸುವುದಿಲ್ಲ. ಇವು ಪದಬಳಕೆಯ ಸೂಚನೆಗಳು ಮಾತ್ರ, ಸತ್ಯ ಪರಿಶೀಲನೆ ಅಥವಾ ರಾಜಕೀಯ ಪಕ್ಷಪಾತದ ತೀರ್ಪುಗಳಲ್ಲ. ಸ್ಪ್ಯಾನಿಷ್, ಫ್ರೆಂಚ್ ಮತ್ತು ಜರ್ಮನ್ ಪ್ರಾಯೋಗಿಕ.</string>
     <string name="headline_signals_clickbait_badge">🎯 Clickbait %1$d%%</string>
     <string name="headline_signals_clickbait_desc">ಕ್ಲಿಕ್‌ಬೈಟ್ ಭಾಷೆಯ ಸೂಚಕ: ಸ್ಕೋರ್ 100 ರಲ್ಲಿ %1$d.</string>
-    <string name="headline_signals_tone_positive">🟢 Positive</string>
-    <string name="headline_signals_tone_unclear">⚪ Unclear</string>
-    <string name="headline_signals_tone_negative">🔴 Negative</string>
+    <string name="headline_signals_tone_positive">🟢 ಧನಾತ್ಮಕ</string>
+    <string name="headline_signals_tone_unclear">⚪ ಅಸ್ಪಷ್ಟ</string>
+    <string name="headline_signals_tone_negative">🔴 ಋಣಾತ್ಮಕ</string>
     <string name="headline_signals_tone_desc_positive">ಶೀರ್ಷಿಕೆಯ ಪದಾಧಾರಿತ ಧ್ವನಿ: ಧನಾತ್ಮಕ ಸೂಚನೆಗಳಿವೆ.</string>
     <string name="headline_signals_tone_desc_unclear">ಶೀರ್ಷಿಕೆಯ ಪದಾಧಾರಿತ ಧ್ವನಿ: ಅಸ್ಪಷ್ಟ ಅಥವಾ ಸಾಕಷ್ಟು ಸೂಚನೆಗಳಿಲ್ಲ.</string>
     <string name="headline_signals_tone_desc_negative">ಶೀರ್ಷಿಕೆಯ ಪದಾಧಾರಿತ ಧ್ವನಿ: ಋಣಾತ್ಮಕ ಸೂಚನೆಗಳಿವೆ.</string>
     <string name="brain_rpg_skill_tree_decay_warning">ಈ ಕೌಶಲ್ಯ ಕಾಲಕ್ರಮೇಣ ಮಂಕಾಗಿದೆ. ಮರುಪಡೆಯಲು ಅಭ್ಯಾಸ ಮಾಡಿ.</string>
-    <string name="bounty_action_investigate">Investigate</string>
+    <string name="bounty_action_investigate">ತನಿಖೆ ಮಾಡಿ</string>
     <string name="bounty_sheet_title">ಘಟಕ ತನಿಖಾ ಏಜೆಂಟ್</string>
     <string name="bounty_scanning_status">ನಿಮ್ಮ ಸುದ್ದಿ ಆರ್ಕೈವ್‌ನಲ್ಲಿ ಹುಡುಕಲಾಗುತ್ತಿದೆ: %1$s…</string>
     <string name="bounty_stats_summary">%1$d ಸಂಬಂಧಿತ ಲೇಖನಗಳು • %2$d ಮೂಲಗಳು</string>
@@ -1015,14 +1015,14 @@
     <string name="echo_hype_label">Hype: %1$d%%</string>
     <string name="echo_hype_warning">ಬಲವಾದ ಪ್ರಚಾರ ಅಥವಾ ಅತಿಶಯೋಕ್ತಿ ಪದಬಳಕೆ ಪತ್ತೆಯಾಗಿದೆ</string>
     <string name="echo_tone_label">Tone: %1$s</string>
-    <string name="echo_tone_positive">🟢 Positive</string>
-    <string name="echo_tone_unclear">⚪ Unclear</string>
-    <string name="echo_tone_negative">🔴 Negative</string>
+    <string name="echo_tone_positive">🟢 ಧನಾತ್ಮಕ</string>
+    <string name="echo_tone_unclear">⚪ ಅಸ್ಪಷ್ಟ</string>
+    <string name="echo_tone_negative">🔴 ಋಣಾತ್ಮಕ</string>
     <string name="echo_details_title">ಪದಬಳಕೆ ಸೂಚನೆಗಳು</string>
     <string name="echo_disclaimer">ಸ್ಥಳೀಯ ಪದಬಳಕೆ ಸೂಚನೆಗಳು ಮಾತ್ರ; ಸತ್ಯ ಪರಿಶೀಲನೆ, ವಿಶ್ವಾಸಾರ್ಹತೆ ಸ್ಕೋರ್, ರಾಜಕೀಯ ಪಕ್ಷಪಾತ ವಿಶ್ಲೇಷಣೆ ಅಥವಾ ಲೇಖಕರ ಉದ್ದೇಶದ ಹೇಳಿಕೆಯಲ್ಲ. “ಅಸ್ಪಷ್ಟ” ಎಂದರೆ ಸಾಕಷ್ಟು ಪದಾಧಾರಿತ ಸಾಕ್ಷ್ಯವಿಲ್ಲ ಎಂದರ್ಥ, ತಟಸ್ಥ ಎಂದಲ್ಲ.</string>
     <string name="echo_flagged_passages_title">ಗುರುತಿಸಿದ ಭಾಗಗಳು (%1$d)</string>
     <string name="echo_cue_promotional">ಪ್ರಚಾರದ ನುಡಿಗಟ್ಟು</string>
-    <string name="echo_cue_intensifier">Exaggeration</string>
+    <string name="echo_cue_intensifier">ಉತ್ಪ್ರೇಕ್ಷೆ</string>
     <string name="echo_cue_absolute">ನಿರಪೇಕ್ಷ ಹೇಳಿಕೆ</string>
     <string name="echo_cue_exclamation">ವಿರಾಮ ಚಿಹ್ನೆ ಅಥವಾ ದೊಡ್ಡ ಅಕ್ಷರದ ಒತ್ತು</string>
     <string name="echo_no_passages">ಯಾವುದೇ ಪ್ಯಾರಾಗ್ರಾಫ್ ಪ್ರಚಾರ ಮಿತಿಯನ್ನು ದಾಟಿಲ್ಲ.</string>
@@ -1030,10 +1030,10 @@
     <!-- BOUNTY-02 dossier -->
     <string name="dossier_create_action">ಡಾಸಿಯರ್ ರಚಿಸಿ</string>
     <string name="dossier_sheet_title">ಸ್ಥಳೀಯ ಗುಪ್ತಚರ ಡಾಸಿಯರ್</string>
-    <string name="dossier_tab_summary">Summary</string>
-    <string name="dossier_tab_timeline">Timeline</string>
-    <string name="dossier_tab_names">Names</string>
-    <string name="dossier_tab_sources">Sources</string>
+    <string name="dossier_tab_summary">ಸಾರಾಂಶ</string>
+    <string name="dossier_tab_timeline">ಟೈಮ್‌ಲೈನ್</string>
+    <string name="dossier_tab_names">ಹೆಸರುಗಳು</string>
+    <string name="dossier_tab_sources">ಮೂಲಗಳು</string>
     <string name="dossier_share_action">Markdown ಹಂಚಿಕೊಳ್ಳಿ</string>
     <string name="dossier_chooser_title">ಡಾಸಿಯರ್ ಹಂಚಿಕೊಳ್ಳಿ</string>
     <string name="dossier_limitation">ಈ ಆ್ಯಪ್‌ನಲ್ಲಿ ಉಳಿಸಿದ ಲೇಖನಗಳಿಂದ ಮಾತ್ರ ರಚಿತ. ಕೆಲವು ದೃಷ್ಟಿಕೋನಗಳು ಬಿಟ್ಟುಹೋಗಿರಬಹುದು ಮತ್ತು ಇದು ಸತ್ಯ ಪರಿಶೀಲನೆಯಲ್ಲ.</string>
@@ -1056,7 +1056,7 @@
     <string name="streak_rescue_message">ನೀವು %1$d ದಿನ ಓದಲಿಲ್ಲ. ನಿಮ್ಮ ಮುಂದಿನ ಓದಿನಲ್ಲಿ %2$d ದಿನದ ಸ್ಟ್ರೀಕ್ ಮರುಹೊಂದುತ್ತದೆ.</string>
     <string name="streak_rescue_action_ad">ಸ್ಟ್ರೀಕ್ ಉಳಿಸಲು ವೀಡಿಯೊ ನೋಡಿ</string>
     <string name="streak_rescue_action_restart">ಮೊದಲಿನಿಂದ ಪ್ರಾರಂಭಿಸಿ</string>
-    <string name="streak_rescue_action_later">Later</string>
+    <string name="streak_rescue_action_later">ನಂತರ</string>
     <string name="streak_rescue_ad_failed">ವೀಡಿಯೊ ಲೋಡ್ ಆಗಲಿಲ್ಲ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.</string>
 
     <!-- ZEN-07 RSVP calibration -->
@@ -1071,8 +1071,8 @@
     <string name="zen_calibration_suggested_wpm">ಸೂಚಿತ ವೇಗ: ~%1$d WPM</string>
     <string name="zen_calibration_limitation">ಇದು 6 ಪ್ರಶ್ನೆಗಳ ಆಧಾರದ ಸ್ಥೂಲ ಅಂದಾಜು, ಆಳವಾದ ಗ್ರಹಿಕೆಯ ಅಳತೆಯಲ್ಲ. ವೇಗವನ್ನು ಯಾವಾಗ ಬೇಕಾದರೂ ಕೈಯಾರೆ ಹೊಂದಿಸಬಹುದು.</string>
     <string name="zen_calibration_low_confidence_note">ವೇಗಗಳ ನಡುವೆ ನಿಮ್ಮ ಉತ್ತರಗಳು ಬದಲಾದವು; ನಿಮ್ಮದೇ ವೇಗದಲ್ಲಿ ಓದಿ, ನಂತರ ಮತ್ತೆ ಮಾಪನಾಂಕ ಮಾಡಿ.</string>
-    <string name="zen_calibration_apply">Apply</string>
-    <string name="zen_calibration_skip">Skip</string>
+    <string name="zen_calibration_apply">ಅನ್ವಯಿಸಿ</string>
+    <string name="zen_calibration_skip">ಬಿಟ್ಟುಬಿಡಿ</string>
     <string name="zen_calibration_settings_desc">3 ಚಿಕ್ಕ ಸುತ್ತುಗಳಲ್ಲಿ ನಿಮ್ಮ ಓದುವ ವೇಗವನ್ನು ಮಾಪನಾಂಕ ಮಾಡಿ</string>
 
     <!-- ECHO-02 contrasting coverage -->
@@ -1086,7 +1086,7 @@
     <string name="echo_dual_export">ಕಾರ್ಡ್ ರಫ್ತು ಮಾಡಿ</string>
     <string name="echo_dual_export_desc">%1$s ಜೊತೆ ಎರಡು-ಶೀರ್ಷಿಕೆ ಕಾರ್ಡ್ ರಫ್ತು ಮಾಡಿ</string>
     <string name="echo_dual_title">ಎರಡು ಶೀರ್ಷಿಕೆಗಳನ್ನು ಹಂಚಿಕೊಳ್ಳಿ</string>
-    <string name="echo_dual_share">Share</string>
+    <string name="echo_dual_share">ಹಂಚಿಕೊಳ್ಳಿ</string>
     <string name="echo_dual_cut_note">ಒಂದು ಶೀರ್ಷಿಕೆಯನ್ನು ಚಿಕ್ಕದಾಗಿಸಲಾಗಿದೆ</string>
     <string name="echo_dual_error">ಕಾರ್ಡ್ ರಚಿಸಲಾಗಲಿಲ್ಲ. ಮರುಪ್ರಯತ್ನಿಸಲು ಟ್ಯಾಪ್ ಮಾಡಿ.</string>
     <string name="echo_dual_chooser_title">ಎರಡು-ಶೀರ್ಷಿಕೆ ಕಾರ್ಡ್ ಹಂಚಿಕೊಳ್ಳಿ</string>
@@ -1097,7 +1097,7 @@
     <string name="curated_bundle_verified_on">Checked %1$s</string>
     <string name="curated_bundle_source_count">Sources: %1$d</string>
     <string name="curated_bundle_subscribe_all">ಎಲ್ಲದಕ್ಕೂ ಚಂದಾದಾರರಾಗಿ</string>
-    <string name="curated_bundle_subscribing">Subscribing…</string>
+    <string name="curated_bundle_subscribing">ಚಂದಾದಾರರಾಗುತ್ತಿದೆ…</string>
     <string name="curated_bundle_progress">Subscribing %1$d of %2$d</string>
     <string name="curated_bundle_result">ಸೇರಿಸಿದ್ದು %1$d · ಈಗಾಗಲೇ ಇದ್ದದ್ದು %2$d · ವಿಫಲವಾದದ್ದು %3$d</string>
     <string name="curated_bundle_error">ಚಂದಾದಾರರಾಗಲು ಆಗಲಿಲ್ಲ: %1$s</string>
@@ -1105,11 +1105,11 @@
     <string name="curated_bundle_account_local_only">ಇಡೀ ಬಂಡಲ್‌ಗೆ ಚಂದಾದಾರರಾಗುವುದು ಸ್ಥಳೀಯ ಖಾತೆಗೆ ಮಾತ್ರ ಲಭ್ಯ.</string>
 
     <!-- FRONT-03 knowledge galaxy -->
-    <string name="galaxy_mode_concepts">Concepts</string>
-    <string name="galaxy_mode_stars">Galaxy</string>
+    <string name="galaxy_mode_concepts">ಪರಿಕಲ್ಪನೆಗಳು</string>
+    <string name="galaxy_mode_stars">ಗ್ಯಾಲಕ್ಸಿ</string>
     <string name="galaxy_empty">ಕೆಲವು ಲೇಖನಗಳನ್ನು ಓದಿದೆ ಎಂದು ಗುರುತಿಸಿ, ಅವು ಇಲ್ಲಿ ನಕ್ಷತ್ರಗಳಾಗಿ ಹೊಳೆಯುತ್ತವೆ. ಸಮಯ ವ್ಯಾಪ್ತಿ ವಿಸ್ತರಿಸಿ ನೋಡಿ.</string>
     <string name="galaxy_error">ಗ್ಯಾಲಕ್ಸಿ ರಚಿಸಲಾಗಲಿಲ್ಲ. ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.</string>
-    <string name="galaxy_retry">Retry</string>
+    <string name="galaxy_retry">ಮರುಪ್ರಯತ್ನಿಸಿ</string>
     <string name="galaxy_reset_view">ನೋಟ ಮರುಹೊಂದಿಸಿ</string>
     <string name="galaxy_stats">ನಕ್ಷತ್ರಗಳು: %1$d · ಲಿಂಕ್‌ಗಳು: %2$d</string>
     <string name="galaxy_star_open">ಲೇಖನ ತೆರೆಯಿರಿ</string>
@@ -1127,7 +1127,7 @@
     <string name="second_screen_viewers">Viewers: %1$d</string>
     <string name="second_screen_expires">Expires at %1$s</string>
     <string name="second_screen_warning">ಎನ್‌ಕ್ರಿಪ್ಟ್ ಆಗಿಲ್ಲ. ಈ Wi-Fi ನಲ್ಲಿರುವ ಲಿಂಕ್ ನೋಡಿದ ಯಾರಾದರೂ ಲೇಖನ ಓದಬಹುದು. ನಂಬಿಕಸ್ಥ ನೆಟ್‌ವರ್ಕ್‌ನಲ್ಲಿ ಮಾತ್ರ ಬಳಸಿ.</string>
-    <string name="second_screen_starting">Starting…</string>
+    <string name="second_screen_starting">ಪ್ರಾರಂಭವಾಗುತ್ತಿದೆ…</string>
     <string name="second_screen_no_network">ಖಾಸಗಿ ವಿಳಾಸವಿರುವ Wi-Fi ಅಥವಾ ಈಥರ್ನೆಟ್ ನೆಟ್‌ವರ್ಕ್ ಇಲ್ಲ. Wi-Fi ಗೆ ಸಂಪರ್ಕಿಸಿ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.</string>
     <string name="second_screen_lan_permission_denied">ಸ್ಥಳೀಯ ನೆಟ್‌ವರ್ಕ್ ಪ್ರವೇಶ ಆಫ್ ಆಗಿದೆ. ಎರಡನೇ ಪರದೆಯಲ್ಲಿ ಲೇಖನ ತೋರಿಸಲು ಸೆಟ್ಟಿಂಗ್ಸ್‌ನಲ್ಲಿ ಅನುಮತಿಸಿ.</string>
     <string name="second_screen_expired">ಸೆಷನ್ ಮುಗಿದಿದೆ. ಹೊಸ ಲಿಂಕ್ ಪಡೆಯಲು ಮತ್ತೆ ಆನ್ ಮಾಡಿ.</string>
@@ -1138,8 +1138,8 @@
     <string name="galaxy_related_title">ಸಂಬಂಧಿತ ಲೇಖನಗಳು</string>
     <string name="galaxy_shared_terms">ಹಂಚಿಕೆಯ ಪದಗಳು: %1$s</string>
     <string name="local_sync_title">ಸ್ಥಳೀಯ ಸಿಂಕ್</string>
-    <string name="local_sync_send">Send</string>
-    <string name="local_sync_receive">Receive</string>
+    <string name="local_sync_send">ಕಳುಹಿಸಿ</string>
+    <string name="local_sync_receive">ಸ್ವೀಕರಿಸಿ</string>
     <string name="local_sync_send_instructions">ಈ ಸ್ಥಳೀಯ ನೆಟ್‌ವರ್ಕ್‌ನಲ್ಲಿರುವ ಇನ್ನೊಂದು ಸಾಧನಕ್ಕೆ ಎನ್‌ಕ್ರಿಪ್ಟ್ ಮಾಡಿದ ಪ್ಯಾಕೇಜ್ ರಚಿಸಿ.</string>
     <string name="local_sync_secret_warning">ಈ ಜೋಡಣೆ ರಹಸ್ಯವನ್ನು URL ನಿಂದ ಪ್ರತ್ಯೇಕವಾಗಿ ಹಂಚಿಕೊಳ್ಳಿ. ಎರಡೂ ಇರುವವರು ಪ್ಯಾಕೇಜ್ ಓದಬಹುದು.</string>
     <string name="local_sync_http_warning">HTTP URL, ಸಾಧನ ವಿಳಾಸ, ಸಮಯ ಅಥವಾ ವರ್ಗಾವಣೆ ಗಾತ್ರವನ್ನು ಮರೆಮಾಡುವುದಿಲ್ಲ. ಪ್ಯಾಕೇಜ್ ವಿಷಯ ಮಾತ್ರ ಎನ್‌ಕ್ರಿಪ್ಟ್ ಆಗಿರುತ್ತದೆ. ನಂಬಿಕಸ್ಥ ಸ್ಥಳೀಯ ನೆಟ್‌ವರ್ಕ್ ಬಳಸಿ.</string>
@@ -1163,7 +1163,7 @@
     <string name="local_sync_apply">ಬದಲಾವಣೆ ಅನ್ವಯಿಸಿ</string>
     <string name="local_sync_confirm_apply">ಸಿಂಕ್ ಬದಲಾವಣೆ ಅನ್ವಯಿಸಬೇಕೇ?</string>
     <string name="local_sync_confirm_counts">ಸೇರಿಸಬೇಕಾದ ಫೀಡ್‌ಗಳು: %1$d. ನವೀಕರಿಸಬೇಕಾದ ಲೇಖನ ಸ್ಥಿತಿಗಳು: %2$d. ಈ ಬದಲಾವಣೆಗಳನ್ನು ಅನ್ವಯಿಸಬೇಕೇ?</string>
-    <string name="local_sync_cancel">Cancel</string>
+    <string name="local_sync_cancel">ರದ್ದುಮಾಡಿ</string>
     <string name="local_sync_done">ಸಿಂಕ್ ಬದಲಾವಣೆಗಳನ್ನು ಅನ್ವಯಿಸಲಾಗಿದೆ.</string>
     <string name="local_sync_not_local">ಸಿಂಕ್ ಬಳಸಲು ಸ್ಥಳೀಯ ಖಾತೆ ಆಯ್ಕೆಮಾಡಿ.</string>
     <string name="local_sync_error_network">ಸಿಂಕ್ ಸೆಷನ್‌ಗೆ ಸಂಪರ್ಕಿಸಲಾಗಲಿಲ್ಲ. URL ಮತ್ತು ಸ್ಥಳೀಯ ನೆಟ್‌ವರ್ಕ್ ಪರಿಶೀಲಿಸಿ.</string>
@@ -1189,9 +1189,9 @@
     <string name="local_sync_reply_instruction">ಇನ್ನೊಂದು ಫೋನ್‌ನಲ್ಲಿ ಕಳುಹಿಸುವುದನ್ನು ನಿಲ್ಲಿಸಿ ಮೊದಲು ಸ್ವೀಕರಿಸು ತೆರೆಯಲು ಹೇಳಿ.</string>
     <string name="local_sync_merge_limit">ವಿಲೀನವು ಓದಿದ ಮತ್ತು ನಕ್ಷತ್ರ ಗುರುತುಗಳನ್ನು ಮಾತ್ರ ಉಳಿಸುತ್ತದೆ; ಒಂದು ಫೋನ್‌ನಲ್ಲಿ ಓದದ ಎಂದು ಗುರುತಿಸಿದ್ದು ಅಥವಾ ನಕ್ಷತ್ರ ತೆಗೆದದ್ದು ಸಿಂಕ್ ನಂತರ ಮರಳಬಹುದು.</string>
     <string name="local_sync_peer_unconfirmed">ಇನ್ನೊಂದು ಸಾಧನ ಒಮ್ಮೆ ಸ್ವೀಕರಿಸಲು ಕಾಯಲಾಗುತ್ತಿದೆ</string>
-    <string name="local_sync_peer_confirmed">Paired</string>
+    <string name="local_sync_peer_confirmed">ಜೋಡಿಸಲಾಗಿದೆ</string>
     <string name="local_sync_peer_needs_repair">ಈ ಫೋನ್‌ನಲ್ಲಿ ಬಳಸಲಾಗದು. ಅದನ್ನು ಮರೆತು ಮತ್ತೆ ಜೋಡಿಸಿ.</string>
-    <string name="local_sync_forget_peer">Forget</string>
+    <string name="local_sync_forget_peer">ಮರೆತುಬಿಡಿ</string>
     <string name="local_sync_confirm_peer">ಜೋಡಿಸಲಾಗಿದೆ ಎಂದು ಗುರುತಿಸಿ</string>
     <string name="local_sync_nearby_title">ಜೋಡಿಸಿದ ಸಾಧನ ಹತ್ತಿರದಲ್ಲಿದೆ.</string>
     <string name="local_sync_no_peer_found">ಇನ್ನೂ ಹತ್ತಿರದ ಸಾಧನ ಸಿಕ್ಕಿಲ್ಲ. ಇನ್ನೊಂದು ಸಾಧನದಲ್ಲಿ ಕಳುಹಿಸು ತೆರೆಯಿರಿ.</string>
@@ -1203,7 +1203,7 @@
     <!-- EXC-11 Temporal Ask My Archive -->
     <string name="archive_query_title">ನನ್ನ ಆರ್ಕೈವ್ ಕೇಳಿ</string>
     <string name="archive_query_desc">ಒಂದು ವಿಷಯದ ಬಗ್ಗೆ ಕೇಳಿ ಮತ್ತು ನಿಮ್ಮ ಉಳಿಸಿದ ಲೇಖನಗಳು ಅದನ್ನು ತಿಂಗಳಿಂದ ತಿಂಗಳಿಗೆ ಹೇಗೆ ವರದಿ ಮಾಡಿವೆ ನೋಡಿ.</string>
-    <string name="archive_query_question_label">Question</string>
+    <string name="archive_query_question_label">ಪ್ರಶ್ನೆ</string>
     <string name="archive_query_question_hint">ಉದಾ. ಮಾರ್ಚ್‌ನಿಂದ ಬಡ್ಡಿ ದರಗಳು</string>
     <string name="archive_query_search">ಆರ್ಕೈವ್ ಹುಡುಕಿ</string>
     <string name="archive_query_start_date">ಆರಂಭ ದಿನಾಂಕ (YYYY-MM-DD)</string>
@@ -1242,7 +1242,7 @@
     <string name="feed_autopilot_summary_clean">ನಿಮ್ಮ ಫೀಡ್‌ಗಳು ಅಚ್ಚುಕಟ್ಟಾಗಿವೆ. ಗದ್ದಲದ ಫೀಡ್‌ಗಳು ಪತ್ತೆಯಾಗಿಲ್ಲ.</string>
     <string name="feed_autopilot_reason_opened">%2$d ರಲ್ಲಿ %1$d ತೆರೆಯಲಾಗಿದೆ (ಕಳೆದ %3$d ದಿನಗಳ ಅವಧಿ; %4$d%% ತೊಡಗಿಸಿಕೊಳ್ಳುವಿಕೆ)</string>
     <string name="feed_autopilot_reason_zero">ಕಳೆದ %2$d ದಿನಗಳ ಅವಧಿಯಲ್ಲಿ %1$d ರಲ್ಲಿ ಯಾವ ಲೇಖನವನ್ನೂ ತೆರೆಯಲಿಲ್ಲ</string>
-    <string name="feed_autopilot_action_unsubscribe">Unsubscribe</string>
+    <string name="feed_autopilot_action_unsubscribe">ಚಂದಾದಾರಿಕೆ ರದ್ದುಮಾಡಿ</string>
     <string name="feed_autopilot_action_snooze">30 ದಿನ ಮುಂದೂಡಿ</string>
     <string name="feed_autopilot_action_keep">ಉಳಿಸಿ ಮತ್ತು ಸೂಚಿಸುವುದನ್ನು ನಿಲ್ಲಿಸಿ</string>
     <string name="feed_autopilot_confirm_title">%1$s ಚಂದಾದಾರಿಕೆ ರದ್ದುಗೊಳಿಸಬೇಕೇ?</string>
@@ -1257,14 +1257,14 @@
     <string name="podcast_studio_menu">ಪಾಡ್‌ಕಾಸ್ಟ್ ಸ್ಟುಡಿಯೋ</string>
     <string name="podcast_studio_consent_title">AI ಯಿಂದ ಸ್ಕ್ರಿಪ್ಟ್ ಬರೆಯಬೇಕೇ?</string>
     <string name="podcast_studio_consent_message">ಇಬ್ಬರು ನಿರೂಪಕರ ಸ್ಕ್ರಿಪ್ಟ್ ಬರೆಯಲು ಈ ಲೇಖನದ ಶೀರ್ಷಿಕೆ ಮತ್ತು ಚಿಕ್ಕ ಪೂರ್ವವೀಕ್ಷಣೆ (250 ಅಕ್ಷರಗಳಿಗಿಂತ ಕಡಿಮೆ) ಮಾತ್ರ Google Gemini ಗೆ ಕಳುಹಿಸಲಾಗುತ್ತದೆ. ಲೇಖನದ ಪಠ್ಯ, ಲಿಂಕ್‌ಗಳು ಮತ್ತು ನಿಮ್ಮ ಓದುವ ಇತಿಹಾಸವನ್ನು ಎಂದಿಗೂ ಕಳುಹಿಸುವುದಿಲ್ಲ.</string>
-    <string name="podcast_studio_consent_agree">Use AI</string>
+    <string name="podcast_studio_consent_agree">AI ಬಳಸಿ</string>
     <string name="podcast_studio_consent_decline">ಆಫ್‌ಲೈನ್ ಸ್ಕ್ರಿಪ್ಟ್ ಬಳಸಿ</string>
     <string name="podcast_studio_conflict_title">ಪ್ಲೇ ಆಗುತ್ತಿರುವುದನ್ನು ನಿಲ್ಲಿಸಬೇಕೇ?</string>
     <string name="podcast_studio_conflict_message">ಈ ಲೇಖನವನ್ನು ಪಾಡ್‌ಕಾಸ್ಟ್ ಆಗಿ ಪ್ಲೇ ಮಾಡಿದರೆ ಈಗ ಪ್ಲೇ ಆಗುತ್ತಿರುವ ಆಡಿಯೋ ನಿಲ್ಲುತ್ತದೆ.</string>
     <string name="podcast_studio_badge_source_gemini">AI ಬರೆದ ಸ್ಕ್ರಿಪ್ಟ್</string>
     <string name="podcast_studio_badge_source_heuristic">ಆಫ್‌ಲೈನ್ ಸ್ಕ್ರಿಪ್ಟ್, AI ಇಲ್ಲ</string>
-    <string name="podcast_studio_play">Play</string>
-    <string name="podcast_studio_pause">Pause</string>
+    <string name="podcast_studio_play">ಪ್ಲೇ ಮಾಡಿ</string>
+    <string name="podcast_studio_pause">ವಿರಾಮ</string>
     <string name="podcast_studio_next">ಮುಂದಿನ ಸಾಲು</string>
     <string name="podcast_studio_previous">ಹಿಂದಿನ ಸಾಲು</string>
     <string name="podcast_studio_host_alex">Alex</string>
@@ -1274,7 +1274,7 @@
     <string name="deep_dive_menu">🔬 AI ಆಳ ವಿಶ್ಲೇಷಣೆ</string>
     <string name="deep_dive_title">AI ಆಳ ವಿಶ್ಲೇಷಣೆ</string>
     <string name="deep_dive_consent_message">ಈ ವರದಿ ಬರೆಯಲು ಲೇಖನದ ಶೀರ್ಷಿಕೆ ಮತ್ತು ಅದರ ಪಠ್ಯದ 6,000 ಅಕ್ಷರಗಳವರೆಗೆ Google Gemini ಗೆ ಕಳುಹಿಸಲಾಗುತ್ತದೆ. ಲಿಂಕ್‌ಗಳು, ಫೀಡ್ ಹೆಸರು ಮತ್ತು ನಿಮ್ಮ ಓದುವ ಇತಿಹಾಸವನ್ನು ಎಂದಿಗೂ ಕಳುಹಿಸುವುದಿಲ್ಲ. Gemini ವೆಬ್ ಹುಡುಕುವುದಿಲ್ಲ.</string>
-    <string name="deep_dive_consent_agree">Agree</string>
+    <string name="deep_dive_consent_agree">ಒಪ್ಪುತ್ತೇನೆ</string>
     <string name="deep_dive_consent_later">ಈಗ ಬೇಡ</string>
     <string name="deep_dive_declined_message">AI ಆಳ ವಿಶ್ಲೇಷಣೆ ಆಫ್ ಆಗಿದೆ. ವರದಿ ಬರೆಯಲು ಸೆಟ್ಟಿಂಗ್ಸ್, ಗೌಪ್ಯತೆಯಲ್ಲಿ ಆನ್ ಮಾಡಿ.</string>
     <string name="deep_dive_open_privacy">ಗೌಪ್ಯತೆ ಸೆಟ್ಟಿಂಗ್ಸ್ ತೆರೆಯಿರಿ</string>
@@ -1284,30 +1284,30 @@
     <string name="deep_dive_nothing_to_analyze">ಈ ಲೇಖನದಲ್ಲಿ ವಿಶ್ಲೇಷಿಸಲು ಶೀರ್ಷಿಕೆ ಅಥವಾ ಪಠ್ಯವಿಲ್ಲ.</string>
     <string name="deep_dive_retry">ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ</string>
     <string name="deep_dive_label">ಶೀರ್ಷಿಕೆ ಮತ್ತು ಆಯ್ದ ಭಾಗದಿಂದ AI ಬರೆದದ್ದು; ವೆಬ್ ಹುಡುಕಾಟವಿಲ್ಲ; ತಪ್ಪಾಗಿರಬಹುದು</string>
-    <string name="deep_dive_section_context">Context</string>
+    <string name="deep_dive_section_context">ಸಂದರ್ಭ</string>
     <string name="deep_dive_section_critical">ವಿರೋಧಿ ದೃಷ್ಟಿಕೋನಗಳು</string>
     <string name="deep_dive_section_impact">ಪರಿಣಾಮ ಮ್ಯಾಟ್ರಿಕ್ಸ್</string>
-    <string name="deep_dive_col_area">Area</string>
+    <string name="deep_dive_col_area">ಪ್ರದೇಶ</string>
     <string name="deep_dive_col_short">ಅಲ್ಪಾವಧಿ</string>
     <string name="deep_dive_col_long">ದೀರ್ಘಾವಧಿ</string>
     <string name="deep_dive_export_pdf">PDF ರಫ್ತು ಮಾಡಿ</string>
     <string name="deep_dive_chooser_title">ಆಳ ವಿಶ್ಲೇಷಣೆ PDF ಹಂಚಿಕೊಳ್ಳಿ</string>
     <string name="deep_dive_export_error">PDF ರಚಿಸಲಾಗಲಿಲ್ಲ</string>
     <string name="deep_dive_pdf_truncated">ಒಂದು ಪುಟಕ್ಕೆ ಹೊಂದಿಸಲು ಕತ್ತರಿಸಲಾಗಿದೆ. ಪೂರ್ಣ ವರದಿಯನ್ನು ಆ್ಯಪ್‌ನಲ್ಲಿ ನೋಡಿ.</string>
-    <string name="deep_dive_close">Close</string>
-    <string name="oracle_badge_label">Prediction</string>
+    <string name="deep_dive_close">ಮುಚ್ಚಿ</string>
+    <string name="oracle_badge_label">ಭವಿಷ್ಯ</string>
     <string name="oracle_badge_open">ಭವಿಷ್ಯವಾಣಿ ತೆರೆಯಿರಿ</string>
     <string name="oracle_sheet_title">ಈ ಲೇಖನದಲ್ಲಿ ಸಿಕ್ಕ ಭವಿಷ್ಯವಾಣಿ</string>
     <string name="oracle_sheet_expires">Expected by %1$s</string>
     <string name="oracle_sheet_criteria_heading">ಉತ್ತರ ಪರಿಶೀಲಿಸುವುದು ಹೇಗೆ</string>
     <string name="oracle_sheet_ai_label">ಶೀರ್ಷಿಕೆ ಮತ್ತು ವಿವರಣೆಯಿಂದ AI ಬರೆದದ್ದು; ತಪ್ಪಾಗಿರಬಹುದು.</string>
-    <string name="oracle_sheet_close">Close</string>
+    <string name="oracle_sheet_close">ಮುಚ್ಚಿ</string>
     <string name="oracle_consent_title">ಹೊಸ ಲೇಖನಗಳಲ್ಲಿ ಭವಿಷ್ಯವಾಣಿ ಹುಡುಕಿ</string>
     <string name="oracle_consent_message">ಪ್ರತಿ ಸಿಂಕ್ ನಂತರ, ಭವಿಷ್ಯವಾಣಿ ಹುಡುಕಲು 5 ಹೊಸ ಲೇಖನಗಳವರೆಗಿನ ಶೀರ್ಷಿಕೆ ಮತ್ತು ಚಿಕ್ಕ ವಿವರಣೆ (ಒಟ್ಟು 500 ಅಕ್ಷರಗಳವರೆಗೆ) Google Gemini ಗೆ ಕಳುಹಿಸಲಾಗುತ್ತದೆ. ಲೇಖನದ ಪಠ್ಯ, ಲಿಂಕ್‌ಗಳು, ಫೀಡ್ ಹೆಸರು ಮತ್ತು ನಿಮ್ಮ ಓದುವ ಇತಿಹಾಸವನ್ನು ಎಂದಿಗೂ ಕಳುಹಿಸುವುದಿಲ್ಲ. ಡೀಫಾಲ್ಟ್ ಆಗಿ ಆಫ್.</string>
     <string name="oracle_bet_balance">ಬಾಕಿ: %1$s ಅಂಕಗಳು</string>
     <string name="oracle_bet_pick_side">ನಿಮ್ಮ ಆಯ್ಕೆ</string>
-    <string name="oracle_bet_yes">Yes</string>
-    <string name="oracle_bet_no">No</string>
+    <string name="oracle_bet_yes">ಹೌದು</string>
+    <string name="oracle_bet_no">ಇಲ್ಲ</string>
     <string name="oracle_bet_pick_stake">ಪಣಕ್ಕಿಡುವ ಅಂಕಗಳು</string>
     <string name="oracle_bet_stake_option">%1$s points</string>
     <string name="oracle_bet_place">ಪಣ ಇಡಿ</string>
@@ -1316,7 +1316,7 @@
     <string name="oracle_bet_open">ನೀವು %2$s ಮೇಲೆ %1$s ಅಂಕಗಳ ಪಣ ಇಟ್ಟಿದ್ದೀರಿ.</string>
     <string name="oracle_bet_open_hint">ಮೇಲಿನ ದಿನಾಂಕದ ನಂತರ ನೀವು ಫಲಿತಾಂಶ ವರದಿ ಮಾಡಬಹುದು.</string>
     <string name="oracle_bet_awaiting_title">ಫಲಿತಾಂಶ ಏನಾಯಿತು?</string>
-    <string name="oracle_bet_outcome_unclear">Unclear</string>
+    <string name="oracle_bet_outcome_unclear">ಅಸ್ಪಷ್ಟ</string>
     <string name="oracle_bet_awaiting_hint">ನೀವು %2$s ಮೇಲೆ %1$s ಅಂಕಗಳ ಪಣ ಇಟ್ಟಿದ್ದೀರಿ. ಅಸ್ಪಷ್ಟ ಎಂದರೆ ನಿಮ್ಮ ಅಂಕಗಳು ಮರಳುತ್ತವೆ.</string>
     <string name="oracle_bet_settled_won">ನೀವು %1$s ಅಂಕಗಳನ್ನು ಗೆದ್ದಿದ್ದೀರಿ.</string>
     <string name="oracle_bet_settled_lost">ನೀವು %1$s ಅಂಕಗಳನ್ನು ಕಳೆದುಕೊಂಡಿದ್ದೀರಿ.</string>
@@ -1339,7 +1339,7 @@
     <string name="commute_autoplay_title">ಬ್ಲೂಟೂತ್ ಹೆಡ್‌ಫೋನ್ ಸಂಪರ್ಕವಾದಾಗ ಪ್ಲೇ ಮಾಡಿ</string>
     <string name="commute_autoplay_desc">ಸಂಚಿಕೆ ಸಿದ್ಧವಾದ 2 ಗಂಟೆಯೊಳಗೆ, ದಿನಕ್ಕೆ ಒಮ್ಮೆ ಬೆಳಗಿನ ಸಂಚಿಕೆ ಪ್ರಾರಂಭಿಸಲು ಪ್ರಯತ್ನಿಸುತ್ತದೆ. Android ತಡೆದರೆ, ಪ್ಲೇ ಬಟನ್ ಇರುವ ಅಧಿಸೂಚನೆ ಸಿಗುತ್ತದೆ.</string>
     <string name="commute_autoplay_permission_denied">ಹತ್ತಿರದ ಸಾಧನಗಳ ಅನುಮತಿ ಇಲ್ಲದೆ ಆ್ಯಪ್ ನಿಮ್ಮ ಹೆಡ್‌ಫೋನ್ ನೋಡಲಾಗದು, ಆದ್ದರಿಂದ ಇದು ಆಫ್ ಆಗಿರುತ್ತದೆ.</string>
-    <string name="commute_play_action">Play</string>
+    <string name="commute_play_action">ಪ್ಲೇ ಮಾಡಿ</string>
     <string name="commute_ready_to_play_title">ನಿಮ್ಮ ಬೆಳಗಿನ ಸಂಚಿಕೆ ಸಿದ್ಧವಾಗಿದೆ</string>
     <string name="commute_ready_to_play_body">ನಿಮ್ಮ ಹೆಡ್‌ಫೋನ್ ಸಂಪರ್ಕವಾಗಿದೆ. ಕೇಳಲು ಪ್ಲೇ ಟ್ಯಾಪ್ ಮಾಡಿ.</string>
 </resources>

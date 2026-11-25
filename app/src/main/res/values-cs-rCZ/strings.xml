@@ -255,7 +255,7 @@
     <string name="preview_article_title">Román "Pán záhad" konečně došel ke konci</string>
     <string name="preview_article_desc">Blázen je osmým a závěrečným dílem série Pán záhad, jehož autorem je sépie, která se ráda potápí.</string>
     <string name="preview_feed_name">Reddit</string>
-    <string name="value">value</string>
+    <string name="value">hodnota</string>
     <string name="horizontal_padding">Horizontální polstrování</string>
     <string name="article_date">Čas zveřejnění článku</string>
     <string name="article_desc">Popis článku</string>
@@ -281,31 +281,31 @@
     <string name="text">Text</string>
     <string name="font_size">Velikost písma</string>
     <string name="letter_spacing">Mezery mezi písmeny</string>
-    <string name="alignment">Alignment</string>
-    <string name="general">General</string>
+    <string name="alignment">Zarovnání</string>
+    <string name="general">Obecné</string>
     <string name="auto_hide_toolbars">Automaticky skrýt panely nástrojů</string>
     <string name="rearrange_buttons">Změnit uspořádání tlačítek</string>
     <string name="bionic_reading">Bionic Reading</string>
-    <string name="images">Images</string>
+    <string name="images">Obrázky</string>
     <string name="rounded_corners">Zaoblené rohy</string>
-    <string name="videos">Videos</string>
+    <string name="videos">Videa</string>
     <string name="align_left">Zarovnat doleva</string>
     <string name="align_right">Zarovnat doprava</string>
     <string name="center_text">Zarovnat na střed</string>
-    <string name="justify">Justify</string>
+    <string name="justify">Do bloku</string>
     <string name="external_fonts">Externí písma</string>
-    <string name="title">Title</string>
-    <string name="bold">Bold</string>
+    <string name="title">Nadpis</string>
+    <string name="bold">Tučné</string>
     <string name="upper_case">Velká písmena</string>
-    <string name="subhead">Subhead</string>
+    <string name="subhead">Podnadpis</string>
     <string name="use_app_theme">Použít motiv aplikace</string>
-    <string name="advanced">Advanced</string>
+    <string name="advanced">Pokročilé</string>
     <string name="dark_reading_theme">Tmavý motiv čtení</string>
     <string name="title_desc">Tučné písmo, velká písmena, zarovnání</string>
     <string name="text_desc">Velikost písma, mezery mezi písmeny, zarovnání</string>
     <string name="images_desc">Zaoblené rohy, vodorovné odsazení</string>
     <string name="videos_desc">Zaoblené rohy, vodorovné odsazení</string>
-    <string name="maximize">Maximize</string>
+    <string name="maximize">Maximalizovat</string>
     <string name="explore_rss_sources">Prozkoumat zdroje RSS</string>
     <string name="english_sources">Anglické zdroje</string>
     <string name="vietnamese_sources">Vietnamské zdroje</string>
@@ -344,7 +344,7 @@
     <string name="watch_ad">Sledovat reklamu</string>
     <string name="ad_not_ready">Reklama není připravena. Zkuste to prosím znovu později.</string>
     <string name="read_you" translatable="false">RSS Hub</string>
-    <string name="empty">Empty</string>
+    <string name="empty">Prázdné</string>
     <string name="feed_url_placeholder" translatable="false">http://example.com/feed.rss</string>
     <string name="translatable_url" translatable="false">https://hosted.weblate.org/projects/readyou/</string>
     <string name="english" translatable="false">English</string>
@@ -395,35 +395,35 @@
     <string name="every_6_hours">Každých 6 hodin</string>
     <string name="every_12_hours">Každých 12 hodin</string>
     <string name="every_1_day">Každý den</string>
-    <string name="manually">Manually</string>
-    <string name="always">Always</string>
-    <string name="for_1_day">1 day</string>
-    <string name="for_2_days">2 days</string>
-    <string name="for_3_days">3 days</string>
-    <string name="for_1_week">1 week</string>
-    <string name="for_2_weeks">2 weeks</string>
-    <string name="for_1_month">1 month</string>
-    <string name="local">Local</string>
+    <string name="manually">Ručně</string>
+    <string name="always">Vždy</string>
+    <string name="for_1_day">1 den</string>
+    <string name="for_2_days">2 dny</string>
+    <string name="for_3_days">3 dny</string>
+    <string name="for_1_week">1 týden</string>
+    <string name="for_2_weeks">2 týdny</string>
+    <string name="for_1_month">1 měsíc</string>
+    <string name="local">Místní</string>
     <string name="fever" translatable="false">Fever</string>
     <string name="google_reader" translatable="false">Google Reader</string>
     <string name="fresh_rss" translatable="false">FreshRSS</string>
     <string name="feedly" translatable="false">Feedly</string>
     <string name="inoreader" translatable="false">Inoreader</string>
     <string name="local_desc">V tomto zařízení</string>
-    <string name="services">Services</string>
+    <string name="services">Služby</string>
     <string name="feedly_desc" translatable="false">feedly.com</string>
     <string name="inoreader_desc" translatable="false">inoreader.com</string>
     <string name="self_hosted">Vlastní hosting</string>
     <string name="fresh_rss_desc" translatable="false">freshrss.org</string>
     <string name="google_reader_desc" translatable="false">Google Reader API</string>
     <string name="fever_desc">Zastaralé. Nedoporučuje se.</string>
-    <string name="more">More</string>
+    <string name="more">Více</string>
     <string name="add_accounts">Přidat účty</string>
-    <string name="list">List</string>
+    <string name="list">Seznam</string>
     <string name="add_accounts_desc">Místní, služby, vlastní hosting</string>
-    <string name="display">Display</string>
-    <string name="synchronous">Syncing</string>
-    <string name="sync_interval">Sync</string>
+    <string name="display">Zobrazení</string>
+    <string name="synchronous">Synchronizuji</string>
+    <string name="sync_interval">Synchronizace</string>
     <string name="sync_once_on_start">Synchronizovat při spuštění</string>
     <string name="only_on_wifi">Only on Wi-Fi</string>
     <string name="only_when_charging">Pouze při nabíjení</string>
@@ -438,16 +438,16 @@
     <string name="clear_all_articles_toast">Seznam článků byl vymazán</string>
     <string name="delete_account_toast">Účet byl smazán</string>
     <string name="synchronous_tips">Změny se projeví až po restartu</string>
-    <string name="switch_account">Switch</string>
-    <string name="add">Add</string>
+    <string name="switch_account">Přepnout</string>
+    <string name="add">Přidat</string>
     <string name="accounts_tips">Účet můžete přepnout klepnutím na jeho název na stránce kanálů</string>
     <string name="server_url">Adresa serveru</string>
-    <string name="username">Username</string>
-    <string name="password">Password</string>
-    <string name="connection">Connection</string>
-    <string name="system_default">System</string>
+    <string name="username">Uživatelské jméno</string>
+    <string name="password">Heslo</string>
+    <string name="connection">Připojení</string>
+    <string name="system_default">Systém</string>
     <string name="initial_open_app">Aplikace při klepnutí na odkaz</string>
-    <string name="open_link_specific_browser_not_selected">None</string>
+    <string name="open_link_specific_browser_not_selected">Žádný</string>
     <string name="auto_customtabs">Automaticky (přednost CustomTabs)</string>
     <string name="auto_default_browser">Automaticky (přednost výchozí prohlížeč)</string>
     <string name="custom_tabs">Vždy CustomTabs</string>
@@ -455,12 +455,12 @@
     <string name="specific_browser_name">Browser: %1$s</string>
     <string name="default_browser">Vždy výchozí prohlížeč</string>
     <string name="always_ask">Vždy se zeptat</string>
-    <string name="open_link_specific_browser">Browser</string>
+    <string name="open_link_specific_browser">Prohlížeč</string>
     <string name="open_link_something_wrong">Nastavení \"Otevřít odkaz\" bylo ignorováno, protože se něco pokazilo.</string>
-    <string name="in_coding">In development</string>
+    <string name="in_coding">Ve vývoji</string>
     <string name="tips_top_bar_tonal_elevation">Tónové zvýraznění je dostupné jen při posouvání</string>
     <string name="summary_title">Shrnout pomocí AI</string>
-    <string name="summary_loading">Summarizing…</string>
+    <string name="summary_loading">Shrnuji…</string>
     <string name="summary_try_again">Zkusit znovu</string>
     <string name="summary_get_key">Získat klíč zdarma</string>
     <string name="summary_err_empty_content">Článek nemá žádný obsah ke shrnutí</string>
@@ -482,7 +482,7 @@
     <string name="vip_remaining_short">Zbývá %1$d dní %2$d hodin</string>
     <string name="vip_redeem_label">Zadejte kód VIP</string>
     <string name="vip_redeem_hint">např. váš kód VIP</string>
-    <string name="vip_redeem_button">Activate</string>
+    <string name="vip_redeem_button">Aktivovat</string>
     <string name="vip_watch_ad_3d">Zhlédnout reklamu → 3 dny VIP</string>
     <string name="vip_buy_30d_locked">Koupit VIP na 30 dní — již brzy</string>
     <string name="vip_buy_90d_locked">Koupit VIP na 90 dní — již brzy</string>
@@ -494,9 +494,9 @@
     <string name="vip_revoke_all_confirm_message">Opravdu chcete zrušit VIP a vrátit se k bezplatnému účtu?</string>
     <string name="vip_entry_first_install">🎁 Dárek za novou instalaci</string>
     <string name="vip_entry_active">Členství VIP</string>
-    <string name="vip_success_title">Success</string>
+    <string name="vip_success_title">Úspěch</string>
     <string name="vip_success_message">VIP je aktivní na %1$d dní.</string>
-    <string name="vip_failed_title">Failed</string>
+    <string name="vip_failed_title">Selhalo</string>
     <string name="ad_attribution_label" translatable="false">Ad Networks (AdMob / AppLovin MAX)</string>
     <string name="vip_failed_busy">Předchozí kód se stále ověřuje. Chvíli počkejte a zkuste to znovu.</string>
     <string name="vip_failed_no_network">Aktivace kódu vyžaduje připojení k internetu. Připojte se a zkuste to znovu.</string>
@@ -513,8 +513,8 @@
     <string name="commute_deepdive_unlocked">🎉 Podrobný rozbor odemčen!</string>
     <string name="commute_empty">Žádné nepřečtené články pro ranní rádio</string>
     <string name="commute_generating">AI DJ připravuje váš pořad...</string>
-    <string name="retry">Retry</string>
-    <string name="version">Version</string>
+    <string name="retry">Opakovat</string>
+    <string name="version">Verze</string>
     <string name="rate_app">Ohodnotit aplikaci</string>
     <string name="rate_app_desc">Pokud je pro vás aplikace užitečná, ohodnoťte ji prosím 5 hvězdičkami</string>
     <string name="more_apps">Další aplikace</string>
@@ -523,7 +523,7 @@
     <string name="share_app_desc">Sdílejte prosím tuto aplikaci, ať ji mohou používat i ostatní</string>
     <string name="term_and_policy">Podmínky &amp; zásady</string>
     <string name="term_and_policy_desc">Přečtěte si bezpečnostní podmínky a zásady ochrany soukromí</string>
-    <string name="about_title">About</string>
+    <string name="about_title">O aplikaci</string>
     <string name="about_desc">Seznamte se s touto aplikací</string>
     <string name="source_code_original">Zdrojový kód (původní verze)</string>
     <string name="source_code_current">Zdrojový kód (tato verze)</string>
@@ -549,7 +549,7 @@
     <string name="quiz_ai_no_key">Není k dispozici žádný klíč Gemini, takže AI nemohla otázku napsat.</string>
     <string name="quiz_ai_nothing_to_ask">Tento článek nemá název ani náhled, na který by se dalo ptát.</string>
     <string name="quiz_ai_retry">Zkusit znovu</string>
-    <string name="quiz_ai_consent_agree">Agree</string>
+    <string name="quiz_ai_consent_agree">Souhlasím</string>
     <string name="quiz_ai_consent_later">Teď ne</string>
     <string name="quiz_ai_declined_message">Kvízové otázky od AI jsou vypnuty. Zapněte je v Nastavení, Soukromí, abyste zde dostali otázku.</string>
     <string name="quiz_ai_open_privacy">Otevřít nastavení soukromí</string>
@@ -575,13 +575,13 @@
     <string name="brain_rpg_decay_notification_channel_desc">Denní souhrn úpadku kategorií</string>
     <string name="brain_rpg_xp_retained">Základ %1$d XP · zachováno %2$d%%</string>
     <string name="brain_rpg_streak_shield_success">Štít série aktivován!</string>
-    <string name="brain_rpg_streak_shield_protected">Protected</string>
+    <string name="brain_rpg_streak_shield_protected">Chráněno</string>
     <string name="brain_rpg_target_xp">Target: %1$d XP</string>
     <string name="brain_rpg_skill_tree_title">Strom znalostí</string>
     <string name="brain_rpg_stats_title">Statistiky výzev AI</string>
-    <string name="brain_rpg_stats_attempted">Attempted</string>
-    <string name="brain_rpg_stats_passed">Correct</string>
-    <string name="brain_rpg_stats_accuracy">Accuracy</string>
+    <string name="brain_rpg_stats_attempted">Pokusy</string>
+    <string name="brain_rpg_stats_passed">Správně</string>
+    <string name="brain_rpg_stats_accuracy">Přesnost</string>
     <string name="brain_rpg_wrapped_desc">"Získali jste %1$d XP a udrželi sérii čtení %2$d dní! Sdílejte svůj úspěch a inspirujte ostatní."</string>
 
     <!-- Epic 08: Zen Focus & Speed Reading -->
@@ -603,7 +603,7 @@
     <string name="zen_evening_edition">Evening Edition (20:00)</string>
     <string name="zen_daily_edition_notification">%1$d nepřečtených článků čeká na vaše soustředěné čtení.</string>
     <string name="zen_sleep_timer">Časovač vypnutí</string>
-    <string name="zen_sleep_timer_off">Continuous</string>
+    <string name="zen_sleep_timer_off">Nepřetržitě</string>
     <string name="zen_sleep_timer_min">%1$d minutes</string>
     <string name="zen_volume">Volume: %1$d%%</string>
     <string name="zen_settings_title">Zen soustředění &amp; rychločtení</string>
@@ -614,7 +614,7 @@
     <string name="highlights_bullet_count">%1$d hlavních bodů</string>
     <string name="highlights_copy_all">Kopírovat zvýraznění</string>
     <string name="highlights_copied_toast">Zvýraznění zkopírována do schránky</string>
-    <string name="highlights_share">Share</string>
+    <string name="highlights_share">Sdílet</string>
     <string name="highlights_tldr">Quick TL;DR</string>
     <string name="highlights_ai_badge">Gemini AI</string>
     <string name="highlights_fallback_badge">Chytrý offline</string>
@@ -634,13 +634,13 @@
     <string name="deep_read_title">Hluboké čtení s AI</string>
     <string name="deep_read_subtitle">Interaktivní chat o článku</string>
     <string name="deep_read_input_placeholder">Zeptejte se na něco k tomuto článku…</string>
-    <string name="deep_read_send">Send</string>
+    <string name="deep_read_send">Odeslat</string>
     <string name="deep_read_clear_chat">Vymazat chat</string>
     <string name="deep_read_copied_toast">Odpověď zkopírována do schránky</string>
     <string name="deep_read_welcome_message">Ahoj! Analyzoval jsem tento článek. Zeptejte se na cokoli, požádejte o upřesnění nebo klepněte na navrhované téma níže.</string>
-    <string name="deep_read_context_label">Discussing:</string>
+    <string name="deep_read_context_label">Diskuse:</string>
     <string name="deep_read_thinking">AI analyzuje článek…</string>
-    <string name="deep_read_grounded_badge">Grounded</string>
+    <string name="deep_read_grounded_badge">Podloženo</string>
     <string name="deep_read_offline_badge">Chytrý offline</string>
     <string name="deep_read_ai_badge">Gemini AI</string>
     <string name="deep_read_copy_transcript">Kopírovat konverzaci</string>
@@ -656,7 +656,7 @@
     <string name="story_cluster_all_perspectives">Všechny pohledy (%d)</string>
     <string name="story_cluster_mark_all_read">Označit vše jako přečtené</string>
     <string name="story_cluster_sheet_title">Pokrytí příběhu z více pohledů</string>
-    <string name="story_cluster_lead_badge">Lead</string>
+    <string name="story_cluster_lead_badge">Hlavní</string>
     <string name="semantic_search_title">Sémantické vyhledávání s AI</string>
     <string name="semantic_search_desc">Hledejte články podle pojmů a významu, ne podle přesných klíčových slov</string>
     <string name="semantic_match_badge">%d%% match</string>
@@ -665,7 +665,7 @@
     <string name="watchdog_title">Hlídač klíčových slov</string>
     <string name="watchdog_desc">Sledovat důležitá klíčová slova &amp; burzovní symboly při synchronizaci na pozadí a ihned upozornit</string>
     <string name="watchdog_add_hint">Zadejte klíčové slovo nebo symbol (např. $VIC, Bitcoin, Zlato)...</string>
-    <string name="watchdog_add_btn">Add</string>
+    <string name="watchdog_add_btn">Přidat</string>
     <string name="watchdog_empty_desc">Zatím nejsou přidána žádná klíčová slova. Přidejte je nebo vyberte z návrhů níže a začněte sledovat.</string>
     <string name="watchdog_matched_count">%d matched</string>
     <string name="watchdog_channel_name">Upozornění hlídače klíčových slov</string>
@@ -687,12 +687,12 @@
     <string name="notebook_empty_subtitle">Zvýrazňujte při čtení inspirativní citáty a budujte tak své znalosti ve Second Brain.</string>
     <string name="notebook_empty_search">Nenalezena žádná odpovídající zvýraznění</string>
 
-    <string name="notebook_save">Save</string>
-    <string name="notebook_copy">Copy</string>
-    <string name="notebook_edit">Edit</string>
+    <string name="notebook_save">Uložit</string>
+    <string name="notebook_copy">Kopírovat</string>
+    <string name="notebook_edit">Upravit</string>
     <string name="notebook_copied">Zkopírováno do schránky</string>
-    <string name="notebook_saved">Saved</string>
-    <string name="notebook_deleted">Deleted</string>
+    <string name="notebook_saved">Uloženo</string>
+    <string name="notebook_deleted">Smazáno</string>
     <string name="notebook_untitled">Článek bez názvu</string>
     <string name="ai_active_key_custom">Používá se váš vlastní klíč API</string>
     <string name="ai_active_key_default">Používá se výchozí sdílená kvóta</string>
@@ -822,7 +822,7 @@
     <string name="second_brain_settings_desc">Zjistěte, jak se témata, která čtete, propojují v čase</string>
     <string name="second_brain_empty">Přečtěte nebo uložte pár článků a zde se objeví graf vašich témat.</string>
     <string name="second_brain_error">Graf se nepodařilo vytvořit. Zkuste to znovu.</string>
-    <string name="second_brain_retry">Retry</string>
+    <string name="second_brain_retry">Opakovat</string>
     <string name="second_brain_graph_desc">Graf témat s %1$d tématy a %2$d propojeními</string>
     <string name="second_brain_node_articles">%1$d articles</string>
     <string name="second_brain_range_label">Časové období</string>
@@ -845,7 +845,7 @@
     <!-- Share Target / Read Later (INGEST-02) -->
     <string name="read_later_feed_title">Přečíst později</string>
     <string name="share_target_save_btn">Uložit na později</string>
-    <string name="share_target_cancel_btn">Cancel</string>
+    <string name="share_target_cancel_btn">Zrušit</string>
     <string name="share_target_saved_toast">Uloženo na později</string>
     <string name="share_target_invalid_url">Nenalezen žádný platný odkaz</string>
     <string name="read_position_sync">Synchronizovat pozici čtení</string>
@@ -857,12 +857,12 @@
     <string name="smart_collection_save_action">Uložit jako kolekci</string>
     <string name="smart_collection_empty">Zatím žádné chytré kolekce. Uložte sémantické hledání a sledujte téma.</string>
     <string name="smart_collection_articles_count">%1$d articles</string>
-    <string name="smart_collection_edit">Edit</string>
-    <string name="smart_collection_delete">Delete</string>
+    <string name="smart_collection_edit">Upravit</string>
+    <string name="smart_collection_delete">Smazat</string>
     <string name="smart_collection_delete_confirm">Smazat tuto kolekci? Její články zůstanou ve vaší knihovně.</string>
     <string name="smart_collection_saved">Chytrá kolekce uložena</string>
     <string name="smart_collection_empty_articles">Zatím žádné nové odpovídající články. Nové shody se objeví po synchronizaci.</string>
-    <string name="save">Save</string>
+    <string name="save">Uložit</string>
     <string name="eink_mode_title">Optimalizace pro E-Ink</string>
     <string name="eink_active_title">Režim E-Ink je zapnutý</string>
     <string name="eink_active_desc">Aplikace se zobrazuje černobíle. Klepnutím ji vypnete.</string>
@@ -951,8 +951,8 @@
     <string name="widget_article_pin_unsupported">Váš launcher nepodporuje automatické připnutí widgetu</string>
     <!-- Feed Zero Triage (EXC-14) -->
     <string name="feed_zero_triage_title">Třídění kanálů do nuly</string>
-    <string name="triage_swipe_left_skip">Skip</string>
-    <string name="triage_swipe_right_save">Save</string>
+    <string name="triage_swipe_left_skip">Přeskočit</string>
+    <string name="triage_swipe_right_save">Uložit</string>
     <string name="triage_swipe_up_read">Číst hned</string>
     <string name="triage_progress_format">%1$d / %2$d</string>
     <string name="triage_inbox_zero_title">🎉 Schránka je prázdná!</string>
@@ -961,7 +961,7 @@
     <string name="triage_summary_saved">Uloženo na později: %1$d</string>
     <string name="triage_summary_skipped">Označeno jako přečtené: %1$d</string>
     <string name="triage_summary_xp">+%1$d XP Brain RPG</string>
-    <string name="triage_finish_button">Done</string>
+    <string name="triage_finish_button">Hotovo</string>
     <!-- Brain Wrapped tuần (RPG-09) -->
     <string name="brain_wrapped_share_story">Sdílet do příběhu</string>
     <string name="brain_wrapped_xp_label">Týdenní XP</string>
@@ -1006,14 +1006,14 @@
     <string name="headline_signals_desc">Analyzuje v tomto zařízení formulace titulků a článků a hledá náznaky clickbaitu, reklamních či přehnaných formulací a emocionální tón (pozitivní/nejasný/negativní). Nic se nikam neodesílá a nepoužívá se AI ani síť. Jde pouze o signály ve formulacích, nikoli o ověření faktů ani posouzení politické zaujatosti. Španělština, francouzština a němčina jsou experimentální.</string>
     <string name="headline_signals_clickbait_badge">🎯 Clickbait %1$d%%</string>
     <string name="headline_signals_clickbait_desc">Ukazatel clickbaitového jazyka: skóre je %1$d ze 100.</string>
-    <string name="headline_signals_tone_positive">🟢 Positive</string>
-    <string name="headline_signals_tone_unclear">⚪ Unclear</string>
-    <string name="headline_signals_tone_negative">🔴 Negative</string>
+    <string name="headline_signals_tone_positive">🟢 Pozitivní</string>
+    <string name="headline_signals_tone_unclear">⚪ Nejasné</string>
+    <string name="headline_signals_tone_negative">🔴 Negativní</string>
     <string name="headline_signals_tone_desc_positive">Slovní tón titulku: přítomny pozitivní ukazatele.</string>
     <string name="headline_signals_tone_desc_unclear">Slovní tón titulku: nejasné nebo nedostatečné ukazatele.</string>
     <string name="headline_signals_tone_desc_negative">Slovní tón titulku: přítomny negativní ukazatele.</string>
     <string name="brain_rpg_skill_tree_decay_warning">Tato dovednost časem zeslábla. Procvičte ji, abyste ji obnovili.</string>
-    <string name="bounty_action_investigate">Investigate</string>
+    <string name="bounty_action_investigate">Prošetřit</string>
     <string name="bounty_sheet_title">Agent pro vyšetřování entit</string>
     <string name="bounty_scanning_status">Prohledávání archivu zpráv: %1$s…</string>
     <string name="bounty_stats_summary">%1$d souvisejících článků • %2$d zdrojů</string>
@@ -1028,14 +1028,14 @@
     <string name="echo_hype_label">Hype: %1$d%%</string>
     <string name="echo_hype_warning">Zjištěny silně reklamní nebo přehnané formulace</string>
     <string name="echo_tone_label">Tone: %1$s</string>
-    <string name="echo_tone_positive">🟢 Positive</string>
-    <string name="echo_tone_unclear">⚪ Unclear</string>
-    <string name="echo_tone_negative">🔴 Negative</string>
+    <string name="echo_tone_positive">🟢 Pozitivní</string>
+    <string name="echo_tone_unclear">⚪ Nejasné</string>
+    <string name="echo_tone_negative">🔴 Negativní</string>
     <string name="echo_details_title">Signály jazyka textu</string>
     <string name="echo_disclaimer">Pouze místní signály ve formulacích; nejde o ověření faktů, hodnocení důvěryhodnosti, analýzu politické zaujatosti ani tvrzení o záměru autora. „Nejasné“ znamená nedostatek slovních důkazů, nikoli neutrální.</string>
     <string name="echo_flagged_passages_title">Označené pasáže (%1$d)</string>
     <string name="echo_cue_promotional">Reklamní fráze</string>
-    <string name="echo_cue_intensifier">Exaggeration</string>
+    <string name="echo_cue_intensifier">Přehánění</string>
     <string name="echo_cue_absolute">Absolutní tvrzení</string>
     <string name="echo_cue_exclamation">Důraz interpunkcí nebo velkými písmeny</string>
     <string name="echo_no_passages">Žádný odstavec nepřekročil práh přehnanosti.</string>
@@ -1043,10 +1043,10 @@
     <!-- BOUNTY-02 dossier -->
     <string name="dossier_create_action">Vytvořit dosje</string>
     <string name="dossier_sheet_title">Místní zpravodajské dosje</string>
-    <string name="dossier_tab_summary">Summary</string>
-    <string name="dossier_tab_timeline">Timeline</string>
-    <string name="dossier_tab_names">Names</string>
-    <string name="dossier_tab_sources">Sources</string>
+    <string name="dossier_tab_summary">Shrnutí</string>
+    <string name="dossier_tab_timeline">Časová osa</string>
+    <string name="dossier_tab_names">Jména</string>
+    <string name="dossier_tab_sources">Zdroje</string>
     <string name="dossier_share_action">Sdílet Markdown</string>
     <string name="dossier_chooser_title">Sdílet dosje</string>
     <string name="dossier_limitation">Vytvořeno pouze z článků uložených v této aplikaci. Může vynechat některé názory a nejde o ověření faktů.</string>
@@ -1069,7 +1069,7 @@
     <string name="streak_rescue_message">Vynechali jste %1$d dní čtení. Vaše série %2$d dní se při dalším čtení vynuluje.</string>
     <string name="streak_rescue_action_ad">Zhlédnout video a zachránit sérii</string>
     <string name="streak_rescue_action_restart">Začít od nuly</string>
-    <string name="streak_rescue_action_later">Later</string>
+    <string name="streak_rescue_action_later">Později</string>
     <string name="streak_rescue_ad_failed">Video se nepodařilo načíst. Zkuste to prosím znovu.</string>
 
     <!-- ZEN-07 RSVP calibration -->
@@ -1084,8 +1084,8 @@
     <string name="zen_calibration_suggested_wpm">Doporučená rychlost: ~%1$d slov/min</string>
     <string name="zen_calibration_limitation">Jde o hrubý odhad ze 6 otázek, nikoli o míru hlubokého porozumění. Rychlost můžete vždy upravit ručně.</string>
     <string name="zen_calibration_low_confidence_note">Vaše odpovědi se mezi rychlostmi lišily; zkuste číst vlastním tempem a později kalibraci zopakujte.</string>
-    <string name="zen_calibration_apply">Apply</string>
-    <string name="zen_calibration_skip">Skip</string>
+    <string name="zen_calibration_apply">Použít</string>
+    <string name="zen_calibration_skip">Přeskočit</string>
     <string name="zen_calibration_settings_desc">Zkalibrujte rychlost čtení ve 3 krátkých kolech</string>
 
     <!-- ECHO-02 contrasting coverage -->
@@ -1099,7 +1099,7 @@
     <string name="echo_dual_export">Exportovat kartu</string>
     <string name="echo_dual_export_desc">Exportovat kartu se dvěma titulky s %1$s</string>
     <string name="echo_dual_title">Sdílet dva titulky</string>
-    <string name="echo_dual_share">Share</string>
+    <string name="echo_dual_share">Sdílet</string>
     <string name="echo_dual_cut_note">Titulek byl zkrácen</string>
     <string name="echo_dual_error">Kartu se nepodařilo vytvořit. Klepnutím to zkuste znovu.</string>
     <string name="echo_dual_chooser_title">Sdílet kartu se dvěma titulky</string>
@@ -1110,7 +1110,7 @@
     <string name="curated_bundle_verified_on">Checked %1$s</string>
     <string name="curated_bundle_source_count">Sources: %1$d</string>
     <string name="curated_bundle_subscribe_all">Odebírat vše</string>
-    <string name="curated_bundle_subscribing">Subscribing…</string>
+    <string name="curated_bundle_subscribing">Odebírám…</string>
     <string name="curated_bundle_progress">Subscribing %1$d of %2$d</string>
     <string name="curated_bundle_result">Přidáno %1$d · již existovalo %2$d · selhalo %3$d</string>
     <string name="curated_bundle_error">Odběr se nepodařilo zahájit: %1$s</string>
@@ -1118,11 +1118,11 @@
     <string name="curated_bundle_account_local_only">Odběr celého balíčku je dostupný pouze pro místní účet.</string>
 
     <!-- FRONT-03 knowledge galaxy -->
-    <string name="galaxy_mode_concepts">Concepts</string>
-    <string name="galaxy_mode_stars">Galaxy</string>
+    <string name="galaxy_mode_concepts">Pojmy</string>
+    <string name="galaxy_mode_stars">Galaxie</string>
     <string name="galaxy_empty">Označte několik článků jako přečtené a objeví se zde jako hvězdy. Zkuste rozšířit časové období.</string>
     <string name="galaxy_error">Galaxii se nepodařilo vytvořit. Zkuste to znovu.</string>
-    <string name="galaxy_retry">Retry</string>
+    <string name="galaxy_retry">Opakovat</string>
     <string name="galaxy_reset_view">Obnovit zobrazení</string>
     <string name="galaxy_stats">Hvězdy: %1$d · Odkazy: %2$d</string>
     <string name="galaxy_star_open">Otevřít článek</string>
@@ -1140,7 +1140,7 @@
     <string name="second_screen_viewers">Viewers: %1$d</string>
     <string name="second_screen_expires">Expires at %1$s</string>
     <string name="second_screen_warning">Nešifrováno. Kdokoli v této síti Wi-Fi, kdo uvidí odkaz, si může článek přečíst. Používejte pouze v důvěryhodné síti.</string>
-    <string name="second_screen_starting">Starting…</string>
+    <string name="second_screen_starting">Spouštím…</string>
     <string name="second_screen_no_network">Žádná síť Wi-Fi ani Ethernet se soukromou adresou. Připojte se k Wi-Fi a zkuste to znovu.</string>
     <string name="second_screen_lan_permission_denied">Přístup k místní síti je vypnutý. Povolte jej v Nastavení, aby se články mohly zobrazit na druhé obrazovce.</string>
     <string name="second_screen_expired">Relace skončila. Znovu ji zapněte a získáte nový odkaz.</string>
@@ -1151,8 +1151,8 @@
     <string name="galaxy_related_title">Související články</string>
     <string name="galaxy_shared_terms">Společná slova: %1$s</string>
     <string name="local_sync_title">Místní synchronizace</string>
-    <string name="local_sync_send">Send</string>
-    <string name="local_sync_receive">Receive</string>
+    <string name="local_sync_send">Odeslat</string>
+    <string name="local_sync_receive">Přijmout</string>
     <string name="local_sync_send_instructions">Vytvořte šifrovaný balíček pro jiné zařízení v této místní síti.</string>
     <string name="local_sync_secret_warning">Sdílejte toto párovací tajemství odděleně od adresy URL. Kdokoli, kdo má obojí, si může balíček přečíst.</string>
     <string name="local_sync_http_warning">HTTP neskrývá adresu URL, adresu zařízení, čas ani velikost přenosu. Šifrován je pouze obsah balíčku. Používejte důvěryhodnou místní síť.</string>
@@ -1176,7 +1176,7 @@
     <string name="local_sync_apply">Použít změny</string>
     <string name="local_sync_confirm_apply">Použít změny synchronizace?</string>
     <string name="local_sync_confirm_counts">Kanály k přidání: %1$d. Stavy článků k aktualizaci: %2$d. Použít tyto změny?</string>
-    <string name="local_sync_cancel">Cancel</string>
+    <string name="local_sync_cancel">Zrušit</string>
     <string name="local_sync_done">Změny synchronizace byly použity.</string>
     <string name="local_sync_not_local">Pro synchronizaci vyberte místní účet.</string>
     <string name="local_sync_error_network">K relaci synchronizace se nepodařilo připojit. Zkontrolujte adresu a místní síť.</string>
@@ -1202,9 +1202,9 @@
     <string name="local_sync_reply_instruction">Požádejte druhý telefon, aby zastavil odesílání a nejprve otevřel Přijímání.</string>
     <string name="local_sync_merge_limit">Sloučení zachovává pouze značky přečteno a hvězdička; označení jako nepřečtené nebo odebrání hvězdičky v jednom telefonu se může po synchronizaci vrátit.</string>
     <string name="local_sync_peer_unconfirmed">Čeká se, až druhé zařízení jednou přijme data</string>
-    <string name="local_sync_peer_confirmed">Paired</string>
+    <string name="local_sync_peer_confirmed">Spárováno</string>
     <string name="local_sync_peer_needs_repair">Nelze použít v tomto telefonu. Zapomeňte je a spárujte znovu.</string>
-    <string name="local_sync_forget_peer">Forget</string>
+    <string name="local_sync_forget_peer">Zapomenout</string>
     <string name="local_sync_confirm_peer">Označit jako spárované</string>
     <string name="local_sync_nearby_title">Spárované zařízení je poblíž.</string>
     <string name="local_sync_no_peer_found">Zatím nebylo nalezeno žádné zařízení poblíž. Otevřete Odeslat na druhém zařízení.</string>
@@ -1216,7 +1216,7 @@
     <!-- EXC-11 Temporal Ask My Archive -->
     <string name="archive_query_title">Zeptat se mého archivu</string>
     <string name="archive_query_desc">Zeptejte se na téma a podívejte se, jak je ve vašich uložených článcích pokryto, měsíc po měsíci.</string>
-    <string name="archive_query_question_label">Question</string>
+    <string name="archive_query_question_label">Otázka</string>
     <string name="archive_query_question_hint">např. úrokové sazby od března</string>
     <string name="archive_query_search">Hledat v archivu</string>
     <string name="archive_query_start_date">Datum od (RRRR-MM-DD)</string>
@@ -1255,7 +1255,7 @@
     <string name="feed_autopilot_summary_clean">Vaše kanály vypadají uklizeně. Nebyly zjištěny žádné rušivé kanály.</string>
     <string name="feed_autopilot_reason_opened">Otevřeno %1$d z %2$d (posledních %3$d dní; zapojení %4$d%%)</string>
     <string name="feed_autopilot_reason_zero">Z %1$d článků za posledních %2$d dní nebyl otevřen žádný</string>
-    <string name="feed_autopilot_action_unsubscribe">Unsubscribe</string>
+    <string name="feed_autopilot_action_unsubscribe">Odhlásit odběr</string>
     <string name="feed_autopilot_action_snooze">Odložit na 30 dní</string>
     <string name="feed_autopilot_action_keep">Ponechat a už nenavrhovat</string>
     <string name="feed_autopilot_confirm_title">Zrušit odběr %1$s?</string>
@@ -1270,14 +1270,14 @@
     <string name="podcast_studio_menu">Podcastové studio</string>
     <string name="podcast_studio_consent_title">Napsat scénář pomocí AI?</string>
     <string name="podcast_studio_consent_message">Google Gemini se pro vytvoření scénáře pro dva moderátory odešle pouze název tohoto článku a krátký náhled (do 250 znaků). Text článku, odkazy ani historie čtení se nikdy neodesílají.</string>
-    <string name="podcast_studio_consent_agree">Use AI</string>
+    <string name="podcast_studio_consent_agree">Použít AI</string>
     <string name="podcast_studio_consent_decline">Použít offline scénář</string>
     <string name="podcast_studio_conflict_title">Zastavit přehrávání?</string>
     <string name="podcast_studio_conflict_message">Přehrání tohoto článku jako podcastu zastaví zvuk, který se právě přehrává.</string>
     <string name="podcast_studio_badge_source_gemini">Scénář napsala AI</string>
     <string name="podcast_studio_badge_source_heuristic">Offline scénář, bez AI</string>
-    <string name="podcast_studio_play">Play</string>
-    <string name="podcast_studio_pause">Pause</string>
+    <string name="podcast_studio_play">Přehrát</string>
+    <string name="podcast_studio_pause">Pozastavit</string>
     <string name="podcast_studio_next">Další replika</string>
     <string name="podcast_studio_previous">Předchozí replika</string>
     <string name="podcast_studio_host_alex">Alex</string>
@@ -1287,7 +1287,7 @@
     <string name="deep_dive_menu">🔬 Podrobný rozbor s AI</string>
     <string name="deep_dive_title">Podrobný rozbor s AI</string>
     <string name="deep_dive_consent_message">Google Gemini se pro vytvoření této zprávy odešle název článku a až 6 000 znaků jeho textu. Odkazy, název kanálu ani historie čtení se nikdy neodesílají. Gemini nevyhledává na webu.</string>
-    <string name="deep_dive_consent_agree">Agree</string>
+    <string name="deep_dive_consent_agree">Souhlasím</string>
     <string name="deep_dive_consent_later">Teď ne</string>
     <string name="deep_dive_declined_message">Podrobný rozbor s AI je vypnutý. Zapněte jej v Nastavení, Soukromí, abyste mohli zprávu vytvořit.</string>
     <string name="deep_dive_open_privacy">Otevřít nastavení soukromí</string>
@@ -1297,30 +1297,30 @@
     <string name="deep_dive_nothing_to_analyze">Tento článek nemá název ani text k analýze.</string>
     <string name="deep_dive_retry">Zkusit znovu</string>
     <string name="deep_dive_label">Napsala AI podle názvu a úryvku; bez vyhledávání na webu; může se mýlit</string>
-    <string name="deep_dive_section_context">Context</string>
+    <string name="deep_dive_section_context">Kontext</string>
     <string name="deep_dive_section_critical">Opačné názory</string>
     <string name="deep_dive_section_impact">Matice dopadů</string>
-    <string name="deep_dive_col_area">Area</string>
+    <string name="deep_dive_col_area">Oblast</string>
     <string name="deep_dive_col_short">Krátkodobě</string>
     <string name="deep_dive_col_long">Dlouhodobě</string>
     <string name="deep_dive_export_pdf">Exportovat PDF</string>
     <string name="deep_dive_chooser_title">Sdílet PDF podrobného rozboru</string>
     <string name="deep_dive_export_error">PDF se nepodařilo vytvořit</string>
     <string name="deep_dive_pdf_truncated">Zkráceno, aby se vešlo na jednu stránku. Celou zprávu najdete v aplikaci.</string>
-    <string name="deep_dive_close">Close</string>
-    <string name="oracle_badge_label">Prediction</string>
+    <string name="deep_dive_close">Zavřít</string>
+    <string name="oracle_badge_label">Předpověď</string>
     <string name="oracle_badge_open">Otevřít předpověď</string>
     <string name="oracle_sheet_title">Předpověď nalezená v tomto článku</string>
     <string name="oracle_sheet_expires">Expected by %1$s</string>
     <string name="oracle_sheet_criteria_heading">Jak ověřit odpověď</string>
     <string name="oracle_sheet_ai_label">Napsala AI podle názvu a popisu; může se mýlit.</string>
-    <string name="oracle_sheet_close">Close</string>
+    <string name="oracle_sheet_close">Zavřít</string>
     <string name="oracle_consent_title">Hledat předpovědi v nových článcích</string>
     <string name="oracle_consent_message">Po každé synchronizaci se Google Gemini odešle název a krátký popis (celkem až 500 znaků) až 5 nových článků, aby v nich našel předpověď. Text článků, odkazy, název kanálu ani historie čtení se nikdy neodesílají. Ve výchozím nastavení vypnuto.</string>
     <string name="oracle_bet_balance">Zůstatek: %1$s bodů</string>
     <string name="oracle_bet_pick_side">Váš tip</string>
-    <string name="oracle_bet_yes">Yes</string>
-    <string name="oracle_bet_no">No</string>
+    <string name="oracle_bet_yes">Ano</string>
+    <string name="oracle_bet_no">Ne</string>
     <string name="oracle_bet_pick_stake">Vsazené body</string>
     <string name="oracle_bet_stake_option">%1$s points</string>
     <string name="oracle_bet_place">Vsadit</string>
@@ -1329,7 +1329,7 @@
     <string name="oracle_bet_open">Vsadili jste %1$s bodů na: %2$s.</string>
     <string name="oracle_bet_open_hint">Výsledek můžete nahlásit po výše uvedeném datu.</string>
     <string name="oracle_bet_awaiting_title">Jaký byl výsledek?</string>
-    <string name="oracle_bet_outcome_unclear">Unclear</string>
+    <string name="oracle_bet_outcome_unclear">Nejasné</string>
     <string name="oracle_bet_awaiting_hint">Vsadili jste %1$s bodů na: %2$s. Možnost Nejasné vrátí vaše body.</string>
     <string name="oracle_bet_settled_won">Vyhráli jste %1$s bodů.</string>
     <string name="oracle_bet_settled_lost">Prohráli jste %1$s bodů.</string>
@@ -1352,7 +1352,7 @@
     <string name="commute_autoplay_title">Přehrát po připojení sluchátek Bluetooth</string>
     <string name="commute_autoplay_desc">Pokusí se spustit ranní epizodu jednou denně, do 2 hodin od jejího připravení. Pokud to Android zablokuje, dostanete oznámení s tlačítkem Přehrát.</string>
     <string name="commute_autoplay_permission_denied">Bez oprávnění Zařízení v okolí aplikace nevidí vaše sluchátka, proto zůstane tato funkce vypnutá.</string>
-    <string name="commute_play_action">Play</string>
+    <string name="commute_play_action">Přehrát</string>
     <string name="commute_ready_to_play_title">Vaše ranní epizoda je připravena</string>
     <string name="commute_ready_to_play_body">Vaše sluchátka jsou připojena. Klepnutím na Přehrát si ji poslechnete.</string>
 </resources>

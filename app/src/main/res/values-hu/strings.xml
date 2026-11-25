@@ -316,8 +316,8 @@
     <string name="try_again">Újra</string>
     <string name="change_language">Nyelv módosítása</string>
     <string name="change_language_confirm">Az alkalmazás újraindul az új nyelv alkalmazásához. Folytatod?</string>
-    <string name="yes">Yes</string>
-    <string name="no">No</string>
+    <string name="yes">Igen</string>
+    <string name="no">Nem</string>
     <string name="restarting_app">Alkalmazás újraindítása…</string>
     <string name="auto_tts">Automatikus felolvasás</string>
     <string name="auto_tts_desc">A cikkek automatikus felolvasása megnyitáskor</string>
@@ -377,10 +377,10 @@
     <string name="inoreader_desc" translatable="false">inoreader.com</string>
     <string name="fresh_rss_desc" translatable="false">freshrss.org</string>
     <string name="google_reader_desc" translatable="false">Google Reader API</string>
-    <string name="in_coding">In development</string>
+    <string name="in_coding">Fejlesztés alatt</string>
     <string name="tips_top_bar_tonal_elevation">A tónusos magasság csak görgetéskor érhető el</string>
     <string name="summary_title">Összefoglalás AI-val</string>
-    <string name="summary_loading">Summarizing…</string>
+    <string name="summary_loading">Összegzés…</string>
     <string name="summary_try_again">Újra</string>
     <string name="summary_get_key">Ingyenes kulcs kérése</string>
     <string name="summary_err_empty_content">A cikknek nincs összefoglalható tartalma</string>
@@ -402,7 +402,7 @@
     <string name="vip_remaining_short">Hátravan: %1$d nap %2$d óra</string>
     <string name="vip_redeem_label">VIP-kód megadása</string>
     <string name="vip_redeem_hint">pl. a VIP-kódod</string>
-    <string name="vip_redeem_button">Activate</string>
+    <string name="vip_redeem_button">Aktiválás</string>
     <string name="vip_watch_ad_3d">Reklám megtekintése → 3 nap VIP</string>
     <string name="vip_buy_30d_locked">30 napos VIP vásárlása — hamarosan</string>
     <string name="vip_buy_90d_locked">90 napos VIP vásárlása — hamarosan</string>
@@ -414,9 +414,9 @@
     <string name="vip_revoke_all_confirm_message">Biztosan visszavonod a VIP-et, és visszatérsz az ingyenes fiókra?</string>
     <string name="vip_entry_first_install">🎁 Ajándék az első telepítéshez</string>
     <string name="vip_entry_active">VIP-tagság</string>
-    <string name="vip_success_title">Success</string>
+    <string name="vip_success_title">Sikeres</string>
     <string name="vip_success_message">A VIP %1$d napig aktív.</string>
-    <string name="vip_failed_title">Failed</string>
+    <string name="vip_failed_title">Sikertelen</string>
     <string name="ad_attribution_label" translatable="false">Ad Networks (AdMob / AppLovin MAX)</string>
     <string name="vip_failed_busy">Egy előző kód ellenőrzése még folyamatban van. Várj egy kicsit, majd próbáld újra.</string>
     <string name="vip_failed_no_network">A kód aktiválásához internetkapcsolat szükséges. Csatlakozz, és próbáld újra.</string>
@@ -433,8 +433,8 @@
     <string name="commute_deepdive_unlocked">🎉 Mélyelemzés feloldva!</string>
     <string name="commute_empty">Nincs olvasatlan cikk a reggeli rádióhoz</string>
     <string name="commute_generating">Az AI DJ összeállítja a műsorodat...</string>
-    <string name="retry">Retry</string>
-    <string name="version">Version</string>
+    <string name="retry">Újrapróbálás</string>
+    <string name="version">Verzió</string>
     <string name="rate_app">Alkalmazás értékelése</string>
     <string name="rate_app_desc">Értékeld 5 csillaggal, ha hasznosnak találod az alkalmazást</string>
     <string name="more_apps">További alkalmazások</string>
@@ -443,7 +443,7 @@
     <string name="share_app_desc">Oszd meg az alkalmazást, hogy mások is használhassák</string>
     <string name="term_and_policy">Feltételek &amp; irányelvek</string>
     <string name="term_and_policy_desc">Biztonsági feltételek és adatvédelmi irányelvek olvasása</string>
-    <string name="about_title">About</string>
+    <string name="about_title">Névjegy</string>
     <string name="about_desc">Ismerd meg az alkalmazást</string>
     <string name="source_code_original">Forráskód (eredeti verzió)</string>
     <string name="source_code_current">Forráskód (ez a verzió)</string>
@@ -469,7 +469,7 @@
     <string name="quiz_ai_no_key">Nincs elérhető Gemini-kulcs, ezért az AI nem tudott kérdést írni.</string>
     <string name="quiz_ai_nothing_to_ask">Ehhez a cikkhez nincs cím vagy előnézet, amiből kérdezni lehetne.</string>
     <string name="quiz_ai_retry">Újra</string>
-    <string name="quiz_ai_consent_agree">Agree</string>
+    <string name="quiz_ai_consent_agree">Egyetértek</string>
     <string name="quiz_ai_consent_later">Most nem</string>
     <string name="quiz_ai_declined_message">Az AI-kvízkérdések ki vannak kapcsolva. Kapcsold be a Beállítások, Adatvédelem alatt, hogy itt kérdést kapj.</string>
     <string name="quiz_ai_open_privacy">Adatvédelmi beállítások megnyitása</string>
@@ -495,13 +495,13 @@
     <string name="brain_rpg_decay_notification_channel_desc">Napi összegzés a kategóriák hanyatlásáról</string>
     <string name="brain_rpg_xp_retained">Alap: %1$d XP · %2$d%% megtartva</string>
     <string name="brain_rpg_streak_shield_success">Sorozatvédő pajzs aktiválva!</string>
-    <string name="brain_rpg_streak_shield_protected">Protected</string>
+    <string name="brain_rpg_streak_shield_protected">Védett</string>
     <string name="brain_rpg_target_xp">Target: %1$d XP</string>
     <string name="brain_rpg_skill_tree_title">Tudásfa</string>
     <string name="brain_rpg_stats_title">AI-kihívás statisztikái</string>
-    <string name="brain_rpg_stats_attempted">Attempted</string>
-    <string name="brain_rpg_stats_passed">Correct</string>
-    <string name="brain_rpg_stats_accuracy">Accuracy</string>
+    <string name="brain_rpg_stats_attempted">Megkísérelt</string>
+    <string name="brain_rpg_stats_passed">Helyes</string>
+    <string name="brain_rpg_stats_accuracy">Pontosság</string>
     <string name="brain_rpg_wrapped_desc">"Már %1$d XP-t szereztél, és %2$d napos olvasási sorozatot tartasz! Oszd meg az eredményed, hogy másokat is inspiráljon."</string>
 
     <!-- Epic 08: Zen Focus & Speed Reading -->
@@ -523,7 +523,7 @@
     <string name="zen_evening_edition">Evening Edition (20:00)</string>
     <string name="zen_daily_edition_notification">%1$d olvasatlan cikk vár a fókuszált olvasásra.</string>
     <string name="zen_sleep_timer">Elalvásidőzítő</string>
-    <string name="zen_sleep_timer_off">Continuous</string>
+    <string name="zen_sleep_timer_off">Folyamatos</string>
     <string name="zen_sleep_timer_min">%1$d minutes</string>
     <string name="zen_volume">Volume: %1$d%%</string>
     <string name="zen_settings_title">Zen fókusz &amp; gyorsolvasás</string>
@@ -534,7 +534,7 @@
     <string name="highlights_bullet_count">%1$d kulcspont</string>
     <string name="highlights_copy_all">Kiemelések másolása</string>
     <string name="highlights_copied_toast">Kiemelések a vágólapra másolva</string>
-    <string name="highlights_share">Share</string>
+    <string name="highlights_share">Megosztás</string>
     <string name="highlights_tldr">Quick TL;DR</string>
     <string name="highlights_ai_badge">Gemini AI</string>
     <string name="highlights_fallback_badge">Offline okos</string>
@@ -554,13 +554,13 @@
     <string name="deep_read_title">AI mélyolvasás</string>
     <string name="deep_read_subtitle">Interaktív csevegés a cikkel</string>
     <string name="deep_read_input_placeholder">Kérdezz a cikkről…</string>
-    <string name="deep_read_send">Send</string>
+    <string name="deep_read_send">Küldés</string>
     <string name="deep_read_clear_chat">Csevegés törlése</string>
     <string name="deep_read_copied_toast">Válasz a vágólapra másolva</string>
     <string name="deep_read_welcome_message">Szia! Elemeztem ezt a cikket. Kérdezz bármit, kérj magyarázatot, vagy koppints az alábbi javasolt témák egyikére.</string>
-    <string name="deep_read_context_label">Discussing:</string>
+    <string name="deep_read_context_label">Téma:</string>
     <string name="deep_read_thinking">Az AI elemzi a cikket…</string>
-    <string name="deep_read_grounded_badge">Grounded</string>
+    <string name="deep_read_grounded_badge">Megalapozott</string>
     <string name="deep_read_offline_badge">Offline okos</string>
     <string name="deep_read_ai_badge">Gemini AI</string>
     <string name="deep_read_copy_transcript">Beszélgetés másolása</string>
@@ -576,7 +576,7 @@
     <string name="story_cluster_all_perspectives">Minden nézőpont (%d)</string>
     <string name="story_cluster_mark_all_read">Összes olvasottnak jelölése</string>
     <string name="story_cluster_sheet_title">Többnézőpontú tudósítás</string>
-    <string name="story_cluster_lead_badge">Lead</string>
+    <string name="story_cluster_lead_badge">Fő</string>
     <string name="semantic_search_title">AI szemantikus keresés</string>
     <string name="semantic_search_desc">Cikkek keresése fogalom és jelentés alapján, pontos kulcsszavak helyett</string>
     <string name="semantic_match_badge">%d%% match</string>
@@ -585,7 +585,7 @@
     <string name="watchdog_title">Kulcsszavőr</string>
     <string name="watchdog_desc">Fontos kulcsszavak &amp; tőzsdei jelek figyelése a háttérszinkronizálás során, azonnali értesítéssel</string>
     <string name="watchdog_add_hint">Kulcsszó vagy tőzsdei jel (pl. $VIC, Bitcoin, Arany)...</string>
-    <string name="watchdog_add_btn">Add</string>
+    <string name="watchdog_add_btn">Hozzáadás</string>
     <string name="watchdog_empty_desc">Még nincs kulcsszó. Adj hozzá kulcsszavakat, vagy válassz az alábbi javaslatokból a figyelés indításához.</string>
     <string name="watchdog_matched_count">%d matched</string>
     <string name="watchdog_channel_name">Kulcsszavőr-riasztás</string>
@@ -607,12 +607,12 @@
     <string name="notebook_empty_subtitle">Emelj ki inspiráló idézeteket olvasás közben, hogy rendszerezd a Second Brain tudásodat.</string>
     <string name="notebook_empty_search">Nincs egyező kiemelés</string>
 
-    <string name="notebook_save">Save</string>
-    <string name="notebook_copy">Copy</string>
-    <string name="notebook_edit">Edit</string>
+    <string name="notebook_save">Mentés</string>
+    <string name="notebook_copy">Másolás</string>
+    <string name="notebook_edit">Szerkesztés</string>
     <string name="notebook_copied">Vágólapra másolva</string>
-    <string name="notebook_saved">Saved</string>
-    <string name="notebook_deleted">Deleted</string>
+    <string name="notebook_saved">Mentve</string>
+    <string name="notebook_deleted">Törölve</string>
     <string name="notebook_untitled">Cím nélküli cikk</string>
 
     <string name="ai_active_key_custom">Saját API-kulcs használatban</string>
@@ -743,7 +743,7 @@
     <string name="second_brain_settings_desc">Nézd meg, hogyan kapcsolódnak az olvasott témák az idő során</string>
     <string name="second_brain_empty">Olvass vagy ments néhány cikket, és itt megjelenik a témagráfod.</string>
     <string name="second_brain_error">A gráf felépítése nem sikerült. Próbáld újra.</string>
-    <string name="second_brain_retry">Retry</string>
+    <string name="second_brain_retry">Újrapróbálás</string>
     <string name="second_brain_graph_desc">Témagráf %1$d témával és %2$d kapcsolattal</string>
     <string name="second_brain_node_articles">%1$d articles</string>
     <string name="second_brain_range_label">Időtartomány</string>
@@ -766,7 +766,7 @@
     <!-- Share Target / Read Later (INGEST-02) -->
     <string name="read_later_feed_title">Később olvasom</string>
     <string name="share_target_save_btn">Mentés későbbre</string>
-    <string name="share_target_cancel_btn">Cancel</string>
+    <string name="share_target_cancel_btn">Mégse</string>
     <string name="share_target_saved_toast">Mentve a Később olvasom közé</string>
     <string name="share_target_invalid_url">Nem található érvényes hivatkozás</string>
     <string name="read_position_sync">Olvasási pozíció szinkronizálása</string>
@@ -778,12 +778,12 @@
     <string name="smart_collection_save_action">Mentés gyűjteményként</string>
     <string name="smart_collection_empty">Még nincs okos gyűjtemény. Ments egy szemantikus keresést egy téma követéséhez.</string>
     <string name="smart_collection_articles_count">%1$d articles</string>
-    <string name="smart_collection_edit">Edit</string>
-    <string name="smart_collection_delete">Delete</string>
+    <string name="smart_collection_edit">Szerkesztés</string>
+    <string name="smart_collection_delete">Törlés</string>
     <string name="smart_collection_delete_confirm">Törlöd ezt a gyűjteményt? A cikkek megmaradnak a könyvtáradban.</string>
     <string name="smart_collection_saved">Okos gyűjtemény mentve</string>
     <string name="smart_collection_empty_articles">Még nincs egyező új cikk. Az új találatok szinkronizálás után jelennek meg.</string>
-    <string name="save">Save</string>
+    <string name="save">Mentés</string>
     <string name="eink_mode_title">E-Ink optimalizálás</string>
     <string name="eink_active_title">Az E-Ink mód be van kapcsolva</string>
     <string name="eink_active_desc">Az alkalmazás fekete-fehérben jelenik meg. Koppintson a kikapcsoláshoz.</string>
@@ -862,8 +862,8 @@
     <string name="widget_article_pin_unsupported">Az indítód nem támogatja a widgetek automatikus rögzítését</string>
     <!-- Feed Zero Triage (EXC-14) -->
     <string name="feed_zero_triage_title">Hírcsatorna-ürítés</string>
-    <string name="triage_swipe_left_skip">Skip</string>
-    <string name="triage_swipe_right_save">Save</string>
+    <string name="triage_swipe_left_skip">Kihagyás</string>
+    <string name="triage_swipe_right_save">Mentés</string>
     <string name="triage_swipe_up_read">Olvasás most</string>
     <string name="triage_progress_format">%1$d / %2$d</string>
     <string name="triage_inbox_zero_title">🎉 Üres a postaláda!</string>
@@ -872,7 +872,7 @@
     <string name="triage_summary_saved">Mentve későbbre: %1$d</string>
     <string name="triage_summary_skipped">Olvasottnak jelölve: %1$d</string>
     <string name="triage_summary_xp">+%1$d Brain RPG XP</string>
-    <string name="triage_finish_button">Done</string>
+    <string name="triage_finish_button">Kész</string>
     <!-- Brain Wrapped tuần (RPG-09) -->
     <string name="brain_wrapped_share_story">Megosztás történetben</string>
     <string name="brain_wrapped_xp_label">Heti XP</string>
@@ -917,14 +917,14 @@
     <string name="headline_signals_desc">Az eszközön elemzi a címek és a cikkek megfogalmazását clickbait-jelekre, reklám-/felhajtásszerű szóhasználatra és érzelmi hangnemre (pozitív/nem egyértelmű/negatív). Semmi nem kerül elküldésre, AI-t és hálózatot sem használ. Ezek csak megfogalmazási jelzések, nem tényellenőrzések és nem politikai elfogultságra vonatkozó ítéletek. A spanyol, francia és német kísérleti.</string>
     <string name="headline_signals_clickbait_badge">🎯 Clickbait %1$d%%</string>
     <string name="headline_signals_clickbait_desc">Clickbait-nyelv jelzője: a pontszám %1$d a 100-ból.</string>
-    <string name="headline_signals_tone_positive">🟢 Positive</string>
-    <string name="headline_signals_tone_unclear">⚪ Unclear</string>
-    <string name="headline_signals_tone_negative">🔴 Negative</string>
+    <string name="headline_signals_tone_positive">🟢 Pozitív</string>
+    <string name="headline_signals_tone_unclear">⚪ Nem egyértelmű</string>
+    <string name="headline_signals_tone_negative">🔴 Negatív</string>
     <string name="headline_signals_tone_desc_positive">A cím szókincs szerinti hangneme: pozitív jelek találhatók.</string>
     <string name="headline_signals_tone_desc_unclear">A cím szókincs szerinti hangneme: nem egyértelmű vagy elégtelen jelek.</string>
     <string name="headline_signals_tone_desc_negative">A cím szókincs szerinti hangneme: negatív jelek találhatók.</string>
     <string name="brain_rpg_skill_tree_decay_warning">Ez a készség az idő múlásával megkopott. Gyakorolj a helyreállításához.</string>
-    <string name="bounty_action_investigate">Investigate</string>
+    <string name="bounty_action_investigate">Kivizsgálás</string>
     <string name="bounty_sheet_title">Entitásvizsgáló ügynök</string>
     <string name="bounty_scanning_status">Hírarchívum átvizsgálása erre: %1$s…</string>
     <string name="bounty_stats_summary">%1$d kapcsolódó cikk • %2$d forrás</string>
@@ -939,14 +939,14 @@
     <string name="echo_hype_label">Hype: %1$d%%</string>
     <string name="echo_hype_warning">Erősen reklámszerű vagy eltúlzott megfogalmazás észlelve</string>
     <string name="echo_tone_label">Tone: %1$s</string>
-    <string name="echo_tone_positive">🟢 Positive</string>
-    <string name="echo_tone_unclear">⚪ Unclear</string>
-    <string name="echo_tone_negative">🔴 Negative</string>
+    <string name="echo_tone_positive">🟢 Pozitív</string>
+    <string name="echo_tone_unclear">⚪ Nem egyértelmű</string>
+    <string name="echo_tone_negative">🔴 Negatív</string>
     <string name="echo_details_title">Szövegtest-jelzések</string>
     <string name="echo_disclaimer">Csak helyi megfogalmazási jelzések; nem tényellenőrzés, hitelességi pontszám, politikai elfogultság-elemzés vagy szerzői szándékra vonatkozó állítás. A „Nem egyértelmű” elégtelen szókincs szerinti bizonyítékot jelent, nem semlegességet.</string>
     <string name="echo_flagged_passages_title">Megjelölt részek (%1$d)</string>
     <string name="echo_cue_promotional">Reklámszerű kifejezés</string>
-    <string name="echo_cue_intensifier">Exaggeration</string>
+    <string name="echo_cue_intensifier">Túlzás</string>
     <string name="echo_cue_absolute">Kategorikus állítás</string>
     <string name="echo_cue_exclamation">Írásjeles vagy nagybetűs hangsúlyozás</string>
     <string name="echo_no_passages">Egyetlen bekezdés sem lépte át a felhajtásküszöböt.</string>
@@ -954,10 +954,10 @@
     <!-- BOUNTY-02 dossier -->
     <string name="dossier_create_action">Dosszié létrehozása</string>
     <string name="dossier_sheet_title">Helyi hírszerzési dosszié</string>
-    <string name="dossier_tab_summary">Summary</string>
-    <string name="dossier_tab_timeline">Timeline</string>
-    <string name="dossier_tab_names">Names</string>
-    <string name="dossier_tab_sources">Sources</string>
+    <string name="dossier_tab_summary">Összefoglaló</string>
+    <string name="dossier_tab_timeline">Idővonal</string>
+    <string name="dossier_tab_names">Nevek</string>
+    <string name="dossier_tab_sources">Források</string>
     <string name="dossier_share_action">Markdown megosztása</string>
     <string name="dossier_chooser_title">Dosszié megosztása</string>
     <string name="dossier_limitation">Csak az ebben az alkalmazásban mentett cikkekből készült. Kihagyhat nézőpontokat, és nem tényellenőrzés.</string>
@@ -980,7 +980,7 @@
     <string name="streak_rescue_message">%1$d napot kihagytál az olvasásból. A %2$d napos sorozatod a következő olvasáskor nullázódik.</string>
     <string name="streak_rescue_action_ad">Videó megtekintése a sorozat mentéséhez</string>
     <string name="streak_rescue_action_restart">Újrakezdés</string>
-    <string name="streak_rescue_action_later">Later</string>
+    <string name="streak_rescue_action_later">Később</string>
     <string name="streak_rescue_ad_failed">A videó betöltése nem sikerült. Próbáld újra.</string>
 
     <!-- ZEN-07 RSVP calibration -->
@@ -995,8 +995,8 @@
     <string name="zen_calibration_suggested_wpm">Javasolt sebesség: ~%1$d szó/perc</string>
     <string name="zen_calibration_limitation">Ez 6 kérdésből készült durva becslés, nem a mély szövegértés mérése. A sebességet bármikor kézzel módosíthatod.</string>
     <string name="zen_calibration_low_confidence_note">A válaszaid sebességenként eltértek; olvass a saját tempódban, és később kalibrálj újra.</string>
-    <string name="zen_calibration_apply">Apply</string>
-    <string name="zen_calibration_skip">Skip</string>
+    <string name="zen_calibration_apply">Alkalmaz</string>
+    <string name="zen_calibration_skip">Kihagyás</string>
     <string name="zen_calibration_settings_desc">Olvasási sebesség kalibrálása 3 rövid körben</string>
 
     <!-- ECHO-02 contrasting coverage -->
@@ -1010,7 +1010,7 @@
     <string name="echo_dual_export">Kártya exportálása</string>
     <string name="echo_dual_export_desc">Kétcímes kártya exportálása ezzel: %1$s</string>
     <string name="echo_dual_title">Két cím megosztása</string>
-    <string name="echo_dual_share">Share</string>
+    <string name="echo_dual_share">Megosztás</string>
     <string name="echo_dual_cut_note">Egy cím le lett rövidítve</string>
     <string name="echo_dual_error">A kártya létrehozása nem sikerült. Koppints az újrapróbálkozáshoz.</string>
     <string name="echo_dual_chooser_title">Kétcímes kártya megosztása</string>
@@ -1021,7 +1021,7 @@
     <string name="curated_bundle_verified_on">Checked %1$s</string>
     <string name="curated_bundle_source_count">Sources: %1$d</string>
     <string name="curated_bundle_subscribe_all">Feliratkozás mindre</string>
-    <string name="curated_bundle_subscribing">Subscribing…</string>
+    <string name="curated_bundle_subscribing">Feliratkozás…</string>
     <string name="curated_bundle_progress">Subscribing %1$d of %2$d</string>
     <string name="curated_bundle_result">Hozzáadva: %1$d · már megvolt: %2$d · sikertelen: %3$d</string>
     <string name="curated_bundle_error">A feliratkozás nem sikerült: %1$s</string>
@@ -1029,11 +1029,11 @@
     <string name="curated_bundle_account_local_only">Egy teljes csomagra való feliratkozás csak helyi fiókkal érhető el.</string>
 
     <!-- FRONT-03 knowledge galaxy -->
-    <string name="galaxy_mode_concepts">Concepts</string>
-    <string name="galaxy_mode_stars">Galaxy</string>
+    <string name="galaxy_mode_concepts">Fogalmak</string>
+    <string name="galaxy_mode_stars">Galaxis</string>
     <string name="galaxy_empty">Jelölj meg néhány cikket olvasottnak, és csillagként ragyognak majd itt. Próbáld bővíteni az időtartományt.</string>
     <string name="galaxy_error">A galaxis felépítése nem sikerült. Próbáld újra.</string>
-    <string name="galaxy_retry">Retry</string>
+    <string name="galaxy_retry">Újrapróbálás</string>
     <string name="galaxy_reset_view">Nézet visszaállítása</string>
     <string name="galaxy_stats">Csillagok: %1$d · Kapcsolatok: %2$d</string>
     <string name="galaxy_star_open">Cikk megnyitása</string>
@@ -1051,7 +1051,7 @@
     <string name="second_screen_viewers">Viewers: %1$d</string>
     <string name="second_screen_expires">Expires at %1$s</string>
     <string name="second_screen_warning">Nem titkosított. Bárki, aki ezen a Wi-Fi-n látja a hivatkozást, elolvashatja a cikket. Csak megbízható hálózaton használd.</string>
-    <string name="second_screen_starting">Starting…</string>
+    <string name="second_screen_starting">Indítás…</string>
     <string name="second_screen_no_network">Nincs Wi-Fi vagy Ethernet hálózat privát címmel. Csatlakozz Wi-Fi-hez, és próbáld újra.</string>
     <string name="second_screen_lan_permission_denied">A helyi hálózati hozzáférés ki van kapcsolva. Engedélyezd a Beállításokban, hogy cikkeket jeleníthess meg második képernyőn.</string>
     <string name="second_screen_expired">A munkamenet véget ért. Kapcsold be újra egy új hivatkozásért.</string>
@@ -1062,8 +1062,8 @@
     <string name="galaxy_related_title">Kapcsolódó cikkek</string>
     <string name="galaxy_shared_terms">Közös szavak: %1$s</string>
     <string name="local_sync_title">Helyi szinkronizálás</string>
-    <string name="local_sync_send">Send</string>
-    <string name="local_sync_receive">Receive</string>
+    <string name="local_sync_send">Küldés</string>
+    <string name="local_sync_receive">Fogadás</string>
     <string name="local_sync_send_instructions">Titkosított csomag létrehozása egy másik eszköznek ezen a helyi hálózaton.</string>
     <string name="local_sync_secret_warning">A párosítási titkot az URL-től külön oszd meg. Aki mindkettővel rendelkezik, elolvashatja a csomagot.</string>
     <string name="local_sync_http_warning">A HTTP nem rejti el az URL-t, az eszköz címét, az időpontot és az átvitel méretét. Csak a csomag tartalma titkosított. Használj megbízható helyi hálózatot.</string>
@@ -1087,7 +1087,7 @@
     <string name="local_sync_apply">Változások alkalmazása</string>
     <string name="local_sync_confirm_apply">Alkalmazod a szinkronizálási változásokat?</string>
     <string name="local_sync_confirm_counts">Hozzáadandó hírcsatornák: %1$d. Frissítendő cikkállapotok: %2$d. Alkalmazod ezeket a változásokat?</string>
-    <string name="local_sync_cancel">Cancel</string>
+    <string name="local_sync_cancel">Mégse</string>
     <string name="local_sync_done">A szinkronizálási változások alkalmazva.</string>
     <string name="local_sync_not_local">A szinkronizáláshoz válassz helyi fiókot.</string>
     <string name="local_sync_error_network">Nem sikerült csatlakozni a szinkronizálási munkamenethez. Ellenőrizd az URL-t és a helyi hálózatot.</string>
@@ -1113,9 +1113,9 @@
     <string name="local_sync_reply_instruction">Kérd meg a másik telefont, hogy hagyja abba a küldést, és előbb nyissa meg a Fogadást.</string>
     <string name="local_sync_merge_limit">Az egyesítés csak az olvasott és csillagozott jelöléseket őrzi meg; az egyik telefonon olvasatlanná jelölt vagy csillagától megfosztott cikk a szinkronizálás után visszatérhet.</string>
     <string name="local_sync_peer_unconfirmed">Várakozás, hogy a másik eszköz egyszer fogadjon</string>
-    <string name="local_sync_peer_confirmed">Paired</string>
+    <string name="local_sync_peer_confirmed">Párosítva</string>
     <string name="local_sync_peer_needs_repair">Nem használható ezen a telefonon. Felejtsd el, és párosítsd újra.</string>
-    <string name="local_sync_forget_peer">Forget</string>
+    <string name="local_sync_forget_peer">Elfelejtés</string>
     <string name="local_sync_confirm_peer">Megjelölés párosítottként</string>
     <string name="local_sync_nearby_title">Egy párosított eszköz a közelben van.</string>
     <string name="local_sync_no_peer_found">Még nem található közeli eszköz. Nyisd meg a Küldést a másik eszközön.</string>
@@ -1127,7 +1127,7 @@
     <!-- EXC-11 Temporal Ask My Archive -->
     <string name="archive_query_title">Kérdezz az archívumomról</string>
     <string name="archive_query_desc">Kérdezz egy témáról, és nézd meg, hogyan számoltak be róla a mentett cikkeid, hónapról hónapra.</string>
-    <string name="archive_query_question_label">Question</string>
+    <string name="archive_query_question_label">Kérdés</string>
     <string name="archive_query_question_hint">pl. kamatok márciustól</string>
     <string name="archive_query_search">Keresés az archívumban</string>
     <string name="archive_query_start_date">Kezdő dátum (ÉÉÉÉ-HH-NN)</string>
@@ -1166,7 +1166,7 @@
     <string name="feed_autopilot_summary_clean">A hírcsatornáid rendezettnek tűnnek. Nincs zajos hírcsatorna.</string>
     <string name="feed_autopilot_reason_opened">Megnyitva %1$d / %2$d (utolsó %3$d napos időszak; %4$d%% elköteleződés)</string>
     <string name="feed_autopilot_reason_zero">Egyetlen cikk sem lett megnyitva a(z) %1$d közül az utolsó %2$d napban</string>
-    <string name="feed_autopilot_action_unsubscribe">Unsubscribe</string>
+    <string name="feed_autopilot_action_unsubscribe">Leiratkozás</string>
     <string name="feed_autopilot_action_snooze">Szundi 30 napra</string>
     <string name="feed_autopilot_action_keep">Megtartás, és ne javasold többé</string>
     <string name="feed_autopilot_confirm_title">Leiratkozol erről: %1$s?</string>
@@ -1181,14 +1181,14 @@
     <string name="podcast_studio_menu">Podcaststúdió</string>
     <string name="podcast_studio_consent_title">Az AI írja meg a forgatókönyvet?</string>
     <string name="podcast_studio_consent_message">Csak a cikk címe és egy rövid előnézet (250 karakternél rövidebb) kerül a Google Geminihez a kétszereplős forgatókönyv megírásához. A cikk szövege, a hivatkozások és az olvasási előzményeid soha nem kerülnek elküldésre.</string>
-    <string name="podcast_studio_consent_agree">Use AI</string>
+    <string name="podcast_studio_consent_agree">AI használata</string>
     <string name="podcast_studio_consent_decline">Offline forgatókönyv használata</string>
     <string name="podcast_studio_conflict_title">Leállítod a lejátszást?</string>
     <string name="podcast_studio_conflict_message">A cikk podcastként való lejátszása leállítja a jelenleg szóló hangot.</string>
     <string name="podcast_studio_badge_source_gemini">A forgatókönyvet AI írta</string>
     <string name="podcast_studio_badge_source_heuristic">Offline forgatókönyv, AI nélkül</string>
-    <string name="podcast_studio_play">Play</string>
-    <string name="podcast_studio_pause">Pause</string>
+    <string name="podcast_studio_play">Lejátszás</string>
+    <string name="podcast_studio_pause">Szünet</string>
     <string name="podcast_studio_next">Következő sor</string>
     <string name="podcast_studio_previous">Előző sor</string>
     <string name="podcast_studio_host_alex">Alex</string>
@@ -1198,7 +1198,7 @@
     <string name="deep_dive_menu">🔬 AI mélyelemzés</string>
     <string name="deep_dive_title">AI mélyelemzés</string>
     <string name="deep_dive_consent_message">A cikk címe és szövegének legfeljebb 6000 karaktere kerül a Google Geminihez a jelentés megírásához. A hivatkozások, a hírcsatorna neve és az olvasási előzményeid soha nem kerülnek elküldésre. A Gemini nem keres a weben.</string>
-    <string name="deep_dive_consent_agree">Agree</string>
+    <string name="deep_dive_consent_agree">Egyetértek</string>
     <string name="deep_dive_consent_later">Most nem</string>
     <string name="deep_dive_declined_message">Az AI mélyelemzés ki van kapcsolva. Jelentés íratásához kapcsold be a Beállítások, Adatvédelem alatt.</string>
     <string name="deep_dive_open_privacy">Adatvédelmi beállítások megnyitása</string>
@@ -1208,30 +1208,30 @@
     <string name="deep_dive_nothing_to_analyze">Ehhez a cikkhez nincs elemezhető cím vagy szöveg.</string>
     <string name="deep_dive_retry">Újra</string>
     <string name="deep_dive_label">Az AI írta a cím és egy részlet alapján; webes keresés nélkül; tévedhet</string>
-    <string name="deep_dive_section_context">Context</string>
+    <string name="deep_dive_section_context">Kontextus</string>
     <string name="deep_dive_section_critical">Ellentétes nézetek</string>
     <string name="deep_dive_section_impact">Hatásmátrix</string>
-    <string name="deep_dive_col_area">Area</string>
+    <string name="deep_dive_col_area">Terület</string>
     <string name="deep_dive_col_short">Rövid táv</string>
     <string name="deep_dive_col_long">Hosszú táv</string>
     <string name="deep_dive_export_pdf">PDF exportálása</string>
     <string name="deep_dive_chooser_title">Mélyelemzés PDF megosztása</string>
     <string name="deep_dive_export_error">A PDF létrehozása nem sikerült</string>
     <string name="deep_dive_pdf_truncated">Egy oldalra levágva. A teljes jelentést az alkalmazásban láthatod.</string>
-    <string name="deep_dive_close">Close</string>
-    <string name="oracle_badge_label">Prediction</string>
+    <string name="deep_dive_close">Bezárás</string>
+    <string name="oracle_badge_label">Jóslat</string>
     <string name="oracle_badge_open">Jóslat megnyitása</string>
     <string name="oracle_sheet_title">A cikkben talált jóslat</string>
     <string name="oracle_sheet_expires">Expected by %1$s</string>
     <string name="oracle_sheet_criteria_heading">Hogyan ellenőrizd a választ</string>
     <string name="oracle_sheet_ai_label">Az AI írta a cím és a leírás alapján; tévedhet.</string>
-    <string name="oracle_sheet_close">Close</string>
+    <string name="oracle_sheet_close">Bezárás</string>
     <string name="oracle_consent_title">Jóslatok keresése az új cikkekben</string>
     <string name="oracle_consent_message">Minden szinkronizálás után legfeljebb 5 új cikk címe és rövid leírása (összesen legfeljebb 500 karakter) kerül a Google Geminihez, hogy jóslatot keressen. A cikk szövege, a hivatkozások, a hírcsatorna neve és az olvasási előzményeid soha nem kerülnek elküldésre. Alapértelmezetten ki van kapcsolva.</string>
     <string name="oracle_bet_balance">Egyenleg: %1$s pont</string>
     <string name="oracle_bet_pick_side">A tipped</string>
-    <string name="oracle_bet_yes">Yes</string>
-    <string name="oracle_bet_no">No</string>
+    <string name="oracle_bet_yes">Igen</string>
+    <string name="oracle_bet_no">Nem</string>
     <string name="oracle_bet_pick_stake">Feltett pontok</string>
     <string name="oracle_bet_stake_option">%1$s points</string>
     <string name="oracle_bet_place">Fogadás megtétele</string>
@@ -1240,7 +1240,7 @@
     <string name="oracle_bet_open">%1$s pontot tettél fel erre: %2$s.</string>
     <string name="oracle_bet_open_hint">Az eredményt a fenti dátum után jelentheted.</string>
     <string name="oracle_bet_awaiting_title">Mi lett az eredmény?</string>
-    <string name="oracle_bet_outcome_unclear">Unclear</string>
+    <string name="oracle_bet_outcome_unclear">Nem egyértelmű</string>
     <string name="oracle_bet_awaiting_hint">%1$s pontot tettél fel erre: %2$s. A Nem egyértelmű visszaadja a pontjaidat.</string>
     <string name="oracle_bet_settled_won">Nyertél %1$s pontot.</string>
     <string name="oracle_bet_settled_lost">Vesztettél %1$s pontot.</string>
@@ -1263,7 +1263,7 @@
     <string name="commute_autoplay_title">Lejátszás Bluetooth-fejhallgató csatlakozásakor</string>
     <string name="commute_autoplay_desc">Naponta egyszer megpróbálja elindítani a reggeli adást, az elkészülte utáni 2 órán belül. Ha az Android blokkolja, értesítést kapsz Lejátszás gombbal.</string>
     <string name="commute_autoplay_permission_denied">A Közeli eszközök engedély nélkül az alkalmazás nem látja a fejhallgatódat, ezért ez kikapcsolva marad.</string>
-    <string name="commute_play_action">Play</string>
+    <string name="commute_play_action">Lejátszás</string>
     <string name="commute_ready_to_play_title">Elkészült a reggeli adásod</string>
     <string name="commute_ready_to_play_body">A fejhallgatód csatlakoztatva van. Koppints a Lejátszásra a hallgatáshoz.</string>
 </resources>

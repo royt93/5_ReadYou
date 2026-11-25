@@ -154,7 +154,7 @@
     <string name="local">Local</string>
     <string name="services">Servicii</string>
     <string name="text_desc">Mărime font, spațiere litere, aliniere</string>
-    <string name="sponsor">Sponsor</string>
+    <string name="sponsor">Sponsorizează</string>
     <string name="for_3_days">3 zile</string>
     <string name="deny">Refuză</string>
     <string name="align_right">Aliniază la dreapta</string>
@@ -388,7 +388,7 @@
     <string name="fresh_rss_desc" translatable="false">freshrss.org</string>
     <string name="google_reader_desc" translatable="false">Google Reader API</string>
     <string name="summary_title">Rezumă cu AI</string>
-    <string name="summary_loading">Summarizing…</string>
+    <string name="summary_loading">Se rezumă…</string>
     <string name="summary_try_again">Reîncearcă</string>
     <string name="summary_get_key">Obține o cheie gratuită</string>
     <string name="summary_err_empty_content">Articolul nu are conținut de rezumat</string>
@@ -410,7 +410,7 @@
     <string name="vip_remaining_short">Rămas: %1$d z %2$d h</string>
     <string name="vip_redeem_label">Introduceți codul VIP</string>
     <string name="vip_redeem_hint">ex. codul dvs. VIP</string>
-    <string name="vip_redeem_button">Activate</string>
+    <string name="vip_redeem_button">Activează</string>
     <string name="vip_watch_ad_3d">Vizionează o reclamă → 3 zile VIP</string>
     <string name="vip_buy_30d_locked">Cumpără VIP 30 de zile — în curând</string>
     <string name="vip_buy_90d_locked">Cumpără VIP 90 de zile — în curând</string>
@@ -422,9 +422,9 @@
     <string name="vip_revoke_all_confirm_message">Sigur doriți să revocați VIP și să reveniți la contul gratuit?</string>
     <string name="vip_entry_first_install">🎁 Cadou pentru prima instalare</string>
     <string name="vip_entry_active">Abonament VIP</string>
-    <string name="vip_success_title">Success</string>
+    <string name="vip_success_title">Succes</string>
     <string name="vip_success_message">VIP activ pentru %1$d zile.</string>
-    <string name="vip_failed_title">Failed</string>
+    <string name="vip_failed_title">Eșuat</string>
     <string name="ad_attribution_label" translatable="false">Ad Networks (AdMob / AppLovin MAX)</string>
     <string name="vip_failed_busy">Un cod anterior este încă în curs de verificare. Așteaptă puțin și încearcă din nou.</string>
     <string name="vip_failed_no_network">Activarea unui cod necesită conexiune la internet. Conectează-te și încearcă din nou.</string>
@@ -441,8 +441,8 @@
     <string name="commute_deepdive_unlocked">🎉 Analiză aprofundată deblocată!</string>
     <string name="commute_empty">Niciun articol necitit pentru radioul de dimineață</string>
     <string name="commute_generating">DJ-ul AI îți pregătește emisiunea...</string>
-    <string name="retry">Retry</string>
-    <string name="version">Version</string>
+    <string name="retry">Reîncearcă</string>
+    <string name="version">Versiune</string>
     <string name="rate_app">Evaluează aplicația</string>
     <string name="rate_app_desc">Vă rugăm să acordați 5 stele dacă această aplicație vă este utilă</string>
     <string name="more_apps">Mai multe aplicații</string>
@@ -451,7 +451,7 @@
     <string name="share_app_desc">Distribuiți această aplicație pentru ca și alții să o folosească</string>
     <string name="term_and_policy">Termeni &amp; politici</string>
     <string name="term_and_policy_desc">Citiți termenii de securitate și politica de confidențialitate</string>
-    <string name="about_title">About</string>
+    <string name="about_title">Despre</string>
     <string name="about_desc">Descoperă această aplicație</string>
     <string name="source_code_original">Cod sursă (versiunea originală)</string>
     <string name="source_code_current">Cod sursă (această versiune)</string>
@@ -477,7 +477,7 @@
     <string name="quiz_ai_no_key">Nu este disponibilă nicio cheie Gemini, deci AI nu a putut scrie o întrebare.</string>
     <string name="quiz_ai_nothing_to_ask">Acest articol nu are titlu sau previzualizare pentru a formula o întrebare.</string>
     <string name="quiz_ai_retry">Reîncearcă</string>
-    <string name="quiz_ai_consent_agree">Agree</string>
+    <string name="quiz_ai_consent_agree">De acord</string>
     <string name="quiz_ai_consent_later">Nu acum</string>
     <string name="quiz_ai_declined_message">Întrebările de chestionar AI sunt dezactivate. Activați-le din Setări, Confidențialitate, pentru a primi o întrebare aici.</string>
     <string name="quiz_ai_open_privacy">Deschide setările de confidențialitate</string>
@@ -503,13 +503,13 @@
     <string name="brain_rpg_decay_notification_channel_desc">Rezumat zilnic al declinului categoriilor</string>
     <string name="brain_rpg_xp_retained">Bază %1$d XP · %2$d%% reținut</string>
     <string name="brain_rpg_streak_shield_success">Scutul pentru serie a fost activat!</string>
-    <string name="brain_rpg_streak_shield_protected">Protected</string>
+    <string name="brain_rpg_streak_shield_protected">Protejat</string>
     <string name="brain_rpg_target_xp">Target: %1$d XP</string>
     <string name="brain_rpg_skill_tree_title">Arborele de abilități de cunoaștere</string>
     <string name="brain_rpg_stats_title">Statistici provocări AI</string>
-    <string name="brain_rpg_stats_attempted">Attempted</string>
-    <string name="brain_rpg_stats_passed">Correct</string>
-    <string name="brain_rpg_stats_accuracy">Accuracy</string>
+    <string name="brain_rpg_stats_attempted">Încercate</string>
+    <string name="brain_rpg_stats_passed">Corecte</string>
+    <string name="brain_rpg_stats_accuracy">Acuratețe</string>
     <string name="brain_rpg_wrapped_desc">"Ați câștigat %1$d XP și ați menținut o serie de lectură de %2$d zile! Distribuiți realizarea pentru a-i inspira pe ceilalți."</string>
 
     <!-- Epic 08: Zen Focus & Speed Reading -->
@@ -531,7 +531,7 @@
     <string name="zen_evening_edition">Evening Edition (20:00)</string>
     <string name="zen_daily_edition_notification">%1$d articole necitite sunt gata pentru citirea concentrată.</string>
     <string name="zen_sleep_timer">Temporizator de somn</string>
-    <string name="zen_sleep_timer_off">Continuous</string>
+    <string name="zen_sleep_timer_off">Continuu</string>
     <string name="zen_sleep_timer_min">%1$d minutes</string>
     <string name="zen_volume">Volume: %1$d%%</string>
     <string name="zen_settings_title">Concentrare Zen &amp; citire rapidă</string>
@@ -542,7 +542,7 @@
     <string name="highlights_bullet_count">%1$d idei cheie</string>
     <string name="highlights_copy_all">Copiază evidențierile</string>
     <string name="highlights_copied_toast">Evidențierile au fost copiate în clipboard</string>
-    <string name="highlights_share">Share</string>
+    <string name="highlights_share">Distribuie</string>
     <string name="highlights_tldr">Quick TL;DR</string>
     <string name="highlights_ai_badge">Gemini AI</string>
     <string name="highlights_fallback_badge">Inteligent offline</string>
@@ -562,13 +562,13 @@
     <string name="deep_read_title">Lectură aprofundată AI</string>
     <string name="deep_read_subtitle">Chat interactiv despre articol</string>
     <string name="deep_read_input_placeholder">Puneți o întrebare despre acest articol…</string>
-    <string name="deep_read_send">Send</string>
+    <string name="deep_read_send">Trimite</string>
     <string name="deep_read_clear_chat">Șterge chatul</string>
     <string name="deep_read_copied_toast">Răspunsul a fost copiat în clipboard</string>
     <string name="deep_read_welcome_message">Bună! Am analizat acest articol. Puneți-mi orice întrebare, cereți clarificări sau atingeți un subiect sugerat mai jos.</string>
-    <string name="deep_read_context_label">Discussing:</string>
+    <string name="deep_read_context_label">Se discută:</string>
     <string name="deep_read_thinking">AI analizează articolul…</string>
-    <string name="deep_read_grounded_badge">Grounded</string>
+    <string name="deep_read_grounded_badge">Fundamentat</string>
     <string name="deep_read_offline_badge">Inteligent offline</string>
     <string name="deep_read_ai_badge">Gemini AI</string>
     <string name="deep_read_copy_transcript">Copiază conversația</string>
@@ -584,7 +584,7 @@
     <string name="story_cluster_all_perspectives">Toate perspectivele (%d)</string>
     <string name="story_cluster_mark_all_read">Marchează tot ca citit</string>
     <string name="story_cluster_sheet_title">Acoperirea poveștii din mai multe perspective</string>
-    <string name="story_cluster_lead_badge">Lead</string>
+    <string name="story_cluster_lead_badge">Principal</string>
     <string name="semantic_search_title">Căutare semantică AI</string>
     <string name="semantic_search_desc">Căutați articole după concept și sens semantic, nu după cuvinte cheie exacte</string>
     <string name="semantic_match_badge">%d%% match</string>
@@ -593,7 +593,7 @@
     <string name="watchdog_title">Santinelă de cuvinte cheie</string>
     <string name="watchdog_desc">Monitorizează cuvinte cheie importante &amp; simboluri bursiere la sincronizarea din fundal și alertează imediat</string>
     <string name="watchdog_add_hint">Introduceți un cuvânt cheie sau simbol (ex. $VIC, Bitcoin, Aur)...</string>
-    <string name="watchdog_add_btn">Add</string>
+    <string name="watchdog_add_btn">Adaugă</string>
     <string name="watchdog_empty_desc">Niciun cuvânt cheie adăugat încă. Adăugați cuvinte cheie sau alegeți sugestii de mai jos pentru a începe monitorizarea.</string>
     <string name="watchdog_matched_count">%d matched</string>
     <string name="watchdog_channel_name">Alerte santinelă de cuvinte cheie</string>
@@ -615,12 +615,12 @@
     <string name="notebook_empty_subtitle">Evidențiați citate inspiratoare în timpul lecturii pentru a vă organiza cunoștințele din Second Brain.</string>
     <string name="notebook_empty_search">Nicio evidențiere potrivită găsită</string>
 
-    <string name="notebook_save">Save</string>
-    <string name="notebook_copy">Copy</string>
-    <string name="notebook_edit">Edit</string>
+    <string name="notebook_save">Salvează</string>
+    <string name="notebook_copy">Copiază</string>
+    <string name="notebook_edit">Editează</string>
     <string name="notebook_copied">Copiat în clipboard</string>
-    <string name="notebook_saved">Saved</string>
-    <string name="notebook_deleted">Deleted</string>
+    <string name="notebook_saved">Salvat</string>
+    <string name="notebook_deleted">Șters</string>
     <string name="notebook_untitled">Articol fără titlu</string>
     <string name="ai_active_key_custom">Folosești cheia ta API personală</string>
     <string name="ai_active_key_default">Se folosește cota implicită partajată</string>
@@ -750,7 +750,7 @@
     <string name="second_brain_settings_desc">Vedeți cum se leagă în timp subiectele pe care le citiți</string>
     <string name="second_brain_empty">Citiți sau salvați câteva articole și graficul subiectelor va apărea aici.</string>
     <string name="second_brain_error">Graficul nu a putut fi construit. Încercați din nou.</string>
-    <string name="second_brain_retry">Retry</string>
+    <string name="second_brain_retry">Reîncearcă</string>
     <string name="second_brain_graph_desc">Grafic de subiecte cu %1$d subiecte și %2$d conexiuni</string>
     <string name="second_brain_node_articles">%1$d articles</string>
     <string name="second_brain_range_label">Interval de timp</string>
@@ -773,7 +773,7 @@
     <!-- Share Target / Read Later (INGEST-02) -->
     <string name="read_later_feed_title">Citește mai târziu</string>
     <string name="share_target_save_btn">Salvează pentru mai târziu</string>
-    <string name="share_target_cancel_btn">Cancel</string>
+    <string name="share_target_cancel_btn">Anulează</string>
     <string name="share_target_saved_toast">Salvat pentru citit mai târziu</string>
     <string name="share_target_invalid_url">Nu a fost găsit niciun link valid</string>
     <string name="read_position_sync">Sincronizează poziția de citire</string>
@@ -785,12 +785,12 @@
     <string name="smart_collection_save_action">Salvează ca colecție</string>
     <string name="smart_collection_empty">Încă nicio colecție inteligentă. Salvați o căutare semantică pentru a urmări un subiect.</string>
     <string name="smart_collection_articles_count">%1$d articles</string>
-    <string name="smart_collection_edit">Edit</string>
-    <string name="smart_collection_delete">Delete</string>
+    <string name="smart_collection_edit">Editează</string>
+    <string name="smart_collection_delete">Șterge</string>
     <string name="smart_collection_delete_confirm">Ștergeți această colecție? Articolele ei vor rămâne în bibliotecă.</string>
     <string name="smart_collection_saved">Colecția inteligentă a fost salvată</string>
     <string name="smart_collection_empty_articles">Încă niciun articol nou potrivit. Potrivirile noi vor apărea după sincronizare.</string>
-    <string name="save">Save</string>
+    <string name="save">Salvează</string>
     <string name="eink_mode_title">Optimizare E-Ink</string>
     <string name="eink_active_title">Modul E-Ink este activat</string>
     <string name="eink_active_desc">Aplicația este afișată în alb-negru. Atinge pentru a-l dezactiva.</string>
@@ -874,8 +874,8 @@
     <string name="widget_article_pin_unsupported">Launcherul dvs. nu acceptă fixarea automată a widgeturilor</string>
     <!-- Feed Zero Triage (EXC-14) -->
     <string name="feed_zero_triage_title">Triere Feed Zero</string>
-    <string name="triage_swipe_left_skip">Skip</string>
-    <string name="triage_swipe_right_save">Save</string>
+    <string name="triage_swipe_left_skip">Omite</string>
+    <string name="triage_swipe_right_save">Salvează</string>
     <string name="triage_swipe_up_read">Citește acum</string>
     <string name="triage_progress_format">%1$d / %2$d</string>
     <string name="triage_inbox_zero_title">🎉 Inbox Zero atins!</string>
@@ -884,7 +884,7 @@
     <string name="triage_summary_saved">Salvate pentru mai târziu: %1$d</string>
     <string name="triage_summary_skipped">Marcate ca citite: %1$d</string>
     <string name="triage_summary_xp">+%1$d XP Brain RPG</string>
-    <string name="triage_finish_button">Done</string>
+    <string name="triage_finish_button">Gata</string>
     <!-- Brain Wrapped tuần (RPG-09) -->
     <string name="brain_wrapped_share_story">Distribuie în poveste</string>
     <string name="brain_wrapped_xp_label">XP săptămânal</string>
@@ -929,14 +929,14 @@
     <string name="headline_signals_desc">Analizează pe acest dispozitiv formularea titlurilor și a articolelor pentru indicii de clickbait, formulări promoționale/exagerate și ton emoțional (pozitiv/neclar/negativ). Nimic nu este trimis nicăieri și nu se folosește AI sau rețea. Acestea sunt doar semnale de formulare, nu verificări de fapte și nici evaluări de părtinire politică. Spaniola, franceza și germana sunt experimentale.</string>
     <string name="headline_signals_clickbait_badge">🎯 Clickbait %1$d%%</string>
     <string name="headline_signals_clickbait_desc">Indicator de limbaj clickbait: scorul este %1$d din 100.</string>
-    <string name="headline_signals_tone_positive">🟢 Positive</string>
-    <string name="headline_signals_tone_unclear">⚪ Unclear</string>
-    <string name="headline_signals_tone_negative">🔴 Negative</string>
+    <string name="headline_signals_tone_positive">🟢 Pozitiv</string>
+    <string name="headline_signals_tone_unclear">⚪ Neclar</string>
+    <string name="headline_signals_tone_negative">🔴 Negativ</string>
     <string name="headline_signals_tone_desc_positive">Tonul lexical al titlului: sunt prezenți indicatori pozitivi.</string>
     <string name="headline_signals_tone_desc_unclear">Tonul lexical al titlului: indicatori neclari sau insuficienți.</string>
     <string name="headline_signals_tone_desc_negative">Tonul lexical al titlului: sunt prezenți indicatori negativi.</string>
     <string name="brain_rpg_skill_tree_decay_warning">Această abilitate s-a estompat în timp. Exersați pentru a o restaura.</string>
-    <string name="bounty_action_investigate">Investigate</string>
+    <string name="bounty_action_investigate">Investighează</string>
     <string name="bounty_sheet_title">Agent de investigare a entităților</string>
     <string name="bounty_scanning_status">Se scanează arhiva de știri pentru: %1$s…</string>
     <string name="bounty_stats_summary">%1$d articole conexe • %2$d surse</string>
@@ -951,14 +951,14 @@
     <string name="echo_hype_label">Hype: %1$d%%</string>
     <string name="echo_hype_warning">Formulări promoționale sau exagerate puternice detectate</string>
     <string name="echo_tone_label">Tone: %1$s</string>
-    <string name="echo_tone_positive">🟢 Positive</string>
-    <string name="echo_tone_unclear">⚪ Unclear</string>
-    <string name="echo_tone_negative">🔴 Negative</string>
+    <string name="echo_tone_positive">🟢 Pozitiv</string>
+    <string name="echo_tone_unclear">⚪ Neclar</string>
+    <string name="echo_tone_negative">🔴 Negativ</string>
     <string name="echo_details_title">Semnale de limbaj</string>
     <string name="echo_disclaimer">Doar semnale locale de formulare; nu reprezintă o verificare de fapte, un scor de credibilitate, o analiză a părtinirii politice sau o afirmație despre intenția autorului. „Neclar” înseamnă dovezi lexicale insuficiente, nu neutralitate.</string>
     <string name="echo_flagged_passages_title">Pasaje marcate (%1$d)</string>
     <string name="echo_cue_promotional">Expresie promoțională</string>
-    <string name="echo_cue_intensifier">Exaggeration</string>
+    <string name="echo_cue_intensifier">Exagerare</string>
     <string name="echo_cue_absolute">Afirmație absolută</string>
     <string name="echo_cue_exclamation">Accent prin punctuație sau majuscule</string>
     <string name="echo_no_passages">Niciun paragraf nu a depășit pragul Hype.</string>
@@ -966,10 +966,10 @@
     <!-- BOUNTY-02 dossier -->
     <string name="dossier_create_action">Creează dosar</string>
     <string name="dossier_sheet_title">Dosar local de informații</string>
-    <string name="dossier_tab_summary">Summary</string>
-    <string name="dossier_tab_timeline">Timeline</string>
-    <string name="dossier_tab_names">Names</string>
-    <string name="dossier_tab_sources">Sources</string>
+    <string name="dossier_tab_summary">Rezumat</string>
+    <string name="dossier_tab_timeline">Cronologie</string>
+    <string name="dossier_tab_names">Nume</string>
+    <string name="dossier_tab_sources">Surse</string>
     <string name="dossier_share_action">Distribuie Markdown</string>
     <string name="dossier_chooser_title">Distribuie dosarul</string>
     <string name="dossier_limitation">Creat doar din articolele salvate în această aplicație. Poate omite puncte de vedere și nu este o verificare de fapte.</string>
@@ -992,7 +992,7 @@
     <string name="streak_rescue_message">Ați ratat %1$d zile de lectură. Seria dvs. de %2$d zile va fi resetată la următoarea lectură.</string>
     <string name="streak_rescue_action_ad">Vizionează un videoclip pentru a salva seria</string>
     <string name="streak_rescue_action_restart">Începe de la zero</string>
-    <string name="streak_rescue_action_later">Later</string>
+    <string name="streak_rescue_action_later">Mai târziu</string>
     <string name="streak_rescue_ad_failed">Videoclipul nu a putut fi încărcat. Încercați din nou.</string>
 
     <!-- ZEN-07 RSVP calibration -->
@@ -1007,8 +1007,8 @@
     <string name="zen_calibration_suggested_wpm">Viteză sugerată: ~%1$d cuv./min</string>
     <string name="zen_calibration_limitation">Aceasta este o estimare aproximativă din 6 întrebări, nu o măsură a înțelegerii profunde. Puteți ajusta oricând viteza manual.</string>
     <string name="zen_calibration_low_confidence_note">Răspunsurile dvs. au variat în funcție de viteză; încercați să citiți în ritmul propriu și recalibrați mai târziu.</string>
-    <string name="zen_calibration_apply">Apply</string>
-    <string name="zen_calibration_skip">Skip</string>
+    <string name="zen_calibration_apply">Aplică</string>
+    <string name="zen_calibration_skip">Omite</string>
     <string name="zen_calibration_settings_desc">Calibrați viteza de citire în 3 runde scurte</string>
 
     <!-- ECHO-02 contrasting coverage -->
@@ -1022,7 +1022,7 @@
     <string name="echo_dual_export">Exportă cardul</string>
     <string name="echo_dual_export_desc">Exportă un card cu două titluri cu %1$s</string>
     <string name="echo_dual_title">Distribuie două titluri</string>
-    <string name="echo_dual_share">Share</string>
+    <string name="echo_dual_share">Distribuie</string>
     <string name="echo_dual_cut_note">Un titlu a fost scurtat</string>
     <string name="echo_dual_error">Cardul nu a putut fi creat. Atingeți pentru a reîncerca.</string>
     <string name="echo_dual_chooser_title">Distribuie cardul cu două titluri</string>
@@ -1033,7 +1033,7 @@
     <string name="curated_bundle_verified_on">Checked %1$s</string>
     <string name="curated_bundle_source_count">Sources: %1$d</string>
     <string name="curated_bundle_subscribe_all">Abonează-te la toate</string>
-    <string name="curated_bundle_subscribing">Subscribing…</string>
+    <string name="curated_bundle_subscribing">Se abonează…</string>
     <string name="curated_bundle_progress">Subscribing %1$d of %2$d</string>
     <string name="curated_bundle_result">Adăugate %1$d · existente %2$d · eșuate %3$d</string>
     <string name="curated_bundle_error">Abonarea nu a reușit: %1$s</string>
@@ -1041,11 +1041,11 @@
     <string name="curated_bundle_account_local_only">Abonarea la un pachet întreg este disponibilă doar pentru contul local.</string>
 
     <!-- FRONT-03 knowledge galaxy -->
-    <string name="galaxy_mode_concepts">Concepts</string>
-    <string name="galaxy_mode_stars">Galaxy</string>
+    <string name="galaxy_mode_concepts">Concepte</string>
+    <string name="galaxy_mode_stars">Galaxie</string>
     <string name="galaxy_empty">Marcați câteva articole ca citite și vor străluci aici ca stele. Încercați să extindeți intervalul de timp.</string>
     <string name="galaxy_error">Galaxia nu a putut fi construită. Încercați din nou.</string>
-    <string name="galaxy_retry">Retry</string>
+    <string name="galaxy_retry">Reîncearcă</string>
     <string name="galaxy_reset_view">Resetează vizualizarea</string>
     <string name="galaxy_stats">Stele: %1$d · Legături: %2$d</string>
     <string name="galaxy_star_open">Deschide articolul</string>
@@ -1063,7 +1063,7 @@
     <string name="second_screen_viewers">Viewers: %1$d</string>
     <string name="second_screen_expires">Expires at %1$s</string>
     <string name="second_screen_warning">Necriptat. Oricine din această rețea Wi-Fi care vede linkul poate citi articolul. Folosiți doar într-o rețea de încredere.</string>
-    <string name="second_screen_starting">Starting…</string>
+    <string name="second_screen_starting">Se pornește…</string>
     <string name="second_screen_no_network">Nicio rețea Wi-Fi sau Ethernet cu adresă privată. Conectați-vă la Wi-Fi și încercați din nou.</string>
     <string name="second_screen_lan_permission_denied">Accesul la rețeaua locală este dezactivat. Permiteți-l în Setări pentru a afișa articole pe un al doilea ecran.</string>
     <string name="second_screen_expired">Sesiunea s-a încheiat. Reactivați-o pentru a obține un link nou.</string>
@@ -1074,8 +1074,8 @@
     <string name="galaxy_related_title">Articole conexe</string>
     <string name="galaxy_shared_terms">Cuvinte comune: %1$s</string>
     <string name="local_sync_title">Sincronizare locală</string>
-    <string name="local_sync_send">Send</string>
-    <string name="local_sync_receive">Receive</string>
+    <string name="local_sync_send">Trimite</string>
+    <string name="local_sync_receive">Primește</string>
     <string name="local_sync_send_instructions">Creați un pachet criptat pentru alt dispozitiv din această rețea locală.</string>
     <string name="local_sync_secret_warning">Distribuiți acest secret de asociere separat de URL. Oricine le are pe amândouă poate citi pachetul.</string>
     <string name="local_sync_http_warning">HTTP nu ascunde URL-ul, adresa dispozitivului, ora sau dimensiunea transferului. Doar conținutul pachetului este criptat. Folosiți o rețea locală de încredere.</string>
@@ -1099,7 +1099,7 @@
     <string name="local_sync_apply">Aplică modificările</string>
     <string name="local_sync_confirm_apply">Aplicați modificările de sincronizare?</string>
     <string name="local_sync_confirm_counts">Fluxuri de adăugat: %1$d. Stări de articole de actualizat: %2$d. Aplicați aceste modificări?</string>
-    <string name="local_sync_cancel">Cancel</string>
+    <string name="local_sync_cancel">Anulează</string>
     <string name="local_sync_done">Modificările de sincronizare au fost aplicate.</string>
     <string name="local_sync_not_local">Alegeți un cont local pentru a folosi sincronizarea.</string>
     <string name="local_sync_error_network">Nu s-a putut conecta la sesiunea de sincronizare. Verificați URL-ul și rețeaua locală.</string>
@@ -1125,9 +1125,9 @@
     <string name="local_sync_reply_instruction">Cereți celuilalt telefon să oprească trimiterea și să deschidă mai întâi Primire.</string>
     <string name="local_sync_merge_limit">Îmbinarea păstrează doar marcajele citit și cu stea; marcarea ca necitit sau eliminarea unei stele pe un telefon poate reapărea după sincronizare.</string>
     <string name="local_sync_peer_unconfirmed">Se așteaptă ca celălalt dispozitiv să primească o dată</string>
-    <string name="local_sync_peer_confirmed">Paired</string>
+    <string name="local_sync_peer_confirmed">Asociat</string>
     <string name="local_sync_peer_needs_repair">Nu poate fi folosit pe acest telefon. Uitați-l și asociați-l din nou.</string>
-    <string name="local_sync_forget_peer">Forget</string>
+    <string name="local_sync_forget_peer">Uită</string>
     <string name="local_sync_confirm_peer">Marchează ca asociat</string>
     <string name="local_sync_nearby_title">Un dispozitiv asociat este în apropiere.</string>
     <string name="local_sync_no_peer_found">Încă niciun dispozitiv în apropiere. Deschideți Trimitere pe celălalt dispozitiv.</string>
@@ -1139,7 +1139,7 @@
     <!-- EXC-11 Temporal Ask My Archive -->
     <string name="archive_query_title">Întreabă arhiva mea</string>
     <string name="archive_query_desc">Întrebați despre un subiect și vedeți cum l-au tratat articolele dvs. salvate, lună de lună.</string>
-    <string name="archive_query_question_label">Question</string>
+    <string name="archive_query_question_label">Întrebare</string>
     <string name="archive_query_question_hint">ex. dobânzile din martie</string>
     <string name="archive_query_search">Caută în arhivă</string>
     <string name="archive_query_start_date">Data de început (AAAA-LL-ZZ)</string>
@@ -1178,7 +1178,7 @@
     <string name="feed_autopilot_summary_clean">Fluxurile dvs. arată ordonat. Niciun flux zgomotos detectat.</string>
     <string name="feed_autopilot_reason_opened">Deschise %1$d din %2$d (ultimele %3$d zile; implicare %4$d%%)</string>
     <string name="feed_autopilot_reason_zero">Niciun articol deschis din %1$d în ultimele %2$d zile</string>
-    <string name="feed_autopilot_action_unsubscribe">Unsubscribe</string>
+    <string name="feed_autopilot_action_unsubscribe">Dezabonează-te</string>
     <string name="feed_autopilot_action_snooze">Amână 30 de zile</string>
     <string name="feed_autopilot_action_keep">Păstrează și nu mai sugera</string>
     <string name="feed_autopilot_confirm_title">Dezabonați-vă de la %1$s?</string>
@@ -1193,14 +1193,14 @@
     <string name="podcast_studio_menu">Podcast Studio</string>
     <string name="podcast_studio_consent_title">Scrieți scenariul cu AI?</string>
     <string name="podcast_studio_consent_message">Doar titlul acestui articol și o scurtă previzualizare (sub 250 de caractere) sunt trimise către Google Gemini pentru a scrie un scenariu cu doi prezentatori. Textul articolului, linkurile și istoricul de lectură nu sunt trimise niciodată.</string>
-    <string name="podcast_studio_consent_agree">Use AI</string>
+    <string name="podcast_studio_consent_agree">Folosește AI</string>
     <string name="podcast_studio_consent_decline">Folosește scenariul offline</string>
     <string name="podcast_studio_conflict_title">Opriți ce se redă?</string>
     <string name="podcast_studio_conflict_message">Redarea acestui articol ca podcast va opri sunetul care se redă acum.</string>
     <string name="podcast_studio_badge_source_gemini">Scenariu scris de AI</string>
     <string name="podcast_studio_badge_source_heuristic">Scenariu offline, fără AI</string>
-    <string name="podcast_studio_play">Play</string>
-    <string name="podcast_studio_pause">Pause</string>
+    <string name="podcast_studio_play">Redă</string>
+    <string name="podcast_studio_pause">Pauză</string>
     <string name="podcast_studio_next">Replica următoare</string>
     <string name="podcast_studio_previous">Replica anterioară</string>
     <string name="podcast_studio_host_alex">Alex</string>
@@ -1210,7 +1210,7 @@
     <string name="deep_dive_menu">🔬 Analiză aprofundată AI</string>
     <string name="deep_dive_title">Analiză aprofundată AI</string>
     <string name="deep_dive_consent_message">Titlul articolului și până la 6.000 de caractere din textul său sunt trimise către Google Gemini pentru a scrie acest raport. Linkurile, numele fluxului și istoricul de lectură nu sunt trimise niciodată. Gemini nu caută pe web.</string>
-    <string name="deep_dive_consent_agree">Agree</string>
+    <string name="deep_dive_consent_agree">De acord</string>
     <string name="deep_dive_consent_later">Nu acum</string>
     <string name="deep_dive_declined_message">Analiza aprofundată AI este dezactivată. Activați-o din Setări, Confidențialitate, pentru a scrie un raport.</string>
     <string name="deep_dive_open_privacy">Deschide setările de confidențialitate</string>
@@ -1223,27 +1223,27 @@
     <string name="deep_dive_section_context">Context</string>
     <string name="deep_dive_section_critical">Păreri opuse</string>
     <string name="deep_dive_section_impact">Matrice de impact</string>
-    <string name="deep_dive_col_area">Area</string>
+    <string name="deep_dive_col_area">Zonă</string>
     <string name="deep_dive_col_short">Termen scurt</string>
     <string name="deep_dive_col_long">Termen lung</string>
     <string name="deep_dive_export_pdf">Exportă PDF</string>
     <string name="deep_dive_chooser_title">Distribuie PDF-ul Analizei aprofundate</string>
     <string name="deep_dive_export_error">PDF-ul nu a putut fi creat</string>
     <string name="deep_dive_pdf_truncated">Scurtat pentru a încăpea pe o pagină. Vedeți raportul complet în aplicație.</string>
-    <string name="deep_dive_close">Close</string>
-    <string name="oracle_badge_label">Prediction</string>
+    <string name="deep_dive_close">Închide</string>
+    <string name="oracle_badge_label">Predicție</string>
     <string name="oracle_badge_open">Deschide predicția</string>
     <string name="oracle_sheet_title">Predicție găsită în acest articol</string>
     <string name="oracle_sheet_expires">Expected by %1$s</string>
     <string name="oracle_sheet_criteria_heading">Cum verificați răspunsul</string>
     <string name="oracle_sheet_ai_label">Scris de AI pe baza titlului și a descrierii; poate fi greșit.</string>
-    <string name="oracle_sheet_close">Close</string>
+    <string name="oracle_sheet_close">Închide</string>
     <string name="oracle_consent_title">Găsește predicții în articolele noi</string>
     <string name="oracle_consent_message">După fiecare sincronizare, titlul și o scurtă descriere (cel mult 500 de caractere în total) ale până la 5 articole noi sunt trimise către Google Gemini pentru a căuta o predicție. Textul articolelor, linkurile, numele fluxului și istoricul de lectură nu sunt trimise niciodată. Dezactivat implicit.</string>
     <string name="oracle_bet_balance">Sold: %1$s puncte</string>
     <string name="oracle_bet_pick_side">Alegerea dvs.</string>
-    <string name="oracle_bet_yes">Yes</string>
-    <string name="oracle_bet_no">No</string>
+    <string name="oracle_bet_yes">Da</string>
+    <string name="oracle_bet_no">Nu</string>
     <string name="oracle_bet_pick_stake">Puncte de mizat</string>
     <string name="oracle_bet_stake_option">%1$s points</string>
     <string name="oracle_bet_place">Plasează pariul</string>
@@ -1252,7 +1252,7 @@
     <string name="oracle_bet_open">Ați pariat %1$s puncte pe %2$s.</string>
     <string name="oracle_bet_open_hint">Puteți raporta rezultatul după data de mai sus.</string>
     <string name="oracle_bet_awaiting_title">Care a fost rezultatul?</string>
-    <string name="oracle_bet_outcome_unclear">Unclear</string>
+    <string name="oracle_bet_outcome_unclear">Neclar</string>
     <string name="oracle_bet_awaiting_hint">Ați pariat %1$s puncte pe %2$s. Neclar vă returnează punctele.</string>
     <string name="oracle_bet_settled_won">Ați câștigat %1$s puncte.</string>
     <string name="oracle_bet_settled_lost">Ați pierdut %1$s puncte.</string>
@@ -1275,7 +1275,7 @@
     <string name="commute_autoplay_title">Redă când se conectează căștile Bluetooth</string>
     <string name="commute_autoplay_desc">Încearcă să pornească episodul de dimineață o dată pe zi, în 2 ore de la momentul în care este gata. Dacă Android blochează acest lucru, primiți o notificare cu un buton Redare.</string>
     <string name="commute_autoplay_permission_denied">Fără permisiunea Dispozitive din apropiere, aplicația nu vă poate vedea căștile, deci această opțiune rămâne dezactivată.</string>
-    <string name="commute_play_action">Play</string>
+    <string name="commute_play_action">Redă</string>
     <string name="commute_ready_to_play_title">Episodul de dimineață este gata</string>
     <string name="commute_ready_to_play_body">Căștile sunt conectate. Atingeți Redare pentru a asculta.</string>
 </resources>

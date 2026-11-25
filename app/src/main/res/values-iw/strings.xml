@@ -230,8 +230,8 @@
     <string name="try_again">נסו שוב</string>
     <string name="change_language">שינוי שפה</string>
     <string name="change_language_confirm">האפליקציה תופעל מחדש כדי להחיל את השפה החדשה. להמשיך?</string>
-    <string name="yes">Yes</string>
-    <string name="no">No</string>
+    <string name="yes">כן</string>
+    <string name="no">לא</string>
     <string name="restarting_app">מפעיל מחדש…</string>
     <string name="auto_tts">הקראה אוטומטית</string>
     <string name="auto_tts_desc">הקראת כתבות בקול אוטומטית כשהן נפתחות</string>
@@ -425,7 +425,7 @@
     <string name="preview_feed_name">Reddit</string>
     <string name="feed_favicons">סמלי פידים</string>
     <string name="article_date_sticky_header">כותרת תאריך פרסום צמודה (ניסיוני)</string>
-    <string name="top">Top</string>
+    <string name="top">למעלה</string>
     <string name="mark_as_read_button_position">מיקום הכפתור \"סימון כנקרא\"</string>
     <string name="top_bar">סרגל עליון</string>
     <string name="fill_selected_icon">מילוי סמל המסנן הנוכחי</string>
@@ -434,7 +434,7 @@
     <string name="tips_group_list_tonal_elevation">גובה גוון לרשימת הקבוצות זמין רק בערכת הנושא הבהירה</string>
     <string name="bionic_reading">קריאה ביונית</string>
     <string name="upper_case">אותיות רישיות</string>
-    <string name="subhead">Subhead</string>
+    <string name="subhead">כותרת משנה</string>
     <string name="use_app_theme">שימוש בערכת הנושא של האפליקציה</string>
     <string name="title_desc">הדגשה, אותיות רישיות, יישור</string>
     <string name="fever" translatable="false">Fever</string>
@@ -451,7 +451,7 @@
     <string name="clear_all_articles">ניקוי כל הכתבות</string>
     <string name="clear_all_articles_tips">לנקות את רשימת הכתבות של החשבון הזה?</string>
     <string name="initial_open_app">אפליקציה לפתיחת קישור</string>
-    <string name="open_link_specific_browser_not_selected">None</string>
+    <string name="open_link_specific_browser_not_selected">ללא</string>
     <string name="auto_customtabs">אוטומטי (עדיפות ל-CustomTabs)</string>
     <string name="auto_default_browser">אוטומטי (עדיפות לדפדפן ברירת המחדל)</string>
     <string name="custom_tabs">אילוץ CustomTabs</string>
@@ -459,11 +459,11 @@
     <string name="specific_browser_name">Browser: %1$s</string>
     <string name="default_browser">אילוץ דפדפן ברירת המחדל</string>
     <string name="always_ask">לשאול תמיד</string>
-    <string name="open_link_specific_browser">Browser</string>
-    <string name="in_coding">In development</string>
+    <string name="open_link_specific_browser">דפדפן</string>
+    <string name="in_coding">בפיתוח</string>
     <string name="tips_top_bar_tonal_elevation">גובה גוון זמין רק בזמן גלילה</string>
     <string name="summary_title">סיכום באמצעות AI</string>
-    <string name="summary_loading">Summarizing…</string>
+    <string name="summary_loading">מסכם…</string>
     <string name="summary_try_again">נסו שוב</string>
     <string name="summary_get_key">קבלת מפתח בחינם</string>
     <string name="summary_err_empty_content">אין בכתבה תוכן לסיכום</string>
@@ -485,7 +485,7 @@
     <string name="vip_remaining_short">נותרו %1$d ימים ו-%2$d שעות</string>
     <string name="vip_redeem_label">הזינו קוד VIP</string>
     <string name="vip_redeem_hint">למשל קוד ה-VIP שלכם</string>
-    <string name="vip_redeem_button">Activate</string>
+    <string name="vip_redeem_button">הפעל</string>
     <string name="vip_watch_ad_3d">צפייה בפרסומת ← 3 ימי VIP</string>
     <string name="vip_buy_30d_locked">רכישת VIP ל-30 יום — בקרוב</string>
     <string name="vip_buy_90d_locked">רכישת VIP ל-90 יום — בקרוב</string>
@@ -497,9 +497,9 @@
     <string name="vip_revoke_all_confirm_message">לבטל את ה-VIP ולחזור לחשבון החינמי?</string>
     <string name="vip_entry_first_install">🎁 מתנה להתקנה חדשה</string>
     <string name="vip_entry_active">חברות VIP</string>
-    <string name="vip_success_title">Success</string>
+    <string name="vip_success_title">הצלחה</string>
     <string name="vip_success_message">VIP פעיל ל-%1$d ימים.</string>
-    <string name="vip_failed_title">Failed</string>
+    <string name="vip_failed_title">נכשל</string>
     <string name="ad_attribution_label" translatable="false">Ad Networks (AdMob / AppLovin MAX)</string>
     <string name="vip_failed_busy">קוד קודם עדיין נבדק. המתן רגע ונסה שוב.</string>
     <string name="vip_failed_no_network">הפעלת קוד דורשת חיבור לאינטרנט. התחבר ונסה שוב.</string>
@@ -516,8 +516,8 @@
     <string name="commute_deepdive_unlocked">🎉 הצלילה לעומק נפתחה!</string>
     <string name="commute_empty">אין כתבות שלא נקראו לרדיו הבוקר</string>
     <string name="commute_generating">מגיש ה-AI מכין את התוכנית שלך...</string>
-    <string name="retry">Retry</string>
-    <string name="version">Version</string>
+    <string name="retry">נסה שוב</string>
+    <string name="version">גרסה</string>
     <string name="rate_app">דירוג האפליקציה</string>
     <string name="rate_app_desc">אם האפליקציה מועילה לכם, דרגו אותה ב-5 כוכבים</string>
     <string name="more_apps">עוד אפליקציות</string>
@@ -526,7 +526,7 @@
     <string name="share_app_desc">שתפו את האפליקציה כדי שגם אחרים ישתמשו בה</string>
     <string name="term_and_policy">תנאים ומדיניות</string>
     <string name="term_and_policy_desc">קריאת תנאי האבטחה ומדיניות הפרטיות</string>
-    <string name="about_title">About</string>
+    <string name="about_title">אודות</string>
     <string name="about_desc">הכירו את האפליקציה</string>
     <string name="source_code_original">קוד מקור (הגרסה המקורית)</string>
     <string name="source_code_current">קוד מקור (גרסה זו)</string>
@@ -552,7 +552,7 @@
     <string name="quiz_ai_no_key">אין מפתח Gemini זמין, ולכן ה-AI לא הצליח לכתוב שאלה.</string>
     <string name="quiz_ai_nothing_to_ask">אין בכתבה הזו כותרת או תצוגה מקדימה לשאול עליהן.</string>
     <string name="quiz_ai_retry">נסו שוב</string>
-    <string name="quiz_ai_consent_agree">Agree</string>
+    <string name="quiz_ai_consent_agree">מסכים</string>
     <string name="quiz_ai_consent_later">לא עכשיו</string>
     <string name="quiz_ai_declined_message">שאלות חידון מ-AI כבויות. הפעילו אותן בהגדרות, פרטיות, כדי לקבל כאן שאלה.</string>
     <string name="quiz_ai_open_privacy">פתיחת הגדרות פרטיות</string>
@@ -578,13 +578,13 @@
     <string name="brain_rpg_decay_notification_channel_desc">סיכום יומי של דעיכת קטגוריות</string>
     <string name="brain_rpg_xp_retained">בסיס %1$d XP · %2$d%% נשמרו</string>
     <string name="brain_rpg_streak_shield_success">מגן הרצף הופעל!</string>
-    <string name="brain_rpg_streak_shield_protected">Protected</string>
+    <string name="brain_rpg_streak_shield_protected">מוגן</string>
     <string name="brain_rpg_target_xp">Target: %1$d XP</string>
     <string name="brain_rpg_skill_tree_title">עץ מיומנויות ידע</string>
     <string name="brain_rpg_stats_title">סטטיסטיקת אתגרי AI</string>
-    <string name="brain_rpg_stats_attempted">Attempted</string>
-    <string name="brain_rpg_stats_passed">Correct</string>
-    <string name="brain_rpg_stats_accuracy">Accuracy</string>
+    <string name="brain_rpg_stats_attempted">נוסו</string>
+    <string name="brain_rpg_stats_passed">נכון</string>
+    <string name="brain_rpg_stats_accuracy">דיוק</string>
     <string name="brain_rpg_wrapped_desc">"הרווחתם %1$d XP ושמרתם על רצף קריאה של %2$d ימים! שתפו את ההישג כדי לעורר השראה באחרים."</string>
 
     <!-- Epic 08: Zen Focus & Speed Reading -->
@@ -606,7 +606,7 @@
     <string name="zen_evening_edition">Evening Edition (20:00)</string>
     <string name="zen_daily_edition_notification">%1$d כתבות שלא נקראו מוכנות לקריאה ממוקדת.</string>
     <string name="zen_sleep_timer">טיימר שינה</string>
-    <string name="zen_sleep_timer_off">Continuous</string>
+    <string name="zen_sleep_timer_off">רצוף</string>
     <string name="zen_sleep_timer_min">%1$d minutes</string>
     <string name="zen_volume">Volume: %1$d%%</string>
     <string name="zen_settings_title">ריכוז זן וקריאה מהירה</string>
@@ -617,7 +617,7 @@
     <string name="highlights_bullet_count">%1$d נקודות עיקריות</string>
     <string name="highlights_copy_all">העתקת ההדגשות</string>
     <string name="highlights_copied_toast">ההדגשות הועתקו ללוח</string>
-    <string name="highlights_share">Share</string>
+    <string name="highlights_share">שתף</string>
     <string name="highlights_tldr">Quick TL;DR</string>
     <string name="highlights_ai_badge">Gemini AI</string>
     <string name="highlights_fallback_badge">חכם לא מקוון</string>
@@ -637,13 +637,13 @@
     <string name="deep_read_title">קריאה מעמיקה עם AI</string>
     <string name="deep_read_subtitle">צ\'אט אינטראקטיבי עם הכתבה</string>
     <string name="deep_read_input_placeholder">שאלו שאלה על הכתבה…</string>
-    <string name="deep_read_send">Send</string>
+    <string name="deep_read_send">שלח</string>
     <string name="deep_read_clear_chat">ניקוי הצ\'אט</string>
     <string name="deep_read_copied_toast">התשובה הועתקה ללוח</string>
     <string name="deep_read_welcome_message">שלום! ניתחתי את הכתבה הזו. שאלו אותי כל שאלה, בקשו הבהרות או הקישו על נושא מוצע למטה.</string>
-    <string name="deep_read_context_label">Discussing:</string>
+    <string name="deep_read_context_label">דנים ב:</string>
     <string name="deep_read_thinking">ה-AI מנתח את הכתבה…</string>
-    <string name="deep_read_grounded_badge">Grounded</string>
+    <string name="deep_read_grounded_badge">מבוסס</string>
     <string name="deep_read_offline_badge">חכם לא מקוון</string>
     <string name="deep_read_ai_badge">Gemini AI</string>
     <string name="deep_read_copy_transcript">העתקת השיחה</string>
@@ -659,7 +659,7 @@
     <string name="story_cluster_all_perspectives">כל נקודות המבט (%d)</string>
     <string name="story_cluster_mark_all_read">סימון הכול כנקרא</string>
     <string name="story_cluster_sheet_title">סיקור הסיפור מכמה נקודות מבט</string>
-    <string name="story_cluster_lead_badge">Lead</string>
+    <string name="story_cluster_lead_badge">ראשי</string>
     <string name="semantic_search_title">חיפוש סמנטי ב-AI</string>
     <string name="semantic_search_desc">חיפוש כתבות לפי מושג ומשמעות במקום מילות מפתח מדויקות</string>
     <string name="semantic_match_badge">%d%% match</string>
@@ -668,7 +668,7 @@
     <string name="watchdog_title">משגיח מילות מפתח</string>
     <string name="watchdog_desc">מעקב אחר מילות מפתח וסמלי מניות בסנכרון ברקע והתראה מיידית</string>
     <string name="watchdog_add_hint">הזינו מילת מפתח או סמל מניה (למשל $VIC, Bitcoin, Gold)...</string>
-    <string name="watchdog_add_btn">Add</string>
+    <string name="watchdog_add_btn">הוסף</string>
     <string name="watchdog_empty_desc">עדיין לא נוספו מילות מפתח. הוסיפו מילות מפתח או בחרו הצעות למטה כדי להתחיל במעקב.</string>
     <string name="watchdog_matched_count">%d matched</string>
     <string name="watchdog_channel_name">התראות משגיח מילות מפתח</string>
@@ -690,12 +690,12 @@
     <string name="notebook_empty_subtitle">הדגישו ציטוטים מעוררי השראה בזמן הקריאה כדי לארגן את הידע של המוח השני שלכם.</string>
     <string name="notebook_empty_search">לא נמצאו הדגשות תואמות</string>
 
-    <string name="notebook_save">Save</string>
-    <string name="notebook_copy">Copy</string>
-    <string name="notebook_edit">Edit</string>
+    <string name="notebook_save">שמור</string>
+    <string name="notebook_copy">העתק</string>
+    <string name="notebook_edit">ערוך</string>
     <string name="notebook_copied">הועתק ללוח</string>
-    <string name="notebook_saved">Saved</string>
-    <string name="notebook_deleted">Deleted</string>
+    <string name="notebook_saved">נשמר</string>
+    <string name="notebook_deleted">נמחק</string>
     <string name="notebook_untitled">כתבה ללא כותרת</string>
 
     <string name="ai_active_key_custom">משתמש במפתח ה-API האישי שלך</string>
@@ -826,7 +826,7 @@
     <string name="second_brain_settings_desc">ראו איך הנושאים שקראתם מתחברים לאורך זמן</string>
     <string name="second_brain_empty">קראו או שמרו כמה כתבות וגרף הנושאים שלכם יופיע כאן.</string>
     <string name="second_brain_error">לא ניתן לבנות את הגרף. נסו שוב.</string>
-    <string name="second_brain_retry">Retry</string>
+    <string name="second_brain_retry">נסה שוב</string>
     <string name="second_brain_graph_desc">גרף נושאים עם %1$d נושאים ו-%2$d קשרים</string>
     <string name="second_brain_node_articles">%1$d articles</string>
     <string name="second_brain_range_label">טווח זמן</string>
@@ -849,7 +849,7 @@
     <!-- Share Target / Read Later (INGEST-02) -->
     <string name="read_later_feed_title">לקריאה מאוחרת</string>
     <string name="share_target_save_btn">שמירה לקריאה מאוחרת</string>
-    <string name="share_target_cancel_btn">Cancel</string>
+    <string name="share_target_cancel_btn">ביטול</string>
     <string name="share_target_saved_toast">נשמר לקריאה מאוחרת</string>
     <string name="share_target_invalid_url">לא נמצא קישור תקין</string>
     <string name="read_position_sync">סנכרון מיקום קריאה</string>
@@ -861,12 +861,12 @@
     <string name="smart_collection_save_action">שמירה כאוסף</string>
     <string name="smart_collection_empty">אין אוספים חכמים עדיין. שמרו חיפוש סמנטי כדי לעקוב אחר נושא.</string>
     <string name="smart_collection_articles_count">%1$d articles</string>
-    <string name="smart_collection_edit">Edit</string>
-    <string name="smart_collection_delete">Delete</string>
+    <string name="smart_collection_edit">ערוך</string>
+    <string name="smart_collection_delete">מחק</string>
     <string name="smart_collection_delete_confirm">למחוק את האוסף הזה? הכתבות שלו יישארו בספרייה שלכם.</string>
     <string name="smart_collection_saved">האוסף החכם נשמר</string>
     <string name="smart_collection_empty_articles">עדיין אין כתבות חדשות תואמות. התאמות חדשות יופיעו אחרי סנכרון.</string>
-    <string name="save">Save</string>
+    <string name="save">שמור</string>
     <string name="eink_mode_title">מיטוב E-Ink</string>
     <string name="eink_active_title">מצב E-Ink פעיל</string>
     <string name="eink_active_desc">האפליקציה מוצגת בשחור לבן. הקש כדי לכבות.</string>
@@ -951,8 +951,8 @@
     <string name="widget_article_pin_unsupported">המפעיל שלכם אינו תומך בהצמדת ווידג\'טים אוטומטית</string>
     <!-- Feed Zero Triage (EXC-14) -->
     <string name="feed_zero_triage_title">מיון עד פיד אפס</string>
-    <string name="triage_swipe_left_skip">Skip</string>
-    <string name="triage_swipe_right_save">Save</string>
+    <string name="triage_swipe_left_skip">דלג</string>
+    <string name="triage_swipe_right_save">שמור</string>
     <string name="triage_swipe_up_read">קריאה עכשיו</string>
     <string name="triage_progress_format">%1$d / %2$d</string>
     <string name="triage_inbox_zero_title">🎉 הגעתם לתיבה ריקה!</string>
@@ -961,7 +961,7 @@
     <string name="triage_summary_saved">נשמרו לאחר כך: %1$d</string>
     <string name="triage_summary_skipped">סומנו כנקראו: %1$d</string>
     <string name="triage_summary_xp">+%1$d XP ב-Brain RPG</string>
-    <string name="triage_finish_button">Done</string>
+    <string name="triage_finish_button">סיום</string>
     <!-- Brain Wrapped tuần (RPG-09) -->
     <string name="brain_wrapped_share_story">שיתוף בסטורי</string>
     <string name="brain_wrapped_xp_label">XP השבוע</string>
@@ -1006,14 +1006,14 @@
     <string name="headline_signals_desc">מנתח במכשיר את הניסוח של הכותרת והכתבה לאיתור רמזי קליקבייט, ניסוח שיווקי או מוגזם וטון רגשי (חיובי/לא ברור/שלילי). שום דבר לא נשלח החוצה ואין שימוש ב-AI או ברשת. אלו אותות ניסוח בלבד, ולא בדיקת עובדות או שיפוט של הטיה פוליטית. ספרדית, צרפתית וגרמנית הן ניסיוניות.</string>
     <string name="headline_signals_clickbait_badge">🎯 Clickbait %1$d%%</string>
     <string name="headline_signals_clickbait_desc">מחוון לשון קליקבייט: הציון הוא %1$d מתוך 100.</string>
-    <string name="headline_signals_tone_positive">🟢 Positive</string>
-    <string name="headline_signals_tone_unclear">⚪ Unclear</string>
-    <string name="headline_signals_tone_negative">🔴 Negative</string>
+    <string name="headline_signals_tone_positive">🟢 חיובי</string>
+    <string name="headline_signals_tone_unclear">⚪ לא ברור</string>
+    <string name="headline_signals_tone_negative">🔴 שלילי</string>
     <string name="headline_signals_tone_desc_positive">טון הכותרת לפי המילים: יש סימנים חיוביים.</string>
     <string name="headline_signals_tone_desc_unclear">טון הכותרת לפי המילים: סימנים לא ברורים או לא מספיקים.</string>
     <string name="headline_signals_tone_desc_negative">טון הכותרת לפי המילים: יש סימנים שליליים.</string>
     <string name="brain_rpg_skill_tree_decay_warning">המיומנות הזו דעכה עם הזמן. תרגלו כדי לשחזר אותה.</string>
-    <string name="bounty_action_investigate">Investigate</string>
+    <string name="bounty_action_investigate">חקור</string>
     <string name="bounty_sheet_title">סוכן חקירת ישויות</string>
     <string name="bounty_scanning_status">סורק את ארכיון החדשות שלכם עבור: %1$s…</string>
     <string name="bounty_stats_summary">%1$d כתבות קשורות • %2$d מקורות</string>
@@ -1028,14 +1028,14 @@
     <string name="echo_hype_label">Hype: %1$d%%</string>
     <string name="echo_hype_warning">זוהה ניסוח שיווקי או מוגזם במיוחד</string>
     <string name="echo_tone_label">Tone: %1$s</string>
-    <string name="echo_tone_positive">🟢 Positive</string>
-    <string name="echo_tone_unclear">⚪ Unclear</string>
-    <string name="echo_tone_negative">🔴 Negative</string>
+    <string name="echo_tone_positive">🟢 חיובי</string>
+    <string name="echo_tone_unclear">⚪ לא ברור</string>
+    <string name="echo_tone_negative">🔴 שלילי</string>
     <string name="echo_details_title">אותות שפת הגוף של הטקסט</string>
     <string name="echo_disclaimer">אותות ניסוח מקומיים בלבד; אין זו בדיקת עובדות, ציון אמינות, ניתוח הטיה פוליטית או קביעה לגבי כוונת הכותב. "לא ברור" פירושו שאין מספיק עדויות בלשון, לא שהטקסט ניטרלי.</string>
     <string name="echo_flagged_passages_title">קטעים מסומנים (%1$d)</string>
     <string name="echo_cue_promotional">ביטוי שיווקי</string>
-    <string name="echo_cue_intensifier">Exaggeration</string>
+    <string name="echo_cue_intensifier">הגזמה</string>
     <string name="echo_cue_absolute">טענה מוחלטת</string>
     <string name="echo_cue_exclamation">הדגשה בסימני פיסוק או באותיות רישיות</string>
     <string name="echo_no_passages">אף פסקה לא חצתה את סף ההגזמה.</string>
@@ -1043,10 +1043,10 @@
     <!-- BOUNTY-02 dossier -->
     <string name="dossier_create_action">יצירת תיק</string>
     <string name="dossier_sheet_title">תיק מודיעין מקומי</string>
-    <string name="dossier_tab_summary">Summary</string>
-    <string name="dossier_tab_timeline">Timeline</string>
-    <string name="dossier_tab_names">Names</string>
-    <string name="dossier_tab_sources">Sources</string>
+    <string name="dossier_tab_summary">סיכום</string>
+    <string name="dossier_tab_timeline">ציר זמן</string>
+    <string name="dossier_tab_names">שמות</string>
+    <string name="dossier_tab_sources">מקורות</string>
     <string name="dossier_share_action">שיתוף Markdown</string>
     <string name="dossier_chooser_title">שיתוף התיק</string>
     <string name="dossier_limitation">נבנה רק מכתבות ששמורות באפליקציה הזו. ייתכן שחסרות בו נקודות מבט, והוא אינו בדיקת עובדות.</string>
@@ -1069,7 +1069,7 @@
     <string name="streak_rescue_message">פספסתם %1$d ימי קריאה. הרצף של %2$d ימים יתאפס בקריאה הבאה.</string>
     <string name="streak_rescue_action_ad">צפייה בסרטון להצלת הרצף</string>
     <string name="streak_rescue_action_restart">התחלה מאפס</string>
-    <string name="streak_rescue_action_later">Later</string>
+    <string name="streak_rescue_action_later">אחר כך</string>
     <string name="streak_rescue_ad_failed">לא ניתן לטעון את הסרטון. נסו שוב.</string>
 
     <!-- ZEN-07 RSVP calibration -->
@@ -1084,8 +1084,8 @@
     <string name="zen_calibration_suggested_wpm">מהירות מומלצת: כ-%1$d מילים בדקה</string>
     <string name="zen_calibration_limitation">זו הערכה גסה על סמך 6 שאלות, לא מדד להבנה לעומק. תמיד אפשר לכוון את המהירות ידנית.</string>
     <string name="zen_calibration_low_confidence_note">התשובות שלכם השתנו בין המהירויות; נסו לקרוא בקצב שלכם וכיילו שוב מאוחר יותר.</string>
-    <string name="zen_calibration_apply">Apply</string>
-    <string name="zen_calibration_skip">Skip</string>
+    <string name="zen_calibration_apply">החל</string>
+    <string name="zen_calibration_skip">דלג</string>
     <string name="zen_calibration_settings_desc">כיול מהירות הקריאה שלכם בשלושה סבבים קצרים</string>
 
     <!-- ECHO-02 contrasting coverage -->
@@ -1099,7 +1099,7 @@
     <string name="echo_dual_export">ייצוא כרטיס</string>
     <string name="echo_dual_export_desc">ייצוא כרטיס עם שתי כותרות באמצעות %1$s</string>
     <string name="echo_dual_title">שיתוף שתי כותרות</string>
-    <string name="echo_dual_share">Share</string>
+    <string name="echo_dual_share">שתף</string>
     <string name="echo_dual_cut_note">אחת הכותרות קוצרה</string>
     <string name="echo_dual_error">לא ניתן ליצור את הכרטיס. הקישו לניסיון חוזר.</string>
     <string name="echo_dual_chooser_title">שיתוף כרטיס שתי כותרות</string>
@@ -1110,7 +1110,7 @@
     <string name="curated_bundle_verified_on">Checked %1$s</string>
     <string name="curated_bundle_source_count">Sources: %1$d</string>
     <string name="curated_bundle_subscribe_all">הרשמה לכולם</string>
-    <string name="curated_bundle_subscribing">Subscribing…</string>
+    <string name="curated_bundle_subscribing">נרשם…</string>
     <string name="curated_bundle_progress">Subscribing %1$d of %2$d</string>
     <string name="curated_bundle_result">נוספו %1$d · כבר היו %2$d · נכשלו %3$d</string>
     <string name="curated_bundle_error">לא ניתן להירשם: %1$s</string>
@@ -1118,11 +1118,11 @@
     <string name="curated_bundle_account_local_only">הרשמה לחבילה שלמה זמינה רק בחשבון מקומי.</string>
 
     <!-- FRONT-03 knowledge galaxy -->
-    <string name="galaxy_mode_concepts">Concepts</string>
-    <string name="galaxy_mode_stars">Galaxy</string>
+    <string name="galaxy_mode_concepts">מושגים</string>
+    <string name="galaxy_mode_stars">גלקסיה</string>
     <string name="galaxy_empty">סמנו כמה כתבות כנקראו והן יזהרו כאן ככוכבים. נסו להרחיב את טווח הזמן.</string>
     <string name="galaxy_error">לא ניתן לבנות את הגלקסיה. נסו שוב.</string>
-    <string name="galaxy_retry">Retry</string>
+    <string name="galaxy_retry">נסה שוב</string>
     <string name="galaxy_reset_view">איפוס התצוגה</string>
     <string name="galaxy_stats">כוכבים: %1$d · קשרים: %2$d</string>
     <string name="galaxy_star_open">פתיחת הכתבה</string>
@@ -1140,7 +1140,7 @@
     <string name="second_screen_viewers">Viewers: %1$d</string>
     <string name="second_screen_expires">Expires at %1$s</string>
     <string name="second_screen_warning">לא מוצפן. כל מי שנמצא באותה רשת Wi-Fi ורואה את הקישור יכול לקרוא את הכתבה. השתמשו רק ברשת שאתם סומכים עליה.</string>
-    <string name="second_screen_starting">Starting…</string>
+    <string name="second_screen_starting">מתחיל…</string>
     <string name="second_screen_no_network">אין רשת Wi-Fi או Ethernet עם כתובת פרטית. התחברו ל-Wi-Fi ונסו שוב.</string>
     <string name="second_screen_lan_permission_denied">הגישה לרשת המקומית כבויה. אפשרו אותה בהגדרות כדי להציג כתבות במסך שני.</string>
     <string name="second_screen_expired">ההפעלה הסתיימה. הפעילו שוב כדי לקבל קישור חדש.</string>
@@ -1151,8 +1151,8 @@
     <string name="galaxy_related_title">כתבות קשורות</string>
     <string name="galaxy_shared_terms">מילים משותפות: %1$s</string>
     <string name="local_sync_title">סנכרון מקומי</string>
-    <string name="local_sync_send">Send</string>
-    <string name="local_sync_receive">Receive</string>
+    <string name="local_sync_send">שלח</string>
+    <string name="local_sync_receive">קבל</string>
     <string name="local_sync_send_instructions">יצירת חבילה מוצפנת למכשיר אחר באותה רשת מקומית.</string>
     <string name="local_sync_secret_warning">שתפו את סוד ההתאמה בנפרד מהכתובת. מי שמחזיק בשניהם יכול לקרוא את החבילה.</string>
     <string name="local_sync_http_warning">HTTP אינו מסתיר את הכתובת, כתובת המכשיר, הזמן או גודל ההעברה. רק תוכן החבילה מוצפן. השתמשו ברשת מקומית מהימנה.</string>
@@ -1176,7 +1176,7 @@
     <string name="local_sync_apply">החלת השינויים</string>
     <string name="local_sync_confirm_apply">להחיל את שינויי הסנכרון?</string>
     <string name="local_sync_confirm_counts">פידים להוספה: %1$d. מצבי כתבות לעדכון: %2$d. להחיל את השינויים?</string>
-    <string name="local_sync_cancel">Cancel</string>
+    <string name="local_sync_cancel">ביטול</string>
     <string name="local_sync_done">שינויי הסנכרון הוחלו.</string>
     <string name="local_sync_not_local">בחרו חשבון מקומי כדי להשתמש בסנכרון.</string>
     <string name="local_sync_error_network">לא ניתן להתחבר להפעלת הסנכרון. בדקו את הכתובת ואת הרשת המקומית.</string>
@@ -1202,9 +1202,9 @@
     <string name="local_sync_reply_instruction">בקשו מהטלפון השני להפסיק לשלוח ולפתוח קבלה קודם.</string>
     <string name="local_sync_merge_limit">המיזוג שומר רק סימוני נקרא וכוכב; סימון כלא נקרא או הסרת כוכב בטלפון אחד עלולים לחזור אחרי הסנכרון.</string>
     <string name="local_sync_peer_unconfirmed">ממתין שהמכשיר השני יקבל פעם אחת</string>
-    <string name="local_sync_peer_confirmed">Paired</string>
+    <string name="local_sync_peer_confirmed">מצומד</string>
     <string name="local_sync_peer_needs_repair">אי אפשר להשתמש בו בטלפון הזה. הסירו אותו והתאימו שוב.</string>
-    <string name="local_sync_forget_peer">Forget</string>
+    <string name="local_sync_forget_peer">שכח</string>
     <string name="local_sync_confirm_peer">סימון כמותאם</string>
     <string name="local_sync_nearby_title">מכשיר מותאם נמצא בקרבת מקום.</string>
     <string name="local_sync_no_peer_found">עדיין לא נמצא מכשיר קרוב. פתחו שליחה במכשיר השני.</string>
@@ -1216,7 +1216,7 @@
     <!-- EXC-11 Temporal Ask My Archive -->
     <string name="archive_query_title">שאלו את הארכיון שלי</string>
     <string name="archive_query_desc">שאלו על נושא וראו איך הכתבות השמורות שלכם סיקרו אותו, חודש אחר חודש.</string>
-    <string name="archive_query_question_label">Question</string>
+    <string name="archive_query_question_label">שאלה</string>
     <string name="archive_query_question_hint">למשל ריביות מאז מרץ</string>
     <string name="archive_query_search">חיפוש בארכיון</string>
     <string name="archive_query_start_date">תאריך התחלה (YYYY-MM-DD)</string>
@@ -1255,7 +1255,7 @@
     <string name="feed_autopilot_summary_clean">הפידים שלכם נראים מסודרים. לא זוהו פידים רועשים.</string>
     <string name="feed_autopilot_reason_opened">נפתחו %1$d מתוך %2$d (חלון של %3$d ימים אחרונים; מעורבות של %4$d%%)</string>
     <string name="feed_autopilot_reason_zero">אף כתבה לא נפתחה מתוך %1$d בחלון של %2$d ימים אחרונים</string>
-    <string name="feed_autopilot_action_unsubscribe">Unsubscribe</string>
+    <string name="feed_autopilot_action_unsubscribe">בטל מנוי</string>
     <string name="feed_autopilot_action_snooze">הנמכה ל-30 יום</string>
     <string name="feed_autopilot_action_keep">השארה והפסקת ההצעות</string>
     <string name="feed_autopilot_confirm_title">לבטל את ההרשמה ל-%1$s?</string>
@@ -1270,14 +1270,14 @@
     <string name="podcast_studio_menu">סטודיו פודקאסט</string>
     <string name="podcast_studio_consent_title">לכתוב את התסריט באמצעות AI?</string>
     <string name="podcast_studio_consent_message">רק כותרת הכתבה ותצוגה מקדימה קצרה (עד 250 תווים) נשלחות ל-Google Gemini כדי לכתוב תסריט לשני מגישים. טקסט הכתבה, קישורים והיסטוריית הקריאה שלכם לא נשלחים לעולם.</string>
-    <string name="podcast_studio_consent_agree">Use AI</string>
+    <string name="podcast_studio_consent_agree">השתמש ב-AI</string>
     <string name="podcast_studio_consent_decline">שימוש בתסריט לא מקוון</string>
     <string name="podcast_studio_conflict_title">לעצור את מה שמתנגן?</string>
     <string name="podcast_studio_conflict_message">ניגון הכתבה הזו כפודקאסט יעצור את השמע שמתנגן כעת.</string>
     <string name="podcast_studio_badge_source_gemini">התסריט נכתב על ידי AI</string>
     <string name="podcast_studio_badge_source_heuristic">תסריט לא מקוון, ללא AI</string>
-    <string name="podcast_studio_play">Play</string>
-    <string name="podcast_studio_pause">Pause</string>
+    <string name="podcast_studio_play">נגן</string>
+    <string name="podcast_studio_pause">השהה</string>
     <string name="podcast_studio_next">השורה הבאה</string>
     <string name="podcast_studio_previous">השורה הקודמת</string>
     <string name="podcast_studio_host_alex">Alex</string>
@@ -1287,7 +1287,7 @@
     <string name="deep_dive_menu">🔬 צלילה לעומק ב-AI</string>
     <string name="deep_dive_title">צלילה לעומק ב-AI</string>
     <string name="deep_dive_consent_message">כותרת הכתבה ועד 6,000 תווים מהטקסט שלה נשלחים ל-Google Gemini כדי לכתוב את הדוח הזה. קישורים, שם הפיד והיסטוריית הקריאה שלכם לא נשלחים לעולם. Gemini אינו מחפש באינטרנט.</string>
-    <string name="deep_dive_consent_agree">Agree</string>
+    <string name="deep_dive_consent_agree">מסכים</string>
     <string name="deep_dive_consent_later">לא עכשיו</string>
     <string name="deep_dive_declined_message">הצלילה לעומק ב-AI כבויה. הפעילו אותה בהגדרות, פרטיות, כדי לכתוב דוח.</string>
     <string name="deep_dive_open_privacy">פתיחת הגדרות פרטיות</string>
@@ -1297,30 +1297,30 @@
     <string name="deep_dive_nothing_to_analyze">אין בכתבה הזו כותרת או טקסט לניתוח.</string>
     <string name="deep_dive_retry">נסו שוב</string>
     <string name="deep_dive_label">נכתב על ידי AI לפי הכותרת וקטע מהטקסט; ללא חיפוש באינטרנט; ייתכנו טעויות</string>
-    <string name="deep_dive_section_context">Context</string>
+    <string name="deep_dive_section_context">הקשר</string>
     <string name="deep_dive_section_critical">דעות מנוגדות</string>
     <string name="deep_dive_section_impact">מטריצת השפעה</string>
-    <string name="deep_dive_col_area">Area</string>
+    <string name="deep_dive_col_area">תחום</string>
     <string name="deep_dive_col_short">טווח קצר</string>
     <string name="deep_dive_col_long">טווח ארוך</string>
     <string name="deep_dive_export_pdf">ייצוא PDF</string>
     <string name="deep_dive_chooser_title">שיתוף PDF של הצלילה לעומק</string>
     <string name="deep_dive_export_error">לא ניתן ליצור את ה-PDF</string>
     <string name="deep_dive_pdf_truncated">קוצר כדי להתאים לעמוד אחד. את הדוח המלא אפשר לראות באפליקציה.</string>
-    <string name="deep_dive_close">Close</string>
-    <string name="oracle_badge_label">Prediction</string>
+    <string name="deep_dive_close">סגור</string>
+    <string name="oracle_badge_label">תחזית</string>
     <string name="oracle_badge_open">פתיחת התחזית</string>
     <string name="oracle_sheet_title">תחזית שנמצאה בכתבה הזו</string>
     <string name="oracle_sheet_expires">Expected by %1$s</string>
     <string name="oracle_sheet_criteria_heading">איך לבדוק את התשובה</string>
     <string name="oracle_sheet_ai_label">נכתב על ידי AI לפי הכותרת והתיאור; ייתכנו טעויות.</string>
-    <string name="oracle_sheet_close">Close</string>
+    <string name="oracle_sheet_close">סגור</string>
     <string name="oracle_consent_title">מציאת תחזיות בכתבות חדשות</string>
     <string name="oracle_consent_message">אחרי כל סנכרון, הכותרת ותיאור קצר (עד 500 תווים בסך הכול) של עד 5 כתבות חדשות נשלחים ל-Google Gemini כדי לחפש תחזית. טקסט הכתבה, קישורים, שם הפיד והיסטוריית הקריאה שלכם לא נשלחים לעולם. כבוי כברירת מחדל.</string>
     <string name="oracle_bet_balance">יתרה: %1$s נקודות</string>
     <string name="oracle_bet_pick_side">הבחירה שלכם</string>
-    <string name="oracle_bet_yes">Yes</string>
-    <string name="oracle_bet_no">No</string>
+    <string name="oracle_bet_yes">כן</string>
+    <string name="oracle_bet_no">לא</string>
     <string name="oracle_bet_pick_stake">נקודות להימור</string>
     <string name="oracle_bet_stake_option">%1$s points</string>
     <string name="oracle_bet_place">הנחת ההימור</string>
@@ -1329,7 +1329,7 @@
     <string name="oracle_bet_open">הימרתם %1$s נקודות על %2$s.</string>
     <string name="oracle_bet_open_hint">אפשר לדווח על התוצאה אחרי התאריך שלמעלה.</string>
     <string name="oracle_bet_awaiting_title">מה הייתה התוצאה?</string>
-    <string name="oracle_bet_outcome_unclear">Unclear</string>
+    <string name="oracle_bet_outcome_unclear">לא ברור</string>
     <string name="oracle_bet_awaiting_hint">הימרתם %1$s נקודות על %2$s. "לא ברור" מחזיר לכם את הנקודות.</string>
     <string name="oracle_bet_settled_won">זכיתם ב-%1$s נקודות.</string>
     <string name="oracle_bet_settled_lost">הפסדתם %1$s נקודות.</string>
@@ -1352,7 +1352,7 @@
     <string name="commute_autoplay_title">ניגון בחיבור אוזניות Bluetooth</string>
     <string name="commute_autoplay_desc">מנסה להתחיל את פרק הבוקר פעם ביום, בתוך שעתיים מרגע שהוא מוכן. אם אנדרואיד חוסם זאת, תקבלו התראה עם כפתור ניגון.</string>
     <string name="commute_autoplay_permission_denied">בלי ההרשאה למכשירים בקרבת מקום האפליקציה לא רואה את האוזניות שלכם, ולכן האפשרות נשארת כבויה.</string>
-    <string name="commute_play_action">Play</string>
+    <string name="commute_play_action">נגן</string>
     <string name="commute_ready_to_play_title">פרק הבוקר שלכם מוכן</string>
     <string name="commute_ready_to_play_body">האוזניות שלכם מחוברות. הקישו על ניגון כדי להאזין.</string>
 </resources>

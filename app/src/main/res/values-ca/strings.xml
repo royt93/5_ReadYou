@@ -310,7 +310,7 @@
     <string name="try_again">Torna-ho a provar</string>
     <string name="change_language">Canvia l\'idioma</string>
     <string name="change_language_confirm">L\'aplicació es reiniciarà per aplicar el nou idioma. Vols continuar?</string>
-    <string name="yes">Yes</string>
+    <string name="yes">Sí</string>
     <string name="no">No</string>
     <string name="restarting_app">Reiniciant l\'aplicació…</string>
     <string name="auto_tts">Reproducció automàtica de text a veu</string>
@@ -372,7 +372,7 @@
     <string name="fresh_rss_desc" translatable="false">freshrss.org</string>
     <string name="google_reader_desc" translatable="false">Google Reader API</string>
     <string name="initial_open_app">Aplicació en tocar un enllaç</string>
-    <string name="open_link_specific_browser_not_selected">None</string>
+    <string name="open_link_specific_browser_not_selected">Cap</string>
     <string name="auto_customtabs">Automàtic (prefereix CustomTabs)</string>
     <string name="auto_default_browser">Automàtic (prefereix el navegador predeterminat)</string>
     <string name="custom_tabs">Força CustomTabs</string>
@@ -380,12 +380,12 @@
     <string name="specific_browser_name">Browser: %1$s</string>
     <string name="default_browser">Força el navegador predeterminat</string>
     <string name="always_ask">Pregunta sempre</string>
-    <string name="open_link_specific_browser">Browser</string>
+    <string name="open_link_specific_browser">Navegador</string>
     <string name="open_link_something_wrong">S\'ha ignorat la configuració \"Obre l\'enllaç\" perquè ha passat alguna cosa inesperada.</string>
-    <string name="in_coding">In development</string>
+    <string name="in_coding">En desenvolupament</string>
     <string name="tips_top_bar_tonal_elevation">L\'elevació tonal només està disponible en desplaçar-se</string>
     <string name="summary_title">Resumeix amb IA</string>
-    <string name="summary_loading">Summarizing…</string>
+    <string name="summary_loading">Resumint…</string>
     <string name="summary_try_again">Torna-ho a provar</string>
     <string name="summary_get_key">Obtén una clau gratuïta</string>
     <string name="summary_err_empty_content">L\'article no té contingut per resumir</string>
@@ -407,7 +407,7 @@
     <string name="vip_remaining_short">Queden %1$d dies i %2$d hores</string>
     <string name="vip_redeem_label">Introdueix el codi VIP</string>
     <string name="vip_redeem_hint">p. ex. el teu codi VIP</string>
-    <string name="vip_redeem_button">Activate</string>
+    <string name="vip_redeem_button">Activa</string>
     <string name="vip_watch_ad_3d">Mira un anunci → 3 dies de VIP</string>
     <string name="vip_buy_30d_locked">Compra VIP de 30 dies — properament</string>
     <string name="vip_buy_90d_locked">Compra VIP de 90 dies — properament</string>
@@ -419,9 +419,9 @@
     <string name="vip_revoke_all_confirm_message">Segur que vols revocar el VIP i tornar al compte gratuït?</string>
     <string name="vip_entry_first_install">🎁 Regal per instal·lar</string>
     <string name="vip_entry_active">Subscripció VIP</string>
-    <string name="vip_success_title">Success</string>
+    <string name="vip_success_title">Èxit</string>
     <string name="vip_success_message">VIP actiu durant %1$d dies.</string>
-    <string name="vip_failed_title">Failed</string>
+    <string name="vip_failed_title">Ha fallat</string>
     <string name="ad_attribution_label" translatable="false">Ad Networks (AdMob / AppLovin MAX)</string>
     <string name="vip_failed_busy">Un codi anterior encara s\'està comprovant. Espereu un moment i torneu-ho a provar.</string>
     <string name="vip_failed_no_network">Activar un codi requereix connexió a internet. Connecteu-vos i torneu-ho a provar.</string>
@@ -438,8 +438,8 @@
     <string name="commute_deepdive_unlocked">🎉 Anàlisi desbloquejada!</string>
     <string name="commute_empty">No hi ha articles sense llegir per a la ràdio matinal</string>
     <string name="commute_generating">El DJ d\'IA està preparant el teu programa...</string>
-    <string name="retry">Retry</string>
-    <string name="version">Version</string>
+    <string name="retry">Torna-ho a provar</string>
+    <string name="version">Versió</string>
     <string name="rate_app">Valora l\'aplicació</string>
     <string name="rate_app_desc">Valora-la amb 5 estrelles si t\'ha estat útil</string>
     <string name="more_apps">Més aplicacions</string>
@@ -448,7 +448,7 @@
     <string name="share_app_desc">Comparteix aquesta aplicació perquè altres també la puguin utilitzar</string>
     <string name="term_and_policy">Termes i política</string>
     <string name="term_and_policy_desc">Llegeix els termes de seguretat i la política de privadesa</string>
-    <string name="about_title">About</string>
+    <string name="about_title">Quant a</string>
     <string name="about_desc">Coneix aquesta aplicació</string>
     <string name="source_code_original">Codi font (versió original)</string>
     <string name="source_code_current">Codi font (aquesta versió)</string>
@@ -474,7 +474,7 @@
     <string name="quiz_ai_no_key">No hi ha cap clau de Gemini disponible, així que la IA no ha pogut escriure una pregunta.</string>
     <string name="quiz_ai_nothing_to_ask">Aquest article no té títol ni vista prèvia sobre els quals preguntar.</string>
     <string name="quiz_ai_retry">Torna-ho a provar</string>
-    <string name="quiz_ai_consent_agree">Agree</string>
+    <string name="quiz_ai_consent_agree">D\'acord</string>
     <string name="quiz_ai_consent_later">Ara no</string>
     <string name="quiz_ai_declined_message">Les preguntes de qüestionari d\'IA estan desactivades. Activa-les a Configuració, Privadesa, per obtenir-ne una aquí.</string>
     <string name="quiz_ai_open_privacy">Obre la configuració de privadesa</string>
@@ -528,7 +528,7 @@
     <string name="zen_evening_edition">Evening Edition (20:00)</string>
     <string name="zen_daily_edition_notification">%1$d articles sense llegir a punt per a la teva lectura concentrada.</string>
     <string name="zen_sleep_timer">Temporitzador de son</string>
-    <string name="zen_sleep_timer_off">Continuous</string>
+    <string name="zen_sleep_timer_off">Continu</string>
     <string name="zen_sleep_timer_min">%1$d minutes</string>
     <string name="zen_volume">Volume: %1$d%%</string>
     <string name="zen_settings_title">Concentració Zen i lectura ràpida</string>
@@ -539,7 +539,7 @@
     <string name="highlights_bullet_count">%1$d punts clau</string>
     <string name="highlights_copy_all">Copia els destacats</string>
     <string name="highlights_copied_toast">Destacats copiats al porta-retalls</string>
-    <string name="highlights_share">Share</string>
+    <string name="highlights_share">Comparteix</string>
     <string name="highlights_tldr">Quick TL;DR</string>
     <string name="highlights_ai_badge">Gemini AI</string>
     <string name="highlights_fallback_badge">Intel·ligent sense connexió</string>
@@ -559,13 +559,13 @@
     <string name="deep_read_title">Lectura profunda amb IA</string>
     <string name="deep_read_subtitle">Xat interactiu amb l\'article</string>
     <string name="deep_read_input_placeholder">Fes una pregunta sobre aquest article…</string>
-    <string name="deep_read_send">Send</string>
+    <string name="deep_read_send">Envia</string>
     <string name="deep_read_clear_chat">Esborra el xat</string>
     <string name="deep_read_copied_toast">Resposta copiada al porta-retalls</string>
     <string name="deep_read_welcome_message">Hola! He analitzat aquest article. Fes-me qualsevol pregunta, demana aclariments o toca un dels temes suggerits a sota.</string>
-    <string name="deep_read_context_label">Discussing:</string>
+    <string name="deep_read_context_label">Debatent:</string>
     <string name="deep_read_thinking">La IA està analitzant l\'article…</string>
-    <string name="deep_read_grounded_badge">Grounded</string>
+    <string name="deep_read_grounded_badge">Fonamentat</string>
     <string name="deep_read_offline_badge">Intel·ligent sense connexió</string>
     <string name="deep_read_ai_badge">Gemini AI</string>
     <string name="deep_read_copy_transcript">Copia la conversa</string>
@@ -581,7 +581,7 @@
     <string name="story_cluster_all_perspectives">Totes les perspectives (%d)</string>
     <string name="story_cluster_mark_all_read">Marca-ho tot com a llegit</string>
     <string name="story_cluster_sheet_title">Cobertura de la notícia amb diverses perspectives</string>
-    <string name="story_cluster_lead_badge">Lead</string>
+    <string name="story_cluster_lead_badge">Principal</string>
     <string name="semantic_search_title">Cerca semàntica amb IA</string>
     <string name="semantic_search_desc">Cerca articles per concepte i significat semàntic en lloc de paraules clau exactes</string>
     <string name="semantic_match_badge">%d%% match</string>
@@ -590,7 +590,7 @@
     <string name="watchdog_title">Vigilant de paraules clau</string>
     <string name="watchdog_desc">Vigila paraules clau i símbols borsaris en la sincronització en segon pla i avisa a l\'instant</string>
     <string name="watchdog_add_hint">Introdueix una paraula clau o símbol (p. ex. $VIC, Bitcoin, Gold)...</string>
-    <string name="watchdog_add_btn">Add</string>
+    <string name="watchdog_add_btn">Afegeix</string>
     <string name="watchdog_empty_desc">Encara no has afegit cap paraula clau. Afegeix-ne o tria suggeriments a sota per començar a vigilar.</string>
     <string name="watchdog_matched_count">%d matched</string>
     <string name="watchdog_channel_name">Alertes del vigilant de paraules clau</string>
@@ -612,12 +612,12 @@
     <string name="notebook_empty_subtitle">Destaca cites inspiradores mentre llegeixes per organitzar el coneixement del teu Segon Cervell.</string>
     <string name="notebook_empty_search">No s\'ha trobat cap destacat coincident</string>
 
-    <string name="notebook_save">Save</string>
-    <string name="notebook_copy">Copy</string>
-    <string name="notebook_edit">Edit</string>
+    <string name="notebook_save">Desa</string>
+    <string name="notebook_copy">Copia</string>
+    <string name="notebook_edit">Edita</string>
     <string name="notebook_copied">Copiat al porta-retalls</string>
-    <string name="notebook_saved">Saved</string>
-    <string name="notebook_deleted">Deleted</string>
+    <string name="notebook_saved">Desat</string>
+    <string name="notebook_deleted">Suprimit</string>
     <string name="notebook_untitled">Article sense títol</string>
     <string name="ai_active_key_custom">Utilitzant la teva clau API personal</string>
     <string name="ai_active_key_default">Utilitzant la quota compartida per defecte</string>
@@ -747,7 +747,7 @@
     <string name="second_brain_settings_desc">Mira com es connecten amb el temps els temes que llegeixes</string>
     <string name="second_brain_empty">Llegeix o desa uns quants articles i aquí apareixerà el graf de temes.</string>
     <string name="second_brain_error">No s\'ha pogut construir el graf. Torna-ho a provar.</string>
-    <string name="second_brain_retry">Retry</string>
+    <string name="second_brain_retry">Torna-ho a provar</string>
     <string name="second_brain_graph_desc">Graf de temes amb %1$d temes i %2$d connexions</string>
     <string name="second_brain_node_articles">%1$d articles</string>
     <string name="second_brain_range_label">Interval de temps</string>
@@ -770,7 +770,7 @@
     <!-- Share Target / Read Later (INGEST-02) -->
     <string name="read_later_feed_title">Llegeix més tard</string>
     <string name="share_target_save_btn">Desa per llegir més tard</string>
-    <string name="share_target_cancel_btn">Cancel</string>
+    <string name="share_target_cancel_btn">Cancel·la</string>
     <string name="share_target_saved_toast">Desat per llegir més tard</string>
     <string name="share_target_invalid_url">No s\'ha trobat cap enllaç vàlid</string>
     <string name="read_position_sync">Sincronitza la posició de lectura</string>
@@ -782,12 +782,12 @@
     <string name="smart_collection_save_action">Desa com a col·lecció</string>
     <string name="smart_collection_empty">Encara no hi ha col·leccions intel·ligents. Desa una cerca semàntica per seguir un tema.</string>
     <string name="smart_collection_articles_count">%1$d articles</string>
-    <string name="smart_collection_edit">Edit</string>
-    <string name="smart_collection_delete">Delete</string>
+    <string name="smart_collection_edit">Edita</string>
+    <string name="smart_collection_delete">Suprimeix</string>
     <string name="smart_collection_delete_confirm">Vols suprimir aquesta col·lecció? Els seus articles es conservaran a la teva biblioteca.</string>
     <string name="smart_collection_saved">Col·lecció intel·ligent desada</string>
     <string name="smart_collection_empty_articles">Encara no hi ha articles nous coincidents. Les noves coincidències apareixeran després de sincronitzar.</string>
-    <string name="save">Save</string>
+    <string name="save">Desa</string>
     <string name="eink_mode_title">Optimització per a E-Ink</string>
     <string name="eink_active_title">El mode E-Ink està activat</string>
     <string name="eink_active_desc">Aplicació en blanc i negre. Toca per desactivar-lo.</string>
@@ -866,8 +866,8 @@
     <string name="widget_article_pin_unsupported">El teu inici no admet la fixació automàtica de widgets</string>
     <!-- Feed Zero Triage (EXC-14) -->
     <string name="feed_zero_triage_title">Triatge de canals a zero</string>
-    <string name="triage_swipe_left_skip">Skip</string>
-    <string name="triage_swipe_right_save">Save</string>
+    <string name="triage_swipe_left_skip">Omet</string>
+    <string name="triage_swipe_right_save">Desa</string>
     <string name="triage_swipe_up_read">Llegeix ara</string>
     <string name="triage_progress_format">%1$d / %2$d</string>
     <string name="triage_inbox_zero_title">🎉 Safata a zero assolida!</string>
@@ -876,7 +876,7 @@
     <string name="triage_summary_saved">Desats per més tard: %1$d</string>
     <string name="triage_summary_skipped">Marcats com a llegits: %1$d</string>
     <string name="triage_summary_xp">+%1$d XP de Brain RPG</string>
-    <string name="triage_finish_button">Done</string>
+    <string name="triage_finish_button">Fet</string>
     <!-- Brain Wrapped tuần (RPG-09) -->
     <string name="brain_wrapped_share_story">Comparteix a la història</string>
     <string name="brain_wrapped_xp_label">XP de la setmana</string>
@@ -921,14 +921,14 @@
     <string name="headline_signals_desc">Analitza al dispositiu el redactat dels titulars i els articles per detectar indicis de sensacionalisme, llenguatge promocional o exagerat i to emocional (positiu/poc clar/negatiu). No s\'envia res enlloc i no s\'utilitza IA ni xarxa. Són només senyals del redactat, no verificacions de fets ni judicis de biaix polític. El castellà, el francès i l\'alemany són experimentals.</string>
     <string name="headline_signals_clickbait_badge">🎯 Clickbait %1$d%%</string>
     <string name="headline_signals_clickbait_desc">Indicador de llenguatge sensacionalista: la puntuació és %1$d sobre 100.</string>
-    <string name="headline_signals_tone_positive">🟢 Positive</string>
-    <string name="headline_signals_tone_unclear">⚪ Unclear</string>
-    <string name="headline_signals_tone_negative">🔴 Negative</string>
+    <string name="headline_signals_tone_positive">🟢 Positiu</string>
+    <string name="headline_signals_tone_unclear">⚪ No clar</string>
+    <string name="headline_signals_tone_negative">🔴 Negatiu</string>
     <string name="headline_signals_tone_desc_positive">To lèxic del titular: hi ha indicadors positius.</string>
     <string name="headline_signals_tone_desc_unclear">To lèxic del titular: indicadors poc clars o insuficients.</string>
     <string name="headline_signals_tone_desc_negative">To lèxic del titular: hi ha indicadors negatius.</string>
     <string name="brain_rpg_skill_tree_decay_warning">Aquesta habilitat s\'ha afeblit amb el temps. Practica per recuperar-la.</string>
-    <string name="bounty_action_investigate">Investigate</string>
+    <string name="bounty_action_investigate">Investiga</string>
     <string name="bounty_sheet_title">Agent d\'investigació d\'entitats</string>
     <string name="bounty_scanning_status">Escanejant el teu arxiu de notícies per a: %1$s…</string>
     <string name="bounty_stats_summary">%1$d articles relacionats • %2$d fonts</string>
@@ -943,14 +943,14 @@
     <string name="echo_hype_label">Hype: %1$d%%</string>
     <string name="echo_hype_warning">S\'ha detectat un llenguatge molt promocional o exagerat</string>
     <string name="echo_tone_label">Tone: %1$s</string>
-    <string name="echo_tone_positive">🟢 Positive</string>
-    <string name="echo_tone_unclear">⚪ Unclear</string>
-    <string name="echo_tone_negative">🔴 Negative</string>
+    <string name="echo_tone_positive">🟢 Positiu</string>
+    <string name="echo_tone_unclear">⚪ No clar</string>
+    <string name="echo_tone_negative">🔴 Negatiu</string>
     <string name="echo_details_title">Senyals del llenguatge del text</string>
     <string name="echo_disclaimer">Només senyals locals del redactat; no és una verificació de fets, una puntuació de credibilitat, una anàlisi de biaix polític ni una afirmació sobre la intenció de l\'autor. \"Poc clar\" vol dir que no hi ha prou evidències lèxiques, no que sigui neutral.</string>
     <string name="echo_flagged_passages_title">Passatges marcats (%1$d)</string>
     <string name="echo_cue_promotional">Frase promocional</string>
-    <string name="echo_cue_intensifier">Exaggeration</string>
+    <string name="echo_cue_intensifier">Exageració</string>
     <string name="echo_cue_absolute">Afirmació absoluta</string>
     <string name="echo_cue_exclamation">Èmfasi amb puntuació o majúscules</string>
     <string name="echo_no_passages">Cap paràgraf no ha superat el llindar d\'exageració.</string>
@@ -958,10 +958,10 @@
     <!-- BOUNTY-02 dossier -->
     <string name="dossier_create_action">Crea un dossier</string>
     <string name="dossier_sheet_title">Dossier d\'intel·ligència local</string>
-    <string name="dossier_tab_summary">Summary</string>
-    <string name="dossier_tab_timeline">Timeline</string>
-    <string name="dossier_tab_names">Names</string>
-    <string name="dossier_tab_sources">Sources</string>
+    <string name="dossier_tab_summary">Resum</string>
+    <string name="dossier_tab_timeline">Cronologia</string>
+    <string name="dossier_tab_names">Noms</string>
+    <string name="dossier_tab_sources">Fonts</string>
     <string name="dossier_share_action">Comparteix en Markdown</string>
     <string name="dossier_chooser_title">Comparteix el dossier</string>
     <string name="dossier_limitation">Creat només amb articles desats en aquesta aplicació. Pot ometre punts de vista i no és una verificació de fets.</string>
@@ -984,7 +984,7 @@
     <string name="streak_rescue_message">Has deixat de llegir %1$d dies. La teva ratxa de %2$d dies es reiniciarà a la pròxima lectura.</string>
     <string name="streak_rescue_action_ad">Mira un vídeo per salvar la ratxa</string>
     <string name="streak_rescue_action_restart">Comença de zero</string>
-    <string name="streak_rescue_action_later">Later</string>
+    <string name="streak_rescue_action_later">Més tard</string>
     <string name="streak_rescue_ad_failed">No s\'ha pogut carregar el vídeo. Torna-ho a provar.</string>
 
     <!-- ZEN-07 RSVP calibration -->
@@ -999,8 +999,8 @@
     <string name="zen_calibration_suggested_wpm">Velocitat suggerida: ~%1$d ppm</string>
     <string name="zen_calibration_limitation">És una estimació aproximada a partir de 6 preguntes, no una mesura de comprensió profunda. Sempre pots ajustar la velocitat manualment.</string>
     <string name="zen_calibration_low_confidence_note">Les teves respostes han variat segons la velocitat; prova de llegir al teu ritme i torna a calibrar més tard.</string>
-    <string name="zen_calibration_apply">Apply</string>
-    <string name="zen_calibration_skip">Skip</string>
+    <string name="zen_calibration_apply">Aplica</string>
+    <string name="zen_calibration_skip">Omet</string>
     <string name="zen_calibration_settings_desc">Calibra la teva velocitat de lectura en 3 rondes curtes</string>
 
     <!-- ECHO-02 contrasting coverage -->
@@ -1014,7 +1014,7 @@
     <string name="echo_dual_export">Exporta la targeta</string>
     <string name="echo_dual_export_desc">Exporta una targeta de dos titulars amb %1$s</string>
     <string name="echo_dual_title">Comparteix dos titulars</string>
-    <string name="echo_dual_share">Share</string>
+    <string name="echo_dual_share">Comparteix</string>
     <string name="echo_dual_cut_note">S\'ha escurçat un titular</string>
     <string name="echo_dual_error">No s\'ha pogut crear la targeta. Toca per tornar-ho a provar.</string>
     <string name="echo_dual_chooser_title">Comparteix la targeta de dos titulars</string>
@@ -1025,7 +1025,7 @@
     <string name="curated_bundle_verified_on">Checked %1$s</string>
     <string name="curated_bundle_source_count">Sources: %1$d</string>
     <string name="curated_bundle_subscribe_all">Subscriu-te a tot</string>
-    <string name="curated_bundle_subscribing">Subscribing…</string>
+    <string name="curated_bundle_subscribing">Subscrivint…</string>
     <string name="curated_bundle_progress">Subscribing %1$d of %2$d</string>
     <string name="curated_bundle_result">Afegits %1$d · ja els tenies %2$d · fallits %3$d</string>
     <string name="curated_bundle_error">No s\'ha pogut fer la subscripció: %1$s</string>
@@ -1033,11 +1033,11 @@
     <string name="curated_bundle_account_local_only">La subscripció a un paquet sencer només està disponible per al compte local.</string>
 
     <!-- FRONT-03 knowledge galaxy -->
-    <string name="galaxy_mode_concepts">Concepts</string>
-    <string name="galaxy_mode_stars">Galaxy</string>
+    <string name="galaxy_mode_concepts">Conceptes</string>
+    <string name="galaxy_mode_stars">Galàxia</string>
     <string name="galaxy_empty">Marca alguns articles com a llegits i brillaran aquí com a estrelles. Prova d\'ampliar l\'interval de temps.</string>
     <string name="galaxy_error">No s\'ha pogut construir la galàxia. Torna-ho a provar.</string>
-    <string name="galaxy_retry">Retry</string>
+    <string name="galaxy_retry">Torna-ho a provar</string>
     <string name="galaxy_reset_view">Restableix la vista</string>
     <string name="galaxy_stats">Estrelles: %1$d · Enllaços: %2$d</string>
     <string name="galaxy_star_open">Obre l\'article</string>
@@ -1055,7 +1055,7 @@
     <string name="second_screen_viewers">Viewers: %1$d</string>
     <string name="second_screen_expires">Expires at %1$s</string>
     <string name="second_screen_warning">No xifrat. Qualsevol persona d\'aquesta xarxa Wi-Fi que vegi l\'enllaç pot llegir l\'article. Fes-ho servir només en una xarxa de confiança.</string>
-    <string name="second_screen_starting">Starting…</string>
+    <string name="second_screen_starting">Iniciant…</string>
     <string name="second_screen_no_network">No hi ha cap xarxa Wi-Fi ni Ethernet amb adreça privada. Connecta\'t al Wi-Fi i torna-ho a provar.</string>
     <string name="second_screen_lan_permission_denied">L\'accés a la xarxa local està desactivat. Permet-lo a Configuració per mostrar articles en una segona pantalla.</string>
     <string name="second_screen_expired">La sessió ha acabat. Torna-la a activar per obtenir un enllaç nou.</string>
@@ -1066,8 +1066,8 @@
     <string name="galaxy_related_title">Articles relacionats</string>
     <string name="galaxy_shared_terms">Paraules compartides: %1$s</string>
     <string name="local_sync_title">Sincronització local</string>
-    <string name="local_sync_send">Send</string>
-    <string name="local_sync_receive">Receive</string>
+    <string name="local_sync_send">Envia</string>
+    <string name="local_sync_receive">Rep</string>
     <string name="local_sync_send_instructions">Crea un paquet xifrat per a un altre dispositiu d\'aquesta xarxa local.</string>
     <string name="local_sync_secret_warning">Comparteix aquest secret d\'aparellament per separat de l\'URL. Qui tingui tots dos pot llegir el paquet.</string>
     <string name="local_sync_http_warning">HTTP no amaga l\'URL, l\'adreça del dispositiu, l\'hora ni la mida de la transferència. Només el contingut del paquet està xifrat. Fes servir una xarxa local de confiança.</string>
@@ -1091,7 +1091,7 @@
     <string name="local_sync_apply">Aplica els canvis</string>
     <string name="local_sync_confirm_apply">Vols aplicar els canvis de sincronització?</string>
     <string name="local_sync_confirm_counts">Canals per afegir: %1$d. Estats d\'articles per actualitzar: %2$d. Vols aplicar aquests canvis?</string>
-    <string name="local_sync_cancel">Cancel</string>
+    <string name="local_sync_cancel">Cancel·la</string>
     <string name="local_sync_done">Canvis de sincronització aplicats.</string>
     <string name="local_sync_not_local">Tria un compte local per utilitzar la sincronització.</string>
     <string name="local_sync_error_network">No s\'ha pogut connectar amb la sessió de sincronització. Comprova l\'URL i la xarxa local.</string>
@@ -1117,9 +1117,9 @@
     <string name="local_sync_reply_instruction">Demana a l\'altre telèfon que deixi d\'enviar i obri primer Rep.</string>
     <string name="local_sync_merge_limit">La fusió només conserva les marques de llegit i amb estrella; marcar com a no llegit o treure una estrella en un telèfon pot tornar després de sincronitzar.</string>
     <string name="local_sync_peer_unconfirmed">Esperant que l\'altre dispositiu rebi una vegada</string>
-    <string name="local_sync_peer_confirmed">Paired</string>
+    <string name="local_sync_peer_confirmed">Vinculat</string>
     <string name="local_sync_peer_needs_repair">No es pot utilitzar en aquest telèfon. Oblida\'l i torna a aparellar-lo.</string>
-    <string name="local_sync_forget_peer">Forget</string>
+    <string name="local_sync_forget_peer">Oblida</string>
     <string name="local_sync_confirm_peer">Marca com a aparellat</string>
     <string name="local_sync_nearby_title">Hi ha un dispositiu aparellat a prop.</string>
     <string name="local_sync_no_peer_found">Encara no s\'ha trobat cap dispositiu proper. Obre Envia a l\'altre dispositiu.</string>
@@ -1131,7 +1131,7 @@
     <!-- EXC-11 Temporal Ask My Archive -->
     <string name="archive_query_title">Pregunta al meu arxiu</string>
     <string name="archive_query_desc">Pregunta sobre un tema i mira com l\'han tractat els teus articles desats, mes a mes.</string>
-    <string name="archive_query_question_label">Question</string>
+    <string name="archive_query_question_label">Pregunta</string>
     <string name="archive_query_question_hint">p. ex. tipus d\'interès des del març</string>
     <string name="archive_query_search">Cerca a l\'arxiu</string>
     <string name="archive_query_start_date">Data d\'inici (AAAA-MM-DD)</string>
@@ -1170,7 +1170,7 @@
     <string name="feed_autopilot_summary_clean">Els teus canals estan ordenats. No s\'ha detectat cap canal sorollós.</string>
     <string name="feed_autopilot_reason_opened">Oberts %1$d de %2$d (darrers %3$d dies; %4$d%% de participació)</string>
     <string name="feed_autopilot_reason_zero">Cap article obert de %1$d en els darrers %2$d dies</string>
-    <string name="feed_autopilot_action_unsubscribe">Unsubscribe</string>
+    <string name="feed_autopilot_action_unsubscribe">Cancel·la la subscripció</string>
     <string name="feed_autopilot_action_snooze">Posposa 30 dies</string>
     <string name="feed_autopilot_action_keep">Conserva i deixa de suggerir</string>
     <string name="feed_autopilot_confirm_title">Vols cancel·lar la subscripció a %1$s?</string>
@@ -1185,14 +1185,14 @@
     <string name="podcast_studio_menu">Estudi de pòdcasts</string>
     <string name="podcast_studio_consent_title">Vols escriure el guió amb IA?</string>
     <string name="podcast_studio_consent_message">Només el títol d\'aquest article i una vista prèvia breu (menys de 250 caràcters) s\'envien a Google Gemini per escriure un guió de dos presentadors. El text de l\'article, els enllaços i el teu historial de lectura no s\'envien mai.</string>
-    <string name="podcast_studio_consent_agree">Use AI</string>
+    <string name="podcast_studio_consent_agree">Utilitza AI</string>
     <string name="podcast_studio_consent_decline">Fes servir el guió sense connexió</string>
     <string name="podcast_studio_conflict_title">Vols aturar el que s\'està reproduint?</string>
     <string name="podcast_studio_conflict_message">Reproduir aquest article com a pòdcast aturarà l\'àudio que s\'està reproduint ara.</string>
     <string name="podcast_studio_badge_source_gemini">Guió escrit per IA</string>
     <string name="podcast_studio_badge_source_heuristic">Guió sense connexió, sense IA</string>
-    <string name="podcast_studio_play">Play</string>
-    <string name="podcast_studio_pause">Pause</string>
+    <string name="podcast_studio_play">Reprodueix</string>
+    <string name="podcast_studio_pause">Pausa</string>
     <string name="podcast_studio_next">Línia següent</string>
     <string name="podcast_studio_previous">Línia anterior</string>
     <string name="podcast_studio_host_alex">Alex</string>
@@ -1202,7 +1202,7 @@
     <string name="deep_dive_menu">🔬 Anàlisi profunda amb IA</string>
     <string name="deep_dive_title">Anàlisi profunda amb IA</string>
     <string name="deep_dive_consent_message">El títol de l\'article i fins a 6.000 caràcters del seu text s\'envien a Google Gemini per escriure aquest informe. Els enllaços, el nom del canal i el teu historial de lectura no s\'envien mai. Gemini no cerca a la web.</string>
-    <string name="deep_dive_consent_agree">Agree</string>
+    <string name="deep_dive_consent_agree">D\'acord</string>
     <string name="deep_dive_consent_later">Ara no</string>
     <string name="deep_dive_declined_message">L\'anàlisi profunda amb IA està desactivada. Activa-la a Configuració, Privadesa, per escriure un informe.</string>
     <string name="deep_dive_open_privacy">Obre la configuració de privadesa</string>
@@ -1215,26 +1215,26 @@
     <string name="deep_dive_section_context">Context</string>
     <string name="deep_dive_section_critical">Punts de vista oposats</string>
     <string name="deep_dive_section_impact">Matriu d\'impacte</string>
-    <string name="deep_dive_col_area">Area</string>
+    <string name="deep_dive_col_area">Àrea</string>
     <string name="deep_dive_col_short">Curt termini</string>
     <string name="deep_dive_col_long">Llarg termini</string>
     <string name="deep_dive_export_pdf">Exporta en PDF</string>
     <string name="deep_dive_chooser_title">Comparteix el PDF de l\'anàlisi profunda</string>
     <string name="deep_dive_export_error">No s\'ha pogut crear el PDF</string>
     <string name="deep_dive_pdf_truncated">Retallat per cabre en una pàgina. Consulta l\'informe complet a l\'aplicació.</string>
-    <string name="deep_dive_close">Close</string>
-    <string name="oracle_badge_label">Prediction</string>
+    <string name="deep_dive_close">Tanca</string>
+    <string name="oracle_badge_label">Predicció</string>
     <string name="oracle_badge_open">Obre la predicció</string>
     <string name="oracle_sheet_title">Predicció trobada en aquest article</string>
     <string name="oracle_sheet_expires">Expected by %1$s</string>
     <string name="oracle_sheet_criteria_heading">Com comprovar la resposta</string>
     <string name="oracle_sheet_ai_label">Escrit per IA a partir del títol i la descripció; pot ser incorrecte.</string>
-    <string name="oracle_sheet_close">Close</string>
+    <string name="oracle_sheet_close">Tanca</string>
     <string name="oracle_consent_title">Troba prediccions en articles nous</string>
     <string name="oracle_consent_message">Després de cada sincronització, el títol i una descripció breu (fins a 500 caràcters en total) de fins a 5 articles nous s\'envien a Google Gemini per cercar-hi una predicció. El text de l\'article, els enllaços, el nom del canal i el teu historial de lectura no s\'envien mai. Desactivat per defecte.</string>
     <string name="oracle_bet_balance">Saldo: %1$s punts</string>
     <string name="oracle_bet_pick_side">La teva elecció</string>
-    <string name="oracle_bet_yes">Yes</string>
+    <string name="oracle_bet_yes">Sí</string>
     <string name="oracle_bet_no">No</string>
     <string name="oracle_bet_pick_stake">Punts a apostar</string>
     <string name="oracle_bet_stake_option">%1$s points</string>
@@ -1244,7 +1244,7 @@
     <string name="oracle_bet_open">Has apostat %1$s punts a %2$s.</string>
     <string name="oracle_bet_open_hint">Podràs informar del resultat després de la data de dalt.</string>
     <string name="oracle_bet_awaiting_title">Quin ha estat el resultat?</string>
-    <string name="oracle_bet_outcome_unclear">Unclear</string>
+    <string name="oracle_bet_outcome_unclear">No clar</string>
     <string name="oracle_bet_awaiting_hint">Has apostat %1$s punts a %2$s. Si no és clar, recuperes els punts.</string>
     <string name="oracle_bet_settled_won">Has guanyat %1$s punts.</string>
     <string name="oracle_bet_settled_lost">Has perdut %1$s punts.</string>
@@ -1267,7 +1267,7 @@
     <string name="commute_autoplay_title">Reprodueix en connectar els auriculars Bluetooth</string>
     <string name="commute_autoplay_desc">Intenta iniciar l\'episodi matinal un cop al dia, dins de les 2 hores des que està a punt. Si Android ho bloqueja, rebràs una notificació amb un botó de reproducció.</string>
     <string name="commute_autoplay_permission_denied">Sense el permís de Dispositius propers l\'aplicació no pot veure els teus auriculars, així que això queda desactivat.</string>
-    <string name="commute_play_action">Play</string>
+    <string name="commute_play_action">Reprodueix</string>
     <string name="commute_ready_to_play_title">El teu episodi matinal està a punt</string>
     <string name="commute_ready_to_play_body">Els teus auriculars estan connectats. Toca Reprodueix per escoltar-lo.</string>
 </resources>

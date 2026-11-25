@@ -162,7 +162,7 @@
     <string name="clear_all_articles">Alle artikelen wissen</string>
     <string name="delete_account">Account verwijderen</string>
     <string name="appearance">Uiterlijk</string>
-    <string name="style">Style</string>
+    <string name="style">Stijl</string>
     <string name="article_date">Publicatietijd artikel</string>
     <string name="mark_as_read_button_position">Positie van de knop \"Markeren als gelezen\"</string>
     <string name="reading_page">Leespagina</string>
@@ -256,7 +256,7 @@
     <string name="open_source_licenses">Open source licenties</string>
     <string name="update_link">https://api.github.com/repos/Ashinch/ReadYou/releases/latest</string>
     <string name="change_log">Wijzigingslog</string>
-    <string name="update">Update</string>
+    <string name="update">Bijwerken</string>
     <string name="skip_this_version">Sla deze versie over</string>
     <string name="checking_updates">Controleren op updates…</string>
     <string name="is_latest_version">Dit is de laatste versie</string>
@@ -311,7 +311,7 @@
     <string name="watch_ad">Bekijk advertentie</string>
     <string name="ad_not_ready">Advertentie is niet klaar. Probeer het later opnieuw.</string>
     <string name="read_you" translatable="false">RSS Hub</string>
-    <string name="empty">Empty</string>
+    <string name="empty">Leeg</string>
     <string name="feed_url_placeholder" translatable="false">http://example.com/feed.rss</string>
     <string name="translatable_url" translatable="false">https://hosted.weblate.org/projects/readyou/</string>
     <string name="english" translatable="false">English</string>
@@ -363,16 +363,16 @@
     <string name="inoreader_desc" translatable="false">inoreader.com</string>
     <string name="fresh_rss_desc" translatable="false">freshrss.org</string>
     <string name="google_reader_desc" translatable="false">Google Reader API</string>
-    <string name="switch_account">Switch</string>
-    <string name="add">Add</string>
+    <string name="switch_account">Wisselen</string>
+    <string name="add">Toevoegen</string>
     <string name="accounts_tips">Tik op de accountnaam op de feedpagina om te wisselen</string>
     <string name="server_url">Server-URL</string>
-    <string name="username">Username</string>
-    <string name="password">Password</string>
-    <string name="connection">Connection</string>
-    <string name="system_default">System</string>
+    <string name="username">Gebruikersnaam</string>
+    <string name="password">Wachtwoord</string>
+    <string name="connection">Verbinding</string>
+    <string name="system_default">Systeem</string>
     <string name="initial_open_app">App bij het aantikken van een link</string>
-    <string name="open_link_specific_browser_not_selected">None</string>
+    <string name="open_link_specific_browser_not_selected">Geen</string>
     <string name="auto_customtabs">Automatisch (voorkeur CustomTabs)</string>
     <string name="auto_default_browser">Automatisch (voorkeur standaardbrowser)</string>
     <string name="custom_tabs">CustomTabs afdwingen</string>
@@ -382,10 +382,10 @@
     <string name="always_ask">Altijd vragen</string>
     <string name="open_link_specific_browser">Browser</string>
     <string name="open_link_something_wrong">De instelling \"Link openen\" is genegeerd omdat er iets misging.</string>
-    <string name="in_coding">In development</string>
+    <string name="in_coding">In ontwikkeling</string>
     <string name="tips_top_bar_tonal_elevation">Tonale hoogte is alleen beschikbaar tijdens het scrollen</string>
     <string name="summary_title">Samenvatten met AI</string>
-    <string name="summary_loading">Summarizing…</string>
+    <string name="summary_loading">Samenvatten…</string>
     <string name="summary_try_again">Opnieuw proberen</string>
     <string name="summary_get_key">Gratis sleutel ophalen</string>
     <string name="summary_err_empty_content">Het artikel heeft geen inhoud om samen te vatten</string>
@@ -407,7 +407,7 @@
     <string name="vip_remaining_short">Nog %1$d dagen %2$d uur</string>
     <string name="vip_redeem_label">VIP-code invoeren</string>
     <string name="vip_redeem_hint">bijv. je VIP-code</string>
-    <string name="vip_redeem_button">Activate</string>
+    <string name="vip_redeem_button">Activeren</string>
     <string name="vip_watch_ad_3d">Advertentie bekijken → 3 dagen VIP</string>
     <string name="vip_buy_30d_locked">30 dagen VIP kopen — binnenkort beschikbaar</string>
     <string name="vip_buy_90d_locked">90 dagen VIP kopen — binnenkort beschikbaar</string>
@@ -419,9 +419,9 @@
     <string name="vip_revoke_all_confirm_message">Weet je zeker dat je VIP wilt intrekken en terug wilt naar het gratis account?</string>
     <string name="vip_entry_first_install">🎁 Cadeau voor nieuwe installatie</string>
     <string name="vip_entry_active">VIP-lidmaatschap</string>
-    <string name="vip_success_title">Success</string>
+    <string name="vip_success_title">Gelukt</string>
     <string name="vip_success_message">VIP actief voor %1$d dagen.</string>
-    <string name="vip_failed_title">Failed</string>
+    <string name="vip_failed_title">Mislukt</string>
     <string name="ad_attribution_label" translatable="false">Ad Networks (AdMob / AppLovin MAX)</string>
     <string name="vip_failed_busy">Een eerdere code wordt nog gecontroleerd. Wacht even en probeer het opnieuw.</string>
     <string name="vip_failed_no_network">Voor het activeren van een code is een internetverbinding nodig. Maak verbinding en probeer het opnieuw.</string>
@@ -438,8 +438,8 @@
     <string name="commute_deepdive_unlocked">🎉 Verdieping ontgrendeld!</string>
     <string name="commute_empty">Geen ongelezen artikelen voor de ochtendradio</string>
     <string name="commute_generating">De AI-dj maakt je show...</string>
-    <string name="retry">Retry</string>
-    <string name="version">Version</string>
+    <string name="retry">Opnieuw</string>
+    <string name="version">Versie</string>
     <string name="rate_app">App beoordelen</string>
     <string name="rate_app_desc">Geef 5 sterren als je deze app nuttig vindt</string>
     <string name="more_apps">Meer apps ophalen</string>
@@ -448,7 +448,7 @@
     <string name="share_app_desc">Deel deze app zodat anderen hem ook kunnen gebruiken</string>
     <string name="term_and_policy">Voorwaarden &amp; beleid</string>
     <string name="term_and_policy_desc">Lees de beveiligingsvoorwaarden en het privacybeleid</string>
-    <string name="about_title">About</string>
+    <string name="about_title">Over</string>
     <string name="about_desc">Maak kennis met deze app</string>
     <string name="source_code_original">Broncode (originele versie)</string>
     <string name="source_code_current">Broncode (deze versie)</string>
@@ -474,7 +474,7 @@
     <string name="quiz_ai_no_key">Er is geen Gemini-sleutel beschikbaar, dus de AI kon geen vraag schrijven.</string>
     <string name="quiz_ai_nothing_to_ask">Dit artikel heeft geen titel of preview om een vraag over te stellen.</string>
     <string name="quiz_ai_retry">Opnieuw proberen</string>
-    <string name="quiz_ai_consent_agree">Agree</string>
+    <string name="quiz_ai_consent_agree">Akkoord</string>
     <string name="quiz_ai_consent_later">Niet nu</string>
     <string name="quiz_ai_declined_message">AI-quizvragen staan uit. Schakel ze in via Instellingen, Privacy, om hier een vraag te krijgen.</string>
     <string name="quiz_ai_open_privacy">Privacy-instellingen openen</string>
@@ -500,13 +500,13 @@
     <string name="brain_rpg_decay_notification_channel_desc">Dagelijks overzicht van categorieverval</string>
     <string name="brain_rpg_xp_retained">Basis %1$d XP · %2$d%% behouden</string>
     <string name="brain_rpg_streak_shield_success">Reeksbescherming geactiveerd!</string>
-    <string name="brain_rpg_streak_shield_protected">Protected</string>
+    <string name="brain_rpg_streak_shield_protected">Beschermd</string>
     <string name="brain_rpg_target_xp">Target: %1$d XP</string>
     <string name="brain_rpg_skill_tree_title">Kennisvaardighedenboom</string>
     <string name="brain_rpg_stats_title">AI-uitdagingsstatistieken</string>
-    <string name="brain_rpg_stats_attempted">Attempted</string>
-    <string name="brain_rpg_stats_passed">Correct</string>
-    <string name="brain_rpg_stats_accuracy">Accuracy</string>
+    <string name="brain_rpg_stats_attempted">Geprobeerd</string>
+    <string name="brain_rpg_stats_passed">Juist</string>
+    <string name="brain_rpg_stats_accuracy">Nauwkeurigheid</string>
     <string name="brain_rpg_wrapped_desc">"Je hebt %1$d XP verdiend en een leesreeks van %2$d dagen volgehouden! Deel je prestatie om anderen te inspireren."</string>
 
     <!-- Epic 08: Zen Focus & Speed Reading -->
@@ -528,7 +528,7 @@
     <string name="zen_evening_edition">Evening Edition (20:00)</string>
     <string name="zen_daily_edition_notification">%1$d ongelezen artikelen staan klaar voor gefocust lezen.</string>
     <string name="zen_sleep_timer">Slaaptimer</string>
-    <string name="zen_sleep_timer_off">Continuous</string>
+    <string name="zen_sleep_timer_off">Doorlopend</string>
     <string name="zen_sleep_timer_min">%1$d minutes</string>
     <string name="zen_volume">Volume: %1$d%%</string>
     <string name="zen_settings_title">Zen-focus &amp; snellezen</string>
@@ -539,7 +539,7 @@
     <string name="highlights_bullet_count">%1$d kernpunten</string>
     <string name="highlights_copy_all">Hoogtepunten kopiëren</string>
     <string name="highlights_copied_toast">Hoogtepunten gekopieerd naar klembord</string>
-    <string name="highlights_share">Share</string>
+    <string name="highlights_share">Delen</string>
     <string name="highlights_tldr">Quick TL;DR</string>
     <string name="highlights_ai_badge">Gemini AI</string>
     <string name="highlights_fallback_badge">Slim offline</string>
@@ -559,13 +559,13 @@
     <string name="deep_read_title">AI Deep Read</string>
     <string name="deep_read_subtitle">Interactieve artikelchat</string>
     <string name="deep_read_input_placeholder">Stel een vraag over dit artikel…</string>
-    <string name="deep_read_send">Send</string>
+    <string name="deep_read_send">Verzenden</string>
     <string name="deep_read_clear_chat">Chat wissen</string>
     <string name="deep_read_copied_toast">Antwoord gekopieerd naar klembord</string>
     <string name="deep_read_welcome_message">Hallo! Ik heb dit artikel geanalyseerd. Stel me een vraag, vraag om uitleg of tik hieronder op een voorgesteld onderwerp.</string>
-    <string name="deep_read_context_label">Discussing:</string>
+    <string name="deep_read_context_label">Bespreking:</string>
     <string name="deep_read_thinking">AI analyseert het artikel…</string>
-    <string name="deep_read_grounded_badge">Grounded</string>
+    <string name="deep_read_grounded_badge">Onderbouwd</string>
     <string name="deep_read_offline_badge">Slim offline</string>
     <string name="deep_read_ai_badge">Gemini AI</string>
     <string name="deep_read_copy_transcript">Gesprek kopiëren</string>
@@ -581,7 +581,7 @@
     <string name="story_cluster_all_perspectives">Alle perspectieven (%d)</string>
     <string name="story_cluster_mark_all_read">Alles als gelezen markeren</string>
     <string name="story_cluster_sheet_title">Verslaggeving vanuit meerdere perspectieven</string>
-    <string name="story_cluster_lead_badge">Lead</string>
+    <string name="story_cluster_lead_badge">Hoofd</string>
     <string name="semantic_search_title">Semantisch zoeken met AI</string>
     <string name="semantic_search_desc">Zoek artikelen op concept en betekenis in plaats van exacte trefwoorden</string>
     <string name="semantic_match_badge">%d%% match</string>
@@ -590,7 +590,7 @@
     <string name="watchdog_title">Trefwoordwachter</string>
     <string name="watchdog_desc">Bewaak belangrijke trefwoorden &amp; aandelensymbolen tijdens synchronisatie op de achtergrond en krijg direct een melding</string>
     <string name="watchdog_add_hint">Voer trefwoord of symbool in (bijv. $VIC, Bitcoin, Goud)...</string>
-    <string name="watchdog_add_btn">Add</string>
+    <string name="watchdog_add_btn">Toevoegen</string>
     <string name="watchdog_empty_desc">Nog geen trefwoorden toegevoegd. Voeg trefwoorden toe of kies hieronder een suggestie om te beginnen.</string>
     <string name="watchdog_matched_count">%d matched</string>
     <string name="watchdog_channel_name">Trefwoordwachter-meldingen</string>
@@ -612,12 +612,12 @@
     <string name="notebook_empty_subtitle">Markeer inspirerende citaten tijdens het lezen om je Second Brain-kennis te ordenen.</string>
     <string name="notebook_empty_search">Geen overeenkomende markeringen gevonden</string>
 
-    <string name="notebook_save">Save</string>
-    <string name="notebook_copy">Copy</string>
-    <string name="notebook_edit">Edit</string>
+    <string name="notebook_save">Opslaan</string>
+    <string name="notebook_copy">Kopiëren</string>
+    <string name="notebook_edit">Bewerken</string>
     <string name="notebook_copied">Gekopieerd naar klembord</string>
-    <string name="notebook_saved">Saved</string>
-    <string name="notebook_deleted">Deleted</string>
+    <string name="notebook_saved">Opgeslagen</string>
+    <string name="notebook_deleted">Verwijderd</string>
     <string name="notebook_untitled">Artikel zonder titel</string>
 
     <string name="ai_active_key_custom">Je persoonlijke API-sleutel wordt gebruikt</string>
@@ -748,7 +748,7 @@
     <string name="second_brain_settings_desc">Bekijk hoe de onderwerpen die je leest in de loop van de tijd samenhangen</string>
     <string name="second_brain_empty">Lees of bewaar een paar artikelen en je onderwerpgraaf verschijnt hier.</string>
     <string name="second_brain_error">De graaf kon niet worden opgebouwd. Probeer het opnieuw.</string>
-    <string name="second_brain_retry">Retry</string>
+    <string name="second_brain_retry">Opnieuw</string>
     <string name="second_brain_graph_desc">Onderwerpgraaf met %1$d onderwerpen en %2$d verbindingen</string>
     <string name="second_brain_node_articles">%1$d articles</string>
     <string name="second_brain_range_label">Tijdsbereik</string>
@@ -771,7 +771,7 @@
     <!-- Share Target / Read Later (INGEST-02) -->
     <string name="read_later_feed_title">Later lezen</string>
     <string name="share_target_save_btn">Opslaan voor later lezen</string>
-    <string name="share_target_cancel_btn">Cancel</string>
+    <string name="share_target_cancel_btn">Annuleren</string>
     <string name="share_target_saved_toast">Opgeslagen voor later lezen</string>
     <string name="share_target_invalid_url">Geen geldige link gevonden</string>
     <string name="read_position_sync">Leespositie synchroniseren</string>
@@ -783,12 +783,12 @@
     <string name="smart_collection_save_action">Opslaan als collectie</string>
     <string name="smart_collection_empty">Nog geen slimme collecties. Sla een semantische zoekopdracht op om een onderwerp te volgen.</string>
     <string name="smart_collection_articles_count">%1$d articles</string>
-    <string name="smart_collection_edit">Edit</string>
-    <string name="smart_collection_delete">Delete</string>
+    <string name="smart_collection_edit">Bewerken</string>
+    <string name="smart_collection_delete">Verwijderen</string>
     <string name="smart_collection_delete_confirm">Deze collectie verwijderen? De artikelen blijven in je bibliotheek.</string>
     <string name="smart_collection_saved">Slimme collectie opgeslagen</string>
     <string name="smart_collection_empty_articles">Nog geen overeenkomende nieuwe artikelen. Nieuwe treffers verschijnen na synchronisatie.</string>
-    <string name="save">Save</string>
+    <string name="save">Opslaan</string>
     <string name="eink_mode_title">E-Ink-optimalisatie</string>
     <string name="eink_active_title">E-Ink-modus staat aan</string>
     <string name="eink_active_desc">De app wordt in zwart-wit weergegeven. Tik om uit te zetten.</string>
@@ -867,8 +867,8 @@
     <string name="widget_article_pin_unsupported">Je launcher ondersteunt het automatisch vastzetten van widgets niet</string>
     <!-- Feed Zero Triage (EXC-14) -->
     <string name="feed_zero_triage_title">Feed Zero-triage</string>
-    <string name="triage_swipe_left_skip">Skip</string>
-    <string name="triage_swipe_right_save">Save</string>
+    <string name="triage_swipe_left_skip">Overslaan</string>
+    <string name="triage_swipe_right_save">Opslaan</string>
     <string name="triage_swipe_up_read">Nu lezen</string>
     <string name="triage_progress_format">%1$d / %2$d</string>
     <string name="triage_inbox_zero_title">🎉 Inbox Zero bereikt!</string>
@@ -877,7 +877,7 @@
     <string name="triage_summary_saved">Bewaard voor later: %1$d</string>
     <string name="triage_summary_skipped">Als gelezen gemarkeerd: %1$d</string>
     <string name="triage_summary_xp">+%1$d Brain RPG XP</string>
-    <string name="triage_finish_button">Done</string>
+    <string name="triage_finish_button">Klaar</string>
     <!-- Brain Wrapped tuần (RPG-09) -->
     <string name="brain_wrapped_share_story">Delen in verhaal</string>
     <string name="brain_wrapped_xp_label">Wekelijkse XP</string>
@@ -922,14 +922,14 @@
     <string name="headline_signals_desc">Analyseert op dit apparaat de formulering van koppen en artikelen op clickbaitkenmerken, promotionele of overdreven formuleringen en emotionele toon (positief/onduidelijk/negatief). Er wordt niets verzonden en er wordt geen AI of netwerk gebruikt. Dit zijn alleen signalen over woordkeuze, geen factchecks of oordelen over politieke vooringenomenheid. Spaans, Frans en Duits zijn experimenteel.</string>
     <string name="headline_signals_clickbait_badge">🎯 Clickbait %1$d%%</string>
     <string name="headline_signals_clickbait_desc">Indicator voor clickbaittaal: score is %1$d van 100.</string>
-    <string name="headline_signals_tone_positive">🟢 Positive</string>
-    <string name="headline_signals_tone_unclear">⚪ Unclear</string>
-    <string name="headline_signals_tone_negative">🔴 Negative</string>
+    <string name="headline_signals_tone_positive">🟢 Positief</string>
+    <string name="headline_signals_tone_unclear">⚪ Onduidelijk</string>
+    <string name="headline_signals_tone_negative">🔴 Negatief</string>
     <string name="headline_signals_tone_desc_positive">Lexicale koptoon: positieve indicatoren aanwezig.</string>
     <string name="headline_signals_tone_desc_unclear">Lexicale koptoon: onduidelijke of onvoldoende indicatoren.</string>
     <string name="headline_signals_tone_desc_negative">Lexicale koptoon: negatieve indicatoren aanwezig.</string>
     <string name="brain_rpg_skill_tree_decay_warning">Deze vaardigheid is in de loop van de tijd vervaagd. Oefen om hem te herstellen.</string>
-    <string name="bounty_action_investigate">Investigate</string>
+    <string name="bounty_action_investigate">Onderzoeken</string>
     <string name="bounty_sheet_title">Entiteitsonderzoeksagent</string>
     <string name="bounty_scanning_status">Je nieuwsarchief wordt doorzocht op: %1$s…</string>
     <string name="bounty_stats_summary">%1$d gerelateerde artikelen • %2$d bronnen</string>
@@ -944,14 +944,14 @@
     <string name="echo_hype_label">Hype: %1$d%%</string>
     <string name="echo_hype_warning">Sterk promotionele of overdreven formulering gedetecteerd</string>
     <string name="echo_tone_label">Tone: %1$s</string>
-    <string name="echo_tone_positive">🟢 Positive</string>
-    <string name="echo_tone_unclear">⚪ Unclear</string>
-    <string name="echo_tone_negative">🔴 Negative</string>
+    <string name="echo_tone_positive">🟢 Positief</string>
+    <string name="echo_tone_unclear">⚪ Onduidelijk</string>
+    <string name="echo_tone_negative">🔴 Negatief</string>
     <string name="echo_details_title">Signalen in taalgebruik</string>
     <string name="echo_disclaimer">Alleen lokale signalen over woordkeuze; geen factcheck, geloofwaardigheidsscore, analyse van politieke vooringenomenheid of bewering over de bedoeling van de auteur. “Onduidelijk” betekent onvoldoende lexicaal bewijs, niet neutraal.</string>
     <string name="echo_flagged_passages_title">Gemarkeerde passages (%1$d)</string>
     <string name="echo_cue_promotional">Promotionele zin</string>
-    <string name="echo_cue_intensifier">Exaggeration</string>
+    <string name="echo_cue_intensifier">Overdrijving</string>
     <string name="echo_cue_absolute">Absolute bewering</string>
     <string name="echo_cue_exclamation">Nadruk met leestekens of hoofdletters</string>
     <string name="echo_no_passages">Geen enkele alinea overschreed de hypedrempel.</string>
@@ -959,10 +959,10 @@
     <!-- BOUNTY-02 dossier -->
     <string name="dossier_create_action">Dossier maken</string>
     <string name="dossier_sheet_title">Lokaal inlichtingendossier</string>
-    <string name="dossier_tab_summary">Summary</string>
-    <string name="dossier_tab_timeline">Timeline</string>
-    <string name="dossier_tab_names">Names</string>
-    <string name="dossier_tab_sources">Sources</string>
+    <string name="dossier_tab_summary">Samenvatting</string>
+    <string name="dossier_tab_timeline">Tijdlijn</string>
+    <string name="dossier_tab_names">Namen</string>
+    <string name="dossier_tab_sources">Bronnen</string>
     <string name="dossier_share_action">Markdown delen</string>
     <string name="dossier_chooser_title">Dossier delen</string>
     <string name="dossier_limitation">Alleen opgebouwd uit artikelen die in deze app zijn opgeslagen. Kan standpunten missen en is geen factcheck.</string>
@@ -1000,8 +1000,8 @@
     <string name="zen_calibration_suggested_wpm">Voorgestelde snelheid: ~%1$d WPM</string>
     <string name="zen_calibration_limitation">Dit is een ruwe schatting op basis van 6 vragen, geen meting van diep begrip. Je kunt de snelheid altijd handmatig aanpassen.</string>
     <string name="zen_calibration_low_confidence_note">Je antwoorden verschilden per snelheid; lees in je eigen tempo en kalibreer later opnieuw.</string>
-    <string name="zen_calibration_apply">Apply</string>
-    <string name="zen_calibration_skip">Skip</string>
+    <string name="zen_calibration_apply">Toepassen</string>
+    <string name="zen_calibration_skip">Overslaan</string>
     <string name="zen_calibration_settings_desc">Kalibreer je leessnelheid in 3 korte rondes</string>
 
     <!-- ECHO-02 contrasting coverage -->
@@ -1015,7 +1015,7 @@
     <string name="echo_dual_export">Kaart exporteren</string>
     <string name="echo_dual_export_desc">Een kaart met twee koppen exporteren met %1$s</string>
     <string name="echo_dual_title">Twee koppen delen</string>
-    <string name="echo_dual_share">Share</string>
+    <string name="echo_dual_share">Delen</string>
     <string name="echo_dual_cut_note">Een kop is ingekort</string>
     <string name="echo_dual_error">Kaart kon niet worden gemaakt. Tik om het opnieuw te proberen.</string>
     <string name="echo_dual_chooser_title">Kaart met twee koppen delen</string>
@@ -1026,7 +1026,7 @@
     <string name="curated_bundle_verified_on">Checked %1$s</string>
     <string name="curated_bundle_source_count">Sources: %1$d</string>
     <string name="curated_bundle_subscribe_all">Op alles abonneren</string>
-    <string name="curated_bundle_subscribing">Subscribing…</string>
+    <string name="curated_bundle_subscribing">Abonneren…</string>
     <string name="curated_bundle_progress">Subscribing %1$d of %2$d</string>
     <string name="curated_bundle_result">%1$d toegevoegd · %2$d al aanwezig · %3$d mislukt</string>
     <string name="curated_bundle_error">Abonneren mislukt: %1$s</string>
@@ -1034,11 +1034,11 @@
     <string name="curated_bundle_account_local_only">Op een hele bundel abonneren kan alleen met het lokale account.</string>
 
     <!-- FRONT-03 knowledge galaxy -->
-    <string name="galaxy_mode_concepts">Concepts</string>
-    <string name="galaxy_mode_stars">Galaxy</string>
+    <string name="galaxy_mode_concepts">Concepten</string>
+    <string name="galaxy_mode_stars">Sterrenstelsel</string>
     <string name="galaxy_empty">Markeer een paar artikelen als gelezen en ze schitteren hier als sterren. Probeer het tijdsbereik te vergroten.</string>
     <string name="galaxy_error">Het sterrenstelsel kon niet worden opgebouwd. Probeer het opnieuw.</string>
-    <string name="galaxy_retry">Retry</string>
+    <string name="galaxy_retry">Opnieuw</string>
     <string name="galaxy_reset_view">Weergave herstellen</string>
     <string name="galaxy_stats">Sterren: %1$d · Links: %2$d</string>
     <string name="galaxy_star_open">Artikel openen</string>
@@ -1056,7 +1056,7 @@
     <string name="second_screen_viewers">Viewers: %1$d</string>
     <string name="second_screen_expires">Expires at %1$s</string>
     <string name="second_screen_warning">Niet versleuteld. Iedereen op dit wifi-netwerk die de link ziet, kan het artikel lezen. Gebruik dit alleen op een netwerk dat je vertrouwt.</string>
-    <string name="second_screen_starting">Starting…</string>
+    <string name="second_screen_starting">Starten…</string>
     <string name="second_screen_no_network">Geen wifi- of ethernetnetwerk met een privéadres. Maak verbinding met wifi en probeer het opnieuw.</string>
     <string name="second_screen_lan_permission_denied">Toegang tot het lokale netwerk staat uit. Sta dit toe in Instellingen om artikelen op een tweede scherm te tonen.</string>
     <string name="second_screen_expired">De sessie is beëindigd. Schakel hem opnieuw in voor een nieuwe link.</string>
@@ -1067,8 +1067,8 @@
     <string name="galaxy_related_title">Gerelateerde artikelen</string>
     <string name="galaxy_shared_terms">Gedeelde woorden: %1$s</string>
     <string name="local_sync_title">Lokale synchronisatie</string>
-    <string name="local_sync_send">Send</string>
-    <string name="local_sync_receive">Receive</string>
+    <string name="local_sync_send">Verzenden</string>
+    <string name="local_sync_receive">Ontvangen</string>
     <string name="local_sync_send_instructions">Maak een versleuteld pakket voor een ander apparaat op dit lokale netwerk.</string>
     <string name="local_sync_secret_warning">Deel dit koppelgeheim los van de URL. Iedereen met beide kan het pakket lezen.</string>
     <string name="local_sync_http_warning">HTTP verbergt de URL, het apparaatadres, de tijd of de overdrachtsgrootte niet. Alleen de inhoud van het pakket is versleuteld. Gebruik een vertrouwd lokaal netwerk.</string>
@@ -1092,7 +1092,7 @@
     <string name="local_sync_apply">Wijzigingen toepassen</string>
     <string name="local_sync_confirm_apply">Synchronisatiewijzigingen toepassen?</string>
     <string name="local_sync_confirm_counts">Toe te voegen feeds: %1$d. Bij te werken artikelstatussen: %2$d. Deze wijzigingen toepassen?</string>
-    <string name="local_sync_cancel">Cancel</string>
+    <string name="local_sync_cancel">Annuleren</string>
     <string name="local_sync_done">Synchronisatiewijzigingen toegepast.</string>
     <string name="local_sync_not_local">Kies een lokaal account om synchronisatie te gebruiken.</string>
     <string name="local_sync_error_network">Geen verbinding met de synchronisatiesessie. Controleer de URL en het lokale netwerk.</string>
@@ -1118,9 +1118,9 @@
     <string name="local_sync_reply_instruction">Vraag de andere telefoon om te stoppen met verzenden en eerst Ontvangen te openen.</string>
     <string name="local_sync_merge_limit">Samenvoegen behoudt alleen markeringen voor gelezen en met ster; als je op één telefoon iets als ongelezen markeert of een ster verwijdert, kan dat na het synchroniseren terugkomen.</string>
     <string name="local_sync_peer_unconfirmed">Wachten tot het andere apparaat één keer heeft ontvangen</string>
-    <string name="local_sync_peer_confirmed">Paired</string>
+    <string name="local_sync_peer_confirmed">Gekoppeld</string>
     <string name="local_sync_peer_needs_repair">Kan niet op deze telefoon worden gebruikt. Vergeet het en koppel opnieuw.</string>
-    <string name="local_sync_forget_peer">Forget</string>
+    <string name="local_sync_forget_peer">Vergeten</string>
     <string name="local_sync_confirm_peer">Als gekoppeld markeren</string>
     <string name="local_sync_nearby_title">Een gekoppeld apparaat is in de buurt.</string>
     <string name="local_sync_no_peer_found">Nog geen apparaat in de buurt gevonden. Open Verzenden op het andere apparaat.</string>
@@ -1132,7 +1132,7 @@
     <!-- EXC-11 Temporal Ask My Archive -->
     <string name="archive_query_title">Vraag mijn archief</string>
     <string name="archive_query_desc">Vraag naar een onderwerp en zie per maand hoe je opgeslagen artikelen het behandelden.</string>
-    <string name="archive_query_question_label">Question</string>
+    <string name="archive_query_question_label">Vraag</string>
     <string name="archive_query_question_hint">bijv. rentetarieven sinds maart</string>
     <string name="archive_query_search">Archief doorzoeken</string>
     <string name="archive_query_start_date">Startdatum (JJJJ-MM-DD)</string>
@@ -1171,7 +1171,7 @@
     <string name="feed_autopilot_summary_clean">Je feeds zien er netjes uit. Geen drukke feeds gevonden.</string>
     <string name="feed_autopilot_reason_opened">%1$d van %2$d geopend (laatste periode van %3$d dagen; %4$d%% betrokkenheid)</string>
     <string name="feed_autopilot_reason_zero">Geen enkel artikel geopend van %1$d in de laatste periode van %2$d dagen</string>
-    <string name="feed_autopilot_action_unsubscribe">Unsubscribe</string>
+    <string name="feed_autopilot_action_unsubscribe">Abonnement opzeggen</string>
     <string name="feed_autopilot_action_snooze">30 dagen uitstellen</string>
     <string name="feed_autopilot_action_keep">Behouden en niet meer voorstellen</string>
     <string name="feed_autopilot_confirm_title">Afmelden van %1$s?</string>
@@ -1186,14 +1186,14 @@
     <string name="podcast_studio_menu">Podcaststudio</string>
     <string name="podcast_studio_consent_title">Script met AI schrijven?</string>
     <string name="podcast_studio_consent_message">Alleen de titel van dit artikel en een korte preview (minder dan 250 tekens) worden naar Google Gemini gestuurd om een script voor twee presentatoren te schrijven. De artikeltekst, links en je leesgeschiedenis worden nooit verzonden.</string>
-    <string name="podcast_studio_consent_agree">Use AI</string>
+    <string name="podcast_studio_consent_agree">AI gebruiken</string>
     <string name="podcast_studio_consent_decline">Offline script gebruiken</string>
     <string name="podcast_studio_conflict_title">Huidige weergave stoppen?</string>
     <string name="podcast_studio_conflict_message">Als je dit artikel als podcast afspeelt, stopt de audio die nu speelt.</string>
     <string name="podcast_studio_badge_source_gemini">Script door AI geschreven</string>
     <string name="podcast_studio_badge_source_heuristic">Offline script, geen AI</string>
-    <string name="podcast_studio_play">Play</string>
-    <string name="podcast_studio_pause">Pause</string>
+    <string name="podcast_studio_play">Afspelen</string>
+    <string name="podcast_studio_pause">Pauzeren</string>
     <string name="podcast_studio_next">Volgende regel</string>
     <string name="podcast_studio_previous">Vorige regel</string>
     <string name="podcast_studio_host_alex">Alex</string>
@@ -1203,7 +1203,7 @@
     <string name="deep_dive_menu">🔬 AI Deep Dive</string>
     <string name="deep_dive_title">AI Deep Dive</string>
     <string name="deep_dive_consent_message">De titel van het artikel en maximaal 6.000 tekens van de tekst worden naar Google Gemini gestuurd om dit rapport te schrijven. Links, de feednaam en je leesgeschiedenis worden nooit verzonden. Gemini doorzoekt het web niet.</string>
-    <string name="deep_dive_consent_agree">Agree</string>
+    <string name="deep_dive_consent_agree">Akkoord</string>
     <string name="deep_dive_consent_later">Niet nu</string>
     <string name="deep_dive_declined_message">AI Deep Dive staat uit. Schakel hem in via Instellingen, Privacy, om een rapport te schrijven.</string>
     <string name="deep_dive_open_privacy">Privacy-instellingen openen</string>
@@ -1216,27 +1216,27 @@
     <string name="deep_dive_section_context">Context</string>
     <string name="deep_dive_section_critical">Tegengestelde standpunten</string>
     <string name="deep_dive_section_impact">Impactmatrix</string>
-    <string name="deep_dive_col_area">Area</string>
+    <string name="deep_dive_col_area">Gebied</string>
     <string name="deep_dive_col_short">Korte termijn</string>
     <string name="deep_dive_col_long">Lange termijn</string>
     <string name="deep_dive_export_pdf">PDF exporteren</string>
     <string name="deep_dive_chooser_title">Deep Dive-PDF delen</string>
     <string name="deep_dive_export_error">De PDF kon niet worden gemaakt</string>
     <string name="deep_dive_pdf_truncated">Ingekort tot één pagina. Bekijk het volledige rapport in de app.</string>
-    <string name="deep_dive_close">Close</string>
-    <string name="oracle_badge_label">Prediction</string>
+    <string name="deep_dive_close">Sluiten</string>
+    <string name="oracle_badge_label">Voorspelling</string>
     <string name="oracle_badge_open">Voorspelling openen</string>
     <string name="oracle_sheet_title">In dit artikel gevonden voorspelling</string>
     <string name="oracle_sheet_expires">Expected by %1$s</string>
     <string name="oracle_sheet_criteria_heading">Hoe controleer je het antwoord</string>
     <string name="oracle_sheet_ai_label">Door AI geschreven op basis van titel en beschrijving; kan onjuist zijn.</string>
-    <string name="oracle_sheet_close">Close</string>
+    <string name="oracle_sheet_close">Sluiten</string>
     <string name="oracle_consent_title">Voorspellingen in nieuwe artikelen zoeken</string>
     <string name="oracle_consent_message">Na elke synchronisatie worden de titel en een korte beschrijving (samen maximaal 500 tekens) van maximaal 5 nieuwe artikelen naar Google Gemini gestuurd om een voorspelling te zoeken. Artikeltekst, links, de feednaam en je leesgeschiedenis worden nooit verzonden. Standaard uit.</string>
     <string name="oracle_bet_balance">Saldo: %1$s punten</string>
     <string name="oracle_bet_pick_side">Jouw keuze</string>
-    <string name="oracle_bet_yes">Yes</string>
-    <string name="oracle_bet_no">No</string>
+    <string name="oracle_bet_yes">Ja</string>
+    <string name="oracle_bet_no">Nee</string>
     <string name="oracle_bet_pick_stake">In te zetten punten</string>
     <string name="oracle_bet_stake_option">%1$s points</string>
     <string name="oracle_bet_place">Inzet plaatsen</string>
@@ -1245,7 +1245,7 @@
     <string name="oracle_bet_open">Je hebt %1$s punten ingezet op %2$s.</string>
     <string name="oracle_bet_open_hint">Je kunt de uitkomst melden na de datum hierboven.</string>
     <string name="oracle_bet_awaiting_title">Wat was de uitkomst?</string>
-    <string name="oracle_bet_outcome_unclear">Unclear</string>
+    <string name="oracle_bet_outcome_unclear">Onduidelijk</string>
     <string name="oracle_bet_awaiting_hint">Je hebt %1$s punten ingezet op %2$s. Bij Onduidelijk krijg je je punten terug.</string>
     <string name="oracle_bet_settled_won">Je hebt %1$s punten gewonnen.</string>
     <string name="oracle_bet_settled_lost">Je hebt %1$s punten verloren.</string>
@@ -1268,7 +1268,7 @@
     <string name="commute_autoplay_title">Afspelen wanneer bluetooth-koptelefoon verbindt</string>
     <string name="commute_autoplay_desc">Probeert de ochtendaflevering één keer per dag te starten, binnen 2 uur nadat hij klaar is. Als Android dit blokkeert, krijg je een melding met een Afspelen-knop.</string>
     <string name="commute_autoplay_permission_denied">Zonder de toestemming Apparaten in de buurt kan de app je koptelefoon niet zien, dus dit blijft uit.</string>
-    <string name="commute_play_action">Play</string>
+    <string name="commute_play_action">Afspelen</string>
     <string name="commute_ready_to_play_title">Je ochtendaflevering staat klaar</string>
     <string name="commute_ready_to_play_body">Je koptelefoon is verbonden. Tik op Afspelen om te luisteren.</string>
 </resources>

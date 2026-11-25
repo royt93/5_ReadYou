@@ -321,8 +321,8 @@
     <string name="try_again">تلاش مجدد</string>
     <string name="change_language">تغییر زبان</string>
     <string name="change_language_confirm">برنامه برای اعمال زبان جدید دوباره راه‌اندازی می‌شود. ادامه می‌دهید؟</string>
-    <string name="yes">Yes</string>
-    <string name="no">No</string>
+    <string name="yes">بله</string>
+    <string name="no">خیر</string>
     <string name="restarting_app">در حال راه‌اندازی مجدد برنامه…</string>
     <string name="auto_tts">پخش خودکار متن به گفتار</string>
     <string name="auto_tts_desc">هنگام باز کردن مقاله، آن را خودکار با صدای بلند می‌خواند</string>
@@ -382,9 +382,9 @@
     <string name="inoreader_desc" translatable="false">inoreader.com</string>
     <string name="fresh_rss_desc" translatable="false">freshrss.org</string>
     <string name="google_reader_desc" translatable="false">Google Reader API</string>
-    <string name="in_coding">In development</string>
+    <string name="in_coding">در حال توسعه</string>
     <string name="summary_title">خلاصه‌سازی با AI</string>
-    <string name="summary_loading">Summarizing…</string>
+    <string name="summary_loading">در حال خلاصه‌سازی…</string>
     <string name="summary_try_again">تلاش مجدد</string>
     <string name="summary_get_key">دریافت کلید رایگان</string>
     <string name="summary_err_empty_content">مقاله محتوایی برای خلاصه‌سازی ندارد</string>
@@ -406,7 +406,7 @@
     <string name="vip_remaining_short">%1$d روز و %2$d ساعت باقی مانده</string>
     <string name="vip_redeem_label">کد VIP را وارد کنید</string>
     <string name="vip_redeem_hint">مثلاً کد VIP شما</string>
-    <string name="vip_redeem_button">Activate</string>
+    <string name="vip_redeem_button">فعال‌سازی</string>
     <string name="vip_watch_ad_3d">تماشای تبلیغ ← ۳ روز VIP</string>
     <string name="vip_buy_30d_locked">خرید VIP ۳۰ روزه — به‌زودی</string>
     <string name="vip_buy_90d_locked">خرید VIP ۹۰ روزه — به‌زودی</string>
@@ -418,9 +418,9 @@
     <string name="vip_revoke_all_confirm_message">مطمئنید می‌خواهید VIP را لغو کنید و به حساب رایگان برگردید؟</string>
     <string name="vip_entry_first_install">🎁 هدیهٔ نصب جدید</string>
     <string name="vip_entry_active">عضویت VIP</string>
-    <string name="vip_success_title">Success</string>
+    <string name="vip_success_title">موفق</string>
     <string name="vip_success_message">VIP برای %1$d روز فعال است.</string>
-    <string name="vip_failed_title">Failed</string>
+    <string name="vip_failed_title">ناموفق</string>
     <string name="ad_attribution_label" translatable="false">Ad Networks (AdMob / AppLovin MAX)</string>
     <string name="vip_failed_busy">کد قبلی هنوز در حال بررسی است. کمی صبر کنید و دوباره تلاش کنید.</string>
     <string name="vip_failed_no_network">فعال‌سازی کد به اتصال اینترنت نیاز دارد. متصل شوید و دوباره تلاش کنید.</string>
@@ -437,8 +437,8 @@
     <string name="commute_deepdive_unlocked">🎉 تحلیل عمیق باز شد!</string>
     <string name="commute_empty">مقالهٔ خوانده‌نشده‌ای برای رادیوی صبحگاهی نیست</string>
     <string name="commute_generating">DJ هوش مصنوعی در حال ساخت برنامهٔ شماست...</string>
-    <string name="retry">Retry</string>
-    <string name="version">Version</string>
+    <string name="retry">تلاش مجدد</string>
+    <string name="version">نسخه</string>
     <string name="rate_app">امتیاز به برنامه</string>
     <string name="rate_app_desc">اگر این برنامه برایتان مفید است، لطفاً ۵ ستاره بدهید</string>
     <string name="more_apps">دریافت برنامه‌های بیشتر</string>
@@ -447,7 +447,7 @@
     <string name="share_app_desc">لطفاً این برنامه را به اشتراک بگذارید تا دیگران هم از آن استفاده کنند</string>
     <string name="term_and_policy">شرایط و سیاست‌ها</string>
     <string name="term_and_policy_desc">خواندن شرایط امنیتی و سیاست حریم خصوصی</string>
-    <string name="about_title">About</string>
+    <string name="about_title">درباره</string>
     <string name="about_desc">آشنایی با این برنامه</string>
     <string name="source_code_original">کد منبع (نسخهٔ اصلی)</string>
     <string name="source_code_current">کد منبع (این نسخه)</string>
@@ -473,7 +473,7 @@
     <string name="quiz_ai_no_key">کلید Gemini در دسترس نیست، بنابراین AI نتوانست سؤالی بنویسد.</string>
     <string name="quiz_ai_nothing_to_ask">این مقاله عنوان یا پیش‌نمایشی برای طرح سؤال ندارد.</string>
     <string name="quiz_ai_retry">تلاش مجدد</string>
-    <string name="quiz_ai_consent_agree">Agree</string>
+    <string name="quiz_ai_consent_agree">موافقم</string>
     <string name="quiz_ai_consent_later">حالا نه</string>
     <string name="quiz_ai_declined_message">سؤال‌های آزمون AI خاموش است. برای دریافت سؤال، آن را در تنظیمات، حریم خصوصی روشن کنید.</string>
     <string name="quiz_ai_open_privacy">باز کردن تنظیمات حریم خصوصی</string>
@@ -499,13 +499,13 @@
     <string name="brain_rpg_decay_notification_channel_desc">خلاصهٔ روزانهٔ فرسایش دسته‌ها</string>
     <string name="brain_rpg_xp_retained">پایه %1$d XP · %2$d%% حفظ شده</string>
     <string name="brain_rpg_streak_shield_success">سپر رکورد فعال شد!</string>
-    <string name="brain_rpg_streak_shield_protected">Protected</string>
+    <string name="brain_rpg_streak_shield_protected">محافظت‌شده</string>
     <string name="brain_rpg_target_xp">Target: %1$d XP</string>
     <string name="brain_rpg_skill_tree_title">درخت مهارت دانش</string>
     <string name="brain_rpg_stats_title">آمار چالش AI</string>
-    <string name="brain_rpg_stats_attempted">Attempted</string>
-    <string name="brain_rpg_stats_passed">Correct</string>
-    <string name="brain_rpg_stats_accuracy">Accuracy</string>
+    <string name="brain_rpg_stats_attempted">تلاش‌شده</string>
+    <string name="brain_rpg_stats_passed">درست</string>
+    <string name="brain_rpg_stats_accuracy">دقت</string>
     <string name="brain_rpg_wrapped_desc">"شما %1$d XP کسب کرده‌اید و رکورد مطالعهٔ %2$d روزه را حفظ کرده‌اید! دستاورد خود را به اشتراک بگذارید تا دیگران را الهام بخشید."</string>
 
     <!-- Epic 08: Zen Focus & Speed Reading -->
@@ -527,7 +527,7 @@
     <string name="zen_evening_edition">Evening Edition (20:00)</string>
     <string name="zen_daily_edition_notification">%1$d مقالهٔ خوانده‌نشده برای مطالعهٔ متمرکز شما آماده است.</string>
     <string name="zen_sleep_timer">تایمر خواب</string>
-    <string name="zen_sleep_timer_off">Continuous</string>
+    <string name="zen_sleep_timer_off">پیوسته</string>
     <string name="zen_sleep_timer_min">%1$d minutes</string>
     <string name="zen_volume">Volume: %1$d%%</string>
     <string name="zen_settings_title">تمرکز ذن و مطالعهٔ سریع</string>
@@ -538,7 +538,7 @@
     <string name="highlights_bullet_count">%1$d نکتهٔ کلیدی</string>
     <string name="highlights_copy_all">کپی هایلایت‌ها</string>
     <string name="highlights_copied_toast">هایلایت‌ها در کلیپ‌بورد کپی شد</string>
-    <string name="highlights_share">Share</string>
+    <string name="highlights_share">اشتراک‌گذاری</string>
     <string name="highlights_tldr">Quick TL;DR</string>
     <string name="highlights_ai_badge">Gemini AI</string>
     <string name="highlights_fallback_badge">هوشمند آفلاین</string>
@@ -558,13 +558,13 @@
     <string name="deep_read_title">مطالعهٔ عمیق AI</string>
     <string name="deep_read_subtitle">گفتگوی تعاملی با مقاله</string>
     <string name="deep_read_input_placeholder">دربارهٔ این مقاله سؤال بپرسید…</string>
-    <string name="deep_read_send">Send</string>
+    <string name="deep_read_send">ارسال</string>
     <string name="deep_read_clear_chat">پاک کردن گفتگو</string>
     <string name="deep_read_copied_toast">پاسخ در کلیپ‌بورد کپی شد</string>
     <string name="deep_read_welcome_message">سلام! این مقاله را تحلیل کرده‌ام. هر سؤالی بپرسید، توضیح بخواهید یا روی یکی از موضوع‌های پیشنهادی زیر بزنید.</string>
-    <string name="deep_read_context_label">Discussing:</string>
+    <string name="deep_read_context_label">موضوع:</string>
     <string name="deep_read_thinking">AI در حال تحلیل مقاله است…</string>
-    <string name="deep_read_grounded_badge">Grounded</string>
+    <string name="deep_read_grounded_badge">مستند</string>
     <string name="deep_read_offline_badge">هوشمند آفلاین</string>
     <string name="deep_read_ai_badge">Gemini AI</string>
     <string name="deep_read_copy_transcript">کپی گفتگو</string>
@@ -580,7 +580,7 @@
     <string name="story_cluster_all_perspectives">همهٔ دیدگاه‌ها (%d)</string>
     <string name="story_cluster_mark_all_read">علامت‌گذاری همه به‌عنوان خوانده‌شده</string>
     <string name="story_cluster_sheet_title">پوشش چنددیدگاهی خبر</string>
-    <string name="story_cluster_lead_badge">Lead</string>
+    <string name="story_cluster_lead_badge">اصلی</string>
     <string name="semantic_search_title">جستجوی معنایی AI</string>
     <string name="semantic_search_desc">مقاله‌ها را بر اساس مفهوم و معنا جستجو کنید، نه کلیدواژهٔ دقیق</string>
     <string name="semantic_match_badge">%d%% match</string>
@@ -589,7 +589,7 @@
     <string name="watchdog_title">دیده‌بان کلیدواژه</string>
     <string name="watchdog_desc">کلیدواژه‌های مهم و نماد سهام را در همگام‌سازی پس‌زمینه پایش می‌کند و بی‌درنگ هشدار می‌دهد</string>
     <string name="watchdog_add_hint">کلیدواژه یا نماد را وارد کنید (مثلاً $VIC، Bitcoin، Gold)...</string>
-    <string name="watchdog_add_btn">Add</string>
+    <string name="watchdog_add_btn">افزودن</string>
     <string name="watchdog_empty_desc">هنوز کلیدواژه‌ای اضافه نشده است. برای شروع پایش، کلیدواژه اضافه کنید یا از پیشنهادهای زیر انتخاب کنید.</string>
     <string name="watchdog_matched_count">%d matched</string>
     <string name="watchdog_channel_name">هشدار دیده‌بان کلیدواژه</string>
@@ -611,12 +611,12 @@
     <string name="notebook_empty_subtitle">هنگام مطالعه، نقل‌قول‌های الهام‌بخش را هایلایت کنید تا دانش مغز دوم شما سامان یابد.</string>
     <string name="notebook_empty_search">هایلایت مطابقی پیدا نشد</string>
 
-    <string name="notebook_save">Save</string>
-    <string name="notebook_copy">Copy</string>
-    <string name="notebook_edit">Edit</string>
+    <string name="notebook_save">ذخیره</string>
+    <string name="notebook_copy">کپی</string>
+    <string name="notebook_edit">ویرایش</string>
     <string name="notebook_copied">در کلیپ‌بورد کپی شد</string>
-    <string name="notebook_saved">Saved</string>
-    <string name="notebook_deleted">Deleted</string>
+    <string name="notebook_saved">ذخیره شد</string>
+    <string name="notebook_deleted">حذف شد</string>
     <string name="notebook_untitled">مقالهٔ بدون عنوان</string>
 
     <string name="ai_active_key_custom">از کلید API شخصی شما استفاده می‌شود</string>
@@ -747,7 +747,7 @@
     <string name="second_brain_settings_desc">ببینید موضوع‌هایی که می‌خوانید در طول زمان چگونه به هم پیوند می‌خورند</string>
     <string name="second_brain_empty">چند مقاله بخوانید یا ذخیره کنید تا گراف موضوع‌هایتان اینجا ظاهر شود.</string>
     <string name="second_brain_error">ساخت گراف ممکن نشد. دوباره تلاش کنید.</string>
-    <string name="second_brain_retry">Retry</string>
+    <string name="second_brain_retry">تلاش مجدد</string>
     <string name="second_brain_graph_desc">گراف موضوع‌ها با %1$d موضوع و %2$d ارتباط</string>
     <string name="second_brain_node_articles">%1$d articles</string>
     <string name="second_brain_range_label">بازهٔ زمانی</string>
@@ -770,7 +770,7 @@
     <!-- Share Target / Read Later (INGEST-02) -->
     <string name="read_later_feed_title">خواندن بعداً</string>
     <string name="share_target_save_btn">ذخیره برای خواندن بعداً</string>
-    <string name="share_target_cancel_btn">Cancel</string>
+    <string name="share_target_cancel_btn">لغو</string>
     <string name="share_target_saved_toast">برای خواندن بعداً ذخیره شد</string>
     <string name="share_target_invalid_url">پیوند معتبری پیدا نشد</string>
     <string name="read_position_sync">همگام‌سازی جایگاه مطالعه</string>
@@ -782,12 +782,12 @@
     <string name="smart_collection_save_action">ذخیره به‌عنوان مجموعه</string>
     <string name="smart_collection_empty">هنوز مجموعهٔ هوشمندی نیست. برای دنبال کردن یک موضوع، یک جستجوی معنایی را ذخیره کنید.</string>
     <string name="smart_collection_articles_count">%1$d articles</string>
-    <string name="smart_collection_edit">Edit</string>
-    <string name="smart_collection_delete">Delete</string>
+    <string name="smart_collection_edit">ویرایش</string>
+    <string name="smart_collection_delete">حذف</string>
     <string name="smart_collection_delete_confirm">این مجموعه حذف شود؟ مقاله‌های آن در کتابخانهٔ شما می‌مانند.</string>
     <string name="smart_collection_saved">مجموعهٔ هوشمند ذخیره شد</string>
     <string name="smart_collection_empty_articles">هنوز مقالهٔ جدید مطابقی نیست. موارد جدید پس از همگام‌سازی ظاهر می‌شوند.</string>
-    <string name="save">Save</string>
+    <string name="save">ذخیره</string>
     <string name="eink_mode_title">بهینه‌سازی E-Ink</string>
     <string name="eink_active_title">حالت E-Ink روشن است</string>
     <string name="eink_active_desc">برنامه به صورت سیاه و سفید نمایش داده می‌شود. برای خاموش کردن ضربه بزنید.</string>
@@ -866,8 +866,8 @@
     <string name="widget_article_pin_unsupported">لانچر شما از سنجاق خودکار ویجت پشتیبانی نمی‌کند</string>
     <!-- Feed Zero Triage (EXC-14) -->
     <string name="feed_zero_triage_title">اولویت‌بندی فید تا صفر</string>
-    <string name="triage_swipe_left_skip">Skip</string>
-    <string name="triage_swipe_right_save">Save</string>
+    <string name="triage_swipe_left_skip">رد کردن</string>
+    <string name="triage_swipe_right_save">ذخیره</string>
     <string name="triage_swipe_up_read">همین حالا بخوان</string>
     <string name="triage_progress_format">%1$d / %2$d</string>
     <string name="triage_inbox_zero_title">🎉 صندوق ورودی به صفر رسید!</string>
@@ -876,7 +876,7 @@
     <string name="triage_summary_saved">ذخیره برای بعد: %1$d</string>
     <string name="triage_summary_skipped">علامت‌خورده به‌عنوان خوانده‌شده: %1$d</string>
     <string name="triage_summary_xp">+%1$d XP در Brain RPG</string>
-    <string name="triage_finish_button">Done</string>
+    <string name="triage_finish_button">پایان</string>
     <!-- Brain Wrapped tuần (RPG-09) -->
     <string name="brain_wrapped_share_story">اشتراک در استوری</string>
     <string name="brain_wrapped_xp_label">امتیاز این هفته</string>
@@ -921,14 +921,14 @@
     <string name="headline_signals_desc">واژگان تیتر و مقاله را روی همین دستگاه برای نشانه‌های کلیک‌طعمه، واژگان تبلیغاتی/پرهیاهو و لحن احساسی (مثبت/نامشخص/منفی) تحلیل می‌کند. هیچ چیزی ارسال نمی‌شود و از AI یا شبکه استفاده نمی‌شود. اینها فقط نشانه‌های واژگانی‌اند، نه راستی‌آزمایی و نه داوری دربارهٔ سوگیری سیاسی. اسپانیایی، فرانسوی و آلمانی آزمایشی هستند.</string>
     <string name="headline_signals_clickbait_badge">🎯 Clickbait %1$d%%</string>
     <string name="headline_signals_clickbait_desc">نشانگر زبان کلیک‌طعمه: امتیاز %1$d از ۱۰۰ است.</string>
-    <string name="headline_signals_tone_positive">🟢 Positive</string>
-    <string name="headline_signals_tone_unclear">⚪ Unclear</string>
-    <string name="headline_signals_tone_negative">🔴 Negative</string>
+    <string name="headline_signals_tone_positive">🟢 مثبت</string>
+    <string name="headline_signals_tone_unclear">⚪ نامشخص</string>
+    <string name="headline_signals_tone_negative">🔴 منفی</string>
     <string name="headline_signals_tone_desc_positive">لحن واژگانی تیتر: نشانه‌های مثبت وجود دارد.</string>
     <string name="headline_signals_tone_desc_unclear">لحن واژگانی تیتر: نشانه‌ها نامشخص یا ناکافی است.</string>
     <string name="headline_signals_tone_desc_negative">لحن واژگانی تیتر: نشانه‌های منفی وجود دارد.</string>
     <string name="brain_rpg_skill_tree_decay_warning">این مهارت با گذر زمان کم‌رنگ شده است. برای بازیابی آن تمرین کنید.</string>
-    <string name="bounty_action_investigate">Investigate</string>
+    <string name="bounty_action_investigate">بررسی</string>
     <string name="bounty_sheet_title">عامل بررسی موجودیت</string>
     <string name="bounty_scanning_status">در حال اسکن آرشیو خبری شما برای: %1$s…</string>
     <string name="bounty_stats_summary">%1$d مقالهٔ مرتبط • %2$d منبع</string>
@@ -943,14 +943,14 @@
     <string name="echo_hype_label">Hype: %1$d%%</string>
     <string name="echo_hype_warning">واژگان تبلیغاتی یا اغراق‌آمیز قوی شناسایی شد</string>
     <string name="echo_tone_label">Tone: %1$s</string>
-    <string name="echo_tone_positive">🟢 Positive</string>
-    <string name="echo_tone_unclear">⚪ Unclear</string>
-    <string name="echo_tone_negative">🔴 Negative</string>
+    <string name="echo_tone_positive">🟢 مثبت</string>
+    <string name="echo_tone_unclear">⚪ نامشخص</string>
+    <string name="echo_tone_negative">🔴 منفی</string>
     <string name="echo_details_title">نشانه‌های زبان متن</string>
     <string name="echo_disclaimer">فقط نشانه‌های واژگانی محلی؛ نه راستی‌آزمایی، نه امتیاز اعتبار، نه تحلیل سوگیری سیاسی و نه ادعا دربارهٔ نیت نویسنده. «نامشخص» یعنی شواهد واژگانی کافی نیست، نه اینکه بی‌طرف است.</string>
     <string name="echo_flagged_passages_title">بندهای پرچم‌دار (%1$d)</string>
     <string name="echo_cue_promotional">عبارت تبلیغاتی</string>
-    <string name="echo_cue_intensifier">Exaggeration</string>
+    <string name="echo_cue_intensifier">اغراق</string>
     <string name="echo_cue_absolute">ادعای قطعی</string>
     <string name="echo_cue_exclamation">تأکید با نشانه‌گذاری یا حروف بزرگ</string>
     <string name="echo_no_passages">هیچ بندی از آستانهٔ هیاهو عبور نکرد.</string>
@@ -958,10 +958,10 @@
     <!-- BOUNTY-02 dossier -->
     <string name="dossier_create_action">ساخت پرونده</string>
     <string name="dossier_sheet_title">پروندهٔ اطلاعاتی محلی</string>
-    <string name="dossier_tab_summary">Summary</string>
-    <string name="dossier_tab_timeline">Timeline</string>
-    <string name="dossier_tab_names">Names</string>
-    <string name="dossier_tab_sources">Sources</string>
+    <string name="dossier_tab_summary">خلاصه</string>
+    <string name="dossier_tab_timeline">خط زمانی</string>
+    <string name="dossier_tab_names">نام‌ها</string>
+    <string name="dossier_tab_sources">منابع</string>
     <string name="dossier_share_action">اشتراک‌گذاری Markdown</string>
     <string name="dossier_chooser_title">اشتراک‌گذاری پرونده</string>
     <string name="dossier_limitation">فقط از مقاله‌های ذخیره‌شده در این برنامه ساخته شده است. ممکن است دیدگاه‌هایی را کم داشته باشد و راستی‌آزمایی نیست.</string>
@@ -984,7 +984,7 @@
     <string name="streak_rescue_message">%1$d روز مطالعه را از دست داده‌اید. رکورد %2$d روزهٔ شما در مطالعهٔ بعدی از نو شروع می‌شود.</string>
     <string name="streak_rescue_action_ad">تماشای ویدیو برای نجات رکورد</string>
     <string name="streak_rescue_action_restart">شروع از صفر</string>
-    <string name="streak_rescue_action_later">Later</string>
+    <string name="streak_rescue_action_later">بعداً</string>
     <string name="streak_rescue_ad_failed">بارگذاری ویدیو ممکن نشد. لطفاً دوباره تلاش کنید.</string>
 
     <!-- ZEN-07 RSVP calibration -->
@@ -999,8 +999,8 @@
     <string name="zen_calibration_suggested_wpm">سرعت پیشنهادی: حدود %1$d WPM</string>
     <string name="zen_calibration_limitation">این برآوردی تقریبی از ۶ سؤال است، نه سنجش درک عمیق. همیشه می‌توانید سرعت را دستی تنظیم کنید.</string>
     <string name="zen_calibration_low_confidence_note">پاسخ‌های شما در سرعت‌های مختلف متفاوت بود؛ با سرعت خودتان بخوانید و بعداً دوباره کالیبره کنید.</string>
-    <string name="zen_calibration_apply">Apply</string>
-    <string name="zen_calibration_skip">Skip</string>
+    <string name="zen_calibration_apply">اعمال</string>
+    <string name="zen_calibration_skip">رد کردن</string>
     <string name="zen_calibration_settings_desc">سرعت مطالعهٔ خود را در ۳ دور کوتاه کالیبره کنید</string>
 
     <!-- ECHO-02 contrasting coverage -->
@@ -1014,7 +1014,7 @@
     <string name="echo_dual_export">خروجی کارت</string>
     <string name="echo_dual_export_desc">خروجی کارت دو تیتری با %1$s</string>
     <string name="echo_dual_title">اشتراک‌گذاری دو تیتر</string>
-    <string name="echo_dual_share">Share</string>
+    <string name="echo_dual_share">اشتراک‌گذاری</string>
     <string name="echo_dual_cut_note">یک تیتر کوتاه شد</string>
     <string name="echo_dual_error">ساخت کارت ممکن نشد. برای تلاش مجدد بزنید.</string>
     <string name="echo_dual_chooser_title">اشتراک‌گذاری کارت دو تیتری</string>
@@ -1025,7 +1025,7 @@
     <string name="curated_bundle_verified_on">Checked %1$s</string>
     <string name="curated_bundle_source_count">Sources: %1$d</string>
     <string name="curated_bundle_subscribe_all">اشتراک در همه</string>
-    <string name="curated_bundle_subscribing">Subscribing…</string>
+    <string name="curated_bundle_subscribing">در حال اشتراک…</string>
     <string name="curated_bundle_progress">Subscribing %1$d of %2$d</string>
     <string name="curated_bundle_result">افزوده‌شده %1$d · از قبل موجود %2$d · ناموفق %3$d</string>
     <string name="curated_bundle_error">اشتراک ممکن نشد: %1$s</string>
@@ -1033,11 +1033,11 @@
     <string name="curated_bundle_account_local_only">اشتراک در کل یک بسته فقط برای حساب محلی در دسترس است.</string>
 
     <!-- FRONT-03 knowledge galaxy -->
-    <string name="galaxy_mode_concepts">Concepts</string>
-    <string name="galaxy_mode_stars">Galaxy</string>
+    <string name="galaxy_mode_concepts">مفاهیم</string>
+    <string name="galaxy_mode_stars">کهکشان</string>
     <string name="galaxy_empty">چند مقاله را خوانده‌شده علامت بزنید تا اینجا مثل ستاره بدرخشند. بازهٔ زمانی را گسترده‌تر کنید.</string>
     <string name="galaxy_error">ساخت کهکشان ممکن نشد. دوباره تلاش کنید.</string>
-    <string name="galaxy_retry">Retry</string>
+    <string name="galaxy_retry">تلاش مجدد</string>
     <string name="galaxy_reset_view">بازنشانی نما</string>
     <string name="galaxy_stats">ستاره‌ها: %1$d · پیوندها: %2$d</string>
     <string name="galaxy_star_open">باز کردن مقاله</string>
@@ -1055,7 +1055,7 @@
     <string name="second_screen_viewers">Viewers: %1$d</string>
     <string name="second_screen_expires">Expires at %1$s</string>
     <string name="second_screen_warning">رمزگذاری نشده است. هر کسی در این Wi-Fi که پیوند را ببیند می‌تواند مقاله را بخواند. فقط در شبکه‌ای که به آن اعتماد دارید استفاده کنید.</string>
-    <string name="second_screen_starting">Starting…</string>
+    <string name="second_screen_starting">در حال شروع…</string>
     <string name="second_screen_no_network">شبکهٔ Wi-Fi یا اترنت با نشانی خصوصی وجود ندارد. به Wi-Fi وصل شوید و دوباره تلاش کنید.</string>
     <string name="second_screen_lan_permission_denied">دسترسی به شبکهٔ محلی خاموش است. برای نمایش مقاله‌ها روی صفحهٔ دوم، آن را در تنظیمات مجاز کنید.</string>
     <string name="second_screen_expired">نشست پایان یافت. برای دریافت پیوند جدید، دوباره روشنش کنید.</string>
@@ -1066,8 +1066,8 @@
     <string name="galaxy_related_title">مقاله‌های مرتبط</string>
     <string name="galaxy_shared_terms">واژه‌های مشترک: %1$s</string>
     <string name="local_sync_title">همگام‌سازی محلی</string>
-    <string name="local_sync_send">Send</string>
-    <string name="local_sync_receive">Receive</string>
+    <string name="local_sync_send">ارسال</string>
+    <string name="local_sync_receive">دریافت</string>
     <string name="local_sync_send_instructions">یک بستهٔ رمزگذاری‌شده برای دستگاه دیگری در این شبکهٔ محلی بسازید.</string>
     <string name="local_sync_secret_warning">این رمز جفت‌سازی را جدا از نشانی به اشتراک بگذارید. هر کس هر دو را داشته باشد می‌تواند بسته را بخواند.</string>
     <string name="local_sync_http_warning">HTTP نشانی، آدرس دستگاه، زمان یا حجم انتقال را پنهان نمی‌کند. فقط محتوای بسته رمزگذاری می‌شود. از یک شبکهٔ محلی مورد اعتماد استفاده کنید.</string>
@@ -1091,7 +1091,7 @@
     <string name="local_sync_apply">اعمال تغییرات</string>
     <string name="local_sync_confirm_apply">تغییرات همگام‌سازی اعمال شود؟</string>
     <string name="local_sync_confirm_counts">فیدهای قابل افزودن: %1$d. وضعیت مقاله‌های قابل به‌روزرسانی: %2$d. این تغییرات اعمال شود؟</string>
-    <string name="local_sync_cancel">Cancel</string>
+    <string name="local_sync_cancel">لغو</string>
     <string name="local_sync_done">تغییرات همگام‌سازی اعمال شد.</string>
     <string name="local_sync_not_local">برای استفاده از همگام‌سازی، یک حساب محلی انتخاب کنید.</string>
     <string name="local_sync_error_network">اتصال به نشست همگام‌سازی ممکن نشد. نشانی و شبکهٔ محلی را بررسی کنید.</string>
@@ -1117,9 +1117,9 @@
     <string name="local_sync_reply_instruction">از گوشی دیگر بخواهید ارسال را متوقف کند و ابتدا دریافت را باز کند.</string>
     <string name="local_sync_merge_limit">ادغام فقط نشان‌های خوانده‌شده و ستاره‌دار را نگه می‌دارد؛ خوانده‌نشده کردن یا برداشتن ستاره در یک گوشی ممکن است پس از همگام‌سازی برگردد.</string>
     <string name="local_sync_peer_unconfirmed">در انتظار یک‌بار دریافت توسط دستگاه دیگر</string>
-    <string name="local_sync_peer_confirmed">Paired</string>
+    <string name="local_sync_peer_confirmed">جفت‌شده</string>
     <string name="local_sync_peer_needs_repair">روی این گوشی قابل استفاده نیست. آن را فراموش کنید و دوباره جفت کنید.</string>
-    <string name="local_sync_forget_peer">Forget</string>
+    <string name="local_sync_forget_peer">فراموش کردن</string>
     <string name="local_sync_confirm_peer">علامت‌گذاری به‌عنوان جفت‌شده</string>
     <string name="local_sync_nearby_title">یک دستگاه جفت‌شده در نزدیکی است.</string>
     <string name="local_sync_no_peer_found">هنوز دستگاه نزدیکی پیدا نشد. در دستگاه دیگر، ارسال را باز کنید.</string>
@@ -1131,7 +1131,7 @@
     <!-- EXC-11 Temporal Ask My Archive -->
     <string name="archive_query_title">از آرشیوم بپرس</string>
     <string name="archive_query_desc">دربارهٔ یک موضوع بپرسید و ببینید مقاله‌های ذخیره‌شدهٔ شما آن را ماه‌به‌ماه چگونه پوشش داده‌اند.</string>
-    <string name="archive_query_question_label">Question</string>
+    <string name="archive_query_question_label">پرسش</string>
     <string name="archive_query_question_hint">مثلاً نرخ بهره از ماه مارس</string>
     <string name="archive_query_search">جستجو در آرشیو</string>
     <string name="archive_query_start_date">تاریخ شروع (YYYY-MM-DD)</string>
@@ -1170,7 +1170,7 @@
     <string name="feed_autopilot_summary_clean">فیدهای شما مرتب به نظر می‌رسند. فید پرسروصدایی پیدا نشد.</string>
     <string name="feed_autopilot_reason_opened">%1$d از %2$d باز شد (بازهٔ %3$d روز اخیر؛ %4$d%% تعامل)</string>
     <string name="feed_autopilot_reason_zero">از %1$d مقاله در بازهٔ %2$d روز اخیر هیچ‌کدام باز نشد</string>
-    <string name="feed_autopilot_action_unsubscribe">Unsubscribe</string>
+    <string name="feed_autopilot_action_unsubscribe">لغو اشتراک</string>
     <string name="feed_autopilot_action_snooze">به تعویق برای ۳۰ روز</string>
     <string name="feed_autopilot_action_keep">نگه داشتن و توقف پیشنهاد</string>
     <string name="feed_autopilot_confirm_title">لغو اشتراک از %1$s؟</string>
@@ -1185,24 +1185,24 @@
     <string name="podcast_studio_menu">استودیوی پادکست</string>
     <string name="podcast_studio_consent_title">فیلم‌نامه با AI نوشته شود؟</string>
     <string name="podcast_studio_consent_message">فقط عنوان این مقاله و یک پیش‌نمایش کوتاه (کمتر از ۲۵۰ نویسه) برای نوشتن فیلم‌نامهٔ دو مجری به Google Gemini ارسال می‌شود. متن مقاله، پیوندها و سابقهٔ مطالعهٔ شما هرگز ارسال نمی‌شوند.</string>
-    <string name="podcast_studio_consent_agree">Use AI</string>
+    <string name="podcast_studio_consent_agree">استفاده از AI</string>
     <string name="podcast_studio_consent_decline">استفاده از فیلم‌نامهٔ آفلاین</string>
     <string name="podcast_studio_conflict_title">پخش جاری متوقف شود؟</string>
     <string name="podcast_studio_conflict_message">پخش این مقاله به‌صورت پادکست، صدای در حال پخش را متوقف می‌کند.</string>
     <string name="podcast_studio_badge_source_gemini">فیلم‌نامه را AI نوشته است</string>
     <string name="podcast_studio_badge_source_heuristic">فیلم‌نامهٔ آفلاین، بدون AI</string>
-    <string name="podcast_studio_play">Play</string>
-    <string name="podcast_studio_pause">Pause</string>
+    <string name="podcast_studio_play">پخش</string>
+    <string name="podcast_studio_pause">توقف</string>
     <string name="podcast_studio_next">خط بعدی</string>
     <string name="podcast_studio_previous">خط قبلی</string>
-    <string name="podcast_studio_host_alex">Alex</string>
-    <string name="podcast_studio_host_sam">Sam</string>
+    <string name="podcast_studio_host_alex">الکس</string>
+    <string name="podcast_studio_host_sam">سم</string>
     <string name="podcast_studio_waveform_playing">نمایشگر: در حال پخش، گوینده: %1$s</string>
     <string name="podcast_studio_waveform_paused">نمایشگر: متوقف</string>
     <string name="deep_dive_menu">🔬 تحلیل عمیق AI</string>
     <string name="deep_dive_title">تحلیل عمیق AI</string>
     <string name="deep_dive_consent_message">عنوان مقاله و تا ۶٬۰۰۰ نویسه از متن آن برای نوشتن این گزارش به Google Gemini ارسال می‌شود. پیوندها، نام فید و سابقهٔ مطالعهٔ شما هرگز ارسال نمی‌شوند. Gemini در وب جستجو نمی‌کند.</string>
-    <string name="deep_dive_consent_agree">Agree</string>
+    <string name="deep_dive_consent_agree">موافقم</string>
     <string name="deep_dive_consent_later">حالا نه</string>
     <string name="deep_dive_declined_message">تحلیل عمیق AI خاموش است. برای نوشتن گزارش، آن را در تنظیمات، حریم خصوصی روشن کنید.</string>
     <string name="deep_dive_open_privacy">باز کردن تنظیمات حریم خصوصی</string>
@@ -1212,30 +1212,30 @@
     <string name="deep_dive_nothing_to_analyze">این مقاله عنوان یا متنی برای تحلیل ندارد.</string>
     <string name="deep_dive_retry">تلاش مجدد</string>
     <string name="deep_dive_label">AI از روی عنوان و یک گزیده نوشته است؛ بدون جستجوی وب؛ ممکن است اشتباه باشد</string>
-    <string name="deep_dive_section_context">Context</string>
+    <string name="deep_dive_section_context">زمینه</string>
     <string name="deep_dive_section_critical">دیدگاه‌های مخالف</string>
     <string name="deep_dive_section_impact">ماتریس تأثیر</string>
-    <string name="deep_dive_col_area">Area</string>
+    <string name="deep_dive_col_area">حوزه</string>
     <string name="deep_dive_col_short">کوتاه‌مدت</string>
     <string name="deep_dive_col_long">بلندمدت</string>
     <string name="deep_dive_export_pdf">خروجی PDF</string>
     <string name="deep_dive_chooser_title">اشتراک‌گذاری PDF تحلیل عمیق</string>
     <string name="deep_dive_export_error">ساخت PDF ممکن نشد</string>
     <string name="deep_dive_pdf_truncated">برای جا شدن در یک صفحه کوتاه شد. گزارش کامل را در برنامه ببینید.</string>
-    <string name="deep_dive_close">Close</string>
-    <string name="oracle_badge_label">Prediction</string>
+    <string name="deep_dive_close">بستن</string>
+    <string name="oracle_badge_label">پیش‌بینی</string>
     <string name="oracle_badge_open">باز کردن پیش‌بینی</string>
     <string name="oracle_sheet_title">پیش‌بینی یافت‌شده در این مقاله</string>
     <string name="oracle_sheet_expires">Expected by %1$s</string>
     <string name="oracle_sheet_criteria_heading">چگونه پاسخ را بررسی کنیم</string>
     <string name="oracle_sheet_ai_label">AI از روی عنوان و توضیح نوشته است؛ ممکن است اشتباه باشد.</string>
-    <string name="oracle_sheet_close">Close</string>
+    <string name="oracle_sheet_close">بستن</string>
     <string name="oracle_consent_title">یافتن پیش‌بینی در مقاله‌های جدید</string>
     <string name="oracle_consent_message">پس از هر همگام‌سازی، عنوان و یک توضیح کوتاه (در مجموع تا ۵۰۰ نویسه) از حداکثر ۵ مقالهٔ جدید برای یافتن پیش‌بینی به Google Gemini ارسال می‌شود. متن مقاله، پیوندها، نام فید و سابقهٔ مطالعهٔ شما هرگز ارسال نمی‌شوند. به‌طور پیش‌فرض خاموش است.</string>
     <string name="oracle_bet_balance">موجودی: %1$s امتیاز</string>
     <string name="oracle_bet_pick_side">انتخاب شما</string>
-    <string name="oracle_bet_yes">Yes</string>
-    <string name="oracle_bet_no">No</string>
+    <string name="oracle_bet_yes">بله</string>
+    <string name="oracle_bet_no">خیر</string>
     <string name="oracle_bet_pick_stake">امتیاز برای شرط‌بندی</string>
     <string name="oracle_bet_stake_option">%1$s points</string>
     <string name="oracle_bet_place">ثبت شرط</string>
@@ -1244,7 +1244,7 @@
     <string name="oracle_bet_open">شما %1$s امتیاز روی %2$s شرط بسته‌اید.</string>
     <string name="oracle_bet_open_hint">پس از تاریخ بالا می‌توانید نتیجه را گزارش کنید.</string>
     <string name="oracle_bet_awaiting_title">نتیجه چه بود؟</string>
-    <string name="oracle_bet_outcome_unclear">Unclear</string>
+    <string name="oracle_bet_outcome_unclear">نامشخص</string>
     <string name="oracle_bet_awaiting_hint">شما %1$s امتیاز روی %2$s شرط بسته‌اید. «نامشخص» امتیازهایتان را برمی‌گرداند.</string>
     <string name="oracle_bet_settled_won">شما %1$s امتیاز بردید.</string>
     <string name="oracle_bet_settled_lost">شما %1$s امتیاز باختید.</string>
@@ -1267,7 +1267,7 @@
     <string name="commute_autoplay_title">پخش هنگام اتصال هدفون بلوتوثی</string>
     <string name="commute_autoplay_desc">سعی می‌کند روزی یک بار قسمت صبحگاهی را در عرض ۲ ساعت پس از آماده شدن پخش کند. اگر اندروید مانع شود، اعلانی با دکمهٔ پخش دریافت می‌کنید.</string>
     <string name="commute_autoplay_permission_denied">بدون مجوز «دستگاه‌های اطراف»، برنامه نمی‌تواند هدفون شما را ببیند، پس این گزینه خاموش می‌ماند.</string>
-    <string name="commute_play_action">Play</string>
+    <string name="commute_play_action">پخش</string>
     <string name="commute_ready_to_play_title">قسمت صبحگاهی شما آماده است</string>
     <string name="commute_ready_to_play_body">هدفون شما وصل است. برای شنیدن، پخش را بزنید.</string>
 </resources>

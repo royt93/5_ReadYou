@@ -79,8 +79,8 @@
     <string name="try_again">重試</string>
     <string name="change_language">更換語言</string>
     <string name="change_language_confirm">應用將重啟以用新語言。是否繼續？</string>
-    <string name="yes">Yes</string>
-    <string name="no">No</string>
+    <string name="yes">然</string>
+    <string name="no">否</string>
     <string name="restarting_app">重啟應用中…</string>
     <string name="auto_tts">自動朗讀</string>
     <string name="auto_tts_desc">開文章時自動朗讀</string>
@@ -104,21 +104,21 @@
     <string name="move_to_group">移至組</string>
     <string name="all_move_to_group_tips">移「%1$s」組中諸訂閱源於「%2$s」組</string>
     <string name="all_move_to_group_toast">已移諸訂閱源於「%1$s」組</string>
-    <string name="rename">Rename</string>
+    <string name="rename">更名</string>
     <string name="change_url">更改網址</string>
     <string name="feed_url_placeholder" translatable="false">http://example.com/feed.rss</string>
     <string name="rename_toast">Renamed to \"%1$s\"</string>
     <string name="create_new_group">新建組</string>
-    <string name="name">Name</string>
-    <string name="delete">Delete</string>
+    <string name="name">名</string>
+    <string name="delete">刪除</string>
     <string name="delete_toast">Deleted \"%1$s\"</string>
-    <string name="unsubscribe">Unsubscribe</string>
+    <string name="unsubscribe">退訂</string>
     <string name="unsubscribe_tips">退訂「%1$s」，並刪其中諸已存檔之文章</string>
     <string name="delete_group">刪組</string>
     <string name="delete_group_tips">刪「%1$s」組，及其所含諸訂閱源與已存檔之文章</string>
     <string name="group_option_tips">下列選項，施於此組中諸訂閱源</string>
-    <string name="today">Today</string>
-    <string name="yesterday">Yesterday</string>
+    <string name="today">今日</string>
+    <string name="yesterday">昨日</string>
     <string name="date_at_time">%1$s at %2$s</string>
     <string name="search_for_in">於「%2$s」中搜尋%1$s項</string>
     <string name="search_for">搜尋%1$s項</string>
@@ -130,17 +130,17 @@
     <string name="one_day">1d</string>
     <string name="three_days">3d</string>
     <string name="seven_days">7d</string>
-    <string name="close">Close</string>
+    <string name="close">閉</string>
     <string name="get_new_updates">取新更新</string>
     <string name="get_new_updates_desc">新版本 %1$s 已可用</string>
     <string name="coming_soon">即將推出</string>
-    <string name="accounts">Accounts</string>
+    <string name="accounts">帳戶</string>
     <string name="accounts_desc">本地、FreshRSS</string>
     <string name="color_and_style">色彩與風格</string>
     <string name="color_and_style_desc">主題、色彩風格、字號</string>
-    <string name="interaction">Interaction</string>
+    <string name="interaction">互動</string>
     <string name="interaction_desc">初始頁、觸感回饋</string>
-    <string name="languages">Languages</string>
+    <string name="languages">語言</string>
     <string name="translatable_url" translatable="false">https://hosted.weblate.org/projects/readyou/</string>
     <string name="use_device_languages">從裝置語言</string>
     <string name="english" translatable="false">English</string>
@@ -182,7 +182,7 @@
     <string name="malayalam" translatable="false">മലയാളം</string>
     <string name="burmese" translatable="false">မြန်မာ</string>
     <string name="tips_and_support">提示與支援</string>
-    <string name="welcome">Welcome</string>
+    <string name="welcome">歡迎</string>
     <string name="tos_tips">請閱並同意 RSS Bear Hub 之服務條款與隱私政策，方可繼續。</string>
     <string name="browse_tos_tips">Browse the &lt;i&gt;&lt;u&gt;Terms of Service and Privacy Policy&lt;/u&gt;&lt;/i&gt;
         </string>
@@ -297,20 +297,20 @@
     
             &lt;/p&gt;
         </string>
-    <string name="agree">Agree</string>
+    <string name="agree">許</string>
     <string name="wallpaper_colors">壁紙色</string>
-    <string name="no_palettes">No Palettes</string>
+    <string name="no_palettes">無調色盤</string>
     <string name="only_android_8.1_plus">僅限 Android 8.1 以上</string>
     <string name="basic_colors">基本色</string>
     <string name="primary_color">主色</string>
-    <string name="primary_color_hint">Like #666666 or 666666</string>
-    <string name="appearance">Appearance</string>
-    <string name="style">Style</string>
+    <string name="primary_color_hint">如 #666666 或 666666</string>
+    <string name="appearance">外觀</string>
+    <string name="style">式樣</string>
     <string name="dark_theme">深色主題</string>
     <string name="use_device_theme">從裝置主題</string>
-    <string name="on">On</string>
-    <string name="off">Off</string>
-    <string name="other">Other</string>
+    <string name="on">開</string>
+    <string name="off">關</string>
+    <string name="other">他</string>
     <string name="amoled_dark_theme">AMOLED 深色主題</string>
     <string name="tonal_elevation">色調層次</string>
     <string name="reading_fonts">閱讀字體</string>
@@ -318,21 +318,21 @@
     <string name="feeds_page">訂閱源頁</string>
     <string name="flow_page">文章流頁</string>
     <string name="reading_page">閱讀頁</string>
-    <string name="sponsor">Sponsor</string>
+    <string name="sponsor">贊助</string>
     <string name="open_source_licenses">開源授權</string>
     <string name="github_link" translatable="false">https://github.com/Ashinch/ReadYou</string>
     <string name="telegram_link" translatable="false">https://t.me/ReadYouApp</string>
     <string name="update_link">https://api.github.com/repos/Ashinch/ReadYou/releases/latest</string>
-    <string name="change_log">Changelog</string>
-    <string name="update">Update</string>
+    <string name="change_log">更新記</string>
+    <string name="update">更新</string>
     <string name="skip_this_version">略過此版本</string>
     <string name="checking_updates">查更新中…</string>
     <string name="is_latest_version">此已為最新版本</string>
     <string name="check_failure">查更新失敗</string>
     <string name="download_failure">未能下載更新</string>
     <string name="rate_limit">請求頻率受限</string>
-    <string name="help">Help</string>
-    <string name="on_start">On Start</string>
+    <string name="help">助</string>
+    <string name="on_start">啟時</string>
     <string name="initial_page">初始頁</string>
     <string name="initial_filter">初始篩選</string>
     <string name="preview_article_title">小說《詭秘之主》終告完結</string>
@@ -340,7 +340,7 @@
             written by Cuttlefish That Loves Diving.
         </string>
     <string name="preview_feed_name">Reddit</string>
-    <string name="value">value</string>
+    <string name="value">值</string>
     <string name="horizontal_padding">橫向邊距</string>
     <string name="article_date">文章發布時間</string>
     <string name="article_desc">文章簡介</string>
@@ -351,46 +351,46 @@
     <string name="article_list">文章列</string>
     <string name="group_list">組列</string>
     <string name="always_expand">恆展開</string>
-    <string name="top">Top</string>
+    <string name="top">頂</string>
     <string name="mark_as_read_button_position">「標為已讀」鈕之位</string>
     <string name="top_bar">頂欄</string>
     <string name="fill_selected_icon">填充當前篩選圖標</string>
     <string name="filter_bar">篩選欄</string>
-    <string name="icons">Icons</string>
+    <string name="icons">圖標</string>
     <string name="icons_and_labels">圖標與標籤</string>
     <string name="icons_and_label_only_selected">圖標與標籤（唯用中者）</string>
     <string name="tips_article_list_tonal_elevation">文章列之色調層次，唯淺色主題可用</string>
     <string name="tips_group_list_tonal_elevation">組列之色調層次，唯淺色主題可用</string>
-    <string name="share">Share</string>
+    <string name="share">分享</string>
     <string name="touch_to_play_video">輕觸以播影片</string>
-    <string name="text">Text</string>
+    <string name="text">文</string>
     <string name="font_size">字號</string>
     <string name="letter_spacing">字距</string>
-    <string name="alignment">Alignment</string>
-    <string name="general">General</string>
+    <string name="alignment">對齊</string>
+    <string name="general">通用</string>
     <string name="auto_hide_toolbars">自動隱工具列</string>
     <string name="rearrange_buttons">重排按鈕</string>
     <string name="bionic_reading">仿生閱讀</string>
-    <string name="images">Images</string>
+    <string name="images">圖</string>
     <string name="rounded_corners">圓角</string>
-    <string name="videos">Videos</string>
+    <string name="videos">影</string>
     <string name="align_left">左對齊</string>
     <string name="align_right">右對齊</string>
     <string name="center_text">居中</string>
-    <string name="justify">Justify</string>
+    <string name="justify">齊整</string>
     <string name="external_fonts">外部字體</string>
-    <string name="title">Title</string>
-    <string name="bold">Bold</string>
+    <string name="title">題</string>
+    <string name="bold">粗</string>
     <string name="upper_case">大寫</string>
-    <string name="subhead">Subhead</string>
+    <string name="subhead">副題</string>
     <string name="use_app_theme">從應用主題</string>
-    <string name="advanced">Advanced</string>
+    <string name="advanced">進階</string>
     <string name="dark_reading_theme">深色閱讀主題</string>
     <string name="title_desc">粗體、大寫、對齊</string>
     <string name="text_desc">字號、字距、對齊</string>
     <string name="images_desc">圓角、橫向邊距</string>
     <string name="videos_desc">圓角、橫向邊距</string>
-    <string name="maximize">Maximize</string>
+    <string name="maximize">極大</string>
     <string name="every_15_minutes">每十五分鐘</string>
     <string name="every_30_minutes">每三十分鐘</string>
     <string name="every_1_hour">每小時</string>
@@ -399,22 +399,22 @@
     <string name="every_6_hours">每六小時</string>
     <string name="every_12_hours">每十二小時</string>
     <string name="every_1_day">每日</string>
-    <string name="manually">Manually</string>
-    <string name="always">Always</string>
-    <string name="for_1_day">1 day</string>
-    <string name="for_2_days">2 days</string>
-    <string name="for_3_days">3 days</string>
-    <string name="for_1_week">1 week</string>
-    <string name="for_2_weeks">2 weeks</string>
-    <string name="for_1_month">1 month</string>
-    <string name="local">Local</string>
+    <string name="manually">手動</string>
+    <string name="always">常</string>
+    <string name="for_1_day">一日</string>
+    <string name="for_2_days">二日</string>
+    <string name="for_3_days">三日</string>
+    <string name="for_1_week">一週</string>
+    <string name="for_2_weeks">兩週</string>
+    <string name="for_1_month">一月</string>
+    <string name="local">本地</string>
     <string name="fever" translatable="false">Fever</string>
     <string name="google_reader" translatable="false">Google Reader</string>
     <string name="fresh_rss" translatable="false">FreshRSS</string>
     <string name="feedly" translatable="false">Feedly</string>
     <string name="inoreader" translatable="false">Inoreader</string>
     <string name="local_desc">於此裝置</string>
-    <string name="services">Services</string>
+    <string name="services">服務</string>
     <string name="feedly_desc" translatable="false">feedly.com</string>
     <string name="inoreader_desc" translatable="false">inoreader.com</string>
     <string name="self_hosted">自架</string>
@@ -423,9 +423,9 @@
     <string name="fever_desc">已棄用。不宜用。</string>
     <string name="add_accounts">添帳戶</string>
     <string name="add_accounts_desc">本地、服務、自架</string>
-    <string name="display">Display</string>
-    <string name="synchronous">Syncing</string>
-    <string name="sync_interval">Sync</string>
+    <string name="display">顯示</string>
+    <string name="synchronous">同步中</string>
+    <string name="sync_interval">同步</string>
     <string name="sync_once_on_start">啟動時同步一次</string>
     <string name="only_on_wifi">Only on Wi-Fi</string>
     <string name="only_when_charging">唯充電時</string>
@@ -441,10 +441,10 @@
     <string name="delete_account_toast">帳戶已刪</string>
     <string name="synchronous_tips">須重啟方生效</string>
     <string name="accounts_tips">可於訂閱源頁輕觸帳戶名以切換</string>
-    <string name="connection">Connection</string>
-    <string name="system_default">System</string>
+    <string name="connection">連線</string>
+    <string name="system_default">系統</string>
     <string name="initial_open_app">點連結時所用之應用</string>
-    <string name="open_link_specific_browser_not_selected">None</string>
+    <string name="open_link_specific_browser_not_selected">無</string>
     <string name="auto_customtabs">自動（先用 CustomTabs）</string>
     <string name="auto_default_browser">自動（先用預設瀏覽器）</string>
     <string name="custom_tabs">強用 CustomTabs</string>
@@ -452,12 +452,12 @@
     <string name="specific_browser_name">Browser: %1$s</string>
     <string name="default_browser">強用預設瀏覽器</string>
     <string name="always_ask">每次詢問</string>
-    <string name="open_link_specific_browser">Browser</string>
+    <string name="open_link_specific_browser">瀏覽器</string>
     <string name="open_link_something_wrong">因出錯，「開啟連結」之設定已略過。</string>
-    <string name="in_coding">In development</string>
+    <string name="in_coding">開發中</string>
     <string name="tips_top_bar_tonal_elevation">色調層次唯捲動時可用</string>
     <string name="summary_title">以 AI 摘要</string>
-    <string name="summary_loading">Summarizing…</string>
+    <string name="summary_loading">概述中…</string>
     <string name="summary_try_again">重試</string>
     <string name="summary_get_key">領免費金鑰</string>
     <string name="summary_err_empty_content">此文無內容可摘要</string>
@@ -479,7 +479,7 @@
     <string name="vip_remaining_short">餘 %1$d 日 %2$d 時</string>
     <string name="vip_redeem_label">輸 VIP 碼</string>
     <string name="vip_redeem_hint">如：君之 VIP 碼</string>
-    <string name="vip_redeem_button">Activate</string>
+    <string name="vip_redeem_button">啟</string>
     <string name="vip_watch_ad_3d">觀廣告 → 得 VIP 三日</string>
     <string name="vip_buy_30d_locked">購三十日 VIP——即將推出</string>
     <string name="vip_buy_90d_locked">購九十日 VIP——即將推出</string>
@@ -491,9 +491,9 @@
     <string name="vip_revoke_all_confirm_message">確欲撤 VIP 而返免費帳戶乎？</string>
     <string name="vip_entry_first_install">🎁 初裝之禮</string>
     <string name="vip_entry_active">VIP 會員</string>
-    <string name="vip_success_title">Success</string>
+    <string name="vip_success_title">成</string>
     <string name="vip_success_message">VIP 已生效 %1$d 日。</string>
-    <string name="vip_failed_title">Failed</string>
+    <string name="vip_failed_title">敗</string>
     <string name="ad_attribution_label" translatable="false">Ad Networks (AdMob / AppLovin MAX)</string>
     <string name="vip_failed_busy">前碼尚在驗中。少待,復試之。</string>
     <string name="vip_failed_no_network">啟碼須連網。連而復試之。</string>
@@ -510,8 +510,8 @@
     <string name="commute_deepdive_unlocked">🎉 深談已解鎖！</string>
     <string name="commute_empty">無未讀文章可入晨間電台</string>
     <string name="commute_generating">AI 主持正為君編節目…</string>
-    <string name="retry">Retry</string>
-    <string name="version">Version</string>
+    <string name="retry">重試</string>
+    <string name="version">版本</string>
     <string name="rate_app">為應用評分</string>
     <string name="rate_app_desc">若覺此應用有益，懇請賜五星</string>
     <string name="more_apps">取更多應用</string>
@@ -520,7 +520,7 @@
     <string name="share_app_desc">請分享此應用，與他人共用</string>
     <string name="term_and_policy">條款與政策</string>
     <string name="term_and_policy_desc">閱安全條款與隱私政策</string>
-    <string name="about_title">About</string>
+    <string name="about_title">關於</string>
     <string name="about_desc">識此應用</string>
     <string name="source_code_original">原始碼（原版）</string>
     <string name="source_code_current">原始碼（此版）</string>
@@ -546,7 +546,7 @@
     <string name="quiz_ai_no_key">無 Gemini 金鑰可用，AI 未能撰題。</string>
     <string name="quiz_ai_nothing_to_ask">此文無標題或預覽可出題。</string>
     <string name="quiz_ai_retry">重試</string>
-    <string name="quiz_ai_consent_agree">Agree</string>
+    <string name="quiz_ai_consent_agree">許</string>
     <string name="quiz_ai_consent_later">暫不</string>
     <string name="quiz_ai_declined_message">AI 測驗題已關。可於「設定」「隱私」開啟，以得題於此。</string>
     <string name="quiz_ai_open_privacy">開隱私設定</string>
@@ -600,7 +600,7 @@
     <string name="zen_evening_edition">Evening Edition (20:00)</string>
     <string name="zen_daily_edition_notification">未讀文章 %1$d 篇，已備君專注閱讀。</string>
     <string name="zen_sleep_timer">睡眠計時</string>
-    <string name="zen_sleep_timer_off">Continuous</string>
+    <string name="zen_sleep_timer_off">不絕</string>
     <string name="zen_sleep_timer_min">%1$d minutes</string>
     <string name="zen_volume">Volume: %1$d%%</string>
     <string name="zen_settings_title">禪定專注與速讀</string>
@@ -819,7 +819,7 @@
     <string name="second_brain_settings_desc">觀君所讀之題，久而如何相連</string>
     <string name="second_brain_empty">讀或存數篇文章，君之主題圖即現於此。</string>
     <string name="second_brain_error">未能構圖。請重試。</string>
-    <string name="second_brain_retry">Retry</string>
+    <string name="second_brain_retry">重試</string>
     <string name="second_brain_graph_desc">主題圖，含 %1$d 主題、%2$d 連結</string>
     <string name="second_brain_node_articles">%1$d articles</string>
     <string name="second_brain_range_label">時間範圍</string>
@@ -842,7 +842,7 @@
     <!-- Share Target / Read Later (INGEST-02) -->
     <string name="read_later_feed_title">稍後讀</string>
     <string name="share_target_save_btn">存入稍後讀</string>
-    <string name="share_target_cancel_btn">Cancel</string>
+    <string name="share_target_cancel_btn">消</string>
     <string name="share_target_saved_toast">已存入稍後讀</string>
     <string name="share_target_invalid_url">未見有效連結</string>
     <string name="read_position_sync">同步閱讀位置</string>
@@ -854,12 +854,12 @@
     <string name="smart_collection_save_action">存為文集</string>
     <string name="smart_collection_empty">尚無智慧文集。存一語義搜尋，以追一題。</string>
     <string name="smart_collection_articles_count">%1$d articles</string>
-    <string name="smart_collection_edit">Edit</string>
-    <string name="smart_collection_delete">Delete</string>
+    <string name="smart_collection_edit">編</string>
+    <string name="smart_collection_delete">刪除</string>
     <string name="smart_collection_delete_confirm">刪此文集乎？其文章仍留於君之文庫。</string>
     <string name="smart_collection_saved">智慧文集已存</string>
     <string name="smart_collection_empty_articles">尚無相合之新文章。同步後，新合者即現。</string>
-    <string name="save">Save</string>
+    <string name="save">存</string>
     <string name="eink_mode_title">E-Ink 優化</string>
     <string name="eink_active_title">E-Ink 之式已啟</string>
     <string name="eink_active_desc">此應用以黑白呈之。輕觸以閉之。</string>
@@ -933,8 +933,8 @@
     <string name="widget_article_pin_unsupported">您的桌面不支持自动添加微件</string>
     <!-- Feed Zero Triage (EXC-14) -->
     <string name="feed_zero_triage_title">訂閱源清零分揀</string>
-    <string name="triage_swipe_left_skip">Skip</string>
-    <string name="triage_swipe_right_save">Save</string>
+    <string name="triage_swipe_left_skip">略</string>
+    <string name="triage_swipe_right_save">存</string>
     <string name="triage_swipe_up_read">即讀</string>
     <string name="triage_progress_format">%1$d / %2$d</string>
     <string name="triage_inbox_zero_title">🎉 收件匣已清空！</string>
@@ -943,7 +943,7 @@
     <string name="triage_summary_saved">留待後讀：%1$d</string>
     <string name="triage_summary_skipped">已標為已讀：%1$d</string>
     <string name="triage_summary_xp">+%1$d Brain RPG 經驗值</string>
-    <string name="triage_finish_button">Done</string>
+    <string name="triage_finish_button">畢</string>
     <!-- Brain Wrapped tuần (RPG-09) -->
     <string name="brain_wrapped_share_story">分享至動態</string>
     <string name="brain_wrapped_xp_label">本週經驗</string>
@@ -988,14 +988,14 @@
     <string name="headline_signals_desc">於此裝置分析標題與文章用詞，辨釣餌之跡、宣傳誇飾之詞、情緒語氣（正面、不明、負面）。無物外傳，亦不用 AI 或網路。此僅為用詞訊號，非查證，亦非政治偏向之判。西班牙文、法文、德文屬實驗。</string>
     <string name="headline_signals_clickbait_badge">🎯 Clickbait %1$d%%</string>
     <string name="headline_signals_clickbait_desc">釣餌語言指標：得分 %1$d，滿分一百。</string>
-    <string name="headline_signals_tone_positive">🟢 Positive</string>
-    <string name="headline_signals_tone_unclear">⚪ Unclear</string>
-    <string name="headline_signals_tone_negative">🔴 Negative</string>
+    <string name="headline_signals_tone_positive">🟢 正面</string>
+    <string name="headline_signals_tone_unclear">⚪ 不明</string>
+    <string name="headline_signals_tone_negative">🔴 負面</string>
     <string name="headline_signals_tone_desc_positive">標題詞彙語氣：見正面跡象。</string>
     <string name="headline_signals_tone_desc_unclear">標題詞彙語氣：跡象不明或不足。</string>
     <string name="headline_signals_tone_desc_negative">標題詞彙語氣：見負面跡象。</string>
     <string name="brain_rpg_skill_tree_decay_warning">此技能久而漸衰。習之以復。</string>
-    <string name="bounty_action_investigate">Investigate</string>
+    <string name="bounty_action_investigate">查</string>
     <string name="bounty_sheet_title">實體調查代理</string>
     <string name="bounty_scanning_status">掃君之新聞存檔，尋：%1$s…</string>
     <string name="bounty_stats_summary">相關文章 %1$d 篇 • 來源 %2$d 處</string>
@@ -1010,14 +1010,14 @@
     <string name="echo_hype_label">Hype: %1$d%%</string>
     <string name="echo_hype_warning">察得強烈宣傳或誇大之詞</string>
     <string name="echo_tone_label">Tone: %1$s</string>
-    <string name="echo_tone_positive">🟢 Positive</string>
-    <string name="echo_tone_unclear">⚪ Unclear</string>
-    <string name="echo_tone_negative">🔴 Negative</string>
+    <string name="echo_tone_positive">🟢 正面</string>
+    <string name="echo_tone_unclear">⚪ 不明</string>
+    <string name="echo_tone_negative">🔴 負面</string>
     <string name="echo_details_title">措辭訊號</string>
     <string name="echo_disclaimer">唯本機用詞訊號；非查證，非可信度評分，非政治偏向分析，亦非作者意圖之斷言。「不明」者，謂詞彙之證不足，非謂中立。</string>
     <string name="echo_flagged_passages_title">標記段落（%1$d）</string>
     <string name="echo_cue_promotional">宣傳語</string>
-    <string name="echo_cue_intensifier">Exaggeration</string>
+    <string name="echo_cue_intensifier">誇飾</string>
     <string name="echo_cue_absolute">絕對之斷言</string>
     <string name="echo_cue_exclamation">標點或大寫強調</string>
     <string name="echo_no_passages">無一段越過誇飾之閾。</string>
@@ -1025,10 +1025,10 @@
     <!-- BOUNTY-02 dossier -->
     <string name="dossier_create_action">建檔案</string>
     <string name="dossier_sheet_title">本地情報檔案</string>
-    <string name="dossier_tab_summary">Summary</string>
-    <string name="dossier_tab_timeline">Timeline</string>
-    <string name="dossier_tab_names">Names</string>
-    <string name="dossier_tab_sources">Sources</string>
+    <string name="dossier_tab_summary">概要</string>
+    <string name="dossier_tab_timeline">時序</string>
+    <string name="dossier_tab_names">名</string>
+    <string name="dossier_tab_sources">源</string>
     <string name="dossier_share_action">分享 Markdown</string>
     <string name="dossier_chooser_title">分享檔案</string>
     <string name="dossier_limitation">唯據此應用中所存文章而成。或遺觀點，非查證。</string>
@@ -1051,7 +1051,7 @@
     <string name="streak_rescue_message">君已缺讀 %1$d 日。君之連續 %2$d 日，於下次閱讀時將歸零。</string>
     <string name="streak_rescue_action_ad">觀影片以保連續</string>
     <string name="streak_rescue_action_restart">從頭再始</string>
-    <string name="streak_rescue_action_later">Later</string>
+    <string name="streak_rescue_action_later">待後</string>
     <string name="streak_rescue_ad_failed">未能載入影片。請重試。</string>
 
     <!-- ZEN-07 RSVP calibration -->
@@ -1066,8 +1066,8 @@
     <string name="zen_calibration_suggested_wpm">建議速度：約 %1$d WPM</string>
     <string name="zen_calibration_limitation">此乃據六問而得之粗估，非深度理解之度量。君可隨時自調速度。</string>
     <string name="zen_calibration_low_confidence_note">君於諸速之答案參差；可以己速閱讀，後再校準。</string>
-    <string name="zen_calibration_apply">Apply</string>
-    <string name="zen_calibration_skip">Skip</string>
+    <string name="zen_calibration_apply">用</string>
+    <string name="zen_calibration_skip">略</string>
     <string name="zen_calibration_settings_desc">以三短輪校準君之閱讀速度</string>
 
     <!-- ECHO-02 contrasting coverage -->
@@ -1081,7 +1081,7 @@
     <string name="echo_dual_export">匯出卡片</string>
     <string name="echo_dual_export_desc">匯出含 %1$s 之雙標題卡片</string>
     <string name="echo_dual_title">分享雙標題</string>
-    <string name="echo_dual_share">Share</string>
+    <string name="echo_dual_share">分享</string>
     <string name="echo_dual_cut_note">有標題已縮短</string>
     <string name="echo_dual_error">未能製卡片。輕觸重試。</string>
     <string name="echo_dual_chooser_title">分享雙標題卡片</string>
@@ -1092,7 +1092,7 @@
     <string name="curated_bundle_verified_on">Checked %1$s</string>
     <string name="curated_bundle_source_count">Sources: %1$d</string>
     <string name="curated_bundle_subscribe_all">全訂閱</string>
-    <string name="curated_bundle_subscribing">Subscribing…</string>
+    <string name="curated_bundle_subscribing">訂閱中…</string>
     <string name="curated_bundle_progress">Subscribing %1$d of %2$d</string>
     <string name="curated_bundle_result">已添 %1$d · 已有 %2$d · 失敗 %3$d</string>
     <string name="curated_bundle_error">未能訂閱：%1$s</string>
@@ -1100,11 +1100,11 @@
     <string name="curated_bundle_account_local_only">整合集訂閱，唯本地帳戶可用。</string>
 
     <!-- FRONT-03 knowledge galaxy -->
-    <string name="galaxy_mode_concepts">Concepts</string>
-    <string name="galaxy_mode_stars">Galaxy</string>
+    <string name="galaxy_mode_concepts">概念</string>
+    <string name="galaxy_mode_stars">星河</string>
     <string name="galaxy_empty">標數篇文章為已讀，即如星閃於此。可試擴時間範圍。</string>
     <string name="galaxy_error">未能構星系。請重試。</string>
-    <string name="galaxy_retry">Retry</string>
+    <string name="galaxy_retry">重試</string>
     <string name="galaxy_reset_view">重設視圖</string>
     <string name="galaxy_stats">星：%1$d · 連結：%2$d</string>
     <string name="galaxy_star_open">開文章</string>
@@ -1122,7 +1122,7 @@
     <string name="second_screen_viewers">Viewers: %1$d</string>
     <string name="second_screen_expires">Expires at %1$s</string>
     <string name="second_screen_warning">未加密。同一 Wi-Fi 下，凡見此連結者皆可讀此文。唯於所信之網路用之。</string>
-    <string name="second_screen_starting">Starting…</string>
+    <string name="second_screen_starting">啟動中…</string>
     <string name="second_screen_no_network">無具私有位址之 Wi-Fi 或乙太網路。請連 Wi-Fi 而重試。</string>
     <string name="second_screen_lan_permission_denied">本地網路存取已關。請於「設定」允之，以於第二螢幕示文章。</string>
     <string name="second_screen_expired">工作階段已終。請再開以得新連結。</string>
@@ -1133,8 +1133,8 @@
     <string name="galaxy_related_title">相關文章</string>
     <string name="galaxy_shared_terms">共有詞：%1$s</string>
     <string name="local_sync_title">本地同步</string>
-    <string name="local_sync_send">Send</string>
-    <string name="local_sync_receive">Receive</string>
+    <string name="local_sync_send">發</string>
+    <string name="local_sync_receive">受</string>
     <string name="local_sync_send_instructions">為此本地網路上之他裝置，建加密封包。</string>
     <string name="local_sync_secret_warning">此配對密語，須與網址分別傳達。二者兼得者，可讀封包。</string>
     <string name="local_sync_http_warning">HTTP 不隱網址、裝置位址、時間與傳輸量。唯封包內容加密。請用可信之本地網路。</string>
@@ -1158,7 +1158,7 @@
     <string name="local_sync_apply">套用變更</string>
     <string name="local_sync_confirm_apply">套用同步變更乎？</string>
     <string name="local_sync_confirm_counts">將添訂閱源：%1$d。將更新文章狀態：%2$d。套用此諸變更乎？</string>
-    <string name="local_sync_cancel">Cancel</string>
+    <string name="local_sync_cancel">消</string>
     <string name="local_sync_done">同步變更已套用。</string>
     <string name="local_sync_not_local">請擇本地帳戶以用同步。</string>
     <string name="local_sync_error_network">未能連同步工作階段。請察網址與本地網路。</string>
@@ -1184,9 +1184,9 @@
     <string name="local_sync_reply_instruction">請他手機先止傳送而開接收。</string>
     <string name="local_sync_merge_limit">合併唯留已讀與星標；於一手機標未讀或去星標，同步後或復舊。</string>
     <string name="local_sync_peer_unconfirmed">候他裝置接收一次</string>
-    <string name="local_sync_peer_confirmed">Paired</string>
+    <string name="local_sync_peer_confirmed">已配對</string>
     <string name="local_sync_peer_needs_repair">不可用於此手機。請忘之而重配。</string>
-    <string name="local_sync_forget_peer">Forget</string>
+    <string name="local_sync_forget_peer">忘</string>
     <string name="local_sync_confirm_peer">標為已配對</string>
     <string name="local_sync_nearby_title">有已配對裝置在近旁。</string>
     <string name="local_sync_no_peer_found">近旁尚未尋得裝置。請於他裝置開傳送。</string>
@@ -1198,7 +1198,7 @@
     <!-- EXC-11 Temporal Ask My Archive -->
     <string name="archive_query_title">問我存檔</string>
     <string name="archive_query_desc">問一題，觀君所存文章按月如何報導之。</string>
-    <string name="archive_query_question_label">Question</string>
+    <string name="archive_query_question_label">問</string>
     <string name="archive_query_question_hint">如：三月以來之利率</string>
     <string name="archive_query_search">搜尋存檔</string>
     <string name="archive_query_start_date">起日（YYYY-MM-DD）</string>
@@ -1237,7 +1237,7 @@
     <string name="feed_autopilot_summary_clean">君之訂閱源整潔。未見嘈雜者。</string>
     <string name="feed_autopilot_reason_opened">%2$d 篇中開 %1$d 篇（近 %3$d 日；參與率 %4$d%%）</string>
     <string name="feed_autopilot_reason_zero">近 %2$d 日 %1$d 篇中，無一開啟</string>
-    <string name="feed_autopilot_action_unsubscribe">Unsubscribe</string>
+    <string name="feed_autopilot_action_unsubscribe">退訂</string>
     <string name="feed_autopilot_action_snooze">暫停三十日</string>
     <string name="feed_autopilot_action_keep">留之，且止建議</string>
     <string name="feed_autopilot_confirm_title">退訂 %1$s 乎？</string>
@@ -1252,14 +1252,14 @@
     <string name="podcast_studio_menu">播客工作室</string>
     <string name="podcast_studio_consent_title">以 AI 撰腳本乎？</string>
     <string name="podcast_studio_consent_message">唯此文之標題與短預覽（不逾二百五十字）送至 Google Gemini，以撰二主持腳本。文章正文、連結及君之閱讀紀錄，絕不外送。</string>
-    <string name="podcast_studio_consent_agree">Use AI</string>
+    <string name="podcast_studio_consent_agree">用 AI</string>
     <string name="podcast_studio_consent_decline">用離線腳本</string>
     <string name="podcast_studio_conflict_title">止現播之音乎？</string>
     <string name="podcast_studio_conflict_message">以播客播此文，將止現正播放之音。</string>
     <string name="podcast_studio_badge_source_gemini">腳本由 AI 撰</string>
     <string name="podcast_studio_badge_source_heuristic">離線腳本，無 AI</string>
-    <string name="podcast_studio_play">Play</string>
-    <string name="podcast_studio_pause">Pause</string>
+    <string name="podcast_studio_play">播</string>
+    <string name="podcast_studio_pause">暫停</string>
     <string name="podcast_studio_next">下一句</string>
     <string name="podcast_studio_previous">上一句</string>
     <string name="podcast_studio_host_alex">Alex</string>
@@ -1269,7 +1269,7 @@
     <string name="deep_dive_menu">🔬 AI 深究</string>
     <string name="deep_dive_title">AI 深究</string>
     <string name="deep_dive_consent_message">此文之標題與至多六千字正文，送至 Google Gemini 以撰此報告。連結、訂閱源名及君之閱讀紀錄，絕不外送。Gemini 不搜網路。</string>
-    <string name="deep_dive_consent_agree">Agree</string>
+    <string name="deep_dive_consent_agree">許</string>
     <string name="deep_dive_consent_later">暫不</string>
     <string name="deep_dive_declined_message">AI 深究已關。可於「設定」「隱私」開啟，以撰報告。</string>
     <string name="deep_dive_open_privacy">開隱私設定</string>
@@ -1279,30 +1279,30 @@
     <string name="deep_dive_nothing_to_analyze">此文無標題或正文可析。</string>
     <string name="deep_dive_retry">重試</string>
     <string name="deep_dive_label">AI 據標題與節錄而撰；不搜網路；或有謬誤</string>
-    <string name="deep_dive_section_context">Context</string>
+    <string name="deep_dive_section_context">脈絡</string>
     <string name="deep_dive_section_critical">異議</string>
     <string name="deep_dive_section_impact">影響矩陣</string>
-    <string name="deep_dive_col_area">Area</string>
+    <string name="deep_dive_col_area">域</string>
     <string name="deep_dive_col_short">短期</string>
     <string name="deep_dive_col_long">長期</string>
     <string name="deep_dive_export_pdf">匯出 PDF</string>
     <string name="deep_dive_chooser_title">分享深究 PDF</string>
     <string name="deep_dive_export_error">未能製 PDF</string>
     <string name="deep_dive_pdf_truncated">已削以合一頁。全報告見於應用。</string>
-    <string name="deep_dive_close">Close</string>
-    <string name="oracle_badge_label">Prediction</string>
+    <string name="deep_dive_close">閉</string>
+    <string name="oracle_badge_label">預言</string>
     <string name="oracle_badge_open">開預言</string>
     <string name="oracle_sheet_title">此文中所見之預言</string>
     <string name="oracle_sheet_expires">Expected by %1$s</string>
     <string name="oracle_sheet_criteria_heading">如何驗其答案</string>
     <string name="oracle_sheet_ai_label">AI 據標題與簡介而撰；或有謬誤。</string>
-    <string name="oracle_sheet_close">Close</string>
+    <string name="oracle_sheet_close">閉</string>
     <string name="oracle_consent_title">於新文章中尋預言</string>
     <string name="oracle_consent_message">每次同步後，至多五篇新文章之標題與短簡介（合計不逾五百字），送至 Google Gemini 以尋預言。文章正文、連結、訂閱源名及君之閱讀紀錄，絕不外送。預設為關。</string>
     <string name="oracle_bet_balance">餘額：%1$s 點</string>
     <string name="oracle_bet_pick_side">君之所擇</string>
-    <string name="oracle_bet_yes">Yes</string>
-    <string name="oracle_bet_no">No</string>
+    <string name="oracle_bet_yes">然</string>
+    <string name="oracle_bet_no">否</string>
     <string name="oracle_bet_pick_stake">下注點數</string>
     <string name="oracle_bet_stake_option">%1$s points</string>
     <string name="oracle_bet_place">下注</string>
@@ -1311,7 +1311,7 @@
     <string name="oracle_bet_open">君押 %1$s 點於 %2$s。</string>
     <string name="oracle_bet_open_hint">上述日期後，可報其結果。</string>
     <string name="oracle_bet_awaiting_title">其果如何？</string>
-    <string name="oracle_bet_outcome_unclear">Unclear</string>
+    <string name="oracle_bet_outcome_unclear">不明</string>
     <string name="oracle_bet_awaiting_hint">君押 %1$s 點於 %2$s。擇「不明」則返還君之點數。</string>
     <string name="oracle_bet_settled_won">君贏 %1$s 點。</string>
     <string name="oracle_bet_settled_lost">君輸 %1$s 點。</string>
@@ -1334,7 +1334,7 @@
     <string name="commute_autoplay_title">藍牙耳機連接時播放</string>
     <string name="commute_autoplay_desc">每日試啟晨間集一次，限於備妥後二小時內。若 Android 阻之，則發通知，附播放鈕。</string>
     <string name="commute_autoplay_permission_denied">無「附近裝置」權限，應用不能見君之耳機，故此項仍關。</string>
-    <string name="commute_play_action">Play</string>
+    <string name="commute_play_action">播</string>
     <string name="commute_ready_to_play_title">君之晨間集已備妥</string>
     <string name="commute_ready_to_play_body">耳機已連。輕觸播放以聽。</string>
 </resources>

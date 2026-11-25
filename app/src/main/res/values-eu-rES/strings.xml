@@ -374,8 +374,8 @@
     <string name="try_again">Saiatu berriro</string>
     <string name="change_language">Aldatu hizkuntza</string>
     <string name="change_language_confirm">Aplikazioa berrabiaraziko da hizkuntza berria aplikatzeko. Jarraitu nahi duzu?</string>
-    <string name="yes">Yes</string>
-    <string name="no">No</string>
+    <string name="yes">Bai</string>
+    <string name="no">Ez</string>
     <string name="restarting_app">Aplikazioa berrabiarazten…</string>
     <string name="auto_tts">Erreproduzitu testua ahotsez automatikoki</string>
     <string name="auto_tts_desc">Irakurri artikuluak ozen automatikoki irekitzean</string>
@@ -384,7 +384,7 @@
     <string name="watch_ad">Ikusi iragarkia</string>
     <string name="ad_not_ready">Iragarkia ez dago prest. Mesedez, saiatu berriro geroago.</string>
     <string name="read_you" translatable="false">RSS Hub</string>
-    <string name="empty">Empty</string>
+    <string name="empty">Hutsik</string>
     <string name="feed_url_placeholder" translatable="false">http://example.com/feed.rss</string>
     <string name="translatable_url" translatable="false">https://hosted.weblate.org/projects/readyou/</string>
     <string name="english" translatable="false">English</string>
@@ -438,12 +438,12 @@
     <string name="google_reader_desc" translatable="false">Google Reader API</string>
     <string name="accounts_tips">Kontuaren izenean sakatu dezakezu jarioen orrian aldatzeko</string>
     <string name="server_url">Zerbitzariaren URLa</string>
-    <string name="username">Username</string>
-    <string name="password">Password</string>
-    <string name="connection">Connection</string>
-    <string name="system_default">System</string>
+    <string name="username">Erabiltzaile-izena</string>
+    <string name="password">Pasahitza</string>
+    <string name="connection">Konexioa</string>
+    <string name="system_default">Sistema</string>
     <string name="initial_open_app">Esteka sakatzean irekitzeko aplikazioa</string>
-    <string name="open_link_specific_browser_not_selected">None</string>
+    <string name="open_link_specific_browser_not_selected">Bat ere ez</string>
     <string name="auto_customtabs">Automatikoa (lehenetsi CustomTabs)</string>
     <string name="auto_default_browser">Automatikoa (lehenetsi nabigatzaile lehenetsia)</string>
     <string name="custom_tabs">Behartu CustomTabs</string>
@@ -451,12 +451,12 @@
     <string name="specific_browser_name">Browser: %1$s</string>
     <string name="default_browser">Behartu nabigatzaile lehenetsia</string>
     <string name="always_ask">Galdetu beti</string>
-    <string name="open_link_specific_browser">Browser</string>
+    <string name="open_link_specific_browser">Nabigatzailea</string>
     <string name="open_link_something_wrong">\"Ireki esteka\" ezarpena ez da aintzat hartu zerbait gaizki atera delako.</string>
-    <string name="in_coding">In development</string>
+    <string name="in_coding">Garapenean</string>
     <string name="tips_top_bar_tonal_elevation">Tonu-altuera korritzean soilik dago erabilgarri</string>
     <string name="summary_title">Laburtu AIrekin</string>
-    <string name="summary_loading">Summarizing…</string>
+    <string name="summary_loading">Laburtzen…</string>
     <string name="summary_try_again">Saiatu berriro</string>
     <string name="summary_get_key">Lortu gako doakoa</string>
     <string name="summary_err_empty_content">Artikuluak ez dauka laburtzeko edukirik</string>
@@ -478,7 +478,7 @@
     <string name="vip_remaining_short">%1$d egun eta %2$d ordu geratzen dira</string>
     <string name="vip_redeem_label">Sartu VIP kodea</string>
     <string name="vip_redeem_hint">adib. zure VIP kodea</string>
-    <string name="vip_redeem_button">Activate</string>
+    <string name="vip_redeem_button">Aktibatu</string>
     <string name="vip_watch_ad_3d">Ikusi iragarkia → 3 eguneko VIP</string>
     <string name="vip_buy_30d_locked">Erosi 30 eguneko VIP — laster</string>
     <string name="vip_buy_90d_locked">Erosi 90 eguneko VIP — laster</string>
@@ -490,9 +490,9 @@
     <string name="vip_revoke_all_confirm_message">Ziur zaude VIP ezeztatu eta doako kontura itzuli nahi duzula?</string>
     <string name="vip_entry_first_install">🎁 Instalazio berriaren oparia</string>
     <string name="vip_entry_active">VIP kidetza</string>
-    <string name="vip_success_title">Success</string>
+    <string name="vip_success_title">Ongi</string>
     <string name="vip_success_message">VIP aktibo %1$d egunez.</string>
-    <string name="vip_failed_title">Failed</string>
+    <string name="vip_failed_title">Huts egin du</string>
     <string name="ad_attribution_label" translatable="false">Ad Networks (AdMob / AppLovin MAX)</string>
     <string name="vip_failed_busy">Aurreko kode bat oraindik egiaztatzen ari da. Itxaron une bat eta saiatu berriro.</string>
     <string name="vip_failed_no_network">Kode bat aktibatzeko internet konexioa behar da. Konektatu eta saiatu berriro.</string>
@@ -509,8 +509,8 @@
     <string name="commute_deepdive_unlocked">🎉 Sakoneko azterketa desblokeatuta!</string>
     <string name="commute_empty">Ez dago irakurri gabeko artikulurik goizeko irratirako</string>
     <string name="commute_generating">AI DJa zure saioa prestatzen ari da...</string>
-    <string name="retry">Retry</string>
-    <string name="version">Version</string>
+    <string name="retry">Saiatu berriro</string>
+    <string name="version">Bertsioa</string>
     <string name="rate_app">Baloratu aplikazioa</string>
     <string name="rate_app_desc">Eman 5 izar aplikazio hau baliagarria iruditzen bazaizu</string>
     <string name="more_apps">Lortu aplikazio gehiago</string>
@@ -519,7 +519,7 @@
     <string name="share_app_desc">Partekatu aplikazio hau besteek zurekin batera erabil dezaten</string>
     <string name="term_and_policy">Baldintzak eta politika</string>
     <string name="term_and_policy_desc">Irakurri segurtasun-baldintzak eta pribatutasun-politika</string>
-    <string name="about_title">About</string>
+    <string name="about_title">Honi buruz</string>
     <string name="about_desc">Ezagutu aplikazio hau</string>
     <string name="source_code_original">Iturburu-kodea (jatorrizko bertsioa)</string>
     <string name="source_code_current">Iturburu-kodea (bertsio hau)</string>
@@ -545,7 +545,7 @@
     <string name="quiz_ai_no_key">Ez dago Gemini gakorik erabilgarri, beraz AIk ezin izan du galderarik idatzi.</string>
     <string name="quiz_ai_nothing_to_ask">Artikulu honek ez dauka galdetzeko izenburu edo aurrebistarik.</string>
     <string name="quiz_ai_retry">Saiatu berriro</string>
-    <string name="quiz_ai_consent_agree">Agree</string>
+    <string name="quiz_ai_consent_agree">Onartu</string>
     <string name="quiz_ai_consent_later">Orain ez</string>
     <string name="quiz_ai_declined_message">AI galdetegiko galderak desaktibatuta daude. Aktibatu itzazu Ezarpenak, Pribatutasuna atalean hemen galdera bat jasotzeko.</string>
     <string name="quiz_ai_open_privacy">Ireki pribatutasun-ezarpenak</string>
@@ -599,7 +599,7 @@
     <string name="zen_evening_edition">Evening Edition (20:00)</string>
     <string name="zen_daily_edition_notification">Irakurri gabeko %1$d artikulu prest daude zure irakurketa fokatuarentzat.</string>
     <string name="zen_sleep_timer">Lo-tenporizadorea</string>
-    <string name="zen_sleep_timer_off">Continuous</string>
+    <string name="zen_sleep_timer_off">Etengabea</string>
     <string name="zen_sleep_timer_min">%1$d minutes</string>
     <string name="zen_volume">Volume: %1$d%%</string>
     <string name="zen_settings_title">Zen fokua eta irakurketa azkarra</string>
@@ -610,7 +610,7 @@
     <string name="highlights_bullet_count">%1$d ideia nagusi</string>
     <string name="highlights_copy_all">Kopiatu puntu nabarmenak</string>
     <string name="highlights_copied_toast">Puntu nabarmenak arbelera kopiatu dira</string>
-    <string name="highlights_share">Share</string>
+    <string name="highlights_share">Partekatu</string>
     <string name="highlights_tldr">Quick TL;DR</string>
     <string name="highlights_ai_badge">Gemini AI</string>
     <string name="highlights_fallback_badge">Offline adimenduna</string>
@@ -630,13 +630,13 @@
     <string name="deep_read_title">AI irakurketa sakona</string>
     <string name="deep_read_subtitle">Artikuluarekiko txat interaktiboa</string>
     <string name="deep_read_input_placeholder">Egin galdera bat artikulu honi buruz…</string>
-    <string name="deep_read_send">Send</string>
+    <string name="deep_read_send">Bidali</string>
     <string name="deep_read_clear_chat">Garbitu txata</string>
     <string name="deep_read_copied_toast">Erantzuna arbelera kopiatu da</string>
     <string name="deep_read_welcome_message">Kaixo! Artikulu hau aztertu dut. Egin nahi duzun galdera, eskatu argibideak edo sakatu beheko gai iradokiren bat.</string>
-    <string name="deep_read_context_label">Discussing:</string>
+    <string name="deep_read_context_label">Eztabaidatzen:</string>
     <string name="deep_read_thinking">AI artikulua aztertzen…</string>
-    <string name="deep_read_grounded_badge">Grounded</string>
+    <string name="deep_read_grounded_badge">Iturrietan oinarritua</string>
     <string name="deep_read_offline_badge">Offline adimenduna</string>
     <string name="deep_read_ai_badge">Gemini AI</string>
     <string name="deep_read_copy_transcript">Kopiatu elkarrizketa</string>
@@ -652,7 +652,7 @@
     <string name="story_cluster_all_perspectives">Ikuspegi guztiak (%d)</string>
     <string name="story_cluster_mark_all_read">Markatu guztiak irakurrita</string>
     <string name="story_cluster_sheet_title">Istorioaren ikuspegi anitzeko estaldura</string>
-    <string name="story_cluster_lead_badge">Lead</string>
+    <string name="story_cluster_lead_badge">Nagusia</string>
     <string name="semantic_search_title">AI bilaketa semantikoa</string>
     <string name="semantic_search_desc">Bilatu artikuluak kontzeptuaren eta esanahi semantikoaren arabera, ez gako-hitz zehatzen arabera</string>
     <string name="semantic_match_badge">%d%% match</string>
@@ -661,7 +661,7 @@
     <string name="watchdog_title">Gako-hitzen zaindaria</string>
     <string name="watchdog_desc">Monitorizatu gako-hitz kritikoak eta burtsa-tikerrak atzeko planoko sinkronizazioan eta jakinarazi berehala</string>
     <string name="watchdog_add_hint">Sartu gako-hitza edo tikerra (adib. $VIC, Bitcoin, Gold)...</string>
-    <string name="watchdog_add_btn">Add</string>
+    <string name="watchdog_add_btn">Gehitu</string>
     <string name="watchdog_empty_desc">Oraindik ez da gako-hitzik gehitu. Gehitu gako-hitzak edo aukeratu beheko iradokizunak zaintzen hasteko.</string>
     <string name="watchdog_matched_count">%d matched</string>
     <string name="watchdog_channel_name">Gako-hitzen alerta-zaindaria</string>
@@ -683,12 +683,12 @@
     <string name="notebook_empty_subtitle">Nabarmendu aipu inspiratzaileak irakurtzen duzun bitartean zure Bigarren Garunaren ezagutza antolatzeko.</string>
     <string name="notebook_empty_search">Ez da bat datorren nabarmendurik aurkitu</string>
 
-    <string name="notebook_save">Save</string>
-    <string name="notebook_copy">Copy</string>
-    <string name="notebook_edit">Edit</string>
+    <string name="notebook_save">Gorde</string>
+    <string name="notebook_copy">Kopiatu</string>
+    <string name="notebook_edit">Editatu</string>
     <string name="notebook_copied">Arbelera kopiatu da</string>
-    <string name="notebook_saved">Saved</string>
-    <string name="notebook_deleted">Deleted</string>
+    <string name="notebook_saved">Gordeta</string>
+    <string name="notebook_deleted">Ezabatuta</string>
     <string name="notebook_untitled">Izenbururik gabeko artikulua</string>
     <string name="ai_active_key_custom">Zure API gako pertsonala erabiltzen</string>
     <string name="ai_active_key_default">Kuota partekatu lehenetsia erabiltzen</string>
@@ -818,7 +818,7 @@
     <string name="second_brain_settings_desc">Ikusi irakurtzen dituzun gaiak nola lotzen diren denboran zehar</string>
     <string name="second_brain_empty">Irakurri edo gorde artikulu batzuk eta zure gai-grafoa hemen agertuko da.</string>
     <string name="second_brain_error">Ezin izan da grafoa eraiki. Saiatu berriro.</string>
-    <string name="second_brain_retry">Retry</string>
+    <string name="second_brain_retry">Saiatu berriro</string>
     <string name="second_brain_graph_desc">Gai-grafoa %1$d gai eta %2$d konexiorekin</string>
     <string name="second_brain_node_articles">%1$d articles</string>
     <string name="second_brain_range_label">Denbora-tartea</string>
@@ -841,7 +841,7 @@
     <!-- Share Target / Read Later (INGEST-02) -->
     <string name="read_later_feed_title">Irakurri geroago</string>
     <string name="share_target_save_btn">Gorde geroago irakurtzeko</string>
-    <string name="share_target_cancel_btn">Cancel</string>
+    <string name="share_target_cancel_btn">Utzi</string>
     <string name="share_target_saved_toast">Geroago irakurtzeko gorde da</string>
     <string name="share_target_invalid_url">Ez da baliozko estekarik aurkitu</string>
     <string name="read_position_sync">Sinkronizatu irakurketa-posizioa</string>
@@ -853,12 +853,12 @@
     <string name="smart_collection_save_action">Gorde bilduma gisa</string>
     <string name="smart_collection_empty">Oraindik ez dago bilduma adimendunik. Gorde bilaketa semantiko bat gai bat jarraitzeko.</string>
     <string name="smart_collection_articles_count">%1$d articles</string>
-    <string name="smart_collection_edit">Edit</string>
-    <string name="smart_collection_delete">Delete</string>
+    <string name="smart_collection_edit">Editatu</string>
+    <string name="smart_collection_delete">Ezabatu</string>
     <string name="smart_collection_delete_confirm">Bilduma hau ezabatu? Bere artikuluak zure liburutegian geratuko dira.</string>
     <string name="smart_collection_saved">Bilduma adimenduna gorde da</string>
     <string name="smart_collection_empty_articles">Oraindik ez dago bat datorren artikulu berririk. Bat-etortze berriak sinkronizatu ondoren agertuko dira.</string>
-    <string name="save">Save</string>
+    <string name="save">Gorde</string>
     <string name="eink_mode_title">E-Ink optimizazioa</string>
     <string name="eink_active_title">E-Ink modua aktibatuta dago</string>
     <string name="eink_active_desc">Aplikazioa zuri-beltzean erakusten da. Sakatu desaktibatzeko.</string>
@@ -937,8 +937,8 @@
     <string name="widget_article_pin_unsupported">Zure abiarazleak ez du widgeten ainguratze automatikoa onartzen</string>
     <!-- Feed Zero Triage (EXC-14) -->
     <string name="feed_zero_triage_title">Jarioak zerora triajea</string>
-    <string name="triage_swipe_left_skip">Skip</string>
-    <string name="triage_swipe_right_save">Save</string>
+    <string name="triage_swipe_left_skip">Saltatu</string>
+    <string name="triage_swipe_right_save">Gorde</string>
     <string name="triage_swipe_up_read">Irakurri orain</string>
     <string name="triage_progress_format">%1$d / %2$d</string>
     <string name="triage_inbox_zero_title">🎉 Sarrera-ontzia hutsik!</string>
@@ -947,7 +947,7 @@
     <string name="triage_summary_saved">Geroagorako gordeta: %1$d</string>
     <string name="triage_summary_skipped">Irakurrita markatuta: %1$d</string>
     <string name="triage_summary_xp">+%1$d Brain RPG XP</string>
-    <string name="triage_finish_button">Done</string>
+    <string name="triage_finish_button">Eginda</string>
     <!-- Brain Wrapped tuần (RPG-09) -->
     <string name="brain_wrapped_share_story">Partekatu istorioan</string>
     <string name="brain_wrapped_xp_label">Asteko XP</string>
@@ -992,14 +992,14 @@
     <string name="headline_signals_desc">Gailu honetan izenburuen eta artikuluen hitzak aztertzen ditu clickbait-aztarnak, publizitate/hype hitzak eta tonu emozionala (positiboa/argi gabea/negatiboa) bilatzeko. Ez da ezer inora bidaltzen eta ez da AIrik edo sarerik erabiltzen. Hitz-seinaleak baino ez dira, ez dira egiaztatzeak ezta alderdikeria politikoari buruzko iritziak. Gaztelania, frantsesa eta alemana esperimentalak dira.</string>
     <string name="headline_signals_clickbait_badge">🎯 Clickbait %1$d%%</string>
     <string name="headline_signals_clickbait_desc">Clickbait hizkeraren adierazlea: puntuazioa %1$d da 100etik.</string>
-    <string name="headline_signals_tone_positive">🟢 Positive</string>
-    <string name="headline_signals_tone_unclear">⚪ Unclear</string>
-    <string name="headline_signals_tone_negative">🔴 Negative</string>
+    <string name="headline_signals_tone_positive">🟢 Positiboa</string>
+    <string name="headline_signals_tone_unclear">⚪ Argitu gabea</string>
+    <string name="headline_signals_tone_negative">🔴 Negatiboa</string>
     <string name="headline_signals_tone_desc_positive">Izenburuaren tonu lexikoa: adierazle positiboak daude.</string>
     <string name="headline_signals_tone_desc_unclear">Izenburuaren tonu lexikoa: adierazle argi gabeak edo nahikoak ez direnak.</string>
     <string name="headline_signals_tone_desc_negative">Izenburuaren tonu lexikoa: adierazle negatiboak daude.</string>
     <string name="brain_rpg_skill_tree_decay_warning">Trebetasun hau denborarekin ahuldu da. Praktikatu berreskuratzeko.</string>
-    <string name="bounty_action_investigate">Investigate</string>
+    <string name="bounty_action_investigate">Ikertu</string>
     <string name="bounty_sheet_title">Entitateak ikertzeko agentea</string>
     <string name="bounty_scanning_status">Zure albiste-artxiboan bilatzen: %1$s…</string>
     <string name="bounty_stats_summary">%1$d artikulu erlazionatu • %2$d iturri</string>
@@ -1014,14 +1014,14 @@
     <string name="echo_hype_label">Hype: %1$d%%</string>
     <string name="echo_hype_warning">Publizitate-hitz gogorrak edo gehiegizkoak detektatu dira</string>
     <string name="echo_tone_label">Tone: %1$s</string>
-    <string name="echo_tone_positive">🟢 Positive</string>
-    <string name="echo_tone_unclear">⚪ Unclear</string>
-    <string name="echo_tone_negative">🔴 Negative</string>
+    <string name="echo_tone_positive">🟢 Positiboa</string>
+    <string name="echo_tone_unclear">⚪ Argitu gabea</string>
+    <string name="echo_tone_negative">🔴 Negatiboa</string>
     <string name="echo_details_title">Gorputz-hizkuntzaren seinaleak</string>
     <string name="echo_disclaimer">Tokiko hitz-seinaleak soilik; ez da egiaztatzea, sinesgarritasun-puntuazioa, alderdikeria politikoaren azterketa edo egilearen asmoaren aldarrikapena. “Argi gabea” esan nahi du ebidentzia lexiko nahikorik ez dagoela, ez neutroa dela.</string>
     <string name="echo_flagged_passages_title">Markatutako pasarteak (%1$d)</string>
     <string name="echo_cue_promotional">Publizitate-esapidea</string>
-    <string name="echo_cue_intensifier">Exaggeration</string>
+    <string name="echo_cue_intensifier">Gehiegikeria</string>
     <string name="echo_cue_absolute">Baieztapen absolutua</string>
     <string name="echo_cue_exclamation">Puntuazio- edo maiuskula-azpimarra</string>
     <string name="echo_no_passages">Ez da paragraforik Hype atalasea gainditu duenik.</string>
@@ -1029,10 +1029,10 @@
     <!-- BOUNTY-02 dossier -->
     <string name="dossier_create_action">Sortu dosierra</string>
     <string name="dossier_sheet_title">Tokiko inteligentzia-dosierra</string>
-    <string name="dossier_tab_summary">Summary</string>
-    <string name="dossier_tab_timeline">Timeline</string>
-    <string name="dossier_tab_names">Names</string>
-    <string name="dossier_tab_sources">Sources</string>
+    <string name="dossier_tab_summary">Laburpena</string>
+    <string name="dossier_tab_timeline">Denbora-lerroa</string>
+    <string name="dossier_tab_names">Izenak</string>
+    <string name="dossier_tab_sources">Iturriak</string>
     <string name="dossier_share_action">Partekatu Markdown</string>
     <string name="dossier_chooser_title">Partekatu dosierra</string>
     <string name="dossier_limitation">Aplikazio honetan gordetako artikuluetatik soilik eraikia. Ikuspegiak ahaztu ditzake eta ez da egiaztatzea.</string>
@@ -1055,7 +1055,7 @@
     <string name="streak_rescue_message">%1$d egun irakurri gabe utzi dituzu. Zure %2$d eguneko segida berrezarri egingo da hurrengo irakurketan.</string>
     <string name="streak_rescue_action_ad">Ikusi bideoa segida salbatzeko</string>
     <string name="streak_rescue_action_restart">Hasi hutsetik</string>
-    <string name="streak_rescue_action_later">Later</string>
+    <string name="streak_rescue_action_later">Geroago</string>
     <string name="streak_rescue_ad_failed">Ezin izan da bideoa kargatu. Saiatu berriro.</string>
 
     <!-- ZEN-07 RSVP calibration -->
@@ -1070,8 +1070,8 @@
     <string name="zen_calibration_suggested_wpm">Iradokitako abiadura: ~%1$d WPM</string>
     <string name="zen_calibration_limitation">Hau 6 galderatatik ateratako gutxi gorabeherako balioespena da, ez ulermen sakonaren neurria. Abiadura eskuz doitu dezakezu beti.</string>
     <string name="zen_calibration_low_confidence_note">Zure erantzunak aldatu egin dira abiaduren artean; saiatu zure erritmoan irakurtzen eta kalibratu berriro geroago.</string>
-    <string name="zen_calibration_apply">Apply</string>
-    <string name="zen_calibration_skip">Skip</string>
+    <string name="zen_calibration_apply">Aplikatu</string>
+    <string name="zen_calibration_skip">Saltatu</string>
     <string name="zen_calibration_settings_desc">Kalibratu zure irakurketa-abiadura 3 txanda laburretan</string>
 
     <!-- ECHO-02 contrasting coverage -->
@@ -1085,7 +1085,7 @@
     <string name="echo_dual_export">Esportatu txartela</string>
     <string name="echo_dual_export_desc">Esportatu bi izenburuko txartela honekin: %1$s</string>
     <string name="echo_dual_title">Partekatu bi izenburu</string>
-    <string name="echo_dual_share">Share</string>
+    <string name="echo_dual_share">Partekatu</string>
     <string name="echo_dual_cut_note">Izenburu bat laburtu da</string>
     <string name="echo_dual_error">Ezin izan da txartela sortu. Sakatu berriro saiatzeko.</string>
     <string name="echo_dual_chooser_title">Partekatu bi izenburuko txartela</string>
@@ -1096,7 +1096,7 @@
     <string name="curated_bundle_verified_on">Checked %1$s</string>
     <string name="curated_bundle_source_count">Sources: %1$d</string>
     <string name="curated_bundle_subscribe_all">Harpidetu guztietan</string>
-    <string name="curated_bundle_subscribing">Subscribing…</string>
+    <string name="curated_bundle_subscribing">Harpidetzen…</string>
     <string name="curated_bundle_progress">Subscribing %1$d of %2$d</string>
     <string name="curated_bundle_result">Gehituta %1$d · bazeuden %2$d · huts egin du %3$d</string>
     <string name="curated_bundle_error">Ezin izan da harpidetu: %1$s</string>
@@ -1104,11 +1104,11 @@
     <string name="curated_bundle_account_local_only">Sorta oso batean harpidetzea kontu lokalean soilik dago erabilgarri.</string>
 
     <!-- FRONT-03 knowledge galaxy -->
-    <string name="galaxy_mode_concepts">Concepts</string>
-    <string name="galaxy_mode_stars">Galaxy</string>
+    <string name="galaxy_mode_concepts">Kontzeptuak</string>
+    <string name="galaxy_mode_stars">Galaxia</string>
     <string name="galaxy_empty">Markatu artikulu batzuk irakurrita eta izar gisa distiratuko dute hemen. Saiatu denbora-tartea zabaltzen.</string>
     <string name="galaxy_error">Ezin izan da galaxia eraiki. Saiatu berriro.</string>
-    <string name="galaxy_retry">Retry</string>
+    <string name="galaxy_retry">Saiatu berriro</string>
     <string name="galaxy_reset_view">Berrezarri ikuspegia</string>
     <string name="galaxy_stats">Izarrak: %1$d · Estekak: %2$d</string>
     <string name="galaxy_star_open">Ireki artikulua</string>
@@ -1126,7 +1126,7 @@
     <string name="second_screen_viewers">Viewers: %1$d</string>
     <string name="second_screen_expires">Expires at %1$s</string>
     <string name="second_screen_warning">Ez dago zifratuta. Wi-Fi honetan estekaren berri duen edonork artikulua irakur dezake. Erabili soilik fidagarria den sare batean.</string>
-    <string name="second_screen_starting">Starting…</string>
+    <string name="second_screen_starting">Abiarazten…</string>
     <string name="second_screen_no_network">Ez dago helbide pribatua duen Wi-Fi edo Ethernet saririk. Konektatu Wi-Firen eta saiatu berriro.</string>
     <string name="second_screen_lan_permission_denied">Sare lokalerako sarbidea desaktibatuta dago. Baimendu Ezarpenetan artikuluak bigarren pantailan erakusteko.</string>
     <string name="second_screen_expired">Saioa amaitu da. Aktibatu berriro esteka berri bat lortzeko.</string>
@@ -1137,8 +1137,8 @@
     <string name="galaxy_related_title">Erlazionatutako artikuluak</string>
     <string name="galaxy_shared_terms">Partekatutako hitzak: %1$s</string>
     <string name="local_sync_title">Sinkronizazio lokala</string>
-    <string name="local_sync_send">Send</string>
-    <string name="local_sync_receive">Receive</string>
+    <string name="local_sync_send">Bidali</string>
+    <string name="local_sync_receive">Jaso</string>
     <string name="local_sync_send_instructions">Sortu paketea zifratua sare lokal honetako beste gailu baterako.</string>
     <string name="local_sync_secret_warning">Partekatu parekatze-sekretu hau URLtik bereizita. Biak dituen edonork paketea irakur dezake.</string>
     <string name="local_sync_http_warning">HTTPk ez ditu ezkutatzen URLa, gailuaren helbidea, ordua edo transferentziaren tamaina. Paketearen edukia soilik dago zifratuta. Erabili sare lokal fidagarri bat.</string>
@@ -1162,7 +1162,7 @@
     <string name="local_sync_apply">Aplikatu aldaketak</string>
     <string name="local_sync_confirm_apply">Sinkronizazio-aldaketak aplikatu?</string>
     <string name="local_sync_confirm_counts">Gehituko diren jarioak: %1$d. Eguneratuko diren artikulu-egoerak: %2$d. Aldaketa hauek aplikatu?</string>
-    <string name="local_sync_cancel">Cancel</string>
+    <string name="local_sync_cancel">Utzi</string>
     <string name="local_sync_done">Sinkronizazio-aldaketak aplikatu dira.</string>
     <string name="local_sync_not_local">Aukeratu kontu lokal bat sinkronizazioa erabiltzeko.</string>
     <string name="local_sync_error_network">Ezin izan da sinkronizazio-saiora konektatu. Egiaztatu URLa eta sare lokala.</string>
@@ -1188,9 +1188,9 @@
     <string name="local_sync_reply_instruction">Eskatu beste telefonoari bidaltzeari uzteko eta Jaso lehenengo irekitzeko.</string>
     <string name="local_sync_merge_limit">Bateratzeak irakurrita eta izardun markak soilik mantentzen ditu; telefono batean irakurri gabe markatzeak edo izarra kentzeak sinkronizatu ondoren itzul daitezke.</string>
     <string name="local_sync_peer_unconfirmed">Beste gailuak behin jaso arte itxaroten</string>
-    <string name="local_sync_peer_confirmed">Paired</string>
+    <string name="local_sync_peer_confirmed">Lotuta</string>
     <string name="local_sync_peer_needs_repair">Ezin da erabili telefono honetan. Ahaztu eta parekatu berriro.</string>
-    <string name="local_sync_forget_peer">Forget</string>
+    <string name="local_sync_forget_peer">Ahaztu</string>
     <string name="local_sync_confirm_peer">Markatu parekatuta gisa</string>
     <string name="local_sync_nearby_title">Parekatutako gailu bat gertu dago.</string>
     <string name="local_sync_no_peer_found">Oraindik ez da gertuko gailurik aurkitu. Ireki Bidali beste gailuan.</string>
@@ -1202,7 +1202,7 @@
     <!-- EXC-11 Temporal Ask My Archive -->
     <string name="archive_query_title">Galdetu nire artxiboari</string>
     <string name="archive_query_desc">Galdetu gai bati buruz eta ikusi zure gordetako artikuluek nola jorratu duten, hilabeteka.</string>
-    <string name="archive_query_question_label">Question</string>
+    <string name="archive_query_question_label">Galdera</string>
     <string name="archive_query_question_hint">adib. interes-tasak martxotik</string>
     <string name="archive_query_search">Bilatu artxiboan</string>
     <string name="archive_query_start_date">Hasiera-data (UUUU-HH-EE)</string>
@@ -1241,7 +1241,7 @@
     <string name="feed_autopilot_summary_clean">Zure jarioak txukun daude. Ez da jario zaratatsurik detektatu.</string>
     <string name="feed_autopilot_reason_opened">%2$d artikulutik %1$d ireki dira (azken %3$d egunak; %4$d%% ekintza)</string>
     <string name="feed_autopilot_reason_zero">Ez da artikulurik ireki azken %2$d egunetako %1$d artikuluen artean</string>
-    <string name="feed_autopilot_action_unsubscribe">Unsubscribe</string>
+    <string name="feed_autopilot_action_unsubscribe">Ezabatu harpidetza</string>
     <string name="feed_autopilot_action_snooze">Atzeratu 30 egunez</string>
     <string name="feed_autopilot_action_keep">Mantendu eta utzi iradokitzeari</string>
     <string name="feed_autopilot_confirm_title">%1$s jarioaren harpidetza kendu?</string>
@@ -1256,14 +1256,14 @@
     <string name="podcast_studio_menu">Podcast estudioa</string>
     <string name="podcast_studio_consent_title">Gidoia AIrekin idatzi?</string>
     <string name="podcast_studio_consent_message">Artikulu honen izenburua eta aurrebista labur bat (250 karaktere baino gutxiago) soilik bidaltzen zaizkio Google Gemini-ri bi aurkezleko gidoi bat idazteko. Artikuluaren testua, estekak eta zure irakurketa-historia ez dira inoiz bidaltzen.</string>
-    <string name="podcast_studio_consent_agree">Use AI</string>
+    <string name="podcast_studio_consent_agree">Erabili AI</string>
     <string name="podcast_studio_consent_decline">Erabili offline gidoia</string>
     <string name="podcast_studio_conflict_title">Orain entzuten ari dena gelditu?</string>
     <string name="podcast_studio_conflict_message">Artikulu hau podcast gisa erreproduzitzeak orain entzuten ari den audioa geldituko du.</string>
     <string name="podcast_studio_badge_source_gemini">Gidoia AIk idatzia</string>
     <string name="podcast_studio_badge_source_heuristic">Offline gidoia, AIrik gabe</string>
-    <string name="podcast_studio_play">Play</string>
-    <string name="podcast_studio_pause">Pause</string>
+    <string name="podcast_studio_play">Erreproduzitu</string>
+    <string name="podcast_studio_pause">Eten</string>
     <string name="podcast_studio_next">Hurrengo lerroa</string>
     <string name="podcast_studio_previous">Aurreko lerroa</string>
     <string name="podcast_studio_host_alex">Alex</string>
@@ -1273,7 +1273,7 @@
     <string name="deep_dive_menu">🔬 AI sakoneko azterketa</string>
     <string name="deep_dive_title">AI sakoneko azterketa</string>
     <string name="deep_dive_consent_message">Artikuluaren izenburua eta bere testuaren 6.000 karaktere arte bidaltzen zaizkio Google Gemini-ri txosten hau idazteko. Estekak, jarioaren izena eta zure irakurketa-historia ez dira inoiz bidaltzen. Geminik ez du webean bilatzen.</string>
-    <string name="deep_dive_consent_agree">Agree</string>
+    <string name="deep_dive_consent_agree">Onartu</string>
     <string name="deep_dive_consent_later">Orain ez</string>
     <string name="deep_dive_declined_message">AI sakoneko azterketa desaktibatuta dago. Aktibatu Ezarpenak, Pribatutasuna atalean txosten bat idazteko.</string>
     <string name="deep_dive_open_privacy">Ireki pribatutasun-ezarpenak</string>
@@ -1283,30 +1283,30 @@
     <string name="deep_dive_nothing_to_analyze">Artikulu honek ez dauka aztertzeko izenburu edo testurik.</string>
     <string name="deep_dive_retry">Saiatu berriro</string>
     <string name="deep_dive_label">AIk idatzia izenburutik eta zati batetik; webean bilaketarik gabe; oker egon daiteke</string>
-    <string name="deep_dive_section_context">Context</string>
+    <string name="deep_dive_section_context">Testuingurua</string>
     <string name="deep_dive_section_critical">Kontrako ikuspegiak</string>
     <string name="deep_dive_section_impact">Eragin-matrizea</string>
-    <string name="deep_dive_col_area">Area</string>
+    <string name="deep_dive_col_area">Eremua</string>
     <string name="deep_dive_col_short">Epe laburra</string>
     <string name="deep_dive_col_long">Epe luzea</string>
     <string name="deep_dive_export_pdf">Esportatu PDF</string>
     <string name="deep_dive_chooser_title">Partekatu sakoneko azterketaren PDFa</string>
     <string name="deep_dive_export_error">Ezin izan da PDFa sortu</string>
     <string name="deep_dive_pdf_truncated">Orrialde batean sartzeko moztu da. Ikusi txosten osoa aplikazioan.</string>
-    <string name="deep_dive_close">Close</string>
-    <string name="oracle_badge_label">Prediction</string>
+    <string name="deep_dive_close">Itxi</string>
+    <string name="oracle_badge_label">Iragarpena</string>
     <string name="oracle_badge_open">Ireki iragarpena</string>
     <string name="oracle_sheet_title">Artikulu honetan aurkitutako iragarpena</string>
     <string name="oracle_sheet_expires">Expected by %1$s</string>
     <string name="oracle_sheet_criteria_heading">Nola egiaztatu erantzuna</string>
     <string name="oracle_sheet_ai_label">AIk idatzia izenburutik eta azalpenetik; oker egon daiteke.</string>
-    <string name="oracle_sheet_close">Close</string>
+    <string name="oracle_sheet_close">Itxi</string>
     <string name="oracle_consent_title">Aurkitu iragarpenak artikulu berrietan</string>
     <string name="oracle_consent_message">Sinkronizazio bakoitzaren ondoren, gehienez 5 artikulu berriren izenburua eta azalpen labur bat (guztira 500 karaktere arte) bidaltzen zaizkio Google Gemini-ri iragarpen bat bilatzeko. Artikuluen testua, estekak, jarioaren izena eta zure irakurketa-historia ez dira inoiz bidaltzen. Lehenespenez desaktibatuta.</string>
     <string name="oracle_bet_balance">Saldoa: %1$s puntu</string>
     <string name="oracle_bet_pick_side">Zure aukera</string>
-    <string name="oracle_bet_yes">Yes</string>
-    <string name="oracle_bet_no">No</string>
+    <string name="oracle_bet_yes">Bai</string>
+    <string name="oracle_bet_no">Ez</string>
     <string name="oracle_bet_pick_stake">Jokatzeko puntuak</string>
     <string name="oracle_bet_stake_option">%1$s points</string>
     <string name="oracle_bet_place">Egin apustua</string>
@@ -1315,7 +1315,7 @@
     <string name="oracle_bet_open">%1$s puntu apustu egin dituzu honen alde: %2$s.</string>
     <string name="oracle_bet_open_hint">Emaitza goiko data igaro ondoren jakinaraz dezakezu.</string>
     <string name="oracle_bet_awaiting_title">Zein izan da emaitza?</string>
-    <string name="oracle_bet_outcome_unclear">Unclear</string>
+    <string name="oracle_bet_outcome_unclear">Argitu gabea</string>
     <string name="oracle_bet_awaiting_hint">%1$s puntu apustu egin dituzu honen alde: %2$s. Argi gabea aukeratuz gero, puntuak itzultzen zaizkizu.</string>
     <string name="oracle_bet_settled_won">%1$s puntu irabazi dituzu.</string>
     <string name="oracle_bet_settled_lost">%1$s puntu galdu dituzu.</string>
@@ -1338,7 +1338,7 @@
     <string name="commute_autoplay_title">Erreproduzitu Bluetooth entzungailuak konektatzean</string>
     <string name="commute_autoplay_desc">Goizeko atala egunean behin hasten saiatzen da, prest dagoenetik 2 orduko epean. Androidek blokeatzen badu, Erreproduzitu botoia duen jakinarazpena jasoko duzu.</string>
     <string name="commute_autoplay_permission_denied">Inguruko gailuen baimenik gabe aplikazioak ezin ditu zure entzungailuak ikusi, beraz hau desaktibatuta geratzen da.</string>
-    <string name="commute_play_action">Play</string>
+    <string name="commute_play_action">Erreproduzitu</string>
     <string name="commute_ready_to_play_title">Zure goizeko atala prest dago</string>
     <string name="commute_ready_to_play_body">Zure entzungailuak konektatuta daude. Sakatu Erreproduzitu entzuteko.</string>
 </resources>
