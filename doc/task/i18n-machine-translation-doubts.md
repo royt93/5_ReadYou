@@ -804,3 +804,119 @@ Trước đợt này 14 locale có 6.603 chuỗi y hệt tiếng Anh (đếm chu
 - `feed_autopilot_title`: 'Autopilot' rendered as 自动驾驶
 - `brain_rpg_title`: brand-like name kept
 - `oracle_bet_balance`: 'points' unit 点 vs 积分
+
+
+# Đợt 3: chuỗi một chữ còn tiếng Anh trong 14 locale (2026-11-25)
+
+Sau đợt 2 vẫn còn 1.397 chuỗi một chữ (ví dụ `version`, `retry`, `about_title`) y hệt tiếng Anh, thấy trên Pixel ở dòng "Version" trong Cài đặt tiếng Ả Rập. Đã dịch bằng mô hình ngôn ngữ (7 lượt); từ mượn quốc tế (Feeds, Text, Name, Reddit, VIP, Gemini AI) giữ nguyên ở những ngôn ngữ dùng đúng từ đó. Chưa người bản ngữ duyệt. Chuỗi tự đánh dấu nghi ngờ:
+
+## uk (5 chuỗi)
+- `deep_read_grounded_badge`: Grounded = answer backed by article sources
+- `story_cluster_lead_badge`: Lead = main article of a cluster
+- `echo_cue_intensifier`: Exaggeration cue word
+- `galaxy_mode_stars`: Galaxy view name
+- `deep_dive_col_area`: Area as table column
+
+## pl-rPL (7 chuỗi)
+- `deep_read_grounded_badge`: Grounded = answer backed by article sources
+- `story_cluster_lead_badge`: Lead = main article of a cluster
+- `echo_cue_intensifier`: Exaggeration cue word
+- `galaxy_mode_stars`: Galaxy view name
+- `deep_dive_col_area`: Area as table column
+- `brain_rpg_streak_shield_protected`: Protected shield state
+- `echo_hype_label`: Hype kept as loanword
+
+## it-rIT (7 chuỗi)
+- `text`: One-word UI label; assumed 'Testo' (text content/format)
+- `general`: Assumed settings section 'Generali'
+- `bounty_time_range`: 'Timeline' rendered as 'Cronologia'
+- `deep_read_grounded_badge`: 'Grounded' = source-backed answer; 'Basato su fonti' is a guess
+- `echo_cue_intensifier`: 'Exaggeration' as cue label
+- `brain_rpg_stats_passed`: 'Correct' used for passed count
+- `deep_dive_col_area`: 'Area' ambiguous; 'Ambito' guess
+
+## in-rID (5 chuỗi)
+- `deep_read_grounded_badge`: 'Grounded' = source-backed answer; 'Berbasis sumber' is a guess
+- `echo_cue_intensifier`: 'Exaggeration' as cue label
+- `brain_rpg_stats_passed`: 'Correct' used for passed count
+- `local_sync_peer_confirmed`: 'Paired' as device pairing; 'Terpasang' guess
+- `deep_dive_col_area`: 'Area' ambiguous
+
+## ar (7 chuỗi)
+- `deep_read_grounded_badge`: Grounded: no exact Arabic equivalent
+- `echo_hype_label`: Hype rendered as exaggeration score
+- `second_brain_node_articles`: plural form of 'articles' varies by count in Arabic
+- `dossier_article_count`: plural form varies by count
+- `smart_collection_articles_count`: plural form varies by count
+- `headline_signals_clickbait_badge`: clickbait rendered as misleading headline
+- `bounty_action_investigate`: verb sense
+
+## pt-rBR (6 chuỗi)
+- `local`: Local: ambiguous (device-local vs place)
+- `deep_read_grounded_badge`: Grounded: rendered as 'with sources'
+- `echo_hype_label`: Hype rendered as Exagero
+- `feeds`: kept English loanword Feeds
+- `reels_title`: brand-like term kept
+- `headline_signals_clickbait_badge`: Caça-cliques for clickbait
+
+## pt (5 chuỗi)
+- `local`: Could be 'Local' (storage/account) - kept 'Local'
+- `echo_hype_label`: 'Hype' rendered as 'Entusiasmo'
+- `semantic_match_badge`: 'match' as 'correspondência'
+- `podcast_studio_consent_agree`: kept 'AI' per rules (PT usually 'IA')
+- `bounty_time_range`: 'Timeline' as 'Cronologia'
+
+## ru-rRU (5 chuỗi)
+- `echo_hype_label`: 'Hype' as slang 'Хайп'
+- `bounty_action_investigate`: 'Investigate' as 'Изучить'
+- `dossier_tab_summary`: 'Summary' as 'Сводка'
+- `galaxy_mode_stars`: 'Galaxy' as 'Галактика'
+- `podcast_studio_consent_agree`: kept 'AI' per rules
+
+## es-rES (7 chuỗi)
+- `text`: Could be 'Texto' (content) vs. text style
+- `general`: Settings category 'General'
+- `local`: Local vs. on-device; kept 'Local'
+- `preview_feed_name`: Brand, kept
+- `echo_cue_intensifier`: Exaggeration cue word
+- `deep_dive_col_area`: 'Area' as table column: Área vs Zona
+- `story_cluster_lead_badge`: 'Lead' story: Principal
+
+## zh-rTW (5 chuỗi)
+- `echo_hype_label`: Hype rendered as 炒作程度
+- `echo_cue_intensifier`: Exaggeration cue word
+- `deep_dive_col_area`: 'Area' as table column: 領域 vs 區域
+- `headline_signals_clickbait_badge`: Clickbait as 標題黨 (informal)
+- `oracle_bet_stake_option`: points -> 點
+
+## de-rDE (9 chuỗi)
+- `text`: ambiguous; German UI word is also Text
+- `system_default`: System (theme default) kept
+- `sponsor`: noun kept as Sponsor
+- `feeds`: loanword Feeds common in German RSS apps
+- `story_cluster_lead_badge`: Lead -> Hauptartikel guess
+- `echo_dual_share`: verb 'Teilen'
+- `galaxy_mode_stars`: English value 'Galaxy'
+- `radar_diff_text`: Text (diff of text)
+- `podcast_studio_consent_agree`: 'Use AI' translated as 'AI verwenden'
+
+## ja (5 chuỗi)
+- `zen_sleep_timer_off`: 'Continuous' = no sleep timer; rendered 連続再生
+- `deep_dive_col_area`: Area as column header; 分野
+- `echo_cue_intensifier`: Exaggeration cue; 誇張表現
+- `podcast_studio_host_alex`: host names transliterated
+- `galaxy_mode_stars`: Galaxy -> ギャラクシー
+
+## fr-rFR (6 chuỗi)
+- `sponsor`: Ambiguous: sponsor as a noun/label, rendered 'Soutenir' (support)
+- `style`: Kept 'Style' (same word in French)
+- `local`: Kept 'Local'; could mean on-device
+- `general`: Settings group 'Général'
+- `podcast_studio_consent_agree`: Uses IA (French for AI) for natural grammar
+- `echo_hype_label`: Hype rendered as 'Battage'
+
+## zh-rCN (4 chuỗi)
+- `open_link_specific_browser_not_selected`: 'None' read as no browser selected
+- `echo_hype_label`: Hype rendered as 炒作度
+- `local_sync_forget_peer`: Forget a paired device; 忽略 vs 移除
+- `deep_dive_col_area`: Area as table column; 领域 chosen

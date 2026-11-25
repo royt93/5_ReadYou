@@ -380,10 +380,10 @@
     <string name="inoreader_desc" translatable="false">inoreader.com</string>
     <string name="fresh_rss_desc" translatable="false">freshrss.org</string>
     <string name="google_reader_desc" translatable="false">Google Reader API</string>
-    <string name="in_coding">In development</string>
+    <string name="in_coding">Dalam pengembangan</string>
     <string name="tips_top_bar_tonal_elevation">Ketinggian tonal hanya tersedia saat menggulir</string>
     <string name="summary_title">Ringkas dengan AI</string>
-    <string name="summary_loading">Summarizing…</string>
+    <string name="summary_loading">Meringkas…</string>
     <string name="summary_try_again">Coba lagi</string>
     <string name="summary_get_key">Dapatkan kunci gratis</string>
     <string name="summary_err_empty_content">Artikel tidak memiliki konten untuk diringkas</string>
@@ -399,13 +399,13 @@
     <string name="vip_settings_desc">Kelola VIP, tukar kode, hapus iklan</string>
     <string name="vip_active">VIP aktif</string>
     <string name="vip_free_user">Pengguna gratis</string>
-    <string name="vip_until">Until %1$s</string>
-    <string name="vip_activated_at">Activated: %1$s</string>
-    <string name="vip_expires_at">Expires: %1$s</string>
+    <string name="vip_until">Hingga %1$s</string>
+    <string name="vip_activated_at">Diaktifkan: %1$s</string>
+    <string name="vip_expires_at">Berakhir: %1$s</string>
     <string name="vip_remaining_short">Sisa %1$d hari %2$d jam</string>
     <string name="vip_redeem_label">Masukkan kode VIP</string>
     <string name="vip_redeem_hint">mis. kode VIP Anda</string>
-    <string name="vip_redeem_button">Activate</string>
+    <string name="vip_redeem_button">Aktifkan</string>
     <string name="vip_watch_ad_3d">Tonton iklan → VIP 3 hari</string>
     <string name="vip_buy_30d_locked">Beli VIP 30 hari — segera hadir</string>
     <string name="vip_buy_90d_locked">Beli VIP 90 hari — segera hadir</string>
@@ -417,9 +417,9 @@
     <string name="vip_revoke_all_confirm_message">Yakin ingin mencabut VIP dan kembali ke akun Gratis?</string>
     <string name="vip_entry_first_install">🎁 Hadiah instal baru</string>
     <string name="vip_entry_active">Keanggotaan VIP</string>
-    <string name="vip_success_title">Success</string>
+    <string name="vip_success_title">Berhasil</string>
     <string name="vip_success_message">VIP aktif selama %1$d hari.</string>
-    <string name="vip_failed_title">Failed</string>
+    <string name="vip_failed_title">Gagal</string>
     <string name="ad_attribution_label" translatable="false">Ad Networks (AdMob / AppLovin MAX)</string>
     <string name="vip_failed_busy">Kode sebelumnya masih diperiksa. Tunggu sebentar lalu coba lagi.</string>
     <string name="vip_failed_no_network">Mengaktifkan kode memerlukan koneksi internet. Sambungkan lalu coba lagi.</string>
@@ -436,8 +436,8 @@
     <string name="commute_deepdive_unlocked">🎉 Deep Dive Terbuka!</string>
     <string name="commute_empty">Tidak ada artikel belum dibaca untuk radio pagi</string>
     <string name="commute_generating">DJ AI sedang menyusun acara Anda...</string>
-    <string name="retry">Retry</string>
-    <string name="version">Version</string>
+    <string name="retry">Coba lagi</string>
+    <string name="version">Versi</string>
     <string name="rate_app">Beri nilai aplikasi</string>
     <string name="rate_app_desc">Beri bintang 5 jika aplikasi ini berguna bagi Anda</string>
     <string name="more_apps">Dapatkan aplikasi lainnya</string>
@@ -446,7 +446,7 @@
     <string name="share_app_desc">Bagikan aplikasi ini agar orang lain bisa menggunakannya bersama Anda</string>
     <string name="term_and_policy">Ketentuan &amp; Kebijakan</string>
     <string name="term_and_policy_desc">Baca ketentuan keamanan dan kebijakan privasi</string>
-    <string name="about_title">About</string>
+    <string name="about_title">Tentang</string>
     <string name="about_desc">Mengenal aplikasi ini</string>
     <string name="source_code_original">Kode sumber (versi asli)</string>
     <string name="source_code_current">Kode sumber (versi ini)</string>
@@ -472,7 +472,7 @@
     <string name="quiz_ai_no_key">Tidak ada kunci Gemini, sehingga AI tidak dapat menulis pertanyaan.</string>
     <string name="quiz_ai_nothing_to_ask">Artikel ini tidak memiliki judul atau pratinjau untuk dijadikan pertanyaan.</string>
     <string name="quiz_ai_retry">Coba lagi</string>
-    <string name="quiz_ai_consent_agree">Agree</string>
+    <string name="quiz_ai_consent_agree">Setuju</string>
     <string name="quiz_ai_consent_later">Nanti saja</string>
     <string name="quiz_ai_declined_message">Pertanyaan kuis AI nonaktif. Aktifkan di Pengaturan, Privasi, untuk mendapat pertanyaan di sini.</string>
     <string name="quiz_ai_open_privacy">Buka pengaturan Privasi</string>
@@ -498,20 +498,20 @@
     <string name="brain_rpg_decay_notification_channel_desc">Ringkasan harian penurunan kategori</string>
     <string name="brain_rpg_xp_retained">Dasar %1$d XP · %2$d%% dipertahankan</string>
     <string name="brain_rpg_streak_shield_success">Perisai Rangkaian diaktifkan!</string>
-    <string name="brain_rpg_streak_shield_protected">Protected</string>
+    <string name="brain_rpg_streak_shield_protected">Terlindungi</string>
     <string name="brain_rpg_target_xp">Target: %1$d XP</string>
     <string name="brain_rpg_skill_tree_title">Pohon Keahlian Pengetahuan</string>
     <string name="brain_rpg_stats_title">Statistik Tantangan AI</string>
-    <string name="brain_rpg_stats_attempted">Attempted</string>
-    <string name="brain_rpg_stats_passed">Correct</string>
-    <string name="brain_rpg_stats_accuracy">Accuracy</string>
+    <string name="brain_rpg_stats_attempted">Dicoba</string>
+    <string name="brain_rpg_stats_passed">Benar</string>
+    <string name="brain_rpg_stats_accuracy">Akurasi</string>
     <string name="brain_rpg_wrapped_desc">"Anda mendapat %1$d XP dan mempertahankan rangkaian membaca %2$d hari! Bagikan pencapaian Anda untuk menginspirasi orang lain."</string>
 
     <!-- Epic 08: Zen Focus & Speed Reading -->
     <string name="zen_speed_reading">Baca Cepat (RSVP)</string>
     <string name="zen_speed_reading_desc">Baca hingga 900 kata per menit dengan perataan fokus tetap</string>
     <string name="zen_wpm_label">Kecepatan Membaca: %1$d WPM</string>
-    <string name="zen_words_progress">%1$d / %2$d words</string>
+    <string name="zen_words_progress">%1$d / %2$d kata</string>
     <string name="zen_ambient_audio">Audio Fokus Zen</string>
     <string name="zen_ambient_audio_desc">Suasana suara yang menenangkan untuk konsentrasi membaca mendalam</string>
     <string name="zen_sound_rain">Hujan Lembut</string>
@@ -526,8 +526,8 @@
     <string name="zen_evening_edition">Evening Edition (20:00)</string>
     <string name="zen_daily_edition_notification">%1$d artikel belum dibaca siap untuk bacaan fokus Anda.</string>
     <string name="zen_sleep_timer">Timer Tidur</string>
-    <string name="zen_sleep_timer_off">Continuous</string>
-    <string name="zen_sleep_timer_min">%1$d minutes</string>
+    <string name="zen_sleep_timer_off">Terus-menerus</string>
+    <string name="zen_sleep_timer_min">%1$d menit</string>
     <string name="zen_volume">Volume: %1$d%%</string>
     <string name="zen_settings_title">Fokus Zen &amp; Baca Cepat</string>
     <!-- Loop 09: AI Article Highlights & Key Takeaways Card -->
@@ -537,8 +537,8 @@
     <string name="highlights_bullet_count">%1$d poin penting</string>
     <string name="highlights_copy_all">Salin Sorotan</string>
     <string name="highlights_copied_toast">Sorotan disalin ke papan klip</string>
-    <string name="highlights_share">Share</string>
-    <string name="highlights_tldr">Quick TL;DR</string>
+    <string name="highlights_share">Bagikan</string>
+    <string name="highlights_tldr">TL;DR cepat</string>
     <string name="highlights_ai_badge">Gemini AI</string>
     <string name="highlights_fallback_badge">Cerdas Offline</string>
     <string name="highlights_retry_ai">Analisis dengan Gemini AI</string>
@@ -557,13 +557,13 @@
     <string name="deep_read_title">Baca Mendalam AI</string>
     <string name="deep_read_subtitle">Obrolan Artikel Interaktif</string>
     <string name="deep_read_input_placeholder">Ajukan pertanyaan tentang artikel ini…</string>
-    <string name="deep_read_send">Send</string>
+    <string name="deep_read_send">Kirim</string>
     <string name="deep_read_clear_chat">Hapus Obrolan</string>
     <string name="deep_read_copied_toast">Jawaban disalin ke papan klip</string>
     <string name="deep_read_welcome_message">Halo! Saya sudah menganalisis artikel ini. Ajukan pertanyaan apa saja, minta penjelasan, atau ketuk topik yang disarankan di bawah.</string>
-    <string name="deep_read_context_label">Discussing:</string>
+    <string name="deep_read_context_label">Dibahas:</string>
     <string name="deep_read_thinking">AI sedang menganalisis artikel…</string>
-    <string name="deep_read_grounded_badge">Grounded</string>
+    <string name="deep_read_grounded_badge">Berbasis sumber</string>
     <string name="deep_read_offline_badge">Cerdas Offline</string>
     <string name="deep_read_ai_badge">Gemini AI</string>
     <string name="deep_read_copy_transcript">Salin Percakapan</string>
@@ -579,18 +579,18 @@
     <string name="story_cluster_all_perspectives">Semua Sudut Pandang (%d)</string>
     <string name="story_cluster_mark_all_read">Tandai Semua Dibaca</string>
     <string name="story_cluster_sheet_title">Liputan Berita Multi-Sudut Pandang</string>
-    <string name="story_cluster_lead_badge">Lead</string>
+    <string name="story_cluster_lead_badge">Utama</string>
     <string name="semantic_search_title">Pencarian Semantik AI</string>
     <string name="semantic_search_desc">Cari artikel berdasarkan konsep dan makna semantik, bukan kata kunci persis</string>
-    <string name="semantic_match_badge">%d%% match</string>
+    <string name="semantic_match_badge">%d%% cocok</string>
     <string name="semantic_search_results_title">✨ Kecocokan Semantik AI</string>
     <string name="keyword_search_results_title">Kecocokan Kata Kunci</string>
     <string name="watchdog_title">Pengawas Kata Kunci</string>
     <string name="watchdog_desc">Pantau kata kunci penting &amp; kode saham saat sinkronisasi latar belakang dan beri peringatan segera</string>
     <string name="watchdog_add_hint">Masukkan kata kunci atau kode saham (mis. $VIC, Bitcoin, Emas)...</string>
-    <string name="watchdog_add_btn">Add</string>
+    <string name="watchdog_add_btn">Tambah</string>
     <string name="watchdog_empty_desc">Belum ada kata kunci. Tambahkan kata kunci atau pilih saran di bawah untuk mulai memantau.</string>
-    <string name="watchdog_matched_count">%d matched</string>
+    <string name="watchdog_matched_count">%d cocok</string>
     <string name="watchdog_channel_name">Peringatan Pengawas Kata Kunci</string>
     <string name="watchdog_channel_desc">Peringatan prioritas tinggi saat artikel baru cocok dengan kata kunci yang dipantau</string>
     <string name="watchdog_preset_title">Saran Cepat</string>
@@ -610,12 +610,12 @@
     <string name="notebook_empty_subtitle">Sorot kutipan yang menginspirasi saat membaca untuk menata pengetahuan Second Brain Anda.</string>
     <string name="notebook_empty_search">Tidak ada sorotan yang cocok</string>
 
-    <string name="notebook_save">Save</string>
-    <string name="notebook_copy">Copy</string>
+    <string name="notebook_save">Simpan</string>
+    <string name="notebook_copy">Salin</string>
     <string name="notebook_edit">Edit</string>
     <string name="notebook_copied">Disalin ke papan klip</string>
-    <string name="notebook_saved">Saved</string>
-    <string name="notebook_deleted">Deleted</string>
+    <string name="notebook_saved">Tersimpan</string>
+    <string name="notebook_deleted">Dihapus</string>
     <string name="notebook_untitled">Artikel Tanpa Judul</string>
 
     <string name="ai_active_key_custom">Menggunakan API key pribadi Anda</string>
@@ -702,7 +702,7 @@
     <string name="source_dna_unknown_source">Sumber tidak dikenal</string>
     <string name="source_dna_error">Tidak dapat menganalisis kelompok ini.</string>
     <string name="source_dna_back">Kembali ke sudut pandang</string>
-    <string name="source_dna_similarity">%1$d%% similar</string>
+    <string name="source_dna_similarity">%1$d%% mirip</string>
     <string name="source_dna_feed_reported_time">Waktu dari feed: %1$s</string>
     <string name="watchdog_clear_all">Hapus riwayat</string>
     <string name="watchdog_inbox_desc">Riwayat artikel yang memicu peringatan kata kunci darurat</string>
@@ -746,9 +746,9 @@
     <string name="second_brain_settings_desc">Lihat bagaimana topik yang Anda baca saling terhubung seiring waktu</string>
     <string name="second_brain_empty">Baca atau simpan beberapa artikel dan grafik topik Anda akan muncul di sini.</string>
     <string name="second_brain_error">Tidak dapat membuat grafik. Coba lagi.</string>
-    <string name="second_brain_retry">Retry</string>
+    <string name="second_brain_retry">Coba lagi</string>
     <string name="second_brain_graph_desc">Grafik topik dengan %1$d topik dan %2$d koneksi</string>
-    <string name="second_brain_node_articles">%1$d articles</string>
+    <string name="second_brain_node_articles">%1$d artikel</string>
     <string name="second_brain_range_label">Rentang waktu</string>
     <string name="second_brain_related">Artikel terkait</string>
 
@@ -769,7 +769,7 @@
     <!-- Share Target / Read Later (INGEST-02) -->
     <string name="read_later_feed_title">Baca Nanti</string>
     <string name="share_target_save_btn">Simpan ke Baca Nanti</string>
-    <string name="share_target_cancel_btn">Cancel</string>
+    <string name="share_target_cancel_btn">Batal</string>
     <string name="share_target_saved_toast">Disimpan ke Baca Nanti</string>
     <string name="share_target_invalid_url">Tidak ada tautan valid</string>
     <string name="read_position_sync">Sinkronkan posisi membaca</string>
@@ -780,13 +780,13 @@
     <string name="smart_collection_query">Kueri topik</string>
     <string name="smart_collection_save_action">Simpan sebagai koleksi</string>
     <string name="smart_collection_empty">Belum ada koleksi cerdas. Simpan pencarian semantik untuk mengikuti suatu topik.</string>
-    <string name="smart_collection_articles_count">%1$d articles</string>
+    <string name="smart_collection_articles_count">%1$d artikel</string>
     <string name="smart_collection_edit">Edit</string>
-    <string name="smart_collection_delete">Delete</string>
+    <string name="smart_collection_delete">Hapus</string>
     <string name="smart_collection_delete_confirm">Hapus koleksi ini? Artikelnya tetap ada di pustaka Anda.</string>
     <string name="smart_collection_saved">Koleksi cerdas disimpan</string>
     <string name="smart_collection_empty_articles">Belum ada artikel baru yang cocok. Kecocokan baru akan muncul setelah sinkronisasi.</string>
-    <string name="save">Save</string>
+    <string name="save">Simpan</string>
     <string name="eink_mode_title">Optimasi E-Ink</string>
     <string name="eink_active_title">Mode E-Ink aktif</string>
     <string name="eink_active_desc">Aplikasi ditampilkan dalam hitam putih. Ketuk untuk menonaktifkan.</string>
@@ -860,17 +860,17 @@
     <string name="widget_article_pin_unsupported">Peluncur Anda tidak mendukung penyematan widget otomatis</string>
     <!-- Feed Zero Triage (EXC-14) -->
     <string name="feed_zero_triage_title">Triase Feed Nol</string>
-    <string name="triage_swipe_left_skip">Skip</string>
-    <string name="triage_swipe_right_save">Save</string>
+    <string name="triage_swipe_left_skip">Lewati</string>
+    <string name="triage_swipe_right_save">Simpan</string>
     <string name="triage_swipe_up_read">Baca sekarang</string>
     <string name="triage_progress_format">%1$d / %2$d</string>
     <string name="triage_inbox_zero_title">🎉 Inbox Zero Tercapai!</string>
     <string name="triage_inbox_zero_subtitle">Anda telah membersihkan semua artikel belum dibaca di kelompok ini.</string>
-    <string name="triage_summary_processed">Processed: %1$d</string>
+    <string name="triage_summary_processed">Diproses: %1$d</string>
     <string name="triage_summary_saved">Disimpan untuk nanti: %1$d</string>
     <string name="triage_summary_skipped">Ditandai dibaca: %1$d</string>
     <string name="triage_summary_xp">+%1$d XP Brain RPG</string>
-    <string name="triage_finish_button">Done</string>
+    <string name="triage_finish_button">Selesai</string>
     <!-- Brain Wrapped tuần (RPG-09) -->
     <string name="brain_wrapped_share_story">Bagikan ke Story</string>
     <string name="brain_wrapped_xp_label">XP minggu ini</string>
@@ -915,14 +915,14 @@
     <string name="headline_signals_desc">Menganalisis pilihan kata judul dan artikel di perangkat ini untuk menemukan petunjuk clickbait, kata promosi/berlebihan, dan nada emosional (positif/tidak jelas/negatif). Tidak ada yang dikirim dan tidak memakai AI maupun jaringan. Ini hanya sinyal pilihan kata, bukan pengecekan fakta atau penilaian bias politik. Bahasa Spanyol, Prancis, dan Jerman masih eksperimental.</string>
     <string name="headline_signals_clickbait_badge">🎯 Clickbait %1$d%%</string>
     <string name="headline_signals_clickbait_desc">Indikator bahasa clickbait: skornya %1$d dari 100.</string>
-    <string name="headline_signals_tone_positive">🟢 Positive</string>
-    <string name="headline_signals_tone_unclear">⚪ Unclear</string>
-    <string name="headline_signals_tone_negative">🔴 Negative</string>
+    <string name="headline_signals_tone_positive">🟢 Positif</string>
+    <string name="headline_signals_tone_unclear">⚪ Tidak jelas</string>
+    <string name="headline_signals_tone_negative">🔴 Negatif</string>
     <string name="headline_signals_tone_desc_positive">Nada leksikal judul: ada indikator positif.</string>
     <string name="headline_signals_tone_desc_unclear">Nada leksikal judul: indikator tidak jelas atau tidak cukup.</string>
     <string name="headline_signals_tone_desc_negative">Nada leksikal judul: ada indikator negatif.</string>
     <string name="brain_rpg_skill_tree_decay_warning">Keahlian ini memudar seiring waktu. Berlatihlah untuk memulihkannya.</string>
-    <string name="bounty_action_investigate">Investigate</string>
+    <string name="bounty_action_investigate">Selidiki</string>
     <string name="bounty_sheet_title">Agen Penyelidik Entitas</string>
     <string name="bounty_scanning_status">Memindai arsip berita Anda untuk: %1$s…</string>
     <string name="bounty_stats_summary">%1$d artikel terkait • %2$d sumber</string>
@@ -930,21 +930,21 @@
     <string name="bounty_ai_context_action">Ringkasan konteks AI</string>
     <string name="bounty_ai_context_title">Konteks entitas (Gemini)</string>
     <string name="bounty_ai_context_no_key">Tambahkan kunci API Gemini Anda sendiri di pengaturan AI untuk menggunakannya.</string>
-    <string name="bounty_time_range">Timeline: %1$s – %2$s</string>
+    <string name="bounty_time_range">Linimasa: %1$s – %2$s</string>
     <string name="bounty_radar_description">Radar memindai arsip Anda</string>
     <string name="bounty_error">Tidak dapat mencari di arsip Anda. Coba lagi.</string>
     <string name="bounty_ai_context_loading">Meringkas konteks…</string>
     <string name="echo_hype_label">Hype: %1$d%%</string>
     <string name="echo_hype_warning">Terdeteksi kata-kata promosi atau berlebihan yang kuat</string>
-    <string name="echo_tone_label">Tone: %1$s</string>
-    <string name="echo_tone_positive">🟢 Positive</string>
-    <string name="echo_tone_unclear">⚪ Unclear</string>
-    <string name="echo_tone_negative">🔴 Negative</string>
+    <string name="echo_tone_label">Nada: %1$s</string>
+    <string name="echo_tone_positive">🟢 Positif</string>
+    <string name="echo_tone_unclear">⚪ Tidak jelas</string>
+    <string name="echo_tone_negative">🔴 Negatif</string>
     <string name="echo_details_title">Sinyal Bahasa Teks</string>
     <string name="echo_disclaimer">Hanya sinyal pilihan kata lokal; bukan pengecekan fakta, skor kredibilitas, analisis bias politik, atau klaim maksud penulis. “Tidak jelas” berarti bukti leksikal tidak cukup, bukan netral.</string>
     <string name="echo_flagged_passages_title">Kutipan yang ditandai (%1$d)</string>
     <string name="echo_cue_promotional">Frasa promosi</string>
-    <string name="echo_cue_intensifier">Exaggeration</string>
+    <string name="echo_cue_intensifier">Pelebih-lebihan</string>
     <string name="echo_cue_absolute">Klaim mutlak</string>
     <string name="echo_cue_exclamation">Penekanan dengan tanda baca atau huruf kapital</string>
     <string name="echo_no_passages">Tidak ada paragraf yang melewati ambang Hype.</string>
@@ -952,10 +952,10 @@
     <!-- BOUNTY-02 dossier -->
     <string name="dossier_create_action">Buat dosir</string>
     <string name="dossier_sheet_title">Dosir intelijen lokal</string>
-    <string name="dossier_tab_summary">Summary</string>
-    <string name="dossier_tab_timeline">Timeline</string>
-    <string name="dossier_tab_names">Names</string>
-    <string name="dossier_tab_sources">Sources</string>
+    <string name="dossier_tab_summary">Ringkasan</string>
+    <string name="dossier_tab_timeline">Linimasa</string>
+    <string name="dossier_tab_names">Nama</string>
+    <string name="dossier_tab_sources">Sumber</string>
     <string name="dossier_share_action">Bagikan Markdown</string>
     <string name="dossier_chooser_title">Bagikan dosir</string>
     <string name="dossier_limitation">Dibuat hanya dari artikel yang disimpan di aplikasi ini. Mungkin tidak memuat sudut pandang tertentu dan bukan pengecekan fakta.</string>
@@ -964,7 +964,7 @@
     <string name="dossier_names_empty">Tidak ada frasa yang berulang di minimal 2 artikel.</string>
     <string name="dossier_sources_single">Arsip Anda hanya punya satu sumber untuk topik ini.</string>
     <string name="dossier_sources_note">Judul dikelompokkan menurut sumber; tidak ada kesimpulan yang ditarik.</string>
-    <string name="dossier_article_count">%1$d articles</string>
+    <string name="dossier_article_count">%1$d artikel</string>
     <string name="dossier_share_error">Tidak dapat menyiapkan dosir untuk dibagikan.</string>
 
     <!-- BOUNTY-03 graph viewport -->
@@ -978,7 +978,7 @@
     <string name="streak_rescue_message">Anda melewatkan %1$d hari membaca. Rangkaian %2$d hari Anda akan diatur ulang pada bacaan berikutnya.</string>
     <string name="streak_rescue_action_ad">Tonton video untuk menyelamatkan rangkaian</string>
     <string name="streak_rescue_action_restart">Mulai dari awal</string>
-    <string name="streak_rescue_action_later">Later</string>
+    <string name="streak_rescue_action_later">Nanti</string>
     <string name="streak_rescue_ad_failed">Tidak dapat memuat video. Coba lagi.</string>
 
     <!-- ZEN-07 RSVP calibration -->
@@ -993,8 +993,8 @@
     <string name="zen_calibration_suggested_wpm">Kecepatan yang disarankan: ~%1$d WPM</string>
     <string name="zen_calibration_limitation">Ini perkiraan kasar dari 6 pertanyaan, bukan ukuran pemahaman mendalam. Anda selalu bisa menyesuaikan kecepatan secara manual.</string>
     <string name="zen_calibration_low_confidence_note">Jawaban Anda bervariasi di tiap kecepatan; coba membaca dengan kecepatan sendiri dan kalibrasi ulang nanti.</string>
-    <string name="zen_calibration_apply">Apply</string>
-    <string name="zen_calibration_skip">Skip</string>
+    <string name="zen_calibration_apply">Terapkan</string>
+    <string name="zen_calibration_skip">Lewati</string>
     <string name="zen_calibration_settings_desc">Kalibrasi kecepatan membaca Anda dalam 3 ronde singkat</string>
 
     <!-- ECHO-02 contrasting coverage -->
@@ -1008,7 +1008,7 @@
     <string name="echo_dual_export">Ekspor kartu</string>
     <string name="echo_dual_export_desc">Ekspor kartu dua judul dengan %1$s</string>
     <string name="echo_dual_title">Bagikan dua judul</string>
-    <string name="echo_dual_share">Share</string>
+    <string name="echo_dual_share">Bagikan</string>
     <string name="echo_dual_cut_note">Sebuah judul dipersingkat</string>
     <string name="echo_dual_error">Tidak dapat membuat kartu. Ketuk untuk mencoba lagi.</string>
     <string name="echo_dual_chooser_title">Bagikan kartu dua judul</string>
@@ -1016,22 +1016,22 @@
 
     <!-- STRAT-02 curated bundles -->
     <string name="curated_bundles_title">Paket pilihan</string>
-    <string name="curated_bundle_verified_on">Checked %1$s</string>
-    <string name="curated_bundle_source_count">Sources: %1$d</string>
+    <string name="curated_bundle_verified_on">Diperiksa %1$s</string>
+    <string name="curated_bundle_source_count">Sumber: %1$d</string>
     <string name="curated_bundle_subscribe_all">Berlangganan semua</string>
-    <string name="curated_bundle_subscribing">Subscribing…</string>
-    <string name="curated_bundle_progress">Subscribing %1$d of %2$d</string>
+    <string name="curated_bundle_subscribing">Berlangganan…</string>
+    <string name="curated_bundle_progress">Berlangganan %1$d dari %2$d</string>
     <string name="curated_bundle_result">Ditambahkan %1$d · sudah ada %2$d · gagal %3$d</string>
     <string name="curated_bundle_error">Tidak dapat berlangganan: %1$s</string>
     <string name="curated_bundle_no_sources_added">Tidak ada sumber yang bisa ditambahkan, sehingga tidak ada grup yang dibuat.</string>
     <string name="curated_bundle_account_local_only">Berlangganan satu paket penuh hanya tersedia untuk akun lokal.</string>
 
     <!-- FRONT-03 knowledge galaxy -->
-    <string name="galaxy_mode_concepts">Concepts</string>
-    <string name="galaxy_mode_stars">Galaxy</string>
+    <string name="galaxy_mode_concepts">Konsep</string>
+    <string name="galaxy_mode_stars">Galaksi</string>
     <string name="galaxy_empty">Tandai beberapa artikel sebagai dibaca dan artikel itu akan bersinar di sini sebagai bintang. Coba perlebar rentang waktu.</string>
     <string name="galaxy_error">Tidak dapat membuat galaksi. Coba lagi.</string>
-    <string name="galaxy_retry">Retry</string>
+    <string name="galaxy_retry">Coba lagi</string>
     <string name="galaxy_reset_view">Atur ulang tampilan</string>
     <string name="galaxy_stats">Bintang: %1$d · Tautan: %2$d</string>
     <string name="galaxy_star_open">Buka artikel</string>
@@ -1046,10 +1046,10 @@
     <string name="second_screen_copied">Tautan disalin</string>
     <string name="second_screen_share">Bagikan tautan</string>
     <string name="second_screen_share_chooser">Bagikan tautan Layar Kedua</string>
-    <string name="second_screen_viewers">Viewers: %1$d</string>
-    <string name="second_screen_expires">Expires at %1$s</string>
+    <string name="second_screen_viewers">Penonton: %1$d</string>
+    <string name="second_screen_expires">Berakhir pada %1$s</string>
     <string name="second_screen_warning">Tidak terenkripsi. Siapa pun di Wi-Fi ini yang melihat tautan dapat membaca artikel. Gunakan hanya di jaringan tepercaya.</string>
-    <string name="second_screen_starting">Starting…</string>
+    <string name="second_screen_starting">Memulai…</string>
     <string name="second_screen_no_network">Tidak ada jaringan Wi-Fi atau Ethernet dengan alamat privat. Sambungkan ke Wi-Fi lalu coba lagi.</string>
     <string name="second_screen_lan_permission_denied">Akses jaringan lokal dimatikan. Izinkan di Pengaturan untuk menampilkan artikel di layar kedua.</string>
     <string name="second_screen_expired">Sesi berakhir. Aktifkan lagi untuk mendapat tautan baru.</string>
@@ -1060,8 +1060,8 @@
     <string name="galaxy_related_title">Artikel terkait</string>
     <string name="galaxy_shared_terms">Kata yang sama: %1$s</string>
     <string name="local_sync_title">Sinkronisasi Lokal</string>
-    <string name="local_sync_send">Send</string>
-    <string name="local_sync_receive">Receive</string>
+    <string name="local_sync_send">Kirim</string>
+    <string name="local_sync_receive">Terima</string>
     <string name="local_sync_send_instructions">Buat paket terenkripsi untuk perangkat lain di jaringan lokal ini.</string>
     <string name="local_sync_secret_warning">Bagikan rahasia pemasangan ini secara terpisah dari URL. Siapa pun yang memiliki keduanya dapat membaca paket.</string>
     <string name="local_sync_http_warning">HTTP tidak menyembunyikan URL, alamat perangkat, waktu, atau ukuran transfer. Hanya isi paket yang dienkripsi. Gunakan jaringan lokal tepercaya.</string>
@@ -1085,7 +1085,7 @@
     <string name="local_sync_apply">Terapkan perubahan</string>
     <string name="local_sync_confirm_apply">Terapkan perubahan sinkronisasi?</string>
     <string name="local_sync_confirm_counts">Feed yang akan ditambahkan: %1$d. Status artikel yang akan diperbarui: %2$d. Terapkan perubahan ini?</string>
-    <string name="local_sync_cancel">Cancel</string>
+    <string name="local_sync_cancel">Batal</string>
     <string name="local_sync_done">Perubahan sinkronisasi diterapkan.</string>
     <string name="local_sync_not_local">Pilih akun Lokal untuk menggunakan sinkronisasi.</string>
     <string name="local_sync_error_network">Tidak dapat terhubung ke sesi sinkronisasi. Periksa URL dan jaringan lokal.</string>
@@ -1102,7 +1102,7 @@
     <string name="local_sync_pair_new">Pasangkan perangkat baru</string>
     <string name="local_sync_pair_label_hint">Nama untuk perangkat baru</string>
     <string name="local_sync_remember_label_hint">Nama untuk mengingat perangkat ini (opsional)</string>
-    <string name="local_sync_serve_peer">Send to %1$s</string>
+    <string name="local_sync_serve_peer">Kirim ke %1$s</string>
     <string name="local_sync_wait_reply">Berhenti dan tunggu menerima balasan</string>
     <string name="local_sync_role_hint">Setelah ponsel lain menerima, berhenti di sini dan beralih ke Terima. Ponsel itu lalu dapat mengirim balik perubahannya.</string>
     <string name="local_sync_reply_to">Kirim balik ke %1$s</string>
@@ -1111,9 +1111,9 @@
     <string name="local_sync_reply_instruction">Minta ponsel lain berhenti mengirim dan membuka Terima terlebih dahulu.</string>
     <string name="local_sync_merge_limit">Penggabungan hanya mempertahankan tanda dibaca dan berbintang; menandai belum dibaca atau menghapus bintang di satu ponsel bisa kembali setelah sinkronisasi.</string>
     <string name="local_sync_peer_unconfirmed">Menunggu perangkat lain menerima satu kali</string>
-    <string name="local_sync_peer_confirmed">Paired</string>
+    <string name="local_sync_peer_confirmed">Terpasang</string>
     <string name="local_sync_peer_needs_repair">Tidak dapat dipakai di ponsel ini. Lupakan lalu pasangkan lagi.</string>
-    <string name="local_sync_forget_peer">Forget</string>
+    <string name="local_sync_forget_peer">Lupakan</string>
     <string name="local_sync_confirm_peer">Tandai sebagai terpasang</string>
     <string name="local_sync_nearby_title">Ada perangkat terpasang di dekat Anda.</string>
     <string name="local_sync_no_peer_found">Belum ada perangkat terdekat. Buka Kirim di perangkat lain.</string>
@@ -1125,13 +1125,13 @@
     <!-- EXC-11 Temporal Ask My Archive -->
     <string name="archive_query_title">Tanya Arsip Saya</string>
     <string name="archive_query_desc">Tanyakan suatu topik dan lihat bagaimana artikel tersimpan Anda membahasnya, bulan demi bulan.</string>
-    <string name="archive_query_question_label">Question</string>
+    <string name="archive_query_question_label">Pertanyaan</string>
     <string name="archive_query_question_hint">mis. suku bunga sejak Maret</string>
     <string name="archive_query_search">Cari arsip</string>
     <string name="archive_query_start_date">Tanggal mulai (YYYY-MM-DD)</string>
     <string name="archive_query_end_date">Tanggal akhir (YYYY-MM-DD)</string>
     <string name="archive_query_dates_optional">Tanggal bersifat opsional. Tanpa tanggal, 12 bulan terakhir dicari. Kedua tanggal menggantikan tanggal apa pun dalam pertanyaan Anda.</string>
-    <string name="archive_query_range_used">Searching %1$s – %2$s</string>
+    <string name="archive_query_range_used">Mencari %1$s – %2$s</string>
     <string name="archive_query_searching">Mencari di arsip Anda…</string>
     <string name="archive_query_idle">Semua berjalan di perangkat ini. Tidak ada yang dikirim lewat jaringan.</string>
     <string name="archive_query_no_results">Tidak ada artikel tersimpan yang cocok dengan topik ini pada periode yang dicari.</string>
@@ -1164,7 +1164,7 @@
     <string name="feed_autopilot_summary_clean">Feed Anda tampak rapi. Tidak ada feed berisik terdeteksi.</string>
     <string name="feed_autopilot_reason_opened">Dibuka %1$d dari %2$d (jendela %3$d hari terakhir; keterlibatan %4$d%%)</string>
     <string name="feed_autopilot_reason_zero">Tidak ada artikel yang dibuka dari %1$d dalam jendela %2$d hari terakhir</string>
-    <string name="feed_autopilot_action_unsubscribe">Unsubscribe</string>
+    <string name="feed_autopilot_action_unsubscribe">Berhenti berlangganan</string>
     <string name="feed_autopilot_action_snooze">Tunda 30 hari</string>
     <string name="feed_autopilot_action_keep">Pertahankan dan berhenti menyarankan</string>
     <string name="feed_autopilot_confirm_title">Berhenti berlangganan %1$s?</string>
@@ -1173,20 +1173,20 @@
     <string name="feed_autopilot_not_local_account">Feed Autopilot hanya mendukung akun Lokal. Akun jarak jauh (Fever, Google Reader) mengelola feed di servernya sendiri.</string>
     <string name="feed_autopilot_retention_too_short">Masa penyimpanan artikel akun Anda kurang dari 14 hari. Perpanjang di Pengaturan Akun agar Autopilot punya riwayat cukup untuk dianalisis dengan aman.</string>
     <string name="feed_autopilot_disabled_message">Feed Autopilot dimatikan. Aktifkan untuk menerima saran pembersihan feed.</string>
-    <string name="feed_autopilot_settings_pending">To review: %1$d</string>
+    <string name="feed_autopilot_settings_pending">Perlu ditinjau: %1$d</string>
     <string name="feed_autopilot_error">Tidak dapat menyelesaikannya. Silakan coba lagi.</string>
     <string name="podcast_studio_title">Podcast Studio</string>
     <string name="podcast_studio_menu">Podcast Studio</string>
     <string name="podcast_studio_consent_title">Tulis naskah dengan AI?</string>
     <string name="podcast_studio_consent_message">Hanya judul artikel ini dan pratinjau singkat (di bawah 250 karakter) yang dikirim ke Google Gemini untuk menulis naskah dua pembawa acara. Teks artikel, tautan, dan riwayat bacaan Anda tidak pernah dikirim.</string>
-    <string name="podcast_studio_consent_agree">Use AI</string>
+    <string name="podcast_studio_consent_agree">Gunakan AI</string>
     <string name="podcast_studio_consent_decline">Gunakan naskah offline</string>
     <string name="podcast_studio_conflict_title">Hentikan yang sedang diputar?</string>
     <string name="podcast_studio_conflict_message">Memutar artikel ini sebagai podcast akan menghentikan audio yang sedang diputar.</string>
     <string name="podcast_studio_badge_source_gemini">Naskah ditulis AI</string>
     <string name="podcast_studio_badge_source_heuristic">Naskah offline, tanpa AI</string>
-    <string name="podcast_studio_play">Play</string>
-    <string name="podcast_studio_pause">Pause</string>
+    <string name="podcast_studio_play">Putar</string>
+    <string name="podcast_studio_pause">Jeda</string>
     <string name="podcast_studio_next">Baris berikutnya</string>
     <string name="podcast_studio_previous">Baris sebelumnya</string>
     <string name="podcast_studio_host_alex">Alex</string>
@@ -1196,7 +1196,7 @@
     <string name="deep_dive_menu">🔬 Deep Dive AI</string>
     <string name="deep_dive_title">Deep Dive AI</string>
     <string name="deep_dive_consent_message">Judul artikel dan hingga 6.000 karakter teksnya dikirim ke Google Gemini untuk menulis laporan ini. Tautan, nama feed, dan riwayat bacaan Anda tidak pernah dikirim. Gemini tidak mencari di web.</string>
-    <string name="deep_dive_consent_agree">Agree</string>
+    <string name="deep_dive_consent_agree">Setuju</string>
     <string name="deep_dive_consent_later">Nanti saja</string>
     <string name="deep_dive_declined_message">Deep Dive AI nonaktif. Aktifkan di Pengaturan, Privasi, untuk menulis laporan.</string>
     <string name="deep_dive_open_privacy">Buka pengaturan Privasi</string>
@@ -1206,7 +1206,7 @@
     <string name="deep_dive_nothing_to_analyze">Artikel ini tidak memiliki judul atau teks untuk dianalisis.</string>
     <string name="deep_dive_retry">Coba lagi</string>
     <string name="deep_dive_label">Ditulis AI dari judul dan cuplikan; tanpa pencarian web; bisa saja salah</string>
-    <string name="deep_dive_section_context">Context</string>
+    <string name="deep_dive_section_context">Konteks</string>
     <string name="deep_dive_section_critical">Pandangan yang berlawanan</string>
     <string name="deep_dive_section_impact">Matriks dampak</string>
     <string name="deep_dive_col_area">Area</string>
@@ -1216,29 +1216,29 @@
     <string name="deep_dive_chooser_title">Bagikan PDF Deep Dive</string>
     <string name="deep_dive_export_error">Tidak dapat membuat PDF</string>
     <string name="deep_dive_pdf_truncated">Dipangkas agar muat satu halaman. Lihat laporan lengkap di aplikasi.</string>
-    <string name="deep_dive_close">Close</string>
-    <string name="oracle_badge_label">Prediction</string>
+    <string name="deep_dive_close">Tutup</string>
+    <string name="oracle_badge_label">Prediksi</string>
     <string name="oracle_badge_open">Buka prediksi</string>
     <string name="oracle_sheet_title">Prediksi ditemukan di artikel ini</string>
-    <string name="oracle_sheet_expires">Expected by %1$s</string>
+    <string name="oracle_sheet_expires">Diperkirakan sebelum %1$s</string>
     <string name="oracle_sheet_criteria_heading">Cara memeriksa jawabannya</string>
     <string name="oracle_sheet_ai_label">Ditulis AI dari judul dan deskripsi; bisa saja salah.</string>
-    <string name="oracle_sheet_close">Close</string>
+    <string name="oracle_sheet_close">Tutup</string>
     <string name="oracle_consent_title">Temukan prediksi di artikel baru</string>
     <string name="oracle_consent_message">Setelah setiap sinkronisasi, judul dan deskripsi singkat (maksimal 500 karakter total) dari hingga 5 artikel baru dikirim ke Google Gemini untuk mencari prediksi. Teks artikel, tautan, nama feed, dan riwayat bacaan Anda tidak pernah dikirim. Nonaktif secara default.</string>
     <string name="oracle_bet_balance">Saldo: %1$s poin</string>
     <string name="oracle_bet_pick_side">Pilihan Anda</string>
-    <string name="oracle_bet_yes">Yes</string>
+    <string name="oracle_bet_yes">Ya</string>
     <string name="oracle_bet_no">No</string>
     <string name="oracle_bet_pick_stake">Poin yang dipertaruhkan</string>
-    <string name="oracle_bet_stake_option">%1$s points</string>
+    <string name="oracle_bet_stake_option">%1$s poin</string>
     <string name="oracle_bet_place">Pasang taruhan</string>
     <string name="oracle_bet_place_summary">Taruhan %1$s poin pada %2$s</string>
     <string name="oracle_bet_out_of_points">Poin tidak cukup. Anda mendapat 100 poin baru setiap hari (UTC), hingga 2.000.</string>
     <string name="oracle_bet_open">Anda bertaruh %1$s poin pada %2$s.</string>
     <string name="oracle_bet_open_hint">Anda dapat melaporkan hasilnya setelah tanggal di atas.</string>
     <string name="oracle_bet_awaiting_title">Apa hasilnya?</string>
-    <string name="oracle_bet_outcome_unclear">Unclear</string>
+    <string name="oracle_bet_outcome_unclear">Tidak jelas</string>
     <string name="oracle_bet_awaiting_hint">Anda bertaruh %1$s poin pada %2$s. Tidak jelas mengembalikan poin Anda.</string>
     <string name="oracle_bet_settled_won">Anda menang %1$s poin.</string>
     <string name="oracle_bet_settled_lost">Anda kalah %1$s poin.</string>
@@ -1261,7 +1261,7 @@
     <string name="commute_autoplay_title">Putar saat headphone Bluetooth terhubung</string>
     <string name="commute_autoplay_desc">Mencoba memulai episode pagi sekali sehari, dalam 2 jam setelah siap. Jika Android memblokirnya, Anda mendapat notifikasi dengan tombol Putar.</string>
     <string name="commute_autoplay_permission_denied">Tanpa izin Perangkat di sekitar, aplikasi tidak dapat melihat headphone Anda, sehingga opsi ini tetap mati.</string>
-    <string name="commute_play_action">Play</string>
+    <string name="commute_play_action">Putar</string>
     <string name="commute_ready_to_play_title">Episode pagi Anda sudah siap</string>
     <string name="commute_ready_to_play_body">Headphone Anda terhubung. Ketuk Putar untuk mendengarkan.</string>
     <string name="trust_self_signed_title">Percayai sertifikat yang ditandatangani sendiri</string>

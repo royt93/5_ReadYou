@@ -423,14 +423,14 @@
     <string name="fresh_rss_desc" translatable="false">freshrss.org</string>
     <string name="google_reader_desc" translatable="false">Google Reader API</string>
     <string name="initial_open_app">リンクをタップしたときに開くアプリ</string>
-    <string name="open_link_specific_browser_not_selected">None</string>
+    <string name="open_link_specific_browser_not_selected">なし</string>
     <string name="auto_customtabs">自動(CustomTabsを優先)</string>
     <string name="auto_default_browser">自動(既定のブラウザを優先)</string>
     <string name="specific_browser">特定のブラウザを使用</string>
-    <string name="specific_browser_name">Browser: %1$s</string>
+    <string name="specific_browser_name">ブラウザ: %1$s</string>
     <string name="default_browser">既定のブラウザを使用</string>
     <string name="always_ask">毎回確認</string>
-    <string name="open_link_specific_browser">Browser</string>
+    <string name="open_link_specific_browser">ブラウザ</string>
     <string name="open_link_something_wrong">問題が発生したため、「リンクを開く」設定は無視されました。</string>
     <string name="tips_top_bar_tonal_elevation">トーナルの高さはスクロール中のみ利用できます</string>
     <string name="commute_cast_title">CommuteCast AI DJ</string>
@@ -441,8 +441,8 @@
     <string name="commute_deepdive_unlocked">🎉 ディープダイブを解除しました!</string>
     <string name="commute_empty">朝のラジオ用の未読記事がありません</string>
     <string name="commute_generating">AI DJが番組を作成中…</string>
-    <string name="retry">Retry</string>
-    <string name="version">Version</string>
+    <string name="retry">再試行</string>
+    <string name="version">バージョン</string>
     <string name="rate_app">アプリを評価</string>
     <string name="rate_app_desc">このアプリが役に立ったら、5つ星で評価してください</string>
     <string name="more_apps">その他のアプリ</string>
@@ -451,7 +451,7 @@
     <string name="share_app_desc">このアプリをほかの人にも共有してください</string>
     <string name="term_and_policy">利用規約とプライバシーポリシー</string>
     <string name="term_and_policy_desc">セキュリティ規約とプライバシーポリシーを読む</string>
-    <string name="about_title">About</string>
+    <string name="about_title">アプリについて</string>
     <string name="about_desc">このアプリについて</string>
     <string name="source_code_original">ソースコード(オリジナル版)</string>
     <string name="source_code_current">ソースコード(このバージョン)</string>
@@ -462,7 +462,7 @@
     <string name="brain_rpg_title">Brain RPG</string>
     <string name="brain_rpg_subtitle">知識スキルツリーと連続記録</string>
     <string name="brain_rpg_settings_desc">読書XP、連続日数、レベル、知識ツリーを記録します</string>
-    <string name="brain_rpg_level">Level %1$d</string>
+    <string name="brain_rpg_level">レベル %1$d</string>
     <string name="brain_rpg_streak">%1$d日連続</string>
     <string name="brain_rpg_quiz_title">10秒AIミニクイズ</string>
     <string name="brain_rpg_quiz_reward">+150 XP</string>
@@ -477,7 +477,7 @@
     <string name="quiz_ai_no_key">Geminiキーが利用できないため、AIは問題を作成できませんでした。</string>
     <string name="quiz_ai_nothing_to_ask">この記事には、問題の元になるタイトルやプレビューがありません。</string>
     <string name="quiz_ai_retry">再試行</string>
-    <string name="quiz_ai_consent_agree">Agree</string>
+    <string name="quiz_ai_consent_agree">同意する</string>
     <string name="quiz_ai_consent_later">今はしない</string>
     <string name="quiz_ai_declined_message">AIクイズ問題はオフです。ここに問題を表示するには、設定のプライバシーでオンにしてください。</string>
     <string name="quiz_ai_open_privacy">プライバシー設定を開く</string>
@@ -516,7 +516,7 @@
     <string name="zen_speed_reading">速読(RSVP)</string>
     <string name="zen_speed_reading_desc">焦点位置を固定して、毎分最大900語まで読めます</string>
     <string name="zen_wpm_label">読書速度: %1$d WPM</string>
-    <string name="zen_words_progress">%1$d / %2$d words</string>
+    <string name="zen_words_progress">%1$d / %2$d 語</string>
     <string name="zen_ambient_audio">禅フォーカスオーディオ</string>
     <string name="zen_ambient_audio_desc">深い読書への集中を助ける癒やしのサウンドスケープ</string>
     <string name="zen_sound_rain">やさしい雨</string>
@@ -536,9 +536,9 @@
     <string name="zen_audio_interrupted">環境音が中断されました</string>
     <string name="zen_daily_edition_notification">集中して読める未読記事が%1$d件あります。</string>
     <string name="zen_sleep_timer">スリープタイマー</string>
-    <string name="zen_sleep_timer_off">Continuous</string>
-    <string name="zen_sleep_timer_min">%1$d minutes</string>
-    <string name="zen_volume">Volume: %1$d%%</string>
+    <string name="zen_sleep_timer_off">連続再生</string>
+    <string name="zen_sleep_timer_min">%1$d 分</string>
+    <string name="zen_volume">音量: %1$d%%</string>
     <string name="zen_settings_title">禅フォーカスと速読</string>
     <!-- Loop 09: AI Article Highlights & Key Takeaways Card -->
     <string name="highlights_title">記事のハイライト</string>
@@ -913,16 +913,16 @@
     <string name="radar_diff_removed_notice">この記事は複数回連続の同期でフィードに存在しませんでした。最後に保存された版を下に表示します。</string>
     <string name="headline_signals_title">見出しのクリックベイトとトーンのシグナル</string>
     <string name="headline_signals_desc">クリックベイトの手がかり、宣伝的・誇張的な表現、感情的なトーン(ポジティブ/不明/ネガティブ)を、見出しと記事の言葉遣いからこの端末上で分析します。何も外部に送信されず、AIもネットワークも使用しません。これらは表現上のシグナルにすぎず、事実確認や政治的偏りの判定ではありません。スペイン語、フランス語、ドイツ語は試験的です。</string>
-    <string name="headline_signals_clickbait_badge">🎯 Clickbait %1$d%%</string>
+    <string name="headline_signals_clickbait_badge">🎯 釣りタイトル %1$d%%</string>
     <string name="headline_signals_clickbait_desc">クリックベイト表現の指標: スコアは100点中%1$d点です。</string>
-    <string name="headline_signals_tone_positive">🟢 Positive</string>
-    <string name="headline_signals_tone_unclear">⚪ Unclear</string>
-    <string name="headline_signals_tone_negative">🔴 Negative</string>
+    <string name="headline_signals_tone_positive">🟢 ポジティブ</string>
+    <string name="headline_signals_tone_unclear">⚪ 不明</string>
+    <string name="headline_signals_tone_negative">🔴 ネガティブ</string>
     <string name="headline_signals_tone_desc_positive">見出しの語彙上のトーン: ポジティブな指標があります。</string>
     <string name="headline_signals_tone_desc_unclear">見出しの語彙上のトーン: 指標が不明または不十分です。</string>
     <string name="headline_signals_tone_desc_negative">見出しの語彙上のトーン: ネガティブな指標があります。</string>
     <string name="brain_rpg_skill_tree_decay_warning">このスキルは時間とともに衰えました。練習して回復しましょう。</string>
-    <string name="bounty_action_investigate">Investigate</string>
+    <string name="bounty_action_investigate">調査する</string>
     <string name="bounty_sheet_title">エンティティ調査エージェント</string>
     <string name="bounty_scanning_status">ニュースアーカイブを検索中: %1$s…</string>
     <string name="bounty_stats_summary">関連記事%1$d件 • ソース%2$d件</string>
@@ -930,21 +930,21 @@
     <string name="bounty_ai_context_action">AIによる文脈の要約</string>
     <string name="bounty_ai_context_title">エンティティの文脈(Gemini)</string>
     <string name="bounty_ai_context_no_key">利用するには、AI設定に自分のGemini APIキーを追加してください。</string>
-    <string name="bounty_time_range">Timeline: %1$s – %2$s</string>
+    <string name="bounty_time_range">タイムライン: %1$s – %2$s</string>
     <string name="bounty_radar_description">アーカイブをレーダーでスキャン中</string>
     <string name="bounty_error">アーカイブを検索できませんでした。もう一度お試しください。</string>
     <string name="bounty_ai_context_loading">文脈を要約中…</string>
-    <string name="echo_hype_label">Hype: %1$d%%</string>
+    <string name="echo_hype_label">誇張度: %1$d%%</string>
     <string name="echo_hype_warning">過度な宣伝や誇張した表現を検出しました</string>
-    <string name="echo_tone_label">Tone: %1$s</string>
-    <string name="echo_tone_positive">🟢 Positive</string>
-    <string name="echo_tone_unclear">⚪ Unclear</string>
-    <string name="echo_tone_negative">🔴 Negative</string>
+    <string name="echo_tone_label">トーン: %1$s</string>
+    <string name="echo_tone_positive">🟢 ポジティブ</string>
+    <string name="echo_tone_unclear">⚪ 不明</string>
+    <string name="echo_tone_negative">🔴 ネガティブ</string>
     <string name="echo_details_title">文体シグナル</string>
     <string name="echo_disclaimer">端末内の表現シグナルのみです。事実確認、信頼性スコア、政治的偏りの分析、筆者の意図の主張ではありません。「不明」は語彙上の根拠が不足していることを意味し、中立ではありません。</string>
     <string name="echo_flagged_passages_title">検出された箇所(%1$d)</string>
     <string name="echo_cue_promotional">宣伝的な表現</string>
-    <string name="echo_cue_intensifier">Exaggeration</string>
+    <string name="echo_cue_intensifier">誇張表現</string>
     <string name="echo_cue_absolute">断定的な主張</string>
     <string name="echo_cue_exclamation">句読点や大文字による強調</string>
     <string name="echo_no_passages">誇張のしきい値を超えた段落はありません。</string>
@@ -952,10 +952,10 @@
     <!-- BOUNTY-02 dossier -->
     <string name="dossier_create_action">ドシエを作成</string>
     <string name="dossier_sheet_title">ローカルインテリジェンスドシエ</string>
-    <string name="dossier_tab_summary">Summary</string>
-    <string name="dossier_tab_timeline">Timeline</string>
-    <string name="dossier_tab_names">Names</string>
-    <string name="dossier_tab_sources">Sources</string>
+    <string name="dossier_tab_summary">要約</string>
+    <string name="dossier_tab_timeline">タイムライン</string>
+    <string name="dossier_tab_names">名前</string>
+    <string name="dossier_tab_sources">ソース</string>
     <string name="dossier_share_action">Markdownを共有</string>
     <string name="dossier_chooser_title">ドシエを共有</string>
     <string name="dossier_limitation">このアプリに保存した記事のみから作成されます。視点が抜ける場合があり、事実確認ではありません。</string>
@@ -964,21 +964,21 @@
     <string name="dossier_names_empty">2件以上の記事に繰り返し出現するフレーズはありません。</string>
     <string name="dossier_sources_single">アーカイブには、このトピックのソースが1つしかありません。</string>
     <string name="dossier_sources_note">見出しはソース別にまとめています。結論は示しません。</string>
-    <string name="dossier_article_count">%1$d articles</string>
+    <string name="dossier_article_count">%1$d 件の記事</string>
     <string name="dossier_share_error">共有用のドシエを準備できませんでした。</string>
 
     <!-- BOUNTY-03 graph viewport -->
     <string name="second_brain_select_hint">トピックをタップすると、それに言及する記事が表示されます</string>
     <string name="second_brain_reset_view">表示をリセット</string>
     <string name="second_brain_zoom_hint">ピンチで拡大縮小、ドラッグで移動、ダブルタップでリセット</string>
-    <string name="second_brain_zoom_level">Zoom %1$d%%</string>
+    <string name="second_brain_zoom_level">ズーム %1$d%%</string>
 
     <!-- RPG-03 streak rescue -->
     <string name="streak_rescue_title">連続読書記録が途切れそうです!</string>
     <string name="streak_rescue_message">%1$d日間読書をしていません。次に読むと、%2$d日間の連続記録がリセットされます。</string>
     <string name="streak_rescue_action_ad">動画を見て連続記録を守る</string>
     <string name="streak_rescue_action_restart">最初からやり直す</string>
-    <string name="streak_rescue_action_later">Later</string>
+    <string name="streak_rescue_action_later">後で</string>
     <string name="streak_rescue_ad_failed">動画を読み込めませんでした。もう一度お試しください。</string>
 
     <!-- ZEN-07 RSVP calibration -->
@@ -993,8 +993,8 @@
     <string name="zen_calibration_suggested_wpm">推奨速度: 約%1$d WPM</string>
     <string name="zen_calibration_limitation">これは6問に基づく大まかな推定であり、深い理解度の指標ではありません。速度はいつでも手動で調整できます。</string>
     <string name="zen_calibration_low_confidence_note">速度によって回答にばらつきがありました。自分のペースで読み、あとで再度キャリブレーションしてください。</string>
-    <string name="zen_calibration_apply">Apply</string>
-    <string name="zen_calibration_skip">Skip</string>
+    <string name="zen_calibration_apply">適用</string>
+    <string name="zen_calibration_skip">スキップ</string>
     <string name="zen_calibration_settings_desc">3つの短いラウンドで読書速度をキャリブレーションします</string>
 
     <!-- ECHO-02 contrasting coverage -->
@@ -1008,7 +1008,7 @@
     <string name="echo_dual_export">カードを書き出す</string>
     <string name="echo_dual_export_desc">%1$sを含む2見出しのカードを書き出します</string>
     <string name="echo_dual_title">2つの見出しを共有</string>
-    <string name="echo_dual_share">Share</string>
+    <string name="echo_dual_share">共有</string>
     <string name="echo_dual_cut_note">見出しが短縮されました</string>
     <string name="echo_dual_error">カードを作成できませんでした。タップして再試行してください。</string>
     <string name="echo_dual_chooser_title">2見出しカードを共有</string>
@@ -1016,22 +1016,22 @@
 
     <!-- STRAT-02 curated bundles -->
     <string name="curated_bundles_title">おすすめバンドル</string>
-    <string name="curated_bundle_verified_on">Checked %1$s</string>
-    <string name="curated_bundle_source_count">Sources: %1$d</string>
+    <string name="curated_bundle_verified_on">確認日: %1$s</string>
+    <string name="curated_bundle_source_count">ソース: %1$d</string>
     <string name="curated_bundle_subscribe_all">すべて購読</string>
-    <string name="curated_bundle_subscribing">Subscribing…</string>
-    <string name="curated_bundle_progress">Subscribing %1$d of %2$d</string>
+    <string name="curated_bundle_subscribing">購読中…</string>
+    <string name="curated_bundle_progress">%2$d 件中 %1$d 件を購読中</string>
     <string name="curated_bundle_result">追加%1$d件 · 登録済み%2$d件 · 失敗%3$d件</string>
     <string name="curated_bundle_error">購読できませんでした: %1$s</string>
     <string name="curated_bundle_no_sources_added">ソースを追加できなかったため、グループは作成されませんでした。</string>
     <string name="curated_bundle_account_local_only">バンドル全体の購読はローカルアカウントでのみ利用できます。</string>
 
     <!-- FRONT-03 knowledge galaxy -->
-    <string name="galaxy_mode_concepts">Concepts</string>
-    <string name="galaxy_mode_stars">Galaxy</string>
+    <string name="galaxy_mode_concepts">コンセプト</string>
+    <string name="galaxy_mode_stars">ギャラクシー</string>
     <string name="galaxy_empty">記事を既読にすると、ここに星として輝きます。期間を広げてみてください。</string>
     <string name="galaxy_error">ギャラクシーを作成できませんでした。もう一度お試しください。</string>
-    <string name="galaxy_retry">Retry</string>
+    <string name="galaxy_retry">再試行</string>
     <string name="galaxy_reset_view">表示をリセット</string>
     <string name="galaxy_stats">星: %1$d · リンク: %2$d</string>
     <string name="galaxy_star_open">記事を開く</string>
@@ -1046,10 +1046,10 @@
     <string name="second_screen_copied">リンクをコピーしました</string>
     <string name="second_screen_share">リンクを共有</string>
     <string name="second_screen_share_chooser">セカンドスクリーンのリンクを共有</string>
-    <string name="second_screen_viewers">Viewers: %1$d</string>
-    <string name="second_screen_expires">Expires at %1$s</string>
+    <string name="second_screen_viewers">視聴者: %1$d</string>
+    <string name="second_screen_expires">有効期限: %1$s</string>
     <string name="second_screen_warning">暗号化されていません。このWi-Fi上でリンクを見た人は誰でも記事を読めます。信頼できるネットワークでのみ使用してください。</string>
-    <string name="second_screen_starting">Starting…</string>
+    <string name="second_screen_starting">開始中…</string>
     <string name="second_screen_no_network">プライベートアドレスのWi-FiまたはEthernetネットワークがありません。Wi-Fiに接続してもう一度お試しください。</string>
     <string name="second_screen_lan_permission_denied">ローカルネットワークへのアクセスがオフです。セカンドスクリーンに記事を表示するには、設定で許可してください。</string>
     <string name="second_screen_expired">セッションが終了しました。新しいリンクを取得するには、もう一度オンにしてください。</string>
@@ -1060,8 +1060,8 @@
     <string name="galaxy_related_title">関連記事</string>
     <string name="galaxy_shared_terms">共通する語: %1$s</string>
     <string name="local_sync_title">ローカル同期</string>
-    <string name="local_sync_send">Send</string>
-    <string name="local_sync_receive">Receive</string>
+    <string name="local_sync_send">送信</string>
+    <string name="local_sync_receive">受信</string>
     <string name="local_sync_send_instructions">このローカルネットワーク上のほかのデバイス用に、暗号化されたパッケージを作成します。</string>
     <string name="local_sync_secret_warning">このペアリングシークレットは、URLとは別に共有してください。両方を知っている人は誰でもパッケージを読めます。</string>
     <string name="local_sync_http_warning">HTTPではURL、デバイスのアドレス、時刻、転送サイズは隠せません。暗号化されるのはパッケージの内容のみです。信頼できるローカルネットワークを使用してください。</string>
@@ -1085,7 +1085,7 @@
     <string name="local_sync_apply">変更を適用</string>
     <string name="local_sync_confirm_apply">同期の変更を適用しますか?</string>
     <string name="local_sync_confirm_counts">追加するフィード: %1$d。更新する記事の状態: %2$d。これらの変更を適用しますか?</string>
-    <string name="local_sync_cancel">Cancel</string>
+    <string name="local_sync_cancel">キャンセル</string>
     <string name="local_sync_done">同期の変更を適用しました。</string>
     <string name="local_sync_not_local">同期を使うにはローカルアカウントを選択してください。</string>
     <string name="local_sync_error_network">同期セッションに接続できませんでした。URLとローカルネットワークを確認してください。</string>
@@ -1102,7 +1102,7 @@
     <string name="local_sync_pair_new">新しいデバイスをペアリング</string>
     <string name="local_sync_pair_label_hint">新しいデバイスの名前</string>
     <string name="local_sync_remember_label_hint">このデバイスを覚えておく名前(任意)</string>
-    <string name="local_sync_serve_peer">Send to %1$s</string>
+    <string name="local_sync_serve_peer">%1$s に送信</string>
     <string name="local_sync_wait_reply">停止して返信の受信を待つ</string>
     <string name="local_sync_role_hint">相手のスマートフォンが受信したら、こちらは停止して受信に切り替えてください。その後、相手が変更を送り返せます。</string>
     <string name="local_sync_reply_to">%1$sに送り返す</string>
@@ -1111,9 +1111,9 @@
     <string name="local_sync_reply_instruction">相手のスマートフォンで送信を停止し、先に受信を開くよう伝えてください。</string>
     <string name="local_sync_merge_limit">マージで保持されるのは既読とスターのみです。一方のスマートフォンで未読にしたりスターを外したりしても、同期後に元に戻ることがあります。</string>
     <string name="local_sync_peer_unconfirmed">相手のデバイスが一度受信するのを待っています</string>
-    <string name="local_sync_peer_confirmed">Paired</string>
+    <string name="local_sync_peer_confirmed">ペアリング済み</string>
     <string name="local_sync_peer_needs_repair">このスマートフォンでは使用できません。登録を解除して、もう一度ペアリングしてください。</string>
-    <string name="local_sync_forget_peer">Forget</string>
+    <string name="local_sync_forget_peer">削除</string>
     <string name="local_sync_confirm_peer">ペアリング済みにする</string>
     <string name="local_sync_nearby_title">ペアリング済みデバイスが近くにあります。</string>
     <string name="local_sync_no_peer_found">近くにデバイスがまだ見つかりません。相手のデバイスで送信を開いてください。</string>
@@ -1125,13 +1125,13 @@
     <!-- EXC-11 Temporal Ask My Archive -->
     <string name="archive_query_title">アーカイブに質問</string>
     <string name="archive_query_desc">トピックについて質問すると、保存した記事がそれをどう扱ってきたかを月ごとに確認できます。</string>
-    <string name="archive_query_question_label">Question</string>
+    <string name="archive_query_question_label">質問</string>
     <string name="archive_query_question_hint">例: 3月以降の金利</string>
     <string name="archive_query_search">アーカイブを検索</string>
     <string name="archive_query_start_date">開始日(YYYY-MM-DD)</string>
     <string name="archive_query_end_date">終了日(YYYY-MM-DD)</string>
     <string name="archive_query_dates_optional">日付は任意です。指定しない場合は直近12か月を検索します。両方の日付を指定すると、質問文中の日付より優先されます。</string>
-    <string name="archive_query_range_used">Searching %1$s – %2$s</string>
+    <string name="archive_query_range_used">検索範囲: %1$s – %2$s</string>
     <string name="archive_query_searching">アーカイブを検索中…</string>
     <string name="archive_query_idle">すべてこの端末内で実行されます。ネットワークには何も送信されません。</string>
     <string name="archive_query_no_results">検索した期間に、このトピックに一致する保存済みの記事はありません。</string>
@@ -1164,7 +1164,7 @@
     <string name="feed_autopilot_summary_clean">フィードは整理されています。ノイズの多いフィードは見つかりませんでした。</string>
     <string name="feed_autopilot_reason_opened">%2$d件中%1$d件を開いた(直近%3$d日間、エンゲージメント%4$d%%)</string>
     <string name="feed_autopilot_reason_zero">直近%2$d日間の%1$d件の記事のうち、開いたものはありません</string>
-    <string name="feed_autopilot_action_unsubscribe">Unsubscribe</string>
+    <string name="feed_autopilot_action_unsubscribe">購読解除</string>
     <string name="feed_autopilot_action_snooze">30日間スヌーズ</string>
     <string name="feed_autopilot_action_keep">残して提案を停止</string>
     <string name="feed_autopilot_confirm_title">%1$sの購読を解除しますか?</string>
@@ -1173,30 +1173,30 @@
     <string name="feed_autopilot_not_local_account">フィードオートパイロットはローカルアカウントのみ対応しています。リモートアカウント(Fever、Google Reader)は、フィードを各自のサーバーで管理します。</string>
     <string name="feed_autopilot_retention_too_short">アカウントの記事保持期間が14日未満です。オートパイロットが安全に分析できる履歴を確保するため、アカウント設定で延長してください。</string>
     <string name="feed_autopilot_disabled_message">フィードオートパイロットはオフです。フィード整理の提案を受け取るには、オンにしてください。</string>
-    <string name="feed_autopilot_settings_pending">To review: %1$d</string>
+    <string name="feed_autopilot_settings_pending">確認待ち: %1$d</string>
     <string name="feed_autopilot_error">完了できませんでした。もう一度お試しください。</string>
     <string name="podcast_studio_title">ポッドキャストスタジオ</string>
     <string name="podcast_studio_menu">ポッドキャストスタジオ</string>
     <string name="podcast_studio_consent_title">AIで台本を作成しますか?</string>
     <string name="podcast_studio_consent_message">2人のパーソナリティの台本作成のため、この記事のタイトルと短いプレビュー(250文字未満)のみがGoogle Geminiに送信されます。記事の本文、リンク、閲覧履歴は送信されません。</string>
-    <string name="podcast_studio_consent_agree">Use AI</string>
+    <string name="podcast_studio_consent_agree">AI を使う</string>
     <string name="podcast_studio_consent_decline">オフライン台本を使用</string>
     <string name="podcast_studio_conflict_title">再生中の音声を停止しますか?</string>
     <string name="podcast_studio_conflict_message">この記事をポッドキャストとして再生すると、現在再生中の音声が停止します。</string>
     <string name="podcast_studio_badge_source_gemini">AIが作成した台本</string>
     <string name="podcast_studio_badge_source_heuristic">オフライン台本(AIなし)</string>
-    <string name="podcast_studio_play">Play</string>
-    <string name="podcast_studio_pause">Pause</string>
+    <string name="podcast_studio_play">再生</string>
+    <string name="podcast_studio_pause">一時停止</string>
     <string name="podcast_studio_next">次の行</string>
     <string name="podcast_studio_previous">前の行</string>
-    <string name="podcast_studio_host_alex">Alex</string>
-    <string name="podcast_studio_host_sam">Sam</string>
+    <string name="podcast_studio_host_alex">アレックス</string>
+    <string name="podcast_studio_host_sam">サム</string>
     <string name="podcast_studio_waveform_playing">ビジュアライザー: 再生中、話者: %1$s</string>
     <string name="podcast_studio_waveform_paused">ビジュアライザー: 一時停止中</string>
     <string name="deep_dive_menu">🔬 AIディープダイブ</string>
     <string name="deep_dive_title">AIディープダイブ</string>
     <string name="deep_dive_consent_message">このレポートの作成のため、記事のタイトルと本文の先頭6,000文字までがGoogle Geminiに送信されます。リンク、フィード名、閲覧履歴は送信されません。Geminiはウェブを検索しません。</string>
-    <string name="deep_dive_consent_agree">Agree</string>
+    <string name="deep_dive_consent_agree">同意する</string>
     <string name="deep_dive_consent_later">今はしない</string>
     <string name="deep_dive_declined_message">AIディープダイブはオフです。レポートを作成するには、設定のプライバシーでオンにしてください。</string>
     <string name="deep_dive_open_privacy">プライバシー設定を開く</string>
@@ -1206,39 +1206,39 @@
     <string name="deep_dive_nothing_to_analyze">この記事には、分析するタイトルや本文がありません。</string>
     <string name="deep_dive_retry">再試行</string>
     <string name="deep_dive_label">タイトルと抜粋からAIが作成。ウェブ検索なし。誤りを含む可能性があります</string>
-    <string name="deep_dive_section_context">Context</string>
+    <string name="deep_dive_section_context">背景</string>
     <string name="deep_dive_section_critical">反対意見</string>
     <string name="deep_dive_section_impact">影響マトリクス</string>
-    <string name="deep_dive_col_area">Area</string>
+    <string name="deep_dive_col_area">分野</string>
     <string name="deep_dive_col_short">短期</string>
     <string name="deep_dive_col_long">長期</string>
     <string name="deep_dive_export_pdf">PDFを書き出す</string>
     <string name="deep_dive_chooser_title">ディープダイブPDFを共有</string>
     <string name="deep_dive_export_error">PDFを作成できませんでした</string>
     <string name="deep_dive_pdf_truncated">1ページに収まるよう省略しました。全文はアプリでご覧ください。</string>
-    <string name="deep_dive_close">Close</string>
-    <string name="oracle_badge_label">Prediction</string>
+    <string name="deep_dive_close">閉じる</string>
+    <string name="oracle_badge_label">予測</string>
     <string name="oracle_badge_open">予測を開く</string>
     <string name="oracle_sheet_title">この記事で見つかった予測</string>
-    <string name="oracle_sheet_expires">Expected by %1$s</string>
+    <string name="oracle_sheet_expires">期限: %1$s</string>
     <string name="oracle_sheet_criteria_heading">答えの確認方法</string>
     <string name="oracle_sheet_ai_label">タイトルと説明からAIが作成したため、誤りを含む可能性があります。</string>
-    <string name="oracle_sheet_close">Close</string>
+    <string name="oracle_sheet_close">閉じる</string>
     <string name="oracle_consent_title">新しい記事から予測を探す</string>
     <string name="oracle_consent_message">同期のたびに、最大5件の新しい記事のタイトルと短い説明(合計500文字まで)がGoogle Geminiに送信され、予測の有無を調べます。記事の本文、リンク、フィード名、閲覧履歴は送信されません。初期設定ではオフです。</string>
     <string name="oracle_bet_balance">残高: %1$sポイント</string>
     <string name="oracle_bet_pick_side">あなたの予想</string>
-    <string name="oracle_bet_yes">Yes</string>
+    <string name="oracle_bet_yes">はい</string>
     <string name="oracle_bet_no">No</string>
     <string name="oracle_bet_pick_stake">賭けるポイント</string>
-    <string name="oracle_bet_stake_option">%1$s points</string>
+    <string name="oracle_bet_stake_option">%1$s ポイント</string>
     <string name="oracle_bet_place">ベットする</string>
     <string name="oracle_bet_place_summary">%2$sに%1$sポイントをベット</string>
     <string name="oracle_bet_out_of_points">ポイントが足りません。毎日(UTC)100ポイントが付与され、上限は2,000ポイントです。</string>
     <string name="oracle_bet_open">%2$sに%1$sポイントをベットしました。</string>
     <string name="oracle_bet_open_hint">上記の日付以降に結果を報告できます。</string>
     <string name="oracle_bet_awaiting_title">結果はどうでしたか?</string>
-    <string name="oracle_bet_outcome_unclear">Unclear</string>
+    <string name="oracle_bet_outcome_unclear">不明</string>
     <string name="oracle_bet_awaiting_hint">%2$sに%1$sポイントをベットしました。「不明」を選ぶとポイントが返却されます。</string>
     <string name="oracle_bet_settled_won">%1$sポイントを獲得しました。</string>
     <string name="oracle_bet_settled_lost">%1$sポイントを失いました。</string>
@@ -1261,7 +1261,7 @@
     <string name="commute_autoplay_title">Bluetoothヘッドホン接続時に再生</string>
     <string name="commute_autoplay_desc">準備完了から2時間以内に、1日1回、朝のエピソードの再生を試みます。Androidにブロックされた場合は、再生ボタン付きの通知が届きます。</string>
     <string name="commute_autoplay_permission_denied">「付近のデバイス」の権限がないとアプリがヘッドホンを検出できないため、オフのままになります。</string>
-    <string name="commute_play_action">Play</string>
+    <string name="commute_play_action">再生</string>
     <string name="commute_ready_to_play_title">朝のエピソードの準備ができました</string>
     <string name="commute_ready_to_play_body">ヘッドホンが接続されています。再生をタップして聴きましょう。</string>
     <string name="trust_self_signed_title">自己署名証明書を信頼する</string>

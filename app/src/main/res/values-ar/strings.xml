@@ -357,10 +357,10 @@
     <string name="inoreader_desc" translatable="false">inoreader.com</string>
     <string name="fresh_rss_desc" translatable="false">freshrss.org</string>
     <string name="google_reader_desc" translatable="false">Google Reader API</string>
-    <string name="in_coding">In development</string>
+    <string name="in_coding">قيد التطوير</string>
     <string name="tips_top_bar_tonal_elevation">الارتفاع اللوني متاح فقط أثناء التمرير</string>
     <string name="summary_title">لخّص بالذكاء الاصطناعي</string>
-    <string name="summary_loading">Summarizing…</string>
+    <string name="summary_loading">جارٍ التلخيص…</string>
     <string name="summary_try_again">حاول مرة أخرى</string>
     <string name="summary_get_key">احصل على مفتاح مجاني</string>
     <string name="summary_err_empty_content">لا يحتوي المقال على محتوى للتلخيص</string>
@@ -376,13 +376,13 @@
     <string name="vip_settings_desc">إدارة VIP وإدخال الرموز وإزالة الإعلانات</string>
     <string name="vip_active">VIP مفعّل</string>
     <string name="vip_free_user">مستخدم مجاني</string>
-    <string name="vip_until">Until %1$s</string>
-    <string name="vip_activated_at">Activated: %1$s</string>
-    <string name="vip_expires_at">Expires: %1$s</string>
+    <string name="vip_until">حتى %1$s</string>
+    <string name="vip_activated_at">تاريخ التفعيل: %1$s</string>
+    <string name="vip_expires_at">تاريخ الانتهاء: %1$s</string>
     <string name="vip_remaining_short">متبقي %1$d يوم و%2$d ساعة</string>
     <string name="vip_redeem_label">أدخل رمز VIP</string>
     <string name="vip_redeem_hint">مثال: رمز VIP الخاص بك</string>
-    <string name="vip_redeem_button">Activate</string>
+    <string name="vip_redeem_button">تفعيل</string>
     <string name="vip_watch_ad_3d">شاهد إعلانًا ← VIP لمدة 3 أيام</string>
     <string name="vip_buy_30d_locked">شراء VIP لمدة 30 يومًا — قريبًا</string>
     <string name="vip_buy_90d_locked">شراء VIP لمدة 90 يومًا — قريبًا</string>
@@ -394,9 +394,9 @@
     <string name="vip_revoke_all_confirm_message">هل تريد حقًا إلغاء VIP والعودة إلى الحساب المجاني؟</string>
     <string name="vip_entry_first_install">🎁 هدية التثبيت الجديد</string>
     <string name="vip_entry_active">عضوية VIP</string>
-    <string name="vip_success_title">Success</string>
+    <string name="vip_success_title">تم بنجاح</string>
     <string name="vip_success_message">VIP مفعّل لمدة %1$d يومًا.</string>
-    <string name="vip_failed_title">Failed</string>
+    <string name="vip_failed_title">فشل</string>
     <string name="ad_attribution_label" translatable="false">Ad Networks (AdMob / AppLovin MAX)</string>
     <string name="vip_failed_busy">لا يزال الرمز السابق قيد التحقق. يُرجى الانتظار قليلاً ثم المحاولة مرة أخرى.</string>
     <string name="vip_failed_no_network">يتطلب تفعيل الرمز اتصالاً بالإنترنت. اتصل بالإنترنت وحاول مرة أخرى.</string>
@@ -413,8 +413,8 @@
     <string name="commute_deepdive_unlocked">🎉 تم فتح التعمّق!</string>
     <string name="commute_empty">لا توجد مقالات غير مقروءة للإذاعة الصباحية</string>
     <string name="commute_generating">مذيع الذكاء الاصطناعي يُعدّ برنامجك...</string>
-    <string name="retry">Retry</string>
-    <string name="version">Version</string>
+    <string name="retry">إعادة المحاولة</string>
+    <string name="version">الإصدار</string>
     <string name="rate_app">قيّم التطبيق</string>
     <string name="rate_app_desc">يُرجى منحنا 5 نجوم إن وجدت هذا التطبيق مفيدًا</string>
     <string name="more_apps">المزيد من التطبيقات</string>
@@ -423,7 +423,7 @@
     <string name="share_app_desc">يُرجى مشاركة هذا التطبيق ليستخدمه الآخرون معك</string>
     <string name="term_and_policy">الشروط &amp; السياسة</string>
     <string name="term_and_policy_desc">اقرأ شروط الأمان وسياسة الخصوصية</string>
-    <string name="about_title">About</string>
+    <string name="about_title">حول</string>
     <string name="about_desc">تعرّف على هذا التطبيق</string>
     <string name="source_code_original">الشيفرة المصدرية (النسخة الأصلية)</string>
     <string name="source_code_current">الشيفرة المصدرية (هذه النسخة)</string>
@@ -434,7 +434,7 @@
     <string name="brain_rpg_title">Brain RPG</string>
     <string name="brain_rpg_subtitle">شجرة مهارات المعرفة &amp; سلسلة الأيام</string>
     <string name="brain_rpg_settings_desc">تتبّع نقاط XP والسلسلة والمستوى وشجرة المعرفة الخاصة بقراءتك</string>
-    <string name="brain_rpg_level">Level %1$d</string>
+    <string name="brain_rpg_level">المستوى %1$d</string>
     <string name="brain_rpg_streak">سلسلة %1$d يوم</string>
     <string name="brain_rpg_quiz_title">اختبار مصغّر بالذكاء الاصطناعي في 10 ثوانٍ</string>
     <string name="brain_rpg_quiz_reward">+150 XP</string>
@@ -449,7 +449,7 @@
     <string name="quiz_ai_no_key">لا يتوفر مفتاح Gemini، لذلك تعذّر على الذكاء الاصطناعي كتابة سؤال.</string>
     <string name="quiz_ai_nothing_to_ask">لا يحتوي هذا المقال على عنوان أو معاينة لطرح سؤال عنه.</string>
     <string name="quiz_ai_retry">حاول مرة أخرى</string>
-    <string name="quiz_ai_consent_agree">Agree</string>
+    <string name="quiz_ai_consent_agree">أوافق</string>
     <string name="quiz_ai_consent_later">ليس الآن</string>
     <string name="quiz_ai_declined_message">أسئلة الاختبار بالذكاء الاصطناعي متوقفة. فعّلها من الإعدادات ثم الخصوصية لتحصل على سؤال هنا.</string>
     <string name="quiz_ai_open_privacy">فتح إعدادات الخصوصية</string>
@@ -475,20 +475,20 @@
     <string name="brain_rpg_decay_notification_channel_desc">ملخص يومي لتراجع الفئات</string>
     <string name="brain_rpg_xp_retained">الأساس %1$d XP · محتفَظ بـ %2$d%%</string>
     <string name="brain_rpg_streak_shield_success">تم تفعيل درع السلسلة!</string>
-    <string name="brain_rpg_streak_shield_protected">Protected</string>
-    <string name="brain_rpg_target_xp">Target: %1$d XP</string>
+    <string name="brain_rpg_streak_shield_protected">محمي</string>
+    <string name="brain_rpg_target_xp">الهدف: %1$d XP</string>
     <string name="brain_rpg_skill_tree_title">شجرة مهارات المعرفة</string>
     <string name="brain_rpg_stats_title">إحصاءات تحدي الذكاء الاصطناعي</string>
-    <string name="brain_rpg_stats_attempted">Attempted</string>
-    <string name="brain_rpg_stats_passed">Correct</string>
-    <string name="brain_rpg_stats_accuracy">Accuracy</string>
+    <string name="brain_rpg_stats_attempted">المحاولات</string>
+    <string name="brain_rpg_stats_passed">الصحيحة</string>
+    <string name="brain_rpg_stats_accuracy">الدقة</string>
     <string name="brain_rpg_wrapped_desc">"لقد حصلت على %1$d XP وحافظت على سلسلة قراءة من %2$d يومًا! شارك إنجازك لإلهام الآخرين."</string>
 
     <!-- Epic 08: Zen Focus & Speed Reading -->
     <string name="zen_speed_reading">القراءة السريعة (RSVP)</string>
     <string name="zen_speed_reading_desc">اقرأ حتى 900 كلمة في الدقيقة مع محاذاة بؤرية ثابتة</string>
     <string name="zen_wpm_label">سرعة القراءة: %1$d WPM</string>
-    <string name="zen_words_progress">%1$d / %2$d words</string>
+    <string name="zen_words_progress">%1$d / %2$d كلمة</string>
     <string name="zen_ambient_audio">صوت التركيز الهادئ</string>
     <string name="zen_ambient_audio_desc">أجواء صوتية مريحة للتركيز العميق أثناء القراءة</string>
     <string name="zen_sound_rain">مطر هادئ</string>
@@ -503,9 +503,9 @@
     <string name="zen_evening_edition">Evening Edition (20:00)</string>
     <string name="zen_daily_edition_notification">%1$d مقالات غير مقروءة جاهزة لقراءتك المركّزة.</string>
     <string name="zen_sleep_timer">مؤقّت النوم</string>
-    <string name="zen_sleep_timer_off">Continuous</string>
-    <string name="zen_sleep_timer_min">%1$d minutes</string>
-    <string name="zen_volume">Volume: %1$d%%</string>
+    <string name="zen_sleep_timer_off">مستمر</string>
+    <string name="zen_sleep_timer_min">%1$d دقيقة</string>
+    <string name="zen_volume">مستوى الصوت: %1$d%%</string>
     <string name="zen_settings_title">التركيز الهادئ &amp; القراءة السريعة</string>
     <!-- Loop 09: AI Article Highlights & Key Takeaways Card -->
     <string name="highlights_title">أبرز نقاط المقال</string>
@@ -514,8 +514,8 @@
     <string name="highlights_bullet_count">%1$d نقاط رئيسية</string>
     <string name="highlights_copy_all">نسخ الأبرز</string>
     <string name="highlights_copied_toast">تم نسخ الأبرز إلى الحافظة</string>
-    <string name="highlights_share">Share</string>
-    <string name="highlights_tldr">Quick TL;DR</string>
+    <string name="highlights_share">مشاركة</string>
+    <string name="highlights_tldr">ملخص سريع TL;DR</string>
     <string name="highlights_ai_badge">Gemini AI</string>
     <string name="highlights_fallback_badge">ذكي دون اتصال</string>
     <string name="highlights_retry_ai">حلّل بواسطة Gemini AI</string>
@@ -534,13 +534,13 @@
     <string name="deep_read_title">قراءة معمّقة بالذكاء الاصطناعي</string>
     <string name="deep_read_subtitle">محادثة تفاعلية حول المقال</string>
     <string name="deep_read_input_placeholder">اطرح سؤالًا عن هذا المقال…</string>
-    <string name="deep_read_send">Send</string>
+    <string name="deep_read_send">إرسال</string>
     <string name="deep_read_clear_chat">مسح المحادثة</string>
     <string name="deep_read_copied_toast">تم نسخ الإجابة إلى الحافظة</string>
     <string name="deep_read_welcome_message">مرحبًا! لقد حلّلت هذا المقال. اطرح أي سؤال أو اطلب توضيحات أو اضغط على موضوع مقترح أدناه.</string>
-    <string name="deep_read_context_label">Discussing:</string>
+    <string name="deep_read_context_label">قيد المناقشة:</string>
     <string name="deep_read_thinking">الذكاء الاصطناعي يحلّل المقال…</string>
-    <string name="deep_read_grounded_badge">Grounded</string>
+    <string name="deep_read_grounded_badge">موثّق بالمصادر</string>
     <string name="deep_read_offline_badge">ذكي دون اتصال</string>
     <string name="deep_read_ai_badge">Gemini AI</string>
     <string name="deep_read_copy_transcript">نسخ المحادثة</string>
@@ -559,15 +559,15 @@
     <string name="story_cluster_lead_badge">رئيسي</string>
     <string name="semantic_search_title">بحث دلالي بالذكاء الاصطناعي</string>
     <string name="semantic_search_desc">ابحث في المقالات بالمفهوم والمعنى الدلالي بدلًا من الكلمات المفتاحية الدقيقة</string>
-    <string name="semantic_match_badge">%d%% match</string>
+    <string name="semantic_match_badge">تطابق %d%%</string>
     <string name="semantic_search_results_title">✨ نتائج دلالية بالذكاء الاصطناعي</string>
     <string name="keyword_search_results_title">نتائج الكلمات المفتاحية</string>
     <string name="watchdog_title">مراقب الكلمات المفتاحية</string>
     <string name="watchdog_desc">راقب الكلمات المفتاحية المهمة &amp; رموز الأسهم أثناء المزامنة في الخلفية ونبّه فورًا</string>
     <string name="watchdog_add_hint">أدخل كلمة مفتاحية أو رمز سهم (مثل $VIC وBitcoin وGold)...</string>
-    <string name="watchdog_add_btn">Add</string>
+    <string name="watchdog_add_btn">إضافة</string>
     <string name="watchdog_empty_desc">لم تتم إضافة كلمات مفتاحية بعد. أضف كلمات أو اختر من الاقتراحات أدناه لبدء المراقبة.</string>
-    <string name="watchdog_matched_count">%d matched</string>
+    <string name="watchdog_matched_count">%d مطابقة</string>
     <string name="watchdog_channel_name">تنبيهات مراقب الكلمات المفتاحية</string>
     <string name="watchdog_channel_desc">تنبيهات عالية الأولوية عند تطابق مقالات جديدة مع الكلمات المراقَبة</string>
     <string name="watchdog_preset_title">اقتراحات سريعة</string>
@@ -587,12 +587,12 @@
     <string name="notebook_empty_subtitle">ميّز الاقتباسات الملهمة أثناء القراءة لتنظيم معرفة دماغك الثاني.</string>
     <string name="notebook_empty_search">لم يتم العثور على تمييزات مطابقة</string>
 
-    <string name="notebook_save">Save</string>
-    <string name="notebook_copy">Copy</string>
-    <string name="notebook_edit">Edit</string>
+    <string name="notebook_save">حفظ</string>
+    <string name="notebook_copy">نسخ</string>
+    <string name="notebook_edit">تعديل</string>
     <string name="notebook_copied">تم النسخ إلى الحافظة</string>
-    <string name="notebook_saved">Saved</string>
-    <string name="notebook_deleted">Deleted</string>
+    <string name="notebook_saved">تم الحفظ</string>
+    <string name="notebook_deleted">تم الحذف</string>
     <string name="notebook_untitled">مقال بلا عنوان</string>
     <string name="ai_active_key_custom">استخدام مفتاح API الشخصي</string>
     <string name="ai_active_key_default">استخدام الحصة المشتركة الافتراضية</string>
@@ -678,7 +678,7 @@
     <string name="source_dna_unknown_source">مصدر غير معروف</string>
     <string name="source_dna_error">تعذر تحليل هذه المجموعة.</string>
     <string name="source_dna_back">العودة إلى وجهات النظر</string>
-    <string name="source_dna_similarity">%1$d%% similar</string>
+    <string name="source_dna_similarity">تشابه %1$d%%</string>
     <string name="source_dna_feed_reported_time">الوقت المُبلَّغ عنه في الموجز: %1$s</string>
     <string name="watchdog_clear_all">مسح السجل</string>
     <string name="watchdog_inbox_desc">سجل المقالات التي أثارت تنبيهات الكلمات المفتاحية الطارئة</string>
@@ -722,9 +722,9 @@
     <string name="second_brain_settings_desc">اطّلع على كيفية ترابط المواضيع التي تقرؤها عبر الزمن</string>
     <string name="second_brain_empty">اقرأ أو احفظ بعض المقالات وسيظهر مخطط مواضيعك هنا.</string>
     <string name="second_brain_error">تعذر بناء المخطط. حاول مرة أخرى.</string>
-    <string name="second_brain_retry">Retry</string>
+    <string name="second_brain_retry">إعادة المحاولة</string>
     <string name="second_brain_graph_desc">مخطط مواضيع يضم %1$d مواضيع و%2$d روابط</string>
-    <string name="second_brain_node_articles">%1$d articles</string>
+    <string name="second_brain_node_articles">%1$d مقالات</string>
     <string name="second_brain_range_label">النطاق الزمني</string>
     <string name="second_brain_related">مقالات ذات صلة</string>
 
@@ -745,7 +745,7 @@
     <!-- Share Target / Read Later (INGEST-02) -->
     <string name="read_later_feed_title">القراءة لاحقًا</string>
     <string name="share_target_save_btn">حفظ للقراءة لاحقًا</string>
-    <string name="share_target_cancel_btn">Cancel</string>
+    <string name="share_target_cancel_btn">إلغاء</string>
     <string name="share_target_saved_toast">تم الحفظ للقراءة لاحقًا</string>
     <string name="share_target_invalid_url">لم يُعثر على رابط صالح</string>
     <string name="read_position_sync">مزامنة موضع القراءة</string>
@@ -756,13 +756,13 @@
     <string name="smart_collection_query">استعلام الموضوع</string>
     <string name="smart_collection_save_action">حفظ كمجموعة</string>
     <string name="smart_collection_empty">لا توجد مجموعات ذكية بعد. احفظ بحثًا دلاليًا لمتابعة موضوع.</string>
-    <string name="smart_collection_articles_count">%1$d articles</string>
-    <string name="smart_collection_edit">Edit</string>
-    <string name="smart_collection_delete">Delete</string>
+    <string name="smart_collection_articles_count">%1$d مقالات</string>
+    <string name="smart_collection_edit">تعديل</string>
+    <string name="smart_collection_delete">حذف</string>
     <string name="smart_collection_delete_confirm">حذف هذه المجموعة؟ ستبقى مقالاتها في مكتبتك.</string>
     <string name="smart_collection_saved">تم حفظ المجموعة الذكية</string>
     <string name="smart_collection_empty_articles">لا توجد مقالات جديدة مطابقة بعد. ستظهر المطابقات الجديدة بعد المزامنة.</string>
-    <string name="save">Save</string>
+    <string name="save">حفظ</string>
     <string name="eink_mode_title">تحسين شاشة الحبر الإلكتروني</string>
     <string name="eink_active_title">وضع E-Ink قيد التشغيل</string>
     <string name="eink_active_desc">يظهر التطبيق بالأبيض والأسود. اضغط لإيقافه.</string>
@@ -861,17 +861,17 @@
     <string name="widget_article_pin_unsupported">لا يدعم المشغّل لديك تثبيت الأدوات تلقائيًا</string>
     <!-- Feed Zero Triage (EXC-14) -->
     <string name="feed_zero_triage_title">فرز صفر موجز</string>
-    <string name="triage_swipe_left_skip">Skip</string>
-    <string name="triage_swipe_right_save">Save</string>
+    <string name="triage_swipe_left_skip">تخطٍّ</string>
+    <string name="triage_swipe_right_save">حفظ</string>
     <string name="triage_swipe_up_read">اقرأ الآن</string>
     <string name="triage_progress_format">%1$d / %2$d</string>
     <string name="triage_inbox_zero_title">🎉 تم الوصول إلى صندوق وارد فارغ!</string>
     <string name="triage_inbox_zero_subtitle">لقد أنهيت جميع المقالات غير المقروءة في هذه الدفعة.</string>
-    <string name="triage_summary_processed">Processed: %1$d</string>
+    <string name="triage_summary_processed">تمت المعالجة: %1$d</string>
     <string name="triage_summary_saved">محفوظ لوقت لاحق: %1$d</string>
     <string name="triage_summary_skipped">معلّم كمقروء: %1$d</string>
     <string name="triage_summary_xp">+%1$d XP في Brain RPG</string>
-    <string name="triage_finish_button">Done</string>
+    <string name="triage_finish_button">تم</string>
     <!-- Brain Wrapped tuần (RPG-09) -->
     <string name="brain_wrapped_share_story">مشاركة في القصة</string>
     <string name="brain_wrapped_xp_label">نقاط الأسبوع</string>
@@ -914,16 +914,16 @@
     <string name="radar_diff_removed_notice">لم يعد هذا المقال موجودًا في مصدره عبر عدة عمليات مزامنة متتالية. تظهر أدناه آخر نسخة محفوظة.</string>
     <string name="headline_signals_title">إشارات العناوين الخادعة &amp; النبرة</string>
     <string name="headline_signals_desc">يحلّل صياغة العنوان والمقال على هذا الجهاز بحثًا عن مؤشرات العناوين الخادعة (clickbait) والصياغة الترويجية/المبالغة والنبرة العاطفية (إيجابية/غير واضحة/سلبية). لا يُرسل شيء إلى أي مكان ولا يُستخدم ذكاء اصطناعي أو شبكة. هذه إشارات صياغة فقط، وليست تدقيقًا للحقائق ولا أحكامًا على التحيز السياسي. الإسبانية والفرنسية والألمانية تجريبية.</string>
-    <string name="headline_signals_clickbait_badge">🎯 Clickbait %1$d%%</string>
+    <string name="headline_signals_clickbait_badge">🎯 عنوان خادع %1$d%%</string>
     <string name="headline_signals_clickbait_desc">مؤشر لغة العناوين الخادعة: الدرجة %1$d من 100.</string>
-    <string name="headline_signals_tone_positive">🟢 Positive</string>
-    <string name="headline_signals_tone_unclear">⚪ Unclear</string>
-    <string name="headline_signals_tone_negative">🔴 Negative</string>
+    <string name="headline_signals_tone_positive">🟢 إيجابي</string>
+    <string name="headline_signals_tone_unclear">⚪ غير واضح</string>
+    <string name="headline_signals_tone_negative">🔴 سلبي</string>
     <string name="headline_signals_tone_desc_positive">نبرة العنوان المعجمية: توجد مؤشرات إيجابية.</string>
     <string name="headline_signals_tone_desc_unclear">نبرة العنوان المعجمية: مؤشرات غير واضحة أو غير كافية.</string>
     <string name="headline_signals_tone_desc_negative">نبرة العنوان المعجمية: توجد مؤشرات سلبية.</string>
     <string name="brain_rpg_skill_tree_decay_warning">تلاشت هذه المهارة بمرور الوقت. تدرّب لاستعادتها.</string>
-    <string name="bounty_action_investigate">Investigate</string>
+    <string name="bounty_action_investigate">تحقّق</string>
     <string name="bounty_sheet_title">وكيل التحقيق في الكيانات</string>
     <string name="bounty_scanning_status">جارٍ فحص أرشيف أخبارك عن: %1$s…</string>
     <string name="bounty_stats_summary">%1$d مقالات ذات صلة • %2$d مصادر</string>
@@ -931,21 +931,21 @@
     <string name="bounty_ai_context_action">ملخص السياق بالذكاء الاصطناعي</string>
     <string name="bounty_ai_context_title">سياق الكيان (Gemini)</string>
     <string name="bounty_ai_context_no_key">أضف مفتاح Gemini API الخاص بك في إعدادات الذكاء الاصطناعي لاستخدام هذا.</string>
-    <string name="bounty_time_range">Timeline: %1$s – %2$s</string>
+    <string name="bounty_time_range">الجدول الزمني: %1$s – %2$s</string>
     <string name="bounty_radar_description">الرادار يفحص أرشيفك</string>
     <string name="bounty_error">تعذر البحث في أرشيفك. حاول مرة أخرى.</string>
     <string name="bounty_ai_context_loading">جارٍ تلخيص السياق…</string>
-    <string name="echo_hype_label">Hype: %1$d%%</string>
+    <string name="echo_hype_label">درجة التهويل: %1$d%%</string>
     <string name="echo_hype_warning">رُصدت صياغة ترويجية أو مبالغ فيها بشدة</string>
-    <string name="echo_tone_label">Tone: %1$s</string>
-    <string name="echo_tone_positive">🟢 Positive</string>
-    <string name="echo_tone_unclear">⚪ Unclear</string>
-    <string name="echo_tone_negative">🔴 Negative</string>
+    <string name="echo_tone_label">النبرة: %1$s</string>
+    <string name="echo_tone_positive">🟢 إيجابي</string>
+    <string name="echo_tone_unclear">⚪ غير واضح</string>
+    <string name="echo_tone_negative">🔴 سلبي</string>
     <string name="echo_details_title">إشارات لغة النص</string>
     <string name="echo_disclaimer">إشارات صياغة محلية فقط؛ وليست تدقيقًا للحقائق ولا درجة مصداقية ولا تحليلًا للتحيز السياسي ولا ادعاءً بنية الكاتب. «غير واضح» تعني نقص الأدلة المعجمية، لا الحياد.</string>
     <string name="echo_flagged_passages_title">مقاطع مُعلَّمة (%1$d)</string>
     <string name="echo_cue_promotional">عبارة ترويجية</string>
-    <string name="echo_cue_intensifier">Exaggeration</string>
+    <string name="echo_cue_intensifier">مبالغة</string>
     <string name="echo_cue_absolute">ادعاء مطلق</string>
     <string name="echo_cue_exclamation">تأكيد بعلامات الترقيم أو الأحرف الكبيرة</string>
     <string name="echo_no_passages">لم تتجاوز أي فقرة عتبة المبالغة.</string>
@@ -953,10 +953,10 @@
     <!-- BOUNTY-02 dossier -->
     <string name="dossier_create_action">إنشاء ملف</string>
     <string name="dossier_sheet_title">ملف استخباري محلي</string>
-    <string name="dossier_tab_summary">Summary</string>
-    <string name="dossier_tab_timeline">Timeline</string>
-    <string name="dossier_tab_names">Names</string>
-    <string name="dossier_tab_sources">Sources</string>
+    <string name="dossier_tab_summary">الملخص</string>
+    <string name="dossier_tab_timeline">الجدول الزمني</string>
+    <string name="dossier_tab_names">الأسماء</string>
+    <string name="dossier_tab_sources">المصادر</string>
     <string name="dossier_share_action">مشاركة Markdown</string>
     <string name="dossier_chooser_title">مشاركة الملف</string>
     <string name="dossier_limitation">مبني فقط على المقالات المحفوظة في هذا التطبيق. قد يُغفل وجهات نظر وليس تدقيقًا للحقائق.</string>
@@ -965,21 +965,21 @@
     <string name="dossier_names_empty">لا توجد عبارة تتكرر في مقالين على الأقل.</string>
     <string name="dossier_sources_single">أرشيفك يحتوي على مصدر واحد فقط حول هذا الموضوع.</string>
     <string name="dossier_sources_note">العناوين مجمّعة حسب المصدر؛ ولا يُستخلص أي استنتاج.</string>
-    <string name="dossier_article_count">%1$d articles</string>
+    <string name="dossier_article_count">%1$d مقالات</string>
     <string name="dossier_share_error">تعذر تجهيز الملف للمشاركة.</string>
 
     <!-- BOUNTY-03 graph viewport -->
     <string name="second_brain_select_hint">اضغط على موضوع لعرض المقالات التي تذكره</string>
     <string name="second_brain_reset_view">إعادة ضبط العرض</string>
     <string name="second_brain_zoom_hint">اقرص للتكبير، واسحب للتحريك، واضغط مرتين لإعادة الضبط</string>
-    <string name="second_brain_zoom_level">Zoom %1$d%%</string>
+    <string name="second_brain_zoom_level">التكبير %1$d%%</string>
 
     <!-- RPG-03 streak rescue -->
     <string name="streak_rescue_title">سلسلة القراءة في خطر!</string>
     <string name="streak_rescue_message">فاتتك القراءة لمدة %1$d يومًا. ستُعاد سلسلتك البالغة %2$d يومًا إلى الصفر عند قراءتك التالية.</string>
     <string name="streak_rescue_action_ad">شاهد فيديو لإنقاذ السلسلة</string>
     <string name="streak_rescue_action_restart">ابدأ من جديد</string>
-    <string name="streak_rescue_action_later">Later</string>
+    <string name="streak_rescue_action_later">لاحقًا</string>
     <string name="streak_rescue_ad_failed">تعذر تحميل الفيديو. يُرجى المحاولة مرة أخرى.</string>
 
     <!-- ZEN-07 RSVP calibration -->
@@ -994,8 +994,8 @@
     <string name="zen_calibration_suggested_wpm">السرعة المقترحة: ~%1$d WPM</string>
     <string name="zen_calibration_limitation">هذا تقدير تقريبي من 6 أسئلة، وليس مقياسًا للفهم العميق. يمكنك دائمًا ضبط السرعة يدويًا.</string>
     <string name="zen_calibration_low_confidence_note">تفاوتت إجاباتك عبر السرعات؛ جرّب القراءة بوتيرتك الخاصة وأعد المعايرة لاحقًا.</string>
-    <string name="zen_calibration_apply">Apply</string>
-    <string name="zen_calibration_skip">Skip</string>
+    <string name="zen_calibration_apply">تطبيق</string>
+    <string name="zen_calibration_skip">تخطٍّ</string>
     <string name="zen_calibration_settings_desc">عاير سرعة قراءتك عبر 3 جولات قصيرة</string>
 
     <!-- ECHO-02 contrasting coverage -->
@@ -1009,7 +1009,7 @@
     <string name="echo_dual_export">تصدير بطاقة</string>
     <string name="echo_dual_export_desc">تصدير بطاقة بعنوانين مع %1$s</string>
     <string name="echo_dual_title">مشاركة عنوانين</string>
-    <string name="echo_dual_share">Share</string>
+    <string name="echo_dual_share">مشاركة</string>
     <string name="echo_dual_cut_note">تم اختصار أحد العناوين</string>
     <string name="echo_dual_error">تعذر إنشاء البطاقة. اضغط لإعادة المحاولة.</string>
     <string name="echo_dual_chooser_title">مشاركة بطاقة العنوانين</string>
@@ -1017,22 +1017,22 @@
 
     <!-- STRAT-02 curated bundles -->
     <string name="curated_bundles_title">حزم منتقاة</string>
-    <string name="curated_bundle_verified_on">Checked %1$s</string>
-    <string name="curated_bundle_source_count">Sources: %1$d</string>
+    <string name="curated_bundle_verified_on">تم التحقق: %1$s</string>
+    <string name="curated_bundle_source_count">المصادر: %1$d</string>
     <string name="curated_bundle_subscribe_all">اشتراك في الكل</string>
-    <string name="curated_bundle_subscribing">Subscribing…</string>
-    <string name="curated_bundle_progress">Subscribing %1$d of %2$d</string>
+    <string name="curated_bundle_subscribing">جارٍ الاشتراك…</string>
+    <string name="curated_bundle_progress">الاشتراك %1$d من %2$d</string>
     <string name="curated_bundle_result">أُضيف %1$d · موجود مسبقًا %2$d · فشل %3$d</string>
     <string name="curated_bundle_error">تعذر الاشتراك: %1$s</string>
     <string name="curated_bundle_no_sources_added">تعذرت إضافة أي مصدر، لذا لم تُنشأ مجموعة.</string>
     <string name="curated_bundle_account_local_only">الاشتراك في حزمة كاملة متاح للحساب المحلي فقط.</string>
 
     <!-- FRONT-03 knowledge galaxy -->
-    <string name="galaxy_mode_concepts">Concepts</string>
-    <string name="galaxy_mode_stars">Galaxy</string>
+    <string name="galaxy_mode_concepts">المفاهيم</string>
+    <string name="galaxy_mode_stars">المجرة</string>
     <string name="galaxy_empty">علّم بعض المقالات كمقروءة وستتألق هنا كنجوم. جرّب توسيع النطاق الزمني.</string>
     <string name="galaxy_error">تعذر بناء المجرة. حاول مرة أخرى.</string>
-    <string name="galaxy_retry">Retry</string>
+    <string name="galaxy_retry">إعادة المحاولة</string>
     <string name="galaxy_reset_view">إعادة ضبط العرض</string>
     <string name="galaxy_stats">النجوم: %1$d · الروابط: %2$d</string>
     <string name="galaxy_star_open">فتح المقال</string>
@@ -1047,10 +1047,10 @@
     <string name="second_screen_copied">تم نسخ الرابط</string>
     <string name="second_screen_share">مشاركة الرابط</string>
     <string name="second_screen_share_chooser">مشاركة رابط الشاشة الثانية</string>
-    <string name="second_screen_viewers">Viewers: %1$d</string>
-    <string name="second_screen_expires">Expires at %1$s</string>
+    <string name="second_screen_viewers">المشاهدون: %1$d</string>
+    <string name="second_screen_expires">ينتهي في %1$s</string>
     <string name="second_screen_warning">غير مشفّر. يمكن لأي شخص على شبكة Wi-Fi هذه يرى الرابط قراءة المقال. استخدمه فقط على شبكة تثق بها.</string>
-    <string name="second_screen_starting">Starting…</string>
+    <string name="second_screen_starting">جارٍ البدء…</string>
     <string name="second_screen_no_network">لا توجد شبكة Wi-Fi أو Ethernet بعنوان خاص. اتصل بشبكة Wi-Fi وحاول مرة أخرى.</string>
     <string name="second_screen_lan_permission_denied">الوصول إلى الشبكة المحلية متوقف. اسمح به من الإعدادات لعرض المقالات على شاشة ثانية.</string>
     <string name="second_screen_expired">انتهت الجلسة. فعّلها مرة أخرى للحصول على رابط جديد.</string>
@@ -1061,8 +1061,8 @@
     <string name="galaxy_related_title">مقالات ذات صلة</string>
     <string name="galaxy_shared_terms">كلمات مشتركة: %1$s</string>
     <string name="local_sync_title">المزامنة المحلية</string>
-    <string name="local_sync_send">Send</string>
-    <string name="local_sync_receive">Receive</string>
+    <string name="local_sync_send">إرسال</string>
+    <string name="local_sync_receive">استلام</string>
     <string name="local_sync_send_instructions">أنشئ حزمة مشفّرة لجهاز آخر على هذه الشبكة المحلية.</string>
     <string name="local_sync_secret_warning">شارك سر الإقران هذا بشكل منفصل عن الرابط. يمكن لمن يملك كليهما قراءة الحزمة.</string>
     <string name="local_sync_http_warning">لا يخفي HTTP الرابط ولا عنوان الجهاز ولا الوقت ولا حجم النقل. محتويات الحزمة فقط هي المشفّرة. استخدم شبكة محلية موثوقة.</string>
@@ -1086,7 +1086,7 @@
     <string name="local_sync_apply">تطبيق التغييرات</string>
     <string name="local_sync_confirm_apply">تطبيق تغييرات المزامنة؟</string>
     <string name="local_sync_confirm_counts">موجزات ستُضاف: %1$d. حالات مقالات ستُحدَّث: %2$d. هل تريد تطبيق هذه التغييرات؟</string>
-    <string name="local_sync_cancel">Cancel</string>
+    <string name="local_sync_cancel">إلغاء</string>
     <string name="local_sync_done">تم تطبيق تغييرات المزامنة.</string>
     <string name="local_sync_not_local">اختر حسابًا محليًا لاستخدام المزامنة.</string>
     <string name="local_sync_error_network">تعذر الاتصال بجلسة المزامنة. تحقق من الرابط والشبكة المحلية.</string>
@@ -1103,7 +1103,7 @@
     <string name="local_sync_pair_new">إقران جهاز جديد</string>
     <string name="local_sync_pair_label_hint">اسم الجهاز الجديد</string>
     <string name="local_sync_remember_label_hint">اسم لتذكّر هذا الجهاز (اختياري)</string>
-    <string name="local_sync_serve_peer">Send to %1$s</string>
+    <string name="local_sync_serve_peer">إرسال إلى %1$s</string>
     <string name="local_sync_wait_reply">إيقاف والانتظار لاستقبال الرد</string>
     <string name="local_sync_role_hint">بعد أن يستقبل الهاتف الآخر، أوقف هنا وبدّل إلى الاستقبال. حينها يمكنه إرسال تغييراته إليك.</string>
     <string name="local_sync_reply_to">إرسال الرد إلى %1$s</string>
@@ -1112,9 +1112,9 @@
     <string name="local_sync_reply_instruction">اطلب من الهاتف الآخر إيقاف الإرسال وفتح الاستقبال أولًا.</string>
     <string name="local_sync_merge_limit">الدمج يحتفظ بعلامات «مقروء» و«مميّز بنجمة» فقط؛ وقد يعود وسم «غير مقروء» أو إزالة النجمة على هاتف واحد بعد المزامنة.</string>
     <string name="local_sync_peer_unconfirmed">بانتظار استقبال الجهاز الآخر مرة واحدة</string>
-    <string name="local_sync_peer_confirmed">Paired</string>
+    <string name="local_sync_peer_confirmed">تم الاقتران</string>
     <string name="local_sync_peer_needs_repair">لا يمكن استخدامه على هذا الهاتف. انسَه وأعد الإقران.</string>
-    <string name="local_sync_forget_peer">Forget</string>
+    <string name="local_sync_forget_peer">نسيان</string>
     <string name="local_sync_confirm_peer">وضع علامة «مقترن»</string>
     <string name="local_sync_nearby_title">جهاز مقترن في الجوار.</string>
     <string name="local_sync_no_peer_found">لم يُعثر على جهاز قريب بعد. افتح الإرسال على الجهاز الآخر.</string>
@@ -1126,13 +1126,13 @@
     <!-- EXC-11 Temporal Ask My Archive -->
     <string name="archive_query_title">اسأل أرشيفي</string>
     <string name="archive_query_desc">اسأل عن موضوع وانظر كيف غطّته مقالاتك المحفوظة شهرًا بشهر.</string>
-    <string name="archive_query_question_label">Question</string>
+    <string name="archive_query_question_label">السؤال</string>
     <string name="archive_query_question_hint">مثال: أسعار الفائدة منذ مارس</string>
     <string name="archive_query_search">بحث في الأرشيف</string>
     <string name="archive_query_start_date">تاريخ البدء (YYYY-MM-DD)</string>
     <string name="archive_query_end_date">تاريخ الانتهاء (YYYY-MM-DD)</string>
     <string name="archive_query_dates_optional">التواريخ اختيارية. بدونها يُبحث في آخر 12 شهرًا. كلا التاريخين يتجاوزان أي تاريخ في سؤالك.</string>
-    <string name="archive_query_range_used">Searching %1$s – %2$s</string>
+    <string name="archive_query_range_used">البحث في %1$s – %2$s</string>
     <string name="archive_query_searching">جارٍ البحث في أرشيفك…</string>
     <string name="archive_query_idle">كل شيء يعمل على هذا الجهاز. لا يُرسل أي شيء عبر الشبكة.</string>
     <string name="archive_query_no_results">لا توجد مقالة محفوظة تطابق هذا الموضوع في الفترة المبحوث فيها.</string>
@@ -1165,7 +1165,7 @@
     <string name="feed_autopilot_summary_clean">موجزاتك مرتبة. لم تُكتشف موجزات مزعجة.</string>
     <string name="feed_autopilot_reason_opened">فُتح %1$d من %2$d (آخر %3$d يومًا؛ تفاعل %4$d%%)</string>
     <string name="feed_autopilot_reason_zero">لم يُفتح أي مقال من %1$d خلال آخر %2$d يومًا</string>
-    <string name="feed_autopilot_action_unsubscribe">Unsubscribe</string>
+    <string name="feed_autopilot_action_unsubscribe">إلغاء الاشتراك</string>
     <string name="feed_autopilot_action_snooze">تأجيل لمدة 30 يومًا</string>
     <string name="feed_autopilot_action_keep">إبقاء وإيقاف الاقتراح</string>
     <string name="feed_autopilot_confirm_title">إلغاء الاشتراك من %1$s؟</string>
@@ -1174,30 +1174,30 @@
     <string name="feed_autopilot_not_local_account">الطيار الآلي للموجزات يدعم الحسابات المحلية فقط. الحسابات البعيدة (Fever وGoogle Reader) تدير موجزاتها على خادمها.</string>
     <string name="feed_autopilot_retention_too_short">مدة الاحتفاظ بمقالات حسابك أقل من 14 يومًا. زِدها من إعدادات الحساب ليملك الطيار الآلي سجلًا كافيًا للتحليل الآمن.</string>
     <string name="feed_autopilot_disabled_message">الطيار الآلي للموجزات متوقف. فعّله لتلقي اقتراحات تنظيف الموجزات.</string>
-    <string name="feed_autopilot_settings_pending">To review: %1$d</string>
+    <string name="feed_autopilot_settings_pending">للمراجعة: %1$d</string>
     <string name="feed_autopilot_error">تعذر إكمال ذلك. يُرجى المحاولة مرة أخرى.</string>
     <string name="podcast_studio_title">استوديو البودكاست</string>
     <string name="podcast_studio_menu">استوديو البودكاست</string>
     <string name="podcast_studio_consent_title">كتابة النص بالذكاء الاصطناعي؟</string>
     <string name="podcast_studio_consent_message">يُرسل فقط عنوان هذا المقال ومعاينة قصيرة (أقل من 250 حرفًا) إلى Google Gemini لكتابة نص بمقدّمَين. لا يُرسل نص المقال ولا الروابط ولا سجل قراءتك أبدًا.</string>
-    <string name="podcast_studio_consent_agree">Use AI</string>
+    <string name="podcast_studio_consent_agree">استخدام AI</string>
     <string name="podcast_studio_consent_decline">استخدام نص دون اتصال</string>
     <string name="podcast_studio_conflict_title">إيقاف ما يُشغَّل؟</string>
     <string name="podcast_studio_conflict_message">تشغيل هذا المقال كبودكاست سيوقف الصوت الذي يُشغَّل الآن.</string>
     <string name="podcast_studio_badge_source_gemini">النص كتبه الذكاء الاصطناعي</string>
     <string name="podcast_studio_badge_source_heuristic">نص دون اتصال، بلا ذكاء اصطناعي</string>
-    <string name="podcast_studio_play">Play</string>
-    <string name="podcast_studio_pause">Pause</string>
+    <string name="podcast_studio_play">تشغيل</string>
+    <string name="podcast_studio_pause">إيقاف مؤقت</string>
     <string name="podcast_studio_next">السطر التالي</string>
     <string name="podcast_studio_previous">السطر السابق</string>
-    <string name="podcast_studio_host_alex">Alex</string>
-    <string name="podcast_studio_host_sam">Sam</string>
+    <string name="podcast_studio_host_alex">أليكس</string>
+    <string name="podcast_studio_host_sam">سام</string>
     <string name="podcast_studio_waveform_playing">المرئي: قيد التشغيل، المتحدث: %1$s</string>
     <string name="podcast_studio_waveform_paused">المرئي: متوقف مؤقتًا</string>
     <string name="deep_dive_menu">🔬 تعمّق بالذكاء الاصطناعي</string>
     <string name="deep_dive_title">تعمّق بالذكاء الاصطناعي</string>
     <string name="deep_dive_consent_message">يُرسل عنوان المقال وما يصل إلى 6,000 حرف من نصه إلى Google Gemini لكتابة هذا التقرير. لا تُرسل الروابط ولا اسم الموجز ولا سجل قراءتك أبدًا. لا يبحث Gemini في الويب.</string>
-    <string name="deep_dive_consent_agree">Agree</string>
+    <string name="deep_dive_consent_agree">أوافق</string>
     <string name="deep_dive_consent_later">ليس الآن</string>
     <string name="deep_dive_declined_message">التعمّق بالذكاء الاصطناعي متوقف. فعّله من الإعدادات ثم الخصوصية لكتابة تقرير.</string>
     <string name="deep_dive_open_privacy">فتح إعدادات الخصوصية</string>
@@ -1207,39 +1207,39 @@
     <string name="deep_dive_nothing_to_analyze">لا يحتوي هذا المقال على عنوان أو نص لتحليله.</string>
     <string name="deep_dive_retry">حاول مرة أخرى</string>
     <string name="deep_dive_label">كتبه الذكاء الاصطناعي من العنوان ومقتطف؛ دون بحث في الويب؛ وقد يكون خاطئًا</string>
-    <string name="deep_dive_section_context">Context</string>
+    <string name="deep_dive_section_context">السياق</string>
     <string name="deep_dive_section_critical">وجهات نظر معارضة</string>
     <string name="deep_dive_section_impact">مصفوفة الأثر</string>
-    <string name="deep_dive_col_area">Area</string>
+    <string name="deep_dive_col_area">المجال</string>
     <string name="deep_dive_col_short">المدى القصير</string>
     <string name="deep_dive_col_long">المدى الطويل</string>
     <string name="deep_dive_export_pdf">تصدير PDF</string>
     <string name="deep_dive_chooser_title">مشاركة PDF التعمّق</string>
     <string name="deep_dive_export_error">تعذر إنشاء PDF</string>
     <string name="deep_dive_pdf_truncated">تم اقتطاعه ليناسب صفحة واحدة. شاهد التقرير الكامل في التطبيق.</string>
-    <string name="deep_dive_close">Close</string>
-    <string name="oracle_badge_label">Prediction</string>
+    <string name="deep_dive_close">إغلاق</string>
+    <string name="oracle_badge_label">توقّع</string>
     <string name="oracle_badge_open">افتح التوقّع</string>
     <string name="oracle_sheet_title">توقّع وُجد في هذا المقال</string>
-    <string name="oracle_sheet_expires">Expected by %1$s</string>
+    <string name="oracle_sheet_expires">المتوقع بحلول %1$s</string>
     <string name="oracle_sheet_criteria_heading">كيف تتحقق من الإجابة</string>
     <string name="oracle_sheet_ai_label">كتبه الذكاء الاصطناعي من العنوان والوصف؛ وقد يكون خاطئًا.</string>
-    <string name="oracle_sheet_close">Close</string>
+    <string name="oracle_sheet_close">إغلاق</string>
     <string name="oracle_consent_title">العثور على توقعات في المقالات الجديدة</string>
     <string name="oracle_consent_message">بعد كل مزامنة، يُرسل العنوان ووصف قصير (حتى 500 حرف في المجموع) لما يصل إلى 5 مقالات جديدة إلى Google Gemini للبحث عن توقّع. لا يُرسل نص المقال ولا الروابط ولا اسم الموجز ولا سجل قراءتك أبدًا. متوقف افتراضيًا.</string>
     <string name="oracle_bet_balance">الرصيد: %1$s نقطة</string>
     <string name="oracle_bet_pick_side">اختيارك</string>
-    <string name="oracle_bet_yes">Yes</string>
+    <string name="oracle_bet_yes">نعم</string>
     <string name="oracle_bet_no">No</string>
     <string name="oracle_bet_pick_stake">النقاط المراد المراهنة بها</string>
-    <string name="oracle_bet_stake_option">%1$s points</string>
+    <string name="oracle_bet_stake_option">%1$s نقطة</string>
     <string name="oracle_bet_place">ضع الرهان</string>
     <string name="oracle_bet_place_summary">رهان %1$s نقطة على %2$s</string>
     <string name="oracle_bet_out_of_points">نقاطك غير كافية. تحصل على 100 نقطة جديدة كل يوم (UTC)، حتى 2,000.</string>
     <string name="oracle_bet_open">راهنت بـ %1$s نقطة على %2$s.</string>
     <string name="oracle_bet_open_hint">يمكنك الإبلاغ عن النتيجة بعد التاريخ أعلاه.</string>
     <string name="oracle_bet_awaiting_title">ما كانت النتيجة؟</string>
-    <string name="oracle_bet_outcome_unclear">Unclear</string>
+    <string name="oracle_bet_outcome_unclear">غير واضح</string>
     <string name="oracle_bet_awaiting_hint">راهنت بـ %1$s نقطة على %2$s. «غير واضح» يعيد نقاطك.</string>
     <string name="oracle_bet_settled_won">ربحت %1$s نقطة.</string>
     <string name="oracle_bet_settled_lost">خسرت %1$s نقطة.</string>
@@ -1262,7 +1262,7 @@
     <string name="commute_autoplay_title">التشغيل عند اتصال سماعات Bluetooth</string>
     <string name="commute_autoplay_desc">يحاول بدء حلقة الصباح مرة واحدة يوميًا، خلال ساعتين من جاهزيتها. إن منعها Android فسيصلك إشعار فيه زر تشغيل.</string>
     <string name="commute_autoplay_permission_denied">بدون إذن الأجهزة القريبة لا يستطيع التطبيق رؤية سماعاتك، لذا يبقى هذا متوقفًا.</string>
-    <string name="commute_play_action">Play</string>
+    <string name="commute_play_action">تشغيل</string>
     <string name="commute_ready_to_play_title">حلقة الصباح جاهزة</string>
     <string name="commute_ready_to_play_body">سماعاتك متصلة. اضغط تشغيل للاستماع.</string>
     <string name="trust_self_signed_title">الوثوق بشهادة موقّعة ذاتيًا</string>

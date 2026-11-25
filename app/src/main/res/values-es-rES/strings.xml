@@ -206,7 +206,7 @@
     <string name="tips_group_list_tonal_elevation">La elevación del tono de la lista de grupos sólo está disponible en el tema claro</string>
     <string name="share">Compartir</string>
     <string name="touch_to_play_video">Pulse para reproducir un vídeo</string>
-    <string name="text">Text</string>
+    <string name="text">Texto</string>
     <string name="font_size">Tamaño de fuente</string>
     <string name="letter_spacing">Espaciado de letras</string>
     <string name="alignment">Alineación</string>
@@ -385,10 +385,10 @@
     <string name="inoreader_desc" translatable="false">inoreader.com</string>
     <string name="fresh_rss_desc" translatable="false">freshrss.org</string>
     <string name="google_reader_desc" translatable="false">Google Reader API</string>
-    <string name="in_coding">In development</string>
+    <string name="in_coding">En desarrollo</string>
     <string name="tips_top_bar_tonal_elevation">La elevación tonal solo está disponible al desplazarse</string>
     <string name="summary_title">Resumir con IA</string>
-    <string name="summary_loading">Summarizing…</string>
+    <string name="summary_loading">Resumiendo…</string>
     <string name="summary_try_again">Reintentar</string>
     <string name="summary_get_key">Obtener una clave gratis</string>
     <string name="summary_err_empty_content">El artículo no tiene contenido que resumir</string>
@@ -404,13 +404,13 @@
     <string name="vip_settings_desc">Gestiona VIP, canjea códigos, quita anuncios</string>
     <string name="vip_active">VIP activo</string>
     <string name="vip_free_user">Usuario gratuito</string>
-    <string name="vip_until">Until %1$s</string>
-    <string name="vip_activated_at">Activated: %1$s</string>
-    <string name="vip_expires_at">Expires: %1$s</string>
+    <string name="vip_until">Hasta %1$s</string>
+    <string name="vip_activated_at">Activado: %1$s</string>
+    <string name="vip_expires_at">Caduca: %1$s</string>
     <string name="vip_remaining_short">Quedan %1$d días %2$d horas</string>
     <string name="vip_redeem_label">Introduce el código VIP</string>
     <string name="vip_redeem_hint">p. ej., tu código VIP</string>
-    <string name="vip_redeem_button">Activate</string>
+    <string name="vip_redeem_button">Activar</string>
     <string name="vip_watch_ad_3d">Ver anuncio → 3 días de VIP</string>
     <string name="vip_buy_30d_locked">Comprar VIP de 30 días — próximamente</string>
     <string name="vip_buy_90d_locked">Comprar VIP de 90 días — próximamente</string>
@@ -422,9 +422,9 @@
     <string name="vip_revoke_all_confirm_message">¿Seguro que quieres revocar el VIP y volver a la cuenta gratuita?</string>
     <string name="vip_entry_first_install">🎁 Regalo por nueva instalación</string>
     <string name="vip_entry_active">Suscripción VIP</string>
-    <string name="vip_success_title">Success</string>
+    <string name="vip_success_title">Correcto</string>
     <string name="vip_success_message">VIP activo durante %1$d días.</string>
-    <string name="vip_failed_title">Failed</string>
+    <string name="vip_failed_title">Error</string>
     <string name="ad_attribution_label" translatable="false">Ad Networks (AdMob / AppLovin MAX)</string>
     <string name="vip_failed_busy">Todavía se está comprobando un código anterior. Espera un momento e inténtalo de nuevo.</string>
     <string name="vip_failed_no_network">Activar un código requiere conexión a internet. Conéctate e inténtalo de nuevo.</string>
@@ -441,8 +441,8 @@
     <string name="commute_deepdive_unlocked">🎉 ¡Análisis a fondo desbloqueado!</string>
     <string name="commute_empty">No hay artículos sin leer para la radio matinal</string>
     <string name="commute_generating">El DJ de IA está preparando tu programa...</string>
-    <string name="retry">Retry</string>
-    <string name="version">Version</string>
+    <string name="retry">Reintentar</string>
+    <string name="version">Versión</string>
     <string name="rate_app">Valorar la app</string>
     <string name="rate_app_desc">Valórala con 5 estrellas si te resulta útil</string>
     <string name="more_apps">Más apps</string>
@@ -451,7 +451,7 @@
     <string name="share_app_desc">Comparte esta aplicación para que otros la usen contigo</string>
     <string name="term_and_policy">Términos y política</string>
     <string name="term_and_policy_desc">Lee los términos de seguridad y la política de privacidad</string>
-    <string name="about_title">About</string>
+    <string name="about_title">Acerca de</string>
     <string name="about_desc">Conoce esta app</string>
     <string name="source_code_original">Código fuente (versión original)</string>
     <string name="source_code_current">Código fuente (esta versión)</string>
@@ -462,7 +462,7 @@
     <string name="brain_rpg_title">Brain RPG</string>
     <string name="brain_rpg_subtitle">Árbol de habilidades y racha diaria</string>
     <string name="brain_rpg_settings_desc">Sigue tu XP de lectura, racha, nivel y árbol de conocimiento</string>
-    <string name="brain_rpg_level">Level %1$d</string>
+    <string name="brain_rpg_level">Nivel %1$d</string>
     <string name="brain_rpg_streak">Racha de %1$d días</string>
     <string name="brain_rpg_quiz_title">Microtest de IA de 10 s</string>
     <string name="brain_rpg_quiz_reward">+150 XP</string>
@@ -477,7 +477,7 @@
     <string name="quiz_ai_no_key">No hay ninguna clave de Gemini disponible, así que la IA no pudo redactar una pregunta.</string>
     <string name="quiz_ai_nothing_to_ask">Este artículo no tiene título ni vista previa sobre los que preguntar.</string>
     <string name="quiz_ai_retry">Reintentar</string>
-    <string name="quiz_ai_consent_agree">Agree</string>
+    <string name="quiz_ai_consent_agree">Aceptar</string>
     <string name="quiz_ai_consent_later">Ahora no</string>
     <string name="quiz_ai_declined_message">Las preguntas de test con IA están desactivadas. Actívalas en Ajustes, Privacidad, para obtener una pregunta aquí.</string>
     <string name="quiz_ai_open_privacy">Abrir ajustes de privacidad</string>
@@ -516,7 +516,7 @@
     <string name="zen_speed_reading">Lectura rápida (RSVP)</string>
     <string name="zen_speed_reading_desc">Lee hasta 900 palabras por minuto con alineación focal fija</string>
     <string name="zen_wpm_label">Velocidad de lectura: %1$d ppm</string>
-    <string name="zen_words_progress">%1$d / %2$d words</string>
+    <string name="zen_words_progress">%1$d / %2$d palabras</string>
     <string name="zen_ambient_audio">Audio Zen de concentración</string>
     <string name="zen_ambient_audio_desc">Sonidos relajantes para concentrarte en la lectura profunda</string>
     <string name="zen_sound_rain">Lluvia suave</string>
@@ -531,9 +531,9 @@
     <string name="zen_evening_edition">Evening Edition (20:00)</string>
     <string name="zen_daily_edition_notification">%1$d artículos sin leer listos para tu lectura concentrada.</string>
     <string name="zen_sleep_timer">Temporizador de apagado</string>
-    <string name="zen_sleep_timer_off">Continuous</string>
-    <string name="zen_sleep_timer_min">%1$d minutes</string>
-    <string name="zen_volume">Volume: %1$d%%</string>
+    <string name="zen_sleep_timer_off">Continuo</string>
+    <string name="zen_sleep_timer_min">%1$d minutos</string>
+    <string name="zen_volume">Volumen: %1$d%%</string>
     <string name="zen_settings_title">Enfoque Zen y lectura rápida</string>
     <!-- Loop 09: AI Article Highlights & Key Takeaways Card -->
     <string name="highlights_title">Puntos clave del artículo</string>
@@ -584,7 +584,7 @@
     <string name="story_cluster_all_perspectives">Todas las perspectivas (%d)</string>
     <string name="story_cluster_mark_all_read">Marcar todo como leído</string>
     <string name="story_cluster_sheet_title">Cobertura de la noticia desde varias perspectivas</string>
-    <string name="story_cluster_lead_badge">Lead</string>
+    <string name="story_cluster_lead_badge">Principal</string>
     <string name="semantic_search_title">Búsqueda semántica IA</string>
     <string name="semantic_search_desc">Buscar artículos por concepto y significado semántico en vez de palabras clave exactas</string>
     <string name="semantic_match_badge">%d%% coincidencia</string>
@@ -615,12 +615,12 @@
     <string name="notebook_empty_subtitle">Destaca citas inspiradoras mientras lees para organizar tu Segundo Cerebro.</string>
     <string name="notebook_empty_search">No se encontraron destacados que coincidan</string>
 
-    <string name="notebook_save">Save</string>
-    <string name="notebook_copy">Copy</string>
-    <string name="notebook_edit">Edit</string>
+    <string name="notebook_save">Guardar</string>
+    <string name="notebook_copy">Copiar</string>
+    <string name="notebook_edit">Editar</string>
     <string name="notebook_copied">Copiado al portapapeles</string>
-    <string name="notebook_saved">Saved</string>
-    <string name="notebook_deleted">Deleted</string>
+    <string name="notebook_saved">Guardado</string>
+    <string name="notebook_deleted">Eliminado</string>
     <string name="notebook_untitled">Artículo sin título</string>
     <string name="ai_active_key_custom">Usando tu clave API personal</string>
     <string name="ai_active_key_default">Usando la cuota compartida predeterminada</string>
@@ -750,9 +750,9 @@
     <string name="second_brain_settings_desc">Mira cómo se conectan con el tiempo los temas que lees</string>
     <string name="second_brain_empty">Lee o guarda algunos artículos y aquí aparecerá tu grafo de temas.</string>
     <string name="second_brain_error">No se pudo crear el grafo. Inténtalo de nuevo.</string>
-    <string name="second_brain_retry">Retry</string>
+    <string name="second_brain_retry">Reintentar</string>
     <string name="second_brain_graph_desc">Grafo de temas con %1$d temas y %2$d conexiones</string>
-    <string name="second_brain_node_articles">%1$d articles</string>
+    <string name="second_brain_node_articles">%1$d artículos</string>
     <string name="second_brain_range_label">Intervalo de tiempo</string>
     <string name="second_brain_related">Artículos relacionados</string>
 
@@ -773,7 +773,7 @@
     <!-- Share Target / Read Later (INGEST-02) -->
     <string name="read_later_feed_title">Leer más tarde</string>
     <string name="share_target_save_btn">Guardar en Leer más tarde</string>
-    <string name="share_target_cancel_btn">Cancel</string>
+    <string name="share_target_cancel_btn">Cancelar</string>
     <string name="share_target_saved_toast">Guardado en Leer más tarde</string>
     <string name="share_target_invalid_url">No se encontró ningún enlace válido</string>
     <string name="read_position_sync">Sincronizar posición de lectura</string>
@@ -784,13 +784,13 @@
     <string name="smart_collection_query">Consulta de tema</string>
     <string name="smart_collection_save_action">Guardar como colección</string>
     <string name="smart_collection_empty">Aún no hay colecciones inteligentes. Guarda una búsqueda semántica para seguir un tema.</string>
-    <string name="smart_collection_articles_count">%1$d articles</string>
-    <string name="smart_collection_edit">Edit</string>
-    <string name="smart_collection_delete">Delete</string>
+    <string name="smart_collection_articles_count">%1$d artículos</string>
+    <string name="smart_collection_edit">Editar</string>
+    <string name="smart_collection_delete">Eliminar</string>
     <string name="smart_collection_delete_confirm">¿Eliminar esta colección? Sus artículos seguirán en tu biblioteca.</string>
     <string name="smart_collection_saved">Colección inteligente guardada</string>
     <string name="smart_collection_empty_articles">Aún no hay artículos nuevos que coincidan. Las nuevas coincidencias aparecerán tras sincronizar.</string>
-    <string name="save">Save</string>
+    <string name="save">Guardar</string>
     <string name="eink_mode_title">Optimización E-Ink</string>
     <string name="eink_active_title">El modo E-Ink está activado</string>
     <string name="eink_active_desc">La aplicación se muestra en blanco y negro. Toca para desactivarlo.</string>
@@ -931,7 +931,7 @@
     <string name="headline_signals_tone_desc_unclear">Tono léxico del titular: indicadores poco claros o insuficientes.</string>
     <string name="headline_signals_tone_desc_negative">Tono léxico del titular: se observan indicadores negativos.</string>
     <string name="brain_rpg_skill_tree_decay_warning">Esta habilidad se ha desvanecido con el tiempo. Practica para recuperarla.</string>
-    <string name="bounty_action_investigate">Investigate</string>
+    <string name="bounty_action_investigate">Investigar</string>
     <string name="bounty_sheet_title">Agente de investigación de entidades</string>
     <string name="bounty_scanning_status">Buscando en tu archivo de noticias: %1$s…</string>
     <string name="bounty_stats_summary">%1$d artículos relacionados • %2$d fuentes</string>
@@ -939,21 +939,21 @@
     <string name="bounty_ai_context_action">Resumen de contexto con IA</string>
     <string name="bounty_ai_context_title">Contexto de la entidad (Gemini)</string>
     <string name="bounty_ai_context_no_key">Añade tu propia clave de API de Gemini en los ajustes de IA para usar esto.</string>
-    <string name="bounty_time_range">Timeline: %1$s – %2$s</string>
+    <string name="bounty_time_range">Cronología: %1$s – %2$s</string>
     <string name="bounty_radar_description">El radar está analizando tu archivo</string>
     <string name="bounty_error">No se pudo buscar en tu archivo. Inténtalo de nuevo.</string>
     <string name="bounty_ai_context_loading">Resumiendo el contexto…</string>
     <string name="echo_hype_label">Hype: %1$d%%</string>
     <string name="echo_hype_warning">Se detectó un lenguaje muy promocional o exagerado</string>
-    <string name="echo_tone_label">Tone: %1$s</string>
-    <string name="echo_tone_positive">🟢 Positive</string>
-    <string name="echo_tone_unclear">⚪ Unclear</string>
-    <string name="echo_tone_negative">🔴 Negative</string>
+    <string name="echo_tone_label">Tono: %1$s</string>
+    <string name="echo_tone_positive">🟢 Positivo</string>
+    <string name="echo_tone_unclear">⚪ Poco claro</string>
+    <string name="echo_tone_negative">🔴 Negativo</string>
     <string name="echo_details_title">Señales del lenguaje</string>
     <string name="echo_disclaimer">Solo señales locales del lenguaje; no es una verificación de hechos, ni una puntuación de credibilidad, ni un análisis de sesgo político, ni una afirmación sobre la intención del autor. «No claro» significa que no hay evidencia léxica suficiente, no que sea neutral.</string>
     <string name="echo_flagged_passages_title">Pasajes marcados (%1$d)</string>
     <string name="echo_cue_promotional">Frase promocional</string>
-    <string name="echo_cue_intensifier">Exaggeration</string>
+    <string name="echo_cue_intensifier">Exageración</string>
     <string name="echo_cue_absolute">Afirmación absoluta</string>
     <string name="echo_cue_exclamation">Énfasis con puntuación o mayúsculas</string>
     <string name="echo_no_passages">Ningún párrafo superó el umbral de exageración.</string>
@@ -961,10 +961,10 @@
     <!-- BOUNTY-02 dossier -->
     <string name="dossier_create_action">Crear dosier</string>
     <string name="dossier_sheet_title">Dosier de inteligencia local</string>
-    <string name="dossier_tab_summary">Summary</string>
-    <string name="dossier_tab_timeline">Timeline</string>
-    <string name="dossier_tab_names">Names</string>
-    <string name="dossier_tab_sources">Sources</string>
+    <string name="dossier_tab_summary">Resumen</string>
+    <string name="dossier_tab_timeline">Cronología</string>
+    <string name="dossier_tab_names">Nombres</string>
+    <string name="dossier_tab_sources">Fuentes</string>
     <string name="dossier_share_action">Compartir Markdown</string>
     <string name="dossier_chooser_title">Compartir dosier</string>
     <string name="dossier_limitation">Creado solo con artículos guardados en esta app. Puede omitir puntos de vista y no es una verificación de hechos.</string>
@@ -973,7 +973,7 @@
     <string name="dossier_names_empty">Ninguna frase se repite en al menos 2 artículos.</string>
     <string name="dossier_sources_single">Tu archivo solo tiene una fuente sobre este tema.</string>
     <string name="dossier_sources_note">Los titulares se agrupan por fuente; no se extrae ninguna conclusión.</string>
-    <string name="dossier_article_count">%1$d articles</string>
+    <string name="dossier_article_count">%1$d artículos</string>
     <string name="dossier_share_error">No se pudo preparar el dosier para compartir.</string>
 
     <!-- BOUNTY-03 graph viewport -->
@@ -987,7 +987,7 @@
     <string name="streak_rescue_message">Te saltaste %1$d días de lectura. Tu racha de %2$d días se reiniciará en tu próxima lectura.</string>
     <string name="streak_rescue_action_ad">Ver vídeo para salvar la racha</string>
     <string name="streak_rescue_action_restart">Empezar de cero</string>
-    <string name="streak_rescue_action_later">Later</string>
+    <string name="streak_rescue_action_later">Más tarde</string>
     <string name="streak_rescue_ad_failed">No se pudo cargar el vídeo. Inténtalo de nuevo.</string>
 
     <!-- ZEN-07 RSVP calibration -->
@@ -1002,8 +1002,8 @@
     <string name="zen_calibration_suggested_wpm">Velocidad sugerida: ~%1$d ppm</string>
     <string name="zen_calibration_limitation">Es una estimación aproximada basada en 6 preguntas, no una medida de comprensión profunda. Siempre puedes ajustar la velocidad manualmente.</string>
     <string name="zen_calibration_low_confidence_note">Tus respuestas variaron según la velocidad; prueba a leer a tu ritmo y vuelve a calibrar más tarde.</string>
-    <string name="zen_calibration_apply">Apply</string>
-    <string name="zen_calibration_skip">Skip</string>
+    <string name="zen_calibration_apply">Aplicar</string>
+    <string name="zen_calibration_skip">Omitir</string>
     <string name="zen_calibration_settings_desc">Calibra tu velocidad de lectura en 3 rondas cortas</string>
 
     <!-- ECHO-02 contrasting coverage -->
@@ -1017,7 +1017,7 @@
     <string name="echo_dual_export">Exportar tarjeta</string>
     <string name="echo_dual_export_desc">Exportar una tarjeta de dos titulares con %1$s</string>
     <string name="echo_dual_title">Compartir dos titulares</string>
-    <string name="echo_dual_share">Share</string>
+    <string name="echo_dual_share">Compartir</string>
     <string name="echo_dual_cut_note">Se acortó un titular</string>
     <string name="echo_dual_error">No se pudo crear la tarjeta. Toca para reintentar.</string>
     <string name="echo_dual_chooser_title">Compartir tarjeta de dos titulares</string>
@@ -1025,22 +1025,22 @@
 
     <!-- STRAT-02 curated bundles -->
     <string name="curated_bundles_title">Paquetes seleccionados</string>
-    <string name="curated_bundle_verified_on">Checked %1$s</string>
-    <string name="curated_bundle_source_count">Sources: %1$d</string>
+    <string name="curated_bundle_verified_on">Comprobado %1$s</string>
+    <string name="curated_bundle_source_count">Fuentes: %1$d</string>
     <string name="curated_bundle_subscribe_all">Suscribirse a todo</string>
-    <string name="curated_bundle_subscribing">Subscribing…</string>
-    <string name="curated_bundle_progress">Subscribing %1$d of %2$d</string>
+    <string name="curated_bundle_subscribing">Suscribiendo…</string>
+    <string name="curated_bundle_progress">Suscribiendo %1$d de %2$d</string>
     <string name="curated_bundle_result">Añadidos %1$d · ya tenías %2$d · fallidos %3$d</string>
     <string name="curated_bundle_error">No se pudo suscribir: %1$s</string>
     <string name="curated_bundle_no_sources_added">No se pudo añadir ninguna fuente, así que no se creó ningún grupo.</string>
     <string name="curated_bundle_account_local_only">Suscribirse a un paquete completo solo está disponible para la cuenta local.</string>
 
     <!-- FRONT-03 knowledge galaxy -->
-    <string name="galaxy_mode_concepts">Concepts</string>
-    <string name="galaxy_mode_stars">Galaxy</string>
+    <string name="galaxy_mode_concepts">Conceptos</string>
+    <string name="galaxy_mode_stars">Galaxia</string>
     <string name="galaxy_empty">Marca algunos artículos como leídos y brillarán aquí como estrellas. Prueba a ampliar el intervalo de tiempo.</string>
     <string name="galaxy_error">No se pudo crear la galaxia. Inténtalo de nuevo.</string>
-    <string name="galaxy_retry">Retry</string>
+    <string name="galaxy_retry">Reintentar</string>
     <string name="galaxy_reset_view">Restablecer vista</string>
     <string name="galaxy_stats">Estrellas: %1$d · Enlaces: %2$d</string>
     <string name="galaxy_star_open">Abrir artículo</string>
@@ -1055,10 +1055,10 @@
     <string name="second_screen_copied">Enlace copiado</string>
     <string name="second_screen_share">Compartir enlace</string>
     <string name="second_screen_share_chooser">Compartir enlace de Segunda pantalla</string>
-    <string name="second_screen_viewers">Viewers: %1$d</string>
-    <string name="second_screen_expires">Expires at %1$s</string>
+    <string name="second_screen_viewers">Espectadores: %1$d</string>
+    <string name="second_screen_expires">Caduca a las %1$s</string>
     <string name="second_screen_warning">Sin cifrar. Cualquiera en este wifi que vea el enlace puede leer el artículo. Úsalo solo en una red de confianza.</string>
-    <string name="second_screen_starting">Starting…</string>
+    <string name="second_screen_starting">Iniciando…</string>
     <string name="second_screen_no_network">No hay red wifi ni Ethernet con dirección privada. Conéctate a una red wifi e inténtalo de nuevo.</string>
     <string name="second_screen_lan_permission_denied">El acceso a la red local está desactivado. Permítelo en Ajustes para mostrar artículos en una segunda pantalla.</string>
     <string name="second_screen_expired">La sesión terminó. Actívala de nuevo para obtener un enlace nuevo.</string>
@@ -1069,8 +1069,8 @@
     <string name="galaxy_related_title">Artículos relacionados</string>
     <string name="galaxy_shared_terms">Palabras compartidas: %1$s</string>
     <string name="local_sync_title">Sincronización local</string>
-    <string name="local_sync_send">Send</string>
-    <string name="local_sync_receive">Receive</string>
+    <string name="local_sync_send">Enviar</string>
+    <string name="local_sync_receive">Recibir</string>
     <string name="local_sync_send_instructions">Crea un paquete cifrado para otro dispositivo de esta red local.</string>
     <string name="local_sync_secret_warning">Comparte este secreto de emparejamiento por separado de la URL. Quien tenga ambos puede leer el paquete.</string>
     <string name="local_sync_http_warning">HTTP no oculta la URL, la dirección del dispositivo, la hora ni el tamaño de la transferencia. Solo se cifra el contenido del paquete. Usa una red local de confianza.</string>
@@ -1094,7 +1094,7 @@
     <string name="local_sync_apply">Aplicar cambios</string>
     <string name="local_sync_confirm_apply">¿Aplicar los cambios de sincronización?</string>
     <string name="local_sync_confirm_counts">Feeds por añadir: %1$d. Estados de artículos por actualizar: %2$d. ¿Aplicar estos cambios?</string>
-    <string name="local_sync_cancel">Cancel</string>
+    <string name="local_sync_cancel">Cancelar</string>
     <string name="local_sync_done">Cambios de sincronización aplicados.</string>
     <string name="local_sync_not_local">Elige una cuenta local para usar la sincronización.</string>
     <string name="local_sync_error_network">No se pudo conectar con la sesión de sincronización. Revisa la URL y la red local.</string>
@@ -1111,7 +1111,7 @@
     <string name="local_sync_pair_new">Emparejar un dispositivo nuevo</string>
     <string name="local_sync_pair_label_hint">Nombre del dispositivo nuevo</string>
     <string name="local_sync_remember_label_hint">Nombre para recordar este dispositivo (opcional)</string>
-    <string name="local_sync_serve_peer">Send to %1$s</string>
+    <string name="local_sync_serve_peer">Enviar a %1$s</string>
     <string name="local_sync_wait_reply">Detener y esperar para recibir de vuelta</string>
     <string name="local_sync_role_hint">Cuando el otro teléfono haya recibido, detente aquí y cambia a Recibir. Entonces podrá devolver sus cambios.</string>
     <string name="local_sync_reply_to">Devolver a %1$s</string>
@@ -1120,9 +1120,9 @@
     <string name="local_sync_reply_instruction">Pide al otro teléfono que deje de enviar y abra Recibir primero.</string>
     <string name="local_sync_merge_limit">La fusión solo conserva las marcas de leído y destacado; marcar como no leído o quitar un destacado en un teléfono puede reaparecer tras sincronizar.</string>
     <string name="local_sync_peer_unconfirmed">Esperando a que el otro dispositivo reciba una vez</string>
-    <string name="local_sync_peer_confirmed">Paired</string>
+    <string name="local_sync_peer_confirmed">Emparejado</string>
     <string name="local_sync_peer_needs_repair">No se puede usar en este teléfono. Olvídalo y vuelve a emparejarlo.</string>
-    <string name="local_sync_forget_peer">Forget</string>
+    <string name="local_sync_forget_peer">Olvidar</string>
     <string name="local_sync_confirm_peer">Marcar como emparejado</string>
     <string name="local_sync_nearby_title">Hay un dispositivo emparejado cerca.</string>
     <string name="local_sync_no_peer_found">Aún no se encontró ningún dispositivo cercano. Abre Enviar en el otro dispositivo.</string>
@@ -1134,13 +1134,13 @@
     <!-- EXC-11 Temporal Ask My Archive -->
     <string name="archive_query_title">Pregunta a mi archivo</string>
     <string name="archive_query_desc">Pregunta sobre un tema y mira cómo lo cubrieron tus artículos guardados, mes a mes.</string>
-    <string name="archive_query_question_label">Question</string>
+    <string name="archive_query_question_label">Pregunta</string>
     <string name="archive_query_question_hint">p. ej., tipos de interés desde marzo</string>
     <string name="archive_query_search">Buscar en el archivo</string>
     <string name="archive_query_start_date">Fecha de inicio (AAAA-MM-DD)</string>
     <string name="archive_query_end_date">Fecha de fin (AAAA-MM-DD)</string>
     <string name="archive_query_dates_optional">Las fechas son opcionales. Sin ellas se buscan los últimos 12 meses. Si indicas ambas fechas, se ignora cualquier fecha de tu pregunta.</string>
-    <string name="archive_query_range_used">Searching %1$s – %2$s</string>
+    <string name="archive_query_range_used">Buscando %1$s – %2$s</string>
     <string name="archive_query_searching">Buscando en tu archivo…</string>
     <string name="archive_query_idle">Todo se ejecuta en este dispositivo. No se envía nada por la red.</string>
     <string name="archive_query_no_results">Ningún artículo guardado coincide con este tema en el periodo buscado.</string>
@@ -1173,7 +1173,7 @@
     <string name="feed_autopilot_summary_clean">Tus feeds están ordenados. No se detectaron feeds ruidosos.</string>
     <string name="feed_autopilot_reason_opened">Abiertos %1$d de %2$d (últimos %3$d días; %4$d%% de interacción)</string>
     <string name="feed_autopilot_reason_zero">Ningún artículo abierto de %1$d en los últimos %2$d días</string>
-    <string name="feed_autopilot_action_unsubscribe">Unsubscribe</string>
+    <string name="feed_autopilot_action_unsubscribe">Cancelar suscripción</string>
     <string name="feed_autopilot_action_snooze">Posponer 30 días</string>
     <string name="feed_autopilot_action_keep">Conservar y no volver a sugerir</string>
     <string name="feed_autopilot_confirm_title">¿Cancelar la suscripción a %1$s?</string>
@@ -1182,20 +1182,20 @@
     <string name="feed_autopilot_not_local_account">El piloto automático de feeds solo admite cuentas locales. Las cuentas remotas (Fever, Google Reader) gestionan los feeds en su propio servidor.</string>
     <string name="feed_autopilot_retention_too_short">El periodo de retención de artículos de tu cuenta es inferior a 14 días. Auméntalo en los ajustes de la cuenta para que el piloto automático tenga historial suficiente para analizar con seguridad.</string>
     <string name="feed_autopilot_disabled_message">El piloto automático de feeds está desactivado. Actívalo para recibir sugerencias de limpieza de feeds.</string>
-    <string name="feed_autopilot_settings_pending">To review: %1$d</string>
+    <string name="feed_autopilot_settings_pending">Por revisar: %1$d</string>
     <string name="feed_autopilot_error">No se pudo completar la acción. Inténtalo de nuevo.</string>
     <string name="podcast_studio_title">Estudio de pódcast</string>
     <string name="podcast_studio_menu">Estudio de pódcast</string>
     <string name="podcast_studio_consent_title">¿Redactar el guion con IA?</string>
     <string name="podcast_studio_consent_message">Solo el título de este artículo y una vista previa corta (menos de 250 caracteres) se envían a Google Gemini para redactar un guion de dos presentadores. El texto del artículo, los enlaces y tu historial de lectura nunca se envían.</string>
-    <string name="podcast_studio_consent_agree">Use AI</string>
+    <string name="podcast_studio_consent_agree">Usar AI</string>
     <string name="podcast_studio_consent_decline">Usar guion sin conexión</string>
     <string name="podcast_studio_conflict_title">¿Detener lo que se está reproduciendo?</string>
     <string name="podcast_studio_conflict_message">Reproducir este artículo como pódcast detendrá el audio que suena ahora.</string>
     <string name="podcast_studio_badge_source_gemini">Guion redactado por IA</string>
     <string name="podcast_studio_badge_source_heuristic">Guion sin conexión, sin IA</string>
-    <string name="podcast_studio_play">Play</string>
-    <string name="podcast_studio_pause">Pause</string>
+    <string name="podcast_studio_play">Reproducir</string>
+    <string name="podcast_studio_pause">Pausar</string>
     <string name="podcast_studio_next">Línea siguiente</string>
     <string name="podcast_studio_previous">Línea anterior</string>
     <string name="podcast_studio_host_alex">Alex</string>
@@ -1205,7 +1205,7 @@
     <string name="deep_dive_menu">🔬 Análisis a fondo con IA</string>
     <string name="deep_dive_title">Análisis a fondo con IA</string>
     <string name="deep_dive_consent_message">El título del artículo y hasta 6000 caracteres de su texto se envían a Google Gemini para redactar este informe. Los enlaces, el nombre del feed y tu historial de lectura nunca se envían. Gemini no busca en la web.</string>
-    <string name="deep_dive_consent_agree">Agree</string>
+    <string name="deep_dive_consent_agree">Aceptar</string>
     <string name="deep_dive_consent_later">Ahora no</string>
     <string name="deep_dive_declined_message">El análisis a fondo con IA está desactivado. Actívalo en Ajustes, Privacidad, para redactar un informe.</string>
     <string name="deep_dive_open_privacy">Abrir ajustes de privacidad</string>
@@ -1215,39 +1215,39 @@
     <string name="deep_dive_nothing_to_analyze">Este artículo no tiene título ni texto que analizar.</string>
     <string name="deep_dive_retry">Reintentar</string>
     <string name="deep_dive_label">Redactado por IA a partir del título y un extracto; sin búsqueda en la web; puede contener errores</string>
-    <string name="deep_dive_section_context">Context</string>
+    <string name="deep_dive_section_context">Contexto</string>
     <string name="deep_dive_section_critical">Opiniones opuestas</string>
     <string name="deep_dive_section_impact">Matriz de impacto</string>
-    <string name="deep_dive_col_area">Area</string>
+    <string name="deep_dive_col_area">Área</string>
     <string name="deep_dive_col_short">Corto plazo</string>
     <string name="deep_dive_col_long">Largo plazo</string>
     <string name="deep_dive_export_pdf">Exportar PDF</string>
     <string name="deep_dive_chooser_title">Compartir PDF del análisis a fondo</string>
     <string name="deep_dive_export_error">No se pudo crear el PDF</string>
     <string name="deep_dive_pdf_truncated">Recortado para caber en una página. Consulta el informe completo en la app.</string>
-    <string name="deep_dive_close">Close</string>
-    <string name="oracle_badge_label">Prediction</string>
+    <string name="deep_dive_close">Cerrar</string>
+    <string name="oracle_badge_label">Predicción</string>
     <string name="oracle_badge_open">Abrir la predicción</string>
     <string name="oracle_sheet_title">Predicción encontrada en este artículo</string>
-    <string name="oracle_sheet_expires">Expected by %1$s</string>
+    <string name="oracle_sheet_expires">Previsto para %1$s</string>
     <string name="oracle_sheet_criteria_heading">Cómo comprobar la respuesta</string>
     <string name="oracle_sheet_ai_label">Redactado por IA a partir del título y la descripción; puede contener errores.</string>
-    <string name="oracle_sheet_close">Close</string>
+    <string name="oracle_sheet_close">Cerrar</string>
     <string name="oracle_consent_title">Buscar predicciones en artículos nuevos</string>
     <string name="oracle_consent_message">Tras cada sincronización, el título y una descripción breve (hasta 500 caracteres en total) de hasta 5 artículos nuevos se envían a Google Gemini para buscar una predicción. El texto del artículo, los enlaces, el nombre del feed y tu historial de lectura nunca se envían. Desactivado por defecto.</string>
     <string name="oracle_bet_balance">Saldo: %1$s puntos</string>
     <string name="oracle_bet_pick_side">Tu elección</string>
-    <string name="oracle_bet_yes">Yes</string>
+    <string name="oracle_bet_yes">Sí</string>
     <string name="oracle_bet_no">No</string>
     <string name="oracle_bet_pick_stake">Puntos a apostar</string>
-    <string name="oracle_bet_stake_option">%1$s points</string>
+    <string name="oracle_bet_stake_option">%1$s puntos</string>
     <string name="oracle_bet_place">Apostar</string>
     <string name="oracle_bet_place_summary">Apostar %1$s puntos a %2$s</string>
     <string name="oracle_bet_out_of_points">No tienes puntos suficientes. Recibes 100 puntos nuevos cada día (UTC), hasta 2000.</string>
     <string name="oracle_bet_open">Apostaste %1$s puntos a %2$s.</string>
     <string name="oracle_bet_open_hint">Puedes informar del resultado después de la fecha indicada arriba.</string>
     <string name="oracle_bet_awaiting_title">¿Cuál fue el resultado?</string>
-    <string name="oracle_bet_outcome_unclear">Unclear</string>
+    <string name="oracle_bet_outcome_unclear">Poco claro</string>
     <string name="oracle_bet_awaiting_hint">Apostaste %1$s puntos a %2$s. «No claro» te devuelve los puntos.</string>
     <string name="oracle_bet_settled_won">Ganaste %1$s puntos.</string>
     <string name="oracle_bet_settled_lost">Perdiste %1$s puntos.</string>
@@ -1270,7 +1270,7 @@
     <string name="commute_autoplay_title">Reproducir al conectar auriculares Bluetooth</string>
     <string name="commute_autoplay_desc">Intenta iniciar el episodio matinal una vez al día, dentro de las 2 horas posteriores a que esté listo. Si Android lo bloquea, recibes una notificación con un botón de reproducir.</string>
     <string name="commute_autoplay_permission_denied">Sin el permiso de dispositivos cercanos, la app no puede ver tus auriculares, así que esto sigue desactivado.</string>
-    <string name="commute_play_action">Play</string>
+    <string name="commute_play_action">Reproducir</string>
     <string name="commute_ready_to_play_title">Tu episodio matinal está listo</string>
     <string name="commute_ready_to_play_body">Tus auriculares están conectados. Toca Reproducir para escuchar.</string>
     <string name="trust_self_signed_title">Confiar en un certificado autofirmado</string>

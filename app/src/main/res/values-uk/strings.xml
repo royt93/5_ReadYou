@@ -388,10 +388,10 @@
     <string name="inoreader_desc" translatable="false">inoreader.com</string>
     <string name="fresh_rss_desc" translatable="false">freshrss.org</string>
     <string name="google_reader_desc" translatable="false">Google Reader API</string>
-    <string name="in_coding">In development</string>
+    <string name="in_coding">У розробці</string>
     <string name="tips_top_bar_tonal_elevation">Тональна висота доступна лише під час прокручування</string>
     <string name="summary_title">Підсумок за допомогою AI</string>
-    <string name="summary_loading">Summarizing…</string>
+    <string name="summary_loading">Підсумовування…</string>
     <string name="summary_try_again">Спробувати знову</string>
     <string name="summary_get_key">Отримати безкоштовний ключ</string>
     <string name="summary_err_empty_content">У статті немає вмісту для підсумку</string>
@@ -407,13 +407,13 @@
     <string name="vip_settings_desc">Керування VIP, активація кодів, вимкнення реклами</string>
     <string name="vip_active">VIP активний</string>
     <string name="vip_free_user">Безкоштовний користувач</string>
-    <string name="vip_until">Until %1$s</string>
-    <string name="vip_activated_at">Activated: %1$s</string>
-    <string name="vip_expires_at">Expires: %1$s</string>
+    <string name="vip_until">До %1$s</string>
+    <string name="vip_activated_at">Активовано: %1$s</string>
+    <string name="vip_expires_at">Спливає: %1$s</string>
     <string name="vip_remaining_short">Залишилось %1$d дн. %2$d год.</string>
     <string name="vip_redeem_label">Введіть код VIP</string>
     <string name="vip_redeem_hint">напр. ваш код VIP</string>
-    <string name="vip_redeem_button">Activate</string>
+    <string name="vip_redeem_button">Активувати</string>
     <string name="vip_watch_ad_3d">Перегляньте рекламу → 3 дні VIP</string>
     <string name="vip_buy_30d_locked">Купити VIP на 30 днів — незабаром</string>
     <string name="vip_buy_90d_locked">Купити VIP на 90 днів — незабаром</string>
@@ -425,9 +425,9 @@
     <string name="vip_revoke_all_confirm_message">Справді скасувати VIP і повернутися до безкоштовного облікового запису?</string>
     <string name="vip_entry_first_install">🎁 Подарунок за нове встановлення</string>
     <string name="vip_entry_active">Членство VIP</string>
-    <string name="vip_success_title">Success</string>
+    <string name="vip_success_title">Успішно</string>
     <string name="vip_success_message">VIP активний на %1$d дн.</string>
-    <string name="vip_failed_title">Failed</string>
+    <string name="vip_failed_title">Помилка</string>
     <string name="ad_attribution_label" translatable="false">Ad Networks (AdMob / AppLovin MAX)</string>
     <string name="vip_failed_busy">Попередній код ще перевіряється. Зачекайте трохи й спробуйте знову.</string>
     <string name="vip_failed_no_network">Для активації коду потрібне інтернет-з’єднання. Підключіться й спробуйте знову.</string>
@@ -444,8 +444,8 @@
     <string name="commute_deepdive_unlocked">🎉 Глибокий аналіз відкрито!</string>
     <string name="commute_empty">Немає непрочитаних статей для ранкового радіо</string>
     <string name="commute_generating">AI-діджей готує ваш випуск...</string>
-    <string name="retry">Retry</string>
-    <string name="version">Version</string>
+    <string name="retry">Повторити</string>
+    <string name="version">Версія</string>
     <string name="rate_app">Оцінити застосунок</string>
     <string name="rate_app_desc">Поставте 5 зірок, якщо цей застосунок вам корисний</string>
     <string name="more_apps">Більше застосунків</string>
@@ -454,7 +454,7 @@
     <string name="share_app_desc">Поділіться цим застосунком, щоб інші могли користуватися ним разом з вами</string>
     <string name="term_and_policy">Умови та політика</string>
     <string name="term_and_policy_desc">Прочитайте умови безпеки та політику конфіденційності</string>
-    <string name="about_title">About</string>
+    <string name="about_title">Про застосунок</string>
     <string name="about_desc">Знайомство із застосунком</string>
     <string name="source_code_original">Вихідний код (оригінальна версія)</string>
     <string name="source_code_current">Вихідний код (ця версія)</string>
@@ -465,7 +465,7 @@
     <string name="brain_rpg_title">Brain RPG</string>
     <string name="brain_rpg_subtitle">Дерево навичок знань і щоденна серія</string>
     <string name="brain_rpg_settings_desc">Відстежуйте XP за читання, серію, рівень і дерево знань</string>
-    <string name="brain_rpg_level">Level %1$d</string>
+    <string name="brain_rpg_level">Рівень %1$d</string>
     <string name="brain_rpg_streak">Серія: %1$d дн.</string>
     <string name="brain_rpg_quiz_title">10-секундна AI-вікторина</string>
     <string name="brain_rpg_quiz_reward">+150 XP</string>
@@ -480,7 +480,7 @@
     <string name="quiz_ai_no_key">Ключа Gemini немає, тож AI не зміг скласти запитання.</string>
     <string name="quiz_ai_nothing_to_ask">У цієї статті немає заголовка чи уривка для запитання.</string>
     <string name="quiz_ai_retry">Спробувати знову</string>
-    <string name="quiz_ai_consent_agree">Agree</string>
+    <string name="quiz_ai_consent_agree">Погодитися</string>
     <string name="quiz_ai_consent_later">Не зараз</string>
     <string name="quiz_ai_declined_message">Запитання вікторини від AI вимкнено. Увімкніть їх у Налаштування, Конфіденційність, щоб отримати запитання тут.</string>
     <string name="quiz_ai_open_privacy">Відкрити налаштування конфіденційності</string>
@@ -519,7 +519,7 @@
     <string name="zen_speed_reading">Швидке читання (RSVP)</string>
     <string name="zen_speed_reading_desc">Читайте до 900 слів на хвилину з фіксованим центром фокусу</string>
     <string name="zen_wpm_label">Швидкість читання: %1$d сл./хв</string>
-    <string name="zen_words_progress">%1$d / %2$d words</string>
+    <string name="zen_words_progress">%1$d / %2$d слів</string>
     <string name="zen_ambient_audio">Zen-аудіо для фокусу</string>
     <string name="zen_ambient_audio_desc">Заспокійливі звуки для глибокої концентрації під час читання</string>
     <string name="zen_sound_rain">М\'який дощ</string>
@@ -534,9 +534,9 @@
     <string name="zen_evening_edition">Evening Edition (20:00)</string>
     <string name="zen_daily_edition_notification">Непрочитаних статей, готових для читання: %1$d.</string>
     <string name="zen_sleep_timer">Таймер сну</string>
-    <string name="zen_sleep_timer_off">Continuous</string>
-    <string name="zen_sleep_timer_min">%1$d minutes</string>
-    <string name="zen_volume">Volume: %1$d%%</string>
+    <string name="zen_sleep_timer_off">Безперервно</string>
+    <string name="zen_sleep_timer_min">%1$d хв</string>
+    <string name="zen_volume">Гучність: %1$d%%</string>
     <string name="zen_settings_title">Zen-фокус і швидке читання</string>
     <!-- Loop 09: AI Article Highlights & Key Takeaways Card -->
     <string name="highlights_title">Ключові місця статті</string>
@@ -545,8 +545,8 @@
     <string name="highlights_bullet_count">Ключових пунктів: %1$d</string>
     <string name="highlights_copy_all">Копіювати ключові місця</string>
     <string name="highlights_copied_toast">Ключові місця скопійовано в буфер обміну</string>
-    <string name="highlights_share">Share</string>
-    <string name="highlights_tldr">Quick TL;DR</string>
+    <string name="highlights_share">Поділитися</string>
+    <string name="highlights_tldr">Швидкий TL;DR</string>
     <string name="highlights_ai_badge">Gemini AI</string>
     <string name="highlights_fallback_badge">Офлайн Smart</string>
     <string name="highlights_retry_ai">Аналізувати за допомогою Gemini AI</string>
@@ -565,13 +565,13 @@
     <string name="deep_read_title">AI Deep Read</string>
     <string name="deep_read_subtitle">Інтерактивний чат зі статтею</string>
     <string name="deep_read_input_placeholder">Поставте запитання щодо цієї статті…</string>
-    <string name="deep_read_send">Send</string>
+    <string name="deep_read_send">Надіслати</string>
     <string name="deep_read_clear_chat">Очистити чат</string>
     <string name="deep_read_copied_toast">Відповідь скопійовано в буфер обміну</string>
     <string name="deep_read_welcome_message">Вітаю! Я проаналізував цю статтю. Ставте будь-які запитання, просіть пояснень або виберіть запропоновану тему нижче.</string>
-    <string name="deep_read_context_label">Discussing:</string>
+    <string name="deep_read_context_label">Обговорюємо:</string>
     <string name="deep_read_thinking">AI аналізує статтю…</string>
-    <string name="deep_read_grounded_badge">Grounded</string>
+    <string name="deep_read_grounded_badge">З джерелами</string>
     <string name="deep_read_offline_badge">Офлайн Smart</string>
     <string name="deep_read_ai_badge">Gemini AI</string>
     <string name="deep_read_copy_transcript">Копіювати розмову</string>
@@ -587,18 +587,18 @@
     <string name="story_cluster_all_perspectives">Усі погляди (%d)</string>
     <string name="story_cluster_mark_all_read">Позначити все прочитаним</string>
     <string name="story_cluster_sheet_title">Висвітлення історії з різних поглядів</string>
-    <string name="story_cluster_lead_badge">Lead</string>
+    <string name="story_cluster_lead_badge">Головна</string>
     <string name="semantic_search_title">Семантичний пошук AI</string>
     <string name="semantic_search_desc">Шукайте статті за поняттям і змістом, а не за точними ключовими словами</string>
-    <string name="semantic_match_badge">%d%% match</string>
+    <string name="semantic_match_badge">Збіг: %d%%</string>
     <string name="semantic_search_results_title">✨ Семантичні збіги AI</string>
     <string name="keyword_search_results_title">Збіги за ключовими словами</string>
     <string name="watchdog_title">Сторожовий пес ключових слів</string>
     <string name="watchdog_desc">Відстежуйте важливі ключові слова та біржові тікери під час фонової синхронізації й отримуйте негайні сповіщення</string>
     <string name="watchdog_add_hint">Введіть ключове слово або тікер (напр. $VIC, Bitcoin, Gold)...</string>
-    <string name="watchdog_add_btn">Add</string>
+    <string name="watchdog_add_btn">Додати</string>
     <string name="watchdog_empty_desc">Ключових слів ще не додано. Додайте їх або виберіть підказки нижче, щоб почати стеження.</string>
-    <string name="watchdog_matched_count">%d matched</string>
+    <string name="watchdog_matched_count">Збігів: %d</string>
     <string name="watchdog_channel_name">Сповіщення сторожового пса ключових слів</string>
     <string name="watchdog_channel_desc">Сповіщення високого пріоритету, коли нові статті збігаються з відстежуваними ключовими словами</string>
     <string name="watchdog_preset_title">Швидкі підказки</string>
@@ -618,12 +618,12 @@
     <string name="notebook_empty_subtitle">Виділяйте цікаві цитати під час читання, щоб упорядкувати знання у своєму Second Brain.</string>
     <string name="notebook_empty_search">Відповідних виділень не знайдено</string>
 
-    <string name="notebook_save">Save</string>
-    <string name="notebook_copy">Copy</string>
-    <string name="notebook_edit">Edit</string>
+    <string name="notebook_save">Зберегти</string>
+    <string name="notebook_copy">Копіювати</string>
+    <string name="notebook_edit">Редагувати</string>
     <string name="notebook_copied">Скопійовано в буфер обміну</string>
-    <string name="notebook_saved">Saved</string>
-    <string name="notebook_deleted">Deleted</string>
+    <string name="notebook_saved">Збережено</string>
+    <string name="notebook_deleted">Видалено</string>
     <string name="notebook_untitled">Стаття без назви</string>
     <string name="ai_active_key_custom">Використовується ваш особистий API-ключ</string>
     <string name="ai_active_key_default">Використовується спільна квота за замовчуванням</string>
@@ -709,7 +709,7 @@
     <string name="source_dna_unknown_source">Невідоме джерело</string>
     <string name="source_dna_error">Не вдалося проаналізувати цей кластер.</string>
     <string name="source_dna_back">Назад до поглядів</string>
-    <string name="source_dna_similarity">%1$d%% similar</string>
+    <string name="source_dna_similarity">Схожість: %1$d%%</string>
     <string name="source_dna_feed_reported_time">Час за даними стрічки: %1$s</string>
     <string name="watchdog_clear_all">Очистити історію</string>
     <string name="watchdog_inbox_desc">Історія статей, що спричинили термінові сповіщення за ключовими словами</string>
@@ -753,9 +753,9 @@
     <string name="second_brain_settings_desc">Дивіться, як теми, які ви читаєте, пов\'язані між собою з часом</string>
     <string name="second_brain_empty">Прочитайте або збережіть кілька статей, і тут з\'явиться граф ваших тем.</string>
     <string name="second_brain_error">Не вдалося побудувати граф. Спробуйте ще раз.</string>
-    <string name="second_brain_retry">Retry</string>
+    <string name="second_brain_retry">Повторити</string>
     <string name="second_brain_graph_desc">Граф тем: тем — %1$d, зв\'язків — %2$d</string>
-    <string name="second_brain_node_articles">%1$d articles</string>
+    <string name="second_brain_node_articles">Статей: %1$d</string>
     <string name="second_brain_range_label">Часовий діапазон</string>
     <string name="second_brain_related">Пов\'язані статті</string>
 
@@ -776,7 +776,7 @@
     <!-- Share Target / Read Later (INGEST-02) -->
     <string name="read_later_feed_title">Прочитати пізніше</string>
     <string name="share_target_save_btn">Зберегти в «Прочитати пізніше»</string>
-    <string name="share_target_cancel_btn">Cancel</string>
+    <string name="share_target_cancel_btn">Скасувати</string>
     <string name="share_target_saved_toast">Збережено в «Прочитати пізніше»</string>
     <string name="share_target_invalid_url">Дійсного посилання не знайдено</string>
     <string name="read_position_sync">Синхронізація позиції читання</string>
@@ -787,13 +787,13 @@
     <string name="smart_collection_query">Запит за темою</string>
     <string name="smart_collection_save_action">Зберегти як добірку</string>
     <string name="smart_collection_empty">Розумних добірок поки немає. Збережіть семантичний пошук, щоб стежити за темою.</string>
-    <string name="smart_collection_articles_count">%1$d articles</string>
-    <string name="smart_collection_edit">Edit</string>
-    <string name="smart_collection_delete">Delete</string>
+    <string name="smart_collection_articles_count">Статей: %1$d</string>
+    <string name="smart_collection_edit">Редагувати</string>
+    <string name="smart_collection_delete">Видалити</string>
     <string name="smart_collection_delete_confirm">Видалити цю добірку? Її статті залишаться у вашій бібліотеці.</string>
     <string name="smart_collection_saved">Розумну добірку збережено</string>
     <string name="smart_collection_empty_articles">Відповідних нових статей поки немає. Нові збіги з\'являться після синхронізації.</string>
-    <string name="save">Save</string>
+    <string name="save">Зберегти</string>
     <string name="eink_mode_title">Оптимізація E-Ink</string>
     <string name="eink_active_title">Режим E-Ink увімкнено</string>
     <string name="eink_active_desc">Застосунок показано в чорно-білому кольорі. Торкніться, щоб вимкнути.</string>
@@ -882,17 +882,17 @@
     <string name="widget_article_pin_unsupported">Ваш лаунчер не підтримує автоматичне закріплення віджетів</string>
     <!-- Feed Zero Triage (EXC-14) -->
     <string name="feed_zero_triage_title">Сортування Feed Zero</string>
-    <string name="triage_swipe_left_skip">Skip</string>
-    <string name="triage_swipe_right_save">Save</string>
+    <string name="triage_swipe_left_skip">Пропустити</string>
+    <string name="triage_swipe_right_save">Зберегти</string>
     <string name="triage_swipe_up_read">Читати зараз</string>
     <string name="triage_progress_format">%1$d / %2$d</string>
     <string name="triage_inbox_zero_title">🎉 Inbox Zero досягнуто!</string>
     <string name="triage_inbox_zero_subtitle">Ви опрацювали всі непрочитані статті цієї партії.</string>
-    <string name="triage_summary_processed">Processed: %1$d</string>
+    <string name="triage_summary_processed">Оброблено: %1$d</string>
     <string name="triage_summary_saved">Збережено на потім: %1$d</string>
     <string name="triage_summary_skipped">Позначено прочитаними: %1$d</string>
     <string name="triage_summary_xp">+%1$d XP Brain RPG</string>
-    <string name="triage_finish_button">Done</string>
+    <string name="triage_finish_button">Готово</string>
     <!-- Brain Wrapped tuần (RPG-09) -->
     <string name="brain_wrapped_share_story">Поділитися в історії</string>
     <string name="brain_wrapped_xp_label">XP за тиждень</string>
@@ -935,16 +935,16 @@
     <string name="radar_diff_removed_notice">Цієї статті не було в стрічці під час кількох синхронізацій поспіль. Нижче показано останню збережену версію.</string>
     <string name="headline_signals_title">Клікбейт і тон заголовків</string>
     <string name="headline_signals_desc">Аналізує на пристрої формулювання заголовка й статті: ознаки клікбейту, рекламні чи гіперболізовані вислови та емоційний тон (позитивний/неясний/негативний). Нічого нікуди не надсилається, AI і мережа не використовуються. Це лише сигнали за формулюваннями, а не перевірка фактів чи оцінка політичної упередженості. Іспанська, французька та німецька мови — експериментальні.</string>
-    <string name="headline_signals_clickbait_badge">🎯 Clickbait %1$d%%</string>
+    <string name="headline_signals_clickbait_badge">🎯 Клікбейт %1$d%%</string>
     <string name="headline_signals_clickbait_desc">Індикатор клікбейтної мови: оцінка %1$d зі 100.</string>
-    <string name="headline_signals_tone_positive">🟢 Positive</string>
-    <string name="headline_signals_tone_unclear">⚪ Unclear</string>
-    <string name="headline_signals_tone_negative">🔴 Negative</string>
+    <string name="headline_signals_tone_positive">🟢 Позитивний</string>
+    <string name="headline_signals_tone_unclear">⚪ Неясно</string>
+    <string name="headline_signals_tone_negative">🔴 Негативний</string>
     <string name="headline_signals_tone_desc_positive">Лексичний тон заголовка: є позитивні ознаки.</string>
     <string name="headline_signals_tone_desc_unclear">Лексичний тон заголовка: ознаки неясні або недостатні.</string>
     <string name="headline_signals_tone_desc_negative">Лексичний тон заголовка: є негативні ознаки.</string>
     <string name="brain_rpg_skill_tree_decay_warning">Ця навичка з часом згасла. Потренуйтесь, щоб відновити її.</string>
-    <string name="bounty_action_investigate">Investigate</string>
+    <string name="bounty_action_investigate">Дослідити</string>
     <string name="bounty_sheet_title">Агент розслідування сутностей</string>
     <string name="bounty_scanning_status">Пошук в архіві новин: %1$s…</string>
     <string name="bounty_stats_summary">Пов\'язаних статей: %1$d • джерел: %2$d</string>
@@ -952,21 +952,21 @@
     <string name="bounty_ai_context_action">Контекст від AI</string>
     <string name="bounty_ai_context_title">Контекст сутності (Gemini)</string>
     <string name="bounty_ai_context_no_key">Додайте власний ключ Gemini API в налаштуваннях AI, щоб користуватися цим.</string>
-    <string name="bounty_time_range">Timeline: %1$s – %2$s</string>
+    <string name="bounty_time_range">Хронологія: %1$s – %2$s</string>
     <string name="bounty_radar_description">Радар сканує ваш архів</string>
     <string name="bounty_error">Не вдалося виконати пошук в архіві. Спробуйте ще раз.</string>
     <string name="bounty_ai_context_loading">Підсумовування контексту…</string>
-    <string name="echo_hype_label">Hype: %1$d%%</string>
+    <string name="echo_hype_label">Хайп: %1$d%%</string>
     <string name="echo_hype_warning">Виявлено сильні рекламні або перебільшені формулювання</string>
-    <string name="echo_tone_label">Tone: %1$s</string>
-    <string name="echo_tone_positive">🟢 Positive</string>
-    <string name="echo_tone_unclear">⚪ Unclear</string>
-    <string name="echo_tone_negative">🔴 Negative</string>
+    <string name="echo_tone_label">Тон: %1$s</string>
+    <string name="echo_tone_positive">🟢 Позитивний</string>
+    <string name="echo_tone_unclear">⚪ Неясно</string>
+    <string name="echo_tone_negative">🔴 Негативний</string>
     <string name="echo_details_title">Сигнали тексту</string>
     <string name="echo_disclaimer">Лише локальні сигнали за формулюваннями; це не перевірка фактів, не оцінка достовірності, не аналіз політичної упередженості й не висновок про намір автора. «Неясно» означає недостатньо лексичних ознак, а не нейтральність.</string>
     <string name="echo_flagged_passages_title">Позначені уривки (%1$d)</string>
     <string name="echo_cue_promotional">Рекламна фраза</string>
-    <string name="echo_cue_intensifier">Exaggeration</string>
+    <string name="echo_cue_intensifier">Перебільшення</string>
     <string name="echo_cue_absolute">Категоричне твердження</string>
     <string name="echo_cue_exclamation">Пунктуація або великі літери для підсилення</string>
     <string name="echo_no_passages">Жоден абзац не перевищив поріг Hype.</string>
@@ -974,10 +974,10 @@
     <!-- BOUNTY-02 dossier -->
     <string name="dossier_create_action">Створити досьє</string>
     <string name="dossier_sheet_title">Локальне розвідувальне досьє</string>
-    <string name="dossier_tab_summary">Summary</string>
-    <string name="dossier_tab_timeline">Timeline</string>
-    <string name="dossier_tab_names">Names</string>
-    <string name="dossier_tab_sources">Sources</string>
+    <string name="dossier_tab_summary">Підсумок</string>
+    <string name="dossier_tab_timeline">Хронологія</string>
+    <string name="dossier_tab_names">Імена</string>
+    <string name="dossier_tab_sources">Джерела</string>
     <string name="dossier_share_action">Поділитися Markdown</string>
     <string name="dossier_chooser_title">Поділитися досьє</string>
     <string name="dossier_limitation">Створено лише зі статей, збережених у цьому застосунку. Може не враховувати певні погляди й не є перевіркою фактів.</string>
@@ -986,21 +986,21 @@
     <string name="dossier_names_empty">Жодна фраза не повторюється принаймні у 2 статтях.</string>
     <string name="dossier_sources_single">У вашому архіві лише одне джерело на цю тему.</string>
     <string name="dossier_sources_note">Заголовки згруповано за джерелами; висновків не робиться.</string>
-    <string name="dossier_article_count">%1$d articles</string>
+    <string name="dossier_article_count">Статей: %1$d</string>
     <string name="dossier_share_error">Не вдалося підготувати досьє для надсилання.</string>
 
     <!-- BOUNTY-03 graph viewport -->
     <string name="second_brain_select_hint">Торкніться теми, щоб побачити статті, які її згадують</string>
     <string name="second_brain_reset_view">Скинути вигляд</string>
     <string name="second_brain_zoom_hint">Зведіть пальці для масштабу, тягніть для переміщення, двічі торкніться для скидання</string>
-    <string name="second_brain_zoom_level">Zoom %1$d%%</string>
+    <string name="second_brain_zoom_level">Масштаб %1$d%%</string>
 
     <!-- RPG-03 streak rescue -->
     <string name="streak_rescue_title">Серія читання під загрозою!</string>
     <string name="streak_rescue_message">Ви пропустили днів читання: %1$d. Вашу серію з %2$d дн. буде скинуто під час наступного читання.</string>
     <string name="streak_rescue_action_ad">Дивитися відео, щоб зберегти серію</string>
     <string name="streak_rescue_action_restart">Почати спочатку</string>
-    <string name="streak_rescue_action_later">Later</string>
+    <string name="streak_rescue_action_later">Пізніше</string>
     <string name="streak_rescue_ad_failed">Не вдалося завантажити відео. Спробуйте ще раз.</string>
 
     <!-- ZEN-07 RSVP calibration -->
@@ -1015,8 +1015,8 @@
     <string name="zen_calibration_suggested_wpm">Рекомендована швидкість: ~%1$d сл./хв</string>
     <string name="zen_calibration_limitation">Це приблизна оцінка за 6 запитаннями, а не вимірювання глибокого розуміння. Швидкість завжди можна змінити вручну.</string>
     <string name="zen_calibration_low_confidence_note">Ваші відповіді різнилися залежно від швидкості; читайте у власному темпі й відкалібруйте пізніше.</string>
-    <string name="zen_calibration_apply">Apply</string>
-    <string name="zen_calibration_skip">Skip</string>
+    <string name="zen_calibration_apply">Застосувати</string>
+    <string name="zen_calibration_skip">Пропустити</string>
     <string name="zen_calibration_settings_desc">Відкалібруйте швидкість читання за 3 короткі раунди</string>
 
     <!-- ECHO-02 contrasting coverage -->
@@ -1030,7 +1030,7 @@
     <string name="echo_dual_export">Експортувати картку</string>
     <string name="echo_dual_export_desc">Експортувати картку з двома заголовками через %1$s</string>
     <string name="echo_dual_title">Поділитися двома заголовками</string>
-    <string name="echo_dual_share">Share</string>
+    <string name="echo_dual_share">Поділитися</string>
     <string name="echo_dual_cut_note">Заголовок скорочено</string>
     <string name="echo_dual_error">Не вдалося створити картку. Торкніться, щоб повторити.</string>
     <string name="echo_dual_chooser_title">Поділитися карткою з двома заголовками</string>
@@ -1038,22 +1038,22 @@
 
     <!-- STRAT-02 curated bundles -->
     <string name="curated_bundles_title">Добірки джерел</string>
-    <string name="curated_bundle_verified_on">Checked %1$s</string>
-    <string name="curated_bundle_source_count">Sources: %1$d</string>
+    <string name="curated_bundle_verified_on">Перевірено %1$s</string>
+    <string name="curated_bundle_source_count">Джерел: %1$d</string>
     <string name="curated_bundle_subscribe_all">Підписатися на все</string>
-    <string name="curated_bundle_subscribing">Subscribing…</string>
-    <string name="curated_bundle_progress">Subscribing %1$d of %2$d</string>
+    <string name="curated_bundle_subscribing">Підписка…</string>
+    <string name="curated_bundle_progress">Підписка %1$d з %2$d</string>
     <string name="curated_bundle_result">Додано: %1$d · вже було: %2$d · не вдалося: %3$d</string>
     <string name="curated_bundle_error">Не вдалося підписатися: %1$s</string>
     <string name="curated_bundle_no_sources_added">Жодного джерела додати не вдалося, тому групу не створено.</string>
     <string name="curated_bundle_account_local_only">Підписка на всю добірку доступна лише для локального облікового запису.</string>
 
     <!-- FRONT-03 knowledge galaxy -->
-    <string name="galaxy_mode_concepts">Concepts</string>
-    <string name="galaxy_mode_stars">Galaxy</string>
+    <string name="galaxy_mode_concepts">Поняття</string>
+    <string name="galaxy_mode_stars">Галактика</string>
     <string name="galaxy_empty">Позначте кілька статей прочитаними, і вони засяють тут як зірки. Спробуйте розширити часовий діапазон.</string>
     <string name="galaxy_error">Не вдалося побудувати галактику. Спробуйте ще раз.</string>
-    <string name="galaxy_retry">Retry</string>
+    <string name="galaxy_retry">Повторити</string>
     <string name="galaxy_reset_view">Скинути вигляд</string>
     <string name="galaxy_stats">Зірок: %1$d · Зв\'язків: %2$d</string>
     <string name="galaxy_star_open">Відкрити статтю</string>
@@ -1068,10 +1068,10 @@
     <string name="second_screen_copied">Посилання скопійовано</string>
     <string name="second_screen_share">Поділитися посиланням</string>
     <string name="second_screen_share_chooser">Поділитися посиланням на Другий екран</string>
-    <string name="second_screen_viewers">Viewers: %1$d</string>
-    <string name="second_screen_expires">Expires at %1$s</string>
+    <string name="second_screen_viewers">Глядачів: %1$d</string>
+    <string name="second_screen_expires">Діє до %1$s</string>
     <string name="second_screen_warning">Без шифрування. Будь-хто в цій мережі Wi-Fi, хто побачить посилання, зможе прочитати статтю. Користуйтеся лише в мережі, якій довіряєте.</string>
-    <string name="second_screen_starting">Starting…</string>
+    <string name="second_screen_starting">Запуск…</string>
     <string name="second_screen_no_network">Немає мережі Wi-Fi чи Ethernet із приватною адресою. Підключіться до Wi-Fi і спробуйте ще раз.</string>
     <string name="second_screen_lan_permission_denied">Доступ до локальної мережі вимкнено. Дозвольте його в налаштуваннях, щоб показувати статті на другому екрані.</string>
     <string name="second_screen_expired">Сеанс завершено. Увімкніть знову, щоб отримати нове посилання.</string>
@@ -1082,8 +1082,8 @@
     <string name="galaxy_related_title">Пов\'язані статті</string>
     <string name="galaxy_shared_terms">Спільні слова: %1$s</string>
     <string name="local_sync_title">Локальна синхронізація</string>
-    <string name="local_sync_send">Send</string>
-    <string name="local_sync_receive">Receive</string>
+    <string name="local_sync_send">Надіслати</string>
+    <string name="local_sync_receive">Отримати</string>
     <string name="local_sync_send_instructions">Створіть зашифрований пакет для іншого пристрою в цій локальній мережі.</string>
     <string name="local_sync_secret_warning">Передавайте цей секрет сполучення окремо від URL. Будь-хто, хто має обидва, зможе прочитати пакет.</string>
     <string name="local_sync_http_warning">HTTP не приховує URL, адресу пристрою, час і розмір передачі. Шифрується лише вміст пакета. Користуйтеся довіреною локальною мережею.</string>
@@ -1107,7 +1107,7 @@
     <string name="local_sync_apply">Застосувати зміни</string>
     <string name="local_sync_confirm_apply">Застосувати зміни синхронізації?</string>
     <string name="local_sync_confirm_counts">Стрічок для додавання: %1$d. Станів статей для оновлення: %2$d. Застосувати ці зміни?</string>
-    <string name="local_sync_cancel">Cancel</string>
+    <string name="local_sync_cancel">Скасувати</string>
     <string name="local_sync_done">Зміни синхронізації застосовано.</string>
     <string name="local_sync_not_local">Для синхронізації виберіть локальний обліковий запис.</string>
     <string name="local_sync_error_network">Не вдалося підключитися до сеансу синхронізації. Перевірте URL і локальну мережу.</string>
@@ -1124,7 +1124,7 @@
     <string name="local_sync_pair_new">Спарити новий пристрій</string>
     <string name="local_sync_pair_label_hint">Назва нового пристрою</string>
     <string name="local_sync_remember_label_hint">Назва для запам\'ятовування цього пристрою (необов\'язково)</string>
-    <string name="local_sync_serve_peer">Send to %1$s</string>
+    <string name="local_sync_serve_peer">Надіслати на %1$s</string>
     <string name="local_sync_wait_reply">Зупинити й чекати на отримання у відповідь</string>
     <string name="local_sync_role_hint">Коли інший телефон отримає дані, зупиніться тут і перейдіть до режиму отримання. Тоді він зможе надіслати свої зміни у відповідь.</string>
     <string name="local_sync_reply_to">Надіслати у відповідь: %1$s</string>
@@ -1133,9 +1133,9 @@
     <string name="local_sync_reply_instruction">Попросіть інший телефон припинити надсилання й спершу відкрити режим отримання.</string>
     <string name="local_sync_merge_limit">Об\'єднання зберігає лише позначки «прочитано» та «із зіркою»; позначка «непрочитано» або зняття зірки на одному телефоні можуть повернутися після синхронізації.</string>
     <string name="local_sync_peer_unconfirmed">Очікування, поки інший пристрій один раз отримає дані</string>
-    <string name="local_sync_peer_confirmed">Paired</string>
+    <string name="local_sync_peer_confirmed">Спарено</string>
     <string name="local_sync_peer_needs_repair">Не можна використовувати на цьому телефоні. Видаліть і спаруйте знову.</string>
-    <string name="local_sync_forget_peer">Forget</string>
+    <string name="local_sync_forget_peer">Забути</string>
     <string name="local_sync_confirm_peer">Позначити як спарений</string>
     <string name="local_sync_nearby_title">Спарений пристрій поруч.</string>
     <string name="local_sync_no_peer_found">Пристроїв поруч поки не знайдено. Відкрийте надсилання на іншому пристрої.</string>
@@ -1147,13 +1147,13 @@
     <!-- EXC-11 Temporal Ask My Archive -->
     <string name="archive_query_title">Запитайте мій архів</string>
     <string name="archive_query_desc">Запитайте про тему й побачте, як її висвітлювали ваші збережені статті місяць за місяцем.</string>
-    <string name="archive_query_question_label">Question</string>
+    <string name="archive_query_question_label">Запитання</string>
     <string name="archive_query_question_hint">напр. відсоткові ставки з березня</string>
     <string name="archive_query_search">Шукати в архіві</string>
     <string name="archive_query_start_date">Початкова дата (РРРР-ММ-ДД)</string>
     <string name="archive_query_end_date">Кінцева дата (РРРР-ММ-ДД)</string>
     <string name="archive_query_dates_optional">Дати необов\'язкові. Без них пошук охоплює останні 12 місяців. Обидві дати мають пріоритет над будь-якою датою у вашому запитанні.</string>
-    <string name="archive_query_range_used">Searching %1$s – %2$s</string>
+    <string name="archive_query_range_used">Пошук: %1$s – %2$s</string>
     <string name="archive_query_searching">Пошук в архіві…</string>
     <string name="archive_query_idle">Усе працює на цьому пристрої. Нічого не надсилається мережею.</string>
     <string name="archive_query_no_results">За вказаний період жодна збережена стаття не відповідає цій темі.</string>
@@ -1186,7 +1186,7 @@
     <string name="feed_autopilot_summary_clean">Ваші стрічки в порядку. Шумних стрічок не виявлено.</string>
     <string name="feed_autopilot_reason_opened">Відкрито %1$d із %2$d (останні %3$d дн.; залученість %4$d%%)</string>
     <string name="feed_autopilot_reason_zero">Жодної відкритої статті з %1$d за останні %2$d дн.</string>
-    <string name="feed_autopilot_action_unsubscribe">Unsubscribe</string>
+    <string name="feed_autopilot_action_unsubscribe">Відписатися</string>
     <string name="feed_autopilot_action_snooze">Відкласти на 30 днів</string>
     <string name="feed_autopilot_action_keep">Залишити й більше не пропонувати</string>
     <string name="feed_autopilot_confirm_title">Скасувати підписку на %1$s?</string>
@@ -1195,30 +1195,30 @@
     <string name="feed_autopilot_not_local_account">Feed Autopilot підтримує лише локальні облікові записи. Віддалені облікові записи (Fever, Google Reader) керують стрічками на власному сервері.</string>
     <string name="feed_autopilot_retention_too_short">Термін зберігання статей у вашому обліковому записі менший за 14 днів. Збільште його в налаштуваннях облікового запису, щоб Autopilot мав достатньо історії для безпечного аналізу.</string>
     <string name="feed_autopilot_disabled_message">Feed Autopilot вимкнено. Увімкніть його, щоб отримувати поради щодо очищення стрічок.</string>
-    <string name="feed_autopilot_settings_pending">To review: %1$d</string>
+    <string name="feed_autopilot_settings_pending">На перегляд: %1$d</string>
     <string name="feed_autopilot_error">Не вдалося виконати. Спробуйте ще раз.</string>
     <string name="podcast_studio_title">Podcast Studio</string>
     <string name="podcast_studio_menu">Podcast Studio</string>
     <string name="podcast_studio_consent_title">Написати сценарій за допомогою AI?</string>
     <string name="podcast_studio_consent_message">Для написання сценарію з двома ведучими до Google Gemini надсилаються лише заголовок статті та короткий уривок (до 250 символів). Текст статті, посилання та історія читання ніколи не надсилаються.</string>
-    <string name="podcast_studio_consent_agree">Use AI</string>
+    <string name="podcast_studio_consent_agree">Використати AI</string>
     <string name="podcast_studio_consent_decline">Офлайн-сценарій</string>
     <string name="podcast_studio_conflict_title">Зупинити поточне відтворення?</string>
     <string name="podcast_studio_conflict_message">Відтворення цієї статті як подкасту зупинить аудіо, яке грає зараз.</string>
     <string name="podcast_studio_badge_source_gemini">Сценарій написав AI</string>
     <string name="podcast_studio_badge_source_heuristic">Офлайн-сценарій, без AI</string>
-    <string name="podcast_studio_play">Play</string>
-    <string name="podcast_studio_pause">Pause</string>
+    <string name="podcast_studio_play">Відтворити</string>
+    <string name="podcast_studio_pause">Пауза</string>
     <string name="podcast_studio_next">Наступний рядок</string>
     <string name="podcast_studio_previous">Попередній рядок</string>
-    <string name="podcast_studio_host_alex">Alex</string>
-    <string name="podcast_studio_host_sam">Sam</string>
+    <string name="podcast_studio_host_alex">Алекс</string>
+    <string name="podcast_studio_host_sam">Сем</string>
     <string name="podcast_studio_waveform_playing">Візуалізатор: відтворення, говорить: %1$s</string>
     <string name="podcast_studio_waveform_paused">Візуалізатор: пауза</string>
     <string name="deep_dive_menu">🔬 AI Deep Dive</string>
     <string name="deep_dive_title">AI Deep Dive</string>
     <string name="deep_dive_consent_message">Для написання цього звіту до Google Gemini надсилаються заголовок статті та до 6 000 символів її тексту. Посилання, назва стрічки та історія читання ніколи не надсилаються. Gemini не шукає в інтернеті.</string>
-    <string name="deep_dive_consent_agree">Agree</string>
+    <string name="deep_dive_consent_agree">Погодитися</string>
     <string name="deep_dive_consent_later">Не зараз</string>
     <string name="deep_dive_declined_message">AI Deep Dive вимкнено. Увімкніть його в Налаштування, Конфіденційність, щоб створити звіт.</string>
     <string name="deep_dive_open_privacy">Відкрити налаштування конфіденційності</string>
@@ -1228,39 +1228,39 @@
     <string name="deep_dive_nothing_to_analyze">У цієї статті немає заголовка чи тексту для аналізу.</string>
     <string name="deep_dive_retry">Спробувати знову</string>
     <string name="deep_dive_label">Написано AI за заголовком і уривком; без пошуку в інтернеті; може бути помилковим</string>
-    <string name="deep_dive_section_context">Context</string>
+    <string name="deep_dive_section_context">Контекст</string>
     <string name="deep_dive_section_critical">Протилежні погляди</string>
     <string name="deep_dive_section_impact">Матриця впливу</string>
-    <string name="deep_dive_col_area">Area</string>
+    <string name="deep_dive_col_area">Область</string>
     <string name="deep_dive_col_short">Короткостроково</string>
     <string name="deep_dive_col_long">Довгостроково</string>
     <string name="deep_dive_export_pdf">Експортувати PDF</string>
     <string name="deep_dive_chooser_title">Поділитися PDF Deep Dive</string>
     <string name="deep_dive_export_error">Не вдалося створити PDF</string>
     <string name="deep_dive_pdf_truncated">Скорочено до однієї сторінки. Повний звіт дивіться в застосунку.</string>
-    <string name="deep_dive_close">Close</string>
-    <string name="oracle_badge_label">Prediction</string>
+    <string name="deep_dive_close">Закрити</string>
+    <string name="oracle_badge_label">Прогноз</string>
     <string name="oracle_badge_open">Відкрити прогноз</string>
     <string name="oracle_sheet_title">Прогноз, знайдений у цій статті</string>
-    <string name="oracle_sheet_expires">Expected by %1$s</string>
+    <string name="oracle_sheet_expires">Очікується до %1$s</string>
     <string name="oracle_sheet_criteria_heading">Як перевірити відповідь</string>
     <string name="oracle_sheet_ai_label">Написано AI за заголовком і описом; може бути помилковим.</string>
-    <string name="oracle_sheet_close">Close</string>
+    <string name="oracle_sheet_close">Закрити</string>
     <string name="oracle_consent_title">Знаходити прогнози в нових статтях</string>
     <string name="oracle_consent_message">Після кожної синхронізації заголовок і короткий опис (разом до 500 символів) до 5 нових статей надсилаються до Google Gemini для пошуку прогнозу. Текст статті, посилання, назва стрічки та історія читання ніколи не надсилаються. За замовчуванням вимкнено.</string>
     <string name="oracle_bet_balance">Баланс: %1$s балів</string>
     <string name="oracle_bet_pick_side">Ваш вибір</string>
-    <string name="oracle_bet_yes">Yes</string>
+    <string name="oracle_bet_yes">Так</string>
     <string name="oracle_bet_no">No</string>
     <string name="oracle_bet_pick_stake">Балів для ставки</string>
-    <string name="oracle_bet_stake_option">%1$s points</string>
+    <string name="oracle_bet_stake_option">Балів: %1$s</string>
     <string name="oracle_bet_place">Зробити ставку</string>
     <string name="oracle_bet_place_summary">Ставка %1$s балів на %2$s</string>
     <string name="oracle_bet_out_of_points">Недостатньо балів. Щодня (UTC) ви отримуєте 100 нових балів, максимум 2 000.</string>
     <string name="oracle_bet_open">Ви поставили %1$s балів на %2$s.</string>
     <string name="oracle_bet_open_hint">Повідомити результат можна після дати вище.</string>
     <string name="oracle_bet_awaiting_title">Який був результат?</string>
-    <string name="oracle_bet_outcome_unclear">Unclear</string>
+    <string name="oracle_bet_outcome_unclear">Неясно</string>
     <string name="oracle_bet_awaiting_hint">Ви поставили %1$s балів на %2$s. «Неясно» повертає ваші бали.</string>
     <string name="oracle_bet_settled_won">Ви виграли %1$s балів.</string>
     <string name="oracle_bet_settled_lost">Ви програли %1$s балів.</string>
@@ -1283,7 +1283,7 @@
     <string name="commute_autoplay_title">Відтворювати під час підключення Bluetooth-навушників</string>
     <string name="commute_autoplay_desc">Намагається запустити ранковий випуск раз на день, протягом 2 годин після його готовності. Якщо Android заблокує, ви отримаєте сповіщення з кнопкою «Відтворити».</string>
     <string name="commute_autoplay_permission_denied">Без дозволу «Пристрої поблизу» застосунок не бачить ваших навушників, тому ця функція залишається вимкненою.</string>
-    <string name="commute_play_action">Play</string>
+    <string name="commute_play_action">Відтворити</string>
     <string name="commute_ready_to_play_title">Ваш ранковий випуск готовий</string>
     <string name="commute_ready_to_play_body">Навушники підключено. Торкніться «Відтворити», щоб слухати.</string>
     <string name="trust_self_signed_title">Довіряти самопідписаному сертифікату</string>

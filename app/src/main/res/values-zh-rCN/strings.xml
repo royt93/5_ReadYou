@@ -425,12 +425,12 @@
     <string name="fresh_rss_desc" translatable="false">freshrss.org</string>
     <string name="google_reader_desc" translatable="false">Google Reader API</string>
     <string name="initial_open_app">点击链接时使用的应用</string>
-    <string name="open_link_specific_browser_not_selected">None</string>
+    <string name="open_link_specific_browser_not_selected">无</string>
     <string name="auto_customtabs">自动（优先使用 CustomTabs）</string>
     <string name="specific_browser">强制使用指定浏览器</string>
     <string name="default_browser">强制使用默认浏览器</string>
     <string name="open_link_something_wrong">出现问题，已忽略“打开链接”设置。</string>
-    <string name="in_coding">In development</string>
+    <string name="in_coding">开发中</string>
     <string name="tips_top_bar_tonal_elevation">色调层级仅在滚动时可用</string>
     <string name="commute_cast_title">CommuteCast AI DJ</string>
     <string name="commute_cast_subtitle">双主持晨间电台概览</string>
@@ -440,8 +440,8 @@
     <string name="commute_deepdive_unlocked">🎉 深度解读已解锁！</string>
     <string name="commute_empty">没有可用于晨间电台的未读文章</string>
     <string name="commute_generating">AI 主播正在制作你的节目…</string>
-    <string name="retry">Retry</string>
-    <string name="version">Version</string>
+    <string name="retry">重试</string>
+    <string name="version">版本</string>
     <string name="rate_app">为应用评分</string>
     <string name="rate_app_desc">如果觉得这款应用有用，请给个 5 星好评</string>
     <string name="more_apps">更多应用</string>
@@ -450,7 +450,7 @@
     <string name="share_app_desc">请分享此应用，让更多人和你一起使用</string>
     <string name="term_and_policy">条款与政策</string>
     <string name="term_and_policy_desc">阅读安全条款和隐私政策</string>
-    <string name="about_title">About</string>
+    <string name="about_title">关于</string>
     <string name="about_desc">了解此应用</string>
     <string name="source_code_original">源代码（原始版本）</string>
     <string name="source_code_current">源代码（此版本）</string>
@@ -461,7 +461,7 @@
     <string name="brain_rpg_title">Brain RPG</string>
     <string name="brain_rpg_subtitle">知识技能树与每日连续阅读</string>
     <string name="brain_rpg_settings_desc">追踪你的阅读 XP、连续天数、等级和知识树</string>
-    <string name="brain_rpg_level">Level %1$d</string>
+    <string name="brain_rpg_level">等级 %1$d</string>
     <string name="brain_rpg_streak">连续 %1$d 天</string>
     <string name="brain_rpg_quiz_title">10 秒 AI 微测验</string>
     <string name="brain_rpg_quiz_reward">+150 XP</string>
@@ -476,7 +476,7 @@
     <string name="quiz_ai_no_key">没有可用的 Gemini 密钥，AI 无法出题。</string>
     <string name="quiz_ai_nothing_to_ask">这篇文章没有标题或预览，无法出题。</string>
     <string name="quiz_ai_retry">重试</string>
-    <string name="quiz_ai_consent_agree">Agree</string>
+    <string name="quiz_ai_consent_agree">同意</string>
     <string name="quiz_ai_consent_later">暂不</string>
     <string name="quiz_ai_declined_message">AI 测验题已关闭。请在“设置”“隐私”中开启，以在此获取题目。</string>
     <string name="quiz_ai_open_privacy">打开隐私设置</string>
@@ -515,7 +515,7 @@
     <string name="zen_speed_reading">速读 (RSVP)</string>
     <string name="zen_speed_reading_desc">以固定焦点对齐方式，每分钟最多阅读 900 字</string>
     <string name="zen_wpm_label">阅读速度：%1$d WPM</string>
-    <string name="zen_words_progress">%1$d / %2$d words</string>
+    <string name="zen_words_progress">%1$d / %2$d 字</string>
     <string name="zen_ambient_audio">禅意专注音频</string>
     <string name="zen_ambient_audio_desc">舒缓的环境音，助你专注深度阅读</string>
     <string name="zen_sound_rain">轻柔雨声</string>
@@ -535,9 +535,9 @@
     <string name="zen_audio_interrupted">环境音效已中断</string>
     <string name="zen_daily_edition_notification">%1$d 篇未读文章已备好，供你专注阅读。</string>
     <string name="zen_sleep_timer">睡眠定时器</string>
-    <string name="zen_sleep_timer_off">Continuous</string>
-    <string name="zen_sleep_timer_min">%1$d minutes</string>
-    <string name="zen_volume">Volume: %1$d%%</string>
+    <string name="zen_sleep_timer_off">持续播放</string>
+    <string name="zen_sleep_timer_min">%1$d 分钟</string>
+    <string name="zen_volume">音量：%1$d%%</string>
     <string name="zen_settings_title">禅意专注与速读</string>
     <!-- Loop 09: AI Article Highlights & Key Takeaways Card -->
     <string name="highlights_title">文章要点</string>
@@ -912,16 +912,16 @@
     <string name="radar_diff_removed_notice">这篇文章在连续多次同步中都不在其订阅源里。下方显示最后保存的版本。</string>
     <string name="headline_signals_title">标题党与语气信号</string>
     <string name="headline_signals_desc">在本设备上分析标题和文章用词，检测标题党线索、推广/炒作措辞以及情绪语气（正面/不明确/负面）。不会向任何地方发送数据，也不使用 AI 或网络。这些仅是措辞信号，不是事实核查或政治倾向判断。西班牙语、法语和德语为实验性支持。</string>
-    <string name="headline_signals_clickbait_badge">🎯 Clickbait %1$d%%</string>
+    <string name="headline_signals_clickbait_badge">🎯 标题党 %1$d%%</string>
     <string name="headline_signals_clickbait_desc">标题党语言指标：得分为 %1$d（满分 100）。</string>
-    <string name="headline_signals_tone_positive">🟢 Positive</string>
-    <string name="headline_signals_tone_unclear">⚪ Unclear</string>
-    <string name="headline_signals_tone_negative">🔴 Negative</string>
+    <string name="headline_signals_tone_positive">🟢 积极</string>
+    <string name="headline_signals_tone_unclear">⚪ 不明确</string>
+    <string name="headline_signals_tone_negative">🔴 消极</string>
     <string name="headline_signals_tone_desc_positive">标题词汇语气：存在正面指标。</string>
     <string name="headline_signals_tone_desc_unclear">标题词汇语气：指标不明确或不足。</string>
     <string name="headline_signals_tone_desc_negative">标题词汇语气：存在负面指标。</string>
     <string name="brain_rpg_skill_tree_decay_warning">这项技能已随时间减弱。多加练习即可恢复。</string>
-    <string name="bounty_action_investigate">Investigate</string>
+    <string name="bounty_action_investigate">调查</string>
     <string name="bounty_sheet_title">实体调查助手</string>
     <string name="bounty_scanning_status">正在扫描你的新闻存档：%1$s…</string>
     <string name="bounty_stats_summary">%1$d 篇相关文章 • %2$d 个来源</string>
@@ -929,21 +929,21 @@
     <string name="bounty_ai_context_action">AI 背景摘要</string>
     <string name="bounty_ai_context_title">实体背景 (Gemini)</string>
     <string name="bounty_ai_context_no_key">请在 AI 设置中添加你自己的 Gemini API 密钥后使用。</string>
-    <string name="bounty_time_range">Timeline: %1$s – %2$s</string>
+    <string name="bounty_time_range">时间线：%1$s – %2$s</string>
     <string name="bounty_radar_description">雷达正在扫描你的存档</string>
     <string name="bounty_error">无法搜索你的存档。请重试。</string>
     <string name="bounty_ai_context_loading">正在总结背景…</string>
-    <string name="echo_hype_label">Hype: %1$d%%</string>
+    <string name="echo_hype_label">炒作度：%1$d%%</string>
     <string name="echo_hype_warning">检测到强烈的推广或夸张措辞</string>
-    <string name="echo_tone_label">Tone: %1$s</string>
-    <string name="echo_tone_positive">🟢 Positive</string>
-    <string name="echo_tone_unclear">⚪ Unclear</string>
-    <string name="echo_tone_negative">🔴 Negative</string>
+    <string name="echo_tone_label">语气：%1$s</string>
+    <string name="echo_tone_positive">🟢 积极</string>
+    <string name="echo_tone_unclear">⚪ 不明确</string>
+    <string name="echo_tone_negative">🔴 消极</string>
     <string name="echo_details_title">措辞信号</string>
     <string name="echo_disclaimer">仅为本地措辞信号；不是事实核查、可信度评分、政治倾向分析，也不代表作者意图。“不明确”表示词汇证据不足，并非中立。</string>
     <string name="echo_flagged_passages_title">已标记段落 (%1$d)</string>
     <string name="echo_cue_promotional">推广用语</string>
-    <string name="echo_cue_intensifier">Exaggeration</string>
+    <string name="echo_cue_intensifier">夸张</string>
     <string name="echo_cue_absolute">绝对化说法</string>
     <string name="echo_cue_exclamation">标点或大写强调</string>
     <string name="echo_no_passages">没有单个段落超过 Hype 阈值。</string>
@@ -951,10 +951,10 @@
     <!-- BOUNTY-02 dossier -->
     <string name="dossier_create_action">创建档案</string>
     <string name="dossier_sheet_title">本地情报档案</string>
-    <string name="dossier_tab_summary">Summary</string>
-    <string name="dossier_tab_timeline">Timeline</string>
-    <string name="dossier_tab_names">Names</string>
-    <string name="dossier_tab_sources">Sources</string>
+    <string name="dossier_tab_summary">摘要</string>
+    <string name="dossier_tab_timeline">时间线</string>
+    <string name="dossier_tab_names">人名</string>
+    <string name="dossier_tab_sources">来源</string>
     <string name="dossier_share_action">分享 Markdown</string>
     <string name="dossier_chooser_title">分享档案</string>
     <string name="dossier_limitation">仅基于此应用中已保存的文章生成。可能遗漏某些观点，也不是事实核查。</string>
@@ -963,21 +963,21 @@
     <string name="dossier_names_empty">没有短语在至少 2 篇文章中重复出现。</string>
     <string name="dossier_sources_single">你的存档中关于此主题只有一个来源。</string>
     <string name="dossier_sources_note">标题按来源分组；不作任何结论。</string>
-    <string name="dossier_article_count">%1$d articles</string>
+    <string name="dossier_article_count">%1$d 篇文章</string>
     <string name="dossier_share_error">无法准备要分享的档案。</string>
 
     <!-- BOUNTY-03 graph viewport -->
     <string name="second_brain_select_hint">点按主题，查看提到它的文章</string>
     <string name="second_brain_reset_view">重置视图</string>
     <string name="second_brain_zoom_hint">双指捏合缩放，拖动平移，双击重置</string>
-    <string name="second_brain_zoom_level">Zoom %1$d%%</string>
+    <string name="second_brain_zoom_level">缩放 %1$d%%</string>
 
     <!-- RPG-03 streak rescue -->
     <string name="streak_rescue_title">连续阅读天数面临中断！</string>
     <string name="streak_rescue_message">你已有 %1$d 天未阅读。下次阅读时，你的 %2$d 天连续记录将被重置。</string>
     <string name="streak_rescue_action_ad">观看视频挽救连续记录</string>
     <string name="streak_rescue_action_restart">从头开始</string>
-    <string name="streak_rescue_action_later">Later</string>
+    <string name="streak_rescue_action_later">稍后</string>
     <string name="streak_rescue_ad_failed">无法加载视频。请重试。</string>
 
     <!-- ZEN-07 RSVP calibration -->
@@ -992,8 +992,8 @@
     <string name="zen_calibration_suggested_wpm">建议速度：约 %1$d WPM</string>
     <string name="zen_calibration_limitation">这只是根据 6 道题得出的粗略估计，并非深度理解的衡量标准。你随时可以手动调整速度。</string>
     <string name="zen_calibration_low_confidence_note">你在不同速度下的答题表现差异较大；请尝试按自己的节奏阅读，稍后再校准。</string>
-    <string name="zen_calibration_apply">Apply</string>
-    <string name="zen_calibration_skip">Skip</string>
+    <string name="zen_calibration_apply">应用</string>
+    <string name="zen_calibration_skip">跳过</string>
     <string name="zen_calibration_settings_desc">通过 3 轮短测试校准你的阅读速度</string>
 
     <!-- ECHO-02 contrasting coverage -->
@@ -1007,7 +1007,7 @@
     <string name="echo_dual_export">导出卡片</string>
     <string name="echo_dual_export_desc">导出包含 %1$s 的双标题卡片</string>
     <string name="echo_dual_title">分享两个标题</string>
-    <string name="echo_dual_share">Share</string>
+    <string name="echo_dual_share">分享</string>
     <string name="echo_dual_cut_note">有一个标题已被缩短</string>
     <string name="echo_dual_error">无法创建卡片。点按重试。</string>
     <string name="echo_dual_chooser_title">分享双标题卡片</string>
@@ -1015,22 +1015,22 @@
 
     <!-- STRAT-02 curated bundles -->
     <string name="curated_bundles_title">精选合集</string>
-    <string name="curated_bundle_verified_on">Checked %1$s</string>
-    <string name="curated_bundle_source_count">Sources: %1$d</string>
+    <string name="curated_bundle_verified_on">核实于 %1$s</string>
+    <string name="curated_bundle_source_count">来源：%1$d</string>
     <string name="curated_bundle_subscribe_all">全部订阅</string>
-    <string name="curated_bundle_subscribing">Subscribing…</string>
-    <string name="curated_bundle_progress">Subscribing %1$d of %2$d</string>
+    <string name="curated_bundle_subscribing">正在订阅…</string>
+    <string name="curated_bundle_progress">正在订阅 %1$d/%2$d</string>
     <string name="curated_bundle_result">已添加 %1$d · 已有 %2$d · 失败 %3$d</string>
     <string name="curated_bundle_error">无法订阅：%1$s</string>
     <string name="curated_bundle_no_sources_added">未能添加任何来源，因此没有创建分组。</string>
     <string name="curated_bundle_account_local_only">仅本地账户可整体订阅合集。</string>
 
     <!-- FRONT-03 knowledge galaxy -->
-    <string name="galaxy_mode_concepts">Concepts</string>
-    <string name="galaxy_mode_stars">Galaxy</string>
+    <string name="galaxy_mode_concepts">概念</string>
+    <string name="galaxy_mode_stars">星系</string>
     <string name="galaxy_empty">将几篇文章标为已读，它们就会在这里化作星星闪耀。试试扩大时间范围。</string>
     <string name="galaxy_error">无法生成星系。请重试。</string>
-    <string name="galaxy_retry">Retry</string>
+    <string name="galaxy_retry">重试</string>
     <string name="galaxy_reset_view">重置视图</string>
     <string name="galaxy_stats">星星：%1$d · 连线：%2$d</string>
     <string name="galaxy_star_open">打开文章</string>
@@ -1045,10 +1045,10 @@
     <string name="second_screen_copied">链接已复制</string>
     <string name="second_screen_share">分享链接</string>
     <string name="second_screen_share_chooser">分享第二屏幕链接</string>
-    <string name="second_screen_viewers">Viewers: %1$d</string>
-    <string name="second_screen_expires">Expires at %1$s</string>
+    <string name="second_screen_viewers">观众：%1$d</string>
+    <string name="second_screen_expires">到期时间：%1$s</string>
     <string name="second_screen_warning">未加密。同一 Wi-Fi 下看到该链接的任何人都能阅读这篇文章。请仅在你信任的网络中使用。</string>
-    <string name="second_screen_starting">Starting…</string>
+    <string name="second_screen_starting">正在启动…</string>
     <string name="second_screen_no_network">没有带私有地址的 Wi-Fi 或以太网网络。请连接 Wi-Fi 后重试。</string>
     <string name="second_screen_lan_permission_denied">本地网络访问已关闭。请在“设置”中允许，以便在第二屏幕上显示文章。</string>
     <string name="second_screen_expired">会话已结束。请重新开启以获取新链接。</string>
@@ -1059,8 +1059,8 @@
     <string name="galaxy_related_title">相关文章</string>
     <string name="galaxy_shared_terms">共同词语：%1$s</string>
     <string name="local_sync_title">本地同步</string>
-    <string name="local_sync_send">Send</string>
-    <string name="local_sync_receive">Receive</string>
+    <string name="local_sync_send">发送</string>
+    <string name="local_sync_receive">接收</string>
     <string name="local_sync_send_instructions">为此本地网络中的另一台设备创建加密数据包。</string>
     <string name="local_sync_secret_warning">请将此配对密钥与 URL 分开分享。同时拥有两者的人可以读取数据包。</string>
     <string name="local_sync_http_warning">HTTP 不会隐藏 URL、设备地址、时间或传输大小，只有数据包内容经过加密。请使用可信的本地网络。</string>
@@ -1084,7 +1084,7 @@
     <string name="local_sync_apply">应用变更</string>
     <string name="local_sync_confirm_apply">应用同步变更？</string>
     <string name="local_sync_confirm_counts">将添加的订阅源：%1$d。将更新的文章状态：%2$d。应用这些变更？</string>
-    <string name="local_sync_cancel">Cancel</string>
+    <string name="local_sync_cancel">取消</string>
     <string name="local_sync_done">同步变更已应用。</string>
     <string name="local_sync_not_local">请选择本地账户以使用同步。</string>
     <string name="local_sync_error_network">无法连接到同步会话。请检查 URL 和本地网络。</string>
@@ -1101,7 +1101,7 @@
     <string name="local_sync_pair_new">配对新设备</string>
     <string name="local_sync_pair_label_hint">新设备的名称</string>
     <string name="local_sync_remember_label_hint">用于记住此设备的名称（可选）</string>
-    <string name="local_sync_serve_peer">Send to %1$s</string>
+    <string name="local_sync_serve_peer">发送到 %1$s</string>
     <string name="local_sync_wait_reply">停止并等待接收回传</string>
     <string name="local_sync_role_hint">对方手机接收完成后，请在此停止并切换到接收。之后它就可以回传自己的变更。</string>
     <string name="local_sync_reply_to">回传给 %1$s</string>
@@ -1110,9 +1110,9 @@
     <string name="local_sync_reply_instruction">请让对方手机先停止发送并打开“接收”。</string>
     <string name="local_sync_merge_limit">合并仅保留已读和星标标记；在一部手机上标为未读或取消星标，同步后可能会恢复。</string>
     <string name="local_sync_peer_unconfirmed">正在等待对方设备接收一次</string>
-    <string name="local_sync_peer_confirmed">Paired</string>
+    <string name="local_sync_peer_confirmed">已配对</string>
     <string name="local_sync_peer_needs_repair">无法在这部手机上使用。请忘记它并重新配对。</string>
-    <string name="local_sync_forget_peer">Forget</string>
+    <string name="local_sync_forget_peer">忽略</string>
     <string name="local_sync_confirm_peer">标记为已配对</string>
     <string name="local_sync_nearby_title">附近有已配对的设备。</string>
     <string name="local_sync_no_peer_found">暂未发现附近设备。请在对方设备上打开“发送”。</string>
@@ -1124,13 +1124,13 @@
     <!-- EXC-11 Temporal Ask My Archive -->
     <string name="archive_query_title">询问我的存档</string>
     <string name="archive_query_desc">询问某个主题，查看你保存的文章如何逐月报道它。</string>
-    <string name="archive_query_question_label">Question</string>
+    <string name="archive_query_question_label">问题</string>
     <string name="archive_query_question_hint">例如：3 月以来的利率</string>
     <string name="archive_query_search">搜索存档</string>
     <string name="archive_query_start_date">开始日期 (YYYY-MM-DD)</string>
     <string name="archive_query_end_date">结束日期 (YYYY-MM-DD)</string>
     <string name="archive_query_dates_optional">日期为可选项。不填则搜索最近 12 个月。两个日期都会覆盖问题中的任何日期。</string>
-    <string name="archive_query_range_used">Searching %1$s – %2$s</string>
+    <string name="archive_query_range_used">正在搜索 %1$s – %2$s</string>
     <string name="archive_query_searching">正在搜索你的存档…</string>
     <string name="archive_query_idle">一切都在本设备上运行。不会通过网络发送任何内容。</string>
     <string name="archive_query_no_results">在所搜索的时间段内，没有已保存的文章与此主题匹配。</string>
@@ -1163,7 +1163,7 @@
     <string name="feed_autopilot_summary_clean">你的订阅源很整洁。未发现杂乱订阅源。</string>
     <string name="feed_autopilot_reason_opened">已打开 %1$d / %2$d（最近 %3$d 天；参与度 %4$d%%）</string>
     <string name="feed_autopilot_reason_zero">最近 %2$d 天内 %1$d 篇文章中没有一篇被打开</string>
-    <string name="feed_autopilot_action_unsubscribe">Unsubscribe</string>
+    <string name="feed_autopilot_action_unsubscribe">取消订阅</string>
     <string name="feed_autopilot_action_snooze">暂停 30 天</string>
     <string name="feed_autopilot_action_keep">保留并不再建议</string>
     <string name="feed_autopilot_confirm_title">取消订阅 %1$s？</string>
@@ -1172,20 +1172,20 @@
     <string name="feed_autopilot_not_local_account">订阅源自动驾驶仅支持本地账户。远程账户（Fever、Google Reader）在其自己的服务器上管理订阅源。</string>
     <string name="feed_autopilot_retention_too_short">你的账户文章保留期不足 14 天。请在账户设置中调高，以便自动驾驶有足够的历史记录可供安全分析。</string>
     <string name="feed_autopilot_disabled_message">订阅源自动驾驶已关闭。开启后可收到订阅源清理建议。</string>
-    <string name="feed_autopilot_settings_pending">To review: %1$d</string>
+    <string name="feed_autopilot_settings_pending">待审核：%1$d</string>
     <string name="feed_autopilot_error">无法完成该操作。请重试。</string>
     <string name="podcast_studio_title">播客工作室</string>
     <string name="podcast_studio_menu">播客工作室</string>
     <string name="podcast_studio_consent_title">使用 AI 撰写脚本？</string>
     <string name="podcast_studio_consent_message">仅将这篇文章的标题和简短预览（少于 250 个字符）发送给 Google Gemini 以撰写双主持脚本。文章正文、链接和你的阅读历史绝不会被发送。</string>
-    <string name="podcast_studio_consent_agree">Use AI</string>
+    <string name="podcast_studio_consent_agree">使用 AI</string>
     <string name="podcast_studio_consent_decline">使用离线脚本</string>
     <string name="podcast_studio_conflict_title">停止当前播放？</string>
     <string name="podcast_studio_conflict_message">将这篇文章作为播客播放会停止当前正在播放的音频。</string>
     <string name="podcast_studio_badge_source_gemini">脚本由 AI 撰写</string>
     <string name="podcast_studio_badge_source_heuristic">离线脚本，无 AI</string>
-    <string name="podcast_studio_play">Play</string>
-    <string name="podcast_studio_pause">Pause</string>
+    <string name="podcast_studio_play">播放</string>
+    <string name="podcast_studio_pause">暂停</string>
     <string name="podcast_studio_next">下一句</string>
     <string name="podcast_studio_previous">上一句</string>
     <string name="podcast_studio_host_alex">Alex</string>
@@ -1195,7 +1195,7 @@
     <string name="deep_dive_menu">🔬 AI 深度解析</string>
     <string name="deep_dive_title">AI 深度解析</string>
     <string name="deep_dive_consent_message">文章标题及其最多 6,000 个字符的正文会发送给 Google Gemini 以撰写此报告。链接、订阅源名称和你的阅读历史绝不会被发送。Gemini 不会搜索网络。</string>
-    <string name="deep_dive_consent_agree">Agree</string>
+    <string name="deep_dive_consent_agree">同意</string>
     <string name="deep_dive_consent_later">暂不</string>
     <string name="deep_dive_declined_message">AI 深度解析已关闭。请在“设置”“隐私”中开启以撰写报告。</string>
     <string name="deep_dive_open_privacy">打开隐私设置</string>
@@ -1205,39 +1205,39 @@
     <string name="deep_dive_nothing_to_analyze">这篇文章没有可供分析的标题或正文。</string>
     <string name="deep_dive_retry">重试</string>
     <string name="deep_dive_label">由 AI 根据标题和摘录撰写；未搜索网络；可能有误</string>
-    <string name="deep_dive_section_context">Context</string>
+    <string name="deep_dive_section_context">背景</string>
     <string name="deep_dive_section_critical">反对观点</string>
     <string name="deep_dive_section_impact">影响矩阵</string>
-    <string name="deep_dive_col_area">Area</string>
+    <string name="deep_dive_col_area">领域</string>
     <string name="deep_dive_col_short">短期</string>
     <string name="deep_dive_col_long">长期</string>
     <string name="deep_dive_export_pdf">导出 PDF</string>
     <string name="deep_dive_chooser_title">分享深度解析 PDF</string>
     <string name="deep_dive_export_error">无法创建 PDF</string>
     <string name="deep_dive_pdf_truncated">已裁剪以适应一页。请在应用中查看完整报告。</string>
-    <string name="deep_dive_close">Close</string>
-    <string name="oracle_badge_label">Prediction</string>
+    <string name="deep_dive_close">关闭</string>
+    <string name="oracle_badge_label">预测</string>
     <string name="oracle_badge_open">打开预测</string>
     <string name="oracle_sheet_title">在这篇文章中发现的预测</string>
-    <string name="oracle_sheet_expires">Expected by %1$s</string>
+    <string name="oracle_sheet_expires">预计于 %1$s 前</string>
     <string name="oracle_sheet_criteria_heading">如何核对答案</string>
     <string name="oracle_sheet_ai_label">由 AI 根据标题和描述撰写；可能有误。</string>
-    <string name="oracle_sheet_close">Close</string>
+    <string name="oracle_sheet_close">关闭</string>
     <string name="oracle_consent_title">在新文章中查找预测</string>
     <string name="oracle_consent_message">每次同步后，最多 5 篇新文章的标题和简短描述（合计最多 500 个字符）会发送给 Google Gemini，以查找预测。文章正文、链接、订阅源名称和你的阅读历史绝不会被发送。默认关闭。</string>
     <string name="oracle_bet_balance">余额：%1$s 点</string>
     <string name="oracle_bet_pick_side">你的选择</string>
-    <string name="oracle_bet_yes">Yes</string>
+    <string name="oracle_bet_yes">是</string>
     <string name="oracle_bet_no">No</string>
     <string name="oracle_bet_pick_stake">下注点数</string>
-    <string name="oracle_bet_stake_option">%1$s points</string>
+    <string name="oracle_bet_stake_option">%1$s 积分</string>
     <string name="oracle_bet_place">下注</string>
     <string name="oracle_bet_place_summary">向 %2$s 下注 %1$s 点</string>
     <string name="oracle_bet_out_of_points">点数不足。你每天（UTC）可获得 100 点新点数，上限 2,000 点。</string>
     <string name="oracle_bet_open">你已向 %2$s 下注 %1$s 点。</string>
     <string name="oracle_bet_open_hint">你可以在上述日期之后报告结果。</string>
     <string name="oracle_bet_awaiting_title">结果如何？</string>
-    <string name="oracle_bet_outcome_unclear">Unclear</string>
+    <string name="oracle_bet_outcome_unclear">不明确</string>
     <string name="oracle_bet_awaiting_hint">你已向 %2$s 下注 %1$s 点。选择“不明确”将退还你的点数。</string>
     <string name="oracle_bet_settled_won">你赢得了 %1$s 点。</string>
     <string name="oracle_bet_settled_lost">你输掉了 %1$s 点。</string>
@@ -1260,7 +1260,7 @@
     <string name="commute_autoplay_title">蓝牙耳机连接时播放</string>
     <string name="commute_autoplay_desc">尝试每天在节目准备好后的 2 小时内自动开始播放晨间节目。如果被 Android 阻止，你会收到带有“播放”按钮的通知。</string>
     <string name="commute_autoplay_permission_denied">没有“附近的设备”权限，应用无法发现你的耳机，因此此功能保持关闭。</string>
-    <string name="commute_play_action">Play</string>
+    <string name="commute_play_action">播放</string>
     <string name="commute_ready_to_play_title">你的晨间节目已就绪</string>
     <string name="commute_ready_to_play_body">你的耳机已连接。点按“播放”即可收听。</string>
     <string name="trust_self_signed_title">信任自签名证书</string>
