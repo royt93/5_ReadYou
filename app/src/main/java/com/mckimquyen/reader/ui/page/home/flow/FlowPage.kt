@@ -114,7 +114,12 @@ fun FlowPage(
     LaunchedEffect(onSearch) {
         if (onSearch) {
             delay(100)
-            focusRequester.requestFocus()
+            // On return from an article the box can be scrolled out of the lazy list, so its focus target is not composed and requestFocus() throws. It is a convenience
+            // for a box the user has just opened, never a reason to crash.
+            try {
+                focusRequester.requestFocus()
+            } catch (_: IllegalStateException) {
+            }
         } else {
             keyboardController?.hide()
             if (homeUiState.searchContent.isNotBlank()) {
@@ -310,7 +315,6 @@ fun FlowPage(
                                 result = result,
                                 isShowFeedIcon = articleListFeedIcon.value,
                                 onClick = {
-                                    onSearch = false
                                     navController.navigate("${RouteName.READING}/${result.articleWithFeed.article.id}") {
                                         launchSingleTop = true
                                     }
@@ -332,7 +336,7 @@ fun FlowPage(
                         isShowStickyHeader = articleListDateStickyHeader.value,
                         articleListTonalElevation = articleListTonalElevation.value,
                         onClick = {
-                            onSearch = false
+                            // The search box stays open and keeps its query while an article is read: only the box's own close button (or Back while it is open) closes it.
                             navController.navigate("${RouteName.READING}/${it.article.id}") {
                                 launchSingleTop = true
                             }

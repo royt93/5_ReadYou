@@ -37,4 +37,22 @@ class SmallNavigationFixesSourceTest {
         assertTrue("onSearch must be rememberSaveable", "var onSearch by rememberSaveable" in flow)
         assertTrue("and start from the stored query, not from false", "homeUiState.searchContent.isNotBlank()" in flow.substringAfter("var onSearch by rememberSaveable").substringBefore("\n"))
     }
+
+    @Test
+    fun openingAnArticleFromTheListOrFromSearchResultsDoesNotCloseTheSearch() {
+        // On a Pixel: search "Lib", open a result, press Back, and the search box was closed and its query cleared, because the click set onSearch = false first.
+        val flow = File(root, "ui/page/home/flow/FlowPage.kt").readText()
+        val openings = Regex("""onClick = \{([^}]*?)navController\.navigate\("\$\{RouteName\.READING\}/""", RegexOption.DOT_MATCHES_ALL).findAll(flow).map { it.groupValues[1] }.toList()
+        assertTrue("expected the list click and the semantic result click", openings.size >= 2)
+        val closing = openings.filter { "onSearch = false" in it }
+        assertTrue("clicks that close the search before opening an article: ${closing.size}", closing.isEmpty())
+    }
+
+    @Test
+    fun theSearchFocusRequestCannotThrowWhenTheBoxIsNotComposed() {
+        val flow = File(root, "ui/page/home/flow/FlowPage.kt").readText()
+        val effect = flow.substringAfter("LaunchedEffect(onSearch) {").substringBefore("LaunchedEffect(listState)")
+        assertTrue("requestFocus must sit inside a try that catches IllegalStateException",
+            Regex("""try \{\s*focusRequester\.requestFocus\(\)\s*\} catch \(_: IllegalStateException\)""").containsMatchIn(effect))
+    }
 }

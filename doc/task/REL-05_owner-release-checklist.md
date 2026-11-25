@@ -137,3 +137,7 @@ Chưa kiểm được trên máy này:
 - **Sửa:** `val startDestination = remember { ... }`, chọn một lần. Trên Pixel sau sửa: `startup`, `feeds`, `flow`, `reading` và ở lại màn đọc. Test `NavigationFixesSourceTest` bắt được khi đưa lại cách cũ.
 - **Giới hạn:** tôi chưa chứng minh đây đúng là lỗi owner gặp. Nó khớp "điều hướng không work" với người dùng mới, nhưng owner có thể đã gặp lỗi khác.
 
+### Tìm kiếm trong danh sách bài (Pixel, 2026-11-25)
+- Tìm "Lib", mở một bài kết quả, bấm Back: ô tìm kiếm bị đóng và xoá truy vấn, vì click bài đặt `onSearch = false` trước khi điều hướng và effect xoá truy vấn khi cờ này tắt. Owner chọn giữ truy vấn và ô tìm kiếm; nay chỉ nút X của ô và Back khi ô đang mở mới đóng nó.
+- Trong lúc kiểm tra, quay lại từ bài làm `focusRequester.requestFocus()` ném `IllegalStateException` (hộp tìm kiếm không còn được compose vì cuộn ra ngoài); bao `try/catch`. Trên Pixel: 0 lỗi `FocusRequester`, 0 crash, ô còn "Man" và kết quả còn nguyên sau khi mở bài rồi Back.
+
