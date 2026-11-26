@@ -1,5 +1,7 @@
 package com.mckimquyen.reader.infrastructure.di
 
+import com.mckimquyen.reader.infrastructure.net.SelfSignedTrust
+import com.mckimquyen.reader.infrastructure.net.hostTrustingClientFrom
 import android.annotation.SuppressLint
 import android.content.Context
 import dagger.Module
@@ -46,23 +48,28 @@ object OkHttpClientModule {
     fun provideOkHttpClient(
         @ApplicationContext context: Context,
         appDns: AppDns,
-    ): OkHttpClient = cachingHttpClient(
-        cacheDirectory = context.cacheDir.resolve(HTTP_CACHE_DIRECTORY),
-        cacheSize = HTTP_CACHE_SIZE_BYTES,
-    ).newBuilder()
-        .dns(appDns)
-        // Force stale validation so OkHttp attaches cached ETag/Last-Modified validators.
-        // A 304 response is merged with the cached body before callers see it.
-        .addInterceptor(ConditionalCacheInterceptor)
-        .addNetworkInterceptor(UserAgentInterceptor)
-        .build()
+    ): OkHttpClient = hostTrustingClientFrom(
+        base = cachingHttpClient(
+            cacheDirectory = context.cacheDir.resolve(HTTP_CACHE_DIRECTORY),
+            cacheSize = HTTP_CACHE_SIZE_BYTES,
+            // Feeds, images, Bluesky and Nostr verify certificates like a browser; a server the user allowed is the only exception (see SelfSignedTrust).
+            trustAllCerts = false,
+        ).newBuilder()
+            .dns(appDns)
+            // Force stale validation so OkHttp attaches cached ETag/Last-Modified validators.
+            // A 304 response is merged with the cached body before callers see it.
+            .addInterceptor(ConditionalCacheInterceptor)
+            .addNetworkInterceptor(UserAgentInterceptor)
+            .build(),
+        trust = SelfSignedTrust.of(context),
+    )
 
     @Provides
     @Singleton
     @SecureHttp
     fun provideSecureHttpClient(
         base: OkHttpClient,
-    ): OkHttpClient = secureHttpClientFrom(base)
+    ): OkHttpClient = secureHttpClientFrom(base) // never relaxed, not even for a host the user allowed: it carries the Gemini API key
 }
 
 /**

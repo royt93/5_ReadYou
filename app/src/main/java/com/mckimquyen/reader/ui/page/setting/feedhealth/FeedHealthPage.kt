@@ -1,5 +1,6 @@
 package com.mckimquyen.reader.ui.page.setting.feedhealth
 
+import com.mckimquyen.reader.ui.page.setting.SelfSignedTrustSwitch
 import android.app.Activity
 import android.text.format.DateUtils
 import androidx.compose.foundation.background
@@ -60,6 +61,8 @@ fun FeedHealthPage(
     viewModel: FeedHealthViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
+    // Read so a change of an exception redraws the switches (the value itself comes from isSelfSignedTrusted below).
+    @Suppress("UNUSED_VARIABLE") val trustVersion by viewModel.trustVersion.collectAsState()
 
     BaseScaffold(
         containerColor = settingsPageContainerColor(),
@@ -121,6 +124,8 @@ fun FeedHealthPage(
                     FeedHealthCard(
                         item = item,
                         onRetry = { viewModel.retryFeed(item.feed.id) },
+                        trustSelfSigned = viewModel.isSelfSignedTrusted(item.feed.url),
+                        onTrustSelfSignedChange = { viewModel.setSelfSignedTrusted(item.feed.id, item.feed.url, it) },
                     )
                 }
 
@@ -137,6 +142,8 @@ fun FeedHealthCard(
     item: FeedHealthItem,
     onRetry: () -> Unit,
     modifier: Modifier = Modifier,
+    trustSelfSigned: Boolean = false,
+    onTrustSelfSignedChange: (Boolean) -> Unit = {},
 ) {
     val isFailing = item.record?.isFailing == true
     val cardBg = if (isFailing) {
@@ -207,6 +214,12 @@ fun FeedHealthCard(
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis,
                 )
+            }
+
+            // The server's certificate was rejected: let the user allow this one host (and only it), then retry.
+            if (item.record?.lastErrorType == FeedErrorType.CERTIFICATE) {
+                Spacer(modifier = Modifier.height(8.dp))
+                SelfSignedTrustSwitch(checked = trustSelfSigned, onCheckedChange = onTrustSelfSignedChange)
             }
 
             Spacer(modifier = Modifier.height(12.dp))

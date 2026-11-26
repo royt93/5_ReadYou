@@ -92,4 +92,29 @@ class FeedHealthCardWidgetTest {
         composeRule.onNodeWithText("Retry Now").performClick()
         assertEquals(true, retried)
     }
+
+    private fun failing(type: FeedErrorType) = FeedHealthItem(
+        feed = sampleFeed,
+        record = FeedHealthRecord(feedId = "feed_1", lastErrorType = type, lastErrorMessage = "boom", lastErrorTime = 2000L),
+        isRetrying = false,
+    )
+
+    @Test
+    fun aCertificateProblemOffersTheSwitchForThatHostAndReportsTheChange() {
+        var changed: Boolean? = null
+        composeRule.setContent {
+            FeedHealthCard(item = failing(FeedErrorType.CERTIFICATE), onRetry = {}, trustSelfSigned = false, onTrustSelfSignedChange = { changed = it })
+        }
+        composeRule.onNodeWithText("Trust a self-signed certificate").assertIsDisplayed()
+        composeRule.onNodeWithText("Trust a self-signed certificate").performClick()
+        assertEquals(true, changed)
+    }
+
+    @Test
+    fun otherErrorsAndHealthyFeedsDoNotOfferTheSwitch() {
+        composeRule.setContent {
+            FeedHealthCard(item = failing(FeedErrorType.TIMEOUT), onRetry = {}, trustSelfSigned = false, onTrustSelfSignedChange = {})
+        }
+        composeRule.onNodeWithText("Trust a self-signed certificate").assertDoesNotExist()
+    }
 }

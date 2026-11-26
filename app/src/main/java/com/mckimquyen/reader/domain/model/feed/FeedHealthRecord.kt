@@ -12,6 +12,9 @@ enum class FeedErrorType {
     PARSER,
     TIMEOUT,
     NETWORK,
+
+    /** The server's certificate is not trusted (self-signed, expired, wrong host). Stored by name, so adding a value needs no Room migration. */
+    CERTIFICATE,
 }
 
 class FeedErrorTypeConverters {

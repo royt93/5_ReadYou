@@ -9,6 +9,7 @@ import com.mckimquyen.reader.domain.repository.FeedDao
 import com.mckimquyen.reader.domain.repository.FeedHealthDao
 import com.mckimquyen.reader.domain.repository.GroupDao
 import com.mckimquyen.reader.domain.sv.RssSv
+import com.mckimquyen.reader.infrastructure.net.SelfSignedTrust
 import com.mckimquyen.reader.ui.ext.currentAccountId
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -66,6 +67,20 @@ class FeedHealthViewModel @Inject constructor(
         started = SharingStarted.Eagerly,
         initialValue = FeedHealthUiState(isLoading = true)
     )
+
+    private val trust by lazy { SelfSignedTrust.of(context) }
+
+    /** Bumped whenever an exception changes; the page collects it so the switches redraw. */
+    val trustVersion = MutableStateFlow(0)
+
+    fun isSelfSignedTrusted(feedUrl: String): Boolean = trust.isTrusted(feedUrl)
+
+    /** Allows or forbids the certificate exception for this feed's host, then tries the feed again so the result shows at once. */
+    fun setSelfSignedTrusted(feedId: String, feedUrl: String, trusted: Boolean) {
+        trust.setTrusted(feedUrl, trusted)
+        trustVersion.value += 1
+        if (trusted) retryFeed(feedId)
+    }
 
     fun retryFeed(feedId: String) {
         if (retryingFeedIds.value.contains(feedId)) return
