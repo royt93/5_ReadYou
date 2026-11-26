@@ -681,7 +681,7 @@
     <string name="notebook_export_all">Eksportuj wszystko do Markdown</string>
     <string name="notebook_search_hint">Szukaj wyróżnień, notatek lub artykułów...</string>
     <string name="notebook_empty_title">Brak wyróżnień</string>
-    <string name="notebook_empty_subtitle">Wyróżniaj inspirujące cytaty podczas czytania, aby uporządkować wiedzę w swoim Second Brain.</string>
+    <string name="notebook_empty_subtitle">Wyróżniaj inspirujące cytaty podczas czytania, aby uporządkować wiedzę w swoim Drugim mózgu.</string>
     <string name="notebook_empty_search">Nie znaleziono pasujących wyróżnień</string>
 
     <string name="notebook_save">Zapisz</string>
@@ -815,7 +815,7 @@
     <string name="daily_digest_title">Dzienny przegląd AI</string>
 
     <!-- Second Brain (EXC-08) -->
-    <string name="second_brain_title">Second Brain</string>
+    <string name="second_brain_title">Drugi mózg</string>
     <string name="second_brain_settings_desc">Zobacz, jak czytane tematy łączą się z czasem</string>
     <string name="second_brain_empty">Przeczytaj lub zapisz kilka artykułów, a tutaj pojawi się graf Twoich tematów.</string>
     <string name="second_brain_error">Nie udało się zbudować grafu. Spróbuj ponownie.</string>
@@ -1245,9 +1245,9 @@
     <string name="archive_query_shift_disclaimer">Opiera się wyłącznie na pasujących słowach w cytowanych zdaniach. Nie rozumie znaczenia i może się mylić.</string>
     <string name="archive_query_limits">Ograniczenia: tematy są dopasowywane do tytułów i krótkich opisów, cytowane są co najwyżej 3 artykuły miesięcznie, a zmiany są wykrywane tylko dla słów angielskich i wietnamskich.</string>
     <!-- EXC-12 AI Feed Autopilot -->
-    <string name="feed_autopilot_title">Feed Autopilot</string>
+    <string name="feed_autopilot_title">Autopilot kanałów</string>
     <string name="feed_autopilot_desc">Wykrywaj i porządkuj hałaśliwe kanały, które rzadko czytasz</string>
-    <string name="feed_autopilot_enabled">Włącz Feed Autopilot</string>
+    <string name="feed_autopilot_enabled">Włącz Autopilota kanałów</string>
     <string name="feed_autopilot_summary_noisy">Znalezione rzadko czytane kanały: %1$d (ostatnie %2$d dni)</string>
     <string name="feed_autopilot_summary_clean">Twoje kanały wyglądają schludnie. Nie wykryto hałaśliwych kanałów.</string>
     <string name="feed_autopilot_reason_opened">Otwarto %1$d z %2$d (ostatnie %3$d dni; zaangażowanie %4$d%%)</string>
@@ -1258,9 +1258,9 @@
     <string name="feed_autopilot_confirm_title">Anulować subskrypcję %1$s?</string>
     <string name="feed_autopilot_confirm_message">Spowoduje to trwałe usunięcie z urządzenia wszystkich artykułów z tego kanału. Tej operacji nie można cofnąć.</string>
     <string name="feed_autopilot_confirm_starred_warning">Artykuły z gwiazdką, które również zostaną usunięte: %1$d</string>
-    <string name="feed_autopilot_not_local_account">Feed Autopilot obsługuje tylko konta lokalne. Konta zdalne (Fever, Google Reader) zarządzają kanałami na własnym serwerze.</string>
+    <string name="feed_autopilot_not_local_account">Autopilot kanałów obsługuje tylko konta lokalne. Konta zdalne (Fever, Google Reader) zarządzają kanałami na własnym serwerze.</string>
     <string name="feed_autopilot_retention_too_short">Okres przechowywania artykułów na Twoim koncie jest krótszy niż 14 dni. Zwiększ go w ustawieniach konta, aby Autopilot miał dość historii do bezpiecznej analizy.</string>
-    <string name="feed_autopilot_disabled_message">Feed Autopilot jest wyłączony. Włącz go, aby otrzymywać sugestie porządkowania kanałów.</string>
+    <string name="feed_autopilot_disabled_message">Autopilot kanałów jest wyłączony. Włącz go, aby otrzymywać sugestie porządkowania kanałów.</string>
     <string name="feed_autopilot_settings_pending">Do przeglądu: %1$d</string>
     <string name="feed_autopilot_error">Nie udało się tego wykonać. Spróbuj ponownie.</string>
     <string name="podcast_studio_title">Podcast Studio</string>

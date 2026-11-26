@@ -607,7 +607,7 @@
     <string name="notebook_export_all">Ekspor Semua ke Markdown</string>
     <string name="notebook_search_hint">Cari sorotan, catatan, atau artikel...</string>
     <string name="notebook_empty_title">Belum Ada Sorotan</string>
-    <string name="notebook_empty_subtitle">Sorot kutipan yang menginspirasi saat membaca untuk menata pengetahuan Second Brain Anda.</string>
+    <string name="notebook_empty_subtitle">Sorot kutipan yang menginspirasi saat membaca untuk menata pengetahuan Otak Kedua Anda.</string>
     <string name="notebook_empty_search">Tidak ada sorotan yang cocok</string>
 
     <string name="notebook_save">Simpan</string>
@@ -742,7 +742,7 @@
     <string name="daily_digest_title">Ringkasan Harian AI</string>
 
     <!-- Second Brain (EXC-08) -->
-    <string name="second_brain_title">Second Brain</string>
+    <string name="second_brain_title">Otak Kedua</string>
     <string name="second_brain_settings_desc">Lihat bagaimana topik yang Anda baca saling terhubung seiring waktu</string>
     <string name="second_brain_empty">Baca atau simpan beberapa artikel dan grafik topik Anda akan muncul di sini.</string>
     <string name="second_brain_error">Tidak dapat membuat grafik. Coba lagi.</string>
@@ -1157,9 +1157,9 @@
     <string name="archive_query_shift_disclaimer">Hanya berdasarkan kata yang cocok dalam kalimat yang dikutip. Tidak memahami makna dan bisa saja salah.</string>
     <string name="archive_query_limits">Batasan: topik dicocokkan pada judul dan deskripsi singkat, maksimal 3 artikel per bulan yang dikutip, dan perubahan hanya dideteksi untuk kata bahasa Inggris dan Vietnam.</string>
     <!-- EXC-12 AI Feed Autopilot -->
-    <string name="feed_autopilot_title">Feed Autopilot</string>
+    <string name="feed_autopilot_title">Pilot otomatis feed</string>
     <string name="feed_autopilot_desc">Kenali dan bersihkan feed berisik yang jarang Anda baca</string>
-    <string name="feed_autopilot_enabled">Aktifkan Feed Autopilot</string>
+    <string name="feed_autopilot_enabled">Aktifkan Pilot otomatis feed</string>
     <string name="feed_autopilot_summary_noisy">Feed jarang dibaca ditemukan: %1$d (jendela %2$d hari terakhir)</string>
     <string name="feed_autopilot_summary_clean">Feed Anda tampak rapi. Tidak ada feed berisik terdeteksi.</string>
     <string name="feed_autopilot_reason_opened">Dibuka %1$d dari %2$d (jendela %3$d hari terakhir; keterlibatan %4$d%%)</string>
@@ -1170,9 +1170,9 @@
     <string name="feed_autopilot_confirm_title">Berhenti berlangganan %1$s?</string>
     <string name="feed_autopilot_confirm_message">Ini akan menghapus permanen semua artikel dari feed ini dari perangkat Anda. Tindakan ini tidak dapat dibatalkan.</string>
     <string name="feed_autopilot_confirm_starred_warning">Artikel berbintang yang juga akan dihapus: %1$d</string>
-    <string name="feed_autopilot_not_local_account">Feed Autopilot hanya mendukung akun Lokal. Akun jarak jauh (Fever, Google Reader) mengelola feed di servernya sendiri.</string>
+    <string name="feed_autopilot_not_local_account">Pilot otomatis feed hanya mendukung akun Lokal. Akun jarak jauh (Fever, Google Reader) mengelola feed di servernya sendiri.</string>
     <string name="feed_autopilot_retention_too_short">Masa penyimpanan artikel akun Anda kurang dari 14 hari. Perpanjang di Pengaturan Akun agar Autopilot punya riwayat cukup untuk dianalisis dengan aman.</string>
-    <string name="feed_autopilot_disabled_message">Feed Autopilot dimatikan. Aktifkan untuk menerima saran pembersihan feed.</string>
+    <string name="feed_autopilot_disabled_message">Pilot otomatis feed dimatikan. Aktifkan untuk menerima saran pembersihan feed.</string>
     <string name="feed_autopilot_settings_pending">Perlu ditinjau: %1$d</string>
     <string name="feed_autopilot_error">Tidak dapat menyelesaikannya. Silakan coba lagi.</string>
     <string name="podcast_studio_title">Podcast Studio</string>

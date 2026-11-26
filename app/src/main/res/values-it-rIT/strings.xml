@@ -609,7 +609,7 @@
     <string name="notebook_export_all">Esporta tutto in Markdown</string>
     <string name="notebook_search_hint">Cerca evidenziazioni, note o articoli...</string>
     <string name="notebook_empty_title">Ancora nessuna evidenziazione</string>
-    <string name="notebook_empty_subtitle">Evidenzia citazioni stimolanti durante la lettura per organizzare il tuo Second Brain.</string>
+    <string name="notebook_empty_subtitle">Evidenzia citazioni stimolanti durante la lettura per organizzare il tuo secondo cervello.</string>
     <string name="notebook_empty_search">Nessuna evidenziazione corrispondente</string>
 
     <string name="notebook_save">Salva</string>
@@ -744,7 +744,7 @@
     <string name="daily_digest_title">Riepilogo giornaliero AI</string>
 
     <!-- Second Brain (EXC-08) -->
-    <string name="second_brain_title">Second Brain</string>
+    <string name="second_brain_title">Secondo cervello</string>
     <string name="second_brain_settings_desc">Scopri come si collegano nel tempo gli argomenti che leggi</string>
     <string name="second_brain_empty">Leggi o salva qualche articolo e qui apparirà il tuo grafo degli argomenti.</string>
     <string name="second_brain_error">Impossibile creare il grafo. Riprova.</string>
@@ -1164,9 +1164,9 @@
     <string name="archive_query_shift_disclaimer">Basato solo sulle parole corrispondenti nelle frasi citate. Non comprende il significato e può sbagliare.</string>
     <string name="archive_query_limits">Limiti: gli argomenti vengono abbinati a titoli e brevi descrizioni, al massimo 3 articoli al mese vengono citati e i cambiamenti sono rilevati solo per parole inglesi e vietnamite.</string>
     <!-- EXC-12 AI Feed Autopilot -->
-    <string name="feed_autopilot_title">Feed Autopilot</string>
+    <string name="feed_autopilot_title">Pilota automatico dei feed</string>
     <string name="feed_autopilot_desc">Individua e ripulisci i feed rumorosi che leggi raramente</string>
-    <string name="feed_autopilot_enabled">Attiva Feed Autopilot</string>
+    <string name="feed_autopilot_enabled">Attiva Pilota automatico dei feed</string>
     <string name="feed_autopilot_summary_noisy">Feed letti raramente trovati: %1$d (ultimi %2$d giorni)</string>
     <string name="feed_autopilot_summary_clean">I tuoi feed sono in ordine. Nessun feed rumoroso rilevato.</string>
     <string name="feed_autopilot_reason_opened">Aperti %1$d su %2$d (ultimi %3$d giorni; %4$d%% di interazione)</string>
@@ -1177,9 +1177,9 @@
     <string name="feed_autopilot_confirm_title">Annullare l\'iscrizione a %1$s?</string>
     <string name="feed_autopilot_confirm_message">Tutti gli articoli di questo feed verranno eliminati definitivamente dal tuo dispositivo. L\'operazione non può essere annullata.</string>
     <string name="feed_autopilot_confirm_starred_warning">Articoli preferiti che verranno eliminati: %1$d</string>
-    <string name="feed_autopilot_not_local_account">Feed Autopilot supporta solo gli account locali. Gli account remoti (Fever, Google Reader) gestiscono i feed sul proprio server.</string>
+    <string name="feed_autopilot_not_local_account">Pilota automatico dei feed supporta solo gli account locali. Gli account remoti (Fever, Google Reader) gestiscono i feed sul proprio server.</string>
     <string name="feed_autopilot_retention_too_short">Il periodo di conservazione degli articoli del tuo account è inferiore a 14 giorni. Aumentalo nelle impostazioni dell\'account così Autopilot avrà abbastanza cronologia da analizzare in sicurezza.</string>
-    <string name="feed_autopilot_disabled_message">Feed Autopilot è disattivato. Attivalo per ricevere suggerimenti di pulizia dei feed.</string>
+    <string name="feed_autopilot_disabled_message">Pilota automatico dei feed è disattivato. Attivalo per ricevere suggerimenti di pulizia dei feed.</string>
     <string name="feed_autopilot_settings_pending">Da rivedere: %1$d</string>
     <string name="feed_autopilot_error">Impossibile completare l\'operazione. Riprova.</string>
     <string name="podcast_studio_title">Podcast Studio</string>

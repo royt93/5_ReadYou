@@ -920,3 +920,11 @@ Sau đợt 2 vẫn còn 1.397 chuỗi một chữ (ví dụ `version`, `retry`, 
 - `echo_hype_label`: Hype rendered as 炒作度
 - `local_sync_forget_peer`: Forget a paired device; 忽略 vs 移除
 - `deep_dive_col_area`: Area as table column; 领域 chosen
+
+## Đợt 4 (2026-11-26): tên tính năng ở uk, pl, it, in
+Xem trên Tecno thấy "Feed Autopilot" và "Second Brain" còn tiếng Anh ở bốn locale này trong Settings, trong khi ru, pt, fr, es, ja, zh đã dịch. Đã dịch cho đồng bộ (dịch máy, chưa người duyệt); nếu owner muốn giữ tên tiếng Anh như thương hiệu thì đổi lại cả `feed_autopilot_*` và `second_brain_title` ở mọi locale cho nhất quán.
+- uk: "Автопілот каналів", "Другий мозок"
+- pl: "Autopilot kanałów", "Drugi mózg"
+- it: "Pilota automatico dei feed", "Secondo cervello"
+- in: "Pilot otomatis feed", "Otak Kedua"
+- Cũng đổi trong `notebook_empty_subtitle` và các chuỗi `feed_autopilot_*` có nhắc tên. Test `featureNamesAreTranslatedInEveryTranslatedLocale` giữ bốn locale này không quay lại tiếng Anh.

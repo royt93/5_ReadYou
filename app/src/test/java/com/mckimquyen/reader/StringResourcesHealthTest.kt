@@ -60,4 +60,16 @@ class StringResourcesHealthTest {
         val empty = locales.flatMap { l -> strings(File(l, "strings.xml")).filter { it.value.isBlank() }.keys.map { "${l.name}:$it" } }
         assertEquals("empty translations: $empty", emptyList<String>(), empty)
     }
+
+    // On a Tecno the settings list showed "Feed Autopilot" and "Second Brain" untouched in uk, pl, it and in while the other locales had them translated.
+    @Test
+    fun featureNamesAreTranslatedInEveryTranslatedLocale() {
+        val names = listOf("feed_autopilot_title" to "Feed Autopilot", "second_brain_title" to "Second Brain")
+        val checked = listOf("values-uk", "values-pl-rPL", "values-it-rIT", "values-in-rID")
+        val offenders = checked.flatMap { dir ->
+            val m = strings(File(root, "res/$dir/strings.xml"))
+            names.filter { (key, english) -> m[key]?.trim() == english }.map { "$dir:${it.first}" }
+        }
+        assertEquals("feature names still in English: $offenders", emptyList<String>(), offenders)
+    }
 }

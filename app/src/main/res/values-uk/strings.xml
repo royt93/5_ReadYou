@@ -615,7 +615,7 @@
     <string name="notebook_export_all">Експортувати все в Markdown</string>
     <string name="notebook_search_hint">Пошук виділень, нотаток або статей...</string>
     <string name="notebook_empty_title">Виділень поки немає</string>
-    <string name="notebook_empty_subtitle">Виділяйте цікаві цитати під час читання, щоб упорядкувати знання у своєму Second Brain.</string>
+    <string name="notebook_empty_subtitle">Виділяйте цікаві цитати під час читання, щоб упорядкувати знання у своєму Другому мозку.</string>
     <string name="notebook_empty_search">Відповідних виділень не знайдено</string>
 
     <string name="notebook_save">Зберегти</string>
@@ -749,7 +749,7 @@
     <string name="daily_digest_title">Щоденний дайджест AI</string>
 
     <!-- Second Brain (EXC-08) -->
-    <string name="second_brain_title">Second Brain</string>
+    <string name="second_brain_title">Другий мозок</string>
     <string name="second_brain_settings_desc">Дивіться, як теми, які ви читаєте, пов\'язані між собою з часом</string>
     <string name="second_brain_empty">Прочитайте або збережіть кілька статей, і тут з\'явиться граф ваших тем.</string>
     <string name="second_brain_error">Не вдалося побудувати граф. Спробуйте ще раз.</string>
@@ -1179,9 +1179,9 @@
     <string name="archive_query_shift_disclaimer">Ґрунтується лише на збігу слів у цитованих реченнях. Змісту не розуміє й може помилятися.</string>
     <string name="archive_query_limits">Обмеження: теми зіставляються за заголовками та короткими описами, цитується не більше 3 статей на місяць, а зміни виявляються лише для англійських і в\'єтнамських слів.</string>
     <!-- EXC-12 AI Feed Autopilot -->
-    <string name="feed_autopilot_title">Feed Autopilot</string>
+    <string name="feed_autopilot_title">Автопілот каналів</string>
     <string name="feed_autopilot_desc">Виявляйте й очищайте шумні стрічки, які ви рідко читаєте</string>
-    <string name="feed_autopilot_enabled">Увімкнути Feed Autopilot</string>
+    <string name="feed_autopilot_enabled">Увімкнути Автопілот каналів</string>
     <string name="feed_autopilot_summary_noisy">Знайдено рідко читаних стрічок: %1$d (останні %2$d дн.)</string>
     <string name="feed_autopilot_summary_clean">Ваші стрічки в порядку. Шумних стрічок не виявлено.</string>
     <string name="feed_autopilot_reason_opened">Відкрито %1$d із %2$d (останні %3$d дн.; залученість %4$d%%)</string>
@@ -1192,9 +1192,9 @@
     <string name="feed_autopilot_confirm_title">Скасувати підписку на %1$s?</string>
     <string name="feed_autopilot_confirm_message">Усі статті з цієї стрічки буде остаточно видалено з вашого пристрою. Цю дію не можна скасувати.</string>
     <string name="feed_autopilot_confirm_starred_warning">Статей із зіркою, які також буде видалено: %1$d</string>
-    <string name="feed_autopilot_not_local_account">Feed Autopilot підтримує лише локальні облікові записи. Віддалені облікові записи (Fever, Google Reader) керують стрічками на власному сервері.</string>
+    <string name="feed_autopilot_not_local_account">Автопілот каналів підтримує лише локальні облікові записи. Віддалені облікові записи (Fever, Google Reader) керують стрічками на власному сервері.</string>
     <string name="feed_autopilot_retention_too_short">Термін зберігання статей у вашому обліковому записі менший за 14 днів. Збільште його в налаштуваннях облікового запису, щоб Autopilot мав достатньо історії для безпечного аналізу.</string>
-    <string name="feed_autopilot_disabled_message">Feed Autopilot вимкнено. Увімкніть його, щоб отримувати поради щодо очищення стрічок.</string>
+    <string name="feed_autopilot_disabled_message">Автопілот каналів вимкнено. Увімкніть його, щоб отримувати поради щодо очищення стрічок.</string>
     <string name="feed_autopilot_settings_pending">На перегляд: %1$d</string>
     <string name="feed_autopilot_error">Не вдалося виконати. Спробуйте ще раз.</string>
     <string name="podcast_studio_title">Podcast Studio</string>
