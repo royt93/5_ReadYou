@@ -90,4 +90,21 @@ class HostTrustTest {
         assertTrue("the shared client must pass trustAllCerts = false", "trustAllCerts = false" in provider)
         assertTrue("and go through hostTrustingClientFrom", "hostTrustingClientFrom(" in provider)
     }
+
+    // Closing a pooled TLS socket writes to the network; on the main thread Android throws NetworkOnMainThreadException (seen on a Tecno when the switch was tapped).
+    @Test fun theEvictionRunsOffTheCallingThreadAndIsDoneWhenTheCallReturns() {
+        val caller = Thread.currentThread()
+        var ranOn: Thread? = null
+        var done = false
+        runOffCallingThread { ranOn = Thread.currentThread(); Thread.sleep(50); done = true }
+        assertTrue("must not run on the caller", ranOn != null && ranOn !== caller)
+        assertTrue("the next request must not reuse a connection from the old rule", done)
+    }
+
+    @Test fun theChangeHookEvictsThroughTheOffThreadHelper() {
+        val src = listOf(java.io.File("src/main/java"), java.io.File("app/src/main/java")).first { it.exists() }
+            .resolve("com/mckimquyen/reader/infrastructure/net/HostTrust.kt").readText()
+        val hook = src.substringAfter("trust.onChanged =").substringBefore("\n")
+        assertTrue("evictAll must go through runOffCallingThread: $hook", "runOffCallingThread" in hook && "evictAll" in hook)
+    }
 }

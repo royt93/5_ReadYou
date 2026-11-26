@@ -81,6 +81,18 @@ fun hostTrustingClientFrom(base: OkHttpClient, trust: SelfSignedTrust): OkHttpCl
         }
         .build()
     // Any change of an exception ends the pooled connections: they were handshaken under the previous rule.
-    trust.onChanged = { built.connectionPool.evictAll() }
+    trust.onChanged = { runOffCallingThread { built.connectionPool.evictAll() } }
     return built
+}
+
+private const val EVICT_WAIT_MS = 2_000L
+
+/**
+ * Closing a pooled TLS socket writes the close_notify alert, and Android refuses network I/O on the main thread (NetworkOnMainThreadException crashed the feed health
+ * switch on a real phone). The work runs on a short-lived thread and the caller waits for it, so the next request cannot reuse a connection from the old rule.
+ */
+internal fun runOffCallingThread(block: () -> Unit) {
+    val worker = Thread { runCatching(block) }
+    worker.start()
+    worker.join(EVICT_WAIT_MS)
 }
