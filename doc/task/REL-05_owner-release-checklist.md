@@ -170,7 +170,13 @@ Máy: Tecno KJ7 `115333744A005844`, Android 14, bản debug dev. Backup byte-exa
 
 **10 locale (uk, pl, it, in, pt, ru, es, zh-CN, ja, fr) xem trên Tecno**, ghi `locale_prefs.xml` rồi mở lại app, chụp màn Feeds (`locales/*-feeds.png`, `locales/montage0.png`, `montage1.png`): giao diện đổi đúng ngôn ngữ, thẻ "Tất cả" không bị cắt, không vỡ bố cục, chữ dài (uk, ru, ja) cắt bằng dấu ba chấm chứ không tràn. **Chỉ xem màn Feeds**, chưa xem Settings và các trang con, và không đọc được nghĩa; bản dịch máy vẫn chưa người duyệt. Còn thấy hai chuỗi chưa dịch ở mọi locale: "Mặc định" (tên nhóm mặc định của tài khoản, là dữ liệu chứ không phải chuỗi tài nguyên) và nhãn "GET VIP".
 
-**Vẫn chưa kiểm:** ảnh bài, Bluesky và Nostr qua chứng chỉ lỗi; âm thanh TTS; Fever, Google Reader, WebDAV với máy chủ thật; API 26–28; quảng cáo thật. **Vẫn không khuyến nghị phát hành** (bản dịch máy chưa duyệt, chưa có máy API 26–28, TTS chưa nghe, quảng cáo thật chưa thử). Việc của owner: Play Console, Data safety, dựng và tải AAB.
+**Settings và các trang con của 10 locale (cuộn 4 màn mỗi locale, `settings/m-*.png`):** không thấy chữ bị cắt hay vỡ bố cục; tiêu đề dài (ví dụ "Центр состояния лент", "WebDAV OPML クラウドバックアップ") xuống dòng gọn. Tên tính năng "Feed Autopilot" và "Second Brain" còn tiếng Anh ở uk, pl, it, in (đã ghi là giữ tên tính năng ở `i18n-machine-translation-doubts.md`; ru, pt, fr, es, ja, zh đã dịch), nên chưa nhất quán giữa các locale. Cũng chỉ xem bố cục, không đánh giá nghĩa.
+
+**Ảnh qua máy chủ tự ký (Tecno, cùng ngày):** ảnh bài trên `localhost:8443` (đã có ngoại lệ) tải và hiện đúng (hộp đỏ trong màn đọc, máy chủ ghi `GET /img.png`). Ảnh trên `localhost:8444` (không có ngoại lệ) **không tải**: màn đọc hiện biểu tượng ảnh hỏng và máy chủ 8444 không ghi request nào (kết nối bị từ chối ở bắt tay TLS). Vậy client ảnh dùng cùng luật ngoại lệ theo host:port. Backup `backup-img` trước, khôi phục sau (BYTE IDENTICAL).
+
+**Rà soát gọi `setTrusted` trên luồng main:** 7 chỗ (hộp thoại thêm Fever/Google Reader, trang kết nối Fever/Google Reader, `WebDavBackupPage`, Sức khỏe nguồn tin) đều đi qua `SelfSignedTrust.onChanged`, nơi duy nhất gọi `evictAll`, nay chạy ngoài luồng main; không cần sửa từng chỗ. Test nguồn giữ hook đó.
+
+**Vẫn chưa kiểm:** Bluesky và Nostr qua chứng chỉ lỗi (không dựng được máy chủ giả); âm thanh TTS; Fever, Google Reader, WebDAV với máy chủ thật; API 26–28; quảng cáo thật. **Vẫn không khuyến nghị phát hành** (bản dịch máy chưa duyệt, chưa có máy API 26–28, TTS chưa nghe, quảng cáo thật chưa thử). Việc của owner: Play Console, Data safety, dựng và tải AAB.
 
 **Còn trên Pixel (cấm chạm cho đến khi owner cho phép):** bản debug cũ, hộp Subscribe đang mở với URL, `adb reverse tcp:8443`, giao diện tiếng Đức, backup ở `~/exc-flaky-evidence/audit-20261125-pixel/backup-tls2`.
 
