@@ -176,7 +176,11 @@ Máy: Tecno KJ7 `115333744A005844`, Android 14, bản debug dev. Backup byte-exa
 
 **Rà soát gọi `setTrusted` trên luồng main:** 7 chỗ (hộp thoại thêm Fever/Google Reader, trang kết nối Fever/Google Reader, `WebDavBackupPage`, Sức khỏe nguồn tin) đều đi qua `SelfSignedTrust.onChanged`, nơi duy nhất gọi `evictAll`, nay chạy ngoài luồng main; không cần sửa từng chỗ. Test nguồn giữ hook đó.
 
-**Vẫn chưa kiểm:** Bluesky và Nostr qua chứng chỉ lỗi (không dựng được máy chủ giả); âm thanh TTS; Fever, Google Reader, WebDAV với máy chủ thật; API 26–28; quảng cáo thật. **Vẫn không khuyến nghị phát hành** (bản dịch máy chưa duyệt, chưa có máy API 26–28, TTS chưa nghe, quảng cáo thật chưa thử). Việc của owner: Play Console, Data safety, dựng và tải AAB.
+**Bluesky và Nostr qua chứng chỉ lỗi (2026-11-26):** chỉ chứng minh bằng JVM, chưa chạy trên máy (cả hai chỉ gọi tới máy chủ cố định `public.api.bsky.app` và các relay công khai, nên không trỏ được về máy chủ tự ký trên Mac). `SocialClientsCertificateTest` dựng một máy chủ TLS thật có chứng chỉ cho tên khác, đi qua đúng `hostTrustingClientFrom` mà app dùng: Bluesky trả `Failed` và Nostr trả danh sách rỗng, máy chủ không nhận request nào; sau khi cho phép host:port thì cả hai đọc được. Đột biến (trình kiểm tra chấp nhận mọi chứng chỉ và bộ kiểm tên host luôn đúng) làm 6 test đỏ (4 của `HostTrustTest`, 2 của test này); chỉ nới trình kiểm tra chứng chỉ mà giữ bộ kiểm tên host thì test này vẫn xanh vì chứng chỉ khác tên bị chặn ở bước kiểm tên.
+
+**Mất kết nối Tecno:** sau các bước trên, `adb devices` chỉ còn Pixel, Tecno biến mất giữa chừng (không do lệnh nào của tôi). Tôi không gửi gì tới Pixel và dừng phần hồi quy toàn bộ trên máy cho tới khi Tecno trở lại. Lần khôi phục cuối trên Tecno đã BYTE IDENTICAL, nên máy không giữ trạng thái thử.
+
+**Vẫn chưa kiểm:** hồi quy luồng chính trên máy sau loạt sửa gần đây (cài mới, đọc bài, tìm kiếm, Reels, TTS); âm thanh TTS; Fever, Google Reader, WebDAV với máy chủ thật; API 26–28; quảng cáo thật. **Vẫn không khuyến nghị phát hành** (bản dịch máy chưa duyệt, chưa có máy API 26–28, TTS chưa nghe, quảng cáo thật chưa thử). Việc của owner: Play Console, Data safety, dựng và tải AAB.
 
 **Còn trên Pixel (cấm chạm cho đến khi owner cho phép):** bản debug cũ, hộp Subscribe đang mở với URL, `adb reverse tcp:8443`, giao diện tiếng Đức, backup ở `~/exc-flaky-evidence/audit-20261125-pixel/backup-tls2`.
 
