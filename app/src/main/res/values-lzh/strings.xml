@@ -42,7 +42,7 @@
     <string name="preset">预置</string>
     <string name="selected">已选取</string>
     <string name="allow_notification">告知往来</string>
-    <string name="languages_desc">英语、简体中文、更多</string>
+    <string name="languages_desc">英文、中文、更多</string>
     <string name="list">罗列</string>
     <string name="more">更多</string>
     <string name="add">增添</string>
@@ -669,19 +669,19 @@
     <string name="watchdog_channel_desc">文稿吻合要字之時，發緊切之報</string>
     <string name="watchdog_preset_title">敏候速選</string>
 
-    <string name="notebook_title">知识笔记本</string>
-    <string name="notebook_settings_desc">管理高亮摘录、个人笔记并导出到 Obsidian/Markdown</string>
-    <string name="notebook_new_highlight">新建高亮与笔记</string>
-    <string name="notebook_edit_note">编辑笔记</string>
+    <string name="notebook_title">知識筆記本</string>
+    <string name="notebook_settings_desc">管理高亮摘錄、個人筆記並匯出至 Obsidian/Markdown</string>
+    <string name="notebook_new_highlight">新增高亮與筆記</string>
+    <string name="notebook_edit_note">編輯筆記</string>
     <string name="notebook_quote_label">文章摘录</string>
     <string name="notebook_quote_placeholder">粘贴或输入高亮引文...</string>
     <string name="notebook_color_label">高亮颜色</string>
-    <string name="notebook_comment_label">个人思考 / 批判性笔记</string>
+    <string name="notebook_comment_label">個人想法／批判性筆記</string>
     <string name="notebook_comment_placeholder">添加思考、联系实际或反驳观点...</string>
     <string name="notebook_export_all">全部导出为 Markdown</string>
-    <string name="notebook_search_hint">搜索高亮、笔记或文章...</string>
+    <string name="notebook_search_hint">搜尋高亮、筆記或文章…</string>
     <string name="notebook_empty_title">暂无高亮摘录</string>
-    <string name="notebook_empty_subtitle">阅读时高亮精彩段落，构建您的第二大脑知识库。</string>
+    <string name="notebook_empty_subtitle">閱讀時反白精彩段落，打造您的第二大腦知識庫。</string>
     <string name="notebook_empty_search">未找到匹配的高亮</string>
 
     <string name="notebook_save">保存</string>
@@ -690,7 +690,7 @@
     <string name="notebook_copied">已复制到剪贴板</string>
     <string name="notebook_saved">已保存</string>
     <string name="notebook_deleted">已删除</string>
-    <string name="notebook_untitled">无标题文章</string>
+    <string name="notebook_untitled">無標題文章</string>
     <string name="ai_active_key_custom">現用君之私鑰</string>
     <string name="ai_active_key_default">現用共享之額度</string>
     <string name="ai_byok_desc">用己之API鑰，可無限次請求，不賴共享之額度。</string>

@@ -121,8 +121,30 @@ class StringResourcesHealthTest {
     @Test
     fun traditionalChineseHasNoSimplifiedOnlyCharacters() {
         val simplifiedOnly = "笔记库删复载录导设阅选页储块览关节标项档词语识图译边级组态简缓网总现历买单认让对开应听见问题发".toSet()
-        val tw = strings(File(locales.first { it.name == "values-zh-rTW" }, "strings.xml"))
-        val offenders = tw.filter { (_, v) -> v.count { it in simplifiedOnly } >= 2 }.keys
-        assertEquals("zh-TW strings written in Simplified Chinese: $offenders", emptyList<String>(), offenders.toList())
+        val offenders = listOf("values-zh-rTW", "values-lzh").flatMap { name ->
+            strings(File(locales.first { it.name == name }, "strings.xml")).filter { (_, v) -> v.count { it in simplifiedOnly } >= 2 }.keys.map { "$name:$it" }
+        }
+        assertEquals("traditional-script strings written in Simplified Chinese: $offenders", emptyList<String>(), offenders)
+    }
+
+    // Hindi had 60 labels with a trailing space and Polish one, copied from the machine output; a space after a label shows as a misaligned button text.
+    @Test
+    fun noTranslatedLabelHasLeadingOrTrailingWhitespace() {
+        val offenders = locales.flatMap { l ->
+            strings(File(l, "strings.xml")).filter { (k, v) -> k != "tos_content" && !v.contains('\n') && v != v.trim() }.keys.map { "${l.name}:$it" }
+        }
+        assertEquals("labels padded with whitespace: $offenders", emptyList<String>(), offenders)
+    }
+
+    // The Romanian unsubscribe warning named the feed twice ("from X ... articles of X") while the source names it once.
+    @Test
+    fun aTranslationDoesNotRepeatAPlaceholderTheSourceUsesOnce() {
+        val ph = Regex("""%\d+\$[sd]""")
+        val offenders = locales.flatMap { l ->
+            strings(File(l, "strings.xml")).filter { (k, v) ->
+                k in base && ph.findAll(v).groupingBy { it.value }.eachCount().any { (p, n) -> n > ph.findAll(base.getValue(k)).count { it.value == p } }
+            }.keys.map { "${l.name}:$it" }
+        }
+        assertEquals("placeholders used more often than in the source: $offenders", emptyList<String>(), offenders)
     }
 }

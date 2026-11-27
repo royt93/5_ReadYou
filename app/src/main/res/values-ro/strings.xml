@@ -137,7 +137,7 @@
     <string name="all_deny_parse_full_content_toast">Nu mai este analizarea completă a conținutului tuturor articolelor din grupul „%1$s”</string>
     <string name="synchronous">Sincronizare</string>
     <string name="delete_group_tips">Ștergeți grupul „%1$s” și toate fluxurile și articolele arhivate pe care le conține</string>
-    <string name="unsubscribe_tips">Dezabonează-te de la „%1$s” și șterge toate articolele arhivate din „%1$s”</string>
+    <string name="unsubscribe_tips">Dezabonează-te de la „%1$s” și șterge toate articolele arhivate ale acestuia</string>
     <string name="delete_account_toast">Contul a fost șters</string>
     <string name="starred">Cu stea</string>
     <string name="open_source_licenses">Licențe open source</string>
