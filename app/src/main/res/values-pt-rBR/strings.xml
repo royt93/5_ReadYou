@@ -48,8 +48,8 @@
     <string name="all_allow_notification_toast">Todas as notificações do grupo \"%1$s\" foram permitidas</string>
     <string name="parse_full_content">Visualizar o Conteúdo Completo</string>
     <string name="clear_articles_in_feed_toast">Todos os artigos arquivados no feed \"%1$s\" foram removidos</string>
-    <string name="all_parse_full_content_toast">Visualizar o conteúdo completo de todas as publicações no grupo \"%1$s\"</string>
-    <string name="all_deny_parse_full_content_toast">Não mais visualizando o conteúdo completo de todas as publicações no grupo \"%1$s\"</string>
+    <string name="all_parse_full_content_toast">Extração do conteúdo completo de todos os artigos no grupo \"%1$s\"</string>
+    <string name="all_deny_parse_full_content_toast">Extração do conteúdo completo desativada para todos os artigos no grupo \"%1$s\"</string>
     <string name="clear_articles_feed_tips">Remover todos os artigos arquivados no feed \"%1$s\"</string>
     <string name="add_to_group">Adicionar ao Grupo</string>
     <string name="move_to_group">Mover para o Grupo</string>
@@ -66,7 +66,7 @@
     <string name="delete_group_tips">Apagar o grupo \"%1$s\" e todos os feeds e artigos arquivados no mesmo</string>
     <string name="group_option_tips">As opções a seguir serão aplicadas a todos os feeds deste grupo</string>
     <string name="today">Hoje</string>
-    <string name="date_at_time">%1$s as %2$s</string>
+    <string name="date_at_time">%1$s às %2$s</string>
     <string name="search_for">Buscar por %1$s itens</string>
     <string name="search_for_in">Buscar por %1$s itens em \"%2$s\"</string>
     <string name="mark_as_read">Marcar como Lido</string>
@@ -119,7 +119,7 @@
     <string name="paste">Colar</string>
     <string name="search">Buscar</string>
     <string name="clear">Limpar</string>
-    <string name="all_parse_full_content_tips">Visualizar o conteúdo completo de todas as publicações no grupo \"%1$s\"</string>
+    <string name="all_parse_full_content_tips">Extrair o conteúdo completo de todos os artigos no grupo \"%1$s\"</string>
     <string name="clear_articles">Limpar Artigos</string>
     <string name="all_move_to_group_tips">Mover todos os feeds do grupo \"%1$s\" para o grupo \"%2$s\"</string>
     <string name="mark_as_unread">Marcar como Não Lido</string>
@@ -1188,7 +1188,7 @@
     <string name="podcast_studio_menu">Estúdio de podcast</string>
     <string name="podcast_studio_consent_title">Escrever o roteiro com IA?</string>
     <string name="podcast_studio_consent_message">Somente o título deste artigo e uma prévia curta (menos de 250 caracteres) são enviados ao Google Gemini para escrever um roteiro para dois apresentadores. O texto do artigo, os links e seu histórico de leitura nunca são enviados.</string>
-    <string name="podcast_studio_consent_agree">Usar AI</string>
+    <string name="podcast_studio_consent_agree">Usar IA</string>
     <string name="podcast_studio_consent_decline">Usar roteiro offline</string>
     <string name="podcast_studio_conflict_title">Parar o que está tocando?</string>
     <string name="podcast_studio_conflict_message">Reproduzir este artigo como podcast interromperá o áudio que está tocando agora.</string>

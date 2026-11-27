@@ -131,7 +131,7 @@
     <string name="create_new_group">Створити нову групу</string>
     <string name="name">Ім\'я</string>
     <string name="delete">Видалити</string>
-    <string name="delete_toast">Видалити \"%1$s\"</string>
+    <string name="delete_toast">Видалено \"%1$s\"</string>
     <string name="unsubscribe">Відписатися</string>
     <string name="delete_group">Видалити групу</string>
     <string name="delete_group_tips">Видаліть групу \"%1$s\" і всі стрічки та архівні статті, які вона містить</string>
@@ -507,13 +507,13 @@
     <string name="brain_rpg_xp_retained">Базово %1$d XP · збережено %2$d%%</string>
     <string name="brain_rpg_streak_shield_success">Щит серии активирован!</string>
     <string name="brain_rpg_streak_shield_protected">Защищено</string>
-    <string name="brain_rpg_target_xp">Цель: %1$d XP</string>
+    <string name="brain_rpg_target_xp">Мета: %1$d XP</string>
     <string name="brain_rpg_skill_tree_title">Дерево навыков знаний</string>
     <string name="brain_rpg_stats_title">Статистика испытаний ИИ</string>
     <string name="brain_rpg_stats_attempted">Попыток</string>
     <string name="brain_rpg_stats_passed">Верно</string>
     <string name="brain_rpg_stats_accuracy">Точность</string>
-    <string name="brain_rpg_wrapped_desc">"Вы накопили %1$d XP и сохранили серию чтения из %2$d дней! Поделитесь достижением."</string>
+    <string name="brain_rpg_wrapped_desc">"Ви накопичили %1$d XP і зберегли серію читання з %2$d днів! Поділіться досягненням."</string>
 
     <!-- Epic 08: Zen Focus & Speed Reading -->
     <string name="zen_speed_reading">Швидке читання (RSVP)</string>

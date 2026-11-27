@@ -53,7 +53,7 @@
     <string name="all_deny_parse_full_content_toast">Cofnięto zezwolenie na pobieranie pełnej treści artykułów z grupy \"%1$s\"</string>
     <string name="clear_articles">Usuń artykuły</string>
     <string name="clear_articles_in_feed_toast">Usunięto wszystkie pobrane artykuły z kanału \"%1$s\"</string>
-    <string name="clear_articles_in_group_toast">Usunięto wszystkie artykuły z grupy \"%1$s\"</string>
+    <string name="clear_articles_in_group_toast">Usunięto wszystkie pobrane artykuły z grupy \"%1$s\"</string>
     <string name="clear_articles_feed_tips">Usuń wszystkie pobrane artykułu z kanału \"%1$s\".</string>
     <string name="clear_articles_group_tips">Usuń wszystkie pobrane artykułu z grupy \"%1$s\".</string>
     <string name="add_to_group">Dodaj do grupy</string>
@@ -70,7 +70,7 @@
     <string name="unsubscribe">Odsubskrybuj</string>
     <string name="unsubscribe_tips">Odsubskrybuj kanał \"%1$s\" i usuń wszystkie zawarte w nim artykuły.</string>
     <string name="delete_group">Usuń grupę</string>
-    <string name="delete_group_tips">Usuń grupę \"%1$s\" i wszystkie zawarte w niej artykuły.</string>
+    <string name="delete_group_tips">Usuń grupę \"%1$s\" oraz wszystkie zawarte w niej kanały i pobrane artykuły.</string>
     <string name="group_option_tips">Poniższe zmiany zostaną zastosowane dla wszystkich kanałów w tej grupie.</string>
     <string name="today">Dziś</string>
     <string name="yesterday">Wczoraj</string>

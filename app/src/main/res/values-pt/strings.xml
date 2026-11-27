@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="all_deny_parse_full_content_toast">Sem mais conteúdos para exibir dos artigos no grupo \"%1$s\"</string>
+    <string name="all_deny_parse_full_content_toast">Obtenção do conteúdo completo desativada para os artigos do grupo \"%1$s\"</string>
     <string name="clear_articles_in_feed_toast">Limpos todos os artigos arquivados da fonte \"%1$s\"</string>
     <string name="clear_articles_in_group_toast">Limpos todos os artigos arquivados do grupo \"%1$s\"</string>
     <string name="clear_articles_feed_tips">Limpar todos os artigos arquivados no feed \"%1$s\".</string>
@@ -81,7 +81,7 @@
     <string name="name">Nome</string>
     <string name="delete">Eliminar</string>
     <string name="unsubscribe">Cancelar subscrição</string>
-    <string name="unsubscribe_tips">Cancelar subscrição de %1$s\" e eliminar todos os seus artigos.</string>
+    <string name="unsubscribe_tips">Cancelar a subscrição de \"%1$s\" e eliminar todos os artigos arquivados nela.</string>
     <string name="delete_group">Eliminar grupo</string>
     <string name="group_option_tips">As seguintes opções serão aplicadas a todas as fontes neste grupo.</string>
     <string name="today">Hoje</string>
@@ -157,7 +157,7 @@
         <p> Levo a sua privacidade muito a sério. </p>
         <br />
         <p>
-            <b>RSS Bear Hub</b> não coleta nenhum dado de utilizador e todas as informações sensitiveiveis (como palavras-passe e outras informações de contas) são guardadas de forma segura localmente no seu aparelho. </p>
+            <b>RSS Bear Hub</b> não coleta nenhum dado de utilizador e todas as informações sensíveis (como palavras-passe e outras informações de contas) são guardadas de forma segura localmente no seu aparelho. </p>
         <br />
         <p>
             <b>RSS Bear Hub</b> utiliza das seguintes permissões para fornecer os serviços. </p>
@@ -1189,7 +1189,7 @@
     <string name="podcast_studio_menu">Estúdio de podcast</string>
     <string name="podcast_studio_consent_title">Escrever o guião com IA?</string>
     <string name="podcast_studio_consent_message">Apenas o título deste artigo e uma curta pré-visualização (menos de 250 caracteres) são enviados ao Google Gemini para escrever um guião para dois apresentadores. O texto do artigo, as ligações e o seu histórico de leitura nunca são enviados.</string>
-    <string name="podcast_studio_consent_agree">Usar AI</string>
+    <string name="podcast_studio_consent_agree">Usar IA</string>
     <string name="podcast_studio_consent_decline">Usar guião offline</string>
     <string name="podcast_studio_conflict_title">Parar o que está a tocar?</string>
     <string name="podcast_studio_conflict_message">Reproduzir este artigo como podcast vai parar o áudio que está a tocar agora.</string>

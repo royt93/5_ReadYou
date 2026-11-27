@@ -72,4 +72,25 @@ class StringResourcesHealthTest {
         }
         assertEquals("feature names still in English: $offenders", emptyList<String>(), offenders)
     }
+
+    // The Terms text is HTML held in one string. In ar and bg a <b> was never closed, and in sl a </p> was left in the middle of a sentence, so the rest of the text would
+    // have been rendered bold or ended early. A translation must open and close the same tags as the English source.
+    @Test
+    fun everyTranslationKeepsTheHtmlTagBalanceOfTheSource() {
+        val voidTags = setOf("br", "img", "hr")
+        fun balance(raw: String): Map<String, Int> {
+            val text = raw.replace("&lt;", "<").replace("&gt;", ">")
+            val counts = HashMap<String, Int>()
+            Regex("""<(/?)([a-zA-Z0-9]+)(?:\s[^>]*)?(/?)>""").findAll(text).forEach {
+                val name = it.groupValues[2].lowercase()
+                if (name in voidTags || it.groupValues[3] == "/") return@forEach
+                counts[name] = (counts[name] ?: 0) + if (it.groupValues[1] == "/") -1 else 1
+            }
+            return counts.filterValues { it != 0 }
+        }
+        val offenders = locales.flatMap { l ->
+            strings(File(l, "strings.xml")).filter { (k, v) -> k in base && balance(v) != balance(base.getValue(k)) }.keys.map { "${l.name}:$it" }
+        }
+        assertEquals("translations whose HTML tags are not balanced like the source: $offenders", emptyList<String>(), offenders)
+    }
 }

@@ -928,3 +928,34 @@ Xem trên Tecno thấy "Feed Autopilot" và "Second Brain" còn tiếng Anh ở 
 - it: "Pilota automatico dei feed", "Secondo cervello"
 - in: "Pilot otomatis feed", "Otak Kedua"
 - Cũng đổi trong `notebook_empty_subtitle` và các chuỗi `feed_autopilot_*` có nhắc tên. Test `featureNamesAreTranslatedInEveryTranslatedLocale` giữ bốn locale này không quay lại tiếng Anh.
+
+## Đợt 5 (2026-11-27): audit độc lập bản dịch, không có người duyệt
+
+Owner không có người duyệt bản dịch, nên tôi chạy audit độc lập: 14 agent (mỗi locale một agent) dịch ngược 220 chuỗi rủi ro cao nhất của locale đó sang tiếng Anh và so với bản gốc (xếp hạng theo từ khoá nhạy cảm như quyền riêng tư, xoá, mật khẩu, chứng chỉ, quảng cáo, VIP, WebDAV, có placeholder, và độ dài). **Đây là một lớp kiểm tra tự động, không thay thế người bản ngữ**: chỉ phủ 3.080 trong 15.077 chuỗi đã dịch máy (khoảng 20%), và chính các agent cũng là mô hình ngôn ngữ nên có thể cùng thiên lệch với bản dịch gốc. Tôi không tin báo cáo agent mà không kiểm lại: 62 trong 78 chuỗi agent trích dẫn khớp đúng nội dung repo (16 lệch chủ yếu do dấu `\"` và khoảng trắng hẹp của tiếng Pháp, vài mục `tos_content` bị cắt), và các lỗi dưới đây tôi đã đối chiếu từng cái với bản tiếng Anh trước khi sửa.
+
+Kết quả: 85 vấn đề trên 3.080 chuỗi (19 sai nghĩa, 7 nguy cơ gây hiểu sai ở nội dung nhạy cảm, 8 còn lẫn ngôn ngữ, 24 gượng, 27 thuật ngữ không nhất quán). Locale sạch nhất: zh-CN (3), it, ru, in, uk, zh-TW (4–5); nhiều nhất: de (11, chủ yếu thuật ngữ), pt và pt-BR (10).
+
+### Đã sửa (tự xác minh với bản gốc)
+- **HTML của Điều khoản (`tos_content`)**: ar và bg có một `<b>` không đóng (phần còn lại của văn bản sẽ in đậm), bg còn có `< /b>`, `</ p>` và `<p >` có khoảng trắng, sl có một `</p>` thừa giữa câu. Do kiểm bằng script cân bằng thẻ trên mọi locale, không dựa vào agent. Test mới `everyTranslationKeepsTheHtmlTagBalanceOfTheSource` bắt đúng 3 locale (ar, bg, sl) khi hoàn nguyên và xanh sau sửa.
+- **Thông báo hoàn tất bị dịch thành mệnh lệnh**: uk `delete_toast` ("Видалити" nghĩa là "hãy xoá" thay vì "đã xoá"), es `rename_toast` ("Renombrar").
+- **Lời cảnh báo xoá bị rơi chữ**: fr và pl `delete_group_tips` không còn nói là xoá cả các nguồn (feed) trong nhóm; pl `clear_articles_in_group_toast` mất chữ "đã tải"; pt `unsubscribe_tips` mất chữ "đã lưu trữ"; in `clear_articles_group_tips` ghi "umpan" (feed) thay vì "grup"; fr `all_move_to_group_toast` mất "tất cả nguồn".
+- **"Parsing" bị dịch thành "xem"** ở pt-BR (`all_parse_full_content_*`, 3 chuỗi) và pt (`all_deny_parse_full_content_toast`).
+- **Lẫn ngôn ngữ / sai chính tả**: `Usar AI` thành `Usar IA` (es, pt, pt-BR) và `استخدام الذكاء الاصطناعي` (ar) cho nhất quán với phần còn lại của app; uk `brain_rpg_wrapped_desc` và `brain_rpg_target_xp` đang bằng tiếng Nga, nay là tiếng Ukraina; zh-TW `notebook_deleted` dùng chữ giản thể `删` nay là `刪`; pt `sensitiveiveis` thành `sensíveis`.
+- pt-BR `date_at_time` thiếu dấu: "as" thay vì "às"; zh-CN `zen_words_progress` "字" (ký tự) thay vì "词" (từ).
+
+### Chưa sửa, cần người bản ngữ hoặc quyết định của owner
+Tôi không tự sửa các mục dưới vì chúng là văn bản pháp lý, hoặc là quyết định chọn thuật ngữ, hoặc tôi không đủ chắc để đoán ý bản gốc:
+- `es` `vip_entry_active` (WRONG_MEANING): "Suscripción" implies recurring billing, but this app's VIP is granted via one-time codes/ads/lifetime purchase, not a subscription, so this could mislead users about bil
+- `fr` `deep_read_offline_badge` (WRONG_MEANING): Drops "Smart", losing the distinction that this is an intelligent offline fallback rather than plain offline mode.
+- `ja` `tos_content` (UNSAFE): In this privacy policy, 'third-party' loses the '第三者/サードパーティ' qualifier (left as the odd bare word 'パーティー'), and the sentence telling users where to find those third part
+- `ja` `deep_read_welcome_message` (WRONG_MEANING): "Analyzed" is weakened to just "loaded/read in," and "request clarifications" is dropped entirely, understating what the AI did and one of the things the user can ask for
+- `ja` `deep_read_offline_badge` (WRONG_MEANING): Drops "Smart," losing the distinction that this offline mode still does on-device smart processing rather than being a plain offline fallback.
+- `pl` `tos_content` (UNSAFE): In the permissions disclosure, "background service" is mistranslated as "foreground service" (na pierwszym planie) — the opposite technical concept, misleading users abou
+- `pt-BR` `tos_content` (WRONG_MEANING): Misstates the GPL clause: modification itself is permitted; what's barred is distributing/selling the modified code as closed-source, not the act of modifying it.
+- `pt` `brain_rpg_wrapped_desc` (WRONG_MEANING): Drops "to inspire others" and uses Brazilian Portuguese (Você/Compartilhe/sua) instead of the European Portuguese used elsewhere in the app.
+- `pt` `tos_content` (UNTRANSLATED_OR_MIXED): "sensitiveiveis" is a garbled non-word (should be "sensíveis"), and the "Disclaimers" heading is left in English while every other heading in the same document is transla
+- `ru` `tos_content` (WRONG_MEANING): Heading says this section is about licenses of third-party libraries, but the text is actually about the app's OWN license (GNU GPL 3.0); the earlier heading "Third Party
+- `zh-TW` `trust_self_signed_desc` (UNSAFE): Double use of 否則 ("unless...otherwise keep off; otherwise anyone could read your password") muddles which condition triggers the password risk, weakening a security warni
+- `zh-TW` `deep_read_welcome_message` (WRONG_MEANING): "Analyzed" became "read the full text" (overstating what the AI did) and the "request clarifications" option was dropped entirely.
+
+Mục đáng ưu tiên nhất: pl `tos_content` (đoạn quyền "dịch vụ nền" bị dịch thành "dịch vụ ở tiền cảnh") và ja `tos_content` (mất câu hướng dẫn xem chính sách quyền riêng tư của bên thứ ba, `パーティー` thay vì "bên thứ ba"), vì là nội dung pháp lý và quyền riêng tư hiển thị cho người dùng. Chưa sửa vì văn bản dài và chứa HTML, nên cần người đọc cả đoạn. Kết quả đầy đủ của từng agent nằm ở `/tmp/audit/out-<locale>.json` (ngoài repo, có thể mất khi khởi động lại máy).

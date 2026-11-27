@@ -613,7 +613,7 @@
     <string name="notebook_edit">编辑</string>
     <string name="notebook_copied">已复制到剪贴板</string>
     <string name="notebook_saved">已保存</string>
-    <string name="notebook_deleted">已删除</string>
+    <string name="notebook_deleted">已刪除</string>
     <string name="notebook_untitled">无标题文章</string>
 
     <string name="ai_active_key_custom">使用您的個人 API 金鑰</string>

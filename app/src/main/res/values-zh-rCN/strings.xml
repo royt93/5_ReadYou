@@ -515,7 +515,7 @@
     <string name="zen_speed_reading">速读 (RSVP)</string>
     <string name="zen_speed_reading_desc">以固定焦点对齐方式，每分钟最多阅读 900 字</string>
     <string name="zen_wpm_label">阅读速度：%1$d WPM</string>
-    <string name="zen_words_progress">%1$d / %2$d 字</string>
+    <string name="zen_words_progress">%1$d / %2$d 词</string>
     <string name="zen_ambient_audio">禅意专注音频</string>
     <string name="zen_ambient_audio_desc">舒缓的环境音，助你专注深度阅读</string>
     <string name="zen_sound_rain">轻柔雨声</string>

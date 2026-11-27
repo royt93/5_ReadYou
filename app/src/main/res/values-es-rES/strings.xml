@@ -62,7 +62,7 @@
     <string name="all_move_to_group_toast">Movidas todas las fuentes al grupo \"%1$s\"</string>
     <string name="rename">Renombrar</string>
     <string name="change_url">Cambiar URL</string>
-    <string name="rename_toast">Renombrar a \"%1$s\"</string>
+    <string name="rename_toast">Renombrado a \"%1$s\"</string>
     <string name="create_new_group">Crear grupo nuevo</string>
     <string name="name">Nombre</string>
     <string name="delete">Eliminar</string>
@@ -1188,7 +1188,7 @@
     <string name="podcast_studio_menu">Estudio de pódcast</string>
     <string name="podcast_studio_consent_title">¿Redactar el guion con IA?</string>
     <string name="podcast_studio_consent_message">Solo el título de este artículo y una vista previa corta (menos de 250 caracteres) se envían a Google Gemini para redactar un guion de dos presentadores. El texto del artículo, los enlaces y tu historial de lectura nunca se envían.</string>
-    <string name="podcast_studio_consent_agree">Usar AI</string>
+    <string name="podcast_studio_consent_agree">Usar IA</string>
     <string name="podcast_studio_consent_decline">Usar guion sin conexión</string>
     <string name="podcast_studio_conflict_title">¿Detener lo que se está reproduciendo?</string>
     <string name="podcast_studio_conflict_message">Reproducir este artículo como pódcast detendrá el audio que suena ahora.</string>
