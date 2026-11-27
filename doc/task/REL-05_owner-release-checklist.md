@@ -195,6 +195,14 @@ Máy: Tecno KJ7 `115333744A005844`, Android 14, bản debug dev. Backup byte-exa
 
 **Rà bố cục tương tự lỗi hàng tiêu đề ngữ nghĩa (tĩnh, toàn bộ `ui/`):** quét `Row` có hai con trở lên mà một con là component tự `fillMaxWidth` (18 component, gồm `Subtitle`, `DisplayText`, `Banner`, các thẻ) hoặc `Text(fillMaxWidth)` mà không có `weight`. Chạy trên bản lỗi (`8c4124a9`) bắt đúng `Subtitle` ở `FlowPage` (dòng 303); chạy trên mã hiện tại cho **0 ứng viên**. Giới hạn: quét chỉ nhìn con trực tiếp trong cùng một khối `Row`, nên không thấy trường hợp component được bọc qua hàm trung gian hoặc đặt trong `Row` dựng từ nơi khác.
 
+**WebDAV với máy chủ giả trên Mac (Tecno, 2026-11-27, `~/exc-flaky-evidence/audit-20261127-tecno/dav/`):** dựng máy chủ HTTPS tự ký có xác thực Basic (PUT/GET) qua `adb reverse tcp:8443`, nhập `https://localhost:8443/`, tên `tester` và mật khẩu trên trang WebDAV.
+- Công tắc "Trust a self-signed certificate" **tắt mặc định**: bấm Backup Now thì app ghi `webdav: backup` nhưng **máy chủ không nhận request nào** (bắt tay TLS bị từ chối) và không có thông báo lỗi nào còn đọc được trên màn hình.
+- Bật công tắc: file `self_signed_trust.xml` ghi `localhost:8443`; Backup Now gửi `PUT /rss_hub_backup.opml` 538 byte với `auth=OK` và app ghi `webdav_last_backup_time`, màn hình hiện "Last backup: 0 minutes ago". Restore from Cloud (hộp xác nhận "Nothing is deleted or overwritten") gửi `GET /rss_hub_backup.opml` `auth=OK`. 0 `FATAL`, 0 `NetworkOnMainThread`.
+- Tắt công tắc lại: file chứa tập host rỗng và Backup Now lại **không tạo request nào** (kết nối bị chặn lại ngay, kể cả khi đã có kết nối trước đó).
+- Mật khẩu hiện dạng dấu chấm trong ô nhập. **Chưa kiểm:** mật khẩu sai (máy chủ trả 401), dung lượng lớn, tên tệp trùng; không kiểm được thông báo lỗi vì nó biến mất trước khi chụp.
+- Cái này chỉ kiểm WebDAV; Fever và Google Reader vẫn chỉ có bằng chứng JVM vì nút thêm tài khoản bị ẩn.
+- Hai lần nhấn sai toạ độ (ô nhập và nút "Restore" trong hộp thoại) được sửa bằng toạ độ đo từ `uiautomator dump`. Tecno khôi phục BYTE IDENTICAL, và `webdav_backup_prefs.xml`/`self_signed_trust.xml` do lượt thử tạo ra đã bị xoá vì backup gốc không có chúng.
+
 **Vẫn chưa kiểm:** âm thanh TTS; Fever, Google Reader, WebDAV với máy chủ thật; API 26–28; quảng cáo thật. **Vẫn không khuyến nghị phát hành** (bản dịch máy chưa duyệt, chưa có máy API 26–28, TTS chưa nghe, quảng cáo thật chưa thử). Việc của owner: Play Console, Data safety, dựng và tải AAB.
 
 **Còn trên Pixel (cấm chạm cho đến khi owner cho phép):** bản debug cũ, hộp Subscribe đang mở với URL, `adb reverse tcp:8443`, giao diện tiếng Đức, backup ở `~/exc-flaky-evidence/audit-20261125-pixel/backup-tls2`.

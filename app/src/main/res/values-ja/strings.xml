@@ -153,13 +153,13 @@
         <br />
         <h5> サード パーティ サービス </h5>
         <br />
-        <p> このポリシーは、<b>RSS Bear Hub</b> で使用するパーティー サービスには適用されません。 </p>
+        <p> このポリシーは、<b>RSS Bear Hub</b> で使用するサードパーティ サービスには適用されません。ご利用のサードパーティ サービスのプライバシー ポリシーは、各サービスのウェブサイトでご確認いただけます。 </p>
         <br />
         <br />
         <h5> 免責事項 </h5>
         <br />
         <p>
-            <b>RSS Bear Hub</b> はあくまで情報収集ツールです。 <b>RSS Bear Hub</b> の使用は、あなたの国と地域の法律と規制の対象となり、あなたのの行為から生じる責任は、あなたが個人的に負うものとします。 </p>
+            <b>RSS Bear Hub</b> はあくまで情報収集ツールです。 <b>RSS Bear Hub</b> の使用は、あなたの国と地域の法律と規制の対象となり、あなたの行為から生じる責任は、あなたが個人的に負うものとします。 </p>
         <br />
         <br />
         <h5> オープンソース ライセンス </h5>
@@ -171,7 +171,7 @@
         <h5> 付録 </h5>
         <br />
         <p> - [1] https://github.com/Ashinch/ReadYou </p>
-        <p> - [2] https:/ /www.gnu.org/licenses/gpl-3.0.html </p>
+        <p> - [2] https://www.gnu.org/licenses/gpl-3.0.html </p>
     </string>
     <string name="appearance">外観</string>
     <string name="use_device_theme">デバイスのテーマを使用する</string>

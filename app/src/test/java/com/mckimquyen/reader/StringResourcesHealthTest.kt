@@ -93,4 +93,16 @@ class StringResourcesHealthTest {
         }
         assertEquals("translations whose HTML tags are not balanced like the source: $offenders", emptyList<String>(), offenders)
     }
+
+    // In ja the second link of the Terms text read "https:/ /www.gnu.org/...", which neither opens nor copies. Every locale must keep both source URLs intact.
+    @Test
+    fun theTermsTextKeepsBothSourceUrlsIntact() {
+        val urls = Regex("""https?://[^\s<&]+""").findAll(base.getValue("tos_content")).map { it.value }.toList()
+        assertTrue("the source Terms text should hold two URLs, found $urls", urls.size == 2)
+        val offenders = locales.filter { "tos_content" in strings(File(it, "strings.xml")) }.flatMap { l ->
+            val text = strings(File(l, "strings.xml")).getValue("tos_content")
+            urls.filter { it !in text }.map { "${l.name}:$it" }
+        }
+        assertEquals("Terms text with a broken URL: $offenders", emptyList<String>(), offenders)
+    }
 }

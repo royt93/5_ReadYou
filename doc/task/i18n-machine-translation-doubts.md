@@ -959,3 +959,6 @@ Tôi không tự sửa các mục dưới vì chúng là văn bản pháp lý, h
 - `zh-TW` `deep_read_welcome_message` (WRONG_MEANING): "Analyzed" became "read the full text" (overstating what the AI did) and the "request clarifications" option was dropped entirely.
 
 Mục đáng ưu tiên nhất: pl `tos_content` (đoạn quyền "dịch vụ nền" bị dịch thành "dịch vụ ở tiền cảnh") và ja `tos_content` (mất câu hướng dẫn xem chính sách quyền riêng tư của bên thứ ba, `パーティー` thay vì "bên thứ ba"), vì là nội dung pháp lý và quyền riêng tư hiển thị cho người dùng. Chưa sửa vì văn bản dài và chứa HTML, nên cần người đọc cả đoạn. Kết quả đầy đủ của từng agent nằm ở `/tmp/audit/out-<locale>.json` (ngoài repo, có thể mất khi khởi động lại máy).
+
+**Cập nhật sau đó (2026-11-27):** đã sửa pl `tos_content` ("Uruchom usługę na pierwszym planie" thành "Uprawnienie do usługi w tle", khớp "Background service permission" của bản gốc) và ja `tos_content` (`パーティー サービス` thành `サードパーティ サービス`, thêm lại câu hướng dẫn xem chính sách quyền riêng tư của bên thứ ba, `あなたのの` thành `あなたの`, và `https:/ /www.gnu.org` thành `https://www.gnu.org`, một URL hỏng không mở được). Test mới `theTermsTextKeepsBothSourceUrlsIntact` bắt lỗi URL này (đỏ khi hoàn nguyên ja, xanh sau sửa). Hai mục đó và các mục còn lại ở danh sách trên vẫn là dịch máy, chưa người bản ngữ duyệt.
+
