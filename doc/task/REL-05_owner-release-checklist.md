@@ -183,11 +183,19 @@ Máy: Tecno KJ7 `115333744A005844`, Android 14, bản debug dev. Backup byte-exa
 **Hồi quy luồng chính trên Tecno (2026-11-27, bản debug từ `2c900d55`, `~/exc-flaky-evidence/audit-20261127-tecno/reg/`):** Tecno quay lại ADB sau khi mất một lúc (có một lần `unauthorized` thoáng qua giữa chừng, tự hết). Backup byte-exact trước (`backup-start`) và khôi phục sau (RESTORE OK).
 - Mở app: Feeds hiện 209 bài. Mở "All", mở một bài: màn đọc đúng, banner "Test Ad" có nhãn.
 - TTS: bấm ▶ thì dịch vụ nền và media session xuất hiện, bấm ■ thì cả hai về 0, không crash.
-- Tìm kiếm "Government": danh sách khoá (FTS5) trong DB có đủ 209 dòng và 19 khớp; trên màn hình kết quả hiện đúng (mục "AI Semantic Matches" ở trên, các bài khớp từ khoá bên dưới, tiêu đề chứa "government" và "Government"). **Lưu ý trải nghiệm:** ngay sau khi gõ, vùng trên cùng của danh sách là một khoảng trống lớn trước mục "AI Semantic Matches", nên nhìn thoáng thì tưởng không có kết quả; phải cuộn xuống mới thấy. Chưa kết luận đây là lỗi hay chủ ý bố cục (còn do ô tìm kiếm có khoảng đệm 56+24+10 dp); cần owner xem.
+- Tìm kiếm "Government": danh sách khoá (FTS5) trong DB có đủ 209 dòng và 19 khớp; trên màn hình kết quả hiện đúng (mục "AI Semantic Matches" ở trên, các bài khớp từ khoá bên dưới, tiêu đề chứa "government" và "Government"). **Lưu ý trải nghiệm:** ngay sau khi gõ, vùng trên cùng của danh sách là một khoảng trống lớn trước mục "AI Semantic Matches", nên nhìn thoáng thì tưởng không có kết quả; phải cuộn xuống mới thấy. Điều tra tiếp ở mục dưới (khoảng trống đo được, nguyên nhân chưa rõ hết).
 - Quảng cáo toàn màn hình xuất hiện một lần (Test Ad "Flood-It!"), đóng bằng "Continue to app" theo quy tắc đã định, không chạm creative. 0 `FATAL`, 0 `uncaughtException`, 0 `NetworkOnMainThread`, 0 `Use RequestConfiguration`.
 - Pin Tecno 15% lúc bắt đầu, sạc qua USB.
 
 **Vẫn chưa kiểm:** Reels và cài mới trên bản mới; âm thanh TTS; Fever, Google Reader, WebDAV với máy chủ thật; API 26–28; quảng cáo thật. **Vẫn không khuyến nghị phát hành** (bản dịch máy chưa duyệt, chưa có máy API 26–28, TTS chưa nghe, quảng cáo thật chưa thử). Việc của owner: Play Console, Data safety, dựng và tải AAB.
 
 **Còn trên Pixel (cấm chạm cho đến khi owner cho phép):** bản debug cũ, hộp Subscribe đang mở với URL, `adb reverse tcp:8443`, giao diện tiếng Đức, backup ở `~/exc-flaky-evidence/audit-20261125-pixel/backup-tls2`.
+
+### Khoảng trống ở trang tìm kiếm (2026-11-27, Tecno, chưa sửa)
+Gõ "Government" trong "All": màn hình hiện ô tìm kiếm, rồi **một khoảng trống lớn**, rồi tiêu đề "✨ AI Semantic Matches". Kết quả có đủ nhưng phải cuộn mới thấy: 50 thẻ ngữ nghĩa (giới hạn `limit = 50` của `SemanticSearchEngine.rank`), rồi mới tới "Keyword Matches" và danh sách từ khoá (FTS5, 19 khớp trong DB). Ba phép đo bằng `uiautomator dump` (độ phân giải 480 dpi, 1 dp = 3 px):
+- Đáy ô tìm kiếm y=816, tiêu đề ngữ nghĩa y=1570: khoảng trống 754 px = **251 dp**. Trong mã chỉ có `Spacer(56+24+10 dp) = 90 dp` sau ô tìm kiếm (`FlowPage.kt`), nên còn **161 dp chưa giải thích được**.
+- Thí nghiệm có kiểm soát: bỏ spacer 90 dp (chỉ bản thử, đã hoàn nguyên). Khoảng trống chỉ co 102 px = 34 dp, không phải 270 px = 90 dp. Nghĩa là **spacer 90 dp không phải nguyên nhân chính** và có một phần tử khác (khoảng 217 dp) đang chiếm chỗ.
+- Vùng khoảng trống không có pixel khác nền nào ở ba cột x, và cây giao diện không có node có chữ trong vùng đó, nên đó là khoảng trống thật chứ không phải nội dung bị che.
+- Nguyên nhân chưa rõ: nghi ngờ phần tử có chiều cao nhưng không vẽ trong `LazyColumn` (ví dụ `AnimatedVisibility` hay mục rỗng), nhưng chưa chứng minh. Cần soi cây Compose hoặc thêm layout inspector.
+Kết luận tạm: đây là lỗi bố cục thật, ảnh hưởng người dùng (tìm xong tưởng không có kết quả), nhưng chưa đủ bằng chứng để sửa đúng chỗ; tránh sửa mò. Ảnh: `~/exc-flaky-evidence/audit-20261127-tecno/reg/05*.png`, `07-spacer0.png`.
 
