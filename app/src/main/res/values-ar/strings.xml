@@ -504,7 +504,14 @@
     <string name="zen_daily_edition_notification">%1$d مقالات غير مقروءة جاهزة لقراءتك المركّزة.</string>
     <string name="zen_sleep_timer">مؤقّت النوم</string>
     <string name="zen_sleep_timer_off">مستمر</string>
-    <string name="zen_sleep_timer_min">%1$d دقيقة</string>
+    <plurals name="zen_sleep_timer_min">
+        <item quantity="zero">%1$d دقائق</item>
+        <item quantity="one">دقيقة واحدة</item>
+        <item quantity="two">دقيقتان</item>
+        <item quantity="few">%1$d دقائق</item>
+        <item quantity="many">%1$d دقيقةً</item>
+        <item quantity="other">%1$d دقيقة</item>
+    </plurals>
     <string name="zen_volume">مستوى الصوت: %1$d%%</string>
     <string name="zen_settings_title">التركيز الهادئ &amp; القراءة السريعة</string>
     <!-- Loop 09: AI Article Highlights & Key Takeaways Card -->
@@ -724,7 +731,14 @@
     <string name="second_brain_error">تعذر بناء المخطط. حاول مرة أخرى.</string>
     <string name="second_brain_retry">إعادة المحاولة</string>
     <string name="second_brain_graph_desc">مخطط مواضيع يضم %1$d مواضيع و%2$d روابط</string>
-    <string name="second_brain_node_articles">%1$d مقالات</string>
+    <plurals name="second_brain_node_articles">
+        <item quantity="zero">%1$d مقالات</item>
+        <item quantity="one">مقال واحد</item>
+        <item quantity="two">مقالان</item>
+        <item quantity="few">%1$d مقالات</item>
+        <item quantity="many">%1$d مقالاً</item>
+        <item quantity="other">%1$d مقال</item>
+    </plurals>
     <string name="second_brain_range_label">النطاق الزمني</string>
     <string name="second_brain_related">مقالات ذات صلة</string>
 
@@ -756,7 +770,14 @@
     <string name="smart_collection_query">استعلام الموضوع</string>
     <string name="smart_collection_save_action">حفظ كمجموعة</string>
     <string name="smart_collection_empty">لا توجد مجموعات ذكية بعد. احفظ بحثًا دلاليًا لمتابعة موضوع.</string>
-    <string name="smart_collection_articles_count">%1$d مقالات</string>
+    <plurals name="smart_collection_articles_count">
+        <item quantity="zero">%1$d مقالات</item>
+        <item quantity="one">مقال واحد</item>
+        <item quantity="two">مقالان</item>
+        <item quantity="few">%1$d مقالات</item>
+        <item quantity="many">%1$d مقالاً</item>
+        <item quantity="other">%1$d مقال</item>
+    </plurals>
     <string name="smart_collection_edit">تعديل</string>
     <string name="smart_collection_delete">حذف</string>
     <string name="smart_collection_delete_confirm">حذف هذه المجموعة؟ ستبقى مقالاتها في مكتبتك.</string>
@@ -965,7 +986,14 @@
     <string name="dossier_names_empty">لا توجد عبارة تتكرر في مقالين على الأقل.</string>
     <string name="dossier_sources_single">أرشيفك يحتوي على مصدر واحد فقط حول هذا الموضوع.</string>
     <string name="dossier_sources_note">العناوين مجمّعة حسب المصدر؛ ولا يُستخلص أي استنتاج.</string>
-    <string name="dossier_article_count">%1$d مقالات</string>
+    <plurals name="dossier_article_count">
+        <item quantity="zero">%1$d مقالات</item>
+        <item quantity="one">مقال واحد</item>
+        <item quantity="two">مقالان</item>
+        <item quantity="few">%1$d مقالات</item>
+        <item quantity="many">%1$d مقالاً</item>
+        <item quantity="other">%1$d مقال</item>
+    </plurals>
     <string name="dossier_share_error">تعذر تجهيز الملف للمشاركة.</string>
 
     <!-- BOUNTY-03 graph viewport -->

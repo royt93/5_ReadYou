@@ -532,7 +532,11 @@
     <string name="zen_daily_edition_notification">%1$d непрочитаних чланака спремно је за ваше фокусирано читање.</string>
     <string name="zen_sleep_timer">Тајмер за спавање</string>
     <string name="zen_sleep_timer_off">Непрекидно</string>
-    <string name="zen_sleep_timer_min">%1$d мин</string>
+    <plurals name="zen_sleep_timer_min">
+        <item quantity="one">%1$d мин</item>
+        <item quantity="few">%1$d мин</item>
+        <item quantity="other">%1$d мин</item>
+    </plurals>
     <string name="zen_volume">Volume: %1$d%%</string>
     <string name="zen_settings_title">Zen фокус и брзо читање</string>
     <!-- Loop 09: AI Article Highlights & Key Takeaways Card -->
@@ -753,7 +757,11 @@
     <string name="second_brain_error">Није могуће направити граф. Покушајте поново.</string>
     <string name="second_brain_retry">Покушај поново</string>
     <string name="second_brain_graph_desc">Граф тема са %1$d тема и %2$d веза</string>
-    <string name="second_brain_node_articles">%1$d чланака</string>
+    <plurals name="second_brain_node_articles">
+        <item quantity="one">%1$d чланак</item>
+        <item quantity="few">%1$d чланка</item>
+        <item quantity="other">%1$d чланака</item>
+    </plurals>
     <string name="second_brain_range_label">Временски опсег</string>
     <string name="second_brain_related">Сродни чланци</string>
 
@@ -785,7 +793,11 @@
     <string name="smart_collection_query">Упит за тему</string>
     <string name="smart_collection_save_action">Сачувај као колекцију</string>
     <string name="smart_collection_empty">Још нема паметних колекција. Сачувајте семантичку претрагу да бисте пратили тему.</string>
-    <string name="smart_collection_articles_count">%1$d чланака</string>
+    <plurals name="smart_collection_articles_count">
+        <item quantity="one">%1$d чланак</item>
+        <item quantity="few">%1$d чланка</item>
+        <item quantity="other">%1$d чланака</item>
+    </plurals>
     <string name="smart_collection_edit">Уреди</string>
     <string name="smart_collection_delete">Избриши</string>
     <string name="smart_collection_delete_confirm">Обрисати ову колекцију? Њени чланци остаће у вашој библиотеци.</string>
@@ -979,7 +991,11 @@
     <string name="dossier_names_empty">Ниједна фраза се не понавља у најмање 2 чланка.</string>
     <string name="dossier_sources_single">Ваша архива има само један извор о овој теми.</string>
     <string name="dossier_sources_note">Наслови су груписани по извору; не доноси се никакав закључак.</string>
-    <string name="dossier_article_count">%1$d чланака</string>
+    <plurals name="dossier_article_count">
+        <item quantity="one">%1$d чланак</item>
+        <item quantity="few">%1$d чланка</item>
+        <item quantity="other">%1$d чланака</item>
+    </plurals>
     <string name="dossier_share_error">Није могуће припремити досије за дељење.</string>
 
     <!-- BOUNTY-03 graph viewport -->

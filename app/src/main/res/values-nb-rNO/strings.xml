@@ -529,7 +529,10 @@
     <string name="zen_daily_edition_notification">%1$d uleste artikler er klare for fokusert lesing.</string>
     <string name="zen_sleep_timer">Søvntimer</string>
     <string name="zen_sleep_timer_off">Kontinuerlig</string>
-    <string name="zen_sleep_timer_min">%1$d minutter</string>
+    <plurals name="zen_sleep_timer_min">
+        <item quantity="one">%1$d minutt</item>
+        <item quantity="other">%1$d minutter</item>
+    </plurals>
     <string name="zen_volume">Volume: %1$d%%</string>
     <string name="zen_settings_title">Zen-fokus &amp; hurtiglesing</string>
     <!-- Loop 09: AI Article Highlights & Key Takeaways Card -->
@@ -750,7 +753,10 @@
     <string name="second_brain_error">Kunne ikke bygge grafen. Prøv igjen.</string>
     <string name="second_brain_retry">Prøv igen</string>
     <string name="second_brain_graph_desc">Temagraf med %1$d temaer og %2$d forbindelser</string>
-    <string name="second_brain_node_articles">%1$d artikler</string>
+    <plurals name="second_brain_node_articles">
+        <item quantity="one">%1$d artikkel</item>
+        <item quantity="other">%1$d artikler</item>
+    </plurals>
     <string name="second_brain_range_label">Tidsrom</string>
     <string name="second_brain_related">Relaterte artikler</string>
 
@@ -782,7 +788,10 @@
     <string name="smart_collection_query">Temasøk</string>
     <string name="smart_collection_save_action">Lagre som samling</string>
     <string name="smart_collection_empty">Ingen smarte samlinger ennå. Lagre et semantisk søk for å følge et tema.</string>
-    <string name="smart_collection_articles_count">%1$d artikler</string>
+    <plurals name="smart_collection_articles_count">
+        <item quantity="one">%1$d artikkel</item>
+        <item quantity="other">%1$d artikler</item>
+    </plurals>
     <string name="smart_collection_edit">Rediger</string>
     <string name="smart_collection_delete">Slett</string>
     <string name="smart_collection_delete_confirm">Slette denne samlingen? Artiklene beholdes i biblioteket ditt.</string>
@@ -971,7 +980,10 @@
     <string name="dossier_names_empty">Ingen frase gjentas i minst 2 artikler.</string>
     <string name="dossier_sources_single">Arkivet ditt har bare én kilde om dette temaet.</string>
     <string name="dossier_sources_note">Overskrifter er gruppert etter kilde. Ingen konklusjon trekkes.</string>
-    <string name="dossier_article_count">%1$d artikler</string>
+    <plurals name="dossier_article_count">
+        <item quantity="one">%1$d artikkel</item>
+        <item quantity="other">%1$d artikler</item>
+    </plurals>
     <string name="dossier_share_error">Kunne ikke klargjøre dossieret for deling.</string>
 
     <!-- BOUNTY-03 graph viewport -->

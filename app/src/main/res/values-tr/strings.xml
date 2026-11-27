@@ -530,7 +530,10 @@
     <string name="zen_daily_edition_notification">Odaklanarak okumanız için %1$d okunmamış makale hazır.</string>
     <string name="zen_sleep_timer">Uyku Zamanlayıcısı</string>
     <string name="zen_sleep_timer_off">Kesintisiz</string>
-    <string name="zen_sleep_timer_min">%1$d dakika</string>
+    <plurals name="zen_sleep_timer_min">
+        <item quantity="one">%1$d dakika</item>
+        <item quantity="other">%1$d dakika</item>
+    </plurals>
     <string name="zen_volume">Volume: %1$d%%</string>
     <string name="zen_settings_title">Zen Odak &amp; Hızlı Okuma</string>
     <!-- Loop 09: AI Article Highlights & Key Takeaways Card -->
@@ -750,7 +753,10 @@
     <string name="second_brain_error">Grafik oluşturulamadı. Tekrar deneyin.</string>
     <string name="second_brain_retry">Yeniden dene</string>
     <string name="second_brain_graph_desc">%1$d konu ve %2$d bağlantı içeren konu grafiği</string>
-    <string name="second_brain_node_articles">%1$d makale</string>
+    <plurals name="second_brain_node_articles">
+        <item quantity="one">%1$d makale</item>
+        <item quantity="other">%1$d makale</item>
+    </plurals>
     <string name="second_brain_range_label">Zaman aralığı</string>
     <string name="second_brain_related">İlgili makaleler</string>
 
@@ -782,7 +788,10 @@
     <string name="smart_collection_query">Konu sorgusu</string>
     <string name="smart_collection_save_action">Koleksiyon olarak kaydet</string>
     <string name="smart_collection_empty">Henüz akıllı koleksiyon yok. Bir konuyu takip etmek için anlamsal bir aramayı kaydedin.</string>
-    <string name="smart_collection_articles_count">%1$d makale</string>
+    <plurals name="smart_collection_articles_count">
+        <item quantity="one">%1$d makale</item>
+        <item quantity="other">%1$d makale</item>
+    </plurals>
     <string name="smart_collection_edit">Düzenle</string>
     <string name="smart_collection_delete">Sil</string>
     <string name="smart_collection_delete_confirm">Bu koleksiyon silinsin mi? Makaleleri kitaplığınızda kalır.</string>
@@ -971,7 +980,10 @@
     <string name="dossier_names_empty">En az 2 makalede tekrarlanan ifade yok.</string>
     <string name="dossier_sources_single">Arşivinizde bu konuda yalnızca bir kaynak var.</string>
     <string name="dossier_sources_note">Başlıklar kaynağa göre gruplandı; sonuç çıkarılmaz.</string>
-    <string name="dossier_article_count">%1$d makale</string>
+    <plurals name="dossier_article_count">
+        <item quantity="one">%1$d makale</item>
+        <item quantity="other">%1$d makale</item>
+    </plurals>
     <string name="dossier_share_error">Dosya paylaşıma hazırlanamadı.</string>
 
     <!-- BOUNTY-03 graph viewport -->

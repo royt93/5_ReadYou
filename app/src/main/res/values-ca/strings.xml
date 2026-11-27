@@ -529,7 +529,11 @@
     <string name="zen_daily_edition_notification">%1$d articles sense llegir a punt per a la teva lectura concentrada.</string>
     <string name="zen_sleep_timer">Temporitzador de son</string>
     <string name="zen_sleep_timer_off">Continu</string>
-    <string name="zen_sleep_timer_min">%1$d minuts</string>
+    <plurals name="zen_sleep_timer_min">
+        <item quantity="one">%1$d minut</item>
+        <item quantity="many">%1$d de minuts</item>
+        <item quantity="other">%1$d minuts</item>
+    </plurals>
     <string name="zen_volume">Volume: %1$d%%</string>
     <string name="zen_settings_title">Concentració Zen i lectura ràpida</string>
     <!-- Loop 09: AI Article Highlights & Key Takeaways Card -->
@@ -749,7 +753,11 @@
     <string name="second_brain_error">No s\'ha pogut construir el graf. Torna-ho a provar.</string>
     <string name="second_brain_retry">Torna-ho a provar</string>
     <string name="second_brain_graph_desc">Graf de temes amb %1$d temes i %2$d connexions</string>
-    <string name="second_brain_node_articles">%1$d articles</string>
+    <plurals name="second_brain_node_articles">
+        <item quantity="one">%1$d article</item>
+        <item quantity="many">%1$d d\'articles</item>
+        <item quantity="other">%1$d articles</item>
+    </plurals>
     <string name="second_brain_range_label">Interval de temps</string>
     <string name="second_brain_related">Articles relacionats</string>
 
@@ -781,7 +789,11 @@
     <string name="smart_collection_query">Consulta del tema</string>
     <string name="smart_collection_save_action">Desa com a col·lecció</string>
     <string name="smart_collection_empty">Encara no hi ha col·leccions intel·ligents. Desa una cerca semàntica per seguir un tema.</string>
-    <string name="smart_collection_articles_count">%1$d articles</string>
+    <plurals name="smart_collection_articles_count">
+        <item quantity="one">%1$d article</item>
+        <item quantity="many">%1$d d\'articles</item>
+        <item quantity="other">%1$d articles</item>
+    </plurals>
     <string name="smart_collection_edit">Edita</string>
     <string name="smart_collection_delete">Suprimeix</string>
     <string name="smart_collection_delete_confirm">Vols suprimir aquesta col·lecció? Els seus articles es conservaran a la teva biblioteca.</string>
@@ -970,7 +982,11 @@
     <string name="dossier_names_empty">Cap expressió es repeteix en almenys 2 articles.</string>
     <string name="dossier_sources_single">El teu arxiu només té una font sobre aquest tema.</string>
     <string name="dossier_sources_note">Els titulars s\'agrupen per font; no se\'n treu cap conclusió.</string>
-    <string name="dossier_article_count">%1$d articles</string>
+    <plurals name="dossier_article_count">
+        <item quantity="one">%1$d article</item>
+        <item quantity="many">%1$d d\'articles</item>
+        <item quantity="other">%1$d articles</item>
+    </plurals>
     <string name="dossier_share_error">No s\'ha pogut preparar el dossier per compartir.</string>
 
     <!-- BOUNTY-03 graph viewport -->

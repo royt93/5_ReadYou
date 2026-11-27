@@ -600,7 +600,10 @@
     <string name="zen_daily_edition_notification">%1$d വായിക്കാത്ത ലേഖനങ്ങൾ നിങ്ങളുടെ ഫോക്കസ് വായനയ്ക്ക് തയ്യാർ.</string>
     <string name="zen_sleep_timer">സ്ലീപ്പ് ടൈമർ</string>
     <string name="zen_sleep_timer_off">തുടർച്ചയായി</string>
-    <string name="zen_sleep_timer_min">%1$d മിനിറ്റ്</string>
+    <plurals name="zen_sleep_timer_min">
+        <item quantity="one">%1$d മിനിറ്റ്</item>
+        <item quantity="other">%1$d മിനിറ്റ്</item>
+    </plurals>
     <string name="zen_volume">Volume: %1$d%%</string>
     <string name="zen_settings_title">സെൻ ഫോക്കസും വേഗത്തിലുള്ള വായനയും</string>
     <!-- Loop 09: AI Article Highlights & Key Takeaways Card -->
@@ -821,7 +824,10 @@
     <string name="second_brain_error">ഗ്രാഫ് നിർമ്മിക്കാൻ കഴിഞ്ഞില്ല. വീണ്ടും ശ്രമിക്കുക.</string>
     <string name="second_brain_retry">വീണ്ടും ശ്രമിക്കുക</string>
     <string name="second_brain_graph_desc">%1$d വിഷയങ്ങളും %2$d ബന്ധങ്ങളുമുള്ള വിഷയ ഗ്രാഫ്</string>
-    <string name="second_brain_node_articles">%1$d ലേഖനങ്ങൾ</string>
+    <plurals name="second_brain_node_articles">
+        <item quantity="one">%1$d ലേഖനങ്ങൾ</item>
+        <item quantity="other">%1$d ലേഖനങ്ങൾ</item>
+    </plurals>
     <string name="second_brain_range_label">സമയപരിധി</string>
     <string name="second_brain_related">ബന്ധപ്പെട്ട ലേഖനങ്ങൾ</string>
 
@@ -853,7 +859,10 @@
     <string name="smart_collection_query">വിഷയ ചോദ്യം</string>
     <string name="smart_collection_save_action">ശേഖരമായി സേവ് ചെയ്യുക</string>
     <string name="smart_collection_empty">സ്മാർട്ട് ശേഖരങ്ങളൊന്നുമില്ല. ഒരു വിഷയം പിന്തുടരാൻ സെമാന്റിക് തിരയൽ സേവ് ചെയ്യുക.</string>
-    <string name="smart_collection_articles_count">%1$d ലേഖനങ്ങൾ</string>
+    <plurals name="smart_collection_articles_count">
+        <item quantity="one">%1$d ലേഖനങ്ങൾ</item>
+        <item quantity="other">%1$d ലേഖനങ്ങൾ</item>
+    </plurals>
     <string name="smart_collection_edit">എഡിറ്റ് ചെയ്യുക</string>
     <string name="smart_collection_delete">ഇല്ലാതാക്കുക</string>
     <string name="smart_collection_delete_confirm">ഈ ശേഖരം ഇല്ലാതാക്കണോ? ഇതിലെ ലേഖനങ്ങൾ നിങ്ങളുടെ ലൈബ്രറിയിൽ തുടരും.</string>
@@ -1042,7 +1051,10 @@
     <string name="dossier_names_empty">കുറഞ്ഞത് 2 ലേഖനങ്ങളിൽ ആവർത്തിക്കുന്ന പദസമുച്ചയമില്ല.</string>
     <string name="dossier_sources_single">ഈ വിഷയത്തിൽ നിങ്ങളുടെ ആർക്കൈവിൽ ഒരു ഉറവിടം മാത്രമേയുള്ളൂ.</string>
     <string name="dossier_sources_note">തലക്കെട്ടുകൾ ഉറവിടം അനുസരിച്ച് ഗ്രൂപ്പ് ചെയ്തിരിക്കുന്നു; നിഗമനമൊന്നും എടുത്തിട്ടില്ല.</string>
-    <string name="dossier_article_count">%1$d ലേഖനങ്ങൾ</string>
+    <plurals name="dossier_article_count">
+        <item quantity="one">%1$d ലേഖനങ്ങൾ</item>
+        <item quantity="other">%1$d ലേഖനങ്ങൾ</item>
+    </plurals>
     <string name="dossier_share_error">പങ്കിടാൻ ഡോസിയർ തയ്യാറാക്കാൻ കഴിഞ്ഞില്ല.</string>
 
     <!-- BOUNTY-03 graph viewport -->

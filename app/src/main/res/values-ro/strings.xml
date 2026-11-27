@@ -532,7 +532,11 @@
     <string name="zen_daily_edition_notification">%1$d articole necitite sunt gata pentru citirea concentrată.</string>
     <string name="zen_sleep_timer">Temporizator de somn</string>
     <string name="zen_sleep_timer_off">Continuu</string>
-    <string name="zen_sleep_timer_min">%1$d minute</string>
+    <plurals name="zen_sleep_timer_min">
+        <item quantity="one">%1$d minut</item>
+        <item quantity="few">%1$d minute</item>
+        <item quantity="other">%1$d de minute</item>
+    </plurals>
     <string name="zen_volume">Volume: %1$d%%</string>
     <string name="zen_settings_title">Concentrare Zen &amp; citire rapidă</string>
     <!-- Loop 09: AI Article Highlights & Key Takeaways Card -->
@@ -752,7 +756,11 @@
     <string name="second_brain_error">Graficul nu a putut fi construit. Încercați din nou.</string>
     <string name="second_brain_retry">Reîncearcă</string>
     <string name="second_brain_graph_desc">Grafic de subiecte cu %1$d subiecte și %2$d conexiuni</string>
-    <string name="second_brain_node_articles">%1$d articole</string>
+    <plurals name="second_brain_node_articles">
+        <item quantity="one">%1$d articol</item>
+        <item quantity="few">%1$d articole</item>
+        <item quantity="other">%1$d de articole</item>
+    </plurals>
     <string name="second_brain_range_label">Interval de timp</string>
     <string name="second_brain_related">Articole conexe</string>
 
@@ -784,7 +792,11 @@
     <string name="smart_collection_query">Interogare de subiect</string>
     <string name="smart_collection_save_action">Salvează ca colecție</string>
     <string name="smart_collection_empty">Încă nicio colecție inteligentă. Salvați o căutare semantică pentru a urmări un subiect.</string>
-    <string name="smart_collection_articles_count">%1$d articole</string>
+    <plurals name="smart_collection_articles_count">
+        <item quantity="one">%1$d articol</item>
+        <item quantity="few">%1$d articole</item>
+        <item quantity="other">%1$d de articole</item>
+    </plurals>
     <string name="smart_collection_edit">Editează</string>
     <string name="smart_collection_delete">Șterge</string>
     <string name="smart_collection_delete_confirm">Ștergeți această colecție? Articolele ei vor rămâne în bibliotecă.</string>
@@ -978,7 +990,11 @@
     <string name="dossier_names_empty">Nicio expresie nu apare în cel puțin 2 articole.</string>
     <string name="dossier_sources_single">Arhiva dvs. are o singură sursă pe acest subiect.</string>
     <string name="dossier_sources_note">Titlurile sunt grupate pe surse; nu se trage nicio concluzie.</string>
-    <string name="dossier_article_count">%1$d articole</string>
+    <plurals name="dossier_article_count">
+        <item quantity="one">%1$d articol</item>
+        <item quantity="few">%1$d articole</item>
+        <item quantity="other">%1$d de articole</item>
+    </plurals>
     <string name="dossier_share_error">Dosarul nu a putut fi pregătit pentru distribuire.</string>
 
     <!-- BOUNTY-03 graph viewport -->

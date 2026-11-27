@@ -525,7 +525,9 @@
     <string name="zen_daily_edition_notification">%1$d 篇未讀文章已備妥，可供專注閱讀。</string>
     <string name="zen_sleep_timer">睡眠計時器</string>
     <string name="zen_sleep_timer_off">持續播放</string>
-    <string name="zen_sleep_timer_min">%1$d 分鐘</string>
+    <plurals name="zen_sleep_timer_min">
+        <item quantity="other">%1$d 分鐘</item>
+    </plurals>
     <string name="zen_volume">音量：%1$d%%</string>
     <string name="zen_settings_title">禪意專注與速讀</string>
     <!-- Loop 09: AI Article Highlights & Key Takeaways Card -->
@@ -746,7 +748,9 @@
     <string name="second_brain_error">無法建立圖譜。請再試一次。</string>
     <string name="second_brain_retry">重試</string>
     <string name="second_brain_graph_desc">主題圖譜，包含 %1$d 個主題與 %2$d 個連結</string>
-    <string name="second_brain_node_articles">%1$d 篇文章</string>
+    <plurals name="second_brain_node_articles">
+        <item quantity="other">%1$d 篇文章</item>
+    </plurals>
     <string name="second_brain_range_label">時間範圍</string>
     <string name="second_brain_related">相關文章</string>
 
@@ -778,7 +782,9 @@
     <string name="smart_collection_query">主題查詢</string>
     <string name="smart_collection_save_action">儲存為收藏集</string>
     <string name="smart_collection_empty">尚無智慧收藏集。儲存語意搜尋即可追蹤某個主題。</string>
-    <string name="smart_collection_articles_count">%1$d 篇文章</string>
+    <plurals name="smart_collection_articles_count">
+        <item quantity="other">%1$d 篇文章</item>
+    </plurals>
     <string name="smart_collection_edit">編輯</string>
     <string name="smart_collection_delete">刪除</string>
     <string name="smart_collection_delete_confirm">要刪除此收藏集嗎？其中的文章仍會保留在你的資料庫中。</string>
@@ -962,7 +968,9 @@
     <string name="dossier_names_empty">沒有任何詞語在至少 2 篇文章中重複出現。</string>
     <string name="dossier_sources_single">你的封存中此主題只有一個來源。</string>
     <string name="dossier_sources_note">標題依來源分組；不做任何結論。</string>
-    <string name="dossier_article_count">%1$d 篇文章</string>
+    <plurals name="dossier_article_count">
+        <item quantity="other">%1$d 篇文章</item>
+    </plurals>
     <string name="dossier_share_error">無法準備分享用的檔案。</string>
 
     <!-- BOUNTY-03 graph viewport -->

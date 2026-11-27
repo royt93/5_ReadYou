@@ -604,7 +604,12 @@
     <string name="zen_daily_edition_notification">%1$d nepřečtených článků čeká na vaše soustředěné čtení.</string>
     <string name="zen_sleep_timer">Časovač vypnutí</string>
     <string name="zen_sleep_timer_off">Nepřetržitě</string>
-    <string name="zen_sleep_timer_min">%1$d min</string>
+    <plurals name="zen_sleep_timer_min">
+        <item quantity="one">%1$d minuta</item>
+        <item quantity="few">%1$d minuty</item>
+        <item quantity="many">%1$d minuty</item>
+        <item quantity="other">%1$d minut</item>
+    </plurals>
     <string name="zen_volume">Volume: %1$d%%</string>
     <string name="zen_settings_title">Zen soustředění &amp; rychločtení</string>
     <!-- Loop 09: AI Article Highlights & Key Takeaways Card -->
@@ -824,7 +829,12 @@
     <string name="second_brain_error">Graf se nepodařilo vytvořit. Zkuste to znovu.</string>
     <string name="second_brain_retry">Opakovat</string>
     <string name="second_brain_graph_desc">Graf témat s %1$d tématy a %2$d propojeními</string>
-    <string name="second_brain_node_articles">%1$d článků</string>
+    <plurals name="second_brain_node_articles">
+        <item quantity="one">%1$d článek</item>
+        <item quantity="few">%1$d články</item>
+        <item quantity="many">%1$d články</item>
+        <item quantity="other">%1$d článků</item>
+    </plurals>
     <string name="second_brain_range_label">Časové období</string>
     <string name="second_brain_related">Související články</string>
 
@@ -856,7 +866,12 @@
     <string name="smart_collection_query">Dotaz na téma</string>
     <string name="smart_collection_save_action">Uložit jako kolekci</string>
     <string name="smart_collection_empty">Zatím žádné chytré kolekce. Uložte sémantické hledání a sledujte téma.</string>
-    <string name="smart_collection_articles_count">%1$d článků</string>
+    <plurals name="smart_collection_articles_count">
+        <item quantity="one">%1$d článek</item>
+        <item quantity="few">%1$d články</item>
+        <item quantity="many">%1$d články</item>
+        <item quantity="other">%1$d článků</item>
+    </plurals>
     <string name="smart_collection_edit">Upravit</string>
     <string name="smart_collection_delete">Smazat</string>
     <string name="smart_collection_delete_confirm">Smazat tuto kolekci? Její články zůstanou ve vaší knihovně.</string>
@@ -1055,7 +1070,12 @@
     <string name="dossier_names_empty">Žádná fráze se neopakuje alespoň ve 2 článcích.</string>
     <string name="dossier_sources_single">Váš archiv má k tomuto tématu pouze jeden zdroj.</string>
     <string name="dossier_sources_note">Titulky jsou seskupeny podle zdroje; nevyvozuje se žádný závěr.</string>
-    <string name="dossier_article_count">%1$d článků</string>
+    <plurals name="dossier_article_count">
+        <item quantity="one">%1$d článek</item>
+        <item quantity="few">%1$d články</item>
+        <item quantity="many">%1$d články</item>
+        <item quantity="other">%1$d článků</item>
+    </plurals>
     <string name="dossier_share_error">Dosje se nepodařilo připravit ke sdílení.</string>
 
     <!-- BOUNTY-03 graph viewport -->

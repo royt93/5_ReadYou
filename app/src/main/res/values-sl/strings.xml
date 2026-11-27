@@ -498,7 +498,12 @@
     <string name="zen_daily_edition_notification">Neprebranih člankov za osredotočeno branje: %1$d.</string>
     <string name="zen_sleep_timer">Časovnik za spanje</string>
     <string name="zen_sleep_timer_off">Neprekinjeno</string>
-    <string name="zen_sleep_timer_min">%1$d minut</string>
+    <plurals name="zen_sleep_timer_min">
+        <item quantity="one">%1$d minuta</item>
+        <item quantity="two">%1$d minuti</item>
+        <item quantity="few">%1$d minute</item>
+        <item quantity="other">%1$d minut</item>
+    </plurals>
     <string name="zen_volume">Volume: %1$d%%</string>
     <string name="zen_settings_title">Zen osredotočenost &amp; hitro branje</string>
     <!-- Loop 09: AI Article Highlights & Key Takeaways Card -->
@@ -719,7 +724,12 @@
     <string name="second_brain_error">Grafa ni bilo mogoče zgraditi. Poskusite znova.</string>
     <string name="second_brain_retry">Poskusi znova</string>
     <string name="second_brain_graph_desc">Graf tem s %1$d temami in %2$d povezavami</string>
-    <string name="second_brain_node_articles">%1$d člankov</string>
+    <plurals name="second_brain_node_articles">
+        <item quantity="one">%1$d članek</item>
+        <item quantity="two">%1$d članka</item>
+        <item quantity="few">%1$d članki</item>
+        <item quantity="other">%1$d člankov</item>
+    </plurals>
     <string name="second_brain_range_label">Časovno obdobje</string>
     <string name="second_brain_related">Sorodni članki</string>
 
@@ -751,7 +761,12 @@
     <string name="smart_collection_query">Poizvedba teme</string>
     <string name="smart_collection_save_action">Shrani kot zbirko</string>
     <string name="smart_collection_empty">Pametnih zbirk še ni. Shranite semantično iskanje, da sledite temi.</string>
-    <string name="smart_collection_articles_count">%1$d člankov</string>
+    <plurals name="smart_collection_articles_count">
+        <item quantity="one">%1$d članek</item>
+        <item quantity="two">%1$d članka</item>
+        <item quantity="few">%1$d članki</item>
+        <item quantity="other">%1$d člankov</item>
+    </plurals>
     <string name="smart_collection_edit">Uredi</string>
     <string name="smart_collection_delete">Izbriši</string>
     <string name="smart_collection_delete_confirm">Izbrišem to zbirko? Njeni članki bodo ostali v knjižnici.</string>
@@ -950,7 +965,12 @@
     <string name="dossier_names_empty">Nobena fraza se ne ponovi v vsaj 2 člankih.</string>
     <string name="dossier_sources_single">Vaš arhiv ima o tej temi samo en vir.</string>
     <string name="dossier_sources_note">Naslovi so združeni po virih; sklep ni izpeljan.</string>
-    <string name="dossier_article_count">%1$d člankov</string>
+    <plurals name="dossier_article_count">
+        <item quantity="one">%1$d članek</item>
+        <item quantity="two">%1$d članka</item>
+        <item quantity="few">%1$d članki</item>
+        <item quantity="other">%1$d člankov</item>
+    </plurals>
     <string name="dossier_share_error">Dosjeja ni bilo mogoče pripraviti za deljenje.</string>
 
     <!-- BOUNTY-03 graph viewport -->

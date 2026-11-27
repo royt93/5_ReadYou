@@ -527,7 +527,9 @@
     <string name="zen_daily_edition_notification">%1$d artikel belum dibaca siap untuk bacaan fokus Anda.</string>
     <string name="zen_sleep_timer">Timer Tidur</string>
     <string name="zen_sleep_timer_off">Terus-menerus</string>
-    <string name="zen_sleep_timer_min">%1$d menit</string>
+    <plurals name="zen_sleep_timer_min">
+        <item quantity="other">%1$d menit</item>
+    </plurals>
     <string name="zen_volume">Volume: %1$d%%</string>
     <string name="zen_settings_title">Fokus Zen &amp; Baca Cepat</string>
     <!-- Loop 09: AI Article Highlights & Key Takeaways Card -->
@@ -748,7 +750,9 @@
     <string name="second_brain_error">Tidak dapat membuat grafik. Coba lagi.</string>
     <string name="second_brain_retry">Coba lagi</string>
     <string name="second_brain_graph_desc">Grafik topik dengan %1$d topik dan %2$d koneksi</string>
-    <string name="second_brain_node_articles">%1$d artikel</string>
+    <plurals name="second_brain_node_articles">
+        <item quantity="other">%1$d artikel</item>
+    </plurals>
     <string name="second_brain_range_label">Rentang waktu</string>
     <string name="second_brain_related">Artikel terkait</string>
 
@@ -780,7 +784,9 @@
     <string name="smart_collection_query">Kueri topik</string>
     <string name="smart_collection_save_action">Simpan sebagai koleksi</string>
     <string name="smart_collection_empty">Belum ada koleksi cerdas. Simpan pencarian semantik untuk mengikuti suatu topik.</string>
-    <string name="smart_collection_articles_count">%1$d artikel</string>
+    <plurals name="smart_collection_articles_count">
+        <item quantity="other">%1$d artikel</item>
+    </plurals>
     <string name="smart_collection_edit">Edit</string>
     <string name="smart_collection_delete">Hapus</string>
     <string name="smart_collection_delete_confirm">Hapus koleksi ini? Artikelnya tetap ada di pustaka Anda.</string>
@@ -964,7 +970,9 @@
     <string name="dossier_names_empty">Tidak ada frasa yang berulang di minimal 2 artikel.</string>
     <string name="dossier_sources_single">Arsip Anda hanya punya satu sumber untuk topik ini.</string>
     <string name="dossier_sources_note">Judul dikelompokkan menurut sumber; tidak ada kesimpulan yang ditarik.</string>
-    <string name="dossier_article_count">%1$d artikel</string>
+    <plurals name="dossier_article_count">
+        <item quantity="other">%1$d artikel</item>
+    </plurals>
     <string name="dossier_share_error">Tidak dapat menyiapkan dosir untuk dibagikan.</string>
 
     <!-- BOUNTY-03 graph viewport -->

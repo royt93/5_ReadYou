@@ -527,7 +527,10 @@
     <string name="zen_daily_edition_notification">%1$d अपठित लेख आपके फ़ोकस के साथ पढ़ने के लिए तैयार हैं।</string>
     <string name="zen_sleep_timer">स्लीप टाइमर</string>
     <string name="zen_sleep_timer_off">लगातार</string>
-    <string name="zen_sleep_timer_min">%1$d मिनट</string>
+    <plurals name="zen_sleep_timer_min">
+        <item quantity="one">%1$d मिनट</item>
+        <item quantity="other">%1$d मिनट</item>
+    </plurals>
     <string name="zen_volume">Volume: %1$d%%</string>
     <string name="zen_settings_title">ज़ेन फ़ोकस और स्पीड रीडिंग</string>
     <!-- Loop 09: AI Article Highlights & Key Takeaways Card -->
@@ -747,7 +750,10 @@
     <string name="second_brain_error">ग्राफ़ नहीं बन सका। फिर कोशिश करें।</string>
     <string name="second_brain_retry">पुनः प्रयास</string>
     <string name="second_brain_graph_desc">%1$d विषयों और %2$d कनेक्शनों वाला विषय ग्राफ़</string>
-    <string name="second_brain_node_articles">%1$d लेख</string>
+    <plurals name="second_brain_node_articles">
+        <item quantity="one">%1$d लेख</item>
+        <item quantity="other">%1$d लेख</item>
+    </plurals>
     <string name="second_brain_range_label">समय सीमा</string>
     <string name="second_brain_related">संबंधित लेख</string>
 
@@ -779,7 +785,10 @@
     <string name="smart_collection_query">विषय क्वेरी</string>
     <string name="smart_collection_save_action">संग्रह के रूप में सहेजें</string>
     <string name="smart_collection_empty">अभी कोई स्मार्ट संग्रह नहीं है। किसी विषय को फ़ॉलो करने के लिए सिमैंटिक खोज सहेजें।</string>
-    <string name="smart_collection_articles_count">%1$d लेख</string>
+    <plurals name="smart_collection_articles_count">
+        <item quantity="one">%1$d लेख</item>
+        <item quantity="other">%1$d लेख</item>
+    </plurals>
     <string name="smart_collection_edit">संपादित करें</string>
     <string name="smart_collection_delete">हटाएँ</string>
     <string name="smart_collection_delete_confirm">यह संग्रह हटाएँ? इसके लेख आपकी लाइब्रेरी में बने रहेंगे।</string>
@@ -968,7 +977,10 @@
     <string name="dossier_names_empty">कोई वाक्यांश कम से कम 2 लेखों में दोहराया नहीं गया।</string>
     <string name="dossier_sources_single">इस विषय पर आपके संग्रह में केवल एक स्रोत है।</string>
     <string name="dossier_sources_note">शीर्षक स्रोत के अनुसार समूहित हैं; कोई निष्कर्ष नहीं निकाला गया है।</string>
-    <string name="dossier_article_count">%1$d लेख</string>
+    <plurals name="dossier_article_count">
+        <item quantity="one">%1$d लेख</item>
+        <item quantity="other">%1$d लेख</item>
+    </plurals>
     <string name="dossier_share_error">डोज़ियर को साझा करने के लिए तैयार नहीं किया जा सका।</string>
 
     <!-- BOUNTY-03 graph viewport -->

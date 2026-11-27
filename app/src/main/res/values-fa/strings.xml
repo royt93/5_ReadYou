@@ -528,7 +528,10 @@
     <string name="zen_daily_edition_notification">%1$d مقالهٔ خوانده‌نشده برای مطالعهٔ متمرکز شما آماده است.</string>
     <string name="zen_sleep_timer">تایمر خواب</string>
     <string name="zen_sleep_timer_off">پیوسته</string>
-    <string name="zen_sleep_timer_min">%1$d دقیقه</string>
+    <plurals name="zen_sleep_timer_min">
+        <item quantity="one">%1$d دقیقه</item>
+        <item quantity="other">%1$d دقیقه</item>
+    </plurals>
     <string name="zen_volume">Volume: %1$d%%</string>
     <string name="zen_settings_title">تمرکز ذن و مطالعهٔ سریع</string>
     <!-- Loop 09: AI Article Highlights & Key Takeaways Card -->
@@ -749,7 +752,10 @@
     <string name="second_brain_error">ساخت گراف ممکن نشد. دوباره تلاش کنید.</string>
     <string name="second_brain_retry">تلاش مجدد</string>
     <string name="second_brain_graph_desc">گراف موضوع‌ها با %1$d موضوع و %2$d ارتباط</string>
-    <string name="second_brain_node_articles">%1$d مقاله</string>
+    <plurals name="second_brain_node_articles">
+        <item quantity="one">%1$d مقاله</item>
+        <item quantity="other">%1$d مقاله</item>
+    </plurals>
     <string name="second_brain_range_label">بازهٔ زمانی</string>
     <string name="second_brain_related">مقاله‌های مرتبط</string>
 
@@ -781,7 +787,10 @@
     <string name="smart_collection_query">عبارت موضوع</string>
     <string name="smart_collection_save_action">ذخیره به‌عنوان مجموعه</string>
     <string name="smart_collection_empty">هنوز مجموعهٔ هوشمندی نیست. برای دنبال کردن یک موضوع، یک جستجوی معنایی را ذخیره کنید.</string>
-    <string name="smart_collection_articles_count">%1$d مقاله</string>
+    <plurals name="smart_collection_articles_count">
+        <item quantity="one">%1$d مقاله</item>
+        <item quantity="other">%1$d مقاله</item>
+    </plurals>
     <string name="smart_collection_edit">ویرایش</string>
     <string name="smart_collection_delete">حذف</string>
     <string name="smart_collection_delete_confirm">این مجموعه حذف شود؟ مقاله‌های آن در کتابخانهٔ شما می‌مانند.</string>
@@ -970,7 +979,10 @@
     <string name="dossier_names_empty">هیچ عبارتی در دست‌کم ۲ مقاله تکرار نشده است.</string>
     <string name="dossier_sources_single">آرشیو شما دربارهٔ این موضوع فقط یک منبع دارد.</string>
     <string name="dossier_sources_note">تیترها بر اساس منبع گروه‌بندی شده‌اند؛ نتیجه‌گیری‌ای انجام نمی‌شود.</string>
-    <string name="dossier_article_count">%1$d مقاله</string>
+    <plurals name="dossier_article_count">
+        <item quantity="one">%1$d مقاله</item>
+        <item quantity="other">%1$d مقاله</item>
+    </plurals>
     <string name="dossier_share_error">آماده‌سازی پرونده برای اشتراک‌گذاری ممکن نشد.</string>
 
     <!-- BOUNTY-03 graph viewport -->

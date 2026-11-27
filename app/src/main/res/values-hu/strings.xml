@@ -524,7 +524,10 @@
     <string name="zen_daily_edition_notification">%1$d olvasatlan cikk vár a fókuszált olvasásra.</string>
     <string name="zen_sleep_timer">Elalvásidőzítő</string>
     <string name="zen_sleep_timer_off">Folyamatos</string>
-    <string name="zen_sleep_timer_min">%1$d perc</string>
+    <plurals name="zen_sleep_timer_min">
+        <item quantity="one">%1$d perc</item>
+        <item quantity="other">%1$d perc</item>
+    </plurals>
     <string name="zen_volume">Volume: %1$d%%</string>
     <string name="zen_settings_title">Zen fókusz &amp; gyorsolvasás</string>
     <!-- Loop 09: AI Article Highlights & Key Takeaways Card -->
@@ -745,7 +748,10 @@
     <string name="second_brain_error">A gráf felépítése nem sikerült. Próbáld újra.</string>
     <string name="second_brain_retry">Újrapróbálás</string>
     <string name="second_brain_graph_desc">Témagráf %1$d témával és %2$d kapcsolattal</string>
-    <string name="second_brain_node_articles">%1$d cikk</string>
+    <plurals name="second_brain_node_articles">
+        <item quantity="one">%1$d cikk</item>
+        <item quantity="other">%1$d cikk</item>
+    </plurals>
     <string name="second_brain_range_label">Időtartomány</string>
     <string name="second_brain_related">Kapcsolódó cikkek</string>
 
@@ -777,7 +783,10 @@
     <string name="smart_collection_query">Téma lekérdezése</string>
     <string name="smart_collection_save_action">Mentés gyűjteményként</string>
     <string name="smart_collection_empty">Még nincs okos gyűjtemény. Ments egy szemantikus keresést egy téma követéséhez.</string>
-    <string name="smart_collection_articles_count">%1$d cikk</string>
+    <plurals name="smart_collection_articles_count">
+        <item quantity="one">%1$d cikk</item>
+        <item quantity="other">%1$d cikk</item>
+    </plurals>
     <string name="smart_collection_edit">Szerkesztés</string>
     <string name="smart_collection_delete">Törlés</string>
     <string name="smart_collection_delete_confirm">Törlöd ezt a gyűjteményt? A cikkek megmaradnak a könyvtáradban.</string>
@@ -966,7 +975,10 @@
     <string name="dossier_names_empty">Egyetlen kifejezés sem fordul elő legalább 2 cikkben.</string>
     <string name="dossier_sources_single">Az archívumodban csak egy forrás van erről a témáról.</string>
     <string name="dossier_sources_note">A címek forrás szerint csoportosítva; következtetés nem születik.</string>
-    <string name="dossier_article_count">%1$d cikk</string>
+    <plurals name="dossier_article_count">
+        <item quantity="one">%1$d cikk</item>
+        <item quantity="other">%1$d cikk</item>
+    </plurals>
     <string name="dossier_share_error">A dosszié megosztásra való előkészítése nem sikerült.</string>
 
     <!-- BOUNTY-03 graph viewport -->

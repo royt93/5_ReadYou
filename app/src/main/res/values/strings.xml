@@ -619,7 +619,10 @@
     <string name="zen_daily_edition_notification">%1$d unread articles ready for your focus reading.</string>
     <string name="zen_sleep_timer">Sleep Timer</string>
     <string name="zen_sleep_timer_off">Continuous</string>
-    <string name="zen_sleep_timer_min">%1$d minutes</string>
+    <plurals name="zen_sleep_timer_min">
+        <item quantity="one">%1$d minute</item>
+        <item quantity="other">%1$d minutes</item>
+    </plurals>
     <string name="zen_volume">Volume: %1$d%%</string>
     <string name="zen_settings_title">Zen Focus &amp; Speed Reading</string>
     <!-- Loop 09: AI Article Highlights & Key Takeaways Card -->
@@ -835,7 +838,10 @@
     <string name="second_brain_error">Could not build the graph. Try again.</string>
     <string name="second_brain_retry">Retry</string>
     <string name="second_brain_graph_desc">Topic graph with %1$d topics and %2$d connections</string>
-    <string name="second_brain_node_articles">%1$d articles</string>
+    <plurals name="second_brain_node_articles">
+        <item quantity="one">%1$d article</item>
+        <item quantity="other">%1$d articles</item>
+    </plurals>
     <string name="second_brain_range_label">Time range</string>
     <string name="second_brain_related">Related articles</string>
 
@@ -849,7 +855,10 @@
     <string name="smart_collection_query">Topic query</string>
     <string name="smart_collection_save_action">Save as collection</string>
     <string name="smart_collection_empty">No smart collections yet. Save a semantic search to follow a topic.</string>
-    <string name="smart_collection_articles_count">%1$d articles</string>
+    <plurals name="smart_collection_articles_count">
+        <item quantity="one">%1$d article</item>
+        <item quantity="other">%1$d articles</item>
+    </plurals>
     <string name="smart_collection_edit">Edit</string>
     <string name="smart_collection_delete">Delete</string>
     <string name="smart_collection_delete_confirm">Delete this collection? Its articles will remain in your library.</string>
@@ -1056,7 +1065,10 @@
     <string name="dossier_names_empty">No phrase recurs in at least 2 articles.</string>
     <string name="dossier_sources_single">Your archive has only one source on this topic.</string>
     <string name="dossier_sources_note">Headlines are grouped by source; no conclusion is drawn.</string>
-    <string name="dossier_article_count">%1$d articles</string>
+    <plurals name="dossier_article_count">
+        <item quantity="one">%1$d article</item>
+        <item quantity="other">%1$d articles</item>
+    </plurals>
     <string name="dossier_share_error">Could not prepare dossier for sharing.</string>
 
     <!-- BOUNTY-03 graph viewport -->

@@ -52,6 +52,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -328,11 +329,13 @@ fun ZenSoundSheetContent(
                             color = MaterialTheme.colorScheme.onSurface
                         )
                         Spacer(modifier = Modifier.height(8.dp))
-                        Row(
+                        // A LazyRow like the sound-type chips above: in Polish, Russian and the other long-label languages four chips do not fit one row, and a plain Row squeezed
+                        // the last one until its label ran down the chip one letter per line.
+                        LazyRow(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.spacedBy(8.dp)
                         ) {
-                            listOf(0, 15, 30, 60).forEach { minutes ->
+                            items(listOf(0, 15, 30, 60)) { minutes ->
                                 FilterChip(
                                     selected = sleepTimer == minutes,
                                     onClick = { zenAudioManager.setSleepTimer(minutes) },
@@ -341,7 +344,7 @@ fun ZenSoundSheetContent(
                                             text = if (minutes == 0) {
                                                 stringResource(R.string.zen_sleep_timer_off)
                                             } else {
-                                                stringResource(R.string.zen_sleep_timer_min, minutes)
+                                                pluralStringResource(R.plurals.zen_sleep_timer_min, minutes, minutes)
                                             }
                                         )
                                     }

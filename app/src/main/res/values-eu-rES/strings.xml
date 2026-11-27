@@ -600,7 +600,10 @@
     <string name="zen_daily_edition_notification">Irakurri gabeko %1$d artikulu prest daude zure irakurketa fokatuarentzat.</string>
     <string name="zen_sleep_timer">Lo-tenporizadorea</string>
     <string name="zen_sleep_timer_off">Etengabea</string>
-    <string name="zen_sleep_timer_min">%1$d minutu</string>
+    <plurals name="zen_sleep_timer_min">
+        <item quantity="one">%1$d minutu</item>
+        <item quantity="other">%1$d minutu</item>
+    </plurals>
     <string name="zen_volume">Volume: %1$d%%</string>
     <string name="zen_settings_title">Zen fokua eta irakurketa azkarra</string>
     <!-- Loop 09: AI Article Highlights & Key Takeaways Card -->
@@ -820,7 +823,10 @@
     <string name="second_brain_error">Ezin izan da grafoa eraiki. Saiatu berriro.</string>
     <string name="second_brain_retry">Saiatu berriro</string>
     <string name="second_brain_graph_desc">Gai-grafoa %1$d gai eta %2$d konexiorekin</string>
-    <string name="second_brain_node_articles">%1$d artikulu</string>
+    <plurals name="second_brain_node_articles">
+        <item quantity="one">%1$d artikulu</item>
+        <item quantity="other">%1$d artikulu</item>
+    </plurals>
     <string name="second_brain_range_label">Denbora-tartea</string>
     <string name="second_brain_related">Erlazionatutako artikuluak</string>
 
@@ -852,7 +858,10 @@
     <string name="smart_collection_query">Gaiaren kontsulta</string>
     <string name="smart_collection_save_action">Gorde bilduma gisa</string>
     <string name="smart_collection_empty">Oraindik ez dago bilduma adimendunik. Gorde bilaketa semantiko bat gai bat jarraitzeko.</string>
-    <string name="smart_collection_articles_count">%1$d artikulu</string>
+    <plurals name="smart_collection_articles_count">
+        <item quantity="one">%1$d artikulu</item>
+        <item quantity="other">%1$d artikulu</item>
+    </plurals>
     <string name="smart_collection_edit">Editatu</string>
     <string name="smart_collection_delete">Ezabatu</string>
     <string name="smart_collection_delete_confirm">Bilduma hau ezabatu? Bere artikuluak zure liburutegian geratuko dira.</string>
@@ -1041,7 +1050,10 @@
     <string name="dossier_names_empty">Ez da esapiderik errepikatzen gutxienez 2 artikulutan.</string>
     <string name="dossier_sources_single">Zure artxiboak gai honi buruzko iturri bakarra du.</string>
     <string name="dossier_sources_note">Izenburuak iturriaren arabera multzokatuta daude; ez da ondoriorik ateratzen.</string>
-    <string name="dossier_article_count">%1$d artikulu</string>
+    <plurals name="dossier_article_count">
+        <item quantity="one">%1$d artikulu</item>
+        <item quantity="other">%1$d artikulu</item>
+    </plurals>
     <string name="dossier_share_error">Ezin izan da dosierra partekatzeko prestatu.</string>
 
     <!-- BOUNTY-03 graph viewport -->

@@ -600,7 +600,10 @@
     <string name="zen_daily_edition_notification">%1$d ಓದದ ಲೇಖನಗಳು ನಿಮ್ಮ ಏಕಾಗ್ರ ಓದಿಗೆ ಸಿದ್ಧ.</string>
     <string name="zen_sleep_timer">ಸ್ಲೀಪ್ ಟೈಮರ್</string>
     <string name="zen_sleep_timer_off">ನಿರಂತರ</string>
-    <string name="zen_sleep_timer_min">%1$d ನಿಮಿಷಗಳು</string>
+    <plurals name="zen_sleep_timer_min">
+        <item quantity="one">%1$d ನಿಮಿಷಗಳು</item>
+        <item quantity="other">%1$d ನಿಮಿಷಗಳು</item>
+    </plurals>
     <string name="zen_volume">Volume: %1$d%%</string>
     <string name="zen_settings_title">Zen ಫೋಕಸ್ &amp; ವೇಗದ ಓದು</string>
     <!-- Loop 09: AI Article Highlights & Key Takeaways Card -->
@@ -820,7 +823,10 @@
     <string name="second_brain_error">ಗ್ರಾಫ್ ರಚಿಸಲಾಗಲಿಲ್ಲ. ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.</string>
     <string name="second_brain_retry">ಮರುಪ್ರಯತ್ನಿಸಿ</string>
     <string name="second_brain_graph_desc">%1$d ವಿಷಯಗಳು ಮತ್ತು %2$d ಸಂಪರ್ಕಗಳ ವಿಷಯ ಗ್ರಾಫ್</string>
-    <string name="second_brain_node_articles">%1$d ಲೇಖನಗಳು</string>
+    <plurals name="second_brain_node_articles">
+        <item quantity="one">%1$d ಲೇಖನಗಳು</item>
+        <item quantity="other">%1$d ಲೇಖನಗಳು</item>
+    </plurals>
     <string name="second_brain_range_label">ಸಮಯ ವ್ಯಾಪ್ತಿ</string>
     <string name="second_brain_related">ಸಂಬಂಧಿತ ಲೇಖನಗಳು</string>
 
@@ -852,7 +858,10 @@
     <string name="smart_collection_query">ವಿಷಯ ಪ್ರಶ್ನೆ</string>
     <string name="smart_collection_save_action">ಸಂಗ್ರಹವಾಗಿ ಉಳಿಸಿ</string>
     <string name="smart_collection_empty">ಇನ್ನೂ ಸ್ಮಾರ್ಟ್ ಸಂಗ್ರಹಗಳಿಲ್ಲ. ವಿಷಯ ಅನುಸರಿಸಲು ಅರ್ಥಾಧಾರಿತ ಹುಡುಕಾಟ ಉಳಿಸಿ.</string>
-    <string name="smart_collection_articles_count">%1$d ಲೇಖನಗಳು</string>
+    <plurals name="smart_collection_articles_count">
+        <item quantity="one">%1$d ಲೇಖನಗಳು</item>
+        <item quantity="other">%1$d ಲೇಖನಗಳು</item>
+    </plurals>
     <string name="smart_collection_edit">ಸಂಪಾದಿಸಿ</string>
     <string name="smart_collection_delete">ಅಳಿಸಿ</string>
     <string name="smart_collection_delete_confirm">ಈ ಸಂಗ್ರಹ ಅಳಿಸಬೇಕೇ? ಅದರ ಲೇಖನಗಳು ನಿಮ್ಮ ಲೈಬ್ರರಿಯಲ್ಲಿ ಉಳಿಯುತ್ತವೆ.</string>
@@ -1041,7 +1050,10 @@
     <string name="dossier_names_empty">ಕನಿಷ್ಠ 2 ಲೇಖನಗಳಲ್ಲಿ ಪುನರಾವರ್ತನೆಯಾಗುವ ನುಡಿಗಟ್ಟಿಲ್ಲ.</string>
     <string name="dossier_sources_single">ಈ ವಿಷಯದ ಬಗ್ಗೆ ನಿಮ್ಮ ಆರ್ಕೈವ್‌ನಲ್ಲಿ ಒಂದೇ ಮೂಲವಿದೆ.</string>
     <string name="dossier_sources_note">ಶೀರ್ಷಿಕೆಗಳನ್ನು ಮೂಲದ ಪ್ರಕಾರ ಗುಂಪು ಮಾಡಲಾಗಿದೆ; ಯಾವುದೇ ತೀರ್ಮಾನ ಮಾಡಿಲ್ಲ.</string>
-    <string name="dossier_article_count">%1$d ಲೇಖನಗಳು</string>
+    <plurals name="dossier_article_count">
+        <item quantity="one">%1$d ಲೇಖನಗಳು</item>
+        <item quantity="other">%1$d ಲೇಖನಗಳು</item>
+    </plurals>
     <string name="dossier_share_error">ಹಂಚಿಕೆಗಾಗಿ ಡಾಸಿಯರ್ ಸಿದ್ಧಪಡಿಸಲಾಗಲಿಲ್ಲ.</string>
 
     <!-- BOUNTY-03 graph viewport -->

@@ -529,7 +529,10 @@
     <string name="zen_daily_edition_notification">%1$d ongelezen artikelen staan klaar voor gefocust lezen.</string>
     <string name="zen_sleep_timer">Slaaptimer</string>
     <string name="zen_sleep_timer_off">Doorlopend</string>
-    <string name="zen_sleep_timer_min">%1$d minuten</string>
+    <plurals name="zen_sleep_timer_min">
+        <item quantity="one">%1$d minuut</item>
+        <item quantity="other">%1$d minuten</item>
+    </plurals>
     <string name="zen_volume">Volume: %1$d%%</string>
     <string name="zen_settings_title">Zen-focus &amp; snellezen</string>
     <!-- Loop 09: AI Article Highlights & Key Takeaways Card -->
@@ -750,7 +753,10 @@
     <string name="second_brain_error">De graaf kon niet worden opgebouwd. Probeer het opnieuw.</string>
     <string name="second_brain_retry">Opnieuw</string>
     <string name="second_brain_graph_desc">Onderwerpgraaf met %1$d onderwerpen en %2$d verbindingen</string>
-    <string name="second_brain_node_articles">%1$d artikelen</string>
+    <plurals name="second_brain_node_articles">
+        <item quantity="one">%1$d artikel</item>
+        <item quantity="other">%1$d artikelen</item>
+    </plurals>
     <string name="second_brain_range_label">Tijdsbereik</string>
     <string name="second_brain_related">Gerelateerde artikelen</string>
 
@@ -782,7 +788,10 @@
     <string name="smart_collection_query">Onderwerpzoekopdracht</string>
     <string name="smart_collection_save_action">Opslaan als collectie</string>
     <string name="smart_collection_empty">Nog geen slimme collecties. Sla een semantische zoekopdracht op om een onderwerp te volgen.</string>
-    <string name="smart_collection_articles_count">%1$d artikelen</string>
+    <plurals name="smart_collection_articles_count">
+        <item quantity="one">%1$d artikel</item>
+        <item quantity="other">%1$d artikelen</item>
+    </plurals>
     <string name="smart_collection_edit">Bewerken</string>
     <string name="smart_collection_delete">Verwijderen</string>
     <string name="smart_collection_delete_confirm">Deze collectie verwijderen? De artikelen blijven in je bibliotheek.</string>
@@ -971,7 +980,10 @@
     <string name="dossier_names_empty">Geen uitdrukking komt in minstens 2 artikelen voor.</string>
     <string name="dossier_sources_single">Je archief heeft maar één bron over dit onderwerp.</string>
     <string name="dossier_sources_note">Koppen zijn per bron gegroepeerd; er wordt geen conclusie getrokken.</string>
-    <string name="dossier_article_count">%1$d artikelen</string>
+    <plurals name="dossier_article_count">
+        <item quantity="one">%1$d artikel</item>
+        <item quantity="other">%1$d artikelen</item>
+    </plurals>
     <string name="dossier_share_error">Dossier kon niet worden voorbereid voor delen.</string>
 
     <!-- BOUNTY-03 graph viewport -->

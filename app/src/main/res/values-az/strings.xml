@@ -600,7 +600,10 @@
     <string name="zen_daily_edition_notification">%1$d oxunmamış məqalə fokuslu oxunuz üçün hazırdır.</string>
     <string name="zen_sleep_timer">Yuxu taymeri</string>
     <string name="zen_sleep_timer_off">Fasiləsiz</string>
-    <string name="zen_sleep_timer_min">%1$d dəqiqə</string>
+    <plurals name="zen_sleep_timer_min">
+        <item quantity="one">%1$d dəqiqə</item>
+        <item quantity="other">%1$d dəqiqə</item>
+    </plurals>
     <string name="zen_volume">Volume: %1$d%%</string>
     <string name="zen_settings_title">Zen fokus &amp; sürətli oxu</string>
     <!-- Loop 09: AI Article Highlights & Key Takeaways Card -->
@@ -820,7 +823,10 @@
     <string name="second_brain_error">Qraf qurula bilmədi. Yenidən cəhd edin.</string>
     <string name="second_brain_retry">Yenidən cəhd et</string>
     <string name="second_brain_graph_desc">%1$d mövzu və %2$d əlaqəli mövzu qrafı</string>
-    <string name="second_brain_node_articles">%1$d məqalə</string>
+    <plurals name="second_brain_node_articles">
+        <item quantity="one">%1$d məqalə</item>
+        <item quantity="other">%1$d məqalə</item>
+    </plurals>
     <string name="second_brain_range_label">Vaxt aralığı</string>
     <string name="second_brain_related">Əlaqəli məqalələr</string>
 
@@ -852,7 +858,10 @@
     <string name="smart_collection_query">Mövzu sorğusu</string>
     <string name="smart_collection_save_action">Kolleksiya kimi saxla</string>
     <string name="smart_collection_empty">Hələ ağıllı kolleksiya yoxdur. Mövzunu izləmək üçün semantik axtarışı saxlayın.</string>
-    <string name="smart_collection_articles_count">%1$d məqalə</string>
+    <plurals name="smart_collection_articles_count">
+        <item quantity="one">%1$d məqalə</item>
+        <item quantity="other">%1$d məqalə</item>
+    </plurals>
     <string name="smart_collection_edit">Redaktə et</string>
     <string name="smart_collection_delete">Sil</string>
     <string name="smart_collection_delete_confirm">Bu kolleksiya silinsin? Məqalələr kitabxananızda qalacaq.</string>
@@ -1041,7 +1050,10 @@
     <string name="dossier_names_empty">Heç bir ifadə ən azı 2 məqalədə təkrarlanmır.</string>
     <string name="dossier_sources_single">Arxivinizdə bu mövzuda yalnız bir mənbə var.</string>
     <string name="dossier_sources_note">Başlıqlar mənbələr üzrə qruplaşdırılıb; nəticə çıxarılmır.</string>
-    <string name="dossier_article_count">%1$d məqalə</string>
+    <plurals name="dossier_article_count">
+        <item quantity="one">%1$d məqalə</item>
+        <item quantity="other">%1$d məqalə</item>
+    </plurals>
     <string name="dossier_share_error">Dosye paylaşım üçün hazırlana bilmədi.</string>
 
     <!-- BOUNTY-03 graph viewport -->

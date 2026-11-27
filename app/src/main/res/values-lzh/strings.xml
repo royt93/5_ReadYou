@@ -600,7 +600,9 @@
     <string name="zen_daily_edition_notification">未讀文章 %1$d 篇，已備君專注閱讀。</string>
     <string name="zen_sleep_timer">睡眠計時</string>
     <string name="zen_sleep_timer_off">不絕</string>
-    <string name="zen_sleep_timer_min">%1$d分鐘</string>
+    <plurals name="zen_sleep_timer_min">
+        <item quantity="other">%1$d分鐘</item>
+    </plurals>
     <string name="zen_volume">Volume: %1$d%%</string>
     <string name="zen_settings_title">禪定專注與速讀</string>
     <!-- Loop 09: AI Article Highlights & Key Takeaways Card -->
@@ -820,7 +822,9 @@
     <string name="second_brain_error">未能構圖。請重試。</string>
     <string name="second_brain_retry">重試</string>
     <string name="second_brain_graph_desc">主題圖，含 %1$d 主題、%2$d 連結</string>
-    <string name="second_brain_node_articles">文章%1$d篇</string>
+    <plurals name="second_brain_node_articles">
+        <item quantity="other">文章%1$d篇</item>
+    </plurals>
     <string name="second_brain_range_label">時間範圍</string>
     <string name="second_brain_related">相關文章</string>
 
@@ -852,7 +856,9 @@
     <string name="smart_collection_query">主題查詢</string>
     <string name="smart_collection_save_action">存為文集</string>
     <string name="smart_collection_empty">尚無智慧文集。存一語義搜尋，以追一題。</string>
-    <string name="smart_collection_articles_count">文章%1$d篇</string>
+    <plurals name="smart_collection_articles_count">
+        <item quantity="other">文章%1$d篇</item>
+    </plurals>
     <string name="smart_collection_edit">編</string>
     <string name="smart_collection_delete">刪除</string>
     <string name="smart_collection_delete_confirm">刪此文集乎？其文章仍留於君之文庫。</string>
@@ -1036,7 +1042,9 @@
     <string name="dossier_names_empty">無詞組見於二篇以上文章。</string>
     <string name="dossier_sources_single">君之存檔於此題僅一來源。</string>
     <string name="dossier_sources_note">標題依來源分組；不下結論。</string>
-    <string name="dossier_article_count">文章%1$d篇</string>
+    <plurals name="dossier_article_count">
+        <item quantity="other">文章%1$d篇</item>
+    </plurals>
     <string name="dossier_share_error">未能備檔案以分享。</string>
 
     <!-- BOUNTY-03 graph viewport -->

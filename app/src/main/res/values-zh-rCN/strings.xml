@@ -536,7 +536,9 @@
     <string name="zen_daily_edition_notification">%1$d 篇未读文章已备好，供你专注阅读。</string>
     <string name="zen_sleep_timer">睡眠定时器</string>
     <string name="zen_sleep_timer_off">持续播放</string>
-    <string name="zen_sleep_timer_min">%1$d 分钟</string>
+    <plurals name="zen_sleep_timer_min">
+        <item quantity="other">%1$d 分钟</item>
+    </plurals>
     <string name="zen_volume">音量：%1$d%%</string>
     <string name="zen_settings_title">禅意专注与速读</string>
     <!-- Loop 09: AI Article Highlights & Key Takeaways Card -->
@@ -615,7 +617,9 @@
     <string name="smart_collection_query">追踪主题</string>
     <string name="smart_collection_save_action">保存为合集</string>
     <string name="smart_collection_empty">暂无智能合集。保存语义搜索以追踪特定主题。</string>
-    <string name="smart_collection_articles_count">%1$d 篇文章</string>
+    <plurals name="smart_collection_articles_count">
+        <item quantity="other">%1$d 篇文章</item>
+    </plurals>
     <string name="smart_collection_edit">编辑</string>
     <string name="smart_collection_delete">删除</string>
     <string name="smart_collection_delete_confirm">删除此合集？文章仍将保留在您的书库中。</string>
@@ -765,7 +769,9 @@
     <string name="second_brain_error">无法构建图谱，请重试。</string>
     <string name="second_brain_retry">重试</string>
     <string name="second_brain_graph_desc">主题图谱：%1$d 个主题，%2$d 条连接</string>
-    <string name="second_brain_node_articles">%1$d 篇文章</string>
+    <plurals name="second_brain_node_articles">
+        <item quantity="other">%1$d 篇文章</item>
+    </plurals>
     <string name="second_brain_range_label">时间范围</string>
     <string name="second_brain_related">相关文章</string>
 
@@ -963,7 +969,9 @@
     <string name="dossier_names_empty">没有短语在至少 2 篇文章中重复出现。</string>
     <string name="dossier_sources_single">你的存档中关于此主题只有一个来源。</string>
     <string name="dossier_sources_note">标题按来源分组；不作任何结论。</string>
-    <string name="dossier_article_count">%1$d 篇文章</string>
+    <plurals name="dossier_article_count">
+        <item quantity="other">%1$d 篇文章</item>
+    </plurals>
     <string name="dossier_share_error">无法准备要分享的档案。</string>
 
     <!-- BOUNTY-03 graph viewport -->

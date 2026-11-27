@@ -535,7 +535,12 @@
     <string name="zen_daily_edition_notification">Непрочитаних статей, готових для читання: %1$d.</string>
     <string name="zen_sleep_timer">Таймер сну</string>
     <string name="zen_sleep_timer_off">Безперервно</string>
-    <string name="zen_sleep_timer_min">%1$d хв</string>
+    <plurals name="zen_sleep_timer_min">
+        <item quantity="one">%1$d хв</item>
+        <item quantity="few">%1$d хв</item>
+        <item quantity="many">%1$d хв</item>
+        <item quantity="other">%1$d хв</item>
+    </plurals>
     <string name="zen_volume">Гучність: %1$d%%</string>
     <string name="zen_settings_title">Zen-фокус і швидке читання</string>
     <!-- Loop 09: AI Article Highlights & Key Takeaways Card -->
@@ -755,7 +760,12 @@
     <string name="second_brain_error">Не вдалося побудувати граф. Спробуйте ще раз.</string>
     <string name="second_brain_retry">Повторити</string>
     <string name="second_brain_graph_desc">Граф тем: тем — %1$d, зв\'язків — %2$d</string>
-    <string name="second_brain_node_articles">Статей: %1$d</string>
+    <plurals name="second_brain_node_articles">
+        <item quantity="one">%1$d стаття</item>
+        <item quantity="few">%1$d статті</item>
+        <item quantity="many">%1$d статей</item>
+        <item quantity="other">%1$d статті</item>
+    </plurals>
     <string name="second_brain_range_label">Часовий діапазон</string>
     <string name="second_brain_related">Пов\'язані статті</string>
 
@@ -787,7 +797,12 @@
     <string name="smart_collection_query">Запит за темою</string>
     <string name="smart_collection_save_action">Зберегти як добірку</string>
     <string name="smart_collection_empty">Розумних добірок поки немає. Збережіть семантичний пошук, щоб стежити за темою.</string>
-    <string name="smart_collection_articles_count">Статей: %1$d</string>
+    <plurals name="smart_collection_articles_count">
+        <item quantity="one">%1$d стаття</item>
+        <item quantity="few">%1$d статті</item>
+        <item quantity="many">%1$d статей</item>
+        <item quantity="other">%1$d статті</item>
+    </plurals>
     <string name="smart_collection_edit">Редагувати</string>
     <string name="smart_collection_delete">Видалити</string>
     <string name="smart_collection_delete_confirm">Видалити цю добірку? Її статті залишаться у вашій бібліотеці.</string>
@@ -986,7 +1001,12 @@
     <string name="dossier_names_empty">Жодна фраза не повторюється принаймні у 2 статтях.</string>
     <string name="dossier_sources_single">У вашому архіві лише одне джерело на цю тему.</string>
     <string name="dossier_sources_note">Заголовки згруповано за джерелами; висновків не робиться.</string>
-    <string name="dossier_article_count">Статей: %1$d</string>
+    <plurals name="dossier_article_count">
+        <item quantity="one">%1$d стаття</item>
+        <item quantity="few">%1$d статті</item>
+        <item quantity="many">%1$d статей</item>
+        <item quantity="other">%1$d статті</item>
+    </plurals>
     <string name="dossier_share_error">Не вдалося підготувати досьє для надсилання.</string>
 
     <!-- BOUNTY-03 graph viewport -->

@@ -537,7 +537,9 @@
     <string name="zen_daily_edition_notification">集中して読める未読記事が%1$d件あります。</string>
     <string name="zen_sleep_timer">スリープタイマー</string>
     <string name="zen_sleep_timer_off">連続再生</string>
-    <string name="zen_sleep_timer_min">%1$d 分</string>
+    <plurals name="zen_sleep_timer_min">
+        <item quantity="other">%1$d 分</item>
+    </plurals>
     <string name="zen_volume">音量: %1$d%%</string>
     <string name="zen_settings_title">禅フォーカスと速読</string>
     <!-- Loop 09: AI Article Highlights & Key Takeaways Card -->
@@ -616,7 +618,9 @@
     <string name="smart_collection_query">追跡するトピック</string>
     <string name="smart_collection_save_action">コレクションとして保存</string>
     <string name="smart_collection_empty">スマートコレクションはまだありません。セマンティック検索を保存してトピックを追跡してください。</string>
-    <string name="smart_collection_articles_count">%1$d 件の記事</string>
+    <plurals name="smart_collection_articles_count">
+        <item quantity="other">%1$d 件の記事</item>
+    </plurals>
     <string name="smart_collection_edit">編集</string>
     <string name="smart_collection_delete">削除</string>
     <string name="smart_collection_delete_confirm">このコレクションを削除しますか？記事はライブラリに残ります。</string>
@@ -766,7 +770,9 @@
     <string name="second_brain_error">グラフを作成できませんでした。もう一度お試しください。</string>
     <string name="second_brain_retry">再試行</string>
     <string name="second_brain_graph_desc">%1$d 件のトピックと %2$d 件の接続を持つトピックグラフ</string>
-    <string name="second_brain_node_articles">%1$d 件の記事</string>
+    <plurals name="second_brain_node_articles">
+        <item quantity="other">%1$d 件の記事</item>
+    </plurals>
     <string name="second_brain_range_label">期間</string>
     <string name="second_brain_related">関連記事</string>
 
@@ -964,7 +970,9 @@
     <string name="dossier_names_empty">2件以上の記事に繰り返し出現するフレーズはありません。</string>
     <string name="dossier_sources_single">アーカイブには、このトピックのソースが1つしかありません。</string>
     <string name="dossier_sources_note">見出しはソース別にまとめています。結論は示しません。</string>
-    <string name="dossier_article_count">%1$d 件の記事</string>
+    <plurals name="dossier_article_count">
+        <item quantity="other">%1$d 件の記事</item>
+    </plurals>
     <string name="dossier_share_error">共有用のドシエを準備できませんでした。</string>
 
     <!-- BOUNTY-03 graph viewport -->

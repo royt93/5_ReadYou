@@ -601,7 +601,12 @@
     <string name="zen_daily_edition_notification">Nieprzeczytane artykuły gotowe do czytania: %1$d.</string>
     <string name="zen_sleep_timer">Wyłącznik czasowy</string>
     <string name="zen_sleep_timer_off">Bez przerwy</string>
-    <string name="zen_sleep_timer_min">%1$d min</string>
+    <plurals name="zen_sleep_timer_min">
+        <item quantity="one">%1$d minuta</item>
+        <item quantity="few">%1$d minuty</item>
+        <item quantity="many">%1$d minut</item>
+        <item quantity="other">%1$d minuty</item>
+    </plurals>
     <string name="zen_volume">Głośność: %1$d%%</string>
     <string name="zen_settings_title">Skupienie Zen i szybkie czytanie</string>
     <!-- Loop 09: AI Article Highlights & Key Takeaways Card -->
@@ -821,7 +826,12 @@
     <string name="second_brain_error">Nie udało się zbudować grafu. Spróbuj ponownie.</string>
     <string name="second_brain_retry">Ponów</string>
     <string name="second_brain_graph_desc">Graf tematów: tematy %1$d, połączenia %2$d</string>
-    <string name="second_brain_node_articles">Artykułów: %1$d</string>
+    <plurals name="second_brain_node_articles">
+        <item quantity="one">Artykuł: %1$d</item>
+        <item quantity="few">Artykuły: %1$d</item>
+        <item quantity="many">Artykułów: %1$d</item>
+        <item quantity="other">Artykuły: %1$d</item>
+    </plurals>
     <string name="second_brain_range_label">Zakres czasu</string>
     <string name="second_brain_related">Powiązane artykuły</string>
 
@@ -853,7 +863,12 @@
     <string name="smart_collection_query">Zapytanie tematyczne</string>
     <string name="smart_collection_save_action">Zapisz jako kolekcję</string>
     <string name="smart_collection_empty">Brak inteligentnych kolekcji. Zapisz wyszukiwanie semantyczne, aby śledzić temat.</string>
-    <string name="smart_collection_articles_count">Artykułów: %1$d</string>
+    <plurals name="smart_collection_articles_count">
+        <item quantity="one">Artykuł: %1$d</item>
+        <item quantity="few">Artykuły: %1$d</item>
+        <item quantity="many">Artykułów: %1$d</item>
+        <item quantity="other">Artykuły: %1$d</item>
+    </plurals>
     <string name="smart_collection_edit">Edytuj</string>
     <string name="smart_collection_delete">Usuń</string>
     <string name="smart_collection_delete_confirm">Usunąć tę kolekcję? Jej artykuły pozostaną w Twojej bibliotece.</string>
@@ -1052,7 +1067,12 @@
     <string name="dossier_names_empty">Żadna fraza nie powtarza się w co najmniej 2 artykułach.</string>
     <string name="dossier_sources_single">W Twoim archiwum jest tylko jedno źródło na ten temat.</string>
     <string name="dossier_sources_note">Nagłówki są pogrupowane według źródła; nie wyciągamy żadnych wniosków.</string>
-    <string name="dossier_article_count">Artykułów: %1$d</string>
+    <plurals name="dossier_article_count">
+        <item quantity="one">Artykuł: %1$d</item>
+        <item quantity="few">Artykuły: %1$d</item>
+        <item quantity="many">Artykułów: %1$d</item>
+        <item quantity="other">Artykuły: %1$d</item>
+    </plurals>
     <string name="dossier_share_error">Nie udało się przygotować teczki do udostępnienia.</string>
 
     <!-- BOUNTY-03 graph viewport -->

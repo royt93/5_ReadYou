@@ -46,6 +46,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.selected
@@ -210,7 +211,7 @@ private fun ReadyContent(
                 val articles = selected.articleIds.mapNotNull { graph.articleInfo[it] }.sortedByDescending { it.date }
                 Column {
                     Text(selected.label, style = MaterialTheme.typography.titleMedium)
-                    Text(stringResource(R.string.second_brain_node_articles, selected.weight))
+                    Text(pluralStringResource(R.plurals.second_brain_node_articles, selected.weight, selected.weight))
                     Text(stringResource(R.string.second_brain_related), style = MaterialTheme.typography.labelLarge)
                     LazyColumn {
                         items(articles, key = { it.id }) { article ->

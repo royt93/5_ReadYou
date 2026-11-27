@@ -147,4 +147,39 @@ class StringResourcesHealthTest {
         }
         assertEquals("placeholders used more often than in the source: $offenders", emptyList<String>(), offenders)
     }
+
+    // A count shown next to a noun has to be a <plurals>, not a <string> with %1$d: Russian, Polish, Czech, Slovenian and Arabic change the noun with the number.
+    // These four labels were strings ("%1$d articles") and read wrongly for 2, 5 or 21 in those languages.
+    private val countedNouns = listOf("zen_sleep_timer_min", "second_brain_node_articles", "smart_collection_articles_count", "dossier_article_count")
+
+    @Test
+    fun countedNounsArePluralsInTheDefaultLanguage() {
+        val text = File(root, "res/values/strings.xml").readText()
+        val notPlurals = countedNouns.filter { """<plurals name="$it">""" !in text }
+        assertEquals("these counts are still plain strings: $notPlurals", emptyList<String>(), notPlurals)
+        val leftovers = countedNouns.filter { """<string name="$it"""" in text }
+        assertEquals("a string with the same name as a plurals would not compile into R twice: $leftovers", emptyList<String>(), leftovers)
+    }
+
+    @Test
+    fun everyLocaleGivesEachCountedNounTheQuantityCategoriesItsLanguageNeeds() {
+        val needed = mapOf(
+            "values-ru-rRU" to setOf("one", "few", "many", "other"), "values-uk" to setOf("one", "few", "many", "other"),
+            "values-pl-rPL" to setOf("one", "few", "many", "other"), "values-cs-rCZ" to setOf("one", "few", "many", "other"),
+            "values-ar" to setOf("zero", "one", "two", "few", "many", "other"), "values-sl" to setOf("one", "two", "few", "other"),
+            "values-sr" to setOf("one", "few", "other"), "values-iw" to setOf("one", "two", "other"),
+        )
+        val offenders = mutableListOf<String>()
+        for ((dir, cats) in needed) {
+            val f = File(root, "res/$dir/strings.xml"); if (!f.exists()) continue
+            val text = f.readText()
+            for (name in countedNouns) {
+                val block = Regex("""<plurals name="$name">(.*?)</plurals>""", RegexOption.DOT_MATCHES_ALL).find(text)?.groupValues?.get(1)
+                if (block == null) { offenders += "$dir:$name missing"; continue }
+                val have = Regex("""quantity="(\w+)"""").findAll(block).map { it.groupValues[1] }.toSet()
+                if (!have.containsAll(cats)) offenders += "$dir:$name lacks ${cats - have}"
+            }
+        }
+        assertEquals("plurals missing a quantity category: $offenders", emptyList<String>(), offenders)
+    }
 }

@@ -532,7 +532,11 @@
     <string name="zen_daily_edition_notification">%1$d artigos não lidos prontos para sua leitura focada.</string>
     <string name="zen_sleep_timer">Timer de soneca</string>
     <string name="zen_sleep_timer_off">Contínuo</string>
-    <string name="zen_sleep_timer_min">%1$d minutos</string>
+    <plurals name="zen_sleep_timer_min">
+        <item quantity="one">%1$d minuto</item>
+        <item quantity="many">%1$d de minutos</item>
+        <item quantity="other">%1$d minutos</item>
+    </plurals>
     <string name="zen_volume">Volume: %1$d%%</string>
     <string name="zen_settings_title">Foco zen &amp; leitura rápida</string>
     <!-- Loop 09: AI Article Highlights & Key Takeaways Card -->
@@ -752,7 +756,11 @@
     <string name="second_brain_error">Não foi possível montar o grafo. Tente novamente.</string>
     <string name="second_brain_retry">Tentar novamente</string>
     <string name="second_brain_graph_desc">Grafo de tópicos com %1$d tópicos e %2$d conexões</string>
-    <string name="second_brain_node_articles">%1$d artigos</string>
+    <plurals name="second_brain_node_articles">
+        <item quantity="one">%1$d artigo</item>
+        <item quantity="many">%1$d de artigos</item>
+        <item quantity="other">%1$d artigos</item>
+    </plurals>
     <string name="second_brain_range_label">Período</string>
     <string name="second_brain_related">Artigos relacionados</string>
 
@@ -784,7 +792,11 @@
     <string name="smart_collection_query">Consulta do tópico</string>
     <string name="smart_collection_save_action">Salvar como coleção</string>
     <string name="smart_collection_empty">Nenhuma coleção inteligente ainda. Salve uma busca semântica para acompanhar um tópico.</string>
-    <string name="smart_collection_articles_count">%1$d artigos</string>
+    <plurals name="smart_collection_articles_count">
+        <item quantity="one">%1$d artigo</item>
+        <item quantity="many">%1$d de artigos</item>
+        <item quantity="other">%1$d artigos</item>
+    </plurals>
     <string name="smart_collection_edit">Editar</string>
     <string name="smart_collection_delete">Excluir</string>
     <string name="smart_collection_delete_confirm">Excluir esta coleção? Os artigos dela continuarão na sua biblioteca.</string>
@@ -973,7 +985,11 @@
     <string name="dossier_names_empty">Nenhuma expressão se repete em pelo menos 2 artigos.</string>
     <string name="dossier_sources_single">Seu arquivo tem apenas uma fonte sobre este tema.</string>
     <string name="dossier_sources_note">As manchetes são agrupadas por fonte; nenhuma conclusão é tirada.</string>
-    <string name="dossier_article_count">%1$d artigos</string>
+    <plurals name="dossier_article_count">
+        <item quantity="one">%1$d artigo</item>
+        <item quantity="many">%1$d de artigos</item>
+        <item quantity="other">%1$d artigos</item>
+    </plurals>
     <string name="dossier_share_error">Não foi possível preparar o dossiê para compartilhamento.</string>
 
     <!-- BOUNTY-03 graph viewport -->

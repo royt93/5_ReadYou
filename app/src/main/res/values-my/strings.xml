@@ -600,7 +600,9 @@
     <string name="zen_daily_edition_notification">မဖတ်ရသေးသော ဆောင်းပါး %1$d ခုကို အာရုံစူးစိုက်ဖတ်ရန် အဆင်သင့်ဖြစ်ပါပြီ။</string>
     <string name="zen_sleep_timer">အိပ်ချိန်တိုင်မာ</string>
     <string name="zen_sleep_timer_off">မရပ်မနား</string>
-    <string name="zen_sleep_timer_min">%1$d မိနစ်</string>
+    <plurals name="zen_sleep_timer_min">
+        <item quantity="other">%1$d မိနစ်</item>
+    </plurals>
     <string name="zen_volume">Volume: %1$d%%</string>
     <string name="zen_settings_title">Zen အာရုံစူးစိုက်မှုနှင့် အမြန်ဖတ်ခြင်း</string>
     <!-- Loop 09: AI Article Highlights & Key Takeaways Card -->
@@ -820,7 +822,9 @@
     <string name="second_brain_error">ဂရပ်ကို တည်ဆောက်၍ မရပါ။ ထပ်ကြိုးစားပါ။</string>
     <string name="second_brain_retry">ထပ်ကြိုးစားရန်</string>
     <string name="second_brain_graph_desc">ခေါင်းစဉ် %1$d ခုနှင့် ဆက်စပ်မှု %2$d ခုပါသော ခေါင်းစဉ်ဂရပ်</string>
-    <string name="second_brain_node_articles">ဆောင်းပါး %1$d ပုဒ်</string>
+    <plurals name="second_brain_node_articles">
+        <item quantity="other">ဆောင်းပါး %1$d ပုဒ်</item>
+    </plurals>
     <string name="second_brain_range_label">အချိန်ကာလ</string>
     <string name="second_brain_related">ဆက်စပ်ဆောင်းပါးများ</string>
 
@@ -852,7 +856,9 @@
     <string name="smart_collection_query">ခေါင်းစဉ် ရှာစကားလုံး</string>
     <string name="smart_collection_save_action">စုစည်းမှုအဖြစ် သိမ်းရန်</string>
     <string name="smart_collection_empty">စမတ်စုစည်းမှု မရှိသေးပါ။ ခေါင်းစဉ်တစ်ခုကို လိုက်ကြည့်ရန် အဓိပ္ပာယ်ရှာဖွေမှုကို သိမ်းပါ။</string>
-    <string name="smart_collection_articles_count">ဆောင်းပါး %1$d ပုဒ်</string>
+    <plurals name="smart_collection_articles_count">
+        <item quantity="other">ဆောင်းပါး %1$d ပုဒ်</item>
+    </plurals>
     <string name="smart_collection_edit">တည်းဖြတ်ရန်</string>
     <string name="smart_collection_delete">ဖျက်ရန်</string>
     <string name="smart_collection_delete_confirm">ဤစုစည်းမှုကို ဖျက်မလား။ ၎င်း၏ ဆောင်းပါးများသည် သင့်စာကြည့်တိုက်တွင် ကျန်ရှိမည်။</string>
@@ -1036,7 +1042,9 @@
     <string name="dossier_names_empty">ဆောင်းပါး ၂ ခုထက်မနည်း ထပ်ပါသော စကားစု မရှိပါ။</string>
     <string name="dossier_sources_single">ဤခေါင်းစဉ်အတွက် သင့်မော်ကွန်းတွင် ရင်းမြစ်တစ်ခုသာ ရှိသည်။</string>
     <string name="dossier_sources_note">ခေါင်းစဉ်များကို ရင်းမြစ်အလိုက် စုထားပြီး ကောက်ချက်မချပါ။</string>
-    <string name="dossier_article_count">ဆောင်းပါး %1$d ပုဒ်</string>
+    <plurals name="dossier_article_count">
+        <item quantity="other">ဆောင်းပါး %1$d ပုဒ်</item>
+    </plurals>
     <string name="dossier_share_error">မျှဝေရန် မှတ်တမ်းဖိုင်ကို ပြင်ဆင်၍ မရပါ။</string>
 
     <!-- BOUNTY-03 graph viewport -->

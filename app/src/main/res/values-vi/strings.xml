@@ -510,7 +510,9 @@
     <string name="zen_daily_edition_notification">%1$d bài viết mới đang chờ bạn đọc tập trung.</string>
     <string name="zen_sleep_timer">Hẹn giờ tắt</string>
     <string name="zen_sleep_timer_off">Không giới hạn</string>
-    <string name="zen_sleep_timer_min">%1$d phút</string>
+    <plurals name="zen_sleep_timer_min">
+        <item quantity="other">%1$d phút</item>
+    </plurals>
     <string name="zen_volume">Âm lượng: %1$d%%</string>
     <string name="zen_settings_title">Đọc siêu tốc &amp; Tập trung Zen</string>
     <!-- Loop 09: AI Article Highlights & Key Takeaways Card -->
@@ -589,7 +591,9 @@
     <string name="smart_collection_query">Chủ đề cần theo dõi</string>
     <string name="smart_collection_save_action">Lưu thành bộ sưu tập</string>
     <string name="smart_collection_empty">Chưa có bộ sưu tập. Hãy lưu một tìm kiếm ngữ nghĩa để theo dõi chủ đề.</string>
-    <string name="smart_collection_articles_count">%1$d bài viết</string>
+    <plurals name="smart_collection_articles_count">
+        <item quantity="other">%1$d bài viết</item>
+    </plurals>
     <string name="smart_collection_edit">Sửa</string>
     <string name="smart_collection_delete">Xóa</string>
     <string name="smart_collection_delete_confirm">Xóa bộ sưu tập này? Bài viết vẫn được giữ trong thư viện.</string>
@@ -739,7 +743,9 @@
     <string name="second_brain_error">Không thể dựng đồ thị. Hãy thử lại.</string>
     <string name="second_brain_retry">Thử lại</string>
     <string name="second_brain_graph_desc">Đồ thị chủ đề với %1$d chủ đề và %2$d liên kết</string>
-    <string name="second_brain_node_articles">%1$d bài viết</string>
+    <plurals name="second_brain_node_articles">
+        <item quantity="other">%1$d bài viết</item>
+    </plurals>
     <string name="second_brain_range_label">Khoảng thời gian</string>
     <string name="second_brain_related">Bài viết liên quan</string>
 
@@ -937,7 +943,9 @@
     <string name="dossier_names_empty">Không có cụm từ nào xuất hiện lặp lại ở ít nhất 2 bài.</string>
     <string name="dossier_sources_single">Kho lưu trữ của bạn chỉ có một nguồn viết về chủ đề này.</string>
     <string name="dossier_sources_note">Tiêu đề được gom theo từng nguồn; không rút ra kết luận.</string>
-    <string name="dossier_article_count">%1$d bài</string>
+    <plurals name="dossier_article_count">
+        <item quantity="other">%1$d bài</item>
+    </plurals>
     <string name="dossier_share_error">Không thể chuẩn bị hồ sơ để chia sẻ.</string>
 
     <!-- BOUNTY-03 graph viewport -->

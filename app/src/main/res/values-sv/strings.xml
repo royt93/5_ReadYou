@@ -529,7 +529,10 @@
     <string name="zen_daily_edition_notification">%1$d olästa artiklar väntar på din fokuserade läsning.</string>
     <string name="zen_sleep_timer">Insomningstimer</string>
     <string name="zen_sleep_timer_off">Kontinuerlig</string>
-    <string name="zen_sleep_timer_min">%1$d minuter</string>
+    <plurals name="zen_sleep_timer_min">
+        <item quantity="one">%1$d minut</item>
+        <item quantity="other">%1$d minuter</item>
+    </plurals>
     <string name="zen_volume">Volume: %1$d%%</string>
     <string name="zen_settings_title">Zen-fokus &amp; snabbläsning</string>
     <!-- Loop 09: AI Article Highlights & Key Takeaways Card -->
@@ -749,7 +752,10 @@
     <string name="second_brain_error">Det gick inte att bygga grafen. Försök igen.</string>
     <string name="second_brain_retry">Försök igen</string>
     <string name="second_brain_graph_desc">Ämnesgraf med %1$d ämnen och %2$d kopplingar</string>
-    <string name="second_brain_node_articles">%1$d artiklar</string>
+    <plurals name="second_brain_node_articles">
+        <item quantity="one">%1$d artikel</item>
+        <item quantity="other">%1$d artiklar</item>
+    </plurals>
     <string name="second_brain_range_label">Tidsintervall</string>
     <string name="second_brain_related">Relaterade artiklar</string>
 
@@ -781,7 +787,10 @@
     <string name="smart_collection_query">Ämnessökning</string>
     <string name="smart_collection_save_action">Spara som samling</string>
     <string name="smart_collection_empty">Inga smarta samlingar än. Spara en semantisk sökning för att följa ett ämne.</string>
-    <string name="smart_collection_articles_count">%1$d artiklar</string>
+    <plurals name="smart_collection_articles_count">
+        <item quantity="one">%1$d artikel</item>
+        <item quantity="other">%1$d artiklar</item>
+    </plurals>
     <string name="smart_collection_edit">Redigera</string>
     <string name="smart_collection_delete">Ta bort</string>
     <string name="smart_collection_delete_confirm">Ta bort den här samlingen? Artiklarna finns kvar i ditt bibliotek.</string>
@@ -970,7 +979,10 @@
     <string name="dossier_names_empty">Ingen fras återkommer i minst 2 artiklar.</string>
     <string name="dossier_sources_single">Ditt arkiv har bara en källa om det här ämnet.</string>
     <string name="dossier_sources_note">Rubriker grupperas efter källa; ingen slutsats dras.</string>
-    <string name="dossier_article_count">%1$d artiklar</string>
+    <plurals name="dossier_article_count">
+        <item quantity="one">%1$d artikel</item>
+        <item quantity="other">%1$d artiklar</item>
+    </plurals>
     <string name="dossier_share_error">Det gick inte att förbereda dosjen för delning.</string>
 
     <!-- BOUNTY-03 graph viewport -->

@@ -27,6 +27,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -218,7 +219,7 @@ private fun DayHeader(day: LocalDate) {
 private fun NamesSection(dossier: Dossier) {
     val note = stringResource(R.string.dossier_names_note)
     val empty = stringResource(R.string.dossier_names_empty)
-    val counts = dossier.phrases.map { it to stringResource(R.string.dossier_article_count, it.articleCount) }
+    val counts = dossier.phrases.map { it to pluralStringResource(R.plurals.dossier_article_count, it.articleCount, it.articleCount) }
     SectionList(DossierTab.NAMES) {
         item {
             Text(note, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)

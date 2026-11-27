@@ -494,7 +494,10 @@
     <string name="zen_daily_edition_notification">%1$d непрочетени статии са готови за вашето фокусирано четене.</string>
     <string name="zen_sleep_timer">Таймер за заспиване</string>
     <string name="zen_sleep_timer_off">Непрекъснато</string>
-    <string name="zen_sleep_timer_min">%1$d минути</string>
+    <plurals name="zen_sleep_timer_min">
+        <item quantity="one">%1$d минута</item>
+        <item quantity="other">%1$d минути</item>
+    </plurals>
     <string name="zen_volume">Volume: %1$d%%</string>
     <string name="zen_settings_title">Дзен фокус &amp; бързо четене</string>
     <!-- Loop 09: AI Article Highlights & Key Takeaways Card -->
@@ -714,7 +717,10 @@
     <string name="second_brain_error">Графиката не можа да бъде изградена. Опитайте отново.</string>
     <string name="second_brain_retry">Опитай отново</string>
     <string name="second_brain_graph_desc">Графика на темите с %1$d теми и %2$d връзки</string>
-    <string name="second_brain_node_articles">%1$d статии</string>
+    <plurals name="second_brain_node_articles">
+        <item quantity="one">%1$d статия</item>
+        <item quantity="other">%1$d статии</item>
+    </plurals>
     <string name="second_brain_range_label">Период</string>
     <string name="second_brain_related">Свързани статии</string>
 
@@ -746,7 +752,10 @@
     <string name="smart_collection_query">Заявка за тема</string>
     <string name="smart_collection_save_action">Запази като колекция</string>
     <string name="smart_collection_empty">Още няма умни колекции. Запазете семантично търсене, за да следите тема.</string>
-    <string name="smart_collection_articles_count">%1$d статии</string>
+    <plurals name="smart_collection_articles_count">
+        <item quantity="one">%1$d статия</item>
+        <item quantity="other">%1$d статии</item>
+    </plurals>
     <string name="smart_collection_edit">Редактирай</string>
     <string name="smart_collection_delete">Изтрий</string>
     <string name="smart_collection_delete_confirm">Да се изтрие ли тази колекция? Статиите ѝ ще останат във вашата библиотека.</string>
@@ -935,7 +944,10 @@
     <string name="dossier_names_empty">Няма фраза, която да се повтаря в поне 2 статии.</string>
     <string name="dossier_sources_single">Архивът ви има само един източник по тази тема.</string>
     <string name="dossier_sources_note">Заглавията са групирани по източник; не се прави извод.</string>
-    <string name="dossier_article_count">%1$d статии</string>
+    <plurals name="dossier_article_count">
+        <item quantity="one">%1$d статия</item>
+        <item quantity="other">%1$d статии</item>
+    </plurals>
     <string name="dossier_share_error">Досието не можа да бъде подготвено за споделяне.</string>
 
     <!-- BOUNTY-03 graph viewport -->
