@@ -596,8 +596,8 @@
     <string name="zen_daily_edition">ഷെഡ്യൂൾ ചെയ്ത ദൈനംദിന പതിപ്പ്</string>
     <string name="zen_daily_edition_desc">ലേഖനങ്ങൾ ഒരുമിച്ചാക്കി, നിങ്ങളുടെ വായനാ സമയം വരെ അറിയിപ്പുകൾ നിശ്ശബ്ദമാക്കുക</string>
     <string name="zen_daily_edition_enabled">ബാച്ച് ഡെലിവറി മോഡ്</string>
-    <string name="zen_morning_edition">Morning Edition (07:00)</string>
-    <string name="zen_evening_edition">Evening Edition (20:00)</string>
+    <string name="zen_morning_edition">Morning Edition</string>
+    <string name="zen_evening_edition">Evening Edition</string>
     <string name="zen_daily_edition_notification">%1$d വായിക്കാത്ത ലേഖനങ്ങൾ നിങ്ങളുടെ ഫോക്കസ് വായനയ്ക്ക് തയ്യാർ.</string>
     <string name="zen_sleep_timer">സ്ലീപ്പ് ടൈമർ</string>
     <string name="zen_sleep_timer_off">തുടർച്ചയായി</string>

@@ -132,8 +132,8 @@
     <string name="change_log">سجل التغييرات</string>
     <string name="update">حدِّث</string>
     <string name="horizontal_padding">الإزاحة الأفقيَّة</string>
-    <string name="tips_article_list_tonal_elevation">يتوفَّر ارتفاع الطابَع للشريط العلويِّ في السمة الفاتحة فقط</string>
-    <string name="tips_group_list_tonal_elevation">يتوفَّر ارتفاع الطابَع للشريط العلويِّ في السمة الفاتحة فقط</string>
+    <string name="tips_article_list_tonal_elevation">يتوفَّر ارتفاع الطابَع لقائمة المقالات في السمة الفاتحة فقط</string>
+    <string name="tips_group_list_tonal_elevation">يتوفَّر ارتفاع الطابَع لقائمة المجموعات في السمة الفاتحة فقط</string>
     <string name="touch_to_play_video">المس لتشغِّل مقطعًا</string>
     <string name="text">نصٌّ</string>
     <string name="images">الصور</string>
@@ -471,7 +471,7 @@
     <string name="brain_rpg_recover_unavailable">الاستعادة غير متاحة</string>
     <string name="brain_rpg_decay_notification_title">راجع فئاتك</string>
     <string name="brain_rpg_decay_notification_body">فئات تفقد نقاط XP المحتفَظ بها: %1$d. تدرّب على: %2$s</string>
-    <string name="brain_rpg_decay_notification_channel">Brain RPG reminders</string>
+    <string name="brain_rpg_decay_notification_channel">تذكيرات تراجع Brain RPG</string>
     <string name="brain_rpg_decay_notification_channel_desc">ملخص يومي لتراجع الفئات</string>
     <string name="brain_rpg_xp_retained">الأساس %1$d XP · محتفَظ بـ %2$d%%</string>
     <string name="brain_rpg_streak_shield_success">تم تفعيل درع السلسلة!</string>
@@ -499,8 +499,8 @@
     <string name="zen_daily_edition">الإصدار اليومي المجدول</string>
     <string name="zen_daily_edition_desc">تجميع المقالات وكتم الإشعارات حتى ساعات القراءة المجدولة</string>
     <string name="zen_daily_edition_enabled">وضع التسليم المجمّع</string>
-    <string name="zen_morning_edition">Morning Edition (07:00)</string>
-    <string name="zen_evening_edition">Evening Edition (20:00)</string>
+    <string name="zen_morning_edition">النسخة الصباحية</string>
+    <string name="zen_evening_edition">النسخة المسائية</string>
     <string name="zen_daily_edition_notification">%1$d مقالات غير مقروءة جاهزة لقراءتك المركّزة.</string>
     <string name="zen_sleep_timer">مؤقّت النوم</string>
     <string name="zen_sleep_timer_off">مستمر</string>
@@ -547,7 +547,7 @@
     <string name="deep_read_action_chat">الدردشة مع المقال</string>
 
     <!-- Loop 12: AI Deduplication & Story Clustering (KNOW-01) -->
-    <string name="story_clustering_title">تجميع الأخبار المكررة (AI Clustering)</string>
+    <string name="story_clustering_title">تجميع القصص (إزالة التكرار بالذكاء الاصطناعي)</string>
     <string name="story_clustering_desc">تجميع المقالات المكررة حول نفس الحدث من مصادر متعددة في بطاقة واحدة</string>
     <string name="story_cluster_badge">🔥 %d مصادر تغطي هذا الحدث</string>
     <string name="story_cluster_badge_single">🔥 %d مقالات حول هذا الخبر</string>

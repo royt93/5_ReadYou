@@ -524,8 +524,8 @@
     <string name="zen_daily_edition">Schemalagd dagsupplaga</string>
     <string name="zen_daily_edition_desc">Samla artiklar och tysta aviseringar fram till dina schemalagda lästider</string>
     <string name="zen_daily_edition_enabled">Samlad leverans</string>
-    <string name="zen_morning_edition">Morning Edition (07:00)</string>
-    <string name="zen_evening_edition">Evening Edition (20:00)</string>
+    <string name="zen_morning_edition">Morning Edition</string>
+    <string name="zen_evening_edition">Evening Edition</string>
     <string name="zen_daily_edition_notification">%1$d olästa artiklar väntar på din fokuserade läsning.</string>
     <string name="zen_sleep_timer">Insomningstimer</string>
     <string name="zen_sleep_timer_off">Kontinuerlig</string>

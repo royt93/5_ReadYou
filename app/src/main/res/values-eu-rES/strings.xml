@@ -595,8 +595,8 @@
     <string name="zen_daily_edition">Eguneroko edizio programatua</string>
     <string name="zen_daily_edition_desc">Bildu artikuluak eta isilarazi jakinarazpenak zure irakurketa-orduak iritsi arte</string>
     <string name="zen_daily_edition_enabled">Sortaka bidaltzeko modua</string>
-    <string name="zen_morning_edition">Morning Edition (07:00)</string>
-    <string name="zen_evening_edition">Evening Edition (20:00)</string>
+    <string name="zen_morning_edition">Morning Edition</string>
+    <string name="zen_evening_edition">Evening Edition</string>
     <string name="zen_daily_edition_notification">Irakurri gabeko %1$d artikulu prest daude zure irakurketa fokatuarentzat.</string>
     <string name="zen_sleep_timer">Lo-tenporizadorea</string>
     <string name="zen_sleep_timer_off">Etengabea</string>

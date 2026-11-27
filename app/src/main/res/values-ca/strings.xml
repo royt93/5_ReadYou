@@ -524,8 +524,8 @@
     <string name="zen_daily_edition">Edició diària programada</string>
     <string name="zen_daily_edition_desc">Agrupa els articles i silencia les notificacions fins a les hores de lectura programades</string>
     <string name="zen_daily_edition_enabled">Mode de lliurament per lots</string>
-    <string name="zen_morning_edition">Morning Edition (07:00)</string>
-    <string name="zen_evening_edition">Evening Edition (20:00)</string>
+    <string name="zen_morning_edition">Morning Edition</string>
+    <string name="zen_evening_edition">Evening Edition</string>
     <string name="zen_daily_edition_notification">%1$d articles sense llegir a punt per a la teva lectura concentrada.</string>
     <string name="zen_sleep_timer">Temporitzador de son</string>
     <string name="zen_sleep_timer_off">Continu</string>

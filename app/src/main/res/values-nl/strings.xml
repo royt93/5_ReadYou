@@ -524,8 +524,8 @@
     <string name="zen_daily_edition">Geplande dagelijkse editie</string>
     <string name="zen_daily_edition_desc">Bundel artikelen en demp meldingen tot je geplande leesuren</string>
     <string name="zen_daily_edition_enabled">Gebundelde bezorging</string>
-    <string name="zen_morning_edition">Morning Edition (07:00)</string>
-    <string name="zen_evening_edition">Evening Edition (20:00)</string>
+    <string name="zen_morning_edition">Morning Edition</string>
+    <string name="zen_evening_edition">Evening Edition</string>
     <string name="zen_daily_edition_notification">%1$d ongelezen artikelen staan klaar voor gefocust lezen.</string>
     <string name="zen_sleep_timer">Slaaptimer</string>
     <string name="zen_sleep_timer_off">Doorlopend</string>

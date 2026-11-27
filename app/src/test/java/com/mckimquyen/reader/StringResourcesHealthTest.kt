@@ -105,4 +105,24 @@ class StringResourcesHealthTest {
         }
         assertEquals("Terms text with a broken URL: $offenders", emptyList<String>(), offenders)
     }
+
+    // The edition names were copied with a time the source does not have ("Morning Edition (07:00)"): the time is a setting the user changes, so the label was wrong
+    // in 32 locales as soon as it was changed.
+    @Test
+    fun theEditionNamesCarryNoFixedTimeInAnyLocale() {
+        val offenders = locales.flatMap { l ->
+            val m = strings(File(l, "strings.xml"))
+            listOf("zen_morning_edition", "zen_evening_edition").filter { k -> m[k]?.contains(Regex("""\(\d{1,2}:\d{2}\)""")) == true }.map { "${l.name}:$it" }
+        }
+        assertEquals("edition names with a hard-coded time: $offenders", emptyList<String>(), offenders)
+    }
+
+    // Traditional-Chinese text must not contain characters that exist only in Simplified Chinese (the notebook strings were copied from zh-CN).
+    @Test
+    fun traditionalChineseHasNoSimplifiedOnlyCharacters() {
+        val simplifiedOnly = "笔记库删复载录导设阅选页储块览关节标项档词语识图译边级组态简缓网总现历买单认让对开应听见问题发".toSet()
+        val tw = strings(File(locales.first { it.name == "values-zh-rTW" }, "strings.xml"))
+        val offenders = tw.filter { (_, v) -> v.count { it in simplifiedOnly } >= 2 }.keys
+        assertEquals("zh-TW strings written in Simplified Chinese: $offenders", emptyList<String>(), offenders.toList())
+    }
 }

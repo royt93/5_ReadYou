@@ -173,8 +173,8 @@
     <string name="rate_limit">Tingkat permintaan terbataa</string>
     <string name="help">Bantuan</string>
     <string name="on_start">Saat memulai</string>
-    <string name="initial_page">Halaman Utama</string>
-    <string name="initial_filter">Filter Utama</string>
+    <string name="initial_page">Halaman awal</string>
+    <string name="initial_filter">Filter awal</string>
     <string name="preview_article_title">Novel "Lord of the Mysteries" akhirnya tamat</string>
     <string name="preview_article_desc">The Fool adalah volume kedelapan dan terakhir dari seri The Lord of the Mysteries yang ditulis oleh Cuttlefish That Loves Diving.</string>
     <string name="preview_feed_name">Reddit</string>
@@ -203,7 +203,7 @@
     <string name="touch_to_play_video">Ketuk untuk memutar sebuah video</string>
     <string name="text">Teks</string>
     <string name="font_size">Ukuran fon</string>
-    <string name="letter_spacing">Jarak antar kata</string>
+    <string name="letter_spacing">Jarak antar huruf</string>
     <string name="alignment">Kesejajaran</string>
     <string name="general">Umum</string>
     <string name="auto_hide_toolbars">Otomatis sembunyikan bilah alat</string>
@@ -494,7 +494,7 @@
     <string name="brain_rpg_recover_unavailable">Pemulihan tidak tersedia</string>
     <string name="brain_rpg_decay_notification_title">Tinjau kategori Anda</string>
     <string name="brain_rpg_decay_notification_body">Kategori yang kehilangan XP: %1$d. Latihan: %2$s</string>
-    <string name="brain_rpg_decay_notification_channel">Brain RPG reminders</string>
+    <string name="brain_rpg_decay_notification_channel">Pengingat penurunan Brain RPG</string>
     <string name="brain_rpg_decay_notification_channel_desc">Ringkasan harian penurunan kategori</string>
     <string name="brain_rpg_xp_retained">Dasar %1$d XP · %2$d%% dipertahankan</string>
     <string name="brain_rpg_streak_shield_success">Perisai Rangkaian diaktifkan!</string>
@@ -522,8 +522,8 @@
     <string name="zen_daily_edition">Edisi Harian Terjadwal</string>
     <string name="zen_daily_edition_desc">Kumpulkan artikel dan bisukan notifikasi hingga jam baca yang Anda jadwalkan</string>
     <string name="zen_daily_edition_enabled">Mode Pengiriman Terkumpul</string>
-    <string name="zen_morning_edition">Morning Edition (07:00)</string>
-    <string name="zen_evening_edition">Evening Edition (20:00)</string>
+    <string name="zen_morning_edition">Edisi Pagi</string>
+    <string name="zen_evening_edition">Edisi Sore</string>
     <string name="zen_daily_edition_notification">%1$d artikel belum dibaca siap untuk bacaan fokus Anda.</string>
     <string name="zen_sleep_timer">Timer Tidur</string>
     <string name="zen_sleep_timer_off">Terus-menerus</string>

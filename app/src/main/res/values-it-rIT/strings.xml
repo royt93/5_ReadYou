@@ -98,7 +98,7 @@
     <string name="languages">Lingue</string>
     <string name="languages_desc">Inglese, Cinese, altre</string>
     <string name="use_device_languages">Usa la lingua del dispositivo</string>
-    <string name="tips_and_support">Note e supporto</string>
+    <string name="tips_and_support">Suggerimenti e supporto</string>
     <string name="welcome">Benvenuto</string>
     <string name="tos_tips">Per favore, leggi e accetta i termini di servizio e l\'informativa sulla privacy di RSS Bear Hub per continuare.</string>
     <string name="browse_tos_tips">Sfoglia i&lt;i&gt;&lt;u&gt;Termini di servizio e l\'Informativa sulla privacy&lt;/u&gt;&lt;/i&gt;</string>
@@ -496,7 +496,7 @@
     <string name="brain_rpg_recover_unavailable">Recupero non disponibile</string>
     <string name="brain_rpg_decay_notification_title">Ripassa le tue categorie</string>
     <string name="brain_rpg_decay_notification_body">Categorie che perdono XP: %1$d. Esercitati: %2$s</string>
-    <string name="brain_rpg_decay_notification_channel">Brain RPG reminders</string>
+    <string name="brain_rpg_decay_notification_channel">Promemoria decadimento Brain RPG</string>
     <string name="brain_rpg_decay_notification_channel_desc">Riepilogo giornaliero del decadimento delle categorie</string>
     <string name="brain_rpg_xp_retained">Base %1$d XP · %2$d%% mantenuti</string>
     <string name="brain_rpg_streak_shield_success">Scudo della serie attivato!</string>
@@ -524,8 +524,8 @@
     <string name="zen_daily_edition">Edizione giornaliera programmata</string>
     <string name="zen_daily_edition_desc">Raggruppa gli articoli e silenzia le notifiche fino agli orari di lettura programmati</string>
     <string name="zen_daily_edition_enabled">Modalità consegna raggruppata</string>
-    <string name="zen_morning_edition">Morning Edition (07:00)</string>
-    <string name="zen_evening_edition">Evening Edition (20:00)</string>
+    <string name="zen_morning_edition">Edizione mattutina</string>
+    <string name="zen_evening_edition">Edizione serale</string>
     <string name="zen_daily_edition_notification">%1$d articoli non letti pronti per la tua lettura concentrata.</string>
     <string name="zen_sleep_timer">Timer di spegnimento</string>
     <string name="zen_sleep_timer_off">Continuo</string>
@@ -864,7 +864,7 @@
     <string name="widget_article_empty">Tutto letto! Nessun articolo non letto.</string>
     <string name="widget_article_mark_read">Segna come letto</string>
     <string name="widget_article_pin_requested">Richiesta di aggiunta del widget inviata al launcher</string>
-    <string name="widget_article_pin_unsupported">Il tuo launcher non supporta il blocco automatico dei widget</string>
+    <string name="widget_article_pin_unsupported">Il tuo launcher non supporta l\'aggiunta automatica dei widget</string>
     <!-- Feed Zero Triage (EXC-14) -->
     <string name="feed_zero_triage_title">Smistamento Feed Zero</string>
     <string name="triage_swipe_left_skip">Salta</string>

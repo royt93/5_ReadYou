@@ -47,7 +47,7 @@
     <string name="all_allow_notification_tips">Zezwól wszystkim kanałom w grupie \"%1$s\" na wysyłanie powiadomień.</string>
     <string name="all_allow_notification_toast">Zezwolono na wszystkie powiadomienia z grupy \"%1$s\"</string>
     <string name="all_deny_notification_toast">Cofnięto zezwolenie na powiadomienia z grupy \"%1$s\"</string>
-    <string name="parse_full_content">Pobierz artykuły</string>
+    <string name="parse_full_content">Pobierz pełną treść</string>
     <string name="all_parse_full_content_tips">Pobieranie pełnej treści artykułów z grupy \"%1$s\".</string>
     <string name="all_parse_full_content_toast">Zezwolono na pobieranie pełnej treści artykułów z grupy \"%1$s\"</string>
     <string name="all_deny_parse_full_content_toast">Cofnięto zezwolenie na pobieranie pełnej treści artykułów z grupy \"%1$s\"</string>
@@ -100,7 +100,7 @@
     <string name="use_device_languages">Zgodny z systemem</string>
     <string name="tips_and_support">Porady i wsparcie</string>
     <string name="welcome">Witamy</string>
-    <string name="tos_tips">Korzystając z RSS Bear Hub akceptujesz Warunki Świadczenia Usług i Politykę Prywatności. Kliknij "Zgadzam się" aby kontynuować.</string>
+    <string name="tos_tips">Przeczytaj i zaakceptuj Warunki Świadczenia Usług oraz Politykę Prywatności RSS Bear Hub, aby kontynuować.</string>
     <string name="browse_tos_tips">Zapoznaj się z &lt;i&gt;&lt;u&gt;Warunkami Świadczenia Usługi oraz Polityką Prywatności&lt;/u&gt;&lt;/i&gt;
     </string>
     <string name="terms_of_service">Warunki świadczenia usługi</string>
@@ -271,8 +271,8 @@
     <string name="icons">Ikony</string>
     <string name="icons_and_labels">Ikony z tekstem</string>
     <string name="icons_and_label_only_selected">Ikony z tekstem (tylko zaznaczone)</string>
-    <string name="tips_article_list_tonal_elevation">Ten odcień jest dostępny tylko w jasnym motywie.</string>
-    <string name="tips_group_list_tonal_elevation">Ten odcień jest dostępny tylko w jasnym motywie.</string>
+    <string name="tips_article_list_tonal_elevation">Ten odcień dla listy artykułów jest dostępny tylko w jasnym motywie.</string>
+    <string name="tips_group_list_tonal_elevation">Ten odcień dla listy grup jest dostępny tylko w jasnym motywie.</string>
     <string name="share">Udostępnij</string>
     <string name="touch_to_play_video">Dotknij aby odtworzyć film</string>
     <string name="text">Tekst</string>
@@ -596,8 +596,8 @@
     <string name="zen_daily_edition">Zaplanowane wydanie dzienne</string>
     <string name="zen_daily_edition_desc">Gromadź artykuły i wyciszaj powiadomienia do zaplanowanych godzin czytania</string>
     <string name="zen_daily_edition_enabled">Tryb dostawy zbiorczej</string>
-    <string name="zen_morning_edition">Morning Edition (07:00)</string>
-    <string name="zen_evening_edition">Evening Edition (20:00)</string>
+    <string name="zen_morning_edition">Wydanie poranne</string>
+    <string name="zen_evening_edition">Wydanie wieczorne</string>
     <string name="zen_daily_edition_notification">Nieprzeczytane artykuły gotowe do czytania: %1$d.</string>
     <string name="zen_sleep_timer">Wyłącznik czasowy</string>
     <string name="zen_sleep_timer_off">Bez przerwy</string>
@@ -614,7 +614,7 @@
     <string name="highlights_share">Udostępnij</string>
     <string name="highlights_tldr">Szybkie TL;DR</string>
     <string name="highlights_ai_badge">Gemini AI</string>
-    <string name="highlights_fallback_badge">Smart offline</string>
+    <string name="highlights_fallback_badge">Inteligentne offline</string>
     <string name="highlights_retry_ai">Analizuj za pomocą Gemini AI</string>
     <!-- Loop 10: Smart AI Mind Map & Concept Visualizer -->
     <string name="mindmap_title">Mapa myśli pojęć</string>

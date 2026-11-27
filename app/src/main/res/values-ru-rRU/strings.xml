@@ -86,7 +86,7 @@
     <string name="languages_desc">Английский, Китайский, и прочие</string>
     <string name="color_and_style">Цвет &amp; стиль</string>
     <string name="subhead">Подзаголовок</string>
-    <string name="use_app_theme">Использовать тему устройства</string>
+    <string name="use_app_theme">Использовать тему приложения</string>
     <string name="advanced">Расширенные</string>
     <string name="title">Заголовок</string>
     <string name="external_fonts">Дополнительные шрифты</string>
@@ -109,13 +109,13 @@
     <string name="appearance">Внешний вид</string>
     <string name="style">Стиль</string>
     <string name="primary_color_hint">Как #666666 или 666666</string>
-    <string name="primary_color">Заглавный цвет</string>
+    <string name="primary_color">Основной цвет</string>
     <string name="no_palettes">Цветовые схемы не найдены</string>
     <string name="wallpaper_colors">Цвета на основе заставки</string>
     <string name="tips_and_support">Советы &amp; поддержка</string>
     <string name="unsubscribe_tips">Отписаться от ленты \"%1$s\" и удалить все архивные статьи в ней</string>
     <string name="delete_group_tips">Удалить группу \"%1$s\" а также все ленты в ней вместе с архивными статьями</string>
-    <string name="group_option_tips">Применить следующие настройки ко всем лентам в этой группе</string>
+    <string name="group_option_tips">Следующие настройки применяются ко всем лентам в этой группе</string>
     <string name="all_move_to_group_tips">Переместить все ленты из группы \"%1$s\" в группу \"%2$s\"</string>
     <string name="clear_articles_group_tips">Удалить все архивные статьи в группе %1$s</string>
     <string name="clear_articles_feed_tips">Удалить все архивные статьи в ленте \"%1$s\"</string>
@@ -165,7 +165,7 @@
     <string name="top_bar">Верхняя панель</string>
     <string name="article_date_sticky_header">Липкий заголовок даты публикации (экспериментальное)</string>
     <string name="feed_favicons">Значки для лент</string>
-    <string name="bionic_reading">Органическое чтение</string>
+    <string name="bionic_reading">Бионическое чтение</string>
     <string name="all_parse_full_content_toast">Получать полный контент для всех статей в группе \"%1$s\"</string>
     <string name="tips_article_list_tonal_elevation">Тональная высота для списка статей доступна только в светлой теме</string>
     <string name="tips_group_list_tonal_elevation">Тональная высота доступна только в светлой теме</string>
@@ -281,7 +281,7 @@
     <string name="synchronous_tips">Для вступления в силу изменений требуется перезагрузка</string>
     <string name="switch_account">Сменить</string>
     <string name="add">Добавить</string>
-    <string name="accounts_tips">Вы можете нажать на имя учетной записи на странице веб-канала, чтобы включить её</string>
+    <string name="accounts_tips">Вы можете нажать на имя учетной записи на странице веб-канала, чтобы включить или отключить её</string>
     <string name="empty">Пустой</string>
     <string name="server_url">URL-адрес сервера</string>
     <string name="username">Имя пользователя</string>
@@ -502,7 +502,7 @@
     <string name="brain_rpg_recover_unavailable">Восстановление недоступно</string>
     <string name="brain_rpg_decay_notification_title">Повторите свои категории</string>
     <string name="brain_rpg_decay_notification_body">Категории, теряющие накопленный XP: %1$d. Практика: %2$s</string>
-    <string name="brain_rpg_decay_notification_channel">Brain RPG reminders</string>
+    <string name="brain_rpg_decay_notification_channel">Напоминания об угасании Brain RPG</string>
     <string name="brain_rpg_decay_notification_channel_desc">Ежедневная сводка по угасанию категорий</string>
     <string name="brain_rpg_xp_retained">Базовые %1$d XP · сохранено %2$d%%</string>
     <string name="brain_rpg_streak_shield_success">Щит серии активирован!</string>
@@ -530,8 +530,8 @@
     <string name="zen_daily_edition">Ежедневный выпуск по расписанию</string>
     <string name="zen_daily_edition_desc">Собирает статьи и отключает уведомления до запланированного времени чтения</string>
     <string name="zen_daily_edition_enabled">Режим пакетной доставки</string>
-    <string name="zen_morning_edition">Morning Edition (07:00)</string>
-    <string name="zen_evening_edition">Evening Edition (20:00)</string>
+    <string name="zen_morning_edition">Утренний выпуск</string>
+    <string name="zen_evening_edition">Вечерний выпуск</string>
     <string name="zen_daily_edition_notification">Непрочитанных статей для сосредоточенного чтения: %1$d.</string>
     <string name="zen_sleep_timer">Таймер сна</string>
     <string name="zen_sleep_timer_off">Непрерывно</string>

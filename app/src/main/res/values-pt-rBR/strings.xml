@@ -46,7 +46,7 @@
     <string name="all_allow_notification_tips">Permitir que todos os feeds no grupo \"%1$s\" enviem notificações</string>
     <string name="all_deny_notification_toast">Todas as notificações do grupo \"%1$s\" foram negadas</string>
     <string name="all_allow_notification_toast">Todas as notificações do grupo \"%1$s\" foram permitidas</string>
-    <string name="parse_full_content">Visualizar o Conteúdo Completo</string>
+    <string name="parse_full_content">Processar conteúdo completo</string>
     <string name="clear_articles_in_feed_toast">Todos os artigos arquivados no feed \"%1$s\" foram removidos</string>
     <string name="all_parse_full_content_toast">Extração do conteúdo completo de todos os artigos no grupo \"%1$s\"</string>
     <string name="all_deny_parse_full_content_toast">Extração do conteúdo completo desativada para todos os artigos no grupo \"%1$s\"</string>
@@ -319,7 +319,7 @@
     <string name="auto_tts">Reprodução automática de texto para voz</string>
     <string name="auto_tts_desc">Ler automaticamente os artigos em voz alta ao abrir</string>
     <string name="unlock_amoled_theme">Desbloquear tema AMOLED</string>
-    <string name="unlock_amoled_theme_desc">Assista a um vídeo curto para desbloquear permanentemente o tema AMOLED preto verdadeiro.</string>
+    <string name="unlock_amoled_theme_desc">Assista a um vídeo curto de anúncio para desbloquear permanentemente o tema AMOLED preto verdadeiro.</string>
     <string name="watch_ad">Assistir anúncio</string>
     <string name="ad_not_ready">O anúncio não está pronto. Tente novamente mais tarde.</string>
     <string name="read_you" translatable="false">RSS Hub</string>
@@ -499,7 +499,7 @@
     <string name="brain_rpg_recover_unavailable">Recuperação indisponível</string>
     <string name="brain_rpg_decay_notification_title">Revise suas categorias</string>
     <string name="brain_rpg_decay_notification_body">Categorias perdendo XP retido: %1$d. Pratique: %2$s</string>
-    <string name="brain_rpg_decay_notification_channel">Brain RPG reminders</string>
+    <string name="brain_rpg_decay_notification_channel">Lembretes de declínio do Brain RPG</string>
     <string name="brain_rpg_decay_notification_channel_desc">Resumo diário do declínio das categorias</string>
     <string name="brain_rpg_xp_retained">Base de %1$d XP · %2$d%% retido</string>
     <string name="brain_rpg_streak_shield_success">Escudo de sequência ativado!</string>
@@ -527,8 +527,8 @@
     <string name="zen_daily_edition">Edição diária agendada</string>
     <string name="zen_daily_edition_desc">Agrupe artigos e silencie notificações até os horários de leitura agendados</string>
     <string name="zen_daily_edition_enabled">Modo de entrega em lote</string>
-    <string name="zen_morning_edition">Morning Edition (07:00)</string>
-    <string name="zen_evening_edition">Evening Edition (20:00)</string>
+    <string name="zen_morning_edition">Edição matinal</string>
+    <string name="zen_evening_edition">Edição noturna</string>
     <string name="zen_daily_edition_notification">%1$d artigos não lidos prontos para sua leitura focada.</string>
     <string name="zen_sleep_timer">Timer de soneca</string>
     <string name="zen_sleep_timer_off">Contínuo</string>

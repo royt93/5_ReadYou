@@ -599,8 +599,8 @@
     <string name="zen_daily_edition">Plánované denní vydání</string>
     <string name="zen_daily_edition_desc">Shromažďovat články a ztišit oznámení do naplánované doby čtení</string>
     <string name="zen_daily_edition_enabled">Režim dávkového doručování</string>
-    <string name="zen_morning_edition">Morning Edition (07:00)</string>
-    <string name="zen_evening_edition">Evening Edition (20:00)</string>
+    <string name="zen_morning_edition">Morning Edition</string>
+    <string name="zen_evening_edition">Evening Edition</string>
     <string name="zen_daily_edition_notification">%1$d nepřečtených článků čeká na vaše soustředěné čtení.</string>
     <string name="zen_sleep_timer">Časovač vypnutí</string>
     <string name="zen_sleep_timer_off">Nepřetržitě</string>

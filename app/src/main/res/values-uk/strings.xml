@@ -32,7 +32,7 @@
     <string name="selected">Вибрано</string>
     <string name="all_allow_notification_tips">Дозволити всім каналам у групі «%1$s» надсилати сповіщення</string>
     <string name="all_deny_notification_toast">Усі сповіщення від групи «%1$s» заборонені</string>
-    <string name="parse_full_content">Аналіз повного змісту</string>
+    <string name="parse_full_content">Завантажувати повний текст</string>
     <string name="all_parse_full_content_toast">Розбір повного вмісту всіх статей у групі «%1$s»</string>
     <string name="all">Все</string>
     <plurals name="all_desc">
@@ -140,7 +140,7 @@
     <string name="date_at_time">%1$s в %2$s</string>
     <string name="search_for_in">Пошук %1$s елементів в \"%2$s\"</string>
     <string name="search_for">Пошук %1$s елементів</string>
-    <string name="mark_as_unstar">Позначити як Вилучене</string>
+    <string name="mark_as_unstar">Зняти з обраного</string>
     <string name="mark_all_as_read">Позначити Все як Прочитане</string>
     <string name="mark_as_unread">Позначити як Непрочитане</string>
     <string name="one_day">1д</string>
@@ -262,7 +262,7 @@
     <string name="more">Більше</string>
     <string name="add_accounts">Додати облікові записи</string>
     <string name="list">Список</string>
-    <string name="add_accounts_desc">Локально, Сервіси, Власний хостинг</string>
+    <string name="add_accounts_desc">Локальний, Сервіси, Власний хостинг</string>
     <string name="display">Дисплей</string>
     <string name="synchronous">Синхронізація</string>
     <string name="sync_interval">Синхронізувати</string>
@@ -272,7 +272,7 @@
     <string name="keep_archived_articles">Зберігати статті в архіві</string>
     <string name="block_list">Список блокування</string>
     <string name="export_as_opml">Експортувати як OPML</string>
-    <string name="clear_all_articles">Очистити всі архіви</string>
+    <string name="clear_all_articles">Очистити всі статті</string>
     <string name="delete_account">Видалити обліковий запис</string>
     <string name="delete_account_tips">Ви впевнені, що ви хочете видалити цей обліковий запис\?</string>
     <string name="must_have_an_account">Необхідно мати обліковий запис</string>
@@ -502,14 +502,14 @@
     <string name="brain_rpg_recover_unavailable">Відновлення недоступне</string>
     <string name="brain_rpg_decay_notification_title">Перегляньте свої категорії</string>
     <string name="brain_rpg_decay_notification_body">Категорій, що втрачають XP: %1$d. Потренуйтесь: %2$s</string>
-    <string name="brain_rpg_decay_notification_channel">Brain RPG reminders</string>
+    <string name="brain_rpg_decay_notification_channel">Нагадування про згасання Brain RPG</string>
     <string name="brain_rpg_decay_notification_channel_desc">Щоденний підсумок згасання категорій</string>
     <string name="brain_rpg_xp_retained">Базово %1$d XP · збережено %2$d%%</string>
-    <string name="brain_rpg_streak_shield_success">Щит серии активирован!</string>
+    <string name="brain_rpg_streak_shield_success">Щит серії активовано!</string>
     <string name="brain_rpg_streak_shield_protected">Защищено</string>
     <string name="brain_rpg_target_xp">Мета: %1$d XP</string>
-    <string name="brain_rpg_skill_tree_title">Дерево навыков знаний</string>
-    <string name="brain_rpg_stats_title">Статистика испытаний ИИ</string>
+    <string name="brain_rpg_skill_tree_title">Дерево навичок знань</string>
+    <string name="brain_rpg_stats_title">Статистика випробувань ШІ</string>
     <string name="brain_rpg_stats_attempted">Попыток</string>
     <string name="brain_rpg_stats_passed">Верно</string>
     <string name="brain_rpg_stats_accuracy">Точность</string>
@@ -530,8 +530,8 @@
     <string name="zen_daily_edition">Щоденний випуск за розкладом</string>
     <string name="zen_daily_edition_desc">Накопичувати статті та вимкнути сповіщення до запланованих годин читання</string>
     <string name="zen_daily_edition_enabled">Режим пакетної доставки</string>
-    <string name="zen_morning_edition">Morning Edition (07:00)</string>
-    <string name="zen_evening_edition">Evening Edition (20:00)</string>
+    <string name="zen_morning_edition">Ранковий випуск</string>
+    <string name="zen_evening_edition">Вечірній випуск</string>
     <string name="zen_daily_edition_notification">Непрочитаних статей, готових для читання: %1$d.</string>
     <string name="zen_sleep_timer">Таймер сну</string>
     <string name="zen_sleep_timer_off">Безперервно</string>

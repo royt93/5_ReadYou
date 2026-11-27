@@ -278,7 +278,7 @@
     <string name="must_have_an_account">Vous devez avoir un compte</string>
     <string name="clear_all_articles_toast">Liste d’articles effacée</string>
     <string name="delete_account_toast">Compte supprimé</string>
-    <string name="block_list">Bloquer la liste</string>
+    <string name="block_list">Liste de blocage</string>
     <string name="delete_account_tips">Êtes-vous sûr de vouloir supprimer ce compte \?</string>
     <string name="add_accounts_desc">Local, Services, Auto-Hébergés</string>
     <string name="display">Montrer</string>

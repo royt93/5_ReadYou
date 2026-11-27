@@ -499,7 +499,7 @@
     <string name="brain_rpg_recover_unavailable">Recuperação indisponível</string>
     <string name="brain_rpg_decay_notification_title">Reveja as suas categorias</string>
     <string name="brain_rpg_decay_notification_body">Categorias a perder XP retido: %1$d. Pratique: %2$s</string>
-    <string name="brain_rpg_decay_notification_channel">Brain RPG reminders</string>
+    <string name="brain_rpg_decay_notification_channel">Lembretes de declínio do Brain RPG</string>
     <string name="brain_rpg_decay_notification_channel_desc">Resumo diário do declínio das categorias</string>
     <string name="brain_rpg_xp_retained">Base de %1$d XP · %2$d%% retido</string>
     <string name="brain_rpg_streak_shield_success">Escudo de sequência ativado!</string>
@@ -527,8 +527,8 @@
     <string name="zen_daily_edition">Edição diária agendada</string>
     <string name="zen_daily_edition_desc">Agrupa os artigos e silencia as notificações até ao seu horário de leitura</string>
     <string name="zen_daily_edition_enabled">Modo de entrega agrupada</string>
-    <string name="zen_morning_edition">Morning Edition (07:00)</string>
-    <string name="zen_evening_edition">Evening Edition (20:00)</string>
+    <string name="zen_morning_edition">Edição da manhã</string>
+    <string name="zen_evening_edition">Edição da noite</string>
     <string name="zen_daily_edition_notification">%1$d artigos por ler prontos para a sua leitura focada.</string>
     <string name="zen_sleep_timer">Temporizador de sono</string>
     <string name="zen_sleep_timer_off">Contínuo</string>
@@ -583,7 +583,7 @@
     <string name="story_cluster_read_main">Ler artigo principal</string>
     <string name="story_cluster_all_perspectives">Todas as perspetivas (%d)</string>
     <string name="story_cluster_mark_all_read">Marcar tudo como lido</string>
-    <string name="story_cluster_sheet_title">Cobertura e Múltiplas Perspetivas</string>
+    <string name="story_cluster_sheet_title">Cobertura de Múltiplas Perspetivas</string>
     <string name="story_cluster_lead_badge">Principal</string>
     <string name="semantic_search_title">Pesquisa semântica com IA</string>
     <string name="semantic_search_desc">Pesquise artigos por conceito e significado semântico em vez de palavras-chave exatas</string>
@@ -910,7 +910,7 @@
     <string name="url_tracking_desc">Remove automaticamente etiquetas de rastreio (utm_*, fbclid, gclid...) ao obter, abrir e partilhar ligações.</string>
     <string name="html_antitracker_title">Escudo antirrastreio de conteúdo</string>
     <string name="html_antitracker_desc">Filtra pixéis de rastreio 1x1, beacons ocultos e scripts maliciosos nos artigos.</string>
-    <string name="retraction_radar_title">Radar de retificações</string>
+    <string name="retraction_radar_title">Radar de retratações</string>
     <string name="retraction_radar_desc">Guarda instantâneos de texto dos artigos e assinala os que tiveram o título ou o texto editado, ou que desapareceram do feed. As edições são detetadas em RSS local e Google Reader; os servidores Fever nunca reenviam itens antigos, por isso só o RSS local pode assinalar remoções.</string>
     <string name="radar_badge_edited">✏️ Editado</string>
     <string name="radar_badge_removed">🗑️ Removido</string>
