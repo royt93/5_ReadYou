@@ -187,7 +187,15 @@ Máy: Tecno KJ7 `115333744A005844`, Android 14, bản debug dev. Backup byte-exa
 - Quảng cáo toàn màn hình xuất hiện một lần (Test Ad "Flood-It!"), đóng bằng "Continue to app" theo quy tắc đã định, không chạm creative. 0 `FATAL`, 0 `uncaughtException`, 0 `NetworkOnMainThread`, 0 `Use RequestConfiguration`.
 - Pin Tecno 15% lúc bắt đầu, sạc qua USB.
 
-**Vẫn chưa kiểm:** Reels và cài mới trên bản mới; âm thanh TTS; Fever, Google Reader, WebDAV với máy chủ thật; API 26–28; quảng cáo thật. **Vẫn không khuyến nghị phát hành** (bản dịch máy chưa duyệt, chưa có máy API 26–28, TTS chưa nghe, quảng cáo thật chưa thử). Việc của owner: Play Console, Data safety, dựng và tải AAB.
+**Reels và cài mới trên Tecno (2026-11-27, bản debug từ `0ef155b4`, `reg/10-13`, `reg/20-23`):**
+- **Reels:** mở từ biểu tượng ▶ ở thanh dưới, hiện bài đầu (ảnh nền, tiêu đề, 3 gạch đầu dòng, nút "Read article"), vuốt lên 3 lần sang bài thứ 4, nhấn "Read article" thì mở đúng bài đang xem (Duran Duran), Back về Reels, nút ✕ đóng về màn trước. Log `roy93~Flow: reels: edge-exclusion topPx=918 widthPx=96 heightPx=600` chỉ ghi một lần, không lặp. 0 `FATAL`/`uncaughtException`.
+- **Cài mới** (gỡ cài đặt rồi cài lại, `firstInstallTime == lastUpdateTime`): hiện màn Welcome với Điều khoản, nút Agree, bấm xong vào Feeds và tự đồng bộ BBC News (187 bài). Mở bài đầu tiên: log chỉ có `flow` rồi `reading`, **không** có `feeds`, và màn đọc ở lại (bốn lần kiểm cách nhau 1 giây), tức lỗi `startDestination` nhảy về Feeds không tái hiện.
+- Một lần nhấn sai vì toạ độ (tab "Add Sources" thay vì Reels, nút "Read article" ở y 2020 chứ không phải 1880) đã được sửa bằng toạ độ đo từ `uiautomator dump`.
+- Tecno khôi phục BYTE IDENTICAL từ `backup-reels`. Pin 100%. Không có quảng cáo toàn màn hình trong lượt này.
+
+**Rà bố cục tương tự lỗi hàng tiêu đề ngữ nghĩa (tĩnh, toàn bộ `ui/`):** quét `Row` có hai con trở lên mà một con là component tự `fillMaxWidth` (18 component, gồm `Subtitle`, `DisplayText`, `Banner`, các thẻ) hoặc `Text(fillMaxWidth)` mà không có `weight`. Chạy trên bản lỗi (`8c4124a9`) bắt đúng `Subtitle` ở `FlowPage` (dòng 303); chạy trên mã hiện tại cho **0 ứng viên**. Giới hạn: quét chỉ nhìn con trực tiếp trong cùng một khối `Row`, nên không thấy trường hợp component được bọc qua hàm trung gian hoặc đặt trong `Row` dựng từ nơi khác.
+
+**Vẫn chưa kiểm:** âm thanh TTS; Fever, Google Reader, WebDAV với máy chủ thật; API 26–28; quảng cáo thật. **Vẫn không khuyến nghị phát hành** (bản dịch máy chưa duyệt, chưa có máy API 26–28, TTS chưa nghe, quảng cáo thật chưa thử). Việc của owner: Play Console, Data safety, dựng và tải AAB.
 
 **Còn trên Pixel (cấm chạm cho đến khi owner cho phép):** bản debug cũ, hộp Subscribe đang mở với URL, `adb reverse tcp:8443`, giao diện tiếng Đức, backup ở `~/exc-flaky-evidence/audit-20261125-pixel/backup-tls2`.
 
