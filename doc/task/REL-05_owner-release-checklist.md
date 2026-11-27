@@ -180,7 +180,14 @@ Máy: Tecno KJ7 `115333744A005844`, Android 14, bản debug dev. Backup byte-exa
 
 **Mất kết nối Tecno:** sau các bước trên, `adb devices` chỉ còn Pixel, Tecno biến mất giữa chừng (không do lệnh nào của tôi). Tôi không gửi gì tới Pixel và dừng phần hồi quy toàn bộ trên máy cho tới khi Tecno trở lại. Lần khôi phục cuối trên Tecno đã BYTE IDENTICAL, nên máy không giữ trạng thái thử.
 
-**Vẫn chưa kiểm:** hồi quy luồng chính trên máy sau loạt sửa gần đây (cài mới, đọc bài, tìm kiếm, Reels, TTS); âm thanh TTS; Fever, Google Reader, WebDAV với máy chủ thật; API 26–28; quảng cáo thật. **Vẫn không khuyến nghị phát hành** (bản dịch máy chưa duyệt, chưa có máy API 26–28, TTS chưa nghe, quảng cáo thật chưa thử). Việc của owner: Play Console, Data safety, dựng và tải AAB.
+**Hồi quy luồng chính trên Tecno (2026-11-27, bản debug từ `2c900d55`, `~/exc-flaky-evidence/audit-20261127-tecno/reg/`):** Tecno quay lại ADB sau khi mất một lúc (có một lần `unauthorized` thoáng qua giữa chừng, tự hết). Backup byte-exact trước (`backup-start`) và khôi phục sau (RESTORE OK).
+- Mở app: Feeds hiện 209 bài. Mở "All", mở một bài: màn đọc đúng, banner "Test Ad" có nhãn.
+- TTS: bấm ▶ thì dịch vụ nền và media session xuất hiện, bấm ■ thì cả hai về 0, không crash.
+- Tìm kiếm "Government": danh sách khoá (FTS5) trong DB có đủ 209 dòng và 19 khớp; trên màn hình kết quả hiện đúng (mục "AI Semantic Matches" ở trên, các bài khớp từ khoá bên dưới, tiêu đề chứa "government" và "Government"). **Lưu ý trải nghiệm:** ngay sau khi gõ, vùng trên cùng của danh sách là một khoảng trống lớn trước mục "AI Semantic Matches", nên nhìn thoáng thì tưởng không có kết quả; phải cuộn xuống mới thấy. Chưa kết luận đây là lỗi hay chủ ý bố cục (còn do ô tìm kiếm có khoảng đệm 56+24+10 dp); cần owner xem.
+- Quảng cáo toàn màn hình xuất hiện một lần (Test Ad "Flood-It!"), đóng bằng "Continue to app" theo quy tắc đã định, không chạm creative. 0 `FATAL`, 0 `uncaughtException`, 0 `NetworkOnMainThread`, 0 `Use RequestConfiguration`.
+- Pin Tecno 15% lúc bắt đầu, sạc qua USB.
+
+**Vẫn chưa kiểm:** Reels và cài mới trên bản mới; âm thanh TTS; Fever, Google Reader, WebDAV với máy chủ thật; API 26–28; quảng cáo thật. **Vẫn không khuyến nghị phát hành** (bản dịch máy chưa duyệt, chưa có máy API 26–28, TTS chưa nghe, quảng cáo thật chưa thử). Việc của owner: Play Console, Data safety, dựng và tải AAB.
 
 **Còn trên Pixel (cấm chạm cho đến khi owner cho phép):** bản debug cũ, hộp Subscribe đang mở với URL, `adb reverse tcp:8443`, giao diện tiếng Đức, backup ở `~/exc-flaky-evidence/audit-20261125-pixel/backup-tls2`.
 
