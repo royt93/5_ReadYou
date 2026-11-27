@@ -156,7 +156,7 @@
     <string name="feed_or_site_url">Feed- of site-URL</string>
     <string name="primary_color">Primaire kleur</string>
     <string name="delete_account_tips">Weet je zeker dat je deze account wilt verwijderen\?</string>
-    <string name="clear_all_articles_toast">Alle artikelen van deze rekening zijn gewist</string>
+    <string name="clear_all_articles_toast">Alle artikelen zijn gewist</string>
     <string name="dark_theme">Donker thema</string>
     <string name="off">Uit</string>
     <string name="clear_all_articles">Alle artikelen wissen</string>
@@ -496,7 +496,7 @@
     <string name="brain_rpg_recover_unavailable">Herstel niet beschikbaar</string>
     <string name="brain_rpg_decay_notification_title">Bekijk je categorieën</string>
     <string name="brain_rpg_decay_notification_body">Categorieën die behouden XP verliezen: %1$d. Oefen: %2$s</string>
-    <string name="brain_rpg_decay_notification_channel">Brain RPG reminders</string>
+    <string name="brain_rpg_decay_notification_channel">Brain RPG-vervalherinneringen</string>
     <string name="brain_rpg_decay_notification_channel_desc">Dagelijks overzicht van categorieverval</string>
     <string name="brain_rpg_xp_retained">Basis %1$d XP · %2$d%% behouden</string>
     <string name="brain_rpg_streak_shield_success">Reeksbescherming geactiveerd!</string>
@@ -524,8 +524,8 @@
     <string name="zen_daily_edition">Geplande dagelijkse editie</string>
     <string name="zen_daily_edition_desc">Bundel artikelen en demp meldingen tot je geplande leesuren</string>
     <string name="zen_daily_edition_enabled">Gebundelde bezorging</string>
-    <string name="zen_morning_edition">Morning Edition</string>
-    <string name="zen_evening_edition">Evening Edition</string>
+    <string name="zen_morning_edition">Ochtendeditie</string>
+    <string name="zen_evening_edition">Avondeditie</string>
     <string name="zen_daily_edition_notification">%1$d ongelezen artikelen staan klaar voor gefocust lezen.</string>
     <string name="zen_sleep_timer">Slaaptimer</string>
     <string name="zen_sleep_timer_off">Doorlopend</string>
@@ -726,7 +726,7 @@
     <string name="webdav_restore_now">Herstellen vanuit cloud</string>
     <string name="webdav_restore_success">Feeds en groepen succesvol hersteld vanuit de cloud!</string>
     <string name="webdav_restore_confirm_title">Herstellen vanuit de cloud?</string>
-    <string name="webdav_restore_confirm_message">Hiermee wordt het back-upbestand van je WebDAV-server gelezen en worden de bronnen en groepen erin aan deze telefoon toegevoegd. Er wordt niets verwijderd of overschreven.</string>
+    <string name="webdav_restore_confirm_message">Hiermee wordt het back-upbestand van je WebDAV-server gelezen en worden de feeds en groepen erin aan deze telefoon toegevoegd. Er wordt niets verwijderd of overschreven.</string>
     <string name="webdav_restore_confirm_action">Herstellen</string>
     <string name="webdav_server_url">WebDAV-server-URL</string>
     <string name="webdav_username">Gebruikersnaam</string>

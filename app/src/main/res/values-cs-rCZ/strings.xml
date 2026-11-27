@@ -99,7 +99,7 @@
     <string name="interaction">Interakce</string>
     <string name="interaction_desc">Při startu, haptická odezva</string>
     <string name="languages">Jazyky</string>
-    <string name="languages_desc">Angličtina, Čeština, více</string>
+    <string name="languages_desc">Angličtina, čínština a další</string>
     <string name="use_device_languages">Použít jazyk zařízení</string>
     <string name="tips_and_support">Tipy a podpora</string>
     <string name="welcome">Vítejte</string>
@@ -243,7 +243,7 @@
     <string name="change_log">Seznam změn</string>
     <string name="update">Aktualizovat</string>
     <string name="skip_this_version">Přeskočit tuto verzi</string>
-    <string name="checking_updates">Zkontrolovat aktualizace…</string>
+    <string name="checking_updates">Kontrola aktualizací…</string>
     <string name="is_latest_version">Toto je nejnovější verze</string>
     <string name="check_failure">Chyba kontroly</string>
     <string name="download_failure">Chyba stahování</string>
@@ -571,7 +571,7 @@
     <string name="brain_rpg_recover_unavailable">Obnova není k dispozici</string>
     <string name="brain_rpg_decay_notification_title">Zopakujte si své kategorie</string>
     <string name="brain_rpg_decay_notification_body">Kategorie, které ztrácejí XP: %1$d. Procvičte: %2$s</string>
-    <string name="brain_rpg_decay_notification_channel">Brain RPG reminders</string>
+    <string name="brain_rpg_decay_notification_channel">Připomínky úpadku Brain RPG</string>
     <string name="brain_rpg_decay_notification_channel_desc">Denní souhrn úpadku kategorií</string>
     <string name="brain_rpg_xp_retained">Základ %1$d XP · zachováno %2$d%%</string>
     <string name="brain_rpg_streak_shield_success">Štít série aktivován!</string>
@@ -599,8 +599,8 @@
     <string name="zen_daily_edition">Plánované denní vydání</string>
     <string name="zen_daily_edition_desc">Shromažďovat články a ztišit oznámení do naplánované doby čtení</string>
     <string name="zen_daily_edition_enabled">Režim dávkového doručování</string>
-    <string name="zen_morning_edition">Morning Edition</string>
-    <string name="zen_evening_edition">Evening Edition</string>
+    <string name="zen_morning_edition">Ranní vydání</string>
+    <string name="zen_evening_edition">Večerní vydání</string>
     <string name="zen_daily_edition_notification">%1$d nepřečtených článků čeká na vaše soustředěné čtení.</string>
     <string name="zen_sleep_timer">Časovač vypnutí</string>
     <string name="zen_sleep_timer_off">Nepřetržitě</string>

@@ -47,14 +47,14 @@
     <string name="clear_articles">Buidar articles</string>
     <string name="clear_articles_in_feed_toast">S\'han esborrat tots els articles arxivats de la font \"%1$s\"</string>
     <string name="clear_articles_feed_tips">Buidar tots els articles arxivats de la font \"%1$s\"</string>
-    <string name="clear_articles_group_tips">Buidar tots els articles arxivats de la font \"%1$s\"</string>
+    <string name="clear_articles_group_tips">Buidar tots els articles arxivats del grup \"%1$s\"</string>
     <string name="add_to_group">Afegir al grup</string>
     <string name="move_to_group">Moure al grup</string>
     <string name="all_move_to_group_tips">Moure totes les fonts del grup \"%1$s\" al grup \"%2$s\"</string>
     <string name="all_move_to_group_toast">S\'ha mogut totes les fonts del grup \"%1$s\"</string>
     <string name="rename">Canviar el nom</string>
     <string name="change_url">Canviar l\'URL</string>
-    <string name="rename_toast">Canviar el nom a \"%1$s\"</string>
+    <string name="rename_toast">S\'ha canviat el nom a \"%1$s\"</string>
     <string name="name">Nom</string>
     <string name="delete">Esborrar</string>
     <string name="delete_toast">Esborrar \"%1$s\"</string>
@@ -64,7 +64,7 @@
     <string name="all_allow_notification_toast">Són permeses totes les notificacions del grup \"%1$s\"</string>
     <string name="all_deny_notification_toast">Són denegades totes les notificacions de grup \"%1$s\"</string>
     <string name="all_deny_parse_full_content_toast">Aturar el processament del contingut de tots els articles del grup \"%1$s\"</string>
-    <string name="clear_articles_in_group_toast">S\'han buidat tots els articles arxivats de la font \"%1$s\"</string>
+    <string name="clear_articles_in_group_toast">S\'han buidat tots els articles arxivats del grup \"%1$s\"</string>
     <string name="tos_tips">Si us plau llegeix i accepta els termes de servei i la política de privacitat de RSS Bear Hub per continuar.</string>
     <string name="tos_content">
         <h5> Política de privacitat </h5>
@@ -163,8 +163,8 @@
     <string name="update">Actualització</string>
     <string name="skip_this_version">Descarta aquesta versió</string>
     <string name="is_latest_version">Tens l\'última actualització de l\'aplicació</string>
-    <string name="check_failure">No s\'ha pogut actualitzar</string>
-    <string name="download_failure">Es possible que no poguem descarregar actualitzacions</string>
+    <string name="check_failure">No s\'ha pogut comprovar si hi ha actualitzacions</string>
+    <string name="download_failure">No s\'han pogut descarregar les actualitzacions</string>
     <string name="today">Avui</string>
     <string name="yesterday">Ahir</string>
     <string name="mark_as_unread">Marca com no llegit</string>
@@ -496,7 +496,7 @@
     <string name="brain_rpg_recover_unavailable">Recuperació no disponible</string>
     <string name="brain_rpg_decay_notification_title">Repassa les teves categories</string>
     <string name="brain_rpg_decay_notification_body">Categories que perden XP retinguts: %1$d. Practica: %2$s</string>
-    <string name="brain_rpg_decay_notification_channel">Brain RPG reminders</string>
+    <string name="brain_rpg_decay_notification_channel">Recordatoris de declivi de Brain RPG</string>
     <string name="brain_rpg_decay_notification_channel_desc">Resum diari del desgast de categories</string>
     <string name="brain_rpg_xp_retained">Base %1$d XP · %2$d%% retingut</string>
     <string name="brain_rpg_streak_shield_success">¡Escudo de racha activado!</string>
@@ -524,8 +524,8 @@
     <string name="zen_daily_edition">Edició diària programada</string>
     <string name="zen_daily_edition_desc">Agrupa els articles i silencia les notificacions fins a les hores de lectura programades</string>
     <string name="zen_daily_edition_enabled">Mode de lliurament per lots</string>
-    <string name="zen_morning_edition">Morning Edition</string>
-    <string name="zen_evening_edition">Evening Edition</string>
+    <string name="zen_morning_edition">Edició del matí</string>
+    <string name="zen_evening_edition">Edició del vespre</string>
     <string name="zen_daily_edition_notification">%1$d articles sense llegir a punt per a la teva lectura concentrada.</string>
     <string name="zen_sleep_timer">Temporitzador de son</string>
     <string name="zen_sleep_timer_off">Continu</string>

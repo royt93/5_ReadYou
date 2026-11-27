@@ -218,7 +218,7 @@
     <string name="only_when_charging">Kun ved lading</string>
     <string name="synchronous">Synkronisering</string>
     <string name="tips_article_list_tonal_elevation">Denne fargelysstyrken er kun tilgjengelig med lys drakt.</string>
-    <string name="bionic_reading">Kunstig lesing</string>
+    <string name="bionic_reading">Bionisk lesing</string>
     <string name="every_1_hour">Hver time</string>
     <string name="every_2_hours">Annenhver time</string>
     <string name="every_3_hours">Hver tredje time</string>
@@ -284,13 +284,13 @@
     <string name="connection">Tilkobling</string>
     <string name="custom_tabs">Påtving egendefinerte faner</string>
     <string name="open_link_specific_browser">Filbehandler</string>
-    <string name="auto_default_browser">Auto (foretrekk forvalgt filbehandler)</string>
+    <string name="auto_default_browser">Auto (foretrekk forvalgt nettleser)</string>
     <string name="always_ask">Alltid spør</string>
     <string name="specific_browser_name">Filbehandler: %1$s</string>
-    <string name="specific_browser">Påtving spesifikk filbehandler</string>
+    <string name="specific_browser">Påtving spesifikk nettleser</string>
     <string name="initial_open_app">Program når lenke klikkes</string>
     <string name="auto_customtabs">Auto (foretrekk egendefinerte faner)</string>
-    <string name="default_browser">Påtving forvalgt filbehandler</string>
+    <string name="default_browser">Påtving forvalgt nettleser</string>
     <string name="open_link_something_wrong">Innstilling for åpning av lenke ble ignorert fordi noe gikk galt.</string>
     <string name="open_link_specific_browser_not_selected">Ingen</string>
     <string name="explore_rss_sources">Utforsk RSS-kilder</string>
@@ -496,7 +496,7 @@
     <string name="brain_rpg_recover_unavailable">Gjenoppretting er ikke tilgjengelig</string>
     <string name="brain_rpg_decay_notification_title">Gå gjennom kategoriene dine</string>
     <string name="brain_rpg_decay_notification_body">Kategorier som mister bevart XP: %1$d. Øv på: %2$s</string>
-    <string name="brain_rpg_decay_notification_channel">Brain RPG reminders</string>
+    <string name="brain_rpg_decay_notification_channel">Brain RPG-påminnelser om forfall</string>
     <string name="brain_rpg_decay_notification_channel_desc">Daglig oppsummering av kategoriforfall</string>
     <string name="brain_rpg_xp_retained">Grunn %1$d XP · %2$d%% bevart</string>
     <string name="brain_rpg_streak_shield_success">Rekkeskjold aktivert!</string>
@@ -524,8 +524,8 @@
     <string name="zen_daily_edition">Planlagt daglig utgave</string>
     <string name="zen_daily_edition_desc">Samle artikler og demp varsler til de planlagte lesetidene dine</string>
     <string name="zen_daily_edition_enabled">Samlet levering</string>
-    <string name="zen_morning_edition">Morning Edition</string>
-    <string name="zen_evening_edition">Evening Edition</string>
+    <string name="zen_morning_edition">Morgenutgave</string>
+    <string name="zen_evening_edition">Kveldsutgave</string>
     <string name="zen_daily_edition_notification">%1$d uleste artikler er klare for fokusert lesing.</string>
     <string name="zen_sleep_timer">Søvntimer</string>
     <string name="zen_sleep_timer_off">Kontinuerlig</string>
@@ -724,7 +724,7 @@
     <string name="webdav_last_backup">Siste sikkerhetskopi: %1$s</string>
     <string name="webdav_password">Passord / App-token</string>
     <string name="webdav_restore_now">Gjenopprett fra sky</string>
-    <string name="webdav_restore_success">OPML gjenopprettet fra WebDAV!</string>
+    <string name="webdav_restore_success">Feeder og grupper gjenopprettet fra skyen!</string>
     <string name="webdav_restore_confirm_title">Gjenopprette fra skyen?</string>
     <string name="webdav_restore_confirm_message">Dette leser sikkerhetskopifilen fra WebDAV-serveren din og legger kildene og gruppene i den til denne telefonen. Ingenting slettes eller overskrives.</string>
     <string name="webdav_restore_confirm_action">Gjenopprett</string>

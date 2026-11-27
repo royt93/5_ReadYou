@@ -110,7 +110,7 @@
     <string name="clear_all_articles_toast">רשימת הכתבות נמחקה</string>
     <string name="delete_account_toast">חשבון נמחק</string>
     <string name="switch_account">החלפה</string>
-    <string name="accounts_tips">אפשר לגעת בשם הילדים בעמוד ההיזנים כדי לעבור מצב</string>
+    <string name="accounts_tips">אפשר לגעת בשם החשבון בעמוד הפידים כדי לעבור מצב</string>
     <string name="server_url">כתובת שרת</string>
     <string name="username">שם משתמש</string>
     <string name="password">סיסמה</string>
@@ -574,7 +574,7 @@
     <string name="brain_rpg_recover_unavailable">השחזור אינו זמין</string>
     <string name="brain_rpg_decay_notification_title">כדאי לחזור על הקטגוריות</string>
     <string name="brain_rpg_decay_notification_body">קטגוריות שמאבדות XP שנשמר: %1$d. כדאי לתרגל: %2$s</string>
-    <string name="brain_rpg_decay_notification_channel">Brain RPG reminders</string>
+    <string name="brain_rpg_decay_notification_channel">תזכורות דעיכה של Brain RPG</string>
     <string name="brain_rpg_decay_notification_channel_desc">סיכום יומי של דעיכת קטגוריות</string>
     <string name="brain_rpg_xp_retained">בסיס %1$d XP · %2$d%% נשמרו</string>
     <string name="brain_rpg_streak_shield_success">מגן הרצף הופעל!</string>
@@ -602,8 +602,8 @@
     <string name="zen_daily_edition">מהדורה יומית מתוזמנת</string>
     <string name="zen_daily_edition_desc">איסוף כתבות והשתקת התראות עד שעות הקריאה שקבעתם</string>
     <string name="zen_daily_edition_enabled">מצב מסירה מרוכזת</string>
-    <string name="zen_morning_edition">Morning Edition</string>
-    <string name="zen_evening_edition">Evening Edition</string>
+    <string name="zen_morning_edition">מהדורת בוקר</string>
+    <string name="zen_evening_edition">מהדורת ערב</string>
     <string name="zen_daily_edition_notification">%1$d כתבות שלא נקראו מוכנות לקריאה ממוקדת.</string>
     <string name="zen_sleep_timer">טיימר שינה</string>
     <string name="zen_sleep_timer_off">רצוף</string>

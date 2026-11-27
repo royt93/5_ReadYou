@@ -67,7 +67,7 @@
     <string name="unsubscribe">सदस्यता छोडें</string>
     <string name="unsubscribe_tips">\"%1$s\" से सदस्यता छोडें और इसमें सभी संग्रहित पाठों को मिटाएं</string>
     <string name="delete_group">ग्रुप को मिटाएँ</string>
-    <string name="delete_group_tips">\"%1$s\" ग्रुप के सभी फ़ीड्स अथवा इसके संग्रहित पाठों को मिटाएँ</string>
+    <string name="delete_group_tips">\"%1$s\" ग्रुप को, उसके सभी फ़ीड्स और संग्रहित पाठों के साथ, मिटाएँ</string>
     <string name="group_option_tips">निम्नलिखित विकल्प ग्रुप के सभी फ़ीडस् पर लागू होंगे</string>
     <string name="today">आज</string>
     <string name="yesterday">कल</string>
@@ -494,7 +494,7 @@
     <string name="brain_rpg_recover_unavailable">बहाली उपलब्ध नहीं है</string>
     <string name="brain_rpg_decay_notification_title">अपनी श्रेणियाँ दोहराएँ</string>
     <string name="brain_rpg_decay_notification_body">जिन श्रेणियों का बचा हुआ XP घट रहा है: %1$d। अभ्यास करें: %2$s</string>
-    <string name="brain_rpg_decay_notification_channel">Brain RPG reminders</string>
+    <string name="brain_rpg_decay_notification_channel">Brain RPG गिरावट अनुस्मारक</string>
     <string name="brain_rpg_decay_notification_channel_desc">श्रेणियों में दैनिक गिरावट का सारांश</string>
     <string name="brain_rpg_xp_retained">मूल %1$d XP · %2$d%% बरकरार</string>
     <string name="brain_rpg_streak_shield_success">स्ट्रीक शील्ड सक्रिय हो गई!</string>
@@ -522,8 +522,8 @@
     <string name="zen_daily_edition">निर्धारित दैनिक संस्करण</string>
     <string name="zen_daily_edition_desc">लेखों को एक साथ जमा करें और आपके तय पढ़ने के समय तक सूचनाएँ मौन रखें</string>
     <string name="zen_daily_edition_enabled">बैच डिलीवरी मोड</string>
-    <string name="zen_morning_edition">Morning Edition</string>
-    <string name="zen_evening_edition">Evening Edition</string>
+    <string name="zen_morning_edition">सुबह का संस्करण</string>
+    <string name="zen_evening_edition">शाम का संस्करण</string>
     <string name="zen_daily_edition_notification">%1$d अपठित लेख आपके फ़ोकस के साथ पढ़ने के लिए तैयार हैं।</string>
     <string name="zen_sleep_timer">स्लीप टाइमर</string>
     <string name="zen_sleep_timer_off">लगातार</string>

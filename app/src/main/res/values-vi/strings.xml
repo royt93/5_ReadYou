@@ -10,7 +10,7 @@
     <string name="searching">Đang tìm kiếm…</string>
     <string name="interaction">Cấu hình</string>
     <string name="languages">Ngôn ngữ</string>
-    <string name="videos_desc">Viền tròn góc, vùng chọn</string>
+    <string name="videos_desc">Viền tròn góc, khoảng đệm ngang</string>
     <string name="maximize">Tràn viền</string>
     <string name="all">Tất cả</string>
     <plurals name="all_desc">
@@ -83,7 +83,7 @@
     <string name="coming_soon">Sẽ sớm ra mắt</string>
     <string name="accounts">Tài khoản</string>
     <string name="accounts_desc">Điện thoại, FreshRSS</string>
-    <string name="languages_desc">Anh, Việt, Trung và hơn nữa</string>
+    <string name="languages_desc">Anh, Trung và hơn nữa</string>
     <string name="use_device_languages">Dùng ngôn ngữ thiết bị</string>
     <string name="tips_and_support">Mẹo &amp; hỗ trợ</string>
     <string name="welcome">Chào mừng</string>
@@ -98,7 +98,7 @@
     <string name="use_app_theme">Dùng chủ đề app</string>
     <string name="title_desc">In đậm, viết hoa, căn dòng</string>
     <string name="text_desc">Cỡ phông, khoảng cách ký tự, căn dòng</string>
-    <string name="images_desc">Viền tròn góc, vùng chọn</string>
+    <string name="images_desc">Viền tròn góc, khoảng đệm ngang</string>
     <string name="all_allow_notification_tips">Cho phép tất cả feed trong nhóm \"%1$s\" gửi thông báo</string>
     <string name="all_allow_notification_toast">Tất cả thông báo từ nhóm \"%1$s\" đã được cho phép</string>
     <string name="all_deny_notification_toast">Tất cả thông báo từ nhóm \"%1$s\" đã bị từ chối</string>
@@ -115,7 +115,7 @@
     <string name="all_deny_parse_full_content_toast">Không tiếp tục phân tích đầy đủ nội dung của bài viết trong nhóm \"%1$s\"</string>
     <string name="color_and_style">Màu &amp; kiểu</string>
     <string name="color_and_style_desc">Chủ đề, màu sắc, cỡ chữ</string>
-    <string name="interaction_desc">Khi mở app</string>
+    <string name="interaction_desc">Trang mặc định, phản hồi rung</string>
     <string name="basic_colors">Màu mặc định</string>
     <string name="primary_color">Màu chính</string>
     <string name="primary_color_hint">Kiểu như #666666 hoặc 666666</string>
@@ -157,8 +157,8 @@
     <string name="article_desc">Mô tả bài viết</string>
     <string name="feed_favicons">Favicon</string>
     <string name="article_date">Ngày đăng bài viết</string>
-    <string name="horizontal_padding">Vùng chọn</string>
-    <string name="article_date_sticky_header">Ghim hình minh họa cho ngày đăng (thử nghiệm)</string>
+    <string name="horizontal_padding">Khoảng đệm ngang</string>
+    <string name="article_date_sticky_header">Ghim thanh ngày đăng bài (thử nghiệm)</string>
     <string name="mark_as_read_button_position">Vị trí nút \"Đánh dấu là đã đọc\"</string>
     <string name="icons">Biểu tượng</string>
     <string name="top_bar">Thanh trên</string>
@@ -188,7 +188,7 @@
     <string name="group_list">Danh sách gộp</string>
     <string name="general">Chung</string>
     <string name="article_images">Hình ảnh bài viết</string>
-    <string name="feed_names">Tên bài viết</string>
+    <string name="feed_names">Tên nguồn tin</string>
     <string name="auto_hide_toolbars">Tự động ẩn thanh công cụ</string>
     <string name="alignment">Căn</string>
     <string name="rearrange_buttons">Xếp lại các nút</string>
@@ -462,8 +462,8 @@
     <string name="brain_rpg_wrong">❌ Chưa chính xác</string>
     <string name="brain_rpg_category_tech">Công Nghệ &amp; AI</string>
     <string name="brain_rpg_category_business">Kinh Doanh &amp; Tài Chính</string>
-    <string name="brain_rpg_category_science">Khoa Học &amp; Đời Sống</string>
-    <string name="brain_rpg_category_health">Sức Khỏe &amp; Thể Chất</string>
+    <string name="brain_rpg_category_science">Khoa Học &amp; Tự Nhiên</string>
+    <string name="brain_rpg_category_health">Sức Khỏe &amp; Đời Sống</string>
     <string name="brain_rpg_category_philosophy">Triết Học &amp; Tư Duy</string>
     <string name="brain_rpg_category_general">Tri Thức Tổng Hợp</string>
     <string name="brain_rpg_recover_action">Khôi phục (Xem quảng cáo)</string>
@@ -494,7 +494,7 @@
     <string name="zen_ambient_audio_desc">Âm thanh nền giúp tập trung đọc sâu</string>
     <string name="zen_sound_rain">Mưa rào tĩnh lặng</string>
     <string name="zen_sound_ocean">Sóng biển trầm sâu</string>
-    <string name="zen_sound_pink_noise">Tiếng ồn trắng tập trung</string>
+    <string name="zen_sound_pink_noise">Tiếng ồn tập trung dịu nhẹ</string>
     <string name="zen_sound_binaural">Sóng não 40Hz Gamma</string>
     <string name="zen_sound_bowl">Chuông thiền Tây Tạng</string>
     <string name="zen_daily_edition">Bản tin tạp chí định giờ</string>
@@ -1031,7 +1031,7 @@
 
     <!-- FRONT-03b galaxy title links -->
     <string name="galaxy_related_title">Bài liên quan</string>
-    <string name="galaxy_shared_terms">Chung từ: %1$s</string>
+    <string name="galaxy_shared_terms">Từ chung: %1$s</string>
     <string name="local_sync_title">Đồng bộ cục bộ</string>
     <string name="local_sync_send">Gửi</string>
     <string name="local_sync_receive">Nhận</string>

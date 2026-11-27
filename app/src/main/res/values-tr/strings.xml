@@ -497,7 +497,7 @@
     <string name="brain_rpg_recover_unavailable">Geri kazanma kullanılamıyor</string>
     <string name="brain_rpg_decay_notification_title">Kategorilerinizi gözden geçirin</string>
     <string name="brain_rpg_decay_notification_body">Korunan XP\'sini kaybeden kategoriler: %1$d. Pratik yapın: %2$s</string>
-    <string name="brain_rpg_decay_notification_channel">Brain RPG reminders</string>
+    <string name="brain_rpg_decay_notification_channel">Brain RPG gerileme hatırlatıcıları</string>
     <string name="brain_rpg_decay_notification_channel_desc">Günlük kategori gerileme özeti</string>
     <string name="brain_rpg_xp_retained">Temel %1$d XP · %%%2$d korundu</string>
     <string name="brain_rpg_streak_shield_success">Seri Kalkanı etkinleştirildi!</string>
@@ -525,8 +525,8 @@
     <string name="zen_daily_edition">Zamanlanmış Günlük Baskı</string>
     <string name="zen_daily_edition_desc">Makaleleri toplu hâle getirir ve bildirimleri planladığınız okuma saatlerine kadar susturur</string>
     <string name="zen_daily_edition_enabled">Toplu Teslimat Modu</string>
-    <string name="zen_morning_edition">Morning Edition</string>
-    <string name="zen_evening_edition">Evening Edition</string>
+    <string name="zen_morning_edition">Sabah Baskısı</string>
+    <string name="zen_evening_edition">Akşam Baskısı</string>
     <string name="zen_daily_edition_notification">Odaklanarak okumanız için %1$d okunmamış makale hazır.</string>
     <string name="zen_sleep_timer">Uyku Zamanlayıcısı</string>
     <string name="zen_sleep_timer_off">Kesintisiz</string>
@@ -749,7 +749,7 @@
     <string name="second_brain_empty">Birkaç makale okuyun veya kaydedin, konu grafiğiniz burada görünecek.</string>
     <string name="second_brain_error">Grafik oluşturulamadı. Tekrar deneyin.</string>
     <string name="second_brain_retry">Yeniden dene</string>
-    <string name="second_brain_graph_desc">%1$d konu ve %2$d bağlantılı konu grafiği</string>
+    <string name="second_brain_graph_desc">%1$d konu ve %2$d bağlantı içeren konu grafiği</string>
     <string name="second_brain_node_articles">%1$d articles</string>
     <string name="second_brain_range_label">Zaman aralığı</string>
     <string name="second_brain_related">İlgili makaleler</string>

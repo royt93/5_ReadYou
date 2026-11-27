@@ -52,7 +52,7 @@
     <string name="delete">Radera</string>
     <string name="delete_toast">Raderade \"%1$s\"</string>
     <string name="unsubscribe">Avsluta prenumeration</string>
-    <string name="unsubscribe_tips">Avslutade prenumeration \"%1$s\" och tog bort alla tillhörande arkiverade artiklar.</string>
+    <string name="unsubscribe_tips">Avsluta prenumerationen på \"%1$s\" och ta bort alla tillhörande arkiverade artiklar</string>
     <string name="delete_group">Radera Grupp</string>
     <string name="delete_group_tips">Radera gruppen \"%1$s\" och alla flöden och tillhörande arkiverade artiklar.</string>
     <string name="group_option_tips">Följande alternativ kommer att tillämpas på alla flöden i denna grupp.</string>
@@ -221,7 +221,7 @@
         <p> - [2] https://www.gnu.org/licenses/gpl-3.0.html </p>
     </string>
     <string name="group_list">Grupplista</string>
-    <string name="bionic_reading">Artificiell Läsning</string>
+    <string name="bionic_reading">Bionisk läsning</string>
     <string name="article_list">Artikellista</string>
     <string name="mark_as_read_button_position">\"Markera som Läst\" knapplats</string>
     <string name="filter_bar">Filtreringsmeny</string>
@@ -496,7 +496,7 @@
     <string name="brain_rpg_recover_unavailable">Återställning är inte tillgänglig</string>
     <string name="brain_rpg_decay_notification_title">Repetera dina kategorier</string>
     <string name="brain_rpg_decay_notification_body">Kategorier som förlorar behållen XP: %1$d. Öva: %2$s</string>
-    <string name="brain_rpg_decay_notification_channel">Brain RPG reminders</string>
+    <string name="brain_rpg_decay_notification_channel">Brain RPG-påminnelser om försämring</string>
     <string name="brain_rpg_decay_notification_channel_desc">Daglig sammanfattning av kategoriförfall</string>
     <string name="brain_rpg_xp_retained">Bas %1$d XP · %2$d%% behållet</string>
     <string name="brain_rpg_streak_shield_success">Serieskölden är aktiverad!</string>
@@ -524,8 +524,8 @@
     <string name="zen_daily_edition">Schemalagd dagsupplaga</string>
     <string name="zen_daily_edition_desc">Samla artiklar och tysta aviseringar fram till dina schemalagda lästider</string>
     <string name="zen_daily_edition_enabled">Samlad leverans</string>
-    <string name="zen_morning_edition">Morning Edition</string>
-    <string name="zen_evening_edition">Evening Edition</string>
+    <string name="zen_morning_edition">Morgonupplagan</string>
+    <string name="zen_evening_edition">Kvällsupplagan</string>
     <string name="zen_daily_edition_notification">%1$d olästa artiklar väntar på din fokuserade läsning.</string>
     <string name="zen_sleep_timer">Insomningstimer</string>
     <string name="zen_sleep_timer_off">Kontinuerlig</string>

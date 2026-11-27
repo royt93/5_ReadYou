@@ -496,7 +496,7 @@
     <string name="brain_rpg_recover_unavailable">Gendannelse ikke tilgængelig</string>
     <string name="brain_rpg_decay_notification_title">Gennemgå dine kategorier</string>
     <string name="brain_rpg_decay_notification_body">Kategorier, der mister bevaret XP: %1$d. Øv: %2$s</string>
-    <string name="brain_rpg_decay_notification_channel">Brain RPG reminders</string>
+    <string name="brain_rpg_decay_notification_channel">Brain RPG-påmindelser om forfald</string>
     <string name="brain_rpg_decay_notification_channel_desc">Daglig oversigt over kategoriforfald</string>
     <string name="brain_rpg_xp_retained">Basis %1$d XP · %2$d%% bevaret</string>
     <string name="brain_rpg_streak_shield_success">Serieskjold aktiveret!</string>
@@ -524,8 +524,8 @@
     <string name="zen_daily_edition">Planlagt dagsudgave</string>
     <string name="zen_daily_edition_desc">Saml artikler, og slå notifikationer fra indtil dine planlagte læsetider</string>
     <string name="zen_daily_edition_enabled">Samlet levering</string>
-    <string name="zen_morning_edition">Morning Edition</string>
-    <string name="zen_evening_edition">Evening Edition</string>
+    <string name="zen_morning_edition">Morgenudgave</string>
+    <string name="zen_evening_edition">Aftenudgave</string>
     <string name="zen_daily_edition_notification">%1$d ulæste artikler klar til din fokuserede læsning.</string>
     <string name="zen_sleep_timer">Sovetimer</string>
     <string name="zen_sleep_timer_off">Kontinuerlig</string>

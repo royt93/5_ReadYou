@@ -491,7 +491,7 @@
     <string name="brain_rpg_recover_unavailable">A helyreállítás nem érhető el</string>
     <string name="brain_rpg_decay_notification_title">Nézd át a kategóriáidat</string>
     <string name="brain_rpg_decay_notification_body">XP-t vesztő kategóriák: %1$d. Gyakorolj: %2$s</string>
-    <string name="brain_rpg_decay_notification_channel">Brain RPG reminders</string>
+    <string name="brain_rpg_decay_notification_channel">Brain RPG hanyatlási emlékeztetők</string>
     <string name="brain_rpg_decay_notification_channel_desc">Napi összegzés a kategóriák hanyatlásáról</string>
     <string name="brain_rpg_xp_retained">Alap: %1$d XP · %2$d%% megtartva</string>
     <string name="brain_rpg_streak_shield_success">Sorozatvédő pajzs aktiválva!</string>
@@ -519,8 +519,8 @@
     <string name="zen_daily_edition">Ütemezett napi kiadás</string>
     <string name="zen_daily_edition_desc">Cikkek csoportosítása és értesítések némítása az ütemezett olvasási időkig</string>
     <string name="zen_daily_edition_enabled">Csoportos kézbesítés</string>
-    <string name="zen_morning_edition">Morning Edition</string>
-    <string name="zen_evening_edition">Evening Edition</string>
+    <string name="zen_morning_edition">Reggeli kiadás</string>
+    <string name="zen_evening_edition">Esti kiadás</string>
     <string name="zen_daily_edition_notification">%1$d olvasatlan cikk vár a fókuszált olvasásra.</string>
     <string name="zen_sleep_timer">Elalvásidőzítő</string>
     <string name="zen_sleep_timer_off">Folyamatos</string>

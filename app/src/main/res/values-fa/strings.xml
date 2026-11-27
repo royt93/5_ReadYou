@@ -43,11 +43,11 @@
     <string name="parse_full_content">تجزیه کامل مطالب</string>
     <string name="all_parse_full_content_tips">تجزیهٔ محتوای همه مقاله‌ها در گروه %1$s درحال انجام است</string>
     <string name="all_parse_full_content_toast">تجزیه محتوای همه مقالات در گروه %1$s</string>
-    <string name="all_deny_parse_full_content_toast">دیگر نیازی به تجزیه محتوای کامل همه مقالات در گروه %1$s\" نیست</string>
+    <string name="all_deny_parse_full_content_toast">دیگر نیازی به تجزیه محتوای کامل همه مقاله‌ها در گروه «%1$s» نیست</string>
     <string name="clear_articles_feed_tips">تمام مقاله‌های بایگانی شده در خوراک %1$s را پاک کنید</string>
     <string name="clear_articles_group_tips">تمام مقاله‌های بایگانی شده در گروه %1$s را پاک کنید</string>
     <string name="all_move_to_group_tips">همه خوراک‌های گروه %1$s را به گروه %2$s منتقل کنید</string>
-    <string name="all_move_to_group_toast">همه فید ها را به گروه %1$s منتقل کنید</string>
+    <string name="all_move_to_group_toast">همه فیدها به گروه «%1$s» منتقل شدند</string>
     <string name="rename">تغییر نام</string>
     <string name="change_url">تغییر آدرس اینترنتی</string>
     <string name="rename_toast">تغییر نام به %1$s</string>
@@ -75,7 +75,7 @@
     <string name="get_new_updates_desc">نسخه %1$s در دسترس است</string>
     <string name="coming_soon">به زودی</string>
     <string name="accounts">حساب</string>
-    <string name="accounts_desc">محلی، FresgRSS</string>
+    <string name="accounts_desc">محلی، FreshRSS</string>
     <string name="color_and_style">رنگ و سبک</string>
     <string name="color_and_style_desc">تم، سبک رنگ، اندازه فونت</string>
     <string name="interaction">اثر متقابل</string>
@@ -127,7 +127,7 @@
     <string name="on_start">در شروع</string>
     <string name="initial_page">صفحه اولیه</string>
     <string name="initial_filter">فیلتر اولیه</string>
-    <string name="preview_article_title">رمان ارباب حلقه ها بالاخره به پایان رسید</string>
+    <string name="preview_article_title">رمان «ارباب اسرار» بالاخره به پایان رسید</string>
     <string name="preview_article_desc">احمق هشتمین و آخرین جلد از مجموعه ارباب حلقه ها است که توسط Cuttlefish Loves Diving نوشته شده است.</string>
     <string name="preview_feed_name">ردیت</string>
     <string name="value">مقدار</string>
@@ -166,12 +166,12 @@
     <string name="maximize">حداکثر کردن</string>
     <string name="refresh">تازه کردن</string>
     <string name="add_to_group">افزودن به گروه</string>
-    <string name="all_allow_notification_tips">به همه حوراک‌های گروه %1$s اجازه دهید اعلان ارسال کنند</string>
+    <string name="all_allow_notification_tips">به همه خوراک‌های گروه «%1$s» اجازه دهید اعلان ارسال کنند</string>
     <string name="all_allow_notification_toast">همه اعلان‌ها از گروه %1$s مجاز هستند</string>
     <string name="all_deny_notification_toast">همه اعلان‌های گروه %1$s غیر مجاز هستند</string>
     <string name="clear_articles">پاک کردن مقالات</string>
-    <string name="clear_articles_in_feed_toast">تمام مقالات آرشیو شده در فید %1$s را پاک شدند</string>
-    <string name="clear_articles_in_group_toast">تمام مقالات بایگانی شده در گروه %1$s را پاک شدند</string>
+    <string name="clear_articles_in_feed_toast">تمام مقالات آرشیوشده در فید «%1$s» پاک شدند</string>
+    <string name="clear_articles_in_group_toast">تمام مقالات بایگانی‌شده در گروه «%1$s» پاک شدند</string>
     <string name="move_to_group">انتقال به گروه</string>
     <string name="yesterday">دیروز</string>
     <string name="delete_group_tips">حذف گروه %1$s و همهٔ خوراک‌ها و مقاله‌های بایگانی شده در آن گروه</string>
@@ -219,7 +219,7 @@
     <string name="fill_selected_icon">آیکون انتخاب شده را پر کنید</string>
     <string name="filter_bar">نوار فیلتر</string>
     <string name="mark_as_read_button_position">موقعیت دکمه علامت گذاری به عنوان خوانده شده</string>
-    <string name="tips_group_list_tonal_elevation">ارتفاع تونال فقط در زمینهٔ روشن موجود است</string>
+    <string name="tips_group_list_tonal_elevation">ارتفاع تونال برای لیست گروه فقط در تم روشن موجود است</string>
     <string name="use_app_theme">از تم برنامه استفاده کنید</string>
     <string name="touch_to_play_video">برای پخش ویدیو لمس کنید</string>
     <string name="text">متن</string>
@@ -275,7 +275,7 @@
     <string name="block_list">فهرست مسدودی</string>
     <string name="clear_all_articles_tips">آیا مطمئن هستید که می‌خواهید تمام مقالات را از این حساب پاک کنید؟</string>
     <string name="delete_account_tips">آیا مطمئن هستید که می‌خواهید این حساب را حذف کنید؟</string>
-    <string name="synchronous_tips">شروع دوباره برای اجرای تغییرها لازم است</string>
+    <string name="synchronous_tips">برای اعمال تغییرها راه‌اندازی مجدد لازم است</string>
     <string name="connection">در حال اتصال</string>
     <string name="username">نام کاربری</string>
     <string name="password">رمزعبور</string>
@@ -495,7 +495,7 @@
     <string name="brain_rpg_recover_unavailable">بازیابی در دسترس نیست</string>
     <string name="brain_rpg_decay_notification_title">دسته‌هایتان را مرور کنید</string>
     <string name="brain_rpg_decay_notification_body">دسته‌هایی که XP حفظ‌شده را از دست می‌دهند: %1$d. تمرین کنید: %2$s</string>
-    <string name="brain_rpg_decay_notification_channel">Brain RPG reminders</string>
+    <string name="brain_rpg_decay_notification_channel">یادآوری‌های فرسایش Brain RPG</string>
     <string name="brain_rpg_decay_notification_channel_desc">خلاصهٔ روزانهٔ فرسایش دسته‌ها</string>
     <string name="brain_rpg_xp_retained">پایه %1$d XP · %2$d%% حفظ شده</string>
     <string name="brain_rpg_streak_shield_success">سپر رکورد فعال شد!</string>

@@ -978,3 +978,20 @@ Chạy tiếp vòng audit độc lập (14 agent, mỗi locale một agent) cho 
 ### Chưa sửa
 Khoảng 30 mục mức "gượng" hoặc thuật ngữ không nhất quán, và các chuỗi có nhiều khả năng đúng nhưng tôi không tự phân xử được: `preview_article_title/desc` (ru, pl, zh-CN: nội dung ví dụ bài báo bị thay bằng văn bản khác, đây chỉ là ví dụ xem trước kiểu chữ nên ít ảnh hưởng), `local_sync_pairing_limits` (thuật ngữ "forward secrecy" ở es, it, pl, pt-BR), `Zakaz`/`Idź Do` kiểu viết hoa của pl, v.v. Chi tiết nằm trong `/tmp/audit2/all-problems.json` (ngoài repo).
 
+## Đợt 7 (2026-11-27): audit các locale dịch cũ (14 locale) và quét mẫu lỗi trên toàn bộ 37 locale
+
+**Quét máy móc trên 37 locale** (không cần agent): khoảng trắng thừa, placeholder lặp hoặc thiếu, giờ cố định chèn thêm, thẻ HTML lệch, URL hỏng, chữ giản thể trong locale phồn thể, độ dài lệch quá xa. Tìm ra và sửa bốn mẫu: 60 nhãn tiếng Hindi và 1 nhãn tiếng Ba Lan có khoảng trắng thừa, ro `unsubscribe_tips` nhắc tên feed hai lần, 9 chuỗi trong lzh còn chữ giản thể. Ba test mới giữ lại (`noTranslatedLabelHasLeadingOrTrailingWhitespace`, `aTranslationDoesNotRepeatAPlaceholderTheSourceUsesOnce`, và `traditionalChineseHasNoSimplifiedOnlyCharacters` nay phủ cả lzh), mỗi cái đỏ đúng trên mã cũ. Ngoài ra không còn mẫu nào khác trong mười kiểm tra đó.
+
+**Audit bằng agent cho 14 locale** (vi, tr, nl, sv, da, nb, cs, ro, hu, bg, ca, hi, fa, iw), mỗi locale khoảng 850 chuỗi xếp theo rủi ro. Cùng giới hạn như hai đợt trước: tự động, cùng loại mô hình, không thay thế người bản ngữ. 126 vấn đề từ 13 agent (39 sai nghĩa, 44 gượng, 23 thuật ngữ, 20 lẫn ngôn ngữ), cộng 13 vấn đề của fa (agent đầu đọc 0 chuỗi và bị tôi loại, chạy lại riêng mới có kết quả đọc đủ 861). 121 trong 126 chuỗi agent trích khớp với repo, 5 lệch chỉ do dấu thoát, và tôi đối chiếu từng lỗi với bản gốc trước khi sửa.
+
+### Đã sửa
+- **Tiếng Việt** (ngôn ngữ của owner): `horizontal_padding`, `images_desc`, `videos_desc` bị dịch thành "Vùng chọn" (nghĩa là vùng chọn thay vì khoảng đệm ngang), `feed_names` "Tên bài viết" thay vì "Tên nguồn tin", `article_date_sticky_header` "ghim hình minh hoạ", `interaction_desc` mất "phản hồi rung", hai danh mục Brain RPG bị hoán nghĩa (`science` ra "Đời Sống", `health` ra "Thể Chất"), `languages_desc` thêm tiếng Việt vào danh sách ví dụ, `zen_sound_pink_noise` ghi nhầm "ồn trắng".
+- **Tên bản tin** `Morning/Evening Edition` còn tiếng Anh ở 13 locale (tr, nl, sv, da, nb, cs, ro, hu, bg, ca, hi, iw, và fa chưa dịch), và tên kênh thông báo `brain_rpg_decay_notification_channel` còn tiếng Anh ở 12 locale: đã dịch.
+- **Sai nghĩa**: nb "filbehandler" (trình quản lý tệp) thay vì "nettleser" (trình duyệt) ở ba chuỗi và `bionic_reading`, nl `clear_all_articles_toast` ("rekening" là hoá đơn), tr `second_brain_graph_desc`, sv `unsubscribe_tips` (thì quá khứ thay vì mệnh lệnh), cs `languages_desc` (liệt kê tiếng Séc thay vì tiếng Trung) và `checking_updates`, ro `in_coding` và hai cảnh báo xoá dùng số nhiều "fluxurile", bg `mark_as_starred` ("Марк като звезда") và `mark_as_unstar` ("không ổn định"), ca ba chuỗi (nguồn thay vì nhóm, "có thể không tải được" thay vì "không tải được"), hi `delete_group_tips` (không nói rõ xoá cả nhóm), iw `accounts_tips` ("tên của các trẻ em" thay vì tên tài khoản), nl `webdav_restore_confirm_message` ("bronnen" thay vì "feeds").
+- **fa** (chạy lại riêng): 10 chuỗi gồm `all_move_to_group_toast` (mệnh lệnh thay vì đã hoàn tất), các thông báo xoá ghép sai ngữ pháp, `accounts_desc` ("FresgRSS"), `preview_article_title` (viết "Chúa tể những chiếc nhẫn" thay vì tên đúng của truyện).
+
+### Chưa sửa
+- Khoảng 40 mục "gượng" và thuật ngữ không nhất quán ở các locale trên (ví dụ số Ả Rập hay số Ba Tư trong `every_15_minutes` ở fa, kiểu xưng hô `u` và `je` ở nl).
+- **9 locale chữ hiếm chưa audit bằng agent**: az, eu, kn, lzh, ml, my, nn, sl, sr. Độ tin cậy của agent với chữ hiếm thấp nên tôi bỏ, đó là quyết định của tôi chứ không phải của owner.
+- Các chuỗi ví dụ xem trước (`preview_article_desc/title`) ở vi, sv, hi, fa, ru, pl, zh-CN: nội dung bị thay bằng văn bản khác. Chúng chỉ để xem trước kiểu chữ, ít ảnh hưởng người dùng nên tôi chưa sửa.
+
