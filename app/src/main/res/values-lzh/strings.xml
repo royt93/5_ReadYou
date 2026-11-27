@@ -107,7 +107,7 @@
     <string name="rename">更名</string>
     <string name="change_url">更改網址</string>
     <string name="feed_url_placeholder" translatable="false">http://example.com/feed.rss</string>
-    <string name="rename_toast">Renamed to \"%1$s\"</string>
+    <string name="rename_toast">已更名為「%1$s」</string>
     <string name="create_new_group">新建組</string>
     <string name="name">名</string>
     <string name="delete">刪除</string>
@@ -184,8 +184,7 @@
     <string name="tips_and_support">提示與支援</string>
     <string name="welcome">歡迎</string>
     <string name="tos_tips">請閱並同意 RSS Bear Hub 之服務條款與隱私政策，方可繼續。</string>
-    <string name="browse_tos_tips">Browse the &lt;i&gt;&lt;u&gt;Terms of Service and Privacy Policy&lt;/u&gt;&lt;/i&gt;
-        </string>
+    <string name="browse_tos_tips">閱覽&lt;i&gt;&lt;u&gt;服務條款與隱私政策&lt;/u&gt;&lt;/i&gt;</string>
     <string name="terms_of_service">服務條款</string>
     <string name="tos_content">
             &lt;h5&gt;
@@ -427,7 +426,7 @@
     <string name="synchronous">同步中</string>
     <string name="sync_interval">同步</string>
     <string name="sync_once_on_start">啟動時同步一次</string>
-    <string name="only_on_wifi">Only on Wi-Fi</string>
+    <string name="only_on_wifi">惟限Wi-Fi</string>
     <string name="only_when_charging">唯充電時</string>
     <string name="keep_archived_articles">留存已存檔之文章</string>
     <string name="block_list">封鎖列</string>
@@ -585,7 +584,7 @@
     <string name="zen_speed_reading">速讀（RSVP）</string>
     <string name="zen_speed_reading_desc">定焦對齊，每分鐘可讀至九百字</string>
     <string name="zen_wpm_label">閱讀速度：%1$d WPM</string>
-    <string name="zen_words_progress">%1$d / %2$d words</string>
+    <string name="zen_words_progress">%1$d / %2$d 字</string>
     <string name="zen_ambient_audio">禪定專注音</string>
     <string name="zen_ambient_audio_desc">舒緩之聲境，助深讀專注</string>
     <string name="zen_sound_rain">微雨</string>
@@ -601,7 +600,7 @@
     <string name="zen_daily_edition_notification">未讀文章 %1$d 篇，已備君專注閱讀。</string>
     <string name="zen_sleep_timer">睡眠計時</string>
     <string name="zen_sleep_timer_off">不絕</string>
-    <string name="zen_sleep_timer_min">%1$d minutes</string>
+    <string name="zen_sleep_timer_min">%1$d分鐘</string>
     <string name="zen_volume">Volume: %1$d%%</string>
     <string name="zen_settings_title">禪定專注與速讀</string>
     <!-- Loop 09: AI Article Highlights & Key Takeaways Card -->
@@ -775,7 +774,7 @@
     <string name="source_dna_unknown_source">來源不明</string>
     <string name="source_dna_error">未能分析此群。</string>
     <string name="source_dna_back">返觀點</string>
-    <string name="source_dna_similarity">%1$d%% similar</string>
+    <string name="source_dna_similarity">相似%1$d%%</string>
     <string name="source_dna_feed_reported_time">訂閱源所報時間：%1$s</string>
     <string name="watchdog_clear_all">清除歷史</string>
     <string name="watchdog_inbox_desc">觸發急警關鍵詞之文章歷史</string>
@@ -821,7 +820,7 @@
     <string name="second_brain_error">未能構圖。請重試。</string>
     <string name="second_brain_retry">重試</string>
     <string name="second_brain_graph_desc">主題圖，含 %1$d 主題、%2$d 連結</string>
-    <string name="second_brain_node_articles">%1$d articles</string>
+    <string name="second_brain_node_articles">文章%1$d篇</string>
     <string name="second_brain_range_label">時間範圍</string>
     <string name="second_brain_related">相關文章</string>
 
@@ -853,7 +852,7 @@
     <string name="smart_collection_query">主題查詢</string>
     <string name="smart_collection_save_action">存為文集</string>
     <string name="smart_collection_empty">尚無智慧文集。存一語義搜尋，以追一題。</string>
-    <string name="smart_collection_articles_count">%1$d articles</string>
+    <string name="smart_collection_articles_count">文章%1$d篇</string>
     <string name="smart_collection_edit">編</string>
     <string name="smart_collection_delete">刪除</string>
     <string name="smart_collection_delete_confirm">刪此文集乎？其文章仍留於君之文庫。</string>
@@ -1037,7 +1036,7 @@
     <string name="dossier_names_empty">無詞組見於二篇以上文章。</string>
     <string name="dossier_sources_single">君之存檔於此題僅一來源。</string>
     <string name="dossier_sources_note">標題依來源分組；不下結論。</string>
-    <string name="dossier_article_count">%1$d articles</string>
+    <string name="dossier_article_count">文章%1$d篇</string>
     <string name="dossier_share_error">未能備檔案以分享。</string>
 
     <!-- BOUNTY-03 graph viewport -->
@@ -1093,7 +1092,7 @@
     <string name="curated_bundle_source_count">Sources: %1$d</string>
     <string name="curated_bundle_subscribe_all">全訂閱</string>
     <string name="curated_bundle_subscribing">訂閱中…</string>
-    <string name="curated_bundle_progress">Subscribing %1$d of %2$d</string>
+    <string name="curated_bundle_progress">訂閱%1$d/%2$d</string>
     <string name="curated_bundle_result">已添 %1$d · 已有 %2$d · 失敗 %3$d</string>
     <string name="curated_bundle_error">未能訂閱：%1$s</string>
     <string name="curated_bundle_no_sources_added">無來源可添，故未建組。</string>
@@ -1120,7 +1119,7 @@
     <string name="second_screen_share">分享連結</string>
     <string name="second_screen_share_chooser">分享第二螢幕連結</string>
     <string name="second_screen_viewers">Viewers: %1$d</string>
-    <string name="second_screen_expires">Expires at %1$s</string>
+    <string name="second_screen_expires">期滿於%1$s</string>
     <string name="second_screen_warning">未加密。同一 Wi-Fi 下，凡見此連結者皆可讀此文。唯於所信之網路用之。</string>
     <string name="second_screen_starting">啟動中…</string>
     <string name="second_screen_no_network">無具私有位址之 Wi-Fi 或乙太網路。請連 Wi-Fi 而重試。</string>
@@ -1175,7 +1174,7 @@
     <string name="local_sync_pair_new">配對新裝置</string>
     <string name="local_sync_pair_label_hint">新裝置之名</string>
     <string name="local_sync_remember_label_hint">記此裝置之名（可略）</string>
-    <string name="local_sync_serve_peer">Send to %1$s</string>
+    <string name="local_sync_serve_peer">送至%1$s</string>
     <string name="local_sync_wait_reply">止而候回傳</string>
     <string name="local_sync_role_hint">他手機既已接收，則於此止傳，轉為接收。其後彼可回傳其變更。</string>
     <string name="local_sync_reply_to">回傳予 %1$s</string>
@@ -1246,7 +1245,7 @@
     <string name="feed_autopilot_not_local_account">訂閱源自動駕駛唯支援本地帳戶。遠端帳戶（Fever、Google Reader）自於其伺服器管訂閱源。</string>
     <string name="feed_autopilot_retention_too_short">君帳戶之文章留存期不足十四日。請於帳戶設定增之，使自動駕駛有足夠歷史以安然分析。</string>
     <string name="feed_autopilot_disabled_message">訂閱源自動駕駛已關。開之，方得訂閱源清理之建議。</string>
-    <string name="feed_autopilot_settings_pending">To review: %1$d</string>
+    <string name="feed_autopilot_settings_pending">待審%1$d</string>
     <string name="feed_autopilot_error">未能完成。請重試。</string>
     <string name="podcast_studio_title">播客工作室</string>
     <string name="podcast_studio_menu">播客工作室</string>
@@ -1293,7 +1292,7 @@
     <string name="oracle_badge_label">預言</string>
     <string name="oracle_badge_open">開預言</string>
     <string name="oracle_sheet_title">此文中所見之預言</string>
-    <string name="oracle_sheet_expires">Expected by %1$s</string>
+    <string name="oracle_sheet_expires">預定%1$s前</string>
     <string name="oracle_sheet_criteria_heading">如何驗其答案</string>
     <string name="oracle_sheet_ai_label">AI 據標題與簡介而撰；或有謬誤。</string>
     <string name="oracle_sheet_close">閉</string>
@@ -1304,7 +1303,7 @@
     <string name="oracle_bet_yes">然</string>
     <string name="oracle_bet_no">否</string>
     <string name="oracle_bet_pick_stake">下注點數</string>
-    <string name="oracle_bet_stake_option">%1$s points</string>
+    <string name="oracle_bet_stake_option">%1$s分</string>
     <string name="oracle_bet_place">下注</string>
     <string name="oracle_bet_place_summary">押 %1$s 點於 %2$s</string>
     <string name="oracle_bet_out_of_points">點數不足。每日（UTC）得新點一百，上限二千。</string>

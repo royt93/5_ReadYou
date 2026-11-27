@@ -513,7 +513,7 @@
     <string name="zen_speed_reading">Hurtiglesing (RSVP)</string>
     <string name="zen_speed_reading_desc">Les opptil 900 ord i minuttet med fast fokuspunkt</string>
     <string name="zen_wpm_label">Lesehastighet: %1$d ord/min</string>
-    <string name="zen_words_progress">%1$d / %2$d words</string>
+    <string name="zen_words_progress">%1$d / %2$d ord</string>
     <string name="zen_ambient_audio">Zen-fokuslyd</string>
     <string name="zen_ambient_audio_desc">Beroligende lydlandskap for dyp lesekonsentrasjon</string>
     <string name="zen_sound_rain">Myk regn</string>
@@ -529,7 +529,7 @@
     <string name="zen_daily_edition_notification">%1$d uleste artikler er klare for fokusert lesing.</string>
     <string name="zen_sleep_timer">Søvntimer</string>
     <string name="zen_sleep_timer_off">Kontinuerlig</string>
-    <string name="zen_sleep_timer_min">%1$d minutes</string>
+    <string name="zen_sleep_timer_min">%1$d minutter</string>
     <string name="zen_volume">Volume: %1$d%%</string>
     <string name="zen_settings_title">Zen-fokus &amp; hurtiglesing</string>
     <!-- Loop 09: AI Article Highlights & Key Takeaways Card -->
@@ -584,7 +584,7 @@
     <string name="story_cluster_lead_badge">Hoved</string>
     <string name="semantic_search_title">AI-semantisk søk</string>
     <string name="semantic_search_desc">Søk i artikler etter begrep og betydning i stedet for eksakte nøkkelord</string>
-    <string name="semantic_match_badge">%d%% match</string>
+    <string name="semantic_match_badge">%d%% treff</string>
     <string name="semantic_search_results_title">✨ AI-semantiske treff</string>
     <string name="keyword_search_results_title">Nøkkelordtreff</string>
     <string name="watchdog_title">Nøkkelordvakt</string>
@@ -592,7 +592,7 @@
     <string name="watchdog_add_hint">Skriv inn nøkkelord eller aksjesymbol (f.eks. $VIC, Bitcoin, Gull)...</string>
     <string name="watchdog_add_btn">Legg til</string>
     <string name="watchdog_empty_desc">Ingen nøkkelord er lagt til ennå. Legg til nøkkelord eller velg forslag nedenfor for å begynne å overvåke.</string>
-    <string name="watchdog_matched_count">%d matched</string>
+    <string name="watchdog_matched_count">%d treff</string>
     <string name="watchdog_channel_name">Nøkkelordvarsler</string>
     <string name="watchdog_channel_desc">Varsler med høy prioritet når nye artikler matcher overvåkede nøkkelord</string>
     <string name="watchdog_preset_title">Hurtigforslag</string>
@@ -692,7 +692,7 @@
     <string name="smart_filter_field_title">Tittel</string>
     <string name="smart_filter_keyword_hint">Nøkkelord (f.eks. [Annonse], Sponset)</string>
     <string name="smart_filter_title">Smarte filterregler</string>
-    <string name="story_cluster_similarity_badge">%d%% match</string>
+    <string name="story_cluster_similarity_badge">%d%% treff</string>
     <string name="source_dna_action">🧬 Kilde-DNA</string>
     <string name="source_dna_title">Kilde-DNA</string>
     <string name="source_dna_disclaimer">Heuristikk basert på feedens tidsstempler og tekstlikhet. Dette er ikke bekreftet kildehenvisning eller bevis for kopiering.</string>
@@ -704,7 +704,7 @@
     <string name="source_dna_unknown_source">Ukjent kilde</string>
     <string name="source_dna_error">Kunne ikke analysere denne gruppen.</string>
     <string name="source_dna_back">Tilbake til perspektiver</string>
-    <string name="source_dna_similarity">%1$d%% similar</string>
+    <string name="source_dna_similarity">%1$d%% lik</string>
     <string name="source_dna_feed_reported_time">Tid oppgitt av feeden: %1$s</string>
     <string name="watchdog_clear_all">Tøm historikk</string>
     <string name="watchdog_inbox_desc">Historiske artikler som har utløst varsler for nøkkelord</string>
@@ -750,7 +750,7 @@
     <string name="second_brain_error">Kunne ikke bygge grafen. Prøv igjen.</string>
     <string name="second_brain_retry">Prøv igen</string>
     <string name="second_brain_graph_desc">Temagraf med %1$d temaer og %2$d forbindelser</string>
-    <string name="second_brain_node_articles">%1$d articles</string>
+    <string name="second_brain_node_articles">%1$d artikler</string>
     <string name="second_brain_range_label">Tidsrom</string>
     <string name="second_brain_related">Relaterte artikler</string>
 
@@ -782,7 +782,7 @@
     <string name="smart_collection_query">Temasøk</string>
     <string name="smart_collection_save_action">Lagre som samling</string>
     <string name="smart_collection_empty">Ingen smarte samlinger ennå. Lagre et semantisk søk for å følge et tema.</string>
-    <string name="smart_collection_articles_count">%1$d articles</string>
+    <string name="smart_collection_articles_count">%1$d artikler</string>
     <string name="smart_collection_edit">Rediger</string>
     <string name="smart_collection_delete">Slett</string>
     <string name="smart_collection_delete_confirm">Slette denne samlingen? Artiklene beholdes i biblioteket ditt.</string>
@@ -971,7 +971,7 @@
     <string name="dossier_names_empty">Ingen frase gjentas i minst 2 artikler.</string>
     <string name="dossier_sources_single">Arkivet ditt har bare én kilde om dette temaet.</string>
     <string name="dossier_sources_note">Overskrifter er gruppert etter kilde. Ingen konklusjon trekkes.</string>
-    <string name="dossier_article_count">%1$d articles</string>
+    <string name="dossier_article_count">%1$d artikler</string>
     <string name="dossier_share_error">Kunne ikke klargjøre dossieret for deling.</string>
 
     <!-- BOUNTY-03 graph viewport -->
@@ -1027,7 +1027,7 @@
     <string name="curated_bundle_source_count">Sources: %1$d</string>
     <string name="curated_bundle_subscribe_all">Abonner på alle</string>
     <string name="curated_bundle_subscribing">Abonnerer…</string>
-    <string name="curated_bundle_progress">Subscribing %1$d of %2$d</string>
+    <string name="curated_bundle_progress">Abonnerer på %1$d av %2$d</string>
     <string name="curated_bundle_result">Lagt til %1$d · hadde fra før %2$d · mislyktes %3$d</string>
     <string name="curated_bundle_error">Kunne ikke abonnere: %1$s</string>
     <string name="curated_bundle_no_sources_added">Ingen kilde kunne legges til, så ingen gruppe ble opprettet.</string>
@@ -1054,7 +1054,7 @@
     <string name="second_screen_share">Del lenke</string>
     <string name="second_screen_share_chooser">Del lenke til Andre skjerm</string>
     <string name="second_screen_viewers">Viewers: %1$d</string>
-    <string name="second_screen_expires">Expires at %1$s</string>
+    <string name="second_screen_expires">Utløper kl. %1$s</string>
     <string name="second_screen_warning">Ikke kryptert. Alle på dette Wi-Fi-nettverket som ser lenken, kan lese artikkelen. Bruk bare på et nettverk du stoler på.</string>
     <string name="second_screen_starting">Starter…</string>
     <string name="second_screen_no_network">Ingen Wi-Fi- eller Ethernet-tilkobling med privat adresse. Koble til Wi-Fi og prøv igjen.</string>
@@ -1109,7 +1109,7 @@
     <string name="local_sync_pair_new">Par en ny enhet</string>
     <string name="local_sync_pair_label_hint">Navn på den nye enheten</string>
     <string name="local_sync_remember_label_hint">Navn for å huske denne enheten (valgfritt)</string>
-    <string name="local_sync_serve_peer">Send to %1$s</string>
+    <string name="local_sync_serve_peer">Send til %1$s</string>
     <string name="local_sync_wait_reply">Stopp og vent på å motta svar</string>
     <string name="local_sync_role_hint">Når den andre telefonen har mottatt, stopp her og bytt til Motta. Den kan da sende endringene sine tilbake.</string>
     <string name="local_sync_reply_to">Send tilbake til %1$s</string>
@@ -1180,7 +1180,7 @@
     <string name="feed_autopilot_not_local_account">Feed-autopilot støtter bare lokale kontoer. Eksterne kontoer (Fever, Google Reader) administrerer feeder på sin egen server.</string>
     <string name="feed_autopilot_retention_too_short">Lagringstiden for artikler på kontoen din er under 14 dager. Øk den i kontoinnstillingene slik at Autopilot har nok historikk til å analysere trygt.</string>
     <string name="feed_autopilot_disabled_message">Feed-autopilot er slått av. Slå den på for å få forslag om opprydding av feeder.</string>
-    <string name="feed_autopilot_settings_pending">To review: %1$d</string>
+    <string name="feed_autopilot_settings_pending">Til gjennomgang: %1$d</string>
     <string name="feed_autopilot_error">Kunne ikke fullføre dette. Prøv igjen.</string>
     <string name="podcast_studio_title">Podkaststudio</string>
     <string name="podcast_studio_menu">Podkaststudio</string>
@@ -1227,7 +1227,7 @@
     <string name="oracle_badge_label">Prediksjon</string>
     <string name="oracle_badge_open">Åpne prediksjonen</string>
     <string name="oracle_sheet_title">Prediksjon funnet i denne artikkelen</string>
-    <string name="oracle_sheet_expires">Expected by %1$s</string>
+    <string name="oracle_sheet_expires">Forventet innen %1$s</string>
     <string name="oracle_sheet_criteria_heading">Slik sjekker du svaret</string>
     <string name="oracle_sheet_ai_label">Skrevet av AI ut fra tittel og beskrivelse. Kan inneholde feil.</string>
     <string name="oracle_sheet_close">Lukk</string>
@@ -1238,7 +1238,7 @@
     <string name="oracle_bet_yes">Ja</string>
     <string name="oracle_bet_no">Nei</string>
     <string name="oracle_bet_pick_stake">Poeng å satse</string>
-    <string name="oracle_bet_stake_option">%1$s points</string>
+    <string name="oracle_bet_stake_option">%1$s poeng</string>
     <string name="oracle_bet_place">Legg inn spill</string>
     <string name="oracle_bet_place_summary">Sats %1$s poeng på %2$s</string>
     <string name="oracle_bet_out_of_points">Ikke nok poeng. Du får 100 nye poeng hver dag (UTC), opptil 2 000.</string>

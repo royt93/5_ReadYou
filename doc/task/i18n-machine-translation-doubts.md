@@ -1018,3 +1018,10 @@ Khoảng 25 mục "gượng" hoặc thuật ngữ (ví dụ nn `splash_ad_notice
 ### Hồi quy cuối trên Tecno (bản `ca7ef7b6`)
 vi, de, ar, ja, hi đều hiển thị bình thường ở Feeds và Settings, không có chữ vỡ, escape hỏng hay `FATAL`. Tecno khôi phục BYTE IDENTICAL, không còn `adb reverse` hay tệp prefs thừa.
 
+## Đợt 9 (2026-11-27): dịch nốt các nhãn có số còn tiếng Anh
+
+Audit chỉ đọc chuỗi khác bản gốc nên không thấy các nhãn còn nguyên tiếng Anh (xem Đợt 8). Quét máy móc ra 390 chuỗi ở 27 locale, thuộc 25 khoá (`%1$d minutes`, `%1$d articles`, `Expires at %1$s`, `%d%% match`, `Subscribing %1$d of %2$d`, `15 min`, `Only on Wi-Fi`, `Renamed to "%1$s"`, v.v.). Mỗi locale một agent dịch ra JSON, **tôi không áp thẳng**: kiểm từng chuỗi (đủ và đúng placeholder kể cả `%%`, cùng bộ thẻ HTML, không rỗng, không trùng tiếng Anh) rồi mới ghi. 314 chuỗi hợp lệ đã áp; 76 bị loại vì trùng tiếng Anh, tất cả là từ gốc chung (`15 min` ở ca/cs/da/es/eu/fr/it/nb, `commute_budget_*`, `local_sync_stop` ở da, `source_dna_similarity` ở ca và es...) nên để nguyên là hợp lý.
+- **Giới hạn**: là dịch máy chưa người bản ngữ duyệt, và chưa xử lý số nhiều đúng ngữ pháp từng ngôn ngữ: các nhãn này là `<string>` với `%1$d`, không phải `<plurals>`. Với tiếng Nga, Ả Rập, Ba Lan, Séc, Slovenia và các ngôn ngữ nhiều dạng số nhiều, "%1$d bài viết" có thể sai dạng với một số giá trị (ví dụ 2, 5, 21). Muốn đúng hoàn toàn cần đổi sang `<plurals>` trong mã, đó là thay đổi mã, nên chưa làm.
+- Một thay đổi hình thức đi kèm: `browse_tos_tips` ở 7 locale trước đây có xuống dòng và thụt lề trước `</string>`; nay gọn về một dòng (cùng nội dung và cùng thẻ).
+- Xem lại trên Tecno bản `99b813bc` (trước đợt này): vi, hi, eu, sr hiển thị đúng ở Settings; hi và vi không còn nhãn tiếng Anh ở các mục đã sửa. Còn thấy sr ở Settings giữ "Feed Autopilot", "To review: 1" và "AI &amp; сажимање", và vi giữ "Feed Autopilot" (tên tính năng, xem ghi chú ở Đợt 4), "Watchdog" (tên riêng).
+

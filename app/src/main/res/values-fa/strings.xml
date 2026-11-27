@@ -512,7 +512,7 @@
     <string name="zen_speed_reading">مطالعهٔ سریع (RSVP)</string>
     <string name="zen_speed_reading_desc">تا ۹۰۰ کلمه در دقیقه با تراز کانونی ثابت بخوانید</string>
     <string name="zen_wpm_label">سرعت مطالعه: %1$d WPM</string>
-    <string name="zen_words_progress">%1$d / %2$d words</string>
+    <string name="zen_words_progress">%1$d از %2$d کلمه</string>
     <string name="zen_ambient_audio">صدای تمرکز ذن</string>
     <string name="zen_ambient_audio_desc">صداهای آرام‌بخش برای تمرکز عمیق در مطالعه</string>
     <string name="zen_sound_rain">باران ملایم</string>
@@ -528,7 +528,7 @@
     <string name="zen_daily_edition_notification">%1$d مقالهٔ خوانده‌نشده برای مطالعهٔ متمرکز شما آماده است.</string>
     <string name="zen_sleep_timer">تایمر خواب</string>
     <string name="zen_sleep_timer_off">پیوسته</string>
-    <string name="zen_sleep_timer_min">%1$d minutes</string>
+    <string name="zen_sleep_timer_min">%1$d دقیقه</string>
     <string name="zen_volume">Volume: %1$d%%</string>
     <string name="zen_settings_title">تمرکز ذن و مطالعهٔ سریع</string>
     <!-- Loop 09: AI Article Highlights & Key Takeaways Card -->
@@ -583,7 +583,7 @@
     <string name="story_cluster_lead_badge">اصلی</string>
     <string name="semantic_search_title">جستجوی معنایی AI</string>
     <string name="semantic_search_desc">مقاله‌ها را بر اساس مفهوم و معنا جستجو کنید، نه کلیدواژهٔ دقیق</string>
-    <string name="semantic_match_badge">%d%% match</string>
+    <string name="semantic_match_badge">%d%% تطابق</string>
     <string name="semantic_search_results_title">✨ نتایج معنایی AI</string>
     <string name="keyword_search_results_title">نتایج کلیدواژه</string>
     <string name="watchdog_title">دیده‌بان کلیدواژه</string>
@@ -591,7 +591,7 @@
     <string name="watchdog_add_hint">کلیدواژه یا نماد را وارد کنید (مثلاً $VIC، Bitcoin، Gold)...</string>
     <string name="watchdog_add_btn">افزودن</string>
     <string name="watchdog_empty_desc">هنوز کلیدواژه‌ای اضافه نشده است. برای شروع پایش، کلیدواژه اضافه کنید یا از پیشنهادهای زیر انتخاب کنید.</string>
-    <string name="watchdog_matched_count">%d matched</string>
+    <string name="watchdog_matched_count">%d مورد منطبق</string>
     <string name="watchdog_channel_name">هشدار دیده‌بان کلیدواژه</string>
     <string name="watchdog_channel_desc">هشدارهای با اولویت بالا وقتی مقالهٔ جدیدی با کلیدواژه‌های پایش‌شده مطابقت دارد</string>
     <string name="watchdog_preset_title">پیشنهادهای سریع</string>
@@ -703,7 +703,7 @@
     <string name="source_dna_unknown_source">منبع ناشناس</string>
     <string name="source_dna_error">تحلیل این خوشه ممکن نشد.</string>
     <string name="source_dna_back">بازگشت به دیدگاه‌ها</string>
-    <string name="source_dna_similarity">%1$d%% similar</string>
+    <string name="source_dna_similarity">%1$d%% مشابه</string>
     <string name="source_dna_feed_reported_time">زمان گزارش‌شده در فید: %1$s</string>
     <string name="watchdog_clear_all">پاک کردن تاریخچه</string>
     <string name="watchdog_inbox_desc">تاریخچه مقالاتی که هشدار کلیدواژه‌های اضطراری را فعال کرده‌اند</string>
@@ -749,7 +749,7 @@
     <string name="second_brain_error">ساخت گراف ممکن نشد. دوباره تلاش کنید.</string>
     <string name="second_brain_retry">تلاش مجدد</string>
     <string name="second_brain_graph_desc">گراف موضوع‌ها با %1$d موضوع و %2$d ارتباط</string>
-    <string name="second_brain_node_articles">%1$d articles</string>
+    <string name="second_brain_node_articles">%1$d مقاله</string>
     <string name="second_brain_range_label">بازهٔ زمانی</string>
     <string name="second_brain_related">مقاله‌های مرتبط</string>
 
@@ -781,7 +781,7 @@
     <string name="smart_collection_query">عبارت موضوع</string>
     <string name="smart_collection_save_action">ذخیره به‌عنوان مجموعه</string>
     <string name="smart_collection_empty">هنوز مجموعهٔ هوشمندی نیست. برای دنبال کردن یک موضوع، یک جستجوی معنایی را ذخیره کنید.</string>
-    <string name="smart_collection_articles_count">%1$d articles</string>
+    <string name="smart_collection_articles_count">%1$d مقاله</string>
     <string name="smart_collection_edit">ویرایش</string>
     <string name="smart_collection_delete">حذف</string>
     <string name="smart_collection_delete_confirm">این مجموعه حذف شود؟ مقاله‌های آن در کتابخانهٔ شما می‌مانند.</string>
@@ -970,7 +970,7 @@
     <string name="dossier_names_empty">هیچ عبارتی در دست‌کم ۲ مقاله تکرار نشده است.</string>
     <string name="dossier_sources_single">آرشیو شما دربارهٔ این موضوع فقط یک منبع دارد.</string>
     <string name="dossier_sources_note">تیترها بر اساس منبع گروه‌بندی شده‌اند؛ نتیجه‌گیری‌ای انجام نمی‌شود.</string>
-    <string name="dossier_article_count">%1$d articles</string>
+    <string name="dossier_article_count">%1$d مقاله</string>
     <string name="dossier_share_error">آماده‌سازی پرونده برای اشتراک‌گذاری ممکن نشد.</string>
 
     <!-- BOUNTY-03 graph viewport -->
@@ -1026,7 +1026,7 @@
     <string name="curated_bundle_source_count">Sources: %1$d</string>
     <string name="curated_bundle_subscribe_all">اشتراک در همه</string>
     <string name="curated_bundle_subscribing">در حال اشتراک…</string>
-    <string name="curated_bundle_progress">Subscribing %1$d of %2$d</string>
+    <string name="curated_bundle_progress">در حال اشتراک %1$d از %2$d</string>
     <string name="curated_bundle_result">افزوده‌شده %1$d · از قبل موجود %2$d · ناموفق %3$d</string>
     <string name="curated_bundle_error">اشتراک ممکن نشد: %1$s</string>
     <string name="curated_bundle_no_sources_added">هیچ منبعی اضافه نشد، بنابراین گروهی ساخته نشد.</string>
@@ -1053,7 +1053,7 @@
     <string name="second_screen_share">اشتراک‌گذاری پیوند</string>
     <string name="second_screen_share_chooser">اشتراک‌گذاری پیوند صفحهٔ دوم</string>
     <string name="second_screen_viewers">Viewers: %1$d</string>
-    <string name="second_screen_expires">Expires at %1$s</string>
+    <string name="second_screen_expires">انقضا در %1$s</string>
     <string name="second_screen_warning">رمزگذاری نشده است. هر کسی در این Wi-Fi که پیوند را ببیند می‌تواند مقاله را بخواند. فقط در شبکه‌ای که به آن اعتماد دارید استفاده کنید.</string>
     <string name="second_screen_starting">در حال شروع…</string>
     <string name="second_screen_no_network">شبکهٔ Wi-Fi یا اترنت با نشانی خصوصی وجود ندارد. به Wi-Fi وصل شوید و دوباره تلاش کنید.</string>
@@ -1108,7 +1108,7 @@
     <string name="local_sync_pair_new">جفت‌سازی دستگاه جدید</string>
     <string name="local_sync_pair_label_hint">نام دستگاه جدید</string>
     <string name="local_sync_remember_label_hint">نامی برای یادآوری این دستگاه (اختیاری)</string>
-    <string name="local_sync_serve_peer">Send to %1$s</string>
+    <string name="local_sync_serve_peer">ارسال به %1$s</string>
     <string name="local_sync_wait_reply">توقف و انتظار برای دریافت پاسخ</string>
     <string name="local_sync_role_hint">پس از دریافت توسط گوشی دیگر، اینجا متوقف کنید و به حالت دریافت بروید. سپس آن گوشی می‌تواند تغییرات خود را پس بفرستد.</string>
     <string name="local_sync_reply_to">ارسال پاسخ به %1$s</string>
@@ -1179,7 +1179,7 @@
     <string name="feed_autopilot_not_local_account">خلبان خودکار فید فقط از حساب‌های محلی پشتیبانی می‌کند. حساب‌های راه‌دور (Fever، Google Reader) فیدها را روی سرور خودشان مدیریت می‌کنند.</string>
     <string name="feed_autopilot_retention_too_short">مدت نگهداری مقاله‌های حساب شما کمتر از ۱۴ روز است. آن را در تنظیمات حساب افزایش دهید تا خلبان خودکار سابقهٔ کافی برای تحلیل امن داشته باشد.</string>
     <string name="feed_autopilot_disabled_message">خلبان خودکار فید خاموش است. برای دریافت پیشنهادهای پاک‌سازی فید آن را روشن کنید.</string>
-    <string name="feed_autopilot_settings_pending">To review: %1$d</string>
+    <string name="feed_autopilot_settings_pending">برای بررسی: %1$d</string>
     <string name="feed_autopilot_error">انجام نشد. لطفاً دوباره تلاش کنید.</string>
     <string name="podcast_studio_title">استودیوی پادکست</string>
     <string name="podcast_studio_menu">استودیوی پادکست</string>
@@ -1226,7 +1226,7 @@
     <string name="oracle_badge_label">پیش‌بینی</string>
     <string name="oracle_badge_open">باز کردن پیش‌بینی</string>
     <string name="oracle_sheet_title">پیش‌بینی یافت‌شده در این مقاله</string>
-    <string name="oracle_sheet_expires">Expected by %1$s</string>
+    <string name="oracle_sheet_expires">موعد: %1$s</string>
     <string name="oracle_sheet_criteria_heading">چگونه پاسخ را بررسی کنیم</string>
     <string name="oracle_sheet_ai_label">AI از روی عنوان و توضیح نوشته است؛ ممکن است اشتباه باشد.</string>
     <string name="oracle_sheet_close">بستن</string>
@@ -1237,7 +1237,7 @@
     <string name="oracle_bet_yes">بله</string>
     <string name="oracle_bet_no">خیر</string>
     <string name="oracle_bet_pick_stake">امتیاز برای شرط‌بندی</string>
-    <string name="oracle_bet_stake_option">%1$s points</string>
+    <string name="oracle_bet_stake_option">%1$s امتیاز</string>
     <string name="oracle_bet_place">ثبت شرط</string>
     <string name="oracle_bet_place_summary">شرط %1$s امتیاز روی %2$s</string>
     <string name="oracle_bet_out_of_points">امتیاز کافی نیست. هر روز (UTC) ۱۰۰ امتیاز جدید می‌گیرید، تا سقف ۲٬۰۰۰.</string>

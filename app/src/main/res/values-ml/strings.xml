@@ -99,7 +99,7 @@
     <string name="rename">പേര് മാറ്റുക</string>
     <string name="change_url">URL മാറ്റുക</string>
     <string name="feed_url_placeholder" translatable="false">http://example.com/feed.rss</string>
-    <string name="rename_toast">Renamed to \"%1$s\"</string>
+    <string name="rename_toast">\"%1$s\" എന്ന് പേരുമാറ്റി</string>
     <string name="create_new_group">പുതിയ ഗ്രൂപ്പ് സൃഷ്ടിക്കുക</string>
     <string name="name">പേര്</string>
     <string name="delete">ഇല്ലാതാക്കുക</string>
@@ -177,8 +177,7 @@
     <string name="tips_and_support">നുറുങ്ങുകളും പിന്തുണയും</string>
     <string name="welcome">സ്വാഗതം</string>
     <string name="tos_tips">തുടരാൻ RSS Bear Hub-ന്റെ സേവന നിബന്ധനകളും സ്വകാര്യതാ നയവും വായിച്ച് സമ്മതിക്കുക.</string>
-    <string name="browse_tos_tips">Browse the &lt;i&gt;&lt;u&gt;Terms of Service and Privacy Policy&lt;/u&gt;&lt;/i&gt;
-        </string>
+    <string name="browse_tos_tips">&lt;i&gt;&lt;u&gt;സേവന നിബന്ധനകളും സ്വകാര്യതാ നയവും&lt;/u&gt;&lt;/i&gt; പരിശോധിക്കുക</string>
     <string name="terms_of_service">സേവന നിബന്ധനകൾ</string>
     <string name="tos_content">
             &lt;h5&gt;
@@ -422,7 +421,7 @@
     <string name="synchronous">സമന്വയിപ്പിക്കുന്നു</string>
     <string name="sync_interval">സമന്വയം</string>
     <string name="sync_once_on_start">ആരംഭിക്കുമ്പോൾ ഒരിക്കൽ സമന്വയിപ്പിക്കുക</string>
-    <string name="only_on_wifi">Only on Wi-Fi</string>
+    <string name="only_on_wifi">Wi-Fi-യിൽ മാത്രം</string>
     <string name="only_when_charging">ചാർജ് ചെയ്യുമ്പോൾ മാത്രം</string>
     <string name="keep_archived_articles">ആർക്കൈവ് ചെയ്ത ലേഖനങ്ങൾ സൂക്ഷിക്കുക</string>
     <string name="block_list">ബ്ലോക്ക് പട്ടിക</string>
@@ -585,7 +584,7 @@
     <string name="zen_speed_reading">വേഗത്തിലുള്ള വായന (RSVP)</string>
     <string name="zen_speed_reading_desc">സ്ഥിര ഫോക്കൽ വിന്യാസത്തോടെ മിനിറ്റിൽ 900 വാക്കുകൾ വരെ വായിക്കുക</string>
     <string name="zen_wpm_label">വായനാ വേഗത: %1$d WPM</string>
-    <string name="zen_words_progress">%1$d / %2$d words</string>
+    <string name="zen_words_progress">%1$d / %2$d വാക്കുകൾ</string>
     <string name="zen_ambient_audio">സെൻ ഫോക്കസ് ഓഡിയോ</string>
     <string name="zen_ambient_audio_desc">ആഴത്തിലുള്ള വായനയിൽ ശ്രദ്ധ നിലനിർത്താൻ ശാന്തമായ ശബ്ദങ്ങൾ</string>
     <string name="zen_sound_rain">മൃദുവായ മഴ</string>
@@ -601,7 +600,7 @@
     <string name="zen_daily_edition_notification">%1$d വായിക്കാത്ത ലേഖനങ്ങൾ നിങ്ങളുടെ ഫോക്കസ് വായനയ്ക്ക് തയ്യാർ.</string>
     <string name="zen_sleep_timer">സ്ലീപ്പ് ടൈമർ</string>
     <string name="zen_sleep_timer_off">തുടർച്ചയായി</string>
-    <string name="zen_sleep_timer_min">%1$d minutes</string>
+    <string name="zen_sleep_timer_min">%1$d മിനിറ്റ്</string>
     <string name="zen_volume">Volume: %1$d%%</string>
     <string name="zen_settings_title">സെൻ ഫോക്കസും വേഗത്തിലുള്ള വായനയും</string>
     <!-- Loop 09: AI Article Highlights & Key Takeaways Card -->
@@ -656,7 +655,7 @@
     <string name="story_cluster_lead_badge">പ്രധാനം</string>
     <string name="semantic_search_title">AI സെമാന്റിക് തിരയൽ</string>
     <string name="semantic_search_desc">കൃത്യമായ കീവേഡുകളല്ല, ആശയവും അർത്ഥവും അടിസ്ഥാനമാക്കി ലേഖനങ്ങൾ തിരയുക</string>
-    <string name="semantic_match_badge">%d%% match</string>
+    <string name="semantic_match_badge">%d%% പൊരുത്തം</string>
     <string name="semantic_search_results_title">✨ AI സെമാന്റിക് പൊരുത്തങ്ങൾ</string>
     <string name="keyword_search_results_title">കീവേഡ് പൊരുത്തങ്ങൾ</string>
     <string name="watchdog_title">കീവേഡ് വാച്ച്ഡോഗ്</string>
@@ -664,7 +663,7 @@
     <string name="watchdog_add_hint">കീവേഡ് അല്ലെങ്കിൽ ടിക്കർ നൽകുക (ഉദാ. $VIC, Bitcoin, Gold)...</string>
     <string name="watchdog_add_btn">ചേർക്കുക</string>
     <string name="watchdog_empty_desc">കീവേഡുകളൊന്നും ചേർത്തിട്ടില്ല. നിരീക്ഷണം തുടങ്ങാൻ കീവേഡുകൾ ചേർക്കുക അല്ലെങ്കിൽ താഴെയുള്ള നിർദ്ദേശങ്ങൾ തിരഞ്ഞെടുക്കുക.</string>
-    <string name="watchdog_matched_count">%d matched</string>
+    <string name="watchdog_matched_count">%d പൊരുത്തപ്പെട്ടു</string>
     <string name="watchdog_channel_name">കീവേഡ് അലേർട്ട് വാച്ച്ഡോഗ്</string>
     <string name="watchdog_channel_desc">പുതിയ ലേഖനങ്ങൾ നിരീക്ഷിക്കുന്ന കീവേഡുകളുമായി പൊരുത്തപ്പെടുമ്പോൾ ഉയർന്ന മുൻഗണനയുള്ള അലേർട്ടുകൾ</string>
     <string name="watchdog_preset_title">ദ്രുത നിർദ്ദേശങ്ങൾ</string>
@@ -776,7 +775,7 @@
     <string name="source_dna_unknown_source">അജ്ഞാത ഉറവിടം</string>
     <string name="source_dna_error">ഈ ക്ലസ്റ്റർ വിശകലനം ചെയ്യാൻ കഴിഞ്ഞില്ല.</string>
     <string name="source_dna_back">കാഴ്ചപ്പാടുകളിലേക്ക് മടങ്ങുക</string>
-    <string name="source_dna_similarity">%1$d%% similar</string>
+    <string name="source_dna_similarity">%1$d%% സമാനം</string>
     <string name="source_dna_feed_reported_time">ഫീഡ് റിപ്പോർട്ട് ചെയ്ത സമയം: %1$s</string>
     <string name="watchdog_clear_all">ചരിത്രം മായ്ക്കുക</string>
     <string name="watchdog_inbox_desc">അടിയന്തര കീവേഡ് അലേർട്ടുകൾ ട്രിഗർ ചെയ്ത ലേഖനങ്ങളുടെ ചരിത്രം</string>
@@ -822,7 +821,7 @@
     <string name="second_brain_error">ഗ്രാഫ് നിർമ്മിക്കാൻ കഴിഞ്ഞില്ല. വീണ്ടും ശ്രമിക്കുക.</string>
     <string name="second_brain_retry">വീണ്ടും ശ്രമിക്കുക</string>
     <string name="second_brain_graph_desc">%1$d വിഷയങ്ങളും %2$d ബന്ധങ്ങളുമുള്ള വിഷയ ഗ്രാഫ്</string>
-    <string name="second_brain_node_articles">%1$d articles</string>
+    <string name="second_brain_node_articles">%1$d ലേഖനങ്ങൾ</string>
     <string name="second_brain_range_label">സമയപരിധി</string>
     <string name="second_brain_related">ബന്ധപ്പെട്ട ലേഖനങ്ങൾ</string>
 
@@ -854,7 +853,7 @@
     <string name="smart_collection_query">വിഷയ ചോദ്യം</string>
     <string name="smart_collection_save_action">ശേഖരമായി സേവ് ചെയ്യുക</string>
     <string name="smart_collection_empty">സ്മാർട്ട് ശേഖരങ്ങളൊന്നുമില്ല. ഒരു വിഷയം പിന്തുടരാൻ സെമാന്റിക് തിരയൽ സേവ് ചെയ്യുക.</string>
-    <string name="smart_collection_articles_count">%1$d articles</string>
+    <string name="smart_collection_articles_count">%1$d ലേഖനങ്ങൾ</string>
     <string name="smart_collection_edit">എഡിറ്റ് ചെയ്യുക</string>
     <string name="smart_collection_delete">ഇല്ലാതാക്കുക</string>
     <string name="smart_collection_delete_confirm">ഈ ശേഖരം ഇല്ലാതാക്കണോ? ഇതിലെ ലേഖനങ്ങൾ നിങ്ങളുടെ ലൈബ്രറിയിൽ തുടരും.</string>
@@ -1043,7 +1042,7 @@
     <string name="dossier_names_empty">കുറഞ്ഞത് 2 ലേഖനങ്ങളിൽ ആവർത്തിക്കുന്ന പദസമുച്ചയമില്ല.</string>
     <string name="dossier_sources_single">ഈ വിഷയത്തിൽ നിങ്ങളുടെ ആർക്കൈവിൽ ഒരു ഉറവിടം മാത്രമേയുള്ളൂ.</string>
     <string name="dossier_sources_note">തലക്കെട്ടുകൾ ഉറവിടം അനുസരിച്ച് ഗ്രൂപ്പ് ചെയ്തിരിക്കുന്നു; നിഗമനമൊന്നും എടുത്തിട്ടില്ല.</string>
-    <string name="dossier_article_count">%1$d articles</string>
+    <string name="dossier_article_count">%1$d ലേഖനങ്ങൾ</string>
     <string name="dossier_share_error">പങ്കിടാൻ ഡോസിയർ തയ്യാറാക്കാൻ കഴിഞ്ഞില്ല.</string>
 
     <!-- BOUNTY-03 graph viewport -->
@@ -1099,7 +1098,7 @@
     <string name="curated_bundle_source_count">Sources: %1$d</string>
     <string name="curated_bundle_subscribe_all">എല്ലാം സബ്സ്ക്രൈബ് ചെയ്യുക</string>
     <string name="curated_bundle_subscribing">സബ്സ്ക്രൈബ് ചെയ്യുന്നു…</string>
-    <string name="curated_bundle_progress">Subscribing %1$d of %2$d</string>
+    <string name="curated_bundle_progress">%2$d-ൽ %1$d സബ്സ്ക്രൈബ് ചെയ്യുന്നു</string>
     <string name="curated_bundle_result">ചേർത്തത് %1$d · നേരത്തേ ഉണ്ടായിരുന്നത് %2$d · പരാജയപ്പെട്ടത് %3$d</string>
     <string name="curated_bundle_error">സബ്സ്ക്രൈബ് ചെയ്യാൻ കഴിഞ്ഞില്ല: %1$s</string>
     <string name="curated_bundle_no_sources_added">ഒരു ഉറവിടവും ചേർക്കാൻ കഴിയാത്തതിനാൽ ഗ്രൂപ്പ് സൃഷ്ടിച്ചില്ല.</string>
@@ -1126,7 +1125,7 @@
     <string name="second_screen_share">ലിങ്ക് പങ്കിടുക</string>
     <string name="second_screen_share_chooser">സെക്കൻഡ് സ്ക്രീൻ ലിങ്ക് പങ്കിടുക</string>
     <string name="second_screen_viewers">Viewers: %1$d</string>
-    <string name="second_screen_expires">Expires at %1$s</string>
+    <string name="second_screen_expires">%1$s-ന് കാലഹരണപ്പെടും</string>
     <string name="second_screen_warning">എൻക്രിപ്റ്റ് ചെയ്തിട്ടില്ല. ഈ Wi-Fi-യിൽ ലിങ്ക് കാണുന്ന ആർക്കും ലേഖനം വായിക്കാം. വിശ്വസനീയമായ നെറ്റ്‌വർക്കിൽ മാത്രം ഉപയോഗിക്കുക.</string>
     <string name="second_screen_starting">ആരംഭിക്കുന്നു…</string>
     <string name="second_screen_no_network">സ്വകാര്യ വിലാസമുള്ള Wi-Fi അല്ലെങ്കിൽ ഇതർനെറ്റ് നെറ്റ്‌വർക്കില്ല. Wi-Fi-യിൽ കണക്റ്റ് ചെയ്ത് വീണ്ടും ശ്രമിക്കുക.</string>
@@ -1181,7 +1180,7 @@
     <string name="local_sync_pair_new">പുതിയ ഉപകരണം ജോടിയാക്കുക</string>
     <string name="local_sync_pair_label_hint">പുതിയ ഉപകരണത്തിന്റെ പേര്</string>
     <string name="local_sync_remember_label_hint">ഈ ഉപകരണം ഓർക്കാനുള്ള പേര് (ഓപ്ഷണൽ)</string>
-    <string name="local_sync_serve_peer">Send to %1$s</string>
+    <string name="local_sync_serve_peer">%1$s-ലേക്ക് അയയ്ക്കുക</string>
     <string name="local_sync_wait_reply">നിർത്തി തിരികെ ലഭിക്കാൻ കാത്തിരിക്കുക</string>
     <string name="local_sync_role_hint">മറ്റേ ഫോണിന് ലഭിച്ച ശേഷം ഇവിടെ നിർത്തി സ്വീകരിക്കുക എന്നതിലേക്ക് മാറുക. അപ്പോൾ അതിന് അതിന്റെ മാറ്റങ്ങൾ തിരികെ അയയ്ക്കാം.</string>
     <string name="local_sync_reply_to">%1$s-ന് തിരികെ അയയ്ക്കുക</string>
@@ -1252,7 +1251,7 @@
     <string name="feed_autopilot_not_local_account">ഫീഡ് ഓട്ടോപൈലറ്റ് ലോക്കൽ അക്കൗണ്ടുകളെ മാത്രമേ പിന്തുണയ്ക്കൂ. റിമോട്ട് അക്കൗണ്ടുകൾ (Fever, Google Reader) ഫീഡുകൾ അവയുടെ സ്വന്തം സെർവറിൽ കൈകാര്യം ചെയ്യുന്നു.</string>
     <string name="feed_autopilot_retention_too_short">നിങ്ങളുടെ അക്കൗണ്ടിലെ ലേഖനം സൂക്ഷിക്കൽ കാലയളവ് 14 ദിവസത്തിൽ കുറവാണ്. ഓട്ടോപൈലറ്റിന് സുരക്ഷിതമായി വിശകലനം ചെയ്യാൻ ആവശ്യത്തിന് ചരിത്രം ലഭിക്കാൻ അക്കൗണ്ട് ക്രമീകരണങ്ങളിൽ ഇത് വർദ്ധിപ്പിക്കുക.</string>
     <string name="feed_autopilot_disabled_message">ഫീഡ് ഓട്ടോപൈലറ്റ് ഓഫാണ്. ഫീഡ് ക്ലീൻ-അപ്പ് നിർദ്ദേശങ്ങൾ ലഭിക്കാൻ ഓണാക്കുക.</string>
-    <string name="feed_autopilot_settings_pending">To review: %1$d</string>
+    <string name="feed_autopilot_settings_pending">അവലോകനം ചെയ്യാൻ: %1$d</string>
     <string name="feed_autopilot_error">അത് പൂർത്തിയാക്കാൻ കഴിഞ്ഞില്ല. വീണ്ടും ശ്രമിക്കുക.</string>
     <string name="podcast_studio_title">പോഡ്കാസ്റ്റ് സ്റ്റുഡിയോ</string>
     <string name="podcast_studio_menu">പോഡ്കാസ്റ്റ് സ്റ്റുഡിയോ</string>
@@ -1299,7 +1298,7 @@
     <string name="oracle_badge_label">പ്രവചനം</string>
     <string name="oracle_badge_open">പ്രവചനം തുറക്കുക</string>
     <string name="oracle_sheet_title">ഈ ലേഖനത്തിൽ കണ്ടെത്തിയ പ്രവചനം</string>
-    <string name="oracle_sheet_expires">Expected by %1$s</string>
+    <string name="oracle_sheet_expires">%1$s-ഓടെ പ്രതീക്ഷിക്കുന്നു</string>
     <string name="oracle_sheet_criteria_heading">ഉത്തരം എങ്ങനെ പരിശോധിക്കാം</string>
     <string name="oracle_sheet_ai_label">തലക്കെട്ടിൽ നിന്നും വിവരണത്തിൽ നിന്നും AI എഴുതിയത്; തെറ്റാകാം.</string>
     <string name="oracle_sheet_close">അടയ്ക്കുക</string>
@@ -1310,7 +1309,7 @@
     <string name="oracle_bet_yes">അതെ</string>
     <string name="oracle_bet_no">അല്ല</string>
     <string name="oracle_bet_pick_stake">പണയം വയ്ക്കേണ്ട പോയിന്റ്</string>
-    <string name="oracle_bet_stake_option">%1$s points</string>
+    <string name="oracle_bet_stake_option">%1$s പോയിന്റുകൾ</string>
     <string name="oracle_bet_place">പന്തയം വയ്ക്കുക</string>
     <string name="oracle_bet_place_summary">%2$s-ൽ %1$s പോയിന്റ് പന്തയം വയ്ക്കുക</string>
     <string name="oracle_bet_out_of_points">ആവശ്യത്തിന് പോയിന്റില്ല. എല്ലാ ദിവസവും (UTC) 100 പുതിയ പോയിന്റ് ലഭിക്കും, പരമാവധി 2,000.</string>

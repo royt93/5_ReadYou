@@ -514,7 +514,7 @@
     <string name="zen_speed_reading">Hızlı Okuma (RSVP)</string>
     <string name="zen_speed_reading_desc">Sabit odak hizalamasıyla dakikada 900 kelimeye kadar okuyun</string>
     <string name="zen_wpm_label">Okuma Hızı: %1$d kelime/dk</string>
-    <string name="zen_words_progress">%1$d / %2$d words</string>
+    <string name="zen_words_progress">%1$d / %2$d kelime</string>
     <string name="zen_ambient_audio">Zen Odak Sesi</string>
     <string name="zen_ambient_audio_desc">Derin okuma konsantrasyonu için rahatlatıcı ses ortamları</string>
     <string name="zen_sound_rain">Hafif Yağmur</string>
@@ -530,7 +530,7 @@
     <string name="zen_daily_edition_notification">Odaklanarak okumanız için %1$d okunmamış makale hazır.</string>
     <string name="zen_sleep_timer">Uyku Zamanlayıcısı</string>
     <string name="zen_sleep_timer_off">Kesintisiz</string>
-    <string name="zen_sleep_timer_min">%1$d minutes</string>
+    <string name="zen_sleep_timer_min">%1$d dakika</string>
     <string name="zen_volume">Volume: %1$d%%</string>
     <string name="zen_settings_title">Zen Odak &amp; Hızlı Okuma</string>
     <!-- Loop 09: AI Article Highlights & Key Takeaways Card -->
@@ -585,7 +585,7 @@
     <string name="story_cluster_lead_badge">Ana</string>
     <string name="semantic_search_title">AI Anlamsal Arama</string>
     <string name="semantic_search_desc">Makaleleri tam anahtar sözcükler yerine kavrama ve anlama göre arayın</string>
-    <string name="semantic_match_badge">%d%% match</string>
+    <string name="semantic_match_badge">%d%% eşleşme</string>
     <string name="semantic_search_results_title">✨ AI Anlamsal Eşleşmeler</string>
     <string name="keyword_search_results_title">Anahtar Sözcük Eşleşmeleri</string>
     <string name="watchdog_title">Anahtar Sözcük Bekçisi</string>
@@ -593,7 +593,7 @@
     <string name="watchdog_add_hint">Anahtar sözcük veya kod girin (örn. $VIC, Bitcoin, Altın)...</string>
     <string name="watchdog_add_btn">Ekle</string>
     <string name="watchdog_empty_desc">Henüz anahtar sözcük eklenmedi. İzlemeye başlamak için anahtar sözcük ekleyin veya aşağıdaki önerilerden seçin.</string>
-    <string name="watchdog_matched_count">%d matched</string>
+    <string name="watchdog_matched_count">%d eşleşti</string>
     <string name="watchdog_channel_name">Anahtar Sözcük Uyarı Bekçisi</string>
     <string name="watchdog_channel_desc">Yeni makaleler izlenen anahtar sözcüklerle eşleştiğinde yüksek öncelikli uyarılar</string>
     <string name="watchdog_preset_title">Hızlı Öneriler</string>
@@ -704,7 +704,7 @@
     <string name="source_dna_unknown_source">Bilinmeyen kaynak</string>
     <string name="source_dna_error">Bu küme analiz edilemedi.</string>
     <string name="source_dna_back">Bakış açılarına dön</string>
-    <string name="source_dna_similarity">%1$d%% similar</string>
+    <string name="source_dna_similarity">%1$d%% benzer</string>
     <string name="source_dna_feed_reported_time">Beslemenin bildirdiği zaman: %1$s</string>
     <string name="watchdog_clear_all">Geçmişi temizle</string>
     <string name="watchdog_inbox_desc">Acil durum anahtar kelime uyarılarını tetikleyen makalelerin geçmişi</string>
@@ -750,7 +750,7 @@
     <string name="second_brain_error">Grafik oluşturulamadı. Tekrar deneyin.</string>
     <string name="second_brain_retry">Yeniden dene</string>
     <string name="second_brain_graph_desc">%1$d konu ve %2$d bağlantı içeren konu grafiği</string>
-    <string name="second_brain_node_articles">%1$d articles</string>
+    <string name="second_brain_node_articles">%1$d makale</string>
     <string name="second_brain_range_label">Zaman aralığı</string>
     <string name="second_brain_related">İlgili makaleler</string>
 
@@ -782,7 +782,7 @@
     <string name="smart_collection_query">Konu sorgusu</string>
     <string name="smart_collection_save_action">Koleksiyon olarak kaydet</string>
     <string name="smart_collection_empty">Henüz akıllı koleksiyon yok. Bir konuyu takip etmek için anlamsal bir aramayı kaydedin.</string>
-    <string name="smart_collection_articles_count">%1$d articles</string>
+    <string name="smart_collection_articles_count">%1$d makale</string>
     <string name="smart_collection_edit">Düzenle</string>
     <string name="smart_collection_delete">Sil</string>
     <string name="smart_collection_delete_confirm">Bu koleksiyon silinsin mi? Makaleleri kitaplığınızda kalır.</string>
@@ -971,7 +971,7 @@
     <string name="dossier_names_empty">En az 2 makalede tekrarlanan ifade yok.</string>
     <string name="dossier_sources_single">Arşivinizde bu konuda yalnızca bir kaynak var.</string>
     <string name="dossier_sources_note">Başlıklar kaynağa göre gruplandı; sonuç çıkarılmaz.</string>
-    <string name="dossier_article_count">%1$d articles</string>
+    <string name="dossier_article_count">%1$d makale</string>
     <string name="dossier_share_error">Dosya paylaşıma hazırlanamadı.</string>
 
     <!-- BOUNTY-03 graph viewport -->
@@ -1027,7 +1027,7 @@
     <string name="curated_bundle_source_count">Sources: %1$d</string>
     <string name="curated_bundle_subscribe_all">Tümüne abone ol</string>
     <string name="curated_bundle_subscribing">Abone olunuyor…</string>
-    <string name="curated_bundle_progress">Subscribing %1$d of %2$d</string>
+    <string name="curated_bundle_progress">%2$d üzerinden %1$d abone olunuyor</string>
     <string name="curated_bundle_result">Eklenen %1$d · zaten olan %2$d · başarısız %3$d</string>
     <string name="curated_bundle_error">Abone olunamadı: %1$s</string>
     <string name="curated_bundle_no_sources_added">Hiçbir kaynak eklenemedi, bu yüzden grup oluşturulmadı.</string>
@@ -1054,7 +1054,7 @@
     <string name="second_screen_share">Bağlantıyı paylaş</string>
     <string name="second_screen_share_chooser">İkinci Ekran bağlantısını paylaş</string>
     <string name="second_screen_viewers">Viewers: %1$d</string>
-    <string name="second_screen_expires">Expires at %1$s</string>
+    <string name="second_screen_expires">%1$s tarihinde sona eriyor</string>
     <string name="second_screen_warning">Şifreli değildir. Bu Wi-Fi ağında bağlantıyı gören herkes makaleyi okuyabilir. Yalnızca güvendiğiniz bir ağda kullanın.</string>
     <string name="second_screen_starting">Başlatılıyor…</string>
     <string name="second_screen_no_network">Özel adresli Wi-Fi veya Ethernet ağı yok. Wi-Fi\'a bağlanıp tekrar deneyin.</string>
@@ -1109,7 +1109,7 @@
     <string name="local_sync_pair_new">Yeni cihaz eşleştir</string>
     <string name="local_sync_pair_label_hint">Yeni cihazın adı</string>
     <string name="local_sync_remember_label_hint">Bu cihazı hatırlamak için ad (isteğe bağlı)</string>
-    <string name="local_sync_serve_peer">Send to %1$s</string>
+    <string name="local_sync_serve_peer">%1$s adresine gönder</string>
     <string name="local_sync_wait_reply">Durdur ve geri almayı bekle</string>
     <string name="local_sync_role_hint">Diğer telefon aldıktan sonra burada durdurup Al\'a geçin. Ardından o telefon değişikliklerini size geri gönderebilir.</string>
     <string name="local_sync_reply_to">%1$s cihazına geri gönder</string>
@@ -1180,7 +1180,7 @@
     <string name="feed_autopilot_not_local_account">Besleme Otopilotu yalnızca Yerel hesapları destekler. Uzak hesaplar (Fever, Google Reader) beslemeleri kendi sunucularında yönetir.</string>
     <string name="feed_autopilot_retention_too_short">Hesabınızın makale saklama süresi 14 günden kısa. Otopilotun güvenle analiz yapabilmesi için Hesap Ayarları\'ndan artırın.</string>
     <string name="feed_autopilot_disabled_message">Besleme Otopilotu kapalı. Besleme temizleme önerileri almak için açın.</string>
-    <string name="feed_autopilot_settings_pending">To review: %1$d</string>
+    <string name="feed_autopilot_settings_pending">İncelenecek: %1$d</string>
     <string name="feed_autopilot_error">Bu işlem tamamlanamadı. Lütfen tekrar deneyin.</string>
     <string name="podcast_studio_title">Podcast Stüdyosu</string>
     <string name="podcast_studio_menu">Podcast Stüdyosu</string>
@@ -1227,7 +1227,7 @@
     <string name="oracle_badge_label">Tahmin</string>
     <string name="oracle_badge_open">Tahmini aç</string>
     <string name="oracle_sheet_title">Bu makalede bulunan tahmin</string>
-    <string name="oracle_sheet_expires">Expected by %1$s</string>
+    <string name="oracle_sheet_expires">%1$s tarihine kadar bekleniyor</string>
     <string name="oracle_sheet_criteria_heading">Cevap nasıl kontrol edilir</string>
     <string name="oracle_sheet_ai_label">Başlık ve açıklamadan AI tarafından yazıldı; hatalı olabilir.</string>
     <string name="oracle_sheet_close">Kapat</string>
@@ -1238,7 +1238,7 @@
     <string name="oracle_bet_yes">Evet</string>
     <string name="oracle_bet_no">Hayır</string>
     <string name="oracle_bet_pick_stake">Yatırılacak puan</string>
-    <string name="oracle_bet_stake_option">%1$s points</string>
+    <string name="oracle_bet_stake_option">%1$s puan</string>
     <string name="oracle_bet_place">Bahis yap</string>
     <string name="oracle_bet_place_summary">%2$s için %1$s puan yatır</string>
     <string name="oracle_bet_out_of_points">Yeterli puan yok. Her gün (UTC) 100 yeni puan alırsınız, en fazla 2.000.</string>

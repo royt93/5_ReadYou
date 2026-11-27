@@ -516,7 +516,7 @@
     <string name="zen_speed_reading">Citire rapidă (RSVP)</string>
     <string name="zen_speed_reading_desc">Citiți până la 900 de cuvinte pe minut cu aliniere focală fixă</string>
     <string name="zen_wpm_label">Viteză de citire: %1$d cuv./min</string>
-    <string name="zen_words_progress">%1$d / %2$d words</string>
+    <string name="zen_words_progress">%1$d / %2$d cuvinte</string>
     <string name="zen_ambient_audio">Audio Zen pentru concentrare</string>
     <string name="zen_ambient_audio_desc">Peisaje sonore liniștitoare pentru concentrare profundă la citit</string>
     <string name="zen_sound_rain">Ploaie liniștită</string>
@@ -532,7 +532,7 @@
     <string name="zen_daily_edition_notification">%1$d articole necitite sunt gata pentru citirea concentrată.</string>
     <string name="zen_sleep_timer">Temporizator de somn</string>
     <string name="zen_sleep_timer_off">Continuu</string>
-    <string name="zen_sleep_timer_min">%1$d minutes</string>
+    <string name="zen_sleep_timer_min">%1$d minute</string>
     <string name="zen_volume">Volume: %1$d%%</string>
     <string name="zen_settings_title">Concentrare Zen &amp; citire rapidă</string>
     <!-- Loop 09: AI Article Highlights & Key Takeaways Card -->
@@ -587,7 +587,7 @@
     <string name="story_cluster_lead_badge">Principal</string>
     <string name="semantic_search_title">Căutare semantică AI</string>
     <string name="semantic_search_desc">Căutați articole după concept și sens semantic, nu după cuvinte cheie exacte</string>
-    <string name="semantic_match_badge">%d%% match</string>
+    <string name="semantic_match_badge">%d%% potrivire</string>
     <string name="semantic_search_results_title">✨ Potriviri semantice AI</string>
     <string name="keyword_search_results_title">Potriviri după cuvinte cheie</string>
     <string name="watchdog_title">Santinelă de cuvinte cheie</string>
@@ -595,7 +595,7 @@
     <string name="watchdog_add_hint">Introduceți un cuvânt cheie sau simbol (ex. $VIC, Bitcoin, Aur)...</string>
     <string name="watchdog_add_btn">Adaugă</string>
     <string name="watchdog_empty_desc">Niciun cuvânt cheie adăugat încă. Adăugați cuvinte cheie sau alegeți sugestii de mai jos pentru a începe monitorizarea.</string>
-    <string name="watchdog_matched_count">%d matched</string>
+    <string name="watchdog_matched_count">%d potrivite</string>
     <string name="watchdog_channel_name">Alerte santinelă de cuvinte cheie</string>
     <string name="watchdog_channel_desc">Alerte cu prioritate ridicată când articole noi corespund cuvintelor cheie monitorizate</string>
     <string name="watchdog_preset_title">Sugestii rapide</string>
@@ -752,7 +752,7 @@
     <string name="second_brain_error">Graficul nu a putut fi construit. Încercați din nou.</string>
     <string name="second_brain_retry">Reîncearcă</string>
     <string name="second_brain_graph_desc">Grafic de subiecte cu %1$d subiecte și %2$d conexiuni</string>
-    <string name="second_brain_node_articles">%1$d articles</string>
+    <string name="second_brain_node_articles">%1$d articole</string>
     <string name="second_brain_range_label">Interval de timp</string>
     <string name="second_brain_related">Articole conexe</string>
 
@@ -784,7 +784,7 @@
     <string name="smart_collection_query">Interogare de subiect</string>
     <string name="smart_collection_save_action">Salvează ca colecție</string>
     <string name="smart_collection_empty">Încă nicio colecție inteligentă. Salvați o căutare semantică pentru a urmări un subiect.</string>
-    <string name="smart_collection_articles_count">%1$d articles</string>
+    <string name="smart_collection_articles_count">%1$d articole</string>
     <string name="smart_collection_edit">Editează</string>
     <string name="smart_collection_delete">Șterge</string>
     <string name="smart_collection_delete_confirm">Ștergeți această colecție? Articolele ei vor rămâne în bibliotecă.</string>
@@ -978,7 +978,7 @@
     <string name="dossier_names_empty">Nicio expresie nu apare în cel puțin 2 articole.</string>
     <string name="dossier_sources_single">Arhiva dvs. are o singură sursă pe acest subiect.</string>
     <string name="dossier_sources_note">Titlurile sunt grupate pe surse; nu se trage nicio concluzie.</string>
-    <string name="dossier_article_count">%1$d articles</string>
+    <string name="dossier_article_count">%1$d articole</string>
     <string name="dossier_share_error">Dosarul nu a putut fi pregătit pentru distribuire.</string>
 
     <!-- BOUNTY-03 graph viewport -->
@@ -1034,7 +1034,7 @@
     <string name="curated_bundle_source_count">Sources: %1$d</string>
     <string name="curated_bundle_subscribe_all">Abonează-te la toate</string>
     <string name="curated_bundle_subscribing">Se abonează…</string>
-    <string name="curated_bundle_progress">Subscribing %1$d of %2$d</string>
+    <string name="curated_bundle_progress">Se abonează la %1$d din %2$d</string>
     <string name="curated_bundle_result">Adăugate %1$d · existente %2$d · eșuate %3$d</string>
     <string name="curated_bundle_error">Abonarea nu a reușit: %1$s</string>
     <string name="curated_bundle_no_sources_added">Nicio sursă nu a putut fi adăugată, deci nu s-a creat niciun grup.</string>
@@ -1061,7 +1061,7 @@
     <string name="second_screen_share">Distribuie linkul</string>
     <string name="second_screen_share_chooser">Distribuie linkul Al doilea ecran</string>
     <string name="second_screen_viewers">Viewers: %1$d</string>
-    <string name="second_screen_expires">Expires at %1$s</string>
+    <string name="second_screen_expires">Expiră la %1$s</string>
     <string name="second_screen_warning">Necriptat. Oricine din această rețea Wi-Fi care vede linkul poate citi articolul. Folosiți doar într-o rețea de încredere.</string>
     <string name="second_screen_starting">Se pornește…</string>
     <string name="second_screen_no_network">Nicio rețea Wi-Fi sau Ethernet cu adresă privată. Conectați-vă la Wi-Fi și încercați din nou.</string>
@@ -1116,7 +1116,7 @@
     <string name="local_sync_pair_new">Asociază un dispozitiv nou</string>
     <string name="local_sync_pair_label_hint">Numele noului dispozitiv</string>
     <string name="local_sync_remember_label_hint">Nume pentru a reține acest dispozitiv (opțional)</string>
-    <string name="local_sync_serve_peer">Send to %1$s</string>
+    <string name="local_sync_serve_peer">Trimite către %1$s</string>
     <string name="local_sync_wait_reply">Oprește și așteaptă primirea înapoi</string>
     <string name="local_sync_role_hint">După ce celălalt telefon a primit datele, opriți-vă aici și treceți la Primire. Apoi el își poate trimite modificările înapoi.</string>
     <string name="local_sync_reply_to">Trimite înapoi către %1$s</string>
@@ -1187,7 +1187,7 @@
     <string name="feed_autopilot_not_local_account">Pilotul automat pentru fluxuri funcționează doar cu conturi locale. Conturile la distanță (Fever, Google Reader) își gestionează fluxurile pe propriul server.</string>
     <string name="feed_autopilot_retention_too_short">Perioada de păstrare a articolelor contului dvs. este sub 14 zile. Măriți-o în Setările contului pentru ca pilotul automat să aibă suficient istoric pentru o analiză sigură.</string>
     <string name="feed_autopilot_disabled_message">Pilotul automat pentru fluxuri este dezactivat. Activați-l pentru a primi sugestii de curățare a fluxurilor.</string>
-    <string name="feed_autopilot_settings_pending">To review: %1$d</string>
+    <string name="feed_autopilot_settings_pending">De revizuit: %1$d</string>
     <string name="feed_autopilot_error">Nu s-a putut finaliza. Încercați din nou.</string>
     <string name="podcast_studio_title">Podcast Studio</string>
     <string name="podcast_studio_menu">Podcast Studio</string>
@@ -1234,7 +1234,7 @@
     <string name="oracle_badge_label">Predicție</string>
     <string name="oracle_badge_open">Deschide predicția</string>
     <string name="oracle_sheet_title">Predicție găsită în acest articol</string>
-    <string name="oracle_sheet_expires">Expected by %1$s</string>
+    <string name="oracle_sheet_expires">Așteptat până la %1$s</string>
     <string name="oracle_sheet_criteria_heading">Cum verificați răspunsul</string>
     <string name="oracle_sheet_ai_label">Scris de AI pe baza titlului și a descrierii; poate fi greșit.</string>
     <string name="oracle_sheet_close">Închide</string>
@@ -1245,7 +1245,7 @@
     <string name="oracle_bet_yes">Da</string>
     <string name="oracle_bet_no">Nu</string>
     <string name="oracle_bet_pick_stake">Puncte de mizat</string>
-    <string name="oracle_bet_stake_option">%1$s points</string>
+    <string name="oracle_bet_stake_option">%1$s puncte</string>
     <string name="oracle_bet_place">Plasează pariul</string>
     <string name="oracle_bet_place_summary">Pariați %1$s puncte pe %2$s</string>
     <string name="oracle_bet_out_of_points">Puncte insuficiente. Primiți 100 de puncte noi în fiecare zi (UTC), până la 2.000.</string>

@@ -425,7 +425,7 @@
     <string name="synchronous">Synchronizuji</string>
     <string name="sync_interval">Synchronizace</string>
     <string name="sync_once_on_start">Synchronizovat při spuštění</string>
-    <string name="only_on_wifi">Only on Wi-Fi</string>
+    <string name="only_on_wifi">Pouze přes Wi-Fi</string>
     <string name="only_when_charging">Pouze při nabíjení</string>
     <string name="keep_archived_articles">Ponechat archivované články</string>
     <string name="block_list">Seznam blokovaných</string>
@@ -588,7 +588,7 @@
     <string name="zen_speed_reading">Rychločtení (RSVP)</string>
     <string name="zen_speed_reading_desc">Čtěte až 900 slov za minutu s pevným bodem zaměření</string>
     <string name="zen_wpm_label">Rychlost čtení: %1$d slov/min</string>
-    <string name="zen_words_progress">%1$d / %2$d words</string>
+    <string name="zen_words_progress">%1$d z %2$d slov</string>
     <string name="zen_ambient_audio">Zvuky pro soustředění</string>
     <string name="zen_ambient_audio_desc">Uklidňující zvukové kulisy pro hluboké soustředění při čtení</string>
     <string name="zen_sound_rain">Jemný déšť</string>
@@ -604,7 +604,7 @@
     <string name="zen_daily_edition_notification">%1$d nepřečtených článků čeká na vaše soustředěné čtení.</string>
     <string name="zen_sleep_timer">Časovač vypnutí</string>
     <string name="zen_sleep_timer_off">Nepřetržitě</string>
-    <string name="zen_sleep_timer_min">%1$d minutes</string>
+    <string name="zen_sleep_timer_min">%1$d min</string>
     <string name="zen_volume">Volume: %1$d%%</string>
     <string name="zen_settings_title">Zen soustředění &amp; rychločtení</string>
     <!-- Loop 09: AI Article Highlights & Key Takeaways Card -->
@@ -659,7 +659,7 @@
     <string name="story_cluster_lead_badge">Hlavní</string>
     <string name="semantic_search_title">Sémantické vyhledávání s AI</string>
     <string name="semantic_search_desc">Hledejte články podle pojmů a významu, ne podle přesných klíčových slov</string>
-    <string name="semantic_match_badge">%d%% match</string>
+    <string name="semantic_match_badge">Shoda %d%%</string>
     <string name="semantic_search_results_title">✨ Sémantické shody od AI</string>
     <string name="keyword_search_results_title">Shody klíčových slov</string>
     <string name="watchdog_title">Hlídač klíčových slov</string>
@@ -667,7 +667,7 @@
     <string name="watchdog_add_hint">Zadejte klíčové slovo nebo symbol (např. $VIC, Bitcoin, Zlato)...</string>
     <string name="watchdog_add_btn">Přidat</string>
     <string name="watchdog_empty_desc">Zatím nejsou přidána žádná klíčová slova. Přidejte je nebo vyberte z návrhů níže a začněte sledovat.</string>
-    <string name="watchdog_matched_count">%d matched</string>
+    <string name="watchdog_matched_count">Shody: %d</string>
     <string name="watchdog_channel_name">Upozornění hlídače klíčových slov</string>
     <string name="watchdog_channel_desc">Upozornění s vysokou prioritou, když nové články odpovídají sledovaným klíčovým slovům</string>
     <string name="watchdog_preset_title">Rychlé návrhy</string>
@@ -778,7 +778,7 @@
     <string name="source_dna_unknown_source">Neznámý zdroj</string>
     <string name="source_dna_error">Tuto skupinu se nepodařilo analyzovat.</string>
     <string name="source_dna_back">Zpět na pohledy</string>
-    <string name="source_dna_similarity">%1$d%% similar</string>
+    <string name="source_dna_similarity">Podobnost %1$d%%</string>
     <string name="source_dna_feed_reported_time">Čas uvedený v kanálu: %1$s</string>
     <string name="watchdog_clear_all">Vymazat historii</string>
     <string name="watchdog_inbox_desc">Historie článků, které spustily nouzová upozornění na klíčová slova</string>
@@ -824,7 +824,7 @@
     <string name="second_brain_error">Graf se nepodařilo vytvořit. Zkuste to znovu.</string>
     <string name="second_brain_retry">Opakovat</string>
     <string name="second_brain_graph_desc">Graf témat s %1$d tématy a %2$d propojeními</string>
-    <string name="second_brain_node_articles">%1$d articles</string>
+    <string name="second_brain_node_articles">%1$d článků</string>
     <string name="second_brain_range_label">Časové období</string>
     <string name="second_brain_related">Související články</string>
 
@@ -856,7 +856,7 @@
     <string name="smart_collection_query">Dotaz na téma</string>
     <string name="smart_collection_save_action">Uložit jako kolekci</string>
     <string name="smart_collection_empty">Zatím žádné chytré kolekce. Uložte sémantické hledání a sledujte téma.</string>
-    <string name="smart_collection_articles_count">%1$d articles</string>
+    <string name="smart_collection_articles_count">%1$d článků</string>
     <string name="smart_collection_edit">Upravit</string>
     <string name="smart_collection_delete">Smazat</string>
     <string name="smart_collection_delete_confirm">Smazat tuto kolekci? Její články zůstanou ve vaší knihovně.</string>
@@ -1055,7 +1055,7 @@
     <string name="dossier_names_empty">Žádná fráze se neopakuje alespoň ve 2 článcích.</string>
     <string name="dossier_sources_single">Váš archiv má k tomuto tématu pouze jeden zdroj.</string>
     <string name="dossier_sources_note">Titulky jsou seskupeny podle zdroje; nevyvozuje se žádný závěr.</string>
-    <string name="dossier_article_count">%1$d articles</string>
+    <string name="dossier_article_count">%1$d článků</string>
     <string name="dossier_share_error">Dosje se nepodařilo připravit ke sdílení.</string>
 
     <!-- BOUNTY-03 graph viewport -->
@@ -1111,7 +1111,7 @@
     <string name="curated_bundle_source_count">Sources: %1$d</string>
     <string name="curated_bundle_subscribe_all">Odebírat vše</string>
     <string name="curated_bundle_subscribing">Odebírám…</string>
-    <string name="curated_bundle_progress">Subscribing %1$d of %2$d</string>
+    <string name="curated_bundle_progress">Přihlašování %1$d z %2$d</string>
     <string name="curated_bundle_result">Přidáno %1$d · již existovalo %2$d · selhalo %3$d</string>
     <string name="curated_bundle_error">Odběr se nepodařilo zahájit: %1$s</string>
     <string name="curated_bundle_no_sources_added">Nepodařilo se přidat žádný zdroj, proto nebyla vytvořena žádná skupina.</string>
@@ -1138,7 +1138,7 @@
     <string name="second_screen_share">Sdílet odkaz</string>
     <string name="second_screen_share_chooser">Sdílet odkaz na Druhou obrazovku</string>
     <string name="second_screen_viewers">Viewers: %1$d</string>
-    <string name="second_screen_expires">Expires at %1$s</string>
+    <string name="second_screen_expires">Vyprší %1$s</string>
     <string name="second_screen_warning">Nešifrováno. Kdokoli v této síti Wi-Fi, kdo uvidí odkaz, si může článek přečíst. Používejte pouze v důvěryhodné síti.</string>
     <string name="second_screen_starting">Spouštím…</string>
     <string name="second_screen_no_network">Žádná síť Wi-Fi ani Ethernet se soukromou adresou. Připojte se k Wi-Fi a zkuste to znovu.</string>
@@ -1193,7 +1193,7 @@
     <string name="local_sync_pair_new">Spárovat nové zařízení</string>
     <string name="local_sync_pair_label_hint">Název nového zařízení</string>
     <string name="local_sync_remember_label_hint">Název pro zapamatování tohoto zařízení (volitelné)</string>
-    <string name="local_sync_serve_peer">Send to %1$s</string>
+    <string name="local_sync_serve_peer">Odeslat %1$s</string>
     <string name="local_sync_wait_reply">Zastavit a čekat na příjem zpět</string>
     <string name="local_sync_role_hint">Až druhý telefon přijme data, zastavte zde a přepněte na Přijímání. Pak může poslat své změny zpět.</string>
     <string name="local_sync_reply_to">Odeslat zpět zařízení %1$s</string>
@@ -1264,7 +1264,7 @@
     <string name="feed_autopilot_not_local_account">Autopilot kanálů podporuje pouze místní účty. Vzdálené účty (Fever, Google Reader) spravují kanály na vlastním serveru.</string>
     <string name="feed_autopilot_retention_too_short">Doba uchování článků ve vašem účtu je kratší než 14 dní. Prodlužte ji v nastavení účtu, aby měl Autopilot dost historie pro bezpečnou analýzu.</string>
     <string name="feed_autopilot_disabled_message">Autopilot kanálů je vypnutý. Zapněte jej, abyste dostávali návrhy na úklid kanálů.</string>
-    <string name="feed_autopilot_settings_pending">To review: %1$d</string>
+    <string name="feed_autopilot_settings_pending">Ke kontrole: %1$d</string>
     <string name="feed_autopilot_error">Nepodařilo se to dokončit. Zkuste to prosím znovu.</string>
     <string name="podcast_studio_title">Podcastové studio</string>
     <string name="podcast_studio_menu">Podcastové studio</string>
@@ -1311,7 +1311,7 @@
     <string name="oracle_badge_label">Předpověď</string>
     <string name="oracle_badge_open">Otevřít předpověď</string>
     <string name="oracle_sheet_title">Předpověď nalezená v tomto článku</string>
-    <string name="oracle_sheet_expires">Expected by %1$s</string>
+    <string name="oracle_sheet_expires">Očekáváno do %1$s</string>
     <string name="oracle_sheet_criteria_heading">Jak ověřit odpověď</string>
     <string name="oracle_sheet_ai_label">Napsala AI podle názvu a popisu; může se mýlit.</string>
     <string name="oracle_sheet_close">Zavřít</string>
@@ -1322,7 +1322,7 @@
     <string name="oracle_bet_yes">Ano</string>
     <string name="oracle_bet_no">Ne</string>
     <string name="oracle_bet_pick_stake">Vsazené body</string>
-    <string name="oracle_bet_stake_option">%1$s points</string>
+    <string name="oracle_bet_stake_option">%1$s bodů</string>
     <string name="oracle_bet_place">Vsadit</string>
     <string name="oracle_bet_place_summary">Vsadit %1$s bodů na: %2$s</string>
     <string name="oracle_bet_out_of_points">Nedostatek bodů. Každý den (UTC) získáte 100 nových bodů, nejvýše do 2 000.</string>

@@ -99,7 +99,7 @@
     <string name="rename">အမည်ပြောင်းရန်</string>
     <string name="change_url">URL ပြောင်းရန်</string>
     <string name="feed_url_placeholder" translatable="false">http://example.com/feed.rss</string>
-    <string name="rename_toast">Renamed to \"%1$s\"</string>
+    <string name="rename_toast">\"%1$s\" ဟု အမည်ပြောင်းလိုက်ပြီ</string>
     <string name="create_new_group">အုပ်စုအသစ် ဖန်တီးရန်</string>
     <string name="name">အမည်</string>
     <string name="delete">ဖျက်ရန်</string>
@@ -177,8 +177,7 @@
     <string name="tips_and_support">အကြံပြုချက်နှင့် အကူအညီ</string>
     <string name="welcome">ကြိုဆိုပါသည်</string>
     <string name="tos_tips">ဆက်လက်ရန် RSS Bear Hub ၏ ဝန်ဆောင်မှုစည်းမျဉ်းများနှင့် ကိုယ်ရေးကိုယ်တာမူဝါဒကို ဖတ်ပြီး သဘောတူပါ။</string>
-    <string name="browse_tos_tips">Browse the &lt;i&gt;&lt;u&gt;Terms of Service and Privacy Policy&lt;/u&gt;&lt;/i&gt;
-        </string>
+    <string name="browse_tos_tips">&lt;i&gt;&lt;u&gt;ဝန်ဆောင်မှုစည်းမျဉ်းများနှင့် ကိုယ်ရေးကိုယ်တာမူဝါဒ&lt;/u&gt;&lt;/i&gt; ကို ကြည့်ရှုပါ</string>
     <string name="terms_of_service">ဝန်ဆောင်မှုစည်းမျဉ်းများ</string>
     <string name="tos_content">
             &lt;h5&gt;
@@ -422,7 +421,7 @@
     <string name="synchronous">ထပ်တူပြုခြင်း</string>
     <string name="sync_interval">ထပ်တူပြု</string>
     <string name="sync_once_on_start">စတင်ချိန်တွင် တစ်ကြိမ် ထပ်တူပြုရန်</string>
-    <string name="only_on_wifi">Only on Wi-Fi</string>
+    <string name="only_on_wifi">Wi-Fi တွင်သာ</string>
     <string name="only_when_charging">အားသွင်းနေစဉ်သာ</string>
     <string name="keep_archived_articles">သိမ်းဆည်းထားသော ဆောင်းပါးများ ထားရှိရန်</string>
     <string name="block_list">ပိတ်ပင်စာရင်း</string>
@@ -585,7 +584,7 @@
     <string name="zen_speed_reading">အမြန်ဖတ်ခြင်း (RSVP)</string>
     <string name="zen_speed_reading_desc">ပုံသေအာရုံစူးစိုက်ချက်ဖြင့် တစ်မိနစ်လျှင် စကားလုံး ၉၀၀ အထိ ဖတ်ပါ</string>
     <string name="zen_wpm_label">စာဖတ်မြန်နှုန်း- %1$d WPM</string>
-    <string name="zen_words_progress">%1$d / %2$d words</string>
+    <string name="zen_words_progress">စကားလုံး %1$d / %2$d</string>
     <string name="zen_ambient_audio">Zen အာရုံစူးစိုက်သံ</string>
     <string name="zen_ambient_audio_desc">နက်နက်ရှိုင်းရှိုင်း စာဖတ်ရန် အာရုံစူးစိုက်စေသော ငြိမ်းချမ်းသည့် အသံများ</string>
     <string name="zen_sound_rain">ပျော့ပျောင်းသော မိုးရေ</string>
@@ -601,7 +600,7 @@
     <string name="zen_daily_edition_notification">မဖတ်ရသေးသော ဆောင်းပါး %1$d ခုကို အာရုံစူးစိုက်ဖတ်ရန် အဆင်သင့်ဖြစ်ပါပြီ။</string>
     <string name="zen_sleep_timer">အိပ်ချိန်တိုင်မာ</string>
     <string name="zen_sleep_timer_off">မရပ်မနား</string>
-    <string name="zen_sleep_timer_min">%1$d minutes</string>
+    <string name="zen_sleep_timer_min">%1$d မိနစ်</string>
     <string name="zen_volume">Volume: %1$d%%</string>
     <string name="zen_settings_title">Zen အာရုံစူးစိုက်မှုနှင့် အမြန်ဖတ်ခြင်း</string>
     <!-- Loop 09: AI Article Highlights & Key Takeaways Card -->
@@ -656,7 +655,7 @@
     <string name="story_cluster_lead_badge">ဦးဆောင်</string>
     <string name="semantic_search_title">AI အဓိပ္ပာယ်ရှာဖွေမှု</string>
     <string name="semantic_search_desc">စကားလုံးအတိအကျအစား အယူအဆနှင့် အဓိပ္ပာယ်ဖြင့် ဆောင်းပါးများကို ရှာပါ</string>
-    <string name="semantic_match_badge">%d%% match</string>
+    <string name="semantic_match_badge">%d%% ကိုက်ညီမှု</string>
     <string name="semantic_search_results_title">✨ AI အဓိပ္ပာယ်ကိုက်ညီမှုများ</string>
     <string name="keyword_search_results_title">စကားလုံးကိုက်ညီမှုများ</string>
     <string name="watchdog_title">သော့ချက်စကားလုံး စောင့်ကြည့်သူ</string>
@@ -664,7 +663,7 @@
     <string name="watchdog_add_hint">စကားလုံး သို့မဟုတ် ကုဒ် ထည့်ပါ (ဥပမာ $VIC, Bitcoin, Gold)...</string>
     <string name="watchdog_add_btn">ထည့်ရန်</string>
     <string name="watchdog_empty_desc">စကားလုံး မထည့်ရသေးပါ။ စောင့်ကြည့်စတင်ရန် စကားလုံးထည့်ပါ သို့မဟုတ် အောက်ပါအကြံပြုချက်များကို ရွေးပါ။</string>
-    <string name="watchdog_matched_count">%d matched</string>
+    <string name="watchdog_matched_count">%d ခု ကိုက်ညီ</string>
     <string name="watchdog_channel_name">သော့ချက်စကားလုံး သတိပေးစောင့်ကြည့်သူ</string>
     <string name="watchdog_channel_desc">စောင့်ကြည့်သော စကားလုံးနှင့် ဆောင်းပါးအသစ်ကိုက်ညီပါက ဦးစားပေးသတိပေးချက်များ</string>
     <string name="watchdog_preset_title">အမြန်အကြံပြုချက်များ</string>
@@ -775,7 +774,7 @@
     <string name="source_dna_unknown_source">မသိသော ရင်းမြစ်</string>
     <string name="source_dna_error">ဤအုပ်စုကို ခွဲခြမ်းစိတ်ဖြာ၍ မရပါ။</string>
     <string name="source_dna_back">ရှုထောင့်များသို့ ပြန်သွားရန်</string>
-    <string name="source_dna_similarity">%1$d%% similar</string>
+    <string name="source_dna_similarity">%1$d%% ဆင်တူမှု</string>
     <string name="source_dna_feed_reported_time">ဖိဒ်ဖော်ပြသော အချိန်- %1$s</string>
     <string name="watchdog_clear_all">မှတ်တမ်း ရှင်းလင်းရန်</string>
     <string name="watchdog_inbox_desc">အရေးပေါ် သော့ချက်စာလုံး သတိပေးချက်များကို ဖြစ်ပေါ်စေသော ဆောင်းပါးများ၏ မှတ်တမ်း</string>
@@ -821,7 +820,7 @@
     <string name="second_brain_error">ဂရပ်ကို တည်ဆောက်၍ မရပါ။ ထပ်ကြိုးစားပါ။</string>
     <string name="second_brain_retry">ထပ်ကြိုးစားရန်</string>
     <string name="second_brain_graph_desc">ခေါင်းစဉ် %1$d ခုနှင့် ဆက်စပ်မှု %2$d ခုပါသော ခေါင်းစဉ်ဂရပ်</string>
-    <string name="second_brain_node_articles">%1$d articles</string>
+    <string name="second_brain_node_articles">ဆောင်းပါး %1$d ပုဒ်</string>
     <string name="second_brain_range_label">အချိန်ကာလ</string>
     <string name="second_brain_related">ဆက်စပ်ဆောင်းပါးများ</string>
 
@@ -853,7 +852,7 @@
     <string name="smart_collection_query">ခေါင်းစဉ် ရှာစကားလုံး</string>
     <string name="smart_collection_save_action">စုစည်းမှုအဖြစ် သိမ်းရန်</string>
     <string name="smart_collection_empty">စမတ်စုစည်းမှု မရှိသေးပါ။ ခေါင်းစဉ်တစ်ခုကို လိုက်ကြည့်ရန် အဓိပ္ပာယ်ရှာဖွေမှုကို သိမ်းပါ။</string>
-    <string name="smart_collection_articles_count">%1$d articles</string>
+    <string name="smart_collection_articles_count">ဆောင်းပါး %1$d ပုဒ်</string>
     <string name="smart_collection_edit">တည်းဖြတ်ရန်</string>
     <string name="smart_collection_delete">ဖျက်ရန်</string>
     <string name="smart_collection_delete_confirm">ဤစုစည်းမှုကို ဖျက်မလား။ ၎င်း၏ ဆောင်းပါးများသည် သင့်စာကြည့်တိုက်တွင် ကျန်ရှိမည်။</string>
@@ -1037,7 +1036,7 @@
     <string name="dossier_names_empty">ဆောင်းပါး ၂ ခုထက်မနည်း ထပ်ပါသော စကားစု မရှိပါ။</string>
     <string name="dossier_sources_single">ဤခေါင်းစဉ်အတွက် သင့်မော်ကွန်းတွင် ရင်းမြစ်တစ်ခုသာ ရှိသည်။</string>
     <string name="dossier_sources_note">ခေါင်းစဉ်များကို ရင်းမြစ်အလိုက် စုထားပြီး ကောက်ချက်မချပါ။</string>
-    <string name="dossier_article_count">%1$d articles</string>
+    <string name="dossier_article_count">ဆောင်းပါး %1$d ပုဒ်</string>
     <string name="dossier_share_error">မျှဝေရန် မှတ်တမ်းဖိုင်ကို ပြင်ဆင်၍ မရပါ။</string>
 
     <!-- BOUNTY-03 graph viewport -->
@@ -1093,7 +1092,7 @@
     <string name="curated_bundle_source_count">Sources: %1$d</string>
     <string name="curated_bundle_subscribe_all">အားလုံး စာရင်းသွင်းရန်</string>
     <string name="curated_bundle_subscribing">စာရင်းသွင်းနေသည်…</string>
-    <string name="curated_bundle_progress">Subscribing %1$d of %2$d</string>
+    <string name="curated_bundle_progress">%2$d အနက် %1$d ကို စာရင်းသွင်းနေသည်</string>
     <string name="curated_bundle_result">ထည့်ပြီး %1$d · ရှိပြီးသား %2$d · မအောင်မြင် %3$d</string>
     <string name="curated_bundle_error">စာရင်းမသွင်းနိုင်ပါ- %1$s</string>
     <string name="curated_bundle_no_sources_added">ရင်းမြစ်တစ်ခုမျှ မထည့်နိုင်သဖြင့် အုပ်စု မဖန်တီးပါ။</string>
@@ -1120,7 +1119,7 @@
     <string name="second_screen_share">လင့်ခ် မျှဝေရန်</string>
     <string name="second_screen_share_chooser">ဒုတိယစခရင် လင့်ခ် မျှဝေရန်</string>
     <string name="second_screen_viewers">Viewers: %1$d</string>
-    <string name="second_screen_expires">Expires at %1$s</string>
+    <string name="second_screen_expires">%1$s တွင် သက်တမ်းကုန်မည်</string>
     <string name="second_screen_warning">ကုဒ်မဝှက်ထားပါ။ ဤ Wi-Fi ရှိ လင့်ခ်ကိုမြင်သူမည်သူမဆို ဆောင်းပါးကို ဖတ်နိုင်သည်။ ယုံကြည်ရသော ကွန်ရက်တွင်သာ သုံးပါ။</string>
     <string name="second_screen_starting">စတင်နေသည်…</string>
     <string name="second_screen_no_network">ကိုယ်ပိုင်လိပ်စာပါသော Wi-Fi သို့မဟုတ် Ethernet ကွန်ရက် မရှိပါ။ Wi-Fi ချိတ်ပြီး ထပ်ကြိုးစားပါ။</string>
@@ -1175,7 +1174,7 @@
     <string name="local_sync_pair_new">စက်အသစ် တွဲချိတ်ရန်</string>
     <string name="local_sync_pair_label_hint">စက်အသစ်၏ အမည်</string>
     <string name="local_sync_remember_label_hint">ဤစက်ကို မှတ်ထားရန် အမည် (မထည့်လည်းရ)</string>
-    <string name="local_sync_serve_peer">Send to %1$s</string>
+    <string name="local_sync_serve_peer">%1$s ထံ ပို့ပါ</string>
     <string name="local_sync_wait_reply">ရပ်ပြီး ပြန်လက်ခံရန် စောင့်ရန်</string>
     <string name="local_sync_role_hint">အခြားဖုန်းက လက်ခံပြီးနောက် ဤနေရာတွင် ရပ်ပြီး လက်ခံရန်သို့ ပြောင်းပါ။ ထို့နောက် ၎င်းက ၎င်း၏ပြောင်းလဲမှုများကို ပြန်ပို့နိုင်သည်။</string>
     <string name="local_sync_reply_to">%1$s သို့ ပြန်ပို့ရန်</string>
@@ -1246,7 +1245,7 @@
     <string name="feed_autopilot_not_local_account">ဖိဒ် အော်တိုပိုင်လော့သည် ဒေသတွင်းအကောင့်များကိုသာ ပံ့ပိုးသည်။ ဝေးလံသောအကောင့်များ (Fever၊ Google Reader) သည် ဖိဒ်များကို ၎င်းတို့၏ကိုယ်ပိုင်ဆာဗာတွင် စီမံသည်။</string>
     <string name="feed_autopilot_retention_too_short">သင့်အကောင့်၏ ဆောင်းပါးသိမ်းဆည်းကာလသည် ၁၄ ရက်အောက် ဖြစ်နေသည်။ အော်တိုပိုင်လော့က လုံခြုံစွာ ခွဲခြမ်းစိတ်ဖြာနိုင်ရန် မှတ်တမ်းလုံလောက်စေရန် အကောင့်ဆက်တင်တွင် တိုးပါ။</string>
     <string name="feed_autopilot_disabled_message">ဖိဒ် အော်တိုပိုင်လော့ ပိတ်ထားသည်။ ဖိဒ်ရှင်းလင်းရေး အကြံပြုချက်များ ရရန် ဖွင့်ပါ။</string>
-    <string name="feed_autopilot_settings_pending">To review: %1$d</string>
+    <string name="feed_autopilot_settings_pending">စစ်ဆေးရန်: %1$d</string>
     <string name="feed_autopilot_error">ထိုလုပ်ဆောင်ချက်ကို မပြီးစီးနိုင်ပါ။ ထပ်ကြိုးစားပါ။</string>
     <string name="podcast_studio_title">ပေါ့ဒ်ကာစ် စတူဒီယို</string>
     <string name="podcast_studio_menu">ပေါ့ဒ်ကာစ် စတူဒီယို</string>
@@ -1293,7 +1292,7 @@
     <string name="oracle_badge_label">ခန့်မှန်းချက်</string>
     <string name="oracle_badge_open">ခန့်မှန်းချက်ကို ဖွင့်ရန်</string>
     <string name="oracle_sheet_title">ဤဆောင်းပါးတွင် တွေ့ရှိသော ခန့်မှန်းချက်</string>
-    <string name="oracle_sheet_expires">Expected by %1$s</string>
+    <string name="oracle_sheet_expires">%1$s အထိ မျှော်လင့်ထား</string>
     <string name="oracle_sheet_criteria_heading">အဖြေကို စစ်ဆေးပုံ</string>
     <string name="oracle_sheet_ai_label">ခေါင်းစဉ်နှင့် ဖော်ပြချက်မှ AI ရေးထားသည်၊ မှားနိုင်သည်။</string>
     <string name="oracle_sheet_close">ပိတ်ရန်</string>
@@ -1304,7 +1303,7 @@
     <string name="oracle_bet_yes">ဟုတ်ကဲ့</string>
     <string name="oracle_bet_no">မဟုတ်ပါ</string>
     <string name="oracle_bet_pick_stake">ထိုးမည့်မှတ်များ</string>
-    <string name="oracle_bet_stake_option">%1$s points</string>
+    <string name="oracle_bet_stake_option">%1$s မှတ်</string>
     <string name="oracle_bet_place">လောင်းကြေးထိုးရန်</string>
     <string name="oracle_bet_place_summary">%2$s ပေါ်တွင် %1$s မှတ် ထိုးမည်</string>
     <string name="oracle_bet_out_of_points">မှတ်မလုံလောက်ပါ။ နေ့တိုင်း (UTC) မှတ်အသစ် ၁၀၀ ရပြီး ၂,၀၀၀ အထိ ရနိုင်သည်။</string>

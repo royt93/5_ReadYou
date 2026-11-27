@@ -508,7 +508,7 @@
     <string name="zen_speed_reading">Gyorsolvasás (RSVP)</string>
     <string name="zen_speed_reading_desc">Olvass akár 900 szót percenként, rögzített fókuszpontos igazítással</string>
     <string name="zen_wpm_label">Olvasási sebesség: %1$d szó/perc</string>
-    <string name="zen_words_progress">%1$d / %2$d words</string>
+    <string name="zen_words_progress">%1$d / %2$d szó</string>
     <string name="zen_ambient_audio">Zen fókuszhang</string>
     <string name="zen_ambient_audio_desc">Megnyugtató hangulatok a mély olvasási koncentrációhoz</string>
     <string name="zen_sound_rain">Lágy eső</string>
@@ -524,7 +524,7 @@
     <string name="zen_daily_edition_notification">%1$d olvasatlan cikk vár a fókuszált olvasásra.</string>
     <string name="zen_sleep_timer">Elalvásidőzítő</string>
     <string name="zen_sleep_timer_off">Folyamatos</string>
-    <string name="zen_sleep_timer_min">%1$d minutes</string>
+    <string name="zen_sleep_timer_min">%1$d perc</string>
     <string name="zen_volume">Volume: %1$d%%</string>
     <string name="zen_settings_title">Zen fókusz &amp; gyorsolvasás</string>
     <!-- Loop 09: AI Article Highlights & Key Takeaways Card -->
@@ -579,7 +579,7 @@
     <string name="story_cluster_lead_badge">Fő</string>
     <string name="semantic_search_title">AI szemantikus keresés</string>
     <string name="semantic_search_desc">Cikkek keresése fogalom és jelentés alapján, pontos kulcsszavak helyett</string>
-    <string name="semantic_match_badge">%d%% match</string>
+    <string name="semantic_match_badge">%d%% egyezés</string>
     <string name="semantic_search_results_title">✨ AI szemantikus találatok</string>
     <string name="keyword_search_results_title">Kulcsszavas találatok</string>
     <string name="watchdog_title">Kulcsszavőr</string>
@@ -587,7 +587,7 @@
     <string name="watchdog_add_hint">Kulcsszó vagy tőzsdei jel (pl. $VIC, Bitcoin, Arany)...</string>
     <string name="watchdog_add_btn">Hozzáadás</string>
     <string name="watchdog_empty_desc">Még nincs kulcsszó. Adj hozzá kulcsszavakat, vagy válassz az alábbi javaslatokból a figyelés indításához.</string>
-    <string name="watchdog_matched_count">%d matched</string>
+    <string name="watchdog_matched_count">%d egyezés</string>
     <string name="watchdog_channel_name">Kulcsszavőr-riasztás</string>
     <string name="watchdog_channel_desc">Magas prioritású riasztások, ha új cikkek egyeznek a figyelt kulcsszavakkal</string>
     <string name="watchdog_preset_title">Gyors javaslatok</string>
@@ -699,7 +699,7 @@
     <string name="source_dna_unknown_source">Ismeretlen forrás</string>
     <string name="source_dna_error">A csoport elemzése nem sikerült.</string>
     <string name="source_dna_back">Vissza a nézőpontokhoz</string>
-    <string name="source_dna_similarity">%1$d%% similar</string>
+    <string name="source_dna_similarity">%1$d%% hasonló</string>
     <string name="source_dna_feed_reported_time">A hírcsatorna szerinti idő: %1$s</string>
     <string name="watchdog_clear_all">Előzmények törlése</string>
     <string name="watchdog_inbox_desc">A vészhelyzeti kulcsszó-riasztásokat kiváltó cikkek előzményei</string>
@@ -745,7 +745,7 @@
     <string name="second_brain_error">A gráf felépítése nem sikerült. Próbáld újra.</string>
     <string name="second_brain_retry">Újrapróbálás</string>
     <string name="second_brain_graph_desc">Témagráf %1$d témával és %2$d kapcsolattal</string>
-    <string name="second_brain_node_articles">%1$d articles</string>
+    <string name="second_brain_node_articles">%1$d cikk</string>
     <string name="second_brain_range_label">Időtartomány</string>
     <string name="second_brain_related">Kapcsolódó cikkek</string>
 
@@ -777,7 +777,7 @@
     <string name="smart_collection_query">Téma lekérdezése</string>
     <string name="smart_collection_save_action">Mentés gyűjteményként</string>
     <string name="smart_collection_empty">Még nincs okos gyűjtemény. Ments egy szemantikus keresést egy téma követéséhez.</string>
-    <string name="smart_collection_articles_count">%1$d articles</string>
+    <string name="smart_collection_articles_count">%1$d cikk</string>
     <string name="smart_collection_edit">Szerkesztés</string>
     <string name="smart_collection_delete">Törlés</string>
     <string name="smart_collection_delete_confirm">Törlöd ezt a gyűjteményt? A cikkek megmaradnak a könyvtáradban.</string>
@@ -966,7 +966,7 @@
     <string name="dossier_names_empty">Egyetlen kifejezés sem fordul elő legalább 2 cikkben.</string>
     <string name="dossier_sources_single">Az archívumodban csak egy forrás van erről a témáról.</string>
     <string name="dossier_sources_note">A címek forrás szerint csoportosítva; következtetés nem születik.</string>
-    <string name="dossier_article_count">%1$d articles</string>
+    <string name="dossier_article_count">%1$d cikk</string>
     <string name="dossier_share_error">A dosszié megosztásra való előkészítése nem sikerült.</string>
 
     <!-- BOUNTY-03 graph viewport -->
@@ -1022,7 +1022,7 @@
     <string name="curated_bundle_source_count">Sources: %1$d</string>
     <string name="curated_bundle_subscribe_all">Feliratkozás mindre</string>
     <string name="curated_bundle_subscribing">Feliratkozás…</string>
-    <string name="curated_bundle_progress">Subscribing %1$d of %2$d</string>
+    <string name="curated_bundle_progress">Feliratkozás: %1$d / %2$d</string>
     <string name="curated_bundle_result">Hozzáadva: %1$d · már megvolt: %2$d · sikertelen: %3$d</string>
     <string name="curated_bundle_error">A feliratkozás nem sikerült: %1$s</string>
     <string name="curated_bundle_no_sources_added">Egyetlen forrást sem sikerült hozzáadni, ezért nem jött létre csoport.</string>
@@ -1049,7 +1049,7 @@
     <string name="second_screen_share">Hivatkozás megosztása</string>
     <string name="second_screen_share_chooser">Második képernyő hivatkozásának megosztása</string>
     <string name="second_screen_viewers">Viewers: %1$d</string>
-    <string name="second_screen_expires">Expires at %1$s</string>
+    <string name="second_screen_expires">Lejár: %1$s</string>
     <string name="second_screen_warning">Nem titkosított. Bárki, aki ezen a Wi-Fi-n látja a hivatkozást, elolvashatja a cikket. Csak megbízható hálózaton használd.</string>
     <string name="second_screen_starting">Indítás…</string>
     <string name="second_screen_no_network">Nincs Wi-Fi vagy Ethernet hálózat privát címmel. Csatlakozz Wi-Fi-hez, és próbáld újra.</string>
@@ -1104,7 +1104,7 @@
     <string name="local_sync_pair_new">Új eszköz párosítása</string>
     <string name="local_sync_pair_label_hint">Az új eszköz neve</string>
     <string name="local_sync_remember_label_hint">Név az eszköz megjegyzéséhez (nem kötelező)</string>
-    <string name="local_sync_serve_peer">Send to %1$s</string>
+    <string name="local_sync_serve_peer">Küldés ide: %1$s</string>
     <string name="local_sync_wait_reply">Leállítás és várakozás a visszaküldésre</string>
     <string name="local_sync_role_hint">Miután a másik telefon megkapta, állj le itt, és válts Fogadásra. Ezután ő visszaküldheti a változásait.</string>
     <string name="local_sync_reply_to">Visszaküldés ide: %1$s</string>
@@ -1175,7 +1175,7 @@
     <string name="feed_autopilot_not_local_account">A Hírcsatorna-autopilot csak helyi fiókokat támogat. A távoli fiókok (Fever, Google Reader) a hírcsatornákat a saját szerverükön kezelik.</string>
     <string name="feed_autopilot_retention_too_short">A fiókod cikkmegőrzési ideje 14 napnál rövidebb. Növeld a Fiókbeállításokban, hogy az autopilotnak legyen elég előzménye a biztonságos elemzéshez.</string>
     <string name="feed_autopilot_disabled_message">A Hírcsatorna-autopilot ki van kapcsolva. Kapcsold be a hírcsatorna-takarítási javaslatok fogadásához.</string>
-    <string name="feed_autopilot_settings_pending">To review: %1$d</string>
+    <string name="feed_autopilot_settings_pending">Áttekintésre vár: %1$d</string>
     <string name="feed_autopilot_error">A művelet nem sikerült. Próbáld újra.</string>
     <string name="podcast_studio_title">Podcaststúdió</string>
     <string name="podcast_studio_menu">Podcaststúdió</string>
@@ -1222,7 +1222,7 @@
     <string name="oracle_badge_label">Jóslat</string>
     <string name="oracle_badge_open">Jóslat megnyitása</string>
     <string name="oracle_sheet_title">A cikkben talált jóslat</string>
-    <string name="oracle_sheet_expires">Expected by %1$s</string>
+    <string name="oracle_sheet_expires">Várható: %1$s</string>
     <string name="oracle_sheet_criteria_heading">Hogyan ellenőrizd a választ</string>
     <string name="oracle_sheet_ai_label">Az AI írta a cím és a leírás alapján; tévedhet.</string>
     <string name="oracle_sheet_close">Bezárás</string>
@@ -1233,7 +1233,7 @@
     <string name="oracle_bet_yes">Igen</string>
     <string name="oracle_bet_no">Nem</string>
     <string name="oracle_bet_pick_stake">Feltett pontok</string>
-    <string name="oracle_bet_stake_option">%1$s points</string>
+    <string name="oracle_bet_stake_option">%1$s pont</string>
     <string name="oracle_bet_place">Fogadás megtétele</string>
     <string name="oracle_bet_place_summary">%1$s pont feltétele erre: %2$s</string>
     <string name="oracle_bet_out_of_points">Nincs elég pont. Naponta 100 új pontot kapsz (UTC), legfeljebb 2000-ig.</string>

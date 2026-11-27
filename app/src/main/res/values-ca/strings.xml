@@ -513,7 +513,7 @@
     <string name="zen_speed_reading">Lectura ràpida (RSVP)</string>
     <string name="zen_speed_reading_desc">Llegeix fins a 900 paraules per minut amb alineació focal fixa</string>
     <string name="zen_wpm_label">Velocitat de lectura: %1$d ppm</string>
-    <string name="zen_words_progress">%1$d / %2$d words</string>
+    <string name="zen_words_progress">%1$d / %2$d paraules</string>
     <string name="zen_ambient_audio">Àudio de concentració Zen</string>
     <string name="zen_ambient_audio_desc">Paisatges sonors relaxants per concentrar-te en la lectura</string>
     <string name="zen_sound_rain">Pluja suau</string>
@@ -529,7 +529,7 @@
     <string name="zen_daily_edition_notification">%1$d articles sense llegir a punt per a la teva lectura concentrada.</string>
     <string name="zen_sleep_timer">Temporitzador de son</string>
     <string name="zen_sleep_timer_off">Continu</string>
-    <string name="zen_sleep_timer_min">%1$d minutes</string>
+    <string name="zen_sleep_timer_min">%1$d minuts</string>
     <string name="zen_volume">Volume: %1$d%%</string>
     <string name="zen_settings_title">Concentració Zen i lectura ràpida</string>
     <!-- Loop 09: AI Article Highlights & Key Takeaways Card -->
@@ -584,7 +584,7 @@
     <string name="story_cluster_lead_badge">Principal</string>
     <string name="semantic_search_title">Cerca semàntica amb IA</string>
     <string name="semantic_search_desc">Cerca articles per concepte i significat semàntic en lloc de paraules clau exactes</string>
-    <string name="semantic_match_badge">%d%% match</string>
+    <string name="semantic_match_badge">%d%% coincidència</string>
     <string name="semantic_search_results_title">✨ Coincidències semàntiques d\'IA</string>
     <string name="keyword_search_results_title">Coincidències de paraules clau</string>
     <string name="watchdog_title">Vigilant de paraules clau</string>
@@ -592,7 +592,7 @@
     <string name="watchdog_add_hint">Introdueix una paraula clau o símbol (p. ex. $VIC, Bitcoin, Gold)...</string>
     <string name="watchdog_add_btn">Afegeix</string>
     <string name="watchdog_empty_desc">Encara no has afegit cap paraula clau. Afegeix-ne o tria suggeriments a sota per començar a vigilar.</string>
-    <string name="watchdog_matched_count">%d matched</string>
+    <string name="watchdog_matched_count">%d coincidències</string>
     <string name="watchdog_channel_name">Alertes del vigilant de paraules clau</string>
     <string name="watchdog_channel_desc">Alertes d\'alta prioritat quan nous articles coincideixen amb les paraules clau vigilades</string>
     <string name="watchdog_preset_title">Suggeriments ràpids</string>
@@ -1026,7 +1026,7 @@
     <string name="curated_bundle_source_count">Sources: %1$d</string>
     <string name="curated_bundle_subscribe_all">Subscriu-te a tot</string>
     <string name="curated_bundle_subscribing">Subscrivint…</string>
-    <string name="curated_bundle_progress">Subscribing %1$d of %2$d</string>
+    <string name="curated_bundle_progress">Subscrivint %1$d de %2$d</string>
     <string name="curated_bundle_result">Afegits %1$d · ja els tenies %2$d · fallits %3$d</string>
     <string name="curated_bundle_error">No s\'ha pogut fer la subscripció: %1$s</string>
     <string name="curated_bundle_no_sources_added">No s\'ha pogut afegir cap font, per tant no s\'ha creat cap grup.</string>
@@ -1053,7 +1053,7 @@
     <string name="second_screen_share">Comparteix l\'enllaç</string>
     <string name="second_screen_share_chooser">Comparteix l\'enllaç de la Segona pantalla</string>
     <string name="second_screen_viewers">Viewers: %1$d</string>
-    <string name="second_screen_expires">Expires at %1$s</string>
+    <string name="second_screen_expires">Caduca a les %1$s</string>
     <string name="second_screen_warning">No xifrat. Qualsevol persona d\'aquesta xarxa Wi-Fi que vegi l\'enllaç pot llegir l\'article. Fes-ho servir només en una xarxa de confiança.</string>
     <string name="second_screen_starting">Iniciant…</string>
     <string name="second_screen_no_network">No hi ha cap xarxa Wi-Fi ni Ethernet amb adreça privada. Connecta\'t al Wi-Fi i torna-ho a provar.</string>
@@ -1108,7 +1108,7 @@
     <string name="local_sync_pair_new">Aparella un dispositiu nou</string>
     <string name="local_sync_pair_label_hint">Nom del dispositiu nou</string>
     <string name="local_sync_remember_label_hint">Nom per recordar aquest dispositiu (opcional)</string>
-    <string name="local_sync_serve_peer">Send to %1$s</string>
+    <string name="local_sync_serve_peer">Envia a %1$s</string>
     <string name="local_sync_wait_reply">Atura i espera per rebre la resposta</string>
     <string name="local_sync_role_hint">Quan l\'altre telèfon hagi rebut, atura\'t aquí i passa a Rep. Aleshores ell podrà tornar-te els seus canvis.</string>
     <string name="local_sync_reply_to">Torna a enviar a %1$s</string>
@@ -1179,7 +1179,7 @@
     <string name="feed_autopilot_not_local_account">El pilot automàtic de canals només admet comptes locals. Els comptes remots (Fever, Google Reader) gestionen els canals al seu servidor.</string>
     <string name="feed_autopilot_retention_too_short">El període de conservació d\'articles del teu compte és inferior a 14 dies. Augmenta\'l a la configuració del compte perquè el pilot automàtic tingui prou historial per analitzar amb seguretat.</string>
     <string name="feed_autopilot_disabled_message">El pilot automàtic de canals està desactivat. Activa\'l per rebre suggeriments de neteja de canals.</string>
-    <string name="feed_autopilot_settings_pending">To review: %1$d</string>
+    <string name="feed_autopilot_settings_pending">Per revisar: %1$d</string>
     <string name="feed_autopilot_error">No s\'ha pogut completar. Torna-ho a provar.</string>
     <string name="podcast_studio_title">Estudi de pòdcasts</string>
     <string name="podcast_studio_menu">Estudi de pòdcasts</string>
@@ -1226,7 +1226,7 @@
     <string name="oracle_badge_label">Predicció</string>
     <string name="oracle_badge_open">Obre la predicció</string>
     <string name="oracle_sheet_title">Predicció trobada en aquest article</string>
-    <string name="oracle_sheet_expires">Expected by %1$s</string>
+    <string name="oracle_sheet_expires">Previst per a %1$s</string>
     <string name="oracle_sheet_criteria_heading">Com comprovar la resposta</string>
     <string name="oracle_sheet_ai_label">Escrit per IA a partir del títol i la descripció; pot ser incorrecte.</string>
     <string name="oracle_sheet_close">Tanca</string>
@@ -1237,7 +1237,7 @@
     <string name="oracle_bet_yes">Sí</string>
     <string name="oracle_bet_no">No</string>
     <string name="oracle_bet_pick_stake">Punts a apostar</string>
-    <string name="oracle_bet_stake_option">%1$s points</string>
+    <string name="oracle_bet_stake_option">%1$s punts</string>
     <string name="oracle_bet_place">Aposta</string>
     <string name="oracle_bet_place_summary">Aposta %1$s punts a %2$s</string>
     <string name="oracle_bet_out_of_points">No tens prou punts. Cada dia (UTC) rebs 100 punts nous, fins a 2.000.</string>

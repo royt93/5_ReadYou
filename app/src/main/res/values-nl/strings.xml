@@ -513,7 +513,7 @@
     <string name="zen_speed_reading">Snellezen (RSVP)</string>
     <string name="zen_speed_reading_desc">Lees tot 900 woorden per minuut met vaste focuspositie</string>
     <string name="zen_wpm_label">Leessnelheid: %1$d WPM</string>
-    <string name="zen_words_progress">%1$d / %2$d words</string>
+    <string name="zen_words_progress">%1$d / %2$d woorden</string>
     <string name="zen_ambient_audio">Zen-focusgeluid</string>
     <string name="zen_ambient_audio_desc">Rustgevende geluidslandschappen voor diepe leesconcentratie</string>
     <string name="zen_sound_rain">Zachte regen</string>
@@ -529,7 +529,7 @@
     <string name="zen_daily_edition_notification">%1$d ongelezen artikelen staan klaar voor gefocust lezen.</string>
     <string name="zen_sleep_timer">Slaaptimer</string>
     <string name="zen_sleep_timer_off">Doorlopend</string>
-    <string name="zen_sleep_timer_min">%1$d minutes</string>
+    <string name="zen_sleep_timer_min">%1$d minuten</string>
     <string name="zen_volume">Volume: %1$d%%</string>
     <string name="zen_settings_title">Zen-focus &amp; snellezen</string>
     <!-- Loop 09: AI Article Highlights & Key Takeaways Card -->
@@ -584,7 +584,7 @@
     <string name="story_cluster_lead_badge">Hoofd</string>
     <string name="semantic_search_title">Semantisch zoeken met AI</string>
     <string name="semantic_search_desc">Zoek artikelen op concept en betekenis in plaats van exacte trefwoorden</string>
-    <string name="semantic_match_badge">%d%% match</string>
+    <string name="semantic_match_badge">%d%% overeenkomst</string>
     <string name="semantic_search_results_title">✨ Semantische AI-treffers</string>
     <string name="keyword_search_results_title">Trefwoordtreffers</string>
     <string name="watchdog_title">Trefwoordwachter</string>
@@ -592,7 +592,7 @@
     <string name="watchdog_add_hint">Voer trefwoord of symbool in (bijv. $VIC, Bitcoin, Goud)...</string>
     <string name="watchdog_add_btn">Toevoegen</string>
     <string name="watchdog_empty_desc">Nog geen trefwoorden toegevoegd. Voeg trefwoorden toe of kies hieronder een suggestie om te beginnen.</string>
-    <string name="watchdog_matched_count">%d matched</string>
+    <string name="watchdog_matched_count">%d overeenkomsten</string>
     <string name="watchdog_channel_name">Trefwoordwachter-meldingen</string>
     <string name="watchdog_channel_desc">Meldingen met hoge prioriteit wanneer nieuwe artikelen overeenkomen met bewaakte trefwoorden</string>
     <string name="watchdog_preset_title">Snelle suggesties</string>
@@ -704,7 +704,7 @@
     <string name="source_dna_unknown_source">Onbekende bron</string>
     <string name="source_dna_error">Deze groep kon niet worden geanalyseerd.</string>
     <string name="source_dna_back">Terug naar perspectieven</string>
-    <string name="source_dna_similarity">%1$d%% similar</string>
+    <string name="source_dna_similarity">%1$d%% vergelijkbaar</string>
     <string name="source_dna_feed_reported_time">Door feed gemelde tijd: %1$s</string>
     <string name="watchdog_clear_all">Geschiedenis wissen</string>
     <string name="watchdog_inbox_desc">Geschiedenis van artikelen die noodmeldingen op trefwoorden hebben geactiveerd</string>
@@ -750,7 +750,7 @@
     <string name="second_brain_error">De graaf kon niet worden opgebouwd. Probeer het opnieuw.</string>
     <string name="second_brain_retry">Opnieuw</string>
     <string name="second_brain_graph_desc">Onderwerpgraaf met %1$d onderwerpen en %2$d verbindingen</string>
-    <string name="second_brain_node_articles">%1$d articles</string>
+    <string name="second_brain_node_articles">%1$d artikelen</string>
     <string name="second_brain_range_label">Tijdsbereik</string>
     <string name="second_brain_related">Gerelateerde artikelen</string>
 
@@ -782,7 +782,7 @@
     <string name="smart_collection_query">Onderwerpzoekopdracht</string>
     <string name="smart_collection_save_action">Opslaan als collectie</string>
     <string name="smart_collection_empty">Nog geen slimme collecties. Sla een semantische zoekopdracht op om een onderwerp te volgen.</string>
-    <string name="smart_collection_articles_count">%1$d articles</string>
+    <string name="smart_collection_articles_count">%1$d artikelen</string>
     <string name="smart_collection_edit">Bewerken</string>
     <string name="smart_collection_delete">Verwijderen</string>
     <string name="smart_collection_delete_confirm">Deze collectie verwijderen? De artikelen blijven in je bibliotheek.</string>
@@ -971,7 +971,7 @@
     <string name="dossier_names_empty">Geen uitdrukking komt in minstens 2 artikelen voor.</string>
     <string name="dossier_sources_single">Je archief heeft maar één bron over dit onderwerp.</string>
     <string name="dossier_sources_note">Koppen zijn per bron gegroepeerd; er wordt geen conclusie getrokken.</string>
-    <string name="dossier_article_count">%1$d articles</string>
+    <string name="dossier_article_count">%1$d artikelen</string>
     <string name="dossier_share_error">Dossier kon niet worden voorbereid voor delen.</string>
 
     <!-- BOUNTY-03 graph viewport -->
@@ -1027,7 +1027,7 @@
     <string name="curated_bundle_source_count">Sources: %1$d</string>
     <string name="curated_bundle_subscribe_all">Op alles abonneren</string>
     <string name="curated_bundle_subscribing">Abonneren…</string>
-    <string name="curated_bundle_progress">Subscribing %1$d of %2$d</string>
+    <string name="curated_bundle_progress">Abonneren op %1$d van %2$d</string>
     <string name="curated_bundle_result">%1$d toegevoegd · %2$d al aanwezig · %3$d mislukt</string>
     <string name="curated_bundle_error">Abonneren mislukt: %1$s</string>
     <string name="curated_bundle_no_sources_added">Er kon geen bron worden toegevoegd, dus er is geen groep gemaakt.</string>
@@ -1054,7 +1054,7 @@
     <string name="second_screen_share">Link delen</string>
     <string name="second_screen_share_chooser">Link van tweede scherm delen</string>
     <string name="second_screen_viewers">Viewers: %1$d</string>
-    <string name="second_screen_expires">Expires at %1$s</string>
+    <string name="second_screen_expires">Verloopt om %1$s</string>
     <string name="second_screen_warning">Niet versleuteld. Iedereen op dit wifi-netwerk die de link ziet, kan het artikel lezen. Gebruik dit alleen op een netwerk dat je vertrouwt.</string>
     <string name="second_screen_starting">Starten…</string>
     <string name="second_screen_no_network">Geen wifi- of ethernetnetwerk met een privéadres. Maak verbinding met wifi en probeer het opnieuw.</string>
@@ -1109,7 +1109,7 @@
     <string name="local_sync_pair_new">Nieuw apparaat koppelen</string>
     <string name="local_sync_pair_label_hint">Naam voor het nieuwe apparaat</string>
     <string name="local_sync_remember_label_hint">Naam om dit apparaat te onthouden (optioneel)</string>
-    <string name="local_sync_serve_peer">Send to %1$s</string>
+    <string name="local_sync_serve_peer">Verzenden naar %1$s</string>
     <string name="local_sync_wait_reply">Stoppen en wachten op terugontvangst</string>
     <string name="local_sync_role_hint">Nadat de andere telefoon heeft ontvangen, stop je hier en schakel je over naar Ontvangen. Daarna kan die zijn wijzigingen terugsturen.</string>
     <string name="local_sync_reply_to">Terugsturen naar %1$s</string>
@@ -1180,7 +1180,7 @@
     <string name="feed_autopilot_not_local_account">Feed Autopilot ondersteunt alleen lokale accounts. Externe accounts (Fever, Google Reader) beheren feeds op hun eigen server.</string>
     <string name="feed_autopilot_retention_too_short">De bewaartermijn voor artikelen van je account is korter dan 14 dagen. Verhoog die in de accountinstellingen zodat Autopilot genoeg geschiedenis heeft om veilig te analyseren.</string>
     <string name="feed_autopilot_disabled_message">Feed Autopilot staat uit. Schakel hem in om suggesties voor het opruimen van feeds te ontvangen.</string>
-    <string name="feed_autopilot_settings_pending">To review: %1$d</string>
+    <string name="feed_autopilot_settings_pending">Te beoordelen: %1$d</string>
     <string name="feed_autopilot_error">Dat kon niet worden voltooid. Probeer het opnieuw.</string>
     <string name="podcast_studio_title">Podcaststudio</string>
     <string name="podcast_studio_menu">Podcaststudio</string>
@@ -1227,7 +1227,7 @@
     <string name="oracle_badge_label">Voorspelling</string>
     <string name="oracle_badge_open">Voorspelling openen</string>
     <string name="oracle_sheet_title">In dit artikel gevonden voorspelling</string>
-    <string name="oracle_sheet_expires">Expected by %1$s</string>
+    <string name="oracle_sheet_expires">Verwacht voor %1$s</string>
     <string name="oracle_sheet_criteria_heading">Hoe controleer je het antwoord</string>
     <string name="oracle_sheet_ai_label">Door AI geschreven op basis van titel en beschrijving; kan onjuist zijn.</string>
     <string name="oracle_sheet_close">Sluiten</string>
@@ -1238,7 +1238,7 @@
     <string name="oracle_bet_yes">Ja</string>
     <string name="oracle_bet_no">Nee</string>
     <string name="oracle_bet_pick_stake">In te zetten punten</string>
-    <string name="oracle_bet_stake_option">%1$s points</string>
+    <string name="oracle_bet_stake_option">%1$s punten</string>
     <string name="oracle_bet_place">Inzet plaatsen</string>
     <string name="oracle_bet_place_summary">%1$s punten inzetten op %2$s</string>
     <string name="oracle_bet_out_of_points">Niet genoeg punten. Je krijgt elke dag (UTC) 100 nieuwe punten, tot 2.000.</string>

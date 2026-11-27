@@ -513,7 +513,7 @@
     <string name="zen_speed_reading">Hurtiglæsning (RSVP)</string>
     <string name="zen_speed_reading_desc">Læs op til 900 ord i minuttet med fast fokuspunkt</string>
     <string name="zen_wpm_label">Læsehastighed: %1$d WPM</string>
-    <string name="zen_words_progress">%1$d / %2$d words</string>
+    <string name="zen_words_progress">%1$d af %2$d ord</string>
     <string name="zen_ambient_audio">Zen-fokuslyd</string>
     <string name="zen_ambient_audio_desc">Beroligende lydlandskaber til dyb læsekoncentration</string>
     <string name="zen_sound_rain">Let regn</string>
@@ -529,7 +529,7 @@
     <string name="zen_daily_edition_notification">%1$d ulæste artikler klar til din fokuserede læsning.</string>
     <string name="zen_sleep_timer">Sovetimer</string>
     <string name="zen_sleep_timer_off">Kontinuerlig</string>
-    <string name="zen_sleep_timer_min">%1$d minutes</string>
+    <string name="zen_sleep_timer_min">%1$d minutter</string>
     <string name="zen_volume">Volume: %1$d%%</string>
     <string name="zen_settings_title">Zen-fokus &amp; hurtiglæsning</string>
     <!-- Loop 09: AI Article Highlights & Key Takeaways Card -->
@@ -584,7 +584,7 @@
     <string name="story_cluster_lead_badge">Hoved</string>
     <string name="semantic_search_title">AI-semantisk søgning</string>
     <string name="semantic_search_desc">Søg i artikler efter begreb og betydning i stedet for nøjagtige søgeord</string>
-    <string name="semantic_match_badge">%d%% match</string>
+    <string name="semantic_match_badge">%d %% match</string>
     <string name="semantic_search_results_title">✨ AI-semantiske match</string>
     <string name="keyword_search_results_title">Søgeordsmatch</string>
     <string name="watchdog_title">Søgeordsvagt</string>
@@ -592,7 +592,7 @@
     <string name="watchdog_add_hint">Indtast søgeord eller symbol (f.eks. $VIC, Bitcoin, Guld)...</string>
     <string name="watchdog_add_btn">Tilføj</string>
     <string name="watchdog_empty_desc">Ingen søgeord tilføjet endnu. Tilføj søgeord, eller vælg forslag nedenfor for at begynde at overvåge.</string>
-    <string name="watchdog_matched_count">%d matched</string>
+    <string name="watchdog_matched_count">%d matches</string>
     <string name="watchdog_channel_name">Søgeordsalarm</string>
     <string name="watchdog_channel_desc">Højt prioriterede alarmer, når nye artikler matcher overvågede søgeord</string>
     <string name="watchdog_preset_title">Hurtige forslag</string>
@@ -691,7 +691,7 @@
     <string name="smart_filter_field_title">Titel</string>
     <string name="smart_filter_keyword_hint">Nøgleord (f.eks. [Reklame], Sponsoreret)</string>
     <string name="smart_filter_title">Smarte filterregler</string>
-    <string name="story_cluster_similarity_badge">%d%% match</string>
+    <string name="story_cluster_similarity_badge">%d %% match</string>
     <string name="source_dna_action">🧬 Kilde-DNA</string>
     <string name="source_dna_title">Kilde-DNA</string>
     <string name="source_dna_disclaimer">Heuristik baseret på feedets tidsstempler og tekstlighed. Ikke verificeret kildeangivelse eller bevis for kopiering.</string>
@@ -703,7 +703,7 @@
     <string name="source_dna_unknown_source">Ukendt kilde</string>
     <string name="source_dna_error">Denne gruppe kunne ikke analyseres.</string>
     <string name="source_dna_back">Tilbage til perspektiver</string>
-    <string name="source_dna_similarity">%1$d%% similar</string>
+    <string name="source_dna_similarity">%1$d %% lignende</string>
     <string name="source_dna_feed_reported_time">Tid oplyst af feedet: %1$s</string>
     <string name="watchdog_clear_all">Ryd historik</string>
     <string name="watchdog_inbox_desc">Historik over artikler, der udløste alarmer for nødsituationsnøgleord</string>
@@ -749,7 +749,7 @@
     <string name="second_brain_error">Grafen kunne ikke opbygges. Prøv igen.</string>
     <string name="second_brain_retry">Prøv igen</string>
     <string name="second_brain_graph_desc">Emnegraf med %1$d emner og %2$d forbindelser</string>
-    <string name="second_brain_node_articles">%1$d articles</string>
+    <string name="second_brain_node_articles">%1$d artikler</string>
     <string name="second_brain_range_label">Tidsrum</string>
     <string name="second_brain_related">Relaterede artikler</string>
 
@@ -781,7 +781,7 @@
     <string name="smart_collection_query">Emnesøgning</string>
     <string name="smart_collection_save_action">Gem som samling</string>
     <string name="smart_collection_empty">Ingen smarte samlinger endnu. Gem en semantisk søgning for at følge et emne.</string>
-    <string name="smart_collection_articles_count">%1$d articles</string>
+    <string name="smart_collection_articles_count">%1$d artikler</string>
     <string name="smart_collection_edit">Rediger</string>
     <string name="smart_collection_delete">Slet</string>
     <string name="smart_collection_delete_confirm">Slet denne samling? Dens artikler forbliver i dit bibliotek.</string>
@@ -970,7 +970,7 @@
     <string name="dossier_names_empty">Ingen frase går igen i mindst 2 artikler.</string>
     <string name="dossier_sources_single">Dit arkiv har kun én kilde om dette emne.</string>
     <string name="dossier_sources_note">Overskrifter er grupperet efter kilde. Der drages ingen konklusion.</string>
-    <string name="dossier_article_count">%1$d articles</string>
+    <string name="dossier_article_count">%1$d artikler</string>
     <string name="dossier_share_error">Dossieren kunne ikke gøres klar til deling.</string>
 
     <!-- BOUNTY-03 graph viewport -->
@@ -1026,7 +1026,7 @@
     <string name="curated_bundle_source_count">Sources: %1$d</string>
     <string name="curated_bundle_subscribe_all">Abonnér på alle</string>
     <string name="curated_bundle_subscribing">Abonnerer…</string>
-    <string name="curated_bundle_progress">Subscribing %1$d of %2$d</string>
+    <string name="curated_bundle_progress">Abonnerer på %1$d af %2$d</string>
     <string name="curated_bundle_result">Tilføjet %1$d · havde allerede %2$d · mislykkedes %3$d</string>
     <string name="curated_bundle_error">Kunne ikke abonnere: %1$s</string>
     <string name="curated_bundle_no_sources_added">Ingen kilde kunne tilføjes, så der blev ikke oprettet en gruppe.</string>
@@ -1053,7 +1053,7 @@
     <string name="second_screen_share">Del link</string>
     <string name="second_screen_share_chooser">Del link til Anden skærm</string>
     <string name="second_screen_viewers">Viewers: %1$d</string>
-    <string name="second_screen_expires">Expires at %1$s</string>
+    <string name="second_screen_expires">Udløber kl. %1$s</string>
     <string name="second_screen_warning">Ikke krypteret. Alle på dette Wi-Fi, der ser linket, kan læse artiklen. Brug kun på et netværk, du stoler på.</string>
     <string name="second_screen_starting">Starter…</string>
     <string name="second_screen_no_network">Intet Wi-Fi- eller Ethernet-netværk med en privat adresse. Opret forbindelse til Wi-Fi, og prøv igen.</string>
@@ -1108,7 +1108,7 @@
     <string name="local_sync_pair_new">Par en ny enhed</string>
     <string name="local_sync_pair_label_hint">Navn til den nye enhed</string>
     <string name="local_sync_remember_label_hint">Navn til at huske denne enhed (valgfrit)</string>
-    <string name="local_sync_serve_peer">Send to %1$s</string>
+    <string name="local_sync_serve_peer">Send til %1$s</string>
     <string name="local_sync_wait_reply">Stop, og vent på at modtage tilbage</string>
     <string name="local_sync_role_hint">Når den anden telefon har modtaget, skal du stoppe her og skifte til Modtag. Den kan så sende sine ændringer tilbage.</string>
     <string name="local_sync_reply_to">Send tilbage til %1$s</string>
@@ -1179,7 +1179,7 @@
     <string name="feed_autopilot_not_local_account">Feed Autopilot understøtter kun lokale konti. Fjernkonti (Fever, Google Reader) administrerer feeds på deres egen server.</string>
     <string name="feed_autopilot_retention_too_short">Din kontos opbevaringsperiode for artikler er under 14 dage. Forøg den i kontoindstillinger, så Autopilot har nok historik til sikker analyse.</string>
     <string name="feed_autopilot_disabled_message">Feed Autopilot er slået fra. Slå den til for at få forslag til feed-oprydning.</string>
-    <string name="feed_autopilot_settings_pending">To review: %1$d</string>
+    <string name="feed_autopilot_settings_pending">Til gennemgang: %1$d</string>
     <string name="feed_autopilot_error">Det kunne ikke gennemføres. Prøv igen.</string>
     <string name="podcast_studio_title">Podcaststudie</string>
     <string name="podcast_studio_menu">Podcaststudie</string>
@@ -1226,7 +1226,7 @@
     <string name="oracle_badge_label">Forudsigelse</string>
     <string name="oracle_badge_open">Åbn forudsigelsen</string>
     <string name="oracle_sheet_title">Forudsigelse fundet i denne artikel</string>
-    <string name="oracle_sheet_expires">Expected by %1$s</string>
+    <string name="oracle_sheet_expires">Forventes senest %1$s</string>
     <string name="oracle_sheet_criteria_heading">Sådan tjekker du svaret</string>
     <string name="oracle_sheet_ai_label">Skrevet af AI ud fra titel og beskrivelse. Kan være forkert.</string>
     <string name="oracle_sheet_close">Luk</string>
@@ -1237,7 +1237,7 @@
     <string name="oracle_bet_yes">Ja</string>
     <string name="oracle_bet_no">Nej</string>
     <string name="oracle_bet_pick_stake">Point at satse</string>
-    <string name="oracle_bet_stake_option">%1$s points</string>
+    <string name="oracle_bet_stake_option">%1$s point</string>
     <string name="oracle_bet_place">Placér væddemål</string>
     <string name="oracle_bet_place_summary">Sats %1$s point på %2$s</string>
     <string name="oracle_bet_out_of_points">Ikke nok point. Du får 100 nye point hver dag (UTC), op til 2.000.</string>

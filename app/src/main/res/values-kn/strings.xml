@@ -177,8 +177,7 @@
     <string name="tips_and_support">ಸಲಹೆ &amp; ಬೆಂಬಲ</string>
     <string name="welcome">ಸ್ವಾಗತ</string>
     <string name="tos_tips">ಮುಂದುವರಿಯಲು RSS Bear Hub ನ ಸೇವಾ ನಿಯಮಗಳು ಮತ್ತು ಗೌಪ್ಯತಾ ನೀತಿಯನ್ನು ಓದಿ ಒಪ್ಪಿಕೊಳ್ಳಿ.</string>
-    <string name="browse_tos_tips">Browse the &lt;i&gt;&lt;u&gt;Terms of Service and Privacy Policy&lt;/u&gt;&lt;/i&gt;
-        </string>
+    <string name="browse_tos_tips">&lt;i&gt;&lt;u&gt;ಸೇವಾ ನಿಯಮಗಳು ಮತ್ತು ಗೌಪ್ಯತಾ ನೀತಿ&lt;/u&gt;&lt;/i&gt;ಯನ್ನು ವೀಕ್ಷಿಸಿ</string>
     <string name="terms_of_service">ಸೇವಾ ನಿಯಮಗಳು</string>
     <string name="tos_content">
             &lt;h5&gt;
@@ -422,7 +421,7 @@
     <string name="synchronous">ಸಿಂಕ್ ಆಗುತ್ತಿದೆ</string>
     <string name="sync_interval">ಸಿಂಕ್</string>
     <string name="sync_once_on_start">ಆರಂಭದಲ್ಲಿ ಒಮ್ಮೆ ಸಿಂಕ್ ಮಾಡಿ</string>
-    <string name="only_on_wifi">Only on Wi-Fi</string>
+    <string name="only_on_wifi">ಕೇವಲ Wi-Fi ನಲ್ಲಿ ಮಾತ್ರ</string>
     <string name="only_when_charging">ಚಾರ್ಜ್ ಆಗುತ್ತಿರುವಾಗ ಮಾತ್ರ</string>
     <string name="keep_archived_articles">ಆರ್ಕೈವ್ ಮಾಡಿದ ಲೇಖನಗಳನ್ನು ಉಳಿಸಿ</string>
     <string name="block_list">ನಿರ್ಬಂಧ ಪಟ್ಟಿ</string>
@@ -585,7 +584,7 @@
     <string name="zen_speed_reading">ವೇಗದ ಓದು (RSVP)</string>
     <string name="zen_speed_reading_desc">ಸ್ಥಿರ ಕೇಂದ್ರ ಜೋಡಣೆಯೊಂದಿಗೆ ನಿಮಿಷಕ್ಕೆ 900 ಪದಗಳವರೆಗೆ ಓದಿ</string>
     <string name="zen_wpm_label">ಓದುವ ವೇಗ: %1$d WPM</string>
-    <string name="zen_words_progress">%1$d / %2$d words</string>
+    <string name="zen_words_progress">%1$d / %2$d ಪದಗಳು</string>
     <string name="zen_ambient_audio">Zen ಫೋಕಸ್ ಆಡಿಯೋ</string>
     <string name="zen_ambient_audio_desc">ಆಳವಾದ ಓದಿನ ಏಕಾಗ್ರತೆಗೆ ಹಿತವಾದ ಧ್ವನಿಗಳು</string>
     <string name="zen_sound_rain">ಮೃದು ಮಳೆ</string>
@@ -601,7 +600,7 @@
     <string name="zen_daily_edition_notification">%1$d ಓದದ ಲೇಖನಗಳು ನಿಮ್ಮ ಏಕಾಗ್ರ ಓದಿಗೆ ಸಿದ್ಧ.</string>
     <string name="zen_sleep_timer">ಸ್ಲೀಪ್ ಟೈಮರ್</string>
     <string name="zen_sleep_timer_off">ನಿರಂತರ</string>
-    <string name="zen_sleep_timer_min">%1$d minutes</string>
+    <string name="zen_sleep_timer_min">%1$d ನಿಮಿಷಗಳು</string>
     <string name="zen_volume">Volume: %1$d%%</string>
     <string name="zen_settings_title">Zen ಫೋಕಸ್ &amp; ವೇಗದ ಓದು</string>
     <!-- Loop 09: AI Article Highlights & Key Takeaways Card -->
@@ -656,7 +655,7 @@
     <string name="story_cluster_lead_badge">ಪ್ರಮುಖ</string>
     <string name="semantic_search_title">AI ಅರ್ಥಾಧಾರಿತ ಹುಡುಕಾಟ</string>
     <string name="semantic_search_desc">ನಿಖರ ಕೀವರ್ಡ್ ಬದಲು ಪರಿಕಲ್ಪನೆ ಮತ್ತು ಅರ್ಥದ ಆಧಾರದ ಮೇಲೆ ಲೇಖನಗಳನ್ನು ಹುಡುಕಿ</string>
-    <string name="semantic_match_badge">%d%% match</string>
+    <string name="semantic_match_badge">%d%% ಹೊಂದಾಣಿಕೆ</string>
     <string name="semantic_search_results_title">✨ AI ಅರ್ಥಾಧಾರಿತ ಹೊಂದಾಣಿಕೆಗಳು</string>
     <string name="keyword_search_results_title">ಕೀವರ್ಡ್ ಹೊಂದಾಣಿಕೆಗಳು</string>
     <string name="watchdog_title">ಕೀವರ್ಡ್ ವಾಚ್‌ಡಾಗ್</string>
@@ -664,7 +663,7 @@
     <string name="watchdog_add_hint">ಕೀವರ್ಡ್ ಅಥವಾ ಟಿಕರ್ ನಮೂದಿಸಿ (ಉದಾ. $VIC, Bitcoin, Gold)...</string>
     <string name="watchdog_add_btn">ಸೇರಿಸಿ</string>
     <string name="watchdog_empty_desc">ಇನ್ನೂ ಕೀವರ್ಡ್ ಸೇರಿಸಿಲ್ಲ. ಗಮನಿಸಲು ಕೀವರ್ಡ್ ಸೇರಿಸಿ ಅಥವಾ ಕೆಳಗಿನ ಸಲಹೆಗಳನ್ನು ಆರಿಸಿ.</string>
-    <string name="watchdog_matched_count">%d matched</string>
+    <string name="watchdog_matched_count">%d ಹೊಂದಿಕೆ</string>
     <string name="watchdog_channel_name">ಕೀವರ್ಡ್ ಎಚ್ಚರಿಕೆ ವಾಚ್‌ಡಾಗ್</string>
     <string name="watchdog_channel_desc">ಹೊಸ ಲೇಖನಗಳು ಗಮನಿಸುತ್ತಿರುವ ಕೀವರ್ಡ್‌ಗಳಿಗೆ ಹೊಂದಿದಾಗ ಹೆಚ್ಚಿನ ಆದ್ಯತೆಯ ಎಚ್ಚರಿಕೆಗಳು</string>
     <string name="watchdog_preset_title">ತ್ವರಿತ ಸಲಹೆಗಳು</string>
@@ -775,7 +774,7 @@
     <string name="source_dna_unknown_source">ಅಜ್ಞಾತ ಮೂಲ</string>
     <string name="source_dna_error">ಈ ಗುಂಪನ್ನು ವಿಶ್ಲೇಷಿಸಲಾಗಲಿಲ್ಲ.</string>
     <string name="source_dna_back">ದೃಷ್ಟಿಕೋನಗಳಿಗೆ ಹಿಂತಿರುಗಿ</string>
-    <string name="source_dna_similarity">%1$d%% similar</string>
+    <string name="source_dna_similarity">%1$d%% ಹೋಲಿಕೆ</string>
     <string name="source_dna_feed_reported_time">ಫೀಡ್ ವರದಿ ಮಾಡಿದ ಸಮಯ: %1$s</string>
     <string name="watchdog_clear_all">ಇತಿಹಾಸ ತೆರವುಗೊಳಿಸಿ</string>
     <string name="watchdog_inbox_desc">ತುರ್ತು ಕೀವರ್ಡ್ ಎಚ್ಚರಿಕೆಗಳನ್ನು ಪ್ರಚೋದಿಸಿದ ಲೇಖನಗಳ ಇತಿಹಾಸ</string>
@@ -821,7 +820,7 @@
     <string name="second_brain_error">ಗ್ರಾಫ್ ರಚಿಸಲಾಗಲಿಲ್ಲ. ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.</string>
     <string name="second_brain_retry">ಮರುಪ್ರಯತ್ನಿಸಿ</string>
     <string name="second_brain_graph_desc">%1$d ವಿಷಯಗಳು ಮತ್ತು %2$d ಸಂಪರ್ಕಗಳ ವಿಷಯ ಗ್ರಾಫ್</string>
-    <string name="second_brain_node_articles">%1$d articles</string>
+    <string name="second_brain_node_articles">%1$d ಲೇಖನಗಳು</string>
     <string name="second_brain_range_label">ಸಮಯ ವ್ಯಾಪ್ತಿ</string>
     <string name="second_brain_related">ಸಂಬಂಧಿತ ಲೇಖನಗಳು</string>
 
@@ -853,7 +852,7 @@
     <string name="smart_collection_query">ವಿಷಯ ಪ್ರಶ್ನೆ</string>
     <string name="smart_collection_save_action">ಸಂಗ್ರಹವಾಗಿ ಉಳಿಸಿ</string>
     <string name="smart_collection_empty">ಇನ್ನೂ ಸ್ಮಾರ್ಟ್ ಸಂಗ್ರಹಗಳಿಲ್ಲ. ವಿಷಯ ಅನುಸರಿಸಲು ಅರ್ಥಾಧಾರಿತ ಹುಡುಕಾಟ ಉಳಿಸಿ.</string>
-    <string name="smart_collection_articles_count">%1$d articles</string>
+    <string name="smart_collection_articles_count">%1$d ಲೇಖನಗಳು</string>
     <string name="smart_collection_edit">ಸಂಪಾದಿಸಿ</string>
     <string name="smart_collection_delete">ಅಳಿಸಿ</string>
     <string name="smart_collection_delete_confirm">ಈ ಸಂಗ್ರಹ ಅಳಿಸಬೇಕೇ? ಅದರ ಲೇಖನಗಳು ನಿಮ್ಮ ಲೈಬ್ರರಿಯಲ್ಲಿ ಉಳಿಯುತ್ತವೆ.</string>
@@ -1042,7 +1041,7 @@
     <string name="dossier_names_empty">ಕನಿಷ್ಠ 2 ಲೇಖನಗಳಲ್ಲಿ ಪುನರಾವರ್ತನೆಯಾಗುವ ನುಡಿಗಟ್ಟಿಲ್ಲ.</string>
     <string name="dossier_sources_single">ಈ ವಿಷಯದ ಬಗ್ಗೆ ನಿಮ್ಮ ಆರ್ಕೈವ್‌ನಲ್ಲಿ ಒಂದೇ ಮೂಲವಿದೆ.</string>
     <string name="dossier_sources_note">ಶೀರ್ಷಿಕೆಗಳನ್ನು ಮೂಲದ ಪ್ರಕಾರ ಗುಂಪು ಮಾಡಲಾಗಿದೆ; ಯಾವುದೇ ತೀರ್ಮಾನ ಮಾಡಿಲ್ಲ.</string>
-    <string name="dossier_article_count">%1$d articles</string>
+    <string name="dossier_article_count">%1$d ಲೇಖನಗಳು</string>
     <string name="dossier_share_error">ಹಂಚಿಕೆಗಾಗಿ ಡಾಸಿಯರ್ ಸಿದ್ಧಪಡಿಸಲಾಗಲಿಲ್ಲ.</string>
 
     <!-- BOUNTY-03 graph viewport -->
@@ -1098,7 +1097,7 @@
     <string name="curated_bundle_source_count">Sources: %1$d</string>
     <string name="curated_bundle_subscribe_all">ಎಲ್ಲದಕ್ಕೂ ಚಂದಾದಾರರಾಗಿ</string>
     <string name="curated_bundle_subscribing">ಚಂದಾದಾರರಾಗುತ್ತಿದೆ…</string>
-    <string name="curated_bundle_progress">Subscribing %1$d of %2$d</string>
+    <string name="curated_bundle_progress">%2$d ರಲ್ಲಿ %1$d ಚಂದಾದಾರಿಕೆಯಾಗುತ್ತಿದೆ</string>
     <string name="curated_bundle_result">ಸೇರಿಸಿದ್ದು %1$d · ಈಗಾಗಲೇ ಇದ್ದದ್ದು %2$d · ವಿಫಲವಾದದ್ದು %3$d</string>
     <string name="curated_bundle_error">ಚಂದಾದಾರರಾಗಲು ಆಗಲಿಲ್ಲ: %1$s</string>
     <string name="curated_bundle_no_sources_added">ಯಾವುದೇ ಮೂಲ ಸೇರಿಸಲಾಗಲಿಲ್ಲ, ಆದ್ದರಿಂದ ಗುಂಪು ರಚಿಸಲಿಲ್ಲ.</string>
@@ -1125,7 +1124,7 @@
     <string name="second_screen_share">ಲಿಂಕ್ ಹಂಚಿಕೊಳ್ಳಿ</string>
     <string name="second_screen_share_chooser">ಎರಡನೇ ಪರದೆ ಲಿಂಕ್ ಹಂಚಿಕೊಳ್ಳಿ</string>
     <string name="second_screen_viewers">Viewers: %1$d</string>
-    <string name="second_screen_expires">Expires at %1$s</string>
+    <string name="second_screen_expires">%1$s ಕ್ಕೆ ಮುಕ್ತಾಯಗೊಳ್ಳುತ್ತದೆ</string>
     <string name="second_screen_warning">ಎನ್‌ಕ್ರಿಪ್ಟ್ ಆಗಿಲ್ಲ. ಈ Wi-Fi ನಲ್ಲಿರುವ ಲಿಂಕ್ ನೋಡಿದ ಯಾರಾದರೂ ಲೇಖನ ಓದಬಹುದು. ನಂಬಿಕಸ್ಥ ನೆಟ್‌ವರ್ಕ್‌ನಲ್ಲಿ ಮಾತ್ರ ಬಳಸಿ.</string>
     <string name="second_screen_starting">ಪ್ರಾರಂಭವಾಗುತ್ತಿದೆ…</string>
     <string name="second_screen_no_network">ಖಾಸಗಿ ವಿಳಾಸವಿರುವ Wi-Fi ಅಥವಾ ಈಥರ್ನೆಟ್ ನೆಟ್‌ವರ್ಕ್ ಇಲ್ಲ. Wi-Fi ಗೆ ಸಂಪರ್ಕಿಸಿ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.</string>
@@ -1180,7 +1179,7 @@
     <string name="local_sync_pair_new">ಹೊಸ ಸಾಧನ ಜೋಡಿಸಿ</string>
     <string name="local_sync_pair_label_hint">ಹೊಸ ಸಾಧನದ ಹೆಸರು</string>
     <string name="local_sync_remember_label_hint">ಈ ಸಾಧನ ನೆನಪಿಡಲು ಹೆಸರು (ಐಚ್ಛಿಕ)</string>
-    <string name="local_sync_serve_peer">Send to %1$s</string>
+    <string name="local_sync_serve_peer">%1$s ಗೆ ಕಳುಹಿಸಿ</string>
     <string name="local_sync_wait_reply">ನಿಲ್ಲಿಸಿ ಮತ್ತು ಹಿಂತಿರುಗಿ ಸ್ವೀಕರಿಸಲು ಕಾಯಿರಿ</string>
     <string name="local_sync_role_hint">ಇನ್ನೊಂದು ಫೋನ್ ಸ್ವೀಕರಿಸಿದ ನಂತರ, ಇಲ್ಲಿ ನಿಲ್ಲಿಸಿ ಮತ್ತು ಸ್ವೀಕರಿಸುವುದಕ್ಕೆ ಬದಲಿಸಿ. ಆಗ ಅದು ತನ್ನ ಬದಲಾವಣೆಗಳನ್ನು ಹಿಂತಿರುಗಿ ಕಳುಹಿಸಬಹುದು.</string>
     <string name="local_sync_reply_to">%1$s ಗೆ ಹಿಂತಿರುಗಿ ಕಳುಹಿಸಿ</string>
@@ -1251,7 +1250,7 @@
     <string name="feed_autopilot_not_local_account">ಫೀಡ್ ಆಟೋಪೈಲಟ್ ಸ್ಥಳೀಯ ಖಾತೆಗಳನ್ನು ಮಾತ್ರ ಬೆಂಬಲಿಸುತ್ತದೆ. ರಿಮೋಟ್ ಖಾತೆಗಳು (Fever, Google Reader) ತಮ್ಮದೇ ಸರ್ವರ್‌ನಲ್ಲಿ ಫೀಡ್‌ಗಳನ್ನು ನಿರ್ವಹಿಸುತ್ತವೆ.</string>
     <string name="feed_autopilot_retention_too_short">ನಿಮ್ಮ ಖಾತೆಯ ಲೇಖನ ಉಳಿಸುವ ಅವಧಿ 14 ದಿನಗಳಿಗಿಂತ ಕಡಿಮೆ ಇದೆ. ಆಟೋಪೈಲಟ್ ಸುರಕ್ಷಿತವಾಗಿ ವಿಶ್ಲೇಷಿಸಲು ಸಾಕಷ್ಟು ಇತಿಹಾಸ ಇರುವಂತೆ ಖಾತೆ ಸೆಟ್ಟಿಂಗ್ಸ್‌ನಲ್ಲಿ ಹೆಚ್ಚಿಸಿ.</string>
     <string name="feed_autopilot_disabled_message">ಫೀಡ್ ಆಟೋಪೈಲಟ್ ಆಫ್ ಆಗಿದೆ. ಫೀಡ್ ಸ್ವಚ್ಛತೆ ಸಲಹೆಗಳನ್ನು ಪಡೆಯಲು ಆನ್ ಮಾಡಿ.</string>
-    <string name="feed_autopilot_settings_pending">To review: %1$d</string>
+    <string name="feed_autopilot_settings_pending">ಪರಿಶೀಲಿಸಲು: %1$d</string>
     <string name="feed_autopilot_error">ಅದನ್ನು ಪೂರ್ಣಗೊಳಿಸಲಾಗಲಿಲ್ಲ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.</string>
     <string name="podcast_studio_title">ಪಾಡ್‌ಕಾಸ್ಟ್ ಸ್ಟುಡಿಯೋ</string>
     <string name="podcast_studio_menu">ಪಾಡ್‌ಕಾಸ್ಟ್ ಸ್ಟುಡಿಯೋ</string>
@@ -1298,7 +1297,7 @@
     <string name="oracle_badge_label">ಭವಿಷ್ಯ</string>
     <string name="oracle_badge_open">ಭವಿಷ್ಯವಾಣಿ ತೆರೆಯಿರಿ</string>
     <string name="oracle_sheet_title">ಈ ಲೇಖನದಲ್ಲಿ ಸಿಕ್ಕ ಭವಿಷ್ಯವಾಣಿ</string>
-    <string name="oracle_sheet_expires">Expected by %1$s</string>
+    <string name="oracle_sheet_expires">%1$s ವೇಳೆಗೆ ನಿರೀಕ್ಷಿತ</string>
     <string name="oracle_sheet_criteria_heading">ಉತ್ತರ ಪರಿಶೀಲಿಸುವುದು ಹೇಗೆ</string>
     <string name="oracle_sheet_ai_label">ಶೀರ್ಷಿಕೆ ಮತ್ತು ವಿವರಣೆಯಿಂದ AI ಬರೆದದ್ದು; ತಪ್ಪಾಗಿರಬಹುದು.</string>
     <string name="oracle_sheet_close">ಮುಚ್ಚಿ</string>
@@ -1309,7 +1308,7 @@
     <string name="oracle_bet_yes">ಹೌದು</string>
     <string name="oracle_bet_no">ಇಲ್ಲ</string>
     <string name="oracle_bet_pick_stake">ಪಣಕ್ಕಿಡುವ ಅಂಕಗಳು</string>
-    <string name="oracle_bet_stake_option">%1$s points</string>
+    <string name="oracle_bet_stake_option">%1$s ಅಂಕಗಳು</string>
     <string name="oracle_bet_place">ಪಣ ಇಡಿ</string>
     <string name="oracle_bet_place_summary">%2$s ಮೇಲೆ %1$s ಅಂಕಗಳ ಪಣ</string>
     <string name="oracle_bet_out_of_points">ಸಾಕಷ್ಟು ಅಂಕಗಳಿಲ್ಲ. ನೀವು ಪ್ರತಿದಿನ (UTC) 100 ಹೊಸ ಅಂಕಗಳನ್ನು ಪಡೆಯುತ್ತೀರಿ, ಗರಿಷ್ಠ 2,000 ವರೆಗೆ.</string>

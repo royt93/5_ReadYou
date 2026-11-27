@@ -315,7 +315,7 @@
     <string name="synchronous">Синхронизиране</string>
     <string name="sync_interval">Синхр.</string>
     <string name="sync_once_on_start">Синхронизирай веднъж при стартиране</string>
-    <string name="only_on_wifi">Only on Wi-Fi</string>
+    <string name="only_on_wifi">Само през Wi-Fi</string>
     <string name="only_when_charging">Само при зареждане</string>
     <string name="keep_archived_articles">Запази архивираните статии</string>
     <string name="block_list">Списък за блокиране</string>
@@ -478,7 +478,7 @@
     <string name="zen_speed_reading">Бързо четене (RSVP)</string>
     <string name="zen_speed_reading_desc">Четете до 900 думи в минута с фиксирана точка на фокус</string>
     <string name="zen_wpm_label">Скорост на четене: %1$d WPM</string>
-    <string name="zen_words_progress">%1$d / %2$d words</string>
+    <string name="zen_words_progress">%1$d / %2$d думи</string>
     <string name="zen_ambient_audio">Дзен звуци за фокус</string>
     <string name="zen_ambient_audio_desc">Успокояващи звуци за дълбока концентрация при четене</string>
     <string name="zen_sound_rain">Лек дъжд</string>
@@ -494,7 +494,7 @@
     <string name="zen_daily_edition_notification">%1$d непрочетени статии са готови за вашето фокусирано четене.</string>
     <string name="zen_sleep_timer">Таймер за заспиване</string>
     <string name="zen_sleep_timer_off">Непрекъснато</string>
-    <string name="zen_sleep_timer_min">%1$d minutes</string>
+    <string name="zen_sleep_timer_min">%1$d минути</string>
     <string name="zen_volume">Volume: %1$d%%</string>
     <string name="zen_settings_title">Дзен фокус &amp; бързо четене</string>
     <!-- Loop 09: AI Article Highlights & Key Takeaways Card -->
@@ -549,7 +549,7 @@
     <string name="story_cluster_lead_badge">Водеща</string>
     <string name="semantic_search_title">AI семантично търсене</string>
     <string name="semantic_search_desc">Търсете статии по понятие и смисъл, а не по точни ключови думи</string>
-    <string name="semantic_match_badge">%d%% match</string>
+    <string name="semantic_match_badge">%d%% съвпадение</string>
     <string name="semantic_search_results_title">✨ AI семантични съвпадения</string>
     <string name="keyword_search_results_title">Съвпадения по ключови думи</string>
     <string name="watchdog_title">Пазач на ключови думи</string>
@@ -557,7 +557,7 @@
     <string name="watchdog_add_hint">Въведете ключова дума или символ (напр. $VIC, Bitcoin, Gold)...</string>
     <string name="watchdog_add_btn">Добави</string>
     <string name="watchdog_empty_desc">Още няма добавени ключови думи. Добавете ключови думи или изберете от предложенията по-долу, за да започнете наблюдение.</string>
-    <string name="watchdog_matched_count">%d matched</string>
+    <string name="watchdog_matched_count">%d съвпадения</string>
     <string name="watchdog_channel_name">Пазач на ключови думи</string>
     <string name="watchdog_channel_desc">Известия с висок приоритет, когато нови статии съвпадат със следените ключови думи</string>
     <string name="watchdog_preset_title">Бързи предложения</string>
@@ -604,7 +604,7 @@
     <string name="source_dna_unknown_source">Неизвестен източник</string>
     <string name="source_dna_error">Тази група не можа да бъде анализирана.</string>
     <string name="source_dna_back">Назад към гледните точки</string>
-    <string name="source_dna_similarity">%1$d%% similar</string>
+    <string name="source_dna_similarity">%1$d%% сходство</string>
     <string name="source_dna_feed_reported_time">Време според емисията: %1$s</string>
     <string name="watchdog_inbox_title">Входяща кутия за сигнали на Watchdog</string>
     <string name="watchdog_inbox_desc">История на статии, задействали сигнали за спешни ключови думи</string>
@@ -714,7 +714,7 @@
     <string name="second_brain_error">Графиката не можа да бъде изградена. Опитайте отново.</string>
     <string name="second_brain_retry">Опитай отново</string>
     <string name="second_brain_graph_desc">Графика на темите с %1$d теми и %2$d връзки</string>
-    <string name="second_brain_node_articles">%1$d articles</string>
+    <string name="second_brain_node_articles">%1$d статии</string>
     <string name="second_brain_range_label">Период</string>
     <string name="second_brain_related">Свързани статии</string>
 
@@ -746,7 +746,7 @@
     <string name="smart_collection_query">Заявка за тема</string>
     <string name="smart_collection_save_action">Запази като колекция</string>
     <string name="smart_collection_empty">Още няма умни колекции. Запазете семантично търсене, за да следите тема.</string>
-    <string name="smart_collection_articles_count">%1$d articles</string>
+    <string name="smart_collection_articles_count">%1$d статии</string>
     <string name="smart_collection_edit">Редактирай</string>
     <string name="smart_collection_delete">Изтрий</string>
     <string name="smart_collection_delete_confirm">Да се изтрие ли тази колекция? Статиите ѝ ще останат във вашата библиотека.</string>
@@ -935,7 +935,7 @@
     <string name="dossier_names_empty">Няма фраза, която да се повтаря в поне 2 статии.</string>
     <string name="dossier_sources_single">Архивът ви има само един източник по тази тема.</string>
     <string name="dossier_sources_note">Заглавията са групирани по източник; не се прави извод.</string>
-    <string name="dossier_article_count">%1$d articles</string>
+    <string name="dossier_article_count">%1$d статии</string>
     <string name="dossier_share_error">Досието не можа да бъде подготвено за споделяне.</string>
 
     <!-- BOUNTY-03 graph viewport -->
@@ -991,7 +991,7 @@
     <string name="curated_bundle_source_count">Sources: %1$d</string>
     <string name="curated_bundle_subscribe_all">Абонирай се за всички</string>
     <string name="curated_bundle_subscribing">Абониране…</string>
-    <string name="curated_bundle_progress">Subscribing %1$d of %2$d</string>
+    <string name="curated_bundle_progress">Абониране за %1$d от %2$d</string>
     <string name="curated_bundle_result">Добавени %1$d · вече имаше %2$d · неуспешни %3$d</string>
     <string name="curated_bundle_error">Абонирането не бе възможно: %1$s</string>
     <string name="curated_bundle_no_sources_added">Не можа да бъде добавен нито един източник, затова не е създадена група.</string>
@@ -1018,7 +1018,7 @@
     <string name="second_screen_share">Сподели връзката</string>
     <string name="second_screen_share_chooser">Сподели връзката към Втори екран</string>
     <string name="second_screen_viewers">Viewers: %1$d</string>
-    <string name="second_screen_expires">Expires at %1$s</string>
+    <string name="second_screen_expires">Изтича в %1$s</string>
     <string name="second_screen_warning">Не е криптирано. Всеки в тази Wi-Fi мрежа, който види връзката, може да прочете статията. Използвайте само в мрежа, на която се доверявате.</string>
     <string name="second_screen_starting">Стартиране…</string>
     <string name="second_screen_no_network">Няма Wi-Fi или Ethernet мрежа с частен адрес. Свържете се с Wi-Fi и опитайте отново.</string>
@@ -1073,7 +1073,7 @@
     <string name="local_sync_pair_new">Сдвои ново устройство</string>
     <string name="local_sync_pair_label_hint">Име на новото устройство</string>
     <string name="local_sync_remember_label_hint">Име, с което да запомните това устройство (по избор)</string>
-    <string name="local_sync_serve_peer">Send to %1$s</string>
+    <string name="local_sync_serve_peer">Изпрати до %1$s</string>
     <string name="local_sync_wait_reply">Спри и изчакай да получиш обратно</string>
     <string name="local_sync_role_hint">След като другият телефон е получил данните, спрете тук и преминете на Получаване. Тогава той може да изпрати промените си обратно.</string>
     <string name="local_sync_reply_to">Изпрати обратно към %1$s</string>
@@ -1144,7 +1144,7 @@
     <string name="feed_autopilot_not_local_account">Автопилотът за емисии поддържа само локални акаунти. Отдалечените акаунти (Fever, Google Reader) управляват емисиите на собствения си сървър.</string>
     <string name="feed_autopilot_retention_too_short">Срокът за съхранение на статиите във вашия акаунт е под 14 дни. Увеличете го в настройките на акаунта, за да има Автопилотът достатъчно история за безопасен анализ.</string>
     <string name="feed_autopilot_disabled_message">Автопилотът за емисии е изключен. Включете го, за да получавате предложения за почистване на емисии.</string>
-    <string name="feed_autopilot_settings_pending">To review: %1$d</string>
+    <string name="feed_autopilot_settings_pending">За преглед: %1$d</string>
     <string name="feed_autopilot_error">Действието не можа да бъде завършено. Моля, опитайте отново.</string>
     <string name="podcast_studio_title">Подкаст студио</string>
     <string name="podcast_studio_menu">Подкаст студио</string>
@@ -1191,7 +1191,7 @@
     <string name="oracle_badge_label">Прогноза</string>
     <string name="oracle_badge_open">Отвори прогнозата</string>
     <string name="oracle_sheet_title">Прогноза, намерена в тази статия</string>
-    <string name="oracle_sheet_expires">Expected by %1$s</string>
+    <string name="oracle_sheet_expires">Очаква се до %1$s</string>
     <string name="oracle_sheet_criteria_heading">Как да проверите отговора</string>
     <string name="oracle_sheet_ai_label">Написано от AI по заглавието и описанието; може да е грешно.</string>
     <string name="oracle_sheet_close">Затвори</string>
@@ -1202,7 +1202,7 @@
     <string name="oracle_bet_yes">Да</string>
     <string name="oracle_bet_no">Не</string>
     <string name="oracle_bet_pick_stake">Точки за залог</string>
-    <string name="oracle_bet_stake_option">%1$s points</string>
+    <string name="oracle_bet_stake_option">%1$s точки</string>
     <string name="oracle_bet_place">Заложи</string>
     <string name="oracle_bet_place_summary">Залог от %1$s точки на %2$s</string>
     <string name="oracle_bet_out_of_points">Недостатъчно точки. Получавате 100 нови точки всеки ден (UTC), до 2000.</string>

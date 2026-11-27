@@ -516,7 +516,7 @@
     <string name="zen_speed_reading">Брзо читање (RSVP)</string>
     <string name="zen_speed_reading_desc">Читајте до 900 речи у минуту уз фиксирано поравнање фокуса</string>
     <string name="zen_wpm_label">Брзина читања: %1$d WPM</string>
-    <string name="zen_words_progress">%1$d / %2$d words</string>
+    <string name="zen_words_progress">%1$d / %2$d речи</string>
     <string name="zen_ambient_audio">Zen звук за фокус</string>
     <string name="zen_ambient_audio_desc">Умирујући звуци за дубоку концентрацију при читању</string>
     <string name="zen_sound_rain">Блага киша</string>
@@ -532,7 +532,7 @@
     <string name="zen_daily_edition_notification">%1$d непрочитаних чланака спремно је за ваше фокусирано читање.</string>
     <string name="zen_sleep_timer">Тајмер за спавање</string>
     <string name="zen_sleep_timer_off">Непрекидно</string>
-    <string name="zen_sleep_timer_min">%1$d minutes</string>
+    <string name="zen_sleep_timer_min">%1$d мин</string>
     <string name="zen_volume">Volume: %1$d%%</string>
     <string name="zen_settings_title">Zen фокус и брзо читање</string>
     <!-- Loop 09: AI Article Highlights & Key Takeaways Card -->
@@ -587,7 +587,7 @@
     <string name="story_cluster_lead_badge">Главна</string>
     <string name="semantic_search_title">AI семантичка претрага</string>
     <string name="semantic_search_desc">Претражујте чланке по појму и значењу уместо по тачним кључним речима</string>
-    <string name="semantic_match_badge">%d%% match</string>
+    <string name="semantic_match_badge">%d%% подударање</string>
     <string name="semantic_search_results_title">✨ AI семантичка поклапања</string>
     <string name="keyword_search_results_title">Поклапања кључних речи</string>
     <string name="watchdog_title">Чувар кључних речи</string>
@@ -595,7 +595,7 @@
     <string name="watchdog_add_hint">Унесите кључну реч или ознаку (нпр. $VIC, Bitcoin, Gold)...</string>
     <string name="watchdog_add_btn">Додај</string>
     <string name="watchdog_empty_desc">Још нема додатих кључних речи. Додајте кључне речи или изаберите предлоге испод да почнете праћење.</string>
-    <string name="watchdog_matched_count">%d matched</string>
+    <string name="watchdog_matched_count">%d подударено</string>
     <string name="watchdog_channel_name">Упозорења чувара кључних речи</string>
     <string name="watchdog_channel_desc">Упозорења високог приоритета када нови чланци одговарају праћеним кључним речима</string>
     <string name="watchdog_preset_title">Брзи предлози</string>
@@ -707,7 +707,7 @@
     <string name="source_dna_unknown_source">Непознат извор</string>
     <string name="source_dna_error">Није могуће анализирати ову групу.</string>
     <string name="source_dna_back">Назад на перспективе</string>
-    <string name="source_dna_similarity">%1$d%% similar</string>
+    <string name="source_dna_similarity">%1$d%% слично</string>
     <string name="source_dna_feed_reported_time">Време из фида: %1$s</string>
     <string name="watchdog_clear_all">Обриши историју</string>
     <string name="watchdog_inbox_desc">Историја чланака који су покренули хитна упозорења на кључне речи</string>
@@ -753,7 +753,7 @@
     <string name="second_brain_error">Није могуће направити граф. Покушајте поново.</string>
     <string name="second_brain_retry">Покушај поново</string>
     <string name="second_brain_graph_desc">Граф тема са %1$d тема и %2$d веза</string>
-    <string name="second_brain_node_articles">%1$d articles</string>
+    <string name="second_brain_node_articles">%1$d чланака</string>
     <string name="second_brain_range_label">Временски опсег</string>
     <string name="second_brain_related">Сродни чланци</string>
 
@@ -785,7 +785,7 @@
     <string name="smart_collection_query">Упит за тему</string>
     <string name="smart_collection_save_action">Сачувај као колекцију</string>
     <string name="smart_collection_empty">Још нема паметних колекција. Сачувајте семантичку претрагу да бисте пратили тему.</string>
-    <string name="smart_collection_articles_count">%1$d articles</string>
+    <string name="smart_collection_articles_count">%1$d чланака</string>
     <string name="smart_collection_edit">Уреди</string>
     <string name="smart_collection_delete">Избриши</string>
     <string name="smart_collection_delete_confirm">Обрисати ову колекцију? Њени чланци остаће у вашој библиотеци.</string>
@@ -979,7 +979,7 @@
     <string name="dossier_names_empty">Ниједна фраза се не понавља у најмање 2 чланка.</string>
     <string name="dossier_sources_single">Ваша архива има само један извор о овој теми.</string>
     <string name="dossier_sources_note">Наслови су груписани по извору; не доноси се никакав закључак.</string>
-    <string name="dossier_article_count">%1$d articles</string>
+    <string name="dossier_article_count">%1$d чланака</string>
     <string name="dossier_share_error">Није могуће припремити досије за дељење.</string>
 
     <!-- BOUNTY-03 graph viewport -->
@@ -1035,7 +1035,7 @@
     <string name="curated_bundle_source_count">Sources: %1$d</string>
     <string name="curated_bundle_subscribe_all">Претплати се на све</string>
     <string name="curated_bundle_subscribing">Претплаћивање…</string>
-    <string name="curated_bundle_progress">Subscribing %1$d of %2$d</string>
+    <string name="curated_bundle_progress">Претплата %1$d од %2$d</string>
     <string name="curated_bundle_result">Додато %1$d · већ постојало %2$d · неуспело %3$d</string>
     <string name="curated_bundle_error">Претплата није успела: %1$s</string>
     <string name="curated_bundle_no_sources_added">Ниједан извор није могао бити додат, па група није направљена.</string>
@@ -1062,7 +1062,7 @@
     <string name="second_screen_share">Подели линк</string>
     <string name="second_screen_share_chooser">Подели линк за Други екран</string>
     <string name="second_screen_viewers">Viewers: %1$d</string>
-    <string name="second_screen_expires">Expires at %1$s</string>
+    <string name="second_screen_expires">Истиче у %1$s</string>
     <string name="second_screen_warning">Није шифровано. Свако на овој Wi-Fi мрежи ко види линк може да прочита чланак. Користите само на мрежи којој верујете.</string>
     <string name="second_screen_starting">Покретање…</string>
     <string name="second_screen_no_network">Нема Wi-Fi ни Ethernet мреже са приватном адресом. Повежите се на Wi-Fi и покушајте поново.</string>
@@ -1117,7 +1117,7 @@
     <string name="local_sync_pair_new">Упари нови уређај</string>
     <string name="local_sync_pair_label_hint">Назив новог уређаја</string>
     <string name="local_sync_remember_label_hint">Назив за памћење овог уређаја (необавезно)</string>
-    <string name="local_sync_serve_peer">Send to %1$s</string>
+    <string name="local_sync_serve_peer">Пошаљи на %1$s</string>
     <string name="local_sync_wait_reply">Заустави и сачекај пријем одговора</string>
     <string name="local_sync_role_hint">Након што други телефон прими податке, зауставите слање овде и пређите на Пријем. Он потом може да пошаље своје измене назад.</string>
     <string name="local_sync_reply_to">Пошаљи назад уређају %1$s</string>
@@ -1188,7 +1188,7 @@
     <string name="feed_autopilot_not_local_account">Feed Autopilot подржава само локалне налоге. Удаљени налози (Fever, Google Reader) сами управљају фидовима на свом серверу.</string>
     <string name="feed_autopilot_retention_too_short">Период чувања чланака вашег налога краћи је од 14 дана. Продужите га у подешавањима налога да би Autopilot имао довољно историје за безбедну анализу.</string>
     <string name="feed_autopilot_disabled_message">Feed Autopilot је искључен. Укључите га да бисте добијали предлоге за чишћење фидова.</string>
-    <string name="feed_autopilot_settings_pending">To review: %1$d</string>
+    <string name="feed_autopilot_settings_pending">За преглед: %1$d</string>
     <string name="feed_autopilot_error">Није могуће завршити. Покушајте поново.</string>
     <string name="podcast_studio_title">Podcast Studio</string>
     <string name="podcast_studio_menu">Podcast Studio</string>
@@ -1235,7 +1235,7 @@
     <string name="oracle_badge_label">Предвиђање</string>
     <string name="oracle_badge_open">Отвори предвиђање</string>
     <string name="oracle_sheet_title">Предвиђање пронађено у овом чланку</string>
-    <string name="oracle_sheet_expires">Expected by %1$s</string>
+    <string name="oracle_sheet_expires">Очекује се до %1$s</string>
     <string name="oracle_sheet_criteria_heading">Како проверити одговор</string>
     <string name="oracle_sheet_ai_label">Написао AI на основу наслова и описа; може бити погрешно.</string>
     <string name="oracle_sheet_close">Затвори</string>
@@ -1246,7 +1246,7 @@
     <string name="oracle_bet_yes">Да</string>
     <string name="oracle_bet_no">Не</string>
     <string name="oracle_bet_pick_stake">Поени за улог</string>
-    <string name="oracle_bet_stake_option">%1$s points</string>
+    <string name="oracle_bet_stake_option">%1$s поена</string>
     <string name="oracle_bet_place">Уложи</string>
     <string name="oracle_bet_place_summary">Улог од %1$s поена на %2$s</string>
     <string name="oracle_bet_out_of_points">Нема довољно поена. Сваког дана (UTC) добијате 100 нових поена, до 2.000.</string>

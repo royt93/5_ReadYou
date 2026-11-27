@@ -513,7 +513,7 @@
     <string name="zen_speed_reading">Snabbläsning (RSVP)</string>
     <string name="zen_speed_reading_desc">Läs upp till 900 ord per minut med fast fokuspunkt</string>
     <string name="zen_wpm_label">Läshastighet: %1$d ord/min</string>
-    <string name="zen_words_progress">%1$d / %2$d words</string>
+    <string name="zen_words_progress">%1$d av %2$d ord</string>
     <string name="zen_ambient_audio">Zen-fokusljud</string>
     <string name="zen_ambient_audio_desc">Rogivande ljudlandskap för djup läskoncentration</string>
     <string name="zen_sound_rain">Mjukt regn</string>
@@ -529,7 +529,7 @@
     <string name="zen_daily_edition_notification">%1$d olästa artiklar väntar på din fokuserade läsning.</string>
     <string name="zen_sleep_timer">Insomningstimer</string>
     <string name="zen_sleep_timer_off">Kontinuerlig</string>
-    <string name="zen_sleep_timer_min">%1$d minutes</string>
+    <string name="zen_sleep_timer_min">%1$d minuter</string>
     <string name="zen_volume">Volume: %1$d%%</string>
     <string name="zen_settings_title">Zen-fokus &amp; snabbläsning</string>
     <!-- Loop 09: AI Article Highlights & Key Takeaways Card -->
@@ -584,7 +584,7 @@
     <string name="story_cluster_lead_badge">Huvud</string>
     <string name="semantic_search_title">Semantisk AI-sökning</string>
     <string name="semantic_search_desc">Sök artiklar utifrån begrepp och betydelse i stället för exakta nyckelord</string>
-    <string name="semantic_match_badge">%d%% match</string>
+    <string name="semantic_match_badge">%d%% träff</string>
     <string name="semantic_search_results_title">✨ Semantiska AI-träffar</string>
     <string name="keyword_search_results_title">Nyckelordsträffar</string>
     <string name="watchdog_title">Nyckelordsvakt</string>
@@ -592,7 +592,7 @@
     <string name="watchdog_add_hint">Ange nyckelord eller symbol (t.ex. $VIC, Bitcoin, Guld)...</string>
     <string name="watchdog_add_btn">Lägg till</string>
     <string name="watchdog_empty_desc">Inga nyckelord har lagts till än. Lägg till nyckelord eller välj bland förslagen nedan för att börja bevaka.</string>
-    <string name="watchdog_matched_count">%d matched</string>
+    <string name="watchdog_matched_count">%d matchade</string>
     <string name="watchdog_channel_name">Nyckelordsvakt – aviseringar</string>
     <string name="watchdog_channel_desc">Högprioriterade aviseringar när nya artiklar matchar bevakade nyckelord</string>
     <string name="watchdog_preset_title">Snabbförslag</string>
@@ -703,7 +703,7 @@
     <string name="source_dna_unknown_source">Okänd källa</string>
     <string name="source_dna_error">Det gick inte att analysera gruppen.</string>
     <string name="source_dna_back">Tillbaka till perspektiv</string>
-    <string name="source_dna_similarity">%1$d%% similar</string>
+    <string name="source_dna_similarity">%1$d%% likhet</string>
     <string name="source_dna_feed_reported_time">Tid enligt flödet: %1$s</string>
     <string name="watchdog_clear_all">Rensa historik</string>
     <string name="watchdog_inbox_desc">Historik över artiklar som utlöst larm för nödsituationsnyckelord</string>
@@ -749,7 +749,7 @@
     <string name="second_brain_error">Det gick inte att bygga grafen. Försök igen.</string>
     <string name="second_brain_retry">Försök igen</string>
     <string name="second_brain_graph_desc">Ämnesgraf med %1$d ämnen och %2$d kopplingar</string>
-    <string name="second_brain_node_articles">%1$d articles</string>
+    <string name="second_brain_node_articles">%1$d artiklar</string>
     <string name="second_brain_range_label">Tidsintervall</string>
     <string name="second_brain_related">Relaterade artiklar</string>
 
@@ -781,7 +781,7 @@
     <string name="smart_collection_query">Ämnessökning</string>
     <string name="smart_collection_save_action">Spara som samling</string>
     <string name="smart_collection_empty">Inga smarta samlingar än. Spara en semantisk sökning för att följa ett ämne.</string>
-    <string name="smart_collection_articles_count">%1$d articles</string>
+    <string name="smart_collection_articles_count">%1$d artiklar</string>
     <string name="smart_collection_edit">Redigera</string>
     <string name="smart_collection_delete">Ta bort</string>
     <string name="smart_collection_delete_confirm">Ta bort den här samlingen? Artiklarna finns kvar i ditt bibliotek.</string>
@@ -970,7 +970,7 @@
     <string name="dossier_names_empty">Ingen fras återkommer i minst 2 artiklar.</string>
     <string name="dossier_sources_single">Ditt arkiv har bara en källa om det här ämnet.</string>
     <string name="dossier_sources_note">Rubriker grupperas efter källa; ingen slutsats dras.</string>
-    <string name="dossier_article_count">%1$d articles</string>
+    <string name="dossier_article_count">%1$d artiklar</string>
     <string name="dossier_share_error">Det gick inte att förbereda dosjen för delning.</string>
 
     <!-- BOUNTY-03 graph viewport -->
@@ -1026,7 +1026,7 @@
     <string name="curated_bundle_source_count">Sources: %1$d</string>
     <string name="curated_bundle_subscribe_all">Prenumerera på alla</string>
     <string name="curated_bundle_subscribing">Prenumererar…</string>
-    <string name="curated_bundle_progress">Subscribing %1$d of %2$d</string>
+    <string name="curated_bundle_progress">Prenumererar på %1$d av %2$d</string>
     <string name="curated_bundle_result">Tillagda %1$d · fanns redan %2$d · misslyckades %3$d</string>
     <string name="curated_bundle_error">Det gick inte att prenumerera: %1$s</string>
     <string name="curated_bundle_no_sources_added">Ingen källa kunde läggas till, så ingen grupp skapades.</string>
@@ -1053,7 +1053,7 @@
     <string name="second_screen_share">Dela länk</string>
     <string name="second_screen_share_chooser">Dela länk till Andra skärmen</string>
     <string name="second_screen_viewers">Viewers: %1$d</string>
-    <string name="second_screen_expires">Expires at %1$s</string>
+    <string name="second_screen_expires">Går ut %1$s</string>
     <string name="second_screen_warning">Inte krypterad. Alla på det här Wi-Fi som ser länken kan läsa artikeln. Använd bara på ett nätverk du litar på.</string>
     <string name="second_screen_starting">Startar…</string>
     <string name="second_screen_no_network">Inget Wi-Fi- eller Ethernet-nätverk med privat adress. Anslut till Wi-Fi och försök igen.</string>
@@ -1108,7 +1108,7 @@
     <string name="local_sync_pair_new">Parkoppla en ny enhet</string>
     <string name="local_sync_pair_label_hint">Namn på den nya enheten</string>
     <string name="local_sync_remember_label_hint">Namn för att komma ihåg enheten (valfritt)</string>
-    <string name="local_sync_serve_peer">Send to %1$s</string>
+    <string name="local_sync_serve_peer">Skicka till %1$s</string>
     <string name="local_sync_wait_reply">Avsluta och vänta på att få tillbaka</string>
     <string name="local_sync_role_hint">När den andra telefonen har tagit emot, avsluta här och byt till Ta emot. Den kan sedan skicka tillbaka sina ändringar.</string>
     <string name="local_sync_reply_to">Skicka tillbaka till %1$s</string>
@@ -1179,7 +1179,7 @@
     <string name="feed_autopilot_not_local_account">Flödesautopiloten stöder bara lokala konton. Fjärrkonton (Fever, Google Reader) hanterar flöden på sin egen server.</string>
     <string name="feed_autopilot_retention_too_short">Ditt kontos lagringstid för artiklar är under 14 dagar. Öka den i kontoinställningarna så att autopiloten har tillräckligt med historik att analysera säkert.</string>
     <string name="feed_autopilot_disabled_message">Flödesautopiloten är avstängd. Slå på den för att få förslag på flödesrensning.</string>
-    <string name="feed_autopilot_settings_pending">To review: %1$d</string>
+    <string name="feed_autopilot_settings_pending">Att granska: %1$d</string>
     <string name="feed_autopilot_error">Det gick inte att slutföra. Försök igen.</string>
     <string name="podcast_studio_title">Podcaststudio</string>
     <string name="podcast_studio_menu">Podcaststudio</string>
@@ -1226,7 +1226,7 @@
     <string name="oracle_badge_label">Förutsägelse</string>
     <string name="oracle_badge_open">Öppna förutsägelsen</string>
     <string name="oracle_sheet_title">Förutsägelse hittad i den här artikeln</string>
-    <string name="oracle_sheet_expires">Expected by %1$s</string>
+    <string name="oracle_sheet_expires">Förväntas senast %1$s</string>
     <string name="oracle_sheet_criteria_heading">Så kontrollerar du svaret</string>
     <string name="oracle_sheet_ai_label">Skriven av AI utifrån rubriken och beskrivningen; kan vara felaktig.</string>
     <string name="oracle_sheet_close">Stäng</string>
@@ -1237,7 +1237,7 @@
     <string name="oracle_bet_yes">Ja</string>
     <string name="oracle_bet_no">Nej</string>
     <string name="oracle_bet_pick_stake">Poäng att satsa</string>
-    <string name="oracle_bet_stake_option">%1$s points</string>
+    <string name="oracle_bet_stake_option">%1$s poäng</string>
     <string name="oracle_bet_place">Lägg satsning</string>
     <string name="oracle_bet_place_summary">Satsa %1$s poäng på %2$s</string>
     <string name="oracle_bet_out_of_points">Inte tillräckligt med poäng. Du får 100 nya poäng varje dag (UTC), upp till 2 000.</string>

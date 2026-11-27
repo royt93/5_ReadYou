@@ -249,7 +249,7 @@
     <string name="all_move_to_group_tips">העברת כל הפידים מהקבוצה \"%1$s\" לקבוצה \"%2$s\"</string>
     <string name="all_move_to_group_toast">כל הפידים הועברו לקבוצה \"%1$s\"</string>
     <string name="feed_url_placeholder" translatable="false">http://example.com/feed.rss</string>
-    <string name="rename_toast">Renamed to \"%1$s\"</string>
+    <string name="rename_toast">שונה השם ל-\"%1$s\"</string>
     <string name="delete_toast">Deleted \"%1$s\"</string>
     <string name="unsubscribe_tips">ביטול ההרשמה ל-\"%1$s\" ומחיקת כל הכתבות שבארכיון שלו</string>
     <string name="delete_group_tips">מחיקת הקבוצה \"%1$s\" וכל הפידים והכתבות בארכיון שבה</string>
@@ -301,8 +301,7 @@
     <string name="malayalam" translatable="false">മലയാളം</string>
     <string name="burmese" translatable="false">မြန်မာ</string>
     <string name="tos_tips">יש לקרוא ולהסכים לתנאי השימוש ולמדיניות הפרטיות של RSS Bear Hub כדי להמשיך.</string>
-    <string name="browse_tos_tips">Browse the &lt;i&gt;&lt;u&gt;Terms of Service and Privacy Policy&lt;/u&gt;&lt;/i&gt;
-        </string>
+    <string name="browse_tos_tips">עיין ב&lt;i&gt;&lt;u&gt;תנאי השימוש ומדיניות הפרטיות&lt;/u&gt;&lt;/i&gt;</string>
     <string name="tos_content">
             &lt;h5&gt;
     
@@ -591,7 +590,7 @@
     <string name="zen_speed_reading">קריאה מהירה (RSVP)</string>
     <string name="zen_speed_reading_desc">קריאה של עד 900 מילים בדקה עם יישור מוקד קבוע</string>
     <string name="zen_wpm_label">מהירות קריאה: %1$d מילים בדקה</string>
-    <string name="zen_words_progress">%1$d / %2$d words</string>
+    <string name="zen_words_progress">%1$d מתוך %2$d מילים</string>
     <string name="zen_ambient_audio">שמע זן לריכוז</string>
     <string name="zen_ambient_audio_desc">נופי קול מרגיעים לריכוז בקריאה לעומק</string>
     <string name="zen_sound_rain">גשם עדין</string>
@@ -607,7 +606,7 @@
     <string name="zen_daily_edition_notification">%1$d כתבות שלא נקראו מוכנות לקריאה ממוקדת.</string>
     <string name="zen_sleep_timer">טיימר שינה</string>
     <string name="zen_sleep_timer_off">רצוף</string>
-    <string name="zen_sleep_timer_min">%1$d minutes</string>
+    <string name="zen_sleep_timer_min">%1$d דקות</string>
     <string name="zen_volume">Volume: %1$d%%</string>
     <string name="zen_settings_title">ריכוז זן וקריאה מהירה</string>
     <!-- Loop 09: AI Article Highlights & Key Takeaways Card -->
@@ -662,7 +661,7 @@
     <string name="story_cluster_lead_badge">ראשי</string>
     <string name="semantic_search_title">חיפוש סמנטי ב-AI</string>
     <string name="semantic_search_desc">חיפוש כתבות לפי מושג ומשמעות במקום מילות מפתח מדויקות</string>
-    <string name="semantic_match_badge">%d%% match</string>
+    <string name="semantic_match_badge">%d%% התאמה</string>
     <string name="semantic_search_results_title">✨ התאמות סמנטיות של AI</string>
     <string name="keyword_search_results_title">התאמות מילות מפתח</string>
     <string name="watchdog_title">משגיח מילות מפתח</string>
@@ -670,7 +669,7 @@
     <string name="watchdog_add_hint">הזינו מילת מפתח או סמל מניה (למשל $VIC, Bitcoin, Gold)...</string>
     <string name="watchdog_add_btn">הוסף</string>
     <string name="watchdog_empty_desc">עדיין לא נוספו מילות מפתח. הוסיפו מילות מפתח או בחרו הצעות למטה כדי להתחיל במעקב.</string>
-    <string name="watchdog_matched_count">%d matched</string>
+    <string name="watchdog_matched_count">%d התאמות</string>
     <string name="watchdog_channel_name">התראות משגיח מילות מפתח</string>
     <string name="watchdog_channel_desc">התראות בעדיפות גבוהה כשכתבות חדשות תואמות מילות מפתח במעקב</string>
     <string name="watchdog_preset_title">הצעות מהירות</string>
@@ -782,7 +781,7 @@
     <string name="source_dna_unknown_source">מקור לא ידוע</string>
     <string name="source_dna_error">לא ניתן לנתח את האשכול הזה.</string>
     <string name="source_dna_back">חזרה לנקודות המבט</string>
-    <string name="source_dna_similarity">%1$d%% similar</string>
+    <string name="source_dna_similarity">%1$d%% דומה</string>
     <string name="source_dna_feed_reported_time">הזמן שדווח בפיד: %1$s</string>
     <string name="watchdog_clear_all">נקה היסטוריה</string>
     <string name="watchdog_inbox_desc">היסטוריית כתבות שהפעילו התראות חירום למילות מפתח</string>
@@ -828,7 +827,7 @@
     <string name="second_brain_error">לא ניתן לבנות את הגרף. נסו שוב.</string>
     <string name="second_brain_retry">נסה שוב</string>
     <string name="second_brain_graph_desc">גרף נושאים עם %1$d נושאים ו-%2$d קשרים</string>
-    <string name="second_brain_node_articles">%1$d articles</string>
+    <string name="second_brain_node_articles">%1$d מאמרים</string>
     <string name="second_brain_range_label">טווח זמן</string>
     <string name="second_brain_related">כתבות קשורות</string>
 
@@ -860,7 +859,7 @@
     <string name="smart_collection_query">שאילתת נושא</string>
     <string name="smart_collection_save_action">שמירה כאוסף</string>
     <string name="smart_collection_empty">אין אוספים חכמים עדיין. שמרו חיפוש סמנטי כדי לעקוב אחר נושא.</string>
-    <string name="smart_collection_articles_count">%1$d articles</string>
+    <string name="smart_collection_articles_count">%1$d מאמרים</string>
     <string name="smart_collection_edit">ערוך</string>
     <string name="smart_collection_delete">מחק</string>
     <string name="smart_collection_delete_confirm">למחוק את האוסף הזה? הכתבות שלו יישארו בספרייה שלכם.</string>
@@ -1055,7 +1054,7 @@
     <string name="dossier_names_empty">אין ביטוי שחוזר בלפחות 2 כתבות.</string>
     <string name="dossier_sources_single">בארכיון שלכם יש רק מקור אחד בנושא הזה.</string>
     <string name="dossier_sources_note">הכותרות מקובצות לפי מקור; לא נגזרת מסקנה.</string>
-    <string name="dossier_article_count">%1$d articles</string>
+    <string name="dossier_article_count">%1$d מאמרים</string>
     <string name="dossier_share_error">לא ניתן להכין את התיק לשיתוף.</string>
 
     <!-- BOUNTY-03 graph viewport -->
@@ -1111,7 +1110,7 @@
     <string name="curated_bundle_source_count">Sources: %1$d</string>
     <string name="curated_bundle_subscribe_all">הרשמה לכולם</string>
     <string name="curated_bundle_subscribing">נרשם…</string>
-    <string name="curated_bundle_progress">Subscribing %1$d of %2$d</string>
+    <string name="curated_bundle_progress">נרשם %1$d מתוך %2$d</string>
     <string name="curated_bundle_result">נוספו %1$d · כבר היו %2$d · נכשלו %3$d</string>
     <string name="curated_bundle_error">לא ניתן להירשם: %1$s</string>
     <string name="curated_bundle_no_sources_added">לא ניתן היה להוסיף אף מקור, ולכן לא נוצרה קבוצה.</string>
@@ -1138,7 +1137,7 @@
     <string name="second_screen_share">שיתוף הקישור</string>
     <string name="second_screen_share_chooser">שיתוף קישור המסך השני</string>
     <string name="second_screen_viewers">Viewers: %1$d</string>
-    <string name="second_screen_expires">Expires at %1$s</string>
+    <string name="second_screen_expires">פג תוקף ב-%1$s</string>
     <string name="second_screen_warning">לא מוצפן. כל מי שנמצא באותה רשת Wi-Fi ורואה את הקישור יכול לקרוא את הכתבה. השתמשו רק ברשת שאתם סומכים עליה.</string>
     <string name="second_screen_starting">מתחיל…</string>
     <string name="second_screen_no_network">אין רשת Wi-Fi או Ethernet עם כתובת פרטית. התחברו ל-Wi-Fi ונסו שוב.</string>
@@ -1193,7 +1192,7 @@
     <string name="local_sync_pair_new">התאמת מכשיר חדש</string>
     <string name="local_sync_pair_label_hint">שם למכשיר החדש</string>
     <string name="local_sync_remember_label_hint">שם לזכירת המכשיר הזה (אופציונלי)</string>
-    <string name="local_sync_serve_peer">Send to %1$s</string>
+    <string name="local_sync_serve_peer">שלח אל %1$s</string>
     <string name="local_sync_wait_reply">עצירה והמתנה לקבלה בחזרה</string>
     <string name="local_sync_role_hint">אחרי שהטלפון השני קיבל, עצרו כאן ועברו לקבלה. אז הוא יוכל לשלוח את השינויים שלו בחזרה.</string>
     <string name="local_sync_reply_to">שליחה בחזרה אל %1$s</string>
@@ -1264,7 +1263,7 @@
     <string name="feed_autopilot_not_local_account">טייס אוטומטי לפידים תומך רק בחשבונות מקומיים. חשבונות מרוחקים (Fever, Google Reader) מנהלים את הפידים בשרת שלהם.</string>
     <string name="feed_autopilot_retention_too_short">תקופת שמירת הכתבות בחשבון שלכם קצרה מ-14 ימים. הגדילו אותה בהגדרות החשבון כדי שלטייס האוטומטי תהיה היסטוריה מספקת לניתוח בטוח.</string>
     <string name="feed_autopilot_disabled_message">הטייס האוטומטי לפידים כבוי. הפעילו אותו כדי לקבל הצעות לניקוי פידים.</string>
-    <string name="feed_autopilot_settings_pending">To review: %1$d</string>
+    <string name="feed_autopilot_settings_pending">לבדיקה: %1$d</string>
     <string name="feed_autopilot_error">לא ניתן להשלים את הפעולה. נסו שוב.</string>
     <string name="podcast_studio_title">סטודיו פודקאסט</string>
     <string name="podcast_studio_menu">סטודיו פודקאסט</string>
@@ -1311,7 +1310,7 @@
     <string name="oracle_badge_label">תחזית</string>
     <string name="oracle_badge_open">פתיחת התחזית</string>
     <string name="oracle_sheet_title">תחזית שנמצאה בכתבה הזו</string>
-    <string name="oracle_sheet_expires">Expected by %1$s</string>
+    <string name="oracle_sheet_expires">צפוי עד %1$s</string>
     <string name="oracle_sheet_criteria_heading">איך לבדוק את התשובה</string>
     <string name="oracle_sheet_ai_label">נכתב על ידי AI לפי הכותרת והתיאור; ייתכנו טעויות.</string>
     <string name="oracle_sheet_close">סגור</string>
@@ -1322,7 +1321,7 @@
     <string name="oracle_bet_yes">כן</string>
     <string name="oracle_bet_no">לא</string>
     <string name="oracle_bet_pick_stake">נקודות להימור</string>
-    <string name="oracle_bet_stake_option">%1$s points</string>
+    <string name="oracle_bet_stake_option">%1$s נקודות</string>
     <string name="oracle_bet_place">הנחת ההימור</string>
     <string name="oracle_bet_place_summary">הימור של %1$s נקודות על %2$s</string>
     <string name="oracle_bet_out_of_points">אין מספיק נקודות. אתם מקבלים 100 נקודות חדשות בכל יום (UTC), עד 2,000.</string>

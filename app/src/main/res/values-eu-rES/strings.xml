@@ -584,7 +584,7 @@
     <string name="zen_speed_reading">Irakurketa azkarra (RSVP)</string>
     <string name="zen_speed_reading_desc">Irakurri minutuko 900 hitzera arte fokuaren lerrokatze finkoarekin</string>
     <string name="zen_wpm_label">Irakurketa-abiadura: %1$d WPM</string>
-    <string name="zen_words_progress">%1$d / %2$d words</string>
+    <string name="zen_words_progress">%1$d / %2$d hitz</string>
     <string name="zen_ambient_audio">Zen fokuko audioa</string>
     <string name="zen_ambient_audio_desc">Soinu lasaigarriak irakurketa sakonerako kontzentrazioa lortzeko</string>
     <string name="zen_sound_rain">Euri leuna</string>
@@ -600,7 +600,7 @@
     <string name="zen_daily_edition_notification">Irakurri gabeko %1$d artikulu prest daude zure irakurketa fokatuarentzat.</string>
     <string name="zen_sleep_timer">Lo-tenporizadorea</string>
     <string name="zen_sleep_timer_off">Etengabea</string>
-    <string name="zen_sleep_timer_min">%1$d minutes</string>
+    <string name="zen_sleep_timer_min">%1$d minutu</string>
     <string name="zen_volume">Volume: %1$d%%</string>
     <string name="zen_settings_title">Zen fokua eta irakurketa azkarra</string>
     <!-- Loop 09: AI Article Highlights & Key Takeaways Card -->
@@ -655,7 +655,7 @@
     <string name="story_cluster_lead_badge">Nagusia</string>
     <string name="semantic_search_title">AI bilaketa semantikoa</string>
     <string name="semantic_search_desc">Bilatu artikuluak kontzeptuaren eta esanahi semantikoaren arabera, ez gako-hitz zehatzen arabera</string>
-    <string name="semantic_match_badge">%d%% match</string>
+    <string name="semantic_match_badge">%d%% bat etortzea</string>
     <string name="semantic_search_results_title">✨ AI bat-etortze semantikoak</string>
     <string name="keyword_search_results_title">Gako-hitzen bat-etortzeak</string>
     <string name="watchdog_title">Gako-hitzen zaindaria</string>
@@ -663,7 +663,7 @@
     <string name="watchdog_add_hint">Sartu gako-hitza edo tikerra (adib. $VIC, Bitcoin, Gold)...</string>
     <string name="watchdog_add_btn">Gehitu</string>
     <string name="watchdog_empty_desc">Oraindik ez da gako-hitzik gehitu. Gehitu gako-hitzak edo aukeratu beheko iradokizunak zaintzen hasteko.</string>
-    <string name="watchdog_matched_count">%d matched</string>
+    <string name="watchdog_matched_count">%d parekatuta</string>
     <string name="watchdog_channel_name">Gako-hitzen alerta-zaindaria</string>
     <string name="watchdog_channel_desc">Lehentasun handiko alertak artikulu berriak monitorizatutako gako-hitzekin bat datozenean</string>
     <string name="watchdog_preset_title">Iradokizun azkarrak</string>
@@ -774,7 +774,7 @@
     <string name="source_dna_unknown_source">Iturri ezezaguna</string>
     <string name="source_dna_error">Ezin izan da multzo hau aztertu.</string>
     <string name="source_dna_back">Itzuli ikuspegietara</string>
-    <string name="source_dna_similarity">%1$d%% similar</string>
+    <string name="source_dna_similarity">%1$d%% antzekoa</string>
     <string name="source_dna_feed_reported_time">Jarioak jakinarazitako ordua: %1$s</string>
     <string name="watchdog_clear_all">Garbitu historia</string>
     <string name="watchdog_inbox_desc">Larrialdiko gako-hitzen alertak eragin dituzten artikuluen historia</string>
@@ -820,7 +820,7 @@
     <string name="second_brain_error">Ezin izan da grafoa eraiki. Saiatu berriro.</string>
     <string name="second_brain_retry">Saiatu berriro</string>
     <string name="second_brain_graph_desc">Gai-grafoa %1$d gai eta %2$d konexiorekin</string>
-    <string name="second_brain_node_articles">%1$d articles</string>
+    <string name="second_brain_node_articles">%1$d artikulu</string>
     <string name="second_brain_range_label">Denbora-tartea</string>
     <string name="second_brain_related">Erlazionatutako artikuluak</string>
 
@@ -852,7 +852,7 @@
     <string name="smart_collection_query">Gaiaren kontsulta</string>
     <string name="smart_collection_save_action">Gorde bilduma gisa</string>
     <string name="smart_collection_empty">Oraindik ez dago bilduma adimendunik. Gorde bilaketa semantiko bat gai bat jarraitzeko.</string>
-    <string name="smart_collection_articles_count">%1$d articles</string>
+    <string name="smart_collection_articles_count">%1$d artikulu</string>
     <string name="smart_collection_edit">Editatu</string>
     <string name="smart_collection_delete">Ezabatu</string>
     <string name="smart_collection_delete_confirm">Bilduma hau ezabatu? Bere artikuluak zure liburutegian geratuko dira.</string>
@@ -1041,7 +1041,7 @@
     <string name="dossier_names_empty">Ez da esapiderik errepikatzen gutxienez 2 artikulutan.</string>
     <string name="dossier_sources_single">Zure artxiboak gai honi buruzko iturri bakarra du.</string>
     <string name="dossier_sources_note">Izenburuak iturriaren arabera multzokatuta daude; ez da ondoriorik ateratzen.</string>
-    <string name="dossier_article_count">%1$d articles</string>
+    <string name="dossier_article_count">%1$d artikulu</string>
     <string name="dossier_share_error">Ezin izan da dosierra partekatzeko prestatu.</string>
 
     <!-- BOUNTY-03 graph viewport -->
@@ -1097,7 +1097,7 @@
     <string name="curated_bundle_source_count">Sources: %1$d</string>
     <string name="curated_bundle_subscribe_all">Harpidetu guztietan</string>
     <string name="curated_bundle_subscribing">Harpidetzen…</string>
-    <string name="curated_bundle_progress">Subscribing %1$d of %2$d</string>
+    <string name="curated_bundle_progress">Harpidetzen: %1$d / %2$d</string>
     <string name="curated_bundle_result">Gehituta %1$d · bazeuden %2$d · huts egin du %3$d</string>
     <string name="curated_bundle_error">Ezin izan da harpidetu: %1$s</string>
     <string name="curated_bundle_no_sources_added">Ezin izan da iturririk gehitu, beraz ez da talderik sortu.</string>
@@ -1124,7 +1124,7 @@
     <string name="second_screen_share">Partekatu esteka</string>
     <string name="second_screen_share_chooser">Partekatu Bigarren pantailaren esteka</string>
     <string name="second_screen_viewers">Viewers: %1$d</string>
-    <string name="second_screen_expires">Expires at %1$s</string>
+    <string name="second_screen_expires">%1$s(e)an iraungitzen da</string>
     <string name="second_screen_warning">Ez dago zifratuta. Wi-Fi honetan estekaren berri duen edonork artikulua irakur dezake. Erabili soilik fidagarria den sare batean.</string>
     <string name="second_screen_starting">Abiarazten…</string>
     <string name="second_screen_no_network">Ez dago helbide pribatua duen Wi-Fi edo Ethernet saririk. Konektatu Wi-Firen eta saiatu berriro.</string>
@@ -1179,7 +1179,7 @@
     <string name="local_sync_pair_new">Parekatu gailu berri bat</string>
     <string name="local_sync_pair_label_hint">Gailu berriaren izena</string>
     <string name="local_sync_remember_label_hint">Gailu hau gogoratzeko izena (aukerakoa)</string>
-    <string name="local_sync_serve_peer">Send to %1$s</string>
+    <string name="local_sync_serve_peer">Bidali hona: %1$s</string>
     <string name="local_sync_wait_reply">Gelditu eta itxaron erantzuna jasotzeko</string>
     <string name="local_sync_role_hint">Beste telefonoak jaso ondoren, gelditu hemen eta aldatu Jaso modura. Orduan bere aldaketak itzul ditzake.</string>
     <string name="local_sync_reply_to">Bidali atzera %1$s gailura</string>
@@ -1250,7 +1250,7 @@
     <string name="feed_autopilot_not_local_account">Jarioen autopilotuak kontu lokalak soilik onartzen ditu. Urruneko kontuek (Fever, Google Reader) jarioak beren zerbitzarian kudeatzen dituzte.</string>
     <string name="feed_autopilot_retention_too_short">Zure kontuaren artikuluen atxikitze-aldia 14 egun baino laburragoa da. Handitu Kontuaren ezarpenetan, Autopilotuak historia nahikoa izan dezan segurtasunez aztertzeko.</string>
     <string name="feed_autopilot_disabled_message">Jarioen autopilotua desaktibatuta dago. Aktibatu jarioak garbitzeko iradokizunak jasotzeko.</string>
-    <string name="feed_autopilot_settings_pending">To review: %1$d</string>
+    <string name="feed_autopilot_settings_pending">Berrikusteko: %1$d</string>
     <string name="feed_autopilot_error">Ezin izan da hori burutu. Saiatu berriro.</string>
     <string name="podcast_studio_title">Podcast estudioa</string>
     <string name="podcast_studio_menu">Podcast estudioa</string>
@@ -1297,7 +1297,7 @@
     <string name="oracle_badge_label">Iragarpena</string>
     <string name="oracle_badge_open">Ireki iragarpena</string>
     <string name="oracle_sheet_title">Artikulu honetan aurkitutako iragarpena</string>
-    <string name="oracle_sheet_expires">Expected by %1$s</string>
+    <string name="oracle_sheet_expires">Espero da: %1$s</string>
     <string name="oracle_sheet_criteria_heading">Nola egiaztatu erantzuna</string>
     <string name="oracle_sheet_ai_label">AIk idatzia izenburutik eta azalpenetik; oker egon daiteke.</string>
     <string name="oracle_sheet_close">Itxi</string>
@@ -1308,7 +1308,7 @@
     <string name="oracle_bet_yes">Bai</string>
     <string name="oracle_bet_no">Ez</string>
     <string name="oracle_bet_pick_stake">Jokatzeko puntuak</string>
-    <string name="oracle_bet_stake_option">%1$s points</string>
+    <string name="oracle_bet_stake_option">%1$s puntu</string>
     <string name="oracle_bet_place">Egin apustua</string>
     <string name="oracle_bet_place_summary">Apustu %1$s puntu honen alde: %2$s</string>
     <string name="oracle_bet_out_of_points">Ez daukazu punturik nahikorik. 100 puntu berri jasotzen dituzu egunero (UTC), 2.000 arte.</string>

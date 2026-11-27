@@ -319,7 +319,7 @@
     <string name="synchronous">Sinhroniziranje</string>
     <string name="sync_interval">Sinhronizacija</string>
     <string name="sync_once_on_start">Sinhroniziraj ob zagonu</string>
-    <string name="only_on_wifi">Only on Wi-Fi</string>
+    <string name="only_on_wifi">Samo prek Wi-Fi</string>
     <string name="only_when_charging">Samo med polnjenjem</string>
     <string name="keep_archived_articles">Ohrani arhivirane članke</string>
     <string name="block_list">Seznam blokiranih</string>
@@ -482,7 +482,7 @@
     <string name="zen_speed_reading">Hitro branje (RSVP)</string>
     <string name="zen_speed_reading_desc">Berite do 900 besed na minuto s fiksno točko pogleda</string>
     <string name="zen_wpm_label">Hitrost branja: %1$d WPM</string>
-    <string name="zen_words_progress">%1$d / %2$d words</string>
+    <string name="zen_words_progress">%1$d / %2$d besed</string>
     <string name="zen_ambient_audio">Zvok za zen osredotočenost</string>
     <string name="zen_ambient_audio_desc">Pomirjujoče zvočne kulise za globoko zbranost pri branju</string>
     <string name="zen_sound_rain">Nežen dež</string>
@@ -498,7 +498,7 @@
     <string name="zen_daily_edition_notification">Neprebranih člankov za osredotočeno branje: %1$d.</string>
     <string name="zen_sleep_timer">Časovnik za spanje</string>
     <string name="zen_sleep_timer_off">Neprekinjeno</string>
-    <string name="zen_sleep_timer_min">%1$d minutes</string>
+    <string name="zen_sleep_timer_min">%1$d minut</string>
     <string name="zen_volume">Volume: %1$d%%</string>
     <string name="zen_settings_title">Zen osredotočenost &amp; hitro branje</string>
     <!-- Loop 09: AI Article Highlights & Key Takeaways Card -->
@@ -553,7 +553,7 @@
     <string name="story_cluster_lead_badge">Glavno</string>
     <string name="semantic_search_title">AI semantično iskanje</string>
     <string name="semantic_search_desc">Iščite članke po konceptu in pomenu, ne le po natančnih ključnih besedah</string>
-    <string name="semantic_match_badge">%d%% match</string>
+    <string name="semantic_match_badge">%d %% ujemanje</string>
     <string name="semantic_search_results_title">✨ AI semantični zadetki</string>
     <string name="keyword_search_results_title">Zadetki po ključnih besedah</string>
     <string name="watchdog_title">Stražar ključnih besed</string>
@@ -561,7 +561,7 @@
     <string name="watchdog_add_hint">Vnesite ključno besedo ali oznako (npr. $VIC, Bitcoin, Gold) ...</string>
     <string name="watchdog_add_btn">Dodaj</string>
     <string name="watchdog_empty_desc">Ključnih besed še ni. Dodajte ključne besede ali izberite predloge spodaj, da začnete spremljati.</string>
-    <string name="watchdog_matched_count">%d matched</string>
+    <string name="watchdog_matched_count">Ujema se: %d</string>
     <string name="watchdog_channel_name">Opozorila stražarja ključnih besed</string>
     <string name="watchdog_channel_desc">Opozorila visoke prednosti, ko novi članki ustrezajo spremljanim ključnim besedam</string>
     <string name="watchdog_preset_title">Hitri predlogi</string>
@@ -673,7 +673,7 @@
     <string name="source_dna_unknown_source">Neznan vir</string>
     <string name="source_dna_error">Te skupine ni bilo mogoče analizirati.</string>
     <string name="source_dna_back">Nazaj na poglede</string>
-    <string name="source_dna_similarity">%1$d%% similar</string>
+    <string name="source_dna_similarity">%1$d %% podobno</string>
     <string name="source_dna_feed_reported_time">Čas, ki ga sporoča vir: %1$s</string>
     <string name="watchdog_clear_all">Počisti zgodovino</string>
     <string name="watchdog_inbox_desc">Zgodovina člankov, ki so sprožili nujna opozorila na ključne besede</string>
@@ -719,7 +719,7 @@
     <string name="second_brain_error">Grafa ni bilo mogoče zgraditi. Poskusite znova.</string>
     <string name="second_brain_retry">Poskusi znova</string>
     <string name="second_brain_graph_desc">Graf tem s %1$d temami in %2$d povezavami</string>
-    <string name="second_brain_node_articles">%1$d articles</string>
+    <string name="second_brain_node_articles">%1$d člankov</string>
     <string name="second_brain_range_label">Časovno obdobje</string>
     <string name="second_brain_related">Sorodni članki</string>
 
@@ -751,7 +751,7 @@
     <string name="smart_collection_query">Poizvedba teme</string>
     <string name="smart_collection_save_action">Shrani kot zbirko</string>
     <string name="smart_collection_empty">Pametnih zbirk še ni. Shranite semantično iskanje, da sledite temi.</string>
-    <string name="smart_collection_articles_count">%1$d articles</string>
+    <string name="smart_collection_articles_count">%1$d člankov</string>
     <string name="smart_collection_edit">Uredi</string>
     <string name="smart_collection_delete">Izbriši</string>
     <string name="smart_collection_delete_confirm">Izbrišem to zbirko? Njeni članki bodo ostali v knjižnici.</string>
@@ -950,7 +950,7 @@
     <string name="dossier_names_empty">Nobena fraza se ne ponovi v vsaj 2 člankih.</string>
     <string name="dossier_sources_single">Vaš arhiv ima o tej temi samo en vir.</string>
     <string name="dossier_sources_note">Naslovi so združeni po virih; sklep ni izpeljan.</string>
-    <string name="dossier_article_count">%1$d articles</string>
+    <string name="dossier_article_count">%1$d člankov</string>
     <string name="dossier_share_error">Dosjeja ni bilo mogoče pripraviti za deljenje.</string>
 
     <!-- BOUNTY-03 graph viewport -->
@@ -1006,7 +1006,7 @@
     <string name="curated_bundle_source_count">Sources: %1$d</string>
     <string name="curated_bundle_subscribe_all">Naroči se na vse</string>
     <string name="curated_bundle_subscribing">Naročam se…</string>
-    <string name="curated_bundle_progress">Subscribing %1$d of %2$d</string>
+    <string name="curated_bundle_progress">Naročanje na %1$d od %2$d</string>
     <string name="curated_bundle_result">Dodano: %1$d · že obstaja: %2$d · neuspešno: %3$d</string>
     <string name="curated_bundle_error">Naročanje ni uspelo: %1$s</string>
     <string name="curated_bundle_no_sources_added">Nobenega vira ni bilo mogoče dodati, zato skupina ni bila ustvarjena.</string>
@@ -1033,7 +1033,7 @@
     <string name="second_screen_share">Deli povezavo</string>
     <string name="second_screen_share_chooser">Deli povezavo za drugi zaslon</string>
     <string name="second_screen_viewers">Viewers: %1$d</string>
-    <string name="second_screen_expires">Expires at %1$s</string>
+    <string name="second_screen_expires">Poteče ob %1$s</string>
     <string name="second_screen_warning">Ni šifrirano. Vsak v tem omrežju Wi-Fi, ki vidi povezavo, lahko prebere članek. Uporabljajte samo v omrežju, ki mu zaupate.</string>
     <string name="second_screen_starting">Zaganjam…</string>
     <string name="second_screen_no_network">Ni omrežja Wi-Fi ali Ethernet z zasebnim naslovom. Povežite se z Wi-Fi in poskusite znova.</string>
@@ -1088,7 +1088,7 @@
     <string name="local_sync_pair_new">Seznani novo napravo</string>
     <string name="local_sync_pair_label_hint">Ime nove naprave</string>
     <string name="local_sync_remember_label_hint">Ime za pomnjenje te naprave (neobvezno)</string>
-    <string name="local_sync_serve_peer">Send to %1$s</string>
+    <string name="local_sync_serve_peer">Pošlji na %1$s</string>
     <string name="local_sync_wait_reply">Ustavi in počakaj na prejem nazaj</string>
     <string name="local_sync_role_hint">Ko drugi telefon prejme podatke, se tukaj ustavite in preklopite na Prejem. Nato lahko pošlje svoje spremembe nazaj.</string>
     <string name="local_sync_reply_to">Pošlji nazaj napravi %1$s</string>
@@ -1159,7 +1159,7 @@
     <string name="feed_autopilot_not_local_account">Samodejni pilot virov podpira samo lokalne račune. Oddaljeni računi (Fever, Google Reader) upravljajo vire na svojem strežniku.</string>
     <string name="feed_autopilot_retention_too_short">Obdobje hrambe člankov vašega računa je krajše od 14 dni. Povečajte ga v nastavitvah računa, da ima samodejni pilot dovolj zgodovine za varno analizo.</string>
     <string name="feed_autopilot_disabled_message">Samodejni pilot virov je izklopljen. Vklopite ga, da prejemate predloge za čiščenje virov.</string>
-    <string name="feed_autopilot_settings_pending">To review: %1$d</string>
+    <string name="feed_autopilot_settings_pending">Za pregled: %1$d</string>
     <string name="feed_autopilot_error">Tega ni bilo mogoče dokončati. Poskusite znova.</string>
     <string name="podcast_studio_title">Podkast studio</string>
     <string name="podcast_studio_menu">Podkast studio</string>
@@ -1206,7 +1206,7 @@
     <string name="oracle_badge_label">Napoved</string>
     <string name="oracle_badge_open">Odpri napoved</string>
     <string name="oracle_sheet_title">Napoved, najdena v tem članku</string>
-    <string name="oracle_sheet_expires">Expected by %1$s</string>
+    <string name="oracle_sheet_expires">Pričakovano do %1$s</string>
     <string name="oracle_sheet_criteria_heading">Kako preveriti odgovor</string>
     <string name="oracle_sheet_ai_label">Napisal AI iz naslova in opisa; lahko je napačno.</string>
     <string name="oracle_sheet_close">Zapri</string>
@@ -1217,7 +1217,7 @@
     <string name="oracle_bet_yes">Da</string>
     <string name="oracle_bet_no">Ne</string>
     <string name="oracle_bet_pick_stake">Točke za stavo</string>
-    <string name="oracle_bet_stake_option">%1$s points</string>
+    <string name="oracle_bet_stake_option">%1$s točk</string>
     <string name="oracle_bet_place">Postavi stavo</string>
     <string name="oracle_bet_place_summary">Stava %1$s točk na: %2$s</string>
     <string name="oracle_bet_out_of_points">Premalo točk. Vsak dan (UTC) dobite 100 novih točk, do 2.000.</string>
