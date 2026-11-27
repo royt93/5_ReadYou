@@ -995,3 +995,26 @@ Khoảng 30 mục mức "gượng" hoặc thuật ngữ không nhất quán, và
 - **9 locale chữ hiếm chưa audit bằng agent**: az, eu, kn, lzh, ml, my, nn, sl, sr. Độ tin cậy của agent với chữ hiếm thấp nên tôi bỏ, đó là quyết định của tôi chứ không phải của owner.
 - Các chuỗi ví dụ xem trước (`preview_article_desc/title`) ở vi, sv, hi, fa, ru, pl, zh-CN: nội dung bị thay bằng văn bản khác. Chúng chỉ để xem trước kiểu chữ, ít ảnh hưởng người dùng nên tôi chưa sửa.
 
+## Đợt 8 (2026-11-27): audit 9 locale chữ hiếm, hồi quy cuối trên Tecno
+
+Chạy agent cho az, eu, kn, lzh, ml, my, nn, sl, sr (mỗi locale khoảng 850 chuỗi, cả 9 agent đọc đủ, khác với agent `fa` ở đợt 7 từng đọc 0). **Giới hạn nặng hơn các đợt trước**: với chữ hiếm (kn, ml, my) và Văn ngôn (lzh), độ tin cậy của agent thấp; agent được dặn bỏ qua khi không chắc, nên "ít lỗi" có thể chỉ là "ít đọc được". 65 vấn đề (32 lẫn ngôn ngữ, 16 thuật ngữ, 9 sai nghĩa, 7 gượng, 1 nguy cơ hiểu sai); cả 65 chuỗi agent trích đều khớp repo.
+
+### Đã sửa
+- **Chuỗi sai ngôn ngữ**: eu có 5 chuỗi Brain RPG bằng tiếng Tây Ban Nha, sr có 5 chuỗi bằng tiếng Nga (cùng nhóm `brain_rpg_*` mà uk cũng bị ở đợt 6, cho thấy nhóm chuỗi này được dịch bằng một lượt riêng và sai ngôn ngữ).
+- lzh (Văn ngôn): 15 chuỗi còn chữ giản thể hoặc dịch sai ("订户" thay vì "訂閱源", `allow_notification` thành "告知往來").
+- Tên kênh `brain_rpg_decay_notification_channel` còn tiếng Anh ở 9 locale.
+- sl: 4 thông báo xoá dùng giống ngữ pháp sai (`Odstranjeni` thành `Odstranjene`), hai tooltip `tips_*_tonal_elevation` không nói cho danh sách nào, `archive_query_body_too_large`.
+- ml: `all_move_to_group_tips` ("chuyển ứng viên" thay vì "chuyển"), `clear_articles_in_group_toast` (ghi "feed" thay vì "nhóm"), `clear_articles` (nghĩa là "bài viết rõ ràng").
+- kn `webdav_restore_confirm_message` ("nguồn" thay vì "feeds"), sr `accounts_tips` (mất "tắt").
+- **Cảnh báo bảo mật chứng chỉ tự ký**: az `trust_self_signed_desc` đảo nghĩa, và zh-TW dùng "否則" hai lần làm mờ điều kiện. Cả hai đã làm rõ lại (commit riêng sau).
+- **Việt và Hindi (phát hiện qua hồi quy trên máy)**: ở đợt 7 audit không thấy vì các chuỗi này giống hệt tiếng Anh (agent chỉ đọc chuỗi đã khác bản gốc). Ảnh Settings tiếng Việt còn "Privacy & Security", "DNS-over-HTTPS, URL cleaner, and anti-tracker shield"; đã dịch 11 chuỗi tiếng Việt và 27 nhãn có số của tiếng Hindi (`Level %1$d`, `Expires: %1$s`...).
+
+### Một lỗ hổng phương pháp đáng ghi
+Audit chỉ đọc các chuỗi **khác** bản gốc, nên **chuỗi còn nguyên tiếng Anh không bao giờ được xem**. Quét máy móc cho thấy 393 chuỗi như vậy còn nguyên tiếng Anh ngoài tên riêng và đơn vị (khoảng 22 trong 37 locale thiếu các nhãn có số như `%1$d articles`, `%1$d minutes`, `Expires at %1$s`). Chưa dịch hết vì cần dịch đúng số nhiều và ngữ pháp từng ngôn ngữ; ghi lại để làm riêng.
+
+### Chưa sửa
+Khoảng 25 mục "gượng" hoặc thuật ngữ (ví dụ nn `splash_ad_notice` dùng "reklame" thay vì "annonse", my `webdav_last_backup` giữ chữ "backup" bằng tiếng Anh), và các chuỗi `preview_article_*` (az, kn: còn nguyên tiếng Anh; ví dụ xem trước, ít ảnh hưởng).
+
+### Hồi quy cuối trên Tecno (bản `ca7ef7b6`)
+vi, de, ar, ja, hi đều hiển thị bình thường ở Feeds và Settings, không có chữ vỡ, escape hỏng hay `FATAL`. Tecno khôi phục BYTE IDENTICAL, không còn `adb reverse` hay tệp prefs thừa.
+
