@@ -568,7 +568,7 @@
     <string name="brain_rpg_recover_unavailable">ပြန်လည်ရယူ၍ မရပါ</string>
     <string name="brain_rpg_decay_notification_title">သင့်အမျိုးအစားများကို ပြန်ကြည့်ပါ</string>
     <string name="brain_rpg_decay_notification_body">ကျန်ရှိ XP ဆုံးရှုံးနေသော အမျိုးအစားများ- %1$d။ လေ့ကျင့်ရန်- %2$s</string>
-    <string name="brain_rpg_decay_notification_channel">Brain RPG reminders</string>
+    <string name="brain_rpg_decay_notification_channel">Brain RPG ယုတ်လျော့မှု သတိပေးချက်များ</string>
     <string name="brain_rpg_decay_notification_channel_desc">နေ့စဉ် အမျိုးအစားယုတ်လျော့မှု အနှစ်ချုပ်</string>
     <string name="brain_rpg_xp_retained">အခြေခံ %1$d XP · %2$d%% ကျန်ရှိ</string>
     <string name="brain_rpg_streak_shield_success">ဆက်တိုက်ရက် ဒိုင်း ဖွင့်ပြီးပါပြီ။</string>

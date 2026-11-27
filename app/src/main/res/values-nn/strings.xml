@@ -568,7 +568,7 @@
     <string name="brain_rpg_recover_unavailable">Gjenoppretting er ikkje tilgjengeleg</string>
     <string name="brain_rpg_decay_notification_title">Gå gjennom kategoriane dine</string>
     <string name="brain_rpg_decay_notification_body">Kategoriar som mistar behaldt XP: %1$d. Øv på: %2$s</string>
-    <string name="brain_rpg_decay_notification_channel">Brain RPG reminders</string>
+    <string name="brain_rpg_decay_notification_channel">Brain RPG-påminningar om svekking</string>
     <string name="brain_rpg_decay_notification_channel_desc">Dagleg samandrag om kategoriar som blir svekte</string>
     <string name="brain_rpg_xp_retained">Grunn %1$d XP · %2$d%% behaldt</string>
     <string name="brain_rpg_streak_shield_success">Rekkjeskjold aktivert!</string>

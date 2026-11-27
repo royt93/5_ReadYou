@@ -209,7 +209,7 @@
     <string name="mark_as_unstar">Уклони звездицу</string>
     <string name="initial_open_app">Апликација када се кликне на линк</string>
     <string name="fill_selected_icon">Попуните тренутну иконицу филтера</string>
-    <string name="accounts_tips">Можете да додирнете име налога на страници за фид да бисте га укључили</string>
+    <string name="accounts_tips">Можете да додирнете име налога на страници за фид да бисте га укључили или искључили</string>
     <string name="already_subscribed">Већ сте претплаћени</string>
     <string name="empty">Празно</string>
     <string name="filter_bar">Панел филтера</string>
@@ -499,18 +499,18 @@
     <string name="brain_rpg_recover_unavailable">Обнова није доступна</string>
     <string name="brain_rpg_decay_notification_title">Прегледајте своје категорије</string>
     <string name="brain_rpg_decay_notification_body">Категорије које губе задржани XP: %1$d. Вежбајте: %2$s</string>
-    <string name="brain_rpg_decay_notification_channel">Brain RPG reminders</string>
+    <string name="brain_rpg_decay_notification_channel">Brain RPG подсетници о опадању</string>
     <string name="brain_rpg_decay_notification_channel_desc">Дневни сажетак опадања категорија</string>
     <string name="brain_rpg_xp_retained">Основни XP: %1$d · задржано %2$d%%</string>
-    <string name="brain_rpg_streak_shield_success">Щит серии активирован!</string>
+    <string name="brain_rpg_streak_shield_success">Штит низа је активиран!</string>
     <string name="brain_rpg_streak_shield_protected">Защищено</string>
-    <string name="brain_rpg_target_xp">Цель: %1$d XP</string>
-    <string name="brain_rpg_skill_tree_title">Дерево навыков знаний</string>
-    <string name="brain_rpg_stats_title">Статистика испытаний ИИ</string>
+    <string name="brain_rpg_target_xp">Циљ: %1$d XP</string>
+    <string name="brain_rpg_skill_tree_title">Стабло знања</string>
+    <string name="brain_rpg_stats_title">Статистика AI изазова</string>
     <string name="brain_rpg_stats_attempted">Попыток</string>
     <string name="brain_rpg_stats_passed">Верно</string>
     <string name="brain_rpg_stats_accuracy">Точность</string>
-    <string name="brain_rpg_wrapped_desc">"Вы накопили %1$d XP и сохранили серию чтения из %2$d дней! Поделитесь достижением."</string>
+    <string name="brain_rpg_wrapped_desc">„Освојили сте %1$d XP и одржали низ читања од %2$d дана! Поделите своје постигнуће.“</string>
 
     <!-- Epic 08: Zen Focus & Speed Reading -->
     <string name="zen_speed_reading">Брзо читање (RSVP)</string>

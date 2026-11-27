@@ -567,18 +567,18 @@
     <string name="brain_rpg_recover_unavailable">Berreskuratzea ez dago erabilgarri</string>
     <string name="brain_rpg_decay_notification_title">Berrikusi zure kategoriak</string>
     <string name="brain_rpg_decay_notification_body">Mantendutako XPa galtzen ari diren kategoriak: %1$d. Praktikatu: %2$s</string>
-    <string name="brain_rpg_decay_notification_channel">Brain RPG reminders</string>
+    <string name="brain_rpg_decay_notification_channel">Brain RPG gainbeheraren gogorarazpenak</string>
     <string name="brain_rpg_decay_notification_channel_desc">Eguneroko kategorien gainbeheraren laburpena</string>
     <string name="brain_rpg_xp_retained">Oinarria %1$d XP · %2$d%% mantenduta</string>
-    <string name="brain_rpg_streak_shield_success">¡Escudo de racha activado!</string>
+    <string name="brain_rpg_streak_shield_success">Segida-ezkutua aktibatu da!</string>
     <string name="brain_rpg_streak_shield_protected">Protegido</string>
-    <string name="brain_rpg_target_xp">Objetivo: %1$d XP</string>
-    <string name="brain_rpg_skill_tree_title">Árbol de habilidades de conocimiento</string>
-    <string name="brain_rpg_stats_title">Estadísticas de desafíos de IA</string>
+    <string name="brain_rpg_target_xp">Helburua: %1$d XP</string>
+    <string name="brain_rpg_skill_tree_title">Ezagutza-trebetasunen zuhaitza</string>
+    <string name="brain_rpg_stats_title">AI erronken estatistikak</string>
     <string name="brain_rpg_stats_attempted">Intentados</string>
     <string name="brain_rpg_stats_passed">Correctos</string>
     <string name="brain_rpg_stats_accuracy">Precisión</string>
-    <string name="brain_rpg_wrapped_desc">"¡Has ganado %1$d XP y mantenido una racha de lectura de %2$d días! Comparte tu logro para inspirar a otros."</string>
+    <string name="brain_rpg_wrapped_desc">\"%1$d XP irabazi dituzu eta %2$d eguneko irakurketa-segida mantendu duzu! Partekatu zure lorpena besteak inspiratzeko.\"</string>
 
     <!-- Epic 08: Zen Focus & Speed Reading -->
     <string name="zen_speed_reading">Irakurketa azkarra (RSVP)</string>

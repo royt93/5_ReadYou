@@ -568,7 +568,7 @@
     <string name="brain_rpg_recover_unavailable">ಮರುಪಡೆಯುವಿಕೆ ಲಭ್ಯವಿಲ್ಲ</string>
     <string name="brain_rpg_decay_notification_title">ನಿಮ್ಮ ವರ್ಗಗಳನ್ನು ಪರಿಶೀಲಿಸಿ</string>
     <string name="brain_rpg_decay_notification_body">ಉಳಿಸಿಕೊಂಡ XP ಕಳೆದುಕೊಳ್ಳುತ್ತಿರುವ ವರ್ಗಗಳು: %1$d. ಅಭ್ಯಾಸ ಮಾಡಿ: %2$s</string>
-    <string name="brain_rpg_decay_notification_channel">Brain RPG reminders</string>
+    <string name="brain_rpg_decay_notification_channel">Brain RPG ಕ್ಷೀಣತೆ ಜ್ಞಾಪನೆಗಳು</string>
     <string name="brain_rpg_decay_notification_channel_desc">ದೈನಂದಿನ ವರ್ಗ ಕ್ಷೀಣತೆ ಸಾರಾಂಶ</string>
     <string name="brain_rpg_xp_retained">ಮೂಲ %1$d XP · %2$d%% ಉಳಿದಿದೆ</string>
     <string name="brain_rpg_streak_shield_success">ಸ್ಟ್ರೀಕ್ ಶೀಲ್ಡ್ ಸಕ್ರಿಯವಾಯಿತು!</string>
@@ -797,7 +797,7 @@
     <string name="webdav_restore_now">ಕ್ಲೌಡ್‌ನಿಂದ ಪುನಃಸ್ಥಾಪಿಸಿ</string>
     <string name="webdav_restore_success">ಫೀಡ್‌ಗಳು ಮತ್ತು ಗುಂಪುಗಳನ್ನು ಕ್ಲೌಡ್‌ನಿಂದ ಯಶಸ್ವಿಯಾಗಿ ಪುನಃಸ್ಥಾಪಿಸಲಾಗಿದೆ!</string>
     <string name="webdav_restore_confirm_title">ಕ್ಲೌಡ್‌ನಿಂದ ಪುನಃಸ್ಥಾಪಿಸಬೇಕೇ?</string>
-    <string name="webdav_restore_confirm_message">ಇದು ನಿಮ್ಮ WebDAV ಸರ್ವರ್‌ನಿಂದ ಬ್ಯಾಕಪ್ ಫೈಲ್ ಅನ್ನು ಓದಿ ಅದರಲ್ಲಿರುವ ಮೂಲಗಳು ಮತ್ತು ಗುಂಪುಗಳನ್ನು ಈ ಫೋನ್‌ಗೆ ಸೇರಿಸುತ್ತದೆ. ಯಾವುದನ್ನೂ ಅಳಿಸಲಾಗುವುದಿಲ್ಲ ಅಥವಾ ಬದಲಿಸಲಾಗುವುದಿಲ್ಲ.</string>
+    <string name="webdav_restore_confirm_message">ಇದು ನಿಮ್ಮ WebDAV ಸರ್ವರ್‌ನಿಂದ ಬ್ಯಾಕಪ್ ಫೈಲ್ ಅನ್ನು ಓದಿ ಅದರಲ್ಲಿರುವ ಫೀಡ್‌ಗಳು ಮತ್ತು ಗುಂಪುಗಳನ್ನು ಈ ಫೋನ್‌ಗೆ ಸೇರಿಸುತ್ತದೆ. ಯಾವುದನ್ನೂ ಅಳಿಸಲಾಗುವುದಿಲ್ಲ ಅಥವಾ ಬದಲಿಸಲಾಗುವುದಿಲ್ಲ.</string>
     <string name="webdav_restore_confirm_action">ಪುನಃಸ್ಥಾಪಿಸಿ</string>
     <string name="webdav_server_url">WebDAV ಸರ್ವರ್ URL</string>
     <string name="webdav_username">ಬಳಕೆದಾರಹೆಸರು</string>

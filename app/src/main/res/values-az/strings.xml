@@ -568,7 +568,7 @@
     <string name="brain_rpg_recover_unavailable">Bərpa mümkün deyil</string>
     <string name="brain_rpg_decay_notification_title">Kateqoriyalarınızı nəzərdən keçirin</string>
     <string name="brain_rpg_decay_notification_body">Saxlanılan XP-ni itirən kateqoriyalar: %1$d. Məşq et: %2$s</string>
-    <string name="brain_rpg_decay_notification_channel">Brain RPG reminders</string>
+    <string name="brain_rpg_decay_notification_channel">Brain RPG zəifləmə xatırlatmaları</string>
     <string name="brain_rpg_decay_notification_channel_desc">Gündəlik kateqoriya zəifləməsi xülasəsi</string>
     <string name="brain_rpg_xp_retained">Əsas %1$d XP · %2$d%% saxlanılıb</string>
     <string name="brain_rpg_streak_shield_success">Seriya qoruyucusu aktiv edildi!</string>
@@ -1343,5 +1343,5 @@
     <string name="commute_ready_to_play_title">Səhər epizodunuz hazırdır</string>
     <string name="commute_ready_to_play_body">Qulaqlığınız qoşulub. Dinləmək üçün Oxut düyməsinə toxunun.</string>
     <string name="trust_self_signed_title">Öz-imzalı sertifikata etibar et</string>
-    <string name="trust_self_signed_desc">Yalnız bu server üçün. Serveriniz özünüzün yaratdığı sertifikat işlətmirsə, söndürülmüş saxlayın; əks halda eyni şəbəkədəki hər kəs parolunuzu oxuya bilər.</string>
+    <string name="trust_self_signed_desc">Yalnız bu server üçün. Serveriniz özünüzün yaratdığı sertifikatdan istifadə etmirsə, bunu söndürülmüş saxlayın; aktiv olduqda eyni şəbəkədəki hər kəs parolunuzu oxuya bilər.</string>
 </resources>

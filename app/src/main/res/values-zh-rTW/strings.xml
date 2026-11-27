@@ -1263,5 +1263,5 @@
     <string name="commute_ready_to_play_title">你的晨間節目已準備好</string>
     <string name="commute_ready_to_play_body">你的耳機已連接。點選播放即可收聽。</string>
     <string name="trust_self_signed_title">信任自簽憑證</string>
-    <string name="trust_self_signed_desc">僅對此伺服器生效。除非您的伺服器使用自行建立的憑證,否則請保持關閉;否則同一網路中的任何人都可能讀取您的密碼。</string>
+    <string name="trust_self_signed_desc">僅對此伺服器生效。除非您的伺服器使用自行建立的憑證,否則請保持關閉;開啟後，同一網路中的任何人都可能讀取您的密碼。</string>
 </resources>

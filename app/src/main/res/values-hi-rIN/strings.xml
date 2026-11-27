@@ -375,7 +375,7 @@
     <string name="auto_default_browser">ऑटो (डिफ़ॉल्ट ब्राउज़र को प्राथमिकता)</string>
     <string name="custom_tabs">CustomTabs ज़बरदस्ती उपयोग करें</string>
     <string name="specific_browser">विशिष्ट ब्राउज़र ज़बरदस्ती उपयोग करें</string>
-    <string name="specific_browser_name">Browser: %1$s</string>
+    <string name="specific_browser_name">ब्राउज़र: %1$s</string>
     <string name="default_browser">डिफ़ॉल्ट ब्राउज़र ज़बरदस्ती उपयोग करें</string>
     <string name="always_ask">हमेशा पूछें</string>
     <string name="open_link_specific_browser">ब्राउज़र</string>
@@ -399,9 +399,9 @@
     <string name="vip_settings_desc">VIP प्रबंधित करें, कोड रिडीम करें, विज्ञापन हटाएँ</string>
     <string name="vip_active">VIP सक्रिय</string>
     <string name="vip_free_user">मुफ़्त उपयोगकर्ता</string>
-    <string name="vip_until">Until %1$s</string>
-    <string name="vip_activated_at">Activated: %1$s</string>
-    <string name="vip_expires_at">Expires: %1$s</string>
+    <string name="vip_until">%1$s तक</string>
+    <string name="vip_activated_at">सक्रिय किया गया: %1$s</string>
+    <string name="vip_expires_at">समाप्ति: %1$s</string>
     <string name="vip_remaining_short">%1$d दिन %2$d घंटे शेष</string>
     <string name="vip_redeem_label">VIP कोड दर्ज करें</string>
     <string name="vip_redeem_hint">जैसे आपका VIP कोड</string>
@@ -457,7 +457,7 @@
     <string name="brain_rpg_title">Brain RPG</string>
     <string name="brain_rpg_subtitle">ज्ञान स्किल ट्री और दैनिक स्ट्रीक</string>
     <string name="brain_rpg_settings_desc">अपना पढ़ने का XP, स्ट्रीक, स्तर और ज्ञान ट्री देखें</string>
-    <string name="brain_rpg_level">Level %1$d</string>
+    <string name="brain_rpg_level">स्तर %1$d</string>
     <string name="brain_rpg_streak">%1$d दिन की स्ट्रीक</string>
     <string name="brain_rpg_quiz_title">10 सेकंड की AI माइक्रो-क्विज़</string>
     <string name="brain_rpg_quiz_reward">+150 XP</string>
@@ -499,7 +499,7 @@
     <string name="brain_rpg_xp_retained">मूल %1$d XP · %2$d%% बरकरार</string>
     <string name="brain_rpg_streak_shield_success">स्ट्रीक शील्ड सक्रिय हो गई!</string>
     <string name="brain_rpg_streak_shield_protected">सुरक्षित</string>
-    <string name="brain_rpg_target_xp">Target: %1$d XP</string>
+    <string name="brain_rpg_target_xp">लक्ष्य: %1$d XP</string>
     <string name="brain_rpg_skill_tree_title">ज्ञान स्किल ट्री</string>
     <string name="brain_rpg_stats_title">AI चैलेंज आँकड़े</string>
     <string name="brain_rpg_stats_attempted">प्रयास किए</string>
@@ -511,7 +511,7 @@
     <string name="zen_speed_reading">स्पीड रीडिंग (RSVP)</string>
     <string name="zen_speed_reading_desc">स्थिर फ़ोकस स्थान के साथ प्रति मिनट 900 शब्द तक पढ़ें</string>
     <string name="zen_wpm_label">पढ़ने की गति: %1$d WPM</string>
-    <string name="zen_words_progress">%1$d / %2$d words</string>
+    <string name="zen_words_progress">%1$d / %2$d शब्द</string>
     <string name="zen_ambient_audio">ज़ेन फ़ोकस ऑडियो</string>
     <string name="zen_ambient_audio_desc">गहराई से पढ़ने में एकाग्रता के लिए सुकून देने वाली ध्वनियाँ</string>
     <string name="zen_sound_rain">हल्की बारिश</string>
@@ -527,7 +527,7 @@
     <string name="zen_daily_edition_notification">%1$d अपठित लेख आपके फ़ोकस के साथ पढ़ने के लिए तैयार हैं।</string>
     <string name="zen_sleep_timer">स्लीप टाइमर</string>
     <string name="zen_sleep_timer_off">लगातार</string>
-    <string name="zen_sleep_timer_min">%1$d minutes</string>
+    <string name="zen_sleep_timer_min">%1$d मिनट</string>
     <string name="zen_volume">Volume: %1$d%%</string>
     <string name="zen_settings_title">ज़ेन फ़ोकस और स्पीड रीडिंग</string>
     <!-- Loop 09: AI Article Highlights & Key Takeaways Card -->
@@ -582,7 +582,7 @@
     <string name="story_cluster_lead_badge">मुख्य</string>
     <string name="semantic_search_title">AI सिमैंटिक खोज</string>
     <string name="semantic_search_desc">सटीक कीवर्ड के बजाय अवधारणा और अर्थ के आधार पर लेख खोजें</string>
-    <string name="semantic_match_badge">%d%% match</string>
+    <string name="semantic_match_badge">%d%% मेल</string>
     <string name="semantic_search_results_title">✨ AI सिमैंटिक मिलान</string>
     <string name="keyword_search_results_title">कीवर्ड मिलान</string>
     <string name="watchdog_title">कीवर्ड वॉचडॉग</string>
@@ -590,7 +590,7 @@
     <string name="watchdog_add_hint">कीवर्ड या टिकर दर्ज करें (जैसे $VIC, Bitcoin, Gold)...</string>
     <string name="watchdog_add_btn">जोड़ें</string>
     <string name="watchdog_empty_desc">अभी कोई कीवर्ड नहीं जोड़ा गया। नज़र रखना शुरू करने के लिए कीवर्ड जोड़ें या नीचे से सुझाव चुनें।</string>
-    <string name="watchdog_matched_count">%d matched</string>
+    <string name="watchdog_matched_count">%d मेल खाए</string>
     <string name="watchdog_channel_name">कीवर्ड अलर्ट वॉचडॉग</string>
     <string name="watchdog_channel_desc">नए लेख निगरानी वाले कीवर्ड से मेल खाने पर उच्च प्राथमिकता वाले अलर्ट</string>
     <string name="watchdog_preset_title">त्वरित सुझाव</string>
@@ -701,7 +701,7 @@
     <string name="source_dna_unknown_source">अज्ञात स्रोत</string>
     <string name="source_dna_error">इस क्लस्टर का विश्लेषण नहीं हो सका।</string>
     <string name="source_dna_back">दृष्टिकोणों पर वापस जाएँ</string>
-    <string name="source_dna_similarity">%1$d%% similar</string>
+    <string name="source_dna_similarity">%1$d%% समान</string>
     <string name="source_dna_feed_reported_time">फ़ीड द्वारा बताया गया समय: %1$s</string>
     <string name="watchdog_clear_all">इतिहास साफ़ करें</string>
     <string name="watchdog_inbox_desc">आपातकालीन कीवर्ड अलर्ट ट्रिगर करने वाले आर्टिकल का इतिहास</string>
@@ -747,7 +747,7 @@
     <string name="second_brain_error">ग्राफ़ नहीं बन सका। फिर कोशिश करें।</string>
     <string name="second_brain_retry">पुनः प्रयास</string>
     <string name="second_brain_graph_desc">%1$d विषयों और %2$d कनेक्शनों वाला विषय ग्राफ़</string>
-    <string name="second_brain_node_articles">%1$d articles</string>
+    <string name="second_brain_node_articles">%1$d लेख</string>
     <string name="second_brain_range_label">समय सीमा</string>
     <string name="second_brain_related">संबंधित लेख</string>
 
@@ -779,7 +779,7 @@
     <string name="smart_collection_query">विषय क्वेरी</string>
     <string name="smart_collection_save_action">संग्रह के रूप में सहेजें</string>
     <string name="smart_collection_empty">अभी कोई स्मार्ट संग्रह नहीं है। किसी विषय को फ़ॉलो करने के लिए सिमैंटिक खोज सहेजें।</string>
-    <string name="smart_collection_articles_count">%1$d articles</string>
+    <string name="smart_collection_articles_count">%1$d लेख</string>
     <string name="smart_collection_edit">संपादित करें</string>
     <string name="smart_collection_delete">हटाएँ</string>
     <string name="smart_collection_delete_confirm">यह संग्रह हटाएँ? इसके लेख आपकी लाइब्रेरी में बने रहेंगे।</string>
@@ -870,7 +870,7 @@
     <string name="triage_progress_format">%1$d / %2$d</string>
     <string name="triage_inbox_zero_title">🎉 इनबॉक्स ज़ीरो हासिल!</string>
     <string name="triage_inbox_zero_subtitle">आपने इस बैच के सभी अपठित लेख निपटा दिए हैं।</string>
-    <string name="triage_summary_processed">Processed: %1$d</string>
+    <string name="triage_summary_processed">संसाधित: %1$d</string>
     <string name="triage_summary_saved">बाद के लिए सहेजे: %1$d</string>
     <string name="triage_summary_skipped">पढ़ा हुआ मार्क किए: %1$d</string>
     <string name="triage_summary_xp">+%1$d Brain RPG XP</string>
@@ -934,13 +934,13 @@
     <string name="bounty_ai_context_action">AI संदर्भ सारांश</string>
     <string name="bounty_ai_context_title">एंटिटी का संदर्भ (Gemini)</string>
     <string name="bounty_ai_context_no_key">इसका उपयोग करने के लिए AI सेटिंग में अपनी Gemini API कुंजी जोड़ें।</string>
-    <string name="bounty_time_range">Timeline: %1$s – %2$s</string>
+    <string name="bounty_time_range">समयरेखा: %1$s – %2$s</string>
     <string name="bounty_radar_description">रडार आपके संग्रह को स्कैन कर रहा है</string>
     <string name="bounty_error">आपके संग्रह में खोज नहीं हो सकी। फिर कोशिश करें।</string>
     <string name="bounty_ai_context_loading">संदर्भ का सारांश बन रहा है…</string>
     <string name="echo_hype_label">Hype: %1$d%%</string>
     <string name="echo_hype_warning">अत्यधिक प्रचारात्मक या बढ़ा-चढ़ाकर कहे शब्द मिले</string>
-    <string name="echo_tone_label">Tone: %1$s</string>
+    <string name="echo_tone_label">लहजा: %1$s</string>
     <string name="echo_tone_positive">🟢 सकारात्मक</string>
     <string name="echo_tone_unclear">⚪ अस्पष्ट</string>
     <string name="echo_tone_negative">🔴 नकारात्मक</string>
@@ -968,7 +968,7 @@
     <string name="dossier_names_empty">कोई वाक्यांश कम से कम 2 लेखों में दोहराया नहीं गया।</string>
     <string name="dossier_sources_single">इस विषय पर आपके संग्रह में केवल एक स्रोत है।</string>
     <string name="dossier_sources_note">शीर्षक स्रोत के अनुसार समूहित हैं; कोई निष्कर्ष नहीं निकाला गया है।</string>
-    <string name="dossier_article_count">%1$d articles</string>
+    <string name="dossier_article_count">%1$d लेख</string>
     <string name="dossier_share_error">डोज़ियर को साझा करने के लिए तैयार नहीं किया जा सका।</string>
 
     <!-- BOUNTY-03 graph viewport -->
@@ -1020,11 +1020,11 @@
 
     <!-- STRAT-02 curated bundles -->
     <string name="curated_bundles_title">चुने हुए बंडल</string>
-    <string name="curated_bundle_verified_on">Checked %1$s</string>
-    <string name="curated_bundle_source_count">Sources: %1$d</string>
+    <string name="curated_bundle_verified_on">जाँचा गया %1$s</string>
+    <string name="curated_bundle_source_count">स्रोत: %1$d</string>
     <string name="curated_bundle_subscribe_all">सभी की सदस्यता लें</string>
     <string name="curated_bundle_subscribing">सदस्यता ली जा रही है…</string>
-    <string name="curated_bundle_progress">Subscribing %1$d of %2$d</string>
+    <string name="curated_bundle_progress">%2$d में से %1$d की सदस्यता ली जा रही है</string>
     <string name="curated_bundle_result">जोड़े %1$d · पहले से थे %2$d · विफल %3$d</string>
     <string name="curated_bundle_error">सदस्यता नहीं ली जा सकी: %1$s</string>
     <string name="curated_bundle_no_sources_added">कोई स्रोत नहीं जोड़ा जा सका, इसलिए कोई समूह नहीं बना।</string>
@@ -1050,8 +1050,8 @@
     <string name="second_screen_copied">लिंक कॉपी हो गया</string>
     <string name="second_screen_share">लिंक साझा करें</string>
     <string name="second_screen_share_chooser">सेकंड स्क्रीन लिंक साझा करें</string>
-    <string name="second_screen_viewers">Viewers: %1$d</string>
-    <string name="second_screen_expires">Expires at %1$s</string>
+    <string name="second_screen_viewers">दर्शक: %1$d</string>
+    <string name="second_screen_expires">%1$s पर समाप्त</string>
     <string name="second_screen_warning">एन्क्रिप्टेड नहीं है। इस Wi-Fi पर जो भी लिंक देख ले, वह लेख पढ़ सकता है। केवल भरोसेमंद नेटवर्क पर उपयोग करें।</string>
     <string name="second_screen_starting">शुरू हो रहा है…</string>
     <string name="second_screen_no_network">निजी पते वाला कोई Wi-Fi या Ethernet नेटवर्क नहीं है। Wi-Fi से जुड़ें और फिर कोशिश करें।</string>
@@ -1106,7 +1106,7 @@
     <string name="local_sync_pair_new">नया डिवाइस पेयर करें</string>
     <string name="local_sync_pair_label_hint">नए डिवाइस का नाम</string>
     <string name="local_sync_remember_label_hint">इस डिवाइस को याद रखने के लिए नाम (वैकल्पिक)</string>
-    <string name="local_sync_serve_peer">Send to %1$s</string>
+    <string name="local_sync_serve_peer">%1$s को भेजें</string>
     <string name="local_sync_wait_reply">रुकें और वापस पाने की प्रतीक्षा करें</string>
     <string name="local_sync_role_hint">दूसरे फ़ोन के प्राप्त कर लेने के बाद यहाँ रुकें और प्राप्त करें पर जाएँ। फिर वह अपने बदलाव वापस भेज सकता है।</string>
     <string name="local_sync_reply_to">%1$s को वापस भेजें</string>
@@ -1135,7 +1135,7 @@
     <string name="archive_query_start_date">प्रारंभ तिथि (YYYY-MM-DD)</string>
     <string name="archive_query_end_date">समाप्ति तिथि (YYYY-MM-DD)</string>
     <string name="archive_query_dates_optional">तिथियाँ वैकल्पिक हैं। इनके बिना पिछले 12 महीनों में खोजा जाता है। दोनों तिथियाँ आपके प्रश्न की किसी भी तिथि पर भारी पड़ती हैं।</string>
-    <string name="archive_query_range_used">Searching %1$s – %2$s</string>
+    <string name="archive_query_range_used">खोज रहे हैं %1$s – %2$s</string>
     <string name="archive_query_searching">आपके संग्रह में खोजा जा रहा है…</string>
     <string name="archive_query_idle">सब कुछ इसी डिवाइस पर चलता है। नेटवर्क पर कुछ नहीं भेजा जाता।</string>
     <string name="archive_query_no_results">खोजी गई अवधि में कोई सहेजा लेख इस विषय से मेल नहीं खाया।</string>
@@ -1177,7 +1177,7 @@
     <string name="feed_autopilot_not_local_account">फ़ीड ऑटोपायलट केवल स्थानीय खातों का समर्थन करता है। रिमोट खाते (Fever, Google Reader) फ़ीड अपने सर्वर पर खुद प्रबंधित करते हैं।</string>
     <string name="feed_autopilot_retention_too_short">आपके खाते की लेख रखने की अवधि 14 दिन से कम है। ऑटोपायलट के सुरक्षित विश्लेषण के लिए पर्याप्त इतिहास हो, इसके लिए खाता सेटिंग में इसे बढ़ाएँ।</string>
     <string name="feed_autopilot_disabled_message">फ़ीड ऑटोपायलट बंद है। फ़ीड सफ़ाई के सुझाव पाने के लिए इसे चालू करें।</string>
-    <string name="feed_autopilot_settings_pending">To review: %1$d</string>
+    <string name="feed_autopilot_settings_pending">समीक्षा के लिए: %1$d</string>
     <string name="feed_autopilot_error">यह पूरा नहीं हो सका। कृपया फिर कोशिश करें।</string>
     <string name="podcast_studio_title">पॉडकास्ट स्टूडियो</string>
     <string name="podcast_studio_menu">पॉडकास्ट स्टूडियो</string>
@@ -1224,7 +1224,7 @@
     <string name="oracle_badge_label">पूर्वानुमान</string>
     <string name="oracle_badge_open">भविष्यवाणी खोलें</string>
     <string name="oracle_sheet_title">इस लेख में मिली भविष्यवाणी</string>
-    <string name="oracle_sheet_expires">Expected by %1$s</string>
+    <string name="oracle_sheet_expires">अपेक्षित: %1$s तक</string>
     <string name="oracle_sheet_criteria_heading">उत्तर कैसे जाँचें</string>
     <string name="oracle_sheet_ai_label">शीर्षक और विवरण से AI ने लिखा है; इसमें गलती हो सकती है।</string>
     <string name="oracle_sheet_close">बंद करें</string>
@@ -1235,7 +1235,7 @@
     <string name="oracle_bet_yes">हाँ</string>
     <string name="oracle_bet_no">नहीं</string>
     <string name="oracle_bet_pick_stake">दाँव पर लगाने के अंक</string>
-    <string name="oracle_bet_stake_option">%1$s points</string>
+    <string name="oracle_bet_stake_option">%1$s अंक</string>
     <string name="oracle_bet_place">दाँव लगाएँ</string>
     <string name="oracle_bet_place_summary">%2$s पर %1$s अंकों का दाँव</string>
     <string name="oracle_bet_out_of_points">पर्याप्त अंक नहीं हैं। आपको हर दिन (UTC) 100 नए अंक मिलते हैं, अधिकतम 2,000 तक।</string>

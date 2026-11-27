@@ -35,7 +35,7 @@
     <string name="all_parse_full_content_tips">Pridobivanje celotne vsebine vseh novic v skupini \"%1$s\".</string>
     <string name="all_parse_full_content_toast">Pridobivanje celotne vsebine vseh novic v skupini \"%1$s\"</string>
     <string name="clear_articles">Odstrani novice</string>
-    <string name="clear_articles_in_feed_toast">Odstranjeni vse novice iz arhiva iz vira \"%1$s\"</string>
+    <string name="clear_articles_in_feed_toast">Odstranjene vse novice iz arhiva iz vira \"%1$s\"</string>
     <string name="all_move_to_group_tips">Premakni vse vire iz skupine \"%1$s\" v skupino \"%2$s\".</string>
     <string name="all_move_to_group_toast">Vsi viri so premaknjeni v skupino \"%1$s\"</string>
     <string name="rename">Preimenuj</string>
@@ -95,8 +95,8 @@
     <string name="icons">Ikone</string>
     <string name="icons_and_labels">Ikone in oznake</string>
     <string name="icons_and_label_only_selected">Ikone in oznake (samo izbrane)</string>
-    <string name="tips_article_list_tonal_elevation">To povišanje barvnih tonov je na voljo samo v svetli temi.</string>
-    <string name="tips_group_list_tonal_elevation">To povišanje barvnih tonov je na voljo samo v svetli temi.</string>
+    <string name="tips_article_list_tonal_elevation">Tonska višina seznama novic je na voljo samo v svetli temi.</string>
+    <string name="tips_group_list_tonal_elevation">Tonska višina seznama skupin je na voljo samo v svetli temi.</string>
     <string name="touch_to_play_video">Dotaknite se za predvajanje videoposnetka</string>
     <string name="font_size">Velikost pisave</string>
     <string name="letter_spacing">Razmik med črkami</string>
@@ -136,8 +136,8 @@
     <string name="allow">Dovoli</string>
     <string name="confirm">Potrdi</string>
     <string name="deny">Zavrni</string>
-    <string name="clear_articles_feed_tips">Odstranjeni vse novice iz arhiva iz vira \"%1$s\".</string>
-    <string name="clear_articles_group_tips">Odstranjeni vse novice iz arhiva v skupini \"%1$s\".</string>
+    <string name="clear_articles_feed_tips">Odstranjene vse novice iz arhiva iz vira \"%1$s\".</string>
+    <string name="clear_articles_group_tips">Odstranjene vse novice iz arhiva v skupini \"%1$s\".</string>
     <string name="allow_notification">Dovoli obvestila</string>
     <string name="all_allow_notification_toast">Dovoljena so vsa obvestila iz skupine \"%1$s\"</string>
     <string name="all_allow_notification_tips">Dovolite pošiljanje obvestil vsem virom v skupini \"%1$s\".</string>
@@ -154,7 +154,7 @@
     <string name="on">Vklop</string>
     <string name="off">Izklop</string>
     <string name="all_deny_parse_full_content_toast">Ni več pridobivanja celotne vsebine vseh novic v skupini \"%1$s\"</string>
-    <string name="clear_articles_in_group_toast">Odstranjeni vse novice iz arhiva v skupini \"%1$s\"</string>
+    <string name="clear_articles_in_group_toast">Odstranjene vse novice iz arhiva v skupini \"%1$s\"</string>
     <string name="add_to_group">Dodaj v skupino</string>
     <string name="move_to_group">Premakni v skupino</string>
     <string name="delete_group">Izbriši skupino</string>
@@ -465,7 +465,7 @@
     <string name="brain_rpg_recover_unavailable">Obnovitev ni na voljo</string>
     <string name="brain_rpg_decay_notification_title">Preglejte svoje kategorije</string>
     <string name="brain_rpg_decay_notification_body">Kategorije, ki izgubljajo ohranjeni XP: %1$d. Vadite: %2$s</string>
-    <string name="brain_rpg_decay_notification_channel">Brain RPG reminders</string>
+    <string name="brain_rpg_decay_notification_channel">Opomniki o upadanju Brain RPG</string>
     <string name="brain_rpg_decay_notification_channel_desc">Dnevni povzetek upadanja kategorij</string>
     <string name="brain_rpg_xp_retained">Osnova %1$d XP · ohranjeno %2$d%%</string>
     <string name="brain_rpg_streak_shield_success">Ščit niza aktiviran!</string>
@@ -1136,7 +1136,7 @@
     <string name="archive_query_no_quote">Iz shranjenega besedila ni na voljo citata.</string>
     <string name="archive_query_quote_truncated">Citat skrajšan</string>
     <string name="archive_query_quote_no_topic_word">Noben stavek ne vsebuje besed vaše teme; to je začetek članka.</string>
-    <string name="archive_query_body_too_large">Besedilo članka je prevelik za citiranje.</string>
+    <string name="archive_query_body_too_large">Besedilo članka je preveliko za citiranje.</string>
     <string name="archive_query_open_article">Odpri članek: %1$s</string>
     <string name="archive_query_shift_title">Možna sprememba smeri</string>
     <string name="archive_query_shift_cues">Prejšnji stavek pravi \"%1$s\", poznejši stavek pravi \"%2$s\".</string>
