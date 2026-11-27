@@ -299,18 +299,7 @@ fun FlowPage(
                     }
 
                     if (onSearch && semanticResults.isNotEmpty()) {
-                        item {
-                            Row(
-                                modifier = Modifier.fillMaxWidth().padding(horizontal = 24.dp, vertical = 8.dp),
-                                horizontalArrangement = androidx.compose.foundation.layout.Arrangement.SpaceBetween,
-                                verticalAlignment = androidx.compose.ui.Alignment.CenterVertically,
-                            ) {
-                                Subtitle(text = stringResource(R.string.semantic_search_results_title))
-                                androidx.compose.material3.TextButton(onClick = { showSaveCollectionDialog = true }) {
-                                    Text(stringResource(R.string.smart_collection_save_action))
-                                }
-                            }
-                        }
+                        item { SemanticResultsHeader(onSave = { showSaveCollectionDialog = true }) }
                         items(semanticResults, key = { "semantic_${it.articleWithFeed.article.id}" }) { result ->
                             SemanticSearchCard(
                                 result = result,
@@ -439,5 +428,21 @@ fun FlowPage(
                 }
             },
         )
+    }
+}
+
+/** Title of the semantic results and the button that saves the search as a collection. */
+@Composable
+internal fun SemanticResultsHeader(onSave: () -> Unit) {
+    Row(
+        modifier = Modifier.fillMaxWidth().padding(horizontal = 24.dp, vertical = 8.dp),
+        horizontalArrangement = androidx.compose.foundation.layout.Arrangement.SpaceBetween,
+        verticalAlignment = androidx.compose.ui.Alignment.CenterVertically,
+    ) {
+        // weight(1f): Subtitle fills the row width, which squeezed the button to nothing and wrapped its label one word per line.
+        Subtitle(modifier = Modifier.weight(1f), text = stringResource(R.string.semantic_search_results_title))
+        androidx.compose.material3.TextButton(onClick = onSave) {
+            Text(stringResource(R.string.smart_collection_save_action), maxLines = 1, softWrap = false)
+        }
     }
 }
