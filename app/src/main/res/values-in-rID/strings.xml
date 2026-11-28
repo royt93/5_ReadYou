@@ -1288,4 +1288,19 @@
     <string name="commute_deepdive_edition">🎙️ Edisi Deep Dive</string>
     <string name="notebook_note_prefix">💡 Catatan:</string>
     <string name="rpg_xp_gained">+%1$d XP! 🎉</string>
+    <string name="commute_fb_title">Ringkasan pagi CommuteCast</string>
+    <string name="commute_edition_morning">Edisi pagi CommuteCast</string>
+    <string name="commute_edition_deepdive">Edisi Deep Dive CommuteCast</string>
+    <string name="commute_fb_intro_alex">Selamat pagi! Selamat datang di CommuteCast Radio dari RSS Cat Hub, ringkasan pagi yang disesuaikan untuk perjalananmu.</string>
+    <string name="commute_fb_intro_sam">Selamat pagi, Alex! Hari ini ada cukup banyak perkembangan menarik di langgananmu. Yuk mulai!</string>
+    <string name="commute_fb_first_up">Pertama: %1$s. %2$s</string>
+    <string name="commute_fb_first_up_default">Kisah menarik dengan pelajaran penting.</string>
+    <string name="commute_fb_sam_react">Tentu bacaan wajib bagi siapa pun yang mengikuti bidang ini dengan saksama.</string>
+    <string name="commute_fb_next_up">Berikutnya: %1$s. %2$s</string>
+    <string name="commute_fb_next_up_default">Ini cukup ramai dibicarakan di berbagai komunitas.</string>
+    <string name="commute_fb_alex_react">Benar, Sam. Kita pasti ingin memantaunya seiring perkembangannya.</string>
+    <string name="commute_fb_outro_alex">Itulah berita utama pagi ini. Artikel lengkapnya menunggumu di aplikasi kapan pun kamu sempat.</string>
+    <string name="commute_fb_outro_sam">Semoga harimu menyenangkan dan produktif! Sampai jumpa di perjalanan berikutnya.</string>
+    <string name="commute_empty_alex">Selamat pagi! Kotak masukmu sedang kosong.</string>
+    <string name="commute_empty_sam">Tambahkan beberapa sumber RSS favoritmu untuk mendengar ringkasan besok pagi!</string>
 </resources>

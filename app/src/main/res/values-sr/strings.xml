@@ -1311,4 +1311,19 @@
     <string name="commute_deepdive_edition">🎙️ Издање са дубинском анализом</string>
     <string name="notebook_note_prefix">💡 Белешка:</string>
     <string name="rpg_xp_gained">+%1$d XP! 🎉</string>
+    <string name="commute_fb_title">Јутарњи преглед CommuteCast</string>
+    <string name="commute_edition_morning">Јутарње издање CommuteCast</string>
+    <string name="commute_edition_deepdive">Издање CommuteCast са дубинском анализом</string>
+    <string name="commute_fb_intro_alex">Добро јутро! Добродошли у CommuteCast Radio са RSS Cat Hub, ваш јутарњи преглед скројен за пут.</string>
+    <string name="commute_fb_intro_sam">Добро јутро, Alex! Данас у вашим претплатама има доста занимљивог. Почнимо!</string>
+    <string name="commute_fb_first_up">Прво: %1$s. %2$s</string>
+    <string name="commute_fb_first_up_default">Занимљива прича са важним закључцима.</string>
+    <string name="commute_fb_sam_react">Свакако обавезно штиво за све који пажљиво прате ову област.</string>
+    <string name="commute_fb_next_up">Следеће: %1$s. %2$s</string>
+    <string name="commute_fb_next_up_default">Ово изазива доста узбуркања у заједницама.</string>
+    <string name="commute_fb_alex_react">Тако је, Sam. Желећемо да пратимо како се развија.</string>
+    <string name="commute_fb_outro_alex">Ово су били главни наслови за јутрос. Цели чланци вас чекају у апликацији када будете имали тренутак.</string>
+    <string name="commute_fb_outro_sam">Желимо вам леп и продуктиван дан! Видимо се на следећем путовању.</string>
+    <string name="commute_empty_alex">Добро јутро! Ваше сандуче је тренутно празно.</string>
+    <string name="commute_empty_sam">Додајте неколико омиљених RSS извора да бисте сутра слушали преглед!</string>
 </resources>

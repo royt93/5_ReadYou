@@ -16,10 +16,11 @@ import org.robolectric.annotation.Config
 import java.util.Date
 
 @RunWith(RobolectricTestRunner::class)
-@Config(manifest = Config.NONE)
+@Config(sdk = [34], application = android.app.Application::class)
 class CommuteScriptServiceTest {
 
-    private val context = mockk<Context>(relaxed = true)
+    // A real context: the script now reads string resources in the requested language, which a relaxed mock cannot supply.
+    private val context: Context = androidx.test.core.app.ApplicationProvider.getApplicationContext()
     private val okHttpClient = mockk<OkHttpClient>(relaxed = true)
     private lateinit var service: CommuteScriptService
 

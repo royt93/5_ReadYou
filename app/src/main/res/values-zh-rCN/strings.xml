@@ -1287,4 +1287,19 @@
     <string name="commute_deepdive_edition">🎙️ 深度解读版</string>
     <string name="notebook_note_prefix">💡 笔记：</string>
     <string name="rpg_xp_gained">+%1$d 经验值！🎉</string>
+    <string name="commute_fb_title">CommuteCast 早间简报</string>
+    <string name="commute_edition_morning">CommuteCast 早间版</string>
+    <string name="commute_edition_deepdive">CommuteCast 深度解读版</string>
+    <string name="commute_fb_intro_alex">早上好！欢迎收听 RSS Cat Hub 的 CommuteCast Radio，为你的通勤量身定制的早间简报。</string>
+    <string name="commute_fb_intro_sam">早上好，Alex！今天你的订阅里有不少有趣的动态。我们开始吧！</string>
+    <string name="commute_fb_first_up">首先是：%1$s。%2$s</string>
+    <string name="commute_fb_first_up_default">一个引人入胜、带来重要启示的故事。</string>
+    <string name="commute_fb_sam_react">对于密切关注这一领域的人来说，绝对是必读之作。</string>
+    <string name="commute_fb_next_up">接下来：%1$s。%2$s</string>
+    <string name="commute_fb_next_up_default">这在社区里引起了不小的热议。</string>
+    <string name="commute_fb_alex_react">没错，Sam。随着事态发展，我们会持续关注。</string>
+    <string name="commute_fb_outro_alex">以上就是今早的主要头条。完整文章已在应用中等你，有空时随时查看。</string>
+    <string name="commute_fb_outro_sam">祝你度过美好而高效的一天！下次通勤再见。</string>
+    <string name="commute_empty_alex">早上好！你的收件箱目前是空的。</string>
+    <string name="commute_empty_sam">添加几个你喜爱的 RSS 来源，即可收听明天的简报！</string>
 </resources>

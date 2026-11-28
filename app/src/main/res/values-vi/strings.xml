@@ -1261,4 +1261,19 @@
     <string name="commute_deepdive_edition">🎙️ Bản Deep Dive</string>
     <string name="notebook_note_prefix">💡 Ghi chú:</string>
     <string name="rpg_xp_gained">+%1$d XP! 🎉</string>
+    <string name="commute_fb_title">Bản Tin Sáng CommuteCast</string>
+    <string name="commute_edition_morning">CommuteCast: Bản sáng</string>
+    <string name="commute_edition_deepdive">CommuteCast: Bản Deep Dive</string>
+    <string name="commute_fb_intro_alex">Chào buổi sáng! Đây là CommuteCast Radio của RSS Cat Hub, bản tin nhanh dành riêng cho bạn trên đường đi làm.</string>
+    <string name="commute_fb_intro_sam">Chào Alex và chào mọi người! Sáng nay bảng tin có rất nhiều chuyển động đáng chú ý. Cùng điểm qua nhé!</string>
+    <string name="commute_fb_first_up">Đầu tiên là tiêu điểm: %1$s. %2$s</string>
+    <string name="commute_fb_first_up_default">Bài viết mang đến góc nhìn phân tích rất đáng chú ý.</string>
+    <string name="commute_fb_sam_react">Một thông tin rất đáng suy ngẫm trong chuyên mục này!</string>
+    <string name="commute_fb_next_up">Tiếp theo, hãy cùng xem qua: %1$s. %2$s</string>
+    <string name="commute_fb_next_up_default">Đây cũng là đề tài đang được thảo luận rất sôi nổi.</string>
+    <string name="commute_fb_alex_react">Đúng vậy Sam, diễn biến này chắc chắn sẽ tác động nhiều đến xu hướng sắp tới.</string>
+    <string name="commute_fb_outro_alex">Đó là toàn bộ những điểm tin nóng nhất sáng nay. Bạn có thể mở chi tiết từng bài viết ngay trong ứng dụng.</string>
+    <string name="commute_fb_outro_sam">Chúc bạn một ngày mới tràn đầy năng lượng và làm việc thật hiệu quả!</string>
+    <string name="commute_empty_alex">Chào buổi sáng! Hộp tin của bạn hiện đang ở trạng thái trống.</string>
+    <string name="commute_empty_sam">Hãy thêm thêm một vài nguồn RSS yêu thích để đón nghe bản tin sáng mai nhé!</string>
 </resources>

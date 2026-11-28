@@ -1,7 +1,10 @@
 package com.mckimquyen.reader.domain.sv
 
 import android.content.Context
+import android.content.res.Configuration
+import android.content.res.Resources
 import android.util.Log
+import com.mckimquyen.reader.R
 import com.mckimquyen.reader.domain.model.article.Article
 import com.mckimquyen.reader.domain.model.commute.CommuteDialogue
 import com.mckimquyen.reader.domain.model.commute.CommuteEpisode
@@ -44,7 +47,7 @@ class CommuteScriptService @Inject constructor(
         allowGemini: Boolean = false,
     ): CommuteEpisode = withContext(Dispatchers.Default) {
         if (articles.isEmpty()) {
-            return@withContext createFallbackEmptyEpisode()
+            return@withContext createFallbackEmptyEpisode(languageTag)
         }
 
         val topArticles = if (isDeepDive) articles.take(10) else articles.take(5)
@@ -123,7 +126,7 @@ class CommuteScriptService @Inject constructor(
                         if (dialogues.isNotEmpty()) {
                             return@withContext CommuteEpisode(
                                 id = UUID.randomUUID().toString(),
-                                title = if (isDeepDive) "CommuteCast Deep Dive Edition" else "CommuteCast Morning Edition",
+                                title = localized(languageTag).getString(if (isDeepDive) R.string.commute_edition_deepdive else R.string.commute_edition_morning),
                                 date = Date(),
                                 dialogues = dialogues,
                                 articleIds = articles.map { it.id },
@@ -166,48 +169,30 @@ class CommuteScriptService @Inject constructor(
         isDeepDive: Boolean,
         languageTag: String
     ): CommuteEpisode {
+        val res = localized(languageTag)
         val dialogues = mutableListOf<CommuteDialogue>()
-        val isVietnamese = languageTag.startsWith("vi", ignoreCase = true)
+        dialogues.add(CommuteDialogue(CommuteSpeaker.ALEX, res.getString(R.string.commute_fb_intro_alex)))
+        dialogues.add(CommuteDialogue(CommuteSpeaker.SAM, res.getString(R.string.commute_fb_intro_sam)))
 
-        if (isVietnamese) {
-            dialogues.add(CommuteDialogue(CommuteSpeaker.ALEX, "Chào buổi sáng! Đây là CommuteCast Radio của RSS Cat Hub, bản tin nhanh dành riêng cho bạn trên đường đi làm."))
-            dialogues.add(CommuteDialogue(CommuteSpeaker.SAM, "Chào Alex và chào mọi người! Sáng nay bảng tin có rất nhiều chuyển động đáng chú ý. Cùng điểm qua nhé!"))
-
-            articles.forEachIndexed { idx, art ->
-                val shortDesc = art.shortDescription.take(180).trim()
-                if (idx % 2 == 0) {
-                    dialogues.add(CommuteDialogue(CommuteSpeaker.ALEX, "Đầu tiên là tiêu điểm: ${art.title}. ${if (shortDesc.isNotBlank()) shortDesc else "Bài viết mang đến góc nhìn phân tích rất đáng chú ý."}"))
-                    dialogues.add(CommuteDialogue(CommuteSpeaker.SAM, "Một thông tin rất đáng suy ngẫm trong chuyên mục này!"))
-                } else {
-                    dialogues.add(CommuteDialogue(CommuteSpeaker.SAM, "Tiếp theo, hãy cùng xem qua: ${art.title}. ${if (shortDesc.isNotBlank()) shortDesc else "Đây cũng là đề tài đang được thảo luận rất sôi nổi."}"))
-                    dialogues.add(CommuteDialogue(CommuteSpeaker.ALEX, "Đúng vậy Sam, diễn biến này chắc chắn sẽ tác động nhiều đến xu hướng sắp tới."))
-                }
+        articles.forEachIndexed { idx, art ->
+            val shortDesc = art.shortDescription.take(180).trim()
+            if (idx % 2 == 0) {
+                val detail = shortDesc.ifBlank { res.getString(R.string.commute_fb_first_up_default) }
+                dialogues.add(CommuteDialogue(CommuteSpeaker.ALEX, res.getString(R.string.commute_fb_first_up, art.title, detail)))
+                dialogues.add(CommuteDialogue(CommuteSpeaker.SAM, res.getString(R.string.commute_fb_sam_react)))
+            } else {
+                val detail = shortDesc.ifBlank { res.getString(R.string.commute_fb_next_up_default) }
+                dialogues.add(CommuteDialogue(CommuteSpeaker.SAM, res.getString(R.string.commute_fb_next_up, art.title, detail)))
+                dialogues.add(CommuteDialogue(CommuteSpeaker.ALEX, res.getString(R.string.commute_fb_alex_react)))
             }
-
-            dialogues.add(CommuteDialogue(CommuteSpeaker.ALEX, "Đó là toàn bộ những điểm tin nóng nhất sáng nay. Bạn có thể mở chi tiết từng bài viết ngay trong ứng dụng."))
-            dialogues.add(CommuteDialogue(CommuteSpeaker.SAM, "Chúc bạn một ngày mới tràn đầy năng lượng và làm việc thật hiệu quả!"))
-        } else {
-            dialogues.add(CommuteDialogue(CommuteSpeaker.ALEX, "Good morning! Welcome to CommuteCast Radio on RSS Cat Hub, your bespoke morning drive briefing."))
-            dialogues.add(CommuteDialogue(CommuteSpeaker.SAM, "Morning Alex! We've got quite a few intriguing developments across your subscriptions today. Let's dive right in!"))
-
-            articles.forEachIndexed { idx, art ->
-                val shortDesc = art.shortDescription.take(180).trim()
-                if (idx % 2 == 0) {
-                    dialogues.add(CommuteDialogue(CommuteSpeaker.ALEX, "First up: ${art.title}. ${if (shortDesc.isNotBlank()) shortDesc else "A compelling story with important takeaways."}"))
-                    dialogues.add(CommuteDialogue(CommuteSpeaker.SAM, "Definitely an essential read for anyone following this sector closely."))
-                } else {
-                    dialogues.add(CommuteDialogue(CommuteSpeaker.SAM, "Next on our radar: ${art.title}. ${if (shortDesc.isNotBlank()) shortDesc else "This is generating quite a buzz across communities."}"))
-                    dialogues.add(CommuteDialogue(CommuteSpeaker.ALEX, "Indeed, Sam. One we will definitely want to keep an eye on as it unfolds."))
-                }
-            }
-
-            dialogues.add(CommuteDialogue(CommuteSpeaker.ALEX, "That wraps up our top headlines for this morning. Full articles are ready for you in the app whenever you have a moment."))
-            dialogues.add(CommuteDialogue(CommuteSpeaker.SAM, "Have a wonderful, productive day ahead! See you on the next ride."))
         }
+
+        dialogues.add(CommuteDialogue(CommuteSpeaker.ALEX, res.getString(R.string.commute_fb_outro_alex)))
+        dialogues.add(CommuteDialogue(CommuteSpeaker.SAM, res.getString(R.string.commute_fb_outro_sam)))
 
         return CommuteEpisode(
             id = UUID.randomUUID().toString(),
-            title = if (isVietnamese) "Bản Tin Sáng CommuteCast" else "CommuteCast Morning Briefing",
+            title = res.getString(R.string.commute_fb_title),
             date = Date(),
             dialogues = dialogues,
             articleIds = articles.map { it.id },
@@ -215,16 +200,24 @@ class CommuteScriptService @Inject constructor(
         )
     }
 
-    private fun createFallbackEmptyEpisode(): CommuteEpisode {
+    private fun createFallbackEmptyEpisode(languageTag: String): CommuteEpisode {
+        val res = localized(languageTag)
         return CommuteEpisode(
             id = UUID.randomUUID().toString(),
-            title = "CommuteCast Morning Edition",
+            title = res.getString(R.string.commute_edition_morning),
             date = Date(),
             dialogues = listOf(
-                CommuteDialogue(CommuteSpeaker.ALEX, "Chào buổi sáng! Hộp tin của bạn hiện đang ở trạng thái trống."),
-                CommuteDialogue(CommuteSpeaker.SAM, "Hãy thêm thêm một vài nguồn RSS yêu thích để đón nghe bản tin sáng mai nhé!")
+                CommuteDialogue(CommuteSpeaker.ALEX, res.getString(R.string.commute_empty_alex)),
+                CommuteDialogue(CommuteSpeaker.SAM, res.getString(R.string.commute_empty_sam)),
             ),
             articleIds = emptyList()
         )
+    }
+
+    /** Resources in the language the episode is written in (the tag the caller asked for), not necessarily the one the process runs in. */
+    private fun localized(languageTag: String): Resources {
+        val config = Configuration(context.resources.configuration)
+        config.setLocale(Locale.forLanguageTag(languageTag))
+        return context.createConfigurationContext(config).resources
     }
 }

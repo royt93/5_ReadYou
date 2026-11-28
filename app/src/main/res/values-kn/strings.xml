@@ -1369,4 +1369,19 @@
     <string name="commute_deepdive_edition">🎙️ ಆಳ ವಿಶ್ಲೇಷಣೆ ಆವೃತ್ತಿ</string>
     <string name="notebook_note_prefix">💡 ಟಿಪ್ಪಣಿ:</string>
     <string name="rpg_xp_gained">+%1$d XP! 🎉</string>
+    <string name="commute_fb_title">CommuteCast ಬೆಳಗಿನ ಸಾರಾಂಶ</string>
+    <string name="commute_edition_morning">CommuteCast ಬೆಳಗಿನ ಆವೃತ್ತಿ</string>
+    <string name="commute_edition_deepdive">CommuteCast ಆಳ ವಿಶ್ಲೇಷಣೆ ಆವೃತ್ತಿ</string>
+    <string name="commute_fb_intro_alex">ಶುಭೋದಯ! RSS Cat Hub ನ CommuteCast Radio ಗೆ ಸ್ವಾಗತ, ನಿಮ್ಮ ಪ್ರಯಾಣಕ್ಕಾಗಿ ರೂಪಿಸಿದ ಬೆಳಗಿನ ಸಾರಾಂಶ.</string>
+    <string name="commute_fb_intro_sam">ಶುಭೋದಯ Alex! ಇಂದು ನಿಮ್ಮ ಚಂದಾದಾರಿಕೆಗಳಲ್ಲಿ ಹಲವು ಆಸಕ್ತಿಕರ ಬೆಳವಣಿಗೆಗಳಿವೆ. ಪ್ರಾರಂಭಿಸೋಣ!</string>
+    <string name="commute_fb_first_up">ಮೊದಲಿಗೆ: %1$s. %2$s</string>
+    <string name="commute_fb_first_up_default">ಮುಖ್ಯ ಪಾಠಗಳಿರುವ ಆಕರ್ಷಕ ಕಥೆ.</string>
+    <string name="commute_fb_sam_react">ಈ ಕ್ಷೇತ್ರವನ್ನು ಹತ್ತಿರದಿಂದ ಗಮನಿಸುವ ಎಲ್ಲರಿಗೂ ಖಂಡಿತ ಓದಲೇಬೇಕಾದದ್ದು.</string>
+    <string name="commute_fb_next_up">ಮುಂದಿನದು: %1$s. %2$s</string>
+    <string name="commute_fb_next_up_default">ಇದು ಸಮುದಾಯಗಳಲ್ಲಿ ಸಾಕಷ್ಟು ಚರ್ಚೆ ಹುಟ್ಟಿಸುತ್ತಿದೆ.</string>
+    <string name="commute_fb_alex_react">ಹೌದು Sam. ಇದು ಬೆಳೆದಂತೆ ನಾವು ಗಮನಿಸುತ್ತಿರಬೇಕು.</string>
+    <string name="commute_fb_outro_alex">ಇಂದು ಬೆಳಗಿನ ಪ್ರಮುಖ ಶೀರ್ಷಿಕೆಗಳು ಇಷ್ಟೇ. ನಿಮಗೆ ಸಮಯ ಸಿಕ್ಕಾಗ ಸಂಪೂರ್ಣ ಲೇಖನಗಳು ಆ್ಯಪ್‌ನಲ್ಲಿ ನಿಮಗಾಗಿ ಕಾಯುತ್ತಿವೆ.</string>
+    <string name="commute_fb_outro_sam">ನಿಮ್ಮ ದಿನ ಅದ್ಭುತ ಮತ್ತು ಫಲಪ್ರದವಾಗಿರಲಿ! ಮುಂದಿನ ಪ್ರಯಾಣದಲ್ಲಿ ಭೇಟಿಯಾಗೋಣ.</string>
+    <string name="commute_empty_alex">ಶುಭೋದಯ! ನಿಮ್ಮ ಇನ್‌ಬಾಕ್ಸ್ ಈಗ ಖಾಲಿಯಾಗಿದೆ.</string>
+    <string name="commute_empty_sam">ನಾಳಿನ ಸಾರಾಂಶ ಕೇಳಲು ನಿಮ್ಮ ಇಷ್ಟದ ಕೆಲವು RSS ಮೂಲಗಳನ್ನು ಸೇರಿಸಿ!</string>
 </resources>

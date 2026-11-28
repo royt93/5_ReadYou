@@ -1299,4 +1299,19 @@
     <string name="commute_deepdive_edition">🎙️ Dybdeutgave</string>
     <string name="notebook_note_prefix">💡 Notat:</string>
     <string name="rpg_xp_gained">+%1$d XP! 🎉</string>
+    <string name="commute_fb_title">CommuteCast morgenbriefing</string>
+    <string name="commute_edition_morning">CommuteCast morgenutgave</string>
+    <string name="commute_edition_deepdive">CommuteCast dybdeutgave</string>
+    <string name="commute_fb_intro_alex">God morgen! Velkommen til CommuteCast Radio fra RSS Cat Hub, din skreddersydde morgenbriefing til turen.</string>
+    <string name="commute_fb_intro_sam">God morgen, Alex! Det er mye spennende på gang i abonnementene dine i dag. La oss sette i gang!</string>
+    <string name="commute_fb_first_up">Først ut: %1$s. %2$s</string>
+    <string name="commute_fb_first_up_default">En fengslende sak med viktige poenger.</string>
+    <string name="commute_fb_sam_react">Definitivt verdt å lese for alle som følger bransjen tett.</string>
+    <string name="commute_fb_next_up">Neste sak: %1$s. %2$s</string>
+    <string name="commute_fb_next_up_default">Dette skaper en del blest i miljøene.</string>
+    <string name="commute_fb_alex_react">Ja, Sam. Det vil vi følge med på etter hvert som det utvikler seg.</string>
+    <string name="commute_fb_outro_alex">Det var dagens viktigste overskrifter. De fullstendige artiklene venter på deg i appen når du har et øyeblikk.</string>
+    <string name="commute_fb_outro_sam">Ha en strålende og produktiv dag! Vi sees på neste tur.</string>
+    <string name="commute_empty_alex">God morgen! Innboksen din er tom akkurat nå.</string>
+    <string name="commute_empty_sam">Legg til noen av favoritt-RSS-kildene dine for å høre morgendagens briefing!</string>
 </resources>

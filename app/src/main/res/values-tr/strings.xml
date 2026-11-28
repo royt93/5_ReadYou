@@ -1299,4 +1299,19 @@
     <string name="commute_deepdive_edition">🎙️ Derin Analiz sürümü</string>
     <string name="notebook_note_prefix">💡 Not:</string>
     <string name="rpg_xp_gained">+%1$d XP! 🎉</string>
+    <string name="commute_fb_title">CommuteCast sabah özeti</string>
+    <string name="commute_edition_morning">CommuteCast sabah sürümü</string>
+    <string name="commute_edition_deepdive">CommuteCast derin analiz sürümü</string>
+    <string name="commute_fb_intro_alex">Günaydın! RSS Cat Hub\'ın CommuteCast Radyosuna hoş geldiniz, yolculuğunuza özel sabah özetiniz.</string>
+    <string name="commute_fb_intro_sam">Günaydın Alex! Bugün aboneliklerinde epey ilginç gelişme var. Hadi başlayalım!</string>
+    <string name="commute_fb_first_up">İlk olarak: %1$s. %2$s</string>
+    <string name="commute_fb_first_up_default">Önemli çıkarımlar sunan sürükleyici bir hikâye.</string>
+    <string name="commute_fb_sam_react">Bu alanı yakından takip eden herkes için kesinlikle okunması gereken bir yazı.</string>
+    <string name="commute_fb_next_up">Sıradaki konu: %1$s. %2$s</string>
+    <string name="commute_fb_next_up_default">Topluluklarda epey ses getiriyor.</string>
+    <string name="commute_fb_alex_react">Aynen öyle Sam. Gelişirken göz kulak olmak isteyeceğiz.</string>
+    <string name="commute_fb_outro_alex">Bu sabahın öne çıkan başlıkları bu kadardı. Tam makaleler, vaktin olduğunda uygulamada seni bekliyor.</string>
+    <string name="commute_fb_outro_sam">Harika ve verimli bir gün dilerim! Bir sonraki yolculukta görüşürüz.</string>
+    <string name="commute_empty_alex">Günaydın! Gelen kutun şu anda boş.</string>
+    <string name="commute_empty_sam">Yarınki özeti dinlemek için favori RSS kaynaklarından birkaçını ekle!</string>
 </resources>

@@ -1360,4 +1360,19 @@
     <string name="commute_deepdive_edition">🎙️ 深談之版</string>
     <string name="notebook_note_prefix">💡 註：</string>
     <string name="rpg_xp_gained">+%1$d 經驗！🎉</string>
+    <string name="commute_fb_title">朝間簡報</string>
+    <string name="commute_edition_morning">朝刊之版</string>
+    <string name="commute_edition_deepdive">深談之版</string>
+    <string name="commute_fb_intro_alex">晨安！此乃 RSS Cat Hub 之通勤廣播，為君行途所設朝間簡報。</string>
+    <string name="commute_fb_intro_sam">晨安，Alex！今日君所訂閱，頗多可觀之事。請即開講！</string>
+    <string name="commute_fb_first_up">首述：%1$s。%2$s</string>
+    <string name="commute_fb_first_up_default">其事引人入勝，且有要旨。</string>
+    <string name="commute_fb_sam_react">凡留意此域者，必讀之文也。</string>
+    <string name="commute_fb_next_up">次述：%1$s。%2$s</string>
+    <string name="commute_fb_next_up_default">此事於眾社群頗為喧騰。</string>
+    <string name="commute_fb_alex_react">然也，Sam。當隨其演變而察之。</string>
+    <string name="commute_fb_outro_alex">今晨要聞止此。全文已備於應用，君有暇時可閱。</string>
+    <string name="commute_fb_outro_sam">願君今日安適而多成。後會於下一程。</string>
+    <string name="commute_empty_alex">晨安！君之收件匣今空。</string>
+    <string name="commute_empty_sam">請增數個所愛之 RSS 源，以聽明晨簡報！</string>
 </resources>

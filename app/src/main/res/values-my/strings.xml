@@ -1360,4 +1360,19 @@
     <string name="commute_deepdive_edition">🎙️ အနက်ရှိုင်း အစီအစဉ် ထုတ်ဝေမှု</string>
     <string name="notebook_note_prefix">💡 မှတ်စု:</string>
     <string name="rpg_xp_gained">+%1$d XP! 🎉</string>
+    <string name="commute_fb_title">CommuteCast နံနက်ခင်း အကျဉ်းချုပ်</string>
+    <string name="commute_edition_morning">CommuteCast နံနက်ခင်း ထုတ်ဝေမှု</string>
+    <string name="commute_edition_deepdive">CommuteCast အနက်ရှိုင်း ခွဲခြမ်းစိတ်ဖြာမှု ထုတ်ဝေမှု</string>
+    <string name="commute_fb_intro_alex">မင်္ဂလာနံနက်ခင်းပါ! သင့်ခရီးအတွက် အထူးပြင်ဆင်ထားသော RSS Cat Hub ၏ CommuteCast Radio မှ ကြိုဆိုပါတယ်။</string>
+    <string name="commute_fb_intro_sam">မင်္ဂလာနံနက်ခင်းပါ Alex! ဒီနေ့ သင့်စာရင်းသွင်းမှုတွေမှာ စိတ်ဝင်စားစရာ ဖြစ်ရပ်များစွာ ရှိပါတယ်။ စတင်ကြစို့!</string>
+    <string name="commute_fb_first_up">ပထမဆုံး - %1$s. %2$s</string>
+    <string name="commute_fb_first_up_default">အရေးကြီးသော သင်ခန်းစာများပါသည့် စိတ်ဝင်စားဖွယ် ဇာတ်လမ်း။</string>
+    <string name="commute_fb_sam_react">ဒီကဏ္ဍကို နီးကပ်စွာ လိုက်ကြည့်သူတိုင်း ဖတ်သင့်သည်။</string>
+    <string name="commute_fb_next_up">နောက်တစ်ခု - %1$s. %2$s</string>
+    <string name="commute_fb_next_up_default">ဒါက အသိုင်းအဝိုင်းတွေမှာ အတော်လေး ပြောစရာဖြစ်နေပါတယ်။</string>
+    <string name="commute_fb_alex_react">မှန်ပါတယ် Sam။ ဖြစ်ပေါ်တိုးတက်လာသည်နှင့်အမျှ ဆက်လက်စောင့်ကြည့်ချင်ပါတယ်။</string>
+    <string name="commute_fb_outro_alex">ဒီနေ့ နံနက်ခင်း အဓိက သတင်းခေါင်းစဉ်များ ဒီမျှပါပဲ။ အချိန်ရသည့်အခါ ဆောင်းပါးအပြည့်အစုံကို အက်ပ်ထဲတွင် ဖတ်နိုင်ပါတယ်။</string>
+    <string name="commute_fb_outro_sam">သင့်နေ့ လှပပြီး အသုံးဝင်ပါစေ! နောက်ခရီးမှာ ပြန်တွေ့ကြမယ်။</string>
+    <string name="commute_empty_alex">မင်္ဂလာနံနက်ခင်းပါ! သင့် inbox သည် ယခု ကွက်လပ်ဖြစ်နေသည်။</string>
+    <string name="commute_empty_sam">မနက်ဖြန် အကျဉ်းချုပ်ကို နားထောင်ရန် သင်နှစ်သက်သော RSS ရင်းမြစ်အချို့ ထည့်ပါ။</string>
 </resources>

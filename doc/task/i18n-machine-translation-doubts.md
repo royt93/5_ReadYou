@@ -1049,3 +1049,11 @@ Mô tả icon (`a11y_country`, `a11y_navigate`, `a11y_rss_source`, `a11y_url`, `
 - **Chưa xem trên màn hình.** Mô tả icon chỉ TalkBack đọc ra, không thấy bằng mắt.
 - Test: `RemainingHardCodedLabelsTest` (không còn chuỗi gõ cứng, đủ 9 key ở mọi locale, `rpg_xp_gained` có đúng một `%1$d`; mutation đỏ). JVM đầy đủ 4327 test, 0 lỗi.
 
+## Đợt 13 (2026-11-28): 15 chuỗi kịch bản dự phòng CommuteCast và tiêu đề tập, toàn bộ là dịch máy
+
+`CommuteScriptService` nay dùng `localized(languageTag)` lấy chuỗi từ `strings.xml` cho tiêu đề tập Gemini (`commute_edition_morning`, `commute_edition_deepdive`), 2 câu tập rỗng (`commute_empty_alex`, `commute_empty_sam`), tiêu đề và 10 câu kịch bản dự phòng (`commute_fb_*`).
+- Tiếng Anh và tiếng Việt giữ nguyên nghĩa gốc (riêng tiêu đề tập Deep Dive/Morning tiếng Việt là mới); 36 locale còn lại do tôi tự dịch, **chưa agent hay người bản ngữ nào kiểm**. Độ tin cậy thấp: `lzh`, `my`, `kn`, `ml`, `fa`, `iw`.
+- Đã tự sửa trong lúc rà: một lỗi gõ `I` thay `İ` ở `values-az` và một từ Latin lẫn trong `values-sr`.
+- **Chưa nghe/xem trên màn hình.** Tập đã lưu cũ giữ tiêu đề cũ.
+- Test: `CommuteFallbackLocalizedTest` (4/4, kèm mutation đỏ), `CommuteScriptServiceTest` (4/4 với context Robolectric thật), `CommuteScriptConsentGateTest` (4/4), `StringResourcesHealthTest` (13/13). Full JVM 4331 test, 0 lỗi; lint sạch.
+

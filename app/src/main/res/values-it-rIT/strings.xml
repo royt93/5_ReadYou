@@ -1303,4 +1303,19 @@
     <string name="commute_deepdive_edition">🎙️ Edizione di approfondimento</string>
     <string name="notebook_note_prefix">💡 Nota:</string>
     <string name="rpg_xp_gained">+%1$d XP! 🎉</string>
+    <string name="commute_fb_title">Briefing mattutino CommuteCast</string>
+    <string name="commute_edition_morning">Edizione mattutina CommuteCast</string>
+    <string name="commute_edition_deepdive">Edizione di approfondimento CommuteCast</string>
+    <string name="commute_fb_intro_alex">Buongiorno! Benvenuti a CommuteCast Radio di RSS Cat Hub, il vostro briefing mattutino su misura per il tragitto.</string>
+    <string name="commute_fb_intro_sam">Buongiorno Alex! Oggi ci sono novità davvero interessanti tra le tue iscrizioni. Partiamo!</string>
+    <string name="commute_fb_first_up">Per prima cosa: %1$s. %2$s</string>
+    <string name="commute_fb_first_up_default">Una storia avvincente con spunti importanti.</string>
+    <string name="commute_fb_sam_react">Sicuramente una lettura essenziale per chi segue da vicino questo settore.</string>
+    <string name="commute_fb_next_up">Poi: %1$s. %2$s</string>
+    <string name="commute_fb_next_up_default">Sta facendo parecchio rumore nelle community.</string>
+    <string name="commute_fb_alex_react">Già, Sam. Da tenere d\'occhio mentre si sviluppa.</string>
+    <string name="commute_fb_outro_alex">Questo conclude i titoli di questa mattina. Gli articoli completi ti aspettano nell\'app quando hai un momento.</string>
+    <string name="commute_fb_outro_sam">Buona giornata e buon lavoro! Ci vediamo al prossimo viaggio.</string>
+    <string name="commute_empty_alex">Buongiorno! La tua casella è vuota al momento.</string>
+    <string name="commute_empty_sam">Aggiungi qualche fonte RSS preferita per ascoltare il briefing di domani!</string>
 </resources>
