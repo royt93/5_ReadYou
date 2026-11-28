@@ -75,8 +75,8 @@ android {
         minSdk 26
         //noinspection EditedTargetSdkVersion,OldTargetApi
         targetSdk 37
-        versionCode 20261124
-        versionName "2026.11.24"
+        versionCode 20261128
+        versionName "2026.11.28"
 
         testInstrumentationRunner providers.gradleProperty("testRunner").getOrElse("androidx.test.runner.AndroidJUnitRunner")
         vectorDrawables {
