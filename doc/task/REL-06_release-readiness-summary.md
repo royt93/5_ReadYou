@@ -66,7 +66,8 @@ Thay cho bản dựng từ `bc9fcffd`. `bundleProdRelease`, không `-PallowTestA
 - `jarsigner -verify`: "jar verified"; chứng chỉ SHA-256 `67:B2:E6:CD:...:8B:03:82`. Zip không lỗi.
 - 4 ad unit thật có trong dex (mỗi ID 1 lần), App ID thật trong manifest. Manifest: `versionCode 20261128`, `versionName 2026.11.28`, minSdk 26, targetSdk 37, không `debuggable`.
 - 4 thư viện native arm64 căn `0x4000` (16 KB).
-- **Chưa làm:** không cài bản ký thật lên máy nào, nên chưa thấy nó chạy; chưa nộp lên Play; chưa thử trial và nâng cấp từ bản store.
+- **Cài bản ký thật lên Pixel (2026-11-28):** kiểm `universal.apk` từ AAB (`bundletool`) thấy đủ 8/8 key mới (`commute_fb_*`, `commute_empty_*`, `a11y_volume`, `rpg_xp_gained`) và bản dịch tiếng Nga trong `resources.arsc`. Cài `RSS Cat Hub-2026.11.28-389dd6bf.apk` (`prodRelease`, ký khoá thật `67:B2:E6:CD...`) sau khi gỡ bản debug và backup trước; logcat `Ads` có 3 dòng `This request is sent from a test device.`, `Use RequestConfiguration` = 0, đồng ý điều khoản và vào Feeds bình thường. Sau đó đã gỡ bản release, cài lại bản debug và khôi phục byte-exact theo `backup-commute-fallback`. Chưa thử trial 1 ngày và nâng cấp từ bản store.
+- **Kiểm bản debug mới nhất trên Pixel (tiếng Nga, font 1.3):** mở CommuteCast và bấm tạo tập mới ("3 мин"), toàn bộ lời thoại dự phòng ("Доброе утро!...") và thẻ Deep Dive ("CommuteCast AI DJ · 15 мин", "Глубокий разбор...") hiển thị đúng tiếng Nga, không còn chữ Việt. Ảnh tại `~/exc-flaky-evidence/audit-20261128-pixel/final4/`.
 
 ## Việc của owner (tôi không làm được)
 
