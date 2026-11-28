@@ -52,7 +52,7 @@ Tôi không nói "an toàn tuyệt đối". Tôi nói: những gì kiểm đư�
 ## Phát hiện trên Pixel (2026-11-28)
 
 - Cài bản `5f955943` đè lên bản debug cũ trên Pixel, mở ở tiếng Ba Lan: Feeds, danh sách bài, huy hiệu "Prognoza" và sheet Oracle (đã chèn một claim thử vào bảng `oracle_market` rồi khôi phục byte-exact; không có claim thật trong DB). Sheet hiện đúng nhãn Ba Lan; hai nút "Tak/No" và ba chip điểm nằm gọn.
-- Tôi thử cỡ chữ hệ thống `1.3` để ép nhãn dài hơn, **không có tác dụng**: `MainActivity`, `SplashActivity` và `AboutActivity` cố ý đặt `configuration.fontScale = 1.0f`, nên app bỏ qua cỡ chữ của hệ thống. Điều này có nghĩa người dùng đặt chữ lớn vì thị lực **không** thấy chữ lớn hơn trong app; đó là một quyết định sản phẩm đáng owner biết (khả năng tiếp cận). Giá trị `font_scale` của Pixel đã trả về `1.0`.
+- Tôi thử cỡ chữ hệ thống `1.3` để ép nhãn dài hơn: ở lần đo đó (đang đặt tiếng Ba Lan) **không có tác dụng**. Đọc mã cho thấy lý do: `MainActivity`, `SplashActivity` và `AboutActivity` đặt `configuration.fontScale = 1.0f` **trong nhánh khi người dùng đã chọn một ngôn ngữ riêng** trong app (`languagePref != 0`); khi chọn "dùng ngôn ngữ thiết bị" thì `attachBaseContext` thoát sớm và không ép. Vậy cùng một người dùng đặt chữ lớn vì thị lực sẽ thấy chữ lớn khi dùng ngôn ngữ thiết bị, nhưng **không** thấy khi chọn một ngôn ngữ cụ thể trong app: một hành vi không nhất quán, nhiều khả năng ngoài ý muốn (tôi chưa kiểm trường hợp "ngôn ngữ thiết bị" trên máy). Giá trị `font_scale` của Pixel đã trả về `1.0`.
 - Quảng cáo toàn màn hình hiện lên ở hầu hết các lần mở app (4 trên 4 lần mở, với nhãn "Reklama testowa"/quảng cáo thử); một lần tôi nhấn nhầm vào creative ở tiếng Malayalam (nhãn kiểm tra không khớp danh sách tôi đặt) nên mở Play Store, đã thoát, không cài gì. Pixel đã được khôi phục byte-exact về bản sao đầu phiên, kể cả ngôn ngữ (tiếng Anh) và Wi-Fi (bật).
 - Màn Triage ở tiếng Malayalam (nhãn dài) hiện ba nút tròn với nhãn dưới mỗi nút, không bị ép: `TriageBottomBar` không cần sửa.
 - **Fever và Google Reader vẫn chưa kiểm trên máy**: tôi dựng sẵn máy chủ Fever giả và khoá DES (đã kiểm chéo Java và OpenSSL cho cùng ciphertext), nhưng để vào được phải chèn tài khoản vào DB và đổi tài khoản hiện hành trong DataStore, mà DataStore chứa cả cài đặt người dùng. Owner chọn bỏ qua; ghi lại để khỏi ai tưởng đã kiểm.
@@ -60,7 +60,7 @@ Tôi không nói "an toàn tuyệt đối". Tôi nói: những gì kiểm đư�
 ## Chưa quyết định, cần owner
 
 - Giữ ẩn nút thêm Fever và Google Reader (đã chọn giữ ẩn), hay mở lại?
-- **App có nên theo cỡ chữ hệ thống không?** Hiện nó ép `fontScale = 1.0` ở ba activity; nếu bỏ ép thì chữ lớn sẽ làm lộ nhiều hàng chip và nhãn dài chưa kiểm.
+- **App có nên theo cỡ chữ hệ thống khi người dùng chọn ngôn ngữ riêng không?** Hiện nó ép `fontScale = 1.0` chỉ trong trường hợp đó (ba activity); nếu bỏ ép thì chữ lớn sẽ làm lộ nhiều hàng chip và nhãn dài chưa kiểm.
 - Có giới hạn số locale phát hành không (xem trên)?
 - Giữ tên tính năng "Feed Autopilot", "Second Brain" đã dịch ở uk, pl, it, in hay giữ tiếng Anh ở mọi locale cho nhất quán?
 
