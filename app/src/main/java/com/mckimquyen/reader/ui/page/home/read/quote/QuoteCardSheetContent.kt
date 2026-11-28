@@ -1,8 +1,11 @@
+@file:OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
+
 package com.mckimquyen.reader.ui.page.home.read.quote
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -104,7 +107,8 @@ fun QuoteCardSheetContent(
             else -> CircularProgressIndicator(modifier = Modifier.size(32.dp))
         }
 
-        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+        // FlowRow, not Row: the template chips ("Dark Studio", "Minimalist", "Gradient") wrap to a second line instead of being squeezed in long-label languages.
+        FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             QuoteCardTemplate.entries.forEach { template ->
                 FilterChip(
                     selected = template == selected,

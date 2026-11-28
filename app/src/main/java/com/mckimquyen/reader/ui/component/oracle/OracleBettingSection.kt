@@ -1,7 +1,10 @@
+@file:OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
+
 package com.mckimquyen.reader.ui.component.oracle
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
@@ -156,7 +159,8 @@ private fun PlaceBetControls(balance: Long, number: NumberFormat, onPlaceBet: (O
         SideChip(OracleBetSide.NO, side == OracleBetSide.NO, ORACLE_BET_SIDE_NO_TAG) { side = OracleBetSide.NO }
     }
     Text(stringResource(R.string.oracle_bet_pick_stake), style = MaterialTheme.typography.labelLarge)
-    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+    // FlowRow, not Row: four "N points" chips do not fit one line in Polish, Russian or Malayalam, and a Row squeezed the last chip until its label wrapped letter by letter.
+    FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
         OracleBettingPolicy.STAKES.forEach { value ->
             val label = stringResource(R.string.oracle_bet_stake_option, number.format(value))
             FilterChip(
@@ -202,7 +206,7 @@ private fun SideChip(side: OracleBetSide, selected: Boolean, tag: String, onClic
 
 @Composable
 private fun ResultButtons(onSettle: (OracleOutcome) -> Unit) {
-    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+    FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
         OutlinedButton(
             onClick = { onSettle(OracleOutcome.YES) },
             modifier = Modifier.heightIn(min = MIN_TOUCH_TARGET).testTag(ORACLE_BET_RESULT_YES_TAG),
