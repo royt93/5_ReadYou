@@ -41,6 +41,14 @@ Tôi không nói "an toàn tuyệt đối". Tôi nói: những gì kiểm đư�
 
 **Phương án giảm rủi ro nếu không có người duyệt**: chỉ phát hành các ngôn ngữ đã kiểm kỹ nhất (en, vi, và vài ngôn ngữ lớn), bỏ phần còn lại khỏi `resourceConfigurations` trong `app/build.gradle` (phải khớp thư mục `values-*`). Người dùng ngôn ngữ bị bỏ sẽ thấy tiếng Anh. Đây là quyết định sản phẩm của owner; tôi không tự làm.
 
+## Kiểm tra cỡ chữ hệ thống và hàng chip trên Pixel (2026-11-28)
+
+- **Cỡ chữ hệ thống:** backup byte-exact trước; đặt font scale 1.3, app ở "dùng ngôn ngữ thiết bị" (vi-VN). Feeds và Settings đều hiển thị chữ lớn rõ rệt và không cắt; sheet Oracle mở được. Đặt lại font scale 1.0 ở cuối.
+- **Đã xác minh nguyên nhân không nhất quán:** khi app ở "dùng ngôn ngữ thiết bị", font scale 1.3 được áp dụng; khi đặt ngôn ngữ riêng trong app (thử ở tiếng Ba Lan), app hiển thị cỡ chữ nhỏ lại. Mã `attachBaseContext` của MainActivity, SplashActivity và AboutActivity đặt `configuration.fontScale = 1.0f` chỉ trong nhánh `languagePref != 0`; nhánh thiết bị thoát sớm. Tôi chưa đổi mã: đây là hành vi khả năng tiếp cận cần owner quyết định trước khi đổi, vì bỏ ép font scale có thể làm vỡ các layout/hàng chip chưa kiểm.
+- **Oracle:** với cỡ chữ 1.3, sheet Oracle tiếng Malayalam vẫn hiển thị đủ câu hỏi, nút Yes/No, chip cược 50/100/500 và nút đặt cược; không thấy chip bị ép hay tràn. Triage tiếng Malayalam cũng mở được, ba nút tròn và nhãn phía dưới không đè nhau.
+- Quảng cáo toàn màn hình có nhãn "Reklama testowa" xuất hiện bốn lần. Tôi đóng bằng nút "Tiếp tục đến ứng dụng". Một lần ở Malayalam tôi chạm nhầm creative trước khi kiểm tra xong nhãn và Play Store mở; thoát ra, không cài gì. Wi‑Fi tắt tạm khi đo bố cục và bật lại sau.
+- Pixel đã khôi phục byte-exact về backup `backup-fontscale` đầu lượt: locale app rỗng, font scale 1.0, Wi‑Fi bật, app ở launcher, gate OK. Tôi không gửi lệnh tới Tecno hay S24 Ultra.
+
 ## Việc của owner (tôi không làm được)
 
 1. **Play Console**: khai Foreground service loại Media playback; Data safety (Advertising ID, văn bản bài gửi Gemini khi người dùng tự nhập key, WebDAV có mật khẩu, Bluetooth, mạng LAN); không khẳng định "mã hoá mọi dữ liệu khi truyền" khi `usesCleartextTraffic` còn `true`.
@@ -60,10 +68,11 @@ Tôi không nói "an toàn tuyệt đối". Tôi nói: những gì kiểm đư�
 ## Chưa quyết định, cần owner
 
 - Giữ ẩn nút thêm Fever và Google Reader (đã chọn giữ ẩn), hay mở lại?
-- **App có nên theo cỡ chữ hệ thống khi người dùng chọn ngôn ngữ riêng không?** Hiện nó ép `fontScale = 1.0` chỉ trong trường hợp đó (ba activity); nếu bỏ ép thì chữ lớn sẽ làm lộ nhiều hàng chip và nhãn dài chưa kiểm.
+- **Cỡ chữ khi người dùng chọn ngôn ngữ riêng:** tôi khuyến nghị bỏ ép `fontScale = 1.0` để tôn trọng cài đặt trợ năng của Android. Đã kiểm nhánh thiết bị (cỡ 1.3) không vỡ ở Feeds, Settings, Oracle và Triage; riêng nhánh ngôn ngữ trong app vẫn chưa đổi/chưa kiểm ở cỡ lớn. Nếu bạn muốn bảo đảm cỡ chữ lớn nhất trước khi đổi, cần sweep thêm các màn có hàng chip/nút. Hiện 3 activity (`MainActivity`, `SplashActivity`, `AboutActivity`) ép 1.0 chỉ ở nhánh ngôn ngữ được chọn trong app.
 - Có giới hạn số locale phát hành không (xem trên)?
 - Giữ tên tính năng "Feed Autopilot", "Second Brain" đã dịch ở uk, pl, it, in hay giữ tiếng Anh ở mọi locale cho nhất quán?
 
 ## Mô tả cách làm việc của phiên này (để owner biết bằng chứng đến từ đâu)
 
 Mỗi sửa lỗi theo thứ tự: viết test đỏ, sửa, xanh, phá lại (mutation) để thấy test đỏ lại, rồi chạy toàn bộ JVM bỏ cache và lint. Trên máy: luôn kiểm cổng (launcher, mở khoá), backup byte-exact trước, khôi phục sau, và chỉ gửi lệnh tới một máy do owner chọn: Tecno cho tới 2026-11-27, Pixel từ 2026-11-28 ("lưu ý dùng pixel cho mọi phiên"); không đụng máy còn lại. Những chỗ tôi sai và đã sửa lại: nhấn nhầm toạ độ vài lần (đo lại bằng `uiautomator dump`), một lần thay chuỗi Pháp ngoài ý muốn (phát hiện qua diff và hoàn nguyên), và một test ngưỡng đặt sai (80 dp, hạ xuống 50 dp theo số đo thật).
+
