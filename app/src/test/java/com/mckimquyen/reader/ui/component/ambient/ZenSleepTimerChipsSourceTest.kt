@@ -24,3 +24,19 @@ class ZenSleepTimerChipsSourceTest {
         assertTrue("pluralStringResource(R.plurals.zen_sleep_timer_min" in timerBlock)
     }
 }
+
+/**
+ * With Polish text at font scale 1.3 the read-aloud button of the Zen sheet was a fixed 56 dp tall, so its label "Czytaj na głos Delikatny deszcz" wrapped to two lines and the second line was cut off.
+ * The button now has a minimum height and grows with the text.
+ */
+class ZenPlayButtonHeightSourceTest {
+    private val source: String = listOf(File("src/main/java"), File("app/src/main/java")).first { it.exists() }
+        .resolve("com/mckimquyen/reader/ui/component/ambient/ZenSoundSheet.kt").readText()
+
+    private val button = source.substringAfter("// Play / Stop Control Button").substringBefore("Row(")
+
+    @Test fun theReadAloudButtonGrowsWithItsLabel() {
+        assertTrue("min height, not a fixed one", "heightIn(min = 56.dp)" in button)
+        assertTrue("no fixed 56 dp height", ".height(56.dp)" !in button)
+    }
+}
