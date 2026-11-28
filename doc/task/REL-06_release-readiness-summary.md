@@ -60,6 +60,14 @@ Tôi không nói "an toàn tuyệt đối". Tôi nói: những gì kiểm đư�
 - **16 KB:** 4 thư viện native arm64 đều căn `0x4000`.
 - **Chưa làm:** không cài bản ký thật lên máy nào ở lượt này; `versionCode` vẫn là bản 2026-11-24 và đã có 85 commit từ đó, nên **tăng `versionCode` trước khi tải lên Play** (Play từ chối trùng mã).
 
+## AAB prodRelease dựng lại từ `4757b888` (2026-11-28 19:09), versionCode 20261128
+
+Thay cho bản dựng từ `bc9fcffd`. `bundleProdRelease`, không `-PallowTestAdIds`; 51.516.523 byte, mtime khớp lúc build; SHA-256 `08645542a853b735e3118b49ab7fd03d488ae1a7a6d5947f2db81be1a94bf73f`.
+- `jarsigner -verify`: "jar verified"; chứng chỉ SHA-256 `67:B2:E6:CD:...:8B:03:82`. Zip không lỗi.
+- 4 ad unit thật có trong dex (mỗi ID 1 lần), App ID thật trong manifest. Manifest: `versionCode 20261128`, `versionName 2026.11.28`, minSdk 26, targetSdk 37, không `debuggable`.
+- 4 thư viện native arm64 căn `0x4000` (16 KB).
+- **Chưa làm:** không cài bản ký thật lên máy nào, nên chưa thấy nó chạy; chưa nộp lên Play; chưa thử trial và nâng cấp từ bản store.
+
 ## Việc của owner (tôi không làm được)
 
 1. **Play Console**: khai Foreground service loại Media playback; Data safety (Advertising ID, văn bản bài gửi Gemini khi người dùng tự nhập key, WebDAV có mật khẩu, Bluetooth, mạng LAN); không khẳng định "mã hoá mọi dữ liệu khi truyền" khi `usesCleartextTraffic` còn `true`.
