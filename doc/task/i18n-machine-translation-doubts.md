@@ -1057,3 +1057,7 @@ Mô tả icon (`a11y_country`, `a11y_navigate`, `a11y_rss_source`, `a11y_url`, `
 - **Chưa nghe/xem trên màn hình.** Tập đã lưu cũ giữ tiêu đề cũ.
 - Test: `CommuteFallbackLocalizedTest` (4/4, kèm mutation đỏ), `CommuteScriptServiceTest` (4/4 với context Robolectric thật), `CommuteScriptConsentGateTest` (4/4), `StringResourcesHealthTest` (13/13). Full JVM 4331 test, 0 lỗi; lint sạch.
 
+## Ghi chú (2026-11-28): RsvpCalibrationContent — cố ý giữ, không phải lỗi
+
+`domain/rsvp/RsvpCalibrationContent.kt` chứa 3 đoạn văn hiệu chuẩn tốc độ đọc (tiếng Anh) và một bộ riêng bằng tiếng Việt. Comment trong file nói rõ: "Other languages read the English set" vì mỗi câu hỏi gắn với một đoạn văn cụ thể. `RsvpCalibrationViewModel` gọi `forLanguage(languageTag)` và trả về bộ VI chỉ cho locale vi-*, còn lại dùng EN. Đây là nội dung kiểm tra, không phải nhãn UI — **không cần đưa vào strings.xml hay dịch thêm**. Đã kiểm nơi dùng (1 ViewModel), không có caller nào khác.
+
