@@ -45,7 +45,9 @@ Tôi không nói "an toàn tuyệt đối". Tôi nói: những gì kiểm đư�
 
 - **Cỡ chữ hệ thống:** backup byte-exact trước; đặt font scale 1.3, app ở "dùng ngôn ngữ thiết bị" (vi-VN). Feeds và Settings đều hiển thị chữ lớn rõ rệt và không cắt; sheet Oracle mở được. Đặt lại font scale 1.0 ở cuối.
 - **Đã xác minh nguyên nhân không nhất quán:** khi app ở "dùng ngôn ngữ thiết bị", font scale 1.3 được áp dụng; khi đặt ngôn ngữ riêng trong app (thử ở tiếng Ba Lan), app hiển thị cỡ chữ nhỏ lại. Mã `attachBaseContext` của MainActivity, SplashActivity và AboutActivity đặt `configuration.fontScale = 1.0f` chỉ trong nhánh `languagePref != 0`; nhánh thiết bị thoát sớm. Tôi chưa đổi mã: đây là hành vi khả năng tiếp cận cần owner quyết định trước khi đổi, vì bỏ ép font scale có thể làm vỡ các layout/hàng chip chưa kiểm.
-- **Oracle:** với cỡ chữ 1.3, sheet Oracle tiếng Malayalam vẫn hiển thị đủ câu hỏi, nút Yes/No, chip cược 50/100/500 và nút đặt cược; không thấy chip bị ép hay tràn. Triage tiếng Malayalam cũng mở được, ba nút tròn và nhãn phía dưới không đè nhau.
+- **Oracle / Triage ở chữ lớn:** cỡ chữ 1.3 vẫn hiển thị sheet Oracle tiếng Malayalam với câu hỏi, nút Yes/No, chip cược 50/100/500; chip xuống hàng gọn, nút đặt cược còn thấy. Triage Malayalam cũng hiện ba nút tròn và nhãn riêng.
+- **Các locale có nhãn số nhiều (bản `88b771a5`):** ở ru, `15 минут`/`30 минут`; ở pl, `15 minut`/`30 minut` đều một dòng. Dạng nhiều như `60 минут` nằm ngoài khung chip và có thể cuộn ngang để tới; ảnh trước chip cuối vẫn thấy đủ. Trước plurals, ru chip 60 phút bị bóp, chữ rơi từng dòng; dùng `LazyRow` giờ chip 15/30/60 nằm cùng một hàng cuộn. Chụp Pixel tại `~/exc-flaky-evidence/audit-20261128-pixel/final/ru-zen.png`, `pl-zen.png`, `pl-zen-scroll.png`.
+- **Chưa kiểm TTS nghe thật:** tôi đã mở sheet Zen ở ru/pl nhưng không bấm nút phát âm; chỉ xác nhận các nhãn chip.
 - Quảng cáo toàn màn hình có nhãn "Reklama testowa" xuất hiện bốn lần. Tôi đóng bằng nút "Tiếp tục đến ứng dụng". Một lần ở Malayalam tôi chạm nhầm creative trước khi kiểm tra xong nhãn và Play Store mở; thoát ra, không cài gì. Wi‑Fi tắt tạm khi đo bố cục và bật lại sau.
 - Pixel đã khôi phục byte-exact về backup `backup-fontscale` đầu lượt: locale app rỗng, font scale 1.0, Wi‑Fi bật, app ở launcher, gate OK. Tôi không gửi lệnh tới Tecno hay S24 Ultra.
 
@@ -65,12 +67,12 @@ Tôi không nói "an toàn tuyệt đối". Tôi nói: những gì kiểm đư�
 - Màn Triage ở tiếng Malayalam (nhãn dài) hiện ba nút tròn với nhãn dưới mỗi nút, không bị ép: `TriageBottomBar` không cần sửa.
 - **Fever và Google Reader vẫn chưa kiểm trên máy**: tôi dựng sẵn máy chủ Fever giả và khoá DES (đã kiểm chéo Java và OpenSSL cho cùng ciphertext), nhưng để vào được phải chèn tài khoản vào DB và đổi tài khoản hiện hành trong DataStore, mà DataStore chứa cả cài đặt người dùng. Owner chọn bỏ qua; ghi lại để khỏi ai tưởng đã kiểm.
 
-## Chưa quyết định, cần owner
+## Các quyết định owner đã chọn
 
-- Giữ ẩn nút thêm Fever và Google Reader (đã chọn giữ ẩn), hay mở lại?
-- **Cỡ chữ khi người dùng chọn ngôn ngữ riêng — owner chọn giữ `fontScale = 1.0`.** Không sửa mã. Với ngôn ngữ thiết bị, cỡ 1.3 đã kiểm: Feeds, Settings, Oracle và Triage đều đọc được. Với ngôn ngữ riêng, app vẫn ép 1.0 trong `MainActivity`, `SplashActivity`, `AboutActivity`. Owner chấp nhận giới hạn Accessibility này để tránh thay đổi bố cục hiện tại; nếu đổi quyết định sau, cần sửa cả ba activity, thêm test và kiểm layout ở cỡ lớn.
-- Có giới hạn số locale phát hành không (xem trên)?
-- Giữ tên tính năng "Feed Autopilot", "Second Brain" đã dịch ở uk, pl, it, in hay giữ tiếng Anh ở mọi locale cho nhất quán?
+- Giữ ẩn nút thêm Fever và Google Reader; vì thế luồng tài khoản và sync của hai dịch vụ vẫn chưa được kiểm trên máy.
+- Giữ `fontScale = 1.0` khi người dùng chọn ngôn ngữ riêng. Không sửa mã. Với ngôn ngữ thiết bị, Pixel cỡ 1.3 hiển thị Feeds, Settings, Oracle và Triage đọc được. Với ngôn ngữ riêng, app vẫn ép 1.0 trong `MainActivity`, `SplashActivity`, `AboutActivity`; đây là giới hạn Accessibility được owner chấp nhận.
+- Owner chưa chọn giới hạn locale phát hành. Hiện `resourceConfigurations` vẫn gồm 37 locale; 393 nhãn còn nguyên tiếng Anh ở một số locale (xem mục bản dịch).
+- Tên tính năng "Feed Autopilot"/"Second Brain" đã dịch ở uk, pl, it, in; chưa có quyết định giữ tiếng Anh ở tất cả locale.
 
 ## Mô tả cách làm việc của phiên này (để owner biết bằng chứng đến từ đâu)
 
