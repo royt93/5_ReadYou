@@ -51,6 +51,15 @@ Tôi không nói "an toàn tuyệt đối". Tôi nói: những gì kiểm đư�
 - Quảng cáo toàn màn hình có nhãn "Reklama testowa" xuất hiện bốn lần. Tôi đóng bằng nút "Tiếp tục đến ứng dụng". Một lần ở Malayalam tôi chạm nhầm creative trước khi kiểm tra xong nhãn và Play Store mở; thoát ra, không cài gì. Wi‑Fi tắt tạm khi đo bố cục và bật lại sau.
 - Pixel đã khôi phục byte-exact về backup `backup-fontscale` đầu lượt: locale app rỗng, font scale 1.0, Wi‑Fi bật, app ở launcher, gate OK. Tôi không gửi lệnh tới Tecno hay S24 Ultra.
 
+## AAB prodRelease dựng từ `bc9fcffd` (2026-11-28 17:30)
+
+`./gradlew bundleProdRelease`, không `-PallowTestAdIds`. File `app/build/outputs/bundle/prodRelease/app-prod-release.aab`, 51.491.648 byte, mtime khớp thời điểm build (không phải file cũ), SHA-256 `2459772f9f2100d505aeaca4e38a27d1174e34317ac85942423816face3b9106`.
+- **Chữ ký:** `jarsigner -verify` ra "jar verified"; chứng chỉ `CN=mckimquyen`, SHA-256 `67:B2:E6:CD:C2:D4:...:8B:03:82`, RSA, hạn tới 2049-05-26.
+- **ID quảng cáo:** 4 ad unit thật nằm trong dex (mỗi ID 1 lần), App ID thật nằm trong manifest; 0 unit ID mẫu của Google. Chuỗi `3940256099942544` còn trong `classes2.dex` chỉ là hằng so sánh của `AdValidationHelper`.
+- **Manifest** (bundletool): `com.mckimquyen.reader`, versionCode 20261124, versionName 2026.11.24, minSdk 26, targetSdk 37, **không** `debuggable`; có `AD_ID`, `FOREGROUND_SERVICE_MEDIA_PLAYBACK`; `usesCleartextTraffic="true"`.
+- **16 KB:** 4 thư viện native arm64 đều căn `0x4000`.
+- **Chưa làm:** không cài bản ký thật lên máy nào ở lượt này; `versionCode` vẫn là bản 2026-11-24 và đã có 85 commit từ đó, nên **tăng `versionCode` trước khi tải lên Play** (Play từ chối trùng mã).
+
 ## Việc của owner (tôi không làm được)
 
 1. **Play Console**: khai Foreground service loại Media playback; Data safety (Advertising ID, văn bản bài gửi Gemini khi người dùng tự nhập key, WebDAV có mật khẩu, Bluetooth, mạng LAN); không khẳng định "mã hoá mọi dữ liệu khi truyền" khi `usesCleartextTraffic` còn `true`.
