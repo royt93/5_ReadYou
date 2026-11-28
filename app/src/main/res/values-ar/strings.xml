@@ -1295,4 +1295,9 @@
     <string name="commute_ready_to_play_body">سماعاتك متصلة. اضغط تشغيل للاستماع.</string>
     <string name="trust_self_signed_title">الوثوق بشهادة موقّعة ذاتيًا</string>
     <string name="trust_self_signed_desc">لهذا الخادم فقط. اتركه معطّلًا ما لم يستخدم خادمك شهادة أنشأتها بنفسك؛ وإلا يمكن لأي شخص على الشبكة نفسها قراءة كلمة المرور.</string>
+    <string name="commute_progress_segment">المقطع %1$d / %2$d</string>
+    <string name="commute_status_playing">قيد التشغيل…</string>
+    <string name="commute_status_stopped">متوقف</string>
+    <string name="commute_deepdive_desc">تحليل معمّق لأهم 10 أخبار من مصادر RSS الخاصة بك مع Alex و Sam.</string>
+    <string name="commute_listen_deepdive_vip">🎙️ استمع إلى التعمّق (ميزة VIP)</string>
 </resources>

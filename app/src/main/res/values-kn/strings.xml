@@ -1355,4 +1355,9 @@
     <string name="commute_ready_to_play_body">ನಿಮ್ಮ ಹೆಡ್‌ಫೋನ್ ಸಂಪರ್ಕವಾಗಿದೆ. ಕೇಳಲು ಪ್ಲೇ ಟ್ಯಾಪ್ ಮಾಡಿ.</string>
     <string name="trust_self_signed_title">ಸ್ವಯಂ-ಸಹಿ ಪ್ರಮಾಣಪತ್ರವನ್ನು ನಂಬಿ</string>
     <string name="trust_self_signed_desc">ಈ ಸರ್ವರ್‌ಗೆ ಮಾತ್ರ. ನಿಮ್ಮ ಸರ್ವರ್ ನೀವೇ ರಚಿಸಿದ ಪ್ರಮಾಣಪತ್ರ ಬಳಸದಿದ್ದರೆ ಇದನ್ನು ಆಫ್ ಇಡಿ; ಇಲ್ಲದಿದ್ದರೆ ಅದೇ ನೆಟ್‌ವರ್ಕ್‌ನ ಯಾರಾದರೂ ನಿಮ್ಮ ಪಾಸ್‌ವರ್ಡ್ ಓದಬಹುದು.</string>
+    <string name="commute_progress_segment">ಭಾಗ %1$d / %2$d</string>
+    <string name="commute_status_playing">ಪ್ಲೇ ಆಗುತ್ತಿದೆ…</string>
+    <string name="commute_status_stopped">ನಿಲ್ಲಿಸಲಾಗಿದೆ</string>
+    <string name="commute_deepdive_desc">Alex ಮತ್ತು Sam ಜೊತೆಗೆ ನಿಮ್ಮ RSS ಮೂಲಗಳ 10 ಅತ್ಯಂತ ಬಿಸಿ ಸುದ್ದಿಗಳ ಆಳವಾದ ವಿಶ್ಲೇಷಣೆ.</string>
+    <string name="commute_listen_deepdive_vip">🎙️ ಆಳ ವಿಶ್ಲೇಷಣೆ ಆಲಿಸಿ (VIP ವಿಶೇಷ ಸೌಲಭ್ಯ)</string>
 </resources>

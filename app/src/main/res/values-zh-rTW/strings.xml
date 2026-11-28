@@ -1272,4 +1272,9 @@
     <string name="commute_ready_to_play_body">你的耳機已連接。點選播放即可收聽。</string>
     <string name="trust_self_signed_title">信任自簽憑證</string>
     <string name="trust_self_signed_desc">僅對此伺服器生效。除非您的伺服器使用自行建立的憑證,否則請保持關閉;開啟後，同一網路中的任何人都可能讀取您的密碼。</string>
+    <string name="commute_progress_segment">第 %1$d / %2$d 段</string>
+    <string name="commute_status_playing">正在播放…</string>
+    <string name="commute_status_stopped">已停止</string>
+    <string name="commute_deepdive_desc">與 Alex 和 Sam 一起深度解析你的 RSS 來源中最熱門的 10 則新聞。</string>
+    <string name="commute_listen_deepdive_vip">🎙️ 收聽深度解析（VIP 專屬）</string>
 </resources>

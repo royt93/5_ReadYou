@@ -1285,4 +1285,9 @@
     <string name="commute_ready_to_play_body">Kulaklıklarınız bağlı. Dinlemek için Oynat\'a dokunun.</string>
     <string name="trust_self_signed_title">Kendinden imzalı sertifikaya güven</string>
     <string name="trust_self_signed_desc">Yalnızca bu sunucu için. Sunucunuz kendi oluşturduğunuz bir sertifika kullanmıyorsa kapalı bırakın; aksi halde aynı ağdaki herkes parolanızı okuyabilir.</string>
+    <string name="commute_progress_segment">Bölüm %1$d / %2$d</string>
+    <string name="commute_status_playing">Oynatılıyor…</string>
+    <string name="commute_status_stopped">Durduruldu</string>
+    <string name="commute_deepdive_desc">RSS kaynaklarınızdaki en sıcak 10 haberin Alex ve Sam ile derinlemesine analizi.</string>
+    <string name="commute_listen_deepdive_vip">🎙️ Derin Analizi dinle (VIP ayrıcalığı)</string>
 </resources>

@@ -1289,4 +1289,9 @@
     <string name="commute_ready_to_play_body">Le cuffie sono collegate. Tocca Riproduci per ascoltare.</string>
     <string name="trust_self_signed_title">Considera attendibile un certificato autofirmato</string>
     <string name="trust_self_signed_desc">Solo per questo server. Lascia disattivato a meno che il server usi un certificato creato da te; altrimenti chiunque sulla stessa rete potrebbe leggere la tua password.</string>
+    <string name="commute_progress_segment">Segmento %1$d / %2$d</string>
+    <string name="commute_status_playing">In riproduzione…</string>
+    <string name="commute_status_stopped">Fermo</string>
+    <string name="commute_deepdive_desc">Analisi approfondita delle 10 notizie più calde dalle tue fonti RSS con Alex e Sam.</string>
+    <string name="commute_listen_deepdive_vip">🎙️ Ascolta l\'approfondimento (vantaggio VIP)</string>
 </resources>

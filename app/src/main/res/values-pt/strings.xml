@@ -1292,4 +1292,9 @@
     <string name="commute_ready_to_play_body">Os auscultadores estão ligados. Toque em Reproduzir para ouvir.</string>
     <string name="trust_self_signed_title">Confiar em certificado autoassinado</string>
     <string name="trust_self_signed_desc">Apenas para este servidor. Deixe desativado, a menos que o seu servidor use um certificado criado por si; caso contrário, qualquer pessoa na mesma rede poderá ler a sua palavra-passe.</string>
+    <string name="commute_progress_segment">Trecho %1$d / %2$d</string>
+    <string name="commute_status_playing">A reproduzir…</string>
+    <string name="commute_status_stopped">Parado</string>
+    <string name="commute_deepdive_desc">Análise aprofundada das 10 notícias mais quentes das suas fontes RSS com Alex e Sam.</string>
+    <string name="commute_listen_deepdive_vip">🎙️ Ouvir a análise (vantagem VIP)</string>
 </resources>

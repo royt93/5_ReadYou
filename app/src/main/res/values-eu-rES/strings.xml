@@ -1355,4 +1355,9 @@
     <string name="commute_ready_to_play_body">Zure entzungailuak konektatuta daude. Sakatu Erreproduzitu entzuteko.</string>
     <string name="trust_self_signed_title">Fidatu ziurtagiri autosinatu batean</string>
     <string name="trust_self_signed_desc">Zerbitzari honetarako soilik. Utzi desaktibatuta, zure zerbitzariak zuk sortutako ziurtagiria erabiltzen ez badu; bestela, sare bereko edonork irakur dezake zure pasahitza.</string>
+    <string name="commute_progress_segment">Zatia %1$d / %2$d</string>
+    <string name="commute_status_playing">Erreproduzitzen…</string>
+    <string name="commute_status_stopped">Geldituta</string>
+    <string name="commute_deepdive_desc">Zure RSS iturrietako 10 albiste beroenen azterketa sakona Alex eta Samekin.</string>
+    <string name="commute_listen_deepdive_vip">🎙️ Entzun azterketa sakona (VIP abantaila)</string>
 </resources>

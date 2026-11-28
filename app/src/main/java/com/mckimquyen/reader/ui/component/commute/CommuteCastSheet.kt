@@ -470,12 +470,12 @@ fun CommuteCastUi(
                     horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
                     Text(
-                        text = "Đoạn ${playerState.currentDialogueIndex + 1} / $totalDialogues",
+                        text = stringResource(R.string.commute_progress_segment, playerState.currentDialogueIndex + 1, totalDialogues),
                         style = MaterialTheme.typography.labelSmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
                     Text(
-                        text = if (playerState.isPlaying) "Đang phát..." else "Đã dừng",
+                        text = stringResource(if (playerState.isPlaying) R.string.commute_status_playing else R.string.commute_status_stopped),
                         style = MaterialTheme.typography.labelSmall,
                         color = if (playerState.isPlaying) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
                         fontWeight = FontWeight.SemiBold,
@@ -668,7 +668,7 @@ private fun DialogueBubble(
                 if (isCurrent) {
                     Spacer(modifier = Modifier.width(6.dp))
                     Text(
-                        text = "• Đang phát",
+                        text = "• " + stringResource(R.string.commute_status_playing),
                         style = MaterialTheme.typography.labelSmall,
                         color = speakerBadgeColor,
                     )
@@ -719,7 +719,7 @@ private fun DeepDiveBanner(
                 )
                 Spacer(modifier = Modifier.width(6.dp))
                 Text(
-                    text = "CommuteCast Deep Dive (15 phút)",
+                    text = stringResource(R.string.commute_cast_title) + " · " + stringResource(R.string.commute_budget_15m),
                     style = MaterialTheme.typography.titleSmall,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.primary,
@@ -727,7 +727,7 @@ private fun DeepDiveBanner(
             }
             Spacer(modifier = Modifier.height(4.dp))
             Text(
-                text = "Phân tích chuyên sâu 10 tin tức nóng nhất từ nguồn RSS của bạn với Alex & Sam.",
+                text = stringResource(R.string.commute_deepdive_desc),
                 style = MaterialTheme.typography.bodySmall,
                 textAlign = TextAlign.Center,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -758,7 +758,7 @@ private fun DeepDiveBanner(
                 ),
             ) {
                 Text(
-                    text = if (isVip) "🎙️ Nghe Deep Dive (Đặc quyền VIP)" else stringResource(R.string.commute_unlock_deepdive),
+                    text = if (isVip) stringResource(R.string.commute_listen_deepdive_vip) else stringResource(R.string.commute_unlock_deepdive),
                     fontSize = 13.sp,
                     fontWeight = FontWeight.Bold,
                 )

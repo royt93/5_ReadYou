@@ -1282,4 +1282,9 @@
     <string name="commute_ready_to_play_body">आपके हेडफ़ोन जुड़े हैं। सुनने के लिए चलाएँ पर टैप करें।</string>
     <string name="trust_self_signed_title">स्व-हस्ताक्षरित प्रमाणपत्र पर भरोसा करें</string>
     <string name="trust_self_signed_desc">केवल इसी सर्वर के लिए। जब तक आपका सर्वर आपके खुद बनाए प्रमाणपत्र का उपयोग नहीं करता, इसे बंद रखें; अन्यथा उसी नेटवर्क का कोई भी व्यक्ति आपका पासवर्ड पढ़ सकता है।</string>
+    <string name="commute_progress_segment">भाग %1$d / %2$d</string>
+    <string name="commute_status_playing">चल रहा है…</string>
+    <string name="commute_status_stopped">रुका हुआ</string>
+    <string name="commute_deepdive_desc">Alex और Sam के साथ आपके RSS स्रोतों की 10 सबसे गर्म खबरों का गहन विश्लेषण।</string>
+    <string name="commute_listen_deepdive_vip">🎙️ डीप डाइव सुनें (VIP विशेषाधिकार)</string>
 </resources>

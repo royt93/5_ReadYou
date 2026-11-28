@@ -1376,4 +1376,9 @@
     <string name="commute_ready_to_play_body">האוזניות שלכם מחוברות. הקישו על ניגון כדי להאזין.</string>
     <string name="trust_self_signed_title">לסמוך על אישור בחתימה עצמית</string>
     <string name="trust_self_signed_desc">רק עבור השרת הזה. השאירו כבוי אלא אם השרת שלכם משתמש באישור שיצרתם בעצמכם; אחרת כל אחד באותה רשת יוכל לקרוא את הסיסמה שלכם.</string>
+    <string name="commute_progress_segment">קטע %1$d / %2$d</string>
+    <string name="commute_status_playing">מתנגן…</string>
+    <string name="commute_status_stopped">נעצר</string>
+    <string name="commute_deepdive_desc">ניתוח מעמיק של 10 החדשות החמות ביותר ממקורות ה-RSS שלך עם Alex ו-Sam.</string>
+    <string name="commute_listen_deepdive_vip">🎙️ האזנה לצלילה לעומק (הטבת VIP)</string>
 </resources>

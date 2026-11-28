@@ -1034,3 +1034,10 @@ Audit chỉ đọc chuỗi khác bản gốc nên không thấy các nhãn còn 
 - **Một lỗi bố cục lộ ra** và đã sửa: chip hẹn giờ ngủ nằm trong một `Row` thường; với tiếng Ba Lan và tiếng Nga, bốn chip không vừa một hàng, và chip "60 min" bị ép thành một dải hẹp với chữ rơi từng chữ một dòng. **Lỗi này có sẵn từ trước đợt này** (ảnh nền `ru-zen-BASELINE.png` chụp ở bản trước plurals, tiếng Ba Lan, vẫn bị) chứ không do plurals gây ra. Đổi sang `LazyRow` như hàng chip loại âm thanh ngay trên nó; chip cuối nay cuộn ngang thay vì bị bóp. Test `ZenSleepTimerChipsSourceTest` đỏ khi quay về `Row` và xanh sau sửa.
 - **Giới hạn**: bốn nhãn này là những nhãn tôi chắc là đếm danh từ. Có thể còn nhãn khác đếm kiểu "Processed: %1$d", "Viewers: %1$d", "Sources: %1$d" nhưng ở đó số đứng sau dấu hai chấm nên không cần biến cách danh từ. Dạng số nhiều là dịch máy, chưa người bản ngữ duyệt, và tôi chỉ nhìn trên máy hai ngôn ngữ (ru, pl); sl, cs, ar chưa xem trên màn hình.
 
+## Đợt 11 (2026-11-28): 5 chuỗi CommuteCast mới, toàn bộ là dịch máy
+
+`CommuteCastSheet.kt` có 6 chuỗi tiếng Việt gõ cứng, hiện tiếng Việt ở mọi locale. Đã đưa vào `strings.xml`: `commute_progress_segment`, `commute_status_playing`, `commute_status_stopped`, `commute_deepdive_desc`, `commute_listen_deepdive_vip` (tiêu đề Deep Dive nay ghép `commute_cast_title` với `commute_budget_15m`). Tiếng Anh và tiếng Việt là bản gốc; 36 locale còn lại tôi tự dịch, **chưa agent hay người bản ngữ nào kiểm**.
+- Độ tin cậy thấp: `lzh`, `my`, `kn`, `ml`, `fa`, `iw`.
+- Chưa xem trên màn hình ngoài tiếng Nga.
+- Test: `CommuteCastStringsTest` (không còn chữ Việt gõ cứng, đủ 5 key ở mọi locale, nhãn đoạn giữ đủ `%1$d` và `%2$d`).
+- Full JVM lần đầu có 2 test `CommuteCastViewModelTest` hỏng, chạy lại không tái hiện (lần hai 4321 test, 0 lỗi; riêng lớp đó chạy 3 lần đều xanh). Nguyên nhân chưa biết; không chứng minh được là flaky có từ trước.

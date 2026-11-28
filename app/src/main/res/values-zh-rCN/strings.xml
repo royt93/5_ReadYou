@@ -1273,4 +1273,9 @@
     <string name="commute_ready_to_play_body">你的耳机已连接。点按“播放”即可收听。</string>
     <string name="trust_self_signed_title">信任自签名证书</string>
     <string name="trust_self_signed_desc">仅对此服务器生效。除非您的服务器使用自己创建的证书,否则请保持关闭;否则同一网络中的任何人都可能读取您的密码。</string>
+    <string name="commute_progress_segment">第 %1$d / %2$d 段</string>
+    <string name="commute_status_playing">正在播放…</string>
+    <string name="commute_status_stopped">已停止</string>
+    <string name="commute_deepdive_desc">与 Alex 和 Sam 一起深度解读你的 RSS 来源中最热门的 10 条新闻。</string>
+    <string name="commute_listen_deepdive_vip">🎙️ 收听深度解读（VIP 特权）</string>
 </resources>

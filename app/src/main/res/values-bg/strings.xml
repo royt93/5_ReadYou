@@ -1249,4 +1249,9 @@
     <string name="commute_ready_to_play_body">Слушалките ви са свързани. Докоснете Пусни, за да слушате.</string>
     <string name="trust_self_signed_title">Доверяване на самоподписан сертификат</string>
     <string name="trust_self_signed_desc">Само за този сървър. Оставете изключено, освен ако сървърът ви използва сертификат, създаден от вас; иначе всеки в същата мрежа може да прочете паролата ви.</string>
+    <string name="commute_progress_segment">Част %1$d / %2$d</string>
+    <string name="commute_status_playing">Възпроизвежда се…</string>
+    <string name="commute_status_stopped">Спряно</string>
+    <string name="commute_deepdive_desc">Задълбочен анализ на 10-те най-горещи новини от вашите RSS източници с Alex и Sam.</string>
+    <string name="commute_listen_deepdive_vip">🎙️ Слушай задълбочения анализ (VIP привилегия)</string>
 </resources>

@@ -1274,4 +1274,9 @@
     <string name="commute_ready_to_play_body">Headphone Anda terhubung. Ketuk Putar untuk mendengarkan.</string>
     <string name="trust_self_signed_title">Percayai sertifikat yang ditandatangani sendiri</string>
     <string name="trust_self_signed_desc">Hanya untuk server ini. Biarkan mati kecuali server Anda memakai sertifikat buatan sendiri; jika tidak, siapa pun di jaringan yang sama dapat membaca kata sandi Anda.</string>
+    <string name="commute_progress_segment">Segmen %1$d / %2$d</string>
+    <string name="commute_status_playing">Sedang diputar…</string>
+    <string name="commute_status_stopped">Berhenti</string>
+    <string name="commute_deepdive_desc">Analisis mendalam 10 berita terpanas dari sumber RSS Anda bersama Alex dan Sam.</string>
+    <string name="commute_listen_deepdive_vip">🎙️ Dengarkan Deep Dive (Keistimewaan VIP)</string>
 </resources>

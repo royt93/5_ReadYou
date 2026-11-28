@@ -1355,4 +1355,9 @@
     <string name="commute_ready_to_play_body">Qulaqlığınız qoşulub. Dinləmək üçün Oxut düyməsinə toxunun.</string>
     <string name="trust_self_signed_title">Öz-imzalı sertifikata etibar et</string>
     <string name="trust_self_signed_desc">Yalnız bu server üçün. Serveriniz özünüzün yaratdığı sertifikatdan istifadə etmirsə, bunu söndürülmüş saxlayın; aktiv olduqda eyni şəbəkədəki hər kəs parolunuzu oxuya bilər.</string>
+    <string name="commute_progress_segment">Hissə %1$d / %2$d</string>
+    <string name="commute_status_playing">Oxunur…</string>
+    <string name="commute_status_stopped">Dayandırılıb</string>
+    <string name="commute_deepdive_desc">Alex və Sam ilə RSS mənbələrinizdən ən qaynar 10 xəbərin dərin təhlili.</string>
+    <string name="commute_listen_deepdive_vip">🎙️ Dərin təhlilə qulaq as (VIP imtiyazı)</string>
 </resources>

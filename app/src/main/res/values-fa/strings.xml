@@ -1284,4 +1284,9 @@
     <string name="commute_ready_to_play_body">هدفون شما وصل است. برای شنیدن، پخش را بزنید.</string>
     <string name="trust_self_signed_title">اعتماد به گواهی خودامضا</string>
     <string name="trust_self_signed_desc">فقط برای همین سرور. مگر اینکه سرور شما از گواهی ساخته‌شده توسط خودتان استفاده کند، آن را خاموش بگذارید؛ در غیر این صورت هر کسی در همان شبکه می‌تواند گذرواژه شما را بخواند.</string>
+    <string name="commute_progress_segment">بخش %1$d / %2$d</string>
+    <string name="commute_status_playing">در حال پخش…</string>
+    <string name="commute_status_stopped">متوقف شد</string>
+    <string name="commute_deepdive_desc">تحلیل عمیق ۱۰ خبر داغ از منابع RSS شما همراه با Alex و Sam.</string>
+    <string name="commute_listen_deepdive_vip">🎙️ گوش دادن به تحلیل عمیق (مزیت VIP)</string>
 </resources>

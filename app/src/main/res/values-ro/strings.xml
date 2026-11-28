@@ -1296,4 +1296,9 @@
     <string name="commute_ready_to_play_body">Căștile sunt conectate. Atingeți Redare pentru a asculta.</string>
     <string name="trust_self_signed_title">Ai încredere în certificatul autosemnat</string>
     <string name="trust_self_signed_desc">Doar pentru acest server. Lasă oprit, cu excepția cazului în care serverul tău folosește un certificat creat de tine; altfel oricine din aceeași rețea îți poate citi parola.</string>
+    <string name="commute_progress_segment">Fragment %1$d / %2$d</string>
+    <string name="commute_status_playing">Se redă…</string>
+    <string name="commute_status_stopped">Oprit</string>
+    <string name="commute_deepdive_desc">Analiză aprofundată a celor mai importante 10 știri din sursele tale RSS, cu Alex și Sam.</string>
+    <string name="commute_listen_deepdive_vip">🎙️ Ascultă analiza aprofundată (avantaj VIP)</string>
 </resources>

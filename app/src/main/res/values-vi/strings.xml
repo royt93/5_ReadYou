@@ -1247,4 +1247,9 @@
     <string name="commute_ready_to_play_body">Tai nghe đã kết nối. Chạm Phát để nghe.</string>
     <string name="trust_self_signed_title">Tin chứng chỉ tự ký</string>
     <string name="trust_self_signed_desc">Chỉ áp dụng cho máy chủ này. Để tắt trừ khi máy chủ dùng chứng chỉ do bạn tự tạo; bật lên thì người cùng mạng có thể đọc được mật khẩu của bạn.</string>
+    <string name="commute_progress_segment">Đoạn %1$d / %2$d</string>
+    <string name="commute_status_playing">Đang phát...</string>
+    <string name="commute_status_stopped">Đã dừng</string>
+    <string name="commute_deepdive_desc">Phân tích chuyên sâu 10 tin tức nóng nhất từ nguồn RSS của bạn với Alex &amp; Sam.</string>
+    <string name="commute_listen_deepdive_vip">🎙️ Nghe Deep Dive (Đặc quyền VIP)</string>
 </resources>

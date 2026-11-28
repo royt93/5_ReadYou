@@ -1356,4 +1356,9 @@
     <string name="commute_ready_to_play_body">നിങ്ങളുടെ ഹെഡ്ഫോണുകൾ കണക്റ്റ് ചെയ്തിരിക്കുന്നു. കേൾക്കാൻ പ്ലേ ടാപ്പ് ചെയ്യുക.</string>
     <string name="trust_self_signed_title">സ്വയം ഒപ്പിട്ട സർട്ടിഫിക്കറ്റ് വിശ്വസിക്കുക</string>
     <string name="trust_self_signed_desc">ഈ സെർവറിന് മാത്രം. നിങ്ങളുടെ സെർവർ നിങ്ങൾ തന്നെ നിർമ്മിച്ച സർട്ടിഫിക്കറ്റ് ഉപയോഗിക്കുന്നില്ലെങ്കിൽ ഇത് ഓഫ് ആക്കി വയ്ക്കുക; അല്ലെങ്കിൽ അതേ നെറ്റ്‌വർക്കിലെ ആർക്കും നിങ്ങളുടെ പാസ്‌വേഡ് വായിക്കാൻ കഴിയും.</string>
+    <string name="commute_progress_segment">ഭാഗം %1$d / %2$d</string>
+    <string name="commute_status_playing">പ്ലേ ചെയ്യുന്നു…</string>
+    <string name="commute_status_stopped">നിർത്തി</string>
+    <string name="commute_deepdive_desc">Alex, Sam എന്നിവർക്കൊപ്പം നിങ്ങളുടെ RSS ഉറവിടങ്ങളിലെ ഏറ്റവും ചൂടേറിയ 10 വാർത്തകളുടെ ആഴത്തിലുള്ള വിശകലനം.</string>
+    <string name="commute_listen_deepdive_vip">🎙️ ഡീപ് ഡൈവ് കേൾക്കുക (VIP ആനുകൂല്യം)</string>
 </resources>

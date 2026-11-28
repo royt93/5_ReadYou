@@ -1293,4 +1293,9 @@
     <string name="commute_ready_to_play_body">Votre casque est connecté. Touchez Lire pour écouter.</string>
     <string name="trust_self_signed_title">Faire confiance à un certificat auto-signé</string>
     <string name="trust_self_signed_desc">Uniquement pour ce serveur. Laissez désactivé sauf si votre serveur utilise un certificat que vous avez créé vous-même ; sinon, toute personne sur le même réseau pourrait lire votre mot de passe.</string>
+    <string name="commute_progress_segment">Passage %1$d / %2$d</string>
+    <string name="commute_status_playing">Lecture en cours…</string>
+    <string name="commute_status_stopped">Arrêté</string>
+    <string name="commute_deepdive_desc">Analyse approfondie des 10 actualités les plus chaudes de vos flux RSS avec Alex et Sam.</string>
+    <string name="commute_listen_deepdive_vip">🎙️ Écouter l\'analyse approfondie (avantage VIP)</string>
 </resources>

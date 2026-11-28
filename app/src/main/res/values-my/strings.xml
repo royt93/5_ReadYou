@@ -1346,4 +1346,9 @@
     <string name="commute_ready_to_play_body">သင့်နားကြပ် ချိတ်ဆက်ထားသည်။ နားထောင်ရန် ဖွင့်ရန်ကို ထိပါ။</string>
     <string name="trust_self_signed_title">ကိုယ်တိုင်လက်မှတ်ထိုးထားသော လက်မှတ်ကို ယုံကြည်ရန်</string>
     <string name="trust_self_signed_desc">ဤဆာဗာအတွက်သာ ဖြစ်သည်။ သင့်ဆာဗာသည် သင်ကိုယ်တိုင်ပြုလုပ်ထားသော လက်မှတ်ကို မသုံးပါက ပိတ်ထားပါ၊ မဟုတ်ပါက တူညီသော ကွန်ရက်ရှိ မည်သူမဆို သင့်စကားဝှက်ကို ဖတ်နိုင်သည်။</string>
+    <string name="commute_progress_segment">အပိုင်း %1$d / %2$d</string>
+    <string name="commute_status_playing">ဖွင့်နေသည်…</string>
+    <string name="commute_status_stopped">ရပ်ထားသည်</string>
+    <string name="commute_deepdive_desc">Alex နှင့် Sam တို့နှင့်အတူ သင့် RSS ရင်းမြစ်များမှ အပူဆုံးသတင်း ၁၀ ခုကို အနက်ရှိုင်း ခွဲခြမ်းစိတ်ဖြာခြင်း။</string>
+    <string name="commute_listen_deepdive_vip">🎙️ အနက်ရှိုင်း အစီအစဉ်ကို နားထောင်ရန် (VIP အခွင့်အရေး)</string>
 </resources>

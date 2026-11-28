@@ -1346,4 +1346,9 @@
     <string name="commute_ready_to_play_body">耳機已連。輕觸播放以聽。</string>
     <string name="trust_self_signed_title">信自簽之證</string>
     <string name="trust_self_signed_desc">唯此伺服器適用。若伺服器所用之證非君自製,宜置於關;否則同網之人皆可竊讀君之密碼。</string>
+    <string name="commute_progress_segment">第 %1$d 段，共 %2$d 段</string>
+    <string name="commute_status_playing">方播</string>
+    <string name="commute_status_stopped">已止</string>
+    <string name="commute_deepdive_desc">與 Alex、Sam 同論君之 RSS 所載十大要聞，深而析之。</string>
+    <string name="commute_listen_deepdive_vip">🎙️ 聽深談（VIP 之惠）</string>
 </resources>

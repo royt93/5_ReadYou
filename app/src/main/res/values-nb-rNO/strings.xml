@@ -1285,4 +1285,9 @@
     <string name="commute_ready_to_play_body">Hodetelefonene dine er tilkoblet. Trykk på Spill av for å lytte.</string>
     <string name="trust_self_signed_title">Stol på selvsignert sertifikat</string>
     <string name="trust_self_signed_desc">Bare for denne serveren. La det stå av med mindre serveren din bruker et sertifikat du har laget selv; ellers kan alle på samme nettverk lese passordet ditt.</string>
+    <string name="commute_progress_segment">Avsnitt %1$d / %2$d</string>
+    <string name="commute_status_playing">Spiller av…</string>
+    <string name="commute_status_stopped">Stoppet</string>
+    <string name="commute_deepdive_desc">Dybdeanalyse av de 10 hotteste nyhetene fra RSS-kildene dine med Alex og Sam.</string>
+    <string name="commute_listen_deepdive_vip">🎙️ Hør dybdedykket (VIP-fordel)</string>
 </resources>

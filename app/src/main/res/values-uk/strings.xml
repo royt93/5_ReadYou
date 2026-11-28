@@ -1308,4 +1308,9 @@
     <string name="commute_ready_to_play_body">Навушники підключено. Торкніться «Відтворити», щоб слухати.</string>
     <string name="trust_self_signed_title">Довіряти самопідписаному сертифікату</string>
     <string name="trust_self_signed_desc">Лише для цього сервера. Залиште вимкненим, якщо сервер не використовує сертифікат, створений вами; інакше будь-хто в тій самій мережі зможе прочитати ваш пароль.</string>
+    <string name="commute_progress_segment">Фрагмент %1$d / %2$d</string>
+    <string name="commute_status_playing">Відтворення…</string>
+    <string name="commute_status_stopped">Зупинено</string>
+    <string name="commute_deepdive_desc">Глибокий аналіз 10 найгарячіших новин із ваших RSS-джерел з Alex і Sam.</string>
+    <string name="commute_listen_deepdive_vip">🎙️ Слухати аналіз (привілей VIP)</string>
 </resources>

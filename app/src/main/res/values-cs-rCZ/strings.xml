@@ -1377,4 +1377,9 @@
     <string name="commute_ready_to_play_body">Vaše sluchátka jsou připojena. Klepnutím na Přehrát si ji poslechnete.</string>
     <string name="trust_self_signed_title">Důvěřovat certifikátu podepsanému sebou samým</string>
     <string name="trust_self_signed_desc">Pouze pro tento server. Nechte vypnuto, pokud váš server nepoužívá certifikát, který jste si vytvořili sami; jinak by si vaše heslo mohl přečíst kdokoli ve stejné síti.</string>
+    <string name="commute_progress_segment">Úsek %1$d / %2$d</string>
+    <string name="commute_status_playing">Přehrává se…</string>
+    <string name="commute_status_stopped">Zastaveno</string>
+    <string name="commute_deepdive_desc">Podrobný rozbor 10 nejžhavějších zpráv z vašich RSS zdrojů s Alexem a Samem.</string>
+    <string name="commute_listen_deepdive_vip">🎙️ Poslechnout podrobný rozbor (výhoda VIP)</string>
 </resources>

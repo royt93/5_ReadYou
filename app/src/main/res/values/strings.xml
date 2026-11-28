@@ -1370,4 +1370,9 @@
     <string name="commute_ready_to_play_body">Your headphones are connected. Tap Play to listen.</string>
     <string name="trust_self_signed_title">Trust a self-signed certificate</string>
     <string name="trust_self_signed_desc">Only for this server. Leave off unless your server uses a certificate you made yourself; anyone on the same network could then read your password.</string>
+    <string name="commute_progress_segment">Segment %1$d / %2$d</string>
+    <string name="commute_status_playing">Playing…</string>
+    <string name="commute_status_stopped">Stopped</string>
+    <string name="commute_deepdive_desc">In-depth analysis of the 10 hottest news stories from your RSS feeds with Alex &amp; Sam.</string>
+    <string name="commute_listen_deepdive_vip">🎙️ Listen to the Deep Dive (VIP perk)</string>
 </resources>

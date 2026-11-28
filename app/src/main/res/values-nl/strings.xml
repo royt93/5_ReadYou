@@ -1285,4 +1285,9 @@
     <string name="commute_ready_to_play_body">Je koptelefoon is verbonden. Tik op Afspelen om te luisteren.</string>
     <string name="trust_self_signed_title">Zelfondertekend certificaat vertrouwen</string>
     <string name="trust_self_signed_desc">Alleen voor deze server. Laat uit, tenzij je server een zelfgemaakt certificaat gebruikt; anders kan iedereen op hetzelfde netwerk je wachtwoord lezen.</string>
+    <string name="commute_progress_segment">Fragment %1$d / %2$d</string>
+    <string name="commute_status_playing">Wordt afgespeeld…</string>
+    <string name="commute_status_stopped">Gestopt</string>
+    <string name="commute_deepdive_desc">Diepgaande analyse van de 10 heetste nieuwsberichten uit je RSS-bronnen met Alex en Sam.</string>
+    <string name="commute_listen_deepdive_vip">🎙️ Verdieping beluisteren (VIP-voordeel)</string>
 </resources>

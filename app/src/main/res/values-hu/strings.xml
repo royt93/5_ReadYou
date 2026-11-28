@@ -1280,4 +1280,9 @@
     <string name="commute_ready_to_play_body">A fejhallgatód csatlakoztatva van. Koppints a Lejátszásra a hallgatáshoz.</string>
     <string name="trust_self_signed_title">Önaláírt tanúsítvány elfogadása</string>
     <string name="trust_self_signed_desc">Csak ehhez a szerverhez. Hagyja kikapcsolva, kivéve ha a szervere saját maga által készített tanúsítványt használ; különben bárki elolvashatja a jelszavát ugyanazon a hálózaton.</string>
+    <string name="commute_progress_segment">Rész %1$d / %2$d</string>
+    <string name="commute_status_playing">Lejátszás…</string>
+    <string name="commute_status_stopped">Leállítva</string>
+    <string name="commute_deepdive_desc">Az RSS-forrásaid 10 legfontosabb hírének mélyreható elemzése Alex és Sam társaságában.</string>
+    <string name="commute_listen_deepdive_vip">🎙️ Mélyelemzés meghallgatása (VIP előny)</string>
 </resources>

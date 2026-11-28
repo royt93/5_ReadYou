@@ -1374,4 +1374,9 @@
     <string name="commute_ready_to_play_body">Słuchawki są połączone. Dotknij Odtwórz, aby posłuchać.</string>
     <string name="trust_self_signed_title">Ufaj certyfikatowi z własnym podpisem</string>
     <string name="trust_self_signed_desc">Tylko dla tego serwera. Pozostaw wyłączone, chyba że serwer używa certyfikatu utworzonego przez Ciebie; w przeciwnym razie każdy w tej samej sieci może odczytać Twoje hasło.</string>
+    <string name="commute_progress_segment">Fragment %1$d / %2$d</string>
+    <string name="commute_status_playing">Odtwarzanie…</string>
+    <string name="commute_status_stopped">Zatrzymano</string>
+    <string name="commute_deepdive_desc">Dogłębna analiza 10 najgorętszych wiadomości z Twoich źródeł RSS z Alexem i Samem.</string>
+    <string name="commute_listen_deepdive_vip">🎙️ Posłuchaj analizy (przywilej VIP)</string>
 </resources>

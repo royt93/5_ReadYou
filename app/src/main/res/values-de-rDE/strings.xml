@@ -1286,4 +1286,9 @@
     <string name="commute_ready_to_play_body">Deine Kopfhörer sind verbunden. Tippe auf Wiedergabe, um zuzuhören.</string>
     <string name="trust_self_signed_title">Selbstsigniertem Zertifikat vertrauen</string>
     <string name="trust_self_signed_desc">Nur für diesen Server. Lassen Sie die Option aus, es sei denn, Ihr Server nutzt ein selbst erstelltes Zertifikat; sonst kann jeder im selben Netzwerk Ihr Passwort mitlesen.</string>
+    <string name="commute_progress_segment">Abschnitt %1$d / %2$d</string>
+    <string name="commute_status_playing">Wiedergabe läuft …</string>
+    <string name="commute_status_stopped">Gestoppt</string>
+    <string name="commute_deepdive_desc">Ausführliche Analyse der 10 heißesten Nachrichten aus deinen RSS-Quellen mit Alex und Sam.</string>
+    <string name="commute_listen_deepdive_vip">🎙️ Deep Dive anhören (VIP-Vorteil)</string>
 </resources>

@@ -1284,4 +1284,9 @@
     <string name="commute_ready_to_play_body">Dina hörlurar är anslutna. Tryck på Spela för att lyssna.</string>
     <string name="trust_self_signed_title">Lita på självsignerat certifikat</string>
     <string name="trust_self_signed_desc">Endast för den här servern. Låt det vara avstängt om inte servern använder ett certifikat du skapat själv; annars kan alla i samma nätverk läsa ditt lösenord.</string>
+    <string name="commute_progress_segment">Avsnitt %1$d / %2$d</string>
+    <string name="commute_status_playing">Spelar…</string>
+    <string name="commute_status_stopped">Stoppad</string>
+    <string name="commute_deepdive_desc">Fördjupad analys av de 10 hetaste nyheterna från dina RSS-källor med Alex och Sam.</string>
+    <string name="commute_listen_deepdive_vip">🎙️ Lyssna på djupdykningen (VIP-förmån)</string>
 </resources>

@@ -1288,4 +1288,9 @@
     <string name="commute_ready_to_play_body">Els teus auriculars estan connectats. Toca Reprodueix per escoltar-lo.</string>
     <string name="trust_self_signed_title">Confia en un certificat autosignat</string>
     <string name="trust_self_signed_desc">Només per a aquest servidor. Deixa-ho desactivat tret que el servidor faci servir un certificat creat per tu; si no, qualsevol persona de la mateixa xarxa podria llegir la contrasenya.</string>
+    <string name="commute_progress_segment">Fragment %1$d / %2$d</string>
+    <string name="commute_status_playing">S\'està reproduint…</string>
+    <string name="commute_status_stopped">Aturat</string>
+    <string name="commute_deepdive_desc">Anàlisi en profunditat de les 10 notícies més destacades de les teves fonts RSS amb Alex i Sam.</string>
+    <string name="commute_listen_deepdive_vip">🎙️ Escolta l\'anàlisi (avantatge VIP)</string>
 </resources>

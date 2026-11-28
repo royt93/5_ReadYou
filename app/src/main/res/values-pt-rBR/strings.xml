@@ -1291,4 +1291,9 @@
     <string name="commute_ready_to_play_body">Seus fones estão conectados. Toque em Reproduzir para ouvir.</string>
     <string name="trust_self_signed_title">Confiar em certificado autoassinado</string>
     <string name="trust_self_signed_desc">Somente para este servidor. Deixe desativado, a menos que seu servidor use um certificado criado por você; caso contrário, qualquer pessoa na mesma rede poderá ler sua senha.</string>
+    <string name="commute_progress_segment">Trecho %1$d / %2$d</string>
+    <string name="commute_status_playing">Reproduzindo…</string>
+    <string name="commute_status_stopped">Parado</string>
+    <string name="commute_deepdive_desc">Análise aprofundada das 10 notícias mais quentes das suas fontes RSS com Alex e Sam.</string>
+    <string name="commute_listen_deepdive_vip">🎙️ Ouvir o aprofundamento (vantagem VIP)</string>
 </resources>

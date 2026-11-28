@@ -1274,4 +1274,9 @@
     <string name="commute_ready_to_play_body">ヘッドホンが接続されています。再生をタップして聴きましょう。</string>
     <string name="trust_self_signed_title">自己署名証明書を信頼する</string>
     <string name="trust_self_signed_desc">このサーバーにのみ適用されます。サーバーが自作の証明書を使っている場合を除き、オフのままにしてください。オンにすると、同じネットワークの誰でもパスワードを読み取れる可能性があります。</string>
+    <string name="commute_progress_segment">パート %1$d / %2$d</string>
+    <string name="commute_status_playing">再生中…</string>
+    <string name="commute_status_stopped">停止中</string>
+    <string name="commute_deepdive_desc">AlexとSamが、RSSソースから選んだ最も注目の10本のニュースを徹底分析します。</string>
+    <string name="commute_listen_deepdive_vip">🎙️ ディープダイブを聴く(VIP特典)</string>
 </resources>

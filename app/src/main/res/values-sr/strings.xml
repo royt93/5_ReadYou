@@ -1297,4 +1297,9 @@
     <string name="commute_ready_to_play_body">Ваше слушалице су повезане. Додирните Пусти за слушање.</string>
     <string name="trust_self_signed_title">Верујте самопотписаном сертификату</string>
     <string name="trust_self_signed_desc">Само за овај сервер. Оставите искључено осим ако ваш сервер користи сертификат који сте сами направили; иначе свако на истој мрежи може да прочита вашу лозинку.</string>
+    <string name="commute_progress_segment">Одломак %1$d / %2$d</string>
+    <string name="commute_status_playing">Репродукција…</string>
+    <string name="commute_status_stopped">Заустављено</string>
+    <string name="commute_deepdive_desc">Дубинска анализа 10 најтоплијих вести из ваших RSS извора са Alex и Sam.</string>
+    <string name="commute_listen_deepdive_vip">🎙️ Слушај дубинско штиво (VIP привилегија)</string>
 </resources>

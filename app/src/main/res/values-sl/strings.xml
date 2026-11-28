@@ -1272,4 +1272,9 @@
     <string name="commute_ready_to_play_body">Slušalke so povezane. Tapnite Predvajaj za poslušanje.</string>
     <string name="trust_self_signed_title">Zaupaj samopodpisanemu potrdilu</string>
     <string name="trust_self_signed_desc">Samo za ta strežnik. Pustite izklopljeno, razen če strežnik uporablja potrdilo, ki ste ga ustvarili sami; sicer lahko vsak v istem omrežju prebere vaše geslo.</string>
+    <string name="commute_progress_segment">Odsek %1$d / %2$d</string>
+    <string name="commute_status_playing">Predvaja se…</string>
+    <string name="commute_status_stopped">Ustavljeno</string>
+    <string name="commute_deepdive_desc">Poglobljena analiza 10 najbolj vročih novic iz vaših virov RSS z Alexom in Samom.</string>
+    <string name="commute_listen_deepdive_vip">🎙️ Poslušaj poglobitev (ugodnost VIP)</string>
 </resources>
