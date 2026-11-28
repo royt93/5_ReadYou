@@ -1,3 +1,5 @@
+@file:OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
+
 package com.mckimquyen.reader.ui.component.commute
 
 import com.mckimquyen.reader.infrastructure.android.RewardedGate
@@ -17,6 +19,7 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -302,11 +305,11 @@ fun CommuteCastUi(
 
         Spacer(modifier = Modifier.height(10.dp))
 
-        // Time Budget Selector Row (DJ-08: 3m, 4m, 8m, 15m)
-        Row(
+        // Time Budget Selector Row (DJ-08: 3m, 4m, 8m, 15m); wraps so a long label (ru "15 мин" at large font) is not squeezed
+        FlowRow(
             modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             Text(
                 text = stringResource(R.string.commute_budget_label),
