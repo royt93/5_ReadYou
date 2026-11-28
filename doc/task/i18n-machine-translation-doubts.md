@@ -1038,6 +1038,6 @@ Audit chỉ đọc chuỗi khác bản gốc nên không thấy các nhãn còn 
 
 `CommuteCastSheet.kt` có 6 chuỗi tiếng Việt gõ cứng, hiện tiếng Việt ở mọi locale. Đã đưa vào `strings.xml`: `commute_progress_segment`, `commute_status_playing`, `commute_status_stopped`, `commute_deepdive_desc`, `commute_listen_deepdive_vip` (tiêu đề Deep Dive nay ghép `commute_cast_title` với `commute_budget_15m`). Tiếng Anh và tiếng Việt là bản gốc; 36 locale còn lại tôi tự dịch, **chưa agent hay người bản ngữ nào kiểm**.
 - Độ tin cậy thấp: `lzh`, `my`, `kn`, `ml`, `fa`, `iw`.
-- Chưa xem trên màn hình ngoài tiếng Nga.
+- Đã xem trên Pixel (font 1.3) chỉ ở tiếng Nga: "Фрагмент 1 / 14", "Остановлено", "Воспроизведение…"; các chuỗi Deep Dive (mô tả, nút VIP) chưa mở trên màn hình. Ảnh: `~/exc-flaky-evidence/audit-20261128-pixel/final2/ru-13-commute-strings.png`. Các locale khác chưa xem.
 - Test: `CommuteCastStringsTest` (không còn chữ Việt gõ cứng, đủ 5 key ở mọi locale, nhãn đoạn giữ đủ `%1$d` và `%2$d`).
 - Full JVM lần đầu có 2 test `CommuteCastViewModelTest` hỏng, chạy lại không tái hiện (lần hai 4321 test, 0 lỗi; riêng lớp đó chạy 3 lần đều xanh). Nguyên nhân chưa biết; không chứng minh được là flaky có từ trước.
