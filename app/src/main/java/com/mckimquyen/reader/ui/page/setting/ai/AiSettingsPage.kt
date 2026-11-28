@@ -281,7 +281,7 @@ fun AiSettingsPage(
                     ) {
                         Icon(imageVector = Icons.Outlined.ContentPaste, contentDescription = null, modifier = Modifier.size(18.dp))
                         Spacer(modifier = Modifier.width(6.dp))
-                        Text(text = "Paste")
+                        Text(text = stringResource(R.string.paste))
                     }
 
                     Button(

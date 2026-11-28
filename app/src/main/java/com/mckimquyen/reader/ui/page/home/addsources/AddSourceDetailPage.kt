@@ -158,7 +158,7 @@ fun AddSourceDetailPage(
                     IconButton(onClick = { navController.navigateUp() }) {
                         Icon(
                             imageVector = Icons.Rounded.ArrowBack,
-                            contentDescription = "Back"
+                            contentDescription = stringResource(R.string.back)
                         )
                     }
                 },
@@ -571,7 +571,7 @@ private fun SourceItem(
                             // Icon add - màu xám khi disabled
                             Icon(
                                 imageVector = Icons.Rounded.Add,
-                                contentDescription = "Add Source",
+                                contentDescription = stringResource(R.string.add_source),
                                 modifier = Modifier.size(20.dp),
                                 tint = if (enabled) MaterialTheme.colorScheme.onPrimary
                                 else MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)

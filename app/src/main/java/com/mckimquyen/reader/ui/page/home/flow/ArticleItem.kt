@@ -275,7 +275,7 @@ fun SwipeToDismiss(
                                 modifier = Modifier.align(Alignment.CenterHorizontally)
                             )
                             Text(
-                                text = "Mark Read",
+                                text = stringResource(R.string.widget_article_mark_read),
                                 textAlign = TextAlign.Center,
                                 color = MaterialTheme.colorScheme.inverseSurface
                             )

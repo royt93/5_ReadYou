@@ -496,7 +496,7 @@ fun CommuteCastUi(
                     ) {
                         Icon(
                             imageVector = Icons.Rounded.SkipPrevious,
-                            contentDescription = "Previous",
+                            contentDescription = stringResource(R.string.commute_media_action_prev),
                             modifier = Modifier.size(32.dp),
                             tint = MaterialTheme.colorScheme.onSurface,
                         )
@@ -528,7 +528,7 @@ fun CommuteCastUi(
                     ) {
                         Icon(
                             imageVector = Icons.Rounded.SkipNext,
-                            contentDescription = "Next",
+                            contentDescription = stringResource(R.string.commute_media_action_next),
                             modifier = Modifier.size(32.dp),
                             tint = MaterialTheme.colorScheme.onSurface,
                         )
