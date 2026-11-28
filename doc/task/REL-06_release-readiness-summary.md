@@ -68,7 +68,7 @@ Tôi không nói "an toàn tuyệt đối". Tôi nói: những gì kiểm đư�
 ## Chưa quyết định, cần owner
 
 - Giữ ẩn nút thêm Fever và Google Reader (đã chọn giữ ẩn), hay mở lại?
-- **Cỡ chữ khi người dùng chọn ngôn ngữ riêng:** tôi khuyến nghị bỏ ép `fontScale = 1.0` để tôn trọng cài đặt trợ năng của Android. Đã kiểm nhánh thiết bị (cỡ 1.3) không vỡ ở Feeds, Settings, Oracle và Triage; riêng nhánh ngôn ngữ trong app vẫn chưa đổi/chưa kiểm ở cỡ lớn. Nếu bạn muốn bảo đảm cỡ chữ lớn nhất trước khi đổi, cần sweep thêm các màn có hàng chip/nút. Hiện 3 activity (`MainActivity`, `SplashActivity`, `AboutActivity`) ép 1.0 chỉ ở nhánh ngôn ngữ được chọn trong app.
+- **Cỡ chữ khi người dùng chọn ngôn ngữ riêng — owner chọn giữ `fontScale = 1.0`.** Không sửa mã. Với ngôn ngữ thiết bị, cỡ 1.3 đã kiểm: Feeds, Settings, Oracle và Triage đều đọc được. Với ngôn ngữ riêng, app vẫn ép 1.0 trong `MainActivity`, `SplashActivity`, `AboutActivity`. Owner chấp nhận giới hạn Accessibility này để tránh thay đổi bố cục hiện tại; nếu đổi quyết định sau, cần sửa cả ba activity, thêm test và kiểm layout ở cỡ lớn.
 - Có giới hạn số locale phát hành không (xem trên)?
 - Giữ tên tính năng "Feed Autopilot", "Second Brain" đã dịch ở uk, pl, it, in hay giữ tiếng Anh ở mọi locale cho nhất quán?
 
