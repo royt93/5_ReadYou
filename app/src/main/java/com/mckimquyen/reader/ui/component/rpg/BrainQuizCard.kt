@@ -116,7 +116,7 @@ fun BrainQuizCard(
                     tonalElevation = 2.dp
                 ) {
                     Text(
-                        text = if (isDoubled) "+300 XP" else stringResource(R.string.brain_rpg_quiz_reward),
+                        text = if (isDoubled) stringResource(R.string.rpg_xp_gained, 300) else stringResource(R.string.brain_rpg_quiz_reward),
                         style = MaterialTheme.typography.labelMedium,
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.onPrimaryContainer,
@@ -259,7 +259,7 @@ fun BrainQuizCard(
                                     onDoubleXpRequested(act) { success ->
                                         if (success) {
                                             isDoubled = true
-                                            Toast.makeText(context, "+300 XP! 🎉", Toast.LENGTH_SHORT).show()
+                                            Toast.makeText(context, context.getString(R.string.rpg_xp_gained, 300), Toast.LENGTH_SHORT).show()
                                         } else {
                                             Toast.makeText(context, context.getString(R.string.vip_rewarded_not_earned), Toast.LENGTH_SHORT).show()
                                         }

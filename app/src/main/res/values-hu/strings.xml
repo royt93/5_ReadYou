@@ -1285,4 +1285,13 @@
     <string name="commute_status_stopped">Leállítva</string>
     <string name="commute_deepdive_desc">Az RSS-forrásaid 10 legfontosabb hírének mélyreható elemzése Alex és Sam társaságában.</string>
     <string name="commute_listen_deepdive_vip">🎙️ Mélyelemzés meghallgatása (VIP előny)</string>
+    <string name="a11y_country">Ország</string>
+    <string name="a11y_navigate">Megnyitás</string>
+    <string name="a11y_rss_source">RSS-forrás</string>
+    <string name="a11y_url">URL</string>
+    <string name="a11y_already_added">Már hozzáadva</string>
+    <string name="a11y_volume">Hangerő</string>
+    <string name="commute_deepdive_edition">🎙️ Mélyelemzés kiadás</string>
+    <string name="notebook_note_prefix">💡 Jegyzet:</string>
+    <string name="rpg_xp_gained">+%1$d XP! 🎉</string>
 </resources>

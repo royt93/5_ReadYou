@@ -289,7 +289,7 @@ fun ZenSoundSheetContent(
                                 Row(verticalAlignment = Alignment.CenterVertically) {
                                     Icon(
                                         imageVector = Icons.Rounded.VolumeUp,
-                                        contentDescription = "Volume",
+                                        contentDescription = stringResource(R.string.a11y_volume),
                                         tint = MaterialTheme.colorScheme.primary,
                                         modifier = Modifier.size(20.dp)
                                     )

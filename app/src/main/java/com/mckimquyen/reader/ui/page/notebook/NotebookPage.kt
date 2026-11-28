@@ -425,7 +425,7 @@ fun HighlightCard(
                     ) {
                         Column(modifier = Modifier.padding(8.dp)) {
                             Text(
-                                text = "💡 Note:",
+                                text = stringResource(R.string.notebook_note_prefix),
                                 style = MaterialTheme.typography.labelSmall,
                                 fontWeight = FontWeight.Bold,
                                 color = MaterialTheme.colorScheme.primary

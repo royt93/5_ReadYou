@@ -1360,4 +1360,13 @@
     <string name="commute_status_stopped">Geldituta</string>
     <string name="commute_deepdive_desc">Zure RSS iturrietako 10 albiste beroenen azterketa sakona Alex eta Samekin.</string>
     <string name="commute_listen_deepdive_vip">🎙️ Entzun azterketa sakona (VIP abantaila)</string>
+    <string name="a11y_country">Herrialdea</string>
+    <string name="a11y_navigate">Ireki</string>
+    <string name="a11y_rss_source">RSS iturria</string>
+    <string name="a11y_url">URL</string>
+    <string name="a11y_already_added">Gehituta dago</string>
+    <string name="a11y_volume">Bolumena</string>
+    <string name="commute_deepdive_edition">🎙️ Azterketa sakoneko edizioa</string>
+    <string name="notebook_note_prefix">💡 Oharra:</string>
+    <string name="rpg_xp_gained">+%1$d XP! 🎉</string>
 </resources>

@@ -1379,4 +1379,13 @@
     <string name="commute_status_stopped">Zatrzymano</string>
     <string name="commute_deepdive_desc">Dogłębna analiza 10 najgorętszych wiadomości z Twoich źródeł RSS z Alexem i Samem.</string>
     <string name="commute_listen_deepdive_vip">🎙️ Posłuchaj analizy (przywilej VIP)</string>
+    <string name="a11y_country">Kraj</string>
+    <string name="a11y_navigate">Otwórz</string>
+    <string name="a11y_rss_source">Źródło RSS</string>
+    <string name="a11y_url">URL</string>
+    <string name="a11y_already_added">Już dodano</string>
+    <string name="a11y_volume">Głośność</string>
+    <string name="commute_deepdive_edition">🎙️ Wydanie z analizą</string>
+    <string name="notebook_note_prefix">💡 Notatka:</string>
+    <string name="rpg_xp_gained">+%1$d XP! 🎉</string>
 </resources>

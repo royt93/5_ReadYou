@@ -1301,4 +1301,13 @@
     <string name="commute_status_stopped">Oprit</string>
     <string name="commute_deepdive_desc">Analiză aprofundată a celor mai importante 10 știri din sursele tale RSS, cu Alex și Sam.</string>
     <string name="commute_listen_deepdive_vip">🎙️ Ascultă analiza aprofundată (avantaj VIP)</string>
+    <string name="a11y_country">Țară</string>
+    <string name="a11y_navigate">Deschide</string>
+    <string name="a11y_rss_source">Sursă RSS</string>
+    <string name="a11y_url">URL</string>
+    <string name="a11y_already_added">Deja adăugat</string>
+    <string name="a11y_volume">Volum</string>
+    <string name="commute_deepdive_edition">🎙️ Ediție de analiză aprofundată</string>
+    <string name="notebook_note_prefix">💡 Notă:</string>
+    <string name="rpg_xp_gained">+%1$d XP! 🎉</string>
 </resources>

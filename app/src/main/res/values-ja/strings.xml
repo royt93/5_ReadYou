@@ -1279,4 +1279,13 @@
     <string name="commute_status_stopped">停止中</string>
     <string name="commute_deepdive_desc">AlexとSamが、RSSソースから選んだ最も注目の10本のニュースを徹底分析します。</string>
     <string name="commute_listen_deepdive_vip">🎙️ ディープダイブを聴く(VIP特典)</string>
+    <string name="a11y_country">国</string>
+    <string name="a11y_navigate">開く</string>
+    <string name="a11y_rss_source">RSSソース</string>
+    <string name="a11y_url">URL</string>
+    <string name="a11y_already_added">追加済み</string>
+    <string name="a11y_volume">音量</string>
+    <string name="commute_deepdive_edition">🎙️ ディープダイブ版</string>
+    <string name="notebook_note_prefix">💡 メモ:</string>
+    <string name="rpg_xp_gained">+%1$d XP! 🎉</string>
 </resources>

@@ -1313,4 +1313,13 @@
     <string name="commute_status_stopped">Зупинено</string>
     <string name="commute_deepdive_desc">Глибокий аналіз 10 найгарячіших новин із ваших RSS-джерел з Alex і Sam.</string>
     <string name="commute_listen_deepdive_vip">🎙️ Слухати аналіз (привілей VIP)</string>
+    <string name="a11y_country">Країна</string>
+    <string name="a11y_navigate">Відкрити</string>
+    <string name="a11y_rss_source">Джерело RSS</string>
+    <string name="a11y_url">URL</string>
+    <string name="a11y_already_added">Уже додано</string>
+    <string name="a11y_volume">Гучність</string>
+    <string name="commute_deepdive_edition">🎙️ Випуск із глибоким аналізом</string>
+    <string name="notebook_note_prefix">💡 Нотатка:</string>
+    <string name="rpg_xp_gained">+%1$d XP! 🎉</string>
 </resources>

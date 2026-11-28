@@ -240,7 +240,7 @@ fun CommuteCastUi(
                         color = MaterialTheme.colorScheme.onSurface,
                     )
                     Text(
-                        text = if (episode?.isDeepDive == true) "🎙️ Deep Dive Edition" else stringResource(R.string.commute_cast_subtitle),
+                        text = if (episode?.isDeepDive == true) stringResource(R.string.commute_deepdive_edition) else stringResource(R.string.commute_cast_subtitle),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.primary,
                     )

@@ -1278,4 +1278,13 @@
     <string name="commute_status_stopped">已停止</string>
     <string name="commute_deepdive_desc">与 Alex 和 Sam 一起深度解读你的 RSS 来源中最热门的 10 条新闻。</string>
     <string name="commute_listen_deepdive_vip">🎙️ 收听深度解读（VIP 特权）</string>
+    <string name="a11y_country">国家/地区</string>
+    <string name="a11y_navigate">打开</string>
+    <string name="a11y_rss_source">RSS 来源</string>
+    <string name="a11y_url">网址</string>
+    <string name="a11y_already_added">已添加</string>
+    <string name="a11y_volume">音量</string>
+    <string name="commute_deepdive_edition">🎙️ 深度解读版</string>
+    <string name="notebook_note_prefix">💡 笔记：</string>
+    <string name="rpg_xp_gained">+%1$d 经验值！🎉</string>
 </resources>

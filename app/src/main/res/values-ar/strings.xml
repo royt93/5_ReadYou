@@ -1300,4 +1300,13 @@
     <string name="commute_status_stopped">متوقف</string>
     <string name="commute_deepdive_desc">تحليل معمّق لأهم 10 أخبار من مصادر RSS الخاصة بك مع Alex و Sam.</string>
     <string name="commute_listen_deepdive_vip">🎙️ استمع إلى التعمّق (ميزة VIP)</string>
+    <string name="a11y_country">البلد</string>
+    <string name="a11y_navigate">فتح</string>
+    <string name="a11y_rss_source">مصدر RSS</string>
+    <string name="a11y_url">الرابط</string>
+    <string name="a11y_already_added">تمت الإضافة</string>
+    <string name="a11y_volume">مستوى الصوت</string>
+    <string name="commute_deepdive_edition">🎙️ إصدار التعمّق</string>
+    <string name="notebook_note_prefix">💡 ملاحظة:</string>
+    <string name="rpg_xp_gained">+%1$d نقطة خبرة! 🎉</string>
 </resources>

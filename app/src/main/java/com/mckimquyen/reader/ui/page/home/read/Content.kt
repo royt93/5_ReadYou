@@ -267,7 +267,7 @@ fun Content(
                             onAnswerSubmitted = { quiz, isCorrect ->
                                 brainRpgViewModel.submitQuizAnswer(quiz.articleId, quiz.category, isCorrect) { _, awarded ->
                                     if (isCorrect && awarded > 0) {
-                                        Toast.makeText(context, "+$awarded XP! 🎉", Toast.LENGTH_SHORT).show()
+                                        Toast.makeText(context, context.getString(R.string.rpg_xp_gained, awarded), Toast.LENGTH_SHORT).show()
                                     }
                                 }
                             },

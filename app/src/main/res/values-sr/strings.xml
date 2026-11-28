@@ -1302,4 +1302,13 @@
     <string name="commute_status_stopped">Заустављено</string>
     <string name="commute_deepdive_desc">Дубинска анализа 10 најтоплијих вести из ваших RSS извора са Alex и Sam.</string>
     <string name="commute_listen_deepdive_vip">🎙️ Слушај дубинско штиво (VIP привилегија)</string>
+    <string name="a11y_country">Земља</string>
+    <string name="a11y_navigate">Отвори</string>
+    <string name="a11y_rss_source">RSS извор</string>
+    <string name="a11y_url">URL</string>
+    <string name="a11y_already_added">Већ додато</string>
+    <string name="a11y_volume">Јачина звука</string>
+    <string name="commute_deepdive_edition">🎙️ Издање са дубинском анализом</string>
+    <string name="notebook_note_prefix">💡 Белешка:</string>
+    <string name="rpg_xp_gained">+%1$d XP! 🎉</string>
 </resources>

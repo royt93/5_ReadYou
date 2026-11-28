@@ -1041,3 +1041,11 @@ Audit chỉ đọc chuỗi khác bản gốc nên không thấy các nhãn còn 
 - Đã xem trên Pixel (font 1.3) chỉ ở tiếng Nga: "Фрагмент 1 / 14", "Остановлено", "Воспроизведение…"; các chuỗi Deep Dive (mô tả, nút VIP) chưa mở trên màn hình. Ảnh: `~/exc-flaky-evidence/audit-20261128-pixel/final2/ru-13-commute-strings.png`. Các locale khác chưa xem.
 - Test: `CommuteCastStringsTest` (không còn chữ Việt gõ cứng, đủ 5 key ở mọi locale, nhãn đoạn giữ đủ `%1$d` và `%2$d`).
 - Full JVM lần đầu có 2 test `CommuteCastViewModelTest` hỏng, chạy lại không tái hiện (lần hai 4321 test, 0 lỗi; riêng lớp đó chạy 3 lần đều xanh). Nguyên nhân chưa biết; không chứng minh được là flaky có từ trước.
+
+## Đợt 12 (2026-11-28): 9 chuỗi mới thay chữ Anh gõ cứng, toàn bộ là dịch máy
+
+Mô tả icon (`a11y_country`, `a11y_navigate`, `a11y_rss_source`, `a11y_url`, `a11y_already_added`, `a11y_volume`), `commute_deepdive_edition`, `notebook_note_prefix`, `rpg_xp_gained` (có `%1$d`). "Checked" ở trang màu dùng lại `selected` có sẵn. Tiếng Anh và tiếng Việt là bản gốc; 36 locale còn lại tôi tự dịch, **chưa agent hay người bản ngữ nào kiểm**. Độ tin cậy thấp: `lzh`, `my`, `kn`, `ml`, `fa`, `iw`.
+- **Chưa sửa:** tiêu đề tập "CommuteCast Morning Edition" và "CommuteCast Deep Dive Edition" trong `CommuteScriptService` (hai chỗ, dòng 126 và 221) vì được lưu vào DB; đổi sang tiếng của thiết bị thì tập cũ và mới lệch nhau. Cần quyết định riêng.
+- **Chưa xem trên màn hình.** Mô tả icon chỉ TalkBack đọc ra, không thấy bằng mắt.
+- Test: `RemainingHardCodedLabelsTest` (không còn chuỗi gõ cứng, đủ 9 key ở mọi locale, `rpg_xp_gained` có đúng một `%1$d`; mutation đỏ). JVM đầy đủ 4327 test, 0 lỗi.
+

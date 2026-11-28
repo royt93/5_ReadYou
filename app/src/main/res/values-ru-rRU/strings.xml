@@ -1313,4 +1313,13 @@
     <string name="commute_status_stopped">Остановлено</string>
     <string name="commute_deepdive_desc">Глубокий разбор 10 самых горячих новостей из ваших RSS-источников с Alex и Sam.</string>
     <string name="commute_listen_deepdive_vip">🎙️ Слушать разбор (привилегия VIP)</string>
+    <string name="a11y_country">Страна</string>
+    <string name="a11y_navigate">Открыть</string>
+    <string name="a11y_rss_source">Источник RSS</string>
+    <string name="a11y_url">URL</string>
+    <string name="a11y_already_added">Уже добавлено</string>
+    <string name="a11y_volume">Громкость</string>
+    <string name="commute_deepdive_edition">🎙️ Выпуск с глубоким разбором</string>
+    <string name="notebook_note_prefix">💡 Заметка:</string>
+    <string name="rpg_xp_gained">+%1$d XP! 🎉</string>
 </resources>

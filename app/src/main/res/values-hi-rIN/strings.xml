@@ -1287,4 +1287,13 @@
     <string name="commute_status_stopped">रुका हुआ</string>
     <string name="commute_deepdive_desc">Alex और Sam के साथ आपके RSS स्रोतों की 10 सबसे गर्म खबरों का गहन विश्लेषण।</string>
     <string name="commute_listen_deepdive_vip">🎙️ डीप डाइव सुनें (VIP विशेषाधिकार)</string>
+    <string name="a11y_country">देश</string>
+    <string name="a11y_navigate">खोलें</string>
+    <string name="a11y_rss_source">RSS स्रोत</string>
+    <string name="a11y_url">URL</string>
+    <string name="a11y_already_added">पहले से जोड़ा गया</string>
+    <string name="a11y_volume">आवाज़</string>
+    <string name="commute_deepdive_edition">🎙️ डीप डाइव संस्करण</string>
+    <string name="notebook_note_prefix">💡 नोट:</string>
+    <string name="rpg_xp_gained">+%1$d XP! 🎉</string>
 </resources>

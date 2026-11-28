@@ -1375,4 +1375,13 @@
     <string name="commute_status_stopped">Stopped</string>
     <string name="commute_deepdive_desc">In-depth analysis of the 10 hottest news stories from your RSS feeds with Alex &amp; Sam.</string>
     <string name="commute_listen_deepdive_vip">🎙️ Listen to the Deep Dive (VIP perk)</string>
+    <string name="a11y_country">Country</string>
+    <string name="a11y_navigate">Open</string>
+    <string name="a11y_rss_source">RSS source</string>
+    <string name="a11y_url">URL</string>
+    <string name="a11y_already_added">Already added</string>
+    <string name="a11y_volume">Volume</string>
+    <string name="commute_deepdive_edition">🎙️ Deep Dive Edition</string>
+    <string name="notebook_note_prefix">💡 Note:</string>
+    <string name="rpg_xp_gained">+%1$d XP! 🎉</string>
 </resources>

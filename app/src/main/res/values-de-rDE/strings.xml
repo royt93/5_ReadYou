@@ -1291,4 +1291,13 @@
     <string name="commute_status_stopped">Gestoppt</string>
     <string name="commute_deepdive_desc">Ausführliche Analyse der 10 heißesten Nachrichten aus deinen RSS-Quellen mit Alex und Sam.</string>
     <string name="commute_listen_deepdive_vip">🎙️ Deep Dive anhören (VIP-Vorteil)</string>
+    <string name="a11y_country">Land</string>
+    <string name="a11y_navigate">Öffnen</string>
+    <string name="a11y_rss_source">RSS-Quelle</string>
+    <string name="a11y_url">URL</string>
+    <string name="a11y_already_added">Bereits hinzugefügt</string>
+    <string name="a11y_volume">Lautstärke</string>
+    <string name="commute_deepdive_edition">🎙️ Deep-Dive-Ausgabe</string>
+    <string name="notebook_note_prefix">💡 Notiz:</string>
+    <string name="rpg_xp_gained">+%1$d XP! 🎉</string>
 </resources>

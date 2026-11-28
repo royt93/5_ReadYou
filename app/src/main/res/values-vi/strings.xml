@@ -1252,4 +1252,13 @@
     <string name="commute_status_stopped">Đã dừng</string>
     <string name="commute_deepdive_desc">Phân tích chuyên sâu 10 tin tức nóng nhất từ nguồn RSS của bạn với Alex &amp; Sam.</string>
     <string name="commute_listen_deepdive_vip">🎙️ Nghe Deep Dive (Đặc quyền VIP)</string>
+    <string name="a11y_country">Quốc gia</string>
+    <string name="a11y_navigate">Mở</string>
+    <string name="a11y_rss_source">Nguồn RSS</string>
+    <string name="a11y_url">URL</string>
+    <string name="a11y_already_added">Đã thêm</string>
+    <string name="a11y_volume">Âm lượng</string>
+    <string name="commute_deepdive_edition">🎙️ Bản Deep Dive</string>
+    <string name="notebook_note_prefix">💡 Ghi chú:</string>
+    <string name="rpg_xp_gained">+%1$d XP! 🎉</string>
 </resources>

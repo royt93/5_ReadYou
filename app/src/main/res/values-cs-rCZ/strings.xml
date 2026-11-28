@@ -1382,4 +1382,13 @@
     <string name="commute_status_stopped">Zastaveno</string>
     <string name="commute_deepdive_desc">Podrobný rozbor 10 nejžhavějších zpráv z vašich RSS zdrojů s Alexem a Samem.</string>
     <string name="commute_listen_deepdive_vip">🎙️ Poslechnout podrobný rozbor (výhoda VIP)</string>
+    <string name="a11y_country">Země</string>
+    <string name="a11y_navigate">Otevřít</string>
+    <string name="a11y_rss_source">Zdroj RSS</string>
+    <string name="a11y_url">URL</string>
+    <string name="a11y_already_added">Již přidáno</string>
+    <string name="a11y_volume">Hlasitost</string>
+    <string name="commute_deepdive_edition">🎙️ Vydání s rozborem</string>
+    <string name="notebook_note_prefix">💡 Poznámka:</string>
+    <string name="rpg_xp_gained">+%1$d XP! 🎉</string>
 </resources>

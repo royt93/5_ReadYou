@@ -1279,4 +1279,13 @@
     <string name="commute_status_stopped">Berhenti</string>
     <string name="commute_deepdive_desc">Analisis mendalam 10 berita terpanas dari sumber RSS Anda bersama Alex dan Sam.</string>
     <string name="commute_listen_deepdive_vip">🎙️ Dengarkan Deep Dive (Keistimewaan VIP)</string>
+    <string name="a11y_country">Negara</string>
+    <string name="a11y_navigate">Buka</string>
+    <string name="a11y_rss_source">Sumber RSS</string>
+    <string name="a11y_url">URL</string>
+    <string name="a11y_already_added">Sudah ditambahkan</string>
+    <string name="a11y_volume">Volume</string>
+    <string name="commute_deepdive_edition">🎙️ Edisi Deep Dive</string>
+    <string name="notebook_note_prefix">💡 Catatan:</string>
+    <string name="rpg_xp_gained">+%1$d XP! 🎉</string>
 </resources>

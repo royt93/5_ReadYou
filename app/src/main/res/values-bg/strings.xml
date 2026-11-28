@@ -1254,4 +1254,13 @@
     <string name="commute_status_stopped">Спряно</string>
     <string name="commute_deepdive_desc">Задълбочен анализ на 10-те най-горещи новини от вашите RSS източници с Alex и Sam.</string>
     <string name="commute_listen_deepdive_vip">🎙️ Слушай задълбочения анализ (VIP привилегия)</string>
+    <string name="a11y_country">Държава</string>
+    <string name="a11y_navigate">Отвори</string>
+    <string name="a11y_rss_source">RSS източник</string>
+    <string name="a11y_url">URL</string>
+    <string name="a11y_already_added">Вече е добавен</string>
+    <string name="a11y_volume">Сила на звука</string>
+    <string name="commute_deepdive_edition">🎙️ Издание с анализ</string>
+    <string name="notebook_note_prefix">💡 Бележка:</string>
+    <string name="rpg_xp_gained">+%1$d XP! 🎉</string>
 </resources>

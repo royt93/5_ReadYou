@@ -1289,4 +1289,13 @@
     <string name="commute_status_stopped">متوقف شد</string>
     <string name="commute_deepdive_desc">تحلیل عمیق ۱۰ خبر داغ از منابع RSS شما همراه با Alex و Sam.</string>
     <string name="commute_listen_deepdive_vip">🎙️ گوش دادن به تحلیل عمیق (مزیت VIP)</string>
+    <string name="a11y_country">کشور</string>
+    <string name="a11y_navigate">باز کردن</string>
+    <string name="a11y_rss_source">منبع RSS</string>
+    <string name="a11y_url">نشانی</string>
+    <string name="a11y_already_added">قبلاً افزوده شده</string>
+    <string name="a11y_volume">بلندی صدا</string>
+    <string name="commute_deepdive_edition">🎙️ نسخه تحلیل عمیق</string>
+    <string name="notebook_note_prefix">💡 یادداشت:</string>
+    <string name="rpg_xp_gained">+%1$d امتیاز تجربه! 🎉</string>
 </resources>

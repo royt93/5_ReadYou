@@ -1360,4 +1360,13 @@
     <string name="commute_status_stopped">Dayandırılıb</string>
     <string name="commute_deepdive_desc">Alex və Sam ilə RSS mənbələrinizdən ən qaynar 10 xəbərin dərin təhlili.</string>
     <string name="commute_listen_deepdive_vip">🎙️ Dərin təhlilə qulaq as (VIP imtiyazı)</string>
+    <string name="a11y_country">Ölkə</string>
+    <string name="a11y_navigate">Aç</string>
+    <string name="a11y_rss_source">RSS mənbəyi</string>
+    <string name="a11y_url">URL</string>
+    <string name="a11y_already_added">Artıq əlavə edilib</string>
+    <string name="a11y_volume">Səs həcmi</string>
+    <string name="commute_deepdive_edition">🎙️ Dərin təhlil buraxılışı</string>
+    <string name="notebook_note_prefix">💡 Qeyd:</string>
+    <string name="rpg_xp_gained">+%1$d XP! 🎉</string>
 </resources>

@@ -1277,4 +1277,13 @@
     <string name="commute_status_stopped">Ustavljeno</string>
     <string name="commute_deepdive_desc">Poglobljena analiza 10 najbolj vročih novic iz vaših virov RSS z Alexom in Samom.</string>
     <string name="commute_listen_deepdive_vip">🎙️ Poslušaj poglobitev (ugodnost VIP)</string>
+    <string name="a11y_country">Država</string>
+    <string name="a11y_navigate">Odpri</string>
+    <string name="a11y_rss_source">Vir RSS</string>
+    <string name="a11y_url">URL</string>
+    <string name="a11y_already_added">Že dodano</string>
+    <string name="a11y_volume">Glasnost</string>
+    <string name="commute_deepdive_edition">🎙️ Izdaja s poglobitvijo</string>
+    <string name="notebook_note_prefix">💡 Opomba:</string>
+    <string name="rpg_xp_gained">+%1$d XP! 🎉</string>
 </resources>

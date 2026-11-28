@@ -1351,4 +1351,13 @@
     <string name="commute_status_stopped">ရပ်ထားသည်</string>
     <string name="commute_deepdive_desc">Alex နှင့် Sam တို့နှင့်အတူ သင့် RSS ရင်းမြစ်များမှ အပူဆုံးသတင်း ၁၀ ခုကို အနက်ရှိုင်း ခွဲခြမ်းစိတ်ဖြာခြင်း။</string>
     <string name="commute_listen_deepdive_vip">🎙️ အနက်ရှိုင်း အစီအစဉ်ကို နားထောင်ရန် (VIP အခွင့်အရေး)</string>
+    <string name="a11y_country">နိုင်ငံ</string>
+    <string name="a11y_navigate">ဖွင့်ရန်</string>
+    <string name="a11y_rss_source">RSS ရင်းမြစ်</string>
+    <string name="a11y_url">URL</string>
+    <string name="a11y_already_added">ထည့်ပြီးသား</string>
+    <string name="a11y_volume">အသံအတိုးအကျယ်</string>
+    <string name="commute_deepdive_edition">🎙️ အနက်ရှိုင်း အစီအစဉ် ထုတ်ဝေမှု</string>
+    <string name="notebook_note_prefix">💡 မှတ်စု:</string>
+    <string name="rpg_xp_gained">+%1$d XP! 🎉</string>
 </resources>

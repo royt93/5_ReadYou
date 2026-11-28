@@ -202,7 +202,7 @@ private fun CountryCard(
                     ) {
                         Icon(
                             imageVector = Icons.Rounded.Language,
-                            contentDescription = "Country",
+                            contentDescription = stringResource(R.string.a11y_country),
                             modifier = Modifier.size(16.dp),
                             tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
                         )
@@ -227,7 +227,7 @@ private fun CountryCard(
                 ) {
                     Icon(
                         imageVector = Icons.Rounded.ChevronRight,
-                        contentDescription = "Navigate",
+                        contentDescription = stringResource(R.string.a11y_navigate),
                         modifier = Modifier.size(20.dp),
                         tint = MaterialTheme.colorScheme.onPrimary
                     )

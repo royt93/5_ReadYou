@@ -1293,4 +1293,13 @@
     <string name="commute_status_stopped">Aturat</string>
     <string name="commute_deepdive_desc">Anàlisi en profunditat de les 10 notícies més destacades de les teves fonts RSS amb Alex i Sam.</string>
     <string name="commute_listen_deepdive_vip">🎙️ Escolta l\'anàlisi (avantatge VIP)</string>
+    <string name="a11y_country">País</string>
+    <string name="a11y_navigate">Obre</string>
+    <string name="a11y_rss_source">Font RSS</string>
+    <string name="a11y_url">URL</string>
+    <string name="a11y_already_added">Ja afegit</string>
+    <string name="a11y_volume">Volum</string>
+    <string name="commute_deepdive_edition">🎙️ Edició d\'anàlisi</string>
+    <string name="notebook_note_prefix">💡 Nota:</string>
+    <string name="rpg_xp_gained">+%1$d XP! 🎉</string>
 </resources>

@@ -1360,4 +1360,13 @@
     <string name="commute_status_stopped">ನಿಲ್ಲಿಸಲಾಗಿದೆ</string>
     <string name="commute_deepdive_desc">Alex ಮತ್ತು Sam ಜೊತೆಗೆ ನಿಮ್ಮ RSS ಮೂಲಗಳ 10 ಅತ್ಯಂತ ಬಿಸಿ ಸುದ್ದಿಗಳ ಆಳವಾದ ವಿಶ್ಲೇಷಣೆ.</string>
     <string name="commute_listen_deepdive_vip">🎙️ ಆಳ ವಿಶ್ಲೇಷಣೆ ಆಲಿಸಿ (VIP ವಿಶೇಷ ಸೌಲಭ್ಯ)</string>
+    <string name="a11y_country">ದೇಶ</string>
+    <string name="a11y_navigate">ತೆರೆಯಿರಿ</string>
+    <string name="a11y_rss_source">RSS ಮೂಲ</string>
+    <string name="a11y_url">URL</string>
+    <string name="a11y_already_added">ಈಗಾಗಲೇ ಸೇರಿಸಲಾಗಿದೆ</string>
+    <string name="a11y_volume">ಧ್ವನಿ ಪ್ರಮಾಣ</string>
+    <string name="commute_deepdive_edition">🎙️ ಆಳ ವಿಶ್ಲೇಷಣೆ ಆವೃತ್ತಿ</string>
+    <string name="notebook_note_prefix">💡 ಟಿಪ್ಪಣಿ:</string>
+    <string name="rpg_xp_gained">+%1$d XP! 🎉</string>
 </resources>

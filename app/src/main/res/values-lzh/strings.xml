@@ -1351,4 +1351,13 @@
     <string name="commute_status_stopped">已止</string>
     <string name="commute_deepdive_desc">與 Alex、Sam 同論君之 RSS 所載十大要聞，深而析之。</string>
     <string name="commute_listen_deepdive_vip">🎙️ 聽深談（VIP 之惠）</string>
+    <string name="a11y_country">國</string>
+    <string name="a11y_navigate">啟</string>
+    <string name="a11y_rss_source">RSS 之源</string>
+    <string name="a11y_url">網址</string>
+    <string name="a11y_already_added">已增</string>
+    <string name="a11y_volume">音量</string>
+    <string name="commute_deepdive_edition">🎙️ 深談之版</string>
+    <string name="notebook_note_prefix">💡 註：</string>
+    <string name="rpg_xp_gained">+%1$d 經驗！🎉</string>
 </resources>

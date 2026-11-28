@@ -491,7 +491,7 @@ private fun SourceItem(
                 ) {
                     Icon(
                         imageVector = Icons.Outlined.Language,
-                        contentDescription = "RSS Source",
+                        contentDescription = stringResource(R.string.a11y_rss_source),
                         modifier = Modifier.size(24.dp),
                         tint = MaterialTheme.colorScheme.onPrimaryContainer
                     )
@@ -518,7 +518,7 @@ private fun SourceItem(
                     ) {
                         Icon(
                             imageVector = Icons.Rounded.Link,
-                            contentDescription = "URL",
+                            contentDescription = stringResource(R.string.a11y_url),
                             modifier = Modifier.size(16.dp),
                             tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
                         )
@@ -562,7 +562,7 @@ private fun SourceItem(
                             // Icon check
                             Icon(
                                 imageVector = Icons.Rounded.CheckCircle,
-                                contentDescription = "Already Added",
+                                contentDescription = stringResource(R.string.a11y_already_added),
                                 modifier = Modifier.size(22.dp),
                                 tint = MaterialTheme.colorScheme.primary
                             )

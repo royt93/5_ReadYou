@@ -1290,4 +1290,13 @@
     <string name="commute_status_stopped">Stoppet</string>
     <string name="commute_deepdive_desc">Dybdeanalyse av de 10 hotteste nyhetene fra RSS-kildene dine med Alex og Sam.</string>
     <string name="commute_listen_deepdive_vip">🎙️ Hør dybdedykket (VIP-fordel)</string>
+    <string name="a11y_country">Land</string>
+    <string name="a11y_navigate">Åpne</string>
+    <string name="a11y_rss_source">RSS-kilde</string>
+    <string name="a11y_url">URL</string>
+    <string name="a11y_already_added">Allerede lagt til</string>
+    <string name="a11y_volume">Lydvolum</string>
+    <string name="commute_deepdive_edition">🎙️ Dybdeutgave</string>
+    <string name="notebook_note_prefix">💡 Notat:</string>
+    <string name="rpg_xp_gained">+%1$d XP! 🎉</string>
 </resources>

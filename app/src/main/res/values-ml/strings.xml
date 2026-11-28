@@ -1361,4 +1361,13 @@
     <string name="commute_status_stopped">നിർത്തി</string>
     <string name="commute_deepdive_desc">Alex, Sam എന്നിവർക്കൊപ്പം നിങ്ങളുടെ RSS ഉറവിടങ്ങളിലെ ഏറ്റവും ചൂടേറിയ 10 വാർത്തകളുടെ ആഴത്തിലുള്ള വിശകലനം.</string>
     <string name="commute_listen_deepdive_vip">🎙️ ഡീപ് ഡൈവ് കേൾക്കുക (VIP ആനുകൂല്യം)</string>
+    <string name="a11y_country">രാജ്യം</string>
+    <string name="a11y_navigate">തുറക്കുക</string>
+    <string name="a11y_rss_source">RSS ഉറവിടം</string>
+    <string name="a11y_url">URL</string>
+    <string name="a11y_already_added">ഇതിനകം ചേർത്തു</string>
+    <string name="a11y_volume">ശബ്ദ നില</string>
+    <string name="commute_deepdive_edition">🎙️ ഡീപ് ഡൈവ് പതിപ്പ്</string>
+    <string name="notebook_note_prefix">💡 കുറിപ്പ്:</string>
+    <string name="rpg_xp_gained">+%1$d XP! 🎉</string>
 </resources>

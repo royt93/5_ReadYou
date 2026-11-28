@@ -424,7 +424,7 @@ fun SelectableMiniPalette(
                 ) {
                     Icon(
                         imageVector = Icons.Outlined.Check,
-                        contentDescription = "Checked",
+                        contentDescription = stringResource(R.string.selected),
                         modifier = Modifier
                             .padding(8.dp)
                             .size(16.dp),

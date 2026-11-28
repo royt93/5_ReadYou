@@ -1290,4 +1290,13 @@
     <string name="commute_status_stopped">Gestopt</string>
     <string name="commute_deepdive_desc">Diepgaande analyse van de 10 heetste nieuwsberichten uit je RSS-bronnen met Alex en Sam.</string>
     <string name="commute_listen_deepdive_vip">🎙️ Verdieping beluisteren (VIP-voordeel)</string>
+    <string name="a11y_country">Land</string>
+    <string name="a11y_navigate">Openen</string>
+    <string name="a11y_rss_source">RSS-bron</string>
+    <string name="a11y_url">URL</string>
+    <string name="a11y_already_added">Al toegevoegd</string>
+    <string name="a11y_volume">Volume</string>
+    <string name="commute_deepdive_edition">🎙️ Verdiepingseditie</string>
+    <string name="notebook_note_prefix">💡 Notitie:</string>
+    <string name="rpg_xp_gained">+%1$d XP! 🎉</string>
 </resources>
