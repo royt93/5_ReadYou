@@ -68,7 +68,6 @@ class MainActivity : ComponentActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             configuration.setLocales(LocaleList(locale))
         }
-        configuration.fontScale = 1.0f
 
         val wrappedContext = newBase.createConfigurationContext(configuration)
         super.attachBaseContext(wrappedContext)

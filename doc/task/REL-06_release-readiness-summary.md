@@ -44,7 +44,7 @@ Tôi không nói "an toàn tuyệt đối". Tôi nói: những gì kiểm đư�
 ## Kiểm tra cỡ chữ hệ thống và hàng chip trên Pixel (2026-11-28)
 
 - **Cỡ chữ hệ thống:** backup byte-exact trước; đặt font scale 1.3, app ở "dùng ngôn ngữ thiết bị" (vi-VN). Feeds và Settings đều hiển thị chữ lớn rõ rệt và không cắt; sheet Oracle mở được. Đặt lại font scale 1.0 ở cuối.
-- **Đã xác minh nguyên nhân không nhất quán:** khi app ở "dùng ngôn ngữ thiết bị", font scale 1.3 được áp dụng; khi đặt ngôn ngữ riêng trong app (thử ở tiếng Ba Lan), app hiển thị cỡ chữ nhỏ lại. Mã `attachBaseContext` của MainActivity, SplashActivity và AboutActivity đặt `configuration.fontScale = 1.0f` chỉ trong nhánh `languagePref != 0`; nhánh thiết bị thoát sớm. Tôi chưa đổi mã: đây là hành vi khả năng tiếp cận cần owner quyết định trước khi đổi, vì bỏ ép font scale có thể làm vỡ các layout/hàng chip chưa kiểm.
+- **Đã xác minh nguyên nhân không nhất quán:** khi app ở "dùng ngôn ngữ thiết bị", font scale 1.3 được áp dụng; khi đặt ngôn ngữ riêng trong app (thử ở tiếng Ba Lan), app hiển thị cỡ chữ nhỏ lại. Mã `attachBaseContext` của MainActivity, SplashActivity và AboutActivity đặt `configuration.fontScale = 1.0f` chỉ trong nhánh `languagePref != 0`; nhánh thiết bị thoát sớm. Sau đó owner quyết định bỏ ép (xem mục các quyết định); mã đã đổi.
 - **Oracle / Triage ở chữ lớn:** cỡ chữ 1.3 vẫn hiển thị sheet Oracle tiếng Malayalam với câu hỏi, nút Yes/No, chip cược 50/100/500; chip xuống hàng gọn, nút đặt cược còn thấy. Triage Malayalam cũng hiện ba nút tròn và nhãn riêng.
 - **Các locale có nhãn số nhiều (bản `88b771a5`):** ở ru, `15 минут`/`30 минут`; ở pl, `15 minut`/`30 minut` đều một dòng. Dạng nhiều như `60 минут` nằm ngoài khung chip và có thể cuộn ngang để tới; ảnh trước chip cuối vẫn thấy đủ. Trước plurals, ru chip 60 phút bị bóp, chữ rơi từng dòng; dùng `LazyRow` giờ chip 15/30/60 nằm cùng một hàng cuộn. Chụp Pixel tại `~/exc-flaky-evidence/audit-20261128-pixel/final/ru-zen.png`, `pl-zen.png`, `pl-zen-scroll.png`.
 - **Chưa kiểm TTS nghe thật:** tôi đã mở sheet Zen ở ru/pl nhưng không bấm nút phát âm; chỉ xác nhận các nhãn chip.
@@ -70,7 +70,7 @@ Tôi không nói "an toàn tuyệt đối". Tôi nói: những gì kiểm đư�
 ## Các quyết định owner đã chọn
 
 - Giữ ẩn nút thêm Fever và Google Reader; vì thế luồng tài khoản và sync của hai dịch vụ vẫn chưa được kiểm trên máy.
-- Giữ `fontScale = 1.0` khi người dùng chọn ngôn ngữ riêng. Không sửa mã. Với ngôn ngữ thiết bị, Pixel cỡ 1.3 hiển thị Feeds, Settings, Oracle và Triage đọc được. Với ngôn ngữ riêng, app vẫn ép 1.0 trong `MainActivity`, `SplashActivity`, `AboutActivity`; đây là giới hạn Accessibility được owner chấp nhận.
+- Cỡ chữ (2026-11-28, owner đổi quyết định): bỏ ép `fontScale = 1.0` khi người dùng chọn ngôn ngữ riêng; `MainActivity`, `SplashActivity`, `AboutActivity` nay theo cỡ chữ hệ thống ở cả hai nhánh. Test nguồn `FontScaleNotPinnedSourceTest` (đã phá thử: thêm lại dòng ép thì đỏ). Chưa kiểm trên Pixel ở cỡ 1.3 với ngôn ngữ riêng; cho tới khi kiểm, các hàng chip/nút ở chữ lớn trong nhánh này chỉ có bằng chứng từ nhánh ngôn ngữ thiết bị.
 - Owner chưa chọn giới hạn locale phát hành. Hiện `resourceConfigurations` vẫn gồm 37 locale; 393 nhãn còn nguyên tiếng Anh ở một số locale (xem mục bản dịch).
 - Tên tính năng "Feed Autopilot"/"Second Brain" đã dịch ở uk, pl, it, in; chưa có quyết định giữ tiếng Anh ở tất cả locale.
 
